@@ -1,0 +1,29 @@
+[
+  {
+    "id": "fire",
+    "label": "Fire",
+    "canonical_meanings": ["passion", "transformation", "destruction", "purification", "creative force"],
+    "source_notes": ["Agni", "Phoenix", "Zoroastrian sacred flame"],
+    "somatic_correlations": ["heat in chest", "heat in eyes", "heat in spine"],
+    "mc_phases": ["Burnout", "Flamekeeper", "Beacon"],
+    "boundary": "Symbolic meaning only; not medical diagnosis."
+  },
+  {
+    "id": "cage",
+    "label": "Cage",
+    "canonical_meanings": ["constraint", "protection", "captivity", "boundary", "contained force"],
+    "source_notes": ["general cross-cultural containment symbol; needs deeper source expansion"],
+    "somatic_correlations": ["ribs", "chest tightness", "held breath"],
+    "mc_phases": ["Containment", "Pressure", "Opening"],
+    "boundary": "Symbolic meaning only; not medical or psychological diagnosis."
+  },
+  {
+    "id": "eye",
+    "label": "Eye",
+    "canonical_meanings": ["witnessing", "perception", "attention", "protection", "surveillance"],
+    "source_notes": ["protective eye motifs", "divine eye", "watchfulness"],
+    "somatic_correlations": ["forehead", "face", "vision", "pressure behind eyes"],
+    "mc_phases": ["Watcher", "Witness", "Oracle"],
+    "boundary": "Symbolic meaning only; not objective truth claim."
+  }
+]
