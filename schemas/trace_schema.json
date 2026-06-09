@@ -1,0 +1,14 @@
+{
+  "trace_id": "string",
+  "record": {
+    "actor": "human | agent | evaluator",
+    "timestamp": "ISO-8601",
+    "claim": "string",
+    "evidence": ["string"],
+    "confidence": "0.0-1.0",
+    "contradictions": ["record_id"],
+    "delegation_source": "record_id | null",
+    "tool_invocations": ["tool_name"],
+    "state_tags": ["string"]
+  }
+}
