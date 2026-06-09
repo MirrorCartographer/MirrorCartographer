@@ -1,0 +1,22 @@
+{
+  "system_name": "Mirror Cartographer",
+  "category": "provenance-native cognition infrastructure",
+  "primary_risks": [
+    "over-retention of sensitive cognition",
+    "misinterpretation of symbolic state",
+    "false provenance confidence",
+    "authority confusion across agents"
+  ],
+  "mitigations": [
+    "user-controlled retention",
+    "confidence separation from truth claims",
+    "evaluator disagreement preservation",
+    "scoped delegation authority"
+  ],
+  "auditability": {
+    "replay_supported": true,
+    "evaluator_annotations": true,
+    "delegation_lineage": true,
+    "contradiction_tracking": true
+  }
+}
