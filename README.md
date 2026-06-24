@@ -96,3 +96,10 @@ See also:
 
 - `docs/HUMAN_AI_INTERACTION_BRIEF.md`
 - `docs/EVALUATION_PACKET.md`
+- `docs/APPLICATION_PACKET.md`
+
+## Author
+
+Charity Sturgell
+
+Background: U.S. Navy nuclear-trained machinist mate, operations/management experience, independent human-AI interaction researcher, and creator of Mirror Cartographer.
