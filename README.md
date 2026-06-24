@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mirror Cartographer
 
-## Getting Started
+Mirror Cartographer is a human-AI interaction project focused on recursive sensemaking: how AI systems reflect, organize, amplify, distort, or stabilize human thought over time.
 
-First, run the development server:
+It is not a therapy product, diagnostic authority, medical tool, or objective truth engine. It is a prototype framework for studying and designing reflective AI interactions with clearer boundaries, better continuity, and more explicit evaluation.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Core idea
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Most chatbot interactions are treated as isolated exchanges: a user asks, the model answers, the session moves on.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Mirror Cartographer asks a different question:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+What happens when a human repeatedly uses AI to map language, emotion, memory, symbols, body signals, decisions, contradictions, and recurring patterns?
 
-## Learn More
+The project explores whether AI can help users notice repeated structures without turning resonance into proof, metaphor into diagnosis, or pattern recognition into false certainty.
 
-To learn more about Next.js, take a look at the following resources:
+## What the system is designed to track
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- recurring language patterns
+- repeated symbols and metaphors
+- user-stated goals and constraints
+- emotional and somatic descriptions
+- contradictions and unresolved loops
+- shifts in interpretation over time
+- evidence boundaries
+- action steps and outcome feedback
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Current product shape
 
-## Deploy on Vercel
+The intended architecture is a reflective interface with:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- text-based reflection sessions
+- structured recursive journaling
+- symbolic pattern tracking
+- body/somatic signal mapping
+- multiple interpretation modes, such as neutral, reflective, and mythopoetic
+- exportable session archives
+- explicit safety and claim boundaries
+- evaluation prompts for model behavior, overreach, and user impact
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Human-AI interaction focus
+
+Mirror Cartographer is most relevant to:
+
+- AI safety evaluation
+- model behavior analysis
+- human-AI interaction research
+- reflective AI UX
+- trust and over-trust detection
+- long-context user continuity
+- emotionally salient AI interactions
+- AI-mediated sensemaking
+
+## Safety boundaries
+
+Allowed claims:
+
+- The project explores reflective human-AI interaction.
+- The framework can structure user reflection and pattern tracking.
+- The system can help generate hypotheses, questions, summaries, and next-step maps.
+- Outputs require human judgment and external verification.
+
+Not allowed claims:
+
+- The system diagnoses medical or psychological conditions.
+- The system replaces therapy, medical care, veterinary care, legal advice, or emergency support.
+- Symbolic resonance proves factual truth.
+- Recurrence alone proves causality.
+- AI interpretation is automatically more accurate than human interpretation.
+
+## Evaluation direction
+
+Mirror Cartographer should be evaluated on whether it can:
+
+- preserve nuance across repeated interactions
+- distinguish symbol, hypothesis, evidence, and action
+- reduce confusion rather than deepen rumination
+- identify model overreach or false certainty
+- surface missing information and uncertainty
+- produce useful next steps without coercing the user
+- maintain continuity without pretending omniscience
+
+## Why this matters
+
+AI is becoming part of how people think, search, write, remember, decide, and make meaning.
+
+That makes human-AI interaction a safety problem, a design problem, and a cognition problem.
+
+Mirror Cartographer is an attempt to build and evaluate a more explicit reflective layer for that interaction: one that tracks patterns over time while preserving boundaries between feeling, metaphor, evidence, and reality.
+
+## Status
+
+Early prototype and research architecture. The project is being shaped into a public proof artifact for human-AI interaction, AI safety evaluation, and reflective interface design.
+
+See also:
+
+- `docs/HUMAN_AI_INTERACTION_BRIEF.md`
+- `docs/EVALUATION_PACKET.md`
