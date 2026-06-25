@@ -1,14 +1,14 @@
 # Mirror Cartographer
 
-Mirror Cartographer TM is a symbolic self-mapping and human-AI interaction project focused on recursive sensemaking: how AI systems reflect, organize, amplify, distort, or stabilize human thought, body-language, and meaning over time.
+Mirror Cartographer TM is a bounded symbolic reflection interface for mapping body sensation, metaphor, color, symbol, and repeated emotional patterns into reviewable AI-assisted reflections.
 
-It is not a therapy product, diagnostic authority, medical tool, or objective truth engine. It is a prototype framework for studying and designing reflective AI interactions with clearer boundaries, better continuity, and more explicit evaluation.
+It is not a therapy product, diagnostic authority, medical tool, oracle, source database, or objective truth engine. It is a prototype for studying and designing reflective human-AI interactions with explicit uncertainty, user feedback, and claim boundaries.
 
 ## Current demo
 
-The repository now includes a working Next.js demo based on the uploaded system design and UI specification.
+The repository includes a working Next.js demo based on the system design and UI specification.
 
-The demo includes:
+The demo now includes:
 
 - body-area input
 - color input
@@ -18,20 +18,24 @@ The demo includes:
 - Canonical / Reflective / Mythopoetic mode toggle
 - optional symbolic memory / echo tracker toggle
 - visible interpretation mode tag
-- hallucination / overreach audit label
+- source status
+- claim status
+- audit label / overreach check
+- health-adjacent boundary flag
 - evidence boundary
 - grounded next step
 - update hook
+- user feedback loop
 
-This is intentionally not a diagnosis system or an oracle. It is a public proof that the concept can be translated into an interface and evaluated.
+This is intentionally not a diagnosis system or an oracle. It is a public proof that the concept can be translated into a bounded interface and evaluated.
 
 ## Core idea
 
 Most chatbot interactions are treated as isolated exchanges: a user asks, the model answers, the session moves on.
 
-Mirror Cartographer asks a different question:
+Mirror Cartographer asks a narrower and more testable question:
 
-What happens when a human repeatedly uses AI to map language, emotion, memory, symbols, body signals, decisions, contradictions, and recurring patterns?
+Can an AI interface help a user map body sensation, metaphor, symbol, and recurring emotional patterns while preserving the boundary between symbol and evidence?
 
 The project explores whether AI can help users notice repeated structures without turning resonance into proof, metaphor into diagnosis, or pattern recognition into false certainty.
 
@@ -44,6 +48,7 @@ The project explores whether AI can help users notice repeated structures withou
 - contradictions and unresolved loops
 - shifts in interpretation over time
 - evidence boundaries
+- user feedback on resonance, confusion, and overreach
 - action steps and outcome feedback
 
 ## Product architecture
@@ -55,7 +60,9 @@ The intended architecture is a reflective interface with:
 - scene or narrative prompt entry
 - Canonical / Reflective / Mythopoetic mode switching
 - optional symbolic memory viewer and echo tracker
-- interpretation output with type tag and hallucination audit indicators
+- interpretation output with type tag and audit indicators
+- source-status and claim-status labels
+- user correction and resonance feedback
 - structured recursive journaling
 - exportable session archives
 - explicit safety and claim boundaries
@@ -95,6 +102,28 @@ Not allowed claims:
 - AI interpretation is automatically more accurate than human interpretation.
 - The system should intensify distress without grounding.
 
+## Terms quarantined from the public front door
+
+These terms may appear in creative or Mythopoetic Mode materials, but they should not be the default public product language:
+
+- prophetic
+- oracle
+- sacred
+- decoding people
+- global symbolic topology
+- cognitive-symbolic OS
+- diagnosis-adjacent claims
+
+Public language should favor:
+
+- reflective hypothesis
+- possible underlying concern
+- user-backed association
+- source status
+- claim boundary
+- user feedback
+- evidence gate
+
 ## Evaluation direction
 
 Mirror Cartographer should be evaluated on whether it can:
@@ -107,6 +136,7 @@ Mirror Cartographer should be evaluated on whether it can:
 - produce useful next steps without coercing the user
 - maintain continuity without pretending omniscience
 - adapt tone and rhythm without forcing interpretation
+- accept user correction and downgrade bad interpretations
 
 ## Why this matters
 
@@ -118,12 +148,14 @@ Mirror Cartographer is an attempt to build and evaluate a more explicit reflecti
 
 ## Status
 
-Application-ready public proof layer with a working demo, system-design documents, whitepaper sections, ritual/workbook layer, symbolic card sample, relocation guide, IP tracker, core principles charter, and evaluation docs.
+Application-ready public proof layer with a working demo, system-design documents, whitepaper sections, ritual/workbook layer, symbolic card sample, relocation guide, IP tracker, core principles charter, interrogation audit, research-grounded fix plan, and evaluation docs.
 
-The next stage is a stronger product prototype with a clickable body map, persistent user-owned archives, exportable logs, symbolic source clusters, and reviewer-tested evaluation cases.
+The next stage is a stronger product prototype with a clickable body map, persistent user-owned archives, exportable logs, symbolic source clusters, reviewer-tested evaluation cases, and a real audit grid.
 
 See also:
 
+- `docs/HARDCORE_INTERROGATION_AUDIT.md`
+- `docs/RESEARCH_GROUNDED_FIX_PLAN.md`
 - `docs/SYSTEM_DESIGN_UI_SPEC.md`
 - `docs/WHITEPAPER_SUMMARY.md`
 - `docs/WHITEPAPER_SECTION_1.md`
