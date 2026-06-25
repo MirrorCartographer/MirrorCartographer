@@ -1,6 +1,6 @@
 # Final Status
 
-Mirror Cartographer is now application-ready as a public proof artifact and has been updated with the uploaded system design, whitepaper, and core principles documents.
+Mirror Cartographer TM is now application-ready as a public proof artifact and has been updated with the uploaded system design, whitepaper sections, workbook, ritual guide, symbolic card, relocation guide, IP tracker, and core principles documents.
 
 ## What is finished
 
@@ -12,9 +12,18 @@ Mirror Cartographer is now application-ready as a public proof artifact and has 
 - Demo test set.
 - System design and UI specification.
 - Whitepaper summary.
+- Whitepaper Section 1.
+- Whitepaper Section 2.
+- Whitepaper Section 3.
 - Core principles charter.
+- Symbolic field engagement workbook.
+- Symbolic ritual guide.
+- Sentinel symbolic card.
+- Symbolic relocation guide.
+- IP and trademark tracker.
 - Working Next.js demo replacing the default starter page.
 - Demo upgraded with body area, color, texture, symbol, narrative, mode toggles, optional echo tracker, and hallucination/audit labels.
+- TypeScript build hardening for the demo page and root layout.
 - Visible safety and claim boundaries.
 - Candidate framing for human-AI interaction, model behavior, safeguards, and AI safety evaluation roles.
 
@@ -60,7 +69,21 @@ Use this repository as a portfolio link for roles involving:
 
 - `docs/SYSTEM_DESIGN_UI_SPEC.md`
 - `docs/WHITEPAPER_SUMMARY.md`
+- `docs/WHITEPAPER_SECTION_1.md`
+- `docs/WHITEPAPER_SECTION_2.md`
+- `docs/WHITEPAPER_SECTION_3.md`
 - `docs/CORE_PRINCIPLES_CHARTER.md`
+- `docs/SYMBOLIC_FIELD_ENGAGEMENT_WORKBOOK.md`
+- `docs/SYMBOLIC_RITUAL_GUIDE.md`
+- `docs/SENTINEL_SYMBOLIC_CARD.md`
+- `docs/SYMBOLIC_RELOCATION_GUIDE.md`
+- `docs/IP_AND_TRADEMARK_TRACKER.md`
+
+## Deployment note
+
+The screenshot showed a deployment/build failure. The code has been hardened after that screenshot by replacing fragile inferred tuple rendering with explicit typed section objects and by importing `ReactNode` directly in the root layout.
+
+A fresh deployment should be triggered from the latest commits.
 
 ## Next product step
 
