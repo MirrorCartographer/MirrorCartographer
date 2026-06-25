@@ -4,6 +4,16 @@ Mirror Cartographer is a human-AI interaction project focused on recursive sense
 
 It is not a therapy product, diagnostic authority, medical tool, or objective truth engine. It is a prototype framework for studying and designing reflective AI interactions with clearer boundaries, better continuity, and more explicit evaluation.
 
+## Current demo
+
+The repository now includes a minimal working Next.js demo.
+
+The demo supports one bounded loop:
+
+input -> signal summary -> pattern map -> evidence boundary -> overreach risk -> grounded next step -> update hook
+
+This is intentionally not a diagnosis system or an oracle. It is a small public proof that the concept can be translated into an interface and evaluated.
+
 ## Core idea
 
 Most chatbot interactions are treated as isolated exchanges: a user asks, the model answers, the session moves on.
@@ -90,7 +100,7 @@ Mirror Cartographer is an attempt to build and evaluate a more explicit reflecti
 
 ## Status
 
-Early prototype and research architecture. The project is being shaped into a public proof artifact for human-AI interaction, AI safety evaluation, and reflective interface design.
+Application-ready public proof layer with a minimal demo and evaluation docs. The next stage is a stronger product prototype with persistent user-owned archives, exportable logs, and reviewer-tested evaluation cases.
 
 See also:
 
@@ -98,6 +108,7 @@ See also:
 - `docs/EVALUATION_PACKET.md`
 - `docs/APPLICATION_PACKET.md`
 - `docs/ROADMAP.md`
+- `docs/DEMO_TEST_SET.md`
 
 ## Author
 
