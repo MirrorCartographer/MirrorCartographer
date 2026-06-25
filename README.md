@@ -1,6 +1,6 @@
 # Mirror Cartographer
 
-Mirror Cartographer is a symbolic self-mapping and human-AI interaction project focused on recursive sensemaking: how AI systems reflect, organize, amplify, distort, or stabilize human thought, body-language, and meaning over time.
+Mirror Cartographer TM is a symbolic self-mapping and human-AI interaction project focused on recursive sensemaking: how AI systems reflect, organize, amplify, distort, or stabilize human thought, body-language, and meaning over time.
 
 It is not a therapy product, diagnostic authority, medical tool, or objective truth engine. It is a prototype framework for studying and designing reflective AI interactions with clearer boundaries, better continuity, and more explicit evaluation.
 
@@ -118,7 +118,7 @@ Mirror Cartographer is an attempt to build and evaluate a more explicit reflecti
 
 ## Status
 
-Application-ready public proof layer with a working demo, system-design documents, whitepaper summary, core principles charter, and evaluation docs.
+Application-ready public proof layer with a working demo, system-design documents, whitepaper sections, ritual/workbook layer, symbolic card sample, relocation guide, IP tracker, core principles charter, and evaluation docs.
 
 The next stage is a stronger product prototype with a clickable body map, persistent user-owned archives, exportable logs, symbolic source clusters, and reviewer-tested evaluation cases.
 
@@ -126,7 +126,15 @@ See also:
 
 - `docs/SYSTEM_DESIGN_UI_SPEC.md`
 - `docs/WHITEPAPER_SUMMARY.md`
+- `docs/WHITEPAPER_SECTION_1.md`
+- `docs/WHITEPAPER_SECTION_2.md`
+- `docs/WHITEPAPER_SECTION_3.md`
 - `docs/CORE_PRINCIPLES_CHARTER.md`
+- `docs/SYMBOLIC_FIELD_ENGAGEMENT_WORKBOOK.md`
+- `docs/SYMBOLIC_RITUAL_GUIDE.md`
+- `docs/SENTINEL_SYMBOLIC_CARD.md`
+- `docs/SYMBOLIC_RELOCATION_GUIDE.md`
+- `docs/IP_AND_TRADEMARK_TRACKER.md`
 - `docs/HUMAN_AI_INTERACTION_BRIEF.md`
 - `docs/EVALUATION_PACKET.md`
 - `docs/APPLICATION_PACKET.md`
