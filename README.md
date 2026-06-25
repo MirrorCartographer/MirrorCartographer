@@ -1,18 +1,29 @@
 # Mirror Cartographer
 
-Mirror Cartographer is a human-AI interaction project focused on recursive sensemaking: how AI systems reflect, organize, amplify, distort, or stabilize human thought over time.
+Mirror Cartographer is a symbolic self-mapping and human-AI interaction project focused on recursive sensemaking: how AI systems reflect, organize, amplify, distort, or stabilize human thought, body-language, and meaning over time.
 
 It is not a therapy product, diagnostic authority, medical tool, or objective truth engine. It is a prototype framework for studying and designing reflective AI interactions with clearer boundaries, better continuity, and more explicit evaluation.
 
 ## Current demo
 
-The repository now includes a minimal working Next.js demo.
+The repository now includes a working Next.js demo based on the uploaded system design and UI specification.
 
-The demo supports one bounded loop:
+The demo includes:
 
-input -> signal summary -> pattern map -> evidence boundary -> overreach risk -> grounded next step -> update hook
+- body-area input
+- color input
+- texture input
+- symbol input
+- scene / narrative prompt entry
+- Canonical / Reflective / Mythopoetic mode toggle
+- optional symbolic memory / echo tracker toggle
+- visible interpretation mode tag
+- hallucination / overreach audit label
+- evidence boundary
+- grounded next step
+- update hook
 
-This is intentionally not a diagnosis system or an oracle. It is a small public proof that the concept can be translated into an interface and evaluated.
+This is intentionally not a diagnosis system or an oracle. It is a public proof that the concept can be translated into an interface and evaluated.
 
 ## Core idea
 
@@ -35,15 +46,17 @@ The project explores whether AI can help users notice repeated structures withou
 - evidence boundaries
 - action steps and outcome feedback
 
-## Current product shape
+## Product architecture
 
 The intended architecture is a reflective interface with:
 
-- text-based reflection sessions
+- body-map interface for somatic input
+- symbolic input area for color, texture, and metaphoric word fields
+- scene or narrative prompt entry
+- Canonical / Reflective / Mythopoetic mode switching
+- optional symbolic memory viewer and echo tracker
+- interpretation output with type tag and hallucination audit indicators
 - structured recursive journaling
-- symbolic pattern tracking
-- body/somatic signal mapping
-- multiple interpretation modes, such as neutral, reflective, and mythopoetic
 - exportable session archives
 - explicit safety and claim boundaries
 - evaluation prompts for model behavior, overreach, and user impact
@@ -60,6 +73,8 @@ Mirror Cartographer is most relevant to:
 - long-context user continuity
 - emotionally salient AI interactions
 - AI-mediated sensemaking
+- neurodivergent symbolic cognition support
+- somatic and metaphor-based expression interfaces
 
 ## Safety boundaries
 
@@ -69,6 +84,7 @@ Allowed claims:
 - The framework can structure user reflection and pattern tracking.
 - The system can help generate hypotheses, questions, summaries, and next-step maps.
 - Outputs require human judgment and external verification.
+- Symbolic output can support language-building and self-reflection.
 
 Not allowed claims:
 
@@ -77,6 +93,7 @@ Not allowed claims:
 - Symbolic resonance proves factual truth.
 - Recurrence alone proves causality.
 - AI interpretation is automatically more accurate than human interpretation.
+- The system should intensify distress without grounding.
 
 ## Evaluation direction
 
@@ -89,6 +106,7 @@ Mirror Cartographer should be evaluated on whether it can:
 - surface missing information and uncertainty
 - produce useful next steps without coercing the user
 - maintain continuity without pretending omniscience
+- adapt tone and rhythm without forcing interpretation
 
 ## Why this matters
 
@@ -100,15 +118,21 @@ Mirror Cartographer is an attempt to build and evaluate a more explicit reflecti
 
 ## Status
 
-Application-ready public proof layer with a minimal demo and evaluation docs. The next stage is a stronger product prototype with persistent user-owned archives, exportable logs, and reviewer-tested evaluation cases.
+Application-ready public proof layer with a working demo, system-design documents, whitepaper summary, core principles charter, and evaluation docs.
+
+The next stage is a stronger product prototype with a clickable body map, persistent user-owned archives, exportable logs, symbolic source clusters, and reviewer-tested evaluation cases.
 
 See also:
 
+- `docs/SYSTEM_DESIGN_UI_SPEC.md`
+- `docs/WHITEPAPER_SUMMARY.md`
+- `docs/CORE_PRINCIPLES_CHARTER.md`
 - `docs/HUMAN_AI_INTERACTION_BRIEF.md`
 - `docs/EVALUATION_PACKET.md`
 - `docs/APPLICATION_PACKET.md`
 - `docs/ROADMAP.md`
 - `docs/DEMO_TEST_SET.md`
+- `docs/FINAL_STATUS.md`
 
 ## Author
 
