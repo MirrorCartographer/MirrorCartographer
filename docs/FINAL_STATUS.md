@@ -1,14 +1,14 @@
 # Final Status
 
-Mirror Cartographer TM is now application-ready as a public proof artifact and has been updated with the uploaded system design, whitepaper sections, workbook, ritual guide, symbolic card, relocation guide, IP tracker, and core principles documents.
+Mirror Cartographer TM is application-ready as a public proof artifact, but not product-validated. The latest update added a hostile interrogation layer, external research-grounded fix plan, tighter public language, and a safer demo feedback loop.
 
 ## What is finished
 
-- Public project README.
+- Public project README rewritten with stricter product language.
 - Human-AI interaction brief.
 - Evaluation packet.
 - Application packet.
-- Roadmap.
+- Roadmap rewritten with evidence gates.
 - Demo test set.
 - System design and UI specification.
 - Whitepaper summary.
@@ -21,26 +21,31 @@ Mirror Cartographer TM is now application-ready as a public proof artifact and h
 - Sentinel symbolic card.
 - Symbolic relocation guide.
 - IP and trademark tracker.
+- Hardcore interrogation audit.
+- Research-grounded fix plan.
 - Working Next.js demo replacing the default starter page.
-- Demo upgraded with body area, color, texture, symbol, narrative, mode toggles, optional echo tracker, and hallucination/audit labels.
+- Demo upgraded with body area, color, texture, symbol, narrative, mode toggles, optional echo tracker, source status, claim status, health-adjacent flag, user feedback loop, and audit labels.
 - TypeScript build hardening for the demo page and root layout.
 - Visible safety and claim boundaries.
 - Candidate framing for human-AI interaction, model behavior, safeguards, and AI safety evaluation roles.
 
 ## What the demo does
 
-The demo maps user input into eight layers:
+The demo maps user input into a bounded output structure:
 
 1. signal summary
 2. pattern map
 3. mode interpretation
-4. audit tag
-5. evidence boundary
-6. overreach risk
-7. grounded next step
-8. update hook
+4. source status
+5. claim status
+6. audit label
+7. evidence boundary
+8. overreach risk
+9. grounded next step
+10. update hook
+11. user feedback response
 
-It now reflects the system design requirement for Canonical, Reflective, and Mythopoetic mode switching.
+It now reflects the system design requirement for Canonical, Reflective, and Mythopoetic mode switching while admitting that source clusters and a true hallucination audit are not implemented yet.
 
 ## What the demo does not do
 
@@ -49,7 +54,17 @@ It now reflects the system design requirement for Canonical, Reflective, and Myt
 - It does not claim symbolic truth.
 - It does not replace therapy, medical care, veterinary care, legal advice, or emergency support.
 - It does not prove Mirror Cartographer works as a complete product.
-- It does not yet include clickable body-map anatomy, persistent archives, source-cluster citations, or reviewer scoring.
+- It does not yet include clickable body-map anatomy, persistent archives, source-cluster citations, reviewer scoring, or a true hallucination audit grid.
+
+## What was corrected after interrogation
+
+- Public language now leads with bounded symbolic reflection, not prophecy, oracle, or sacred system language.
+- README now quarantines prophetic / oracle / sacred / global-topology claims from the public front door.
+- The demo now says audit label instead of pretending to be a full hallucination audit.
+- The demo now shows source status and claim status.
+- The demo now includes a user feedback loop.
+- The demo now flags health-adjacent input.
+- The roadmap now says product readiness requires correction, export, return, comparison, deletion, and reviewer evaluation.
 
 ## Best use now
 
@@ -67,6 +82,8 @@ Use this repository as a portfolio link for roles involving:
 
 ## Source-of-truth docs now included
 
+- `docs/HARDCORE_INTERROGATION_AUDIT.md`
+- `docs/RESEARCH_GROUNDED_FIX_PLAN.md`
 - `docs/SYSTEM_DESIGN_UI_SPEC.md`
 - `docs/WHITEPAPER_SUMMARY.md`
 - `docs/WHITEPAPER_SECTION_1.md`
@@ -81,7 +98,7 @@ Use this repository as a portfolio link for roles involving:
 
 ## Deployment note
 
-The screenshot showed a deployment/build failure. The code has been hardened after that screenshot by replacing fragile inferred tuple rendering with explicit typed section objects and by importing `ReactNode` directly in the root layout.
+The prior screenshot showed a deployment/build failure. The code was hardened after that screenshot by replacing fragile inferred tuple rendering with explicit typed section objects and by importing `ReactNode` directly in the root layout. The newest demo update also preserves explicit types.
 
 A fresh deployment should be triggered from the latest commits.
 
@@ -96,5 +113,13 @@ Build the true product layer:
 - reviewer scoring
 - grounding tools after intense reflection
 - longitudinal echo tracker
+- data deletion and export controls
+- true hallucination audit grid
 
 This would move Mirror Cartographer from application proof into product prototype.
+
+## Hard boundary
+
+Application-ready does not mean clinically safe, scientifically proven, or product-complete.
+
+Mirror Cartographer is strongest when it is honest about what exists, what is only designed, and what still needs evidence.
