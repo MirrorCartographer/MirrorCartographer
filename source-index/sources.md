@@ -28,6 +28,10 @@ Each link appears once. Add tags/notes to an existing row rather than duplicatin
 | https://arxiv.org/abs/2602.04000 | paper | used-for-design | proactive assistants, longitudinal adaptation, privacy, preferences | Multi-session preference-aligned assistant paper; useful for review-over-time and user comfort criteria. |
 | https://arxiv.org/abs/2503.15511 | paper | used-for-design | trust calibration, transparency, usability, AI evaluation | Trust Calibration Maturity Model paper; useful for evaluating whether users can calibrate trust in MC interpretations. |
 | https://openai.com/index/memory-and-new-controls-for-chatgpt/ | documentation | used-for-design | ChatGPT memory, personalization, user controls | OpenAI memory announcement; useful for baseline product expectations around memory and controls. |
+| https://arxiv.org/abs/2605.12534 | paper | used-for-design | bioacoustics, signal enhancement, animal vocalization, listening interface | BioSEN paper; useful for signal-preservation and noise-aware design analogy in MC. |
+| https://arxiv.org/abs/2510.14443 | paper | used-for-design | bovine bioacoustics, FAIR data, welfare monitoring, context metadata | Bovine bioacoustic dataset and ML framework; useful for context-bound observation and non-invasive welfare-support pattern. |
+| https://arxiv.org/abs/2406.09711 | paper | used-for-design | animal behavior, multimodal vision, posture, non-invasive monitoring | AnimalFormer paper; useful for translating behavior-pattern monitoring into MC signal-to-symbol design. |
+| https://www.reuters.com/technology/artificial-intelligence/ai-decodes-oinks-grunts-keep-pigs-happy-2024-10-24/ | article | cited-in-chat | pig vocalization, animal welfare, AI classification, uncertainty | Reporting on AI analysis of pig sounds; useful as a cautionary example for welfare-support framing rather than overconfident animal translation. |
 
 ## Intake queue
 
