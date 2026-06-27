@@ -1,0 +1,81 @@
+{
+  "schema_name": "mirror_cartographer_listening_room_entry",
+  "version": "0.1.0",
+  "purpose": "Represent an ambiguous observation as a layered, reviewable object without collapsing signal into certainty.",
+  "fields": {
+    "entry_id": {
+      "type": "string",
+      "required": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "required": true
+    },
+    "observation": {
+      "type": "object",
+      "required": true,
+      "fields": {
+        "text": "string",
+        "source_type": "self-report | note | sensor | image | audio | text | external_source | unknown",
+        "privacy_level": "session_only | private_memory_candidate | public_safe_abstraction"
+      }
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "label": "string",
+        "category": "movement | sound | sensation | visual | emotional_tone | environment | time | unknown",
+        "evidence_text": "string",
+        "confidence": "low | medium | high",
+        "user_editable": true
+      }
+    },
+    "trace": {
+      "type": "object",
+      "fields": {
+        "before": "string",
+        "after": "string",
+        "environment": "string",
+        "known_constraints": "string",
+        "missing_context": ["string"]
+      }
+    },
+    "pattern": {
+      "type": "object",
+      "fields": {
+        "recurrence_status": "first_time | recurring | changed | contradictory | unknown",
+        "pattern_statement": "string",
+        "confidence": "low | medium | high"
+      }
+    },
+    "interpretations": {
+      "type": "array",
+      "items": {
+        "label": "string",
+        "supporting_evidence": ["string"],
+        "counter_evidence": ["string"],
+        "claim_status": "fact | inference | hypothesis | metaphor | unresolved",
+        "confidence": "low | medium | high",
+        "memory_status": "do_not_save | review_later | private_candidate | public_safe_abstraction"
+      }
+    },
+    "review": {
+      "type": "object",
+      "fields": {
+        "review_status": "not_reviewed | confirmed_by_user | revised_by_user | contradicted_later | useful_but_uncertain | not_useful | harmful_or_misleading | archived",
+        "review_due": "string",
+        "revision_notes": "string"
+      }
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "action_label": "string",
+        "action_class": "observe_again | compare_prior | ask_context | abstract_publicly | save_private_candidate | schedule_review | seek_support",
+        "safety_status": "allowed | blocked | needs_user_confirmation",
+        "reason": "string"
+      }
+    }
+  }
+}
