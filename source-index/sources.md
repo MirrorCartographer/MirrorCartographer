@@ -37,6 +37,8 @@ Each link appears once. Add tags/notes to an existing row rather than duplicatin
 | https://arxiv.org/abs/2601.12390 | paper | used-for-design | TikTok Research API, DSA, metadata stripping, operational restrictions | Audit of Meta and TikTok research API access under the DSA; used to define completeness cautions. |
 | https://arxiv.org/abs/2605.24238 | paper | used-for-design | enactive AI, embodiment, action-perception, interface design | Enactive AI paper; used to frame MC as action-linked perception rather than passive interpretation. |
 | https://www.theguardian.com/science/2026/jun/26/human-animal-communication-step-closer-scientist-wins-prize-for-decoding-birdsong | article | cited-in-chat | animal communication, zebra finches, behavioral validation, bioacoustics | Reporting on Julie Elie's zebra finch work and Coller-Dolittle prize; used as a cautionary model for meaning claims requiring behavioral tests. |
+| https://arxiv.org/abs/2606.00807 | paper | used-for-design | interaction-centered intelligence, co-creation, creative systems, drift | Paper arguing interaction trajectories and adaptive regulation are central units for co-creative AI evaluation; used for MC Lantern Mode. |
+| https://arxiv.org/abs/2604.14898 | paper | used-for-design | reflective collaboration, traceable reasoning, epistemic scaffolding, HAI | Paper framing reflective reasoning as an interaction-layer protocol with auditable reasoning traces; used for MC Lantern Mode. |
 
 ## Intake queue
 
