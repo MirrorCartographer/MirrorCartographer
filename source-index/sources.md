@@ -18,7 +18,7 @@ Each link appears once. Add tags/notes to an existing row rather than duplicatin
 | https://www.iso.org/standard/81230.html | documentation | used-for-design | ISO 42001, AI management, governance | Official ISO page for ISO/IEC 42001 AI management system standard. |
 | https://www.nist.gov/itl/ai-risk-management-framework | documentation | used-for-design | NIST AI RMF, risk management, governance | Official NIST AI Risk Management Framework landing page. |
 | https://www.nist.gov/itl/ai-risk-management-framework/generative-artificial-intelligence-profile | documentation | used-for-design | NIST GenAI Profile, generative AI, risk management | Official NIST page for generative AI risk profile; useful for MC evidence/risk framing. |
-| https://arxiv.org/abs/2604.24527 | paper | used-for-design | interoception, embodied AI, adaptive autonomy, internal state | Interoceptive machine framework; used for Watchtower Mode state-regulation design. |
+| https://arxiv.org/abs/2604.24527 | paper | used-for-design | interoception, embodied AI, adaptive autonomy, internal state | Interoceptive machine framework; used for Watchtower Mode state-regulation and Choiceful Signal Interface design. |
 | https://arxiv.org/abs/2605.05017 | paper | used-for-design | embodied AI, privacy, lifecycle control, SPINE | Position paper treating privacy as a dynamic architectural constraint in embodied AI. |
 | https://arxiv.org/abs/2606.10940 | paper | used-for-design | camera traps, animal behavior, open-source AI, observation | Open-source camera-trap AI model; useful for accessible, non-specialist observation tooling. |
 | https://www.digitalcameraworld.com/photography/nature-and-wildlife-photography/this-uk-zoo-is-trialling-ai-powered-night-vision-cameras-to-boost-animal-care-starting-with-the-giraffes | article | cited-in-chat | animal monitoring, nocturnal behavior, AI, welfare observation | Reporting on Marwell Zoo and University of Surrey AI night-vision behavior monitoring trial. |
@@ -43,6 +43,8 @@ Each link appears once. Add tags/notes to an existing row rather than duplicatin
 | https://arxiv.org/abs/2512.16962 | paper | used-for-design | memory poisoning, LLM agents, retrieval, behavioral drift | MemoryGraft paper on poisoned experience retrieval; used to separate reflective memory from action precedent. |
 | https://arxiv.org/abs/2603.19935 | paper | used-for-design | persistent memory, semantic triples, retrieval efficiency, LLM agents | Memori paper on structured persistent memory; used as support for compact memory fields while noting structure alone is not safety. |
 | https://arxiv.org/abs/2502.17591 | paper | used-for-design | privacy amnesia, PII, LLM privacy, forgetting | Proactive Privacy Amnesia paper; used to frame forgetting as an active design function, not only a delete button. |
+| https://arxiv.org/abs/2105.03181 | paper | used-for-design | animal-computer interaction, dog internet, autonomy, interspecies design | Dog internet design fiction paper; used for Choiceful Signal Interface control, initiation, and refusal patterns. |
+| https://arxiv.org/abs/2507.16258 | paper | used-for-design | multispecies coexistence, autonomous systems, animal-computer interaction, shared environments | Research on animal interaction with autonomous mobility systems; used to frame shared-field design constraints for MC. |
 
 ## Intake queue
 
