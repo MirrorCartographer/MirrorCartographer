@@ -32,6 +32,9 @@ Each link appears once. Add tags/notes to an existing row rather than duplicatin
 | https://arxiv.org/abs/2510.14443 | paper | used-for-design | bovine bioacoustics, FAIR data, welfare monitoring, context metadata | Bovine bioacoustic dataset and ML framework; useful for context-bound observation and non-invasive welfare-support pattern. |
 | https://arxiv.org/abs/2406.09711 | paper | used-for-design | animal behavior, multimodal vision, posture, non-invasive monitoring | AnimalFormer paper; useful for translating behavior-pattern monitoring into MC signal-to-symbol design. |
 | https://www.reuters.com/technology/artificial-intelligence/ai-decodes-oinks-grunts-keep-pigs-happy-2024-10-24/ | article | cited-in-chat | pig vocalization, animal welfare, AI classification, uncertainty | Reporting on AI analysis of pig sounds; useful as a cautionary example for welfare-support framing rather than overconfident animal translation. |
+| https://developers.tiktok.com/ | documentation | used-for-design | TikTok API, developer platform, connector boundary | TikTok developer platform landing page; used as canonical developer surface reference for connector planning. |
+| https://arxiv.org/abs/2506.09746 | paper | used-for-design | TikTok Research API, data quality, incompleteness, platform audit | Research API audit reporting missing metadata and limitations; used to require partial-data labels. |
+| https://arxiv.org/abs/2601.12390 | paper | used-for-design | TikTok Research API, DSA, metadata stripping, operational restrictions | Audit of Meta and TikTok research API access under the DSA; used to define completeness cautions. |
 
 ## Intake queue
 
