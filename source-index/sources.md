@@ -57,6 +57,10 @@ Each link appears once. Add tags/notes to an existing row rather than duplicatin
 | https://dl.acm.org/doi/10.1145/3772318.3791769 | paper | used-for-design | LLM-mediated computing, reflective conversation, interface generation, HCI | CHI 2026 paper; used to frame MC cards as interface objects emerging from reflective conversation. |
 | https://learn.microsoft.com/en-us/security/zero-trust/sfi/manage-agentic-memory-safety | documentation | used-for-design | agentic memory safety, prompt shields, memory poisoning, retrieval-time controls | Microsoft guidance on agentic memory safety; used to require trust-aware retrieval checks before memory enters reasoning/action context. |
 | https://christian-schneider.net/blog/persistent-memory-poisoning-in-ai-agents/ | analysis | cited-in-chat | memory poisoning, persistent context, agent security, provenance | Security analysis of persistent memory poisoning; used as non-primary support for memory-as-attack-surface cautions. |
+| https://arxiv.org/abs/2605.27905 | paper | used-for-design | AI ideation, novelty, scientific exploration, convergence | AI Research Agents Narrow Scientific Exploration; used to weaken the claim that high-volume AI ideation is automatic novelty proof. |
+| https://arxiv.org/abs/2602.10001 | paper | used-for-design | human-AI creativity, collective search, diversity, hybrid systems | Human-AI Synergy Supports Collective Creative Search; used to support hybrid creativity while preserving diversity. |
+| https://arxiv.org/abs/2502.17962 | paper | used-for-design | creative social networks, human-AI diversity, continuity | Dynamics of Collective Creativity in Human-AI Social Networks; used to separate diversity from continuity in MC idea evaluation. |
+| https://arxiv.org/abs/2401.13481 | paper | used-for-design | AI ideas, creativity, collective diversity, cultural evolution | Dynamic experiment on AI idea exposure; used to caution that AI can change collective diversity without proving individual idea quality. |
 
 ## Intake queue
 
