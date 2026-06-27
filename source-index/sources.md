@@ -35,6 +35,8 @@ Each link appears once. Add tags/notes to an existing row rather than duplicatin
 | https://developers.tiktok.com/ | documentation | used-for-design | TikTok API, developer platform, connector boundary | TikTok developer platform landing page; used as canonical developer surface reference for connector planning. |
 | https://arxiv.org/abs/2506.09746 | paper | used-for-design | TikTok Research API, data quality, incompleteness, platform audit | Research API audit reporting missing metadata and limitations; used to require partial-data labels. |
 | https://arxiv.org/abs/2601.12390 | paper | used-for-design | TikTok Research API, DSA, metadata stripping, operational restrictions | Audit of Meta and TikTok research API access under the DSA; used to define completeness cautions. |
+| https://arxiv.org/abs/2605.24238 | paper | used-for-design | enactive AI, embodiment, action-perception, interface design | Enactive AI paper; used to frame MC as action-linked perception rather than passive interpretation. |
+| https://www.theguardian.com/science/2026/jun/26/human-animal-communication-step-closer-scientist-wins-prize-for-decoding-birdsong | article | cited-in-chat | animal communication, zebra finches, behavioral validation, bioacoustics | Reporting on Julie Elie's zebra finch work and Coller-Dolittle prize; used as a cautionary model for meaning claims requiring behavioral tests. |
 
 ## Intake queue
 
