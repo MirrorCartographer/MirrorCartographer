@@ -49,6 +49,69 @@ Examples:
 - `docs/RESEARCH_GROUNDED_FIX_PLAN.md`
 - `docs/EVALUATION_PACKET.md`
 
+## What counts as meaningful revision
+
+A revision is meaningful when it changes how a future reader would understand, trust, use, test, or build from the material.
+
+Meaningful revisions include changes to:
+
+- the central claim or definition
+- the scope of what the project says it can do
+- safety, medical, legal, veterinary, financial, or psychological boundaries
+- authorship, attribution, or co-creation framing
+- source status: whether something is source-backed, user-backed, speculative, or not available
+- claim status: observation, user report, symbolic hypothesis, fact, next step, or not enough information
+- product behavior or feature requirements
+- evaluation criteria or pass/fail standards
+- evidence level or proof status
+- public-facing language that could affect trust or interpretation
+- code behavior, build behavior, deployment behavior, or data handling
+- anything that removes, adds, or reframes a major idea
+
+Examples of meaningful revisions:
+
+- changing "sacred recursive system" to "bounded symbolic reflection interface"
+- changing "hallucination audit" to "audit label" because no real audit engine exists yet
+- adding a health-adjacent warning
+- adding user feedback controls
+- changing a source-derived medical hypothesis into a question-for-clinician boundary
+- rewriting a README to reduce overclaiming
+- changing the mapping engine behavior
+- adding a new category such as disruption type or source status
+
+## What does not count as meaningful revision
+
+A revision is not meaningful when it improves readability or navigation without changing the substance.
+
+Non-meaningful changes include:
+
+- fixing typos
+- fixing punctuation
+- correcting spacing
+- renaming a heading without changing the meaning
+- adding a link to an index
+- adding tags or search keywords
+- alphabetizing a list
+- moving a file reference into a catalog
+- formatting markdown
+- making a sentence shorter while preserving the same claim
+- adding a table of contents
+- adding cross-links between already-existing files
+
+These changes do not usually require a formal revision note, though they can still be mentioned in a changelog if useful.
+
+## Gray zone
+
+Some edits are small but still meaningful.
+
+Use this test:
+
+Would a reader make a different decision, trust the claim differently, understand the project differently, or build a different feature because of this edit?
+
+If yes, label it.
+
+If no, it is probably organization or cleanup.
+
 ## Revision labeling rule
 
 When a file is meaningfully rewritten, the revision should include at least one of the following:
