@@ -49,6 +49,10 @@ Each link appears once. Add tags/notes to an existing row rather than duplicatin
 | https://journals.sagepub.com/doi/10.3233/FAIA250644 | paper | used-for-design | explanation streams, progressive disclosure, cognitive forcing, HAI | Explanation Stream Patterns paper; used for staged explanation cards and uncertainty containment. |
 | https://www.newamerica.org/insights/ai-agents-and-memory/ | analysis | used-for-design | agent memory, visibility, control, consent, MCP | Policy analysis on agent memory protections; used for uncertainty-to-memory gating requirements. |
 | https://www.aciconf.org/aci2026 | conference | used-for-design | animal-computer interaction, multispecies design, ethical interaction | ACI 2026 page; used to constrain animal-adjacent interface claims and support broad interaction framing. |
+| https://arxiv.org/abs/2604.04853 | paper | used-for-design | persistent memory, episodic ground truth, contextualized retrieval, provenance | MemMachine paper; used for Context Ring source/context preservation and caution against lossy memory extraction. |
+| https://arxiv.org/abs/2505.18279 | paper | used-for-design | collaborative memory, access control, provenance, multi-agent systems | Collaborative Memory paper; used for Context Ring privacy scope, retrieval rule, and provenance boundary fields. |
+| https://www.axios.com/2026/06/18/google-deepmind-prepares-for-rogue-ai-agents | article | cited-in-chat | AI control, autonomous agents, monitoring, cybersecurity | Reporting on Google DeepMind's AI Control Roadmap; used to frame autonomy levels and layered monitoring for MC action boundaries. |
+| https://arxiv.org/abs/2508.11824 | paper | used-for-design | AI autonomy, software agents, auditability, rollback, human-in-the-loop | SAFE-AI framework paper; used for Context Ring autonomy labels, rollback paths, and external-action gates. |
 
 ## Intake queue
 
