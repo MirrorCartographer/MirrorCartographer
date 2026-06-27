@@ -45,6 +45,10 @@ Each link appears once. Add tags/notes to an existing row rather than duplicatin
 | https://arxiv.org/abs/2502.17591 | paper | used-for-design | privacy amnesia, PII, LLM privacy, forgetting | Proactive Privacy Amnesia paper; used to frame forgetting as an active design function, not only a delete button. |
 | https://arxiv.org/abs/2105.03181 | paper | used-for-design | animal-computer interaction, dog internet, autonomy, interspecies design | Dog internet design fiction paper; used for Choiceful Signal Interface control, initiation, and refusal patterns. |
 | https://arxiv.org/abs/2507.16258 | paper | used-for-design | multispecies coexistence, autonomous systems, animal-computer interaction, shared environments | Research on animal interaction with autonomous mobility systems; used to frame shared-field design constraints for MC. |
+| https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2025.1464348/full | paper | used-for-design | uncertainty visualization, trust calibration, HAI, decision support | Empirical user study on uncertainty visualization; used for MC Uncertainty Holding Pattern and Fog Lantern Card confidence display. |
+| https://journals.sagepub.com/doi/10.3233/FAIA250644 | paper | used-for-design | explanation streams, progressive disclosure, cognitive forcing, HAI | Explanation Stream Patterns paper; used for staged explanation cards and uncertainty containment. |
+| https://www.newamerica.org/insights/ai-agents-and-memory/ | analysis | used-for-design | agent memory, visibility, control, consent, MCP | Policy analysis on agent memory protections; used for uncertainty-to-memory gating requirements. |
+| https://www.aciconf.org/aci2026 | conference | used-for-design | animal-computer interaction, multispecies design, ethical interaction | ACI 2026 page; used to constrain animal-adjacent interface claims and support broad interaction framing. |
 
 ## Intake queue
 
