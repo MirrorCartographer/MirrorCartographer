@@ -1,225 +1,344 @@
-# Face Value, Signal Value, Evidence Value, and Action Value Protocol
+# Face Value / Signal Value Protocol
 
 Revision note:
 
-- Status: public-safe reasoning protocol.
-- Reason: created after the user asked how to understand base or face value versus deeper meanings.
-- Source: Mirror Cartographer signal-weighting principle, cognitive profile work, evidence gate model, interpreter routing protocol, and long-context chat research.
-- Boundary: this protocol helps separate literal meaning, possible signal, evidence, and action. It does not claim hidden meaning is always present.
+- Status: public-safe method artifact.
+- Reason: recovered from ongoing Mirror Cartographer discussions about how to understand "base" or "face value" versus deeper symbolic, evidential, privacy, and action layers.
+- Source status: abstracted from private conversation patterns, existing Mirror Cartographer public-facing descriptions, implementation-pack concepts, role catalogs, and cognitive-profile discussion recovery.
+- Privacy status: public-safe. No personal, household, health, animal-care, financial, location, relationship, credential, or raw transcript details included.
+- Claim status: framework proposal / product requirement. Not a psychological diagnosis, scientific finding, clinical method, or proof of hidden meaning.
+- Missingness: needs examples, UX tests, user-feedback labels, and false-positive evaluation.
 
 ## Core distinction
 
-Do not ask only: what does this mean?
+A phrase can be understood on several layers at once.
 
-Ask four separate questions:
+The safest Mirror Cartographer rule:
 
-1. What does it say at face value?
-2. What might it signal?
-3. What evidence supports it?
-4. What action should follow?
+Do not collapse every layer into one meaning.
+
+Instead, separate:
+
+1. face value
+2. signal value
+3. evidence value
+4. action value
+5. privacy value
+6. uncertainty value
 
 ## 1. Face value
 
-Face value is the plain, literal, surface-level meaning.
+Face value means the plain, literal, direct content.
 
-It asks:
+Question:
 
-What was directly said, shown, done, or recorded?
+What was actually said or shown before interpretation?
 
-Examples:
+Examples of face-value objects:
 
-- The user said: "wrong."
-- A file exists in GitHub.
-- A build failed.
-- A symbol was chosen.
-- A typo appeared.
-- A screenshot shows a table.
+- exact words
+- direct request
+- visible object
+- stated preference
+- timestamp
+- file name
+- explicit yes/no
+- explicit boundary
 
-Face value protects the system from overinterpretation.
+Face value protects the system from over-reading.
 
 Rule:
 
-Start with face value before interpreting.
+If face value is enough, do not force symbolic interpretation.
 
 ## 2. Signal value
 
-Signal value is what the surface detail may reveal about pattern, pressure, attention, mismatch, or need.
+Signal value means the pattern, pressure, emphasis, recurrence, or symbolic charge carried by the input.
 
-It asks:
+Question:
 
-What might this be pointing toward?
+What keeps returning, intensifying, contradicting, or asking to be mapped?
 
-Examples:
+Examples of signal-value objects:
 
-- "wrong" may signal mode mismatch.
-- A repeated typo may signal speed, compression, phonetic drift, or nothing important.
-- A repeated symbol may signal a stable navigation object.
-- A build failure may signal missing execution infrastructure.
-- A blocked write may signal publication friction.
+- repeated phrase
+- emotional intensity
+- unusual metaphor
+- typo that changes meaning
+- object that appears across contexts
+- contradiction that does not resolve
+- image, color, atmosphere, body-language phrase, or spatial relation
 
-Signal value protects the system from flattening everything into literalism.
+Signal value can guide attention.
+
+It does not prove truth.
 
 Rule:
 
-Signal is possible meaning, not proof.
+Signal is a pointer, not a verdict.
 
 ## 3. Evidence value
 
-Evidence value is the level of support behind a claim.
+Evidence value means what can be supported by source, observation, test, log, document, screenshot, code, external research, or direct user confirmation.
 
-It asks:
+Question:
 
-What source makes this more than an interpretation?
+What can actually be checked?
 
-Evidence can include:
+Evidence labels:
 
-- user confirmation
-- source file
-- GitHub commit
-- code execution
-- external source
-- repeated pattern with records
-- diagnostic or official record where appropriate
-- reproducible test
-
-Evidence value protects the system from mistaking coherence for truth.
+- directly sourced
+- user-reported
+- observed in artifact
+- inferred from pattern
+- speculative
+- unverified
+- contradicted
+- missing
 
 Rule:
 
-A good interpretation still needs evidence before becoming a claim.
+A symbol can be meaningful before it is evidentially proven, but it cannot be presented as fact without evidence.
 
 ## 4. Action value
 
-Action value is what should happen next.
+Action value means what the input changes next.
 
-It asks:
+Question:
 
-Does this require action, observation, waiting, testing, privacy protection, or no action?
+What should be done differently because this appeared?
 
-Examples:
+Action-value outputs:
 
-- A private detail should be abstracted before GitHub.
-- A repeated correction should update profile/routing behavior.
-- A claim without evidence should become a research question.
-- A design requirement should become an implementation task.
-- A symbolic insight may need no action except user confirmation.
-
-Action value protects the system from endless reflection.
+- ask a clarifying question
+- create a file
+- update a schema
+- add a UX state
+- run a test
+- mark as unresolved
+- stop overclaiming
+- preserve contradiction
+- route to outside expert
+- do nothing yet
 
 Rule:
 
-Not every signal needs action.
+Not every signal deserves immediate action.
 
-## Base-level sequence
+## 5. Privacy value
 
-Use this order:
+Privacy value means whether the content can be used publicly, privately, abstractly, or not at all.
 
-face value -> signal value -> evidence value -> action value
+Question:
 
-Do not skip face value.
+What is safe to publish from this?
 
-Do not let signal value pretend to be evidence.
+Privacy labels:
 
-Do not let evidence value erase symbolic usefulness.
+- public-safe method
+- public-safe abstraction
+- private source only
+- sensitive / do not publish
+- requires user approval
+- remove identifying detail
+- aggregate only
 
-Do not let action value become overreaction.
+Rule:
 
-## Same object, four readings
+Private material may teach architecture, but it should not automatically become public content.
 
-Example:
+## 6. Uncertainty value
 
-User says: "boring."
+Uncertainty value means how much confidence the system should claim.
+
+Question:
+
+How sure are we, and what would reduce uncertainty?
+
+Uncertainty labels:
+
+- high confidence
+- medium confidence
+- low confidence
+- unknown
+- not enough information
+- plausible but untested
+- emotionally resonant but unverified
+- needs external validation
+
+Rule:
+
+Mirror Cartographer should preserve uncertainty instead of pretending symbolic clarity equals factual certainty.
+
+## Layer separation template
+
+For any input, map:
+
+- Face value: what it literally says or shows.
+- Signal value: what pattern or symbolic pressure it may carry.
+- Evidence value: what supports it and what does not.
+- Action value: what changes next.
+- Privacy value: what can safely be shared.
+- Uncertainty value: how confident the system should be.
+
+## Example: interpreting a phrase
+
+Input:
+
+"The door keeps showing up."
 
 Face value:
 
-The user found the output boring.
+The user reports repeated appearance of a door image, word, dream, object, or metaphor.
 
 Signal value:
 
-The assistant may be using the wrong mode, wrong energy, wrong specificity, or too much generic language.
+Door may indicate threshold, transition, blocked passage, invitation, containment, choice, or repeated attention-point.
 
 Evidence value:
 
-This is user-backed feedback. If repeated, it becomes stronger profile evidence.
+Depends on logs, images, user confirmation, or repeated source appearances.
 
 Action value:
 
-Switch to more direct, vivid, useful output. Reduce explanation. Do the task.
+Ask where the door appears, record recurrence, compare context, avoid claiming what it means too early.
 
-## Same and different
+Privacy value:
 
-Face value and signal value are different, but they work together.
+Can become public only as an abstract example unless connected to private source material.
 
-Face value answers:
+Uncertainty value:
 
-What is directly here?
+Plausible symbolic signal, not proven interpretation.
 
-Signal value answers:
+## Example: interpreting a typo
 
-What might this be trying to show?
+Input:
 
-Evidence value answers:
+"base or face value"
 
-What supports that reading?
+Face value:
 
-Action value answers:
+The user is asking how to distinguish base/face value from another interpretive layer.
 
-What should change now?
+Signal value:
 
-## Common mistakes
+The phrase may indicate a need for a protocol that separates literal reading from hidden pattern, symbolic meaning, evidential support, and action consequence.
 
-### Mistake 1: Only face value
+Evidence value:
 
-Problem:
+Supported by repeated Mirror Cartographer discussions about source status, claim status, privacy status, and symbolic interpretation boundaries.
 
-The system becomes literal and misses pattern.
+Action value:
+
+Create a reusable protocol and attach it to role-routing, reflection modes, and evaluation criteria.
+
+Privacy value:
+
+Public-safe if abstracted into method language.
+
+Uncertainty value:
+
+High confidence as a system need; low confidence about any private personal meaning unless user confirms it.
+
+## Failure modes
+
+### Over-literal failure
+
+The system only reads face value and misses meaningful recurrence.
 
 Correction:
 
-Ask what the detail may signal, without overclaiming.
+Check signal value without forcing meaning.
 
-### Mistake 2: Only signal value
+### Over-symbolic failure
 
-Problem:
-
-The system over-symbolizes and loses reality contact.
+The system turns every input into destiny, hidden truth, or deep symbol.
 
 Correction:
 
 Return to face value and evidence value.
 
-### Mistake 3: Evidence collapse
+### Evidence collapse
 
-Problem:
-
-The system treats a beautiful interpretation as proof.
+The system treats resonance as proof.
 
 Correction:
 
-Label it as symbolic hypothesis unless evidence supports it.
+Label symbolic resonance separately from evidence.
 
-### Mistake 4: Action jump
+### Action inflation
 
-Problem:
-
-The system acts too fast because something feels intense.
+The system treats every signal as requiring immediate intervention.
 
 Correction:
 
-Use threshold policy cards.
+Separate attention-worthy from action-worthy.
 
-## How this applies to Mirror Cartographer
+### Privacy leakage
 
-Mirror Cartographer should preserve more than the surface, but it must not abandon the surface.
+The system publishes private source material because it produced a useful architecture pattern.
 
-The system should say:
+Correction:
 
-- here is the face value
-- here is the possible signal
-- here is the evidence level
-- here is the safe next action
-- here is what not to conclude
+Publish only the abstract method, product requirement, or evaluation criterion.
+
+## Product requirements
+
+The interface should include a layer map for each reflection:
+
+- Literal / face value
+- Symbolic / signal value
+- Evidence status
+- Action route
+- Privacy status
+- Confidence / uncertainty
+
+User feedback options should include:
+
+- literal only
+- symbolic useful
+- over-read
+- under-read
+- needs evidence
+- action needed
+- save privately
+- safe to abstract
+- do not publish
+
+## Evaluation criteria
+
+A good interpretation should:
+
+- preserve the literal request
+- identify possible signal without overclaiming
+- state source status
+- state claim status
+- state privacy status
+- name what is missing
+- produce a useful next action or explicitly choose no action
+
+A failed interpretation:
+
+- ignores the literal words
+- invents hidden meaning
+- treats recurrence as proof
+- exposes private details
+- gives action without evidence
+- erases uncertainty
+
+## Relationship to existing MC architecture
+
+This protocol connects to:
+
+- Canonical mode: face value + evidence value
+- Reflective mode: signal value + user-confirmed recurrence
+- Mythopoetic mode: symbolic value with speculative label
+- Cognitive profile adaptation: different users may need different layer order
+- Privacy steward role: determines what can become public
+- Evidence gatekeeper role: prevents claim collapse
+- Contradiction keeper role: preserves unresolved layer conflicts
 
 ## Search terms
 
-face value, base value, signal value, evidence value, action value, literal meaning, symbolic meaning, evidence gate, signal weighting, what not to conclude, Mirror Cartographer reasoning protocol.
+face value, base value, signal value, evidence value, action value, privacy value, uncertainty value, literal vs symbolic, source status, claim status, privacy status, Mirror Cartographer protocol.
