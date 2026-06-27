@@ -30,6 +30,7 @@ Purpose: understand how information is gathered, interrogated, compared, correct
 Key files:
 
 - `docs/reference/ASSISTANT_RESEARCH_PROCESS.md`
+- `docs/reference/TYPO_AND_LANGUAGE_DISRUPTION_SIGNAL_LAYER.md`
 - `docs/HARDCORE_INTERROGATION_AUDIT.md`
 - `docs/RESEARCH_GROUNDED_FIX_PLAN.md`
 - `docs/THOUGHT_TO_ACTION_INTERFACE.md`
@@ -37,7 +38,7 @@ Key files:
 
 Search terms:
 
-research process, hostile audit, interrogation, source boundary, evidence gate, claim boundary, thought to action, prosthetic interface, control pathway.
+research process, hostile audit, interrogation, source boundary, evidence gate, claim boundary, thought to action, prosthetic interface, control pathway, typo signal, language disruption, misspelling, messy language.
 
 ## 3. Human-AI Interaction and Model Behavior
 
@@ -57,7 +58,7 @@ human-AI interaction, model behavior, AI safety, trust, over-trust, user agency,
 
 ## 4. Symbolic and Somatic Mapping
 
-Purpose: map internal body sensation, metaphor, color, symbol, narrative, and emotional pressure without turning symbolism into proof.
+Purpose: map internal body sensation, metaphor, color, symbol, narrative, typo, nonstandard wording, and emotional pressure without turning symbolism into proof.
 
 Key files:
 
@@ -65,11 +66,12 @@ Key files:
 - `docs/SYMBOLIC_FIELD_ENGAGEMENT_WORKBOOK.md`
 - `docs/SYMBOLIC_RITUAL_GUIDE.md`
 - `docs/SENTINEL_SYMBOLIC_CARD.md`
+- `docs/reference/TYPO_AND_LANGUAGE_DISRUPTION_SIGNAL_LAYER.md`
 - `src/lib/mirrorMap.ts`
 
 Search terms:
 
-somatic, body signal, color, texture, symbol, archetype, symbolic card, Sentinel, field engagement, ritual guide.
+somatic, body signal, color, texture, symbol, archetype, symbolic card, Sentinel, field engagement, ritual guide, typo, misspelling, slang, dialect, compressed phrasing, language disruption.
 
 ## 5. Health-Adjacent Boundary Design
 
@@ -176,7 +178,21 @@ Search terms:
 
 trademark, TM, IP, authorship, co-created, attribution, Charity Sturgell, Mirror Cartographer.
 
-## 12. Future Paths
+## 12. Language Accessibility and Nonstandard Input
+
+Purpose: preserve and interpret nonstandard language forms without flattening identity, speed, disability, dialect, slang, or embodied signal.
+
+Key files:
+
+- `docs/reference/TYPO_AND_LANGUAGE_DISRUPTION_SIGNAL_LAYER.md`
+- `docs/reference/ASSISTANT_RESEARCH_PROCESS.md`
+- `docs/SYSTEM_DESIGN_UI_SPEC.md`
+
+Search terms:
+
+typo, misspelling, miswording, messy language, language disruption, dialect, slang, accessibility, nonstandard input, partial phrase, compressed thought, body-before-editor.
+
+## 13. Future Paths
 
 Purpose: reserve space for research not yet fully organized.
 
@@ -189,7 +205,8 @@ Potential future categories:
 - accessibility and screen-reader design
 - symbol-source database
 - reviewer scoring and external validation
+- typo-signal implementation in the mapping engine
 
 Search terms:
 
-future path, backlog, research branch, unresolved, next evidence gate, source cluster, reviewer scoring.
+future path, backlog, research branch, unresolved, next evidence gate, source cluster, reviewer scoring, language signal, typo weighting.
