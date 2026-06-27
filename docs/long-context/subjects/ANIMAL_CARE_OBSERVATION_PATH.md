@@ -2,9 +2,9 @@
 
 Revision note:
 
-- Status: AI-organized subject path from old conversations and current project memory.
-- Reason: created to preserve animal-care work as part of Mirror Cartographer's Body category and care-planning layer.
-- Source: prior conversations about Bugsy, O'Malley, Griffey, Nimbus/Nimby, vet prep, symptom observation, and the broader goal of healing and caring for the animals.
+- Status: revised public-safe subject path from old conversations and project memory.
+- Reason: redacted specific animal names, diagnoses, medications, and incident details so the public GitHub can preserve the research pattern without exposing private household/pet information.
+- Source: prior conversations about animal care, vet prep, symptom observation, and the broader goal of caring for animals through better observation and communication.
 - Boundary: this is not veterinary advice or diagnosis. It is an observation and organization framework for preparing better questions, records, and care discussions.
 
 ## Why this belongs in Mirror Cartographer
@@ -22,12 +22,11 @@ It requires:
 - emotional intensity without false certainty
 - practical next steps
 
-## Core animals referenced in long-context work
+## Public-safe scope
 
-- Bugsy / Bug / Bugger: dog, glaucoma, heart murmur, travel/gabapentin reaction, eye medication, anxiety and new-place adjustment.
-- O'Malley: FIV+, enlarged lymph nodes, concern about comfort versus deeper diagnostic work.
-- Griffey: cat, skin/facial scab observations.
-- Nimbus / Nimby: cat, skin/facial scab observations and travel/life planning connection.
+This public file does not list individual animal names, diagnoses, medications, clinic visits, or private household details.
+
+Private animal-care details should remain outside the public GitHub unless intentionally anonymized and consented for public use.
 
 ## Product translation
 
@@ -50,14 +49,13 @@ Mirror Cartographer animal-care mode should support:
 
 Examples:
 
-- eye swelling
+- visible eye or skin changes
 - appetite change
-- vomiting
+- vomiting or digestive change
 - breathing changes
-- lymph node enlargement
-- skin/scab changes
+- swelling or lump observations
 - energy level
-- gait or circling behavior
+- gait or movement change
 
 ### Behavior signal
 
@@ -65,7 +63,7 @@ Examples:
 
 - hiding
 - pacing
-- spinning
+- restlessness
 - resting more
 - seeking contact
 - reduced interest in food
@@ -76,18 +74,18 @@ Examples:
 Examples:
 
 - travel
-- flight
-- hotel or new location
 - weather / heat
 - routine disruption
 - other animals in household
+- new location
+- household stressors
 
 ### Care signal
 
 Examples:
 
-- medication timing
-- side effects
+- intervention timing
+- possible side effects
 - vet visit notes
 - specialist recommendations
 - follow-up questions
@@ -96,7 +94,7 @@ Examples:
 
 Mirror Cartographer can help organize what happened.
 
-It cannot tell whether an animal has a disease, whether a medication caused an event, or what treatment is correct.
+It cannot tell whether an animal has a disease, whether an intervention caused an event, or what treatment is correct.
 
 It can produce:
 
@@ -108,4 +106,4 @@ It can produce:
 
 ## Search terms
 
-Bugsy, Bug, O'Malley, Griffey, Nimbus, Nimby, animal care, vet prep, glaucoma, heart murmur, FIV, lymph nodes, gabapentin, pet observation, Body category, veterinary boundary.
+animal care, vet prep, pet observation, household animals, symptom timing, behavior change, care timeline, veterinary boundary, Body category.
