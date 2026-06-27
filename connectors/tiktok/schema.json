@@ -1,0 +1,101 @@
+{
+  "schema_name": "mirror_cartographer_tiktok_connector_item",
+  "version": "0.1.0",
+  "purpose": "Represent a TikTok source as a governed Mirror Cartographer field object with provenance, privacy, and claim boundaries.",
+  "fields": {
+    "item_id": {
+      "type": "string",
+      "required": true
+    },
+    "canonical_url": {
+      "type": "string",
+      "required": true
+    },
+    "platform": {
+      "type": "string",
+      "const": "tiktok"
+    },
+    "collected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_access_method": {
+      "type": "string",
+      "allowed_values": [
+        "user_pasted_url",
+        "user_data_export",
+        "oauth_api",
+        "research_api",
+        "public_metadata",
+        "unknown"
+      ]
+    },
+    "source_metadata": {
+      "type": "object",
+      "fields": {
+        "creator_handle": "string",
+        "caption": "string",
+        "hashtags": ["string"],
+        "published_at": "string",
+        "video_id": "string",
+        "audio_title": "string",
+        "duration_seconds": "number",
+        "metadata_completeness": "complete | partial | unknown"
+      }
+    },
+    "user_note": {
+      "type": "object",
+      "fields": {
+        "note_text": "string",
+        "reason_saved": "string",
+        "user_tags": ["string"],
+        "emotional_signal": "string",
+        "project_relevance": ["string"],
+        "privacy_level": "private_note | public_safe_abstraction | do_not_store"
+      }
+    },
+    "mc_interpretation": {
+      "type": "object",
+      "fields": {
+        "symbolic_tags": ["string"],
+        "sensory_tags": ["string"],
+        "practical_tags": ["string"],
+        "creative_tags": ["string"],
+        "research_tags": ["string"],
+        "confidence": "low | medium | high",
+        "claim_status": "source_fact | user_statement | system_inference | project_hypothesis | unknown",
+        "needs_user_review": "boolean"
+      }
+    },
+    "project_links": {
+      "type": "array",
+      "items": {
+        "project": "string",
+        "link_type": "reference | evidence_candidate | visual_style | sound_reference | animal_observation | research_lead | discard",
+        "public_safe": "boolean"
+      }
+    },
+    "memory_status": {
+      "type": "string",
+      "allowed_values": [
+        "do_not_save",
+        "session_only",
+        "private_memory_candidate",
+        "public_safe_abstraction",
+        "approved_public_reference",
+        "discard"
+      ]
+    },
+    "review_state": {
+      "type": "string",
+      "allowed_values": [
+        "unreviewed",
+        "user_confirmed",
+        "user_revised",
+        "needs_more_context",
+        "discarded",
+        "published_as_abstraction"
+      ]
+    }
+  }
+}
