@@ -7,6 +7,12 @@ Each link appears once. Add tags/notes to an existing row rather than duplicatin
 | https://mirror-cartographer-ui.vercel.app | project | cited-in-chat | Mirror Cartographer, deployment, UI | Public Vercel deployment URL previously referenced as the live MC interface. |
 | https://github.com/MirrorCartographer/mirror-cartographer-ui | repo | used-for-design | Mirror Cartographer, UI, private build | GitHub repository for the private-first MC UI build. |
 | https://github.com/MirrorCartographer/MirrorCartographer | repo | used-for-design | Mirror Cartographer, public mind, source index | Public GitHub mind repository where durable public-safe artifacts are stored. |
+| https://arxiv.org/abs/2602.01450 | paper | used-for-design | memory, agency, privacy, algorithmic self-portrait | Empirical paper on conversational AI memory, user agency, sensitive inferences, and attribution shielding. |
+| https://www.theverge.com/news/646968/openai-chatgpt-long-term-memory-upgrade | article | cited-in-chat | AI memory, user controls, personalization | Reporting on ChatGPT long-term memory expansion and user control patterns. |
+| https://www.theverge.com/news/776827/anthropic-claude-ai-memory-upgrade-team-enterprise | article | cited-in-chat | AI memory, enterprise, incognito, controls | Reporting on Claude memory controls and incognito chat pattern. |
+| https://arxiv.org/abs/2605.06738 | paper | used-for-design | agent trust, authorization, accountability, credentials | Agent trust infrastructure paper; useful for authorization-boundary concepts. |
+| https://www.iso.org/standard/81230.html | documentation | used-for-design | ISO 42001, AI management, governance | Official ISO page for ISO/IEC 42001 AI management system standard. |
+| https://www.nist.gov/itl/ai-risk-management-framework | documentation | used-for-design | NIST AI RMF, risk management, governance | Official NIST AI Risk Management Framework landing page. |
 
 ## Intake queue
 
