@@ -24,6 +24,10 @@ Each link appears once. Add tags/notes to an existing row rather than duplicatin
 | https://www.digitalcameraworld.com/photography/nature-and-wildlife-photography/this-uk-zoo-is-trialling-ai-powered-night-vision-cameras-to-boost-animal-care-starting-with-the-giraffes | article | cited-in-chat | animal monitoring, nocturnal behavior, AI, welfare observation | Reporting on Marwell Zoo and University of Surrey AI night-vision behavior monitoring trial. |
 | https://arxiv.org/abs/2506.05370 | paper | used-for-design | contextual memory, reflective systems, insight layer, drift detection | Contextual Memory Intelligence paper; useful for rationale preservation, human review, and drift detection in memory systems. |
 | https://arxiv.org/abs/2605.17163 | paper | used-for-design | STRIDE-AI, AI security, threat modeling, prompt injection | AI threat-modeling framework; useful for treating MC memory gates as safety and attack surfaces, not only UX controls. |
+| https://arxiv.org/abs/2308.01542 | paper | used-for-design | transparent memory, HCI, conversational agents, user control | Memory Sandbox paper; useful for treating memories as user-inspectable and manipulable objects. |
+| https://arxiv.org/abs/2602.04000 | paper | used-for-design | proactive assistants, longitudinal adaptation, privacy, preferences | Multi-session preference-aligned assistant paper; useful for review-over-time and user comfort criteria. |
+| https://arxiv.org/abs/2503.15511 | paper | used-for-design | trust calibration, transparency, usability, AI evaluation | Trust Calibration Maturity Model paper; useful for evaluating whether users can calibrate trust in MC interpretations. |
+| https://openai.com/index/memory-and-new-controls-for-chatgpt/ | documentation | used-for-design | ChatGPT memory, personalization, user controls | OpenAI memory announcement; useful for baseline product expectations around memory and controls. |
 
 ## Intake queue
 
