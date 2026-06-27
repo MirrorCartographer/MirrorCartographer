@@ -13,6 +13,10 @@ Each link appears once. Add tags/notes to an existing row rather than duplicatin
 | https://arxiv.org/abs/2605.06738 | paper | used-for-design | agent trust, authorization, accountability, credentials | Agent trust infrastructure paper; useful for authorization-boundary concepts. |
 | https://www.iso.org/standard/81230.html | documentation | used-for-design | ISO 42001, AI management, governance | Official ISO page for ISO/IEC 42001 AI management system standard. |
 | https://www.nist.gov/itl/ai-risk-management-framework | documentation | used-for-design | NIST AI RMF, risk management, governance | Official NIST AI Risk Management Framework landing page. |
+| https://arxiv.org/abs/2604.24527 | paper | used-for-design | interoception, embodied AI, adaptive autonomy, internal state | Interoceptive machine framework; used for Watchtower Mode state-regulation design. |
+| https://arxiv.org/abs/2605.05017 | paper | used-for-design | embodied AI, privacy, lifecycle control, SPINE | Position paper treating privacy as a dynamic architectural constraint in embodied AI. |
+| https://arxiv.org/abs/2606.10940 | paper | used-for-design | camera traps, animal behavior, open-source AI, observation | Open-source camera-trap AI model; useful for accessible, non-specialist observation tooling. |
+| https://www.digitalcameraworld.com/photography/nature-and-wildlife-photography/this-uk-zoo-is-trialling-ai-powered-night-vision-cameras-to-boost-animal-care-starting-with-the-giraffes | article | cited-in-chat | animal monitoring, nocturnal behavior, AI, welfare observation | Reporting on Marwell Zoo and University of Surrey AI night-vision behavior monitoring trial. |
 
 ## Intake queue
 
