@@ -1,0 +1,238 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/agency-validator-expected-output-pack.v1.schema.json",
+  "title": "MC Agency Validator Expected Output Pack v1",
+  "description": "Machine-readable expectation contract for paired Ajv/python-jsonschema fixture convergence tests. This validates structural expectations and repair-category convergence only; it does not decide symbolic truth, agency label correctness, or reviewer interpretation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "pack_id",
+    "purpose",
+    "fixture_schema_id",
+    "canonical_error_schema_id",
+    "run_policy",
+    "cases",
+    "authority_boundary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "agency-validator-expected-output-pack.v1"
+    },
+    "pack_id": {
+      "type": "string",
+      "pattern": "^mc-agency-validator-pack-[a-z0-9-]{3,80}$"
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 40,
+      "description": "Plain-language description of what this pack proves and what it does not prove."
+    },
+    "fixture_schema_id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "canonical_error_schema_id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "run_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_validators",
+        "compare_unit",
+        "raw_error_messages_are_contract",
+        "allow_whitelisted_divergence",
+        "fail_on_adapter_failure",
+        "fail_on_unexpected_both_pass_for_broken_case"
+      ],
+      "properties": {
+        "required_validators": {
+          "type": "array",
+          "items": {
+            "enum": ["ajv", "python-jsonschema"]
+          },
+          "uniqueItems": true,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "compare_unit": {
+          "enum": ["repair_category_set", "canonical_error_set", "pass_fail_only"]
+        },
+        "raw_error_messages_are_contract": {
+          "const": false
+        },
+        "allow_whitelisted_divergence": {
+          "type": "boolean"
+        },
+        "fail_on_adapter_failure": {
+          "const": true
+        },
+        "fail_on_unexpected_both_pass_for_broken_case": {
+          "const": true
+        }
+      }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "$ref": "#/$defs/expected_case"
+      }
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validator_convergence_means",
+        "validator_convergence_does_not_mean",
+        "reviewer_decides"
+      ],
+      "properties": {
+        "validator_convergence_means": {
+          "type": "string",
+          "minLength": 20
+        },
+        "validator_convergence_does_not_mean": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 8
+          },
+          "minItems": 2
+        },
+        "reviewer_decides": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 8
+          },
+          "minItems": 1
+        }
+      }
+    }
+  },
+  "$defs": {
+    "expected_case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "fixture_path",
+        "case_kind",
+        "expected_validator_outcome",
+        "expected_repair_categories",
+        "expected_convergence_state",
+        "brittleness_controls",
+        "reviewer_receipt"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^case-[a-z0-9-]{3,100}$"
+        },
+        "fixture_path": {
+          "type": "string",
+          "pattern": "^mind/validation/fixtures/.+\\.json$"
+        },
+        "case_kind": {
+          "enum": ["valid_control", "broken_expected", "divergence_expected", "adapter_guard"]
+        },
+        "expected_validator_outcome": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["ajv", "python-jsonschema"],
+          "properties": {
+            "ajv": {"$ref": "#/$defs/validator_expectation"},
+            "python-jsonschema": {"$ref": "#/$defs/validator_expectation"}
+          }
+        },
+        "expected_repair_categories": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/repair_category"},
+          "uniqueItems": true
+        },
+        "allowed_extra_repair_categories": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/repair_category"},
+          "uniqueItems": true,
+          "description": "Only use for known validator-specific noise that should be visible but not CI-fatal."
+        },
+        "expected_convergence_state": {
+          "enum": [
+            "converged",
+            "partially_converged",
+            "diverged_whitelisted",
+            "single_validator_failure_whitelisted",
+            "valid_control_passed",
+            "adapter_failure_expected"
+          ]
+        },
+        "divergence_justification": {
+          "type": "string",
+          "minLength": 20,
+          "description": "Required by policy when expected_convergence_state includes whitelisted divergence."
+        },
+        "brittleness_controls": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assert_exact_raw_message",
+            "assert_error_order",
+            "assert_validator_version_exact",
+            "assert_canonical_category_set"
+          ],
+          "properties": {
+            "assert_exact_raw_message": {"const": false},
+            "assert_error_order": {"const": false},
+            "assert_validator_version_exact": {"type": "boolean"},
+            "assert_canonical_category_set": {"const": true}
+          }
+        },
+        "reviewer_receipt": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["summary", "repair_instruction", "meaning_boundary"],
+          "properties": {
+            "summary": {"type": "string", "minLength": 20},
+            "repair_instruction": {"type": "string", "minLength": 20},
+            "meaning_boundary": {"type": "string", "minLength": 20}
+          }
+        }
+      }
+    },
+    "validator_expectation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["should_pass", "required_repair_categories"],
+      "properties": {
+        "should_pass": {"type": "boolean"},
+        "required_repair_categories": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/repair_category"},
+          "uniqueItems": true
+        }
+      }
+    },
+    "repair_category": {
+      "enum": [
+        "missing_required_field",
+        "wrong_type",
+        "unsupported_value",
+        "constant_mismatch",
+        "extra_field",
+        "too_few_items",
+        "too_many_items",
+        "text_too_short",
+        "text_too_long",
+        "pattern_mismatch",
+        "format_warning",
+        "ambiguous_branch_failure",
+        "compound_rule_failure",
+        "schema_contract_error",
+        "unknown_validation_failure"
+      ]
+    }
+  }
+}
