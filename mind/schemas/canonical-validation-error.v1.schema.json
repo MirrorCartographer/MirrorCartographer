@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/canonical-validation-error.v1.schema.json",
+  "title": "Canonical Validation Error v1",
+  "description": "Library-independent validation-error envelope for MC fixture repair receipts. This schema normalizes validator evidence without making the validator the source of symbolic or agency truth.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "error_id",
+    "source_validator",
+    "source_error",
+    "canonical_location",
+    "canonical_keyword",
+    "repair_category",
+    "severity",
+    "reviewer_message",
+    "machine_action"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "canonical-validation-error.v1"
+    },
+    "error_id": {
+      "type": "string",
+      "pattern": "^cve-[a-z0-9-]{8,80}$"
+    },
+    "source_validator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "runtime"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": ["ajv", "python-jsonschema", "other"]
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "runtime": {
+          "type": "string",
+          "enum": ["node", "python", "browser", "ci", "unknown"]
+        }
+      }
+    },
+    "source_error": {
+      "type": "object",
+      "description": "Lossy-safe snapshot of the original validator error. Do not expose directly to end users.",
+      "additionalProperties": true,
+      "required": ["raw_keyword", "raw_instance_path", "raw_schema_path"],
+      "properties": {
+        "raw_keyword": {"type": "string"},
+        "raw_instance_path": {"type": "string"},
+        "raw_schema_path": {"type": "string"},
+        "raw_message": {"type": "string"},
+        "raw_params": {"type": "object", "additionalProperties": true}
+      }
+    },
+    "canonical_location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["instance_pointer", "schema_pointer", "field_name"],
+      "properties": {
+        "instance_pointer": {
+          "type": "string",
+          "description": "RFC 6901 JSON Pointer to the invalid instance location. Root is empty string."
+        },
+        "schema_pointer": {
+          "type": "string",
+          "description": "JSON Pointer to the schema keyword or nearest stable schema location."
+        },
+        "field_name": {
+          "type": "string",
+          "description": "Human-stable field name used in repair receipts. Use root for document-level errors."
+        }
+      }
+    },
+    "canonical_keyword": {
+      "type": "string",
+      "enum": [
+        "required",
+        "type",
+        "enum",
+        "const",
+        "additionalProperties",
+        "minItems",
+        "maxItems",
+        "minLength",
+        "maxLength",
+        "pattern",
+        "format",
+        "oneOf",
+        "anyOf",
+        "allOf",
+        "dependentRequired",
+        "unevaluatedProperties",
+        "schema",
+        "unknown"
+      ]
+    },
+    "repair_category": {
+      "type": "string",
+      "enum": [
+        "missing_required_field",
+        "wrong_type",
+        "unsupported_value",
+        "constant_mismatch",
+        "extra_field",
+        "too_few_items",
+        "too_many_items",
+        "text_too_short",
+        "text_too_long",
+        "pattern_mismatch",
+        "format_warning",
+        "ambiguous_branch_failure",
+        "compound_rule_failure",
+        "schema_contract_error",
+        "unknown_validation_failure"
+      ]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["block_review", "repair_before_review", "warn_reviewer", "note_only"]
+    },
+    "reviewer_message": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Plain-language repair receipt message. It should say what to fix, not expose validator internals."
+    },
+    "machine_action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action", "autofix_allowed", "requires_human_review"],
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": ["add_field", "change_type", "choose_allowed_value", "remove_field", "rewrite_text", "inspect_branch", "inspect_schema", "manual_review"]
+        },
+        "autofix_allowed": {"type": "boolean"},
+        "requires_human_review": {"type": "boolean"},
+        "suggested_patch_pointer": {
+          "type": "string",
+          "description": "Optional JSON Pointer for the place a repair tool should patch."
+        }
+      }
+    },
+    "agency_guardrail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["does_not_determine_label", "does_not_score_symbolic_truth"],
+      "properties": {
+        "does_not_determine_label": {"const": true},
+        "does_not_score_symbolic_truth": {"const": true},
+        "note": {"type": "string"}
+      }
+    }
+  }
+}
