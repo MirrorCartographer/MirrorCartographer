@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/agency-validation-report.v1.schema.json",
+  "title": "MC Agency Validation Report v1",
+  "description": "Reviewer-facing validation report for agency near-miss fixtures. This report translates schema/rule failures into repairable feedback without making the validator the final authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["report_id", "schema_version", "fixture_id", "overall_status", "summary", "repair_receipts", "reviewer_actions", "provenance"],
+  "properties": {
+    "report_id": { "type": "string", "pattern": "^mc-agency-report-[0-9]{3}-[0-9]{8}$" },
+    "schema_version": { "const": "1.0.0" },
+    "fixture_id": { "type": "string", "pattern": "^mc-agency-nearmiss-[0-9]{3}$" },
+    "overall_status": { "enum": ["valid", "valid_with_warnings", "needs_repair", "blocked"] },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["plain_language_result", "schema_failures", "rule_flags", "reviewer_disagreement_expected"],
+      "properties": {
+        "plain_language_result": { "type": "string", "minLength": 10 },
+        "schema_failures": { "type": "integer", "minimum": 0 },
+        "rule_flags": { "type": "integer", "minimum": 0 },
+        "reviewer_disagreement_expected": { "type": "boolean" }
+      }
+    },
+    "repair_receipts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["receipt_id", "location", "problem", "why_it_matters", "suggested_repair", "authority_limit"],
+        "properties": {
+          "receipt_id": { "type": "string", "pattern": "^REPAIR-[0-9]{2}$" },
+          "location": { "type": "string", "description": "JSON Pointer or human-readable fixture section." },
+          "problem": { "type": "string", "minLength": 5 },
+          "why_it_matters": { "type": "string", "minLength": 10 },
+          "suggested_repair": { "type": "string", "minLength": 10 },
+          "authority_limit": { "type": "string", "minLength": 10, "description": "What validation cannot conclude from this failure." }
+        }
+      }
+    },
+    "reviewer_actions": {
+      "type": "array",
+      "items": {
+        "enum": ["inspect_delta", "check_public_safety", "add_missing_evidence", "downgrade_vividness", "mark_thin_boundary", "run_again", "escalate_to_human_review"]
+      },
+      "uniqueItems": true
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["validator_name", "validator_version", "ruleset_version", "generated_at", "source_schema"],
+      "properties": {
+        "validator_name": { "type": "string", "minLength": 2 },
+        "validator_version": { "type": "string", "minLength": 1 },
+        "ruleset_version": { "type": "string", "minLength": 1 },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "source_schema": { "type": "string", "format": "uri" }
+      }
+    }
+  }
+}
