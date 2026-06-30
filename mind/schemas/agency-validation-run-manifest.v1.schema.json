@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/agency-validation-run-manifest.v1.schema.json",
+  "title": "MC Agency Validation Run Manifest v1",
+  "description": "Public-safe manifest for one paired-validator run. Captures run identity, input set, validator configuration, output layout, and CI policy without storing private user material.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "created_at",
+    "runner",
+    "repository",
+    "input_pack",
+    "schemas_under_test",
+    "validators",
+    "format_validation_policy",
+    "output_layout",
+    "convergence_policy",
+    "privacy_policy",
+    "ci"
+  ],
+  "properties": {
+    "schema_version": { "const": "agency-validation-run-manifest.v1" },
+    "run_id": {
+      "type": "string",
+      "pattern": "^agency-run-[0-9]{8}T[0-9]{6}Z-[a-z0-9-]+$"
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "runner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "implementation_status"],
+      "properties": {
+        "name": { "const": "paired-agency-validator" },
+        "version": { "type": "string", "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "implementation_status": { "enum": ["planned", "prototype", "ci-enforced"] }
+      }
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "commit_sha"],
+      "properties": {
+        "name": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" },
+        "commit_sha": { "type": "string", "pattern": "^[a-f0-9]{7,40}$" },
+        "branch": { "type": "string" }
+      }
+    },
+    "input_pack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "pack_id", "fixture_count"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^mind/fixtures/.+\\.json$" },
+        "pack_id": { "type": "string" },
+        "fixture_count": { "type": "integer", "minimum": 1 },
+        "fixture_ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "schemas_under_test": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "schema_id", "dialect"],
+        "properties": {
+          "path": { "type": "string", "pattern": "^mind/schemas/.+\\.json$" },
+          "schema_id": { "type": "string", "format": "uri" },
+          "dialect": { "const": "https://json-schema.org/draft/2020-12/schema" }
+        }
+      }
+    },
+    "validators": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["validator_id", "ecosystem", "package", "version", "draft", "raw_capture_path"],
+        "properties": {
+          "validator_id": { "enum": ["ajv", "python-jsonschema"] },
+          "ecosystem": { "enum": ["node", "python"] },
+          "package": { "type": "string" },
+          "version": { "type": "string" },
+          "draft": { "const": "2020-12" },
+          "format_plugin": { "type": "string" },
+          "raw_capture_path": { "type": "string", "pattern": "^mind/reports/agency-validation/runs/.+/raw/.+\\.json$" }
+        }
+      }
+    },
+    "format_validation_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "reason"],
+      "properties": {
+        "mode": { "enum": ["off", "annotation-only", "assertion-enabled-for-declared-formats"] },
+        "reason": { "type": "string", "minLength": 12 },
+        "declared_formats": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "output_layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root", "manifest_path", "canonical_report_path", "markdown_report_path", "raw_dir"],
+      "properties": {
+        "root": { "type": "string", "pattern": "^mind/reports/agency-validation/runs/.+$" },
+        "manifest_path": { "type": "string", "pattern": "^mind/reports/agency-validation/runs/.+/manifest\\.json$" },
+        "canonical_report_path": { "type": "string", "pattern": "^mind/reports/agency-validation/runs/.+/convergence-report\\.json$" },
+        "markdown_report_path": { "type": "string", "pattern": "^mind/reports/agency-validation/runs/.+/convergence-report\\.md$" },
+        "raw_dir": { "type": "string", "pattern": "^mind/reports/agency-validation/runs/.+/raw$" }
+      }
+    },
+    "convergence_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ci_asserts", "ci_does_not_assert", "allowed_statuses"],
+      "properties": {
+        "ci_asserts": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["schema_validity", "canonical_repair_category", "expected_output_pack_match", "report_schema_validity"] },
+          "uniqueItems": true
+        },
+        "ci_does_not_assert": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["raw_error_message_text", "raw_error_order", "symbolic_truth", "psychological_truth", "therapeutic_outcome"] },
+          "uniqueItems": true
+        },
+        "allowed_statuses": {
+          "type": "array",
+          "items": { "enum": ["pass", "fail", "divergent_expected", "divergent_unexpected", "blocked"] },
+          "uniqueItems": true
+        }
+      }
+    },
+    "privacy_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["public_safe", "fixture_content_rule", "redaction_required"],
+      "properties": {
+        "public_safe": { "const": true },
+        "fixture_content_rule": { "const": "abstracted_synthetic_or_consent-safe" },
+        "redaction_required": { "type": "boolean" }
+      }
+    },
+    "ci": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["workflow_path", "artifact_retention_days", "permissions"],
+      "properties": {
+        "workflow_path": { "type": "string", "pattern": "^\\.github/workflows/.+\\.ya?ml$" },
+        "artifact_retention_days": { "type": "integer", "minimum": 1, "maximum": 90 },
+        "permissions": { "type": "object", "additionalProperties": { "enum": ["none", "read", "write"] } }
+      }
+    }
+  }
+}
