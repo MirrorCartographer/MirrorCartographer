@@ -1,0 +1,170 @@
+{
+  "schema_version": "repair-category-map.v1",
+  "dialect": "https://json-schema.org/draft/2020-12/schema",
+  "category_policy": {
+    "max_active_categories": 12,
+    "new_category_requires": [
+      "at least two concrete fixture failures that cannot be repaired clearly by an existing active category",
+      "one reviewer-facing repair sentence that stays useful across Ajv and python-jsonschema outputs",
+      "one explicit non-meaning statement explaining what the category must not be used to claim"
+    ],
+    "deprecated_category_rule": "A category may be deprecated only after a replacement mapping exists and at least one convergence report confirms old and new handling on the same fixture pack. Deprecated categories remain readable in historical reports."
+  },
+  "categories": [
+    {
+      "category_id": "missing_required_field",
+      "status": "active",
+      "repair_label": "Missing required field",
+      "meaning": "The fixture lacks a field that the schema requires for reviewability or deterministic rule input.",
+      "reviewer_repair_prompt": "Add the missing field with public-safe, reviewable evidence rather than filler text.",
+      "non_meaning": "This does not mean the fixture is unsafe, manipulative, or symbolically false."
+    },
+    {
+      "category_id": "wrong_value_type",
+      "status": "active",
+      "repair_label": "Wrong value type",
+      "meaning": "A field exists but uses the wrong JSON value kind, such as string where array is required.",
+      "reviewer_repair_prompt": "Change the value shape while preserving the fixture's intended review meaning.",
+      "non_meaning": "This does not decide whether the content's agency label is correct."
+    },
+    {
+      "category_id": "closed_value_set_mismatch",
+      "status": "active",
+      "repair_label": "Closed value set mismatch",
+      "meaning": "A value is outside a controlled vocabulary such as enum or const.",
+      "reviewer_repair_prompt": "Choose the closest allowed term or propose a governed vocabulary change with evidence.",
+      "non_meaning": "This is a vocabulary contract issue, not proof that the reviewer's interpretation is wrong."
+    },
+    {
+      "category_id": "format_boundary",
+      "status": "active",
+      "repair_label": "Format boundary",
+      "meaning": "A value sits on a validator-dependent format boundary such as date-time, uri, email, uuid, or hostname handling.",
+      "reviewer_repair_prompt": "Normalize the value to the project format policy or mark the case as intentional divergence.",
+      "non_meaning": "This must not be used as a content safety judgment because format support differs across validators."
+    },
+    {
+      "category_id": "pattern_or_shape_mismatch",
+      "status": "active",
+      "repair_label": "Pattern or shape mismatch",
+      "meaning": "A string or object key fails an explicit syntactic pattern used for stable IDs, paths, or machine-readable names.",
+      "reviewer_repair_prompt": "Repair the identifier or path to match the stable naming convention.",
+      "non_meaning": "This does not evaluate the quality of the scenario or reviewer reasoning."
+    },
+    {
+      "category_id": "unexpected_extra_field",
+      "status": "active",
+      "repair_label": "Unexpected extra field",
+      "meaning": "The fixture includes a property outside the schema's closed contract.",
+      "reviewer_repair_prompt": "Remove the extra field, move it into an allowed notes field, or open a schema-change proposal.",
+      "non_meaning": "This does not mean the extra information is useless; it means it is not part of the current contract."
+    },
+    {
+      "category_id": "array_cardinality_or_uniqueness",
+      "status": "active",
+      "repair_label": "Array cardinality or uniqueness",
+      "meaning": "An array has too few, too many, or duplicate items where the schema requires bounds or uniqueness.",
+      "reviewer_repair_prompt": "Adjust the list length or remove duplicates while keeping distinct evidence atoms readable.",
+      "non_meaning": "This does not rank evidence importance."
+    },
+    {
+      "category_id": "string_or_number_bounds",
+      "status": "active",
+      "repair_label": "String or number bounds",
+      "meaning": "A string or numeric value violates minimum, maximum, length, or multiple-of constraints.",
+      "reviewer_repair_prompt": "Bring the value inside the documented bound or justify a schema-boundary change.",
+      "non_meaning": "This is a contract-boundary signal, not a truth score."
+    },
+    {
+      "category_id": "compound_schema_boundary",
+      "status": "active",
+      "repair_label": "Compound schema boundary",
+      "meaning": "The failure arises from anyOf, oneOf, allOf, not, if, then, or else where raw errors are often noisy or nested.",
+      "reviewer_repair_prompt": "Identify which branch the fixture intends to satisfy, then repair against that branch's human-readable purpose.",
+      "non_meaning": "This must not hide meaningful ambiguity; it flags a branch-selection repair need."
+    },
+    {
+      "category_id": "schema_reference_or_dialect",
+      "status": "active",
+      "repair_label": "Schema reference or dialect problem",
+      "meaning": "Validation could not reliably apply the intended schema because of reference, meta-schema, dialect, or unsupported keyword handling.",
+      "reviewer_repair_prompt": "Fix schema loading, pin the dialect, or isolate the unsupported keyword before judging fixture content.",
+      "non_meaning": "This is infrastructure failure, not fixture failure."
+    },
+    {
+      "category_id": "validator_convergence_gap",
+      "status": "active",
+      "repair_label": "Validator convergence gap",
+      "meaning": "Validators produced different canonical categories after normalization, or one validator accepted while another rejected under the same declared policy.",
+      "reviewer_repair_prompt": "Record the divergence, inspect policy differences, and decide whether to normalize, pin, or preserve as a known boundary case.",
+      "non_meaning": "Validator disagreement does not create symbolic truth or content authority."
+    },
+    {
+      "category_id": "unmapped_validator_signal",
+      "status": "active",
+      "repair_label": "Unmapped validator signal",
+      "meaning": "A raw validator keyword or error shape was not recognized by the current adapter.",
+      "reviewer_repair_prompt": "Treat this as adapter debt: map it to an existing category first, and create a new category only if the category policy is met.",
+      "non_meaning": "This does not mean the fixture is invalid beyond the adapter's current knowledge."
+    }
+  ],
+  "keyword_mappings": [
+    {"validator_keyword": "required", "canonical_category_id": "missing_required_field", "mapping_confidence": "direct", "notes": "Ajv and python-jsonschema expose required-property failures with enough structured location data to name the missing field."},
+    {"validator_keyword": "type", "canonical_category_id": "wrong_value_type", "mapping_confidence": "direct", "notes": "Use expected/actual type when available; otherwise preserve raw evidence."},
+    {"validator_keyword": "enum", "canonical_category_id": "closed_value_set_mismatch", "mapping_confidence": "direct", "notes": "Controlled vocabulary mismatch."},
+    {"validator_keyword": "const", "canonical_category_id": "closed_value_set_mismatch", "mapping_confidence": "direct", "notes": "Single allowed value mismatch."},
+    {"validator_keyword": "format", "canonical_category_id": "format_boundary", "mapping_confidence": "boundary", "notes": "Format validation is policy-dependent and may require explicit enabling or different checker behavior."},
+    {"validator_keyword": "pattern", "canonical_category_id": "pattern_or_shape_mismatch", "mapping_confidence": "direct", "notes": "String pattern mismatch."},
+    {"validator_keyword": "propertyNames", "canonical_category_id": "pattern_or_shape_mismatch", "mapping_confidence": "contextual", "notes": "Usually indicates object-key naming contract failure."},
+    {"validator_keyword": "additionalProperties", "canonical_category_id": "unexpected_extra_field", "mapping_confidence": "direct", "notes": "Closed schema property violation."},
+    {"validator_keyword": "unevaluatedProperties", "canonical_category_id": "unexpected_extra_field", "mapping_confidence": "contextual", "notes": "Modern JSON Schema annotation-dependent behavior can make raw location output differ."},
+    {"validator_keyword": "minItems", "canonical_category_id": "array_cardinality_or_uniqueness", "mapping_confidence": "direct", "notes": "Array lower bound."},
+    {"validator_keyword": "maxItems", "canonical_category_id": "array_cardinality_or_uniqueness", "mapping_confidence": "direct", "notes": "Array upper bound."},
+    {"validator_keyword": "uniqueItems", "canonical_category_id": "array_cardinality_or_uniqueness", "mapping_confidence": "direct", "notes": "Array uniqueness."},
+    {"validator_keyword": "minLength", "canonical_category_id": "string_or_number_bounds", "mapping_confidence": "direct", "notes": "String lower bound."},
+    {"validator_keyword": "maxLength", "canonical_category_id": "string_or_number_bounds", "mapping_confidence": "direct", "notes": "String upper bound."},
+    {"validator_keyword": "minimum", "canonical_category_id": "string_or_number_bounds", "mapping_confidence": "direct", "notes": "Numeric lower bound."},
+    {"validator_keyword": "maximum", "canonical_category_id": "string_or_number_bounds", "mapping_confidence": "direct", "notes": "Numeric upper bound."},
+    {"validator_keyword": "exclusiveMinimum", "canonical_category_id": "string_or_number_bounds", "mapping_confidence": "direct", "notes": "Exclusive numeric lower bound."},
+    {"validator_keyword": "exclusiveMaximum", "canonical_category_id": "string_or_number_bounds", "mapping_confidence": "direct", "notes": "Exclusive numeric upper bound."},
+    {"validator_keyword": "multipleOf", "canonical_category_id": "string_or_number_bounds", "mapping_confidence": "direct", "notes": "Numeric divisibility bound."},
+    {"validator_keyword": "anyOf", "canonical_category_id": "compound_schema_boundary", "mapping_confidence": "boundary", "notes": "Branch failure needs human-readable branch intent."},
+    {"validator_keyword": "oneOf", "canonical_category_id": "compound_schema_boundary", "mapping_confidence": "boundary", "notes": "May fail because no branch matches or multiple branches match."},
+    {"validator_keyword": "allOf", "canonical_category_id": "compound_schema_boundary", "mapping_confidence": "boundary", "notes": "Nested sub-errors should be preserved."},
+    {"validator_keyword": "not", "canonical_category_id": "compound_schema_boundary", "mapping_confidence": "boundary", "notes": "Negative assertions need careful repair language."},
+    {"validator_keyword": "if", "canonical_category_id": "compound_schema_boundary", "mapping_confidence": "boundary", "notes": "Conditional branch boundary."},
+    {"validator_keyword": "then", "canonical_category_id": "compound_schema_boundary", "mapping_confidence": "boundary", "notes": "Conditional consequence boundary."},
+    {"validator_keyword": "else", "canonical_category_id": "compound_schema_boundary", "mapping_confidence": "boundary", "notes": "Conditional alternative boundary."},
+    {"validator_keyword": "$ref", "canonical_category_id": "schema_reference_or_dialect", "mapping_confidence": "contextual", "notes": "Reference loading or resolution problem."},
+    {"validator_keyword": "$schema", "canonical_category_id": "schema_reference_or_dialect", "mapping_confidence": "contextual", "notes": "Dialect mismatch or unsupported draft."},
+    {"validator_keyword": "unknown", "canonical_category_id": "unmapped_validator_signal", "mapping_confidence": "boundary", "notes": "Fallback category. Must be reviewed as adapter debt, not content meaning."}
+  ],
+  "divergence_policy": {
+    "raw_validator_disagreement": "Expected and acceptable when raw messages, paths, order, params, or nested errors differ. CI should not fail on raw disagreement alone.",
+    "canonical_category_disagreement": "CI should fail or mark needs-review when the same fixture produces different canonical categories after normalization, unless the expected-output pack marks the fixture as intentional divergence.",
+    "format_validation_boundary": "Format assertions must be declared by policy for each runner. If one library has format checking disabled and another has it enabled, report a configuration failure before reporting fixture failure."
+  },
+  "reviewer_language_policy": {
+    "allowed_voice": [
+      "repair the field shape",
+      "normalize the value",
+      "record validator divergence",
+      "preserve reviewer judgment",
+      "treat as infrastructure evidence"
+    ],
+    "forbidden_voice": [
+      "the fixture is false",
+      "the scenario is unsafe because schema failed",
+      "validator agreement proves symbolic truth",
+      "LLM judge decides the final category"
+    ],
+    "must_preserve": [
+      "raw validator evidence",
+      "canonical category",
+      "fixture path",
+      "schema path when available",
+      "repair prompt",
+      "non-meaning statement"
+    ]
+  }
+}
