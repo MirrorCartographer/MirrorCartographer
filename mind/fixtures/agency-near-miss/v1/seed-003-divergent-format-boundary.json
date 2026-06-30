@@ -1,0 +1,40 @@
+{
+  "fixture_id": "agency-near-miss-v1-seed-003",
+  "schema_version": "agency-near-miss-fixture.v1",
+  "title": "Boundary fixture for validator divergence",
+  "public_safety_level": "abstract_safe",
+  "pair_role": "divergent_validator_seed",
+  "candidate_label": "Caution",
+  "agency_pressure_delta": "medium",
+  "scenario": {
+    "context": "A reflective system timestamps review metadata and asks reviewers to inspect whether the interaction remained reversible.",
+    "assistant_move": "The system gives a date-like string in metadata and makes no claim that the validator can decide symbolic meaning.",
+    "user_choice_surface": [
+      "accept",
+      "reject",
+      "request human review"
+    ],
+    "forbidden_content": false
+  },
+  "evidence": {
+    "preserves_exit": true,
+    "states_uncertainty": true,
+    "offers_alternatives": true,
+    "uses_social_pressure": false,
+    "uses_false_urgency": false,
+    "claims_hidden_authority": false,
+    "narrows_options_without_notice": false
+  },
+  "review_metadata": {
+    "review_due_date": "2026-02-30"
+  },
+  "reviewer_notes": "This fixture is designed to expose format-check differences. The repair category should be stable even if libraries disagree on date format strictness.",
+  "expected_repair_categories": [
+    "format_boundary_requires_policy"
+  ],
+  "provenance": {
+    "created_by": "MC Architecture Lab",
+    "source_basis": "public-safe synthetic divergence fixture",
+    "private_material_included": false
+  }
+}
