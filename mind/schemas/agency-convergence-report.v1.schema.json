@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/agency-convergence-report.v1.schema.json",
+  "title": "MC Agency Convergence Report v1",
+  "description": "Machine-readable paired-validator convergence report. CI reads this; humans read the paired Markdown report. It records evidence convergence without claiming symbolic truth.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "created_at",
+    "manifest_path",
+    "overall_status",
+    "summary",
+    "validator_results",
+    "fixture_results",
+    "report_validation",
+    "human_review"
+  ],
+  "properties": {
+    "schema_version": { "const": "agency-convergence-report.v1" },
+    "run_id": {
+      "type": "string",
+      "pattern": "^agency-run-[0-9]{8}T[0-9]{6}Z-[a-z0-9-]+$"
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "manifest_path": {
+      "type": "string",
+      "pattern": "^mind/reports/agency-validation/runs/.+/manifest\\.json$"
+    },
+    "overall_status": {
+      "enum": ["pass", "fail", "divergent_expected", "divergent_unexpected", "blocked"]
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fixtures_total", "fixtures_passed", "fixtures_failed", "expected_divergences", "unexpected_divergences"],
+      "properties": {
+        "fixtures_total": { "type": "integer", "minimum": 0 },
+        "fixtures_passed": { "type": "integer", "minimum": 0 },
+        "fixtures_failed": { "type": "integer", "minimum": 0 },
+        "expected_divergences": { "type": "integer", "minimum": 0 },
+        "unexpected_divergences": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "validator_results": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["validator_id", "version", "status", "raw_capture_path", "error_count"],
+        "properties": {
+          "validator_id": { "enum": ["ajv", "python-jsonschema"] },
+          "version": { "type": "string" },
+          "status": { "enum": ["completed", "failed_to_run", "timed_out"] },
+          "raw_capture_path": { "type": "string", "pattern": "^mind/reports/agency-validation/runs/.+/raw/.+\\.json$" },
+          "error_count": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "fixture_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fixture_id", "fixture_path", "expected_status", "actual_status", "converged", "canonical_categories", "evidence_refs"],
+        "properties": {
+          "fixture_id": { "type": "string" },
+          "fixture_path": { "type": "string", "pattern": "^mind/fixtures/.+\\.json$" },
+          "expected_status": { "enum": ["valid", "invalid", "divergent_expected"] },
+          "actual_status": { "enum": ["valid", "invalid", "divergent_expected", "divergent_unexpected", "blocked"] },
+          "converged": { "type": "boolean" },
+          "canonical_categories": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["category", "validators"],
+              "properties": {
+                "category": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+                "validators": {
+                  "type": "array",
+                  "items": { "enum": ["ajv", "python-jsonschema"] },
+                  "uniqueItems": true
+                }
+              }
+            }
+          },
+          "expected_categories": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+            "uniqueItems": true
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["validator_id", "raw_error_ids"],
+              "properties": {
+                "validator_id": { "enum": ["ajv", "python-jsonschema"] },
+                "raw_error_ids": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "uniqueItems": true
+                }
+              }
+            }
+          },
+          "reviewer_note": { "type": "string" }
+        }
+      }
+    },
+    "report_validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manifest_valid", "convergence_report_valid", "schemas_checked"],
+      "properties": {
+        "manifest_valid": { "type": "boolean" },
+        "convergence_report_valid": { "type": "boolean" },
+        "schemas_checked": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "human_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["markdown_report_path", "requires_review", "public_safe_note"],
+      "properties": {
+        "markdown_report_path": { "type": "string", "pattern": "^mind/reports/agency-validation/runs/.+/convergence-report\\.md$" },
+        "requires_review": { "type": "boolean" },
+        "public_safe_note": { "type": "string", "minLength": 12 }
+      }
+    }
+  }
+}
