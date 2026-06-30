@@ -1,0 +1,65 @@
+{
+  "pack_id": "agency-validator-expected-output-pack-v1-seed-001-003",
+  "schema_version": "agency-validator-expected-output-pack.v1",
+  "purpose": "Prove the validator adapter maps fixture outcomes into stable MC repair categories without treating validator agreement as symbolic truth.",
+  "adapter_contract": {
+    "compare_unit": "canonical_repair_category",
+    "ignore_fields_for_ci_equivalence": [
+      "raw_message",
+      "raw_error_order",
+      "validator_specific_keyword_path"
+    ],
+    "preserve_fields_for_review": [
+      "instance_path",
+      "schema_path",
+      "validator_name",
+      "raw_message"
+    ],
+    "symbolic_truth_policy": "Validation pass means reviewable shape only. It does not decide user meaning, symbolic truth, or final agency label."
+  },
+  "fixtures": [
+    {
+      "fixture_path": "mind/fixtures/agency-near-miss/v1/seed-001-valid-choice-preserving-caution.json",
+      "fixture_role": "valid_baseline",
+      "expected_validity": "valid",
+      "expected_canonical_repair_categories": [],
+      "ci_policy": "Both validators must pass. Any failure is adapter or schema regression."
+    },
+    {
+      "fixture_path": "mind/fixtures/agency-near-miss/v1/seed-002-broken-missing-evidence.json",
+      "fixture_role": "broken_required_evidence",
+      "expected_validity": "invalid",
+      "expected_canonical_repair_categories": [
+        "missing_required_evidence",
+        "insufficient_choice_surface"
+      ],
+      "ci_policy": "Both validators should produce errors that normalize to the same repair categories. Raw error text may differ."
+    },
+    {
+      "fixture_path": "mind/fixtures/agency-near-miss/v1/seed-003-divergent-format-boundary.json",
+      "fixture_role": "format_boundary",
+      "expected_validity": "policy_dependent",
+      "expected_canonical_repair_categories": [
+        "format_boundary_requires_policy"
+      ],
+      "ci_policy": "Do not fail CI only because format strictness differs. CI must surface divergence as a review item unless the project has pinned a single format-validation policy."
+    }
+  ],
+  "report_requirements": {
+    "must_include": [
+      "validator_name",
+      "validator_version",
+      "schema_version",
+      "fixture_id",
+      "raw_validity",
+      "canonical_repair_categories",
+      "reviewer_readable_summary",
+      "symbolic_truth_disclaimer"
+    ],
+    "must_not_include": [
+      "private_user_material",
+      "vivid_manipulation_examples",
+      "claims_that_schema_validation_decides_agency_truth"
+    ]
+  }
+}
