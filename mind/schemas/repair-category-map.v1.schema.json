@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/repair-category-map.v1.schema.json",
+  "title": "MC Repair Category Map v1",
+  "description": "Governed schema for mapping raw JSON Schema validator errors into stable, reviewer-readable repair categories. This schema normalizes infrastructure failure signals only; it does not decide symbolic truth, agency truth, or reviewer judgment.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "dialect",
+    "category_policy",
+    "categories",
+    "keyword_mappings",
+    "divergence_policy",
+    "reviewer_language_policy"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "repair-category-map.v1"
+    },
+    "dialect": {
+      "type": "string",
+      "const": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "category_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_active_categories",
+        "new_category_requires",
+        "deprecated_category_rule"
+      ],
+      "properties": {
+        "max_active_categories": {
+          "type": "integer",
+          "minimum": 6,
+          "maximum": 16
+        },
+        "new_category_requires": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string"
+          }
+        },
+        "deprecated_category_rule": {
+          "type": "string"
+        }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 16,
+      "items": {
+        "$ref": "#/$defs/category"
+      }
+    },
+    "keyword_mappings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/keyword_mapping"
+      }
+    },
+    "divergence_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "raw_validator_disagreement",
+        "canonical_category_disagreement",
+        "format_validation_boundary"
+      ],
+      "properties": {
+        "raw_validator_disagreement": {
+          "type": "string"
+        },
+        "canonical_category_disagreement": {
+          "type": "string"
+        },
+        "format_validation_boundary": {
+          "type": "string"
+        }
+      }
+    },
+    "reviewer_language_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed_voice",
+        "forbidden_voice",
+        "must_preserve"
+      ],
+      "properties": {
+        "allowed_voice": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "forbidden_voice": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "must_preserve": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "category": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category_id",
+        "status",
+        "repair_label",
+        "meaning",
+        "reviewer_repair_prompt",
+        "non_meaning"
+      ],
+      "properties": {
+        "category_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "status": {
+          "enum": ["active", "reserved", "deprecated"]
+        },
+        "repair_label": {
+          "type": "string",
+          "minLength": 3
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 10
+        },
+        "reviewer_repair_prompt": {
+          "type": "string",
+          "minLength": 10
+        },
+        "non_meaning": {
+          "type": "string",
+          "minLength": 10
+        }
+      }
+    },
+    "keyword_mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validator_keyword",
+        "canonical_category_id",
+        "mapping_confidence",
+        "notes"
+      ],
+      "properties": {
+        "validator_keyword": {
+          "type": "string",
+          "minLength": 1
+        },
+        "canonical_category_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "mapping_confidence": {
+          "enum": ["direct", "contextual", "boundary"]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
