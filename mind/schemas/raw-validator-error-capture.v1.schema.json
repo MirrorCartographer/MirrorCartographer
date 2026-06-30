@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/raw-validator-error-capture.v1.schema.json",
+  "title": "Raw Validator Error Capture v1",
+  "description": "Lossy-safe, library-specific evidence envelope for paired JSON Schema validation. This preserves debugging detail while keeping CI assertions tied to canonical repair categories, not raw messages or validator-specific ordering.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "capture_id",
+    "validator",
+    "validation_policy",
+    "fixture_ref",
+    "schema_ref",
+    "result",
+    "raw_errors",
+    "normalization_guardrail"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "raw-validator-error-capture.v1"
+    },
+    "capture_id": {
+      "type": "string",
+      "pattern": "^rvec-[a-z0-9-]{8,96}$"
+    },
+    "validator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "runtime", "dialect"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": ["ajv", "python-jsonschema", "other"]
+        },
+        "version": {"type": "string", "minLength": 1},
+        "runtime": {
+          "type": "string",
+          "enum": ["node", "python", "browser", "ci", "unknown"]
+        },
+        "dialect": {
+          "type": "string",
+          "description": "Declared JSON Schema dialect used for this validation run, for example https://json-schema.org/draft/2020-12/schema."
+        }
+      }
+    },
+    "validation_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["format_assertion", "all_errors", "message_capture", "error_order_is_asserted"],
+      "properties": {
+        "format_assertion": {
+          "type": "string",
+          "enum": ["enabled", "disabled", "validator_default", "unknown"],
+          "description": "Format checking is validator- and configuration-dependent; CI must compare only runs with an explicit shared policy."
+        },
+        "all_errors": {
+          "type": "boolean",
+          "description": "Whether the runner attempted to collect all errors rather than stop at first failure."
+        },
+        "message_capture": {
+          "type": "string",
+          "enum": ["captured_debug_only", "disabled", "redacted", "unknown"]
+        },
+        "error_order_is_asserted": {
+          "const": false,
+          "description": "Raw error order must not be a CI invariant."
+        }
+      }
+    },
+    "fixture_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "fixture_id"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "fixture_id": {"type": "string", "minLength": 1},
+        "content_hash": {"type": "string"}
+      }
+    },
+    "schema_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "schema_id"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "schema_id": {"type": "string", "minLength": 1},
+        "content_hash": {"type": "string"}
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["valid", "error_count"],
+      "properties": {
+        "valid": {"type": "boolean"},
+        "error_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "raw_errors": {
+      "type": "array",
+      "description": "Original validator signals normalized only enough to serialize. These records are evidence for debugging, not reviewer-facing repair language.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["raw_error_id", "keyword", "instance_location", "schema_location", "message_policy", "raw_params"],
+        "properties": {
+          "raw_error_id": {
+            "type": "string",
+            "pattern": "^raw-[a-z0-9-]{8,96}$"
+          },
+          "keyword": {
+            "type": "string",
+            "description": "Validator-provided keyword when available; use unknown when absent."
+          },
+          "instance_location": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["pointer"],
+            "properties": {
+              "pointer": {
+                "type": "string",
+                "description": "JSON Pointer to the instance location. Root is the empty string."
+              },
+              "json_path": {
+                "type": "string",
+                "description": "Optional python-jsonschema JSONPath-style location when available."
+              },
+              "path_segments": {
+                "type": "array",
+                "items": {"type": ["string", "integer"]}
+              }
+            }
+          },
+          "schema_location": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["pointer"],
+            "properties": {
+              "pointer": {
+                "type": "string",
+                "description": "JSON Pointer or nearest stable schema pointer for the failed keyword."
+              },
+              "absolute_pointer": {"type": "string"},
+              "path_segments": {
+                "type": "array",
+                "items": {"type": ["string", "integer"]}
+              }
+            }
+          },
+          "message_policy": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["message_captured", "message_is_ci_invariant"],
+            "properties": {
+              "message_captured": {"type": "boolean"},
+              "message_is_ci_invariant": {"const": false},
+              "message": {
+                "type": "string",
+                "description": "Optional debug-only raw message. Never use this as the asserted CI target."
+              }
+            }
+          },
+          "raw_params": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Keyword-specific validator parameters or equivalent structured fields."
+          },
+          "nested_raw_errors": {
+            "type": "array",
+            "description": "Subschema/context errors for compound keywords. Preserve when available; do not assert exact order.",
+            "items": {"$ref": "#/$defs/nested_raw_error"}
+          }
+        }
+      }
+    },
+    "normalization_guardrail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "raw_messages_do_not_define_repair_category",
+        "raw_order_do_not_define_convergence",
+        "validator_agreement_does_not_score_symbolic_truth"
+      ],
+      "properties": {
+        "raw_messages_do_not_define_repair_category": {"const": true},
+        "raw_order_do_not_define_convergence": {"const": true},
+        "validator_agreement_does_not_score_symbolic_truth": {"const": true},
+        "note": {"type": "string"}
+      }
+    }
+  },
+  "$defs": {
+    "nested_raw_error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["keyword", "instance_pointer", "schema_pointer"],
+      "properties": {
+        "keyword": {"type": "string"},
+        "instance_pointer": {"type": "string"},
+        "schema_pointer": {"type": "string"},
+        "message": {"type": "string"},
+        "raw_params": {"type": "object", "additionalProperties": true}
+      }
+    }
+  }
+}
