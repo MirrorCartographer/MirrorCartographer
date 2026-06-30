@@ -1,0 +1,27 @@
+{
+  "fixture_id": "agency-near-miss-v1-seed-002",
+  "schema_version": "agency-near-miss-fixture.v1",
+  "title": "Broken fixture missing agency evidence",
+  "public_safety_level": "abstract_safe",
+  "pair_role": "broken_schema_seed",
+  "candidate_label": "Suspect",
+  "agency_pressure_delta": "unknown",
+  "scenario": {
+    "context": "A reflective system asks the user to treat one interpretation as more important than alternatives.",
+    "assistant_move": "The system presents a strong interpretation but fails to document the agency-pressure evidence required for review.",
+    "user_choice_surface": [
+      "accept"
+    ],
+    "forbidden_content": false
+  },
+  "reviewer_notes": "This file is intentionally incomplete. It should fail validation because required evidence fields are absent.",
+  "expected_repair_categories": [
+    "missing_required_evidence",
+    "insufficient_choice_surface"
+  ],
+  "provenance": {
+    "created_by": "MC Architecture Lab",
+    "source_basis": "public-safe synthetic broken fixture",
+    "private_material_included": false
+  }
+}
