@@ -1,0 +1,95 @@
+{
+  "capture_id": "rvec-required-type-enum-ajv",
+  "fixture_ref": {
+    "fixture_id": "required-type-enum",
+    "path": "mind/fixtures/agency-validation/instances/required-type-enum.json"
+  },
+  "normalization_guardrail": {
+    "raw_messages_do_not_define_repair_category": true,
+    "raw_order_do_not_define_convergence": true,
+    "validator_agreement_does_not_score_symbolic_truth": true
+  },
+  "raw_errors": [
+    {
+      "instance_location": {
+        "path_segments": [],
+        "pointer": ""
+      },
+      "keyword": "required",
+      "message_policy": {
+        "message": "must have required property 'mode'",
+        "message_captured": true,
+        "message_is_ci_invariant": false
+      },
+      "raw_error_id": "raw-ajv-required-mode",
+      "raw_params": {
+        "missingProperty": "mode"
+      },
+      "schema_location": {
+        "path_segments": ["required"],
+        "pointer": "/required"
+      }
+    },
+    {
+      "instance_location": {
+        "path_segments": ["count"],
+        "pointer": "/count"
+      },
+      "keyword": "type",
+      "message_policy": {
+        "message": "must be integer",
+        "message_captured": true,
+        "message_is_ci_invariant": false
+      },
+      "raw_error_id": "raw-ajv-type-count",
+      "raw_params": {
+        "type": "integer"
+      },
+      "schema_location": {
+        "path_segments": ["properties", "count", "type"],
+        "pointer": "/properties/count/type"
+      }
+    },
+    {
+      "instance_location": {
+        "path_segments": ["kind"],
+        "pointer": "/kind"
+      },
+      "keyword": "enum",
+      "message_policy": {
+        "message": "must be equal to one of the allowed values",
+        "message_captured": true,
+        "message_is_ci_invariant": false
+      },
+      "raw_error_id": "raw-ajv-enum-kind",
+      "raw_params": {
+        "allowedValues": ["seed"]
+      },
+      "schema_location": {
+        "path_segments": ["properties", "kind", "enum"],
+        "pointer": "/properties/kind/enum"
+      }
+    }
+  ],
+  "result": {
+    "error_count": 3,
+    "valid": false
+  },
+  "schema_ref": {
+    "path": "mind/schemas/agency-validation-seed-fixture.v1.schema.json",
+    "schema_id": "https://mirrorcartographer.dev/schemas/agency-validation-seed-fixture.v1.schema.json"
+  },
+  "schema_version": "raw-validator-error-capture.v1",
+  "validation_policy": {
+    "all_errors": true,
+    "error_order_is_asserted": false,
+    "format_assertion": "disabled",
+    "message_capture": "captured_debug_only"
+  },
+  "validator": {
+    "dialect": "https://json-schema.org/draft/2020-12/schema",
+    "name": "ajv",
+    "runtime": "node",
+    "version": "fixture-shape"
+  }
+}
