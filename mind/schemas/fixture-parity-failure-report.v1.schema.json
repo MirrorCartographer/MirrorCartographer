@@ -36,12 +36,16 @@
     "fixture_pack": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["fixture_pack_id", "manifest_path"],
       "properties": {
+        "resolution_status": { "enum": ["resolved", "not-resolved"] },
         "fixture_pack_id": { "type": "string", "pattern": "^fixture-pack-[a-z0-9-]{8,96}$" },
         "manifest_path": { "$ref": "#/$defs/safe_repo_json_path" },
         "manifest_hash": { "$ref": "#/$defs/sha256" }
-      }
+      },
+      "anyOf": [
+        { "required": ["fixture_pack_id", "manifest_path"] },
+        { "required": ["resolution_status"], "properties": { "resolution_status": { "const": "not-resolved" } } }
+      ]
     },
     "overall_status": { "enum": ["pass", "fail"] },
     "ordering_policy": {
@@ -97,6 +101,33 @@
     {
       "if": { "properties": { "overall_status": { "const": "fail" } }, "required": ["overall_status"] },
       "then": { "properties": { "summary": { "required": ["first_failed_gate_id"] } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "gates": {
+            "contains": {
+              "properties": { "stage": { "const": "cli-parse" } },
+              "required": ["stage"]
+            }
+          }
+        },
+        "required": ["gates"]
+      },
+      "then": {
+        "properties": {
+          "fixture_pack": {
+            "required": ["resolution_status"],
+            "properties": { "resolution_status": { "const": "not-resolved" } }
+          },
+          "summary": {
+            "properties": {
+              "fixture_count": { "const": 0 },
+              "failed_fixture_count": { "const": 0 }
+            }
+          }
+        }
+      }
     }
   ],
   "$defs": {
@@ -116,6 +147,7 @@
         "gate_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,80}$" },
         "stage": {
           "enum": [
+            "cli-parse",
             "manifest-validation",
             "path-authority",
             "expected-receipt-validation",
@@ -136,6 +168,10 @@
         "evidence_id": { "type": "string", "pattern": "^ev-[a-z0-9-]{8,96}$" },
         "kind": {
           "enum": [
+            "cli-parse-error",
+            "unknown-flag",
+            "unsafe-path",
+            "missing-required-argument",
             "schema-error",
             "missing-file",
             "undeclared-file",
@@ -151,6 +187,7 @@
         "fixture_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,80}$" },
         "runtime": { "enum": ["node", "python"] },
         "path": { "$ref": "#/$defs/safe_repo_json_path" },
+        "argument_name": { "type": "string", "pattern": "^--[a-z][a-z0-9-]{1,80}$" },
         "schema_location": { "$ref": "#/$defs/json_pointer" },
         "instance_location": { "$ref": "#/$defs/json_pointer" },
         "expected_category_set": { "type": "array", "items": { "$ref": "#/$defs/category_id" }, "uniqueItems": true },
