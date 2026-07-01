@@ -1,43 +1,42 @@
 # Mirror Cartographer
 
-Mirror Cartographer TM is a bounded symbolic reflection interface for mapping body sensation, metaphor, color, symbol, and repeated emotional patterns into reviewable AI-assisted reflections.
+Mirror Cartographer is a public experiment in preserving and improving understanding across fragmented experience.
 
-It is not a therapy product, diagnostic authority, medical tool, oracle, source database, or objective truth engine. It is a prototype for studying and designing reflective human-AI interactions with explicit uncertainty, user feedback, and claim boundaries.
+It began as a symbolic reflection interface. It is now becoming a broader continuity atlas: a place where conversations, symbols, records, body signals, animal-care history, research questions, creative work, tool failures, and future goals can be mapped without flattening the life that produced them.
 
-## Current demo
+The direct question:
 
-The repository includes a working Next.js demo based on the system design and UI specification.
+**What if the information survived, but the understanding did not?**
 
-The demo now includes:
+Mirror Cartographer exists to rebuild the understanding.
 
-- body-area input
-- color input
-- texture input
-- symbol input
-- scene / narrative prompt entry
-- Canonical / Reflective / Mythopoetic mode toggle
-- optional symbolic memory / echo tracker toggle
-- visible interpretation mode tag
-- source status
-- claim status
-- audit label / overreach check
-- health-adjacent boundary flag
-- evidence boundary
-- grounded next step
-- update hook
-- user feedback loop
+## Project 101: public demonstrations
 
-This is intentionally not a diagnosis system or an oracle. It is a public proof that the concept can be translated into a bounded interface and evaluated.
+The next public proof layer is **Project 101**: one hundred and one demonstrations that show what Mirror Cartographer does instead of only explaining it.
+
+- `demonstrations/DEMONSTRATION_CATALOG_101.md`
+- `demonstrations/index.html`
+
+The 101st demonstration is the **Comedy Club**: an open-mic room for testing assumptions through humor, timing, reversals, contradiction, and social truth.
 
 ## Core idea
 
-Most chatbot interactions are treated as isolated exchanges: a user asks, the model answers, the session moves on.
+Most tools preserve fragments:
 
-Mirror Cartographer asks a narrower and more testable question:
+- notes
+- transcripts
+- records
+- code
+- research
+- images
+- timelines
+- conversations
 
-Can an AI interface help a user map body sensation, metaphor, symbol, and recurring emotional patterns while preserving the boundary between symbol and evidence?
+Mirror Cartographer asks whether the relationships between those fragments can also be preserved, inspected, challenged, and improved.
 
-The project explores whether AI can help users notice repeated structures without turning resonance into proof, metaphor into diagnosis, or pattern recognition into false certainty.
+The target is not only better answers.
+
+The target is a better quality of experience: more coherence, more agency, more contact with reality, more ability to act, and less loss of meaning between systems.
 
 ## What the system is designed to track
 
@@ -48,134 +47,95 @@ The project explores whether AI can help users notice repeated structures withou
 - contradictions and unresolved loops
 - shifts in interpretation over time
 - evidence boundaries
-- user feedback on resonance, confusion, and overreach
-- action steps and outcome feedback
+- source status
+- claim status
+- user correction
+- grounded next steps
+- outcome feedback
+- public/private boundaries
 
-## Product architecture
+## Public lanes
 
-The intended architecture is a reflective interface with:
+### Understanding
 
-- body-map interface for somatic input
-- symbolic input area for color, texture, and metaphoric word fields
-- scene or narrative prompt entry
-- Canonical / Reflective / Mythopoetic mode switching
-- optional symbolic memory viewer and echo tracker
-- interpretation output with type tag and audit indicators
-- source-status and claim-status labels
-- user correction and resonance feedback
-- structured recursive journaling
-- exportable session archives
-- explicit safety and claim boundaries
-- evaluation prompts for model behavior, overreach, and user impact
+How a fragment becomes a field. How directness changes the map. How each interaction should show what changed.
 
-## Human-AI interaction focus
+### Memory and continuity
 
-Mirror Cartographer is most relevant to:
+How archives become terrain rather than piles of transcripts.
 
-- AI safety evaluation
-- model behavior analysis
-- human-AI interaction research
-- reflective AI UX
-- trust and over-trust detection
-- long-context user continuity
-- emotionally salient AI interactions
-- AI-mediated sensemaking
-- neurodivergent symbolic cognition support
-- somatic and metaphor-based expression interfaces
+### Body
 
-## Safety boundaries
+How body signals become structured language and clinician-facing questions without becoming diagnosis claims.
 
-Allowed claims:
+### Animals
+
+How animal-care history becomes timeline, advocacy, clearer communication, and better preparation.
+
+### Research
+
+How unknown spaces become roadmaps with evidence boundaries, experiments, and proof thresholds.
+
+### Symbols
+
+How symbols, images, metaphors, colors, names, and repeated phrases become navigational data.
+
+### Human-AI co-discovery
+
+How corrections, tool failures, AI model drift, and co-authorship become inspectable.
+
+### Creative world
+
+How music, film, visual identity, weather, home, animals, and humor carry structure and feeling.
+
+### Value
+
+How public proof, barter, support, paid packets, and complexity reduction become visible.
+
+### Future
+
+How worlds, invariants, interaction locations, and returning visitors test whether the atlas is alive.
+
+## What this is not
+
+Mirror Cartographer is not a therapy product, diagnostic authority, medical tool, veterinary tool, oracle, or objective truth engine.
+
+It is a reflective and research-oriented interface for mapping fragments into reviewable structure with explicit uncertainty.
+
+## Allowed claims
 
 - The project explores reflective human-AI interaction.
 - The framework can structure user reflection and pattern tracking.
-- The system can help generate hypotheses, questions, summaries, and next-step maps.
+- The system can help generate hypotheses, questions, summaries, maps, and next-step structures.
 - Outputs require human judgment and external verification.
 - Symbolic output can support language-building and self-reflection.
 
-Not allowed claims:
+## Not allowed claims
 
 - The system diagnoses medical or psychological conditions.
 - The system replaces therapy, medical care, veterinary care, legal advice, or emergency support.
 - Symbolic resonance proves factual truth.
 - Recurrence alone proves causality.
 - AI interpretation is automatically more accurate than human interpretation.
-- The system should intensify distress without grounding.
 
-## Terms quarantined from the public front door
+## Public value
 
-These terms may appear in creative or Mythopoetic Mode materials, but they should not be the default public product language:
+Mirror Cartographer is for people whose information is not merely scattered, but whose understanding has become fragmented across tools, time, records, conversations, and contexts.
 
-- prophetic
-- oracle
-- sacred
-- decoding people
-- global symbolic topology
-- cognitive-symbolic OS
-- diagnosis-adjacent claims
+The public offer is continuity work:
 
-Public language should favor:
+- archive maps
+- research maps
+- symbolic atlases
+- evidence maps
+- record-organization structures
+- next-action maps
+- public-facing concept artifacts
 
-- reflective hypothesis
-- possible underlying concern
-- user-backed association
-- source status
-- claim boundary
-- user feedback
-- evidence gate
-
-## Evaluation direction
-
-Mirror Cartographer should be evaluated on whether it can:
-
-- preserve nuance across repeated interactions
-- distinguish symbol, hypothesis, evidence, and action
-- reduce confusion rather than deepen rumination
-- identify model overreach or false certainty
-- surface missing information and uncertainty
-- produce useful next steps without coercing the user
-- maintain continuity without pretending omniscience
-- adapt tone and rhythm without forcing interpretation
-- accept user correction and downgrade bad interpretations
-
-## Why this matters
-
-AI is becoming part of how people think, search, write, remember, decide, and make meaning.
-
-That makes human-AI interaction a safety problem, a design problem, and a cognition problem.
-
-Mirror Cartographer is an attempt to build and evaluate a more explicit reflective layer for that interaction: one that tracks patterns over time while preserving boundaries between feeling, metaphor, evidence, and reality.
-
-## Status
-
-Application-ready public proof layer with a working demo, system-design documents, whitepaper sections, ritual/workbook layer, symbolic card sample, relocation guide, IP tracker, core principles charter, interrogation audit, research-grounded fix plan, and evaluation docs.
-
-The next stage is a stronger product prototype with a clickable body map, persistent user-owned archives, exportable logs, symbolic source clusters, reviewer-tested evaluation cases, and a real audit grid.
-
-See also:
-
-- `docs/HARDCORE_INTERROGATION_AUDIT.md`
-- `docs/RESEARCH_GROUNDED_FIX_PLAN.md`
-- `docs/SYSTEM_DESIGN_UI_SPEC.md`
-- `docs/WHITEPAPER_SUMMARY.md`
-- `docs/WHITEPAPER_SECTION_1.md`
-- `docs/WHITEPAPER_SECTION_2.md`
-- `docs/WHITEPAPER_SECTION_3.md`
-- `docs/CORE_PRINCIPLES_CHARTER.md`
-- `docs/SYMBOLIC_FIELD_ENGAGEMENT_WORKBOOK.md`
-- `docs/SYMBOLIC_RITUAL_GUIDE.md`
-- `docs/SENTINEL_SYMBOLIC_CARD.md`
-- `docs/SYMBOLIC_RELOCATION_GUIDE.md`
-- `docs/IP_AND_TRADEMARK_TRACKER.md`
-- `docs/HUMAN_AI_INTERACTION_BRIEF.md`
-- `docs/EVALUATION_PACKET.md`
-- `docs/APPLICATION_PACKET.md`
-- `docs/ROADMAP.md`
-- `docs/DEMO_TEST_SET.md`
-- `docs/FINAL_STATUS.md`
+Paid work, sponsorship, collaboration, barter, technical help, research review, introductions, hosting help, and public feedback are all valid forms of value exchange.
 
 ## Author
 
 Charity Sturgell
 
-Background: U.S. Navy nuclear-trained machinist mate, operations/management experience, independent human-AI interaction researcher, and creator of Mirror Cartographer.
+U.S. Navy nuclear-trained machinist mate, independent human-AI interaction researcher, and creator of Mirror Cartographer.
