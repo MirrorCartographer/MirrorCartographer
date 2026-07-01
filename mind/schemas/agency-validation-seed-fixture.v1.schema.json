@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/agency-validation-seed-fixture.v1.schema.json",
+  "title": "MC Agency Validation Seed Fixture v1",
+  "description": "Small public-safe target schema used only by cross-runtime fixture-pack parity tests. It contains no personal scenario material and exists to force predictable required, type, enum, and valid-result paths.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "count", "mode"],
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": ["seed"]
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["valid", "repair"]
+    }
+  }
+}
