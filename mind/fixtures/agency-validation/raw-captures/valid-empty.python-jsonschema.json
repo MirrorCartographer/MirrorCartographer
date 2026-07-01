@@ -1,0 +1,34 @@
+{
+  "capture_id": "rvec-valid-empty-python",
+  "fixture_ref": {
+    "fixture_id": "valid-empty",
+    "path": "mind/fixtures/agency-validation/instances/valid-empty.json"
+  },
+  "normalization_guardrail": {
+    "raw_messages_do_not_define_repair_category": true,
+    "raw_order_do_not_define_convergence": true,
+    "validator_agreement_does_not_score_symbolic_truth": true
+  },
+  "raw_errors": [],
+  "result": {
+    "error_count": 0,
+    "valid": true
+  },
+  "schema_ref": {
+    "path": "mind/schemas/agency-validation-seed-fixture.v1.schema.json",
+    "schema_id": "https://mirrorcartographer.dev/schemas/agency-validation-seed-fixture.v1.schema.json"
+  },
+  "schema_version": "raw-validator-error-capture.v1",
+  "validation_policy": {
+    "all_errors": true,
+    "error_order_is_asserted": false,
+    "format_assertion": "disabled",
+    "message_capture": "captured_debug_only"
+  },
+  "validator": {
+    "dialect": "https://json-schema.org/draft/2020-12/schema",
+    "name": "python-jsonschema",
+    "runtime": "python",
+    "version": "fixture-shape"
+  }
+}
