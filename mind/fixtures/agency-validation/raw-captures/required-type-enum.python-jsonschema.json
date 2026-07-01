@@ -1,0 +1,104 @@
+{
+  "capture_id": "rvec-required-type-enum-python",
+  "fixture_ref": {
+    "fixture_id": "required-type-enum",
+    "path": "mind/fixtures/agency-validation/instances/required-type-enum.json"
+  },
+  "normalization_guardrail": {
+    "raw_messages_do_not_define_repair_category": true,
+    "raw_order_do_not_define_convergence": true,
+    "validator_agreement_does_not_score_symbolic_truth": true
+  },
+  "raw_errors": [
+    {
+      "instance_location": {
+        "json_path": "$",
+        "path_segments": [],
+        "pointer": ""
+      },
+      "keyword": "required",
+      "message_policy": {
+        "message": "'mode' is a required property",
+        "message_captured": true,
+        "message_is_ci_invariant": false
+      },
+      "raw_error_id": "raw-python-required-mode",
+      "raw_params": {
+        "validator": "required",
+        "validator_value_summary": ["kind", "count", "mode"]
+      },
+      "schema_location": {
+        "absolute_pointer": "/required",
+        "path_segments": ["required"],
+        "pointer": "/required"
+      }
+    },
+    {
+      "instance_location": {
+        "json_path": "$.count",
+        "path_segments": ["count"],
+        "pointer": "/count"
+      },
+      "keyword": "type",
+      "message_policy": {
+        "message": "'zero' is not of type 'integer'",
+        "message_captured": true,
+        "message_is_ci_invariant": false
+      },
+      "raw_error_id": "raw-python-type-count",
+      "raw_params": {
+        "validator": "type",
+        "validator_value": "integer"
+      },
+      "schema_location": {
+        "absolute_pointer": "/properties/count/type",
+        "path_segments": ["properties", "count", "type"],
+        "pointer": "/properties/count/type"
+      }
+    },
+    {
+      "instance_location": {
+        "json_path": "$.kind",
+        "path_segments": ["kind"],
+        "pointer": "/kind"
+      },
+      "keyword": "enum",
+      "message_policy": {
+        "message": "'wrong-kind' is not one of ['seed']",
+        "message_captured": true,
+        "message_is_ci_invariant": false
+      },
+      "raw_error_id": "raw-python-enum-kind",
+      "raw_params": {
+        "validator": "enum",
+        "validator_value": ["seed"]
+      },
+      "schema_location": {
+        "absolute_pointer": "/properties/kind/enum",
+        "path_segments": ["properties", "kind", "enum"],
+        "pointer": "/properties/kind/enum"
+      }
+    }
+  ],
+  "result": {
+    "error_count": 3,
+    "valid": false
+  },
+  "schema_ref": {
+    "path": "mind/schemas/agency-validation-seed-fixture.v1.schema.json",
+    "schema_id": "https://mirrorcartographer.dev/schemas/agency-validation-seed-fixture.v1.schema.json"
+  },
+  "schema_version": "raw-validator-error-capture.v1",
+  "validation_policy": {
+    "all_errors": true,
+    "error_order_is_asserted": false,
+    "format_assertion": "disabled",
+    "message_capture": "captured_debug_only"
+  },
+  "validator": {
+    "dialect": "https://json-schema.org/draft/2020-12/schema",
+    "name": "python-jsonschema",
+    "runtime": "python",
+    "version": "fixture-shape"
+  }
+}
