@@ -1,0 +1,150 @@
+{
+  "schema_version": "fixture-parity-exit-code-map.v1",
+  "status": "requirements-contract",
+  "public_safety_level": "abstracted implementation architecture only",
+  "runner_id": "run-fixture-parity",
+  "purpose": "Define stable CI exit codes, report gate ids, and evidence classes for the fixture parity runner so local developers, GitHub Actions, and later repair agents consume the same failure semantics without depending on console wording.",
+  "ordering_policy": {
+    "exit_code_sort": "ascending_numeric",
+    "gate_sort": "stage_order_then_gate_id_ascending",
+    "evidence_sort": "fixture_id_then_runtime_then_kind_then_path"
+  },
+  "exit_codes": [
+    {
+      "code": 0,
+      "name": "pass",
+      "meaning": "All staged gates passed and any emitted success report validated.",
+      "ci_status": "success",
+      "first_failed_gate_id": null,
+      "report_required": false,
+      "console_summary_level": "info"
+    },
+    {
+      "code": 2,
+      "name": "cli-parse-failed",
+      "meaning": "Public CLI parsing or repo-relative path safety failed before fixture files were read.",
+      "ci_status": "failure",
+      "first_failed_gate_id": "cli-parse",
+      "report_required": true,
+      "console_summary_level": "error"
+    },
+    {
+      "code": 3,
+      "name": "manifest-validation-failed",
+      "meaning": "The fixture-pack manifest was missing, unreadable, invalid JSON, or invalid against its schema.",
+      "ci_status": "failure",
+      "first_failed_gate_id": "manifest-validation",
+      "report_required": true,
+      "console_summary_level": "error"
+    },
+    {
+      "code": 4,
+      "name": "path-authority-failed",
+      "meaning": "Declared or discovered fixture paths violated repo-relative public-safe scope, or actual fixture files were not declared by the manifest.",
+      "ci_status": "failure",
+      "first_failed_gate_id": "path-authority",
+      "report_required": true,
+      "console_summary_level": "error"
+    },
+    {
+      "code": 5,
+      "name": "adapter-or-receipt-validation-failed",
+      "meaning": "A fake or real adapter failed, a required runtime was missing, or a generated production receipt failed schema validation.",
+      "ci_status": "failure",
+      "first_failed_gate_id": "generated-receipt-validation",
+      "report_required": true,
+      "console_summary_level": "error"
+    },
+    {
+      "code": 6,
+      "name": "category-set-comparison-failed",
+      "meaning": "Generated receipt category sets differed from expected oracle category sets after deterministic sorting.",
+      "ci_status": "failure",
+      "first_failed_gate_id": "category-set-comparison",
+      "report_required": true,
+      "console_summary_level": "error"
+    },
+    {
+      "code": 7,
+      "name": "report-validation-failed",
+      "meaning": "The runner detected a failure but could not validate its own machine-readable failure report before or after writing it.",
+      "ci_status": "failure",
+      "first_failed_gate_id": "report-validation",
+      "report_required": false,
+      "console_summary_level": "fatal"
+    },
+    {
+      "code": 8,
+      "name": "runner-internal-error",
+      "meaning": "Unexpected programmer error or missing injected capability, not an expected fixture parity failure.",
+      "ci_status": "failure",
+      "first_failed_gate_id": "runner-internal-error",
+      "report_required": false,
+      "console_summary_level": "fatal"
+    }
+  ],
+  "gate_ids": [
+    {
+      "gate_id": "cli-parse",
+      "stage": "cli-parse",
+      "required_schema_change": "fixture-parity-failure-report.v1 currently lacks this stage; either add it in a compatible revision or define a small preflight failure report shape.",
+      "allowed_evidence_kinds": ["path-violation", "ordering-violation"],
+      "blocks_later_gates": true
+    },
+    {
+      "gate_id": "manifest-validation",
+      "stage": "manifest-validation",
+      "allowed_evidence_kinds": ["missing-file", "schema-error"],
+      "blocks_later_gates": true
+    },
+    {
+      "gate_id": "path-authority",
+      "stage": "path-authority",
+      "allowed_evidence_kinds": ["undeclared-file", "path-violation"],
+      "blocks_later_gates": true
+    },
+    {
+      "gate_id": "expected-receipt-validation",
+      "stage": "expected-receipt-validation",
+      "allowed_evidence_kinds": ["schema-error", "missing-file"],
+      "blocks_later_gates": true
+    },
+    {
+      "gate_id": "generated-receipt-validation",
+      "stage": "generated-receipt-validation",
+      "allowed_evidence_kinds": ["adapter-error", "runtime-missing", "runtime-unexpected", "receipt-invalid", "schema-error"],
+      "blocks_later_gates": true
+    },
+    {
+      "gate_id": "category-set-comparison",
+      "stage": "category-set-comparison",
+      "allowed_evidence_kinds": ["category-mismatch"],
+      "blocks_later_gates": false
+    },
+    {
+      "gate_id": "report-validation",
+      "stage": "report-validation",
+      "allowed_evidence_kinds": ["schema-error"],
+      "blocks_later_gates": false
+    }
+  ],
+  "invariants": [
+    "The importable runner core returns exitCode; only the executable wrapper assigns process.exitCode.",
+    "The runner must prefer process.exitCode over process.exit so stdout/stderr and report writes are not truncated.",
+    "Every nonzero exit code must have one canonical first_failed_gate_id or fatal class.",
+    "Console output is a short summary only; JSON evidence is the durable diagnostic surface.",
+    "Later gates must be recorded as not-run when an earlier blocking gate fails.",
+    "Failure semantics must not depend on raw validator message wording.",
+    "Fixture evidence must name synthetic fixture ids, schema paths, category ids, safe repo-relative paths, and runtimes only."
+  ],
+  "implementation_targets": [
+    "Use this map in runFixtureParity(argv, capabilities) tests as the single source of expected exit codes.",
+    "Revise fixture-parity-failure-report schema or add a preflight failure schema before requiring cli-parse failures to validate against the current report schema.",
+    "Keep adapter-selection behavior private to injected test capabilities, never public CLI flags."
+  ],
+  "sources": [
+    "https://nodejs.org/api/process.html#processexitcode",
+    "https://docs.github.com/en/actions/how-tos/create-and-publish-actions/set-exit-codes",
+    "https://www.rfc-editor.org/rfc/rfc9457.html"
+  ]
+}
