@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/fixture-expected-receipt.v1.schema.json",
+  "title": "MC Fixture Expected Receipt v1",
+  "description": "Public-safe expected receipt schema for cross-runtime fixture parity tests. This schema validates stable fixture expectations without weakening production canonical-repair-receipt run-path authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "expected_receipt_id",
+    "fixture_ref",
+    "schema_ref",
+    "repair_category_map_ref",
+    "expectation_scope",
+    "expected_validation_result",
+    "expected_category_set",
+    "expected_repairs",
+    "comparison_policy",
+    "ordering_policy",
+    "ci_guardrails"
+  ],
+  "properties": {
+    "schema_version": { "const": "fixture-expected-receipt.v1" },
+    "expected_receipt_id": {
+      "type": "string",
+      "pattern": "^fer-[a-z0-9-]{8,128}$",
+      "description": "Stable public-safe fixture expectation identifier. It is not a production run receipt identifier."
+    },
+    "fixture_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fixture_id", "fixture_pack_path", "instance_path"],
+      "properties": {
+        "fixture_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,80}$" },
+        "fixture_pack_path": { "const": "mind/fixtures/agency-validation/fixture-pack.v1.json" },
+        "instance_path": { "$ref": "#/$defs/safe_repo_json_path" },
+        "instance_hash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "schema_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_id", "schema_path"],
+      "properties": {
+        "schema_id": { "type": "string", "format": "uri" },
+        "schema_path": { "$ref": "#/$defs/safe_repo_json_path" },
+        "schema_hash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "repair_category_map_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_id", "config_path"],
+      "properties": {
+        "schema_id": { "const": "https://mirrorcartographer.dev/schemas/repair-category-map.v1.schema.json" },
+        "config_path": { "const": "mind/config/repair-category-map.v1.json" },
+        "config_hash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "expectation_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applies_to_runtimes",
+        "raw_captures_declared_by_manifest",
+        "fixture_expectation_not_production_receipt",
+        "private_material_policy"
+      ],
+      "properties": {
+        "applies_to_runtimes": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "node" },
+            { "const": "python" }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "raw_captures_declared_by_manifest": { "const": true },
+        "fixture_expectation_not_production_receipt": { "const": true },
+        "private_material_policy": { "const": "public_safe_abstract_fixture_only" }
+      }
+    },
+    "expected_validation_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["valid", "canonical_repair_count"],
+      "properties": {
+        "valid": { "type": "boolean" },
+        "canonical_repair_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "expected_category_set": {
+      "type": "array",
+      "description": "Sorted ascending by category_id. This is the primary cross-runtime parity target.",
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+      "uniqueItems": true
+    },
+    "expected_repairs": {
+      "type": "array",
+      "description": "Optional stricter expected repair atoms. Use an empty array when category-set parity is the only asserted fixture behavior.",
+      "items": { "$ref": "#/$defs/expected_repair" }
+    },
+    "comparison_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary_assertion",
+        "ignore_fields",
+        "message_text_is_not_compared",
+        "raw_error_order_is_not_compared",
+        "production_receipts_validate_against_production_schema"
+      ],
+      "properties": {
+        "primary_assertion": { "const": "generated_receipt_category_set_equals_expected_category_set" },
+        "ignore_fields": {
+          "type": "array",
+          "items": { "enum": ["created_at", "generator", "source_capture", "raw_error_count", "raw_error_ids"] },
+          "uniqueItems": true
+        },
+        "message_text_is_not_compared": { "const": true },
+        "raw_error_order_is_not_compared": { "const": true },
+        "production_receipts_validate_against_production_schema": { "const": true }
+      }
+    },
+    "ordering_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_keys", "expected_category_sort", "expected_repair_sort", "array_order_semantics"],
+      "properties": {
+        "object_keys": { "const": "lexicographic_recursive" },
+        "expected_category_sort": { "const": "category_id_ascending" },
+        "expected_repair_sort": { "const": "category_id_instance_pointer_schema_pointer" },
+        "array_order_semantics": { "const": "arrays_preserve_meaning_except_declared_sorted_fixture_arrays" }
+      }
+    },
+    "ci_guardrails": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validate_expected_receipt_before_generating_runtime_receipts",
+        "validate_generated_receipts_against_canonical_repair_receipt_schema",
+        "validate_paths_with_path_authority",
+        "expected_receipt_paths_stay_under_fixture_root",
+        "no_network_required",
+        "does_not_claim_symbolic_truth"
+      ],
+      "properties": {
+        "validate_expected_receipt_before_generating_runtime_receipts": { "const": true },
+        "validate_generated_receipts_against_canonical_repair_receipt_schema": { "const": true },
+        "validate_paths_with_path_authority": { "const": true },
+        "expected_receipt_paths_stay_under_fixture_root": { "const": true },
+        "no_network_required": { "const": true },
+        "does_not_claim_symbolic_truth": { "const": true },
+        "note": { "type": "string" }
+      }
+    }
+  },
+  "$defs": {
+    "safe_repo_json_path": {
+      "type": "string",
+      "pattern": "^mind/[A-Za-z0-9._/-]+\\.json$",
+      "not": { "pattern": "(^|/)\\.\\.(?:/|$)" },
+      "description": "Repo-relative JSON path under mind/. Absolute paths, traversal segments, and non-JSON files are rejected. Full canonicalization remains the job of path authority."
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "json_pointer_location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pointer"],
+      "properties": {
+        "pointer": { "type": "string", "description": "RFC 6901 JSON Pointer. Root is the empty string." },
+        "path_segments": {
+          "type": "array",
+          "items": { "type": ["string", "integer"] }
+        }
+      }
+    },
+    "expected_repair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["category_id", "instance_location", "schema_location", "mapping_confidence", "non_meaning"],
+      "properties": {
+        "category_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "mapping_confidence": { "enum": ["direct", "contextual", "boundary", "fallback"] },
+        "keyword_basis": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "instance_location": { "$ref": "#/$defs/json_pointer_location" },
+        "schema_location": { "$ref": "#/$defs/json_pointer_location" },
+        "non_meaning": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Public-safe statement of what this expected repair must not be interpreted to prove."
+        }
+      }
+    }
+  }
+}
