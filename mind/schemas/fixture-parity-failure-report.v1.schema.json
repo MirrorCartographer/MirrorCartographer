@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/fixture-parity-failure-report.v1.schema.json",
+  "title": "MC Fixture Parity Failure Report v1",
+  "description": "Deterministic machine-readable report emitted by the fixture parity runner. The report records staged parity evidence for CI, human review, and repair tooling without relying on console output or raw validator message wording.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_id",
+    "runner",
+    "fixture_pack",
+    "overall_status",
+    "ordering_policy",
+    "gates",
+    "summary",
+    "safety_policy"
+  ],
+  "properties": {
+    "schema_version": { "const": "fixture-parity-failure-report.v1" },
+    "report_id": {
+      "type": "string",
+      "pattern": "^fpr-[a-z0-9-]{8,96}$"
+    },
+    "runner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runner_id", "runner_version", "mode"],
+      "properties": {
+        "runner_id": { "const": "run-fixture-parity" },
+        "runner_version": { "type": "string", "pattern": "^v[0-9]+(?:\\.[0-9]+){0,2}$" },
+        "mode": { "enum": ["fake-adapter", "real-adapter", "ci"] },
+        "command_fingerprint": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "fixture_pack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fixture_pack_id", "manifest_path"],
+      "properties": {
+        "fixture_pack_id": { "type": "string", "pattern": "^fixture-pack-[a-z0-9-]{8,96}$" },
+        "manifest_path": { "$ref": "#/$defs/safe_repo_json_path" },
+        "manifest_hash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "overall_status": { "enum": ["pass", "fail"] },
+    "ordering_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate_sort", "fixture_sort", "runtime_sort", "category_sort", "object_key_sort"],
+      "properties": {
+        "gate_sort": { "const": "stage_order_then_gate_id_ascending" },
+        "fixture_sort": { "const": "fixture_id_ascending" },
+        "runtime_sort": { "const": "node_then_python" },
+        "category_sort": { "const": "category_id_ascending" },
+        "object_key_sort": { "const": "lexicographic_recursive" }
+      }
+    },
+    "gates": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/gate_result" } },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate_count", "failed_gate_count", "fixture_count", "failed_fixture_count"],
+      "properties": {
+        "gate_count": { "type": "integer", "minimum": 1 },
+        "failed_gate_count": { "type": "integer", "minimum": 0 },
+        "fixture_count": { "type": "integer", "minimum": 0 },
+        "failed_fixture_count": { "type": "integer", "minimum": 0 },
+        "first_failed_gate_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,80}$" }
+      }
+    },
+    "safety_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fixture_material", "message_dependence", "path_scope"],
+      "properties": {
+        "fixture_material": { "const": "abstracted-public-safe-fixtures-only" },
+        "message_dependence": { "const": "do-not-compare-validator-message-wording" },
+        "path_scope": { "const": "repo-relative-mind-json-paths-only" }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "overall_status": { "const": "pass" } }, "required": ["overall_status"] },
+      "then": {
+        "properties": {
+          "summary": {
+            "properties": {
+              "failed_gate_count": { "const": 0 },
+              "failed_fixture_count": { "const": 0 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "overall_status": { "const": "fail" } }, "required": ["overall_status"] },
+      "then": { "properties": { "summary": { "required": ["first_failed_gate_id"] } } }
+    }
+  ],
+  "$defs": {
+    "safe_repo_json_path": {
+      "type": "string",
+      "pattern": "^mind/[A-Za-z0-9._/-]+\\.json$",
+      "not": { "pattern": "(^|/)\\.\\.(?:/|$)" }
+    },
+    "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "json_pointer": { "type": "string", "pattern": "^(?:|/(?:[^~/]|~0|~1)*)*$" },
+    "category_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "gate_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate_id", "stage", "status", "evidence"],
+      "properties": {
+        "gate_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,80}$" },
+        "stage": {
+          "enum": [
+            "manifest-validation",
+            "path-authority",
+            "expected-receipt-validation",
+            "generated-receipt-validation",
+            "category-set-comparison",
+            "report-validation"
+          ]
+        },
+        "status": { "enum": ["pass", "fail", "not-run"] },
+        "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidence_item" } }
+      }
+    },
+    "evidence_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence_id", "kind", "summary"],
+      "properties": {
+        "evidence_id": { "type": "string", "pattern": "^ev-[a-z0-9-]{8,96}$" },
+        "kind": {
+          "enum": [
+            "schema-error",
+            "missing-file",
+            "undeclared-file",
+            "path-violation",
+            "runtime-missing",
+            "runtime-unexpected",
+            "receipt-invalid",
+            "category-mismatch",
+            "adapter-error",
+            "ordering-violation"
+          ]
+        },
+        "fixture_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,80}$" },
+        "runtime": { "enum": ["node", "python"] },
+        "path": { "$ref": "#/$defs/safe_repo_json_path" },
+        "schema_location": { "$ref": "#/$defs/json_pointer" },
+        "instance_location": { "$ref": "#/$defs/json_pointer" },
+        "expected_category_set": { "type": "array", "items": { "$ref": "#/$defs/category_id" }, "uniqueItems": true },
+        "actual_category_set": { "type": "array", "items": { "$ref": "#/$defs/category_id" }, "uniqueItems": true },
+        "missing_categories": { "type": "array", "items": { "$ref": "#/$defs/category_id" }, "uniqueItems": true },
+        "unexpected_categories": { "type": "array", "items": { "$ref": "#/$defs/category_id" }, "uniqueItems": true },
+        "summary": { "type": "string", "minLength": 8 },
+        "repair_hint": { "type": "string", "minLength": 8 }
+      }
+    }
+  }
+}
