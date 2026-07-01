@@ -1,0 +1,52 @@
+name: Agency Validation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'tools/agency-validation/**'
+      - 'mind/schemas/**'
+      - 'mind/requirements/**'
+      - 'package.json'
+      - '.github/workflows/agency-validation.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'tools/agency-validation/**'
+      - 'mind/schemas/**'
+      - 'mind/requirements/**'
+      - 'package.json'
+      - '.github/workflows/agency-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  agency-validation:
+    name: Agency validation shell
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run agency validation checks
+        run: npm run verify:agency
+
+      - name: Upload fixture parity report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fixture-parity-report
+          path: artifacts/agency-validation/fixture-parity-report.json
+          if-no-files-found: ignore
+          retention-days: 14
