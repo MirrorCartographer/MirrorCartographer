@@ -1,0 +1,6 @@
+{
+  "expected_category_set": [],
+  "fixture_id": "valid-empty",
+  "non_meaning": "This expectation proves only that valid structural input produces no canonical repairs in the seed fixture pack.",
+  "schema_version": "fixture-expected-receipt.v1"
+}
