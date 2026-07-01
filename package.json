@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "verify": "npm run typecheck && npm run build"
+    "verify": "npm run typecheck && npm run build",
+    "test:agency": "node --test tools/agency-validation/*.test.mjs",
+    "fixture-parity:smoke": "node tools/agency-validation/run-fixture-parity.mjs --report-out artifacts/agency-validation/fixture-parity-report.json",
+    "verify:agency": "npm run test:agency && npm run fixture-parity:smoke"
   },
   "dependencies": {
     "react": "^19.0.0",
