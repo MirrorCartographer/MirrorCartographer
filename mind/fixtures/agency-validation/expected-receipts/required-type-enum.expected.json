@@ -1,0 +1,10 @@
+{
+  "expected_category_set": [
+    "enum",
+    "required",
+    "type"
+  ],
+  "fixture_id": "required-type-enum",
+  "non_meaning": "This expectation proves only that divergent validator raw shapes converge on the same public-safe structural repair categories.",
+  "schema_version": "fixture-expected-receipt.v1"
+}
