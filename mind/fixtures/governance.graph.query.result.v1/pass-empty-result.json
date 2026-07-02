@@ -1,0 +1,41 @@
+{
+  "result_version": "governance.graph.query.result.v1",
+  "status": "pass",
+  "exit_code": 0,
+  "graph": {
+    "graph_id": "governance.graph.v1",
+    "graph_version": "1.0.0",
+    "graph_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "node_count": 3,
+    "edge_count": 2
+  },
+  "query": {
+    "query_id": "fixtures.query.empty-compatible-selection",
+    "query_version": "1.0.0",
+    "query_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "selector_count": 1,
+    "projection_count": 2
+  },
+  "determinism": {
+    "canonicalization": "jcs-rfc8785",
+    "sort_keys": ["record_type", "record_id"],
+    "record_order": "ascending",
+    "result_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  },
+  "records": [],
+  "traversal": {
+    "mode": "none",
+    "direction": "none",
+    "max_depth": 0,
+    "visited_node_count": 0,
+    "visited_edge_count": 0,
+    "truncated": false
+  },
+  "diagnostics": [
+    {
+      "code": "GOVERNANCE_GRAPH_QUERY_RESULT/OK",
+      "severity": "info",
+      "message": "Query executed successfully with no matching records."
+    }
+  ]
+}
