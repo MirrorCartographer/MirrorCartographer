@@ -1,0 +1,19 @@
+{
+  "query_version": "governance.graph.query.v1",
+  "query_id": "fail-unknown-edge-type",
+  "description": "Negative fixture: an unsupported edge type should fail schema validation before query execution.",
+  "operation": "select_edges",
+  "select": {
+    "target": "edges",
+    "where": {
+      "edge_type": "depends_on"
+    },
+    "order_by": ["from", "to", "edge_type"]
+  },
+  "expect": {
+    "status": "fail",
+    "deterministic_order": true,
+    "error_code": "GOVERNANCE_GRAPH_QUERY/INVALID_EDGE_TYPE",
+    "result_shape": "error"
+  }
+}
