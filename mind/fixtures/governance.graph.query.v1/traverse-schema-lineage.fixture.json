@@ -1,0 +1,23 @@
+{
+  "query_version": "governance.graph.query.v1",
+  "query_id": "traverse-schema-lineage",
+  "description": "Traverse outbound supersedes and derived_from edges from a governance schema artifact with bounded depth.",
+  "operation": "traverse",
+  "select": {
+    "target": "nodes",
+    "order_by": ["artifact_id"]
+  },
+  "traverse": {
+    "start_artifact_id": "schema:governance.graph.query:v1",
+    "direction": "outbound",
+    "edge_types": ["supersedes", "derived_from"],
+    "max_depth": 3,
+    "include_start": false
+  },
+  "project": ["artifact_id", "depth"],
+  "expect": {
+    "status": "pass",
+    "deterministic_order": true,
+    "result_shape": "traversal_list"
+  }
+}
