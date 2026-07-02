@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.github.io/mind/schemas/governance.graph.query.result.v1.schema.json",
+  "title": "MC Governance Graph Query Result v1",
+  "description": "Stable result envelope for executing governance.graph.query.v1 against a generated governance graph. The envelope is designed for CI, visualization, provenance analysis, documentation generation, and compatibility replay. It intentionally avoids personal or private material.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "result_version",
+    "status",
+    "exit_code",
+    "graph",
+    "query",
+    "determinism",
+    "records",
+    "traversal",
+    "diagnostics"
+  ],
+  "properties": {
+    "result_version": {
+      "const": "governance.graph.query.result.v1"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pass", "fail"]
+    },
+    "exit_code": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 78,
+      "description": "Process-level routing code. Detailed reason must be represented in diagnostics[].code, not inferred from stderr or human text."
+    },
+    "graph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["graph_id", "graph_version", "graph_sha256", "node_count", "edge_count"],
+      "properties": {
+        "graph_id": {"type": "string", "minLength": 1},
+        "graph_version": {"type": "string", "minLength": 1},
+        "graph_sha256": {"$ref": "#/$defs/sha256"},
+        "node_count": {"type": "integer", "minimum": 0},
+        "edge_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "query": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["query_id", "query_version", "query_sha256", "selector_count", "projection_count"],
+      "properties": {
+        "query_id": {"type": "string", "minLength": 1},
+        "query_version": {"type": "string", "minLength": 1},
+        "query_sha256": {"$ref": "#/$defs/sha256"},
+        "selector_count": {"type": "integer", "minimum": 0},
+        "projection_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "determinism": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonicalization", "sort_keys", "record_order", "result_sha256"],
+      "properties": {
+        "canonicalization": {
+          "type": "string",
+          "enum": ["jcs-rfc8785", "mc-stable-json-v1"]
+        },
+        "sort_keys": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "record_order": {
+          "type": "string",
+          "enum": ["ascending", "descending"]
+        },
+        "result_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["record_id", "record_type"],
+        "properties": {
+          "record_id": {"type": "string", "minLength": 1},
+          "record_type": {
+            "type": "string",
+            "enum": ["artifact", "edge", "path", "projection", "summary"]
+          }
+        }
+      }
+    },
+    "traversal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "direction", "max_depth", "visited_node_count", "visited_edge_count", "truncated"],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["none", "neighbors", "path", "subgraph", "lineage"]
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["none", "outbound", "inbound", "both"]
+        },
+        "max_depth": {"type": "integer", "minimum": 0},
+        "visited_node_count": {"type": "integer", "minimum": 0},
+        "visited_edge_count": {"type": "integer", "minimum": 0},
+        "truncated": {"type": "boolean"}
+      }
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "severity", "message"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^GOVERNANCE_GRAPH_QUERY_RESULT/[A-Z0-9_]+$"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["info", "warning", "error"]
+          },
+          "message": {"type": "string", "minLength": 1},
+          "artifact_id": {"type": "string"},
+          "record_id": {"type": "string"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}
