@@ -1,0 +1,76 @@
+{
+  "graph_version": "governance.graph.v1",
+  "kind": "mc.governance.graph",
+  "generated_at": "2026-07-02T00:00:00Z",
+  "generator": {
+    "name": "fixture-author",
+    "version": "0.1.0",
+    "mode": "fixture"
+  },
+  "integrity": {
+    "canonicalization": "RFC8785-JCS",
+    "graph_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "manifest_set_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "ordering": {
+    "node_order": "ascending artifact_id",
+    "edge_order": "ascending source_artifact_id, relation, target_artifact_id"
+  },
+  "nodes": [
+    {
+      "artifact_id": "mind.schemas.artifact-manifest.v1",
+      "artifact_type": "schema",
+      "version": "1.0.0",
+      "status": "active",
+      "manifest_path": "mind/manifests/mind.schemas.artifact-manifest.v1.json",
+      "artifact_path": "mind/schemas/artifact.manifest.v1.schema.json",
+      "artifact_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "labels": ["manifest", "schema"]
+    },
+    {
+      "artifact_id": "mind.schemas.governance-graph.v1",
+      "artifact_type": "schema",
+      "version": "1.0.0",
+      "status": "active",
+      "manifest_path": "mind/manifests/mind.schemas.governance-graph.v1.json",
+      "artifact_path": "mind/schemas/governance.graph.v1.schema.json",
+      "artifact_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "labels": ["graph", "schema"]
+    }
+  ],
+  "edges": [
+    {
+      "source_artifact_id": "mind.schemas.governance-graph.v1",
+      "relation": "derived_from",
+      "target_artifact_id": "mind.schemas.artifact-manifest.v1",
+      "compatibility_class": "not_applicable",
+      "declared_by": "mind.schemas.governance-graph.v1"
+    }
+  ],
+  "checks": [
+    {
+      "code": "GOVERNANCE_GRAPH/SCHEMA_VALID",
+      "status": "pass"
+    },
+    {
+      "code": "GOVERNANCE_GRAPH/NODE_IDS_UNIQUE",
+      "status": "pass"
+    },
+    {
+      "code": "GOVERNANCE_GRAPH/EDGE_REFERENCES_RESOLVE",
+      "status": "pass"
+    },
+    {
+      "code": "GOVERNANCE_GRAPH/LINEAGE_ACYCLIC",
+      "status": "pass"
+    },
+    {
+      "code": "GOVERNANCE_GRAPH/ORDERING_DETERMINISTIC",
+      "status": "pass"
+    },
+    {
+      "code": "GOVERNANCE_GRAPH/HASH_PRESENT",
+      "status": "pass"
+    }
+  ]
+}
