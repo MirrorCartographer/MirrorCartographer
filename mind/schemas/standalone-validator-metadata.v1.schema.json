@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.local/schemas/standalone-validator-metadata.v1.schema.json",
+  "title": "Standalone Validator Metadata v1",
+  "description": "Public-safe governance metadata for generated JSON Schema validator artifacts. This document records the provenance and freshness contract for a generated validator without coupling runtime validation to the validator generator dependency.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_id",
+    "schema_path",
+    "schema_sha256",
+    "validator_path",
+    "validator_sha256",
+    "generator",
+    "generated_at",
+    "module_format",
+    "runtime_dependency_policy",
+    "self_tests"
+  ],
+  "properties": {
+    "schema_id": {
+      "type": "string",
+      "format": "uri-reference",
+      "description": "The $id of the JSON Schema that produced the validator."
+    },
+    "schema_path": {
+      "type": "string",
+      "pattern": "^mind/schemas/[A-Za-z0-9._/-]+\\.schema\\.json$",
+      "description": "Repo-relative path to the source schema."
+    },
+    "schema_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 digest of the exact schema bytes used for generation."
+    },
+    "validator_path": {
+      "type": "string",
+      "pattern": "^mind/generated-validators/[A-Za-z0-9._/-]+\\.mjs$",
+      "description": "Repo-relative path to the generated ESM validator module."
+    },
+    "validator_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 digest of the exact generated validator module bytes."
+    },
+    "generator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "entrypoint", "options"],
+      "properties": {
+        "name": { "type": "string", "enum": ["ajv-standalone"] },
+        "version": { "type": "string", "minLength": 1 },
+        "entrypoint": {
+          "type": "string",
+          "pattern": "^tools/agency-validation/generate-validators\\.mjs$"
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["schema_dialect", "esm", "code_source", "strict"],
+          "properties": {
+            "schema_dialect": { "type": "string", "enum": ["draft-2020-12"] },
+            "esm": { "type": "boolean", "const": true },
+            "code_source": { "type": "boolean", "const": true },
+            "strict": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp from the generation event. Deterministic freshness is proven by hashes, not by this timestamp."
+    },
+    "module_format": {
+      "type": "string",
+      "enum": ["esm"]
+    },
+    "runtime_dependency_policy": {
+      "type": "string",
+      "enum": ["runtime-may-import-ajv-runtime-only", "fully-bundled-no-ajv-imports"],
+      "description": "Records whether the generated module still imports Ajv runtime helpers or has been bundled into complete isolation."
+    },
+    "self_tests": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "fixture_path", "expected_valid"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "fixture_path": {
+            "type": "string",
+            "pattern": "^mind/fixtures/validator-self-tests/[A-Za-z0-9._/-]+\\.json$"
+          },
+          "expected_valid": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}
