@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/governance.graph.v1.schema.json",
+  "title": "MC Governance Graph v1",
+  "description": "Canonical generated graph index for MC governance artifacts. This schema describes the graph artifact consumed by query, CI, visualization, and provenance tooling. It is intentionally small and does not model a full graph database.",
+  "type": "object",
+  "required": [
+    "graph_version",
+    "kind",
+    "generated_at",
+    "generator",
+    "integrity",
+    "ordering",
+    "nodes",
+    "edges",
+    "checks"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "graph_version": {
+      "const": "governance.graph.v1"
+    },
+    "kind": {
+      "const": "mc.governance.graph"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "generator": {
+      "type": "object",
+      "required": ["name", "version", "mode"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "enum": ["generated", "fixture"]
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "required": ["canonicalization", "graph_sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "canonicalization": {
+          "const": "RFC8785-JCS"
+        },
+        "graph_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "manifest_set_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "ordering": {
+      "type": "object",
+      "required": ["node_order", "edge_order"],
+      "additionalProperties": false,
+      "properties": {
+        "node_order": {
+          "const": "ascending artifact_id"
+        },
+        "edge_order": {
+          "const": "ascending source_artifact_id, relation, target_artifact_id"
+        }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/$defs/node"
+      }
+    },
+    "edges": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/$defs/edge"
+      }
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/check"
+      }
+    }
+  },
+  "$defs": {
+    "artifact_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._/-]*[a-z0-9]$",
+      "minLength": 3,
+      "maxLength": 160
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "node": {
+      "type": "object",
+      "required": [
+        "artifact_id",
+        "artifact_type",
+        "version",
+        "manifest_path",
+        "artifact_path",
+        "artifact_sha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "artifact_id": {
+          "$ref": "#/$defs/artifact_id"
+        },
+        "artifact_type": {
+          "enum": [
+            "schema",
+            "fixture",
+            "report",
+            "note",
+            "requirements",
+            "design_pattern",
+            "roadmap_item",
+            "prototype_plan",
+            "metadata"
+          ]
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "status": {
+          "enum": ["active", "superseded", "deprecated", "experimental"]
+        },
+        "manifest_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifact_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifact_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "labels": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "required": ["source_artifact_id", "relation", "target_artifact_id"],
+      "additionalProperties": false,
+      "properties": {
+        "source_artifact_id": {
+          "$ref": "#/$defs/artifact_id"
+        },
+        "relation": {
+          "enum": [
+            "supersedes",
+            "derived_from",
+            "validated_against",
+            "compatible_with",
+            "generated_by",
+            "uses_fixture"
+          ]
+        },
+        "target_artifact_id": {
+          "$ref": "#/$defs/artifact_id"
+        },
+        "compatibility_class": {
+          "enum": ["backward", "forward", "full", "breaking", "not_applicable"]
+        },
+        "declared_by": {
+          "$ref": "#/$defs/artifact_id"
+        }
+      }
+    },
+    "check": {
+      "type": "object",
+      "required": ["code", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "GOVERNANCE_GRAPH/SCHEMA_VALID",
+            "GOVERNANCE_GRAPH/NODE_IDS_UNIQUE",
+            "GOVERNANCE_GRAPH/EDGE_REFERENCES_RESOLVE",
+            "GOVERNANCE_GRAPH/LINEAGE_ACYCLIC",
+            "GOVERNANCE_GRAPH/ORDERING_DETERMINISTIC",
+            "GOVERNANCE_GRAPH/HASH_PRESENT"
+          ]
+        },
+        "status": {
+          "enum": ["pass", "fail", "not_applicable"]
+        },
+        "detail": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
