@@ -1,0 +1,19 @@
+{
+  "query_version": "governance.graph.query.v1",
+  "query_id": "select-schema-nodes",
+  "description": "Select governance graph nodes whose artifact type is schema, ordered by artifact id.",
+  "operation": "select_nodes",
+  "select": {
+    "target": "nodes",
+    "where": {
+      "artifact_type": "schema"
+    },
+    "order_by": ["artifact_id"]
+  },
+  "project": ["artifact_id", "artifact_type", "version"],
+  "expect": {
+    "status": "pass",
+    "deterministic_order": true,
+    "result_shape": "node_list"
+  }
+}
