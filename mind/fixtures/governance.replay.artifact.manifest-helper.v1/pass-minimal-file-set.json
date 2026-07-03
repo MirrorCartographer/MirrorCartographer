@@ -1,0 +1,56 @@
+{
+  "schema": "governance.replay.artifact.manifest-helper.fixture.v1",
+  "caseId": "pass-minimal-file-set",
+  "purpose": "Proves the manifest helper contract over a minimal public-safe artifact directory without relying on domain-specific replay schemas.",
+  "artifactRoot": "tmp/governance-artifacts/pass-minimal-file-set",
+  "writeFiles": [
+    {
+      "path": "result.json",
+      "mediaType": "application/json",
+      "content": { "status": "pass", "checks": [] }
+    },
+    {
+      "path": "summary.md",
+      "mediaType": "text/markdown",
+      "contentText": "# Governance Replay Summary\n\nStatus: pass\n"
+    }
+  ],
+  "manifestInput": {
+    "artifactKind": "governance.manifest-helper.replay",
+    "producer": {
+      "tool": "tools/lib/governance-artifact-manifest.mjs",
+      "version": "v1",
+      "deterministicPolicy": "deterministic-build-no-wall-clock"
+    },
+    "summary": {
+      "primaryStatus": "pass",
+      "description": "Minimal helper-level file set for manifest generation."
+    },
+    "exitBehavior": {
+      "expectedExitCode": 0,
+      "stableExitPolicy": "status-derived-exit-code"
+    },
+    "publicSafety": {
+      "policyId": "governance-public-safe.v1"
+    }
+  },
+  "files": [
+    {
+      "path": "result.json",
+      "role": "replay-result",
+      "mediaType": "application/json"
+    },
+    {
+      "path": "summary.md",
+      "role": "summary",
+      "mediaType": "text/markdown"
+    }
+  ],
+  "expected": {
+    "manifestSchema": "governance.replay.artifact.manifest.v1",
+    "publicSafetyStatus": "pass",
+    "fileCount": 2,
+    "sortedPaths": ["result.json", "summary.md"],
+    "forbiddenManifestFields": ["generatedAt", "hostname", "username", "absolutePath", "runUrl", "branch"]
+  }
+}
