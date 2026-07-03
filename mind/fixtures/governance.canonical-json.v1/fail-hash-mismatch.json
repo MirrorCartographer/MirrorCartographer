@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "governance.canonical-json.v1",
+  "id": "fail-hash-mismatch",
+  "caseType": "pass",
+  "input": {},
+  "expected": {
+    "canonical": "{}",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  }
+}
