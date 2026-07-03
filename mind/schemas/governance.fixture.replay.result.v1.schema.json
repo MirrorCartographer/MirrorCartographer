@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/governance.fixture.replay.result.v1.schema.json",
+  "title": "Governance Fixture Replay Result v1",
+  "description": "Stable public-safe result envelope for replaying governance fixtures. This schema records replay outcomes without exposing private source material or ad hoc validator internals.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "runId",
+    "tool",
+    "status",
+    "startedAt",
+    "completedAt",
+    "inputSet",
+    "summary",
+    "cases",
+    "outputs",
+    "checks"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "governance.fixture.replay.result.v1"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^fixture-replay-[0-9]{8}T[0-9]{6}Z-[a-z0-9]{6,16}$"
+    },
+    "tool": {
+      "type": "object",
+      "required": ["name", "version", "command"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": ["replay-governance-adr-index-fixtures"]
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^v[0-9]+$"
+        },
+        "command": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pass", "warn", "fail"]
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "inputSet": {
+      "type": "object",
+      "required": ["fixtureRoot", "fixtureSetHash", "caseCount"],
+      "properties": {
+        "fixtureRoot": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fixtureSetHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "caseCount": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "summary": {
+      "type": "object",
+      "required": ["passed", "warnings", "failed", "exitCode"],
+      "properties": {
+        "passed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "warnings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "exitCode": {
+          "type": "integer",
+          "enum": [0, 1]
+        }
+      },
+      "additionalProperties": false
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/replayCase"
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "required": ["jsonResultPath", "markdownSummaryPath"],
+      "properties": {
+        "jsonResultPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "markdownSummaryPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "markdownSummaryHash": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/check"
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "jsonPointer": {
+      "type": "string",
+      "pattern": "^(|/([^/~]|~0|~1)*)*$"
+    },
+    "replayCase": {
+      "type": "object",
+      "required": ["caseId", "expectation", "status", "fixturePath", "actualHash"],
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9.-]{2,96}$"
+        },
+        "expectation": {
+          "type": "string",
+          "enum": ["pass", "warn", "fail"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pass", "warn", "fail"]
+        },
+        "fixturePath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expectedHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "actualHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "diagnostics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/diagnostic"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "diagnostic": {
+      "type": "object",
+      "required": ["code", "severity", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^GOVERNANCE_FIXTURE_REPLAY/[A-Z0-9_]+$"
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["info", "warning", "error"]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "instancePath": {
+          "$ref": "#/$defs/jsonPointer"
+        },
+        "publicSafe": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "check": {
+      "type": "object",
+      "required": ["code", "status", "severity", "count"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^GOVERNANCE_FIXTURE_REPLAY/[A-Z0-9_]+$"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pass", "warn", "fail"]
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["info", "warning", "error"]
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
