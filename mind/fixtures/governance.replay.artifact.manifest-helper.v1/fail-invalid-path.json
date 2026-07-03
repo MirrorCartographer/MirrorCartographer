@@ -1,0 +1,37 @@
+{
+  "schema": "governance.replay.artifact.manifest-helper.fixture.v1",
+  "caseId": "fail-invalid-path",
+  "purpose": "Proves that the manifest helper rejects path traversal before hashing or manifest write.",
+  "artifactRoot": "tmp/governance-artifacts/fail-invalid-path",
+  "writeFiles": [],
+  "manifestInput": {
+    "artifactKind": "governance.manifest-helper.replay",
+    "producer": {
+      "tool": "tools/lib/governance-artifact-manifest.mjs",
+      "version": "v1",
+      "deterministicPolicy": "deterministic-build-no-wall-clock"
+    },
+    "summary": {
+      "primaryStatus": "fail",
+      "description": "Negative fixture for helper path normalization."
+    },
+    "exitBehavior": {
+      "expectedExitCode": 1,
+      "stableExitPolicy": "status-derived-exit-code"
+    },
+    "publicSafety": {
+      "policyId": "governance-public-safe.v1"
+    }
+  },
+  "files": [
+    {
+      "path": "../escape.json",
+      "role": "replay-result",
+      "mediaType": "application/json"
+    }
+  ],
+  "expected": {
+    "errorCode": "GOVERNANCE_ARTIFACT_PATH_INVALID",
+    "manifestWritten": false
+  }
+}
