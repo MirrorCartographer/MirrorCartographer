@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "governance.canonical-json.v1",
+  "caseId": "pass-object-key-order",
+  "description": "Object keys are sorted recursively before UTF-8 SHA-256 hashing.",
+  "input": {
+    "b": 2,
+    "a": 1
+  },
+  "expectedCanonicalJson": "{\"a\":1,\"b\":2}",
+  "expectedSha256": "sha256:43258cff783fe7036d8a43033f830adfc60ec037382473548ac742b888292777",
+  "conceptsCovered": [
+    "recursive-object-key-order",
+    "utf8-sha256",
+    "no-whitespace"
+  ]
+}
