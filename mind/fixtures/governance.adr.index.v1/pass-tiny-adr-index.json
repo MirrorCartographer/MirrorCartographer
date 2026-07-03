@@ -1,0 +1,55 @@
+{
+  "schema_version": "governance.adr.index.v1",
+  "index_id": "adr-index:tiny-pass",
+  "generated_at": "2026-07-03T06:44:29Z",
+  "source_schema": "governance.adr.v1",
+  "source_count": 2,
+  "adrs": [
+    {
+      "adr_id": "adr:governance-graph-query-result-envelope",
+      "title": "Adopt versioned governance graph query result envelopes",
+      "status": "accepted",
+      "decision_date": "2026-07-02",
+      "public_safety_class": "public-safe",
+      "governance_scope": ["query", "schema", "ci"],
+      "source_path": "mind/architecture-lab/2026-07-02-governance-graph-query-result-envelope-schema.md"
+    },
+    {
+      "adr_id": "adr:governance-graph-v1-input-contract",
+      "title": "Adopt governance.graph.v1 as the stable graph input contract",
+      "status": "accepted",
+      "decision_date": "2026-07-02",
+      "public_safety_class": "public-safe",
+      "governance_scope": ["graph", "schema", "fixture"],
+      "source_path": "mind/architecture-lab/2026-07-02-governance-graph-v1-schema-and-fixture-contract.md"
+    }
+  ],
+  "edges": [
+    {
+      "from": "adr:governance-graph-query-result-envelope",
+      "type": "requires",
+      "to": "adr:governance-graph-v1-input-contract",
+      "evidence": "Query results must identify the graph input contract they executed against."
+    }
+  ],
+  "checks": [
+    {
+      "code": "GOVERNANCE_ADR_INDEX/ADRS_DISCOVERED",
+      "severity": "info",
+      "status": "pass",
+      "message": "Two ADR records were indexed."
+    },
+    {
+      "code": "GOVERNANCE_ADR_INDEX/EDGE_ENDPOINTS_RESOLVE",
+      "severity": "error",
+      "status": "pass",
+      "message": "Every ADR edge endpoint resolves to an indexed ADR or known governance artifact."
+    },
+    {
+      "code": "GOVERNANCE_ADR_INDEX/PUBLIC_SAFETY_PRESENT",
+      "severity": "error",
+      "status": "pass",
+      "message": "Every indexed ADR declares a public-safety class."
+    }
+  ]
+}
