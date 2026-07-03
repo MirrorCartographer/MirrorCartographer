@@ -1,0 +1,35 @@
+{
+  "schema_version": "governance.adr.index.v1",
+  "index_id": "adr-index:missing-edge-endpoint",
+  "generated_at": "2026-07-03T06:44:29Z",
+  "source_schema": "governance.adr.v1",
+  "source_count": 1,
+  "adrs": [
+    {
+      "adr_id": "adr:governance-adr-index-rules",
+      "title": "Adopt ADR index rules before full graph compilation",
+      "status": "proposed",
+      "decision_date": "2026-07-03",
+      "public_safety_class": "public-safe",
+      "governance_scope": ["graph", "ci"],
+      "source_path": "mind/architecture-lab/2026-07-03-governance-adr-index-v1-schema-and-fixtures.md"
+    }
+  ],
+  "edges": [
+    {
+      "from": "adr:governance-adr-index-rules",
+      "type": "requires",
+      "to": "adr:missing-dependency",
+      "evidence": "Negative fixture: endpoint intentionally does not resolve."
+    }
+  ],
+  "checks": [
+    {
+      "code": "GOVERNANCE_ADR_INDEX/EDGE_ENDPOINTS_RESOLVE",
+      "severity": "error",
+      "status": "fail",
+      "message": "Edge target adr:missing-dependency does not resolve.",
+      "location": "edges[0].to"
+    }
+  ]
+}
