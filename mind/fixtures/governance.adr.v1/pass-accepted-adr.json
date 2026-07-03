@@ -1,0 +1,98 @@
+{
+  "adr_id": "adr.governance.adr-schema.v1",
+  "title": "Adopt machine-readable governance ADRs",
+  "status": "accepted",
+  "created_at": "2026-07-03T04:49:04Z",
+  "accepted_at": "2026-07-03T04:49:04Z",
+  "decision_scope": {
+    "system": "mirror-cartographer-governance",
+    "concerns": [
+      "decision traceability",
+      "public-safe architecture evolution",
+      "CI enforceability"
+    ],
+    "affected_artifact_types": ["schema", "fixture", "graph", "adr"]
+  },
+  "context": {
+    "problem": "Governance artifacts can evolve without a durable, queryable record of why a change was made, what alternatives were rejected, and what CI obligations the decision creates.",
+    "forces": [
+      "ADR prose is readable but weakly enforceable.",
+      "Schema-only governance records shape but not rationale.",
+      "Architecture decisions must remain public-safe and abstracted."
+    ],
+    "options_considered": [
+      {
+        "option": "Markdown-only ADRs",
+        "assessment": "Easy to read but difficult to validate, query, or connect into the governance graph."
+      },
+      {
+        "option": "JSON-only ADRs",
+        "assessment": "Machine-readable and CI-friendly, but less readable without generated documentation."
+      },
+      {
+        "option": "Dual representation from one canonical JSON source",
+        "assessment": "Best long-term path: validate JSON as source of truth, then generate readable notes later."
+      }
+    ]
+  },
+  "decision": {
+    "summary": "Adopt governance.adr.v1 as the canonical machine-readable decision artifact for governance changes.",
+    "requirements": [
+      "Every intentional governance change must reference an ADR or open ADR proposal.",
+      "Accepted ADRs must be indexable as governance graph nodes.",
+      "ADR lifecycle status must be explicit and schema-valid.",
+      "Private or personal material must be abstracted into public-safe architectural concerns."
+    ]
+  },
+  "consequences": {
+    "positive": [
+      "Decision rationale becomes queryable and durable.",
+      "CI can verify that governance changes have decision backing.",
+      "Supersession can be represented as graph edges."
+    ],
+    "negative": [
+      "Decision writing requires more structure up front.",
+      "Readable Markdown views will need generation or manual summaries."
+    ],
+    "follow_up": [
+      "Define ADR graph indexing rules.",
+      "Define failure fixtures for rejected lifecycle and missing public-safety fields."
+    ]
+  },
+  "public_safety": {
+    "classification": "public-safe",
+    "redaction_rule": "Record architecture-level concerns only; omit names, health details, locations, private conversations, and raw emotional material.",
+    "allowed_content": [
+      "governance architecture",
+      "schema contracts",
+      "fixture strategy",
+      "CI obligations",
+      "abstracted system concerns"
+    ]
+  },
+  "lineage": {
+    "supersedes": [],
+    "superseded_by": [],
+    "related_artifacts": [
+      "governance.adr.v1.schema.json",
+      "artifact.manifest.v1.schema.json",
+      "governance.graph.v1.schema.json"
+    ]
+  },
+  "compatibility": {
+    "classification": "backward-compatible",
+    "breaking_change": false,
+    "migration_required": false,
+    "migration_note": "Initial ADR contract; no previous ADR schema exists."
+  },
+  "ci_obligations": {
+    "must_validate_schema": true,
+    "must_index_in_graph": true,
+    "required_checks": [
+      "GOVERNANCE_ADR/SCHEMA_VALID",
+      "GOVERNANCE_ADR/LIFECYCLE_VALID",
+      "GOVERNANCE_ADR/PUBLIC_SAFE",
+      "GOVERNANCE_ADR/GRAPH_INDEXABLE"
+    ]
+  }
+}
