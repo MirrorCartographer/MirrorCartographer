@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/governance.adr.v1.schema.json",
+  "title": "MC Governance ADR v1",
+  "description": "Machine-readable Architecture Decision Record for Mirror Cartographer governance artifacts. Public-safe by construction: it records architectural rationale without private personal material.",
+  "type": "object",
+  "required": [
+    "adr_id",
+    "title",
+    "status",
+    "created_at",
+    "decision_scope",
+    "context",
+    "decision",
+    "consequences",
+    "public_safety",
+    "lineage",
+    "compatibility",
+    "ci_obligations"
+  ],
+  "properties": {
+    "adr_id": {
+      "type": "string",
+      "pattern": "^adr\\.[a-z0-9][a-z0-9._-]*\\.v[0-9]+$",
+      "description": "Stable machine-readable ADR identifier."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 8
+    },
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "accepted", "rejected", "deprecated", "superseded"]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "accepted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "decision_scope": {
+      "type": "object",
+      "required": ["system", "concerns", "affected_artifact_types"],
+      "properties": {
+        "system": { "type": "string", "const": "mirror-cartographer-governance" },
+        "concerns": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 2 },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "affected_artifact_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["schema", "fixture", "graph", "manifest", "runner", "report", "roadmap", "design-pattern", "adr"]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "unevaluatedProperties": false
+    },
+    "context": {
+      "type": "object",
+      "required": ["problem", "forces", "options_considered"],
+      "properties": {
+        "problem": { "type": "string", "minLength": 20 },
+        "forces": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 5 },
+          "minItems": 1
+        },
+        "options_considered": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["option", "assessment"],
+            "properties": {
+              "option": { "type": "string", "minLength": 3 },
+              "assessment": { "type": "string", "minLength": 10 }
+            },
+            "unevaluatedProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "unevaluatedProperties": false
+    },
+    "decision": {
+      "type": "object",
+      "required": ["summary", "requirements"],
+      "properties": {
+        "summary": { "type": "string", "minLength": 20 },
+        "requirements": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 5 },
+          "minItems": 1
+        }
+      },
+      "unevaluatedProperties": false
+    },
+    "consequences": {
+      "type": "object",
+      "required": ["positive", "negative", "follow_up"],
+      "properties": {
+        "positive": { "type": "array", "items": { "type": "string" } },
+        "negative": { "type": "array", "items": { "type": "string" } },
+        "follow_up": { "type": "array", "items": { "type": "string" } }
+      },
+      "unevaluatedProperties": false
+    },
+    "public_safety": {
+      "type": "object",
+      "required": ["classification", "redaction_rule", "allowed_content"],
+      "properties": {
+        "classification": {
+          "type": "string",
+          "enum": ["public-safe", "internal-abstract", "private-blocked"]
+        },
+        "redaction_rule": { "type": "string", "minLength": 10 },
+        "allowed_content": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      },
+      "unevaluatedProperties": false
+    },
+    "lineage": {
+      "type": "object",
+      "required": ["supersedes", "superseded_by", "related_artifacts"],
+      "properties": {
+        "supersedes": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "superseded_by": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "related_artifacts": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      },
+      "unevaluatedProperties": false
+    },
+    "compatibility": {
+      "type": "object",
+      "required": ["classification", "breaking_change", "migration_required"],
+      "properties": {
+        "classification": {
+          "type": "string",
+          "enum": ["backward-compatible", "forward-compatible", "fully-compatible", "breaking", "not-applicable"]
+        },
+        "breaking_change": { "type": "boolean" },
+        "migration_required": { "type": "boolean" },
+        "migration_note": { "type": "string" }
+      },
+      "unevaluatedProperties": false
+    },
+    "ci_obligations": {
+      "type": "object",
+      "required": ["must_validate_schema", "must_index_in_graph", "required_checks"],
+      "properties": {
+        "must_validate_schema": { "type": "boolean", "const": true },
+        "must_index_in_graph": { "type": "boolean" },
+        "required_checks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^GOVERNANCE_ADR/[A-Z0-9_]+$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "unevaluatedProperties": false
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Namespaced extension area. No ungoverned top-level fields are allowed."
+    }
+  },
+  "unevaluatedProperties": false
+}
