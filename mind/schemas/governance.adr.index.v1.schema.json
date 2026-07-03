@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/governance.adr.index.v1.schema.json",
+  "title": "MC Governance ADR Index v1",
+  "description": "Generated, deterministic index of machine-readable Architecture Decision Records. ADR records remain source-of-truth; this index is derived for CI, graph compilation, review dashboards, and public-safe traceability.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "index_id",
+    "generated_at",
+    "source_schema",
+    "source_count",
+    "adrs",
+    "edges",
+    "checks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "governance.adr.index.v1"
+    },
+    "index_id": {
+      "type": "string",
+      "pattern": "^adr-index:[a-z0-9][a-z0-9._:-]{2,127}$"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Generation timestamp. Deterministic tests may pin this value. Production generation may use current time."
+    },
+    "source_schema": {
+      "type": "string",
+      "const": "governance.adr.v1"
+    },
+    "source_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "adrs": {
+      "type": "array",
+      "description": "Sorted by adr_id ascending. Contains public-safe, indexable summaries only; private reasoning and personal material must not be copied into the index.",
+      "items": {
+        "$ref": "#/$defs/adr_node"
+      },
+      "uniqueItems": true
+    },
+    "edges": {
+      "type": "array",
+      "description": "Sorted by from, type, to ascending. All endpoints must resolve to ADR ids or governance artifact ids during semantic validation.",
+      "items": {
+        "$ref": "#/$defs/adr_edge"
+      },
+      "uniqueItems": true
+    },
+    "checks": {
+      "type": "array",
+      "description": "Stable check records emitted by the ADR index builder. CI may fail based on severity.",
+      "items": {
+        "$ref": "#/$defs/check"
+      }
+    }
+  },
+  "$defs": {
+    "adr_id": {
+      "type": "string",
+      "pattern": "^adr:[a-z0-9][a-z0-9._:-]{2,127}$"
+    },
+    "artifact_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._:-]{2,191}$"
+    },
+    "adr_status": {
+      "type": "string",
+      "enum": ["proposed", "accepted", "deprecated", "superseded", "rejected"]
+    },
+    "public_safety_class": {
+      "type": "string",
+      "enum": ["public-safe", "public-safe-abstracted", "internal-redacted"]
+    },
+    "adr_node": {
+      "type": "object",
+      "required": [
+        "adr_id",
+        "title",
+        "status",
+        "decision_date",
+        "public_safety_class",
+        "governance_scope",
+        "source_path"
+      ],
+      "properties": {
+        "adr_id": { "$ref": "#/$defs/adr_id" },
+        "title": { "type": "string", "minLength": 3, "maxLength": 180 },
+        "status": { "$ref": "#/$defs/adr_status" },
+        "decision_date": { "type": "string", "format": "date" },
+        "public_safety_class": { "$ref": "#/$defs/public_safety_class" },
+        "governance_scope": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "schema",
+              "fixture",
+              "compatibility",
+              "lineage",
+              "graph",
+              "query",
+              "ci",
+              "public-safety",
+              "roadmap",
+              "prototype"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "source_path": {
+          "type": "string",
+          "pattern": "^mind/.+\\.json$|^mind/.+\\.md$"
+        },
+        "source_hash_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "unevaluatedProperties": false
+    },
+    "adr_edge_type": {
+      "type": "string",
+      "enum": [
+        "supersedes",
+        "requires",
+        "authorizes",
+        "constrains",
+        "derived_from",
+        "affects_artifact",
+        "validates_policy"
+      ]
+    },
+    "adr_edge": {
+      "type": "object",
+      "required": ["from", "type", "to"],
+      "properties": {
+        "from": { "$ref": "#/$defs/artifact_id" },
+        "type": { "$ref": "#/$defs/adr_edge_type" },
+        "to": { "$ref": "#/$defs/artifact_id" },
+        "evidence": {
+          "type": "string",
+          "maxLength": 240
+        }
+      },
+      "unevaluatedProperties": false
+    },
+    "check": {
+      "type": "object",
+      "required": ["code", "severity", "status", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^GOVERNANCE_ADR_INDEX/[A-Z0-9_]+$"
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["info", "warning", "error"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pass", "fail", "not_applicable"]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400
+        },
+        "location": {
+          "type": "string",
+          "maxLength": 240
+        }
+      },
+      "unevaluatedProperties": false
+    }
+  },
+  "unevaluatedProperties": false
+}
