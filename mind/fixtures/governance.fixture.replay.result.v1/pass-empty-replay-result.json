@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "governance.fixture.replay.result.v1",
+  "runId": "fixture-replay-20260703T104800Z-empty001",
+  "tool": {
+    "name": "replay-governance-adr-index-fixtures",
+    "version": "v1",
+    "command": "node tools/replay-governance-adr-index-fixtures.mjs --fixture-root mind/fixtures/governance.adr.index.v1"
+  },
+  "status": "pass",
+  "startedAt": "2026-07-03T10:48:00Z",
+  "completedAt": "2026-07-03T10:48:01Z",
+  "inputSet": {
+    "fixtureRoot": "mind/fixtures/governance.adr.index.v1",
+    "fixtureSetHash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "caseCount": 0
+  },
+  "summary": {
+    "passed": 0,
+    "warnings": 0,
+    "failed": 0,
+    "exitCode": 0
+  },
+  "cases": [],
+  "outputs": {
+    "jsonResultPath": "mind/reports/governance.fixture.replay.result.v1/latest.json",
+    "markdownSummaryPath": "mind/reports/governance.fixture.replay.result.v1/latest.md",
+    "markdownSummaryHash": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "checks": []
+}
