@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirror-cartographer.local/schemas/governance.expected-fixture-pairs.v1.schema.json",
+  "title": "MC Governance Expected Fixture Pair Manifest v1",
+  "description": "Public-safe manifest declaring intentional generated-vs-expected fixture pairs for deterministic byte comparison.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "description",
+    "generated_root",
+    "expected_root",
+    "unexpected_output_policy",
+    "update_policy",
+    "pairs"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "governance.expected-fixture-pairs.v1"
+    },
+    "manifest_id": {
+      "$ref": "#/$defs/kebabId"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 12,
+      "maxLength": 240,
+      "pattern": "^[^\\u0000-\\u001f]+$"
+    },
+    "generated_root": {
+      "$ref": "#/$defs/repositoryRelativeDirectory"
+    },
+    "expected_root": {
+      "$ref": "#/$defs/repositoryRelativeDirectory"
+    },
+    "unexpected_output_policy": {
+      "const": "reject"
+    },
+    "update_policy": {
+      "const": "verify_only_until_explicit_update_workflow_exists"
+    },
+    "pairs": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "$ref": "#/$defs/pair"
+      }
+    },
+    "dashboard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ingestible", "stable_group_key"],
+      "properties": {
+        "ingestible": {
+          "type": "boolean"
+        },
+        "stable_group_key": {
+          "$ref": "#/$defs/kebabId"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "kebabId": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 80,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "checkCode": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 80,
+      "pattern": "^[A-Z]{3}_[A-Z0-9_]+$"
+    },
+    "repositoryRelativePath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240,
+      "pattern": "^(?!/)(?!~)(?![A-Za-z]:)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*//)[A-Za-z0-9._/-]+$"
+    },
+    "repositoryRelativeDirectory": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/repositoryRelativePath"
+        },
+        {
+          "not": {
+            "pattern": "/$"
+          }
+        }
+      ]
+    },
+    "artifactKind": {
+      "enum": [
+        "result-json",
+        "summary-md",
+        "output-record-json",
+        "manifest-json",
+        "provenance-subject-json"
+      ]
+    },
+    "pair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "artifact_kind",
+        "generated_path",
+        "expected_path",
+        "comparison",
+        "public_api",
+        "on_match_check_code",
+        "on_drift_check_code",
+        "on_missing_generated_check_code",
+        "on_missing_expected_check_code"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/kebabId"
+        },
+        "descriptor_id": {
+          "$ref": "#/$defs/kebabId"
+        },
+        "artifact_kind": {
+          "$ref": "#/$defs/artifactKind"
+        },
+        "generated_path": {
+          "$ref": "#/$defs/repositoryRelativePath"
+        },
+        "expected_path": {
+          "$ref": "#/$defs/repositoryRelativePath"
+        },
+        "comparison": {
+          "const": "byte_sha256"
+        },
+        "public_api": {
+          "const": true
+        },
+        "on_match_check_code": {
+          "$ref": "#/$defs/checkCode"
+        },
+        "on_drift_check_code": {
+          "$ref": "#/$defs/checkCode"
+        },
+        "on_missing_generated_check_code": {
+          "$ref": "#/$defs/checkCode"
+        },
+        "on_missing_expected_check_code": {
+          "$ref": "#/$defs/checkCode"
+        },
+        "schema_ref": {
+          "$ref": "#/$defs/repositoryRelativePath"
+        },
+        "markdown_policy": {
+          "enum": ["escaped_gfm_no_html"]
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240,
+          "pattern": "^[^\\u0000-\\u001f]+$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "artifact_kind": { "const": "summary-md" } },
+            "required": ["artifact_kind"]
+          },
+          "then": {
+            "required": ["markdown_policy"]
+          }
+        },
+        {
+          "if": {
+            "properties": { "artifact_kind": { "enum": ["result-json", "output-record-json", "manifest-json", "provenance-subject-json"] } },
+            "required": ["artifact_kind"]
+          },
+          "then": {
+            "required": ["schema_ref"]
+          }
+        }
+      ]
+    }
+  }
+}
