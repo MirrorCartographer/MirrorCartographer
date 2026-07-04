@@ -1,0 +1,35 @@
+{
+  "descriptorVersion": "governance.artifact-manifest-helper.symbolic-fixture-descriptor.v1",
+  "fixtureId": "fail-unsafe-content-marker",
+  "caseKind": "unsafe-blocked",
+  "purpose": "Proves the helper blocks unsafe content using a symbolic marker without committing raw secret-like or private material.",
+  "publicSafety": {
+    "rawSensitiveMaterialCommitted": false,
+    "usesSymbolicUnsafeMarker": true,
+    "summaryRedactionRequired": true,
+    "notes": "The runner synthesizes a harmless marker token that exercises the unsafe-content path without exposing real sensitive content."
+  },
+  "syntheticInput": {
+    "generator": "unsafe-content-marker-mutation",
+    "files": [
+      {
+        "relativePath": "input/public-safe-placeholder.txt",
+        "contentKind": "symbolic-unsafe-marker",
+        "logicalRole": "mutation-target"
+      }
+    ],
+    "mutation": {
+      "mutationKind": "inject-symbolic-unsafe-marker",
+      "targetRelativePath": "input/public-safe-placeholder.txt"
+    }
+  },
+  "expectedOutcome": {
+    "resultStatus": "unsafe-blocked",
+    "defaultExitCode": 0,
+    "sentinelExitCode": 1,
+    "normalizedCheckCodes": [
+      "GOV-MANIFEST-HELPER-UNSAFE-BLOCKED"
+    ],
+    "summaryDisclosure": "status-only"
+  }
+}
