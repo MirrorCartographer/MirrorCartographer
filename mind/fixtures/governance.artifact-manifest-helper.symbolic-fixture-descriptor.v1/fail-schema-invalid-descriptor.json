@@ -1,0 +1,35 @@
+{
+  "descriptorVersion": "governance.artifact-manifest-helper.symbolic-fixture-descriptor.v1",
+  "fixtureId": "fail-schema-invalid-descriptor",
+  "caseKind": "schema-invalid",
+  "purpose": "Proves the replay runner can report descriptor schema failure through a redacted event envelope.",
+  "publicSafety": {
+    "rawSensitiveMaterialCommitted": false,
+    "usesSymbolicUnsafeMarker": false,
+    "summaryRedactionRequired": true,
+    "notes": "The descriptor is valid; the runner synthesizes the schema-invalid variant by removing a required field in temp space."
+  },
+  "syntheticInput": {
+    "generator": "schema-invalid-descriptor-mutation",
+    "files": [
+      {
+        "relativePath": "descriptor/placeholder.json",
+        "contentKind": "schema-invalid-placeholder",
+        "logicalRole": "sentinel"
+      }
+    ],
+    "mutation": {
+      "mutationKind": "remove-required-descriptor-field",
+      "targetRelativePath": "descriptor/placeholder.json"
+    }
+  },
+  "expectedOutcome": {
+    "resultStatus": "schema-invalid",
+    "defaultExitCode": 1,
+    "sentinelExitCode": 1,
+    "normalizedCheckCodes": [
+      "GOV-MANIFEST-HELPER-SCHEMA-INVALID"
+    ],
+    "summaryDisclosure": "redacted-public-safe"
+  }
+}
