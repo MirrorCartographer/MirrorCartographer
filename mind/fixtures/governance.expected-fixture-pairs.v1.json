@@ -1,0 +1,60 @@
+{
+  "schema_version": "governance.expected-fixture-pairs.v1",
+  "manifest_id": "artifact-manifest-helper-dry-run-fixtures",
+  "description": "Minimal public-safe fixture pair manifest for artifact-manifest-helper dry-run output comparison.",
+  "generated_root": "mind/fixtures/generated/governance-artifact-manifest-helper-dry-run",
+  "expected_root": "mind/fixtures/expected/governance-artifact-manifest-helper-dry-run",
+  "unexpected_output_policy": "reject",
+  "update_policy": "verify_only_until_explicit_update_workflow_exists",
+  "dashboard": {
+    "ingestible": true,
+    "stable_group_key": "artifact-manifest-helper-dry-run-fixtures"
+  },
+  "pairs": [
+    {
+      "id": "pass-public-safe-result-json",
+      "descriptor_id": "pass-public-safe",
+      "artifact_kind": "result-json",
+      "generated_path": "mind/fixtures/generated/governance-artifact-manifest-helper-dry-run/pass-public-safe/result.json",
+      "expected_path": "mind/fixtures/expected/governance-artifact-manifest-helper-dry-run/pass-public-safe/result.json",
+      "comparison": "byte_sha256",
+      "public_api": true,
+      "schema_ref": "mind/schemas/governance.replay.result.v1.schema.json",
+      "on_match_check_code": "GHF_PAIR_MATCHED",
+      "on_drift_check_code": "GHF_PAIR_DRIFTED",
+      "on_missing_generated_check_code": "GHF_PAIR_GENERATED_MISSING",
+      "on_missing_expected_check_code": "GHF_PAIR_EXPECTED_MISSING",
+      "notes": "The result envelope is the primary dashboard-ingestible public replay contract."
+    },
+    {
+      "id": "pass-public-safe-summary-md",
+      "descriptor_id": "pass-public-safe",
+      "artifact_kind": "summary-md",
+      "generated_path": "mind/fixtures/generated/governance-artifact-manifest-helper-dry-run/pass-public-safe/summary.md",
+      "expected_path": "mind/fixtures/expected/governance-artifact-manifest-helper-dry-run/pass-public-safe/summary.md",
+      "comparison": "byte_sha256",
+      "public_api": true,
+      "markdown_policy": "escaped_gfm_no_html",
+      "on_match_check_code": "GHF_PAIR_MATCHED",
+      "on_drift_check_code": "GHF_PAIR_DRIFTED",
+      "on_missing_generated_check_code": "GHF_PAIR_GENERATED_MISSING",
+      "on_missing_expected_check_code": "GHF_PAIR_EXPECTED_MISSING",
+      "notes": "The summary is a human review surface and must stay deterministic and redacted."
+    },
+    {
+      "id": "pass-public-safe-output-record-json",
+      "descriptor_id": "pass-public-safe",
+      "artifact_kind": "output-record-json",
+      "generated_path": "mind/fixtures/generated/governance-artifact-manifest-helper-dry-run/pass-public-safe/output-record.json",
+      "expected_path": "mind/fixtures/expected/governance-artifact-manifest-helper-dry-run/pass-public-safe/output-record.json",
+      "comparison": "byte_sha256",
+      "public_api": true,
+      "schema_ref": "mind/schemas/governance.output-record.v1.schema.json",
+      "on_match_check_code": "GHF_PAIR_MATCHED",
+      "on_drift_check_code": "GHF_PAIR_DRIFTED",
+      "on_missing_generated_check_code": "GHF_PAIR_GENERATED_MISSING",
+      "on_missing_expected_check_code": "GHF_PAIR_EXPECTED_MISSING",
+      "notes": "The output record is the bridge from byte custody to later manifest/provenance subject modeling."
+    }
+  ]
+}
