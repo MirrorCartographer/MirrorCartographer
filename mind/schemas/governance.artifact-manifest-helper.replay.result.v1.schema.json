@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/governance.artifact-manifest-helper.replay.result.v1.schema.json",
+  "title": "Governance Artifact Manifest Helper Replay Result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "artifactKind",
+    "producer",
+    "fixtureSet",
+    "summary",
+    "exitBehavior",
+    "publicSafety",
+    "results"
+  ],
+  "properties": {
+    "schema": { "const": "governance.artifact-manifest-helper.replay.result.v1" },
+    "artifactKind": { "const": "governance.artifact-manifest-helper.replay.result" },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tool", "version", "deterministicPolicy"],
+      "properties": {
+        "tool": { "const": "tools/replay-governance-artifact-manifest-helper-fixtures.mjs" },
+        "version": { "type": "string", "pattern": "^v[0-9]+$" },
+        "deterministicPolicy": { "const": "canonical-json-sha256-public-safe" }
+      }
+    },
+    "fixtureSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "root", "count"],
+      "properties": {
+        "schema": { "const": "governance.replay.artifact.manifest-helper.v1" },
+        "root": { "$ref": "#/$defs/relativePath" },
+        "count": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "passed", "expectedFailures", "unsafeBlocked", "schemaInvalid", "unexpectedFailures"],
+      "properties": {
+        "status": { "enum": ["pass", "fail"] },
+        "passed": { "type": "integer", "minimum": 0 },
+        "expectedFailures": { "type": "integer", "minimum": 0 },
+        "unsafeBlocked": { "type": "integer", "minimum": 0 },
+        "schemaInvalid": { "type": "integer", "minimum": 0 },
+        "unexpectedFailures": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "exitBehavior": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exitCode", "stableExitPolicy"],
+      "properties": {
+        "exitCode": { "type": "integer", "minimum": 0, "maximum": 255 },
+        "stableExitPolicy": { "const": "0-pass-1-replay-or-schema-failure" }
+      }
+    },
+    "publicSafety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policyId", "status", "redactionPolicy", "checks"],
+      "properties": {
+        "policyId": { "const": "mc-public-safe-governance-artifacts.v1" },
+        "status": { "enum": ["pass", "fail"] },
+        "redactionPolicy": { "const": "no-raw-unsafe-inputs-in-result-or-summary" },
+        "checks": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/check" }
+        }
+      }
+    },
+    "results": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/result" }
+    }
+  },
+  "$defs": {
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!~)(?![A-Za-z]:)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*//)[A-Za-z0-9._/-]+$"
+    },
+    "digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "value", "uri"],
+      "properties": {
+        "algorithm": { "const": "sha256" },
+        "value": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "uri": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fixture", "expected", "actual", "checks"],
+      "properties": {
+        "fixture": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "digest"],
+          "properties": {
+            "path": { "$ref": "#/$defs/relativePath" },
+            "digest": { "$ref": "#/$defs/digest" }
+          }
+        },
+        "expected": { "enum": ["pass", "expected-failure", "unsafe-blocked", "schema-invalid"] },
+        "actual": { "enum": ["pass", "expected-failure", "unsafe-blocked", "schema-invalid", "unexpected-failure"] },
+        "checks": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/check" }
+        }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "severity", "path", "message"],
+      "properties": {
+        "code": { "type": "string", "pattern": "^GOVERNANCE_MANIFEST_HELPER_[A-Z0-9_]+$" },
+        "severity": { "enum": ["notice", "warning", "error"] },
+        "path": { "type": "string", "minLength": 1 },
+        "message": { "type": "string", "minLength": 1, "maxLength": 240 }
+      }
+    }
+  }
+}
