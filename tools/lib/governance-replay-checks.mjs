@@ -18,7 +18,8 @@ export const CHECK_PREFIXES = Object.freeze({
   manifest: 'GHM',
   schema: 'GHS',
   publicSafety: 'GHP',
-  actions: 'GHA'
+  actions: 'GHA',
+  expectedFixture: 'GHF'
 });
 
 export const CHECK_CATEGORIES = Object.freeze([
@@ -28,6 +29,8 @@ export const CHECK_CATEGORIES = Object.freeze([
   'public_safety',
   'schema.validation',
   'artifact.manifest',
+  'expected_fixture.compare',
+  'expected_fixture.manifest',
   'github_actions.emission',
   'exit_behavior',
   'contract'
@@ -134,12 +137,68 @@ export const CHECK_CODES = Object.freeze({
     severity: 'notice',
     expectedness: 'diagnostic',
     defaultMessage: 'GitHub annotation emission was derived from a normalized check.'
+  }),
+  GHF_MANIFEST_SCHEMA_VALID: Object.freeze({
+    code: 'GHF_MANIFEST_SCHEMA_VALID',
+    category: 'expected_fixture.manifest',
+    state: 'passed',
+    severity: 'notice',
+    expectedness: 'expected',
+    defaultMessage: 'Expected-fixture pair manifest matched its schema before fixture reads.'
+  }),
+  GHF_MANIFEST_SCHEMA_INVALID: Object.freeze({
+    code: 'GHF_MANIFEST_SCHEMA_INVALID',
+    category: 'expected_fixture.manifest',
+    state: 'contract_violation',
+    severity: 'error',
+    expectedness: 'unexpected',
+    defaultMessage: 'Expected-fixture pair manifest failed schema validation before fixture reads.'
+  }),
+  GHF_PAIR_MATCHED: Object.freeze({
+    code: 'GHF_PAIR_MATCHED',
+    category: 'expected_fixture.compare',
+    state: 'passed',
+    severity: 'notice',
+    expectedness: 'expected',
+    defaultMessage: 'Generated fixture bytes matched the checked-in expected fixture.'
+  }),
+  GHF_PAIR_DRIFTED: Object.freeze({
+    code: 'GHF_PAIR_DRIFTED',
+    category: 'expected_fixture.compare',
+    state: 'contract_violation',
+    severity: 'error',
+    expectedness: 'unexpected',
+    defaultMessage: 'Generated fixture bytes drifted from the checked-in expected fixture.'
+  }),
+  GHF_PAIR_GENERATED_MISSING: Object.freeze({
+    code: 'GHF_PAIR_GENERATED_MISSING',
+    category: 'expected_fixture.compare',
+    state: 'contract_violation',
+    severity: 'error',
+    expectedness: 'unexpected',
+    defaultMessage: 'Generated fixture file declared by the pair manifest was missing.'
+  }),
+  GHF_PAIR_EXPECTED_MISSING: Object.freeze({
+    code: 'GHF_PAIR_EXPECTED_MISSING',
+    category: 'expected_fixture.compare',
+    state: 'contract_violation',
+    severity: 'error',
+    expectedness: 'unexpected',
+    defaultMessage: 'Expected fixture file declared by the pair manifest was missing.'
+  }),
+  GHF_UNLISTED_GENERATED_OUTPUT: Object.freeze({
+    code: 'GHF_UNLISTED_GENERATED_OUTPUT',
+    category: 'expected_fixture.compare',
+    state: 'contract_violation',
+    severity: 'error',
+    expectedness: 'unexpected',
+    defaultMessage: 'Generated output was not declared by the expected-fixture pair manifest.'
   })
 });
 
 const SECRET_LIKE_PATTERN = /(?:ghp_|github_pat_|sk-[A-Za-z0-9]|BEGIN [A-Z ]*PRIVATE KEY|password=|token=|api[_-]?key\s*[:=])/i;
 const ABSOLUTE_PATH_PATTERN = /(?:^|\s)(?:\/Users\/|\/home\/|C:\\Users\\)[^\s]*/i;
-const RELATIVE_PATH_PATTERN = /^(?!\/)(?!~)(?![A-Za-z]:)(?!.*\\)(?!.*(?:^|/)\.\.(?:\/|$))(?!.*\/\/)[A-Za-z0-9._/-]+$/;
+const RELATIVE_PATH_PATTERN = /^(?!\/)(?!~)(?![A-Za-z]:)(?!.*\\)(?!.*(?:^|\/)\.\.(?:\/|$))(?!.*\/\/)[A-Za-z0-9._/-]+$/;
 const JSON_POINTER_PATTERN = /^(?:|\/(?:[^~/]|~0|~1)*)$/;
 
 function assertEnum(name, value, allowed) {
