@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirror-cartographer.local/schemas/governance.artifact-manifest-helper.symbolic-fixture-descriptor.v1.schema.json",
+  "title": "Governance Artifact Manifest Helper Symbolic Fixture Descriptor v1",
+  "description": "Public-safe descriptor for generating temp-only fixture cases for governance artifact manifest helper replay.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "descriptorVersion",
+    "fixtureId",
+    "caseKind",
+    "purpose",
+    "publicSafety",
+    "syntheticInput",
+    "expectedOutcome"
+  ],
+  "properties": {
+    "descriptorVersion": {
+      "const": "governance.artifact-manifest-helper.symbolic-fixture-descriptor.v1"
+    },
+    "fixtureId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9.-]{2,96}[a-z0-9]$"
+    },
+    "caseKind": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "expected-failure",
+        "unsafe-blocked",
+        "schema-invalid",
+        "unexpected-failure"
+      ]
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 12,
+      "maxLength": 500
+    },
+    "publicSafety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rawSensitiveMaterialCommitted",
+        "usesSymbolicUnsafeMarker",
+        "summaryRedactionRequired"
+      ],
+      "properties": {
+        "rawSensitiveMaterialCommitted": {
+          "type": "boolean",
+          "const": false
+        },
+        "usesSymbolicUnsafeMarker": {
+          "type": "boolean"
+        },
+        "summaryRedactionRequired": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 500
+        }
+      }
+    },
+    "syntheticInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generator",
+        "files"
+      ],
+      "properties": {
+        "generator": {
+          "type": "string",
+          "enum": [
+            "minimal-valid-file-set",
+            "invalid-path-mutation",
+            "unsafe-content-marker-mutation",
+            "schema-invalid-descriptor-mutation",
+            "synthetic-io-error-mutation"
+          ]
+        },
+        "files": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "relativePath",
+              "contentKind"
+            ],
+            "properties": {
+              "relativePath": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 180,
+                "pattern": "^[A-Za-z0-9._/-]+$",
+                "not": {
+                  "anyOf": [
+                    { "pattern": "(^|/)\\.\\.(/|$)" },
+                    { "pattern": "^/" },
+                    { "pattern": "^[A-Za-z]:" }
+                  ]
+                }
+              },
+              "contentKind": {
+                "type": "string",
+                "enum": [
+                  "empty-json-object",
+                  "small-markdown-note",
+                  "symbolic-unsafe-marker",
+                  "schema-invalid-placeholder",
+                  "unreadable-placeholder"
+                ]
+              },
+              "logicalRole": {
+                "type": "string",
+                "enum": [
+                  "input",
+                  "expected-output",
+                  "mutation-target",
+                  "sentinel"
+                ]
+              }
+            }
+          }
+        },
+        "mutation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mutationKind"
+          ],
+          "properties": {
+            "mutationKind": {
+              "type": "string",
+              "enum": [
+                "none",
+                "replace-path-with-parent-traversal",
+                "inject-symbolic-unsafe-marker",
+                "remove-required-descriptor-field",
+                "simulate-unexpected-io-exception"
+              ]
+            },
+            "targetRelativePath": {
+              "type": "string",
+              "maxLength": 180
+            }
+          }
+        }
+      }
+    },
+    "expectedOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resultStatus",
+        "defaultExitCode",
+        "sentinelExitCode",
+        "normalizedCheckCodes"
+      ],
+      "properties": {
+        "resultStatus": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "expected-failure-observed",
+            "unsafe-blocked",
+            "schema-invalid",
+            "unexpected-failure"
+          ]
+        },
+        "defaultExitCode": {
+          "type": "integer",
+          "enum": [0, 1]
+        },
+        "sentinelExitCode": {
+          "type": "integer",
+          "enum": [0, 1]
+        },
+        "normalizedCheckCodes": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 12,
+          "items": {
+            "type": "string",
+            "pattern": "^GOV-MANIFEST-HELPER-[A-Z0-9-]{3,60}$"
+          }
+        },
+        "summaryDisclosure": {
+          "type": "string",
+          "enum": [
+            "full-public-safe",
+            "redacted-public-safe",
+            "status-only"
+          ]
+        }
+      }
+    }
+  }
+}
