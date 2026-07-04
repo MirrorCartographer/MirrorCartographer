@@ -1,0 +1,35 @@
+{
+  "descriptorVersion": "governance.artifact-manifest-helper.symbolic-fixture-descriptor.v1",
+  "fixtureId": "fail-unexpected-io-error",
+  "caseKind": "unexpected-failure",
+  "purpose": "Proves unexpected helper exceptions are normalized without leaking raw stack traces into public summaries.",
+  "publicSafety": {
+    "rawSensitiveMaterialCommitted": false,
+    "usesSymbolicUnsafeMarker": false,
+    "summaryRedactionRequired": true,
+    "notes": "The runner simulates a bounded IO exception instead of relying on host-specific filesystem failure."
+  },
+  "syntheticInput": {
+    "generator": "synthetic-io-error-mutation",
+    "files": [
+      {
+        "relativePath": "input/unreadable-placeholder.txt",
+        "contentKind": "unreadable-placeholder",
+        "logicalRole": "sentinel"
+      }
+    ],
+    "mutation": {
+      "mutationKind": "simulate-unexpected-io-exception",
+      "targetRelativePath": "input/unreadable-placeholder.txt"
+    }
+  },
+  "expectedOutcome": {
+    "resultStatus": "unexpected-failure",
+    "defaultExitCode": 1,
+    "sentinelExitCode": 1,
+    "normalizedCheckCodes": [
+      "GOV-MANIFEST-HELPER-UNEXPECTED-FAILURE"
+    ],
+    "summaryDisclosure": "status-only"
+  }
+}
