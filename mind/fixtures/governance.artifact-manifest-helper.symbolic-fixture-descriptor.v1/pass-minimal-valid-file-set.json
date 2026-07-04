@@ -1,0 +1,39 @@
+{
+  "descriptorVersion": "governance.artifact-manifest-helper.symbolic-fixture-descriptor.v1",
+  "fixtureId": "pass-minimal-valid-file-set",
+  "caseKind": "pass",
+  "purpose": "Proves the helper can generate a deterministic manifest from a minimal public-safe file set.",
+  "publicSafety": {
+    "rawSensitiveMaterialCommitted": false,
+    "usesSymbolicUnsafeMarker": false,
+    "summaryRedactionRequired": false,
+    "notes": "Contains only harmless generated fixture content."
+  },
+  "syntheticInput": {
+    "generator": "minimal-valid-file-set",
+    "files": [
+      {
+        "relativePath": "input/minimal.json",
+        "contentKind": "empty-json-object",
+        "logicalRole": "input"
+      },
+      {
+        "relativePath": "notes/context.md",
+        "contentKind": "small-markdown-note",
+        "logicalRole": "input"
+      }
+    ],
+    "mutation": {
+      "mutationKind": "none"
+    }
+  },
+  "expectedOutcome": {
+    "resultStatus": "passed",
+    "defaultExitCode": 0,
+    "sentinelExitCode": 0,
+    "normalizedCheckCodes": [
+      "GOV-MANIFEST-HELPER-PASS-DETERMINISTIC"
+    ],
+    "summaryDisclosure": "full-public-safe"
+  }
+}
