@@ -1,0 +1,114 @@
+{
+  "schema": "governance.artifact-manifest-helper.replay.result.v1",
+  "artifactKind": "governance.artifact-manifest-helper.replay.result",
+  "producer": {
+    "tool": "tools/replay-governance-artifact-manifest-helper-fixtures.mjs",
+    "version": "v1",
+    "deterministicPolicy": "canonical-json-sha256-public-safe"
+  },
+  "fixtureSet": {
+    "schema": "governance.replay.artifact.manifest-helper.v1",
+    "root": "mind/fixtures/governance.replay.artifact.manifest-helper.v1",
+    "count": 4
+  },
+  "summary": {
+    "status": "pass",
+    "passed": 1,
+    "expectedFailures": 1,
+    "unsafeBlocked": 1,
+    "schemaInvalid": 1,
+    "unexpectedFailures": 0
+  },
+  "exitBehavior": {
+    "exitCode": 0,
+    "stableExitPolicy": "0-pass-1-replay-or-schema-failure"
+  },
+  "publicSafety": {
+    "policyId": "mc-public-safe-governance-artifacts.v1",
+    "status": "pass",
+    "redactionPolicy": "no-raw-unsafe-inputs-in-result-or-summary",
+    "checks": [
+      {
+        "code": "GOVERNANCE_MANIFEST_HELPER_UNSAFE_INPUT_BLOCKED",
+        "severity": "notice",
+        "path": "fixtures/unsafe-redacted.json",
+        "message": "Unsafe fixture content was blocked and represented only by safe metadata."
+      }
+    ]
+  },
+  "results": [
+    {
+      "fixture": {
+        "path": "mind/fixtures/governance.replay.artifact.manifest-helper.v1/pass-minimal-file-set.json",
+        "digest": {
+          "algorithm": "sha256",
+          "value": "0000000000000000000000000000000000000000000000000000000000000000",
+          "uri": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      },
+      "expected": "pass",
+      "actual": "pass",
+      "checks": []
+    },
+    {
+      "fixture": {
+        "path": "mind/fixtures/governance.replay.artifact.manifest-helper.v1/fail-invalid-path.json",
+        "digest": {
+          "algorithm": "sha256",
+          "value": "1111111111111111111111111111111111111111111111111111111111111111",
+          "uri": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+        }
+      },
+      "expected": "expected-failure",
+      "actual": "expected-failure",
+      "checks": [
+        {
+          "code": "GOVERNANCE_MANIFEST_HELPER_INVALID_PATH",
+          "severity": "error",
+          "path": "files[0].path",
+          "message": "Path failed the public-safe relative path contract."
+        }
+      ]
+    },
+    {
+      "fixture": {
+        "path": "mind/fixtures/governance.replay.artifact.manifest-helper.v1/fail-unsafe-redacted.json",
+        "digest": {
+          "algorithm": "sha256",
+          "value": "2222222222222222222222222222222222222222222222222222222222222222",
+          "uri": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+        }
+      },
+      "expected": "unsafe-blocked",
+      "actual": "unsafe-blocked",
+      "checks": [
+        {
+          "code": "GOVERNANCE_MANIFEST_HELPER_UNSAFE_INPUT_BLOCKED",
+          "severity": "error",
+          "path": "fixture",
+          "message": "Unsafe input was blocked before artifact emission."
+        }
+      ]
+    },
+    {
+      "fixture": {
+        "path": "mind/fixtures/governance.replay.artifact.manifest-helper.v1/fail-schema-invalid.json",
+        "digest": {
+          "algorithm": "sha256",
+          "value": "3333333333333333333333333333333333333333333333333333333333333333",
+          "uri": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+        }
+      },
+      "expected": "schema-invalid",
+      "actual": "schema-invalid",
+      "checks": [
+        {
+          "code": "GOVERNANCE_MANIFEST_HELPER_SCHEMA_INVALID",
+          "severity": "error",
+          "path": "fixture",
+          "message": "Fixture failed the helper fixture schema before replay."
+        }
+      ]
+    }
+  ]
+}
