@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/governance.replay.check.v1.schema.json",
+  "title": "Governance Replay Check v1",
+  "description": "Public-safe normalized check object shared by governance replay tools, result envelopes, Markdown summaries, GitHub annotations, and future dashboard ingestion.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "code",
+    "severity",
+    "category",
+    "state",
+    "publicMessage"
+  ],
+  "properties": {
+    "schema": { "const": "governance.replay.check.v1" },
+    "code": {
+      "type": "string",
+      "description": "Stable append-only machine code. Human text may change; code meaning must not drift without a new schema version or explicit deprecation entry.",
+      "pattern": "^(GHR|GHM|GHS|GHP|GHA)_[A-Z0-9_]+$"
+    },
+    "severity": {
+      "description": "Normalized severity before GitHub Actions emission. The emitter maps these values to notice/warning/error/summary-only behavior.",
+      "enum": ["info", "notice", "warning", "error", "blocked"]
+    },
+    "category": {
+      "enum": [
+        "descriptor.validation",
+        "temp.synthesis",
+        "helper.execution",
+        "public_safety",
+        "schema.validation",
+        "artifact.manifest",
+        "github_actions.emission",
+        "exit_behavior",
+        "contract"
+      ]
+    },
+    "state": {
+      "enum": [
+        "passed",
+        "expected_failure_observed",
+        "unsafe_blocked",
+        "schema_invalid_observed",
+        "unexpected_failure",
+        "contract_violation",
+        "not_applicable"
+      ]
+    },
+    "expectedness": {
+      "enum": ["expected", "unexpected", "diagnostic", "not_applicable"]
+    },
+    "publicMessage": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240,
+      "pattern": "^(?!.*(?:ghp_|github_pat_|sk-[A-Za-z0-9]|BEGIN [A-Z ]*PRIVATE KEY|password=|token=)).*$"
+    },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": { "$ref": "#/$defs/relativePath" },
+        "jsonPointer": { "$ref": "#/$defs/jsonPointer" },
+        "line": { "type": "integer", "minimum": 1 },
+        "column": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "safeDetails": {
+      "type": "object",
+      "description": "Optional public-safe structured context. Do not place raw unsafe input, absolute local paths, secrets, private/person-identifying examples, or untrusted prompt text here.",
+      "additionalProperties": {
+        "type": ["string", "number", "integer", "boolean", "null"]
+      },
+      "maxProperties": 12
+    },
+    "problem": {
+      "type": "object",
+      "description": "Problem-Details-inspired machine-readable problem record. This borrows RFC 9457 shape without implying an HTTP boundary.",
+      "additionalProperties": false,
+      "required": ["type", "title", "detail", "instance"],
+      "properties": {
+        "type": { "type": "string", "format": "uri-reference", "maxLength": 200 },
+        "title": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "detail": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "instance": { "type": "string", "minLength": 1, "maxLength": 160 }
+      }
+    },
+    "emission": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "githubAnnotation": { "enum": ["notice", "warning", "error", "none"] },
+        "summaryVisibility": { "enum": ["include", "omit", "redacted"] },
+        "dashboardVisibility": { "enum": ["include", "omit", "redacted"] }
+      }
+    }
+  },
+  "$defs": {
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240,
+      "pattern": "^(?!/)(?!~)(?![A-Za-z]:)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*//)[A-Za-z0-9._/-]+$"
+    },
+    "jsonPointer": {
+      "type": "string",
+      "pattern": "^(?:|/(?:[^~/]|~0|~1)*)$",
+      "maxLength": 240
+    }
+  }
+}
