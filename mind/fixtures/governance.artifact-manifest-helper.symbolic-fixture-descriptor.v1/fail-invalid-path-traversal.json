@@ -1,0 +1,35 @@
+{
+  "descriptorVersion": "governance.artifact-manifest-helper.symbolic-fixture-descriptor.v1",
+  "fixtureId": "fail-invalid-path-traversal",
+  "caseKind": "expected-failure",
+  "purpose": "Proves the helper rejects parent traversal paths synthesized only inside the runner temp directory.",
+  "publicSafety": {
+    "rawSensitiveMaterialCommitted": false,
+    "usesSymbolicUnsafeMarker": false,
+    "summaryRedactionRequired": true,
+    "notes": "The committed descriptor stores only the mutation instruction, not the concrete traversal payload."
+  },
+  "syntheticInput": {
+    "generator": "invalid-path-mutation",
+    "files": [
+      {
+        "relativePath": "input/mutation-target.json",
+        "contentKind": "empty-json-object",
+        "logicalRole": "mutation-target"
+      }
+    ],
+    "mutation": {
+      "mutationKind": "replace-path-with-parent-traversal",
+      "targetRelativePath": "input/mutation-target.json"
+    }
+  },
+  "expectedOutcome": {
+    "resultStatus": "expected-failure-observed",
+    "defaultExitCode": 0,
+    "sentinelExitCode": 1,
+    "normalizedCheckCodes": [
+      "GOV-MANIFEST-HELPER-EXPECTED-PATH-BLOCK"
+    ],
+    "summaryDisclosure": "redacted-public-safe"
+  }
+}
