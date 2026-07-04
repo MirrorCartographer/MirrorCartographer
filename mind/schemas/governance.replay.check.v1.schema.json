@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://mirrorcartographer.dev/schemas/governance.replay.check.v1.schema.json",
   "title": "Governance Replay Check v1",
-  "description": "Public-safe normalized check object shared by governance replay tools, result envelopes, Markdown summaries, GitHub annotations, and future dashboard ingestion.",
+  "description": "Public-safe normalized check object shared by governance replay tools, result envelopes, Markdown summaries, GitHub annotations, expected-fixture verification, and future dashboard ingestion.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -18,7 +18,7 @@
     "code": {
       "type": "string",
       "description": "Stable append-only machine code. Human text may change; code meaning must not drift without a new schema version or explicit deprecation entry.",
-      "pattern": "^(GHR|GHM|GHS|GHP|GHA)_[A-Z0-9_]+$"
+      "pattern": "^(GHR|GHM|GHS|GHP|GHA|GHF)_[A-Z0-9_]+$"
     },
     "severity": {
       "description": "Normalized severity before GitHub Actions emission. The emitter maps these values to notice/warning/error/summary-only behavior.",
@@ -32,6 +32,8 @@
         "public_safety",
         "schema.validation",
         "artifact.manifest",
+        "expected_fixture.compare",
+        "expected_fixture.manifest",
         "github_actions.emission",
         "exit_behavior",
         "contract"
