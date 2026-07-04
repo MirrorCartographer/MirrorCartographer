@@ -1,0 +1,29 @@
+{
+  "schema": "governance.replay.check.v1",
+  "code": "GHP_UNSAFE_SYMBOLIC_CASE_BLOCKED",
+  "severity": "blocked",
+  "category": "public_safety",
+  "state": "unsafe_blocked",
+  "expectedness": "expected",
+  "publicMessage": "Unsafe symbolic fixture material was synthesized only in temp space and blocked before artifact persistence.",
+  "location": {
+    "path": "mind/fixtures/governance.replay.artifact.manifest-helper.v1/fail-unsafe-symbolic.descriptor.json",
+    "jsonPointer": "/synthesis/class"
+  },
+  "safeDetails": {
+    "blockedStage": "public_safety.pre_persist",
+    "rawUnsafeMaterialPersisted": false,
+    "absolutePathsPersisted": false
+  },
+  "problem": {
+    "type": "urn:mirror-cartographer:governance:checks:GHP_UNSAFE_SYMBOLIC_CASE_BLOCKED",
+    "title": "Unsafe symbolic case blocked",
+    "detail": "The durable result records only safe metadata for the blocked case.",
+    "instance": "fail-unsafe-symbolic"
+  },
+  "emission": {
+    "githubAnnotation": "warning",
+    "summaryVisibility": "redacted",
+    "dashboardVisibility": "include"
+  }
+}
