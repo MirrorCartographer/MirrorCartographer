@@ -69,7 +69,7 @@
         "redactionPolicy": { "const": "no-raw-unsafe-inputs-in-result-or-summary" },
         "checks": {
           "type": "array",
-          "items": { "$ref": "#/$defs/check" }
+          "items": { "$ref": "governance.replay.check.v1.schema.json" }
         }
       }
     },
@@ -113,19 +113,8 @@
         "actual": { "enum": ["pass", "expected-failure", "unsafe-blocked", "schema-invalid", "unexpected-failure"] },
         "checks": {
           "type": "array",
-          "items": { "$ref": "#/$defs/check" }
+          "items": { "$ref": "governance.replay.check.v1.schema.json" }
         }
-      }
-    },
-    "check": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["code", "severity", "path", "message"],
-      "properties": {
-        "code": { "type": "string", "pattern": "^GOVERNANCE_MANIFEST_HELPER_[A-Z0-9_]+$" },
-        "severity": { "enum": ["notice", "warning", "error"] },
-        "path": { "type": "string", "minLength": 1 },
-        "message": { "type": "string", "minLength": 1, "maxLength": 240 }
       }
     }
   }
