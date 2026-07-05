@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.local/schemas/drive-candidates.schema.json",
+  "title": "Mirror Cartographer Drive Candidate Set",
+  "description": "Public-safe candidate actions that can be scored by the MC drive selection engine.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "candidates"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/candidate"
+      }
+    }
+  },
+  "$defs": {
+    "non_empty_string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "drive_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "action_type",
+        "description",
+        "source_status",
+        "claim_status",
+        "privacy_status",
+        "missingness",
+        "revision_reason",
+        "implementation_status",
+        "testability",
+        "next_executable_action",
+        "falsification_route",
+        "measurable_variables",
+        "acceptance_criteria",
+        "drives"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/non_empty_string" },
+        "title": { "$ref": "#/$defs/non_empty_string" },
+        "action_type": {
+          "type": "string",
+          "enum": [
+            "schema",
+            "validator",
+            "test_harness",
+            "fixture_generator",
+            "cli_script",
+            "ui_contract",
+            "accessibility_fix",
+            "provenance_packet_builder",
+            "retrieval_boundary_checker",
+            "evaluation_runner",
+            "prototype_plan"
+          ]
+        },
+        "description": { "$ref": "#/$defs/non_empty_string" },
+        "source_status": { "$ref": "#/$defs/non_empty_string" },
+        "claim_status": { "$ref": "#/$defs/non_empty_string" },
+        "privacy_status": {
+          "type": "string",
+          "enum": ["public-safe", "synthetic", "abstracted", "public-source-only"]
+        },
+        "missingness": { "$ref": "#/$defs/non_empty_string" },
+        "revision_reason": { "$ref": "#/$defs/non_empty_string" },
+        "implementation_status": { "$ref": "#/$defs/non_empty_string" },
+        "testability": { "$ref": "#/$defs/non_empty_string" },
+        "next_executable_action": { "$ref": "#/$defs/non_empty_string" },
+        "falsification_route": { "$ref": "#/$defs/non_empty_string" },
+        "measurable_variables": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/non_empty_string" }
+        },
+        "acceptance_criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/non_empty_string" }
+        },
+        "drives": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "curiosity",
+            "care",
+            "novelty",
+            "uncertainty",
+            "usefulness",
+            "contradiction",
+            "executability",
+            "evidence_gain",
+            "discovery_potential"
+          ],
+          "properties": {
+            "curiosity": { "$ref": "#/$defs/drive_score" },
+            "care": { "$ref": "#/$defs/drive_score" },
+            "novelty": { "$ref": "#/$defs/drive_score" },
+            "uncertainty": { "$ref": "#/$defs/drive_score" },
+            "usefulness": { "$ref": "#/$defs/drive_score" },
+            "contradiction": { "$ref": "#/$defs/drive_score" },
+            "executability": { "$ref": "#/$defs/drive_score" },
+            "evidence_gain": { "$ref": "#/$defs/drive_score" },
+            "discovery_potential": { "$ref": "#/$defs/drive_score" }
+          }
+        }
+      }
+    }
+  }
+}
