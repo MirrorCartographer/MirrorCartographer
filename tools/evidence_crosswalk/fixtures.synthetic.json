@@ -1,0 +1,90 @@
+{
+  "valid_records": [
+    {
+      "schema_version": "1.0",
+      "record_type": "evidence_crosswalk",
+      "id": "ecw_open_benchmark_001",
+      "claim_reference": "claim_hypothesis_eval_requires_reproducible_benchmark",
+      "evidence_source": {
+        "type": "benchmark",
+        "identifier": "synthetic-public-benchmark-card",
+        "version": "2026-07"
+      },
+      "source_status": "synthetic",
+      "claim_status": "observational",
+      "privacy_status": "synthetic",
+      "implementation_status": "implemented",
+      "evidence_strength": "moderate",
+      "reproducibility": {
+        "artifacts_available": true,
+        "open_data": true,
+        "open_code": true
+      },
+      "measurable_variables": [
+        {
+          "name": "unsupported_claim_rate",
+          "units": "proportion",
+          "measurement_method": "Count unsupported generated claims divided by total generated claims."
+        },
+        {
+          "name": "reproducible_score_delta",
+          "units": "score_points",
+          "measurement_method": "Compare two independent scorer runs against the same fixture set."
+        }
+      ],
+      "limitations": [
+        "Synthetic fixture does not prove real-world scientific validity.",
+        "Benchmark design may reward documentation quality over discovery quality."
+      ],
+      "falsification_route": "Reject the claim if unsupported claims pass at the same rate as evidence-grounded claims.",
+      "linked_tests": ["tools/evidence_crosswalk/test_validate_crosswalk_records.py"],
+      "revision_reason": "Create a normalized record that downstream MC validators can score without source-specific parsing."
+    }
+  ],
+  "invalid_records": [
+    {
+      "name": "missing_measurable_variables",
+      "record": {
+        "schema_version": "1.0",
+        "record_type": "evidence_crosswalk",
+        "id": "ecw_invalid_missing_vars",
+        "claim_reference": "claim_without_variables_should_fail",
+        "evidence_source": {"type": "paper", "identifier": "synthetic-paper", "version": "v1"},
+        "source_status": "synthetic",
+        "claim_status": "observational",
+        "privacy_status": "synthetic",
+        "implementation_status": "planned",
+        "evidence_strength": "low",
+        "reproducibility": {"artifacts_available": false, "open_data": false, "open_code": false},
+        "measurable_variables": [],
+        "limitations": ["No variables were specified."],
+        "falsification_route": "A validator should reject this because no measurable variable exists.",
+        "linked_tests": [],
+        "revision_reason": "Negative fixture for missing variables."
+      },
+      "expected_error_contains": "measurable_variables"
+    },
+    {
+      "name": "private_status_rejected_by_policy",
+      "record": {
+        "schema_version": "1.0",
+        "record_type": "evidence_crosswalk",
+        "id": "ecw_invalid_private",
+        "claim_reference": "claim_private_records_should_not_enter_public_memory",
+        "evidence_source": {"type": "dataset", "identifier": "private-household-log", "version": "v1"},
+        "source_status": "primary",
+        "claim_status": "observational",
+        "privacy_status": "private",
+        "implementation_status": "planned",
+        "evidence_strength": "low",
+        "reproducibility": {"artifacts_available": false, "open_data": false, "open_code": false},
+        "measurable_variables": [{"name": "event_count", "units": "count", "measurement_method": "Count events in a log."}],
+        "limitations": ["Contains private context."],
+        "falsification_route": "A validator should reject this because public MC memory cannot accept private status.",
+        "linked_tests": [],
+        "revision_reason": "Negative fixture for privacy boundary enforcement."
+      },
+      "expected_error_contains": "privacy_status"
+    }
+  ]
+}
