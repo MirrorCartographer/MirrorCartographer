@@ -1,0 +1,142 @@
+{
+  "fixture_set": "evidence_transition_validator.synthetic.v1",
+  "source_status": "synthetic_fixture",
+  "claim_status": "engineering_test_fixture",
+  "privacy_status": "synthetic_only",
+  "records": [
+    {
+      "schema_version": "1.0",
+      "record_type": "evidence_transition_record",
+      "transition_id": "tr_supported_001",
+      "claim_id": "claim_public_safe_signal_router",
+      "from_state": "Test Result",
+      "to_state": "Supported",
+      "transition_reason": "Synthetic test result meets the predeclared threshold and preserves provenance.",
+      "source_status": "synthetic_fixture",
+      "claim_status": "supported_by_test",
+      "privacy_status": "synthetic_only",
+      "evidence_strength": "moderate",
+      "measurable_variables": [
+        {
+          "name": "valid_transition_rate",
+          "operational_definition": "Share of transition records accepted by schema and state-machine rules.",
+          "units": "ratio",
+          "expected_direction": "increase"
+        }
+      ],
+      "falsification_route": "This transition is invalid if it reaches Supported without a prior Test Result state or without provenance.",
+      "timestamp_utc": "2026-07-05T20:48:00Z",
+      "provenance": [
+        {
+          "kind": "fixture",
+          "reference": "tools/evidence_transition_validator/fixtures.synthetic.json",
+          "access_status": "synthetic"
+        }
+      ],
+      "missingness": [],
+      "next_executable_action": "Run validator and confirm supported transition passes."
+    },
+    {
+      "schema_version": "1.0",
+      "record_type": "evidence_transition_record",
+      "transition_id": "tr_illegal_supported_001",
+      "claim_id": "claim_public_safe_signal_router",
+      "from_state": "Candidate Hypothesis",
+      "to_state": "Supported",
+      "transition_reason": "This fixture intentionally skips prediction and test result states.",
+      "source_status": "synthetic_fixture",
+      "claim_status": "supported_by_test",
+      "privacy_status": "synthetic_only",
+      "evidence_strength": "weak",
+      "measurable_variables": [
+        {
+          "name": "illegal_promotion_count",
+          "operational_definition": "Number of claims promoted to support without test-result evidence.",
+          "units": "count",
+          "expected_direction": "decrease"
+        }
+      ],
+      "falsification_route": "Validator fails if this record is accepted as a legal transition.",
+      "timestamp_utc": "2026-07-05T20:49:00Z",
+      "provenance": [
+        {
+          "kind": "fixture",
+          "reference": "intentional negative fixture",
+          "access_status": "synthetic"
+        }
+      ],
+      "missingness": ["No test result exists before support claim."],
+      "next_executable_action": "Confirm validator rejects direct hypothesis-to-supported transition."
+    },
+    {
+      "schema_version": "1.0",
+      "record_type": "evidence_transition_record",
+      "transition_id": "tr_contradicted_001",
+      "claim_id": "claim_public_safe_signal_router",
+      "from_state": "Test Result",
+      "to_state": "Contradicted",
+      "transition_reason": "Synthetic test result conflicts with the predeclared expected direction.",
+      "source_status": "synthetic_fixture",
+      "claim_status": "contradicted_by_test",
+      "privacy_status": "synthetic_only",
+      "evidence_strength": "contradictory",
+      "measurable_variables": [
+        {
+          "name": "expected_direction_match",
+          "operational_definition": "Whether observed fixture direction matches the predeclared expected direction.",
+          "units": "boolean",
+          "expected_direction": "present"
+        }
+      ],
+      "falsification_route": "This transition is invalid if contradictions are deleted or routed to Supported despite conflicting results.",
+      "timestamp_utc": "2026-07-05T20:50:00Z",
+      "provenance": [
+        {
+          "kind": "fixture",
+          "reference": "contradiction ledger compatibility fixture",
+          "access_status": "synthetic"
+        }
+      ],
+      "missingness": [],
+      "next_executable_action": "Confirm validator accepts contradiction as preserved failed-result memory."
+    },
+    {
+      "schema_version": "1.0",
+      "record_type": "evidence_transition_record",
+      "transition_id": "tr_private_block_001",
+      "claim_id": "claim_public_safe_signal_router",
+      "from_state": "Observation",
+      "to_state": "Candidate Hypothesis",
+      "transition_reason": "This fixture intentionally includes a blocked privacy status.",
+      "source_status": "unverified_import",
+      "claim_status": "candidate_hypothesis",
+      "privacy_status": "blocked_private_or_sensitive",
+      "evidence_strength": "insufficient",
+      "measurable_variables": [
+        {
+          "name": "privacy_block_rate",
+          "operational_definition": "Share of transition records blocked because privacy status is unsafe.",
+          "units": "ratio",
+          "expected_direction": "increase"
+        }
+      ],
+      "falsification_route": "Validator fails if private or sensitive records are admitted into public-safe discovery memory.",
+      "timestamp_utc": "2026-07-05T20:51:00Z",
+      "provenance": [
+        {
+          "kind": "public_note",
+          "reference": "intentional privacy boundary fixture",
+          "access_status": "unavailable"
+        }
+      ],
+      "missingness": ["Public-safe abstraction not provided."],
+      "next_executable_action": "Confirm validator blocks unsafe privacy status."
+    }
+  ],
+  "expected_results": {
+    "tr_supported_001": "pass",
+    "tr_illegal_supported_001": "fail",
+    "tr_contradicted_001": "pass",
+    "tr_private_block_001": "fail"
+  }
+}
