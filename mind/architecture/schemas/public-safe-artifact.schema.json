@@ -1,0 +1,201 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/MirrorCartographer/MirrorCartographer/mind/architecture/schemas/public-safe-artifact.schema.json",
+  "title": "Mirror Cartographer Public-Safe Artifact",
+  "description": "Executable metadata contract for public-safe Mirror Cartographer research, architecture, product, evaluation, and implementation artifacts. This schema is intentionally privacy-preserving: it requires source-boundary labels, claim labels, missingness labels, and implementation status without allowing raw private transcripts or sensitive personal details.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_id",
+    "title",
+    "artifact_type",
+    "created_date",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "summary",
+    "public_safe_content",
+    "next_executable_action"
+  ],
+  "properties": {
+    "artifact_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{7,120}$",
+      "description": "Stable kebab-case identifier. Must not include names, addresses, contact information, medical details, animal names, credentials, or raw transcript fragments."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 140
+    },
+    "artifact_type": {
+      "type": "string",
+      "enum": [
+        "research_note",
+        "source_boundary_note",
+        "product_requirement",
+        "architecture_decision_record",
+        "schema",
+        "test_fixture",
+        "evaluation_rubric",
+        "implementation_plan",
+        "linter_rule",
+        "privacy_safe_index",
+        "prototype_plan",
+        "deployment_note"
+      ]
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "source_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["private_context_used", "public_sources_used", "github_state_used", "source_boundary"],
+      "properties": {
+        "private_context_used": {
+          "type": "string",
+          "enum": ["none", "abstracted_architecture_only", "not_used_due_to_privacy_risk"]
+        },
+        "public_sources_used": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "url_or_citation", "source_quality"],
+            "properties": {
+              "label": {"type": "string", "minLength": 2, "maxLength": 80},
+              "url_or_citation": {"type": "string", "minLength": 2, "maxLength": 300},
+              "source_quality": {
+                "type": "string",
+                "enum": ["primary", "official_doc", "peer_reviewed", "standard", "reputable_secondary", "unverified", "none"]
+              }
+            }
+          }
+        },
+        "github_state_used": {
+          "type": "string",
+          "enum": ["inspected", "not_inspected", "blocked", "partial"]
+        },
+        "source_boundary": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 1000,
+          "description": "Plain-language statement of what was and was not used. Must explicitly exclude raw private transcript details when private context informed architecture."
+        }
+      }
+    },
+    "claim_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "confidence", "falsifiability", "evidence_notes"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["observed_in_repo", "source_supported", "inferred", "design_hypothesis", "untested", "deprecated"]
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low", "unknown"]
+        },
+        "falsifiability": {
+          "type": "string",
+          "enum": ["testable_now", "testable_with_fixture", "testable_with_user_study", "not_yet_testable", "not_a_claim"]
+        },
+        "evidence_notes": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 1500
+        }
+      }
+    },
+    "privacy_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "redaction_required", "prohibited_content_check"],
+      "properties": {
+        "classification": {
+          "type": "string",
+          "enum": ["public_safe", "public_safe_abstracted", "internal_only", "blocked"]
+        },
+        "redaction_required": {"type": "boolean"},
+        "prohibited_content_check": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "personal_details",
+            "household_details",
+            "health_details",
+            "animal_care_details",
+            "financial_details",
+            "location_details",
+            "relationship_details",
+            "credential_details",
+            "raw_transcript_details"
+          ],
+          "properties": {
+            "personal_details": {"type": "boolean", "const": false},
+            "household_details": {"type": "boolean", "const": false},
+            "health_details": {"type": "boolean", "const": false},
+            "animal_care_details": {"type": "boolean", "const": false},
+            "financial_details": {"type": "boolean", "const": false},
+            "location_details": {"type": "boolean", "const": false},
+            "relationship_details": {"type": "boolean", "const": false},
+            "credential_details": {"type": "boolean", "const": false},
+            "raw_transcript_details": {"type": "boolean", "const": false}
+          }
+        }
+      }
+    },
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["known_missing", "impact", "needed_next"],
+      "properties": {
+        "known_missing": {"type": "array", "items": {"type": "string", "maxLength": 160}},
+        "impact": {"type": "string", "minLength": 5, "maxLength": 1000},
+        "needed_next": {"type": "string", "minLength": 5, "maxLength": 1000}
+      }
+    },
+    "revision_reason": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 1000
+    },
+    "implementation_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "artifact_path", "verification"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["implemented", "drafted", "planned", "blocked", "deprecated"]
+        },
+        "artifact_path": {"type": "string", "minLength": 3, "maxLength": 240},
+        "verification": {
+          "type": "string",
+          "enum": ["schema_only", "manual_review", "unit_test", "fixture_test", "ci_test", "not_verified"]
+        }
+      }
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 1200
+    },
+    "public_safe_content": {
+      "type": "object",
+      "description": "Artifact payload. Content must be abstract, source-bounded, and free of prohibited private details.",
+      "additionalProperties": true
+    },
+    "next_executable_action": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 1000
+    }
+  }
+}
