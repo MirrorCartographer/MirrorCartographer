@@ -1,0 +1,291 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/governance.expected-fixture-compare.result.v1.schema.json",
+  "title": "Governance Expected Fixture Compare Result v1",
+  "description": "Public-safe, dashboard-ingestible byte-comparison result for validated expected-fixture pairs. This records comparison custody and digest facts; it is not SLSA provenance and does not claim build authenticity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "result_id",
+    "generated_at_utc",
+    "tool",
+    "manifest",
+    "comparison_policy",
+    "result_state",
+    "summary",
+    "pairs",
+    "checks",
+    "public_safety"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "governance.expected-fixture-compare.result.v1"
+    },
+    "result_id": {
+      "$ref": "#/$defs/kebabId"
+    },
+    "generated_at_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp for the result document. Consumers must not use this as evidence of artifact creation time."
+    },
+    "tool": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "mode"],
+      "properties": {
+        "name": {
+          "const": "compare-governance-expected-fixtures"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[A-Za-z0-9._-]+$"
+        },
+        "mode": {
+          "const": "verify"
+        }
+      }
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "manifest_id", "path", "generated_root", "expected_root"],
+      "properties": {
+        "schema_version": {
+          "const": "governance.expected-fixture-pairs.v1"
+        },
+        "manifest_id": {
+          "$ref": "#/$defs/kebabId"
+        },
+        "path": {
+          "$ref": "#/$defs/repositoryRelativePath"
+        },
+        "generated_root": {
+          "$ref": "#/$defs/repositoryRelativeDirectory"
+        },
+        "expected_root": {
+          "$ref": "#/$defs/repositoryRelativeDirectory"
+        },
+        "manifest_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "comparison_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "comparison",
+        "unexpected_output_policy",
+        "update_policy",
+        "path_policy",
+        "provenance_boundary"
+      ],
+      "properties": {
+        "comparison": {
+          "const": "byte_sha256"
+        },
+        "unexpected_output_policy": {
+          "const": "reject"
+        },
+        "update_policy": {
+          "const": "verify_only"
+        },
+        "path_policy": {
+          "const": "repository_relative_only"
+        },
+        "provenance_boundary": {
+          "const": "comparison_result_not_slsa_provenance"
+        }
+      }
+    },
+    "result_state": {
+      "enum": [
+        "passed",
+        "failed_drift",
+        "failed_missing",
+        "failed_unlisted_output",
+        "failed_manifest_invalid",
+        "failed_internal_error"
+      ]
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pair_count",
+        "matched_count",
+        "drift_count",
+        "missing_generated_count",
+        "missing_expected_count",
+        "unlisted_generated_output_count",
+        "error_count"
+      ],
+      "properties": {
+        "pair_count": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "matched_count": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "drift_count": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "missing_generated_count": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "missing_expected_count": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "unlisted_generated_output_count": { "type": "integer", "minimum": 0, "maximum": 1000 },
+        "error_count": { "type": "integer", "minimum": 0, "maximum": 1000 }
+      }
+    },
+    "pairs": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 100,
+      "items": {
+        "$ref": "#/$defs/pairResult"
+      }
+    },
+    "unlisted_generated_outputs": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "check_code"],
+        "properties": {
+          "path": { "$ref": "#/$defs/repositoryRelativePath" },
+          "check_code": { "const": "GHF_UNLISTED_GENERATED_OUTPUT" },
+          "sha256": { "$ref": "#/$defs/sha256" },
+          "size_bytes": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1200,
+      "items": {
+        "$ref": "https://mirrorcartographer.dev/schemas/governance.replay.check.v1.schema.json"
+      }
+    },
+    "public_safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "absolute_paths_allowed",
+        "raw_fixture_body_allowed",
+        "secret_values_allowed",
+        "private_personal_material_allowed"
+      ],
+      "properties": {
+        "absolute_paths_allowed": { "const": false },
+        "raw_fixture_body_allowed": { "const": false },
+        "secret_values_allowed": { "const": false },
+        "private_personal_material_allowed": { "const": false },
+        "notes": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240,
+          "pattern": "^[^\\u0000-\\u001f]+$"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "kebabId": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 100,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "repositoryRelativePath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240,
+      "pattern": "^(?!/)(?!~)(?![A-Za-z]:)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*//)[A-Za-z0-9._/-]+$"
+    },
+    "repositoryRelativeDirectory": {
+      "allOf": [
+        { "$ref": "#/$defs/repositoryRelativePath" },
+        { "not": { "pattern": "/$" } }
+      ]
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "artifactKind": {
+      "enum": [
+        "result-json",
+        "summary-md",
+        "output-record-json",
+        "manifest-json",
+        "provenance-subject-json"
+      ]
+    },
+    "pairState": {
+      "enum": [
+        "matched",
+        "drifted",
+        "missing_generated",
+        "missing_expected",
+        "skipped_manifest_invalid"
+      ]
+    },
+    "pairResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "artifact_kind",
+        "generated_path",
+        "expected_path",
+        "comparison",
+        "state",
+        "check_code"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/kebabId" },
+        "descriptor_id": { "$ref": "#/$defs/kebabId" },
+        "artifact_kind": { "$ref": "#/$defs/artifactKind" },
+        "generated_path": { "$ref": "#/$defs/repositoryRelativePath" },
+        "expected_path": { "$ref": "#/$defs/repositoryRelativePath" },
+        "comparison": { "const": "byte_sha256" },
+        "state": { "$ref": "#/$defs/pairState" },
+        "check_code": {
+          "enum": [
+            "GHF_PAIR_MATCH",
+            "GHF_PAIR_DRIFT",
+            "GHF_MISSING_GENERATED_FILE",
+            "GHF_MISSING_EXPECTED_FILE",
+            "GHF_MANIFEST_INVALID"
+          ]
+        },
+        "generated": { "$ref": "#/$defs/fileDigest" },
+        "expected": { "$ref": "#/$defs/fileDigest" },
+        "schema_ref": { "$ref": "#/$defs/repositoryRelativePath" },
+        "markdown_policy": { "enum": ["escaped_gfm_no_html"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "state": { "enum": ["matched", "drifted"] } }, "required": ["state"] },
+          "then": { "required": ["generated", "expected"] }
+        },
+        {
+          "if": { "properties": { "state": { "const": "missing_generated" } }, "required": ["state"] },
+          "then": { "required": ["expected"] }
+        },
+        {
+          "if": { "properties": { "state": { "const": "missing_expected" } }, "required": ["state"] },
+          "then": { "required": ["generated"] }
+        }
+      ]
+    },
+    "fileDigest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sha256", "size_bytes"],
+      "properties": {
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "size_bytes": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}
