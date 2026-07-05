@@ -10,7 +10,9 @@
     "verify": "npm run typecheck && npm run build",
     "test:agency": "node --test tools/agency-validation/*.test.mjs",
     "fixture-parity:smoke": "node tools/agency-validation/run-fixture-parity.mjs --report-out artifacts/agency-validation/fixture-parity-report.json",
-    "verify:agency": "npm run test:agency && npm run fixture-parity:smoke"
+    "verify:agency": "npm run test:agency && npm run fixture-parity:smoke",
+    "test:governance": "node --test tools/governance-validation/*.test.mjs",
+    "verify:governance": "npm run test:governance"
   },
   "dependencies": {
     "react": "^19.0.0",
