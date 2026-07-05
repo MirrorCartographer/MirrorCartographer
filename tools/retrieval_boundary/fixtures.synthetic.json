@@ -1,0 +1,177 @@
+{
+  "fixtures": [
+    {
+      "expected_result": "accept_to_memory",
+      "packet": {
+        "schema_version": "1.0.0",
+        "packet_id": "rp_valid_public_benchmark_001",
+        "created_utc": "2026-07-05T19:47:00Z",
+        "source_status": "benchmark",
+        "claim_status": "observed",
+        "privacy_status": "public_safe",
+        "missingness": [
+          "external replication not yet attached",
+          "longitudinal performance not yet measured"
+        ],
+        "revision_reason": "turn a public benchmark result into a bounded evidence memory packet",
+        "implementation_status": "fixture",
+        "testability": "semi_executable",
+        "evidence_strength": "moderate",
+        "retrieval_context": {
+          "domain": "medical_ai_evidence_organization",
+          "retrieval_question": "Can evidence packets preserve benchmark limitations before hypothesis generation?",
+          "intended_memory_route": "evidence_crosswalk"
+        },
+        "claim": {
+          "plain_language_summary": "A benchmark can support evidence organization only when limitations remain attached.",
+          "operational_form": "A packet is acceptable when every evidence item includes limitations and the allowed inference level is bounded.",
+          "allowed_inference_level": "organize_evidence"
+        },
+        "evidence_items": [
+          {
+            "item_id": "ev_public_benchmark_001",
+            "citation_or_source_ref": "synthetic public benchmark fixture",
+            "evidence_type": "benchmark",
+            "supports_claim": "supports",
+            "limitations": [
+              "synthetic fixture",
+              "not a clinical validation"
+            ]
+          }
+        ],
+        "boundary_decision": {
+          "route": "accept_to_memory",
+          "reason": "public safe packet with bounded inference and explicit limitations",
+          "blocked_terms_present": false,
+          "requires_human_review": false
+        },
+        "falsification_route": "Fails if downstream modules turn this packet into diagnosis, treatment, or unbounded claims.",
+        "measurable_variables": [
+          {
+            "name": "limitation_attachment_rate",
+            "measurement_type": "rate",
+            "expected_direction": "increase"
+          },
+          {
+            "name": "overclaim_rejection_rate",
+            "measurement_type": "rate",
+            "expected_direction": "increase"
+          }
+        ],
+        "next_executable_action": "Run the validator and confirm this packet is accepted to memory."
+      }
+    },
+    {
+      "expected_result": "reject_overclaim",
+      "packet": {
+        "schema_version": "1.0.0",
+        "packet_id": "rp_invalid_overclaim_001",
+        "created_utc": "2026-07-05T19:47:00Z",
+        "source_status": "preprint",
+        "claim_status": "speculative",
+        "privacy_status": "public_safe",
+        "missingness": [
+          "replication absent",
+          "clinical validation absent"
+        ],
+        "revision_reason": "test whether speculative evidence is blocked from becoming a strong claim",
+        "implementation_status": "fixture",
+        "testability": "semi_executable",
+        "evidence_strength": "weak",
+        "retrieval_context": {
+          "domain": "scientific_reasoning",
+          "retrieval_question": "Can the boundary checker stop speculative sources from becoming strong discovery claims?",
+          "intended_memory_route": "blocked_review_queue"
+        },
+        "claim": {
+          "plain_language_summary": "A speculative paper proves a general cure discovery method works.",
+          "operational_form": "A weak source is incorrectly promoted to a strong generalized claim.",
+          "allowed_inference_level": "generate_hypothesis"
+        },
+        "evidence_items": [
+          {
+            "item_id": "ev_preprint_001",
+            "citation_or_source_ref": "synthetic preprint fixture",
+            "evidence_type": "paper",
+            "supports_claim": "partially_supports",
+            "limitations": [
+              "not replicated",
+              "synthetic fixture"
+            ]
+          }
+        ],
+        "boundary_decision": {
+          "route": "reject_overclaim",
+          "reason": "speculative weak evidence cannot be promoted to a strong generalized claim",
+          "blocked_terms_present": false,
+          "requires_human_review": true
+        },
+        "falsification_route": "Fails if the validator accepts this packet directly to memory without review.",
+        "measurable_variables": [
+          {
+            "name": "weak_source_overclaim_count",
+            "measurement_type": "count",
+            "expected_direction": "decrease"
+          }
+        ],
+        "next_executable_action": "Run the validator and confirm this packet is rejected as an overclaim."
+      }
+    },
+    {
+      "expected_result": "reject_private_or_sensitive",
+      "packet": {
+        "schema_version": "1.0.0",
+        "packet_id": "rp_invalid_private_001",
+        "created_utc": "2026-07-05T19:47:00Z",
+        "source_status": "unknown",
+        "claim_status": "insufficient_evidence",
+        "privacy_status": "blocked_private_or_sensitive",
+        "missingness": [
+          "public source absent",
+          "deidentification absent"
+        ],
+        "revision_reason": "test whether private or sensitive material is blocked from discovery memory",
+        "implementation_status": "fixture",
+        "testability": "semi_executable",
+        "evidence_strength": "unknown",
+        "retrieval_context": {
+          "domain": "privacy_preserving_memory",
+          "retrieval_question": "Can private material be prevented from entering public-safe research memory?",
+          "intended_memory_route": "blocked_review_queue"
+        },
+        "claim": {
+          "plain_language_summary": "A private observation should not become a public discovery memory item.",
+          "operational_form": "Blocked privacy status forces rejection regardless of other fields.",
+          "allowed_inference_level": "do_not_infer"
+        },
+        "evidence_items": [
+          {
+            "item_id": "ev_private_001",
+            "citation_or_source_ref": "synthetic blocked private fixture",
+            "evidence_type": "synthetic_fixture",
+            "supports_claim": "unclear",
+            "limitations": [
+              "not public safe",
+              "not usable for public memory"
+            ]
+          }
+        ],
+        "boundary_decision": {
+          "route": "reject_private_or_sensitive",
+          "reason": "blocked privacy status prevents entry to public memory",
+          "blocked_terms_present": true,
+          "requires_human_review": true
+        },
+        "falsification_route": "Fails if blocked privacy status can still route a packet to memory.",
+        "measurable_variables": [
+          {
+            "name": "private_packet_accept_count",
+            "measurement_type": "count",
+            "expected_direction": "decrease"
+          }
+        ],
+        "next_executable_action": "Run the validator and confirm this packet is rejected for privacy boundary failure."
+      }
+    }
+  ]
+}
