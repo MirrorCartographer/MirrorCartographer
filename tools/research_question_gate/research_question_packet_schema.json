@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mirror Cartographer Research Question Packet",
+  "type": "object",
+  "required": [
+    "packet_id",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "testability",
+    "falsification_route",
+    "measurable_variables",
+    "phenomenon_summary",
+    "candidate_research_question",
+    "boundary_statement",
+    "next_executable_action"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 3},
+    "source_status": {
+      "type": "string",
+      "enum": ["synthetic", "public_source", "deidentified_longitudinal", "mixed_public_synthetic"]
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": ["observation_cluster", "candidate_hypothesis", "research_question", "unsupported", "contradicted"]
+    },
+    "privacy_status": {
+      "type": "string",
+      "enum": ["public_safe", "deidentified", "requires_partition", "reject_private_detail"]
+    },
+    "missingness": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "revision_reason": {"type": "string", "minLength": 8},
+    "implementation_status": {
+      "type": "string",
+      "enum": ["fixture", "schema_only", "validator_ready", "rejected"]
+    },
+    "testability": {
+      "type": "string",
+      "enum": ["measurable_now", "measurable_after_missingness_resolved", "not_testable_yet", "not_testable"]
+    },
+    "phenomenon_summary": {"type": "string", "minLength": 12},
+    "candidate_research_question": {"type": "string", "minLength": 12},
+    "boundary_statement": {"type": "string", "minLength": 12},
+    "falsification_route": {"type": "string", "minLength": 12},
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "operational_definition", "measurement_method", "expected_direction"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {"type": "string", "minLength": 2},
+          "operational_definition": {"type": "string", "minLength": 8},
+          "measurement_method": {"type": "string", "minLength": 8},
+          "expected_direction": {"type": "string", "enum": ["increase", "decrease", "change", "association", "no_effect"]}
+        }
+      }
+    },
+    "excluded_advice": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Statements intentionally excluded because they would become medical, veterinary, legal, or personal advice."
+    },
+    "next_executable_action": {"type": "string", "minLength": 12}
+  }
+}
