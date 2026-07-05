@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/mechanistic_verification_bridge/bridge_packet_schema.json",
+  "title": "Mechanistic Verification Bridge Packet",
+  "description": "Public-safe packet schema for gating generated hypotheses before discovery-memory admission. It separates source status from claim status and requires measurable variables, verification modality, falsification route, privacy boundary, missingness, and next action.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_id",
+    "hypothesis_id",
+    "hypothesis_text",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "mechanistic_model",
+    "measurable_variables",
+    "verification_plan",
+    "falsification_route",
+    "admission_decision",
+    "next_executable_action"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "packet_id": {"type": "string", "pattern": "^mvb_[a-z0-9_\\-]{6,80}$"},
+    "hypothesis_id": {"type": "string", "pattern": "^hyp_[a-z0-9_\\-]{6,80}$"},
+    "hypothesis_text": {"type": "string", "minLength": 20, "maxLength": 1000},
+    "source_status": {"enum": ["primary", "secondary", "preprint", "institutional", "benchmark", "synthetic", "mixed"]},
+    "claim_status": {"enum": ["candidate", "mechanistic_model", "prediction_ready", "test_ready", "supported", "contradicted", "inconclusive", "overclaimed"]},
+    "privacy_status": {"enum": ["public_safe", "synthetic_only", "deidentified", "requires_partition", "reject_private"]},
+    "missingness": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 3},
+      "minItems": 1
+    },
+    "revision_reason": {"type": "string", "minLength": 10},
+    "implementation_status": {"enum": ["planned", "schema_only", "fixture_only", "implemented", "validated", "blocked"]},
+    "evidence_strength": {"enum": ["none", "low", "moderate", "high"]},
+    "mechanistic_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entities", "relations", "expected_direction", "boundary_conditions"],
+      "properties": {
+        "entities": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+        "relations": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "expected_direction": {"type": "string", "minLength": 3},
+        "boundary_conditions": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+      }
+    },
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "operational_definition", "measurement_type"],
+        "properties": {
+          "name": {"type": "string", "minLength": 2},
+          "operational_definition": {"type": "string", "minLength": 10},
+          "measurement_type": {"enum": ["binary", "count", "ordinal", "continuous", "categorical", "text_label"]},
+          "unit": {"type": "string"}
+        }
+      }
+    },
+    "verification_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verification_modality", "minimum_fixture_cases", "pass_threshold", "failure_modes"],
+      "properties": {
+        "verification_modality": {"enum": ["schema_validation", "simulation", "benchmark", "literature_crosswalk", "human_review", "prospective_observation", "mixed"]},
+        "minimum_fixture_cases": {"type": "integer", "minimum": 2},
+        "pass_threshold": {"type": "number", "minimum": 0, "maximum": 1},
+        "failure_modes": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+      }
+    },
+    "falsification_route": {"type": "string", "minLength": 20},
+    "admission_decision": {"enum": ["admit_to_hypothesis_backlog", "hold_for_missingness", "route_to_contradiction_ledger", "reject_private", "reject_overclaim"]},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  }
+}
