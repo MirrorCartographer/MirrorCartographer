@@ -1,0 +1,93 @@
+[
+  {
+    "name": "pass_distinguishes_absence_from_unknown",
+    "expect_pass": true,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "lmg-distinguish-absence-001",
+      "hypothesis_id": "hyp-missingness-gate-001",
+      "source_status": "synthetic",
+      "claim_status": "testable_infrastructure_claim",
+      "privacy_status": "public_safe_synthetic",
+      "revision_reason": "Convert a longitudinal infrastructure hypothesis into a falsifiable missingness test.",
+      "observation_window": {"start_index": 0, "end_index": 4, "time_unit": "day"},
+      "variables": [
+        {
+          "name": "signal_latency",
+          "unit": "seconds",
+          "expected_cadence": "daily",
+          "values": [
+            {"t": 0, "state": "observed", "value": 3.1, "source_ref": "synthetic:day0"},
+            {"t": 1, "state": "absent", "value": null, "source_ref": "synthetic:day1"},
+            {"t": 2, "state": "unknown", "reason": "No observation was attempted.", "source_ref": "synthetic:day2"},
+            {"t": 3, "state": "not_collected", "reason": "Collection instrument unavailable.", "source_ref": "synthetic:day3"},
+            {"t": 4, "state": "observed", "value": 2.7, "source_ref": "synthetic:day4"}
+          ]
+        }
+      ],
+      "measurable_variables": ["signal_latency", "missingness_state_count", "observed_fraction"],
+      "falsification_route": "The gate fails if unknown or not_collected values are treated as true absence during trend scoring.",
+      "next_executable_action": "Run the validator before longitudinal pattern scoring."
+    }
+  },
+  {
+    "name": "fail_observed_without_value",
+    "expect_pass": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "lmg-observed-no-value-001",
+      "hypothesis_id": "hyp-missingness-gate-001",
+      "source_status": "synthetic",
+      "claim_status": "testable_infrastructure_claim",
+      "privacy_status": "public_safe_synthetic",
+      "revision_reason": "Observed values must contain a value field.",
+      "observation_window": {"start_index": 0, "end_index": 1, "time_unit": "session"},
+      "variables": [
+        {"name": "response_count", "unit": "count", "expected_cadence": "per_session", "values": [{"t": 0, "state": "observed"}, {"t": 1, "state": "absent", "value": null}]}
+      ],
+      "measurable_variables": ["response_count"],
+      "falsification_route": "The fixture should fail because observed states without values cannot support inference.",
+      "next_executable_action": "Reject packet and request explicit value or changed state."
+    }
+  },
+  {
+    "name": "fail_unknown_without_reason",
+    "expect_pass": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "lmg-unknown-no-reason-001",
+      "hypothesis_id": "hyp-missingness-gate-001",
+      "source_status": "synthetic",
+      "claim_status": "testable_infrastructure_claim",
+      "privacy_status": "public_safe_synthetic",
+      "revision_reason": "Unknown states require a reason so later inference does not misread gaps.",
+      "observation_window": {"start_index": 0, "end_index": 1, "time_unit": "day"},
+      "variables": [
+        {"name": "measurement_flag", "unit": "boolean", "expected_cadence": "daily", "values": [{"t": 0, "state": "unknown"}, {"t": 1, "state": "observed", "value": true}]}
+      ],
+      "measurable_variables": ["measurement_flag"],
+      "falsification_route": "The fixture should fail because unknown observations need explicit missingness provenance.",
+      "next_executable_action": "Reject packet and request missingness reason."
+    }
+  },
+  {
+    "name": "fail_private_status",
+    "expect_pass": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "lmg-private-status-001",
+      "hypothesis_id": "hyp-missingness-gate-001",
+      "source_status": "synthetic",
+      "claim_status": "testable_infrastructure_claim",
+      "privacy_status": "private_raw",
+      "revision_reason": "Private raw data must not enter public-safe discovery fixtures.",
+      "observation_window": {"start_index": 0, "end_index": 1, "time_unit": "day"},
+      "variables": [
+        {"name": "daily_marker", "unit": "count", "expected_cadence": "daily", "values": [{"t": 0, "state": "observed", "value": 1}, {"t": 1, "state": "observed", "value": 2}]}
+      ],
+      "measurable_variables": ["daily_marker"],
+      "falsification_route": "The fixture should fail because privacy_status is outside the public-safe enum.",
+      "next_executable_action": "Reject packet or deidentify outside public repository."
+    }
+  }
+]
