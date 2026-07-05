@@ -1,0 +1,317 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/retrieval_packet_schema.json",
+  "title": "Mirror Cartographer Retrieval Boundary Packet",
+  "description": "Public-safe schema for evidence packets before they enter MC discovery memory.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_id",
+    "created_utc",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "testability",
+    "evidence_strength",
+    "retrieval_context",
+    "claim",
+    "evidence_items",
+    "boundary_decision",
+    "falsification_route",
+    "measurable_variables",
+    "next_executable_action"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "packet_id": {
+      "type": "string",
+      "pattern": "^rp_[a-z0-9_\\-]{6,80}$"
+    },
+    "created_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_status": {
+      "type": "string",
+      "enum": [
+        "primary_source",
+        "secondary_source",
+        "preprint",
+        "dataset",
+        "benchmark",
+        "open_source_tool",
+        "synthetic_fixture",
+        "unknown"
+      ]
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": [
+        "observed",
+        "replicated",
+        "hypothesis",
+        "speculative",
+        "contradicted",
+        "insufficient_evidence"
+      ]
+    },
+    "privacy_status": {
+      "type": "string",
+      "enum": [
+        "public_safe",
+        "synthetic_only",
+        "deidentified_public",
+        "blocked_private_or_sensitive"
+      ]
+    },
+    "missingness": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "revision_reason": {
+      "type": "string",
+      "minLength": 10
+    },
+    "implementation_status": {
+      "type": "string",
+      "enum": [
+        "schema_only",
+        "fixture",
+        "validator_ready",
+        "prototype",
+        "integrated",
+        "deprecated"
+      ]
+    },
+    "testability": {
+      "type": "string",
+      "enum": [
+        "machine_validated",
+        "semi_executable",
+        "manual_review_required",
+        "not_testable_yet"
+      ]
+    },
+    "evidence_strength": {
+      "type": "string",
+      "enum": [
+        "strong",
+        "moderate",
+        "weak",
+        "unknown",
+        "synthetic"
+      ]
+    },
+    "retrieval_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "domain",
+        "retrieval_question",
+        "intended_memory_route"
+      ],
+      "properties": {
+        "domain": {
+          "type": "string",
+          "enum": [
+            "cure_discovery_infrastructure",
+            "medical_ai_evidence_organization",
+            "scientific_reasoning",
+            "animal_care_evidence_organization",
+            "privacy_preserving_memory",
+            "human_ai_sensemaking",
+            "symbolic_to_operational_translation"
+          ]
+        },
+        "retrieval_question": {
+          "type": "string",
+          "minLength": 10
+        },
+        "intended_memory_route": {
+          "type": "string",
+          "enum": [
+            "hypothesis_backlog",
+            "evidence_crosswalk",
+            "contradiction_ledger",
+            "longitudinal_signal_map",
+            "source_map",
+            "blocked_review_queue"
+          ]
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plain_language_summary",
+        "operational_form",
+        "allowed_inference_level"
+      ],
+      "properties": {
+        "plain_language_summary": {
+          "type": "string",
+          "minLength": 10
+        },
+        "operational_form": {
+          "type": "string",
+          "minLength": 10
+        },
+        "allowed_inference_level": {
+          "type": "string",
+          "enum": [
+            "index_only",
+            "organize_evidence",
+            "generate_hypothesis",
+            "generate_test",
+            "do_not_infer"
+          ]
+        }
+      }
+    },
+    "evidence_items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "item_id",
+          "citation_or_source_ref",
+          "evidence_type",
+          "supports_claim",
+          "limitations"
+        ],
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "pattern": "^ev_[a-z0-9_\\-]{3,60}$"
+          },
+          "citation_or_source_ref": {
+            "type": "string",
+            "minLength": 5
+          },
+          "evidence_type": {
+            "type": "string",
+            "enum": [
+              "paper",
+              "dataset",
+              "benchmark",
+              "code_repository",
+              "clinical_trial_registry",
+              "institution_page",
+              "synthetic_fixture"
+            ]
+          },
+          "supports_claim": {
+            "type": "string",
+            "enum": [
+              "supports",
+              "partially_supports",
+              "contradicts",
+              "unclear"
+            ]
+          },
+          "limitations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 3
+            }
+          }
+        }
+      }
+    },
+    "boundary_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "route",
+        "reason",
+        "blocked_terms_present",
+        "requires_human_review"
+      ],
+      "properties": {
+        "route": {
+          "type": "string",
+          "enum": [
+            "accept_to_memory",
+            "accept_to_review_queue",
+            "route_to_contradiction_ledger",
+            "reject_private_or_sensitive",
+            "reject_overclaim"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 10
+        },
+        "blocked_terms_present": {
+          "type": "boolean"
+        },
+        "requires_human_review": {
+          "type": "boolean"
+        }
+      }
+    },
+    "falsification_route": {
+      "type": "string",
+      "minLength": 10
+    },
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "measurement_type",
+          "expected_direction"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 2
+          },
+          "measurement_type": {
+            "type": "string",
+            "enum": [
+              "count",
+              "rate",
+              "score",
+              "boolean",
+              "category"
+            ]
+          },
+          "expected_direction": {
+            "type": "string",
+            "enum": [
+              "increase",
+              "decrease",
+              "stable",
+              "differentiate_classes",
+              "unknown"
+            ]
+          }
+        }
+      }
+    },
+    "next_executable_action": {
+      "type": "string",
+      "minLength": 10
+    }
+  }
+}
