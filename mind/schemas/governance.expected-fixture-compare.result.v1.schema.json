@@ -251,11 +251,11 @@
         "state": { "$ref": "#/$defs/pairState" },
         "check_code": {
           "enum": [
-            "GHF_PAIR_MATCH",
-            "GHF_PAIR_DRIFT",
-            "GHF_MISSING_GENERATED_FILE",
-            "GHF_MISSING_EXPECTED_FILE",
-            "GHF_MANIFEST_INVALID"
+            "GHF_PAIR_MATCHED",
+            "GHF_PAIR_DRIFTED",
+            "GHF_PAIR_GENERATED_MISSING",
+            "GHF_PAIR_EXPECTED_MISSING",
+            "GHF_MANIFEST_SCHEMA_INVALID"
           ]
         },
         "generated": { "$ref": "#/$defs/fileDigest" },
