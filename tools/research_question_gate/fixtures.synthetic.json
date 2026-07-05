@@ -1,0 +1,83 @@
+[
+  {
+    "packet_id": "rq-ready-001",
+    "source_status": "synthetic",
+    "claim_status": "research_question",
+    "privacy_status": "public_safe",
+    "missingness": [],
+    "revision_reason": "Convert a longitudinal pattern into a bounded research question.",
+    "implementation_status": "fixture",
+    "testability": "measurable_now",
+    "phenomenon_summary": "Repeated observation packets show a context-linked shift in task initiation latency without asserting cause.",
+    "candidate_research_question": "Does context labeling reduce task-initiation latency in synthetic longitudinal cognition logs?",
+    "boundary_statement": "This is a research-organization packet only; it does not infer diagnosis, treatment, or personal cause.",
+    "falsification_route": "If labeled and unlabeled contexts have no latency difference across blinded synthetic trials, the candidate question is unsupported.",
+    "measurable_variables": [
+      {
+        "name": "initiation_latency_seconds",
+        "operational_definition": "Seconds between task cue and first logged action.",
+        "measurement_method": "Timestamp difference in structured synthetic logs.",
+        "expected_direction": "decrease"
+      },
+      {
+        "name": "context_label_presence",
+        "operational_definition": "Whether a packet contains a bounded context label before task start.",
+        "measurement_method": "Boolean field in structured packet.",
+        "expected_direction": "association"
+      }
+    ],
+    "excluded_advice": [
+      "No medical or behavioral instruction is generated.",
+      "No claim is made about individual symptoms or care decisions."
+    ],
+    "next_executable_action": "Generate 30 synthetic packets with and without context labels and run latency comparison."
+  },
+  {
+    "packet_id": "rq-incomplete-001",
+    "source_status": "synthetic",
+    "claim_status": "candidate_hypothesis",
+    "privacy_status": "public_safe",
+    "missingness": ["No measurement method for the main variable", "No falsification threshold"],
+    "revision_reason": "Keep promising but incomplete packets out of discovery memory until measurable.",
+    "implementation_status": "fixture",
+    "testability": "measurable_after_missingness_resolved",
+    "phenomenon_summary": "Symbolic transition language appears to cluster around unresolved tasks.",
+    "candidate_research_question": "Do symbolic transition labels predict unresolved-task recurrence in synthetic logs?",
+    "boundary_statement": "This remains symbolic-to-operational scaffolding, not interpretation of a private person.",
+    "falsification_route": "Define a recurrence metric and compare against a null model before promotion.",
+    "measurable_variables": [
+      {
+        "name": "transition_label_count",
+        "operational_definition": "Number of symbolic transition labels per packet.",
+        "measurement_method": "Count normalized labels in packet text.",
+        "expected_direction": "association"
+      }
+    ],
+    "excluded_advice": ["No personal interpretation is allowed from this fixture."],
+    "next_executable_action": "Add recurrence metric and falsification threshold before accepting packet."
+  },
+  {
+    "packet_id": "rq-reject-advice-001",
+    "source_status": "synthetic",
+    "claim_status": "unsupported",
+    "privacy_status": "public_safe",
+    "missingness": ["Contains advice-like language", "No source boundary"],
+    "revision_reason": "Reject packets that turn evidence organization into advice or unsupported intervention claims.",
+    "implementation_status": "fixture",
+    "testability": "not_testable",
+    "phenomenon_summary": "A pattern is described but immediately converted into an intervention claim.",
+    "candidate_research_question": "Should the system recommend an action based on this pattern?",
+    "boundary_statement": "This packet violates the research-only boundary and must not enter discovery memory.",
+    "falsification_route": "Rewrite as a measurable question with no recommendation or reject permanently.",
+    "measurable_variables": [
+      {
+        "name": "advice_leak_count",
+        "operational_definition": "Number of recommendation verbs or imperative care claims.",
+        "measurement_method": "Keyword and reviewer check.",
+        "expected_direction": "decrease"
+      }
+    ],
+    "excluded_advice": ["The original intervention claim is excluded."],
+    "next_executable_action": "Reject packet and create a contradiction-ledger note if repeated."
+  }
+]
