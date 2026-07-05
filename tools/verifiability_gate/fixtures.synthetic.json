@@ -1,0 +1,67 @@
+[
+  {
+    "id": "vg_pass_001",
+    "summary": "A public benchmark-backed hypothesis with measurable variables and a named falsification route.",
+    "source_status": "primary",
+    "claim_status": "candidate_hypothesis",
+    "privacy_status": "public_safe",
+    "evidence_strength": "moderate",
+    "requested_action": "admit_to_discovery_memory",
+    "measurable_variables": ["prediction_accuracy", "false_positive_rate"],
+    "verification_routes": ["independent_benchmark_retest"],
+    "known_missingness": ["external replication pending"],
+    "expected_classification": "verifiable_now"
+  },
+  {
+    "id": "vg_wait_001",
+    "summary": "A plausible research direction with variables but no current dataset or protocol.",
+    "source_status": "preprint",
+    "claim_status": "speculative",
+    "privacy_status": "public_safe",
+    "evidence_strength": "low",
+    "requested_action": "hold_for_later",
+    "measurable_variables": ["signal_stability"],
+    "verification_routes": [],
+    "known_missingness": ["no public validation dataset", "no protocol"],
+    "expected_classification": "non_verifiable_yet"
+  },
+  {
+    "id": "vg_overclaim_001",
+    "summary": "A claim says it proves a cure from a single uncontrolled observation.",
+    "source_status": "secondary",
+    "claim_status": "overclaimed",
+    "privacy_status": "public_safe",
+    "evidence_strength": "low",
+    "requested_action": "admit_to_discovery_memory",
+    "measurable_variables": ["symptom_change"],
+    "verification_routes": ["controlled_retest"],
+    "known_missingness": ["no control group"],
+    "expected_classification": "overclaimed"
+  },
+  {
+    "id": "vg_privacy_001",
+    "summary": "A packet contains private longitudinal notes and should be partitioned before research use.",
+    "source_status": "private_observation",
+    "claim_status": "observation",
+    "privacy_status": "contains_private_details",
+    "evidence_strength": "low",
+    "requested_action": "admit_to_discovery_memory",
+    "measurable_variables": ["event_frequency"],
+    "verification_routes": ["deidentified_aggregation"],
+    "known_missingness": ["deidentification not complete"],
+    "expected_classification": "requires_privacy_partition"
+  },
+  {
+    "id": "vg_reject_001",
+    "summary": "A claim lacks source status, measurable variables, and verification route.",
+    "source_status": "unknown",
+    "claim_status": "unknown",
+    "privacy_status": "unknown",
+    "evidence_strength": "unknown",
+    "requested_action": "admit_to_discovery_memory",
+    "measurable_variables": [],
+    "verification_routes": [],
+    "known_missingness": [],
+    "expected_classification": "reject_for_memory"
+  }
+]
