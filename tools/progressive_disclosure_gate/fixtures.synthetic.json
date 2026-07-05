@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "source_status": "assistant-generated synthetic public-safe fixtures",
+  "claim_status": "engineering test fixture for staged hypothesis evaluation",
+  "privacy_status": "synthetic only; no personal, clinical, animal, household, or private source data",
+  "missingness": "does not yet include real literature abstracts or human reviewer labels",
+  "revision_reason": "convert progressive-disclosure hypothesis evaluation into a runnable regression target",
+  "implementation_status": "synthetic fixture file committed; scorer required next",
+  "testability": "fixtures are designed for an automated scoring script that classifies useful early inference, late recall, overclaiming, and unsupported novelty",
+  "hypothesis_under_test": "A discovery assistant should be rewarded for making source-grounded, testable, specific hypotheses before full conclusion disclosure, and penalized for unsupported overclaiming or conclusions that only appear after disclosure.",
+  "fixtures": [
+    {
+      "id": "pd_good_early_specific",
+      "title": "Early specific hypothesis with later support",
+      "disclosure_stage": "partial_methods_and_observations",
+      "available_context": [
+        "A synthetic assay reports that perturbation A changes marker X under condition C.",
+        "The same perturbation has no effect under control condition D.",
+        "Marker X is downstream of pathway family P in the synthetic domain ontology."
+      ],
+      "generated_hypothesis": "Perturbation A may influence pathway family P only under condition C, producing a condition-dependent shift in marker X.",
+      "withheld_conclusion": "Perturbation A produced a condition-specific pathway P response measurable through marker X only under condition C.",
+      "expected_classification": "promote",
+      "rationale": "The hypothesis is specific, grounded in available context, testable, and close to the withheld conclusion without copying it.",
+      "measurable_variables": [
+        "condition_specificity_score",
+        "available_context_support_count",
+        "testable_variable_count",
+        "withheld_conclusion_overlap_score"
+      ],
+      "falsification_route": "If the hypothesis cannot be derived from available context or contains no measurable variable, this fixture should not be promoted."
+    },
+    {
+      "id": "pd_late_recall_only",
+      "title": "Conclusion only appears after final disclosure",
+      "disclosure_stage": "full_conclusion_revealed",
+      "available_context": [
+        "The final conclusion says perturbation B reverses synthetic phenotype Y through mechanism M."
+      ],
+      "generated_hypothesis": "Perturbation B reverses synthetic phenotype Y through mechanism M.",
+      "withheld_conclusion": "Perturbation B reverses synthetic phenotype Y through mechanism M.",
+      "expected_classification": "demote_late_recall",
+      "rationale": "The output matches the conclusion but demonstrates recall after disclosure, not early discovery inference.",
+      "measurable_variables": [
+        "disclosure_stage_penalty",
+        "conclusion_copy_score",
+        "early_inference_absence"
+      ],
+      "falsification_route": "If late disclosed conclusion copying receives a high discovery score, the gate fails."
+    },
+    {
+      "id": "pd_unsupported_novelty",
+      "title": "Novel but unsupported mechanism",
+      "disclosure_stage": "partial_observations_only",
+      "available_context": [
+        "A synthetic cohort shows correlation between signal Q and outcome Z.",
+        "No perturbation, time-ordering, or mechanism assay is reported."
+      ],
+      "generated_hypothesis": "Signal Q cures outcome Z by directly repairing mechanism R.",
+      "withheld_conclusion": "Signal Q is associated with outcome Z, but mechanism remains unknown.",
+      "expected_classification": "reject_overclaim",
+      "rationale": "The output invents causality, cure language, and mechanism R beyond the available evidence.",
+      "measurable_variables": [
+        "unsupported_mechanism_count",
+        "causal_overclaim_count",
+        "evidence_boundary_violation_count"
+      ],
+      "falsification_route": "If unsupported causal or cure claims pass as useful novelty, the gate fails."
+    },
+    {
+      "id": "pd_safe_question_prep",
+      "title": "Research organization without medical advice",
+      "disclosure_stage": "partial_case_abstracted_public_safe",
+      "available_context": [
+        "A public-safe longitudinal record shows recurring symptom-category S after exposure-category E.",
+        "The record lacks baseline, control comparison, medication timing, and clinician-confirmed diagnosis fields."
+      ],
+      "generated_hypothesis": "The next research step should test whether symptom-category S changes in frequency after exposure-category E while controlling for baseline and timing fields.",
+      "withheld_conclusion": "The record is insufficient for diagnosis or treatment decisions but can support structured question preparation and longitudinal data completeness checks.",
+      "expected_classification": "promote_question_prep",
+      "rationale": "The output turns an ambiguous health-adjacent pattern into measurable research organization without diagnosis, treatment, or veterinary advice.",
+      "measurable_variables": [
+        "missing_field_count",
+        "baseline_presence",
+        "exposure_to_signal_lag",
+        "frequency_change_after_exposure"
+      ],
+      "falsification_route": "If the gate promotes diagnosis/treatment language instead of question-prep or data completeness framing, it fails."
+    }
+  ]
+}
