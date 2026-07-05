@@ -1,0 +1,156 @@
+[
+  {
+    "name": "pass_public_mechanistic_packet",
+    "expected_valid": true,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "mvb_public_mechanism_001",
+      "hypothesis_id": "hyp_signal_latency_001",
+      "hypothesis_text": "If a candidate discovery claim names measurable variables, boundary conditions, and a falsification route, then downstream reviewers can separate test-ready hypotheses from narrative-only explanations.",
+      "source_status": "synthetic",
+      "claim_status": "test_ready",
+      "privacy_status": "synthetic_only",
+      "missingness": ["No real reviewer labels attached yet"],
+      "revision_reason": "Convert generated reasoning into a gateable verification packet before memory admission.",
+      "implementation_status": "implemented",
+      "evidence_strength": "low",
+      "mechanistic_model": {
+        "entities": ["candidate claim", "measurable variable", "review decision"],
+        "relations": ["claims with variables and falsification routes are more reviewable than claims without them"],
+        "expected_direction": "More complete verification fields should increase admission confidence.",
+        "boundary_conditions": ["Only public-safe or synthetic records", "No diagnosis, treatment, or private identifiers"]
+      },
+      "measurable_variables": [
+        {
+          "name": "variable_completion_rate",
+          "operational_definition": "Fraction of required measurable-variable fields completed with non-empty operational definitions.",
+          "measurement_type": "continuous",
+          "unit": "ratio"
+        },
+        {
+          "name": "boundary_violation_count",
+          "operational_definition": "Number of private, advice-like, or overclaiming phrases detected in the packet.",
+          "measurement_type": "count",
+          "unit": "violations"
+        }
+      ],
+      "verification_plan": {
+        "verification_modality": "schema_validation",
+        "minimum_fixture_cases": 4,
+        "pass_threshold": 0.8,
+        "failure_modes": ["missing measurable variables", "private content", "unsupported promotion", "no falsification route"]
+      },
+      "falsification_route": "The bridge fails if packets lacking measurement definitions, privacy boundaries, or falsification routes are admitted as test-ready.",
+      "admission_decision": "admit_to_hypothesis_backlog",
+      "next_executable_action": "Run validator against synthetic pass/fail fixtures and reject non-compliant packets."
+    }
+  },
+  {
+    "name": "fail_private_boundary",
+    "expected_valid": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "mvb_private_fail_001",
+      "hypothesis_id": "hyp_private_case_001",
+      "hypothesis_text": "This claim contains a private case-specific assertion and should not enter public discovery memory.",
+      "source_status": "mixed",
+      "claim_status": "test_ready",
+      "privacy_status": "reject_private",
+      "missingness": ["Private identifiers are present"],
+      "revision_reason": "Reject private content before public memory admission.",
+      "implementation_status": "implemented",
+      "evidence_strength": "none",
+      "mechanistic_model": {
+        "entities": ["private observation", "public memory"],
+        "relations": ["private observations cannot be admitted into public artifacts"],
+        "expected_direction": "Private status should force rejection.",
+        "boundary_conditions": ["No personal identifiers"]
+      },
+      "measurable_variables": [
+        {"name": "private_marker_count", "operational_definition": "Count of private identifiers or specific case details.", "measurement_type": "count", "unit": "markers"},
+        {"name": "advice_leak_count", "operational_definition": "Count of treatment or diagnosis recommendations.", "measurement_type": "count", "unit": "phrases"}
+      ],
+      "verification_plan": {
+        "verification_modality": "schema_validation",
+        "minimum_fixture_cases": 2,
+        "pass_threshold": 1,
+        "failure_modes": ["private packet admitted"]
+      },
+      "falsification_route": "The validator is falsified if reject_private packets are admitted to hypothesis backlog.",
+      "admission_decision": "admit_to_hypothesis_backlog",
+      "next_executable_action": "Reject the packet and return a privacy-boundary error."
+    }
+  },
+  {
+    "name": "fail_supported_without_evidence",
+    "expected_valid": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "mvb_overclaim_fail_001",
+      "hypothesis_id": "hyp_overclaim_001",
+      "hypothesis_text": "This generated hypothesis is already supported even though no test result, dataset, or reproducible evidence is attached.",
+      "source_status": "synthetic",
+      "claim_status": "supported",
+      "privacy_status": "synthetic_only",
+      "missingness": ["No test result attached"],
+      "revision_reason": "Prevent unsupported claim promotion.",
+      "implementation_status": "implemented",
+      "evidence_strength": "none",
+      "mechanistic_model": {
+        "entities": ["generated hypothesis", "support label"],
+        "relations": ["support labels require evidence"],
+        "expected_direction": "Evidence-free support claims should be rejected.",
+        "boundary_conditions": ["No support without a test result"]
+      },
+      "measurable_variables": [
+        {"name": "test_result_count", "operational_definition": "Number of attached test results.", "measurement_type": "count", "unit": "results"},
+        {"name": "evidence_strength_rank", "operational_definition": "Ordinal strength of evidence attached to the packet.", "measurement_type": "ordinal", "unit": "rank"}
+      ],
+      "verification_plan": {
+        "verification_modality": "schema_validation",
+        "minimum_fixture_cases": 2,
+        "pass_threshold": 1,
+        "failure_modes": ["supported claim has no evidence"]
+      },
+      "falsification_route": "The bridge is falsified if a supported claim with evidence_strength none passes admission.",
+      "admission_decision": "admit_to_hypothesis_backlog",
+      "next_executable_action": "Route packet back to missingness queue."
+    }
+  },
+  {
+    "name": "pass_hold_for_missingness",
+    "expected_valid": true,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "mvb_hold_missingness_001",
+      "hypothesis_id": "hyp_missingness_001",
+      "hypothesis_text": "A hypothesis can remain useful if it is explicitly held for missingness instead of being deleted or promoted beyond available evidence.",
+      "source_status": "synthetic",
+      "claim_status": "candidate",
+      "privacy_status": "public_safe",
+      "missingness": ["Needs benchmark fixture", "Needs independent reviewer label"],
+      "revision_reason": "Preserve incomplete but bounded hypotheses without overclaiming.",
+      "implementation_status": "implemented",
+      "evidence_strength": "none",
+      "mechanistic_model": {
+        "entities": ["candidate hypothesis", "missingness queue", "future test"],
+        "relations": ["explicit missingness preserves future testability"],
+        "expected_direction": "Bounded missingness should improve reviewability compared with silent gaps.",
+        "boundary_conditions": ["No private content", "No support claim"]
+      },
+      "measurable_variables": [
+        {"name": "missingness_item_count", "operational_definition": "Number of explicit missingness items listed.", "measurement_type": "count", "unit": "items"},
+        {"name": "next_action_specificity", "operational_definition": "Whether the next action names an executable artifact or validation step.", "measurement_type": "binary", "unit": "0_or_1"}
+      ],
+      "verification_plan": {
+        "verification_modality": "schema_validation",
+        "minimum_fixture_cases": 4,
+        "pass_threshold": 0.8,
+        "failure_modes": ["silent missingness", "premature promotion"]
+      },
+      "falsification_route": "The bridge fails if incomplete candidates cannot be preserved without being falsely promoted or erased.",
+      "admission_decision": "hold_for_missingness",
+      "next_executable_action": "Add reviewer-label fixtures and retest admission decision stability."
+    }
+  }
+]
