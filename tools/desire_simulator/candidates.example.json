@@ -1,0 +1,92 @@
+{
+  "candidates": [
+    {
+      "id": "h1",
+      "title": "Synthetic Observation Packet Validator",
+      "action_type": "validation_script",
+      "description": "Build a validator that checks whether public-safe observation packets contain source, claim, privacy, missingness, measurable variables, and falsification route fields.",
+      "source_status": "public-safe design candidate",
+      "claim_status": "testable engineering hypothesis",
+      "privacy_status": "synthetic only",
+      "missingness": "validator not yet implemented against real repository fixtures",
+      "revision_reason": "convert discovery ambition into executable data quality check",
+      "next_executable_action": "Create JSON Schema and validator test for synthetic observation packets.",
+      "falsification_route": "Candidate fails if generated packets pass without required boundary fields or if invalid packets are not rejected.",
+      "measurable_variables": [
+        "required_field_pass_rate",
+        "invalid_packet_rejection_rate",
+        "false_accept_count",
+        "false_reject_count"
+      ],
+      "drives": {
+        "curiosity": 0.75,
+        "care": 0.9,
+        "novelty": 0.55,
+        "uncertainty": 0.7,
+        "usefulness": 0.95,
+        "contradiction": 0.7,
+        "executability": 0.95,
+        "evidence_gain": 0.9,
+        "discovery_potential": 0.82
+      }
+    },
+    {
+      "id": "h2",
+      "title": "Contradiction-to-Hypothesis Mapper",
+      "action_type": "prototype_plan",
+      "description": "Prototype a mapper that turns public-safe contradiction records into candidate hypotheses and falsification routes.",
+      "source_status": "public-safe design candidate",
+      "claim_status": "unvalidated architecture hypothesis",
+      "privacy_status": "abstracted",
+      "missingness": "needs synthetic contradiction fixture set",
+      "revision_reason": "make contradictions generate tests instead of only notes",
+      "next_executable_action": "Create five synthetic contradiction fixtures and expected hypothesis outputs.",
+      "falsification_route": "Candidate fails if contradictions produce vague insights without measurable predictions.",
+      "measurable_variables": [
+        "hypothesis_specificity_score",
+        "prediction_count",
+        "falsification_route_presence"
+      ],
+      "drives": {
+        "curiosity": 0.92,
+        "care": 0.7,
+        "novelty": 0.86,
+        "uncertainty": 0.9,
+        "usefulness": 0.8,
+        "contradiction": 1.0,
+        "executability": 0.72,
+        "evidence_gain": 0.78,
+        "discovery_potential": 0.93
+      }
+    },
+    {
+      "id": "h3",
+      "title": "Literature-to-Variable Extractor",
+      "action_type": "schema_design",
+      "description": "Design a schema for extracting variables, mechanisms, evidence strength, and missingness from scientific papers into public-safe research maps.",
+      "source_status": "public-source research infrastructure candidate",
+      "claim_status": "schema design hypothesis",
+      "privacy_status": "public-source-only",
+      "missingness": "needs source corpus and extraction rubric",
+      "revision_reason": "move from reading papers to generating structured discovery inputs",
+      "next_executable_action": "Draft schema fields and test them on three public abstracts.",
+      "falsification_route": "Candidate fails if independent reviewers cannot reconstruct extracted variables from source text.",
+      "measurable_variables": [
+        "variable_extraction_agreement",
+        "mechanism_field_completion",
+        "missingness_label_accuracy"
+      ],
+      "drives": {
+        "curiosity": 0.8,
+        "care": 0.85,
+        "novelty": 0.65,
+        "uncertainty": 0.75,
+        "usefulness": 0.96,
+        "contradiction": 0.55,
+        "executability": 0.82,
+        "evidence_gain": 0.96,
+        "discovery_potential": 0.9
+      }
+    }
+  ]
+}
