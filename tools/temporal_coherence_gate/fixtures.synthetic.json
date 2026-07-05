@@ -1,0 +1,91 @@
+[
+  {
+    "name": "pass_ordered_public_safe_sequence",
+    "should_pass": true,
+    "packet": {
+      "packet_id": "tcg-pass-001",
+      "source_status": "synthetic",
+      "claim_status": "test_fixture",
+      "privacy_status": "public_safe",
+      "missingness": "One timepoint uses explicit not_collected rather than false absence.",
+      "revision_reason": "Test ordered longitudinal evidence without private details.",
+      "implementation_status": "implemented",
+      "testability": "Validator can check order, boundaries, and variable alignment.",
+      "falsification_route": "Reject if missingness is collapsed into observed absence.",
+      "measurable_variables": [
+        {"name": "response_latency", "unit": "seconds", "directionality": "change"}
+      ],
+      "observations": [
+        {"time_index": 0, "variable": "response_latency", "value": 4.2, "value_status": "observed", "collection_context": "synthetic_run_a", "evidence_boundary": "research_organization"},
+        {"time_index": 1, "variable": "response_latency", "value_status": "not_collected", "collection_context": "synthetic_run_b", "evidence_boundary": "not_advice"},
+        {"time_index": 2, "variable": "response_latency", "value": 3.1, "value_status": "observed", "collection_context": "synthetic_run_c", "evidence_boundary": "question_prep"}
+      ]
+    }
+  },
+  {
+    "name": "fail_unsorted_time_index",
+    "should_pass": false,
+    "packet": {
+      "packet_id": "tcg-fail-001",
+      "source_status": "synthetic",
+      "claim_status": "test_fixture",
+      "privacy_status": "public_safe",
+      "missingness": "No missingness issue; order issue only.",
+      "revision_reason": "Ensure longitudinal order is explicit.",
+      "implementation_status": "implemented",
+      "testability": "Validator should reject decreasing time_index order.",
+      "falsification_route": "If out-of-order points pass, trend scoring can fabricate patterns.",
+      "measurable_variables": [
+        {"name": "signal_count", "unit": "count", "directionality": "change"}
+      ],
+      "observations": [
+        {"time_index": 2, "variable": "signal_count", "value": 7, "value_status": "observed", "collection_context": "synthetic_run_c", "evidence_boundary": "research_organization"},
+        {"time_index": 1, "variable": "signal_count", "value": 3, "value_status": "observed", "collection_context": "synthetic_run_b", "evidence_boundary": "research_organization"}
+      ]
+    }
+  },
+  {
+    "name": "fail_unregistered_variable",
+    "should_pass": false,
+    "packet": {
+      "packet_id": "tcg-fail-002",
+      "source_status": "synthetic",
+      "claim_status": "test_fixture",
+      "privacy_status": "public_safe",
+      "missingness": "Variable mismatch.",
+      "revision_reason": "Ensure observations map to declared measurable variables.",
+      "implementation_status": "implemented",
+      "testability": "Validator should reject undeclared variables.",
+      "falsification_route": "If undeclared variables pass, metrics are not reproducible.",
+      "measurable_variables": [
+        {"name": "context_switch_count", "unit": "count", "directionality": "change"}
+      ],
+      "observations": [
+        {"time_index": 0, "variable": "context_switch_count", "value": 1, "value_status": "observed", "collection_context": "synthetic_run_a", "evidence_boundary": "research_organization"},
+        {"time_index": 1, "variable": "unsupported_symbol_score", "value": 9, "value_status": "observed", "collection_context": "synthetic_run_b", "evidence_boundary": "research_organization"}
+      ]
+    }
+  },
+  {
+    "name": "fail_private_boundary",
+    "should_pass": false,
+    "packet": {
+      "packet_id": "tcg-fail-003",
+      "source_status": "synthetic",
+      "claim_status": "test_fixture",
+      "privacy_status": "reject_private",
+      "missingness": "Rejected because privacy boundary is invalid.",
+      "revision_reason": "Ensure private packets cannot enter public research memory.",
+      "implementation_status": "implemented",
+      "testability": "Validator should reject reject_private packets.",
+      "falsification_route": "If private packets pass, the component fails its public-safe purpose.",
+      "measurable_variables": [
+        {"name": "observation_count", "unit": "count", "directionality": "change"}
+      ],
+      "observations": [
+        {"time_index": 0, "variable": "observation_count", "value": 1, "value_status": "observed", "collection_context": "synthetic_private_context", "evidence_boundary": "research_organization"},
+        {"time_index": 1, "variable": "observation_count", "value": 2, "value_status": "observed", "collection_context": "synthetic_private_context", "evidence_boundary": "research_organization"}
+      ]
+    }
+  }
+]
