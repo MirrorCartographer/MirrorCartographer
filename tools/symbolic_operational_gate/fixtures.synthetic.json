@@ -1,0 +1,136 @@
+{
+  "schema_version": "1.0.0",
+  "fixtures": [
+    {
+      "name": "valid_symbol_to_variable_translation",
+      "expected_classification": "valid",
+      "packet": {
+        "schema_version": "1.0.0",
+        "packet_id": "sop-valid-001",
+        "source_status": "synthetic",
+        "claim_status": "testable_hypothesis",
+        "privacy_status": "synthetic_only",
+        "symbolic_observation": {
+          "label": "threshold fog",
+          "description": "A symbolic report of delayed clarity when a system crosses from one context into another.",
+          "context_frame": "human_ai_sensemaking"
+        },
+        "operational_translation": {
+          "construct": "context transition latency",
+          "domain": "human_ai_sensemaking",
+          "non_literal_boundary": "The phrase is not treated as a literal perceptual fog or clinical symptom.",
+          "translation_method": "Convert the symbolic report into a timing-and-coherence construct measured during context switches."
+        },
+        "measurable_variables": [
+          {
+            "name": "switch_latency_seconds",
+            "definition": "Elapsed seconds between context-shift prompt and first coherent task-specific response.",
+            "measurement_type": "continuous",
+            "expected_direction": "lower after interface support"
+          },
+          {
+            "name": "boundary_violation_count",
+            "definition": "Number of times the output treats metaphorical language as literal evidence.",
+            "measurement_type": "count",
+            "expected_direction": "zero or decreasing"
+          }
+        ],
+        "uncertainty_notes": [
+          "A symbolic label may compress several mechanisms and should not be treated as a single cause."
+        ],
+        "missingness": [
+          "No human reviewer labels yet.",
+          "No repeated-session longitudinal comparison yet."
+        ],
+        "falsification_route": "The translation fails if independent reviewers cannot identify the operational variables from the symbolic observation or if the variables do not change under a context-switch intervention.",
+        "boundary_risks": [
+          "literalizing_symbol",
+          "unsupported_causality"
+        ],
+        "next_executable_action": "Run reviewer agreement scoring on five synthetic symbolic observations."
+      }
+    },
+    {
+      "name": "invalid_missing_measurable_variables",
+      "expected_classification": "invalid",
+      "packet": {
+        "schema_version": "1.0.0",
+        "packet_id": "sop-invalid-001",
+        "source_status": "synthetic",
+        "claim_status": "hypothesis",
+        "privacy_status": "synthetic_only",
+        "symbolic_observation": {
+          "label": "bright hinge",
+          "description": "A symbolic expression of a transition point in reasoning.",
+          "context_frame": "scientific_reasoning"
+        },
+        "operational_translation": {
+          "construct": "reasoning transition",
+          "domain": "scientific_reasoning",
+          "non_literal_boundary": "This is not a literal physical hinge or light source.",
+          "translation_method": "Map to a reasoning transition object."
+        },
+        "measurable_variables": [],
+        "uncertainty_notes": [
+          "The construct is underdefined."
+        ],
+        "missingness": [
+          "No scoring rubric."
+        ],
+        "falsification_route": "The claim fails if no measurable behavior can distinguish the translated construct from ordinary restatement.",
+        "boundary_risks": [
+          "unmeasurable_variable"
+        ],
+        "next_executable_action": "Add at least two measurable variables."
+      }
+    },
+    {
+      "name": "invalid_advice_leakage",
+      "expected_classification": "invalid",
+      "packet": {
+        "schema_version": "1.0.0",
+        "packet_id": "sop-invalid-002",
+        "source_status": "synthetic",
+        "claim_status": "unsupported_claim",
+        "privacy_status": "synthetic_only",
+        "symbolic_observation": {
+          "label": "animal guardian signal",
+          "description": "A symbolic animal-care phrase that must remain research-organization only.",
+          "context_frame": "animal_care_evidence_organization"
+        },
+        "operational_translation": {
+          "construct": "care-question organization completeness",
+          "domain": "animal_care_evidence_organization",
+          "non_literal_boundary": "This must not become diagnosis, treatment, dosing, or urgent triage advice.",
+          "translation_method": "Translate symbolic concern into evidence-map fields and clinician question prompts."
+        },
+        "measurable_variables": [
+          {
+            "name": "question_field_completion_rate",
+            "definition": "Proportion of research-organization fields completed before a veterinary conversation.",
+            "measurement_type": "continuous",
+            "expected_direction": "higher after using the map"
+          },
+          {
+            "name": "source_boundary_presence",
+            "definition": "Whether every claim is labeled as observation, question, source-backed statement, or unknown.",
+            "measurement_type": "binary",
+            "expected_direction": "present"
+          }
+        ],
+        "uncertainty_notes": [
+          "Synthetic example only; not about a real animal or real condition."
+        ],
+        "missingness": [
+          "No veterinarian-reviewed rubric."
+        ],
+        "falsification_route": "The packet fails if it emits advice or unsupported care instructions rather than organizing questions and evidence boundaries.",
+        "boundary_risks": [
+          "medical_or_veterinary_advice_leakage",
+          "unsupported_causality"
+        ],
+        "next_executable_action": "Replace advice-like language with research organization fields only."
+      }
+    }
+  ]
+}
