@@ -1,0 +1,106 @@
+[
+  {
+    "id": "dshg_pass_001",
+    "title": "Text and structured evidence support bounded hypothesis",
+    "privacy_status": "public_safe_synthetic",
+    "source_status": "synthetic",
+    "claim_status": "candidate_hypothesis",
+    "hypothesis": "A discovery memory packet should be admitted only when a textual rationale and structured variables support the same bounded claim.",
+    "textual_support": {
+      "summary": "The text source states that hypotheses should remain bounded, measurable, and source-grounded before entering memory.",
+      "supports_claim": true,
+      "citation_count": 2
+    },
+    "structured_support": {
+      "variables": [
+        {"name": "text_support_present", "type": "boolean", "value": true},
+        {"name": "structured_variables_count", "type": "integer", "value": 2},
+        {"name": "self_evaluation_score", "type": "number", "value": 0.82}
+      ],
+      "supports_claim": true
+    },
+    "self_evaluation": {
+      "novelty": 0.62,
+      "testability": 0.9,
+      "overclaim_risk": 0.1,
+      "privacy_risk": 0.0
+    },
+    "expected_classification": "admit"
+  },
+  {
+    "id": "dshg_reject_no_structured_001",
+    "title": "Text only without variables",
+    "privacy_status": "public_safe_synthetic",
+    "source_status": "synthetic",
+    "claim_status": "candidate_hypothesis",
+    "hypothesis": "A text-only idea should enter discovery memory as a supported hypothesis.",
+    "textual_support": {
+      "summary": "The text says the idea is interesting but does not specify measurable variables.",
+      "supports_claim": true,
+      "citation_count": 1
+    },
+    "structured_support": {
+      "variables": [],
+      "supports_claim": false
+    },
+    "self_evaluation": {
+      "novelty": 0.5,
+      "testability": 0.2,
+      "overclaim_risk": 0.35,
+      "privacy_risk": 0.0
+    },
+    "expected_classification": "reject_missing_structured_support"
+  },
+  {
+    "id": "dshg_reject_overclaim_001",
+    "title": "Overclaimed cure/discovery language",
+    "privacy_status": "public_safe_synthetic",
+    "source_status": "synthetic",
+    "claim_status": "candidate_hypothesis",
+    "hypothesis": "This packet proves a cure is available from weak preliminary evidence.",
+    "textual_support": {
+      "summary": "The text contains speculative language only.",
+      "supports_claim": false,
+      "citation_count": 1
+    },
+    "structured_support": {
+      "variables": [
+        {"name": "sample_size", "type": "integer", "value": 3}
+      ],
+      "supports_claim": false
+    },
+    "self_evaluation": {
+      "novelty": 0.7,
+      "testability": 0.4,
+      "overclaim_risk": 0.95,
+      "privacy_risk": 0.0
+    },
+    "expected_classification": "reject_overclaim"
+  },
+  {
+    "id": "dshg_reject_privacy_001",
+    "title": "Private longitudinal details should not enter public memory",
+    "privacy_status": "private_or_identifying",
+    "source_status": "synthetic",
+    "claim_status": "candidate_hypothesis",
+    "hypothesis": "A private longitudinal packet should be stored in public discovery memory.",
+    "textual_support": {
+      "summary": "Contains private identifiers in the originating packet.",
+      "supports_claim": true,
+      "citation_count": 1
+    },
+    "structured_support": {
+      "variables": [
+        {"name": "contains_private_identifier", "type": "boolean", "value": true}
+      ],
+      "supports_claim": true
+    },
+    "self_evaluation": {
+      "novelty": 0.3,
+      "testability": 0.8,
+      "overclaim_risk": 0.1,
+      "privacy_risk": 1.0
+    },
+    "expected_classification": "reject_privacy"
+  }
+]
