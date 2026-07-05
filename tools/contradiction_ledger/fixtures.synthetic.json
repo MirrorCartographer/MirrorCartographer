@@ -1,0 +1,110 @@
+{
+  "records": [
+    {
+      "schema_version": "1.0.0",
+      "record_type": "contradiction_record",
+      "id": "cr-2026-07-05-control-agreement",
+      "timestamp_utc": "2026-07-05T18:55:00Z",
+      "title": "Control fixture where expected and observed agree",
+      "hypothesis_reference": "synthetic-control-hypothesis",
+      "source_status": "synthetic_fixture",
+      "claim_status": "needs_replication",
+      "privacy_status": "synthetic_only",
+      "missingness": ["real source corpus not used", "control case only"],
+      "revision_reason": "ensure the validator can preserve a non-contradiction control without treating it as a failed hypothesis",
+      "implementation_status": "fixture_only",
+      "testability": "high",
+      "evidence_strength": "synthetic",
+      "contradiction_status": "not_a_contradiction",
+      "contradiction_summary": "The synthetic expected result and synthetic observed result agree, so this record is valid only as a control fixture.",
+      "expected_result": "The candidate module preserves every required boundary field.",
+      "observed_result": "The candidate module preserves every required boundary field.",
+      "possible_explanations": ["control fixture intentionally contains no contradiction"],
+      "measurable_variables": [
+        {
+          "name": "required_field_retention",
+          "unit": "proportion",
+          "expected_direction": "increase",
+          "observed_direction": "increase",
+          "measurement_status": "simulated"
+        }
+      ],
+      "falsification_route": "If the validator classifies this as a confirmed contradiction, the classification logic is wrong.",
+      "next_executable_action": "Use this record as a negative-control fixture in regression tests.",
+      "linked_artifacts": ["tools/contradiction_ledger/validate_contradiction_records.py"]
+    },
+    {
+      "schema_version": "1.0.0",
+      "record_type": "contradiction_record",
+      "id": "cr-2026-07-05-ambiguous-missing-data",
+      "timestamp_utc": "2026-07-05T18:56:00Z",
+      "title": "Ambiguous fixture where missing measurement blocks contradiction status",
+      "hypothesis_reference": "synthetic-ambiguous-hypothesis",
+      "source_status": "synthetic_fixture",
+      "claim_status": "ambiguous_result",
+      "privacy_status": "synthetic_only",
+      "missingness": ["primary measurement absent", "sample size unspecified"],
+      "revision_reason": "prevent MC from converting incomplete evidence into false certainty",
+      "implementation_status": "fixture_only",
+      "testability": "high",
+      "evidence_strength": "weak",
+      "contradiction_status": "ambiguous_missing_data",
+      "contradiction_summary": "The observed result differs from the expected result, but the decisive measurement is missing, so this should remain ambiguous.",
+      "expected_result": "The extraction step should increase mechanism specificity after source mapping.",
+      "observed_result": "The extraction step showed unknown mechanism specificity because the decisive field was not measured.",
+      "possible_explanations": ["missing measurement", "insufficient fixture coverage", "ambiguous operational definition"],
+      "measurable_variables": [
+        {
+          "name": "mechanism_specificity_score",
+          "unit": "score",
+          "expected_direction": "increase",
+          "observed_direction": "unknown",
+          "measurement_status": "missing"
+        }
+      ],
+      "falsification_route": "If a later fixture includes the missing measurement and still shows no specificity gain, the original hypothesis becomes a candidate contradiction.",
+      "next_executable_action": "Add the missing mechanism_specificity_score measurement to the fixture generator.",
+      "linked_artifacts": ["tools/contradiction_ledger/validate_contradiction_records.py"]
+    },
+    {
+      "schema_version": "1.0.0",
+      "record_type": "contradiction_record",
+      "id": "cr-2026-07-05-confirmed-validator-regression",
+      "timestamp_utc": "2026-07-05T18:57:00Z",
+      "title": "Confirmed fixture where invalid records pass without boundary fields",
+      "hypothesis_reference": "synthetic-validator-hypothesis",
+      "source_status": "synthetic_fixture",
+      "claim_status": "engineering_regression",
+      "privacy_status": "synthetic_only",
+      "missingness": ["external dependency validation not tested"],
+      "revision_reason": "make failed validation behavior persist as reusable discovery memory",
+      "implementation_status": "fixture_only",
+      "testability": "high",
+      "evidence_strength": "moderate",
+      "contradiction_status": "confirmed_contradiction",
+      "contradiction_summary": "The expected validator rejection did not occur in the simulated regression case, creating a confirmed contradiction for the validator hypothesis.",
+      "expected_result": "Invalid records should be rejected when required boundary fields are absent.",
+      "observed_result": "Invalid records passed in the simulated regression condition.",
+      "possible_explanations": ["validator omitted semantic checks", "schema was bypassed", "test fixture did not exercise boundary labels"],
+      "measurable_variables": [
+        {
+          "name": "invalid_record_rejection_rate",
+          "unit": "proportion",
+          "expected_direction": "increase",
+          "observed_direction": "decrease",
+          "measurement_status": "simulated"
+        },
+        {
+          "name": "false_accept_count",
+          "unit": "count",
+          "expected_direction": "decrease",
+          "observed_direction": "increase",
+          "measurement_status": "simulated"
+        }
+      ],
+      "falsification_route": "The contradiction is falsified if the validator rejects this regression fixture and records the boundary-field error path.",
+      "next_executable_action": "Run the validator against valid and invalid fixtures in a regression test harness.",
+      "linked_artifacts": ["tools/contradiction_ledger/validate_contradiction_records.py"]
+    }
+  ]
+}
