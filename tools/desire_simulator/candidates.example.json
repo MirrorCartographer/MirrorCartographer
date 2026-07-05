@@ -1,15 +1,18 @@
 {
+  "schema_version": "1.0.0",
   "candidates": [
     {
       "id": "h1",
       "title": "Synthetic Observation Packet Validator",
-      "action_type": "validation_script",
+      "action_type": "validator",
       "description": "Build a validator that checks whether public-safe observation packets contain source, claim, privacy, missingness, measurable variables, and falsification route fields.",
       "source_status": "public-safe design candidate",
       "claim_status": "testable engineering hypothesis",
-      "privacy_status": "synthetic only",
+      "privacy_status": "synthetic",
       "missingness": "validator not yet implemented against real repository fixtures",
       "revision_reason": "convert discovery ambition into executable data quality check",
+      "implementation_status": "candidate fixture ready for validator testing",
+      "testability": "passes if valid synthetic packets are accepted and malformed packets are rejected with field-level errors",
       "next_executable_action": "Create JSON Schema and validator test for synthetic observation packets.",
       "falsification_route": "Candidate fails if generated packets pass without required boundary fields or if invalid packets are not rejected.",
       "measurable_variables": [
@@ -17,6 +20,11 @@
         "invalid_packet_rejection_rate",
         "false_accept_count",
         "false_reject_count"
+      ],
+      "acceptance_criteria": [
+        "validator exits 0 for this file",
+        "validator exits nonzero for a file missing falsification_route",
+        "validator rejects drive scores outside 0..1"
       ],
       "drives": {
         "curiosity": 0.75,
@@ -40,12 +48,19 @@
       "privacy_status": "abstracted",
       "missingness": "needs synthetic contradiction fixture set",
       "revision_reason": "make contradictions generate tests instead of only notes",
+      "implementation_status": "planned candidate with expected fixture requirement",
+      "testability": "passes if synthetic contradiction inputs produce measurable hypotheses, predictions, and falsification routes",
       "next_executable_action": "Create five synthetic contradiction fixtures and expected hypothesis outputs.",
       "falsification_route": "Candidate fails if contradictions produce vague insights without measurable predictions.",
       "measurable_variables": [
         "hypothesis_specificity_score",
         "prediction_count",
         "falsification_route_presence"
+      ],
+      "acceptance_criteria": [
+        "each contradiction maps to at least one hypothesis",
+        "each hypothesis includes at least one prediction",
+        "each output includes falsification_route"
       ],
       "drives": {
         "curiosity": 0.92,
@@ -62,19 +77,26 @@
     {
       "id": "h3",
       "title": "Literature-to-Variable Extractor",
-      "action_type": "schema_design",
+      "action_type": "schema",
       "description": "Design a schema for extracting variables, mechanisms, evidence strength, and missingness from scientific papers into public-safe research maps.",
       "source_status": "public-source research infrastructure candidate",
       "claim_status": "schema design hypothesis",
       "privacy_status": "public-source-only",
       "missingness": "needs source corpus and extraction rubric",
       "revision_reason": "move from reading papers to generating structured discovery inputs",
+      "implementation_status": "schema candidate awaiting source-text fixture test",
+      "testability": "passes if reviewers can reconstruct extracted variables from source text using the schema",
       "next_executable_action": "Draft schema fields and test them on three public abstracts.",
       "falsification_route": "Candidate fails if independent reviewers cannot reconstruct extracted variables from source text.",
       "measurable_variables": [
         "variable_extraction_agreement",
         "mechanism_field_completion",
         "missingness_label_accuracy"
+      ],
+      "acceptance_criteria": [
+        "schema represents variable, mechanism, evidence strength, and missingness",
+        "three public abstracts can be encoded without private data",
+        "independent reconstruction instructions are explicit"
       ],
       "drives": {
         "curiosity": 0.8,
