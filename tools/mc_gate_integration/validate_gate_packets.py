@@ -7,6 +7,7 @@ veterinary advice, or factual discovery proof.
 """
 from __future__ import annotations
 
+import copy
 import json
 import sys
 from pathlib import Path
@@ -28,6 +29,20 @@ def resolve_gate_spec(gate: str, registry: dict[str, Any]) -> dict[str, Any] | N
     if "$ref" in spec:
         return registry.get("gates", {}).get(spec["$ref"])
     return spec
+
+
+def expand_packets(fixture: dict[str, Any], registry: dict[str, Any]) -> list[dict[str, Any]]:
+    packets: list[dict[str, Any]] = []
+    for packet in fixture.get("packets", []):
+        if packet.get("gate") != "*":
+            packets.append(packet)
+            continue
+        for gate in registry.get("gates", {}):
+            expanded = copy.deepcopy(packet)
+            expanded["gate"] = gate
+            expanded["packet_id"] = expanded["packet_id"].replace("*", gate)
+            packets.append(expanded)
+    return packets
 
 
 def validate_packet(packet: dict[str, Any], registry: dict[str, Any]) -> list[str]:
@@ -87,7 +102,7 @@ def validate_fixture(registry_path: str | Path, fixture_path: str | Path) -> tup
     valid_seen = 0
     invalid_rejected = 0
 
-    for packet in fixture.get("packets", []):
+    for packet in expand_packets(fixture, registry):
         errors = validate_packet(packet, registry)
         is_intentionally_invalid = ".invalid." in packet.get("packet_id", "")
         if is_intentionally_invalid:
