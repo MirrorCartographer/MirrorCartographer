@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/contradiction_packet_schema.json",
+  "title": "Mirror Cartographer Contradiction Ledger Packet",
+  "description": "Public-safe schema for preserving failed results, contradictory evidence, and hypothesis downgrades without turning absence, privacy redaction, or unresolved evidence into false claims.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "packet_id",
+    "hypothesis_id",
+    "hypothesis_claim",
+    "contradiction_type",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "evidence_boundary",
+    "measurable_variables",
+    "observed_result",
+    "expected_result",
+    "revision_reason",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "packet_id": {"type": "string", "pattern": "^clg_[a-z0-9_\\-]{8,80}$"},
+    "hypothesis_id": {"type": "string", "pattern": "^hyp_[a-z0-9_\\-]{6,80}$"},
+    "hypothesis_claim": {"type": "string", "minLength": 24, "maxLength": 500},
+    "contradiction_type": {
+      "type": "string",
+      "enum": [
+        "direct_disconfirmation",
+        "failed_replication",
+        "boundary_violation",
+        "missingness_reinterpretation",
+        "mechanism_mismatch",
+        "measurement_invalidated",
+        "privacy_partition_required"
+      ]
+    },
+    "source_status": {
+      "type": "string",
+      "enum": ["synthetic", "primary", "preprint", "benchmark", "dataset", "institutional", "secondary"]
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": ["rejected", "downgraded", "requires_revision", "requires_partition", "inconclusive"]
+    },
+    "privacy_status": {
+      "type": "string",
+      "enum": ["public_safe", "deidentified", "synthetic_only", "reject_private_content"]
+    },
+    "missingness": {
+      "type": "object",
+      "required": ["state", "interpretation_allowed"],
+      "additionalProperties": false,
+      "properties": {
+        "state": {"type": "string", "enum": ["observed", "not_collected", "redacted", "not_applicable", "unknown"]},
+        "interpretation_allowed": {"type": "boolean"},
+        "notes": {"type": "string", "maxLength": 300}
+      }
+    },
+    "evidence_boundary": {
+      "type": "object",
+      "required": ["allowed_use", "forbidden_use"],
+      "additionalProperties": false,
+      "properties": {
+        "allowed_use": {"type": "string", "minLength": 12, "maxLength": 300},
+        "forbidden_use": {"type": "string", "minLength": 12, "maxLength": 300}
+      }
+    },
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "required": ["name", "measurement", "unit_or_scale"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {"type": "string", "minLength": 2, "maxLength": 80},
+          "measurement": {"type": "string", "minLength": 8, "maxLength": 250},
+          "unit_or_scale": {"type": "string", "minLength": 1, "maxLength": 80}
+        }
+      }
+    },
+    "expected_result": {"type": "string", "minLength": 12, "maxLength": 400},
+    "observed_result": {"type": "string", "minLength": 12, "maxLength": 400},
+    "revision_reason": {"type": "string", "minLength": 12, "maxLength": 400},
+    "falsification_route": {"type": "string", "minLength": 16, "maxLength": 500},
+    "next_executable_action": {"type": "string", "minLength": 12, "maxLength": 400}
+  }
+}
