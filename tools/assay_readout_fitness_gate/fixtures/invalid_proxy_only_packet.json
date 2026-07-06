@@ -1,0 +1,37 @@
+{
+  "packet_id": "arf-2026-07-06-bad",
+  "source_status": "synthetic",
+  "claim_status": "hypothesis",
+  "privacy_status": "public_safe",
+  "missingness": {
+    "known_missing": ["No mechanism-specific readout"],
+    "effect_on_interpretation": "The claim may be interesting but cannot be promoted because the measurement only tracks a proxy."
+  },
+  "revision_reason": "Fixture demonstrates rejection of plausible but non-discriminating readout logic.",
+  "implementation_status": "validator_committed",
+  "evidence_strength": "weak",
+  "hypothesis": "A short-term improvement in a proxy means the mechanism is probably correct.",
+  "mechanism_claim": "The mechanism is assumed from a nearby measurable improvement rather than directly tested.",
+  "assay_or_readout": {
+    "modality": "self report or general observation",
+    "measurement": "single short-term improvement score",
+    "sampling_window": "after observation only",
+    "unit_or_scale": "ordinal"
+  },
+  "readout_fitness": {
+    "distinguishes_mechanism_from_proxy": false,
+    "specificity_rationale": "The readout does not distinguish the claimed mechanism from placebo, regression, or timing effects.",
+    "sensitivity_rationale": "The sensitivity of the single score is unknown and may miss important changes.",
+    "temporal_alignment": "The measurement window is too short and lacks a baseline period.",
+    "minimum_viable_evidence": "This packet lacks negative controls and cannot support promotion."
+  },
+  "confounders": ["regression to the mean", "observer expectation", "timing artifact"],
+  "negative_controls": ["None provided"],
+  "decision_thresholds": {
+    "promote": "Not available because mechanism/proxy discrimination is absent.",
+    "hold": "Hold until a mechanism-linked readout and baseline window exist.",
+    "reject": "Reject for discovery-memory promotion if only the proxy score is available."
+  },
+  "falsification_route": "A mechanism-specific assay showing no relationship to the proxy would falsify the promotion logic.",
+  "next_executable_action": "Replace proxy-only measurement with a mechanism-linked readout and negative control."
+}
