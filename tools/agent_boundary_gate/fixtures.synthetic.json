@@ -1,0 +1,152 @@
+[
+  {
+    "name": "pass_clear_user_and_inference_boundary",
+    "expected": "pass",
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "abg-clear-boundary-pass",
+      "hypothesis_id": "hyp-agent-boundary-preservation",
+      "claim": "Human-AI sensemaking improves when user-stated content, assistant inference, tool observations, and synthetic test data remain separately attributed before memory or hypothesis promotion.",
+      "source_status": "synthetic",
+      "claim_status": "testable_infrastructure_claim",
+      "privacy_status": "public_safe",
+      "missingness": {"state": "none", "known_gaps": []},
+      "revision_reason": "Convert attribution-boundary preservation into a machine-checkable test fixture.",
+      "implementation_status": "implemented",
+      "testability": "high",
+      "falsification_route": "If packets with collapsed attribution pass, the gate fails and the boundary model must be revised.",
+      "measurable_variables": [
+        {
+          "name": "attribution_collapse_count",
+          "measurement": "number of segments whose downstream use conflicts with agent role",
+          "failure_threshold": "> 0"
+        },
+        {
+          "name": "private_memory_leak_count",
+          "measurement": "number of public-safe packets that attempt to store private identifiers or personal details",
+          "failure_threshold": "> 0"
+        }
+      ],
+      "next_executable_action": "Run validate_agent_boundary_packets.py against this fixture file.",
+      "boundary_segments": [
+        {
+          "segment_id": "seg-1",
+          "agent_role": "user_stated",
+          "content": "A public-safe abstract user statement about wanting stronger evidence boundaries.",
+          "allowed_downstream_use": ["quote_as_user_statement"],
+          "prohibited_downstream_use": ["use_as_diagnosis", "store_as_private_memory", "promote_without_source"]
+        },
+        {
+          "segment_id": "seg-2",
+          "agent_role": "assistant_inferred",
+          "content": "A public-safe assistant inference that the system needs attribution-preserving memory gates.",
+          "allowed_downstream_use": ["use_as_inference"],
+          "prohibited_downstream_use": ["quote_as_user_statement", "use_as_diagnosis", "use_as_treatment_advice"]
+        },
+        {
+          "segment_id": "seg-3",
+          "agent_role": "synthetic_fixture",
+          "content": "Synthetic data used only to test validation behavior.",
+          "allowed_downstream_use": ["use_as_synthetic_test"],
+          "prohibited_downstream_use": ["quote_as_user_statement", "store_as_private_memory", "collapse_into_observation"]
+        }
+      ]
+    }
+  },
+  {
+    "name": "fail_inference_quoted_as_user_statement",
+    "expected": "fail",
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "abg-inference-collapse-fail",
+      "hypothesis_id": "hyp-agent-boundary-preservation",
+      "claim": "Assistant inference should not be promoted as user-stated content during memory or hypothesis promotion.",
+      "source_status": "synthetic",
+      "claim_status": "testable_infrastructure_claim",
+      "privacy_status": "public_safe",
+      "missingness": {"state": "none", "known_gaps": []},
+      "revision_reason": "Negative fixture for attribution laundering.",
+      "implementation_status": "implemented",
+      "testability": "high",
+      "falsification_route": "If this fixture passes, the validator is allowing inference laundering.",
+      "measurable_variables": [
+        {"name": "attribution_collapse_count", "measurement": "conflicting downstream use count", "failure_threshold": "> 0"},
+        {"name": "role_policy_violation_count", "measurement": "agent-role rule violations", "failure_threshold": "> 0"}
+      ],
+      "next_executable_action": "Reject the fixture and report the segment violation.",
+      "boundary_segments": [
+        {
+          "segment_id": "seg-1",
+          "agent_role": "assistant_inferred",
+          "content": "The assistant inferred a possible pattern from public-safe abstractions.",
+          "allowed_downstream_use": ["quote_as_user_statement"],
+          "prohibited_downstream_use": ["use_as_diagnosis"]
+        }
+      ]
+    }
+  },
+  {
+    "name": "fail_tool_result_collapsed_into_observation",
+    "expected": "fail",
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "abg-tool-collapse-fail",
+      "hypothesis_id": "hyp-agent-boundary-preservation",
+      "claim": "Tool observations should remain tool observations until independently interpreted and sourced.",
+      "source_status": "synthetic",
+      "claim_status": "testable_infrastructure_claim",
+      "privacy_status": "public_safe",
+      "missingness": {"state": "none", "known_gaps": []},
+      "revision_reason": "Negative fixture for tool-result laundering.",
+      "implementation_status": "implemented",
+      "testability": "high",
+      "falsification_route": "If this fixture passes, tool output can be collapsed into unsourced observation.",
+      "measurable_variables": [
+        {"name": "tool_collapse_count", "measurement": "tool-observed segments allowed to collapse into observation", "failure_threshold": "> 0"},
+        {"name": "source_boundary_count", "measurement": "segments with explicit source boundary", "failure_threshold": "< segment_count"}
+      ],
+      "next_executable_action": "Reject the fixture and route it to the contradiction ledger.",
+      "boundary_segments": [
+        {
+          "segment_id": "seg-1",
+          "agent_role": "tool_observed",
+          "content": "A public-safe tool output from an external retrieval step.",
+          "allowed_downstream_use": ["use_as_tool_result"],
+          "prohibited_downstream_use": ["collapse_into_observation", "promote_without_source"]
+        }
+      ]
+    }
+  },
+  {
+    "name": "fail_private_packet_rejected",
+    "expected": "fail",
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "abg-private-rejected-fail",
+      "hypothesis_id": "hyp-agent-boundary-preservation",
+      "claim": "Private rejected packets must not be admitted into public-safe research memory.",
+      "source_status": "synthetic",
+      "claim_status": "testable_infrastructure_claim",
+      "privacy_status": "private_rejected",
+      "missingness": {"state": "redacted", "known_gaps": ["private content removed"]},
+      "revision_reason": "Negative fixture for privacy boundary enforcement.",
+      "implementation_status": "implemented",
+      "testability": "high",
+      "falsification_route": "If this fixture passes, private-rejected packets are incorrectly admitted.",
+      "measurable_variables": [
+        {"name": "privacy_rejection_count", "measurement": "packets marked private_rejected", "failure_threshold": "> 0 accepted"},
+        {"name": "redaction_state_count", "measurement": "redacted missingness state occurrences", "failure_threshold": "> 0 accepted without quarantine"}
+      ],
+      "next_executable_action": "Reject and quarantine; do not store in public-safe memory.",
+      "boundary_segments": [
+        {
+          "segment_id": "seg-1",
+          "agent_role": "user_stated",
+          "content": "Redacted private material placeholder.",
+          "allowed_downstream_use": ["exclude_from_memory"],
+          "prohibited_downstream_use": ["store_as_private_memory", "promote_without_source"]
+        }
+      ]
+    }
+  }
+]
