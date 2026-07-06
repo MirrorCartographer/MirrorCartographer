@@ -1,0 +1,134 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "packet_id": "ccg-pass-001",
+    "claim": "A hypothesis packet is safer to promote when it includes positive, negative, and counterfactual controls before interpretation.",
+    "domain": "scientific_reasoning",
+    "source_status": "synthetic",
+    "claim_status": "testable_claim",
+    "privacy_status": "synthetic_only",
+    "missingness": {
+      "declared": true,
+      "states_allowed": ["observed", "not_observed", "unknown", "not_collected"],
+      "absence_policy": "absence_must_not_be_inferred_from_missingness"
+    },
+    "revision_reason": "Adds explicit controls so MC does not mistake any single observed pattern for causal or mechanistic support.",
+    "implementation_status": "implemented",
+    "testability": "executable",
+    "measurable_variables": [
+      {
+        "name": "control_condition_count",
+        "measurement_type": "count",
+        "unit_or_scale": "integer",
+        "sampling_rule": "count declared control condition fields per packet"
+      },
+      {
+        "name": "decision_rule_presence",
+        "measurement_type": "binary",
+        "unit_or_scale": "present_absent",
+        "sampling_rule": "mark present only when pass and fail patterns are both declared"
+      }
+    ],
+    "control_conditions": {
+      "positive_control": "A packet with all required controls should pass validation.",
+      "negative_control": "A packet with no negative control should fail validation.",
+      "counterfactual_control": "A packet with plausible alternate interpretation should require a discriminating decision rule."
+    },
+    "expected_result": {
+      "pass_pattern": "Valid packets contain all control types and a clear decision rule.",
+      "fail_pattern": "Invalid packets omit controls, collapse missingness, or lack null-result handling.",
+      "decision_rule": "Promote only when controls, variables, missingness, and null handling are complete."
+    },
+    "null_result_handling": "A null result is preserved as inconclusive or contradicted evidence rather than being deleted or reinterpreted as support.",
+    "falsification_route": "If packets without controls are promoted at the same rate as controlled packets, this gate fails its purpose.",
+    "next_executable_action": "Run validator against synthetic fixtures."
+  },
+  {
+    "schema_version": "1.0.0",
+    "packet_id": "ccg-fail-no-negative-control",
+    "claim": "A hypothesis packet can be promoted with only a positive control if the pattern looks coherent.",
+    "domain": "scientific_reasoning",
+    "source_status": "synthetic",
+    "claim_status": "hypothesis",
+    "privacy_status": "synthetic_only",
+    "missingness": {
+      "declared": true,
+      "states_allowed": ["observed", "unknown", "not_collected"],
+      "absence_policy": "absence_must_not_be_inferred_from_missingness"
+    },
+    "revision_reason": "This fixture should fail because it has no negative control and would over-promote coherent stories.",
+    "implementation_status": "implemented",
+    "testability": "executable",
+    "measurable_variables": [
+      {
+        "name": "control_condition_count",
+        "measurement_type": "count",
+        "unit_or_scale": "integer",
+        "sampling_rule": "count declared control condition fields per packet"
+      },
+      {
+        "name": "decision_rule_presence",
+        "measurement_type": "binary",
+        "unit_or_scale": "present_absent",
+        "sampling_rule": "mark present only when pass and fail patterns are both declared"
+      }
+    ],
+    "control_conditions": {
+      "positive_control": "A packet with an obvious expected pattern should pass validation.",
+      "negative_control": "",
+      "counterfactual_control": "A different explanation could produce the same observation."
+    },
+    "expected_result": {
+      "pass_pattern": "Pattern looks coherent.",
+      "fail_pattern": "Missing negative control.",
+      "decision_rule": "Reject when negative control is missing."
+    },
+    "null_result_handling": "Null results should not be silently converted into support.",
+    "falsification_route": "Validator should reject this fixture because negative control is blank.",
+    "next_executable_action": "Confirm validator rejects this packet."
+  },
+  {
+    "schema_version": "1.0.0",
+    "packet_id": "ccg-fail-missingness-collapse",
+    "claim": "Missing observations can be treated as evidence that the signal was absent.",
+    "domain": "privacy_preserving_longitudinal_dataset",
+    "source_status": "synthetic",
+    "claim_status": "hypothesis",
+    "privacy_status": "synthetic_only",
+    "missingness": {
+      "declared": true,
+      "states_allowed": ["observed", "not_observed"],
+      "absence_policy": "absence_must_not_be_inferred_from_missingness"
+    },
+    "revision_reason": "This fixture should fail because it lacks unknown or not_collected missingness states.",
+    "implementation_status": "implemented",
+    "testability": "executable",
+    "measurable_variables": [
+      {
+        "name": "observed_fraction",
+        "measurement_type": "ratio",
+        "unit_or_scale": "0_to_1",
+        "sampling_rule": "divide observed points by declared expected points"
+      },
+      {
+        "name": "missingness_state_count",
+        "measurement_type": "count",
+        "unit_or_scale": "integer",
+        "sampling_rule": "count distinct declared missingness states"
+      }
+    ],
+    "control_conditions": {
+      "positive_control": "A packet with unknown and not_collected states should pass.",
+      "negative_control": "A packet with only observed and not_observed states should fail.",
+      "counterfactual_control": "No record could mean not collected rather than not present."
+    },
+    "expected_result": {
+      "pass_pattern": "Missingness can be separated from true non-observation.",
+      "fail_pattern": "Missingness collapses into absence.",
+      "decision_rule": "Reject when missingness state space lacks unknown or not_collected."
+    },
+    "null_result_handling": "A null result remains null only when collection status is known.",
+    "falsification_route": "Validator should reject packets that cannot represent unknown or not_collected states.",
+    "next_executable_action": "Confirm validator rejects this packet."
+  }
+]
