@@ -1,0 +1,118 @@
+[
+  {
+    "name": "valid_temporal_prediction_public_safe",
+    "should_pass": true,
+    "packet": {
+      "schema_version": "1.0",
+      "record_type": "falsifiable_prediction_packet",
+      "prediction_id": "pred_temporal_context_shift_latency",
+      "mechanism_graph_id": "mech_context_switch_001",
+      "claim_id": "claim_context_switch_001",
+      "prediction_statement": "If a mechanism graph correctly links context-switch prompts to operational clarity, then switch latency should decrease across repeated synthetic sessions with the same task family.",
+      "prediction_type": "temporal",
+      "measurable_variables": [
+        {
+          "name": "switch_latency",
+          "operational_definition": "Number of interaction turns required before a symbolic packet is converted into bounded operational variables.",
+          "unit_or_scale": "turn_count",
+          "collection_method": "Synthetic transcript fixture scored by deterministic parser."
+        }
+      ],
+      "expected_direction": "decrease",
+      "observation_window": {
+        "start_rule": "Begin when the synthetic session presents the first ambiguous symbolic claim.",
+        "end_rule": "End when the system emits a packet with variables, boundaries, and falsification route.",
+        "minimum_repetitions": 3
+      },
+      "failure_condition": "The prediction fails if switch latency does not decrease after three repeated task-family exposures or if operational variables remain absent.",
+      "alternative_outcomes": [
+        "Latency remains stable because the mechanism graph does not capture the transformation bottleneck.",
+        "Latency decreases but boundary violations increase, indicating optimization pressure toward unsafe compression."
+      ],
+      "source_status": "synthetic",
+      "claim_status": "test_ready",
+      "privacy_status": "public_safe",
+      "missingness": ["No live user data", "No external replication yet"],
+      "revision_reason": "Convert mechanism prose into a measurable prediction before promotion into discovery memory.",
+      "implementation_status": "implemented",
+      "testability": "high",
+      "falsification_route": "Run the same fixture family over at least three synthetic repetitions and reject the claim if the predicted metric does not move as specified.",
+      "next_executable_action": "Run the validator and then attach this prediction to a mechanism graph fixture."
+    }
+  },
+  {
+    "name": "invalid_no_failure_condition",
+    "should_pass": false,
+    "packet": {
+      "schema_version": "1.0",
+      "record_type": "falsifiable_prediction_packet",
+      "prediction_id": "pred_missing_failure",
+      "mechanism_graph_id": "mech_x",
+      "claim_id": "claim_x",
+      "prediction_statement": "This prediction is long enough to look plausible but deliberately lacks a usable failure condition for validation.",
+      "prediction_type": "comparative",
+      "measurable_variables": [
+        {
+          "name": "boundary_errors",
+          "operational_definition": "Count of claims that cross from research organization into advice-like output.",
+          "unit_or_scale": "count",
+          "collection_method": "Static fixture inspection."
+        }
+      ],
+      "expected_direction": "decrease",
+      "observation_window": {
+        "start_rule": "Start at first generated claim.",
+        "end_rule": "End after validator emits result.",
+        "minimum_repetitions": 2
+      },
+      "alternative_outcomes": ["The measured variable changes in the opposite direction."],
+      "source_status": "synthetic",
+      "claim_status": "test_ready",
+      "privacy_status": "public_safe",
+      "missingness": [],
+      "revision_reason": "Synthetic negative fixture for validator testing.",
+      "implementation_status": "implemented",
+      "testability": "high",
+      "falsification_route": "Reject if required fields cannot establish a measurable failure path.",
+      "next_executable_action": "Confirm validator rejects this packet."
+    }
+  },
+  {
+    "name": "invalid_private_status",
+    "should_pass": false,
+    "packet": {
+      "schema_version": "1.0",
+      "record_type": "falsifiable_prediction_packet",
+      "prediction_id": "pred_private_payload",
+      "mechanism_graph_id": "mech_private",
+      "claim_id": "claim_private",
+      "prediction_statement": "This packet intentionally contains a privacy-reject marker so it must not enter public discovery memory even if other fields are valid.",
+      "prediction_type": "threshold",
+      "measurable_variables": [
+        {
+          "name": "private_detail_count",
+          "operational_definition": "Count of private or identifying details inside a packet destined for public repository storage.",
+          "unit_or_scale": "count",
+          "collection_method": "Deterministic text scan."
+        }
+      ],
+      "expected_direction": "decrease",
+      "observation_window": {
+        "start_rule": "Start before public-safe export.",
+        "end_rule": "End after privacy scan.",
+        "minimum_repetitions": 2
+      },
+      "failure_condition": "The packet fails immediately because privacy_status is reject_private and public memory export is disallowed.",
+      "alternative_outcomes": ["The packet is rewritten into a deidentified abstraction before validation."],
+      "source_status": "synthetic",
+      "claim_status": "test_ready",
+      "privacy_status": "reject_private",
+      "missingness": [],
+      "revision_reason": "Synthetic privacy rejection fixture.",
+      "implementation_status": "implemented",
+      "testability": "high",
+      "falsification_route": "Validator must reject any packet explicitly marked reject_private.",
+      "next_executable_action": "Confirm validator rejects this packet."
+    }
+  }
+]
