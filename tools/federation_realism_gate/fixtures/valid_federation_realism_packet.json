@@ -1,0 +1,34 @@
+{
+  "packet_id": "frg-valid-001",
+  "created_at": "2026-07-06T18:54:28Z",
+  "domain": "longitudinal_health",
+  "claim": "A privacy-preserving longitudinal health benchmark should preserve site boundaries and sampling irregularity before claims are promoted into discovery memory.",
+  "source_status": "synthetic_fixture",
+  "claim_status": "schema_requirement",
+  "privacy_status": "synthetic_only",
+  "missingness": {
+    "declared": true,
+    "sampling_cadence": "irregular visits and uneven measurement windows",
+    "site_specific_absence": "site A has imaging; site B has labs; site C has symptom text only",
+    "dropout_or_censoring": "follow-up loss differs across sites and may correlate with severity"
+  },
+  "revision_reason": "Randomized data splits can overstate generalization and privacy readiness for real multi-site clinical or animal-health workflows.",
+  "implementation_status": "test_fixture",
+  "evidence_strength": "moderate",
+  "site_boundary_model": {
+    "holders": ["clinic_site_A", "clinic_site_B", "clinic_site_C"],
+    "what_leaves_site": "model updates and aggregate metrics only",
+    "site_identity_preserved": true
+  },
+  "partition_realism": "The split follows real clinic/source boundaries rather than random row-level partitioning, preserving heterogeneity by instrument, cadence, and population.",
+  "privacy_mechanism": "federated_updates",
+  "privacy_utility_tradeoff": {
+    "utility_metric": "site-held-out AUROC plus calibration drift",
+    "expected_privacy_cost": "less stable updates when sites are small or missing modalities",
+    "minimum_acceptable_utility": "no worse than 5 percentage points below non-private baseline on held-out sites",
+    "stability_risk": "privacy noise and non-IID clients may create unstable convergence"
+  },
+  "leakage_threat_model": ["membership_inference", "gradient_inversion", "site_reidentification"],
+  "falsification_route": "Demote the packet if site-aware evaluation performs no better than row-random evaluation or if update leakage cannot be bounded.",
+  "next_executable_action": "Run validator and add one held-out-site evaluation fixture."
+}
