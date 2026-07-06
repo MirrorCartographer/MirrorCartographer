@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.org/schemas/open_ended_task_packet_schema.json",
+  "title": "OpenEndedTaskPacket",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "task_claim",
+    "task_kind",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "dataset_boundary",
+    "measurable_variables",
+    "hypothesis_decomposition",
+    "exploratory_steps",
+    "validation_plan",
+    "falsification_route",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 6},
+    "task_claim": {"type": "string", "minLength": 20},
+    "task_kind": {
+      "type": "string",
+      "enum": [
+        "literature_synthesis",
+        "dataset_exploration",
+        "hypothesis_generation",
+        "mechanistic_modeling",
+        "benchmark_design",
+        "workflow_validation"
+      ]
+    },
+    "source_status": {"type": "string", "enum": ["public_frontier_scan", "primary_source", "preprint", "synthetic", "mixed"]},
+    "claim_status": {"type": "string", "enum": ["infrastructure_hypothesis", "testable_specification", "validated", "rejected", "needs_review"]},
+    "privacy_status": {"type": "string", "enum": ["public_safe", "synthetic_only", "deidentified_required", "blocked_private"]},
+    "dataset_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["data_type", "access_level", "raw_private_data_allowed", "temporal_split_required"],
+      "properties": {
+        "data_type": {"type": "string", "minLength": 3},
+        "access_level": {"type": "string", "enum": ["public", "synthetic", "restricted", "none"]},
+        "raw_private_data_allowed": {"type": "boolean", "const": false},
+        "temporal_split_required": {"type": "boolean"}
+      }
+    },
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "measurement_method", "success_direction"],
+        "properties": {
+          "name": {"type": "string", "minLength": 2},
+          "measurement_method": {"type": "string", "minLength": 5},
+          "success_direction": {"type": "string", "enum": ["increase", "decrease", "bounded", "presence", "absence"]}
+        }
+      }
+    },
+    "hypothesis_decomposition": {
+      "type": "array",
+      "minItems": 2,
+      "items": {"type": "string", "minLength": 10}
+    },
+    "exploratory_steps": {
+      "type": "array",
+      "minItems": 2,
+      "items": {"type": "string", "minLength": 10}
+    },
+    "validation_plan": {"type": "string", "minLength": 30},
+    "falsification_route": {"type": "string", "minLength": 30},
+    "missingness": {"type": "array", "items": {"type": "string"}},
+    "revision_reason": {"type": "string", "minLength": 15},
+    "implementation_status": {"type": "string", "enum": ["specified", "implemented", "tested", "wired_into_ci"]},
+    "next_executable_action": {"type": "string", "minLength": 15}
+  }
+}
