@@ -1,0 +1,105 @@
+[
+  {
+    "name": "pass_public_safe_question_prep",
+    "expect_valid": true,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "qprep_public_safe_observation_map",
+      "domain": "animal_care_evidence_organization",
+      "claim": "A research assistant should convert animal-care observations into bounded question-prep packets without diagnosis or treatment advice.",
+      "source_status": "synthetic",
+      "claim_status": "test_fixture",
+      "privacy_status": "public_safe_synthetic",
+      "missingness": {
+        "state": "complete_for_synthetic_test",
+        "known_missing_fields": [],
+        "absence_interpretation_allowed": false
+      },
+      "revision_reason": "Create a boundary test that keeps evidence organization separate from care decisions.",
+      "implementation_status": "fixture",
+      "testability": "executable",
+      "falsification_route": "The claim fails if packets that include diagnosis, dosage, treatment, or emergency instructions pass validation.",
+      "measurable_variables": [
+        {"name": "observation_count", "measurement_type": "count", "allowed_missingness": "observed"},
+        {"name": "missingness_state", "measurement_type": "categorical", "allowed_missingness": "unknown"},
+        {"name": "advice_leak_count", "measurement_type": "count", "allowed_missingness": "observed"}
+      ],
+      "evidence_boundary": {
+        "allowed_use": ["organize_questions", "track_missingness", "prepare_research_review"],
+        "forbidden_use": ["diagnosis", "treatment", "medication_change", "urgent_triage", "replace_professional_judgment"],
+        "requires_professional_review": true
+      },
+      "questions": [
+        {"question": "Which observations are directly observed versus inferred?", "purpose": "separate_observation_from_inference", "linked_variable": "observation_count"},
+        {"question": "Which fields are unknown, redacted, or not applicable?", "purpose": "clarify_missingness", "linked_variable": "missingness_state"}
+      ],
+      "prohibited_outputs": ["diagnosis", "treatment_plan", "dosage", "emergency_instruction", "certainty_claim", "private_identifier"]
+    }
+  },
+  {
+    "name": "fail_missing_falsification_route",
+    "expect_valid": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "qprep_missing_falsification",
+      "domain": "medical_ai_evidence_organization",
+      "claim": "A packet should organize clinical research questions while preserving evidence boundaries.",
+      "source_status": "synthetic",
+      "claim_status": "test_fixture",
+      "privacy_status": "public_safe_synthetic",
+      "missingness": {"state": "partial", "known_missing_fields": ["source"], "absence_interpretation_allowed": false},
+      "revision_reason": "Synthetic invalid fixture for boundary validation.",
+      "implementation_status": "fixture",
+      "testability": "executable",
+      "falsification_route": "",
+      "measurable_variables": [{"name": "source_count", "measurement_type": "count", "allowed_missingness": "unknown"}],
+      "evidence_boundary": {"allowed_use": ["organize_questions"], "forbidden_use": ["diagnosis"], "requires_professional_review": true},
+      "questions": [{"question": "What source would support this research question?", "purpose": "ask_about_source_quality", "linked_variable": "source_count"}],
+      "prohibited_outputs": ["diagnosis", "treatment_plan", "dosage"]
+    }
+  },
+  {
+    "name": "fail_advice_leak",
+    "expect_valid": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "qprep_advice_leak",
+      "domain": "animal_care_evidence_organization",
+      "claim": "A packet that gives direct care instructions should be rejected by the question-prep boundary gate.",
+      "source_status": "synthetic",
+      "claim_status": "test_fixture",
+      "privacy_status": "public_safe_synthetic",
+      "missingness": {"state": "complete_for_synthetic_test", "known_missing_fields": [], "absence_interpretation_allowed": false},
+      "revision_reason": "Synthetic invalid fixture containing advice leakage.",
+      "implementation_status": "fixture",
+      "testability": "executable",
+      "falsification_route": "Reject any packet that uses care-instruction language rather than question-prep language.",
+      "measurable_variables": [{"name": "advice_leak_count", "measurement_type": "count", "allowed_missingness": "observed"}],
+      "evidence_boundary": {"allowed_use": ["organize_questions"], "forbidden_use": ["diagnosis", "treatment", "medication_change"], "requires_professional_review": true},
+      "questions": [{"question": "Start treatment immediately based on this pattern.", "purpose": "prepare_next_research_step", "linked_variable": "advice_leak_count"}],
+      "prohibited_outputs": ["diagnosis", "treatment_plan", "dosage"]
+    }
+  },
+  {
+    "name": "fail_private_identifier_status",
+    "expect_valid": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "qprep_private_identifier",
+      "domain": "privacy_preserving_longitudinal_data",
+      "claim": "Private identifiers should not enter public-safe research question-prep packets.",
+      "source_status": "synthetic",
+      "claim_status": "test_fixture",
+      "privacy_status": "reject_private_or_identifying",
+      "missingness": {"state": "redacted", "known_missing_fields": ["identifier"], "absence_interpretation_allowed": false},
+      "revision_reason": "Synthetic invalid fixture for privacy boundary rejection.",
+      "implementation_status": "fixture",
+      "testability": "executable",
+      "falsification_route": "Reject packets marked as private or identifying before question generation.",
+      "measurable_variables": [{"name": "private_identifier_count", "measurement_type": "count", "allowed_missingness": "redacted"}],
+      "evidence_boundary": {"allowed_use": ["track_missingness"], "forbidden_use": ["replace_professional_judgment"], "requires_professional_review": true},
+      "questions": [{"question": "Which private fields must be redacted before review?", "purpose": "clarify_missingness", "linked_variable": "private_identifier_count"}],
+      "prohibited_outputs": ["diagnosis", "treatment_plan", "private_identifier"]
+    }
+  }
+]
