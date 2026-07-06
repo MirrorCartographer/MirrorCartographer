@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirror-cartographer.dev/schemas/proxy_endpoint_packet.schema.json",
+  "title": "Mirror Cartographer Proxy Endpoint Separation Packet",
+  "description": "Requires cure/discovery claims to separate short-term proxy signals from validated target endpoints before memory promotion.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "created_at",
+    "domain",
+    "claim",
+    "claim_status",
+    "source_status",
+    "privacy_status",
+    "proxy_signals",
+    "target_endpoints",
+    "time_horizon",
+    "validation_plan",
+    "falsification_route",
+    "memory_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "pattern": "^pep-[a-z0-9-]{8,80}$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "domain": {"type": "string", "enum": ["scientific_ai", "medical_research", "veterinary_research", "mechanistic_biology", "neuroscience", "longitudinal_health", "hci", "privacy_memory"]},
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["statement", "mechanistic_basis", "scope_boundary"],
+      "properties": {
+        "statement": {"type": "string", "minLength": 20},
+        "mechanistic_basis": {"type": "string", "minLength": 20},
+        "scope_boundary": {"type": "string", "minLength": 20}
+      }
+    },
+    "claim_status": {"type": "string", "enum": ["hypothesis", "research_organization", "evaluation_criterion", "prototype_requirement", "rejected_advice_like"]},
+    "source_status": {"type": "string", "enum": ["primary", "institutional", "peer_reviewed", "preprint_caveated", "synthetic_fixture", "mixed"]},
+    "privacy_status": {"type": "string", "enum": ["public_safe", "deidentified_required", "private_raw_rejected", "synthetic_only"]},
+    "proxy_signals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "measurement", "why_only_proxy", "failure_mode"],
+        "properties": {
+          "name": {"type": "string", "minLength": 3},
+          "measurement": {"type": "string", "minLength": 10},
+          "why_only_proxy": {"type": "string", "minLength": 20},
+          "failure_mode": {"type": "string", "minLength": 20}
+        }
+      }
+    },
+    "target_endpoints": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "measurement", "minimum_followup", "promotion_threshold"],
+        "properties": {
+          "name": {"type": "string", "minLength": 3},
+          "measurement": {"type": "string", "minLength": 10},
+          "minimum_followup": {"type": "string", "minLength": 5},
+          "promotion_threshold": {"type": "string", "minLength": 15}
+        }
+      }
+    },
+    "time_horizon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["proxy_window", "endpoint_window", "reason_endpoint_needs_longer_window"],
+      "properties": {
+        "proxy_window": {"type": "string", "minLength": 5},
+        "endpoint_window": {"type": "string", "minLength": 5},
+        "reason_endpoint_needs_longer_window": {"type": "string", "minLength": 20}
+      }
+    },
+    "validation_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_boundary", "comparison_logic", "confounders", "review_required"],
+      "properties": {
+        "dataset_boundary": {"type": "string", "minLength": 20},
+        "comparison_logic": {"type": "string", "minLength": 20},
+        "confounders": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}},
+        "review_required": {"type": "boolean"}
+      }
+    },
+    "falsification_route": {"type": "string", "minLength": 30},
+    "memory_action": {"type": "string", "enum": ["hold_as_hypothesis", "promote_to_discovery_candidate", "reject_as_endpoint_confusion", "route_to_human_review"]}
+  }
+}
