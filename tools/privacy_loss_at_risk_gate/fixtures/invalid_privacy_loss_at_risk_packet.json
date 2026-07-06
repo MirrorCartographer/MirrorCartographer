@@ -1,0 +1,38 @@
+{
+  "packet_id": "plar-invalid-001",
+  "source_status": "mixed",
+  "claim_status": "evaluation_criterion",
+  "privacy_status": "deidentified",
+  "missingness": "Missing repeated-query risk accounting.",
+  "revision_reason": "Demonstrates a packet that looks private but still leaks through context.",
+  "implementation_status": "implemented",
+  "evidence_strength": "moderate",
+  "falsification_route": "This packet should fail because individual-level deidentified data can still leak through repeated contextual retrieval.",
+  "next_executable_action": "Run the negative fixture test.",
+  "data_context": {
+    "domain": "human_health",
+    "data_type": "individual longitudinal notes",
+    "identifier_policy": "no_identifiers",
+    "cohort_granularity": "individual",
+    "longitudinal_window": "one year",
+    "rare_feature_handling": "Rare features are kept exactly because they seem clinically useful."
+  },
+  "query_context": {
+    "query_type": "retrieval_augmented_answer",
+    "retrieval_scope": "exact individual context retrieved across many sessions",
+    "repeat_query_risk": "high",
+    "contextual_leakage_risk": "high"
+  },
+  "risk_model": {
+    "static_controls": ["identifier removal"],
+    "cumulative_controls": ["none declared"],
+    "risk_metric": "contextual_leakage_score",
+    "utility_metric": "answer detail preserved",
+    "threshold_action": "allow"
+  },
+  "decision": {
+    "memory_write_allowed": true,
+    "reason": "Claims identifiers are removed, so memory write is allowed.",
+    "review_required": false
+  }
+}
