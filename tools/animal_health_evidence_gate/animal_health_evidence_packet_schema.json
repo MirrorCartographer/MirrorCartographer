@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.local/schemas/animal_health_evidence_packet_schema.json",
+  "title": "Mirror Cartographer Animal Health Evidence Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "species_context",
+    "research_question",
+    "evidence_boundary",
+    "data_modalities",
+    "longitudinal_structure",
+    "privacy_boundary",
+    "claim_status",
+    "source_status",
+    "missingness",
+    "falsification_route",
+    "revision_reason",
+    "implementation_status",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {
+      "type": "string",
+      "pattern": "^aheg-[a-z0-9-]{8,80}$"
+    },
+    "species_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["species", "population_scope", "care_setting", "translation_warning"],
+      "properties": {
+        "species": {"type": "string", "minLength": 2},
+        "population_scope": {"type": "string", "minLength": 8},
+        "care_setting": {"type": "string", "enum": ["companion_animal", "livestock", "shelter", "wildlife", "mixed"]},
+        "translation_warning": {"type": "string", "minLength": 20}
+      }
+    },
+    "research_question": {"type": "string", "minLength": 20},
+    "evidence_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowed_claims", "disallowed_claims", "requires_veterinary_review"],
+      "properties": {
+        "allowed_claims": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 8}},
+        "disallowed_claims": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 8}},
+        "requires_veterinary_review": {"type": "boolean", "const": true}
+      }
+    },
+    "data_modalities": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "collection_frequency", "quality_risk", "owner_burden"],
+        "properties": {
+          "name": {"type": "string", "enum": ["clinical_record", "lab_result", "imaging", "video", "wearable", "feeding", "medication", "behavior_log", "environment", "genomic", "other"]},
+          "collection_frequency": {"type": "string", "minLength": 3},
+          "quality_risk": {"type": "string", "minLength": 8},
+          "owner_burden": {"type": "string", "enum": ["low", "medium", "high"]}
+        }
+      }
+    },
+    "longitudinal_structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["time_window", "baseline_definition", "change_event_definition", "confounders"],
+      "properties": {
+        "time_window": {"type": "string", "minLength": 6},
+        "baseline_definition": {"type": "string", "minLength": 12},
+        "change_event_definition": {"type": "string", "minLength": 12},
+        "confounders": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 3}}
+      }
+    },
+    "privacy_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["privacy_status", "raw_data_allowed", "deidentification_plan", "sharing_tier"],
+      "properties": {
+        "privacy_status": {"type": "string", "enum": ["public_safe_synthetic", "deidentified_research", "private_do_not_share"]},
+        "raw_data_allowed": {"type": "boolean", "const": false},
+        "deidentification_plan": {"type": "string", "minLength": 20},
+        "sharing_tier": {"type": "string", "enum": ["schema_only", "aggregate_only", "deidentified_packet", "not_shareable"]}
+      }
+    },
+    "claim_status": {"type": "string", "enum": ["infrastructure_hypothesis", "research_organization", "benchmark_requirement", "collaboration_target"]},
+    "source_status": {"type": "string", "enum": ["primary_source", "institutional_source", "preprint_caveated", "review", "market_secondary", "synthetic_fixture"]},
+    "missingness": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 4}},
+    "evidence_strength": {"type": "string", "enum": ["low", "moderate", "high"]},
+    "falsification_route": {"type": "string", "minLength": 25},
+    "revision_reason": {"type": "string", "minLength": 20},
+    "implementation_status": {"type": "string", "enum": ["schema_only", "validator_ready", "prototype_ready", "production_ready"]},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  }
+}
