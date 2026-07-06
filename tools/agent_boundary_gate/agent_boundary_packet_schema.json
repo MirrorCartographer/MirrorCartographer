@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirror-cartographer.local/schemas/agent_boundary_packet_schema.json",
+  "title": "MC Agent Boundary Packet",
+  "description": "Public-safe schema for testing whether human-AI sensemaking packets preserve attribution boundaries between observation, user-stated content, assistant inference, tool output, and system action.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_id",
+    "hypothesis_id",
+    "claim",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "testability",
+    "falsification_route",
+    "measurable_variables",
+    "next_executable_action",
+    "boundary_segments"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0.0"},
+    "packet_id": {"type": "string", "pattern": "^abg-[a-z0-9-]+$"},
+    "hypothesis_id": {"type": "string", "pattern": "^hyp-[a-z0-9-]+$"},
+    "claim": {
+      "type": "string",
+      "minLength": 20,
+      "description": "The MC-relevant hypothesis being converted into a test. Must be infrastructure/research-organization oriented, not diagnosis, treatment, or personal advice."
+    },
+    "source_status": {"type": "string", "enum": ["synthetic", "primary", "secondary", "mixed", "unknown"]},
+    "claim_status": {"type": "string", "enum": ["hypothesis", "testable_infrastructure_claim", "unsupported", "falsified", "supported"]},
+    "privacy_status": {"type": "string", "enum": ["public_safe", "deidentified", "private_rejected"]},
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "known_gaps"],
+      "properties": {
+        "state": {"type": "string", "enum": ["none", "not_collected", "redacted", "unknown"]},
+        "known_gaps": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "revision_reason": {"type": "string", "minLength": 12},
+    "implementation_status": {"type": "string", "enum": ["fixture_only", "schema_only", "validator_ready", "implemented", "ci_wired"]},
+    "testability": {"type": "string", "enum": ["high", "medium", "low"]},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "measurement", "failure_threshold"],
+        "properties": {
+          "name": {"type": "string"},
+          "measurement": {"type": "string"},
+          "failure_threshold": {"type": "string"}
+        }
+      }
+    },
+    "next_executable_action": {"type": "string", "minLength": 12},
+    "boundary_segments": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["segment_id", "agent_role", "content", "allowed_downstream_use", "prohibited_downstream_use"],
+        "properties": {
+          "segment_id": {"type": "string", "pattern": "^seg-[0-9]+$"},
+          "agent_role": {
+            "type": "string",
+            "enum": ["user_stated", "assistant_inferred", "tool_observed", "system_generated", "external_source", "synthetic_fixture"]
+          },
+          "content": {"type": "string", "minLength": 3},
+          "allowed_downstream_use": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "enum": ["quote_as_user_statement", "use_as_inference", "use_as_tool_result", "use_as_system_context", "use_as_synthetic_test", "exclude_from_memory"]}
+          },
+          "prohibited_downstream_use": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "enum": ["quote_as_user_statement", "use_as_diagnosis", "use_as_treatment_advice", "promote_without_source", "store_as_private_memory", "collapse_into_observation"]}
+          }
+        }
+      }
+    }
+  }
+}
