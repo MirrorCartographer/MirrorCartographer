@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.local/schemas/privacy_longitudinal_dataset_schema.json",
+  "title": "MC Privacy-Preserving Longitudinal Dataset Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_id",
+    "hypothesis",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "testability",
+    "falsification_route",
+    "measurable_variables",
+    "next_executable_action",
+    "records"
+  ],
+  "properties": {
+    "artifact_id": {"type": "string", "minLength": 3},
+    "hypothesis": {"type": "string", "minLength": 10},
+    "source_status": {"type": "string", "enum": ["synthetic", "deidentified_user_supplied", "literature_derived", "mixed_review_required"]},
+    "claim_status": {"type": "string", "enum": ["infrastructure_hypothesis", "research_question", "validated_only_against_fixture", "unsupported_claim_rejected"]},
+    "privacy_status": {"type": "string", "enum": ["public_safe_synthetic", "deidentified_low_risk", "contains_private_data_reject", "requires_human_privacy_review"]},
+    "missingness": {"type": "string", "enum": ["explicit_state_required", "complete_case_only_not_allowed", "unknowns_preserved"]},
+    "revision_reason": {"type": "string", "minLength": 5},
+    "implementation_status": {"type": "string", "enum": ["schema_only", "fixture_plus_validator", "prototype_ready", "deprecated"]},
+    "testability": {"type": "string", "minLength": 5},
+    "falsification_route": {"type": "string", "minLength": 10},
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 3,
+      "items": {"type": "string", "minLength": 3}
+    },
+    "next_executable_action": {"type": "string", "minLength": 5},
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["record_id", "time_index", "domain", "signal", "value_state", "value", "unit", "source_kind", "private_identifier_present", "decision"],
+        "properties": {
+          "record_id": {"type": "string", "pattern": "^[a-z0-9_\\-]+$"},
+          "time_index": {"type": "string", "description": "Relative or bucketed time only; no exact dates required."},
+          "domain": {"type": "string", "enum": ["body_signal", "animal_care", "symbolic_language", "cognition", "human_ai_sensemaking", "environment"]},
+          "signal": {"type": "string", "minLength": 2},
+          "value_state": {"type": "string", "enum": ["observed", "unknown", "not_collected", "redacted", "not_applicable"]},
+          "value": {},
+          "unit": {"type": "string"},
+          "source_kind": {"type": "string", "enum": ["self_report", "document_summary", "synthetic_example", "device_export", "care_log", "conversation_summary"]},
+          "private_identifier_present": {"type": "boolean"},
+          "decision": {"type": "string", "enum": ["retain", "redact", "reject", "needs_review"]}
+        }
+      }
+    }
+  }
+}
