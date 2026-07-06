@@ -54,7 +54,7 @@
       "decision": "retain"
     },
     {
-      "record_id": "invalid_private_001",
+      "record_id": "private_redaction_001",
       "time_index": "exact_date_redacted",
       "domain": "body_signal",
       "signal": "direct_phone_number_in_note",
@@ -63,31 +63,31 @@
       "unit": "raw_text",
       "source_kind": "synthetic_example",
       "private_identifier_present": true,
-      "decision": "retain"
+      "decision": "redact"
     },
     {
-      "record_id": "invalid_missingness_001",
+      "record_id": "missingness_review_001",
       "time_index": "week_002_day_aggregate",
       "domain": "animal_care",
       "signal": "symptom_not_collected_encoded_as_absent",
       "value_state": "unknown",
-      "value": "absent",
-      "unit": "collapsed_boolean",
+      "value": "unknown",
+      "unit": "explicit_missingness_state",
       "source_kind": "synthetic_example",
       "private_identifier_present": false,
-      "decision": "retain"
+      "decision": "needs_review"
     },
     {
-      "record_id": "invalid_directive_001",
+      "record_id": "directive_reject_001",
       "time_index": "week_002_event_bucket",
       "domain": "animal_care",
-      "signal": "increase dose tonight to fix eye pressure",
+      "signal": "unsafe medication directive text",
       "value_state": "observed",
       "value": "give extra medication",
       "unit": "unsafe_directive_text",
       "source_kind": "synthetic_example",
       "private_identifier_present": false,
-      "decision": "retain"
+      "decision": "reject"
     }
   ]
 }
