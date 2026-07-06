@@ -1,0 +1,174 @@
+[
+  {
+    "name": "pass_public_benchmark_to_validation_harness",
+    "expected": "pass",
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "wpg-pass-001",
+      "hypothesis_id": "hyp-workflow-provenance-001",
+      "workflow_stage": "evaluation_harness",
+      "source_status": "mixed",
+      "claim_status": "bounded",
+      "privacy_status": "public_safe",
+      "missingness": ["No independent replication result is attached yet."],
+      "revision_reason": "Frontier scientific AI benchmarks increasingly evaluate realistic workflow support, evidence handling, validation, and operations rather than isolated answer correctness.",
+      "implementation_status": "implemented",
+      "evidence_strength": "moderate",
+      "agent_actions": [
+        {
+          "action_id": "act-search-frontier",
+          "actor": "ai",
+          "action_type": "search",
+          "input_boundary": "public",
+          "output_artifact": "frontier_source_set",
+          "timestamp_status": "explicit"
+        },
+        {
+          "action_id": "act-schema-commit",
+          "actor": "tool",
+          "action_type": "commit",
+          "input_boundary": "synthetic",
+          "output_artifact": "workflow_provenance_packet_schema.json",
+          "timestamp_status": "explicit"
+        }
+      ],
+      "evidence_objects": [
+        {
+          "evidence_id": "ev-lifescibench",
+          "source_type": "benchmark",
+          "source_locator": "OpenAI LifeSciBench public benchmark announcement, 2026-06-17",
+          "claim_supported": "Life science AI evaluation should include evidence handling, scientific reasoning, validation and operations, not only direct answer accuracy.",
+          "limitations": ["Announcement source; full benchmark coverage and independent validation should be checked separately."]
+        },
+        {
+          "evidence_id": "ev-coscientist",
+          "source_type": "paper",
+          "source_locator": "Nature Co-Scientist paper, 2026",
+          "claim_supported": "Scientific hypothesis systems benefit from tool grounding, user constraints, feedback loops, and generated research directions.",
+          "limitations": ["Does not itself define MC memory-admission policy."]
+        }
+      ],
+      "validation_objects": [
+        {
+          "validation_id": "val-schema",
+          "validation_type": "schema",
+          "pass_condition": "Packet includes agent action chain, evidence objects, validation objects, measurable variables, and falsification route.",
+          "failure_condition": "Packet lacks provenance or admits a claim without validation objects."
+        }
+      ],
+      "measurable_variables": [
+        {
+          "name": "provenance_chain_completeness",
+          "measurement_method": "Count required provenance links present divided by required links total.",
+          "unit_or_scale": "0_to_1"
+        },
+        {
+          "name": "unsupported_transition_count",
+          "measurement_method": "Count memory transitions lacking an evidence object and validation object.",
+          "unit_or_scale": "integer"
+        }
+      ],
+      "falsification_route": "If useful discovery-memory transitions can be reproduced without action provenance, evidence objects, or validation objects while maintaining equal auditability, revise or remove this gate.",
+      "next_executable_action": "Wire schema validation into the existing evidence transition validator before hypothesis promotion."
+    }
+  },
+  {
+    "name": "fail_missing_validation_object",
+    "expected": "fail",
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "wpg-fail-001",
+      "hypothesis_id": "hyp-workflow-provenance-002",
+      "workflow_stage": "hypothesis_generation",
+      "source_status": "preprint",
+      "claim_status": "candidate",
+      "privacy_status": "public_safe",
+      "missingness": ["Validation is absent."],
+      "revision_reason": "Generated hypothesis lacks explicit validation record.",
+      "implementation_status": "specified",
+      "evidence_strength": "low",
+      "agent_actions": [
+        {
+          "action_id": "act-generate",
+          "actor": "ai",
+          "action_type": "transform",
+          "input_boundary": "public",
+          "output_artifact": "candidate_hypothesis",
+          "timestamp_status": "unknown"
+        }
+      ],
+      "evidence_objects": [
+        {
+          "evidence_id": "ev-preprint",
+          "source_type": "preprint",
+          "source_locator": "placeholder public preprint",
+          "claim_supported": "A generated claim may be plausible but not yet tested.",
+          "limitations": ["No validation step attached."]
+        }
+      ],
+      "validation_objects": [],
+      "measurable_variables": [
+        {
+          "name": "validation_object_count",
+          "measurement_method": "Count validation records attached to packet.",
+          "unit_or_scale": "integer"
+        }
+      ],
+      "falsification_route": "Reject if generated hypothesis has no validation object connecting evidence to memory transition.",
+      "next_executable_action": "Add a validation object or keep the claim outside discovery memory."
+    }
+  },
+  {
+    "name": "fail_private_boundary",
+    "expected": "fail",
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "wpg-fail-002",
+      "hypothesis_id": "hyp-workflow-provenance-003",
+      "workflow_stage": "evidence_crosswalk",
+      "source_status": "mixed",
+      "claim_status": "candidate",
+      "privacy_status": "blocked_private",
+      "missingness": ["Private source boundary prevents public artifact emission."],
+      "revision_reason": "Packet intentionally demonstrates rejection when private source material would leak into public memory.",
+      "implementation_status": "blocked",
+      "evidence_strength": "low",
+      "agent_actions": [
+        {
+          "action_id": "act-private-read",
+          "actor": "ai",
+          "action_type": "retrieve",
+          "input_boundary": "private_blocked",
+          "output_artifact": "blocked_private_notes",
+          "timestamp_status": "explicit"
+        }
+      ],
+      "evidence_objects": [
+        {
+          "evidence_id": "ev-private-blocked",
+          "source_type": "synthetic_fixture",
+          "source_locator": "synthetic private-boundary fixture",
+          "claim_supported": "Private raw notes must not be used in public discovery artifacts.",
+          "limitations": ["Synthetic fixture only."]
+        }
+      ],
+      "validation_objects": [
+        {
+          "validation_id": "val-privacy",
+          "validation_type": "schema",
+          "pass_condition": "Private boundary is detected and public commit is blocked.",
+          "failure_condition": "Private material is allowed into a public artifact."
+        }
+      ],
+      "measurable_variables": [
+        {
+          "name": "privacy_boundary_violation_count",
+          "measurement_method": "Count private or user-specific fields in public packet.",
+          "unit_or_scale": "integer"
+        }
+      ],
+      "falsification_route": "Reject any packet marked blocked_private from public discovery memory.",
+      "next_executable_action": "Replace private details with public-safe abstractions before retrying."
+    }
+  }
+]
