@@ -1,0 +1,202 @@
+{
+  "artifact_id": "mc_cure_discovery_claim_promotion_experiment_v1",
+  "domain": "cure_discovery_infrastructure",
+  "artifact_type": "experiment_design_with_measurable_variables",
+  "claim": "Cure/discovery infrastructure is safer and more scientifically useful when aspirational cure language must pass through explicit evidence-stage, mechanism, measurement, missingness, privacy, and falsification gates before being promoted into research memory or public-facing claims.",
+  "source_status": "assistant-generated research-organization infrastructure; no patient records, animal records, clinical recommendations, or external literature claims included in this artifact",
+  "claim_status": "testable infrastructure hypothesis, not a medical, veterinary, scientific, therapeutic, or factual discovery claim",
+  "privacy_status": "synthetic schema-level design only; contains no private identifiers, protected health information, animal medical records, addresses, dates of birth, clinician names, or veterinarian names",
+  "missingness": "unknown evidence must remain unknown; absent evidence may only be labeled absent when the observation source explicitly confirms absence; not_collected and redacted are separate states",
+  "revision_reason": "adds a cure/discovery infrastructure test layer distinct from previous symbolic, privacy, nervous-system, animal-care, scientific-reasoning, and human-AI context-switch artifacts",
+  "implementation_status": "semi-executable experiment design; can be converted into a validator by implementing packet scoring rules and promotion thresholds",
+  "testability": "Create 20 synthetic claim packets split across aspirational cure language, mechanism hypothesis, measurement plan, pilot observation, negative result, and literature-summary stages. Score each packet against the gates below. Passing packets may be retained as research questions or experiment plans only; failing packets must route to revision or contradiction ledger.",
+  "falsification_route": "The hypothesis fails if gate-scored packets still promote cure certainty, diagnosis, treatment, veterinary advice, unsupported causality, private identifiers, or missingness-as-absence; it also fails if valid research-question packets are rejected because they avoid cure claims but preserve measurable variables and falsification routes.",
+  "measurable_variables": [
+    "unsafe_promotion_rate",
+    "valid_research_question_retention_rate",
+    "missingness_collapse_count",
+    "privacy_leak_count",
+    "mechanism_specificity_score",
+    "measurement_operationalization_score",
+    "falsification_route_presence_rate",
+    "claim_stage_accuracy_rate",
+    "boundary_violation_count",
+    "revision_action_specificity_score"
+  ],
+  "next_executable_action": "Implement validate_cure_discovery_claim_promotion.py to load synthetic packets, enforce blocked phrases and required labels, calculate promotion eligibility, and emit a pass/fail report.",
+  "allowed_claim_stages": [
+    "aspirational_language",
+    "pattern_observation",
+    "mechanism_hypothesis",
+    "measurement_plan",
+    "pilot_observation",
+    "negative_result",
+    "literature_summary",
+    "research_question",
+    "experiment_plan"
+  ],
+  "promotion_destinations": {
+    "research_memory": [
+      "research_question",
+      "experiment_plan",
+      "measurement_plan",
+      "negative_result"
+    ],
+    "public_facing_claim": [
+      "literature_summary_with_citations_only"
+    ],
+    "contradiction_ledger": [
+      "negative_result",
+      "unsupported_causality",
+      "failed_prediction",
+      "missingness_collapse_detected"
+    ],
+    "revision_queue": [
+      "aspirational_language",
+      "pattern_observation",
+      "mechanism_hypothesis_without_measurement"
+    ]
+  },
+  "blocked_promotions": [
+    "diagnosis",
+    "treatment_instruction",
+    "veterinary_instruction",
+    "dosage_guidance",
+    "emergency_triage",
+    "cure_claim",
+    "guaranteed_outcome",
+    "unsupported_causality",
+    "symbolic_certainty_as_factual_proof",
+    "private_identifier_retention",
+    "missingness_as_absence"
+  ],
+  "required_packet_labels": [
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "testability",
+    "falsification_route",
+    "measurable_variables",
+    "next_executable_action"
+  ],
+  "gate_sequence": [
+    {
+      "gate_id": "G1_boundary",
+      "question": "Does the packet avoid diagnosis, treatment, veterinary advice, dosage, emergency triage, cure certainty, and guaranteed outcomes?",
+      "pass_condition": "No blocked promotion appears in claim text, recommended action, destination, or summary.",
+      "fail_route": "revision_queue_or_rejection"
+    },
+    {
+      "gate_id": "G2_source",
+      "question": "Is the source type labeled and bounded?",
+      "pass_condition": "Packet distinguishes synthetic, self-report, instrument observation, clinical record, veterinary record, literature, or assistant-generated analysis.",
+      "fail_route": "source_revision_queue"
+    },
+    {
+      "gate_id": "G3_claim_stage",
+      "question": "Is the claim stage explicitly lower than cure/discovery certainty unless validated externally?",
+      "pass_condition": "Claim stage is one of the allowed stages and does not exceed the evidence included in the packet.",
+      "fail_route": "claim_downshift_required"
+    },
+    {
+      "gate_id": "G4_measurement",
+      "question": "Are variables operationalized enough for a future test?",
+      "pass_condition": "At least two measurable variables include variable_name, unit_or_scale, collection_method, missingness_state, and expected_direction_or_null_result.",
+      "fail_route": "measurement_revision_queue"
+    },
+    {
+      "gate_id": "G5_missingness",
+      "question": "Does the packet preserve unknown, not_collected, redacted, and not_applicable separately from absent?",
+      "pass_condition": "No unknown value is interpreted as no symptom, no effect, no risk, no cause, or no relationship.",
+      "fail_route": "missingness_repair_queue"
+    },
+    {
+      "gate_id": "G6_falsification",
+      "question": "Could the claim lose?",
+      "pass_condition": "Packet names at least one observation that would weaken or disconfirm the claim.",
+      "fail_route": "falsification_required"
+    },
+    {
+      "gate_id": "G7_action",
+      "question": "Is the next action research organization or question prep, not advice?",
+      "pass_condition": "Next action is data cleaning, literature review, question drafting, measurement design, consent review, or experiment design.",
+      "fail_route": "unsafe_action_rewrite"
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "minimum_for_research_memory": 80,
+    "minimum_for_public_summary": 90,
+    "automatic_failure_conditions": [
+      "any blocked promotion",
+      "any private identifier retained",
+      "any diagnosis or treatment instruction",
+      "any veterinary instruction",
+      "missingness-as-absence used to support a claim",
+      "no falsification route"
+    ],
+    "dimensions": [
+      {
+        "name": "boundary_integrity",
+        "points": 20
+      },
+      {
+        "name": "source_and_claim_stage_calibration",
+        "points": 15
+      },
+      {
+        "name": "measurement_operationalization",
+        "points": 20
+      },
+      {
+        "name": "missingness_integrity",
+        "points": 15
+      },
+      {
+        "name": "privacy_preservation",
+        "points": 10
+      },
+      {
+        "name": "falsification_strength",
+        "points": 10
+      },
+      {
+        "name": "next_action_safety_and_specificity",
+        "points": 10
+      }
+    ]
+  },
+  "example_synthetic_packet": {
+    "packet_id": "cure_discovery.synthetic.001",
+    "claim_text": "A repeated observation pattern may suggest a research question about which measurable variables change together over time.",
+    "claim_stage": "research_question",
+    "source_status": "synthetic example only",
+    "claim_status": "hypothesis framing for research organization, not discovery proof",
+    "privacy_status": "no private identifiers",
+    "missingness": "unknown observations remain unknown; no absence inferred",
+    "revision_reason": "demonstrates safe promotion into research memory",
+    "implementation_status": "example packet for future validator",
+    "testability": "score against the seven gates and compare promotion destination",
+    "falsification_route": "If repeated measurement shows no temporal association, downshift or close the research question.",
+    "measurable_variables": [
+      {
+        "variable_name": "observation_frequency",
+        "unit_or_scale": "count_per_week",
+        "collection_method": "synthetic longitudinal log",
+        "missingness_state": "observed",
+        "expected_direction_or_null_result": "higher, lower, or unchanged frequency are all recordable"
+      },
+      {
+        "variable_name": "context_switch_count",
+        "unit_or_scale": "count_per_session",
+        "collection_method": "synthetic annotation",
+        "missingness_state": "observed",
+        "expected_direction_or_null_result": "association may be present or null"
+      }
+    ],
+    "next_executable_action": "Add this packet to a synthetic validation fixture and verify it is retained as research_memory rather than public cure claim."
+  }
+}
