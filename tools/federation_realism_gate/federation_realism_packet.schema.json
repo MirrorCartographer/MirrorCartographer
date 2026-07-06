@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/federation_realism_packet.schema.json",
+  "title": "Federation Realism Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "created_at",
+    "domain",
+    "claim",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "site_boundary_model",
+    "partition_realism",
+    "privacy_mechanism",
+    "privacy_utility_tradeoff",
+    "leakage_threat_model",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 6},
+    "created_at": {"type": "string", "format": "date-time"},
+    "domain": {"type": "string", "enum": ["human_health", "animal_health", "mechanistic_biology", "neuroscience", "longitudinal_health", "hci", "privacy_memory", "hypothesis_generation", "scientific_ai"]},
+    "claim": {"type": "string", "minLength": 20},
+    "source_status": {"type": "string", "enum": ["primary", "clinical_or_research_institution", "peer_reviewed", "preprint_with_caveat", "benchmark_or_dataset", "open_source_tool", "synthetic_fixture"]},
+    "claim_status": {"type": "string", "enum": ["hypothesis", "evaluation_criterion", "schema_requirement", "prototype_requirement", "source_map", "collaborator_or_opportunity_target", "research_organization_only"]},
+    "privacy_status": {"type": "string", "enum": ["public_safe", "synthetic_only", "deidentified_required", "local_only", "federated_no_raw_data", "contains_sensitive_data_blocked"]},
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["declared", "sampling_cadence", "site_specific_absence", "dropout_or_censoring"],
+      "properties": {
+        "declared": {"type": "boolean", "const": true},
+        "sampling_cadence": {"type": "string", "minLength": 3},
+        "site_specific_absence": {"type": "string", "minLength": 3},
+        "dropout_or_censoring": {"type": "string", "minLength": 3}
+      }
+    },
+    "revision_reason": {"type": "string", "minLength": 15},
+    "implementation_status": {"type": "string", "enum": ["proposed", "schema_only", "prototype", "test_fixture", "ci_candidate", "blocked"]},
+    "evidence_strength": {"type": "string", "enum": ["weak", "moderate", "strong", "unknown"]},
+    "site_boundary_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["holders", "what_leaves_site", "site_identity_preserved"],
+      "properties": {
+        "holders": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 2}},
+        "what_leaves_site": {"type": "string", "minLength": 3},
+        "site_identity_preserved": {"type": "boolean", "const": true}
+      }
+    },
+    "partition_realism": {"type": "string", "minLength": 30},
+    "privacy_mechanism": {"type": "string", "enum": ["none_declared", "deidentification", "secure_aggregation", "local_differential_privacy", "federated_updates", "synthetic_only", "local_only_restoration"]},
+    "privacy_utility_tradeoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["utility_metric", "expected_privacy_cost", "minimum_acceptable_utility", "stability_risk"],
+      "properties": {
+        "utility_metric": {"type": "string", "minLength": 3},
+        "expected_privacy_cost": {"type": "string", "minLength": 3},
+        "minimum_acceptable_utility": {"type": "string", "minLength": 3},
+        "stability_risk": {"type": "string", "minLength": 3}
+      }
+    },
+    "leakage_threat_model": {"type": "array", "minItems": 1, "items": {"type": "string", "enum": ["membership_inference", "gradient_inversion", "attribute_inference", "reconstruction", "cross_context_memory_leakage", "tool_action_leakage", "site_reidentification"]}},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  }
+}
