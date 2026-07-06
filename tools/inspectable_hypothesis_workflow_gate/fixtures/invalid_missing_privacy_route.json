@@ -1,0 +1,50 @@
+{
+  "packet_id": "ihwg-invalid-001",
+  "domain": "hypothesis_generation_system",
+  "source_status": "public frontier scan using preprints and synthetic implementation artifacts",
+  "claim_status": "research-organization infrastructure claim",
+  "privacy_status": "public-safe synthetic packet only",
+  "missingness": "no production corpus or curator labels included",
+  "revision_reason": "frontier work increasingly evaluates inspectable scientific workflows",
+  "implementation_status": "negative fixture for validator testing",
+  "evidence_strength": "moderate",
+  "source_map": [
+    {
+      "source_id": "HeurekaBench-2026",
+      "source_type": "preprint",
+      "claim_supported": "scientific-agent evaluation should be grounded in real studies and workflows",
+      "caveat": "preprint status and requires replication"
+    },
+    {
+      "source_id": "CoDHy-2026",
+      "source_type": "preprint",
+      "claim_supported": "hypothesis systems benefit from inspectable evidence routes",
+      "caveat": "exploratory system and not clinical validation"
+    }
+  ],
+  "workflow_boundary": {
+    "dataset_boundary": "synthetic fixture only",
+    "code_boundary": "validator checks packet structure only",
+    "literature_boundary": "source map records external frontier claims",
+    "tool_boundary": "does not diagnose or recommend interventions",
+    "excluded_uses": ["medical advice", "veterinary advice"]
+  },
+  "hypothesis_route": {
+    "starting_question": "Can a final hypothesis be stored without privacy analysis?",
+    "structured_evidence_route": ["create hypothesis", "promote hypothesis"],
+    "candidate_hypothesis": "A plausible hypothesis should be stored immediately.",
+    "ranking_basis": "plausibility only"
+  },
+  "critique_route": {
+    "critic_role": "minimal reviewer",
+    "main_failure_modes": ["unsupported claim", "missing validation"],
+    "revision_trigger": "revise if rejected"
+  },
+  "human_checkpoint": {
+    "required": false,
+    "reviewer_role": "none",
+    "decision_options": ["promote"]
+  },
+  "falsification_route": "This should fail because privacy_leakage_route is missing and human checkpoint is incomplete.",
+  "next_executable_action": "Run validator and expect invalid result."
+}
