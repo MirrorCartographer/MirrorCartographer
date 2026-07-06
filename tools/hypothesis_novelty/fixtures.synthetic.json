@@ -1,0 +1,57 @@
+[
+  {
+    "fixture_id": "HN-VALID-001",
+    "expected": "PASS",
+    "packet": {
+      "hypothesis_id": "hypothesis.synthetic.phase_shift_001",
+      "hypothesis_statement": "A system may become explainable only after the observation frame is switched from isolated variables to transition relations.",
+      "baseline_explanations": [
+        "The system is explained by isolated variable magnitude.",
+        "The system is explained by static category membership."
+      ],
+      "novelty_delta": "The proposed explanation treats changes between states as the primary object rather than treating state values as primary.",
+      "testable_difference": "When two examples have similar state values but different transition relations, the hypothesis predicts different downstream classifications.",
+      "acceptance_criteria": [
+        "At least one paired synthetic case separates state-value similarity from transition-relation similarity.",
+        "The hypothesis predicts which pair should diverge before seeing evaluation output."
+      ],
+      "privacy_status": "public",
+      "source_status": "synthetic",
+      "claim_status": "proposed"
+    }
+  },
+  {
+    "fixture_id": "HN-INVALID-001",
+    "expected": "FAIL",
+    "packet": {
+      "hypothesis_id": "hypothesis.synthetic.restated_baseline_001",
+      "hypothesis_statement": "The system is explained by isolated variable magnitude.",
+      "baseline_explanations": [
+        "The system is explained by isolated variable magnitude."
+      ],
+      "novelty_delta": "The system is explained by isolated variable magnitude.",
+      "testable_difference": "",
+      "acceptance_criteria": [
+        "No criterion supplied beyond restating the baseline."
+      ],
+      "privacy_status": "public",
+      "source_status": "synthetic",
+      "claim_status": "proposed"
+    }
+  },
+  {
+    "fixture_id": "HN-INVALID-PRIVATE-001",
+    "expected": "FAIL",
+    "packet": {
+      "hypothesis_id": "hypothesis.synthetic.private_marker_001",
+      "hypothesis_statement": "A private person-specific event explains the pattern.",
+      "baseline_explanations": ["Generic baseline."],
+      "novelty_delta": "Uses personal location evidence.",
+      "testable_difference": "Compare against private location details.",
+      "acceptance_criteria": ["Uses private detail."],
+      "privacy_status": "private",
+      "source_status": "synthetic",
+      "claim_status": "proposed"
+    }
+  }
+]
