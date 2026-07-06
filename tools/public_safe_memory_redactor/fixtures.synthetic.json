@@ -1,0 +1,104 @@
+[
+  {
+    "packet_id": "psmr-pass-001",
+    "source_status": "synthetic",
+    "claim_status": "hypothesis",
+    "privacy_status": "public_safe",
+    "missingness": ["requires external evidence source before promotion"],
+    "revision_reason": "Test a public-safe longitudinal pattern packet before collaborator export.",
+    "implementation_status": "draft",
+    "testability": "Can be scored against synthetic weekly trend summaries without raw notes.",
+    "next_executable_action": "Generate a provenance packet from this deidentified summary.",
+    "body": "A deidentified weekly signal packet suggests that abstract-symbolic notes can be translated into measurable variables before hypothesis routing.",
+    "variables": [
+      {
+        "name": "symbol_to_variable_conversion_rate",
+        "unit_or_scale": "0_to_1_ratio",
+        "collection_mode": "derived_from_deidentified_summary"
+      }
+    ],
+    "redaction": {
+      "contains_raw_transcript": false,
+      "contains_direct_identifier": false,
+      "contains_exact_timestamp": false,
+      "contains_location_detail": false,
+      "contains_diagnosis_or_treatment_instruction": false,
+      "contains_animal_care_advice": false
+    }
+  },
+  {
+    "packet_id": "psmr-fail-private-001",
+    "source_status": "deidentified_private_summary",
+    "claim_status": "observation",
+    "privacy_status": "needs_redaction",
+    "missingness": [],
+    "revision_reason": "Fixture should fail because raw transcript residue remains.",
+    "implementation_status": "draft",
+    "testability": "Fails when raw transcript flag is true.",
+    "next_executable_action": "Rewrite into a deidentified summary and remove raw transcript text.",
+    "body": "Raw quote from a private note would appear here in a real failing packet.",
+    "variables": [
+      {
+        "name": "private_quote_count",
+        "unit_or_scale": "count",
+        "collection_mode": "redaction_audit"
+      }
+    ],
+    "redaction": {
+      "contains_raw_transcript": true,
+      "contains_direct_identifier": false,
+      "contains_exact_timestamp": false,
+      "contains_location_detail": false,
+      "contains_diagnosis_or_treatment_instruction": false,
+      "contains_animal_care_advice": false
+    }
+  },
+  {
+    "packet_id": "psmr-fail-advice-001",
+    "source_status": "synthetic",
+    "claim_status": "evidence_summary",
+    "privacy_status": "public_safe",
+    "missingness": ["needs clinician-facing source map"],
+    "revision_reason": "Fixture should fail because it contains advice-like medical or animal-care content.",
+    "implementation_status": "draft",
+    "testability": "Fails when advice flags are true.",
+    "next_executable_action": "Convert advice language into research questions and evidence-map fields.",
+    "body": "This synthetic packet is intentionally blocked because it is advice-like rather than research organization.",
+    "variables": [
+      {
+        "name": "advice_leak_count",
+        "unit_or_scale": "count",
+        "collection_mode": "rule_based_audit"
+      }
+    ],
+    "redaction": {
+      "contains_raw_transcript": false,
+      "contains_direct_identifier": false,
+      "contains_exact_timestamp": false,
+      "contains_location_detail": false,
+      "contains_diagnosis_or_treatment_instruction": true,
+      "contains_animal_care_advice": true
+    }
+  },
+  {
+    "packet_id": "psmr-fail-unmeasurable-001",
+    "source_status": "public",
+    "claim_status": "hypothesis",
+    "privacy_status": "public_safe",
+    "missingness": ["no measurable variable"],
+    "revision_reason": "Fixture should fail because public-safe text alone is not enough for discovery memory.",
+    "implementation_status": "draft",
+    "testability": "Fails when variables array is empty.",
+    "next_executable_action": "Define one measurable variable before routing to hypothesis scoring.",
+    "body": "The idea is safe but not yet measurable.",
+    "variables": [],
+    "redaction": {
+      "contains_raw_transcript": false,
+      "contains_direct_identifier": false,
+      "contains_exact_timestamp": false,
+      "contains_location_detail": false,
+      "contains_diagnosis_or_treatment_instruction": false,
+      "contains_animal_care_advice": false
+    }
+  }
+]
