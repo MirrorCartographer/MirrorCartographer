@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Typed Private Memory Gate Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "falsification_route",
+    "next_executable_action",
+    "memory_candidate",
+    "sensitive_span_policy",
+    "typed_placeholders",
+    "semantic_utility_plan",
+    "local_restoration_boundary",
+    "retrieval_gate",
+    "audit_trace"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "source_status": {"type": "string", "enum": ["primary_source", "institutional_source", "preprint_clear_caveat", "benchmark_dataset", "open_source_tool", "synthetic_fixture"]},
+    "claim_status": {"type": "string", "enum": ["research_organization", "infrastructure_hypothesis", "evaluation_criterion", "prototype_requirement", "not_medical_or_veterinary_advice"]},
+    "privacy_status": {"type": "string", "enum": ["public_safe", "deidentified", "typed_placeholder_only", "sensitive_local_only", "blocked_raw_sensitive"]},
+    "missingness": {"type": "string", "minLength": 10},
+    "revision_reason": {"type": "string", "minLength": 10},
+    "implementation_status": {"type": "string", "enum": ["schema_only", "validator_ready", "tests_ready", "ci_pending", "production_pending"]},
+    "evidence_strength": {"type": "string", "enum": ["low", "moderate", "high"]},
+    "falsification_route": {"type": "string", "minLength": 10},
+    "next_executable_action": {"type": "string", "minLength": 10},
+    "memory_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["raw_memory_present", "sanitized_memory", "domain", "intended_use", "retention_reason"],
+      "properties": {
+        "raw_memory_present": {"type": "boolean"},
+        "sanitized_memory": {"type": "string", "minLength": 10},
+        "domain": {"type": "string", "enum": ["human_health", "animal_health", "mechanistic_biology", "neuroscience", "scientific_ai", "hci", "general"]},
+        "intended_use": {"type": "string", "minLength": 10},
+        "retention_reason": {"type": "string", "minLength": 10}
+      }
+    },
+    "sensitive_span_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["detected_span_types", "blocked_span_types", "allowed_placeholder_types", "policy_level"],
+      "properties": {
+        "detected_span_types": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "blocked_span_types": {"type": "array", "items": {"type": "string"}},
+        "allowed_placeholder_types": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "policy_level": {"type": "string", "enum": ["low", "moderate", "strict", "blocked"]}
+      }
+    },
+    "typed_placeholders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["placeholder", "span_type", "semantic_role", "restoration_location"],
+        "properties": {
+          "placeholder": {"type": "string", "pattern": "^<[A-Z0-9_:-]+>$"},
+          "span_type": {"type": "string"},
+          "semantic_role": {"type": "string", "minLength": 3},
+          "restoration_location": {"type": "string", "enum": ["local_only", "not_stored", "user_supplied_runtime"]}
+        }
+      }
+    },
+    "semantic_utility_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["utility_preserved", "utility_risk", "measurement"],
+      "properties": {
+        "utility_preserved": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "utility_risk": {"type": "string", "minLength": 10},
+        "measurement": {"type": "string", "minLength": 10}
+      }
+    },
+    "local_restoration_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cloud_can_restore", "local_restore_required", "restoration_audit_required"],
+      "properties": {
+        "cloud_can_restore": {"type": "boolean", "const": false},
+        "local_restore_required": {"type": "boolean"},
+        "restoration_audit_required": {"type": "boolean"}
+      }
+    },
+    "retrieval_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["query_conditioned", "cross_domain_leakage_check", "tool_action_check", "admission_decision"],
+      "properties": {
+        "query_conditioned": {"type": "boolean"},
+        "cross_domain_leakage_check": {"type": "boolean"},
+        "tool_action_check": {"type": "boolean"},
+        "admission_decision": {"type": "string", "enum": ["admit", "hold", "reject", "revise"]}
+      }
+    },
+    "audit_trace": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 8}
+    }
+  }
+}
