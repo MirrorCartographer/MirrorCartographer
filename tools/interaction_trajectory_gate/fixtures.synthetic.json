@@ -1,0 +1,137 @@
+[
+  {
+    "name": "pass_operationalizes_symbolic_claim",
+    "expect": "pass",
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "itp_pass_operationalizes_symbolic_claim",
+      "source_status": "synthetic",
+      "claim_status": "infrastructure_hypothesis",
+      "privacy_status": "public_safe",
+      "interaction_window": {"turn_count": 5, "started_at": "synthetic_t0", "ended_at": "synthetic_t1"},
+      "research_state_before": {
+        "claim": "Symbolic observations can seed research questions.",
+        "measurable_variables": [],
+        "evidence_boundary": "unbounded",
+        "falsification_route_present": false
+      },
+      "research_state_after": {
+        "claim": "Symbolic observations can seed research questions only after conversion into bounded variables and rejection tests.",
+        "measurable_variables": ["variable_count", "boundary_label_present", "falsification_route_present"],
+        "evidence_boundary": "bounded",
+        "falsification_route_present": true
+      },
+      "trajectory_metrics": {
+        "claim_stability_delta": 0.3,
+        "measurability_delta": 1.0,
+        "falsifiability_delta": 1.0,
+        "privacy_risk_delta": 0,
+        "unsupported_promotion_count": 0,
+        "drift_count": 0
+      },
+      "sensemaking_events": [
+        {
+          "event_type": "operationalize",
+          "input_state": "Symbolic claim without variables.",
+          "output_state": "Bounded research packet with variables.",
+          "rationale": "Research memory should store measurable abstractions, not private narrative.",
+          "verification_status": "test_checked"
+        }
+      ],
+      "falsification_route": "Reject the gate if high-scoring trajectories still promote claims without variables or falsification routes.",
+      "missingness": ["Needs curator-agreement scoring."],
+      "revision_reason": "Add trajectory-level scoring for human-AI sensemaking.",
+      "implementation_status": "fixtures_added"
+    }
+  },
+  {
+    "name": "fail_unsupported_promotion",
+    "expect": "fail",
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "itp_fail_unsupported_promotion",
+      "source_status": "synthetic",
+      "claim_status": "evaluation_claim",
+      "privacy_status": "public_safe",
+      "interaction_window": {"turn_count": 3, "started_at": "synthetic_t0", "ended_at": "synthetic_t1"},
+      "research_state_before": {
+        "claim": "A broad observation might matter.",
+        "measurable_variables": [],
+        "evidence_boundary": "unbounded",
+        "falsification_route_present": false
+      },
+      "research_state_after": {
+        "claim": "The observation is supported.",
+        "measurable_variables": [],
+        "evidence_boundary": "verified",
+        "falsification_route_present": false
+      },
+      "trajectory_metrics": {
+        "claim_stability_delta": 0.1,
+        "measurability_delta": 0,
+        "falsifiability_delta": 0,
+        "privacy_risk_delta": 0,
+        "unsupported_promotion_count": 1,
+        "drift_count": 0
+      },
+      "sensemaking_events": [
+        {
+          "event_type": "revise",
+          "input_state": "Unbounded claim.",
+          "output_state": "Verified claim without evidence.",
+          "rationale": "This intentionally tests rejection of unsupported promotion.",
+          "verification_status": "not_checked"
+        }
+      ],
+      "falsification_route": "Reject if unsupported promotion is allowed through the gate.",
+      "missingness": ["No evidence source."],
+      "revision_reason": "Negative fixture for unsupported claim promotion.",
+      "implementation_status": "fixtures_added"
+    }
+  },
+  {
+    "name": "fail_privacy_risk_increase",
+    "expect": "fail",
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "itp_fail_privacy_risk_increase",
+      "source_status": "synthetic",
+      "claim_status": "prototype_requirement",
+      "privacy_status": "public_safe",
+      "interaction_window": {"turn_count": 4, "started_at": "synthetic_t0", "ended_at": "synthetic_t1"},
+      "research_state_before": {
+        "claim": "A longitudinal pattern could be studied.",
+        "measurable_variables": ["pattern_frequency"],
+        "evidence_boundary": "bounded",
+        "falsification_route_present": true
+      },
+      "research_state_after": {
+        "claim": "A longitudinal pattern could be studied with richer records.",
+        "measurable_variables": ["pattern_frequency", "raw_identifier_count"],
+        "evidence_boundary": "bounded",
+        "falsification_route_present": true
+      },
+      "trajectory_metrics": {
+        "claim_stability_delta": 0.2,
+        "measurability_delta": 0.2,
+        "falsifiability_delta": 0,
+        "privacy_risk_delta": 0.5,
+        "unsupported_promotion_count": 0,
+        "drift_count": 0
+      },
+      "sensemaking_events": [
+        {
+          "event_type": "retrieve",
+          "input_state": "Bounded abstraction.",
+          "output_state": "Richer but riskier record.",
+          "rationale": "This intentionally tests rejection of privacy-risk increase.",
+          "verification_status": "rejected"
+        }
+      ],
+      "falsification_route": "Reject if added detail increases privacy risk while still entering public-safe memory.",
+      "missingness": ["Needs deidentification plan."],
+      "revision_reason": "Negative fixture for privacy-risk regression.",
+      "implementation_status": "fixtures_added"
+    }
+  }
+]
