@@ -1,0 +1,60 @@
+{
+  "claims": [
+    {
+      "claim_id": "edw_current_public_literature",
+      "domain": "biology",
+      "source_status": "literature_note",
+      "claim_status": "supported",
+      "privacy_status": "public_safe",
+      "last_checked": "2026-06-20",
+      "freshness_window_days": 120,
+      "evidence_refs": ["artifact:tools/literature_evidence_mapper/fixtures.synthetic.json"],
+      "claim_text_public": "A bounded public literature note can support a measurable biology hypothesis when provenance and falsification routes are preserved.",
+      "missingness": ["Needs direct source review before external citation."],
+      "revision_reason": "Add current low-drift positive fixture.",
+      "next_executable_action": "Keep in provenance review with normal recheck cadence."
+    },
+    {
+      "claim_id": "edw_recheck_ai_systems",
+      "domain": "ai_systems",
+      "source_status": "public",
+      "claim_status": "supported",
+      "privacy_status": "public_safe",
+      "last_checked": "2026-05-15",
+      "freshness_window_days": 60,
+      "evidence_refs": ["public:vendor-docs-versioned"],
+      "claim_text_public": "A fast-moving AI systems claim may become stale before a collaboration packet is exported.",
+      "missingness": ["Needs source timestamp comparison."],
+      "revision_reason": "Add near-window drift fixture.",
+      "next_executable_action": "Recheck official source before public export."
+    },
+    {
+      "claim_id": "edw_refresh_veterinary_claim",
+      "domain": "veterinary",
+      "source_status": "mixed_public",
+      "claim_status": "inconclusive",
+      "privacy_status": "deidentified_public",
+      "last_checked": "2025-11-01",
+      "freshness_window_days": 90,
+      "evidence_refs": ["artifact:animal_evidence_router.synthetic"],
+      "claim_text_public": "A deidentified animal-care research observation should be refreshed before reuse when the evidence window is exceeded.",
+      "missingness": ["No current guideline review.", "No direct source comparison."],
+      "revision_reason": "Add stale but public-safe fixture.",
+      "next_executable_action": "Route to literature refresh before hypothesis promotion."
+    },
+    {
+      "claim_id": "edw_blocked_advice_leak",
+      "domain": "medical",
+      "source_status": "public",
+      "claim_status": "supported",
+      "privacy_status": "public_safe",
+      "last_checked": "2026-06-25",
+      "freshness_window_days": 90,
+      "evidence_refs": ["public:synthetic-example"],
+      "claim_text_public": "This packet tries to diagnose and treat a specific case from a general research note.",
+      "missingness": ["Boundary wording is unsafe."],
+      "revision_reason": "Add blocked overreach fixture.",
+      "next_executable_action": "Rewrite as research organization only before reuse."
+    }
+  ]
+}
