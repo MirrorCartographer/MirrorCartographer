@@ -16,7 +16,7 @@
     "next_action_specificity_score",
     "source_label_completeness"
   ],
-  "next_executable_action": "Implement or run a validator that rejects packets with blocked_claim_count > 0 or missingness_collapse_count > 0.",
+  "next_executable_action": "Run python tools/hypothesis_test_forge/validate_symbolic_operational_fixture.py and then add this fixture type to the integrated MC gate runner if it passes.",
   "hypothesis_packet": {
     "domain": "symbolic-to-operational translation",
     "route": "research_organization",
@@ -52,7 +52,7 @@
       "The lighthouse proves the future path is correct.",
       "The eye means there is a neurological diagnosis.",
       "The symbol recurrence proves an external entity is sending a message.",
-      "Because no rating was collected, the symbol has no resonance."
+      "Because no rating was collected, the symbol proves there is no resonance."
     ],
     "observations": [
       {
