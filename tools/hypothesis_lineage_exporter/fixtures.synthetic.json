@@ -1,0 +1,62 @@
+[
+  {
+    "hypothesis_id": "HYP-SYN-001",
+    "domain": "animal_care_evidence",
+    "origin_component": "animal_evidence_router",
+    "claim_text": "A recurring timing pattern may justify literature review.",
+    "claim_status": "candidate",
+    "source_status": "synthetic_public_safe",
+    "privacy_status": "public_safe_synthetic",
+    "missingness": ["no raw observation", "no clinician review"],
+    "variables": ["timing_bucket", "behavior_marker"],
+    "evidence_refs": ["SYN-LIT-001"],
+    "contradiction_refs": ["SYN-CONTRA-001"],
+    "falsification_route": "compare against negative-control fixture and independent evidence map",
+    "next_executable_action": "send to hypothesis_falsification_runner"
+  },
+  {
+    "hypothesis_id": "HYP-SYN-002",
+    "domain": "longitudinal_pattern_tracking",
+    "origin_component": "longitudinal_delta_detector",
+    "claim_text": "A deidentified delta cluster may deserve follow-up if reproduced.",
+    "claim_status": "candidate",
+    "source_status": "synthetic_public_safe",
+    "privacy_status": "public_safe_synthetic",
+    "missingness": ["no absolute timestamp", "no causal test"],
+    "variables": ["delta_direction", "signal_frequency", "context_bucket"],
+    "evidence_refs": ["SYN-DELTA-002", "SYN-LIT-004"],
+    "contradiction_refs": [],
+    "falsification_route": "require recurrence in a held-out synthetic stream before promotion",
+    "next_executable_action": "send to claim_promotion_matrix"
+  },
+  {
+    "hypothesis_id": "HYP-SYN-BLOCK-001",
+    "domain": "medical_scientific_literature",
+    "origin_component": "manual_note",
+    "claim_text": "This explains the condition.",
+    "claim_status": "candidate",
+    "source_status": "synthetic_public_safe",
+    "privacy_status": "public_safe_synthetic",
+    "missingness": [],
+    "variables": [],
+    "evidence_refs": [],
+    "contradiction_refs": [],
+    "falsification_route": "",
+    "next_executable_action": ""
+  },
+  {
+    "hypothesis_id": "HYP-SYN-BLOCK-002",
+    "domain": "animal_care_evidence",
+    "origin_component": "raw_private_chat",
+    "claim_text": "Treatment should be changed now.",
+    "claim_status": "advice_like",
+    "source_status": "raw_private",
+    "privacy_status": "private_raw",
+    "missingness": ["unsafe raw source"],
+    "variables": ["dose"],
+    "evidence_refs": ["PRIVATE-RAW-001"],
+    "contradiction_refs": [],
+    "falsification_route": "ask a clinician",
+    "next_executable_action": "do not export"
+  }
+]
