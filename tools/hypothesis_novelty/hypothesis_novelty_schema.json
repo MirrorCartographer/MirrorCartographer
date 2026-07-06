@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "record_type": "hypothesis_novelty_packet",
+  "required_fields": [
+    "hypothesis_id",
+    "hypothesis_statement",
+    "baseline_explanations",
+    "novelty_delta",
+    "testable_difference",
+    "acceptance_criteria",
+    "privacy_status",
+    "source_status",
+    "claim_status"
+  ],
+  "field_contract": {
+    "hypothesis_id": "Stable public-safe identifier.",
+    "hypothesis_statement": "Public-safe proposed explanation stated without private domain details.",
+    "baseline_explanations": "Known explanation classes the hypothesis must differ from.",
+    "novelty_delta": "Specific difference introduced by this hypothesis.",
+    "testable_difference": "Observable or measurable consequence that separates the hypothesis from baselines.",
+    "acceptance_criteria": "Conditions required before the hypothesis may advance to mechanism modeling.",
+    "privacy_status": "Must be public.",
+    "source_status": "synthetic|public_abstraction|literature_derived",
+    "claim_status": "proposed|rejected|superseded"
+  },
+  "public_safety_rule": "Packets must not include personal, household, health, animal-care, financial, location, credential, relationship, or raw transcript details.",
+  "promotion_rule": "A hypothesis advances only when novelty_delta and testable_difference are both non-empty and not semantically identical to baseline_explanations."
+}
