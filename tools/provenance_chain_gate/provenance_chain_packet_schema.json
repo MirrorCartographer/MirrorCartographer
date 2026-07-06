@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/provenance_chain_packet_schema.json",
+  "title": "MC Provenance Chain Packet",
+  "description": "Public-safe schema for checking whether a discovery/hypothesis packet preserves claim provenance, source boundaries, privacy status, missingness, measurable variables, and falsification route before entering MC research memory.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "claim",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "testability",
+    "provenance_chain",
+    "measurable_variables",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]{2,80}$"
+    },
+    "claim": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 500
+    },
+    "source_status": {
+      "type": "string",
+      "enum": ["synthetic", "primary_public", "secondary_public", "mixed_public", "unverified_public"]
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": ["hypothesis", "test_fixture", "supported", "contradicted", "inconclusive", "blocked"]
+    },
+    "privacy_status": {
+      "type": "string",
+      "enum": ["public_safe", "deidentified", "reject_private", "synthetic_only"]
+    },
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "does_not_mean_absence"],
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": ["none_declared", "unknown", "not_collected", "redacted", "not_applicable"]
+        },
+        "does_not_mean_absence": {
+          "type": "boolean",
+          "const": true
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 300
+        }
+      }
+    },
+    "revision_reason": {
+      "type": "string",
+      "minLength": 15,
+      "maxLength": 500
+    },
+    "implementation_status": {
+      "type": "string",
+      "enum": ["schema_only", "fixtures_only", "validator_ready", "validated", "ci_required"]
+    },
+    "testability": {
+      "type": "string",
+      "enum": ["executable", "semi_executable", "manual_review", "blocked"]
+    },
+    "provenance_chain": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["step", "actor", "artifact_type", "public_boundary", "claim_boundary"],
+        "properties": {
+          "step": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "actor": {
+            "type": "string",
+            "enum": ["human", "assistant", "tool", "synthetic_fixture", "external_public_source"]
+          },
+          "artifact_type": {
+            "type": "string",
+            "enum": ["observation", "abstraction", "hypothesis", "schema", "fixture", "validator", "score", "evidence_record"]
+          },
+          "public_boundary": {
+            "type": "string",
+            "enum": ["public_safe", "synthetic", "deidentified", "reject_private"]
+          },
+          "claim_boundary": {
+            "type": "string",
+            "enum": ["stated", "inferred", "generated", "measured", "rejected"]
+          }
+        }
+      }
+    },
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "unit_or_scale", "collection_boundary"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 80
+          },
+          "unit_or_scale": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 80
+          },
+          "collection_boundary": {
+            "type": "string",
+            "enum": ["synthetic", "public_dataset", "deidentified_local", "manual_review_required"]
+          }
+        }
+      }
+    },
+    "falsification_route": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 600
+    },
+    "next_executable_action": {
+      "type": "string",
+      "minLength": 15,
+      "maxLength": 400
+    }
+  }
+}
