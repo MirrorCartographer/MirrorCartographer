@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.local/schemas/privacy_loss_at_risk_gate.schema.json",
+  "title": "Privacy Loss at Risk Gate Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "falsification_route",
+    "next_executable_action",
+    "data_context",
+    "query_context",
+    "risk_model",
+    "decision"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 6},
+    "source_status": {"type": "string", "enum": ["primary", "institutional", "preprint", "benchmark", "synthetic", "mixed"]},
+    "claim_status": {"type": "string", "enum": ["hypothesis", "evaluation_criterion", "schema", "prototype_requirement", "source_map", "collaborator_target"]},
+    "privacy_status": {"type": "string", "enum": ["public_safe", "synthetic_only", "deidentified", "sensitive_placeholder", "blocked_private"]},
+    "missingness": {"type": "string", "minLength": 10},
+    "revision_reason": {"type": "string", "minLength": 10},
+    "implementation_status": {"type": "string", "enum": ["proposed", "implemented", "tested", "needs_ci", "deprecated"]},
+    "evidence_strength": {"type": "string", "enum": ["low", "moderate", "high"]},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 10},
+    "data_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["domain", "data_type", "identifier_policy", "cohort_granularity", "longitudinal_window", "rare_feature_handling"],
+      "properties": {
+        "domain": {"type": "string", "enum": ["human_health", "animal_health", "mechanistic_biology", "neuroscience", "hci", "scientific_ai"]},
+        "data_type": {"type": "string"},
+        "identifier_policy": {"type": "string", "enum": ["no_identifiers", "typed_placeholders", "hashed_local_only", "blocked"]},
+        "cohort_granularity": {"type": "string", "enum": ["individual", "small_cohort", "large_cohort", "synthetic_baseline"]},
+        "longitudinal_window": {"type": "string", "minLength": 3},
+        "rare_feature_handling": {"type": "string", "minLength": 10}
+      }
+    },
+    "query_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["query_type", "retrieval_scope", "repeat_query_risk", "contextual_leakage_risk"],
+      "properties": {
+        "query_type": {"type": "string", "enum": ["comparison", "trajectory", "hypothesis_generation", "retrieval_augmented_answer", "memory_write"]},
+        "retrieval_scope": {"type": "string", "minLength": 5},
+        "repeat_query_risk": {"type": "string", "enum": ["low", "medium", "high"]},
+        "contextual_leakage_risk": {"type": "string", "enum": ["low", "medium", "high"]}
+      }
+    },
+    "risk_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["static_controls", "cumulative_controls", "risk_metric", "utility_metric", "threshold_action"],
+      "properties": {
+        "static_controls": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "cumulative_controls": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "risk_metric": {"type": "string", "enum": ["privacy_loss_at_risk", "contextual_leakage_score", "k_anonymity_floor", "manual_review_only"]},
+        "utility_metric": {"type": "string", "minLength": 5},
+        "threshold_action": {"type": "string", "enum": ["allow", "coarsen", "synthetic_only", "local_only", "block"]}
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["memory_write_allowed", "reason", "review_required"],
+      "properties": {
+        "memory_write_allowed": {"type": "boolean"},
+        "reason": {"type": "string", "minLength": 15},
+        "review_required": {"type": "boolean"}
+      }
+    }
+  }
+}
