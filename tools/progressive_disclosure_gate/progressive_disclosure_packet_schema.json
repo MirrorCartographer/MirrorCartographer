@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.org/schemas/progressive_disclosure_packet_schema.json",
+  "title": "MC Progressive Disclosure Hypothesis Evaluation Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "schema_version",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "hypothesis",
+    "initial_context",
+    "disclosure_steps",
+    "revision_events",
+    "measurable_variables",
+    "acceptance_criteria",
+    "falsification_route",
+    "missingness",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "schema_version": {"const": "1.0.0"},
+    "source_status": {"enum": ["synthetic_fixture", "public_literature", "public_dataset", "public_benchmark", "mixed_public"]},
+    "claim_status": {"enum": ["hypothesis", "testable_hypothesis", "contradicted", "inconclusive", "evaluation_design"]},
+    "privacy_status": {"enum": ["public_safe", "synthetic_only", "deidentified_public"]},
+    "hypothesis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim", "domain", "mechanism", "expected_update_behavior"],
+      "properties": {
+        "claim": {"type": "string", "minLength": 20},
+        "domain": {"enum": ["scientific_ai", "medical_ai_evidence", "mechanistic_biology", "neuroscience", "longitudinal_data", "hci", "privacy_preserving_memory", "hypothesis_generation"]},
+        "mechanism": {"type": "string", "minLength": 20},
+        "expected_update_behavior": {"type": "string", "minLength": 20}
+      }
+    },
+    "initial_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowed_inputs", "forbidden_inputs", "initial_prediction"],
+      "properties": {
+        "allowed_inputs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "forbidden_inputs": {"type": "array", "items": {"type": "string"}},
+        "initial_prediction": {"type": "string", "minLength": 20}
+      }
+    },
+    "disclosure_steps": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["step_id", "new_information", "prediction_before", "prediction_after", "update_reason", "confidence_before", "confidence_after"],
+        "properties": {
+          "step_id": {"type": "string"},
+          "new_information": {"type": "string", "minLength": 10},
+          "prediction_before": {"type": "string", "minLength": 10},
+          "prediction_after": {"type": "string", "minLength": 10},
+          "update_reason": {"type": "string", "minLength": 20},
+          "confidence_before": {"type": "number", "minimum": 0, "maximum": 1},
+          "confidence_after": {"type": "number", "minimum": 0, "maximum": 1}
+        }
+      }
+    },
+    "revision_events": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["from_claim", "to_claim", "revision_reason", "triggering_step_id"],
+        "properties": {
+          "from_claim": {"type": "string"},
+          "to_claim": {"type": "string"},
+          "revision_reason": {"type": "string", "minLength": 20},
+          "triggering_step_id": {"type": "string"}
+        }
+      }
+    },
+    "measurable_variables": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+    "acceptance_criteria": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+    "falsification_route": {"type": "string", "minLength": 30},
+    "missingness": {"type": "array", "items": {"type": "string"}},
+    "next_executable_action": {"type": "string", "minLength": 20}
+  }
+}
