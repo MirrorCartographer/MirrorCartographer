@@ -1,0 +1,130 @@
+[
+  {
+    "packet_id": "abg_public_question_prep_pass_001",
+    "hypothesis_id": "hyp_actionability_boundary_001",
+    "domain": "medical_ai_evidence_organization",
+    "source_status": "synthetic_fixture",
+    "claim_status": "hypothesis",
+    "privacy_status": "public_safe",
+    "revision_reason": "Create a public-safe gate that separates research organization from medical or veterinary advice.",
+    "candidate_claim": "Evidence packets with explicit permitted and prohibited uses can be routed safely into question-prep without becoming advice.",
+    "permitted_use": [
+      "organize_research",
+      "prepare_questions",
+      "route_to_literature_map"
+    ],
+    "prohibited_use": [
+      "diagnosis_or_treatment_advice",
+      "veterinary_instruction",
+      "dosage_or_protocol_recommendation",
+      "urgency_triage",
+      "causal_certainty",
+      "private_memory_promotion"
+    ],
+    "evidence_items": [
+      {
+        "evidence_id": "ev_boundary_001",
+        "evidence_type": "literature_summary",
+        "source_boundary": "public_safe",
+        "supports_claim": "supports",
+        "actionability_level": "question_prep_only"
+      },
+      {
+        "evidence_id": "ev_boundary_002",
+        "evidence_type": "synthetic_control",
+        "source_boundary": "public_safe",
+        "supports_claim": "neutral",
+        "actionability_level": "research_map_only"
+      }
+    ],
+    "measurable_variables": [
+      {
+        "name": "boundary_violation_count",
+        "unit": "count",
+        "collection_context": "validator output",
+        "expected_direction": "decrease"
+      },
+      {
+        "name": "question_prep_item_count",
+        "unit": "count",
+        "collection_context": "research packet output",
+        "expected_direction": "increase"
+      }
+    ],
+    "missingness": {
+      "state": "complete",
+      "absence_interpretation_allowed": false,
+      "reason": "Fixture is complete but absence is still not evidence of safety."
+    },
+    "decision_rule": {
+      "minimum_evidence_items": 2,
+      "minimum_variables": 2,
+      "allowed_outputs": ["pass_question_prep", "pass_research_map"]
+    },
+    "falsification_route": "The hypothesis fails if packets with diagnosis, treatment, urgency, or dosage language pass as question-prep outputs.",
+    "implementation_status": "tests_available",
+    "testability": "Run validate_actionability_boundary_packets.py against this fixture file.",
+    "next_executable_action": "Wire this gate before question-prep storage and literature-map promotion."
+  },
+  {
+    "packet_id": "abg_private_advice_reject_001",
+    "hypothesis_id": "hyp_actionability_boundary_001",
+    "domain": "animal_care_evidence_maps",
+    "source_status": "synthetic_fixture",
+    "claim_status": "unsupported",
+    "privacy_status": "private_rejected",
+    "revision_reason": "Negative fixture proves the validator rejects private or advice-like packets.",
+    "candidate_claim": "This packet should be blocked because it tries to use private evidence for advice-like output.",
+    "permitted_use": ["prepare_questions"],
+    "prohibited_use": [
+      "diagnosis_or_treatment_advice",
+      "veterinary_instruction",
+      "dosage_or_protocol_recommendation",
+      "urgency_triage"
+    ],
+    "evidence_items": [
+      {
+        "evidence_id": "ev_block_001",
+        "evidence_type": "observation",
+        "source_boundary": "private_rejected",
+        "supports_claim": "insufficient",
+        "actionability_level": "blocked"
+      },
+      {
+        "evidence_id": "ev_block_002",
+        "evidence_type": "expert_question",
+        "source_boundary": "public_safe",
+        "supports_claim": "neutral",
+        "actionability_level": "question_prep_only"
+      }
+    ],
+    "measurable_variables": [
+      {
+        "name": "private_boundary_count",
+        "unit": "count",
+        "collection_context": "validator output",
+        "expected_direction": "decrease"
+      },
+      {
+        "name": "blocked_actionability_count",
+        "unit": "count",
+        "collection_context": "validator output",
+        "expected_direction": "increase"
+      }
+    ],
+    "missingness": {
+      "state": "unknown",
+      "absence_interpretation_allowed": false,
+      "reason": "Unknown source completeness cannot be treated as absence of risk."
+    },
+    "decision_rule": {
+      "minimum_evidence_items": 2,
+      "minimum_variables": 2,
+      "allowed_outputs": ["pass_question_prep"]
+    },
+    "falsification_route": "The gate is falsified if a private_rejected or blocked evidence item can pass as question prep.",
+    "implementation_status": "tests_available",
+    "testability": "Run the test harness and confirm this packet is rejected.",
+    "next_executable_action": "Route rejected packets to contradiction or boundary ledger instead of memory promotion."
+  }
+]
