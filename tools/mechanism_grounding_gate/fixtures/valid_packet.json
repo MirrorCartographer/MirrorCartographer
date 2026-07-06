@@ -1,0 +1,34 @@
+{
+  "packet_id": "mg-valid-2026-07-06-001",
+  "domain": "hypothesis_generation_system",
+  "problem_context": "Scientific AI packets can sound plausible while failing to specify the concrete failure mode, intervention, mechanism, target endpoint, or falsification logic needed for review.",
+  "observed_failure_or_gap": "Existing discovery-memory packets may preserve citations and provenance while still allowing unsupported mechanism jumps into reusable memory.",
+  "proposed_intervention_or_variable": "Require a mechanism chain before memory promotion.",
+  "proposed_mechanism": "The gate improves review quality because it forces the packet to connect an observed failure mode to an intervention via an explicit causal pathway and measurable endpoint.",
+  "target_endpoint": "Reviewer agreement on whether a packet is ready for discovery-memory promotion.",
+  "expected_direction": "increase",
+  "validation_method": "Compare curator agreement and unsupported-promotion rate before and after applying the mechanism-chain requirement to synthetic and real review packets.",
+  "source_map": [
+    {
+      "title": "Matter to Mechanism benchmark",
+      "url": "https://arxiv.org/abs/2606.02258",
+      "status": "preprint_caveated",
+      "claim_supported": "Problem-to-hypothesis evaluation benefits from structured failure mode, intervention, mechanism, target property, and outcome fields."
+    },
+    {
+      "title": "HeurekaBench scientific agent benchmark",
+      "url": "https://arxiv.org/abs/2601.01678",
+      "status": "preprint_caveated",
+      "claim_supported": "Scientific agents should be evaluated on end-to-end exploratory workflows grounded in datasets and reported findings."
+    }
+  ],
+  "source_status": "Fresh public frontier scan using preprint and benchmark sources; no private data used.",
+  "claim_status": "schema_requirement",
+  "privacy_status": "public_safe_synthetic_only",
+  "missingness": "No curator-labeled production corpus, no domain-expert review, and no CI wiring yet.",
+  "revision_reason": "Prior gates emphasized provenance, judgment, privacy, and endpoints; this revision adds explicit mechanism-chain admission.",
+  "implementation_status": "Schema, validator, fixtures, tests, and source-map README added under tools/mechanism_grounding_gate.",
+  "evidence_strength": "moderate",
+  "falsification_route": "Reject or revise the gate if it fails to improve reviewer agreement or reduce unsupported discovery-memory promotion.",
+  "next_executable_action": "Run python tools/mechanism_grounding_gate/test_validate_mechanism_grounding_packet.py"
+}
