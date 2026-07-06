@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirror-cartographer.local/schemas/counterfactual_packet_schema.json",
+  "title": "Mirror Cartographer Counterfactual Hypothesis Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "schema_version",
+    "hypothesis_claim",
+    "domain",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "measurable_variables",
+    "primary_explanation",
+    "alternative_explanations",
+    "discriminating_tests",
+    "falsification_route",
+    "implementation_status"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "pattern": "^cfhg_[a-z0-9_\\-]+$"},
+    "schema_version": {"const": "1.0.0"},
+    "hypothesis_claim": {"type": "string", "minLength": 20},
+    "domain": {
+      "type": "string",
+      "enum": [
+        "cure_discovery_infrastructure",
+        "medical_ai_evidence_organization",
+        "scientific_reasoning",
+        "nervous_system_cognition_models",
+        "animal_care_evidence_maps",
+        "human_ai_sensemaking",
+        "privacy_preserving_longitudinal_datasets",
+        "symbolic_to_operational_translation"
+      ]
+    },
+    "source_status": {"type": "string", "enum": ["synthetic", "public_primary", "public_secondary", "mixed_public", "unknown"]},
+    "claim_status": {"type": "string", "enum": ["hypothesis", "test_fixture", "validated", "rejected", "needs_revision"]},
+    "privacy_status": {"type": "string", "enum": ["public_safe", "deidentified", "reject_private"]},
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "known_gaps"],
+      "properties": {
+        "status": {"type": "string", "enum": ["none_known", "declared", "unknown"]},
+        "known_gaps": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "revision_reason": {"type": "string", "minLength": 10},
+    "implementation_status": {"type": "string", "enum": ["fixture_only", "validator_ready", "ci_ready"]},
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "measurement_method", "expected_direction"],
+        "properties": {
+          "name": {"type": "string", "minLength": 3},
+          "measurement_method": {"type": "string", "minLength": 8},
+          "expected_direction": {"type": "string", "enum": ["increase", "decrease", "change", "no_change", "unknown"]}
+        }
+      }
+    },
+    "primary_explanation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["statement", "support_boundary"],
+      "properties": {
+        "statement": {"type": "string", "minLength": 20},
+        "support_boundary": {"type": "string", "minLength": 10}
+      }
+    },
+    "alternative_explanations": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["statement", "why_plausible", "what_would_distinguish_it"],
+        "properties": {
+          "statement": {"type": "string", "minLength": 15},
+          "why_plausible": {"type": "string", "minLength": 10},
+          "what_would_distinguish_it": {"type": "string", "minLength": 10}
+        }
+      }
+    },
+    "discriminating_tests": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["test_name", "variable", "passing_pattern", "failing_pattern"],
+        "properties": {
+          "test_name": {"type": "string", "minLength": 3},
+          "variable": {"type": "string", "minLength": 3},
+          "passing_pattern": {"type": "string", "minLength": 8},
+          "failing_pattern": {"type": "string", "minLength": 8}
+        }
+      }
+    },
+    "falsification_route": {"type": "string", "minLength": 20}
+  }
+}
