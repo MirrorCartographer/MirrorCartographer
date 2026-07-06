@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/collaboration-role-boundary-packet.json",
+  "title": "Mirror Cartographer Collaboration Role Boundary Packet",
+  "description": "Public-safe packet schema for routing scientific or medical-adjacent hypotheses through explicit human/AI collaboration roles before discovery-memory promotion.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "created_at",
+    "domain",
+    "hypothesis_or_task",
+    "collaboration_roles",
+    "evidence_boundary",
+    "privacy_boundary",
+    "claim_boundary",
+    "review_decision",
+    "labels"
+  ],
+  "properties": {
+    "packet_id": {
+      "type": "string",
+      "pattern": "^crb-[a-z0-9][a-z0-9-]{6,80}$"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "scientific_ai",
+        "medical_ai",
+        "mechanistic_biology",
+        "neuroscience",
+        "longitudinal_health_data",
+        "animal_health_research",
+        "hci",
+        "privacy_preserving_memory",
+        "hypothesis_generation"
+      ]
+    },
+    "hypothesis_or_task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["statement", "intended_use", "not_for"],
+      "properties": {
+        "statement": {"type": "string", "minLength": 20},
+        "intended_use": {"type": "string", "minLength": 10},
+        "not_for": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "collaboration_roles": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["role", "actor_type", "responsibility", "artifact_produced", "handoff_required"],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": ["observer", "ideator", "verifier", "curator", "executor", "auditor"]
+          },
+          "actor_type": {
+            "type": "string",
+            "enum": ["human", "ai", "human_ai_pair", "external_tool", "institutional_reviewer"]
+          },
+          "responsibility": {"type": "string", "minLength": 12},
+          "artifact_produced": {"type": "string", "minLength": 6},
+          "handoff_required": {"type": "boolean"},
+          "failure_if_missing": {"type": "string"}
+        }
+      }
+    },
+    "evidence_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_types_allowed", "source_types_disallowed", "minimum_grounding", "verification_route"],
+      "properties": {
+        "source_types_allowed": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string"}
+        },
+        "source_types_disallowed": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string"}
+        },
+        "minimum_grounding": {"type": "string", "minLength": 20},
+        "verification_route": {"type": "string", "minLength": 20}
+      }
+    },
+    "privacy_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["privacy_status", "allowed_data", "blocked_data", "deidentification_required"],
+      "properties": {
+        "privacy_status": {
+          "type": "string",
+          "enum": ["public_safe", "synthetic_only", "deidentified_required", "private_blocked"]
+        },
+        "allowed_data": {"type": "array", "items": {"type": "string"}},
+        "blocked_data": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "deidentification_required": {"type": "boolean"}
+      }
+    },
+    "claim_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim_status", "overclaim_risk", "medical_advice_risk", "animal_care_advice_risk"],
+      "properties": {
+        "claim_status": {
+          "type": "string",
+          "enum": ["infrastructure_hypothesis", "research_organization", "benchmark_design", "prototype_requirement", "collaboration_target"]
+        },
+        "overclaim_risk": {"type": "string", "enum": ["low", "medium", "high"]},
+        "medical_advice_risk": {"type": "boolean"},
+        "animal_care_advice_risk": {"type": "boolean"}
+      }
+    },
+    "review_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "reason", "next_executable_action"],
+      "properties": {
+        "decision": {"type": "string", "enum": ["promote", "hold", "reject", "revise"]},
+        "reason": {"type": "string", "minLength": 12},
+        "next_executable_action": {"type": "string", "minLength": 12}
+      }
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_status",
+        "claim_status",
+        "privacy_status",
+        "missingness",
+        "revision_reason",
+        "implementation_status",
+        "evidence_strength",
+        "falsification_route"
+      ],
+      "properties": {
+        "source_status": {"type": "string"},
+        "claim_status": {"type": "string"},
+        "privacy_status": {"type": "string"},
+        "missingness": {"type": "string"},
+        "revision_reason": {"type": "string"},
+        "implementation_status": {"type": "string"},
+        "evidence_strength": {"type": "string", "enum": ["low", "moderate", "high"]},
+        "falsification_route": {"type": "string"}
+      }
+    }
+  }
+}
