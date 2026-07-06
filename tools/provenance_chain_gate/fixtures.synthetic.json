@@ -1,0 +1,190 @@
+{
+  "schema_version": "1.0",
+  "fixtures": [
+    {
+      "name": "pass_generated_hypothesis_with_preserved_boundaries",
+      "expected_valid": true,
+      "packet": {
+        "packet_id": "pass_generated_hypothesis_boundaries",
+        "claim": "A discovery-memory packet should be admitted only when its provenance chain separates generated hypotheses from measured or externally sourced claims.",
+        "source_status": "synthetic",
+        "claim_status": "test_fixture",
+        "privacy_status": "synthetic_only",
+        "missingness": {
+          "state": "none_declared",
+          "does_not_mean_absence": true,
+          "notes": "Synthetic fixture contains no omitted real-world observations."
+        },
+        "revision_reason": "Add an executable guard against provenance laundering across human, assistant, tool, and synthetic-source boundaries.",
+        "implementation_status": "validator_ready",
+        "testability": "executable",
+        "provenance_chain": [
+          {
+            "step": 1,
+            "actor": "assistant",
+            "artifact_type": "hypothesis",
+            "public_boundary": "public_safe",
+            "claim_boundary": "generated"
+          },
+          {
+            "step": 2,
+            "actor": "synthetic_fixture",
+            "artifact_type": "fixture",
+            "public_boundary": "synthetic",
+            "claim_boundary": "generated"
+          },
+          {
+            "step": 3,
+            "actor": "tool",
+            "artifact_type": "validator",
+            "public_boundary": "public_safe",
+            "claim_boundary": "measured"
+          }
+        ],
+        "measurable_variables": [
+          {
+            "name": "provenance_step_count",
+            "unit_or_scale": "integer_count",
+            "collection_boundary": "synthetic"
+          },
+          {
+            "name": "boundary_violation_count",
+            "unit_or_scale": "integer_count",
+            "collection_boundary": "synthetic"
+          }
+        ],
+        "falsification_route": "The claim fails if packets with collapsed generated, inferred, stated, and measured boundaries pass validation without explicit separation.",
+        "next_executable_action": "Run validate_provenance_chain_packets.py against this fixture file and reject packets with boundary laundering."
+      }
+    },
+    {
+      "name": "fail_private_boundary",
+      "expected_valid": false,
+      "packet": {
+        "packet_id": "fail_private_boundary",
+        "claim": "A packet with private source material should not enter public discovery memory through a provenance chain gate.",
+        "source_status": "mixed_public",
+        "claim_status": "hypothesis",
+        "privacy_status": "reject_private",
+        "missingness": {
+          "state": "redacted",
+          "does_not_mean_absence": true
+        },
+        "revision_reason": "Reject privacy boundary violations before downstream scoring.",
+        "implementation_status": "validator_ready",
+        "testability": "executable",
+        "provenance_chain": [
+          {
+            "step": 1,
+            "actor": "human",
+            "artifact_type": "observation",
+            "public_boundary": "reject_private",
+            "claim_boundary": "stated"
+          },
+          {
+            "step": 2,
+            "actor": "assistant",
+            "artifact_type": "abstraction",
+            "public_boundary": "public_safe",
+            "claim_boundary": "inferred"
+          }
+        ],
+        "measurable_variables": [
+          {
+            "name": "private_boundary_count",
+            "unit_or_scale": "integer_count",
+            "collection_boundary": "manual_review_required"
+          }
+        ],
+        "falsification_route": "The gate fails if reject_private chain steps are admitted into public discovery memory.",
+        "next_executable_action": "Reject this packet and require public-safe abstraction before storage."
+      }
+    },
+    {
+      "name": "fail_missingness_as_absence",
+      "expected_valid": false,
+      "packet": {
+        "packet_id": "fail_missingness_absence",
+        "claim": "A longitudinal packet can be scored when uncollected variables are silently treated as absent signals.",
+        "source_status": "synthetic",
+        "claim_status": "hypothesis",
+        "privacy_status": "synthetic_only",
+        "missingness": {
+          "state": "not_collected",
+          "does_not_mean_absence": false
+        },
+        "revision_reason": "Prevent missing data from being converted into false-negative evidence.",
+        "implementation_status": "validator_ready",
+        "testability": "executable",
+        "provenance_chain": [
+          {
+            "step": 1,
+            "actor": "synthetic_fixture",
+            "artifact_type": "observation",
+            "public_boundary": "synthetic",
+            "claim_boundary": "generated"
+          },
+          {
+            "step": 2,
+            "actor": "tool",
+            "artifact_type": "score",
+            "public_boundary": "synthetic",
+            "claim_boundary": "measured"
+          }
+        ],
+        "measurable_variables": [
+          {
+            "name": "observed_fraction",
+            "unit_or_scale": "ratio_0_to_1",
+            "collection_boundary": "synthetic"
+          }
+        ],
+        "falsification_route": "The gate fails if not_collected values are interpreted as observed absence.",
+        "next_executable_action": "Reject this packet and require explicit missingness semantics."
+      }
+    },
+    {
+      "name": "fail_collapsed_claim_boundary",
+      "expected_valid": false,
+      "packet": {
+        "packet_id": "fail_collapsed_claim_boundary",
+        "claim": "Generated assistant hypotheses can be promoted as measured findings when they are useful and plausible.",
+        "source_status": "synthetic",
+        "claim_status": "supported",
+        "privacy_status": "synthetic_only",
+        "missingness": {
+          "state": "unknown",
+          "does_not_mean_absence": true
+        },
+        "revision_reason": "Reject claim promotion without a measured or external-public evidence step.",
+        "implementation_status": "validator_ready",
+        "testability": "executable",
+        "provenance_chain": [
+          {
+            "step": 1,
+            "actor": "assistant",
+            "artifact_type": "hypothesis",
+            "public_boundary": "public_safe",
+            "claim_boundary": "generated"
+          },
+          {
+            "step": 2,
+            "actor": "assistant",
+            "artifact_type": "abstraction",
+            "public_boundary": "public_safe",
+            "claim_boundary": "inferred"
+          }
+        ],
+        "measurable_variables": [
+          {
+            "name": "measured_step_count",
+            "unit_or_scale": "integer_count",
+            "collection_boundary": "synthetic"
+          }
+        ],
+        "falsification_route": "The gate fails if a supported claim has no measured or external public source step in its provenance chain.",
+        "next_executable_action": "Downgrade to hypothesis until an evidence record or validation result exists."
+      }
+    }
+  ]
+}
