@@ -1,0 +1,186 @@
+[
+  {
+    "name": "pass_public_safe_ordered_signal",
+    "expect_valid": true,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "lsp_public_ordered_signal_001",
+      "source_status": "synthetic",
+      "claim_status": "observation",
+      "privacy_status": "public_safe",
+      "revision_reason": "Create a deidentified longitudinal pattern record for discovery infrastructure testing.",
+      "implementation_status": "fixture",
+      "testability": {
+        "is_testable": true,
+        "test_type": "longitudinal_trend_check",
+        "acceptance_criteria": [
+          "Packet contains at least one operational variable",
+          "Absolute timestamps and raw transcript details are absent",
+          "Falsification route states what would weaken the pattern"
+        ]
+      },
+      "time_index": {
+        "granularity": "event_order",
+        "sequence_label": "event_003_after_context_switch",
+        "absolute_time_removed": true
+      },
+      "signal_domain": "human_ai_sensemaking",
+      "observable_variables": [
+        {
+          "name": "context_switch_latency",
+          "operational_definition": "Number of interaction turns required before a symbolic statement is translated into measurable variables.",
+          "value_type": "count",
+          "unit_or_scale": "turns",
+          "collection_method": "Derived from deidentified interaction structure after private content removal."
+        }
+      ],
+      "context_boundaries": {
+        "excluded_private_fields": ["raw_transcript", "name", "address", "diagnosis", "pet_identifier", "exact_location", "financial_detail"],
+        "allowed_public_abstractions": ["event order", "domain label", "variable count", "claim state"],
+        "advice_boundary": "not_applicable"
+      },
+      "missingness": ["No human reviewer agreement label yet"],
+      "hypothesis_link": {
+        "hypothesis_id": "hyp_symbolic_to_operational_latency",
+        "relationship": "tests"
+      },
+      "falsification_route": "The pattern weakens if repeated samples show no relationship between context-switch structure and measurable variable extraction.",
+      "next_executable_action": "Run validator, then add trend scoring across multiple deidentified packets."
+    }
+  },
+  {
+    "name": "fail_absolute_time_not_removed",
+    "expect_valid": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "lsp_bad_time_001",
+      "source_status": "synthetic",
+      "claim_status": "observation",
+      "privacy_status": "public_safe",
+      "revision_reason": "Demonstrate rejection when absolute timing is retained.",
+      "implementation_status": "fixture",
+      "testability": {
+        "is_testable": true,
+        "test_type": "privacy_check",
+        "acceptance_criteria": ["Reject absolute timestamp retention"]
+      },
+      "time_index": {
+        "granularity": "day_index",
+        "sequence_label": "2026-07-05T20:00:00-04:00",
+        "absolute_time_removed": false
+      },
+      "signal_domain": "medical_ai_evidence_organization",
+      "observable_variables": [
+        {
+          "name": "question_count",
+          "operational_definition": "Count of research questions generated from a deidentified packet.",
+          "value_type": "count",
+          "unit_or_scale": "questions",
+          "collection_method": "Computed from public-safe packet."
+        }
+      ],
+      "context_boundaries": {
+        "excluded_private_fields": ["raw_transcript"],
+        "allowed_public_abstractions": ["question count"],
+        "advice_boundary": "research_organization_only"
+      },
+      "missingness": [],
+      "hypothesis_link": {
+        "hypothesis_id": "hyp_question_density",
+        "relationship": "tests"
+      },
+      "falsification_route": "Reject if private timing remains available.",
+      "next_executable_action": "Remove absolute time and rerun validation."
+    }
+  },
+  {
+    "name": "fail_private_status",
+    "expect_valid": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "lsp_private_blocked_001",
+      "source_status": "deidentified_user_derived",
+      "claim_status": "candidate_hypothesis",
+      "privacy_status": "private_blocked",
+      "revision_reason": "Demonstrate rejection of packets explicitly marked private blocked.",
+      "implementation_status": "fixture",
+      "testability": {
+        "is_testable": true,
+        "test_type": "privacy_check",
+        "acceptance_criteria": ["Reject private blocked packets"]
+      },
+      "time_index": {
+        "granularity": "event_order",
+        "sequence_label": "event_004",
+        "absolute_time_removed": true
+      },
+      "signal_domain": "animal_care_evidence_organization",
+      "observable_variables": [
+        {
+          "name": "evidence_question_count",
+          "operational_definition": "Count of evidence-organization questions after private detail removal.",
+          "value_type": "count",
+          "unit_or_scale": "questions",
+          "collection_method": "Manual annotation after deidentification."
+        }
+      ],
+      "context_boundaries": {
+        "excluded_private_fields": ["raw_transcript", "pet_identifier"],
+        "allowed_public_abstractions": ["question count"],
+        "advice_boundary": "question_prep_only"
+      },
+      "missingness": ["No public-safe abstraction approved"],
+      "hypothesis_link": {
+        "hypothesis_id": "hyp_evidence_question_gate",
+        "relationship": "generates"
+      },
+      "falsification_route": "Packet may pass only after private-specific content is removed and privacy status changes.",
+      "next_executable_action": "Partition private fields before re-validation."
+    }
+  },
+  {
+    "name": "fail_missing_raw_transcript_exclusion",
+    "expect_valid": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "lsp_missing_boundary_001",
+      "source_status": "synthetic",
+      "claim_status": "observation",
+      "privacy_status": "public_safe",
+      "revision_reason": "Demonstrate rejection when raw transcript exclusion is not explicit.",
+      "implementation_status": "fixture",
+      "testability": {
+        "is_testable": true,
+        "test_type": "privacy_check",
+        "acceptance_criteria": ["Require raw transcript exclusion"]
+      },
+      "time_index": {
+        "granularity": "event_order",
+        "sequence_label": "event_005",
+        "absolute_time_removed": true
+      },
+      "signal_domain": "symbolic_to_operational_translation",
+      "observable_variables": [
+        {
+          "name": "variable_extraction_count",
+          "operational_definition": "Count of measurable variables extracted from symbolic input.",
+          "value_type": "count",
+          "unit_or_scale": "variables",
+          "collection_method": "Synthetic fixture generation."
+        }
+      ],
+      "context_boundaries": {
+        "excluded_private_fields": ["name", "location"],
+        "allowed_public_abstractions": ["variable count"],
+        "advice_boundary": "not_applicable"
+      },
+      "missingness": [],
+      "hypothesis_link": {
+        "hypothesis_id": "hyp_symbolic_variable_extraction",
+        "relationship": "tests"
+      },
+      "falsification_route": "Reject unless raw transcript is named as excluded private content.",
+      "next_executable_action": "Add raw_transcript to excluded_private_fields."
+    }
+  }
+]
