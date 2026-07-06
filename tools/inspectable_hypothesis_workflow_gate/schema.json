@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InspectableHypothesisWorkflowPacket",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "domain",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "source_map",
+    "workflow_boundary",
+    "hypothesis_route",
+    "critique_route",
+    "privacy_leakage_route",
+    "human_checkpoint",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "domain": {
+      "type": "string",
+      "enum": [
+        "scientific_ai",
+        "medical_ai",
+        "mechanistic_biology",
+        "neuroscience",
+        "longitudinal_health_data",
+        "animal_health_research_infrastructure",
+        "hci",
+        "privacy_preserving_memory",
+        "hypothesis_generation_system"
+      ]
+    },
+    "source_status": {"type": "string", "minLength": 8},
+    "claim_status": {"type": "string", "minLength": 8},
+    "privacy_status": {"type": "string", "minLength": 8},
+    "missingness": {"type": "string", "minLength": 8},
+    "revision_reason": {"type": "string", "minLength": 8},
+    "implementation_status": {"type": "string", "minLength": 8},
+    "evidence_strength": {"type": "string", "enum": ["low", "low_to_moderate", "moderate", "high"]},
+    "source_map": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_id", "source_type", "claim_supported", "caveat"],
+        "properties": {
+          "source_id": {"type": "string", "minLength": 3},
+          "source_type": {"type": "string", "enum": ["primary", "preprint", "institutional", "benchmark", "open_source", "news_secondary", "synthetic_fixture"]},
+          "claim_supported": {"type": "string", "minLength": 8},
+          "caveat": {"type": "string", "minLength": 8}
+        }
+      }
+    },
+    "workflow_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_boundary", "code_boundary", "literature_boundary", "tool_boundary", "excluded_uses"],
+      "properties": {
+        "dataset_boundary": {"type": "string", "minLength": 8},
+        "code_boundary": {"type": "string", "minLength": 8},
+        "literature_boundary": {"type": "string", "minLength": 8},
+        "tool_boundary": {"type": "string", "minLength": 8},
+        "excluded_uses": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}}
+      }
+    },
+    "hypothesis_route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["starting_question", "structured_evidence_route", "candidate_hypothesis", "ranking_basis"],
+      "properties": {
+        "starting_question": {"type": "string", "minLength": 8},
+        "structured_evidence_route": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 8}},
+        "candidate_hypothesis": {"type": "string", "minLength": 8},
+        "ranking_basis": {"type": "string", "minLength": 8}
+      }
+    },
+    "critique_route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["critic_role", "main_failure_modes", "revision_trigger"],
+      "properties": {
+        "critic_role": {"type": "string", "minLength": 8},
+        "main_failure_modes": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 5}},
+        "revision_trigger": {"type": "string", "minLength": 8}
+      }
+    },
+    "privacy_leakage_route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sensitive_context", "leakage_risk", "mitigation", "residual_risk"],
+      "properties": {
+        "sensitive_context": {"type": "string", "minLength": 5},
+        "leakage_risk": {"type": "string", "minLength": 8},
+        "mitigation": {"type": "string", "minLength": 8},
+        "residual_risk": {"type": "string", "minLength": 8}
+      }
+    },
+    "human_checkpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "reviewer_role", "decision_options"],
+      "properties": {
+        "required": {"type": "boolean"},
+        "reviewer_role": {"type": "string", "minLength": 5},
+        "decision_options": {"type": "array", "minItems": 3, "items": {"type": "string", "enum": ["promote", "hold", "revise", "reject"]}}
+      }
+    },
+    "falsification_route": {"type": "string", "minLength": 12},
+    "next_executable_action": {"type": "string", "minLength": 8}
+  }
+}
