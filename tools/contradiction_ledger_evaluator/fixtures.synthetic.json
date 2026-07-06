@@ -1,0 +1,62 @@
+[
+  {
+    "id": "contradiction.synthetic.001",
+    "domain": "human_pattern",
+    "claim_under_review": "A repeated posture-linked observation may indicate a context-dependent mobility pattern.",
+    "supporting_signal": "The observation repeats across multiple synthetic time windows after posture changes.",
+    "contradicting_signal": "A negative-control synthetic day shows similar difficulty without the posture change.",
+    "measurable_variables": [
+      "time_from_posture_change_minutes",
+      "movement_initiation_latency_seconds",
+      "negative_control_day_flag"
+    ],
+    "source_refs": ["synthetic_fixture:001", "synthetic_fixture:negative_control_a"],
+    "comparison_design": "negative-control",
+    "falsification_action": "Compare latency distributions between posture-linked windows and negative-control windows.",
+    "privacy_status": "public_safe",
+    "claim_status": "hypothesis",
+    "missingness": ["none"]
+  },
+  {
+    "id": "contradiction.synthetic.002",
+    "domain": "animal_care",
+    "claim_under_review": "A synthetic animal-care observation may cluster with travel-state transitions.",
+    "supporting_signal": "Behavior change is observed after synthetic travel-state onset.",
+    "contradicting_signal": "A separate synthetic episode shows similar behavior change without travel-state onset.",
+    "measurable_variables": ["travel_state_flag"],
+    "source_refs": ["synthetic_fixture:002"],
+    "comparison_design": "time-window",
+    "falsification_action": "Add at least one independent measurable behavior variable before promotion.",
+    "privacy_status": "public_safe",
+    "claim_status": "hypothesis",
+    "missingness": ["insufficient_measurable_variables"]
+  },
+  {
+    "id": "contradiction.synthetic.003",
+    "domain": "literature",
+    "claim_under_review": "A literature note suggests a candidate mechanism may explain a repeated observation.",
+    "supporting_signal": "Synthetic source A supports the proposed mechanism.",
+    "contradicting_signal": "Synthetic source B reports the effect disappears under a different measurement protocol.",
+    "measurable_variables": ["measurement_protocol", "effect_presence_flag"],
+    "source_refs": [],
+    "comparison_design": "between-source",
+    "falsification_action": "Add source references and protocol metadata before evidence mapping.",
+    "privacy_status": "public_safe",
+    "claim_status": "uncertain",
+    "missingness": ["missing_source_refs"]
+  },
+  {
+    "id": "contradiction.synthetic.004",
+    "domain": "system_eval",
+    "claim_under_review": "This packet should cure the condition if followed exactly.",
+    "supporting_signal": "Synthetic supporting text includes certainty language.",
+    "contradicting_signal": "Synthetic contradiction is present but the packet leaks advice framing.",
+    "measurable_variables": ["unsafe_claim_flag", "advice_language_flag"],
+    "source_refs": ["synthetic_fixture:004"],
+    "comparison_design": "negative-control",
+    "falsification_action": "Block public export and rewrite as bounded research question.",
+    "privacy_status": "public_safe",
+    "claim_status": "cure_claim",
+    "missingness": ["unsafe_claim_status"]
+  }
+]
