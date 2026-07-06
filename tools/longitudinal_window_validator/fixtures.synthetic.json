@@ -1,0 +1,76 @@
+[
+  {
+    "packet_id": "lw-valid-001",
+    "domain": "animal_care",
+    "source_status": "synthetic_fixture",
+    "claim_status": "observation_window",
+    "privacy_status": "synthetic_public_safe",
+    "missingness": {"status": "explicit", "missing_count": 0, "reason": "none"},
+    "revision_reason": "test a complete public-safe longitudinal packet",
+    "implementation_status": "fixture_ready",
+    "testability": "validator must return PASS",
+    "next_executable_action": "send to signal triage matrix",
+    "subject_scope": "single_deidentified_subject",
+    "variable": "resting_behavior_minutes",
+    "unit": "minutes",
+    "expected_direction": "decrease",
+    "baseline_window": {"start_date": "2026-01-01", "end_date": "2026-01-07", "observation_count": 7},
+    "comparison_window": {"start_date": "2026-01-08", "end_date": "2026-01-14", "observation_count": 7},
+    "observations": [
+      {"date": "2026-01-01", "value": 42, "source_kind": "synthetic_owner_log"},
+      {"date": "2026-01-02", "value": 40, "source_kind": "synthetic_owner_log"},
+      {"date": "2026-01-03", "value": 43, "source_kind": "synthetic_owner_log"},
+      {"date": "2026-01-08", "value": 31, "source_kind": "synthetic_owner_log"},
+      {"date": "2026-01-09", "value": 29, "source_kind": "synthetic_owner_log"},
+      {"date": "2026-01-10", "value": 30, "source_kind": "synthetic_owner_log"}
+    ],
+    "falsification_route": "compare baseline median against comparison median after excluding explicitly missing entries"
+  },
+  {
+    "packet_id": "lw-invalid-overlap-001",
+    "domain": "human_health",
+    "source_status": "synthetic_fixture",
+    "claim_status": "observation_window",
+    "privacy_status": "synthetic_public_safe",
+    "missingness": {"status": "explicit", "missing_count": 1, "reason": "missed synthetic log day"},
+    "revision_reason": "test rejection of overlapping windows",
+    "implementation_status": "fixture_ready",
+    "testability": "validator must return FAIL",
+    "next_executable_action": "repair window dates",
+    "subject_scope": "single_deidentified_subject",
+    "variable": "upright_tolerance_minutes",
+    "unit": "minutes",
+    "expected_direction": "increase",
+    "baseline_window": {"start_date": "2026-02-01", "end_date": "2026-02-07", "observation_count": 7},
+    "comparison_window": {"start_date": "2026-02-06", "end_date": "2026-02-12", "observation_count": 7},
+    "observations": [
+      {"date": "2026-02-01", "value": 12, "source_kind": "synthetic_self_log"},
+      {"date": "2026-02-02", "value": 13, "source_kind": "synthetic_self_log"},
+      {"date": "2026-02-06", "value": 11, "source_kind": "synthetic_self_log"}
+    ],
+    "falsification_route": "window repair required before comparison"
+  },
+  {
+    "packet_id": "lw-invalid-claim-001",
+    "domain": "animal_care",
+    "source_status": "synthetic_fixture",
+    "claim_status": "cure_claim",
+    "privacy_status": "synthetic_public_safe",
+    "missingness": {"status": "implicit", "missing_count": 0, "reason": "unknown"},
+    "revision_reason": "test rejection of cure overclaim and implicit missingness",
+    "implementation_status": "fixture_ready",
+    "testability": "validator must return FAIL",
+    "next_executable_action": "downgrade to observation_window and define missingness",
+    "subject_scope": "single_deidentified_subject",
+    "variable": "eye_redness_score",
+    "unit": "ordinal_0_to_4",
+    "expected_direction": "decrease",
+    "baseline_window": {"start_date": "2026-03-01", "end_date": "2026-03-07", "observation_count": 2},
+    "comparison_window": {"start_date": "2026-03-08", "end_date": "2026-03-14", "observation_count": 2},
+    "observations": [
+      {"date": "2026-03-01", "value": 3, "source_kind": "synthetic_owner_log"},
+      {"date": "2026-03-08", "value": 1, "source_kind": "synthetic_owner_log"}
+    ],
+    "falsification_route": "insufficient data"
+  }
+]
