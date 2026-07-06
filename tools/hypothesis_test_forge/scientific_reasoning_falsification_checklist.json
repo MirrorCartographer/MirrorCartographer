@@ -1,0 +1,176 @@
+{
+  "artifact_id": "mc_scientific_reasoning_falsification_checklist_v1",
+  "domain": "scientific_reasoning",
+  "artifact_type": "falsification_checklist",
+  "claim": "MC-style hypothesis packets become more scientifically useful when every proposed inference is paired with explicit disconfirmation routes, measurable variables, source status, missingness handling, and boundary labels before promotion into memory, public research, or action planning.",
+  "source_status": "assistant-generated semi-executable research-organization artifact; no external factual claim is asserted by this checklist",
+  "claim_status": "hypothesis about evidence-organization workflow quality, not proof of scientific discovery",
+  "privacy_status": "public-safe synthetic structure only; no personal, clinical, veterinary, or private identifiers included",
+  "missingness": "requires unknown, not_collected, redacted, and not_applicable to remain distinct from observed absence",
+  "revision_reason": "adds a falsification-focused scientific reasoning artifact to complement prior symbolic, privacy, nervous-system, and animal-care forge tests",
+  "implementation_status": "semi-executable checklist usable by validators, reviewers, or future scoring scripts",
+  "testability": "A future validator can score each hypothesis packet against checklist_items and reject packets with failed hard_block items or insufficient measurable_variables.",
+  "falsification_route": "The claim weakens if packets using this checklist do not improve reviewer agreement, error detection, boundary compliance, or downstream test design compared with unstructured hypothesis notes.",
+  "measurable_variables": [
+    "hard_block_failure_count",
+    "measurable_variable_count",
+    "explicit_disconfirmation_route_count",
+    "missingness_state_integrity_score",
+    "reviewer_agreement_delta",
+    "unsafe_promotion_count",
+    "claim_strength_calibration_score"
+  ],
+  "next_executable_action": "Implement validate_scientific_reasoning_checklist.py to score sample hypothesis packets against this checklist.",
+  "allowed_packet_routes": [
+    "research_organization",
+    "question_prep",
+    "experiment_design",
+    "evidence_map",
+    "contradiction_ledger"
+  ],
+  "blocked_packet_routes": [
+    "diagnosis",
+    "treatment_instruction",
+    "veterinary_instruction",
+    "dosage_guidance",
+    "emergency_triage",
+    "factual_discovery_proof",
+    "public_claim_without_source_boundary"
+  ],
+  "missingness_states": [
+    "observed",
+    "unknown",
+    "not_collected",
+    "redacted",
+    "not_applicable"
+  ],
+  "claim_strength_scale": {
+    "0": "speculative language or symbol only",
+    "1": "structured hypothesis with variables but no supporting observations",
+    "2": "pattern observed in synthetic or personal notes; not externally validated",
+    "3": "externally source-grounded but not experimentally tested here",
+    "4": "testable prediction with a defined disconfirmation route",
+    "5": "replicated evidence from external methods; still reviewable and bounded"
+  },
+  "checklist_items": [
+    {
+      "id": "sr_001_route_boundary",
+      "requirement": "Packet route must remain inside research organization, question prep, experiment design, evidence map, or contradiction ledger.",
+      "hard_block": true,
+      "fail_if": [
+        "route is diagnosis",
+        "route is treatment_instruction",
+        "route is veterinary_instruction",
+        "route is emergency_triage",
+        "route is factual_discovery_proof"
+      ],
+      "measurable_signal": "route_allowed_boolean"
+    },
+    {
+      "id": "sr_002_source_boundary",
+      "requirement": "Every claim must label whether its source is synthetic, user-observed, external literature, measurement-derived, or unknown.",
+      "hard_block": true,
+      "fail_if": [
+        "source_status missing",
+        "source_status implies external proof without citation or measurement reference",
+        "source_status is collapsed into certainty"
+      ],
+      "measurable_signal": "source_status_present_boolean"
+    },
+    {
+      "id": "sr_003_missingness_integrity",
+      "requirement": "Unknown and not-collected data must not be treated as absence, negative evidence, or lack of risk.",
+      "hard_block": true,
+      "fail_if": [
+        "unknown converted to absent",
+        "not_collected converted to normal",
+        "redacted interpreted as negative evidence",
+        "not_applicable used to hide missing required data"
+      ],
+      "measurable_signal": "missingness_collapse_count"
+    },
+    {
+      "id": "sr_004_measurable_variables",
+      "requirement": "Packet must identify at least two measurable variables before being promoted from symbolic or interpretive language into a research hypothesis.",
+      "hard_block": false,
+      "fail_if": [
+        "fewer than two measurable variables",
+        "variables are metaphors only",
+        "variables cannot be observed, counted, compared, or operationally defined"
+      ],
+      "measurable_signal": "measurable_variable_count"
+    },
+    {
+      "id": "sr_005_disconfirmation_route",
+      "requirement": "Packet must state what observation, measurement, reviewer disagreement, or failed prediction would weaken the claim.",
+      "hard_block": true,
+      "fail_if": [
+        "no falsification_route",
+        "claim cannot be weakened by any observation",
+        "contradictory evidence is reframed as support"
+      ],
+      "measurable_signal": "explicit_disconfirmation_route_count"
+    },
+    {
+      "id": "sr_006_claim_strength_calibration",
+      "requirement": "Claim strength must match evidence strength and must not promote speculation into proof.",
+      "hard_block": true,
+      "fail_if": [
+        "claim_status says proven while evidence is synthetic",
+        "symbolic resonance is treated as factual discovery",
+        "single observation is treated as causality",
+        "private longitudinal pattern is treated as population-level finding"
+      ],
+      "measurable_signal": "claim_strength_calibration_score"
+    },
+    {
+      "id": "sr_007_action_boundary",
+      "requirement": "Medical and animal-care outputs must remain research organization or question-prep infrastructure.",
+      "hard_block": true,
+      "fail_if": [
+        "diagnosis suggested",
+        "treatment suggested",
+        "dosage suggested",
+        "veterinary action instructed",
+        "emergency urgency assigned by the packet"
+      ],
+      "measurable_signal": "unsafe_action_claim_count"
+    },
+    {
+      "id": "sr_008_revision_trace",
+      "requirement": "Every promoted packet must explain why it was revised or promoted.",
+      "hard_block": false,
+      "fail_if": [
+        "revision_reason missing",
+        "revision reason does not identify what changed",
+        "promotion occurs without reviewer or validator trace"
+      ],
+      "measurable_signal": "revision_trace_present_boolean"
+    }
+  ],
+  "minimum_pass_conditions": {
+    "hard_block_failure_count": 0,
+    "measurable_variable_count_minimum": 2,
+    "explicit_disconfirmation_route_count_minimum": 1,
+    "missingness_collapse_count": 0,
+    "unsafe_action_claim_count": 0
+  },
+  "sample_packet_stub": {
+    "packet_id": "scientific_reasoning.synthetic.example.001",
+    "route": "experiment_design",
+    "source_status": "synthetic example only",
+    "claim_status": "structured hypothesis, not proof",
+    "privacy_status": "public-safe synthetic only",
+    "missingness": "observed variable list plus explicitly unknown confounders",
+    "revision_reason": "converted broad insight into measurable hypothesis form",
+    "implementation_status": "stub for future validator fixture",
+    "testability": "compare structured packet review scores against unstructured notes",
+    "falsification_route": "if reviewers cannot identify clearer variables or disconfirmation routes than baseline notes, checklist usefulness weakens",
+    "measurable_variables": [
+      "reviewer_agreement_delta",
+      "variable_specificity_score",
+      "boundary_violation_count"
+    ],
+    "next_executable_action": "add this packet to a fixture and run checklist scoring"
+  }
+}
