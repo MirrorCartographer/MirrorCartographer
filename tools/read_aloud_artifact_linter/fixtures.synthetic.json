@@ -1,0 +1,37 @@
+{
+  "artifacts": [
+    {
+      "artifact_id": "ra-ok-001",
+      "artifact_type": "handoff_note",
+      "source_status": "assistant_generated",
+      "claim_status": "engineering_contract",
+      "privacy_status": "public_safe",
+      "content": "Purpose: validate that evidence packets remain readable through speech output.\n\nSource status: assistant-generated public-safe synthetic implementation.\nClaim status: engineering contract, not a medical or veterinary claim.\nPrivacy status: public-safe only.\nMissingness: not wired into CI.\nRevision reason: prevent inaccessible handoffs.\nImplementation status: fixture only.\nTestability: covered by linter test.\nNext executable action: connect before collaborator export.\n\nCritical terms: evidence boundary, falsification, privacy partition.",
+      "critical_terms": ["evidence boundary", "falsification", "privacy partition"],
+      "revision_reason": "prevent inaccessible collaborator handoff",
+      "next_action": "connect before collaborator export"
+    },
+    {
+      "artifact_id": "ra-revise-001",
+      "artifact_type": "schema",
+      "source_status": "assistant_generated",
+      "claim_status": "engineering_contract",
+      "privacy_status": "public_safe",
+      "content": "```json\n{\"purpose\":\"schema only\",\"critical\":\"evidence boundary\"}\n```",
+      "critical_terms": ["evidence boundary"],
+      "revision_reason": "demonstrate code fence only failure",
+      "next_action": "add prose summary outside code fence"
+    },
+    {
+      "artifact_id": "ra-block-001",
+      "artifact_type": "handoff_note",
+      "source_status": "assistant_generated",
+      "claim_status": "medical_claim",
+      "privacy_status": "contains_private_residue",
+      "content": "Purpose: this unsafe artifact contains private residue and claims cure certainty.\n\nSource status: assistant-generated.\nClaim status: medical claim.\nPrivacy status: contains private residue.\nMissingness: none.\nRevision reason: unsafe example.\nImplementation status: blocked fixture.\nTestability: blocked by linter.\nNext executable action: redact and downgrade claim.",
+      "critical_terms": ["cure certainty"],
+      "revision_reason": "demonstrate privacy and claim block",
+      "next_action": "redact and downgrade claim"
+    }
+  ]
+}
