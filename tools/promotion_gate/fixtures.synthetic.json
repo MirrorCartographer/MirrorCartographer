@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "record_type": "promotion_gate_fixture_set",
+  "privacy_status": "public",
+  "source_status": "synthetic",
+  "claim_status": "test_fixture",
+  "fixtures": [
+    {
+      "name": "valid_prediction_promotes",
+      "expected_decision": "PROMOTE",
+      "packet": {
+        "artifact_id": "pred.synthetic.001",
+        "artifact_type": "prediction",
+        "source_status": "synthetic",
+        "claim_status": "proposed_prediction",
+        "privacy_status": "public",
+        "missingness": "none_blocking",
+        "implementation_status": "validator_passed",
+        "testability": "falsifiable_or_evaluable",
+        "falsification_route": "Fails if the expected observable does not change under the declared synthetic test condition.",
+        "next_executable_action": "Run synthetic evaluation harness.",
+        "decision": "PROMOTE"
+      }
+    },
+    {
+      "name": "private_packet_blocks",
+      "expected_decision": "BLOCK",
+      "packet": {
+        "artifact_id": "hyp.synthetic.privacy",
+        "artifact_type": "hypothesis",
+        "source_status": "synthetic",
+        "claim_status": "proposed",
+        "privacy_status": "private",
+        "missingness": "none_blocking",
+        "implementation_status": "validator_passed",
+        "testability": "falsifiable_or_evaluable",
+        "falsification_route": "Synthetic failure route declared.",
+        "next_executable_action": "Do not publish; sanitize first.",
+        "decision": "PROMOTE"
+      }
+    },
+    {
+      "name": "unsupported_claim_blocks",
+      "expected_decision": "BLOCK",
+      "packet": {
+        "artifact_id": "mech.synthetic.unsupported",
+        "artifact_type": "mechanism",
+        "source_status": "synthetic",
+        "claim_status": "unsupported",
+        "privacy_status": "public",
+        "missingness": "evidence_mapping_absent",
+        "implementation_status": "validator_passed",
+        "testability": "falsifiable_or_evaluable",
+        "falsification_route": "Synthetic failure route declared.",
+        "next_executable_action": "Attach source-claim crosswalk.",
+        "decision": "PROMOTE"
+      }
+    },
+    {
+      "name": "missing_falsification_revises",
+      "expected_decision": "REVISE",
+      "packet": {
+        "artifact_id": "prototype.synthetic.needs_route",
+        "artifact_type": "prototype",
+        "source_status": "synthetic",
+        "claim_status": "infrastructure_contract",
+        "privacy_status": "public",
+        "missingness": "falsification_route_absent",
+        "implementation_status": "prototype_plan",
+        "testability": "not_yet_falsifiable",
+        "falsification_route": "",
+        "next_executable_action": "Define failure condition before promotion.",
+        "decision": "PROMOTE"
+      }
+    }
+  ]
+}
