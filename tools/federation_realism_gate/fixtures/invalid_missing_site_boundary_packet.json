@@ -1,0 +1,29 @@
+{
+  "packet_id": "frg-invalid-001",
+  "created_at": "2026-07-06T18:54:28Z",
+  "domain": "longitudinal_health",
+  "claim": "Federated learning makes a longitudinal health packet private enough for memory promotion.",
+  "source_status": "synthetic_fixture",
+  "claim_status": "schema_requirement",
+  "privacy_status": "federated_no_raw_data",
+  "missingness": {
+    "declared": true,
+    "sampling_cadence": "unknown",
+    "site_specific_absence": "unknown",
+    "dropout_or_censoring": "unknown"
+  },
+  "revision_reason": "This invalid fixture should fail because it omits a realistic site boundary model.",
+  "implementation_status": "test_fixture",
+  "evidence_strength": "weak",
+  "partition_realism": "Rows were split randomly across clients without preserving clinic or instrument boundaries.",
+  "privacy_mechanism": "federated_updates",
+  "privacy_utility_tradeoff": {
+    "utility_metric": "accuracy",
+    "expected_privacy_cost": "unknown",
+    "minimum_acceptable_utility": "unknown",
+    "stability_risk": "unknown"
+  },
+  "leakage_threat_model": ["membership_inference"],
+  "falsification_route": "Reject if the validator requires site boundary information.",
+  "next_executable_action": "Run the negative regression test."
+}
