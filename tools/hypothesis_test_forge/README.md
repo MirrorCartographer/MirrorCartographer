@@ -57,4 +57,12 @@ Artifact:
 
 Tests whether MC-style hypothesis packets become more scientifically useful when every inference is paired with measurable variables, explicit disconfirmation routes, source boundaries, missingness handling, and claim-strength calibration before promotion into memory, public research, or action planning.
 
+### Human-AI context switch scoring rubric
+
+Artifact:
+
+`tools/hypothesis_test_forge/human_ai_context_switch_scoring_rubric.json`
+
+Tests whether context-switch explanations in human-AI sensemaking become more useful when they preserve the prior context, name the switch trigger, identify new inferences, maintain uncertainty boundaries, reject hidden-reasoning dependency, and end in an executable next action.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
