@@ -1,0 +1,92 @@
+[
+  {
+    "name": "pass_decision_ready_discovery_claim",
+    "expect_valid": true,
+    "packet": {
+      "packet_id": "drg-pass-001",
+      "claim": "A generated discovery claim should be routed to human collaborator review only when it exposes decision options, provenance, uncertainty, measurable variables, and a falsification path.",
+      "source_status": "mixed_public",
+      "claim_status": "evaluation_criterion",
+      "privacy_status": "synthetic_only",
+      "missingness": ["No real collaborator study has been run yet."],
+      "revision_reason": "Frontier scientific AI and HCI work increasingly evaluates workflow validity and sensemaking trajectory, not final-answer plausibility alone.",
+      "implementation_status": "implemented",
+      "evidence_strength": "moderate",
+      "human_decision_needed": "Choose whether the claim should advance to collaborator review or remain in automated hypothesis testing.",
+      "decision_options": [
+        {"option": "advance_to_review", "tradeoff": "Higher human attention cost but improved auditability before memory promotion.", "acceptance_criterion": "Reviewer can identify what evidence, uncertainty, and next action are being judged."},
+        {"option": "return_to_test_harness", "tradeoff": "Lower human burden but delayed collaborator feedback.", "acceptance_criterion": "Automated gates can generate a missing variable, provenance step, or falsification route."}
+      ],
+      "measurable_variables": [
+        {"name": "reviewer_decision_agreement", "measurement": "percent agreement across reviewers on advance versus return decision", "target_direction": "increase"},
+        {"name": "unsupported_promotion_rate", "measurement": "fraction of claims promoted without provenance, uncertainty, variables, or falsification route", "target_direction": "decrease"}
+      ],
+      "falsification_route": "If collaborator agreement and unsupported-promotion rate do not improve versus ungated promotion, the gate fails its purpose and must be revised.",
+      "provenance_chain": [
+        {"step": "frontier_scan", "artifact": "public sources on scientific AI validity and sensemaking", "status": "observed"},
+        {"step": "design_implication", "artifact": "decision-readiness gate requirement", "status": "generated"},
+        {"step": "schema_validation", "artifact": "decision readiness packet schema", "status": "validated"}
+      ],
+      "uncertainty_summary": "The design implication is plausible but not yet validated by an MC-specific collaborator study.",
+      "next_executable_action": "Run this fixture through the validation CLI and wire the gate before human review queues."
+    }
+  },
+  {
+    "name": "fail_no_decision_options",
+    "expect_valid": false,
+    "packet": {
+      "packet_id": "drg-fail-001",
+      "claim": "A plausible hypothesis is ready for collaborator review because it sounds promising.",
+      "source_status": "synthetic_fixture",
+      "claim_status": "hypothesis",
+      "privacy_status": "synthetic_only",
+      "missingness": ["No decision options."],
+      "revision_reason": "Missing collaborator decision surface.",
+      "implementation_status": "specified",
+      "evidence_strength": "low",
+      "human_decision_needed": "Decide whether this is useful.",
+      "measurable_variables": [
+        {"name": "promotion_rate", "measurement": "rate of promotion", "target_direction": "bounded"},
+        {"name": "error_rate", "measurement": "rate of unsupported claims", "target_direction": "decrease"}
+      ],
+      "falsification_route": "Reject if decision options are absent and reviewers cannot make a bounded choice.",
+      "provenance_chain": [
+        {"step": "generation", "artifact": "claim text", "status": "generated"},
+        {"step": "review", "artifact": "missing decision options", "status": "missing"}
+      ],
+      "uncertainty_summary": "The claim lacks enough structure for meaningful review.",
+      "next_executable_action": "Add at least two decision options with tradeoffs and acceptance criteria."
+    }
+  },
+  {
+    "name": "fail_private_status",
+    "expect_valid": false,
+    "packet": {
+      "packet_id": "drg-fail-002",
+      "claim": "A private longitudinal record should be added to discovery review.",
+      "source_status": "synthetic_fixture",
+      "claim_status": "hypothesis",
+      "privacy_status": "private_raw",
+      "missingness": ["Privacy boundary invalid."],
+      "revision_reason": "Private status must not enter public-safe discovery artifacts.",
+      "implementation_status": "specified",
+      "evidence_strength": "low",
+      "human_decision_needed": "Choose whether private records can be reviewed.",
+      "decision_options": [
+        {"option": "reject", "tradeoff": "Protects privacy but blocks the packet.", "acceptance_criterion": "No private identifiers remain."},
+        {"option": "deidentify", "tradeoff": "Adds preprocessing burden.", "acceptance_criterion": "Packet becomes public-safe or synthetic-only."}
+      ],
+      "measurable_variables": [
+        {"name": "privacy_fail_count", "measurement": "count of packets with non-public-safe privacy status", "target_direction": "decrease"},
+        {"name": "deidentification_completion", "measurement": "percent of required privacy fields completed", "target_direction": "increase"}
+      ],
+      "falsification_route": "Reject packets whose privacy_status is not explicitly public-safe, deidentified public-safe, or synthetic-only.",
+      "provenance_chain": [
+        {"step": "privacy_check", "artifact": "privacy status field", "status": "rejected"},
+        {"step": "review", "artifact": "review packet", "status": "missing"}
+      ],
+      "uncertainty_summary": "No uncertainty should override the privacy boundary.",
+      "next_executable_action": "Convert the packet into synthetic or deidentified public-safe form before review."
+    }
+  }
+]
