@@ -1,0 +1,110 @@
+[
+  {
+    "case_id": "pass_symbol_to_operation",
+    "should_pass": true,
+    "packet": {
+      "packet_id": "sotg-001",
+      "source_status": "synthetic",
+      "claim_status": "operational_mapping",
+      "privacy_status": "public_safe",
+      "symbolic_input": {
+        "symbol_label": "threshold",
+        "symbol_phrase": "crossing the threshold",
+        "domain": "human_ai_sensemaking"
+      },
+      "operational_translation": {
+        "observable_behavior": "a context switch occurs after accumulating multiple unresolved signals",
+        "candidate_mechanism": "symbolic phrase marks a transition between interpretation frames",
+        "nonclaim_boundary": "this is not evidence of diagnosis, treatment effect, or external causation"
+      },
+      "ambiguity_controls": {
+        "alternative_interpretations": [
+          "ordinary topic shift",
+          "metaphoric compression of uncertainty"
+        ],
+        "disambiguating_observations": [
+          "same symbol maps to different variables under different declared contexts"
+        ]
+      },
+      "measurable_variables": [
+        {
+          "name": "context_switch_count",
+          "unit": "count",
+          "collection_method": "annotated synthetic transcript fixture",
+          "allowed_missingness": "not_collected"
+        },
+        {
+          "name": "unresolved_signal_count",
+          "unit": "count",
+          "collection_method": "symbol-to-variable annotation pass",
+          "allowed_missingness": "unknown"
+        }
+      ],
+      "missingness": "none",
+      "falsification_route": "reject mapping if independent annotators cannot recover the operational variables above chance",
+      "next_executable_action": "run validator and annotation-agreement test on synthetic packets"
+    }
+  },
+  {
+    "case_id": "fail_private_rejected",
+    "should_pass": false,
+    "packet": {
+      "packet_id": "sotg-002",
+      "source_status": "assistant_inferred",
+      "claim_status": "hypothesis",
+      "privacy_status": "private_rejected",
+      "symbolic_input": {
+        "symbol_label": "private animal sign",
+        "symbol_phrase": "specific household observation",
+        "domain": "animal_care_research_org"
+      },
+      "operational_translation": {
+        "observable_behavior": "private observation should not be stored publicly",
+        "candidate_mechanism": "not evaluated",
+        "nonclaim_boundary": "research organization only"
+      },
+      "ambiguity_controls": {
+        "alternative_interpretations": ["privacy leak", "deidentification failure"],
+        "disambiguating_observations": ["contains household-specific cue"]
+      },
+      "measurable_variables": [
+        {"name": "privacy_flag_count", "unit": "count", "collection_method": "static scan", "allowed_missingness": "unknown"},
+        {"name": "identifier_count", "unit": "count", "collection_method": "static scan", "allowed_missingness": "unknown"}
+      ],
+      "missingness": "none",
+      "falsification_route": "must fail because privacy_status is private_rejected",
+      "next_executable_action": "reject packet before public memory write"
+    }
+  },
+  {
+    "case_id": "fail_single_story_mapping",
+    "should_pass": false,
+    "packet": {
+      "packet_id": "sotg-003",
+      "source_status": "synthetic",
+      "claim_status": "operational_mapping",
+      "privacy_status": "public_safe",
+      "symbolic_input": {
+        "symbol_label": "spark",
+        "symbol_phrase": "a spark appears",
+        "domain": "scientific_reasoning"
+      },
+      "operational_translation": {
+        "observable_behavior": "new candidate variable appears in the reasoning trace",
+        "candidate_mechanism": "symbolic compression marks a new hypothesis branch",
+        "nonclaim_boundary": "not a factual scientific discovery by itself"
+      },
+      "ambiguity_controls": {
+        "alternative_interpretations": ["creative metaphor only"],
+        "disambiguating_observations": ["new variable enters the test schema"]
+      },
+      "measurable_variables": [
+        {"name": "new_variable_count", "unit": "count", "collection_method": "schema diff", "allowed_missingness": "not_collected"},
+        {"name": "test_branch_count", "unit": "count", "collection_method": "hypothesis graph traversal", "allowed_missingness": "unknown"}
+      ],
+      "missingness": "none",
+      "falsification_route": "reject if no alternative interpretations are retained",
+      "next_executable_action": "add second alternative interpretation"
+    }
+  }
+]
