@@ -1,0 +1,38 @@
+{
+  "packet_id": "plar-valid-001",
+  "source_status": "mixed",
+  "claim_status": "evaluation_criterion",
+  "privacy_status": "synthetic_only",
+  "missingness": "No production cohort logs, curator labels, or empirical leakage measurements are attached yet.",
+  "revision_reason": "Static privacy labels are insufficient for repeated longitudinal health-memory retrieval.",
+  "implementation_status": "implemented",
+  "evidence_strength": "moderate",
+  "falsification_route": "Reject or revise the gate if repeated-query simulation does not reduce contextual leakage risk without destroying useful cohort comparison utility.",
+  "next_executable_action": "Run validator and add CI coverage after repository test harness is consolidated.",
+  "data_context": {
+    "domain": "human_health",
+    "data_type": "longitudinal symptom and cohort comparison packet",
+    "identifier_policy": "typed_placeholders",
+    "cohort_granularity": "synthetic_baseline",
+    "longitudinal_window": "rolling 90 day window",
+    "rare_feature_handling": "Rare feature combinations must be coarsened or replaced with synthetic baseline descriptors."
+  },
+  "query_context": {
+    "query_type": "trajectory",
+    "retrieval_scope": "cohort-level comparison with no raw identifiers",
+    "repeat_query_risk": "medium",
+    "contextual_leakage_risk": "medium"
+  },
+  "risk_model": {
+    "static_controls": ["typed placeholders", "cohort-size floor"],
+    "cumulative_controls": ["repeated-query budget", "privacy-loss-at-risk review"],
+    "risk_metric": "privacy_loss_at_risk",
+    "utility_metric": "trajectory comparison remains answerable after coarsening",
+    "threshold_action": "coarsen"
+  },
+  "decision": {
+    "memory_write_allowed": true,
+    "reason": "Reusable memory is allowed only after cohort-level coarsening and repeated-query risk accounting.",
+    "review_required": true
+  }
+}
