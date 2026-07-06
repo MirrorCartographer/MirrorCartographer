@@ -1,0 +1,93 @@
+[
+  {
+    "case_id": "valid_minimal_public_mechanism",
+    "expected_status": "PASS",
+    "packet": {
+      "schema_version": "1.0.0",
+      "record_type": "mechanism_graph",
+      "graph_id": "mg.synthetic.valid.001",
+      "hypothesis_id": "hyp.synthetic.001",
+      "nodes": [
+        {"id": "input_signal", "type": "entity", "label": "Synthetic input signal"},
+        {"id": "regulatory_process", "type": "process", "label": "Synthetic regulatory process"},
+        {"id": "output_metric", "type": "measurement", "label": "Synthetic output metric"}
+      ],
+      "edges": [
+        {"source": "input_signal", "target": "regulatory_process", "relation": "modulates", "confidence": "moderate"},
+        {"source": "regulatory_process", "target": "output_metric", "relation": "causes", "confidence": "low"}
+      ],
+      "observable_outputs": [
+        {"variable": "synthetic_output_delta", "units": "arbitrary_units"}
+      ],
+      "required_measurements": ["synthetic_output_delta"],
+      "known_alternatives": ["The output could be explained by an independent synthetic confounder."],
+      "source_status": "synthetic",
+      "claim_status": "proposed",
+      "privacy_status": "public",
+      "missingness": ["No empirical source attached; fixture only."],
+      "revision_reason": "Test that a minimal public-safe mechanism graph can advance to prediction generation.",
+      "implementation_status": "validated",
+      "testability": "Run validator and expect PASS.",
+      "falsification_route": "If output_metric does not change when input_signal is varied under controlled synthetic conditions, this mechanism is unsupported.",
+      "next_executable_action": "Generate a falsifiable prediction packet from this graph."
+    }
+  },
+  {
+    "case_id": "invalid_missing_alternative",
+    "expected_status": "FAIL",
+    "packet": {
+      "schema_version": "1.0.0",
+      "record_type": "mechanism_graph",
+      "graph_id": "mg.synthetic.invalid.001",
+      "hypothesis_id": "hyp.synthetic.002",
+      "nodes": [
+        {"id": "a", "type": "entity", "label": "A"},
+        {"id": "b", "type": "measurement", "label": "B"}
+      ],
+      "edges": [
+        {"source": "a", "target": "b", "relation": "causes", "confidence": "low"}
+      ],
+      "observable_outputs": [{"variable": "b", "units": "arbitrary_units"}],
+      "required_measurements": ["b"],
+      "known_alternatives": [],
+      "source_status": "synthetic",
+      "claim_status": "proposed",
+      "privacy_status": "public",
+      "missingness": [],
+      "revision_reason": "Negative fixture.",
+      "implementation_status": "validated",
+      "testability": "Run validator and expect FAIL.",
+      "falsification_route": "Synthetic falsification route exists.",
+      "next_executable_action": "Add alternatives."
+    }
+  },
+  {
+    "case_id": "invalid_private_marker",
+    "expected_status": "FAIL",
+    "packet": {
+      "schema_version": "1.0.0",
+      "record_type": "mechanism_graph",
+      "graph_id": "mg.synthetic.invalid.002",
+      "hypothesis_id": "hyp.synthetic.003",
+      "nodes": [
+        {"id": "private_person", "type": "entity", "label": "User-specific private transcript detail"},
+        {"id": "m", "type": "measurement", "label": "Measurement"}
+      ],
+      "edges": [
+        {"source": "private_person", "target": "m", "relation": "causes", "confidence": "low"}
+      ],
+      "observable_outputs": [{"variable": "m", "units": "arbitrary_units"}],
+      "required_measurements": ["m"],
+      "known_alternatives": ["Alternative exists."],
+      "source_status": "synthetic",
+      "claim_status": "proposed",
+      "privacy_status": "public",
+      "missingness": [],
+      "revision_reason": "Negative privacy fixture.",
+      "implementation_status": "validated",
+      "testability": "Run validator and expect FAIL.",
+      "falsification_route": "Synthetic falsification route exists.",
+      "next_executable_action": "Remove private marker."
+    }
+  }
+]
