@@ -1,0 +1,46 @@
+{
+  "packet_id": "drmf-valid-public-benchmark-001",
+  "source_status": "mixed",
+  "claim_status": "evaluation_criterion",
+  "privacy_status": {
+    "raw_sensitive_data_present": false,
+    "deidentification_level": "aggregate",
+    "reuse_boundary": "public_safe"
+  },
+  "data_rights_status": {
+    "license_or_terms": "public benchmark or institutional public page; no raw clinical records stored",
+    "consent_scope": "public_dataset",
+    "redistribution_allowed": "yes",
+    "commercial_use_allowed": "unknown",
+    "animal_or_human_subject_boundary": "both"
+  },
+  "modality_map": [
+    {
+      "modality": "multimodal",
+      "observed_signal": "benchmark task trace and modality description",
+      "durable_endpoint": "validated discovery-memory packet that can be reused without leaking raw subjects",
+      "known_failure_modes": [
+        "benchmark overfitting",
+        "modality mismatch",
+        "site-specific missingness hidden by aggregate scoring"
+      ]
+    }
+  ],
+  "task_fit": {
+    "intended_task": "screen whether a research packet may enter reusable discovery memory",
+    "fit_level": "partially_fit",
+    "why_this_modality_is_sufficient_or_not": "Public benchmark and institutional metadata can define admission requirements, but real deployment needs curator labels and local privacy review.",
+    "human_review_required": true
+  },
+  "missingness": {
+    "missing_modalities": ["curator labels", "site-specific consent records"],
+    "missing_time_windows": ["longitudinal follow-up window not available in synthetic fixture"],
+    "missing_rights_or_consent": ["commercial reuse unknown"],
+    "impact_on_claim": "requires_review"
+  },
+  "revision_reason": "Frontier scientific and medical AI benchmarks increasingly rely on realistic task traces and modality-specific evaluation, but discovery memory also needs explicit reuse rights.",
+  "implementation_status": "tested",
+  "evidence_strength": "moderate",
+  "falsification_route": "If curator review shows that data-rights and modality-fit fields do not reduce blocked, unsafe, or low-fitness memory promotions, simplify or revise the gate.",
+  "next_executable_action": "Run validator on fixtures, then wire this gate before discovery-memory packet promotion."
+}
