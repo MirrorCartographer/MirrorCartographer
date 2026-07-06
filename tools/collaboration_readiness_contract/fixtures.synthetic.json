@@ -1,0 +1,53 @@
+[
+  {
+    "packet_id": "crc-001",
+    "title": "Deidentified longitudinal symptom-pattern review",
+    "domain": "medical_research",
+    "source_status": "synthetic fixture derived from no private record",
+    "claim_status": "hypothesis organization only; no diagnosis, cure, treatment, or medical advice",
+    "privacy_status": "public-safe deidentified packet",
+    "missingness": "no raw timeline, no clinician notes, no lab values, no private dates",
+    "revision_reason": "prepare a collaborator-safe research review packet",
+    "implementation_status": "ready for schema validation and reviewer routing",
+    "testability": "validator checks privacy boundary, claim boundary, missingness, and next action",
+    "next_executable_action": "route to literature evidence mapper with synthetic variables only",
+    "allowed_collaborator_roles": ["research reviewer", "software developer"],
+    "disallowed_uses": ["diagnose a person", "recommend treatment", "claim confirmed causality"],
+    "evidence_boundary": "observation patterns may generate hypotheses; hypotheses require external evidence; advice is explicitly out of scope",
+    "deidentification_status": "synthetic"
+  },
+  {
+    "packet_id": "crc-002",
+    "title": "Animal-care evidence organization handoff",
+    "domain": "animal_care_research",
+    "source_status": "synthetic fixture; no veterinary record included",
+    "claim_status": "research organization only; not veterinary advice",
+    "privacy_status": "public-safe synthetic packet",
+    "missingness": "no animal identity, no owner identity, no clinic identity, no exact event dates",
+    "revision_reason": "prepare public-safe animal evidence sorting for collaborator review",
+    "implementation_status": "ready for animal evidence router validation",
+    "testability": "run contract validator and confirm non-advice language plus disallowed uses",
+    "next_executable_action": "route to animal evidence router and require source-labeled evidence packets",
+    "allowed_collaborator_roles": ["veterinary literature reviewer", "software developer"],
+    "disallowed_uses": ["replace a veterinarian", "prescribe care", "assert a cure"],
+    "evidence_boundary": "reported observations are not diagnoses; literature notes are not instructions; clinical decisions remain outside the packet",
+    "deidentification_status": "synthetic"
+  },
+  {
+    "packet_id": "crc-003",
+    "title": "Bad packet with advice leakage",
+    "domain": "medical_research",
+    "source_status": "synthetic negative control",
+    "claim_status": "confirmed cure pathway",
+    "privacy_status": "public-safe synthetic packet",
+    "missingness": "unknown",
+    "revision_reason": "negative control should fail",
+    "implementation_status": "not ready",
+    "testability": "manual review only",
+    "next_executable_action": "tell patient what to do",
+    "allowed_collaborator_roles": ["anyone"],
+    "disallowed_uses": [],
+    "evidence_boundary": "hypothesis is advice",
+    "deidentification_status": "synthetic"
+  }
+]
