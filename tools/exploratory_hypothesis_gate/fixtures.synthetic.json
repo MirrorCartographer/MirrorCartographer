@@ -1,0 +1,98 @@
+{
+  "valid_packet": {
+    "packet_id": "ehg-valid-001",
+    "source_status": "mixed_public_synthetic",
+    "claim_status": "infrastructure_hypothesis",
+    "privacy_status": "public_safe",
+    "missingness": ["No production longitudinal corpus connected", "No curator labels yet"],
+    "revision_reason": "Open-ended discovery tasks require explicit exploratory structure before memory promotion.",
+    "research_question": "Can staged exploratory analysis improve discovery-memory admission quality for longitudinal animal-care research organization?",
+    "dataset_boundary": {
+      "allowed_inputs": ["synthetic symptom timelines", "public literature metadata", "redacted observation summaries"],
+      "excluded_inputs": ["raw private medical records", "unredacted location traces", "clinical advice outputs"],
+      "time_boundary": "pre-analysis sources must be separated from post-hypothesis validation sources",
+      "population_or_system_boundary": "research-organization packets for longitudinal human or animal-care observations"
+    },
+    "measurable_variables": [
+      {
+        "name": "unsupported_promotion_rate",
+        "unit_or_scale": "fraction",
+        "measurement_method": "curator review of packets promoted to memory",
+        "expected_direction": "decrease"
+      },
+      {
+        "name": "hypothesis_revision_count",
+        "unit_or_scale": "count",
+        "measurement_method": "number of revise or hold decisions before promote",
+        "expected_direction": "increase"
+      }
+    ],
+    "exploratory_steps": [
+      {
+        "step": "map_inputs",
+        "purpose": "identify allowed evidence and excluded private data",
+        "artifact_expected": "dataset boundary map"
+      },
+      {
+        "step": "generate_candidate_patterns",
+        "purpose": "derive multiple candidate explanations without promoting claims",
+        "artifact_expected": "candidate pattern list"
+      },
+      {
+        "step": "stage_validation",
+        "purpose": "test which observations would change the decision",
+        "artifact_expected": "validation and falsification matrix"
+      }
+    ],
+    "hypothesis_updates": [
+      {
+        "stage": "initial",
+        "claim": "A staged exploratory gate may reduce unsupported discovery-memory promotion.",
+        "evidence_delta": "Frontier benchmarks emphasize open-ended exploratory analysis.",
+        "decision": "hold"
+      },
+      {
+        "stage": "fixture_validation",
+        "claim": "Packets with dataset boundaries and staged updates are more reviewable than static claims.",
+        "evidence_delta": "Synthetic fixture exposes measurable variables and falsification route.",
+        "decision": "promote"
+      }
+    ],
+    "validation_plan": "Compare curator agreement and unsupported-promotion rate before and after applying this gate to synthetic and redacted packets.",
+    "falsification_route": "Reject or revise the gate if curator agreement does not improve or if valid exploratory packets are rejected without actionable error messages.",
+    "evidence_strength": "moderate",
+    "implementation_status": "validator_ready",
+    "testability": "Run the validator against this fixture and require valid_packet to pass.",
+    "next_executable_action": "Run python tools/exploratory_hypothesis_gate/validate_exploratory_packet.py tools/exploratory_hypothesis_gate/fixtures.synthetic.json"
+  },
+  "invalid_packet_missing_updates": {
+    "packet_id": "ehg-invalid-001",
+    "source_status": "synthetic",
+    "claim_status": "unsupported",
+    "privacy_status": "public_safe",
+    "missingness": ["No staged update chain"],
+    "revision_reason": "This packet should fail because it has no hypothesis_updates field.",
+    "research_question": "Can a static plausible claim be admitted without an exploratory trace?",
+    "dataset_boundary": {
+      "allowed_inputs": ["synthetic observations"],
+      "excluded_inputs": ["raw private data"],
+      "time_boundary": "unspecified",
+      "population_or_system_boundary": "generic"
+    },
+    "measurable_variables": [
+      {"name": "reviewability", "unit_or_scale": "ordinal", "measurement_method": "curator rating", "expected_direction": "unknown"},
+      {"name": "error_rate", "unit_or_scale": "fraction", "measurement_method": "curator review", "expected_direction": "decrease"}
+    ],
+    "exploratory_steps": [
+      {"step": "claim", "purpose": "state an answer", "artifact_expected": "answer"},
+      {"step": "cite", "purpose": "add a source", "artifact_expected": "citation"},
+      {"step": "promote", "purpose": "move to memory", "artifact_expected": "memory entry"}
+    ],
+    "validation_plan": "No meaningful staged validation plan is present.",
+    "falsification_route": "Fail because the update chain is absent.",
+    "evidence_strength": "weak",
+    "implementation_status": "validator_ready",
+    "testability": "This fixture must fail validation.",
+    "next_executable_action": "Add staged hypothesis_updates before resubmission."
+  }
+}
