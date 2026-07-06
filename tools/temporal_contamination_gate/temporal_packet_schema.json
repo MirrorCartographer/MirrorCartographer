@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirror-cartographer.local/schemas/temporal_contamination_packet.schema.json",
+  "title": "Mirror Cartographer Temporal Contamination Packet",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "packet_id",
+    "privacy_status",
+    "claim",
+    "generation_window",
+    "evidence_windows",
+    "source_status",
+    "claim_status",
+    "measurable_variables",
+    "falsification_route",
+    "implementation_status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "packet_id": {"type": "string", "minLength": 3},
+    "privacy_status": {"enum": ["public_safe", "synthetic", "deidentified_public"]},
+    "claim": {
+      "type": "object",
+      "required": ["text", "domain", "novelty_basis"],
+      "additionalProperties": false,
+      "properties": {
+        "text": {"type": "string", "minLength": 10},
+        "domain": {"type": "string", "minLength": 3},
+        "novelty_basis": {"enum": ["pre_window_inference", "cross_source_synthesis", "mechanistic_abduction", "negative_result_reinterpretation"]}
+      }
+    },
+    "generation_window": {
+      "type": "object",
+      "required": ["generated_at", "allowed_source_end_date"],
+      "additionalProperties": false,
+      "properties": {
+        "generated_at": {"type": "string", "format": "date"},
+        "allowed_source_end_date": {"type": "string", "format": "date"}
+      }
+    },
+    "evidence_windows": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["window_type", "start_date", "end_date", "sources"],
+        "additionalProperties": false,
+        "properties": {
+          "window_type": {"enum": ["pre_generation", "post_generation_validation", "excluded_future_leakage"]},
+          "start_date": {"type": "string", "format": "date"},
+          "end_date": {"type": "string", "format": "date"},
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["source_id", "source_type", "date", "role"],
+              "additionalProperties": false,
+              "properties": {
+                "source_id": {"type": "string", "minLength": 3},
+                "source_type": {"enum": ["paper", "preprint", "benchmark", "dataset", "repository", "institution", "synthetic_fixture"]},
+                "date": {"type": "string", "format": "date"},
+                "role": {"enum": ["allowed_context", "validation_target", "excluded_context"]}
+              }
+            }
+          }
+        }
+      }
+    },
+    "source_status": {"enum": ["primary", "preprint", "benchmark", "dataset", "synthetic"]},
+    "claim_status": {"enum": ["candidate", "validated_after_window", "contradicted_after_window", "inconclusive", "contaminated"]},
+    "measurable_variables": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 2}},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "implementation_status": {"enum": ["fixture", "validator_ready", "ci_ready"]}
+  }
+}
