@@ -1,0 +1,146 @@
+{
+  "valid_packets": [
+    {
+      "packet_id": "crb-public-safe-longitudinal-pattern-gate",
+      "created_at": "2026-07-06T10:50:00Z",
+      "domain": "longitudinal_health_data",
+      "hypothesis_or_task": {
+        "statement": "Longitudinal research packets should record collaboration roles before a pattern is promoted into discovery memory.",
+        "intended_use": "Research organization and auditability for public-safe discovery infrastructure.",
+        "not_for": ["diagnosis", "treatment selection", "veterinary triage"]
+      },
+      "collaboration_roles": [
+        {
+          "role": "observer",
+          "actor_type": "human_ai_pair",
+          "responsibility": "Identify a candidate pattern or anomaly without claiming causality.",
+          "artifact_produced": "observation summary",
+          "handoff_required": true,
+          "failure_if_missing": "MC cannot tell whether the hypothesis came from data observation or narrative invention."
+        },
+        {
+          "role": "ideator",
+          "actor_type": "ai",
+          "responsibility": "Generate bounded hypotheses and explicitly state competing explanations.",
+          "artifact_produced": "candidate hypothesis set",
+          "handoff_required": true,
+          "failure_if_missing": "The system may collapse a pattern into one plausible story."
+        },
+        {
+          "role": "verifier",
+          "actor_type": "external_tool",
+          "responsibility": "Check source availability, temporal boundary, and structured variables.",
+          "artifact_produced": "validation report",
+          "handoff_required": true,
+          "failure_if_missing": "Claims may enter memory without a reproducible verification path."
+        },
+        {
+          "role": "curator",
+          "actor_type": "human",
+          "responsibility": "Decide whether the packet is useful, incomplete, unsafe, or overclaimed.",
+          "artifact_produced": "promotion decision",
+          "handoff_required": false,
+          "failure_if_missing": "Human review responsibility is unclear."
+        }
+      ],
+      "evidence_boundary": {
+        "source_types_allowed": ["primary publication", "preprint with caveat", "benchmark documentation", "synthetic fixture"],
+        "source_types_disallowed": ["private medical record", "private veterinary record", "uncited model assertion"],
+        "minimum_grounding": "At least one external public source plus one structured packet artifact is required.",
+        "verification_route": "Run schema validation and require a curator decision before memory promotion."
+      },
+      "privacy_boundary": {
+        "privacy_status": "public_safe",
+        "allowed_data": ["synthetic examples", "public source metadata", "abstracted design implications"],
+        "blocked_data": ["raw health logs", "pet clinical records", "identifying collaborator details"],
+        "deidentification_required": true
+      },
+      "claim_boundary": {
+        "claim_status": "infrastructure_hypothesis",
+        "overclaim_risk": "medium",
+        "medical_advice_risk": false,
+        "animal_care_advice_risk": false
+      },
+      "review_decision": {
+        "decision": "promote",
+        "reason": "All required collaboration roles and public-safe evidence boundaries are present.",
+        "next_executable_action": "Wire this gate before evidence-transition promotion."
+      },
+      "labels": {
+        "source_status": "public frontier scan plus assistant-generated synthetic fixture",
+        "claim_status": "discovery-infrastructure hypothesis",
+        "privacy_status": "public-safe synthetic only",
+        "missingness": "no production corpus or curator agreement measurements yet",
+        "revision_reason": "add explicit human-AI role boundaries to prevent responsibility drift",
+        "implementation_status": "schema and fixtures committed",
+        "evidence_strength": "moderate",
+        "falsification_route": "revise if role-boundary packets do not improve reviewer agreement or reduce unsupported memory promotion"
+      }
+    }
+  ],
+  "invalid_packets": [
+    {
+      "name": "missing_verifier_role",
+      "packet": {
+        "packet_id": "crb-missing-verifier-role",
+        "created_at": "2026-07-06T10:50:00Z",
+        "domain": "hypothesis_generation",
+        "hypothesis_or_task": {
+          "statement": "A hypothesis can be promoted after the AI writes a plausible explanation.",
+          "intended_use": "Discovery memory shortcut.",
+          "not_for": ["medical advice"]
+        },
+        "collaboration_roles": [
+          {
+            "role": "observer",
+            "actor_type": "ai",
+            "responsibility": "Observe a pattern.",
+            "artifact_produced": "note",
+            "handoff_required": true
+          },
+          {
+            "role": "ideator",
+            "actor_type": "ai",
+            "responsibility": "Generate a hypothesis.",
+            "artifact_produced": "hypothesis",
+            "handoff_required": false
+          }
+        ],
+        "evidence_boundary": {
+          "source_types_allowed": ["uncited model assertion"],
+          "source_types_disallowed": ["none"],
+          "minimum_grounding": "A plausible answer is enough.",
+          "verification_route": "No verification."
+        },
+        "privacy_boundary": {
+          "privacy_status": "private_blocked",
+          "allowed_data": ["raw health logs"],
+          "blocked_data": ["none"],
+          "deidentification_required": false
+        },
+        "claim_boundary": {
+          "claim_status": "infrastructure_hypothesis",
+          "overclaim_risk": "high",
+          "medical_advice_risk": true,
+          "animal_care_advice_risk": true
+        },
+        "review_decision": {
+          "decision": "promote",
+          "reason": "Plausible.",
+          "next_executable_action": "Use it."
+        },
+        "labels": {
+          "source_status": "uncited",
+          "claim_status": "overclaimed",
+          "privacy_status": "private data allowed",
+          "missingness": "verification missing",
+          "revision_reason": "none",
+          "implementation_status": "fixture only",
+          "evidence_strength": "low",
+          "falsification_route": "none"
+        }
+      },
+      "expected_failure_contains": "missing_required_roles"
+    }
+  ]
+}
