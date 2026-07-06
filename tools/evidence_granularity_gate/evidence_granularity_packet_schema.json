@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.local/schemas/evidence_granularity_packet_schema.json",
+  "title": "MC Evidence Granularity Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "claim",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "testability",
+    "falsification_route",
+    "evidence_units",
+    "aggregation_rule",
+    "measurable_variables",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "claim": {"type": "string", "minLength": 20},
+    "source_status": {"enum": ["synthetic_fixture", "user_stated", "tool_output", "literature_summary", "measured_observation"]},
+    "claim_status": {"enum": ["hypothesis", "question_prep", "research_organization", "rejected", "needs_review"]},
+    "privacy_status": {"enum": ["public_safe_synthetic", "deidentified", "private_rejected", "contains_sensitive_detail"]},
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "absence_interpretation_allowed"],
+      "properties": {
+        "state": {"enum": ["observed", "unknown", "not_collected", "redacted", "not_applicable"]},
+        "absence_interpretation_allowed": {"type": "boolean"}
+      }
+    },
+    "revision_reason": {"type": "string", "minLength": 20},
+    "implementation_status": {"enum": ["schema_only", "fixture", "validator", "tested"]},
+    "testability": {"type": "string", "minLength": 10},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "evidence_units": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["unit_id", "unit_type", "granularity", "observation", "can_stand_alone", "supports_claim_scope"],
+        "properties": {
+          "unit_id": {"type": "string", "minLength": 3},
+          "unit_type": {"enum": ["single_observation", "repeated_observation", "summary", "inference", "citation", "symbolic_phrase"]},
+          "granularity": {"enum": ["atomic", "session", "daily_summary", "multi_day_summary", "literature_level", "ambiguous"]},
+          "observation": {"type": "string", "minLength": 5},
+          "can_stand_alone": {"type": "boolean"},
+          "supports_claim_scope": {"type": "boolean"}
+        }
+      }
+    },
+    "aggregation_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowed", "method", "minimum_atomic_units", "blocks_mixed_granularity_without_label"],
+      "properties": {
+        "allowed": {"type": "boolean"},
+        "method": {"enum": ["none", "count", "rate", "time_window", "evidence_table", "needs_review"]},
+        "minimum_atomic_units": {"type": "integer", "minimum": 1},
+        "blocks_mixed_granularity_without_label": {"type": "boolean"}
+      }
+    },
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 3}
+    },
+    "next_executable_action": {"type": "string", "minLength": 20}
+  }
+}
