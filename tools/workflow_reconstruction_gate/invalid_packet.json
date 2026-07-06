@@ -1,0 +1,39 @@
+{
+  "packet_id": "wrg-invalid-001",
+  "research_question": "This claim sounds useful.",
+  "source_status": "synthetic_fixture",
+  "claim_status": "hypothesis",
+  "privacy_status": "public_safe_synthetic",
+  "missingness": {
+    "status": "unknown_reject",
+    "expected_missing_fields": [],
+    "handling_rule": "Unknown."
+  },
+  "revision_reason": "No workflow trace supplied.",
+  "implementation_status": "proposed",
+  "evidence_strength": "low",
+  "source_anchors": [
+    {
+      "name": "some paper",
+      "status": "unclear",
+      "date": "2026",
+      "role": "maybe supports it"
+    }
+  ],
+  "boundary_conditions": {
+    "dataset_or_context": "unclear",
+    "modality": [],
+    "species_or_population": "unclear",
+    "time_boundary": "none",
+    "exclusion_boundary": "none"
+  },
+  "workflow_trace": [],
+  "hypothesis_updates": [],
+  "method_fit": {
+    "appropriateness_rationale": "Seems appropriate.",
+    "known_limitations": []
+  },
+  "validation_route": "Check later.",
+  "falsification_route": "If wrong.",
+  "next_executable_action": "Do something."
+}
