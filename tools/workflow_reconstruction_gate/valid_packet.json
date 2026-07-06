@@ -1,0 +1,83 @@
+{
+  "packet_id": "wrg-valid-001",
+  "research_question": "Can a discovery-memory packet reconstruct a research workflow well enough for curator review before promotion?",
+  "source_status": "synthetic_fixture",
+  "claim_status": "evaluation_criterion",
+  "privacy_status": "public_safe_synthetic",
+  "missingness": {
+    "status": "explicitly_modeled",
+    "expected_missing_fields": ["curator_labels", "production_corpus", "site_specific_error_rates"],
+    "handling_rule": "Hold promotion until missing curator and corpus fields are explicitly supplied or marked out of scope."
+  },
+  "revision_reason": "Frontier benchmarks increasingly evaluate auditable research workflows rather than isolated final answers.",
+  "implementation_status": "tests_built",
+  "evidence_strength": "moderate",
+  "source_anchors": [
+    {
+      "name": "HeurekaBench",
+      "status": "preprint_with_caveat",
+      "date": "2026-01",
+      "role": "Motivates workflow reconstruction from study, code repository, and exploratory scientific question."
+    },
+    {
+      "name": "LABBench2",
+      "status": "preprint_with_caveat",
+      "date": "2026-05-05",
+      "role": "Motivates methodological appropriateness and relevance assessment before scientific AI outputs are trusted."
+    },
+    {
+      "name": "AI Co-Scientist",
+      "status": "primary",
+      "date": "2026",
+      "role": "Motivates tool-grounded hypothesis generation with scientist feedback and explicit hypothesis updates."
+    }
+  ],
+  "boundary_conditions": {
+    "dataset_or_context": "Synthetic discovery-memory review packets",
+    "modality": ["text", "schema", "workflow metadata"],
+    "species_or_population": "research packets, not patients or animals",
+    "time_boundary": "single packet review before memory promotion",
+    "exclusion_boundary": "Does not permit diagnosis, treatment, or veterinary advice claims."
+  },
+  "workflow_trace": [
+    {
+      "step": 1,
+      "input": "frontier source map",
+      "operation": "extract benchmark requirements",
+      "output": "workflow reconstruction criteria",
+      "reproducibility_note": "A reviewer can trace each criterion to a named source anchor."
+    },
+    {
+      "step": 2,
+      "input": "candidate discovery claim",
+      "operation": "check boundaries and missingness",
+      "output": "promotion hold or review-ready packet",
+      "reproducibility_note": "The same packet should produce the same pass/fail result."
+    },
+    {
+      "step": 3,
+      "input": "hypothesis update trail",
+      "operation": "verify evidence-triggered revision",
+      "output": "auditable decision route",
+      "reproducibility_note": "Every promoted claim must show what evidence changed."
+    }
+  ],
+  "hypothesis_updates": [
+    {
+      "before": "A cited final claim may be enough for discovery memory.",
+      "evidence_trigger": "Open-ended co-scientist benchmarks require grounded workflows and verification traces.",
+      "after": "Discovery memory should require reconstructed workflow evidence before promotion.",
+      "decision": "revise"
+    }
+  ],
+  "method_fit": {
+    "appropriateness_rationale": "A schema gate is appropriate because the failure mode is structural: claims lack reproducible workflow metadata.",
+    "known_limitations": [
+      "Synthetic fixtures cannot prove real curator utility.",
+      "Non-code wet-lab procedures may require richer provenance fields."
+    ]
+  },
+  "validation_route": "Run the validator on curated valid and invalid packets, then compare reviewer agreement before and after gate adoption.",
+  "falsification_route": "Reject or revise the gate if it does not reduce unsupported memory promotions or if reviewers find workflow fields non-actionable.",
+  "next_executable_action": "Run the regression test file for this gate."
+}
