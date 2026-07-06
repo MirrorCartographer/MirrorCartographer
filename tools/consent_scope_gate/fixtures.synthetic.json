@@ -1,0 +1,95 @@
+[
+  {
+    "packet_id": "mc-consent-scope-valid-synthetic-longitudinal",
+    "claim": "Longitudinal MC records are safer and more analytically useful when consent scope and allowed routes are explicit before storage.",
+    "source_status": "synthetic",
+    "claim_status": "test_fixture",
+    "privacy_status": "public_safe",
+    "consent_scope": {
+      "subject_type": "synthetic",
+      "consent_basis": "synthetic_only",
+      "allowed_use": ["schema_testing", "research_organization"],
+      "retention": "project_memory",
+      "revocation_supported": true
+    },
+    "allowed_routes": ["synthetic_test", "research_map"],
+    "blocked_routes": ["diagnosis", "treatment", "veterinary_instruction", "dosage", "public_export"],
+    "missingness": {
+      "state": "partial",
+      "interpretation": "Synthetic fixture omits identifying context by design.",
+      "absence_as_evidence": false
+    },
+    "revision_reason": "Adds a gate that prevents longitudinal data admission when consent scope is ambiguous.",
+    "implementation_status": "tested",
+    "testability": "Validate this fixture with validate_consent_scope_packets.py.",
+    "falsification_route": "If packets with unknown consent, blocked privacy, or absence-as-evidence pass, the gate is falsified.",
+    "measurable_variables": [
+      {"name": "consent_scope_present", "unit": "boolean", "collection_status": "synthetic"},
+      {"name": "blocked_route_count", "unit": "count", "collection_status": "synthetic"},
+      {"name": "revocation_supported", "unit": "boolean", "collection_status": "synthetic"}
+    ],
+    "next_executable_action": "Run validator and wire passing packets only to synthetic test or research-map routes."
+  },
+  {
+    "packet_id": "mc-consent-scope-invalid-unknown-consent",
+    "claim": "A private longitudinal record can enter project memory even when consent basis and retention are unknown.",
+    "source_status": "assistant_inferred",
+    "claim_status": "needs_review",
+    "privacy_status": "private",
+    "consent_scope": {
+      "subject_type": "human",
+      "consent_basis": "unknown",
+      "allowed_use": ["private_memory"],
+      "retention": "longitudinal_dataset",
+      "revocation_supported": false
+    },
+    "allowed_routes": ["private_longitudinal"],
+    "blocked_routes": ["public_discovery_memory"],
+    "missingness": {
+      "state": "unknown",
+      "interpretation": "Consent basis is not available in this packet.",
+      "absence_as_evidence": false
+    },
+    "revision_reason": "Negative fixture proves the gate rejects unknown consent for longitudinal retention.",
+    "implementation_status": "tested",
+    "testability": "Validator should reject this fixture.",
+    "falsification_route": "Gate is falsified if this packet is accepted into private longitudinal storage.",
+    "measurable_variables": [
+      {"name": "consent_scope_present", "unit": "boolean", "collection_status": "synthetic"},
+      {"name": "blocked_route_count", "unit": "count", "collection_status": "synthetic"},
+      {"name": "revocation_supported", "unit": "boolean", "collection_status": "synthetic"}
+    ],
+    "next_executable_action": "Reject and route to consent-review backlog rather than memory."
+  },
+  {
+    "packet_id": "mc-consent-scope-invalid-missingness-collapse",
+    "claim": "A missing observation can be interpreted as evidence that no event occurred in the longitudinal record.",
+    "source_status": "synthetic",
+    "claim_status": "rejected",
+    "privacy_status": "public_safe",
+    "consent_scope": {
+      "subject_type": "synthetic",
+      "consent_basis": "synthetic_only",
+      "allowed_use": ["schema_testing"],
+      "retention": "session_only",
+      "revocation_supported": true
+    },
+    "allowed_routes": ["synthetic_test"],
+    "blocked_routes": ["diagnosis", "treatment", "veterinary_instruction", "dosage"],
+    "missingness": {
+      "state": "not_collected",
+      "interpretation": "This fixture intentionally tries to collapse missingness into negative evidence.",
+      "absence_as_evidence": true
+    },
+    "revision_reason": "Negative fixture proves missing data cannot be treated as absence.",
+    "implementation_status": "tested",
+    "testability": "Validator should reject this fixture.",
+    "falsification_route": "Gate is falsified if absence_as_evidence true passes validation.",
+    "measurable_variables": [
+      {"name": "missingness_state", "unit": "category", "collection_status": "synthetic"},
+      {"name": "absence_as_evidence", "unit": "boolean", "collection_status": "synthetic"},
+      {"name": "blocked_route_count", "unit": "count", "collection_status": "synthetic"}
+    ],
+    "next_executable_action": "Reject and preserve as contradiction-ledger example."
+  }
+]
