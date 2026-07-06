@@ -1,0 +1,91 @@
+[
+  {
+    "packet_id": "granularity-pass-001",
+    "claim": "MC evidence maps become safer when atomic observations are separated from summaries before hypothesis promotion.",
+    "source_status": "synthetic_fixture",
+    "claim_status": "research_organization",
+    "privacy_status": "public_safe_synthetic",
+    "missingness": {
+      "state": "observed",
+      "absence_interpretation_allowed": false
+    },
+    "revision_reason": "Adds a gate against treating a compressed story as if it were a measured repeated signal.",
+    "implementation_status": "fixture",
+    "testability": "Validator should accept this packet.",
+    "falsification_route": "If mixed granularity enters promotion without labels, the gate fails its purpose.",
+    "evidence_units": [
+      {
+        "unit_id": "u01",
+        "unit_type": "single_observation",
+        "granularity": "atomic",
+        "observation": "Synthetic log records one timestamped event.",
+        "can_stand_alone": true,
+        "supports_claim_scope": true
+      },
+      {
+        "unit_id": "u02",
+        "unit_type": "repeated_observation",
+        "granularity": "session",
+        "observation": "Synthetic session contains three separately labeled atomic events.",
+        "can_stand_alone": true,
+        "supports_claim_scope": true
+      }
+    ],
+    "aggregation_rule": {
+      "allowed": true,
+      "method": "count",
+      "minimum_atomic_units": 2,
+      "blocks_mixed_granularity_without_label": true
+    },
+    "measurable_variables": [
+      "atomic_unit_count",
+      "mixed_granularity_count",
+      "unsupported_summary_count"
+    ],
+    "next_executable_action": "Run validator before storing research packets in longitudinal evidence maps."
+  },
+  {
+    "packet_id": "granularity-fail-ambiguous-001",
+    "claim": "A vague summary can be promoted as evidence without preserving its source granularity.",
+    "source_status": "synthetic_fixture",
+    "claim_status": "hypothesis",
+    "privacy_status": "public_safe_synthetic",
+    "missingness": {
+      "state": "unknown",
+      "absence_interpretation_allowed": false
+    },
+    "revision_reason": "Fixture should fail because it collapses ambiguous summary evidence into a stronger claim.",
+    "implementation_status": "fixture",
+    "testability": "Validator should reject this packet.",
+    "falsification_route": "A pass would show the gate allows summary laundering into evidence memory.",
+    "evidence_units": [
+      {
+        "unit_id": "u01",
+        "unit_type": "summary",
+        "granularity": "ambiguous",
+        "observation": "Things seemed different overall.",
+        "can_stand_alone": false,
+        "supports_claim_scope": false
+      },
+      {
+        "unit_id": "u02",
+        "unit_type": "inference",
+        "granularity": "multi_day_summary",
+        "observation": "Therefore the pattern is stable.",
+        "can_stand_alone": false,
+        "supports_claim_scope": false
+      }
+    ],
+    "aggregation_rule": {
+      "allowed": true,
+      "method": "time_window",
+      "minimum_atomic_units": 1,
+      "blocks_mixed_granularity_without_label": false
+    },
+    "measurable_variables": [
+      "atomic_unit_count",
+      "ambiguous_unit_count"
+    ],
+    "next_executable_action": "Reject and request atomic observations or downgrade to question-prep."
+  }
+]
