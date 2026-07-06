@@ -2,38 +2,42 @@
   "suite_id": "mc_gate_integration_v1",
   "packets": [
     {
-      "gate": "longitudinal_missingness_gate",
-      "packet_id": "longitudinal_missingness_gate.valid.synthetic.001",
+      "gate": "*",
+      "packet_id": "*.valid.synthetic.001",
       "route": "research_organization",
       "source_status": "assistant-generated integration specification",
       "claim_status": "executable infrastructure test",
       "privacy_status": "public-safe synthetic only",
       "missingness": "observed plus explicit unknown/not_collected/redacted/not_applicable states",
-      "revision_reason": "integration fixture for all MC gates",
+      "revision_reason": "wildcard positive fixture expands across every registered MC gate",
       "implementation_status": "synthetic validation fixture",
       "testability": "python tools/mc_gate_integration/run_gate_check.py",
       "falsification_route": "valid packet fails if required labels or observed variables are mishandled",
       "measurable_variables": ["observed_fraction", "boundary_violation_count"],
       "next_executable_action": "run integrated validator before promotion",
-      "observations": [{"variable": "synthetic_signal_count", "value": 2, "unit": "count", "missingness": "observed", "time_status": "anchored"}],
+      "observations": [
+        {"variable": "synthetic_signal_count", "value": 2, "unit": "count", "missingness": "observed", "time_status": "anchored"}
+      ],
       "boundary_flags": [],
       "decision": "pass"
     },
     {
-      "gate": "longitudinal_missingness_gate",
-      "packet_id": "longitudinal_missingness_gate.invalid.synthetic.001",
+      "gate": "*",
+      "packet_id": "*.invalid.synthetic.001",
       "route": "public_discovery_memory",
       "source_status": "assistant-generated integration specification",
       "claim_status": "executable infrastructure test",
       "privacy_status": "public-safe synthetic only",
       "missingness": "unknown wrongly treated as absence",
-      "revision_reason": "negative fixture",
+      "revision_reason": "wildcard negative fixture expands across every registered MC gate",
       "implementation_status": "synthetic validation fixture",
       "testability": "python tools/mc_gate_integration/run_gate_check.py",
       "falsification_route": "must reject missingness collapse and privacy leakage",
       "measurable_variables": [],
       "next_executable_action": "route to contradiction ledger",
-      "observations": [{"variable": "claimed_absence", "value": "absent", "unit": "unknown", "missingness": "unknown", "time_status": "unknown"}],
+      "observations": [
+        {"variable": "claimed_absence", "value": "absent", "unit": "unknown", "missingness": "unknown", "time_status": "unknown"}
+      ],
       "boundary_flags": ["missingness_as_absence", "private_identifier_present"],
       "decision": "pass"
     }
