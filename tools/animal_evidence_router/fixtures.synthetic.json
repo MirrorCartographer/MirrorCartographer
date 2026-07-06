@@ -1,0 +1,72 @@
+[
+  {
+    "packet_id": "aer-pass-001",
+    "species_scope": "dog",
+    "research_question": "What non-diagnostic evidence variables help organize research on canine ocular pressure monitoring?",
+    "claim_text": "Repeated deidentified observations plus source-linked variables can support research organization without becoming veterinary advice.",
+    "claim_status": "hypothesis",
+    "source_status": "synthetic_fixture",
+    "evidence_refs": ["synthetic:canine-ocular-monitoring-variable-map"],
+    "measurable_variables": ["observation_frequency_bucket", "measurement_modality", "source_type", "clinical_review_needed"],
+    "missingness": ["no real patient data", "no clinical outcome validation"],
+    "privacy_status": "synthetic",
+    "forbidden_content_flags": ["none"],
+    "next_executable_action": "Create a public-safe source map template for canine ocular-pressure research variables."
+  },
+  {
+    "packet_id": "aer-privacy-001",
+    "species_scope": "cat",
+    "research_question": "Can this exact household timeline be organized into public animal-care memory?",
+    "claim_text": "Raw timeline copied from a household note should be retained for public collaboration.",
+    "claim_status": "needs_review",
+    "source_status": "unknown",
+    "evidence_refs": [],
+    "measurable_variables": ["symptom_text"],
+    "missingness": ["source references absent"],
+    "privacy_status": "private_risk",
+    "forbidden_content_flags": ["private_identifier", "exact_timestamp", "raw_transcript"],
+    "next_executable_action": "Redact into species-level variables and remove raw private residue before routing."
+  },
+  {
+    "packet_id": "aer-overclaim-001",
+    "species_scope": "dog",
+    "research_question": "Can a supplement cure a murmur?",
+    "claim_text": "This intervention cures canine heart murmurs.",
+    "claim_status": "association",
+    "source_status": "unknown",
+    "evidence_refs": ["synthetic:unsupported-claim"],
+    "measurable_variables": ["murmur_grade"],
+    "missingness": ["no controlled evidence", "no veterinary diagnosis boundary"],
+    "privacy_status": "public_safe",
+    "forbidden_content_flags": ["cure_claim", "treatment_instruction"],
+    "next_executable_action": "Reject as overclaim and rewrite as a source-seeking research question."
+  },
+  {
+    "packet_id": "aer-more-evidence-001",
+    "species_scope": "multi_species",
+    "research_question": "What variables should be tracked for multi-pet skin observations?",
+    "claim_text": "A species-separated variable schema may improve evidence organization.",
+    "claim_status": "hypothesis",
+    "source_status": "synthetic_fixture",
+    "evidence_refs": [],
+    "measurable_variables": ["species", "lesion_location"],
+    "missingness": ["no source map", "variables incomplete"],
+    "privacy_status": "synthetic",
+    "forbidden_content_flags": ["none"],
+    "next_executable_action": "Add at least one source placeholder and minimum variable set before organizing evidence."
+  },
+  {
+    "packet_id": "aer-vet-review-001",
+    "species_scope": "cat",
+    "research_question": "How should clinical red-flag language be routed in public animal research memory?",
+    "claim_text": "Potentially urgent clinical patterns should be flagged for veterinary review rather than converted into user instructions.",
+    "claim_status": "protocol_candidate",
+    "source_status": "synthetic_fixture",
+    "evidence_refs": ["synthetic:veterinary-review-boundary"],
+    "measurable_variables": ["red_flag_language_present", "species", "review_boundary"],
+    "missingness": ["no clinical validation"],
+    "privacy_status": "public_safe",
+    "forbidden_content_flags": ["treatment_instruction"],
+    "next_executable_action": "Route to veterinary-review queue and require source-backed public language."
+  }
+]
