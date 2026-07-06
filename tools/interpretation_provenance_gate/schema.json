@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Interpretation Provenance Packet",
+  "type": "object",
+  "required": [
+    "packet_id",
+    "research_context",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "observations",
+    "derivation_chain",
+    "interpretation_layers",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "research_context": {"type": "string", "minLength": 20},
+    "source_status": {"type": "string", "enum": ["primary", "institutional", "preprint", "benchmark", "open_source", "synthetic", "mixed"]},
+    "claim_status": {"type": "string", "enum": ["observation", "hypothesis", "evaluation_criterion", "prototype_requirement", "collaborator_target", "not_medical_or_veterinary_advice"]},
+    "privacy_status": {"type": "string", "enum": ["public_safe_synthetic", "deidentified_research", "private_local_only", "restricted", "unknown_reject"]},
+    "missingness": {
+      "type": "object",
+      "required": ["timestamp_missing", "modality_missing", "source_gap", "interpretation_gap"],
+      "properties": {
+        "timestamp_missing": {"type": "boolean"},
+        "modality_missing": {"type": "boolean"},
+        "source_gap": {"type": "string", "minLength": 3},
+        "interpretation_gap": {"type": "string", "minLength": 3}
+      },
+      "additionalProperties": false
+    },
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["observation_id", "modality", "raw_or_derived", "value_summary", "timestamp_status", "data_rights_status"],
+        "properties": {
+          "observation_id": {"type": "string"},
+          "modality": {"type": "string", "minLength": 3},
+          "raw_or_derived": {"type": "string", "enum": ["raw", "derived", "model_output", "literature_prior", "human_interpretation"]},
+          "value_summary": {"type": "string", "minLength": 5},
+          "timestamp_status": {"type": "string", "enum": ["exact", "relative", "interval", "missing"]},
+          "data_rights_status": {"type": "string", "enum": ["public", "synthetic", "deidentified", "restricted", "private_local_only", "unknown"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "derivation_chain": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["step", "input_ids", "operation", "output_claim", "uncertainty"],
+        "properties": {
+          "step": {"type": "integer", "minimum": 1},
+          "input_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "operation": {"type": "string", "minLength": 5},
+          "output_claim": {"type": "string", "minLength": 10},
+          "uncertainty": {"type": "string", "minLength": 5}
+        },
+        "additionalProperties": false
+      }
+    },
+    "interpretation_layers": {
+      "type": "object",
+      "required": ["measurement_layer", "model_layer", "literature_layer", "human_sensemaking_layer", "action_implication_layer"],
+      "properties": {
+        "measurement_layer": {"type": "string", "minLength": 10},
+        "model_layer": {"type": "string", "minLength": 10},
+        "literature_layer": {"type": "string", "minLength": 10},
+        "human_sensemaking_layer": {"type": "string", "minLength": 10},
+        "action_implication_layer": {"type": "string", "minLength": 10}
+      },
+      "additionalProperties": false
+    },
+    "revision_reason": {"type": "string", "minLength": 15},
+    "implementation_status": {"type": "string", "enum": ["schema_only", "prototype", "tested", "ci_wired", "deprecated"]},
+    "evidence_strength": {"type": "string", "enum": ["low", "moderate", "strong"]},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  },
+  "additionalProperties": false
+}
