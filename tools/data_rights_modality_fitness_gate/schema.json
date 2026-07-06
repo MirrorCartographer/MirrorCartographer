@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/data-rights-modality-fitness-gate.schema.json",
+  "title": "Data Rights Modality Fitness Gate Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "data_rights_status",
+    "modality_map",
+    "task_fit",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 3},
+    "source_status": {
+      "type": "string",
+      "enum": ["primary", "institutional", "preprint", "benchmark", "open_source", "synthetic", "mixed"]
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": ["research_organization", "infrastructure_hypothesis", "evaluation_criterion", "prototype_requirement", "collaborator_target", "rejected_advice_like"]
+    },
+    "privacy_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["raw_sensitive_data_present", "deidentification_level", "reuse_boundary"],
+      "properties": {
+        "raw_sensitive_data_present": {"type": "boolean"},
+        "deidentification_level": {"type": "string", "enum": ["none", "synthetic_only", "deidentified", "aggregate", "local_only", "unknown"]},
+        "reuse_boundary": {"type": "string", "enum": ["public_safe", "internal_only", "collaborator_review", "do_not_store"]}
+      }
+    },
+    "data_rights_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["license_or_terms", "consent_scope", "redistribution_allowed", "commercial_use_allowed", "animal_or_human_subject_boundary"],
+      "properties": {
+        "license_or_terms": {"type": "string", "minLength": 3},
+        "consent_scope": {"type": "string", "enum": ["explicit_research", "clinical_care_only", "public_dataset", "synthetic", "unknown"]},
+        "redistribution_allowed": {"type": "string", "enum": ["yes", "no", "unknown", "not_applicable"]},
+        "commercial_use_allowed": {"type": "string", "enum": ["yes", "no", "unknown", "not_applicable"]},
+        "animal_or_human_subject_boundary": {"type": "string", "enum": ["human", "animal", "both", "none", "unknown"]}
+      }
+    },
+    "modality_map": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["modality", "observed_signal", "durable_endpoint", "known_failure_modes"],
+        "properties": {
+          "modality": {"type": "string", "enum": ["ehr", "free_text", "image", "video", "audio", "wearable", "omics", "lab", "behavior", "environment", "survey", "multimodal"]},
+          "observed_signal": {"type": "string", "minLength": 3},
+          "durable_endpoint": {"type": "string", "minLength": 3},
+          "known_failure_modes": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+        }
+      }
+    },
+    "task_fit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["intended_task", "fit_level", "why_this_modality_is_sufficient_or_not", "human_review_required"],
+      "properties": {
+        "intended_task": {"type": "string", "minLength": 3},
+        "fit_level": {"type": "string", "enum": ["fit", "partially_fit", "not_fit", "unknown"]},
+        "why_this_modality_is_sufficient_or_not": {"type": "string", "minLength": 10},
+        "human_review_required": {"type": "boolean"}
+      }
+    },
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["missing_modalities", "missing_time_windows", "missing_rights_or_consent", "impact_on_claim"],
+      "properties": {
+        "missing_modalities": {"type": "array", "items": {"type": "string"}},
+        "missing_time_windows": {"type": "array", "items": {"type": "string"}},
+        "missing_rights_or_consent": {"type": "array", "items": {"type": "string"}},
+        "impact_on_claim": {"type": "string", "enum": ["blocks_promotion", "downgrades_strength", "requires_review", "no_material_gap"]}
+      }
+    },
+    "revision_reason": {"type": "string", "minLength": 10},
+    "implementation_status": {"type": "string", "enum": ["draft", "implemented", "tested", "wired_into_ci", "rejected"]},
+    "evidence_strength": {"type": "string", "enum": ["weak", "moderate", "strong", "unknown"]},
+    "falsification_route": {"type": "string", "minLength": 10},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  }
+}
