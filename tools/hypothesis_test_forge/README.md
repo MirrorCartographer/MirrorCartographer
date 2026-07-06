@@ -49,4 +49,12 @@ Run:
 
 Tests whether animal-care observations can be organized into veterinarian-facing question-prep evidence maps while rejecting diagnosis, treatment, cure claims, dosage guidance, emergency triage, unsupported causality, private identifiers, and missingness-as-absence.
 
+### Scientific reasoning falsification checklist
+
+Artifact:
+
+`tools/hypothesis_test_forge/scientific_reasoning_falsification_checklist.json`
+
+Tests whether MC-style hypothesis packets become more scientifically useful when every inference is paired with measurable variables, explicit disconfirmation routes, source boundaries, missingness handling, and claim-strength calibration before promotion into memory, public research, or action planning.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
