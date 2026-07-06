@@ -1,0 +1,103 @@
+[
+  {
+    "name": "valid_public_safe_research_packet",
+    "expect_valid": true,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "mc-prov-valid-public-safe-001",
+      "created_at_utc": "2026-07-06T03:49:00Z",
+      "claim_text": "A discovery-memory packet is safer when provenance, privacy boundary, measurable variables, and falsification route are captured before backlog admission.",
+      "domain": "cure_discovery_infrastructure",
+      "source_status": "synthetic",
+      "claim_status": "testable",
+      "privacy_status": "public_safe",
+      "missingness": ["No external evidence source attached yet", "No downstream CI integration yet"],
+      "revision_reason": "Create a minimal provenance unit for routing claims through MC evidence gates.",
+      "implementation_status": "implemented",
+      "testability": "executable",
+      "evidence_boundaries": {
+        "allowed_uses": ["research organization", "hypothesis backlog routing", "falsification planning"],
+        "blocked_uses": ["diagnosis", "treatment recommendation", "veterinary advice", "private memory storage"],
+        "advice_boundary": "research_organization_only"
+      },
+      "measurable_variables": [
+        {
+          "name": "required_label_completion_rate",
+          "operational_definition": "Fraction of required provenance labels present and non-empty before packet admission.",
+          "measurement_type": "continuous"
+        },
+        {
+          "name": "blocked_use_count",
+          "operational_definition": "Number of explicitly blocked use categories recorded in the evidence boundary.",
+          "measurement_type": "count"
+        }
+      ],
+      "falsification_route": "If packets with missing provenance labels or private-use leakage pass validation, the schema and validator are insufficient.",
+      "next_executable_action": "Run the validator on synthetic fixtures and add it to the ingestion path."
+    }
+  },
+  {
+    "name": "invalid_private_memory_packet",
+    "expect_valid": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "mc-prov-private-should-fail-001",
+      "created_at_utc": "2026-07-06T03:49:00Z",
+      "claim_text": "This packet should fail because it asks to store private personal detail in discovery memory.",
+      "domain": "privacy_preserving_longitudinal_memory",
+      "source_status": "synthetic",
+      "claim_status": "hypothesis",
+      "privacy_status": "private_reject",
+      "missingness": ["Public-safe abstraction missing"],
+      "revision_reason": "Fixture for privacy rejection behavior.",
+      "implementation_status": "implemented",
+      "testability": "executable",
+      "evidence_boundaries": {
+        "allowed_uses": ["none"],
+        "blocked_uses": ["private memory storage"],
+        "advice_boundary": "research_organization_only"
+      },
+      "measurable_variables": [
+        {
+          "name": "privacy_leak_flag",
+          "operational_definition": "Binary flag indicating whether the packet attempts to retain private or identifying content.",
+          "measurement_type": "binary"
+        }
+      ],
+      "falsification_route": "If this packet passes admission, the privacy gate is not strict enough.",
+      "next_executable_action": "Reject and request a public-safe abstraction."
+    }
+  },
+  {
+    "name": "invalid_missing_falsification_route",
+    "expect_valid": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "mc-prov-no-falsification-001",
+      "created_at_utc": "2026-07-06T03:49:00Z",
+      "claim_text": "This packet should fail because the falsification route is too vague for scientific routing.",
+      "domain": "scientific_reasoning",
+      "source_status": "synthetic",
+      "claim_status": "testable",
+      "privacy_status": "public_safe",
+      "missingness": ["Falsification details missing"],
+      "revision_reason": "Fixture for falsification strictness.",
+      "implementation_status": "implemented",
+      "testability": "executable",
+      "evidence_boundaries": {
+        "allowed_uses": ["hypothesis tracking"],
+        "blocked_uses": ["claim promotion without evidence"],
+        "advice_boundary": "engineering_only"
+      },
+      "measurable_variables": [
+        {
+          "name": "falsification_specificity",
+          "operational_definition": "Text score for whether the falsification route identifies a concrete failure condition.",
+          "measurement_type": "text_score"
+        }
+      ],
+      "falsification_route": "Too vague.",
+      "next_executable_action": "Rewrite the falsification route."
+    }
+  }
+]
