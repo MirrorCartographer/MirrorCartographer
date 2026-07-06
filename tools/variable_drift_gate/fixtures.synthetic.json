@@ -1,0 +1,92 @@
+{
+  "pass_stable_variable": {
+    "packet_id": "vdg_pass_001",
+    "hypothesis_id": "hyp_variable_drift_001",
+    "claim": "Longitudinal MC pattern tracking is more reliable when repeated symbolic phrases preserve stable operational definitions across time.",
+    "source_status": "synthetic_fixture",
+    "claim_status": "operational_test",
+    "privacy_status": "public_safe",
+    "revision_reason": "Adds a guard against silently comparing different constructs under the same symbolic label.",
+    "tracked_variable": {
+      "name": "visual_focus_effort",
+      "symbolic_phrase": "eye feels heavy",
+      "unit": "ordinal_0_to_4",
+      "measurement_method": "daily self-rating prompt with fixed anchor text"
+    },
+    "baseline_definition": "Effort required to maintain comfortable visual focus during a fixed reading task, rated 0 to 4.",
+    "current_definition": "Effort required to maintain comfortable visual focus during a fixed reading task, rated 0 to 4.",
+    "timepoints": [
+      {"t": "2026-07-01T12:00:00Z", "definition": "Fixed reading task effort rating 0 to 4", "observed": true, "missingness_state": "observed"},
+      {"t": "2026-07-02T12:00:00Z", "definition": "Fixed reading task effort rating 0 to 4", "observed": true, "missingness_state": "observed"}
+    ],
+    "allowed_drift": {
+      "semantic_change_allowed": false,
+      "unit_change_allowed": false,
+      "method_change_allowed": false,
+      "requires_new_variable_if_exceeded": true
+    },
+    "missingness": "Both timepoints are observed and use the same definition, unit, and method.",
+    "falsification_route": "Fails if a changed definition, method, or unit is still scored as the same variable.",
+    "next_executable_action": "Run validator before longitudinal trend scoring."
+  },
+  "fail_semantic_drift": {
+    "packet_id": "vdg_fail_001",
+    "hypothesis_id": "hyp_variable_drift_001",
+    "claim": "A reused symbolic phrase can be longitudinally compared even when its operational meaning changes.",
+    "source_status": "synthetic_fixture",
+    "claim_status": "hypothesis",
+    "privacy_status": "public_safe",
+    "revision_reason": "Negative fixture proves that semantic drift must force review or variable split.",
+    "tracked_variable": {
+      "name": "body_heaviness",
+      "symbolic_phrase": "body feels heavy",
+      "unit": "ordinal_0_to_4",
+      "measurement_method": "daily self-rating prompt"
+    },
+    "baseline_definition": "Perceived effort to initiate movement after rest, rated 0 to 4.",
+    "current_definition": "Emotional exhaustion after interpersonal stress, rated 0 to 4.",
+    "timepoints": [
+      {"t": "2026-07-01T12:00:00Z", "definition": "Movement initiation effort after rest", "observed": true, "missingness_state": "observed"},
+      {"t": "2026-07-02T12:00:00Z", "definition": "Emotional exhaustion after interpersonal stress", "observed": true, "missingness_state": "observed"}
+    ],
+    "allowed_drift": {
+      "semantic_change_allowed": false,
+      "unit_change_allowed": false,
+      "method_change_allowed": false,
+      "requires_new_variable_if_exceeded": true
+    },
+    "missingness": "No missing values, but construct meaning changed across timepoints.",
+    "falsification_route": "Validator must reject this packet or require a new variable identity.",
+    "next_executable_action": "Split into separate variables before scoring."
+  },
+  "fail_private_packet": {
+    "packet_id": "vdg_fail_002",
+    "hypothesis_id": "hyp_variable_drift_001",
+    "claim": "Private longitudinal packets can enter public-safe discovery memory if their variable labels are generic.",
+    "source_status": "synthetic_fixture",
+    "claim_status": "hypothesis",
+    "privacy_status": "private_rejected",
+    "revision_reason": "Negative fixture proves privacy status overrides otherwise valid structure.",
+    "tracked_variable": {
+      "name": "private_identifier_signal",
+      "symbolic_phrase": "private named event",
+      "unit": "count",
+      "measurement_method": "private diary extraction"
+    },
+    "baseline_definition": "Private named event count extracted from personal diary entries.",
+    "current_definition": "Private named event count extracted from personal diary entries.",
+    "timepoints": [
+      {"t": "2026-07-01T12:00:00Z", "definition": "Private named event count", "observed": true, "missingness_state": "observed"},
+      {"t": "2026-07-02T12:00:00Z", "definition": "Private named event count", "observed": true, "missingness_state": "observed"}
+    ],
+    "allowed_drift": {
+      "semantic_change_allowed": false,
+      "unit_change_allowed": false,
+      "method_change_allowed": false,
+      "requires_new_variable_if_exceeded": true
+    },
+    "missingness": "Observed but privacy rejected for public memory.",
+    "falsification_route": "Validator must reject any private_rejected packet.",
+    "next_executable_action": "Deidentify or keep out of public-safe memory."
+  }
+}
