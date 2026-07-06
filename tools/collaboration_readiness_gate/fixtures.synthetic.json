@@ -1,0 +1,92 @@
+{
+  "valid_packets": [
+    {
+      "packet_id": "crg_public_benchmark_lab_001",
+      "target_type": "research_lab",
+      "target_name_public": "Public reproducibility or benchmark-focused collaborator",
+      "source_status": "public",
+      "claim_status": "hypothesis_only",
+      "privacy_status": "public_safe",
+      "evidence_basis": [
+        "Synthetic benchmark fixture",
+        "Public schema path",
+        "Executable validator path"
+      ],
+      "artifact_paths": [
+        "tools/evidence_crosswalk/validate_crosswalk_records.py",
+        "tools/progressive_disclosure_gate/score_progressive_disclosure.py"
+      ],
+      "collaboration_fit": "Evaluate whether MC evidence gates can reduce unsupported claim promotion in hypothesis-generation workflows.",
+      "requested_contribution": "Review scoring criteria and propose a blinded benchmark protocol.",
+      "missingness": [
+        "No external reviewer labels yet.",
+        "No real public literature benchmark has been attached."
+      ],
+      "falsification_route": "Reject the outreach target if the collaborator cannot evaluate any artifact without private context or if the packet cannot define a measurable benchmark.",
+      "next_executable_action": "Create a one-page public packet linking schema, fixtures, and test command.",
+      "medical_or_veterinary_boundary": "Research infrastructure only; no diagnosis, treatment, or animal-care advice."
+    }
+  ],
+  "invalid_packets": [
+    {
+      "name": "private_identifier_leak",
+      "expected_error_contains": "private identifier",
+      "packet": {
+        "packet_id": "crg_private_leak_001",
+        "target_type": "research_lab",
+        "target_name_public": "Public collaborator",
+        "source_status": "public",
+        "claim_status": "hypothesis_only",
+        "privacy_status": "public_safe",
+        "evidence_basis": ["email user@example.com should fail"],
+        "artifact_paths": ["tools/example.py"],
+        "collaboration_fit": "Evaluate a benchmark.",
+        "requested_contribution": "Review the scoring method.",
+        "missingness": ["Synthetic only."],
+        "falsification_route": "Reject if private identifiers are present.",
+        "next_executable_action": "Remove private identifiers.",
+        "medical_or_veterinary_boundary": "Research infrastructure only."
+      }
+    },
+    {
+      "name": "missing_artifact_path",
+      "expected_error_contains": "artifact_paths",
+      "packet": {
+        "packet_id": "crg_missing_artifact_001",
+        "target_type": "grant_program",
+        "target_name_public": "Public opportunity",
+        "source_status": "public",
+        "claim_status": "hypothesis_only",
+        "privacy_status": "public_safe",
+        "evidence_basis": ["Synthetic source map"],
+        "artifact_paths": [],
+        "collaboration_fit": "Evaluate a discovery infrastructure proposal.",
+        "requested_contribution": "Assess prototype requirements.",
+        "missingness": ["No artifact path supplied."],
+        "falsification_route": "Reject if no executable artifact is available.",
+        "next_executable_action": "Add artifact path.",
+        "medical_or_veterinary_boundary": "Research infrastructure only."
+      }
+    },
+    {
+      "name": "advice_leak",
+      "expected_error_contains": "advice leakage",
+      "packet": {
+        "packet_id": "crg_advice_leak_001",
+        "target_type": "clinical_research_group",
+        "target_name_public": "Public clinical research collaborator",
+        "source_status": "public",
+        "claim_status": "hypothesis_only",
+        "privacy_status": "public_safe",
+        "evidence_basis": ["Synthetic animal-care map"],
+        "artifact_paths": ["tools/animal_care_question_map/example_schema.json"],
+        "collaboration_fit": "Review research organization fields.",
+        "requested_contribution": "Suggest question-prep evidence categories.",
+        "missingness": ["No clinician review."],
+        "falsification_route": "Reject if research organization becomes advice.",
+        "next_executable_action": "Rewrite into evidence-map language.",
+        "medical_or_veterinary_boundary": "This should diagnose and treat the condition."
+      }
+    }
+  ]
+}
