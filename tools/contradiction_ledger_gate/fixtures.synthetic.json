@@ -1,0 +1,134 @@
+[
+  {
+    "name": "pass_direct_disconfirmation_public_safe",
+    "should_pass": true,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "clg_pass_direct_disconfirmation_001",
+      "hypothesis_id": "hyp_signal_latency_001",
+      "hypothesis_claim": "A candidate signal should improve when the declared context switch is present and should weaken when the switch is absent.",
+      "contradiction_type": "direct_disconfirmation",
+      "source_status": "synthetic",
+      "claim_status": "downgraded",
+      "privacy_status": "synthetic_only",
+      "missingness": {
+        "state": "observed",
+        "interpretation_allowed": true,
+        "notes": "Synthetic result intentionally contradicts the expected direction."
+      },
+      "evidence_boundary": {
+        "allowed_use": "Use only to test contradiction-ledger routing and downgrade behavior.",
+        "forbidden_use": "Do not treat this fixture as medical, veterinary, or personal evidence."
+      },
+      "measurable_variables": [
+        {
+          "name": "signal_delta",
+          "measurement": "Difference between expected signal score and observed signal score after context switch.",
+          "unit_or_scale": "normalized_delta"
+        }
+      ],
+      "expected_result": "The context-present condition should produce a higher signal score than the context-absent condition.",
+      "observed_result": "The context-present condition produced a lower signal score than the context-absent condition.",
+      "revision_reason": "The expected direction failed in a controlled synthetic fixture and must be downgraded before promotion.",
+      "falsification_route": "Repeat the same variable definition across independent synthetic fixtures; reject the hypothesis if the expected direction repeatedly fails.",
+      "next_executable_action": "Route this packet to the contradiction ledger and require a revised hypothesis before retesting."
+    }
+  },
+  {
+    "name": "pass_missingness_reinterpretation",
+    "should_pass": true,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "clg_pass_missingness_reinterpretation_001",
+      "hypothesis_id": "hyp_longitudinal_absence_001",
+      "hypothesis_claim": "A missing observation should never be interpreted as symptom absence unless the collection state is explicitly observed.",
+      "contradiction_type": "missingness_reinterpretation",
+      "source_status": "synthetic",
+      "claim_status": "requires_revision",
+      "privacy_status": "synthetic_only",
+      "missingness": {
+        "state": "not_collected",
+        "interpretation_allowed": false,
+        "notes": "The fixture tests that not-collected data is not converted into absence."
+      },
+      "evidence_boundary": {
+        "allowed_use": "Use to verify missingness semantics in longitudinal pattern infrastructure.",
+        "forbidden_use": "Do not infer health status, treatment response, or animal-care status from this fixture."
+      },
+      "measurable_variables": [
+        {
+          "name": "observed_fraction",
+          "measurement": "Fraction of expected timepoints with explicitly observed values.",
+          "unit_or_scale": "0_to_1"
+        }
+      ],
+      "expected_result": "The validator should block absence claims when the observation state is not_collected.",
+      "observed_result": "The packet contains no observed value and is marked interpretation_allowed false.",
+      "revision_reason": "The hypothesis must preserve unknown and not-collected states as separate from absence.",
+      "falsification_route": "Inject not_collected, redacted, and unknown states into trend scoring and verify none are counted as negative observations.",
+      "next_executable_action": "Add this fixture to the longitudinal scorer regression suite."
+    }
+  },
+  {
+    "name": "fail_private_content",
+    "should_pass": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "clg_fail_private_content_001",
+      "hypothesis_id": "hyp_private_001",
+      "hypothesis_claim": "A private household observation proves a general biological mechanism without deidentification or source boundary.",
+      "contradiction_type": "boundary_violation",
+      "source_status": "synthetic",
+      "claim_status": "requires_revision",
+      "privacy_status": "reject_private_content",
+      "missingness": {
+        "state": "observed",
+        "interpretation_allowed": true
+      },
+      "evidence_boundary": {
+        "allowed_use": "Use as an intentionally invalid privacy-boundary fixture.",
+        "forbidden_use": "Do not promote private identifiers or personal observations into public memory."
+      },
+      "measurable_variables": [
+        {
+          "name": "private_identifier_count",
+          "measurement": "Count of private identifiers detected in packet text.",
+          "unit_or_scale": "count"
+        }
+      ],
+      "expected_result": "Private content should be rejected from public-safe contradiction memory.",
+      "observed_result": "The packet declares reject_private_content and must fail validation.",
+      "revision_reason": "Privacy boundary failed.",
+      "falsification_route": "Any packet marked reject_private_content must fail before storage.",
+      "next_executable_action": "Strip private content and replace with synthetic abstraction before retry."
+    }
+  },
+  {
+    "name": "fail_missing_measurable_variables",
+    "should_pass": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "clg_fail_no_variables_001",
+      "hypothesis_id": "hyp_unmeasured_001",
+      "hypothesis_claim": "A contradiction can be stored without measurable variables because the narrative feels wrong.",
+      "contradiction_type": "mechanism_mismatch",
+      "source_status": "synthetic",
+      "claim_status": "requires_revision",
+      "privacy_status": "synthetic_only",
+      "missingness": {
+        "state": "observed",
+        "interpretation_allowed": true
+      },
+      "evidence_boundary": {
+        "allowed_use": "Use as an invalid fixture for measurability enforcement.",
+        "forbidden_use": "Do not store narrative-only contradictions as discovery evidence."
+      },
+      "measurable_variables": [],
+      "expected_result": "A measurable variable should exist.",
+      "observed_result": "No measurable variable was supplied.",
+      "revision_reason": "Contradiction lacks measurable structure.",
+      "falsification_route": "The schema and validator should reject records with empty variable arrays.",
+      "next_executable_action": "Add at least one measurable variable before retesting."
+    }
+  }
+]
