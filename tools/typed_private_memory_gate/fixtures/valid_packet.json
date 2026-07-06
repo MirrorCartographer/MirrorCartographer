@@ -1,0 +1,65 @@
+{
+  "packet_id": "typed-private-memory-valid-001",
+  "source_status": "synthetic_fixture",
+  "claim_status": "research_organization",
+  "privacy_status": "typed_placeholder_only",
+  "missingness": "No real user, patient, animal, clinical, or veterinary record is included; this is a synthetic infrastructure packet.",
+  "revision_reason": "Frontier memory research suggests static masking can destroy utility, while unfiltered memory can leak private context across tasks.",
+  "implementation_status": "tests_ready",
+  "evidence_strength": "moderate",
+  "falsification_route": "Reject this gate if typed placeholders do not reduce leakage or if they materially degrade retrieval utility against curator-scored packets.",
+  "next_executable_action": "Run the validator and add this gate before reusable discovery-memory writes.",
+  "memory_candidate": {
+    "raw_memory_present": false,
+    "sanitized_memory": "Longitudinal observation from <SUBJECT_ROLE:ANIMAL_COMPANION> showed <SIGNAL:BEHAVIOR_CHANGE> after <EXPOSURE:TRAVEL_CONTEXT>; retain only as research-organization context, not advice.",
+    "domain": "animal_health",
+    "intended_use": "Organize future research questions about longitudinal animal-health observations without storing raw identifying details.",
+    "retention_reason": "The abstract pattern links exposure, time, and signal while excluding direct identifiers and treatment instructions."
+  },
+  "sensitive_span_policy": {
+    "detected_span_types": ["subject_role", "health_signal", "exposure_context"],
+    "blocked_span_types": ["name", "address", "exact_date", "medical_record_number", "phone", "email"],
+    "allowed_placeholder_types": ["SUBJECT_ROLE", "SIGNAL", "EXPOSURE"],
+    "policy_level": "strict"
+  },
+  "typed_placeholders": [
+    {
+      "placeholder": "<SUBJECT_ROLE:ANIMAL_COMPANION>",
+      "span_type": "subject_role",
+      "semantic_role": "who the observation concerns without identity",
+      "restoration_location": "local_only"
+    },
+    {
+      "placeholder": "<SIGNAL:BEHAVIOR_CHANGE>",
+      "span_type": "health_signal",
+      "semantic_role": "observable longitudinal signal",
+      "restoration_location": "user_supplied_runtime"
+    },
+    {
+      "placeholder": "<EXPOSURE:TRAVEL_CONTEXT>",
+      "span_type": "exposure_context",
+      "semantic_role": "contextual variable for later hypothesis testing",
+      "restoration_location": "not_stored"
+    }
+  ],
+  "semantic_utility_plan": {
+    "utility_preserved": ["domain", "temporal relation", "exposure-to-signal structure", "research-only boundary"],
+    "utility_risk": "Over-general placeholders could remove clinically relevant detail if no local restoration path exists.",
+    "measurement": "Compare curator-rated utility and leakage rate against raw memory, full masking, and typed-placeholder packets."
+  },
+  "local_restoration_boundary": {
+    "cloud_can_restore": false,
+    "local_restore_required": true,
+    "restoration_audit_required": true
+  },
+  "retrieval_gate": {
+    "query_conditioned": true,
+    "cross_domain_leakage_check": true,
+    "tool_action_check": true,
+    "admission_decision": "admit"
+  },
+  "audit_trace": [
+    "synthetic fixture generated for typed private memory gate",
+    "contains no raw personal, medical, veterinary, or account data"
+  ]
+}
