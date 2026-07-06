@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.local/schemas/question_prep_packet_schema.json",
+  "title": "MC Question Prep Boundary Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_id",
+    "domain",
+    "claim",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "testability",
+    "falsification_route",
+    "measurable_variables",
+    "evidence_boundary",
+    "questions",
+    "prohibited_outputs"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "packet_id": {"type": "string", "pattern": "^qprep_[a-z0-9_\\-]+$"},
+    "domain": {"enum": ["medical_ai_evidence_organization", "animal_care_evidence_organization", "scientific_reasoning", "human_ai_sensemaking", "privacy_preserving_longitudinal_data"]},
+    "claim": {"type": "string", "minLength": 20},
+    "source_status": {"enum": ["synthetic", "primary_source_mapped", "institutional_source_mapped", "literature_grounded", "unknown"]},
+    "claim_status": {"enum": ["hypothesis", "test_fixture", "validated_in_synthetic", "rejected", "needs_review"]},
+    "privacy_status": {"enum": ["public_safe_synthetic", "public_safe_deidentified", "reject_private_or_identifying"]},
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "known_missing_fields", "absence_interpretation_allowed"],
+      "properties": {
+        "state": {"enum": ["complete_for_synthetic_test", "partial", "unknown", "redacted"]},
+        "known_missing_fields": {"type": "array", "items": {"type": "string"}},
+        "absence_interpretation_allowed": {"type": "boolean"}
+      }
+    },
+    "revision_reason": {"type": "string", "minLength": 12},
+    "implementation_status": {"enum": ["schema_only", "fixture", "validator", "regression_tested"]},
+    "testability": {"enum": ["executable", "semi_executable", "not_testable"]},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "measurement_type", "allowed_missingness"],
+        "properties": {
+          "name": {"type": "string", "minLength": 2},
+          "measurement_type": {"enum": ["count", "boolean", "duration", "ordinal", "categorical", "free_text_bounded"]},
+          "allowed_missingness": {"enum": ["observed", "unknown", "not_applicable", "redacted"]}
+        }
+      }
+    },
+    "evidence_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowed_use", "forbidden_use", "requires_professional_review"],
+      "properties": {
+        "allowed_use": {"type": "array", "minItems": 1, "items": {"enum": ["organize_questions", "track_source_status", "track_missingness", "prepare_research_review", "compare_evidence_packets"]}},
+        "forbidden_use": {"type": "array", "minItems": 1, "items": {"enum": ["diagnosis", "treatment", "medication_change", "urgent_triage", "replace_professional_judgment"]}},
+        "requires_professional_review": {"type": "boolean"}
+      }
+    },
+    "questions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["question", "purpose", "linked_variable"],
+        "properties": {
+          "question": {"type": "string", "minLength": 12},
+          "purpose": {"enum": ["clarify_missingness", "identify_measurement", "separate_observation_from_inference", "ask_about_source_quality", "prepare_next_research_step"]},
+          "linked_variable": {"type": "string", "minLength": 2}
+        }
+      }
+    },
+    "prohibited_outputs": {
+      "type": "array",
+      "minItems": 3,
+      "items": {"enum": ["diagnosis", "treatment_plan", "dosage", "emergency_instruction", "certainty_claim", "private_identifier"]}
+    }
+  }
+}
