@@ -1,0 +1,100 @@
+{
+  "fixtures": [
+    {
+      "name": "pass_public_open_ended_dataset_task",
+      "expected": "pass",
+      "packet": {
+        "packet_id": "open-task-001",
+        "task_claim": "A candidate discovery task should be admitted only when it decomposes an open-ended question into measurable variables, exploratory steps, validation, and falsification.",
+        "task_kind": "dataset_exploration",
+        "source_status": "public_frontier_scan",
+        "claim_status": "infrastructure_hypothesis",
+        "privacy_status": "public_safe",
+        "dataset_boundary": {
+          "data_type": "public synthetic longitudinal event table",
+          "access_level": "synthetic",
+          "raw_private_data_allowed": false,
+          "temporal_split_required": true
+        },
+        "measurable_variables": [
+          {"name": "hypothesis_count", "measurement_method": "count atomic hypotheses generated from one task packet", "success_direction": "bounded"},
+          {"name": "unsupported_promotion_rate", "measurement_method": "fraction of promoted claims lacking validation evidence", "success_direction": "decrease"}
+        ],
+        "hypothesis_decomposition": [
+          "Separate the open-ended task into candidate mechanisms rather than a single answer.",
+          "Map each mechanism to at least one measurable variable and one failure condition."
+        ],
+        "exploratory_steps": [
+          "Generate a public-safe synthetic table with timestamped observations and source labels.",
+          "Run the task through the validation plan before any discovery-memory promotion."
+        ],
+        "validation_plan": "Accept the task only if variables, exploratory steps, temporal boundary, and falsification route are all present and privacy-safe.",
+        "falsification_route": "Reject or revise this gate if open-ended scientific tasks can be promoted safely without decomposition, measurable variables, and validation boundaries.",
+        "missingness": ["No real-world dataset attached", "No collaborator review yet"],
+        "revision_reason": "Frontier scientific AI benchmarks increasingly test workflow realism and open-ended exploratory reasoning rather than answer correctness alone.",
+        "implementation_status": "implemented",
+        "next_executable_action": "Run validator against all synthetic fixtures and wire gate before discovery-memory admission."
+      }
+    },
+    {
+      "name": "fail_private_raw_data_allowed",
+      "expected": "fail",
+      "packet": {
+        "packet_id": "open-task-002",
+        "task_claim": "A task packet can use raw private longitudinal traces for exploratory discovery.",
+        "task_kind": "dataset_exploration",
+        "source_status": "synthetic",
+        "claim_status": "needs_review",
+        "privacy_status": "blocked_private",
+        "dataset_boundary": {
+          "data_type": "private raw event stream",
+          "access_level": "restricted",
+          "raw_private_data_allowed": true,
+          "temporal_split_required": false
+        },
+        "measurable_variables": [
+          {"name": "signal", "measurement_method": "manual inspection", "success_direction": "presence"},
+          {"name": "fit", "measurement_method": "subjective fit", "success_direction": "increase"}
+        ],
+        "hypothesis_decomposition": ["Look for patterns in private data.", "Decide whether it feels meaningful."],
+        "exploratory_steps": ["Inspect raw traces.", "Promote likely patterns."],
+        "validation_plan": "Manual review only.",
+        "falsification_route": "None beyond disagreement.",
+        "missingness": [],
+        "revision_reason": "Negative fixture for privacy boundary enforcement.",
+        "implementation_status": "implemented",
+        "next_executable_action": "Reject this packet."
+      }
+    },
+    {
+      "name": "fail_missing_decomposition",
+      "expected": "fail",
+      "packet": {
+        "packet_id": "open-task-003",
+        "task_claim": "A generated answer should be accepted as a discovery task without decomposing its assumptions.",
+        "task_kind": "hypothesis_generation",
+        "source_status": "public_frontier_scan",
+        "claim_status": "infrastructure_hypothesis",
+        "privacy_status": "public_safe",
+        "dataset_boundary": {
+          "data_type": "public paper list",
+          "access_level": "public",
+          "raw_private_data_allowed": false,
+          "temporal_split_required": true
+        },
+        "measurable_variables": [
+          {"name": "answer_quality", "measurement_method": "single reviewer score", "success_direction": "increase"},
+          {"name": "citation_count", "measurement_method": "count cited sources", "success_direction": "increase"}
+        ],
+        "hypothesis_decomposition": [],
+        "exploratory_steps": ["Read sources.", "Write answer."],
+        "validation_plan": "Check whether answer sounds plausible.",
+        "falsification_route": "Reject if citations are obviously wrong.",
+        "missingness": ["No decomposition"],
+        "revision_reason": "Negative fixture for answer-versus-task boundary.",
+        "implementation_status": "implemented",
+        "next_executable_action": "Reject this packet until decomposition exists."
+      }
+    }
+  ]
+}
