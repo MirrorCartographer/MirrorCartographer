@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/collaboration_readiness_packet_schema.json",
+  "title": "MC Collaboration Readiness Packet",
+  "description": "Public-safe schema for deciding whether a generated discovery claim is ready for human collaborator review rather than merely plausible.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "claim",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "human_decision_needed",
+    "decision_options",
+    "measurable_variables",
+    "falsification_route",
+    "provenance_chain",
+    "uncertainty_summary",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 6},
+    "claim": {"type": "string", "minLength": 20},
+    "source_status": {"enum": ["primary_public", "preprint_public", "institutional_public", "benchmark_public", "synthetic_fixture", "mixed_public"]},
+    "claim_status": {"enum": ["hypothesis", "prototype_requirement", "evaluation_criterion", "contradiction", "inconclusive"]},
+    "privacy_status": {"enum": ["public_safe", "synthetic_only", "deidentified_public_safe"]},
+    "missingness": {"type": "array", "items": {"type": "string", "minLength": 3}, "minItems": 1},
+    "revision_reason": {"type": "string", "minLength": 10},
+    "implementation_status": {"enum": ["specified", "implemented", "validated", "blocked"]},
+    "evidence_strength": {"enum": ["low", "moderate", "high"]},
+    "human_decision_needed": {"type": "string", "minLength": 15},
+    "decision_options": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["option", "tradeoff", "acceptance_criterion"],
+        "properties": {
+          "option": {"type": "string", "minLength": 3},
+          "tradeoff": {"type": "string", "minLength": 8},
+          "acceptance_criterion": {"type": "string", "minLength": 8}
+        }
+      }
+    },
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "measurement", "target_direction"],
+        "properties": {
+          "name": {"type": "string", "minLength": 3},
+          "measurement": {"type": "string", "minLength": 8},
+          "target_direction": {"enum": ["increase", "decrease", "bounded", "detect"]}
+        }
+      }
+    },
+    "falsification_route": {"type": "string", "minLength": 20},
+    "provenance_chain": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["step", "artifact", "status"],
+        "properties": {
+          "step": {"type": "string", "minLength": 3},
+          "artifact": {"type": "string", "minLength": 3},
+          "status": {"enum": ["observed", "generated", "validated", "rejected", "missing"]}
+        }
+      }
+    },
+    "uncertainty_summary": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 15}
+  }
+}
