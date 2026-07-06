@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.local/schemas/agent_judgment_packet_schema.json",
+  "title": "Mirror Cartographer Agent Judgment Packet",
+  "description": "Public-safe packet for evaluating whether a scientific/medical-AI hypothesis or evidence packet makes research-grade judgment calls rather than unsupported recall.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "claim_text",
+    "domain",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "ambiguity_decisions",
+    "artifact_grounding",
+    "atomic_fact_checks",
+    "measurable_variables",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 6, "pattern": "^[a-z0-9][a-z0-9_.-]+$"},
+    "claim_text": {"type": "string", "minLength": 20},
+    "domain": {
+      "type": "string",
+      "enum": [
+        "cure_discovery_infrastructure",
+        "scientific_ai",
+        "medical_ai_evidence_organization",
+        "mechanistic_biology",
+        "neuroscience",
+        "longitudinal_health_data",
+        "animal_health_research_infrastructure",
+        "hci",
+        "privacy_preserving_memory",
+        "hypothesis_generation"
+      ]
+    },
+    "source_status": {"type": "string", "enum": ["primary", "preprint", "institutional", "benchmark", "dataset", "synthetic", "mixed"]},
+    "claim_status": {"type": "string", "enum": ["hypothesis", "testable_design_implication", "supported_infrastructure_pattern", "contradicted", "inconclusive"]},
+    "privacy_status": {"type": "string", "enum": ["public_safe", "synthetic_only", "deidentified", "reject_private"]},
+    "missingness": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "revision_reason": {"type": "string", "minLength": 15},
+    "implementation_status": {"type": "string", "enum": ["proposed", "implemented", "validated", "rejected"]},
+    "evidence_strength": {"type": "string", "enum": ["low", "moderate", "high"]},
+    "ambiguity_decisions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["decision", "alternatives_considered", "why_chosen", "uncertainty_remaining"],
+        "properties": {
+          "decision": {"type": "string", "minLength": 8},
+          "alternatives_considered": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "why_chosen": {"type": "string", "minLength": 12},
+          "uncertainty_remaining": {"type": "string", "minLength": 5}
+        }
+      }
+    },
+    "artifact_grounding": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact_type", "artifact_id", "used_for", "not_used_for"],
+        "properties": {
+          "artifact_type": {"type": "string", "enum": ["paper", "dataset", "benchmark", "code", "figure", "table", "protocol", "web_reference", "synthetic_fixture"]},
+          "artifact_id": {"type": "string", "minLength": 3},
+          "used_for": {"type": "string", "minLength": 10},
+          "not_used_for": {"type": "string", "minLength": 10}
+        }
+      }
+    },
+    "atomic_fact_checks": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fact", "support_status", "supporting_artifact_id", "contradiction_check"],
+        "properties": {
+          "fact": {"type": "string", "minLength": 8},
+          "support_status": {"type": "string", "enum": ["supported", "partial", "unsupported", "contradicted"]},
+          "supporting_artifact_id": {"type": "string", "minLength": 3},
+          "contradiction_check": {"type": "string", "minLength": 8}
+        }
+      }
+    },
+    "measurable_variables": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 3}},
+    "falsification_route": {"type": "string", "minLength": 25},
+    "next_executable_action": {"type": "string", "minLength": 15}
+  }
+}
