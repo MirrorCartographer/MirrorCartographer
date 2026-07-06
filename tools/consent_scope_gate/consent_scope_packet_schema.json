@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.local/schemas/consent_scope_packet_schema.json",
+  "title": "MC Consent Scope Gate Packet",
+  "description": "Validates that longitudinal research-organization records declare consent scope, privacy boundary, missingness handling, allowed use, and falsification route before storage or analysis.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "claim",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "consent_scope",
+    "allowed_routes",
+    "blocked_routes",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "testability",
+    "falsification_route",
+    "measurable_variables",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "pattern": "^mc-consent-scope-[a-z0-9-]+$"},
+    "claim": {"type": "string", "minLength": 20},
+    "source_status": {"enum": ["synthetic", "user_stated", "measured", "literature_derived", "assistant_inferred"]},
+    "claim_status": {"enum": ["hypothesis", "test_fixture", "validation_rule", "rejected", "needs_review"]},
+    "privacy_status": {"enum": ["public_safe", "private", "deidentified", "aggregated", "blocked"]},
+    "consent_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subject_type", "consent_basis", "allowed_use", "retention", "revocation_supported"],
+      "properties": {
+        "subject_type": {"enum": ["human", "animal", "household", "synthetic", "unknown"]},
+        "consent_basis": {"enum": ["explicit", "synthetic_only", "public_literature", "unknown", "not_allowed"]},
+        "allowed_use": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"enum": ["question_prep", "research_organization", "schema_testing", "aggregate_statistics", "public_memory", "private_memory"]}
+        },
+        "retention": {"enum": ["none", "session_only", "project_memory", "longitudinal_dataset"]},
+        "revocation_supported": {"type": "boolean"}
+      }
+    },
+    "allowed_routes": {
+      "type": "array",
+      "items": {"enum": ["question_prep", "research_map", "synthetic_test", "private_longitudinal", "public_discovery_memory"]}
+    },
+    "blocked_routes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"enum": ["diagnosis", "treatment", "veterinary_instruction", "dosage", "public_discovery_memory", "private_longitudinal", "public_export"]}
+    },
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "interpretation", "absence_as_evidence"],
+      "properties": {
+        "state": {"enum": ["complete", "partial", "unknown", "redacted", "not_collected"]},
+        "interpretation": {"type": "string", "minLength": 8},
+        "absence_as_evidence": {"const": false}
+      }
+    },
+    "revision_reason": {"type": "string", "minLength": 15},
+    "implementation_status": {"enum": ["schema_only", "fixture", "validator", "tested"]},
+    "testability": {"type": "string", "minLength": 10},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "unit", "collection_status"],
+        "properties": {
+          "name": {"type": "string", "minLength": 3},
+          "unit": {"type": "string", "minLength": 1},
+          "collection_status": {"enum": ["synthetic", "observed", "not_collected", "redacted"]}
+        }
+      }
+    },
+    "next_executable_action": {"type": "string", "minLength": 15}
+  }
+}
