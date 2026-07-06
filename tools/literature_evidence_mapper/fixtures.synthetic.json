@@ -1,0 +1,58 @@
+[
+  {
+    "id": "litmap-valid-001",
+    "source_status": "synthetic_fixture",
+    "privacy_status": "synthetic_public_safe",
+    "claim_text": "A repeated posture-linked signal may be organized as an association claim until a mechanism is independently supported.",
+    "claim_type": "association",
+    "organism_scope": "human",
+    "evidence_level": "mechanistic_model",
+    "variables": ["posture_state", "signal_frequency", "latency_to_change"],
+    "boundary_notes": "Synthetic fixture only; does not describe a real person or recommend treatment.",
+    "contradiction_notes": "Mechanistic support is absent, so promotion requires external evidence.",
+    "falsification_route": "Downgrade if repeated observations show no temporal relation between posture state and signal frequency.",
+    "next_action": "Route to longitudinal delta detector and require provenance before promotion."
+  },
+  {
+    "id": "litmap-valid-002",
+    "source_status": "synthetic_fixture",
+    "privacy_status": "synthetic_public_safe",
+    "claim_text": "Animal-care literature notes should separate observation, diagnosis boundary, and intervention before entering collaboration memory.",
+    "claim_type": "diagnostic_boundary",
+    "organism_scope": "multi_species",
+    "evidence_level": "review",
+    "variables": ["species", "finding_type", "evidence_category", "decision_boundary"],
+    "boundary_notes": "Research organization only; not veterinary advice.",
+    "contradiction_notes": "Species-specific differences may invalidate generalization.",
+    "falsification_route": "Downgrade generality if species-specific evidence contradicts multi-species framing.",
+    "next_action": "Route to animal evidence router before collaborator export."
+  },
+  {
+    "id": "litmap-reject-privacy-001",
+    "source_status": "repo_internal_note",
+    "privacy_status": "private_raw",
+    "claim_text": "A raw private timeline proves the cause.",
+    "claim_type": "mechanism",
+    "organism_scope": "human",
+    "evidence_level": "unknown",
+    "variables": ["exact_timestamp"],
+    "boundary_notes": "Contains raw private residue.",
+    "contradiction_notes": "",
+    "falsification_route": "",
+    "next_action": "Publish it."
+  },
+  {
+    "id": "litmap-reject-overclaim-001",
+    "source_status": "synthetic_fixture",
+    "privacy_status": "synthetic_public_safe",
+    "claim_text": "This cures the condition and should be used immediately.",
+    "claim_type": "intervention",
+    "organism_scope": "dog",
+    "evidence_level": "case_report",
+    "variables": ["symptom_change"],
+    "boundary_notes": "Synthetic unsafe overclaim.",
+    "contradiction_notes": "",
+    "falsification_route": "Compare against no-change or worsening outcomes.",
+    "next_action": "Tell owners to use it."
+  }
+]
