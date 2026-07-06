@@ -1,0 +1,129 @@
+[
+  {
+    "id": "rbc_pass_public_literature_to_hypothesis",
+    "source_status": "primary_public",
+    "claim_status": "hypothesis_candidate",
+    "privacy_status": "public_safe",
+    "route_intent": "hypothesis_generation",
+    "retrieval_inputs": [
+      {
+        "kind": "literature_record",
+        "boundary": "public",
+        "locator": "doi:10.synthetic/public-method",
+        "contains_private_detail": false,
+        "contains_medical_advice": false
+      },
+      {
+        "kind": "benchmark_record",
+        "boundary": "public",
+        "locator": "benchmark:synthetic-eval-v1",
+        "contains_private_detail": false,
+        "contains_medical_advice": false
+      }
+    ],
+    "output_packet": {
+      "boundary": "public",
+      "allowed_memory_scope": "public_discovery_memory",
+      "contains_private_detail": false,
+      "contains_medical_advice": false,
+      "action": "admit_with_provenance"
+    },
+    "expected_decision": "pass"
+  },
+  {
+    "id": "rbc_fail_private_detail_to_public_memory",
+    "source_status": "mixed_public_private",
+    "claim_status": "hypothesis_candidate",
+    "privacy_status": "private_present",
+    "route_intent": "hypothesis_generation",
+    "retrieval_inputs": [
+      {
+        "kind": "longitudinal_note",
+        "boundary": "private",
+        "locator": "private-note:redacted",
+        "contains_private_detail": true,
+        "contains_medical_advice": false
+      }
+    ],
+    "output_packet": {
+      "boundary": "public",
+      "allowed_memory_scope": "public_discovery_memory",
+      "contains_private_detail": true,
+      "contains_medical_advice": false,
+      "action": "admit_with_provenance"
+    },
+    "expected_decision": "fail"
+  },
+  {
+    "id": "rbc_fail_medical_advice_leak",
+    "source_status": "secondary_public",
+    "claim_status": "research_question",
+    "privacy_status": "public_safe",
+    "route_intent": "medical_evidence_organization",
+    "retrieval_inputs": [
+      {
+        "kind": "institutional_guidance",
+        "boundary": "public",
+        "locator": "institution:synthetic",
+        "contains_private_detail": false,
+        "contains_medical_advice": false
+      }
+    ],
+    "output_packet": {
+      "boundary": "public",
+      "allowed_memory_scope": "public_discovery_memory",
+      "contains_private_detail": false,
+      "contains_medical_advice": true,
+      "action": "admit_with_provenance"
+    },
+    "expected_decision": "fail"
+  },
+  {
+    "id": "rbc_pass_private_to_private_abstracted_memory",
+    "source_status": "private_abstracted",
+    "claim_status": "pattern_tracking_candidate",
+    "privacy_status": "deidentified_private",
+    "route_intent": "longitudinal_pattern_tracking",
+    "retrieval_inputs": [
+      {
+        "kind": "deidentified_signal",
+        "boundary": "private",
+        "locator": "signal-bucket:synthetic",
+        "contains_private_detail": false,
+        "contains_medical_advice": false
+      }
+    ],
+    "output_packet": {
+      "boundary": "private",
+      "allowed_memory_scope": "private_research_memory",
+      "contains_private_detail": false,
+      "contains_medical_advice": false,
+      "action": "admit_with_privacy_partition"
+    },
+    "expected_decision": "pass"
+  },
+  {
+    "id": "rbc_fail_unknown_source_status",
+    "source_status": "influencer_thread",
+    "claim_status": "hypothesis_candidate",
+    "privacy_status": "public_safe",
+    "route_intent": "hypothesis_generation",
+    "retrieval_inputs": [
+      {
+        "kind": "social_post",
+        "boundary": "public",
+        "locator": "post:synthetic",
+        "contains_private_detail": false,
+        "contains_medical_advice": false
+      }
+    ],
+    "output_packet": {
+      "boundary": "public",
+      "allowed_memory_scope": "public_discovery_memory",
+      "contains_private_detail": false,
+      "contains_medical_advice": false,
+      "action": "admit_with_provenance"
+    },
+    "expected_decision": "fail"
+  }
+]
