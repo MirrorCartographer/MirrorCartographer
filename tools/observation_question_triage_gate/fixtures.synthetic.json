@@ -1,0 +1,139 @@
+[
+  {
+    "packet_id": "oqtg-pass-001",
+    "domain": "animal_care_evidence_map",
+    "source_status": "synthetic_fixture",
+    "claim_status": "question_prep",
+    "privacy_status": "public_safe",
+    "missingness": {
+      "status": "partial",
+      "not_collected_fields": ["confirmed_exam_findings", "exact_onset_time"],
+      "absence_interpreted_as_negative": false
+    },
+    "revision_reason": "Convert observations into professional question-prep without diagnosis, treatment, urgency, or causal certainty.",
+    "implementation_status": "fixtures_and_validator",
+    "testability": "Validate packet against schema and boundary rules.",
+    "falsification_route": "The claim fails if observation-only packets can emit advice, certainty, or unlinked questions.",
+    "observations": [
+      {
+        "observation_id": "obs1",
+        "text": "Synthetic caregiver notes increased pacing after a context change.",
+        "source_type": "synthetic",
+        "time_anchor_status": "relative",
+        "measurement_status": "observed_not_measured",
+        "not_a_diagnosis_or_treatment": true
+      },
+      {
+        "observation_id": "obs2",
+        "text": "Synthetic record indicates appetite was not quantified during the same interval.",
+        "source_type": "synthetic",
+        "time_anchor_status": "relative",
+        "measurement_status": "unknown",
+        "not_a_diagnosis_or_treatment": true
+      }
+    ],
+    "forbidden_outputs": ["diagnosis", "treatment", "dosage", "urgency_instruction", "veterinary_instruction", "certainty_claim", "causal_claim"],
+    "clinician_or_research_questions": [
+      {
+        "question": "What additional observations would make this behavioral timeline clearer for a professional review?",
+        "linked_observation_ids": ["obs1", "obs2"],
+        "decision_use": "ask_professional",
+        "boundary": "question_prep_only"
+      },
+      {
+        "question": "Which fields should be measured consistently before comparing future episodes?",
+        "linked_observation_ids": ["obs1", "obs2"],
+        "decision_use": "choose_next_measurement",
+        "boundary": "research_organization_only"
+      }
+    ],
+    "measurable_variables": ["episode_count", "time_anchor_status", "appetite_quantity", "pacing_duration_minutes"],
+    "next_executable_action": "Run validator before storing animal-care packets in an evidence map."
+  },
+  {
+    "packet_id": "oqtg-fail-private-001",
+    "domain": "medical_ai_evidence_organization",
+    "source_status": "deidentified_user_observation",
+    "claim_status": "question_prep",
+    "privacy_status": "private_rejected",
+    "missingness": {
+      "status": "unknown",
+      "not_collected_fields": ["redaction_status"],
+      "absence_interpreted_as_negative": false
+    },
+    "revision_reason": "Private rejected packets must not enter public evidence maps.",
+    "implementation_status": "fixtures_and_validator",
+    "testability": "Validator must reject private_rejected packets.",
+    "falsification_route": "Fails if private rejected packets pass.",
+    "observations": [
+      {
+        "observation_id": "obs1",
+        "text": "Private identifying observation placeholder.",
+        "source_type": "self_report",
+        "time_anchor_status": "exact",
+        "measurement_status": "reported",
+        "not_a_diagnosis_or_treatment": true
+      }
+    ],
+    "forbidden_outputs": ["diagnosis", "treatment", "dosage", "urgency_instruction"],
+    "clinician_or_research_questions": [
+      {
+        "question": "What should be redacted before this becomes research infrastructure?",
+        "linked_observation_ids": ["obs1"],
+        "decision_use": "organize_records",
+        "boundary": "question_prep_only"
+      },
+      {
+        "question": "What source labels are needed before comparison?",
+        "linked_observation_ids": ["obs1"],
+        "decision_use": "organize_records",
+        "boundary": "research_organization_only"
+      }
+    ],
+    "measurable_variables": ["private_identifier_count", "redaction_status"],
+    "next_executable_action": "Reject packet and request redaction before storage."
+  },
+  {
+    "packet_id": "oqtg-fail-advice-001",
+    "domain": "animal_care_evidence_map",
+    "source_status": "synthetic_fixture",
+    "claim_status": "question_prep",
+    "privacy_status": "public_safe",
+    "missingness": {
+      "status": "partial",
+      "not_collected_fields": ["exam"],
+      "absence_interpreted_as_negative": false
+    },
+    "revision_reason": "Advice-like language must be rejected from question-prep packets.",
+    "implementation_status": "fixtures_and_validator",
+    "testability": "Validator must detect blocked advice terms.",
+    "falsification_route": "Fails if treatment or urgency language passes.",
+    "observations": [
+      {
+        "observation_id": "obs1",
+        "text": "Synthetic observation says start medication immediately after pacing.",
+        "source_type": "synthetic",
+        "time_anchor_status": "relative",
+        "measurement_status": "observed_not_measured",
+        "not_a_diagnosis_or_treatment": true
+      }
+    ],
+    "forbidden_outputs": ["diagnosis", "treatment", "dosage", "urgency_instruction", "veterinary_instruction"],
+    "clinician_or_research_questions": [
+      {
+        "question": "What treatment should be started immediately?",
+        "linked_observation_ids": ["obs1"],
+        "decision_use": "ask_professional",
+        "boundary": "question_prep_only"
+      },
+      {
+        "question": "Which records should be organized for review?",
+        "linked_observation_ids": ["obs1"],
+        "decision_use": "organize_records",
+        "boundary": "research_organization_only"
+      }
+    ],
+    "measurable_variables": ["advice_leak_count", "blocked_term_count"],
+    "next_executable_action": "Reject advice-like packet before evidence-map storage."
+  }
+]
