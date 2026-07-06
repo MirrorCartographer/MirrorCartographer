@@ -1,0 +1,47 @@
+{
+  "suite_id": "mc_gate_integration_v1",
+  "claim": "MC hypothesis packets should not enter longitudinal memory, public research maps, question-prep, or discovery routes unless provenance, privacy, missingness, actionability, temporality, controls, and operational variables remain explicit.",
+  "source_status": "assistant-generated integration specification",
+  "claim_status": "executable infrastructure test",
+  "privacy_status": "public-safe synthetic only",
+  "missingness": "each packet must preserve unknown, not_collected, redacted, not_applicable, and observed states without converting missing values into absence",
+  "revision_reason": "consolidates isolated MC gates into one runnable registry and validator",
+  "implementation_status": "registry + fixtures + validation script + smoke tests",
+  "testability": "python tools/mc_gate_integration/test_all_gates.py",
+  "falsification_route": "suite fails if any gate accepts missingness collapse, private leakage, advice leakage, attribution collapse, unmeasurable claims, or unsupported promotion",
+  "measurable_variables": [
+    "gate_pass_count",
+    "gate_fail_count",
+    "missingness_state_count",
+    "privacy_violation_count",
+    "advice_leak_count",
+    "attribution_collapse_count",
+    "unmeasurable_claim_count"
+  ],
+  "next_executable_action": "wire validate_gate_packets.py into CI and call it before MC memory promotion or evidence-map storage",
+  "gates": {
+    "longitudinal_missingness_gate": {
+      "required_labels": ["source_status", "claim_status", "privacy_status", "missingness", "revision_reason", "implementation_status", "testability", "falsification_route", "measurable_variables", "next_executable_action"],
+      "required_packet_fields": ["gate", "packet_id", "route", "source_status", "claim_status", "privacy_status", "missingness", "revision_reason", "implementation_status", "testability", "falsification_route", "measurable_variables", "next_executable_action", "observations", "boundary_flags", "decision"],
+      "blocked_boundary_flags": ["private_identifier_present", "diagnosis_claim", "treatment_instruction", "veterinary_instruction", "dosage_instruction", "urgency_claim", "unsupported_causality", "missingness_as_absence", "attribution_collapse", "single_story_hypothesis", "unmeasurable_variable"],
+      "allowed_decisions": ["pass", "reject", "route_to_contradiction_ledger", "route_to_question_prep", "needs_more_evidence"]
+    },
+    "temporal_coherence_gate": {"$ref": "longitudinal_missingness_gate"},
+    "contradiction_ledger_gate": {"$ref": "longitudinal_missingness_gate"},
+    "question_prep_boundary_gate": {"$ref": "longitudinal_missingness_gate"},
+    "counterfactual_hypothesis_gate": {"$ref": "longitudinal_missingness_gate"},
+    "agent_boundary_gate": {"$ref": "longitudinal_missingness_gate"},
+    "measurement_invariance_gate": {"$ref": "longitudinal_missingness_gate"},
+    "provenance_chain_gate": {"$ref": "longitudinal_missingness_gate"},
+    "symbolic_operational_translation_gate": {"$ref": "longitudinal_missingness_gate"},
+    "control_condition_gate": {"$ref": "longitudinal_missingness_gate"},
+    "evidence_boundary_router_gate": {"$ref": "longitudinal_missingness_gate"},
+    "variable_drift_gate": {"$ref": "longitudinal_missingness_gate"},
+    "literature_claim_strength_gate": {"$ref": "longitudinal_missingness_gate"},
+    "evidence_temporality_gate": {"$ref": "longitudinal_missingness_gate"},
+    "actionability_boundary_gate": {"$ref": "longitudinal_missingness_gate"},
+    "evidence_granularity_gate": {"$ref": "longitudinal_missingness_gate"},
+    "observation_question_triage_gate": {"$ref": "longitudinal_missingness_gate"},
+    "consent_scope_gate": {"$ref": "longitudinal_missingness_gate"}
+  }
+}
