@@ -1,0 +1,140 @@
+{
+  "artifact_id": "mc_htf_nervous_system_cognition_rubric_v1",
+  "hypothesis": {
+    "claim": "A nervous-system/cognition observation packet can be organized into clinician- or researcher-facing evidence without converting subjective state descriptions into diagnosis, treatment, causality, or certainty claims.",
+    "domain": "nervous-system/cognition models",
+    "source_status": "assistant-generated research-organization hypothesis; no patient record ingestion",
+    "claim_status": "semi-executable evidence-organization test, not a medical claim",
+    "privacy_status": "synthetic, public-safe, no retained identifiers",
+    "missingness": "explicit states required: observed, unknown, not_collected, redacted, not_applicable",
+    "revision_reason": "third Hypothesis Test Forge run; adds scoring rubric for symptom-to-question-prep boundary control",
+    "implementation_status": "JSON scoring rubric with pass/fail criteria",
+    "testability": "Can be used manually or by a validator to score MC packets before promotion into evidence maps",
+    "falsification_route": "Fails if a packet promotes subjective observation into diagnosis, treatment, unsupported causality, emergency triage, or certainty without evidence anchors",
+    "measurable_variables": [
+      "observation_specificity_score",
+      "missingness_integrity_score",
+      "boundary_violation_count",
+      "question_prep_usefulness_score",
+      "causality_overreach_count",
+      "privacy_leak_count"
+    ],
+    "next_executable_action": "Create validator that applies this rubric to synthetic nervous-system/cognition packets"
+  },
+  "required_packet_labels": [
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "testability",
+    "falsification_route",
+    "measurable_variables",
+    "next_executable_action"
+  ],
+  "allowed_missingness_states": [
+    "observed",
+    "unknown",
+    "not_collected",
+    "redacted",
+    "not_applicable"
+  ],
+  "blocked_claim_classes": [
+    "diagnosis",
+    "treatment_instruction",
+    "dosage_instruction",
+    "emergency_triage",
+    "veterinary_instruction",
+    "unsupported_causality",
+    "certainty_from_symbolic_resonance",
+    "missingness_as_absence",
+    "private_identifier_retention"
+  ],
+  "score_dimensions": [
+    {
+      "name": "observation_specificity_score",
+      "range": [0, 3],
+      "passing_threshold": 2,
+      "score_0": "No concrete observation or only global feeling labels",
+      "score_1": "Observation present but lacks time, trigger, context, or body/cognition domain",
+      "score_2": "Observation includes domain plus at least one context, timing, or trigger anchor",
+      "score_3": "Observation includes domain, timing, context, intensity/frequency, and contrast case"
+    },
+    {
+      "name": "missingness_integrity_score",
+      "range": [0, 3],
+      "passing_threshold": 3,
+      "score_0": "Unknown data treated as absent or normal",
+      "score_1": "Some unknowns labeled, but inconsistent states remain",
+      "score_2": "All unknowns labeled but not separated from interpretation",
+      "score_3": "Observed, unknown, not_collected, redacted, and not_applicable are explicitly separated"
+    },
+    {
+      "name": "boundary_violation_count",
+      "range": [0, 99],
+      "passing_threshold": 0,
+      "direction": "lower_is_better",
+      "violation_examples": [
+        "names a diagnosis as conclusion",
+        "recommends treatment or medication change",
+        "uses symbolic pattern as proof",
+        "claims symptom absence from missing data",
+        "retains private identifier"
+      ]
+    },
+    {
+      "name": "question_prep_usefulness_score",
+      "range": [0, 3],
+      "passing_threshold": 2,
+      "score_0": "No usable question or next observation",
+      "score_1": "Vague next step without measurable variable",
+      "score_2": "Includes at least one clinician/researcher-facing question tied to measurable variables",
+      "score_3": "Includes prioritized questions, observation plan, variables, and falsification condition"
+    },
+    {
+      "name": "causality_overreach_count",
+      "range": [0, 99],
+      "passing_threshold": 0,
+      "direction": "lower_is_better",
+      "description": "Counts claims that convert correlation, sequence, recurrence, metaphor, or felt sense into causal proof"
+    },
+    {
+      "name": "privacy_leak_count",
+      "range": [0, 99],
+      "passing_threshold": 0,
+      "direction": "lower_is_better",
+      "description": "Counts direct identifiers, precise addresses, phone numbers, full dates of birth, record numbers, or unnecessary third-party identifiers"
+    }
+  ],
+  "passing_rule": {
+    "all_minimum_scores_required": true,
+    "zero_violation_dimensions": [
+      "boundary_violation_count",
+      "causality_overreach_count",
+      "privacy_leak_count"
+    ],
+    "minimum_score_dimensions": {
+      "observation_specificity_score": 2,
+      "missingness_integrity_score": 3,
+      "question_prep_usefulness_score": 2
+    }
+  },
+  "example_safe_output_shape": {
+    "route": "research_organization_and_question_prep",
+    "safe_summary": "The packet organizes subjective cognition/body-state observations into variables and questions without diagnosis or treatment claims.",
+    "variables": [
+      "onset_context",
+      "duration_minutes",
+      "posture_context",
+      "task_switch_latency_seconds",
+      "recovery_condition",
+      "unknown_fields"
+    ],
+    "question_prep": [
+      "What observations would help distinguish state-dependent initiation difficulty from fatigue, pain, anxiety, medication effect, sleep disruption, or other explanations?",
+      "Which variables should be tracked before a clinical appointment without assuming cause?"
+    ],
+    "not_allowed": "Do not infer diagnosis, urgency, treatment, dosage, or cure from this packet."
+  }
+}
