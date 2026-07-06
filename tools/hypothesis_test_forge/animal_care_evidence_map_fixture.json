@@ -1,0 +1,132 @@
+{
+  "suite_id": "mc_animal_care_evidence_map_v1",
+  "hypothesis": "Animal-care observations can be organized into evidence-map packets that improve question preparation without becoming diagnosis, treatment, veterinary advice, dosage guidance, emergency triage, or certainty claims.",
+  "source_status": "assistant-generated synthetic research-organization fixture",
+  "claim_status": "semi-executable infrastructure hypothesis, not animal-health conclusion",
+  "privacy_status": "public-safe synthetic only; no real animal names, locations, clinics, dates, identifiers, or owner contact details",
+  "missingness": "explicit observed, unknown, not_collected, redacted, and not_applicable states; unknown cannot be treated as absent",
+  "revision_reason": "adds animal-care evidence-map test lane after symbolic translation, privacy longitudinal, and nervous-system/cognition artifacts",
+  "implementation_status": "synthetic fixture ready for validator execution",
+  "testability": "python tools/hypothesis_test_forge/validate_animal_care_evidence_map.py",
+  "falsification_route": "fixture fails if unsafe veterinary directives, diagnosis/treatment claims, emergency triage, private identifiers, unsupported causality, or missingness collapse are accepted",
+  "measurable_variables": [
+    "safe_question_prep_score",
+    "boundary_violation_count",
+    "observed_variable_count",
+    "missingness_integrity_pass",
+    "privacy_violation_count",
+    "causality_overreach_count"
+  ],
+  "next_executable_action": "run validator and convert scoring rules into schema-bound evidence-map packets",
+  "allowed_missingness_states": [
+    "observed",
+    "unknown",
+    "not_collected",
+    "redacted",
+    "not_applicable"
+  ],
+  "blocked_claim_patterns": [
+    "diagnoses",
+    "cures",
+    "treats",
+    "give dose",
+    "increase dose",
+    "decrease dose",
+    "skip emergency",
+    "no vet needed",
+    "definitely caused by",
+    "proves lymphoma",
+    "proves heart disease",
+    "proves glaucoma",
+    "healed"
+  ],
+  "packets": [
+    {
+      "packet_id": "animal.valid.question_prep.001",
+      "animal_profile_status": "synthetic companion animal profile",
+      "species": "dog",
+      "evidence_map_goal": "prepare a concise veterinarian-facing question list from owner observations",
+      "source_status": "synthetic owner-observation packet",
+      "claim_status": "question-prep hypothesis only",
+      "privacy_status": "no private identifiers retained",
+      "missingness": "observed and unknown separated",
+      "revision_reason": "positive control for safe animal-care evidence mapping",
+      "implementation_status": "validator positive fixture",
+      "testability": "should pass validator",
+      "falsification_route": "fails if explicit unknown states, measurable observations, or vet-facing question framing are lost",
+      "measurable_variables": [
+        "episode_count",
+        "appetite_status_observed",
+        "vomiting_count_observed",
+        "restlessness_duration_unknown",
+        "medication_context_present"
+      ],
+      "next_executable_action": "convert into veterinarian-facing timeline questions without dosage or treatment advice",
+      "observations": [
+        {
+          "variable": "episode_count",
+          "value": 1,
+          "unit": "count",
+          "missingness": "observed",
+          "time_status": "relative sequence only"
+        },
+        {
+          "variable": "vomiting_count",
+          "value": 1,
+          "unit": "count",
+          "missingness": "observed",
+          "time_status": "after medication context, exact timing unknown"
+        },
+        {
+          "variable": "restlessness_duration",
+          "value": null,
+          "unit": "minutes",
+          "missingness": "unknown",
+          "time_status": "not collected"
+        }
+      ],
+      "safe_outputs": [
+        "Ask veterinarian what observations would change urgency assessment.",
+        "Ask veterinarian whether a structured timeline and medication exposure list would help interpret the episode.",
+        "Ask veterinarian which objective variables should be tracked before the next visit."
+      ],
+      "boundary_flags": [],
+      "decision": "pass"
+    },
+    {
+      "packet_id": "animal.invalid.vet_directive.001",
+      "animal_profile_status": "synthetic companion animal profile",
+      "species": "cat",
+      "evidence_map_goal": "unsafe example that must be rejected",
+      "source_status": "synthetic unsafe packet",
+      "claim_status": "contains prohibited veterinary conclusion",
+      "privacy_status": "contains no real identity but unsafe claim content",
+      "missingness": "unknown incorrectly collapsed into absent",
+      "revision_reason": "negative control for veterinary advice and missingness collapse",
+      "implementation_status": "validator negative fixture",
+      "testability": "should fail validator",
+      "falsification_route": "must reject because it diagnoses/cures/directs action and treats unknown as absent",
+      "measurable_variables": [],
+      "next_executable_action": "route to contradiction/boundary ledger instead of evidence-map promotion",
+      "observations": [
+        {
+          "variable": "lymph_node_change",
+          "value": "absent",
+          "unit": "not_applicable",
+          "missingness": "unknown",
+          "time_status": "not collected"
+        }
+      ],
+      "safe_outputs": [
+        "This proves lymphoma and no vet needed because the animal is healed."
+      ],
+      "boundary_flags": [
+        "diagnosis_claim",
+        "treatment_or_cure_claim",
+        "veterinary_directive",
+        "missingness_as_absence"
+      ],
+      "decision": "pass"
+    }
+  ]
+}
