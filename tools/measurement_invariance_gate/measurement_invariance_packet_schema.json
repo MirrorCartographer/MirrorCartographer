@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirror-cartographer.local/schemas/measurement_invariance_packet_schema.json",
+  "title": "Mirror Cartographer Measurement Invariance Packet",
+  "description": "Public-safe schema for testing whether longitudinal observations can be compared without laundering method changes into apparent discovery signals.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_id",
+    "hypothesis_id",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "revision_reason",
+    "measurement_series",
+    "comparison_plan",
+    "missingness",
+    "falsification_route",
+    "implementation_status"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "packet_id": {"type": "string", "pattern": "^mi-[a-z0-9-]{8,80}$"},
+    "hypothesis_id": {"type": "string", "pattern": "^hyp-[a-z0-9-]{8,80}$"},
+    "source_status": {"enum": ["synthetic", "public_dataset", "deidentified_observation", "literature_derived"]},
+    "claim_status": {"enum": ["testable_infrastructure_claim", "unsupported", "falsified", "provisionally_supported"]},
+    "privacy_status": {"enum": ["public_safe", "deidentified", "rejected_private"]},
+    "revision_reason": {"type": "string", "minLength": 12},
+    "measurement_series": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["time_index", "variable_name", "value", "unit", "instrument", "protocol", "context_window", "missingness_state"],
+        "properties": {
+          "time_index": {"type": "integer", "minimum": 0},
+          "variable_name": {"type": "string", "minLength": 2},
+          "value": {"type": ["number", "null"]},
+          "unit": {"type": "string", "minLength": 1},
+          "instrument": {"type": "string", "minLength": 2},
+          "protocol": {"type": "string", "minLength": 2},
+          "context_window": {"type": "string", "minLength": 2},
+          "missingness_state": {"enum": ["observed", "not_collected", "redacted", "not_applicable", "instrument_failed"]}
+        }
+      }
+    },
+    "comparison_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["intended_comparison", "requires_same_unit", "requires_same_instrument", "requires_same_protocol", "allowed_normalization", "minimum_observed_points"],
+      "properties": {
+        "intended_comparison": {"enum": ["trend", "before_after", "cluster", "episode_alignment", "baseline_shift"]},
+        "requires_same_unit": {"type": "boolean"},
+        "requires_same_instrument": {"type": "boolean"},
+        "requires_same_protocol": {"type": "boolean"},
+        "allowed_normalization": {"enum": ["none", "unit_conversion_only", "z_score_with_shared_baseline", "protocol_specific_calibration"]},
+        "minimum_observed_points": {"type": "integer", "minimum": 2}
+      }
+    },
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["declared", "absence_is_not_negative_evidence"],
+      "properties": {
+        "declared": {"type": "boolean"},
+        "absence_is_not_negative_evidence": {"type": "boolean"}
+      }
+    },
+    "falsification_route": {"type": "string", "minLength": 20},
+    "implementation_status": {"enum": ["schema_only", "validator_ready", "validated"]}
+  }
+}
