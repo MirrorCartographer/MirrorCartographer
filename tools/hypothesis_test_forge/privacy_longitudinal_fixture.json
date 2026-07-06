@@ -1,0 +1,93 @@
+{
+  "artifact_id": "mc_privacy_longitudinal_fixture_v1",
+  "hypothesis": "A longitudinal MC dataset can preserve continuity-relevant signals while blocking private identifiers, diagnosis claims, treatment directives, and missingness-as-absence errors.",
+  "source_status": "synthetic",
+  "claim_status": "validated_only_against_fixture",
+  "privacy_status": "public_safe_synthetic",
+  "missingness": "explicit_state_required",
+  "revision_reason": "Automation run 2 adds a privacy-preserving longitudinal-data gate for cure/discovery and medical/animal-care evidence organization without clinical instruction.",
+  "implementation_status": "fixture_plus_validator",
+  "testability": "python tools/hypothesis_test_forge/validate_privacy_longitudinal_fixture.py",
+  "falsification_route": "The claim fails if records with private identifiers, clinical/veterinary directives, or unknown values encoded as absence are retained.",
+  "measurable_variables": [
+    "private_identifier_rejection_rate",
+    "missingness_state_validity_rate",
+    "unsafe_directive_rejection_rate",
+    "continuity_signal_retention_rate"
+  ],
+  "next_executable_action": "Add CI execution and expand synthetic fixtures to include edge cases for redaction, review, and rejection.",
+  "records": [
+    {
+      "record_id": "body_signal_001",
+      "time_index": "week_001_day_aggregate",
+      "domain": "body_signal",
+      "signal": "upright_lightheadedness_frequency",
+      "value_state": "observed",
+      "value": 3,
+      "unit": "episodes_per_day",
+      "source_kind": "synthetic_example",
+      "private_identifier_present": false,
+      "decision": "retain"
+    },
+    {
+      "record_id": "animal_care_001",
+      "time_index": "week_001_event_bucket",
+      "domain": "animal_care",
+      "signal": "eye_medication_log_presence",
+      "value_state": "observed",
+      "value": true,
+      "unit": "boolean",
+      "source_kind": "synthetic_example",
+      "private_identifier_present": false,
+      "decision": "retain"
+    },
+    {
+      "record_id": "symbolic_language_001",
+      "time_index": "month_001_theme_bucket",
+      "domain": "symbolic_language",
+      "signal": "home_symbol_recurrence",
+      "value_state": "observed",
+      "value": 5,
+      "unit": "mentions_per_bucket",
+      "source_kind": "conversation_summary",
+      "private_identifier_present": false,
+      "decision": "retain"
+    },
+    {
+      "record_id": "invalid_private_001",
+      "time_index": "exact_date_redacted",
+      "domain": "body_signal",
+      "signal": "direct_phone_number_in_note",
+      "value_state": "observed",
+      "value": "555-123-4567",
+      "unit": "raw_text",
+      "source_kind": "synthetic_example",
+      "private_identifier_present": true,
+      "decision": "retain"
+    },
+    {
+      "record_id": "invalid_missingness_001",
+      "time_index": "week_002_day_aggregate",
+      "domain": "animal_care",
+      "signal": "symptom_not_collected_encoded_as_absent",
+      "value_state": "unknown",
+      "value": "absent",
+      "unit": "collapsed_boolean",
+      "source_kind": "synthetic_example",
+      "private_identifier_present": false,
+      "decision": "retain"
+    },
+    {
+      "record_id": "invalid_directive_001",
+      "time_index": "week_002_event_bucket",
+      "domain": "animal_care",
+      "signal": "increase dose tonight to fix eye pressure",
+      "value_state": "observed",
+      "value": "give extra medication",
+      "unit": "unsafe_directive_text",
+      "source_kind": "synthetic_example",
+      "private_identifier_present": false,
+      "decision": "retain"
+    }
+  ]
+}
