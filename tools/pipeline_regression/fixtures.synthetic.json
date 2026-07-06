@@ -1,0 +1,174 @@
+{
+  "schema_version": "1.0",
+  "record_type": "pipeline_regression_fixture_set",
+  "privacy_status": "public_safe_synthetic",
+  "fixtures": [
+    {
+      "fixture_id": "valid_full_discovery_path",
+      "expected_status": "PASS",
+      "packet": {
+        "packet_id": "synthetic-pipeline-pass-001",
+        "privacy_status": "public_safe_synthetic",
+        "phenomenon": {
+          "description": "Repeated abstract pattern appears across independent public datasets.",
+          "variables": ["signal_frequency", "context_label"],
+          "boundaries": ["synthetic only", "no personal data"],
+          "alternatives": ["sampling artifact", "measurement bias"]
+        },
+        "hypothesis": {
+          "claim": "A context-aware routing rule can reduce unsupported evidence promotion in synthetic discovery workflows.",
+          "source_status": "synthetic",
+          "claim_status": "proposed",
+          "measurable_variables": ["unsupported_promotion_rate", "routing_error_count"],
+          "falsification_route": "The claim fails if the routing rule does not reduce unsupported promotion against baseline fixtures."
+        },
+        "mechanism": {
+          "nodes": ["candidate_claim", "evidence_boundary", "promotion_decision"],
+          "edges": [
+            {"source": "candidate_claim", "target": "evidence_boundary", "relation": "requires"},
+            {"source": "evidence_boundary", "target": "promotion_decision", "relation": "constrains"}
+          ],
+          "observable_outputs": ["promotion_decision"],
+          "alternatives": ["manual review alone explains improvement"]
+        },
+        "prediction": {
+          "measurable_variables": ["unsupported_promotion_rate", "false_rejection_rate"],
+          "observation_window": "one synthetic regression run",
+          "failure_condition": "Unsupported packets pass at the same or higher rate than baseline.",
+          "alternative_outcomes": ["no change", "higher false rejection"]
+        },
+        "evidence_crosswalk": {
+          "source_status": "synthetic",
+          "evidence_strength": "moderate",
+          "measurable_variables": ["unsupported_promotion_rate"],
+          "limitations": ["synthetic fixture only"],
+          "falsification_route": "Fails if known-invalid fixture reaches terminal promotion."
+        },
+        "transition": {
+          "from_state": "prediction_ready",
+          "to_state": "evidence_ready",
+          "allowed": true,
+          "reason": "All synthetic gate requirements are present."
+        }
+      }
+    },
+    {
+      "fixture_id": "fail_private_identifier",
+      "expected_status": "FAIL",
+      "expected_failed_stage": "PrivacyBoundaryValidator",
+      "packet": {
+        "packet_id": "synthetic-pipeline-fail-privacy-001",
+        "privacy_status": "public_safe_synthetic",
+        "private_identifier": "person@example.com",
+        "phenomenon": {
+          "description": "A synthetic event references a private identifier.",
+          "variables": ["event_count"],
+          "boundaries": ["synthetic only"],
+          "alternatives": ["artifact"]
+        }
+      }
+    },
+    {
+      "fixture_id": "fail_missing_mechanism_outputs",
+      "expected_status": "FAIL",
+      "expected_failed_stage": "MechanismGraphValidator",
+      "packet": {
+        "packet_id": "synthetic-pipeline-fail-mechanism-001",
+        "privacy_status": "public_safe_synthetic",
+        "phenomenon": {
+          "description": "A bounded synthetic pattern requires mechanism validation.",
+          "variables": ["pattern_count"],
+          "boundaries": ["synthetic only"],
+          "alternatives": ["noise"]
+        },
+        "hypothesis": {
+          "claim": "A routing structure changes synthetic promotion outcomes.",
+          "source_status": "synthetic",
+          "claim_status": "proposed",
+          "measurable_variables": ["promotion_rate"],
+          "falsification_route": "Fails if promotion rate does not change."
+        },
+        "mechanism": {
+          "nodes": ["claim", "gate"],
+          "edges": [{"source": "claim", "target": "gate", "relation": "requires"}],
+          "observable_outputs": [],
+          "alternatives": ["manual review"]
+        }
+      }
+    },
+    {
+      "fixture_id": "fail_prediction_no_failure_condition",
+      "expected_status": "FAIL",
+      "expected_failed_stage": "PredictionValidator",
+      "packet": {
+        "packet_id": "synthetic-pipeline-fail-prediction-001",
+        "privacy_status": "public_safe_synthetic",
+        "phenomenon": {
+          "description": "A bounded synthetic pattern reaches prediction stage.",
+          "variables": ["routing_error_count"],
+          "boundaries": ["synthetic only"],
+          "alternatives": ["noise"]
+        },
+        "hypothesis": {
+          "claim": "A gate improves synthetic routing decisions.",
+          "source_status": "synthetic",
+          "claim_status": "proposed",
+          "measurable_variables": ["routing_error_count"],
+          "falsification_route": "Fails if routing error count does not decrease."
+        },
+        "mechanism": {
+          "nodes": ["claim", "gate", "decision"],
+          "edges": [{"source": "gate", "target": "decision", "relation": "constrains"}],
+          "observable_outputs": ["decision"],
+          "alternatives": ["baseline sorting"]
+        },
+        "prediction": {
+          "measurable_variables": ["routing_error_count"],
+          "observation_window": "one synthetic regression run",
+          "alternative_outcomes": ["no change"]
+        }
+      }
+    },
+    {
+      "fixture_id": "fail_evidence_bad_source_status",
+      "expected_status": "FAIL",
+      "expected_failed_stage": "EvidenceCrosswalkValidator",
+      "packet": {
+        "packet_id": "synthetic-pipeline-fail-evidence-001",
+        "privacy_status": "public_safe_synthetic",
+        "phenomenon": {
+          "description": "A bounded synthetic pattern reaches evidence stage.",
+          "variables": ["promotion_rate"],
+          "boundaries": ["synthetic only"],
+          "alternatives": ["noise"]
+        },
+        "hypothesis": {
+          "claim": "A gate improves synthetic promotion decisions.",
+          "source_status": "synthetic",
+          "claim_status": "proposed",
+          "measurable_variables": ["promotion_rate"],
+          "falsification_route": "Fails if promotion rate does not change."
+        },
+        "mechanism": {
+          "nodes": ["claim", "gate", "decision"],
+          "edges": [{"source": "gate", "target": "decision", "relation": "constrains"}],
+          "observable_outputs": ["decision"],
+          "alternatives": ["baseline sorting"]
+        },
+        "prediction": {
+          "measurable_variables": ["promotion_rate"],
+          "observation_window": "one synthetic regression run",
+          "failure_condition": "No difference from baseline.",
+          "alternative_outcomes": ["no change"]
+        },
+        "evidence_crosswalk": {
+          "source_status": "unsupported_blog_claim",
+          "evidence_strength": "moderate",
+          "measurable_variables": ["promotion_rate"],
+          "limitations": ["synthetic fixture only"],
+          "falsification_route": "Fails if invalid source status passes."
+        }
+      }
+    }
+  ]
+}
