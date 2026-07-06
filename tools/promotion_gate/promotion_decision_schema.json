@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "record_type": "promotion_decision_schema",
+  "description": "Public-safe schema for deciding whether a validated discovery artifact may advance to the next Mirror Cartographer discovery rung.",
+  "required_fields": [
+    "artifact_id",
+    "artifact_type",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "implementation_status",
+    "testability",
+    "falsification_route",
+    "decision"
+  ],
+  "artifact_types": [
+    "phenomenon",
+    "hypothesis",
+    "mechanism",
+    "prediction",
+    "dataset_schema",
+    "evaluation_harness",
+    "prototype",
+    "evidence_crosswalk",
+    "collaboration_profile",
+    "contradiction_record"
+  ],
+  "allowed_decisions": ["PROMOTE", "REVISE", "BLOCK"],
+  "promotion_requirements": {
+    "source_status": ["synthetic", "public", "primary", "secondary"],
+    "privacy_status": ["public"],
+    "claim_status_disallowed": ["unsupported", "private", "raw_transcript", "medical_advice", "veterinary_advice"],
+    "minimum_testability": "falsifiable_or_evaluable",
+    "requires_falsification_route": true,
+    "requires_next_executable_action": true
+  },
+  "privacy_status": "public",
+  "source_status": "synthetic",
+  "claim_status": "infrastructure_contract"
+}
