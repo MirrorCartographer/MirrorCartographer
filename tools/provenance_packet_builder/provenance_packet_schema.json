@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirror-cartographer.local/schemas/provenance_packet_schema.json",
+  "title": "Mirror Cartographer Provenance Packet",
+  "description": "Public-safe provenance packet for routing discovery claims through evidence-boundary, privacy, and falsification gates.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_id",
+    "created_at_utc",
+    "claim_text",
+    "domain",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "testability",
+    "evidence_boundaries",
+    "measurable_variables",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "packet_id": {
+      "type": "string",
+      "pattern": "^mc-prov-[a-z0-9][a-z0-9-]{6,80}$"
+    },
+    "created_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "claim_text": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 600
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "cure_discovery_infrastructure",
+        "medical_ai_evidence_organization",
+        "scientific_reasoning",
+        "nervous_system_cognition_model",
+        "animal_care_evidence_organization",
+        "human_ai_sensemaking",
+        "privacy_preserving_longitudinal_memory",
+        "symbolic_to_operational_translation",
+        "collaboration_readiness"
+      ]
+    },
+    "source_status": {
+      "type": "string",
+      "enum": ["synthetic", "primary", "secondary", "preprint", "institutional", "unknown"]
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": ["hypothesis", "testable", "supported", "contradicted", "inconclusive", "rejected"]
+    },
+    "privacy_status": {
+      "type": "string",
+      "enum": ["public_safe", "deidentified", "restricted", "private_reject"]
+    },
+    "missingness": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 3},
+      "minItems": 1
+    },
+    "revision_reason": {
+      "type": "string",
+      "minLength": 10
+    },
+    "implementation_status": {
+      "type": "string",
+      "enum": ["planned", "implemented", "validated", "blocked"]
+    },
+    "testability": {
+      "type": "string",
+      "enum": ["not_testable", "semi_executable", "executable"]
+    },
+    "evidence_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowed_uses", "blocked_uses", "advice_boundary"],
+      "properties": {
+        "allowed_uses": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1
+        },
+        "blocked_uses": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1
+        },
+        "advice_boundary": {
+          "type": "string",
+          "enum": ["research_organization_only", "engineering_only", "collaboration_only"]
+        }
+      }
+    },
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "operational_definition", "measurement_type"],
+        "properties": {
+          "name": {"type": "string", "minLength": 2},
+          "operational_definition": {"type": "string", "minLength": 10},
+          "measurement_type": {
+            "type": "string",
+            "enum": ["binary", "count", "ordinal", "continuous", "categorical", "text_score"]
+          }
+        }
+      }
+    },
+    "falsification_route": {
+      "type": "string",
+      "minLength": 20
+    },
+    "next_executable_action": {
+      "type": "string",
+      "minLength": 10
+    }
+  }
+}
