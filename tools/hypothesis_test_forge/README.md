@@ -73,4 +73,12 @@ Artifact:
 
 Tests whether aspirational cure/discovery language can be routed through evidence-stage, mechanism, measurement, missingness, privacy, and falsification gates before being promoted into research memory or public-facing claims. Passing outputs remain research questions, measurement plans, experiment plans, literature summaries, or contradiction-ledger entries rather than diagnosis, treatment, veterinary advice, cure certainty, or discovery proof.
 
+### Medical AI evidence organization table
+
+Artifact:
+
+`tools/hypothesis_test_forge/medical_ai_evidence_organization_table.json`
+
+Tests whether health-related AI inferences become safer and more scientifically useful when organized as evidence rows with source boundaries, missingness states, privacy state, measurable variables, falsification routes, blocked-class scans, and clinician/veterinarian question-prep outputs. This artifact is a semi-executable evidence table and scoring contract; it does not provide diagnosis, treatment, dosage guidance, emergency triage, or veterinary advice.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
