@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "record_type": "hypothesis_packet_schema",
+  "description": "Public-safe schema for admitting candidate novel hypotheses into the Mirror Cartographer discovery pipeline. This is research-organization infrastructure only, not medical or veterinary advice.",
+  "required_top_level_fields": [
+    "packet_id",
+    "phenomenon_id",
+    "hypothesis_statement",
+    "novelty_basis",
+    "mechanism_hint",
+    "measurable_variables",
+    "alternative_explanations",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "testability",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "field_contract": {
+    "packet_id": "Stable public-safe identifier.",
+    "phenomenon_id": "Identifier for the unresolved phenomenon packet that produced this hypothesis.",
+    "hypothesis_statement": "One concrete claim that can later be mechanized and tested.",
+    "novelty_basis": "Why this is not merely a restatement of an observation or existing gate output.",
+    "mechanism_hint": "A provisional causal or computational bridge, stated without personal or clinical advice.",
+    "measurable_variables": "List of at least two measurable variables with units or operational definitions.",
+    "alternative_explanations": "List of at least two plausible alternatives that could explain the same observation.",
+    "source_status": "synthetic|public_primary|public_secondary|mixed_public",
+    "claim_status": "candidate|proposed|rejected|needs_evidence",
+    "privacy_status": "public_safe_only",
+    "missingness": "Known gaps that prevent promotion to mechanism or prediction stages.",
+    "revision_reason": "Why the packet was created or updated.",
+    "implementation_status": "planned|implemented|validated",
+    "testability": "high|moderate|low",
+    "falsification_route": "A concrete way this hypothesis could fail.",
+    "next_executable_action": "One immediate action that can move the claim to mechanism, prediction, fixture, or test."
+  },
+  "acceptance_criteria": [
+    "Hypothesis statement is a single testable claim rather than a theme.",
+    "At least two measurable variables are provided.",
+    "At least two alternative explanations are provided.",
+    "Novelty basis explains what inference becomes available beyond the source phenomenon.",
+    "Falsification route names an observable failure condition.",
+    "No private, personal, household, health, animal-care, financial, location, relationship, credential, or raw transcript detail is present.",
+    "Medical or animal-care relevant packets are framed only as research organization or question-prep infrastructure."
+  ]
+}
