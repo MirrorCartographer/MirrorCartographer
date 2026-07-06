@@ -1,0 +1,170 @@
+[
+  {
+    "packet_id": "etg-valid-sequence-question-prep",
+    "hypothesis_claim": "A longitudinal evidence map is safer when it preserves whether observations occurred before or after a candidate context switch before generating causal questions.",
+    "domain": "scientific_reasoning",
+    "source_status": "synthetic_fixture",
+    "claim_status": "research_organization",
+    "privacy_status": "public_safe",
+    "revision_reason": "Adds an executable temporality check so MC does not confuse event order with causal proof.",
+    "temporal_question": "Did the measured observation occur before, during, or after the candidate context shift?",
+    "events": [
+      {
+        "event_id": "event-baseline",
+        "label": "baseline observation window",
+        "time_anchor": "2026-01-01T09:00:00Z",
+        "time_status": "known",
+        "evidence_status": "observed",
+        "missingness_state": "observed",
+        "measured_variables": [
+          {
+            "name": "context_switch_count",
+            "value_status": "measured",
+            "unit": "count",
+            "instrument_or_method": "synthetic event log"
+          }
+        ],
+        "source_ref": "synthetic_fixture:baseline"
+      },
+      {
+        "event_id": "event-followup",
+        "label": "follow-up observation window",
+        "time_anchor": "2026-01-02T09:00:00Z",
+        "time_status": "known",
+        "evidence_status": "observed",
+        "missingness_state": "observed",
+        "measured_variables": [
+          {
+            "name": "new_inference_count",
+            "value_status": "measured",
+            "unit": "count",
+            "instrument_or_method": "synthetic event log"
+          }
+        ],
+        "source_ref": "synthetic_fixture:followup"
+      }
+    ],
+    "measurable_variables": ["context_switch_count", "new_inference_count", "time_delta_hours"],
+    "missingness_policy": "unknown_is_not_absent",
+    "boundary_policy": {
+      "no_diagnosis": true,
+      "no_treatment": true,
+      "no_veterinary_advice": true,
+      "public_safe_only": true
+    },
+    "falsification_route": "Fails if an unordered, unknown-time, or private sequence is allowed to support a causal-sequence interpretation.",
+    "next_executable_action": "Run validator and route failures to the contradiction ledger."
+  },
+  {
+    "packet_id": "etg-invalid-unknown-time-causal",
+    "hypothesis_claim": "A context switch caused a later measurable improvement even though the event order was not collected.",
+    "domain": "nervous_system_cognition_models",
+    "source_status": "synthetic_fixture",
+    "claim_status": "hypothesis",
+    "privacy_status": "public_safe",
+    "revision_reason": "Synthetic negative fixture for blocking fabricated temporal order.",
+    "temporal_question": "Which observation came first?",
+    "events": [
+      {
+        "event_id": "event-a",
+        "label": "candidate context shift",
+        "time_anchor": null,
+        "time_status": "unknown",
+        "evidence_status": "reported",
+        "missingness_state": "unknown",
+        "measured_variables": [
+          {
+            "name": "context_shift_label",
+            "value_status": "reported",
+            "unit": null,
+            "instrument_or_method": "synthetic report"
+          }
+        ],
+        "source_ref": "synthetic_fixture:unknown-a"
+      },
+      {
+        "event_id": "event-b",
+        "label": "later-looking outcome",
+        "time_anchor": null,
+        "time_status": "unknown",
+        "evidence_status": "inferred",
+        "missingness_state": "unknown",
+        "measured_variables": [
+          {
+            "name": "outcome_score",
+            "value_status": "missing",
+            "unit": "score",
+            "instrument_or_method": "synthetic report"
+          }
+        ],
+        "source_ref": "synthetic_fixture:unknown-b"
+      }
+    ],
+    "measurable_variables": ["context_shift_label", "outcome_score"],
+    "missingness_policy": "unknown_is_not_absent",
+    "boundary_policy": {
+      "no_diagnosis": true,
+      "no_treatment": true,
+      "no_veterinary_advice": true,
+      "public_safe_only": true
+    },
+    "falsification_route": "Fails if unknown event order is promoted as causal sequence evidence.",
+    "next_executable_action": "Add exact timestamps or downgrade the claim to question-prep only."
+  },
+  {
+    "packet_id": "etg-invalid-private-rejected",
+    "hypothesis_claim": "A private longitudinal observation should still be stored in public discovery memory if it seems scientifically useful.",
+    "domain": "privacy_preserving_longitudinal_datasets",
+    "source_status": "synthetic_fixture",
+    "claim_status": "hypothesis",
+    "privacy_status": "private_rejected",
+    "revision_reason": "Synthetic negative fixture for privacy boundary enforcement.",
+    "temporal_question": "Can a private packet enter public-safe sequence memory?",
+    "events": [
+      {
+        "event_id": "event-private-one",
+        "label": "private event placeholder",
+        "time_anchor": "2026-01-01T09:00:00Z",
+        "time_status": "known",
+        "evidence_status": "reported",
+        "missingness_state": "redacted",
+        "measured_variables": [
+          {
+            "name": "private_signal",
+            "value_status": "reported",
+            "unit": null,
+            "instrument_or_method": "redacted source"
+          }
+        ],
+        "source_ref": "synthetic_fixture:private"
+      },
+      {
+        "event_id": "event-private-two",
+        "label": "private followup placeholder",
+        "time_anchor": "2026-01-02T09:00:00Z",
+        "time_status": "known",
+        "evidence_status": "reported",
+        "missingness_state": "redacted",
+        "measured_variables": [
+          {
+            "name": "private_followup_signal",
+            "value_status": "reported",
+            "unit": null,
+            "instrument_or_method": "redacted source"
+          }
+        ],
+        "source_ref": "synthetic_fixture:private-followup"
+      }
+    ],
+    "measurable_variables": ["private_signal", "private_followup_signal"],
+    "missingness_policy": "unknown_is_not_absent",
+    "boundary_policy": {
+      "no_diagnosis": true,
+      "no_treatment": true,
+      "no_veterinary_advice": true,
+      "public_safe_only": true
+    },
+    "falsification_route": "Fails if private_rejected packets pass into public-safe discovery memory.",
+    "next_executable_action": "Route to private-only deidentification workflow or reject public storage."
+  }
+]
