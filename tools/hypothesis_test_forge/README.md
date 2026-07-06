@@ -33,4 +33,12 @@ Run:
 
 Tests whether longitudinal continuity records can retain useful MC signals while rejecting private identifiers, unsafe clinical/veterinary directives, and missingness collapse.
 
+### Nervous-system/cognition evidence organization rubric
+
+Artifact:
+
+`tools/hypothesis_test_forge/nervous_system_cognition_scoring_rubric.json`
+
+Tests whether subjective nervous-system/cognition observations can be scored for evidence-map readiness while staying inside research organization and clinician-facing question prep. It rejects diagnosis, treatment, dosage, emergency triage, unsupported causality, symbolic certainty, missingness-as-absence, and private identifier retention.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
