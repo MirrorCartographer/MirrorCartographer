@@ -1,0 +1,113 @@
+[
+  {
+    "schema_version": "1.0",
+    "record_type": "unresolved_phenomenon_packet",
+    "packet_id": "phenomenon_temporal_pass_001",
+    "phenomenon_label": "context switch latency increases after interruption",
+    "source_status": "synthetic",
+    "claim_status": "candidate_pattern",
+    "privacy_status": "public_safe",
+    "missingness": ["No real-world sample size", "No independent replication", "No external measurement device"],
+    "revision_reason": "Create a public-safe fixture for unresolved pattern capture before hypothesis generation.",
+    "implementation_status": "validated",
+    "testability": "high",
+    "observed_pattern": {
+      "description": "A synthetic workflow model shows longer task-resumption latency after a forced context interruption than after a voluntary context switch.",
+      "pattern_type": "transition",
+      "time_window": "minutes after interruption",
+      "recurrence_signal": "repeated"
+    },
+    "operational_variables": [
+      {
+        "name": "resumption_latency_seconds",
+        "role": "output",
+        "measurement_method": "timestamp difference between interruption end and first valid action",
+        "unit_or_scale": "seconds"
+      },
+      {
+        "name": "switch_type",
+        "role": "input",
+        "measurement_method": "categorical event label",
+        "unit_or_scale": "forced|voluntary"
+      },
+      {
+        "name": "task_complexity",
+        "role": "confounder",
+        "measurement_method": "predefined task difficulty score",
+        "unit_or_scale": "1-5"
+      }
+    ],
+    "boundary_conditions": ["Synthetic task environment only", "No medical or diagnostic inference", "Human-AI sensemaking workflow context"],
+    "alternative_explanations": ["Task complexity rather than interruption drives latency", "Interface friction drives latency", "Measurement timestamps are unreliable"],
+    "falsification_route": "If matched forced and voluntary switches show no latency difference across repeated synthetic runs, reject the candidate pattern.",
+    "next_executable_action": "Generate a simulated event log and run a latency comparison harness."
+  },
+  {
+    "schema_version": "1.0",
+    "record_type": "unresolved_phenomenon_packet",
+    "packet_id": "phenomenon_private_fail_001",
+    "phenomenon_label": "raw personal health transcript fragment",
+    "source_status": "deidentified_observation",
+    "claim_status": "candidate_pattern",
+    "privacy_status": "reject_private",
+    "missingness": ["Contains private source material"],
+    "revision_reason": "Reject private material before public discovery memory.",
+    "implementation_status": "validated",
+    "testability": "blocked",
+    "observed_pattern": {
+      "description": "This deliberately invalid fixture represents a packet that should not be accepted into public-safe discovery tooling.",
+      "pattern_type": "measurement_gap",
+      "time_window": "unknown",
+      "recurrence_signal": "unknown"
+    },
+    "operational_variables": [
+      {
+        "name": "private_identifier",
+        "role": "input",
+        "measurement_method": "raw transcript",
+        "unit_or_scale": "text"
+      },
+      {
+        "name": "unbounded_outcome",
+        "role": "output",
+        "measurement_method": "unsupported inference",
+        "unit_or_scale": "text"
+      }
+    ],
+    "boundary_conditions": ["Should never enter public-safe repository"],
+    "alternative_explanations": ["Privacy violation", "Unbounded interpretation"],
+    "falsification_route": "The validator should reject this packet because privacy_status is reject_private.",
+    "next_executable_action": "Reject and request deidentified abstraction."
+  },
+  {
+    "schema_version": "1.0",
+    "record_type": "unresolved_phenomenon_packet",
+    "packet_id": "phenomenon_unbounded_fail_001",
+    "phenomenon_label": "symbolic insight becomes breakthrough",
+    "source_status": "synthetic",
+    "claim_status": "unresolved",
+    "privacy_status": "public_safe",
+    "missingness": ["No measurable variables", "No falsification path"],
+    "revision_reason": "Reject symbolic or breakthrough language until operationalized.",
+    "implementation_status": "validated",
+    "testability": "low",
+    "observed_pattern": {
+      "description": "A vague symbolic relationship is asserted without a measurable transition or bounded variable set.",
+      "pattern_type": "measurement_gap",
+      "time_window": "unknown",
+      "recurrence_signal": "unknown"
+    },
+    "operational_variables": [
+      {
+        "name": "meaning",
+        "role": "output",
+        "measurement_method": "undefined",
+        "unit_or_scale": "none"
+      }
+    ],
+    "boundary_conditions": [],
+    "alternative_explanations": ["Metaphor only"],
+    "falsification_route": "none",
+    "next_executable_action": "Add variables, boundaries, and alternatives before hypothesis generation."
+  }
+]
