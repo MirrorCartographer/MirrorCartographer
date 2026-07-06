@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mirror Cartographer Artifact",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "type",
+    "created_at",
+    "project",
+    "storage",
+    "relationships"
+  ],
+  "properties": {
+    "id": {"type": "string"},
+    "title": {"type": "string"},
+    "type": {"type": "string"},
+    "created_at": {"type": "string"},
+    "project": {"type": "string"},
+    "tags": {"type": "array", "items": {"type": "string"}},
+    "storage": {"type": "object"},
+    "relationships": {"type": "object"},
+    "notes": {"type": "string"}
+  }
+}
