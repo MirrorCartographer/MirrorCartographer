@@ -1,0 +1,30 @@
+{
+  "hypotheses": [
+    {
+      "hypothesis_id": "H-SYN-ANIMAL-001",
+      "domain": "animal_care",
+      "claim": "Synthetic animal-care pattern claim for testing router behavior only.",
+      "required_variables": ["night_signal", "medication_change", "behavior_shift"],
+      "support_pattern": {
+        "night_signal": "present",
+        "medication_change": "recent",
+        "behavior_shift": "increased"
+      },
+      "privacy_status": "synthetic_public_safe",
+      "claim_status": "research_organization_only"
+    },
+    {
+      "hypothesis_id": "H-SYN-LONG-002",
+      "domain": "longitudinal_pattern_tracking",
+      "claim": "Synthetic longitudinal shift claim for testing over-promotion controls only.",
+      "required_variables": ["time_bucket", "signal_delta", "comparison_window"],
+      "support_pattern": {
+        "time_bucket": "week_relative",
+        "signal_delta": "increased",
+        "comparison_window": "available"
+      },
+      "privacy_status": "synthetic_public_safe",
+      "claim_status": "research_organization_only"
+    }
+  ]
+}
