@@ -1,0 +1,118 @@
+[
+  {
+    "packet_id": "pass_literature_question_001",
+    "domain": "medical_ai_evidence_organization",
+    "claim_text": "A literature note should be routed as question-prep infrastructure when it organizes variables without recommending diagnosis or treatment.",
+    "source_status": "synthetic_fixture",
+    "claim_status": "hypothesis",
+    "privacy_status": "public_safe",
+    "missingness": {
+      "state": "unknown",
+      "not_interpreted_as_absence": true,
+      "notes": "Fixture lacks real-world measurements by design."
+    },
+    "boundary_route": "research_question_prep",
+    "allowed_uses": [
+      "organize_questions",
+      "prepare_clinician_or_vet_questions",
+      "map_literature"
+    ],
+    "blocked_uses": [
+      "diagnosis",
+      "treatment_recommendation",
+      "dosage_or_medication_change",
+      "emergency_triage"
+    ],
+    "measurable_variables": [
+      {
+        "name": "question_count",
+        "unit_or_scale": "integer",
+        "collection_status": "synthetic"
+      },
+      {
+        "name": "advice_leak_count",
+        "unit_or_scale": "integer",
+        "collection_status": "synthetic"
+      }
+    ],
+    "falsification_route": "If advice-like packets pass this route, the boundary router fails and must send them to rejection or question-prep only.",
+    "next_executable_action": "Run validator and confirm this packet passes without advice leakage."
+  },
+  {
+    "packet_id": "fail_private_identifier_001",
+    "domain": "privacy_preserving_longitudinal_dataset",
+    "claim_text": "A packet containing direct private identifiers should never be admitted into public discovery memory.",
+    "source_status": "user_stated",
+    "claim_status": "observation",
+    "privacy_status": "private_rejected",
+    "missingness": {
+      "state": "redacted",
+      "not_interpreted_as_absence": true
+    },
+    "boundary_route": "hypothesis_backlog",
+    "allowed_uses": ["track_longitudinal_patterns"],
+    "blocked_uses": ["public_memory_with_private_identifiers"],
+    "measurable_variables": [
+      {
+        "name": "private_identifier_count",
+        "unit_or_scale": "integer",
+        "collection_status": "observed"
+      }
+    ],
+    "falsification_route": "If a private_rejected packet is accepted into hypothesis_backlog, the privacy boundary has failed.",
+    "next_executable_action": "Validator should reject because private_rejected must route to reject_private_or_advice_like."
+  },
+  {
+    "packet_id": "fail_advice_like_001",
+    "domain": "animal_care_evidence_organization",
+    "claim_text": "A packet that implies veterinary instruction should be blocked from evidence-map storage as advice leakage.",
+    "source_status": "assistant_inferred",
+    "claim_status": "unsupported_claim",
+    "privacy_status": "public_safe",
+    "missingness": {
+      "state": "not_collected",
+      "not_interpreted_as_absence": true
+    },
+    "boundary_route": "literature_map",
+    "allowed_uses": ["prepare_clinician_or_vet_questions"],
+    "blocked_uses": ["veterinary_instruction", "treatment_recommendation"],
+    "measurable_variables": [
+      {
+        "name": "advice_leak_count",
+        "unit_or_scale": "integer",
+        "collection_status": "synthetic"
+      }
+    ],
+    "falsification_route": "If unsupported animal-care claims with veterinary-instruction blocks are promoted to literature_map, the route is unsafe.",
+    "next_executable_action": "Validator should reject because advice-like blocked uses require rejection or question-prep routing."
+  },
+  {
+    "packet_id": "pass_symbolic_to_operational_001",
+    "domain": "symbolic_to_operational_translation",
+    "claim_text": "Symbolic language can be preserved if it is routed as translation work and converted into measurable nonclinical variables.",
+    "source_status": "synthetic_fixture",
+    "claim_status": "hypothesis",
+    "privacy_status": "public_safe",
+    "missingness": {
+      "state": "none",
+      "not_interpreted_as_absence": true
+    },
+    "boundary_route": "symbolic_translation_queue",
+    "allowed_uses": ["design_nonclinical_tests", "generate_public_safe_synthetic_fixtures"],
+    "blocked_uses": ["claiming_causality_from_observation", "diagnosis"],
+    "measurable_variables": [
+      {
+        "name": "symbol_to_variable_count",
+        "unit_or_scale": "integer",
+        "collection_status": "synthetic"
+      },
+      {
+        "name": "unresolved_symbol_count",
+        "unit_or_scale": "integer",
+        "collection_status": "synthetic"
+      }
+    ],
+    "falsification_route": "If symbolic packets are promoted without operational variables, the translation route fails.",
+    "next_executable_action": "Run validator and confirm symbolic packet passes only as translation queue."
+  }
+]
