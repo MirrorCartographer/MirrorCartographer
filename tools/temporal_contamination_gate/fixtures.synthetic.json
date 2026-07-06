@@ -1,0 +1,97 @@
+[
+  {
+    "schema_version": "1.0",
+    "packet_id": "pass_pre_window_inference",
+    "privacy_status": "synthetic",
+    "claim": {
+      "text": "A staged literature workflow can generate a mechanistic claim before later validation evidence appears.",
+      "domain": "scientific_ai",
+      "novelty_basis": "pre_window_inference"
+    },
+    "generation_window": {
+      "generated_at": "2026-01-15",
+      "allowed_source_end_date": "2026-01-01"
+    },
+    "evidence_windows": [
+      {
+        "window_type": "pre_generation",
+        "start_date": "2025-01-01",
+        "end_date": "2026-01-01",
+        "sources": [
+          {"source_id": "synthetic-preprint-a", "source_type": "synthetic_fixture", "date": "2025-12-15", "role": "allowed_context"}
+        ]
+      },
+      {
+        "window_type": "post_generation_validation",
+        "start_date": "2026-01-16",
+        "end_date": "2026-04-01",
+        "sources": [
+          {"source_id": "synthetic-benchmark-b", "source_type": "synthetic_fixture", "date": "2026-03-01", "role": "validation_target"}
+        ]
+      }
+    ],
+    "source_status": "synthetic",
+    "claim_status": "validated_after_window",
+    "measurable_variables": ["generation_date", "allowed_source_end_date", "post_window_support_count"],
+    "falsification_route": "Reject the claim if validation evidence is dated before or inside the allowed source window.",
+    "implementation_status": "fixture"
+  },
+  {
+    "schema_version": "1.0",
+    "packet_id": "fail_future_leakage",
+    "privacy_status": "synthetic",
+    "claim": {
+      "text": "A claim should not pass if it used future validation evidence as context.",
+      "domain": "scientific_ai",
+      "novelty_basis": "pre_window_inference"
+    },
+    "generation_window": {
+      "generated_at": "2026-01-15",
+      "allowed_source_end_date": "2026-01-01"
+    },
+    "evidence_windows": [
+      {
+        "window_type": "pre_generation",
+        "start_date": "2025-01-01",
+        "end_date": "2026-01-01",
+        "sources": [
+          {"source_id": "future-paper-used-too-early", "source_type": "synthetic_fixture", "date": "2026-02-01", "role": "allowed_context"}
+        ]
+      }
+    ],
+    "source_status": "synthetic",
+    "claim_status": "contaminated",
+    "measurable_variables": ["source_date", "allowed_source_end_date"],
+    "falsification_route": "Reject if any allowed context source is dated after the allowed source end date.",
+    "implementation_status": "fixture"
+  },
+  {
+    "schema_version": "1.0",
+    "packet_id": "fail_no_post_window_validation",
+    "privacy_status": "synthetic",
+    "claim": {
+      "text": "A discovery claim cannot be marked validated without post-window validation evidence.",
+      "domain": "scientific_ai",
+      "novelty_basis": "cross_source_synthesis"
+    },
+    "generation_window": {
+      "generated_at": "2026-01-15",
+      "allowed_source_end_date": "2026-01-01"
+    },
+    "evidence_windows": [
+      {
+        "window_type": "pre_generation",
+        "start_date": "2025-01-01",
+        "end_date": "2026-01-01",
+        "sources": [
+          {"source_id": "synthetic-context-only", "source_type": "synthetic_fixture", "date": "2025-11-01", "role": "allowed_context"}
+        ]
+      }
+    ],
+    "source_status": "synthetic",
+    "claim_status": "validated_after_window",
+    "measurable_variables": ["post_window_support_count"],
+    "falsification_route": "Reject if claim_status is validated_after_window but no validation_target source exists after generation.",
+    "implementation_status": "fixture"
+  }
+]
