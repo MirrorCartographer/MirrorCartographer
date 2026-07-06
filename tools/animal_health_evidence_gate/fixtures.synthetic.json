@@ -1,0 +1,114 @@
+[
+  {
+    "name": "valid_companion_animal_longitudinal_glaucoma_packet",
+    "expected": "pass",
+    "packet": {
+      "packet_id": "aheg-companion-glaucoma-001",
+      "species_context": {
+        "species": "dog",
+        "population_scope": "companion dogs under longitudinal veterinary observation",
+        "care_setting": "companion_animal",
+        "translation_warning": "Do not translate human ophthalmology conclusions directly into veterinary treatment decisions."
+      },
+      "research_question": "Can repeated owner-observed behavior, medication timing, eye-pressure records, and clinical notes support better organization of veterinary glaucoma research questions?",
+      "evidence_boundary": {
+        "allowed_claims": [
+          "organizes multimodal observations for veterinary review",
+          "identifies missing evidence needed before stronger claims"
+        ],
+        "disallowed_claims": [
+          "diagnoses glaucoma subtype from owner notes alone",
+          "recommends treatment changes without veterinarian review"
+        ],
+        "requires_veterinary_review": true
+      },
+      "data_modalities": [
+        {
+          "name": "clinical_record",
+          "collection_frequency": "per veterinary encounter",
+          "quality_risk": "terminology and measurement protocols may vary by clinic",
+          "owner_burden": "low"
+        },
+        {
+          "name": "medication",
+          "collection_frequency": "per dose event",
+          "quality_risk": "dose timing may be logged late or incompletely",
+          "owner_burden": "medium"
+        },
+        {
+          "name": "behavior_log",
+          "collection_frequency": "daily structured check-in",
+          "quality_risk": "subjective owner observations require standardized prompts",
+          "owner_burden": "medium"
+        }
+      ],
+      "longitudinal_structure": {
+        "time_window": "minimum 30 days with event markers",
+        "baseline_definition": "stable period before visible symptom change or medication adjustment",
+        "change_event_definition": "new swelling, pain behavior, veterinary measurement change, or medication schedule shift",
+        "confounders": ["travel", "sedation", "missed doses", "clinic measurement device", "stress"]
+      },
+      "privacy_boundary": {
+        "privacy_status": "public_safe_synthetic",
+        "raw_data_allowed": false,
+        "deidentification_plan": "Use synthetic or aggregate records; remove owner, clinic, date, location, and media identifiers.",
+        "sharing_tier": "schema_only"
+      },
+      "claim_status": "research_organization",
+      "source_status": "synthetic_fixture",
+      "missingness": ["no verified tonometry series", "no clinician-coded diagnosis ontology", "no outcome labels"],
+      "evidence_strength": "moderate",
+      "falsification_route": "Reject the packet if it promotes treatment advice, lacks veterinary review boundaries, or cannot separate observation from diagnosis.",
+      "revision_reason": "Animal-health AI needs species-aware longitudinal evidence packets rather than generic human-medical schemas.",
+      "implementation_status": "validator_ready",
+      "next_executable_action": "Run validator and wire this gate before animal-care memory promotion."
+    }
+  },
+  {
+    "name": "invalid_treatment_advice_packet",
+    "expected": "fail",
+    "packet": {
+      "packet_id": "aheg-bad-treatment-001",
+      "species_context": {
+        "species": "dog",
+        "population_scope": "single pet",
+        "care_setting": "companion_animal",
+        "translation_warning": "short warning"
+      },
+      "research_question": "What treatment should be used?",
+      "evidence_boundary": {
+        "allowed_claims": ["treatment choice"],
+        "disallowed_claims": ["none"],
+        "requires_veterinary_review": false
+      },
+      "data_modalities": [
+        {
+          "name": "behavior_log",
+          "collection_frequency": "sometimes",
+          "quality_risk": "unknown",
+          "owner_burden": "low"
+        }
+      ],
+      "longitudinal_structure": {
+        "time_window": "1 day",
+        "baseline_definition": "none",
+        "change_event_definition": "none",
+        "confounders": ["unknown"]
+      },
+      "privacy_boundary": {
+        "privacy_status": "private_do_not_share",
+        "raw_data_allowed": true,
+        "deidentification_plan": "none",
+        "sharing_tier": "deidentified_packet"
+      },
+      "claim_status": "research_organization",
+      "source_status": "synthetic_fixture",
+      "missingness": ["none"],
+      "evidence_strength": "high",
+      "falsification_route": "none",
+      "revision_reason": "none",
+      "implementation_status": "validator_ready",
+      "next_executable_action": "change meds"
+    }
+  }
+]
