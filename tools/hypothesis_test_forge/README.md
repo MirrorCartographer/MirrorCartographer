@@ -65,4 +65,12 @@ Artifact:
 
 Tests whether context-switch explanations in human-AI sensemaking become more useful when they preserve the prior context, name the switch trigger, identify new inferences, maintain uncertainty boundaries, reject hidden-reasoning dependency, and end in an executable next action.
 
+### Cure/discovery claim promotion experiment
+
+Artifact:
+
+`tools/hypothesis_test_forge/cure_discovery_claim_promotion_experiment.json`
+
+Tests whether aspirational cure/discovery language can be routed through evidence-stage, mechanism, measurement, missingness, privacy, and falsification gates before being promoted into research memory or public-facing claims. Passing outputs remain research questions, measurement plans, experiment plans, literature summaries, or contradiction-ledger entries rather than diagnosis, treatment, veterinary advice, cure certainty, or discovery proof.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
