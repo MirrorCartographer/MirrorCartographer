@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirror-cartographer.local/schemas/actionability_boundary_packet_schema.json",
+  "title": "MC Actionability Boundary Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "hypothesis_id",
+    "domain",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "revision_reason",
+    "candidate_claim",
+    "permitted_use",
+    "prohibited_use",
+    "evidence_items",
+    "measurable_variables",
+    "missingness",
+    "decision_rule",
+    "falsification_route",
+    "implementation_status",
+    "testability",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {
+      "type": "string",
+      "pattern": "^abg_[a-z0-9_\\-]{8,80}$"
+    },
+    "hypothesis_id": {
+      "type": "string",
+      "pattern": "^hyp_[a-z0-9_\\-]{8,80}$"
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "cure_discovery_infrastructure",
+        "medical_ai_evidence_organization",
+        "scientific_reasoning",
+        "nervous_system_cognition_models",
+        "animal_care_evidence_maps",
+        "human_ai_sensemaking",
+        "privacy_preserving_longitudinal_datasets",
+        "symbolic_to_operational_translation"
+      ]
+    },
+    "source_status": {
+      "type": "string",
+      "enum": ["synthetic_fixture", "user_stated", "assistant_generated", "tool_observed", "literature_summary"]
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": ["research_question", "organization_claim", "hypothesis", "unsupported", "rejected"]
+    },
+    "privacy_status": {
+      "type": "string",
+      "enum": ["public_safe", "deidentified", "private_rejected"]
+    },
+    "revision_reason": {
+      "type": "string",
+      "minLength": 12
+    },
+    "candidate_claim": {
+      "type": "string",
+      "minLength": 12
+    },
+    "permitted_use": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "organize_research",
+          "prepare_questions",
+          "route_to_literature_map",
+          "route_to_longitudinal_tracker",
+          "route_to_contradiction_ledger",
+          "generate_falsifiable_hypothesis"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "prohibited_use": {
+      "type": "array",
+      "minItems": 4,
+      "contains": {"const": "diagnosis_or_treatment_advice"},
+      "items": {
+        "type": "string",
+        "enum": [
+          "diagnosis_or_treatment_advice",
+          "veterinary_instruction",
+          "dosage_or_protocol_recommendation",
+          "urgency_triage",
+          "causal_certainty",
+          "private_memory_promotion",
+          "public_claim_without_source"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "evidence_items": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_id", "evidence_type", "source_boundary", "supports_claim", "actionability_level"],
+        "properties": {
+          "evidence_id": {"type": "string", "pattern": "^ev_[a-z0-9_\\-]{4,80}$"},
+          "evidence_type": {"type": "string", "enum": ["observation", "measurement", "literature_summary", "expert_question", "synthetic_control"]},
+          "source_boundary": {"type": "string", "enum": ["public_safe", "deidentified", "private_rejected"]},
+          "supports_claim": {"type": "string", "enum": ["supports", "contradicts", "neutral", "insufficient"]},
+          "actionability_level": {"type": "string", "enum": ["none", "question_prep_only", "research_map_only", "blocked"]}
+        }
+      }
+    },
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "unit", "collection_context", "expected_direction"],
+        "properties": {
+          "name": {"type": "string", "minLength": 2},
+          "unit": {"type": "string", "minLength": 1},
+          "collection_context": {"type": "string", "minLength": 4},
+          "expected_direction": {"type": "string", "enum": ["increase", "decrease", "stable", "unknown"]}
+        }
+      }
+    },
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "absence_interpretation_allowed", "reason"],
+      "properties": {
+        "state": {"type": "string", "enum": ["complete", "unknown", "not_collected", "redacted", "not_applicable"]},
+        "absence_interpretation_allowed": {"type": "boolean", "const": false},
+        "reason": {"type": "string", "minLength": 8}
+      }
+    },
+    "decision_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_evidence_items", "minimum_variables", "allowed_outputs"],
+      "properties": {
+        "minimum_evidence_items": {"type": "integer", "minimum": 2},
+        "minimum_variables": {"type": "integer", "minimum": 2},
+        "allowed_outputs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "enum": ["pass_question_prep", "pass_research_map", "route_contradiction", "reject"]},
+          "uniqueItems": true
+        }
+      }
+    },
+    "falsification_route": {"type": "string", "minLength": 20},
+    "implementation_status": {"type": "string", "enum": ["schema_only", "validator_available", "tests_available", "wired_into_pipeline"]},
+    "testability": {"type": "string", "minLength": 10},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  }
+}
