@@ -1,0 +1,32 @@
+[
+  {
+    "id": "obs.synthetic.001",
+    "source_kind": "synthetic_observation",
+    "source_status": "synthetic_public_safe",
+    "privacy_status": "public_safe_deidentified",
+    "claim_text": "Repeated synthetic balance difficulty appears after heat exposure in a deidentified timeline.",
+    "claim_status": "candidate_pattern",
+    "observed_variables": ["heat_exposure", "balance_difficulty", "onset_window"],
+    "evidence_refs": [
+      {"ref_id": "lit.synthetic.autonomic_heat.001", "ref_type": "synthetic_literature_note", "boundary": "background_only"}
+    ],
+    "missingness": ["no clinical confirmation", "no raw private timestamps", "no diagnostic conclusion"],
+    "revision_reason": "Convert candidate observation into auditable provenance before hypothesis routing.",
+    "next_executable_action": "Route to hypothesis falsification runner with heat exposure as a measurable variable."
+  },
+  {
+    "id": "obs.synthetic.002",
+    "source_kind": "synthetic_animal_care_note",
+    "source_status": "synthetic_public_safe",
+    "privacy_status": "public_safe_deidentified",
+    "claim_text": "Synthetic animal-care note links medication timing and restlessness without asserting causality.",
+    "claim_status": "bounded_observation",
+    "observed_variables": ["medication_timing", "restlessness", "duration"],
+    "evidence_refs": [
+      {"ref_id": "vet.synthetic.adverse_event.001", "ref_type": "synthetic_veterinary_note", "boundary": "triage_context_only"}
+    ],
+    "missingness": ["no veterinary diagnosis", "no dose instruction", "no private animal identifier"],
+    "revision_reason": "Preserve animal-care evidence organization while preventing advice leakage.",
+    "next_executable_action": "Route to animal evidence router before collaborator export."
+  }
+]
