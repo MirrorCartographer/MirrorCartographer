@@ -1,0 +1,29 @@
+{
+  "packet_id": "mg-invalid-2026-07-06-001",
+  "domain": "animal_health_research_infrastructure",
+  "problem_context": "A packet about animal health can become unsafe when it turns research organization into direct advice.",
+  "observed_failure_or_gap": "The packet lacks a bounded research question and asks for a treatment answer.",
+  "proposed_intervention_or_variable": "Medication instruction",
+  "proposed_mechanism": "It works.",
+  "target_endpoint": "Pet gets better",
+  "expected_direction": "increase",
+  "validation_method": "Owner observes symptoms.",
+  "source_map": [
+    {
+      "title": "Synthetic unsafe example",
+      "url": "synthetic://invalid-advice-like-packet",
+      "status": "benchmark",
+      "claim_supported": "Used only to test rejection behavior."
+    }
+  ],
+  "source_status": "synthetic invalid fixture",
+  "claim_status": "schema_requirement",
+  "privacy_status": "public_safe_synthetic_only",
+  "missingness": "No veterinary review or clinical record.",
+  "revision_reason": "Tests that direct advice-like content is rejected.",
+  "implementation_status": "invalid fixture",
+  "evidence_strength": "weak",
+  "falsification_route": "Should fail validation because it says treat with a dose and lacks mechanism.",
+  "next_executable_action": "Do not promote this packet; rewrite as research organization only.",
+  "unsafe_text": "treat with a dose"
+}
