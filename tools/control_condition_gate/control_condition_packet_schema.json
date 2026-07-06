@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirror-cartographer.local/schemas/control_condition_packet_schema.json",
+  "title": "MC Control Condition Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_id",
+    "claim",
+    "domain",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "testability",
+    "measurable_variables",
+    "control_conditions",
+    "expected_result",
+    "null_result_handling",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "packet_id": {"type": "string", "minLength": 8},
+    "claim": {"type": "string", "minLength": 20},
+    "domain": {
+      "type": "string",
+      "enum": [
+        "cure_discovery_infrastructure",
+        "medical_ai_evidence_organization",
+        "scientific_reasoning",
+        "nervous_system_cognition_model",
+        "animal_care_evidence_map",
+        "human_ai_sensemaking",
+        "privacy_preserving_longitudinal_dataset",
+        "symbolic_to_operational_translation"
+      ]
+    },
+    "source_status": {"type": "string", "enum": ["synthetic", "public_primary", "public_secondary", "mixed_public", "unknown"]},
+    "claim_status": {"type": "string", "enum": ["hypothesis", "testable_claim", "supported", "contradicted", "inconclusive"]},
+    "privacy_status": {"type": "string", "enum": ["public_safe", "synthetic_only", "deidentified_public_safe"]},
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["declared", "states_allowed", "absence_policy"],
+      "properties": {
+        "declared": {"type": "boolean"},
+        "states_allowed": {
+          "type": "array",
+          "minItems": 3,
+          "items": {"type": "string", "enum": ["observed", "not_observed", "unknown", "not_collected", "redacted", "not_applicable"]}
+        },
+        "absence_policy": {"type": "string", "enum": ["absence_must_not_be_inferred_from_missingness"]}
+      }
+    },
+    "revision_reason": {"type": "string", "minLength": 20},
+    "implementation_status": {"type": "string", "enum": ["specified", "implemented", "validated"]},
+    "testability": {"type": "string", "enum": ["executable", "semi_executable", "not_testable_rejected"]},
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "measurement_type", "unit_or_scale", "sampling_rule"],
+        "properties": {
+          "name": {"type": "string", "minLength": 2},
+          "measurement_type": {"type": "string", "enum": ["count", "duration", "latency", "binary", "ordinal", "categorical", "ratio", "text_label"]},
+          "unit_or_scale": {"type": "string", "minLength": 1},
+          "sampling_rule": {"type": "string", "minLength": 8}
+        }
+      }
+    },
+    "control_conditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["positive_control", "negative_control", "counterfactual_control"],
+      "properties": {
+        "positive_control": {"type": "string", "minLength": 12},
+        "negative_control": {"type": "string", "minLength": 12},
+        "counterfactual_control": {"type": "string", "minLength": 12}
+      }
+    },
+    "expected_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pass_pattern", "fail_pattern", "decision_rule"],
+      "properties": {
+        "pass_pattern": {"type": "string", "minLength": 12},
+        "fail_pattern": {"type": "string", "minLength": 12},
+        "decision_rule": {"type": "string", "minLength": 12}
+      }
+    },
+    "null_result_handling": {"type": "string", "minLength": 20},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 12}
+  }
+}
