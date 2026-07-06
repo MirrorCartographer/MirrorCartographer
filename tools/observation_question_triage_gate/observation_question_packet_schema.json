@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.local/schemas/observation_question_packet_schema.json",
+  "title": "MC Observation Question Triage Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "domain",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "testability",
+    "falsification_route",
+    "observations",
+    "forbidden_outputs",
+    "clinician_or_research_questions",
+    "measurable_variables",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "domain": {
+      "type": "string",
+      "enum": ["medical_ai_evidence_organization", "animal_care_evidence_map", "nervous_system_cognition_model", "cure_discovery_infrastructure"]
+    },
+    "source_status": {
+      "type": "string",
+      "enum": ["synthetic_fixture", "deidentified_user_observation", "literature_summary", "mixed_requires_review"]
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": ["observation_only", "question_prep", "hypothesis_backlog", "blocked_overclaim"]
+    },
+    "privacy_status": {
+      "type": "string",
+      "enum": ["public_safe", "deidentified", "private_rejected", "needs_redaction"]
+    },
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "not_collected_fields", "absence_interpreted_as_negative"],
+      "properties": {
+        "status": {"type": "string", "enum": ["none", "partial", "unknown", "redacted"]},
+        "not_collected_fields": {"type": "array", "items": {"type": "string"}},
+        "absence_interpreted_as_negative": {"type": "boolean", "const": false}
+      }
+    },
+    "revision_reason": {"type": "string", "minLength": 10},
+    "implementation_status": {"type": "string", "enum": ["schema_only", "fixtures_and_validator", "wired", "blocked"]},
+    "testability": {"type": "string", "minLength": 10},
+    "falsification_route": {"type": "string", "minLength": 10},
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["observation_id", "text", "source_type", "time_anchor_status", "measurement_status", "not_a_diagnosis_or_treatment"],
+        "properties": {
+          "observation_id": {"type": "string", "minLength": 3},
+          "text": {"type": "string", "minLength": 5},
+          "source_type": {"type": "string", "enum": ["self_report", "caregiver_report", "lab_value", "device_measurement", "exam_note", "synthetic"]},
+          "time_anchor_status": {"type": "string", "enum": ["exact", "approximate", "relative", "unknown"]},
+          "measurement_status": {"type": "string", "enum": ["measured", "observed_not_measured", "reported", "unknown"]},
+          "not_a_diagnosis_or_treatment": {"type": "boolean", "const": true}
+        }
+      }
+    },
+    "forbidden_outputs": {
+      "type": "array",
+      "minItems": 4,
+      "items": {"type": "string", "enum": ["diagnosis", "treatment", "dosage", "urgency_instruction", "veterinary_instruction", "certainty_claim", "causal_claim"]}
+    },
+    "clinician_or_research_questions": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["question", "linked_observation_ids", "decision_use", "boundary"],
+        "properties": {
+          "question": {"type": "string", "minLength": 12},
+          "linked_observation_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "decision_use": {"type": "string", "enum": ["ask_professional", "organize_records", "choose_next_measurement", "literature_search"]},
+          "boundary": {"type": "string", "enum": ["question_prep_only", "research_organization_only"]}
+        }
+      }
+    },
+    "measurable_variables": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  }
+}
