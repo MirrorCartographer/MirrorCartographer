@@ -1,0 +1,80 @@
+[
+  {
+    "name": "valid_longitudinal_research_packet",
+    "should_pass": true,
+    "packet": {
+      "packet_id": "pep-valid-longitudinal-001",
+      "created_at": "2026-07-06T13:52:16Z",
+      "domain": "longitudinal_health",
+      "claim": {
+        "statement": "A symptom-tracking system should treat short-term improvement as a proxy signal until durable functional outcomes are verified.",
+        "mechanistic_basis": "Short-term changes can reflect noise, regression to the mean, context changes, placebo-like effects, measurement artifacts, or temporary compensation rather than mechanism-level repair.",
+        "scope_boundary": "This packet defines research-memory routing only and does not recommend diagnosis, treatment, or clinical action."
+      },
+      "claim_status": "evaluation_criterion",
+      "source_status": "mixed",
+      "privacy_status": "synthetic_only",
+      "proxy_signals": [
+        {
+          "name": "daily_symptom_score_change",
+          "measurement": "Self-reported daily severity score over seven days.",
+          "why_only_proxy": "A short time window can move independently of durable function or verified disease modification.",
+          "failure_mode": "The system may over-promote a transient improvement as evidence of cure."
+        }
+      ],
+      "target_endpoints": [
+        {
+          "name": "durable_functional_stability",
+          "measurement": "Sustained function across repeated contexts with stable or improved objective and subjective markers.",
+          "minimum_followup": "8-12 weeks or domain-specific equivalent",
+          "promotion_threshold": "Improvement persists across context changes and survives confounder review."
+        }
+      ],
+      "time_horizon": {
+        "proxy_window": "1-14 days",
+        "endpoint_window": "8-12 weeks",
+        "reason_endpoint_needs_longer_window": "Durability, recurrence, confounding, and adaptation cannot be distinguished from a brief observation window."
+      },
+      "validation_plan": {
+        "dataset_boundary": "Synthetic deidentified observations only; no raw private health or animal-care logs in this fixture.",
+        "comparison_logic": "Compare proxy movement against later endpoint persistence and confounder-adjusted context changes.",
+        "confounders": ["medication_change", "environment_change", "measurement_bias", "natural_variation"],
+        "review_required": true
+      },
+      "falsification_route": "Reject or hold the claim if proxy improvement does not persist into the endpoint window or if confounders explain the change better than the proposed mechanism.",
+      "memory_action": "hold_as_hypothesis"
+    }
+  },
+  {
+    "name": "invalid_proxy_as_cure_packet",
+    "should_pass": false,
+    "packet": {
+      "packet_id": "pep-invalid-cure-001",
+      "created_at": "2026-07-06T13:52:16Z",
+      "domain": "medical_research",
+      "claim": {
+        "statement": "Three better days proves the intervention cured the condition.",
+        "mechanistic_basis": "Short-term improvement happened.",
+        "scope_boundary": "Use this to guide care."
+      },
+      "claim_status": "hypothesis",
+      "source_status": "synthetic_fixture",
+      "privacy_status": "private_raw_rejected",
+      "proxy_signals": [],
+      "target_endpoints": [],
+      "time_horizon": {
+        "proxy_window": "3 days",
+        "endpoint_window": "3 days",
+        "reason_endpoint_needs_longer_window": "none"
+      },
+      "validation_plan": {
+        "dataset_boundary": "private notes",
+        "comparison_logic": "improved therefore cured",
+        "confounders": [],
+        "review_required": false
+      },
+      "falsification_route": "none",
+      "memory_action": "promote_to_discovery_candidate"
+    }
+  }
+]
