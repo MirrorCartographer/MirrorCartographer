@@ -19,6 +19,21 @@ The next public proof layer is **Project 101**: one hundred and one demonstratio
 
 The 101st demonstration is the **Comedy Club**: an open-mic room for testing assumptions through humor, timing, reversals, contradiction, and social truth.
 
+## Executable evidence gates
+
+The integrated hypothesis-gate suite lives at:
+
+- `tools/mc_gate_integration/gate_registry.json`
+- `tools/mc_gate_integration/fixtures.synthetic.json`
+- `tools/mc_gate_integration/validate_gate_packets.py`
+- `tools/mc_gate_integration/run_gate_check.py`
+
+Run:
+
+`python tools/mc_gate_integration/run_gate_check.py`
+
+This layer prevents MC packets from entering longitudinal memory, public research maps, question-prep, or discovery routes when provenance, privacy, missingness, actionability, temporality, controls, or operational variables are collapsed.
+
 ## Core idea
 
 Most tools preserve fragments:
