@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MC Symbolic Operational Translation Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "symbolic_input",
+    "operational_translation",
+    "ambiguity_controls",
+    "measurable_variables",
+    "missingness",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 6},
+    "source_status": {"enum": ["synthetic", "public", "deidentified_user_stated", "assistant_inferred"]},
+    "claim_status": {"enum": ["research_question", "hypothesis", "operational_mapping", "unsupported"]},
+    "privacy_status": {"enum": ["public_safe", "deidentified", "private_rejected"]},
+    "symbolic_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["symbol_label", "symbol_phrase", "domain"],
+      "properties": {
+        "symbol_label": {"type": "string", "minLength": 1},
+        "symbol_phrase": {"type": "string", "minLength": 1},
+        "domain": {"enum": ["cognition", "nervous_system_model", "scientific_reasoning", "human_ai_sensemaking", "animal_care_research_org", "medical_evidence_org", "privacy_preserving_dataset"]}
+      }
+    },
+    "operational_translation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["observable_behavior", "candidate_mechanism", "nonclaim_boundary"],
+      "properties": {
+        "observable_behavior": {"type": "string", "minLength": 8},
+        "candidate_mechanism": {"type": "string", "minLength": 8},
+        "nonclaim_boundary": {"type": "string", "minLength": 8}
+      }
+    },
+    "ambiguity_controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["alternative_interpretations", "disambiguating_observations"],
+      "properties": {
+        "alternative_interpretations": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 4}},
+        "disambiguating_observations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 4}}
+      }
+    },
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "unit", "collection_method", "allowed_missingness"],
+        "properties": {
+          "name": {"type": "string", "minLength": 2},
+          "unit": {"type": "string", "minLength": 1},
+          "collection_method": {"type": "string", "minLength": 3},
+          "allowed_missingness": {"enum": ["unknown", "not_collected", "redacted", "not_applicable"]}
+        }
+      }
+    },
+    "missingness": {"enum": ["none", "unknown", "not_collected", "redacted", "not_applicable"]},
+    "falsification_route": {"type": "string", "minLength": 12},
+    "next_executable_action": {"type": "string", "minLength": 8}
+  }
+}
