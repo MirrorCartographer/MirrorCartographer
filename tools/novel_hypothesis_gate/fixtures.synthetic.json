@@ -1,0 +1,97 @@
+{
+  "valid_packets": [
+    {
+      "packet_id": "hyp_public_latency_context_switch_001",
+      "phenomenon_id": "phen_public_context_switch_001",
+      "hypothesis_statement": "A candidate discovery packet becomes more testable when context-switch events are represented as transitions between typed states rather than as unstructured narrative summaries.",
+      "novelty_basis": "The claim adds a new representational requirement: transition typing should increase downstream testability compared with prose-only capture.",
+      "mechanism_hint": "Typed state transitions constrain which variables, alternatives, and falsification routes can be attached to a packet.",
+      "measurable_variables": [
+        {
+          "name": "testable_variable_count",
+          "operational_definition": "Number of variables with units or explicit measurement rules attached to a packet."
+        },
+        {
+          "name": "valid_falsification_route_present",
+          "operational_definition": "Boolean indicating whether an observable failure condition is specified."
+        }
+      ],
+      "alternative_explanations": [
+        "Improved testability may come from stricter templates rather than transition typing.",
+        "Improved testability may come from evaluator bias toward structured records rather than actual discovery value."
+      ],
+      "source_status": "synthetic",
+      "claim_status": "candidate",
+      "privacy_status": "public_safe_only",
+      "missingness": "Needs paired evaluation against prose-only packets and transition-typed packets.",
+      "revision_reason": "Create a testable bridge from unresolved phenomenon mapping to mechanism generation.",
+      "implementation_status": "implemented",
+      "testability": "high",
+      "falsification_route": "If transition-typed packets do not increase valid variable count or falsification-route presence compared with prose-only packets, reject or revise the claim.",
+      "next_executable_action": "Generate matched prose-only and transition-typed synthetic packets and score both with the pipeline regression runner."
+    }
+  ],
+  "invalid_packets": [
+    {
+      "case_id": "missing_alternatives",
+      "packet": {
+        "packet_id": "hyp_invalid_001",
+        "phenomenon_id": "phen_public_001",
+        "hypothesis_statement": "Structured packets are better.",
+        "novelty_basis": "It seems useful.",
+        "mechanism_hint": "Structure helps.",
+        "measurable_variables": [
+          {
+            "name": "score",
+            "operational_definition": "A generic score."
+          }
+        ],
+        "alternative_explanations": [],
+        "source_status": "synthetic",
+        "claim_status": "candidate",
+        "privacy_status": "public_safe_only",
+        "missingness": "Many details missing.",
+        "revision_reason": "Synthetic fail case.",
+        "implementation_status": "implemented",
+        "testability": "low",
+        "falsification_route": "No clear failure condition.",
+        "next_executable_action": "Revise."
+      },
+      "expected_error_contains": "alternative_explanations"
+    },
+    {
+      "case_id": "private_content_leak",
+      "packet": {
+        "packet_id": "hyp_invalid_002",
+        "phenomenon_id": "phen_public_002",
+        "hypothesis_statement": "A packet about a named person at a specific address should pass.",
+        "novelty_basis": "Uses personal longitudinal data.",
+        "mechanism_hint": "Private details are used as mechanism evidence.",
+        "measurable_variables": [
+          {
+            "name": "home_address",
+            "operational_definition": "Specific address field."
+          },
+          {
+            "name": "diagnosis_status",
+            "operational_definition": "Named diagnosis."
+          }
+        ],
+        "alternative_explanations": [
+          "Template artifact.",
+          "Measurement artifact."
+        ],
+        "source_status": "synthetic",
+        "claim_status": "candidate",
+        "privacy_status": "public_safe_only",
+        "missingness": "Contains prohibited private content.",
+        "revision_reason": "Synthetic fail case.",
+        "implementation_status": "implemented",
+        "testability": "moderate",
+        "falsification_route": "Reject if privacy scanner detects prohibited terms.",
+        "next_executable_action": "Remove private content."
+      },
+      "expected_error_contains": "privacy"
+    }
+  ]
+}
