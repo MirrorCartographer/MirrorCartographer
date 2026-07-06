@@ -1,0 +1,98 @@
+[
+  {
+    "id": "pkt_promote_001",
+    "source_status": "primary",
+    "claim_status": "bounded",
+    "privacy_status": "public_safe",
+    "evidence_strength": "high",
+    "reproducibility": {
+      "open_code": true,
+      "open_data": true,
+      "protocol_available": true
+    },
+    "measurable_variables": ["variable_alpha", "effect_size_delta"],
+    "falsification_route": "Reject or downgrade if independent replication fails to reproduce the direction of effect under the same public protocol.",
+    "missingness": [],
+    "revision_reason": "Ready to test promotion scoring for public reproducible evidence."
+  },
+  {
+    "id": "pkt_falsify_001",
+    "source_status": "primary",
+    "claim_status": "contradicted",
+    "privacy_status": "public_safe",
+    "evidence_strength": "moderate",
+    "reproducibility": {
+      "open_code": false,
+      "open_data": true,
+      "protocol_available": true
+    },
+    "measurable_variables": ["replication_failure_rate"],
+    "falsification_route": "Prioritize because the contradiction names a measurable variable and can downgrade the related hypothesis.",
+    "missingness": ["independent_lab_context"],
+    "revision_reason": "Contradiction should route to falsification queue rather than promotion."
+  },
+  {
+    "id": "pkt_normalize_001",
+    "source_status": "unknown",
+    "claim_status": "unreviewed",
+    "privacy_status": "public_safe",
+    "evidence_strength": "unknown",
+    "reproducibility": {
+      "open_code": false,
+      "open_data": false,
+      "protocol_available": false
+    },
+    "measurable_variables": ["candidate_measure"],
+    "falsification_route": "Cannot test until source type and protocol are normalized.",
+    "missingness": ["source_type", "protocol", "data_access"],
+    "revision_reason": "Unnormalized retrieval packet should not be scored as evidence yet."
+  },
+  {
+    "id": "pkt_more_evidence_001",
+    "source_status": "secondary",
+    "claim_status": "bounded",
+    "privacy_status": "public_safe",
+    "evidence_strength": "low",
+    "reproducibility": {
+      "open_code": false,
+      "open_data": false,
+      "protocol_available": true
+    },
+    "measurable_variables": ["reported_association"],
+    "falsification_route": "Downgrade if primary sources fail to support the reported association.",
+    "missingness": ["primary_source", "raw_measurement_definition"],
+    "revision_reason": "Secondary evidence with low strength should require more evidence."
+  },
+  {
+    "id": "pkt_block_private_001",
+    "source_status": "primary",
+    "claim_status": "bounded",
+    "privacy_status": "private_or_sensitive",
+    "evidence_strength": "high",
+    "reproducibility": {
+      "open_code": true,
+      "open_data": false,
+      "protocol_available": true
+    },
+    "measurable_variables": ["private_measure"],
+    "falsification_route": "This packet must be blocked before any scoring because the privacy boundary is violated.",
+    "missingness": [],
+    "revision_reason": "Privacy blocking fixture."
+  },
+  {
+    "id": "pkt_block_overclaim_001",
+    "source_status": "preprint",
+    "claim_status": "overclaim",
+    "privacy_status": "public_safe",
+    "evidence_strength": "moderate",
+    "reproducibility": {
+      "open_code": true,
+      "open_data": false,
+      "protocol_available": true
+    },
+    "measurable_variables": ["benchmark_score"],
+    "falsification_route": "Downgrade if benchmark gains do not survive independent reproduction.",
+    "missingness": ["peer_review", "external_replication"],
+    "revision_reason": "Overclaim should be blocked from promotion even with partial reproducibility."
+  }
+]
