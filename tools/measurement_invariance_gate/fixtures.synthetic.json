@@ -1,0 +1,86 @@
+[
+  {
+    "name": "pass_same_method_observed_trend",
+    "expect_pass": true,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "mi-pass-same-method-observed-trend",
+      "hypothesis_id": "hyp-measurement-invariance-001",
+      "source_status": "synthetic",
+      "claim_status": "testable_infrastructure_claim",
+      "privacy_status": "public_safe",
+      "revision_reason": "Synthetic fixture for validating comparable longitudinal measurements.",
+      "measurement_series": [
+        {"time_index": 0, "variable_name": "response_latency", "value": 12.4, "unit": "seconds", "instrument": "timer_v1", "protocol": "same_prompt_same_window", "context_window": "morning", "missingness_state": "observed"},
+        {"time_index": 1, "variable_name": "response_latency", "value": 10.1, "unit": "seconds", "instrument": "timer_v1", "protocol": "same_prompt_same_window", "context_window": "morning", "missingness_state": "observed"}
+      ],
+      "comparison_plan": {
+        "intended_comparison": "trend",
+        "requires_same_unit": true,
+        "requires_same_instrument": true,
+        "requires_same_protocol": true,
+        "allowed_normalization": "none",
+        "minimum_observed_points": 2
+      },
+      "missingness": {"declared": true, "absence_is_not_negative_evidence": true},
+      "falsification_route": "Reject trend claim if unit, instrument, protocol, order, or observed-point requirements fail.",
+      "implementation_status": "validator_ready"
+    }
+  },
+  {
+    "name": "fail_instrument_changed_without_calibration",
+    "expect_pass": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "mi-fail-instrument-changed-no-calibration",
+      "hypothesis_id": "hyp-measurement-invariance-001",
+      "source_status": "synthetic",
+      "claim_status": "testable_infrastructure_claim",
+      "privacy_status": "public_safe",
+      "revision_reason": "Synthetic fixture for rejecting false trends caused by instrument changes.",
+      "measurement_series": [
+        {"time_index": 0, "variable_name": "response_latency", "value": 12.4, "unit": "seconds", "instrument": "timer_v1", "protocol": "same_prompt_same_window", "context_window": "morning", "missingness_state": "observed"},
+        {"time_index": 1, "variable_name": "response_latency", "value": 10.1, "unit": "seconds", "instrument": "manual_estimate", "protocol": "same_prompt_same_window", "context_window": "morning", "missingness_state": "observed"}
+      ],
+      "comparison_plan": {
+        "intended_comparison": "trend",
+        "requires_same_unit": true,
+        "requires_same_instrument": true,
+        "requires_same_protocol": true,
+        "allowed_normalization": "none",
+        "minimum_observed_points": 2
+      },
+      "missingness": {"declared": true, "absence_is_not_negative_evidence": true},
+      "falsification_route": "Reject trend claim if unit, instrument, protocol, order, or observed-point requirements fail.",
+      "implementation_status": "validator_ready"
+    }
+  },
+  {
+    "name": "fail_missingness_collapsed_to_absence",
+    "expect_pass": false,
+    "packet": {
+      "schema_version": "1.0.0",
+      "packet_id": "mi-fail-missingness-collapse",
+      "hypothesis_id": "hyp-measurement-invariance-001",
+      "source_status": "synthetic",
+      "claim_status": "testable_infrastructure_claim",
+      "privacy_status": "public_safe",
+      "revision_reason": "Synthetic fixture for rejecting missingness interpreted as negative evidence.",
+      "measurement_series": [
+        {"time_index": 0, "variable_name": "signal_count", "value": 3, "unit": "count", "instrument": "event_counter_v1", "protocol": "daily_window", "context_window": "evening", "missingness_state": "observed"},
+        {"time_index": 1, "variable_name": "signal_count", "value": null, "unit": "count", "instrument": "event_counter_v1", "protocol": "daily_window", "context_window": "evening", "missingness_state": "not_collected"}
+      ],
+      "comparison_plan": {
+        "intended_comparison": "trend",
+        "requires_same_unit": true,
+        "requires_same_instrument": true,
+        "requires_same_protocol": true,
+        "allowed_normalization": "none",
+        "minimum_observed_points": 2
+      },
+      "missingness": {"declared": true, "absence_is_not_negative_evidence": false},
+      "falsification_route": "Reject trend claim if missingness is treated as absence or if observed-point requirements fail.",
+      "implementation_status": "validator_ready"
+    }
+  }
+]
