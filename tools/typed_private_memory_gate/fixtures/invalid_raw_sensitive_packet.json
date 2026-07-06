@@ -1,0 +1,64 @@
+{
+  "packet_id": "typed-private-memory-invalid-001",
+  "source_status": "synthetic_fixture",
+  "claim_status": "research_organization",
+  "privacy_status": "typed_placeholder_only",
+  "missingness": "Synthetic negative fixture with intentionally invalid raw-memory flag.",
+  "revision_reason": "Used to prove the gate blocks reusable memory that still contains raw sensitive data.",
+  "implementation_status": "tests_ready",
+  "evidence_strength": "moderate",
+  "falsification_route": "The validator should fail this packet because raw sensitive memory is marked present.",
+  "next_executable_action": "Run regression tests and confirm this fixture fails validation.",
+  "memory_candidate": {
+    "raw_memory_present": true,
+    "sanitized_memory": "Observation from <SUBJECT_ROLE:ANIMAL_COMPANION> showed <SIGNAL:BEHAVIOR_CHANGE> after <EXPOSURE:TRAVEL_CONTEXT>.",
+    "domain": "animal_health",
+    "intended_use": "Negative test for raw-sensitive-memory rejection.",
+    "retention_reason": "This should not be admitted because raw_memory_present is true."
+  },
+  "sensitive_span_policy": {
+    "detected_span_types": ["subject_role", "health_signal", "exposure_context"],
+    "blocked_span_types": ["name", "address", "exact_date"],
+    "allowed_placeholder_types": ["SUBJECT_ROLE", "SIGNAL", "EXPOSURE"],
+    "policy_level": "strict"
+  },
+  "typed_placeholders": [
+    {
+      "placeholder": "<SUBJECT_ROLE:ANIMAL_COMPANION>",
+      "span_type": "subject_role",
+      "semantic_role": "who the observation concerns without identity",
+      "restoration_location": "local_only"
+    },
+    {
+      "placeholder": "<SIGNAL:BEHAVIOR_CHANGE>",
+      "span_type": "health_signal",
+      "semantic_role": "observable longitudinal signal",
+      "restoration_location": "user_supplied_runtime"
+    },
+    {
+      "placeholder": "<EXPOSURE:TRAVEL_CONTEXT>",
+      "span_type": "exposure_context",
+      "semantic_role": "contextual variable for later hypothesis testing",
+      "restoration_location": "not_stored"
+    }
+  ],
+  "semantic_utility_plan": {
+    "utility_preserved": ["domain", "temporal relation"],
+    "utility_risk": "This negative fixture preserves utility but violates privacy boundary.",
+    "measurement": "Validator should return nonzero exit status."
+  },
+  "local_restoration_boundary": {
+    "cloud_can_restore": false,
+    "local_restore_required": true,
+    "restoration_audit_required": true
+  },
+  "retrieval_gate": {
+    "query_conditioned": true,
+    "cross_domain_leakage_check": true,
+    "tool_action_check": true,
+    "admission_decision": "admit"
+  },
+  "audit_trace": [
+    "negative fixture generated for raw-memory rejection test"
+  ]
+}
