@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/evidence_boundary_packet_schema.json",
+  "title": "Evidence Boundary Router Packet",
+  "description": "Public-safe schema for routing observations, hypotheses, literature notes, and symbolic translations without collapsing research organization into medical/veterinary advice.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "domain",
+    "claim_text",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "boundary_route",
+    "allowed_uses",
+    "blocked_uses",
+    "measurable_variables",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_\\-]{5,80}$"
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "cure_discovery_infrastructure",
+        "medical_ai_evidence_organization",
+        "animal_care_evidence_organization",
+        "scientific_reasoning",
+        "nervous_system_cognition_model",
+        "human_ai_sensemaking",
+        "privacy_preserving_longitudinal_dataset",
+        "symbolic_to_operational_translation"
+      ]
+    },
+    "claim_text": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 500
+    },
+    "source_status": {
+      "type": "string",
+      "enum": ["user_stated", "assistant_inferred", "tool_observed", "literature_reported", "synthetic_fixture"]
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": ["observation", "question", "hypothesis", "unsupported_claim", "disconfirmed", "validated_in_fixture_only"]
+    },
+    "privacy_status": {
+      "type": "string",
+      "enum": ["public_safe", "deidentified", "private_rejected", "requires_redaction"]
+    },
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "not_interpreted_as_absence"],
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": ["none", "unknown", "not_collected", "redacted", "not_applicable"]
+        },
+        "not_interpreted_as_absence": {
+          "type": "boolean",
+          "const": true
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 300
+        }
+      }
+    },
+    "boundary_route": {
+      "type": "string",
+      "enum": [
+        "research_question_prep",
+        "literature_map",
+        "hypothesis_backlog",
+        "mechanistic_verification",
+        "contradiction_ledger",
+        "symbolic_translation_queue",
+        "reject_private_or_advice_like"
+      ]
+    },
+    "allowed_uses": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "organize_questions",
+          "track_longitudinal_patterns",
+          "design_nonclinical_tests",
+          "prepare_clinician_or_vet_questions",
+          "map_literature",
+          "generate_public_safe_synthetic_fixtures",
+          "route_to_falsification"
+        ]
+      }
+    },
+    "blocked_uses": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "diagnosis",
+          "treatment_recommendation",
+          "dosage_or_medication_change",
+          "emergency_triage",
+          "veterinary_instruction",
+          "claiming_causality_from_observation",
+          "public_memory_with_private_identifiers"
+        ]
+      }
+    },
+    "measurable_variables": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "unit_or_scale", "collection_status"],
+        "properties": {
+          "name": {"type": "string", "minLength": 2, "maxLength": 80},
+          "unit_or_scale": {"type": "string", "minLength": 2, "maxLength": 80},
+          "collection_status": {
+            "type": "string",
+            "enum": ["observed", "planned", "synthetic", "missing"]
+          }
+        }
+      }
+    },
+    "falsification_route": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 500
+    },
+    "next_executable_action": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 300
+    }
+  }
+}
