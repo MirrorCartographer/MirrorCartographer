@@ -1,0 +1,83 @@
+{
+  "packet_id": "ihwg-valid-001",
+  "domain": "hypothesis_generation_system",
+  "source_status": "public frontier scan using preprints, benchmark descriptions, and synthetic implementation artifacts",
+  "claim_status": "research-organization infrastructure claim, not a biological or clinical claim",
+  "privacy_status": "public-safe synthetic packet only; no personal, clinical, veterinary, or private longitudinal data included",
+  "missingness": "no production corpus, no curator labels, no live external database calls, and no clinical validation included",
+  "revision_reason": "frontier work increasingly evaluates inspectable scientific workflows rather than final-answer plausibility alone",
+  "implementation_status": "schema, validator, fixtures, and regression test created for repository use",
+  "evidence_strength": "moderate",
+  "source_map": [
+    {
+      "source_id": "HeurekaBench-2026",
+      "source_type": "preprint",
+      "claim_supported": "scientific-agent evaluation should be grounded in real studies, datasets, code repositories, and exploratory workflows",
+      "caveat": "preprint status; benchmark utility still depends on external adoption and replication"
+    },
+    {
+      "source_id": "CoDHy-2026",
+      "source_type": "preprint",
+      "claim_supported": "biomedical hypothesis systems benefit from graph-grounded evidence, retrievable support, and human-in-the-loop inspection",
+      "caveat": "exploratory translational-oncology system, not validated as a clinical decision system"
+    },
+    {
+      "source_id": "BioVerge-2025",
+      "source_type": "preprint",
+      "claim_supported": "biomedical hypothesis generation needs structured and textual sources plus self-evaluation for novelty and relevance",
+      "caveat": "benchmark-oriented evidence, not direct proof of discovery outcomes"
+    },
+    {
+      "source_id": "MedPriv-Bench-2026",
+      "source_type": "preprint",
+      "claim_supported": "retrieval-grounded medical systems require joint privacy and utility evaluation because contextual leakage can occur without explicit identifiers",
+      "caveat": "synthetic benchmark and automated judge require careful interpretation"
+    }
+  ],
+  "workflow_boundary": {
+    "dataset_boundary": "synthetic fixture only; no patient, animal, lab, or private longitudinal dataset is used",
+    "code_boundary": "validator checks packet structure and does not execute scientific analysis or claim truth",
+    "literature_boundary": "source map records external frontier claims but does not import full papers or hidden evidence",
+    "tool_boundary": "gate validates inspectability metadata only; it does not diagnose, treat, or recommend interventions",
+    "excluded_uses": [
+      "medical advice",
+      "veterinary advice",
+      "clinical triage",
+      "animal treatment recommendation",
+      "personal diagnosis"
+    ]
+  },
+  "hypothesis_route": {
+    "starting_question": "Can discovery memory promote a scientific hypothesis only when its workflow route is inspectable?",
+    "structured_evidence_route": [
+      "map source claims into workflow requirements",
+      "separate generation route from critique route",
+      "require privacy leakage route before memory promotion",
+      "require human checkpoint with promote, hold, revise, and reject decisions"
+    ],
+    "candidate_hypothesis": "Inspectable workflow packets will reduce unsupported discovery-memory promotion compared with final-answer-only packets.",
+    "ranking_basis": "prioritize packets with source diversity, explicit boundaries, critique failure modes, privacy leakage review, and falsification route"
+  },
+  "critique_route": {
+    "critic_role": "repository-level evaluator checking whether a hypothesis can be reconstructed without hidden reasoning",
+    "main_failure_modes": [
+      "plausible final answer with no dataset, code, or literature boundary",
+      "hypothesis promoted despite missing privacy leakage analysis",
+      "claim framed as cure or treatment instead of research organization"
+    ],
+    "revision_trigger": "revise packet if any route is missing, advice-like, unbounded, non-falsifiable, or privacy ambiguous"
+  },
+  "privacy_leakage_route": {
+    "sensitive_context": "health, animal-health, and longitudinal observations can become identifying through rare combinations",
+    "leakage_risk": "retrieval-grounded memory may expose contextual details even when direct identifiers are absent",
+    "mitigation": "use synthetic fixtures, typed placeholders, explicit privacy status, and human checkpoint before promotion",
+    "residual_risk": "real deployments still need privacy testing against membership, linkage, and attribute inference attacks"
+  },
+  "human_checkpoint": {
+    "required": true,
+    "reviewer_role": "scientific curator or project maintainer",
+    "decision_options": ["promote", "hold", "revise", "reject"]
+  },
+  "falsification_route": "Compare curator agreement and unsupported-promotion rate between final-answer-only packets and inspectable workflow packets.",
+  "next_executable_action": "Run the regression test for this gate and add CI wiring if it passes."
+}
