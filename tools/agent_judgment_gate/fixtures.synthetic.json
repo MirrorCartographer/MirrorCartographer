@@ -1,0 +1,136 @@
+[
+  {
+    "packet_id": "pass.dataset_backed_judgment",
+    "claim_text": "A discovery-memory packet should be admitted only when it records ambiguity handling, artifact use, atomic fact checks, and a falsification route.",
+    "domain": "scientific_ai",
+    "source_status": "mixed",
+    "claim_status": "testable_design_implication",
+    "privacy_status": "public_safe",
+    "missingness": ["No live scientific dataset is bundled with this synthetic fixture."],
+    "revision_reason": "Frontier benchmarks increasingly test workflow judgment, artifact interpretation, ambiguity handling, and data-backed evaluation rather than isolated recall.",
+    "implementation_status": "implemented",
+    "evidence_strength": "moderate",
+    "ambiguity_decisions": [
+      {
+        "decision": "Classify this as research infrastructure instead of a biomedical claim.",
+        "alternatives_considered": ["Treat as direct cure claim", "Treat as literature summary only"],
+        "why_chosen": "The packet changes how hypotheses are admitted and scored, not what treatment or mechanism is true.",
+        "uncertainty_remaining": "Thresholds need calibration against real curator disagreement."
+      }
+    ],
+    "artifact_grounding": [
+      {
+        "artifact_type": "benchmark",
+        "artifact_id": "GeneBench-Pro",
+        "used_for": "Motivates explicit recording of ambiguity and consequential scientific judgments.",
+        "not_used_for": "Not used as evidence that any biomedical hypothesis is correct."
+      },
+      {
+        "artifact_type": "benchmark",
+        "artifact_id": "HeurekaBench",
+        "used_for": "Motivates atomic fact evaluation and dataset-backed response checks.",
+        "not_used_for": "Not used to claim performance of Mirror Cartographer on single-cell tasks."
+      }
+    ],
+    "atomic_fact_checks": [
+      {
+        "fact": "Packet contains at least one explicit ambiguity decision.",
+        "support_status": "supported",
+        "supporting_artifact_id": "fixture.self",
+        "contradiction_check": "Reject if no alternatives or uncertainty are recorded."
+      },
+      {
+        "fact": "Packet separates artifact use from unsupported inference.",
+        "support_status": "supported",
+        "supporting_artifact_id": "fixture.self",
+        "contradiction_check": "Reject if used_for and not_used_for are missing."
+      }
+    ],
+    "measurable_variables": ["ambiguity_decision_count", "atomic_fact_supported_ratio", "artifact_grounding_count"],
+    "falsification_route": "If admitted packets without this gate produce equal or better curator agreement and fewer unsupported promotions, the gate should be revised or removed.",
+    "next_executable_action": "Wire this validator before evidence-transition promotion and compare rejection reasons across 20 synthetic packets."
+  },
+  {
+    "packet_id": "fail.no_ambiguity",
+    "claim_text": "The system should accept this generated hypothesis because it sounds plausible and references biology.",
+    "domain": "hypothesis_generation",
+    "source_status": "synthetic",
+    "claim_status": "hypothesis",
+    "privacy_status": "public_safe",
+    "missingness": ["No ambiguity decision was recorded."],
+    "revision_reason": "Fixture should fail because no ambiguity_decisions are present.",
+    "implementation_status": "implemented",
+    "evidence_strength": "low",
+    "ambiguity_decisions": [],
+    "artifact_grounding": [
+      {
+        "artifact_type": "synthetic_fixture",
+        "artifact_id": "fixture.fail",
+        "used_for": "Demonstrates a malformed packet.",
+        "not_used_for": "Not used as scientific evidence."
+      }
+    ],
+    "atomic_fact_checks": [
+      {
+        "fact": "The packet sounds plausible.",
+        "support_status": "unsupported",
+        "supporting_artifact_id": "fixture.fail",
+        "contradiction_check": "Plausibility is not sufficient for admission."
+      },
+      {
+        "fact": "No validated artifact supports the claim.",
+        "support_status": "supported",
+        "supporting_artifact_id": "fixture.fail",
+        "contradiction_check": "Reject if artifact support is absent."
+      }
+    ],
+    "measurable_variables": ["plausibility_label", "artifact_count"],
+    "falsification_route": "If plausibility-only packets are accepted, downstream unsupported promotion rate should rise.",
+    "next_executable_action": "Expect the validator to reject this fixture."
+  },
+  {
+    "packet_id": "fail.private_or_advice_leak",
+    "claim_text": "A packet that uses private personal medical details or gives treatment advice should never enter public discovery memory.",
+    "domain": "medical_ai_evidence_organization",
+    "source_status": "synthetic",
+    "claim_status": "testable_design_implication",
+    "privacy_status": "reject_private",
+    "missingness": ["Private details are intentionally omitted."],
+    "revision_reason": "Fixture should fail because privacy_status rejects public-memory admission.",
+    "implementation_status": "implemented",
+    "evidence_strength": "moderate",
+    "ambiguity_decisions": [
+      {
+        "decision": "Reject packet from public discovery memory.",
+        "alternatives_considered": ["Deidentify and keep", "Convert to research organization only"],
+        "why_chosen": "The safety boundary is more important than retaining sensitive specificity.",
+        "uncertainty_remaining": "A private local-only vault could store a separate deidentified derivative."
+      }
+    ],
+    "artifact_grounding": [
+      {
+        "artifact_type": "synthetic_fixture",
+        "artifact_id": "fixture.privacy",
+        "used_for": "Demonstrates privacy rejection behavior.",
+        "not_used_for": "Not used as personal medical or veterinary guidance."
+      }
+    ],
+    "atomic_fact_checks": [
+      {
+        "fact": "Privacy status is reject_private.",
+        "support_status": "supported",
+        "supporting_artifact_id": "fixture.privacy",
+        "contradiction_check": "Reject regardless of other completeness fields."
+      },
+      {
+        "fact": "Public-safe conversion is required before admission.",
+        "support_status": "supported",
+        "supporting_artifact_id": "fixture.privacy",
+        "contradiction_check": "Reject if raw private context remains."
+      }
+    ],
+    "measurable_variables": ["privacy_status", "private_identifier_count"],
+    "falsification_route": "If any reject_private packet passes admission, the validator fails its core privacy requirement.",
+    "next_executable_action": "Expect the validator to reject this fixture."
+  }
+]
