@@ -1,0 +1,137 @@
+[
+  {
+    "case_id": "valid_counterfactual_packet",
+    "expected_valid": true,
+    "packet": {
+      "packet_id": "cfhg_valid_discovery_memory_counterfactuals",
+      "schema_version": "1.0.0",
+      "hypothesis_claim": "A candidate discovery packet should not be promoted unless at least two plausible alternative explanations and one discriminating test are recorded.",
+      "domain": "scientific_reasoning",
+      "source_status": "synthetic",
+      "claim_status": "test_fixture",
+      "privacy_status": "public_safe",
+      "missingness": {
+        "status": "declared",
+        "known_gaps": ["No external literature labels are attached in this fixture."]
+      },
+      "revision_reason": "Single-explanation hypothesis records can create false confidence during discovery-memory promotion.",
+      "implementation_status": "validator_ready",
+      "measurable_variables": [
+        {
+          "name": "alternative_count",
+          "measurement_method": "Count alternative_explanations entries in packet.",
+          "expected_direction": "increase"
+        },
+        {
+          "name": "discriminating_test_count",
+          "measurement_method": "Count tests that specify variable, passing pattern, and failing pattern.",
+          "expected_direction": "increase"
+        }
+      ],
+      "primary_explanation": {
+        "statement": "The observed signal is caused by the proposed mechanism under evaluation.",
+        "support_boundary": "Synthetic fixture only; no real-world scientific claim is being made."
+      },
+      "alternative_explanations": [
+        {
+          "statement": "The observed signal could be an artifact of measurement timing.",
+          "why_plausible": "Longitudinal records often contain irregular sampling intervals.",
+          "what_would_distinguish_it": "The effect disappears after controlling for sampling interval."
+        },
+        {
+          "statement": "The observed signal could be caused by source-selection bias.",
+          "why_plausible": "Evidence packets may be selectively retrieved or summarized.",
+          "what_would_distinguish_it": "The effect weakens when negative or neutral packets are included."
+        }
+      ],
+      "discriminating_tests": [
+        {
+          "test_name": "sampling_interval_control",
+          "variable": "sampling_interval_hours",
+          "passing_pattern": "Signal remains after interval normalization.",
+          "failing_pattern": "Signal disappears after interval normalization."
+        }
+      ],
+      "falsification_route": "Reject or downgrade the hypothesis if alternatives explain the pattern with equal or better predictive performance."
+    }
+  },
+  {
+    "case_id": "invalid_missing_alternatives",
+    "expected_valid": false,
+    "packet": {
+      "packet_id": "cfhg_invalid_missing_alternatives",
+      "schema_version": "1.0.0",
+      "hypothesis_claim": "A hypothesis can be promoted with only one explanation if it sounds coherent enough.",
+      "domain": "scientific_reasoning",
+      "source_status": "synthetic",
+      "claim_status": "hypothesis",
+      "privacy_status": "public_safe",
+      "missingness": {"status": "none_known", "known_gaps": []},
+      "revision_reason": "Negative fixture for missing alternatives.",
+      "implementation_status": "fixture_only",
+      "measurable_variables": [
+        {"name": "coherence_score", "measurement_method": "Reviewer score only.", "expected_direction": "increase"},
+        {"name": "claim_length", "measurement_method": "Count characters.", "expected_direction": "increase"}
+      ],
+      "primary_explanation": {
+        "statement": "The explanation is assumed correct because it is coherent.",
+        "support_boundary": "Synthetic only."
+      },
+      "alternative_explanations": [],
+      "discriminating_tests": [
+        {
+          "test_name": "none",
+          "variable": "coherence_score",
+          "passing_pattern": "Sounds persuasive.",
+          "failing_pattern": "Sounds less persuasive."
+        }
+      ],
+      "falsification_route": "Reject if alternative explanations are required by the gate."
+    }
+  },
+  {
+    "case_id": "invalid_private_packet",
+    "expected_valid": false,
+    "packet": {
+      "packet_id": "cfhg_invalid_private_packet",
+      "schema_version": "1.0.0",
+      "hypothesis_claim": "A packet containing private raw longitudinal details should be accepted into public discovery memory.",
+      "domain": "privacy_preserving_longitudinal_datasets",
+      "source_status": "synthetic",
+      "claim_status": "hypothesis",
+      "privacy_status": "reject_private",
+      "missingness": {"status": "declared", "known_gaps": ["Contains private details by design."]},
+      "revision_reason": "Negative fixture for privacy rejection.",
+      "implementation_status": "fixture_only",
+      "measurable_variables": [
+        {"name": "private_identifier_count", "measurement_method": "Count direct identifiers.", "expected_direction": "decrease"},
+        {"name": "redaction_count", "measurement_method": "Count redacted fields.", "expected_direction": "increase"}
+      ],
+      "primary_explanation": {
+        "statement": "Private longitudinal material should be stored as-is for accuracy.",
+        "support_boundary": "This is intentionally invalid for public-safe MC infrastructure."
+      },
+      "alternative_explanations": [
+        {
+          "statement": "The packet should be deidentified before evaluation.",
+          "why_plausible": "Public-safe discovery memory must avoid raw private details.",
+          "what_would_distinguish_it": "A deidentified abstraction passes while raw details fail."
+        },
+        {
+          "statement": "The packet should remain in a private local store only.",
+          "why_plausible": "Some longitudinal records are useful but not publishable.",
+          "what_would_distinguish_it": "Routing decision changes based on privacy boundary."
+        }
+      ],
+      "discriminating_tests": [
+        {
+          "test_name": "privacy_boundary_check",
+          "variable": "private_identifier_count",
+          "passing_pattern": "No direct identifiers present.",
+          "failing_pattern": "Any direct identifier remains."
+        }
+      ],
+      "falsification_route": "Packet fails if privacy_status is reject_private or direct identifiers are detected."
+    }
+  }
+]
