@@ -1,0 +1,50 @@
+{
+  "packet_id": "arf-2026-07-06-001",
+  "source_status": "mixed",
+  "claim_status": "evaluation_criterion",
+  "privacy_status": "public_safe",
+  "missingness": {
+    "known_missing": [
+      "No production curator corpus yet",
+      "No domain expert scoring labels yet",
+      "No CI wiring yet"
+    ],
+    "effect_on_interpretation": "The gate should be treated as a research-organization criterion until validated against real review outcomes."
+  },
+  "revision_reason": "Prior gates handled evidence, privacy, workflow, and federation, but did not require proof that the selected readout can distinguish mechanism from proxy improvement.",
+  "implementation_status": "validator_committed",
+  "evidence_strength": "moderate",
+  "hypothesis": "Discovery-memory packets should be blocked unless the stated assay or readout is fit to evaluate the claimed mechanism rather than a nearby proxy.",
+  "mechanism_claim": "A mechanism-level hypothesis requires a measurement path that can discriminate causal pathway change from coincident correlation, short-term symptom movement, or reporting artifact.",
+  "assay_or_readout": {
+    "modality": "longitudinal multimodal research packet",
+    "measurement": "explicit assay/readout field mapped to mechanism, endpoint, proxy, and timing window",
+    "sampling_window": "before, during, and after the proposed intervention or observation window",
+    "unit_or_scale": "structured categorical plus quantitative where available"
+  },
+  "readout_fitness": {
+    "distinguishes_mechanism_from_proxy": true,
+    "specificity_rationale": "A valid packet must identify what the readout rules in and what alternative explanations it cannot rule out.",
+    "sensitivity_rationale": "A valid packet must name the smallest change or evidence pattern that would be detectable enough to matter.",
+    "temporal_alignment": "The measurement window must match the expected timing of the proposed mechanism rather than only the easiest available observation.",
+    "minimum_viable_evidence": "Promotion requires a mechanism-linked readout, at least one negative control, known confounders, and promote/hold/reject thresholds."
+  },
+  "confounders": [
+    "sampling bias",
+    "instrument drift",
+    "short-term proxy improvement",
+    "species/site/population mismatch",
+    "observer expectation effects"
+  ],
+  "negative_controls": [
+    "A measurement expected not to change if the claimed mechanism is specific",
+    "A baseline or unrelated domain check to detect global reporting drift"
+  ],
+  "decision_thresholds": {
+    "promote": "Promote only when the readout discriminates the mechanism from named proxies and negative controls behave as expected.",
+    "hold": "Hold when the evidence is plausible but the readout cannot separate mechanism from confounding or timing artifacts.",
+    "reject": "Reject when the only available evidence is a proxy signal, anecdote, or unbounded endpoint without readout specificity."
+  },
+  "falsification_route": "If reviewer testing shows packets with readout-fitness fields do not improve mechanism/proxy discrimination, revise or remove the gate.",
+  "next_executable_action": "Run the validator on this fixture and add a failing fixture for proxy-only claims."
+}
