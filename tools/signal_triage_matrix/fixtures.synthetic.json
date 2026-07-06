@@ -1,0 +1,52 @@
+{
+  "packets": [
+    {
+      "packet_id": "stm_synthetic_001",
+      "domain": "longitudinal_pattern_tracking",
+      "signal_label": "posture_eye_strain_timing",
+      "observation_summary": "Synthetic weekly logs show eye-strain score rising near posture-score changes, but screen exposure is not controlled.",
+      "source_status": "synthetic_fixture",
+      "claim_status": "candidate_signal_not_conclusion",
+      "privacy_status": "public_safe_synthetic",
+      "missingness": ["screen_exposure_minutes", "lighting_condition", "baseline_eye_strain_window"],
+      "variables": ["eye_strain_score", "posture_score", "screen_exposure_minutes"],
+      "evidence_refs": ["synthetic_weekly_log_a", "synthetic_weekly_log_b"],
+      "risk_of_false_pattern": "high",
+      "triage_route": "hold_for_controls",
+      "falsification_route": "Compare against matched synthetic weeks where screen exposure changes without posture-score changes.",
+      "next_executable_action": "Generate paired control fixtures before hypothesis promotion."
+    },
+    {
+      "packet_id": "stm_synthetic_002",
+      "domain": "animal_care_evidence_organization",
+      "signal_label": "rest_duration_eye_appearance",
+      "observation_summary": "Synthetic animal-care entries show eye-appearance score improving after longer rest windows.",
+      "source_status": "synthetic_fixture",
+      "claim_status": "observation_only",
+      "privacy_status": "public_safe_synthetic",
+      "missingness": ["exam_confirmed_measurement", "medication_timing", "travel_stress_score"],
+      "variables": ["eye_appearance_score", "rest_duration_hours", "travel_stress_score"],
+      "evidence_refs": ["synthetic_animal_note_a"],
+      "risk_of_false_pattern": "medium",
+      "triage_route": "route_to_animal_evidence_router",
+      "falsification_route": "Check whether eye-appearance score improves in rest windows without reduced stress or medication-timing changes.",
+      "next_executable_action": "Route through animal evidence router and contradiction ledger before any claim promotion."
+    },
+    {
+      "packet_id": "stm_synthetic_003",
+      "domain": "privacy_preserving_research_memory",
+      "signal_label": "export_ready_but_missingness_present",
+      "observation_summary": "Synthetic packet passes redaction but still carries unresolved missingness affecting collaborator interpretation.",
+      "source_status": "validator_output_synthetic",
+      "claim_status": "workflow_signal",
+      "privacy_status": "public_safe_synthetic",
+      "missingness": ["owner_review_status", "collaborator_use_context"],
+      "variables": ["redaction_passed", "missingness_count", "collaboration_contract_passed"],
+      "evidence_refs": ["synthetic_redaction_report_a", "synthetic_collaboration_contract_a"],
+      "risk_of_false_pattern": "low",
+      "triage_route": "export_as_uncertainty_only",
+      "falsification_route": "Block export-as-evidence unless missingness_count is zero or uncertainty status is explicit.",
+      "next_executable_action": "Add the packet to collaboration readiness validation as an uncertainty-export fixture."
+    }
+  ]
+}
