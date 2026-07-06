@@ -1,0 +1,42 @@
+{
+  "packet_id": "drmf-invalid-raw-sensitive-001",
+  "source_status": "synthetic",
+  "claim_status": "infrastructure_hypothesis",
+  "privacy_status": {
+    "raw_sensitive_data_present": true,
+    "deidentification_level": "none",
+    "reuse_boundary": "public_safe"
+  },
+  "data_rights_status": {
+    "license_or_terms": "unknown source terms",
+    "consent_scope": "clinical_care_only",
+    "redistribution_allowed": "no",
+    "commercial_use_allowed": "unknown",
+    "animal_or_human_subject_boundary": "human"
+  },
+  "modality_map": [
+    {
+      "modality": "free_text",
+      "observed_signal": "raw clinical narrative",
+      "durable_endpoint": "generalized cure or discovery claim",
+      "known_failure_modes": ["privacy leakage", "consent mismatch", "anecdote treated as longitudinal endpoint"]
+    }
+  ],
+  "task_fit": {
+    "intended_task": "promote raw clinical text into public discovery memory",
+    "fit_level": "unknown",
+    "why_this_modality_is_sufficient_or_not": "The packet lacks consent, deidentification, and modality fitness evidence.",
+    "human_review_required": true
+  },
+  "missingness": {
+    "missing_modalities": ["structured endpoint", "longitudinal follow-up"],
+    "missing_time_windows": ["baseline", "follow-up"],
+    "missing_rights_or_consent": ["research consent", "redistribution permission"],
+    "impact_on_claim": "blocks_promotion"
+  },
+  "revision_reason": "This fixture should fail because raw sensitive clinical content cannot become public-safe reusable discovery memory.",
+  "implementation_status": "tested",
+  "evidence_strength": "weak",
+  "falsification_route": "This packet should only pass after deidentification, rights clarification, and task-fit conversion into an internal-only review packet.",
+  "next_executable_action": "Reject promotion and request a deidentified, rights-bounded packet."
+}
