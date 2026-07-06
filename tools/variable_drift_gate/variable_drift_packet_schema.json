@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/variable_drift_packet_schema.json",
+  "title": "MC Variable Drift Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "hypothesis_id",
+    "claim",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "revision_reason",
+    "tracked_variable",
+    "baseline_definition",
+    "current_definition",
+    "timepoints",
+    "allowed_drift",
+    "missingness",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 6},
+    "hypothesis_id": {"type": "string", "minLength": 6},
+    "claim": {"type": "string", "minLength": 20},
+    "source_status": {"enum": ["synthetic_fixture", "user_stated", "assistant_inferred", "tool_observed", "literature_derived"]},
+    "claim_status": {"enum": ["hypothesis", "operational_test", "rejected", "needs_review"]},
+    "privacy_status": {"enum": ["public_safe", "deidentified", "private_rejected"]},
+    "revision_reason": {"type": "string", "minLength": 10},
+    "tracked_variable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "symbolic_phrase", "unit", "measurement_method"],
+      "properties": {
+        "name": {"type": "string", "minLength": 2},
+        "symbolic_phrase": {"type": "string", "minLength": 2},
+        "unit": {"type": "string", "minLength": 1},
+        "measurement_method": {"type": "string", "minLength": 4}
+      }
+    },
+    "baseline_definition": {"type": "string", "minLength": 20},
+    "current_definition": {"type": "string", "minLength": 20},
+    "timepoints": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["t", "definition", "observed", "missingness_state"],
+        "properties": {
+          "t": {"type": "string", "format": "date-time"},
+          "definition": {"type": "string", "minLength": 10},
+          "observed": {"type": "boolean"},
+          "missingness_state": {"enum": ["observed", "unknown", "not_collected", "redacted", "not_applicable"]}
+        }
+      }
+    },
+    "allowed_drift": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic_change_allowed", "unit_change_allowed", "method_change_allowed", "requires_new_variable_if_exceeded"],
+      "properties": {
+        "semantic_change_allowed": {"type": "boolean"},
+        "unit_change_allowed": {"type": "boolean"},
+        "method_change_allowed": {"type": "boolean"},
+        "requires_new_variable_if_exceeded": {"type": "boolean"}
+      }
+    },
+    "missingness": {"type": "string", "minLength": 10},
+    "falsification_route": {"type": "string", "minLength": 15},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  }
+}
