@@ -1,0 +1,41 @@
+[
+  {
+    "question_id": "oq_synthetic_001",
+    "domain": "animal_care_evidence",
+    "question": "Does symptom timing change after medication exposure in the synthetic animal timeline?",
+    "source_status": "synthetic_fixture",
+    "claim_status": "open_question",
+    "privacy_status": "public_safe_synthetic",
+    "missingness": ["dose timing precision", "baseline comparison window"],
+    "variables": ["exposure_window", "symptom_onset_delta", "recovery_duration"],
+    "evidence_refs": ["synthetic_case_note_a"],
+    "falsification_route": "Compare against no-exposure windows and unrelated symptom clusters.",
+    "next_executable_action": "Generate paired positive and negative control fixtures."
+  },
+  {
+    "question_id": "oq_synthetic_002",
+    "domain": "longitudinal_pattern_tracking",
+    "question": "Which synthetic signal shifts remain stable after missingness normalization?",
+    "source_status": "synthetic_fixture",
+    "claim_status": "open_question",
+    "privacy_status": "public_safe_synthetic",
+    "missingness": ["uneven sampling intervals", "unobserved confounders"],
+    "variables": ["normalized_event_rate", "missingness_weight", "delta_persistence_score"],
+    "evidence_refs": ["synthetic_delta_report_b"],
+    "falsification_route": "Shuffle observation windows and require the signal to disappear under time-randomized controls.",
+    "next_executable_action": "Route into longitudinal delta detector with synthetic randomized controls."
+  },
+  {
+    "question_id": "oq_synthetic_003",
+    "domain": "medical_scientific_literature_organization",
+    "question": "Which literature claims are specific enough to become falsifiable synthetic hypotheses?",
+    "source_status": "synthetic_literature_note",
+    "claim_status": "open_question",
+    "privacy_status": "public_safe_synthetic",
+    "missingness": ["study design quality", "population comparability"],
+    "variables": ["claim_specificity", "population_match_score", "testable_variable_count"],
+    "evidence_refs": ["synthetic_lit_note_c"],
+    "falsification_route": "Reject promotion when variables cannot be operationalized or when population mapping is absent.",
+    "next_executable_action": "Send to literature evidence mapper and claim promotion matrix."
+  }
+]
