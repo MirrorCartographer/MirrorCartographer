@@ -1,0 +1,190 @@
+[
+  {
+    "name": "valid_question_prep_literature_map",
+    "should_pass": true,
+    "packet": {
+      "packet_id": "lit-strength-animal-eye-observation-map",
+      "domain": "animal_care_evidence_map",
+      "hypothesis": "Animal-care research maps are safer when observation clusters are separated from diagnosis and linked to source types, limits, and measurable follow-up questions.",
+      "claim_status": "question_prep_only",
+      "source_status": "synthetic_fixture",
+      "privacy_status": "public_safe",
+      "missingness": {
+        "known_missing_fields": [
+          "confirmed exam findings",
+          "instrument reading",
+          "timeline density"
+        ],
+        "absence_interpretation": "not_absence_of_symptom"
+      },
+      "evidence_items": [
+        {
+          "source_id": "synthetic-primary-001",
+          "source_type": "synthetic",
+          "supports": [
+            "separating observations from conclusions reduces advice leakage"
+          ],
+          "limits": [
+            "not a real veterinary source"
+          ],
+          "reproducibility_signal": "none",
+          "date_status": "synthetic"
+        },
+        {
+          "source_id": "synthetic-guideline-001",
+          "source_type": "synthetic",
+          "supports": [
+            "question-prep routing can preserve clinician boundary"
+          ],
+          "limits": [
+            "fixture only; no clinical claim"
+          ],
+          "reproducibility_signal": "none",
+          "date_status": "synthetic"
+        }
+      ],
+      "measurable_variables": [
+        {
+          "name": "observation_count",
+          "unit_or_scale": "count",
+          "collection_boundary": "research_metadata_only"
+        },
+        {
+          "name": "source_type_count",
+          "unit_or_scale": "count",
+          "collection_boundary": "research_metadata_only"
+        },
+        {
+          "name": "boundary_leak_count",
+          "unit_or_scale": "count",
+          "collection_boundary": "research_metadata_only"
+        }
+      ],
+      "falsification_route": {
+        "would_weaken_claim": [
+          "valid packets still produce clinician-like conclusion language"
+        ],
+        "would_block_promotion": [
+          "packet contains diagnosis, dosing, treatment instruction, triage instruction, or private identifier"
+        ]
+      },
+      "promotion_decision": "promote_to_question_prep"
+    }
+  },
+  {
+    "name": "invalid_single_source_overclaim",
+    "should_pass": false,
+    "packet": {
+      "packet_id": "lit-strength-overclaim",
+      "domain": "medical_ai_evidence_organization",
+      "hypothesis": "One unsourced association should become a discovery claim.",
+      "claim_status": "literature_supported_association",
+      "source_status": "synthetic_fixture",
+      "privacy_status": "public_safe",
+      "missingness": {
+        "known_missing_fields": [],
+        "absence_interpretation": "not_absence_of_effect"
+      },
+      "evidence_items": [
+        {
+          "source_id": "synthetic-001",
+          "source_type": "synthetic",
+          "supports": [
+            "something"
+          ],
+          "limits": [
+            "synthetic"
+          ],
+          "reproducibility_signal": "none",
+          "date_status": "synthetic"
+        }
+      ],
+      "measurable_variables": [
+        {
+          "name": "x",
+          "unit_or_scale": "count",
+          "collection_boundary": "research_metadata_only"
+        },
+        {
+          "name": "y",
+          "unit_or_scale": "count",
+          "collection_boundary": "research_metadata_only"
+        }
+      ],
+      "falsification_route": {
+        "would_weaken_claim": [
+          "counterexample"
+        ],
+        "would_block_promotion": [
+          "no source"
+        ]
+      },
+      "promotion_decision": "promote_to_question_prep"
+    }
+  },
+  {
+    "name": "invalid_private_advice_like",
+    "should_pass": false,
+    "packet": {
+      "packet_id": "lit-strength-private-advice",
+      "domain": "animal_care_evidence_map",
+      "hypothesis": "A private pet-specific medication instruction should be stored.",
+      "claim_status": "question_prep_only",
+      "source_status": "synthetic_fixture",
+      "privacy_status": "private_rejected",
+      "missingness": {
+        "known_missing_fields": [
+          "vet exam"
+        ],
+        "absence_interpretation": "not_absence_of_symptom"
+      },
+      "evidence_items": [
+        {
+          "source_id": "synthetic-001",
+          "source_type": "synthetic",
+          "supports": [
+            "question"
+          ],
+          "limits": [
+            "synthetic"
+          ],
+          "reproducibility_signal": "none",
+          "date_status": "synthetic"
+        },
+        {
+          "source_id": "synthetic-002",
+          "source_type": "synthetic",
+          "supports": [
+            "question"
+          ],
+          "limits": [
+            "synthetic"
+          ],
+          "reproducibility_signal": "none",
+          "date_status": "synthetic"
+        }
+      ],
+      "measurable_variables": [
+        {
+          "name": "dose",
+          "unit_or_scale": "mg",
+          "collection_boundary": "not_collectable"
+        },
+        {
+          "name": "urgency",
+          "unit_or_scale": "triage",
+          "collection_boundary": "not_collectable"
+        }
+      ],
+      "falsification_route": {
+        "would_weaken_claim": [
+          "private"
+        ],
+        "would_block_promotion": [
+          "private identifier"
+        ]
+      },
+      "promotion_decision": "promote_to_question_prep"
+    }
+  }
+]
