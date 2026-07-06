@@ -1,0 +1,101 @@
+[
+  {
+    "packet_id": "symop-pass-state-transition-001",
+    "source_status": "synthetic",
+    "privacy_status": "public_safe",
+    "claim_status": "test_ready",
+    "symbolic_observation": "A repeated threshold image is used as a public-safe metaphor for transition between inactive and active system states.",
+    "symbolic_terms": [
+      {
+        "term": "threshold",
+        "operational_mappings": ["state_transition_boundary", "activation_condition"]
+      },
+      {
+        "term": "echo",
+        "operational_mappings": ["recurrence_count", "cross_context_reappearance"]
+      }
+    ],
+    "context_window": "coarse_session_cluster",
+    "candidate_variables": [
+      {"name": "transition_count", "measurement_type": "count", "unit": "events"},
+      {"name": "activation_latency_bucket", "measurement_type": "ordinal", "unit": "coarse_bucket"},
+      {"name": "cross_context_reappearance", "measurement_type": "count", "unit": "contexts"}
+    ],
+    "falsification_route": "Reject the mapping if threshold terms do not predict any measurable transition boundary better than random symbolic terms in synthetic controls.",
+    "missingness": ["no external validation dataset", "no longitudinal deployment data"],
+    "expected_valid": true
+  },
+  {
+    "packet_id": "symop-pass-research-question-002",
+    "source_status": "synthetic",
+    "privacy_status": "public_safe",
+    "claim_status": "mapping_candidate",
+    "symbolic_observation": "A synthetic caregiver log uses the public metaphor of a compass to indicate uncertainty reduction during evidence organization.",
+    "symbolic_terms": [
+      {
+        "term": "compass",
+        "operational_mappings": ["question_clarity_score", "evidence_route_selection"]
+      }
+    ],
+    "context_window": "synthetic_observation_batch",
+    "candidate_variables": [
+      {"name": "question_clarity_score", "measurement_type": "ordinal", "unit": "0_to_3"},
+      {"name": "evidence_route_selection", "measurement_type": "categorical", "unit": "route_label"}
+    ],
+    "falsification_route": "Reject the mapping if compass-tagged packets do not improve routing agreement among independent reviewers in synthetic evaluation.",
+    "missingness": ["reviewer agreement benchmark not yet built"],
+    "expected_valid": true
+  },
+  {
+    "packet_id": "symop-fail-private-003",
+    "source_status": "deidentified_user_abstract",
+    "privacy_status": "private_raw",
+    "claim_status": "mapping_candidate",
+    "symbolic_observation": "Raw private narrative with identifying life details should never pass this public-safe translator.",
+    "symbolic_terms": [
+      {"term": "door", "operational_mappings": ["transition_boundary"]}
+    ],
+    "context_window": "exact_timestamp",
+    "candidate_variables": [
+      {"name": "transition_boundary", "measurement_type": "binary", "unit": "present_absent"}
+    ],
+    "falsification_route": "Reject if private raw content is present.",
+    "missingness": [],
+    "expected_valid": false
+  },
+  {
+    "packet_id": "symop-fail-unmapped-004",
+    "source_status": "synthetic",
+    "privacy_status": "public_safe",
+    "claim_status": "mapping_candidate",
+    "symbolic_observation": "A symbolic term is present but no operational mapping is provided.",
+    "symbolic_terms": [
+      {"term": "lantern", "operational_mappings": []}
+    ],
+    "context_window": "coarse_session_cluster",
+    "candidate_variables": [
+      {"name": "illumination_score", "measurement_type": "ordinal", "unit": "0_to_3"}
+    ],
+    "falsification_route": "Reject if operational mappings are absent.",
+    "missingness": ["mapping absent"],
+    "expected_valid": false
+  },
+  {
+    "packet_id": "symop-fail-advice-005",
+    "source_status": "synthetic",
+    "privacy_status": "public_safe",
+    "claim_status": "test_ready",
+    "symbolic_observation": "This packet says you should treat a condition immediately, which is advice-like and must be blocked.",
+    "symbolic_terms": [
+      {"term": "alarm", "operational_mappings": ["urgency_label"]}
+    ],
+    "context_window": "synthetic_observation_batch",
+    "candidate_variables": [
+      {"name": "urgency_label", "measurement_type": "categorical", "unit": "label"},
+      {"name": "question_count", "measurement_type": "count", "unit": "questions"}
+    ],
+    "falsification_route": "Reject if advice-like language is present.",
+    "missingness": [],
+    "expected_valid": false
+  }
+]
