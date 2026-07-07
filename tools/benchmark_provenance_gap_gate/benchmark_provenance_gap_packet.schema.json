@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.local/schemas/benchmark_provenance_gap_packet.schema.json",
+  "title": "Benchmark Provenance Gap Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "benchmark_identity",
+    "source_status",
+    "claim_status",
+    "claim_under_review",
+    "dataset_provenance",
+    "task_metric_binding",
+    "transfer_boundary",
+    "benchmark_gap_model",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "benchmark_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version_or_date", "domain", "benchmark_status"],
+      "properties": {
+        "name": {"type": "string", "minLength": 2},
+        "version_or_date": {"type": "string", "minLength": 4},
+        "domain": {"type": "string", "enum": ["scientific_ai", "medical_ai", "mechanistic_biology", "neuroscience", "longitudinal_health", "animal_health", "hci", "privacy_memory", "hypothesis_generation", "mixed"]},
+        "benchmark_status": {"type": "string", "enum": ["peer_reviewed", "preprint", "institutional_dataset", "open_source_tool", "grant_program", "synthetic_internal", "unknown"]}
+      }
+    },
+    "source_status": {"type": "string", "enum": ["primary", "institutional", "preprint_with_caveat", "open_source", "secondary", "synthetic_internal"]},
+    "claim_status": {"type": "string", "enum": ["hypothesis", "evaluation_criterion", "prototype_requirement", "source_map", "collaborator_target", "not_promotable"]},
+    "claim_under_review": {"type": "string", "minLength": 12},
+    "dataset_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["origin", "population_or_species", "site_or_lab", "modality", "collection_context", "license_or_access", "provenance_risk"],
+      "properties": {
+        "origin": {"type": "string", "minLength": 3},
+        "population_or_species": {"type": "string", "minLength": 3},
+        "site_or_lab": {"type": "string", "minLength": 3},
+        "modality": {"type": "string", "minLength": 3},
+        "collection_context": {"type": "string", "minLength": 8},
+        "license_or_access": {"type": "string", "minLength": 3},
+        "provenance_risk": {"type": "string", "enum": ["low", "moderate", "high", "unknown"]}
+      }
+    },
+    "task_metric_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task", "metric", "metric_claim_fit", "blocked_metric_inference"],
+      "properties": {
+        "task": {"type": "string", "minLength": 5},
+        "metric": {"type": "string", "minLength": 2},
+        "metric_claim_fit": {"type": "string", "enum": ["direct", "partial", "proxy_only", "unknown"]},
+        "blocked_metric_inference": {"type": "string", "minLength": 8}
+      }
+    },
+    "transfer_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["within_scope", "out_of_scope", "required_bridge_evidence"],
+      "properties": {
+        "within_scope": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}},
+        "out_of_scope": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}},
+        "required_bridge_evidence": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}}
+      }
+    },
+    "benchmark_gap_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["known_gaps", "gap_severity", "why_gap_matters"],
+      "properties": {
+        "known_gaps": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}},
+        "gap_severity": {"type": "string", "enum": ["low", "moderate", "high", "blocking"]},
+        "why_gap_matters": {"type": "string", "minLength": 12}
+      }
+    },
+    "privacy_status": {"type": "string", "enum": ["public_safe", "deidentified_but_sensitive", "restricted_health_data", "animal_health_sensitive", "contains_personal_memory", "unknown"]},
+    "missingness": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}},
+    "revision_reason": {"type": "string", "minLength": 10},
+    "implementation_status": {"type": "string", "enum": ["schema_only", "validator_added", "fixtures_added", "tests_added", "integrated", "blocked"]},
+    "evidence_strength": {"type": "string", "enum": ["weak", "moderate", "strong", "clinical_grade", "unknown"]},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  }
+}
