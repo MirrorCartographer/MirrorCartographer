@@ -1,0 +1,236 @@
+{
+  "artifact_type": "executable_test_fixture",
+  "claim": "Human-AI sensemaking becomes safer and more useful when every MC inference packet records source boundary, transformation step, user-visible rationale, privacy state, missingness, and falsification route before it can enter memory, research maps, question prep, or public summaries.",
+  "source_status": "synthetic_fixture_for_system_design_not_empirical_evidence",
+  "claim_status": "testable_infrastructure_claim",
+  "privacy_status": "no_private_identifiers_retained",
+  "missingness": "Missing real user transcripts, external source documents, inter-rater reliability data, and downstream user outcome data; fixture only tests structural readiness.",
+  "revision_reason": "Adds an executable provenance handoff gate after prior export, revision, privacy, and symbolic roundtrip tests; focuses on how an inference moves between AI reasoning, user-visible explanation, and durable memory without becoming hidden certainty.",
+  "implementation_status": "fixture_plus_validator_created",
+  "testability": "Executable validator checks required provenance labels, source boundaries, transformation chain, privacy state, missingness disclosure, blocked promotions, measurable variables, falsification route, and next executable action.",
+  "falsification_route": "The claim fails if packets without clear source boundaries, transformation steps, missingness, or falsification routes are rated equally useful or safer by reviewers than packets with explicit provenance handoff fields.",
+  "measurable_variables": [
+    {
+      "name": "source_boundary_completeness_rate",
+      "unit": "proportion_of_packets",
+      "measurement_context": "Count packets that identify source type, evidence boundary, and non-source assumptions."
+    },
+    {
+      "name": "transformation_chain_completeness_rate",
+      "unit": "proportion_of_packets",
+      "measurement_context": "Count packets with at least two explicit transformation steps from observation to inference to next action."
+    },
+    {
+      "name": "hidden_certainty_block_rate",
+      "unit": "proportion_of_unsafe_phrases_blocked",
+      "measurement_context": "Validator scan for certainty, cure proof, diagnosis, treatment, veterinary advice, or unsupported causality language."
+    },
+    {
+      "name": "reviewer_reconstruction_accuracy",
+      "unit": "percent_correct",
+      "measurement_context": "Independent reviewer attempts to reconstruct why the packet reached its next action using only user-visible fields."
+    }
+  ],
+  "next_executable_action": "Run python tools/hypothesis_test_forge/validate_inference_provenance_handoff.py, then add two real de-identified MC packets for reviewer reconstruction scoring.",
+  "pass_thresholds": {
+    "min_packet_count": 3,
+    "min_transformation_steps_per_packet": 2,
+    "min_source_boundaries_per_packet": 2,
+    "min_blocked_promotions_per_packet": 4,
+    "min_measurable_variables_per_packet": 2,
+    "required_safe_routes": [
+      "research_question",
+      "longitudinal_observation",
+      "question_prep",
+      "contradiction_ledger",
+      "private_memory_candidate"
+    ]
+  },
+  "packets": [
+    {
+      "packet_id": "iph_001_symbol_to_measurement",
+      "domain": "symbolic_to_operational_translation",
+      "claim": "A symbolic phrase can be made operational without stripping ambiguity if the packet keeps both symbolic wording and measurable observation fields.",
+      "source_status": "synthetic_example_not_empirical_evidence",
+      "claim_status": "hypothesis_for_tooling_test",
+      "privacy_status": "deidentified",
+      "missingness": "Missing original conversation context, longitudinal repeats, and independent reviewer scoring.",
+      "revision_reason": "Converted symbolic material into a provenance handoff packet so later systems can see what changed and what did not change.",
+      "implementation_status": "fixture_record_ready_for_validation",
+      "testability": "Can be tested by checking whether a reviewer can trace the symbolic phrase into observation variables and back without receiving hidden reasoning.",
+      "falsification_route": "If reviewers cannot reconstruct the source phrase, measurement boundary, and next action from visible fields, the packet fails.",
+      "source_boundaries": [
+        "Source is a symbolic phrase, not a factual external claim.",
+        "Operational variables are proposed observation handles, not proof of the symbol."
+      ],
+      "transformation_chain": [
+        {
+          "step": "preserve_symbol",
+          "input": "fire in chest",
+          "output": "symbolic phrase retained as original user-facing language"
+        },
+        {
+          "step": "map_to_observable_variables",
+          "input": "fire in chest",
+          "output": "self-rated intensity, location label, duration, trigger context, recovery context"
+        },
+        {
+          "step": "route_to_safe_action",
+          "input": "observable variables",
+          "output": "longitudinal observation entry for pattern review"
+        }
+      ],
+      "measurable_variables": [
+        {
+          "name": "self_rated_intensity",
+          "unit": "0_to_10_scale",
+          "measurement_context": "Recorded at observation time, not interpreted as clinical severity."
+        },
+        {
+          "name": "duration_minutes",
+          "unit": "minutes",
+          "measurement_context": "Estimated elapsed time of subjective state."
+        },
+        {
+          "name": "trigger_context_label",
+          "unit": "categorical_label",
+          "measurement_context": "User-selected context label such as conversation, memory, body sensation, weather, or media."
+        }
+      ],
+      "allowed_routes": [
+        "longitudinal_observation",
+        "private_memory_candidate"
+      ],
+      "blocked_promotions": [
+        "diagnosis",
+        "treatment_instruction",
+        "supernatural_certainty",
+        "unsupported_causality",
+        "public_raw_export"
+      ],
+      "next_executable_action": "Add this packet to a de-identified longitudinal test set and score reviewer reconstruction accuracy."
+    },
+    {
+      "packet_id": "iph_002_medical_question_prep",
+      "domain": "medical_ai_evidence_organization",
+      "claim": "Health-related observations are safer when transformed into source-bounded question-prep packets rather than conclusions.",
+      "source_status": "synthetic_example_not_medical_evidence",
+      "claim_status": "infrastructure_hypothesis_only",
+      "privacy_status": "deidentified",
+      "missingness": "Missing clinician review, medical records, timeline verification, and source documents.",
+      "revision_reason": "Reframes health-adjacent sensemaking as evidence organization and professional question preparation.",
+      "implementation_status": "fixture_record_ready_for_validation",
+      "testability": "Can be tested by checking that the packet separates observation, interpretation boundary, and professional-review question.",
+      "falsification_route": "If reviewers rate conclusion-style summaries as equally safe or clearer than provenance-bound question prep, the claim weakens.",
+      "source_boundaries": [
+        "Source is a user-reported observation, not a verified clinical measurement.",
+        "AI interpretation is limited to organizing questions and missing information."
+      ],
+      "transformation_chain": [
+        {
+          "step": "capture_observation",
+          "input": "reported pattern or symptom wording",
+          "output": "timestamped observation field with uncertainty marker"
+        },
+        {
+          "step": "separate_interpretation",
+          "input": "observation plus context",
+          "output": "possible question-prep theme without conclusion language"
+        },
+        {
+          "step": "route_to_safe_action",
+          "input": "question-prep theme",
+          "output": "professional-review question list"
+        }
+      ],
+      "measurable_variables": [
+        {
+          "name": "observation_timestamp_present",
+          "unit": "boolean",
+          "measurement_context": "Whether the packet has an observation date or explicit unknown-date marker."
+        },
+        {
+          "name": "missing_source_count",
+          "unit": "count",
+          "measurement_context": "Number of needed records or measurements absent from the packet."
+        }
+      ],
+      "allowed_routes": [
+        "question_prep",
+        "contradiction_ledger"
+      ],
+      "blocked_promotions": [
+        "diagnosis",
+        "treatment_instruction",
+        "dosage_guidance",
+        "emergency_triage",
+        "certainty_claim"
+      ],
+      "next_executable_action": "Use the packet as a template for a de-identified question-prep export and audit whether observations remain separated from interpretations."
+    },
+    {
+      "packet_id": "iph_003_animal_care_evidence_map",
+      "domain": "animal_care_evidence_maps",
+      "claim": "Animal-care observations can be organized into vet-facing research questions only when the packet blocks advice language and preserves missingness.",
+      "source_status": "synthetic_example_not_veterinary_evidence",
+      "claim_status": "infrastructure_hypothesis_only",
+      "privacy_status": "deidentified",
+      "missingness": "Missing vet exam notes, medication timeline verification, diagnostic records, and direct professional review.",
+      "revision_reason": "Extends provenance handoff to animal-care evidence organization while preserving safe boundaries.",
+      "implementation_status": "fixture_record_ready_for_validation",
+      "testability": "Can be tested by checking that the packet routes to vet-facing questions and not instructions or conclusions.",
+      "falsification_route": "If packets with advice-like language produce fewer user errors and no safety loss in reviewer tests, the boundary claim would need revision.",
+      "source_boundaries": [
+        "Source is owner-reported observation, not a verified veterinary finding.",
+        "Output is vet-facing question preparation, not veterinary advice."
+      ],
+      "transformation_chain": [
+        {
+          "step": "capture_owner_observation",
+          "input": "reported animal behavior or visible change",
+          "output": "observation text with date certainty and missing context"
+        },
+        {
+          "step": "map_to_evidence_fields",
+          "input": "observation text",
+          "output": "timeline, exposure context, concurrent observations, record gaps"
+        },
+        {
+          "step": "route_to_safe_action",
+          "input": "evidence fields",
+          "output": "vet-facing question-prep packet"
+        }
+      ],
+      "measurable_variables": [
+        {
+          "name": "date_certainty",
+          "unit": "categorical_known_estimated_unknown",
+          "measurement_context": "How certain the observation date is."
+        },
+        {
+          "name": "record_gap_count",
+          "unit": "count",
+          "measurement_context": "Number of missing vet records, medication records, or measurement records needed for review."
+        },
+        {
+          "name": "advice_language_count",
+          "unit": "count",
+          "measurement_context": "Validator count of prohibited advice-style phrases."
+        }
+      ],
+      "allowed_routes": [
+        "question_prep",
+        "research_question",
+        "contradiction_ledger"
+      ],
+      "blocked_promotions": [
+        "veterinary_advice",
+        "treatment_instruction",
+        "dosage_guidance",
+        "cure_certainty",
+        "unsupported_causality"
+      ],
+      "next_executable_action": "Create a de-identified vet-facing question-prep mock export and run the blocked-promotion scanner."
+    }
+  ]
+}
