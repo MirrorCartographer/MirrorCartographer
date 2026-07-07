@@ -1,0 +1,105 @@
+{
+  "clusters": [
+    {
+      "cluster_id": "synthetic-watch-001",
+      "domain": "human_health",
+      "privacy_status": "public_safe",
+      "claim_status": "candidate_signal",
+      "source_status": "synthetic",
+      "observations": [
+        {
+          "observed_at": "2026-07-01T12:00:00Z",
+          "feature": "upright_lightheadedness",
+          "direction": "present",
+          "severity": 2,
+          "context_tags": ["heat"]
+        },
+        {
+          "observed_at": "2026-07-03T12:00:00Z",
+          "feature": "upright_lightheadedness",
+          "direction": "present",
+          "severity": 3,
+          "context_tags": ["heat"]
+        }
+      ],
+      "missingness": ["baseline_frequency_unknown"],
+      "contradictions": [],
+      "confounders": ["sleep_variability"],
+      "candidate_mechanisms": ["autonomic_pattern_label"]
+    },
+    {
+      "cluster_id": "synthetic-falsify-001",
+      "domain": "animal_care",
+      "privacy_status": "public_safe",
+      "claim_status": "hypothesis",
+      "source_status": "synthetic",
+      "observations": [
+        {
+          "observed_at": "2026-07-01T08:00:00Z",
+          "feature": "night_eye_pressure_marker",
+          "direction": "increase",
+          "severity": 3,
+          "context_tags": ["evening"]
+        },
+        {
+          "observed_at": "2026-07-02T08:00:00Z",
+          "feature": "night_eye_pressure_marker",
+          "direction": "increase",
+          "severity": 3,
+          "context_tags": ["evening"]
+        },
+        {
+          "observed_at": "2026-07-03T08:00:00Z",
+          "feature": "night_eye_pressure_marker",
+          "direction": "increase",
+          "severity": 4,
+          "context_tags": ["evening"]
+        }
+      ],
+      "missingness": [],
+      "contradictions": [],
+      "confounders": [],
+      "candidate_mechanisms": ["daily_timing_pattern_label"]
+    },
+    {
+      "cluster_id": "synthetic-block-private-001",
+      "domain": "system",
+      "privacy_status": "private",
+      "claim_status": "candidate_signal",
+      "source_status": "user_reported_redacted",
+      "observations": [
+        {
+          "observed_at": "2026-07-01T00:00:00Z",
+          "feature": "private_identifier_residue",
+          "direction": "present",
+          "severity": 1,
+          "context_tags": []
+        }
+      ],
+      "missingness": [],
+      "contradictions": [],
+      "confounders": [],
+      "candidate_mechanisms": []
+    },
+    {
+      "cluster_id": "synthetic-block-claim-001",
+      "domain": "literature",
+      "privacy_status": "public_safe",
+      "claim_status": "cure_claim",
+      "source_status": "synthetic",
+      "observations": [
+        {
+          "observed_at": "2026-07-01T00:00:00Z",
+          "feature": "unsupported_claim_marker",
+          "direction": "present",
+          "severity": 1,
+          "context_tags": []
+        }
+      ],
+      "missingness": [],
+      "contradictions": [],
+      "confounders": [],
+      "candidate_mechanisms": []
+    }
+  ]
+}
