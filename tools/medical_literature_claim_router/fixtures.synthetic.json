@@ -1,0 +1,62 @@
+[
+  {
+    "note_id": "lit_001",
+    "topic": "autonomic symptom pattern tracking",
+    "source_type": "systematic_review",
+    "claim_text": "Synthetic review note: autonomic symptom clusters may require structured measurement before interpretation.",
+    "claim_status": "background",
+    "has_contradictions": false,
+    "human_or_animal": "human",
+    "privacy_status": "public_safe",
+    "missingness": [],
+    "revision_reason": "baseline safe literature memory candidate"
+  },
+  {
+    "note_id": "lit_002",
+    "topic": "animal eye observation",
+    "source_type": "case_report",
+    "claim_text": "Synthetic case note: a single animal case suggests a possible mechanism but cannot guide care.",
+    "claim_status": "mechanistic_hypothesis",
+    "has_contradictions": true,
+    "human_or_animal": "animal",
+    "privacy_status": "public_safe",
+    "missingness": [],
+    "revision_reason": "contradiction requires falsification routing"
+  },
+  {
+    "note_id": "lit_003",
+    "topic": "unverified cure phrase",
+    "source_type": "expert_opinion",
+    "claim_text": "Synthetic unsafe note: this intervention cures a condition.",
+    "claim_status": "cure_claim",
+    "has_contradictions": false,
+    "human_or_animal": "unknown",
+    "privacy_status": "public_safe",
+    "missingness": ["no_trial", "no_review"],
+    "revision_reason": "cure language must be blocked"
+  },
+  {
+    "note_id": "lit_004",
+    "topic": "private observation residue",
+    "source_type": "observational_study",
+    "claim_text": "Synthetic note containing private residue marker.",
+    "claim_status": "candidate_association",
+    "has_contradictions": false,
+    "human_or_animal": "human",
+    "privacy_status": "private_residue",
+    "missingness": [],
+    "revision_reason": "privacy block test"
+  },
+  {
+    "note_id": "lit_005",
+    "topic": "incomplete source metadata",
+    "source_type": "unknown",
+    "claim_text": "Synthetic note with unclear source and incomplete status.",
+    "claim_status": "unknown",
+    "has_contradictions": false,
+    "human_or_animal": "mixed",
+    "privacy_status": "public_safe",
+    "missingness": ["source_type", "claim_status"],
+    "revision_reason": "missingness review test"
+  }
+]
