@@ -1,0 +1,25 @@
+{
+  "packet_id": "eau-invalid-001",
+  "claim": "AI can help science.",
+  "source_status": "synthetic_internal",
+  "claim_status": "hypothesis",
+  "privacy_status": "synthetic_only",
+  "missingness": {
+    "known_missing": [],
+    "impact": "",
+    "minimum_resolution": ""
+  },
+  "revision_reason": "Too vague to promote.",
+  "implementation_status": "implemented",
+  "evidence_strength": "moderate",
+  "workflow_phase": "scientific_reasoning",
+  "substrate_boundary": {
+    "domain": "science",
+    "species_or_population": "unknown",
+    "data_modality": "unknown",
+    "transfer_boundary": "unknown"
+  },
+  "blocked_inferences": [],
+  "falsification_route": "",
+  "next_executable_action": ""
+}
