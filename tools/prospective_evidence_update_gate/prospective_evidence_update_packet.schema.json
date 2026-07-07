@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/prospective_evidence_update_packet.schema.json",
+  "title": "Prospective Evidence Update Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "claim",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "evidence_window",
+    "update_trigger",
+    "post_window_validation_signal",
+    "stale_claim_behavior",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "claim": {"type": "string", "minLength": 20},
+    "source_status": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source", "status", "caveat", "url_or_identifier"],
+        "properties": {
+          "source": {"type": "string", "minLength": 3},
+          "status": {"enum": ["peer_reviewed", "preprint", "institutional", "benchmark", "dataset", "open_source", "grant_or_prize", "vendor_research", "synthetic_fixture"]},
+          "caveat": {"type": "string", "minLength": 5},
+          "url_or_identifier": {"type": "string", "minLength": 5}
+        }
+      }
+    },
+    "claim_status": {"enum": ["hypothesis", "evaluation_criterion", "prototype_requirement", "source_map", "collaborator_target", "opportunity_target"]},
+    "privacy_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["data_class", "allowed_reuse_scope", "redaction_required", "consent_boundary"],
+      "properties": {
+        "data_class": {"enum": ["public_only", "synthetic_only", "deidentified_research", "personal_health", "veterinary_record", "mixed_sensitive"]},
+        "allowed_reuse_scope": {"type": "string", "minLength": 10},
+        "redaction_required": {"type": "boolean"},
+        "consent_boundary": {"type": "string", "minLength": 10}
+      }
+    },
+    "evidence_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["opened_on", "closed_on", "rationale"],
+      "properties": {
+        "opened_on": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+        "closed_on": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+        "rationale": {"type": "string", "minLength": 10}
+      }
+    },
+    "update_trigger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["trigger_type", "minimum_signal", "review_frequency"],
+      "properties": {
+        "trigger_type": {"enum": ["new_peer_reviewed_source", "new_preprint_revision", "benchmark_release", "dataset_release", "failed_reproduction", "privacy_policy_change", "clinical_guideline_change", "veterinary_standard_change"]},
+        "minimum_signal": {"type": "string", "minLength": 10},
+        "review_frequency": {"enum": ["per_run", "daily", "weekly", "monthly", "on_trigger_only"]}
+      }
+    },
+    "post_window_validation_signal": {"type": "string", "minLength": 20},
+    "stale_claim_behavior": {"enum": ["retain_with_warning", "downgrade_to_hypothesis", "block_promotion", "retire_claim", "requires_human_review"]},
+    "missingness": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 5}
+    },
+    "revision_reason": {"type": "string", "minLength": 10},
+    "implementation_status": {"enum": ["schema_only", "validator_added", "tests_added", "prototype_requirement", "implemented_and_testable"]},
+    "evidence_strength": {"enum": ["low", "moderate", "high", "mixed", "insufficient"]},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  }
+}
