@@ -1,0 +1,41 @@
+{
+  "packet_id": "eau-2026-07-07-001",
+  "claim": "Discovery-memory claims should not be promoted unless they expose a smallest executable experimental action unit and a falsification route.",
+  "source_status": "synthetic_internal",
+  "claim_status": "evaluation_criterion",
+  "privacy_status": "synthetic_only",
+  "missingness": {
+    "known_missing": [
+      "No MC reviewer study has yet measured reconstruction accuracy before and after this gate.",
+      "No production CI hook has yet enforced this schema across all existing frontier scout outputs."
+    ],
+    "impact": "The gate is justified by frontier benchmark direction but not yet empirically validated inside MC.",
+    "minimum_resolution": "Run a curator reconstruction test comparing claims with and without experimental action unit packets."
+  },
+  "revision_reason": "Prior gates preserved evidence, memory, privacy, and workflow boundaries but did not force the smallest executable research action to be explicit.",
+  "implementation_status": "implemented",
+  "evidence_strength": "moderate",
+  "experimental_action_unit": {
+    "action": "Validate whether a promoted hypothesis can be reconstructed by an independent reviewer.",
+    "actor": "MC evaluator or CI job",
+    "input": "A discovery-memory packet and its cited source map",
+    "operation": "Check whether action, substrate, workflow phase, endpoint, boundary, blocked inference, falsification route, and next action are present.",
+    "output": "Pass or fail decision with missing-field errors",
+    "endpoint": "Independent reviewer can state what would be done next and what result would falsify the claim.",
+    "minimum_reproducible_unit": "One JSON packet, one validator invocation, and one reviewer reconstruction score."
+  },
+  "workflow_phase": "validation_and_operations",
+  "substrate_boundary": {
+    "domain": "scientific AI and biomedical research organization",
+    "species_or_population": "cross-domain; no individual patient or animal subject",
+    "data_modality": "public sources plus synthetic schema fixtures",
+    "transfer_boundary": "Cannot be treated as medical or veterinary advice, clinical validation, or species-specific intervention evidence."
+  },
+  "blocked_inferences": [
+    "Do not infer that a hypothesis is clinically useful because it passes the schema.",
+    "Do not infer that human clinical evidence transfers to animal health without bridge evidence.",
+    "Do not store sensitive longitudinal health details without consent and revocation handling."
+  ],
+  "falsification_route": "Reject or revise this gate if passing packets do not improve reviewer reconstruction accuracy or reduce ambiguous next-action errors in MC audits.",
+  "next_executable_action": "Run the regression test file and then attach this gate to the frontier scout promotion checklist."
+}
