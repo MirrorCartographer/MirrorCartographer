@@ -1,0 +1,30 @@
+{
+  "packet_id": "bad-peug",
+  "claim": "AI found a cure.",
+  "source_status": [],
+  "claim_status": "discovery",
+  "privacy_status": {
+    "data_class": "personal_health",
+    "allowed_reuse_scope": "reuse",
+    "redaction_required": false,
+    "consent_boundary": "none"
+  },
+  "evidence_window": {
+    "opened_on": "2026-07-07",
+    "closed_on": "2026-03-01",
+    "rationale": "short"
+  },
+  "update_trigger": {
+    "trigger_type": "vibes",
+    "minimum_signal": "none",
+    "review_frequency": "never"
+  },
+  "post_window_validation_signal": "none",
+  "stale_claim_behavior": "retain_with_warning",
+  "missingness": [],
+  "revision_reason": "too short",
+  "implementation_status": "done",
+  "evidence_strength": "certain",
+  "falsification_route": "none",
+  "next_executable_action": "none"
+}
