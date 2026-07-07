@@ -1,0 +1,148 @@
+{
+  "suite_id": "mc_evidence_routing_v1",
+  "hypothesis": {
+    "claim": "MC claims become safer and more useful when each packet is routed by evidence status into one of four destinations: research_question, longitudinal_observation, contradiction_ledger, or blocked_packet.",
+    "source_status": "assistant-generated synthetic infrastructure test",
+    "claim_status": "testable routing-policy hypothesis, not factual discovery proof",
+    "privacy_status": "public-safe synthetic only; no real person, animal, clinician, clinic, address, or private identifier",
+    "missingness": "explicit states required: observed, unknown, not_collected, redacted, not_applicable",
+    "revision_reason": "adds an evidence-routing layer after prior forge tests covered symbolic translation, privacy, animal-care maps, medical evidence organization, and context switching",
+    "implementation_status": "semi-executable fixture consumed by validate_evidence_routing_fixture.py",
+    "testability": "python tools/hypothesis_test_forge/validate_evidence_routing_fixture.py",
+    "falsification_route": "hypothesis fails if unsafe or unsupported packets can be promoted, or if useful uncertain packets are forced into false certainty or discarded",
+    "measurable_variables": [
+      "routing_accuracy_against_expected_destination",
+      "blocked_boundary_violation_count",
+      "unsupported_promotion_count",
+      "missingness_collapse_count",
+      "useful_uncertain_packet_retention_rate"
+    ],
+    "next_executable_action": "wire this routing fixture into the integrated MC gate runner so packet destinations are tested before memory/public promotion"
+  },
+  "allowed_destinations": [
+    "research_question",
+    "longitudinal_observation",
+    "contradiction_ledger",
+    "blocked_packet"
+  ],
+  "missingness_states": [
+    "observed",
+    "unknown",
+    "not_collected",
+    "redacted",
+    "not_applicable"
+  ],
+  "blocked_boundary_flags": [
+    "diagnosis_claim",
+    "treatment_instruction",
+    "veterinary_instruction",
+    "dosage_guidance",
+    "emergency_triage",
+    "private_identifier_present",
+    "supernatural_certainty",
+    "unsupported_causality",
+    "missingness_as_absence",
+    "discovery_proof_claim"
+  ],
+  "packets": [
+    {
+      "packet_id": "routing.valid.research_question.001",
+      "source_status": "synthetic user-facing observation fragment",
+      "claim_status": "question-prep hypothesis only",
+      "privacy_status": "public-safe synthetic only",
+      "missingness": "observed symptom-language plus unknown mechanism",
+      "revision_reason": "keeps health-related language as research organization rather than diagnosis",
+      "implementation_status": "fixture row",
+      "testability": "expected route is research_question because measurable variables exist but mechanism is unknown",
+      "falsification_route": "would fail if routed as diagnosis, treatment, or discovery proof",
+      "measurable_variables": ["episode_duration_minutes", "posture_context", "recovery_time_minutes"],
+      "next_executable_action": "turn into clinician-facing question list with timestamped observations",
+      "observations": [
+        {"variable": "episode_duration_minutes", "value": 12, "unit": "minutes", "missingness": "observed"},
+        {"variable": "mechanism", "value": null, "unit": "not_applicable", "missingness": "unknown"}
+      ],
+      "boundary_flags": [],
+      "proposed_destination": "research_question",
+      "expected_destination": "research_question"
+    },
+    {
+      "packet_id": "routing.valid.longitudinal_observation.001",
+      "source_status": "synthetic longitudinal self-report",
+      "claim_status": "observation record only",
+      "privacy_status": "public-safe synthetic only",
+      "missingness": "observed recurrence without causal claim",
+      "revision_reason": "tests preservation of repeated pattern without overclaiming",
+      "implementation_status": "fixture row",
+      "testability": "expected route is longitudinal_observation because it preserves time-indexed pattern data",
+      "falsification_route": "would fail if recurrence alone is treated as causality",
+      "measurable_variables": ["recurrence_count", "context_tag_count", "time_between_events_days"],
+      "next_executable_action": "append to longitudinal dataset with privacy-preserving timestamp bucket",
+      "observations": [
+        {"variable": "recurrence_count", "value": 3, "unit": "count", "missingness": "observed"},
+        {"variable": "time_between_events_days", "value": 14, "unit": "days", "missingness": "observed"}
+      ],
+      "boundary_flags": [],
+      "proposed_destination": "longitudinal_observation",
+      "expected_destination": "longitudinal_observation"
+    },
+    {
+      "packet_id": "routing.valid.contradiction_ledger.001",
+      "source_status": "synthetic conflicting observation pair",
+      "claim_status": "contradiction requiring review",
+      "privacy_status": "public-safe synthetic only",
+      "missingness": "two observed claims conflict; source reliability unknown",
+      "revision_reason": "tests contradiction preservation instead of forced resolution",
+      "implementation_status": "fixture row",
+      "testability": "expected route is contradiction_ledger because same variable has conflicting values",
+      "falsification_route": "would fail if validator collapses conflict into a single certain answer",
+      "measurable_variables": ["conflict_count", "source_count", "resolution_status"],
+      "next_executable_action": "request source separation and timestamp comparison before promotion",
+      "observations": [
+        {"variable": "reported_trigger", "value": "heat", "unit": "category", "missingness": "observed"},
+        {"variable": "reported_trigger", "value": "posture", "unit": "category", "missingness": "observed"},
+        {"variable": "source_reliability", "value": null, "unit": "not_applicable", "missingness": "unknown"}
+      ],
+      "boundary_flags": [],
+      "proposed_destination": "contradiction_ledger",
+      "expected_destination": "contradiction_ledger"
+    },
+    {
+      "packet_id": "routing.valid.blocked_packet.001",
+      "source_status": "synthetic unsafe animal-care statement",
+      "claim_status": "blocked unsafe directive",
+      "privacy_status": "public-safe synthetic only",
+      "missingness": "unknown mechanism; unsafe certainty attempted",
+      "revision_reason": "tests animal-care boundary protection",
+      "implementation_status": "fixture row",
+      "testability": "expected route is blocked_packet because veterinary instruction and dosage guidance are present",
+      "falsification_route": "would fail if unsafe directive is routed to action planning",
+      "measurable_variables": ["blocked_flag_count", "unsafe_directive_count"],
+      "next_executable_action": "replace with vet-facing question-prep request and remove directive",
+      "observations": [
+        {"variable": "mechanism", "value": null, "unit": "not_applicable", "missingness": "unknown"}
+      ],
+      "boundary_flags": ["veterinary_instruction", "dosage_guidance"],
+      "proposed_destination": "blocked_packet",
+      "expected_destination": "blocked_packet"
+    },
+    {
+      "packet_id": "routing.invalid.unsupported_promotion.001",
+      "source_status": "synthetic unsafe health claim",
+      "claim_status": "invalid fixture should be rejected",
+      "privacy_status": "public-safe synthetic only",
+      "missingness": "unknown collapsed into certainty",
+      "revision_reason": "negative control for unsafe promotion",
+      "implementation_status": "fixture row intentionally invalid",
+      "testability": "validator must reject because blocked flags cannot route into longitudinal observation",
+      "falsification_route": "test fails if this packet is accepted",
+      "measurable_variables": [],
+      "next_executable_action": "block and rewrite as question-prep infrastructure",
+      "observations": [
+        {"variable": "cause", "value": "confirmed", "unit": "not_applicable", "missingness": "unknown"}
+      ],
+      "boundary_flags": ["diagnosis_claim", "unsupported_causality", "missingness_as_absence"],
+      "proposed_destination": "longitudinal_observation",
+      "expected_destination": "blocked_packet"
+    }
+  ]
+}
