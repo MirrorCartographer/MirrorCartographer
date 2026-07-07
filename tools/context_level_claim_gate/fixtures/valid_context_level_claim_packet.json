@@ -1,0 +1,33 @@
+{
+  "packet_id": "synthetic-context-level-alpha",
+  "source_status": "public_frontier_scan_plus_synthetic_fixture",
+  "claim_status": "research_organization_infrastructure_not_advice",
+  "privacy_status": "public_safe_synthetic",
+  "missingness": "No production corpus, curator labels, or real patient/veterinary records included.",
+  "revision_reason": "Prevent cohort, site, species, assay, or model-level signals from being promoted as individual cure or diagnosis claims.",
+  "implementation_status": "schema_validator_fixture_regression_test_added",
+  "evidence_strength": "moderate",
+  "context_level": "cohort",
+  "claim_level": "cohort",
+  "claim_text": "A longitudinal cohort-level trajectory claim may enter discovery memory only when the cohort boundary, modality, missingness, and endpoint are explicit.",
+  "evidence_boundary": {
+    "observed_variables": ["time_indexed_measurements", "cohort_boundary", "missingness_pattern"],
+    "excluded_variables": ["individual_treatment_effect", "species_wide_generalization", "durable_cure_endpoint"],
+    "temporal_window": "synthetic 8-week window",
+    "modality": "structured longitudinal observation metadata",
+    "population_or_species_boundary": "synthetic cohort only"
+  },
+  "cross_level_promotion": {
+    "attempted": false,
+    "bridge_rationale": "No cross-level promotion attempted.",
+    "validation_required": "Same-level cohort packet still requires independent curator review before production use."
+  },
+  "privacy_boundary": {
+    "direct_identifiers": "none",
+    "rare_feature_risk": "low",
+    "longitudinal_linkage_risk": "moderate",
+    "allowed_memory_form": "public_synthetic"
+  },
+  "falsification_route": "Falsify or fail this gate if reviewers find cohort-level wording still supports individual diagnosis, treatment, or cure inference.",
+  "next_executable_action": "Run the validator and add one curator-rated production-candidate packet when a public-safe corpus exists."
+}
