@@ -1,0 +1,106 @@
+[
+  {
+    "packet_id": "synthetic-effect-001",
+    "source_status": "synthetic_public_safe",
+    "claim_status": "candidate_effect",
+    "privacy_status": "public_safe",
+    "revision_reason": "synthetic decrease example for executable testing",
+    "comparison": {
+      "entity_kind": "animal",
+      "change_label": "synthetic routine change",
+      "change_timestamp": "2026-07-01T10:00:00Z",
+      "expected_direction": "decrease",
+      "expected_window_hours": 72,
+      "outcome_metric": "synthetic discomfort score",
+      "minimum_baseline_points": 2,
+      "minimum_followup_points": 2
+    },
+    "observations": [
+      {
+        "timestamp": "2026-06-29T10:00:00Z",
+        "phase": "baseline",
+        "metric_value": 6,
+        "unit": "ordinal_0_10",
+        "source_type": "synthetic",
+        "confounders": [],
+        "missingness": []
+      },
+      {
+        "timestamp": "2026-06-30T10:00:00Z",
+        "phase": "baseline",
+        "metric_value": 5,
+        "unit": "ordinal_0_10",
+        "source_type": "synthetic",
+        "confounders": [],
+        "missingness": []
+      },
+      {
+        "timestamp": "2026-07-02T10:00:00Z",
+        "phase": "followup",
+        "metric_value": 3,
+        "unit": "ordinal_0_10",
+        "source_type": "synthetic",
+        "confounders": [],
+        "missingness": []
+      },
+      {
+        "timestamp": "2026-07-03T10:00:00Z",
+        "phase": "followup",
+        "metric_value": 2,
+        "unit": "ordinal_0_10",
+        "source_type": "synthetic",
+        "confounders": [],
+        "missingness": []
+      }
+    ],
+    "missingness": []
+  },
+  {
+    "packet_id": "synthetic-effect-002",
+    "source_status": "synthetic_public_safe",
+    "claim_status": "candidate_effect",
+    "privacy_status": "public_safe",
+    "revision_reason": "synthetic sparse example for routing",
+    "comparison": {
+      "entity_kind": "human",
+      "change_label": "synthetic context shift",
+      "change_timestamp": "2026-07-01T10:00:00Z",
+      "expected_direction": "increase",
+      "expected_window_hours": 48,
+      "outcome_metric": "synthetic clarity score",
+      "minimum_baseline_points": 2,
+      "minimum_followup_points": 2
+    },
+    "observations": [
+      {
+        "timestamp": "2026-07-02T10:00:00Z",
+        "phase": "followup",
+        "metric_value": 7,
+        "unit": "ordinal_0_10",
+        "source_type": "synthetic",
+        "confounders": [],
+        "missingness": ["no_baseline"]
+      }
+    ],
+    "missingness": ["baseline_missing"]
+  },
+  {
+    "packet_id": "synthetic-effect-003",
+    "source_status": "synthetic_public_safe",
+    "claim_status": "candidate_effect",
+    "privacy_status": "private_residue_possible",
+    "revision_reason": "synthetic privacy block example",
+    "comparison": {
+      "entity_kind": "system",
+      "change_label": "synthetic memory reuse",
+      "change_timestamp": "2026-07-01T10:00:00Z",
+      "expected_direction": "stabilize",
+      "expected_window_hours": 24,
+      "outcome_metric": "synthetic retrieval error score",
+      "minimum_baseline_points": 2,
+      "minimum_followup_points": 2
+    },
+    "observations": [],
+    "missingness": ["private_context_not_redacted"]
+  }
+]
