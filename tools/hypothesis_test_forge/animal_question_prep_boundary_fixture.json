@@ -1,0 +1,224 @@
+{
+  "artifact_type": "executable_test_fixture",
+  "claim": "Animal-care evidence maps become safer and more useful when each observation is separated from interpretation, species/context metadata, missingness, privacy state, vet-review questions, blocked care directives, and falsification route before export.",
+  "source_status": "synthetic_fixture_no_external_sources",
+  "claim_status": "hypothesis_for_research_organization_not_veterinary_advice",
+  "privacy_status": "no_private_identifiers_retained",
+  "missingness": {
+    "status": "explicit_missingness_required",
+    "known_missing_fields": [
+      "exam findings",
+      "diagnostic tests",
+      "medication history",
+      "timeline completeness",
+      "professional assessment"
+    ],
+    "rule": "missing information cannot be interpreted as absence of risk or absence of condition"
+  },
+  "revision_reason": "adds animal-care question-prep infrastructure with stricter observation/interpretation separation and blocked directive detection",
+  "implementation_status": "executable_validator_plus_fixture_unrun_in_current_sandbox",
+  "testability": "validator checks required metadata, observation separation, measurable variables, privacy state, safe export routes, blocked directives, and negative controls",
+  "falsification_route": "claim fails if fixture permits diagnosis, treatment, dosage, emergency triage, unsupported causality, cure certainty, private identifiers, or missingness-as-absence",
+  "measurable_variables": [
+    {
+      "name": "observation_interpretation_separation_rate",
+      "unit": "proportion",
+      "measurement_context": "records with distinct observation and interpretation fields"
+    },
+    {
+      "name": "vet_question_presence_rate",
+      "unit": "proportion",
+      "measurement_context": "records with at least one professional-review question"
+    },
+    {
+      "name": "blocked_directive_count",
+      "unit": "count",
+      "measurement_context": "unsafe care directives blocked per record"
+    }
+  ],
+  "next_executable_action": "Run python tools/hypothesis_test_forge/validate_animal_question_prep_boundary.py",
+  "pass_thresholds": {
+    "min_record_count": 3,
+    "min_measurable_variables_per_record": 2,
+    "min_vet_questions_per_record": 1,
+    "min_blocked_promotions_per_record": 4,
+    "allowed_domains": [
+      "animal_care_question_prep"
+    ],
+    "allowed_routes": [
+      "vet_question_prep",
+      "longitudinal_observation",
+      "research_organization",
+      "contradiction_ledger"
+    ]
+  },
+  "records": [
+    {
+      "record_id": "aqpb_001",
+      "domain": "animal_care_question_prep",
+      "species_context": "dog_observation_context_deidentified",
+      "observation": "Caregiver reports a visible eye-status change after travel; timing and professional measurements are incomplete.",
+      "interpretation_boundary": "May be useful as timeline context for a veterinarian; not evidence of cause, diagnosis, treatment need, or urgency level.",
+      "source_status": "caregiver_observation_unverified",
+      "claim_status": "observation_packet_only",
+      "privacy_status": "deidentified",
+      "missingness": {
+        "missing": [
+          "eye pressure values",
+          "exam note",
+          "medication timing log",
+          "photo calibration"
+        ]
+      },
+      "revision_reason": "converted emotionally urgent animal-care note into bounded question-prep record",
+      "implementation_status": "fixture_record",
+      "testability": "compare observation timestamp, travel window, medication timing log, and professional exam results if available",
+      "falsification_route": "fails as a pattern claim if professional measurements or later records do not align with reported timing",
+      "measurable_variables": [
+        {
+          "name": "observation_timestamp_precision",
+          "unit": "category",
+          "measurement_context": "known time, day only, or unknown"
+        },
+        {
+          "name": "visible_change_score",
+          "unit": "ordinal_0_to_3",
+          "measurement_context": "caregiver photo-review scale for question prep only"
+        }
+      ],
+      "professional_review_questions": [
+        "What measurements or exam observations would distinguish benign variation from a clinically relevant change?"
+      ],
+      "allowed_routes": [
+        "vet_question_prep",
+        "longitudinal_observation"
+      ],
+      "blocked_promotions": [
+        "diagnosis",
+        "treatment_instruction",
+        "dosage_guidance",
+        "emergency_triage",
+        "causal_proof"
+      ],
+      "next_executable_action": "Add timestamped observation row with source boundary and vet-review question."
+    },
+    {
+      "record_id": "aqpb_002",
+      "domain": "animal_care_question_prep",
+      "species_context": "cat_observation_context_deidentified",
+      "observation": "Caregiver reports facial skin changes in multiple cats; household timing and parasite/allergy/infection evidence are incomplete.",
+      "interpretation_boundary": "Supports organizing differentials as questions for professional review; does not choose a cause or recommend an intervention.",
+      "source_status": "caregiver_observation_unverified",
+      "claim_status": "question_prep_hypothesis_packet",
+      "privacy_status": "deidentified",
+      "missingness": {
+        "missing": [
+          "skin cytology",
+          "flea comb findings",
+          "environmental exposure log",
+          "professional exam results"
+        ]
+      },
+      "revision_reason": "keeps multi-animal pattern as evidence-map question rather than care directive",
+      "implementation_status": "fixture_record",
+      "testability": "track affected animals, body locations, onset windows, environmental changes, and professional test results",
+      "falsification_route": "fails as a shared-context pattern if animals have unrelated timing, locations, or professional findings",
+      "measurable_variables": [
+        {
+          "name": "affected_animals_count",
+          "unit": "count",
+          "measurement_context": "household observation log"
+        },
+        {
+          "name": "lesion_location_category",
+          "unit": "category",
+          "measurement_context": "deidentified body-region label"
+        }
+      ],
+      "professional_review_questions": [
+        "Which tests or observations would separate shared environmental exposure from unrelated individual causes?"
+      ],
+      "allowed_routes": [
+        "vet_question_prep",
+        "research_organization",
+        "contradiction_ledger"
+      ],
+      "blocked_promotions": [
+        "diagnosis",
+        "treatment_instruction",
+        "dosage_guidance",
+        "emergency_triage",
+        "causal_proof"
+      ],
+      "next_executable_action": "Create a deidentified household timeline table with one row per animal and observation window."
+    },
+    {
+      "record_id": "aqpb_003",
+      "domain": "animal_care_question_prep",
+      "species_context": "pet_medication_response_context_deidentified",
+      "observation": "Caregiver reports behavior change after a medication exposure; dose details, timing precision, concurrent stressors, and exam findings are incomplete.",
+      "interpretation_boundary": "Can be prepared as a timeline question for a veterinarian; not proof of adverse reaction, not medication guidance, and not a future dosing rule.",
+      "source_status": "caregiver_observation_unverified",
+      "claim_status": "temporal_question_packet",
+      "privacy_status": "deidentified",
+      "missingness": {
+        "missing": [
+          "exact dose",
+          "administration time",
+          "other exposures",
+          "veterinary assessment",
+          "baseline behavior log"
+        ]
+      },
+      "revision_reason": "separates temporal association from causal or medication directive language",
+      "implementation_status": "fixture_record",
+      "testability": "compare administration timestamp, behavior onset, duration, concurrent stressors, and professional interpretation",
+      "falsification_route": "fails as temporal-association evidence if timestamps are incompatible or alternative context fully explains the change",
+      "measurable_variables": [
+        {
+          "name": "lag_minutes_after_exposure",
+          "unit": "minutes_or_unknown",
+          "measurement_context": "caregiver timeline for professional review"
+        },
+        {
+          "name": "behavior_change_duration",
+          "unit": "minutes_or_unknown",
+          "measurement_context": "duration until return toward baseline"
+        }
+      ],
+      "professional_review_questions": [
+        "What timeline details would help a veterinarian evaluate whether this was exposure-related or context-related?"
+      ],
+      "allowed_routes": [
+        "vet_question_prep",
+        "longitudinal_observation",
+        "contradiction_ledger"
+      ],
+      "blocked_promotions": [
+        "diagnosis",
+        "treatment_instruction",
+        "dosage_guidance",
+        "emergency_triage",
+        "causal_proof"
+      ],
+      "next_executable_action": "Convert narrative into exposure/behavior timeline with unknown fields marked explicitly."
+    }
+  ],
+  "negative_controls": [
+    {
+      "record_id": "aqpb_nc_001",
+      "unsafe_text": "Diagnose the dog with glaucoma worsening and give 5 mg medication tonight.",
+      "expected_result": "reject"
+    },
+    {
+      "record_id": "aqpb_nc_002",
+      "unsafe_text": "Missing vet data means the skin problem is absent and no emergency can happen.",
+      "expected_result": "reject"
+    },
+    {
+      "record_id": "aqpb_nc_003",
+      "unsafe_text": "This proves the medication caused the reaction and the treatment should be stopped forever.",
+      "expected_result": "reject"
+    }
+  ]
+}
