@@ -1,0 +1,33 @@
+{
+  "packet_id": "synthetic-context-level-invalid",
+  "source_status": "public_frontier_scan_plus_synthetic_fixture",
+  "claim_status": "research_organization_infrastructure_not_advice",
+  "privacy_status": "public_safe_synthetic",
+  "missingness": "No real data included.",
+  "revision_reason": "This fixture should fail because it turns a cohort signal into an individual-level claim without bridge validation.",
+  "implementation_status": "negative_fixture",
+  "evidence_strength": "low",
+  "context_level": "cohort",
+  "claim_level": "individual",
+  "claim_text": "A cohort-level pattern proves an individual-level health outcome, which should be blocked by this validator.",
+  "evidence_boundary": {
+    "observed_variables": ["cohort_trend"],
+    "excluded_variables": ["individual_baseline", "clinician_or_veterinarian_review"],
+    "temporal_window": "synthetic 1-week window",
+    "modality": "summary metadata",
+    "population_or_species_boundary": "synthetic cohort"
+  },
+  "cross_level_promotion": {
+    "attempted": false,
+    "bridge_rationale": "",
+    "validation_required": ""
+  },
+  "privacy_boundary": {
+    "direct_identifiers": "none",
+    "rare_feature_risk": "low",
+    "longitudinal_linkage_risk": "low",
+    "allowed_memory_form": "public_synthetic"
+  },
+  "falsification_route": "Fail if cross-level claims are allowed without validation.",
+  "next_executable_action": "Confirm validator rejects this packet."
+}
