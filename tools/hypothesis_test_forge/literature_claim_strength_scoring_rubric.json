@@ -1,0 +1,182 @@
+{
+  "artifact_id": "mc_literature_claim_strength_scoring_rubric_v1",
+  "artifact_type": "scoring_rubric",
+  "domain": "scientific_reasoning_and_medical_ai_evidence_organization",
+  "claim": "MC literature notes become safer and more scientifically useful when every cited claim is scored for source type, evidentiary strength, boundary conditions, missingness, replication status, and promotability before it can influence longitudinal memory, research maps, question prep, or public claims.",
+  "source_status": "rubric_only_no_external_sources_embedded",
+  "claim_status": "testable_process_claim_not_validated_outcome_claim",
+  "privacy_status": "synthetic_no_personal_identifiers_allowed",
+  "missingness": "absence_of_replication_or_mechanism_must_be_recorded_as_unknown_not_as_disproof_or_proof",
+  "revision_reason": "adds a literature-claim-strength gate to prevent paper-title resonance, abstract-only reading, single-study overreach, and mechanism inflation from being promoted as established evidence",
+  "implementation_status": "semi_executable_json_rubric_ready_for_validator_or_manual_review",
+  "testability": "score MC literature-summary packets and compare unsafe promotion rate before versus after rubric enforcement",
+  "falsification_route": "the rubric fails if high-scoring packets still contain unsupported causality, diagnosis/treatment/veterinary advice, cure certainty, discovery proof, private identifiers, abstract-only certainty, or missingness-as-absence",
+  "measurable_variables": [
+    "source_type_classification_accuracy",
+    "evidence_stage_label_accuracy",
+    "replication_status_present",
+    "mechanism_status_present",
+    "population_boundary_present",
+    "measurement_boundary_present",
+    "missingness_integrity_score",
+    "unsafe_promotion_count",
+    "question_prep_usefulness_score",
+    "promotability_decision_accuracy"
+  ],
+  "next_executable_action": "implement validate_literature_claim_strength_packet.py to score JSON packets against this rubric and block unsafe promotion",
+  "scope_boundary": {
+    "allowed_outputs": [
+      "research_question",
+      "evidence_table_row",
+      "literature_gap_note",
+      "mechanism_hypothesis",
+      "clinician_or_veterinarian_question_prep",
+      "experiment_design_prompt",
+      "contradiction_ledger_entry"
+    ],
+    "blocked_outputs": [
+      "diagnosis",
+      "treatment_recommendation",
+      "dosage_guidance",
+      "veterinary_instruction",
+      "emergency_or_urgency_triage",
+      "cure_claim",
+      "discovery_proof",
+      "unsupported_causality",
+      "symbolic_resonance_as_factual_evidence",
+      "single_paper_as_settled_science",
+      "abstract_only_certainty"
+    ]
+  },
+  "score_scale": {
+    "0": "absent_or_unsafe",
+    "1": "present_but_vague_or_unbounded",
+    "2": "present_specific_and_reviewable",
+    "3": "present_specific_reviewable_and_actionable_without_overclaiming"
+  },
+  "criteria": [
+    {
+      "criterion_id": "source_type",
+      "label": "Source type is identified",
+      "measurement": "Packet labels whether the source is peer-reviewed article, preprint, review, case report, guideline, dataset, commentary, anecdote, user observation, or unknown.",
+      "minimum_pass_score": 2,
+      "failure_mode": "Treats all sources as equivalent evidence."
+    },
+    {
+      "criterion_id": "claim_extraction",
+      "label": "Claim is extracted without inflation",
+      "measurement": "Packet separates what the source directly claims from interpretation, analogy, speculation, and MC synthesis.",
+      "minimum_pass_score": 2,
+      "failure_mode": "Transforms a limited finding into a broad causal or clinical claim."
+    },
+    {
+      "criterion_id": "evidence_stage",
+      "label": "Evidence stage is calibrated",
+      "measurement": "Packet labels evidence as hypothesis, early association, mechanistic model, replicated finding, clinical evidence, guideline-level evidence, contradiction, or unknown.",
+      "minimum_pass_score": 2,
+      "failure_mode": "Promotes early or indirect evidence as established fact."
+    },
+    {
+      "criterion_id": "replication_status",
+      "label": "Replication status is explicit",
+      "measurement": "Packet records whether replication is known, absent, mixed, not checked, or not applicable.",
+      "minimum_pass_score": 2,
+      "failure_mode": "Equates one study with reproducible knowledge."
+    },
+    {
+      "criterion_id": "mechanism_boundary",
+      "label": "Mechanism boundary is explicit",
+      "measurement": "Packet distinguishes observed correlation, proposed mechanism, demonstrated mechanism, speculative mechanism, and unknown mechanism.",
+      "minimum_pass_score": 2,
+      "failure_mode": "Uses plausible mechanism language as proof."
+    },
+    {
+      "criterion_id": "population_boundary",
+      "label": "Population boundary is preserved",
+      "measurement": "Packet states who or what the evidence applies to: species, age range, health state, sample type, setting, or unknown.",
+      "minimum_pass_score": 2,
+      "failure_mode": "Transfers evidence across humans, animals, cells, organs, or symbolic contexts without boundary labels."
+    },
+    {
+      "criterion_id": "measurement_boundary",
+      "label": "Measurement boundary is preserved",
+      "measurement": "Packet states the measured variables, instruments, endpoints, and whether they match the MC use case.",
+      "minimum_pass_score": 2,
+      "failure_mode": "Treats a proxy variable as direct evidence for the target claim."
+    },
+    {
+      "criterion_id": "missingness_integrity",
+      "label": "Missingness is not collapsed into absence",
+      "measurement": "Packet records unknown, not measured, unavailable, not checked, not applicable, conflicting, and user-not-provided states separately.",
+      "minimum_pass_score": 3,
+      "failure_mode": "Says no evidence exists when the actual state is not searched or not measured."
+    },
+    {
+      "criterion_id": "privacy_integrity",
+      "label": "Privacy boundary is enforced",
+      "measurement": "Packet contains no names, addresses, exact dates of care, phone numbers, emails, record IDs, clinic identifiers, or re-identifying narrative details unless explicitly authorized and necessary.",
+      "minimum_pass_score": 3,
+      "failure_mode": "Keeps private identifiers inside research or public artifact packets."
+    },
+    {
+      "criterion_id": "unsafe_class_block",
+      "label": "Unsafe classes are blocked",
+      "measurement": "Packet is scanned for diagnosis, treatment, dosage, veterinary instruction, urgency triage, cure certainty, discovery proof, and unsupported causality.",
+      "minimum_pass_score": 3,
+      "failure_mode": "Allows literature evidence to become advice or certainty."
+    },
+    {
+      "criterion_id": "promotability_decision",
+      "label": "Promotability decision is justified",
+      "measurement": "Packet declares one safe route: block, revise, contradiction ledger, question prep, literature gap, measurement plan, or promote to low-confidence research map.",
+      "minimum_pass_score": 2,
+      "failure_mode": "Lets interesting evidence enter memory or public claims without route justification."
+    },
+    {
+      "criterion_id": "next_executable_action",
+      "label": "Next action is executable",
+      "measurement": "Packet ends with a concrete non-clinical action such as extract variables, search replication, compare guidelines, build table row, design observation form, or prepare questions for a qualified professional.",
+      "minimum_pass_score": 2,
+      "failure_mode": "Ends with vague belief, reassurance, fear, or action advice."
+    }
+  ],
+  "passing_rule": {
+    "minimum_total_score": 26,
+    "required_zero_tolerance_criteria": [
+      "privacy_integrity",
+      "unsafe_class_block",
+      "missingness_integrity"
+    ],
+    "route_rules": [
+      {
+        "condition": "any_zero_tolerance_score_below_3",
+        "route": "block_or_revise"
+      },
+      {
+        "condition": "total_score_at_or_above_26_and_no_zero_tolerance_failures",
+        "route": "promote_to_research_map_with_confidence_label"
+      },
+      {
+        "condition": "conflicting_evidence_or_unclear_mechanism",
+        "route": "contradiction_ledger_or_literature_gap_note"
+      },
+      {
+        "condition": "clinical_or_veterinary_relevance_detected",
+        "route": "question_prep_only_no_advice"
+      }
+    ]
+  },
+  "example_packet_stub": {
+    "literature_claim": "Example-only: a study reports an association between variable A and outcome B in population C.",
+    "source_status": "needs_source_verification",
+    "claim_status": "association_not_causality",
+    "privacy_status": "synthetic",
+    "missingness": "replication_status_not_checked; mechanism_not_established",
+    "revision_reason": "prevent association-to-causation promotion",
+    "implementation_status": "ready_for_scoring",
+    "testability": "check whether packet is routed to research question rather than advice",
+    "falsification_route": "fails if it states A causes B without replication/mechanism support",
+    "measurable_variables": ["variable_A", "outcome_B", "population_C", "replication_count"],
+    "next_executable_action": "search for replication and extract measured endpoints into an evidence table"
+  }
+}
