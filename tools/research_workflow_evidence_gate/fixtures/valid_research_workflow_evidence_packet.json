@@ -1,0 +1,81 @@
+{
+  "packet_id": "rweg-2026-07-07-001",
+  "created_utc": "2026-07-07T12:57:42Z",
+  "source_status": {
+    "classification": "mixed",
+    "sources": [
+      {
+        "title": "Introducing LifeSciBench",
+        "url": "https://openai.com/index/introducing-life-sci-bench/",
+        "date": "2026-06-17",
+        "status": "primary benchmark announcement",
+        "caveat": "benchmark framing from creator; external replication still needed"
+      },
+      {
+        "title": "LABBench2: An Improved Benchmark for AI Systems for Biology",
+        "url": "https://arxiv.org/html/2604.09554v2",
+        "date": "2026-05-05",
+        "status": "preprint benchmark",
+        "caveat": "not peer reviewed at time of capture"
+      },
+      {
+        "title": "From Data to Animal Health: Building Benchmarks for AI-Driven Veterinary Innovation",
+        "url": "https://www.vet.cornell.edu/research/awards/data-animal-health-building-benchmarks-ai-driven-veterinary-innovation",
+        "date": "2025-08 to 2026-05",
+        "status": "research institution project",
+        "caveat": "award page describes project; final benchmark outputs may be separate or unpublished"
+      }
+    ]
+  },
+  "claim_status": "evaluation_criterion",
+  "privacy_status": {
+    "classification": "public_safe_synthetic",
+    "personal_data": false,
+    "allowed_reuse_scope": "Reusable for public research-memory gate design and synthetic CI tests only.",
+    "privacy_risk": "Low; no personal, clinical, veterinary case, or account data included."
+  },
+  "missingness": [
+    "External curator reconstruction test not yet run.",
+    "No measured comparison against ordinary research notes yet.",
+    "Animal-health benchmark output availability remains unresolved."
+  ],
+  "revision_reason": "Add workflow-stage evidence requirements before scientific or medical-adjacent claims can enter reusable memory.",
+  "implementation_status": "implemented_with_tests",
+  "evidence_strength": "moderate",
+  "falsification_route": "Reject or revise this gate if packets fail to improve reconstruction accuracy, blocked-inference detection, or next-action clarity in curator testing.",
+  "next_executable_action": "Run the included regression test script and then add one real research note candidate as a blinded fixture.",
+  "workflow_stage_coverage": {
+    "evidence_handling": "covered",
+    "analysis": "partial",
+    "design_or_optimization": "partial",
+    "scientific_reasoning": "covered",
+    "validation_or_operations": "covered",
+    "translation": "covered",
+    "scientific_communication": "partial"
+  },
+  "translation_boundary": {
+    "from_context": "Frontier benchmark and research-infrastructure sources",
+    "to_context": "Mirror Cartographer reusable discovery-memory promotion rules",
+    "bridge_evidence": "Multiple frontier sources require realistic workflow, provenance, validation, continuity, or benchmark infrastructure rather than isolated answer scoring.",
+    "blocked_transfer": [
+      "Do not infer clinical usefulness from benchmark success alone.",
+      "Do not infer veterinary case applicability from human clinical AI benchmarks.",
+      "Do not infer mechanism or cure from workflow completion without experimental validation."
+    ]
+  },
+  "validation_route": [
+    "Validate packet structure with the local CLI.",
+    "Test invalid fixtures for missing validation route and unknown privacy in implemented packets.",
+    "Run curator reconstruction study comparing gated packets to ordinary notes."
+  ],
+  "blocked_inferences": [
+    "This is not medical advice.",
+    "This is not veterinary advice.",
+    "This does not prove a cure, mechanism, or intervention works."
+  ],
+  "provenance_route": [
+    "Fresh frontier scan captured public sources.",
+    "Source map converted into design implication.",
+    "Design implication implemented as schema, validator, fixtures, and tests."
+  ]
+}
