@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirror-cartographer.local/schemas/virtual_cell_fidelity_packet.schema.json",
+  "title": "VirtualCellFidelityPacket",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "falsification_route",
+    "next_executable_action",
+    "perturbation",
+    "cell_context",
+    "semantic_harmonization",
+    "distribution_shift",
+    "metrics",
+    "validation_status",
+    "blocked_inferences",
+    "source_map"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "source_status": {
+      "type": "string",
+      "enum": ["primary_source", "clinical_or_research_institution", "preprint_with_caveat", "open_source_tool", "benchmark_dataset", "synthetic_fixture"]
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": ["hypothesis", "benchmark_result", "prototype_requirement", "evaluation_criterion", "source_map", "clinical_or_veterinary_action"]
+    },
+    "privacy_status": {
+      "type": "string",
+      "enum": ["public_safe_synthetic", "public_non_subject_data", "deidentified_subject_data", "restricted_subject_data", "unknown"]
+    },
+    "missingness": {"type": "string", "minLength": 12},
+    "revision_reason": {"type": "string", "minLength": 12},
+    "implementation_status": {
+      "type": "string",
+      "enum": ["schema_only", "validator_added", "fixtures_added", "tests_added", "prototype_requirement_added"]
+    },
+    "evidence_strength": {
+      "type": "string",
+      "enum": ["weak", "moderate", "strong", "unknown"]
+    },
+    "falsification_route": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 10},
+    "perturbation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "target", "dose_or_intensity_status", "time_horizon_status"],
+      "properties": {
+        "type": {"type": "string", "enum": ["genetic", "chemical", "cytokine", "environmental", "unknown"]},
+        "target": {"type": "string", "minLength": 1},
+        "dose_or_intensity_status": {"type": "string", "enum": ["declared", "missing", "not_applicable"]},
+        "time_horizon_status": {"type": "string", "enum": ["declared", "missing", "not_applicable"]}
+      }
+    },
+    "cell_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["species", "cell_type_or_line", "assay", "dataset_or_benchmark"],
+      "properties": {
+        "species": {"type": "string", "minLength": 1},
+        "cell_type_or_line": {"type": "string", "minLength": 1},
+        "assay": {"type": "string", "minLength": 1},
+        "dataset_or_benchmark": {"type": "string", "minLength": 1}
+      }
+    },
+    "semantic_harmonization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "ontology_or_mapping", "unmapped_fields"],
+      "properties": {
+        "status": {"type": "string", "enum": ["declared", "partial", "missing"]},
+        "ontology_or_mapping": {"type": "string"},
+        "unmapped_fields": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "distribution_shift": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "shift_types", "ood_evaluation_status"],
+      "properties": {
+        "status": {"type": "string", "enum": ["declared", "not_tested", "unknown"]},
+        "shift_types": {"type": "array", "items": {"type": "string", "enum": ["dataset", "batch", "cell_type", "species", "assay", "site", "time", "none_declared"]}},
+        "ood_evaluation_status": {"type": "string", "enum": ["performed", "not_performed", "unknown"]}
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["biological_fidelity", "reconstruction_only", "metric_notes"],
+      "properties": {
+        "biological_fidelity": {"type": "array", "minItems": 1, "items": {"type": "string", "enum": ["perturbation_direction_correlation", "differential_expression_overlap", "pathway_enrichment_consistency", "marker_consistency", "ontology_grounded_correctness", "wet_lab_endpoint_match"]}},
+        "reconstruction_only": {"type": "boolean"},
+        "metric_notes": {"type": "string", "minLength": 10}
+      }
+    },
+    "validation_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["benchmark_validation", "experimental_validation", "dual_use_review"],
+      "properties": {
+        "benchmark_validation": {"type": "string", "enum": ["declared", "missing", "not_applicable"]},
+        "experimental_validation": {"type": "string", "enum": ["wet_validated", "not_wet_validated", "unknown"]},
+        "dual_use_review": {"type": "string", "enum": ["not_relevant", "required", "completed", "missing"]}
+      }
+    },
+    "blocked_inferences": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 8}},
+    "source_map": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 8}}
+  }
+}
