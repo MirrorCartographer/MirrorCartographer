@@ -1,0 +1,60 @@
+{
+  "packet_id": "rti-valid-001",
+  "source_status": "public frontier scan with research-institution and benchmark sources",
+  "claim_status": "prototype requirement for discovery-memory promotion",
+  "privacy_status": "public_safe_synthetic",
+  "missingness": [
+    "no protected health data",
+    "no live clinical validation",
+    "platform-specific workbench claims rely on secondary reporting"
+  ],
+  "revision_reason": "Add interoperability requirement so research claims preserve the executable tool path, not only the source citation path.",
+  "implementation_status": "schema, validator, fixture, and tests committed",
+  "evidence_strength": "moderate",
+  "falsification_route": "A reviewer should fail this gate if the declared toolchain cannot reconstruct the source-to-claim path or if privacy boundaries are unclear.",
+  "next_executable_action": "Run the regression test file for this gate from the repository root.",
+  "toolchain_components": [
+    {
+      "name": "literature_database",
+      "role": "retrieve and preserve source identifiers for biomedical or veterinary evidence",
+      "reproducibility_status": "documented",
+      "privacy_risk": "low"
+    },
+    {
+      "name": "notebook_or_script_runner",
+      "role": "execute analysis or validation code against synthetic or public data",
+      "reproducibility_status": "open",
+      "privacy_risk": "low"
+    },
+    {
+      "name": "provenance_logger",
+      "role": "record tool calls, versions, inputs, outputs, and blocked inferences",
+      "reproducibility_status": "documented",
+      "privacy_risk": "moderate"
+    }
+  ],
+  "data_boundary": {
+    "data_type": "synthetic benchmark packet",
+    "species_or_subject": "cross-domain research infrastructure",
+    "identifiability": "synthetic",
+    "allowed_use": "schema and validator testing only"
+  },
+  "execution_environment": {
+    "environment_type": "local python validation script",
+    "versioning": "repository committed source",
+    "external_dependencies": []
+  },
+  "provenance_log": [
+    "frontier scan",
+    "design implication extraction",
+    "schema creation",
+    "validator creation",
+    "fixture validation"
+  ],
+  "human_review_role": "reviewer verifies toolchain reconstructability and privacy boundary before promotion",
+  "blocked_inferences": [
+    "does not assert medical efficacy",
+    "does not provide veterinary advice",
+    "does not validate any private health record"
+  ]
+}
