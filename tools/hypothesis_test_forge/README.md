@@ -174,3 +174,11 @@ Run:
 `python tools/hypothesis_test_forge/validate_counterfactual_prediction_gate.py`
 
 Tests whether MC pattern inferences become more testable when every proposed relationship includes counterfactual predictions, null-result criteria, source boundaries, privacy limits, measurable variables, blocked unsafe routes, and safe next action before memory or export promotion. The validator rejects source-boundary gaps, missing wrong/right prediction branches, missing null-result criteria, unsafe routes, diagnosis/treatment/veterinary/dosage/urgency classes, cure certainty, discovery proof, unsupported causality, private identifier export, public-certainty claims, and missingness collapse.
+
+### Negative control gate fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_negative_control_gate.py`
+
+Tests whether MC pattern inferences become more scientifically useful when every proposed relationship includes a positive-control expectation, negative-control expectation, disconfirming observations, source boundary, privacy boundary, missingness preservation, measurable variables, blocked unsafe routes, and safe next action before promotion. The validator rejects control-free pattern promotion, missing negative controls, missing disconfirming routes, missing measurable variables, unsafe route promotion, diagnosis/treatment/veterinary/dosage/urgency classes, cure certainty, discovery proof, unsupported causality, public-certainty claims, and missingness collapse.
