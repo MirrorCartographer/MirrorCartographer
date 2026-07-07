@@ -161,4 +161,12 @@ Run:
 
 Tests whether privacy-preserving longitudinal MC records remain useful only when every record carries consent scope, de-identification state, retention policy, missingness state, measurable variables, allowed export routes, blocked export routes, and falsification routes. The validator rejects direct identifiers, unsafe public raw export, unbounded retention, missingness-as-absence collapse, missing measurement variables, and unsafe clinical/veterinary/action promotion.
 
+### Inference provenance handoff fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_inference_provenance_handoff.py`
+
+Tests whether human-AI sensemaking packets become safer and more useful when every inference records source boundaries, transformation steps, user-visible rationale fields, privacy state, missingness, measurable variables, safe routes, blocked promotions, falsification route, and next executable action before entering memory, research maps, question prep, or public summaries. The validator rejects diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, cure certainty, discovery proof, unsupported causality, private identifier retention, and missingness-as-absence collapse.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
