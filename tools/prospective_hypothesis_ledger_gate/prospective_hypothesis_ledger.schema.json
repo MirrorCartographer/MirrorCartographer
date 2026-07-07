@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/prospective_hypothesis_ledger.schema.json",
+  "title": "Prospective Hypothesis Ledger Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "created_at",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "evidence_cutoff_date",
+    "hypothesis",
+    "generation_context",
+    "prediction_target",
+    "prospective_validation_window",
+    "expected_evidence_type",
+    "boundary_conditions",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "created_at": {"type": "string", "format": "date-time"},
+    "source_status": {
+      "type": "string",
+      "enum": ["peer_reviewed", "preprint", "institutional_program", "benchmark", "open_source_tool", "dataset", "synthetic_fixture", "mixed"]
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": ["hypothesis", "evaluation_criterion", "prototype_requirement", "source_map", "collaborator_target", "blocked_claim"]
+    },
+    "privacy_status": {
+      "type": "string",
+      "enum": ["public_safe", "synthetic_only", "deidentified_required", "restricted_health_data", "restricted_veterinary_data", "contains_sensitive_personal_data"]
+    },
+    "evidence_cutoff_date": {"type": "string", "format": "date"},
+    "hypothesis": {"type": "string", "minLength": 20},
+    "generation_context": {"type": "string", "minLength": 20},
+    "prediction_target": {"type": "string", "minLength": 10},
+    "prospective_validation_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["starts_after", "ends_before", "rationale"],
+      "properties": {
+        "starts_after": {"type": "string", "format": "date"},
+        "ends_before": {"type": "string", "format": "date"},
+        "rationale": {"type": "string", "minLength": 20}
+      }
+    },
+    "expected_evidence_type": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": ["new_peer_reviewed_paper", "registered_trial", "dataset_release", "benchmark_result", "replication_attempt", "negative_result", "software_release", "grant_or_program_award", "clinical_guideline_update", "veterinary_dataset_or_benchmark"]
+      }
+    },
+    "boundary_conditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["domain", "species", "modality", "site_or_cohort", "blocked_inferences"],
+      "properties": {
+        "domain": {"type": "string", "minLength": 2},
+        "species": {"type": "string", "minLength": 2},
+        "modality": {"type": "string", "minLength": 2},
+        "site_or_cohort": {"type": "string", "minLength": 2},
+        "blocked_inferences": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 5}}
+      }
+    },
+    "missingness": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 5}},
+    "revision_reason": {"type": "string", "minLength": 20},
+    "implementation_status": {
+      "type": "string",
+      "enum": ["proposed", "schema_created", "validator_created", "tests_created", "integrated", "deprecated"]
+    },
+    "evidence_strength": {
+      "type": "string",
+      "enum": ["weak", "moderate", "strong", "mixed", "insufficient"]
+    },
+    "falsification_route": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  }
+}
