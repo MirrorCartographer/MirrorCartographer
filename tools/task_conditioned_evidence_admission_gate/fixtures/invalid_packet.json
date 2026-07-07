@@ -1,0 +1,22 @@
+{
+  "packet_id": "bad-001",
+  "created_utc": "2026-07-07T20:55:01Z",
+  "current_task_intent": "Use a similar memory to support a biomedical discovery claim.",
+  "candidate_memory_or_evidence": "A semantically similar memory about animal behavior and health.",
+  "source_status": "synthetic_fixture",
+  "claim_status": "hypothesis",
+  "task_fit_status": "semantic_similarity_only",
+  "task_fit_rationale": "It sounds related.",
+  "privacy_status": "undeclared",
+  "privacy_transformation": "none",
+  "provenance_status": "unknown",
+  "transfer_boundaries": [],
+  "missingness": [],
+  "synthetic_real_mismatch": "none declared",
+  "blocked_inferences": [],
+  "revision_reason": "none declared",
+  "implementation_status": "proposed",
+  "evidence_strength": "insufficient",
+  "falsification_route": "none declared",
+  "next_executable_action": "think about it later"
+}
