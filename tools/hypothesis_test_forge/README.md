@@ -169,4 +169,12 @@ Run:
 
 Tests whether human-AI sensemaking packets become safer and more useful when every inference records source boundaries, transformation steps, user-visible rationale fields, privacy state, missingness, measurable variables, safe routes, blocked promotions, falsification route, and next executable action before entering memory, research maps, question prep, or public summaries. The validator rejects diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, cure certainty, discovery proof, unsupported causality, private identifier retention, and missingness-as-absence collapse.
 
+### Temporal alignment fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_temporal_alignment_fixture.py`
+
+Tests whether longitudinal MC evidence maps become safer and more scientifically useful when observations are temporally aligned by absolute timestamp, observation window, lag uncertainty, source boundary, missingness, measurable variables, safe route, and falsification route before any cross-record pattern is inferred. The validator rejects temporal causality creep, diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, cure certainty, discovery proof, private identifier retention, and missingness-as-absence collapse.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
