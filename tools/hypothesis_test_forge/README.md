@@ -209,4 +209,12 @@ Run:
 
 Tests whether MC hypothesis packets become scientifically safer when measurement readiness is explicitly gated before claims are promoted as tested, validated, discovered, cured, or externally actionable. The validator requires operational definitions, measurement instruments, sampling plans, decision thresholds, confounders, disconfirmation criteria, privacy status, missingness, measurable variables, falsification route, and next executable action while blocking diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, cure certainty, discovery proof, unsupported causality, symbolic certainty as evidence, unsafe public/action promotion, and missingness-as-absence collapse.
 
+### Missingness propagation fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_missingness_propagation.py`
+
+Tests whether longitudinal MC evidence maps become safer when missing data propagates as explicit uncertainty instead of being interpreted as absence, improvement, stability, cure, discovery, or resolved risk. The validator requires variable-level missingness states, propagated uncertainty in derived inference, safe route selection, blocked unsafe promotions, and at least one expected-fail negative control.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
