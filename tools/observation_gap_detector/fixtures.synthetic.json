@@ -1,0 +1,104 @@
+[
+  {
+    "stream_id": "synthetic-human-window-alpha",
+    "domain": "human_research",
+    "subject_class": "adult_public_safe_cohort",
+    "required_fields": ["context", "intensity", "duration_minutes"],
+    "minimum_observation_count": 3,
+    "maximum_gap_days": 7,
+    "source_status": "synthetic_fixture",
+    "privacy_status": "public_safe_no_direct_identifiers",
+    "claim_status": "observation_only_not_advice",
+    "observations": [
+      {
+        "observed_at": "2026-01-01",
+        "values": {"context": "standing_after_rest", "intensity": 2, "duration_minutes": 4},
+        "missingness": {}
+      },
+      {
+        "observed_at": "2026-01-03",
+        "values": {"context": "standing_after_rest", "intensity": 3},
+        "missingness": {"duration_minutes": "not_recorded"}
+      },
+      {
+        "observed_at": "2026-01-05",
+        "values": {"context": "standing_after_rest", "intensity": 1, "duration_minutes": 3},
+        "missingness": {}
+      }
+    ]
+  },
+  {
+    "stream_id": "synthetic-animal-care-beta",
+    "domain": "animal_care",
+    "subject_class": "small_dog_public_safe_case",
+    "required_fields": ["behavior", "appetite", "mobility"],
+    "minimum_observation_count": 4,
+    "maximum_gap_days": 3,
+    "source_status": "synthetic_fixture",
+    "privacy_status": "public_safe_no_direct_identifiers",
+    "claim_status": "observation_only_not_veterinary_advice",
+    "observations": [
+      {
+        "observed_at": "2026-02-01",
+        "values": {"behavior": "resting", "appetite": "normal", "mobility": "steady"},
+        "missingness": {}
+      },
+      {
+        "observed_at": "2026-02-06",
+        "values": {"behavior": "pacing", "appetite": "reduced", "mobility": "steady"},
+        "missingness": {}
+      },
+      {
+        "observed_at": "2026-02-07",
+        "values": {"behavior": "resting", "appetite": "normal", "mobility": "steady"},
+        "missingness": {}
+      },
+      {
+        "observed_at": "2026-02-08",
+        "values": {"behavior": "resting", "appetite": "normal", "mobility": "steady"},
+        "missingness": {}
+      }
+    ]
+  },
+  {
+    "stream_id": "synthetic-literature-gamma",
+    "domain": "literature",
+    "subject_class": "paper_cluster_public_safe",
+    "required_fields": ["population", "measure", "comparison"],
+    "minimum_observation_count": 2,
+    "maximum_gap_days": 365,
+    "source_status": "synthetic_fixture",
+    "privacy_status": "public_safe_no_direct_identifiers",
+    "claim_status": "literature_note_only_not_clinical_guidance",
+    "observations": [
+      {
+        "observed_at": "2025-01-01",
+        "values": {"population": "synthetic_population", "measure": "synthetic_measure", "comparison": "control"},
+        "missingness": {}
+      },
+      {
+        "observed_at": "2025-06-01",
+        "values": {"population": "synthetic_population", "measure": "synthetic_measure", "comparison": "control"},
+        "missingness": {}
+      }
+    ]
+  },
+  {
+    "stream_id": "synthetic-behavioral-delta",
+    "domain": "behavioral",
+    "subject_class": "public_safe_behavior_sequence",
+    "required_fields": ["trigger", "response", "recovery_minutes"],
+    "minimum_observation_count": 3,
+    "maximum_gap_days": 10,
+    "source_status": "synthetic_fixture",
+    "privacy_status": "public_safe_no_direct_identifiers",
+    "claim_status": "observation_only_not_advice",
+    "observations": [
+      {
+        "observed_at": "2026-03-01",
+        "values": {"trigger": "noise", "response": "withdraw", "recovery_minutes": 20},
+        "missingness": {}
+      }
+    ]
+  }
+]
