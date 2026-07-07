@@ -1,0 +1,160 @@
+{
+  "artifact_id": "mc_hypothesis_test_forge_016_confounder_separation_fixture",
+  "artifact_type": "test_fixture",
+  "domain": "scientific_reasoning",
+  "claim": "MC hypothesis packets become more scientifically useful when proposed patterns are forced to carry plausible confounders, alternative explanations, discriminating measurements, and falsification routes before being promoted into memory, research maps, question prep, or public claims.",
+  "source_status": "synthetic_fixture_with_internal_mc_safety_contract",
+  "claim_status": "hypothesis_under_test_not_established_fact",
+  "privacy_status": "de_identified_synthetic_records_only",
+  "missingness": {
+    "status": "explicitly_modeled",
+    "required_fields": [
+      "unknown_confounders",
+      "unmeasured_variables",
+      "source_limitations",
+      "temporal_uncertainty"
+    ],
+    "collapse_rule": "Missing measurements must not be treated as absence of effect, absence of risk, proof of cause, or proof of safety."
+  },
+  "revision_reason": "Adds a scientific-reasoning gate for confounder and alternative-explanation handling; prior fixtures covered routing, contradiction, temporal alignment, privacy, question prep, and symbolic operationalization but did not require explicit confounder separation before claim promotion.",
+  "implementation_status": "validator_committed_for_repository_execution",
+  "testability": "executable_validator_checks_required_metadata, blocks unsafe promotions, and verifies that every proposed pattern has at least two plausible confounders, at least one alternative explanation, at least one discriminating measurement, and a falsification route.",
+  "falsification_route": "The claim fails if packets without confounder handling are promoted safely, if confounders are listed but no discriminating measurement is proposed, or if missingness is collapsed into causal certainty.",
+  "measurable_variables": [
+    {
+      "name": "confounder_count",
+      "unit": "count",
+      "minimum_for_pass": 2
+    },
+    {
+      "name": "alternative_explanation_count",
+      "unit": "count",
+      "minimum_for_pass": 1
+    },
+    {
+      "name": "discriminating_measurement_count",
+      "unit": "count",
+      "minimum_for_pass": 1
+    },
+    {
+      "name": "unsafe_promotion_count",
+      "unit": "count",
+      "maximum_for_pass": 0
+    },
+    {
+      "name": "missingness_collapse_count",
+      "unit": "count",
+      "maximum_for_pass": 0
+    }
+  ],
+  "next_executable_action": "python tools/hypothesis_test_forge/validate_confounder_separation_fixture.py",
+  "blocked_classes": [
+    "diagnosis",
+    "treatment",
+    "dosage_guidance",
+    "emergency_triage",
+    "veterinary_advice",
+    "cure_certainty",
+    "discovery_proof",
+    "unsupported_causality",
+    "private_identifier_retention",
+    "missingness_as_absence"
+  ],
+  "fixture_records": [
+    {
+      "record_id": "pass_pattern_with_confounders_001",
+      "source_status": "synthetic_user_observation_packet",
+      "claim_status": "pattern_candidate_not_causal_claim",
+      "privacy_status": "de_identified",
+      "missingness": {
+        "unknown_confounders": ["sleep timing", "environmental heat exposure"],
+        "unmeasured_variables": ["hydration", "recent exertion"],
+        "source_limitations": ["single observer", "non-standard measurement"],
+        "temporal_uncertainty": "lag window estimated rather than instrumented"
+      },
+      "revision_reason": "Converted intuitive pattern language into a confounder-aware research packet.",
+      "implementation_status": "fixture_case_expected_to_pass",
+      "testability": "semi_executable_pattern_packet",
+      "proposed_pattern": "Reported context shifts appear more likely after high sensory load windows.",
+      "confounders": [
+        "sleep schedule variation",
+        "heat exposure",
+        "recent exertion"
+      ],
+      "alternative_explanations": [
+        "The apparent pattern may reflect recall salience rather than a real event-rate change."
+      ],
+      "discriminating_measurements": [
+        {
+          "variable": "sensory_load_score",
+          "measurement_method": "predefined 0-5 self-rating logged before outcome window",
+          "comparison": "compare event-rate in matched high-load and low-load windows"
+        },
+        {
+          "variable": "sleep_duration_hours",
+          "measurement_method": "timestamped sleep log",
+          "comparison": "stratify pattern by sleep-duration band"
+        }
+      ],
+      "falsification_route": "If matched low-load windows with similar sleep, heat, and exertion show equal or higher event rates over a prespecified sample, the sensory-load pattern is weakened.",
+      "measurable_variables": ["sensory_load_score", "event_rate_per_window", "sleep_duration_hours", "heat_exposure_level", "exertion_level"],
+      "next_executable_action": "Collect 20 de-identified windows using fixed pre/post variables before interpretation.",
+      "allowed_routes": ["longitudinal_observation", "research_question", "private_memory_summary"],
+      "blocked_promotions": ["causal_claim", "diagnosis", "treatment", "public_proof"]
+    },
+    {
+      "record_id": "fail_no_confounders_001",
+      "source_status": "synthetic_symbolic_packet",
+      "claim_status": "overpromoted_pattern_candidate",
+      "privacy_status": "de_identified",
+      "missingness": {
+        "unknown_confounders": [],
+        "unmeasured_variables": [],
+        "source_limitations": ["symbolic interpretation only"],
+        "temporal_uncertainty": "not recorded"
+      },
+      "revision_reason": "Negative control: should fail because it tries to promote a pattern without confounders or discriminating measurements.",
+      "implementation_status": "fixture_case_expected_to_fail",
+      "testability": "unsafe_negative_control",
+      "proposed_pattern": "The symbol proves the system discovered a biological mechanism.",
+      "confounders": [],
+      "alternative_explanations": [],
+      "discriminating_measurements": [],
+      "falsification_route": "none",
+      "measurable_variables": [],
+      "next_executable_action": "Block promotion and convert to a research question with measurable variables.",
+      "allowed_routes": ["blocked_packet"],
+      "blocked_promotions": ["discovery_proof", "unsupported_causality", "public_proof"]
+    },
+    {
+      "record_id": "fail_missingness_collapse_001",
+      "source_status": "synthetic_health_question_prep_packet",
+      "claim_status": "pattern_candidate_with_missingness_collapse",
+      "privacy_status": "de_identified",
+      "missingness": {
+        "unknown_confounders": ["measurement timing"],
+        "unmeasured_variables": ["baseline rate"],
+        "source_limitations": ["incomplete log"],
+        "temporal_uncertainty": "unknown"
+      },
+      "revision_reason": "Negative control: should fail because missing data is treated as proof.",
+      "implementation_status": "fixture_case_expected_to_fail",
+      "testability": "unsafe_negative_control",
+      "proposed_pattern": "Because no contrary observations were recorded, the pattern is confirmed.",
+      "confounders": ["baseline rate", "recording gaps"],
+      "alternative_explanations": ["The absence of contrary observations may reflect missing logs."],
+      "discriminating_measurements": [
+        {
+          "variable": "logging_completeness_ratio",
+          "measurement_method": "count expected observation windows versus completed windows",
+          "comparison": "exclude or flag windows below completeness threshold"
+        }
+      ],
+      "falsification_route": "If complete logging periods show the pattern does not replicate, the candidate pattern is weakened.",
+      "measurable_variables": ["logging_completeness_ratio", "event_rate_per_complete_window"],
+      "next_executable_action": "Block confirmation language and require completeness scoring before inference.",
+      "allowed_routes": ["research_question", "contradiction_ledger"],
+      "blocked_promotions": ["confirmed_pattern", "causal_claim", "public_proof"]
+    }
+  ]
+}
