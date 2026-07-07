@@ -37,6 +37,12 @@ ALLOWED_IMPLEMENTATION_STATUS = {"specified", "implemented", "validated", "block
 ALLOWED_EVIDENCE_STRENGTH = {"low", "moderate", "high"}
 ALLOWED_TARGET_DIRECTION = {"increase", "decrease", "bounded", "detect"}
 ALLOWED_PROVENANCE_STATUS = {"observed", "generated", "validated", "rejected", "missing"}
+ALLOWED_CONSEQUENCE_CLASS = {
+    "low_research_routing",
+    "medium_memory_promotion",
+    "high_clinical_or_veterinary_relevance",
+    "blocked_personal_advice",
+}
 REQUIRED_FIELDS = {
     "packet_id",
     "claim",
@@ -48,7 +54,11 @@ REQUIRED_FIELDS = {
     "implementation_status",
     "evidence_strength",
     "human_decision_needed",
+    "consequence_class",
+    "ambiguity_register",
     "decision_options",
+    "decision_readiness_evidence",
+    "blocking_evidence",
     "measurable_variables",
     "falsification_route",
     "provenance_chain",
@@ -59,6 +69,26 @@ REQUIRED_FIELDS = {
 
 def _text(value: Any, min_len: int = 1) -> bool:
     return isinstance(value, str) and len(value.strip()) >= min_len
+
+
+def _validate_object_list(
+    packet: dict[str, Any],
+    field_name: str,
+    required_text_fields: tuple[str, ...],
+    min_items: int,
+    errors: list[str],
+) -> None:
+    items = packet.get(field_name)
+    if not isinstance(items, list) or len(items) < min_items:
+        errors.append(f"{field_name} must contain at least {min_items} item(s)")
+        return
+    for i, item in enumerate(items):
+        if not isinstance(item, dict):
+            errors.append(f"{field_name}[{i}] must be an object")
+            continue
+        for subfield in required_text_fields:
+            if not _text(item.get(subfield), 8):
+                errors.append(f"{field_name}[{i}].{subfield} is required")
 
 
 def validate_packet(packet: dict[str, Any]) -> list[str]:
@@ -77,6 +107,8 @@ def validate_packet(packet: dict[str, Any]) -> list[str]:
         errors.append("invalid implementation_status")
     if packet.get("evidence_strength") not in ALLOWED_EVIDENCE_STRENGTH:
         errors.append("invalid evidence_strength")
+    if packet.get("consequence_class") not in ALLOWED_CONSEQUENCE_CLASS:
+        errors.append("invalid consequence_class")
 
     for field, min_len in [
         ("packet_id", 6),
@@ -93,6 +125,28 @@ def validate_packet(packet: dict[str, Any]) -> list[str]:
     missingness = packet.get("missingness")
     if not isinstance(missingness, list) or not missingness or not all(_text(x, 3) for x in missingness):
         errors.append("missingness must be a non-empty list of text entries")
+
+    _validate_object_list(
+        packet,
+        "ambiguity_register",
+        ("ambiguity", "why_it_matters", "resolution_path"),
+        1,
+        errors,
+    )
+    _validate_object_list(
+        packet,
+        "decision_readiness_evidence",
+        ("evidence_needed", "measurement", "decision_threshold"),
+        1,
+        errors,
+    )
+    _validate_object_list(
+        packet,
+        "blocking_evidence",
+        ("blocker", "measurement", "downgrade_action"),
+        1,
+        errors,
+    )
 
     decision_options = packet.get("decision_options")
     if not isinstance(decision_options, list) or len(decision_options) < 2:
@@ -135,6 +189,9 @@ def validate_packet(packet: dict[str, Any]) -> list[str]:
                 errors.append(f"provenance_chain[{i}].artifact is required")
             if step.get("status") not in ALLOWED_PROVENANCE_STATUS:
                 errors.append(f"provenance_chain[{i}].status is invalid")
+
+    if packet.get("consequence_class") == "blocked_personal_advice" and packet.get("implementation_status") != "blocked":
+        errors.append("blocked_personal_advice packets must have implementation_status=blocked")
 
     return errors
 
