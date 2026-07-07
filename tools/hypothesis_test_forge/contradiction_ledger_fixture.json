@@ -1,0 +1,136 @@
+{
+  "artifact_id": "mc_contradiction_ledger_fixture_v1",
+  "hypothesis": "MC hypothesis packets become more scientifically useful when contradictions are preserved as testable ledger entries instead of being resolved prematurely into certainty, diagnosis, treatment, veterinary advice, or discovery proof.",
+  "source_status": "assistant-generated synthetic fixture; no personal, medical, veterinary, or private records",
+  "claim_status": "executable infrastructure hypothesis, not a factual discovery claim",
+  "privacy_status": "public-safe synthetic only; private identifiers prohibited",
+  "missingness": "explicit observed, unknown, not_collected, redacted, and not_applicable states required; unknown must not be treated as absent",
+  "revision_reason": "automation run adds contradiction-preservation coverage to Hypothesis Test Forge",
+  "implementation_status": "test fixture paired with validator script",
+  "testability": "python tools/hypothesis_test_forge/validate_contradiction_ledger_fixture.py",
+  "falsification_route": "fixture fails if contradiction records lack both sides, evidence boundaries, missingness handling, measurable variables, disconfirmation routes, or safe next actions",
+  "measurable_variables": [
+    "ledger_entry_count",
+    "both_sides_present_rate",
+    "missingness_integrity_rate",
+    "unsafe_promotion_count",
+    "disconfirmation_route_count",
+    "private_identifier_count"
+  ],
+  "next_executable_action": "promote validator checks into shared MC gate registry when repeated fixture failures identify common unsafe-promotion patterns",
+  "allowed_missingness_states": [
+    "observed",
+    "unknown",
+    "not_collected",
+    "redacted",
+    "not_applicable"
+  ],
+  "blocked_claim_classes": [
+    "diagnosis",
+    "treatment",
+    "dosage_guidance",
+    "emergency_triage",
+    "veterinary_advice",
+    "cure_certainty",
+    "discovery_proof",
+    "unsupported_causality",
+    "symbolic_certainty",
+    "private_identifier_retention",
+    "missingness_as_absence"
+  ],
+  "ledger_entries": [
+    {
+      "entry_id": "contradiction.valid.synthetic.001",
+      "domain": "human_ai_sensemaking",
+      "contradiction_statement": "A phrase feels emotionally accurate but its literal claim is not established.",
+      "side_a": {
+        "claim": "The phrase is useful as symbolic navigation.",
+        "source_status": "synthetic symbolic observation",
+        "claim_status": "interpretive hypothesis",
+        "missingness": "observed",
+        "evidence_boundary": "felt salience is not factual proof"
+      },
+      "side_b": {
+        "claim": "The phrase does not prove an external event, medical state, animal condition, or scientific mechanism.",
+        "source_status": "safety boundary rule",
+        "claim_status": "constraint",
+        "missingness": "not_applicable",
+        "evidence_boundary": "requires independent evidence before factual promotion"
+      },
+      "privacy_status": "public-safe synthetic only",
+      "measurable_variables": [
+        "symbol_recurrence_count",
+        "literal_claim_support_count",
+        "independent_source_count"
+      ],
+      "allowed_route": "contradiction_ledger",
+      "blocked_route": "public_discovery_claim",
+      "falsification_route": "If independent sources repeatedly support the literal claim, reclassify as evidence-table row; if no support appears, keep as symbolic-only.",
+      "next_executable_action": "create a source-separated evidence row before any factual promotion",
+      "decision": "pass"
+    },
+    {
+      "entry_id": "contradiction.valid.synthetic.002",
+      "domain": "medical_ai_evidence_organization",
+      "contradiction_statement": "A body-state observation is recurring, but recurrence does not identify cause.",
+      "side_a": {
+        "claim": "Repeated observations may justify better clinician-facing question prep.",
+        "source_status": "synthetic longitudinal observation",
+        "claim_status": "question-prep hypothesis",
+        "missingness": "observed",
+        "evidence_boundary": "recurrence can prioritize inquiry but cannot establish diagnosis or treatment"
+      },
+      "side_b": {
+        "claim": "The same recurrence may reflect multiple mechanisms or collection bias.",
+        "source_status": "scientific reasoning boundary",
+        "claim_status": "uncertainty constraint",
+        "missingness": "unknown",
+        "evidence_boundary": "mechanism remains unconfirmed without external evaluation and controlled observation"
+      },
+      "privacy_status": "public-safe synthetic only",
+      "measurable_variables": [
+        "observation_frequency",
+        "context_change_count",
+        "measurement_consistency_score",
+        "clinician_question_count"
+      ],
+      "allowed_route": "question_prep",
+      "blocked_route": "diagnosis_or_treatment_claim",
+      "falsification_route": "If observations fail to recur under consistent measurement, downgrade priority; if external evaluation contradicts the hypothesis, preserve contradiction and revise questions.",
+      "next_executable_action": "convert observations into a source-separated question list with dates, triggers, missingness, and measurement confidence",
+      "decision": "pass"
+    },
+    {
+      "entry_id": "contradiction.invalid.synthetic.001",
+      "domain": "animal_care_evidence_maps",
+      "contradiction_statement": "A pet symptom changed after an event, therefore the event caused it and the cure is known.",
+      "side_a": {
+        "claim": "The event caused the animal condition.",
+        "source_status": "synthetic owner observation",
+        "claim_status": "unsupported causality",
+        "missingness": "unknown",
+        "evidence_boundary": "missing veterinary examination and differential evidence"
+      },
+      "side_b": {
+        "claim": "Treat with a specific medication dose now.",
+        "source_status": "unsafe synthetic directive",
+        "claim_status": "veterinary advice and dosage guidance",
+        "missingness": "unknown",
+        "evidence_boundary": "not allowed in MC research-organization infrastructure"
+      },
+      "privacy_status": "public-safe synthetic only",
+      "measurable_variables": [],
+      "allowed_route": "public_discovery_claim",
+      "blocked_route": "contradiction_ledger",
+      "blocked_claim_classes_present": [
+        "unsupported_causality",
+        "veterinary_advice",
+        "dosage_guidance",
+        "cure_certainty"
+      ],
+      "falsification_route": "none supplied",
+      "next_executable_action": "none supplied",
+      "decision": "fail"
+    }
+  ]
+}
