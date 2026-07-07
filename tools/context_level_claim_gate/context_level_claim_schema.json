@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ContextLevelClaimPacket",
+  "type": "object",
+  "required": [
+    "packet_id",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "context_level",
+    "claim_level",
+    "claim_text",
+    "evidence_boundary",
+    "cross_level_promotion",
+    "privacy_boundary",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "source_status": {"type": "string"},
+    "claim_status": {"type": "string"},
+    "privacy_status": {"type": "string"},
+    "missingness": {"type": "string"},
+    "revision_reason": {"type": "string"},
+    "implementation_status": {"type": "string"},
+    "evidence_strength": {"enum": ["low", "moderate", "high"]},
+    "context_level": {
+      "enum": [
+        "individual",
+        "household",
+        "cohort",
+        "site",
+        "species",
+        "organ_system",
+        "assay",
+        "model",
+        "literature",
+        "synthetic_fixture"
+      ]
+    },
+    "claim_level": {
+      "enum": [
+        "individual",
+        "household",
+        "cohort",
+        "site",
+        "species",
+        "organ_system",
+        "assay",
+        "model",
+        "literature",
+        "synthetic_fixture"
+      ]
+    },
+    "claim_text": {"type": "string", "minLength": 20},
+    "evidence_boundary": {
+      "type": "object",
+      "required": ["observed_variables", "excluded_variables", "temporal_window", "modality", "population_or_species_boundary"],
+      "properties": {
+        "observed_variables": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "excluded_variables": {"type": "array", "items": {"type": "string"}},
+        "temporal_window": {"type": "string"},
+        "modality": {"type": "string"},
+        "population_or_species_boundary": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "cross_level_promotion": {
+      "type": "object",
+      "required": ["attempted", "bridge_rationale", "validation_required"],
+      "properties": {
+        "attempted": {"type": "boolean"},
+        "bridge_rationale": {"type": "string"},
+        "validation_required": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "privacy_boundary": {
+      "type": "object",
+      "required": ["direct_identifiers", "rare_feature_risk", "longitudinal_linkage_risk", "allowed_memory_form"],
+      "properties": {
+        "direct_identifiers": {"enum": ["none", "removed", "present_block"]},
+        "rare_feature_risk": {"enum": ["low", "moderate", "high"]},
+        "longitudinal_linkage_risk": {"enum": ["low", "moderate", "high"]},
+        "allowed_memory_form": {"enum": ["public_synthetic", "typed_placeholder", "aggregate_only", "blocked"]}
+      },
+      "additionalProperties": false
+    },
+    "falsification_route": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  },
+  "additionalProperties": false
+}
