@@ -1,0 +1,125 @@
+{
+  "source_status": "synthetic_test_fixture",
+  "claim_status": "hypothesis_for_validation",
+  "privacy_status": "de_identified_synthetic",
+  "missingness": "explicit_missingness_required_before_promotion",
+  "revision_reason": "Add a gate that tests whether MC claims preserve a complete trace from source observation to allowed promotion route.",
+  "implementation_status": "fixture_created",
+  "testability": "executable_fixture_with_negative_control",
+  "falsification_route": "Fails if a promoted packet lacks source linkage, transformation steps, missingness handling, measurable variables, privacy gating, or a safe next action.",
+  "measurable_variables": [
+    {
+      "name": "source_link_count",
+      "definition": "Number of explicit source observations attached to the promoted claim.",
+      "unit": "count",
+      "acceptance_threshold": ">=1"
+    },
+    {
+      "name": "transformation_step_count",
+      "definition": "Number of named steps between observation, interpretation, hypothesis, and promotion route.",
+      "unit": "count",
+      "acceptance_threshold": ">=3"
+    },
+    {
+      "name": "blocked_promotion_count",
+      "definition": "Number of unsafe promotion classes explicitly blocked.",
+      "unit": "count",
+      "acceptance_threshold": ">=6"
+    }
+  ],
+  "next_executable_action": "Run python tools/hypothesis_test_forge/validate_promotion_traceability_gate.py",
+  "claim": "MC evidence packets become safer when every promoted claim preserves a traceable route from source observation to transformation steps, uncertainty, privacy gate, measurable variables, blocked promotions, and next executable action.",
+  "records": [
+    {
+      "record_id": "trace-pass-001",
+      "source_status": "synthetic_observation_log",
+      "claim_status": "research_question_not_conclusion",
+      "privacy_status": "de_identified_synthetic",
+      "missingness": "missing_context_preserved",
+      "revision_reason": "Converted a broad pattern statement into a traceable question-prep packet.",
+      "implementation_status": "ready_for_validator",
+      "testability": "pass_case",
+      "falsification_route": "If later source review shows no observation supports the question, demote to contradiction ledger or discard.",
+      "measurable_variables": [
+        {
+          "name": "observation_frequency",
+          "operational_definition": "How often the de-identified observation appears across sessions.",
+          "unit": "count_per_session",
+          "missingness_state": "partially_recorded"
+        },
+        {
+          "name": "context_switch_trigger",
+          "operational_definition": "Named trigger that caused a shift from symbolic wording to operational question prep.",
+          "unit": "categorical_label",
+          "missingness_state": "recorded"
+        }
+      ],
+      "next_executable_action": "Keep as research organization and question-prep infrastructure; do not export as proof.",
+      "source_observations": [
+        {
+          "source_id": "synthetic-note-001",
+          "source_type": "de_identified_user_observation",
+          "text": "A pattern was noticed across sessions, but the source context is incomplete.",
+          "privacy_state": "de_identified"
+        }
+      ],
+      "transformation_steps": [
+        {
+          "step": "observation_capture",
+          "output": "Preserve the de-identified observation without causal interpretation."
+        },
+        {
+          "step": "symbolic_to_operational_translation",
+          "output": "Translate pattern language into frequency, context, and trigger variables."
+        },
+        {
+          "step": "promotion_gate",
+          "output": "Allow only research question, question prep, or contradiction-ledger route."
+        }
+      ],
+      "promotion_decision": {
+        "allowed_route": "research_organization_question_prep",
+        "blocked_promotions": [
+          "diagnosis",
+          "treatment",
+          "veterinary_advice",
+          "dosage_guidance",
+          "emergency_triage",
+          "cure_claim",
+          "discovery_proof",
+          "unsupported_causality",
+          "symbolic_certainty",
+          "private_identifier_export"
+        ],
+        "uncertainty_statement": "The packet preserves a plausible pattern as a question, not as a conclusion.",
+        "promotion_status": "allowed_with_limits"
+      }
+    },
+    {
+      "record_id": "trace-fail-001",
+      "source_status": "synthetic_unsafe_packet",
+      "claim_status": "overpromoted_claim",
+      "privacy_status": "de_identified_synthetic",
+      "missingness": "missingness_collapsed",
+      "revision_reason": "Negative control: demonstrates a packet that should not be promoted.",
+      "implementation_status": "ready_for_validator",
+      "testability": "fail_case",
+      "falsification_route": "Fails because it jumps from pattern language to certainty without traceability or blocked-promotion gates.",
+      "measurable_variables": [],
+      "next_executable_action": "Block promotion and require source observations, transformation steps, missingness state, and safe route.",
+      "source_observations": [],
+      "transformation_steps": [
+        {
+          "step": "unsupported_jump",
+          "output": "Pattern treated as proven without operational trace."
+        }
+      ],
+      "promotion_decision": {
+        "allowed_route": "public_claim",
+        "blocked_promotions": [],
+        "uncertainty_statement": "",
+        "promotion_status": "unsafe_promotion"
+      }
+    }
+  ]
+}
