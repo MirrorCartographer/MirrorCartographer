@@ -1,0 +1,178 @@
+{
+  "artifact_type": "test_fixture",
+  "claim": "MC cross-domain analogies become scientifically useful only when analogy, mechanism, observation, and measurable prediction are separated before promotion.",
+  "source_status": "synthetic_fixture_no_external_sources",
+  "claim_status": "hypothesis_under_test",
+  "privacy_status": "deidentified_synthetic_records_only",
+  "missingness": {
+    "known_missing": [
+      "No empirical validation dataset attached",
+      "No domain-expert review attached",
+      "Mechanism plausibility is only structurally checked"
+    ],
+    "missingness_policy": "missing does not mean absent; missing fields block promotion"
+  },
+  "revision_reason": "Adds a gate for analogy creep: symbolic or cross-domain resemblance must not be treated as mechanism, diagnosis, treatment, veterinary advice, cure proof, or discovery proof.",
+  "implementation_status": "executable_validator",
+  "testability": "pass/fail validation of fixture records against analogy-boundary rules",
+  "falsification_route": "The claim is weakened if analogy-based packets that pass this gate still routinely produce unsupported causal, clinical, veterinary, or discovery claims during downstream review.",
+  "measurable_variables": [
+    "analogy_separated_from_observation",
+    "mechanism_claim_status",
+    "prediction_measurability_score",
+    "blocked_promotion_count",
+    "safe_next_action_count",
+    "missingness_flag_count"
+  ],
+  "next_executable_action": "Run validate_analogy_boundary_gate.py and inspect failing packet IDs.",
+  "records": [
+    {
+      "id": "pass_symbolic_to_measurement_001",
+      "domain": "symbolic_to_operational_translation",
+      "source_status": "user_language_synthetic_example",
+      "claim_status": "analogy_not_evidence",
+      "privacy_status": "deidentified",
+      "symbolic_phrase": "weather mirrors nervous-system load",
+      "analogy": "weather variability is used as a metaphor for fluctuating internal state",
+      "observation": "self-rated load varies across check-ins",
+      "mechanism_claim": {
+        "text": "No mechanism claimed; analogy is preserved as interpretive language only.",
+        "status": "not_claimed"
+      },
+      "measurable_prediction": {
+        "text": "If the metaphor is useful as an organizing lens, future entries tagged with this phrase should include at least one measurable state variable.",
+        "variables": [
+          "self_rated_load_0_to_10",
+          "sleep_hours",
+          "context_switch_count"
+        ],
+        "decision_threshold": ">= 90% of future metaphor-tagged entries include one measurable variable"
+      },
+      "missingness": "no physiological instrument data attached",
+      "revision_reason": "Converted metaphor into observation-labeling rule, not causal proof.",
+      "implementation_status": "fixture_record",
+      "testability": "measurable_variable_presence_check",
+      "falsification_route": "Fails if metaphor-tagged entries do not improve measurement completeness.",
+      "next_executable_action": "Apply schema to 20 deidentified future entries.",
+      "allowed_routes": [
+        "private_memory",
+        "research_map",
+        "symbolic_translation_queue"
+      ],
+      "blocked_promotions": [
+        "diagnosis",
+        "treatment",
+        "veterinary_advice",
+        "cure_claim",
+        "discovery_proof",
+        "public_proof"
+      ]
+    },
+    {
+      "id": "pass_human_ai_sensemaking_002",
+      "domain": "human_ai_sensemaking",
+      "source_status": "synthetic_dialogue_summary",
+      "claim_status": "pattern_hypothesis_unvalidated",
+      "privacy_status": "deidentified",
+      "symbolic_phrase": "context switch opens a new room",
+      "analogy": "room change represents a shift in reasoning frame",
+      "observation": "AI answer changes after switching from emotional-symbolic frame to measurement frame",
+      "mechanism_claim": {
+        "text": "The frame switch changes which variables are selected for attention.",
+        "status": "computational_process_hypothesis"
+      },
+      "measurable_prediction": {
+        "text": "Frame-switched outputs should name more measurable variables than unswitched outputs on the same prompt.",
+        "variables": [
+          "variable_count_before_switch",
+          "variable_count_after_switch",
+          "new_inference_count"
+        ],
+        "decision_threshold": "after_switch variable count exceeds before_switch in >= 70% of paired prompts"
+      },
+      "missingness": "paired prompt dataset not yet collected",
+      "revision_reason": "Separates metaphor from testable output-difference prediction.",
+      "implementation_status": "fixture_record",
+      "testability": "paired_output_scoring_possible",
+      "falsification_route": "Fails if frame-switched outputs do not increase measurable variable count or new inference count.",
+      "next_executable_action": "Create 10 paired prompts with and without explicit context switch.",
+      "allowed_routes": [
+        "research_map",
+        "experiment_design"
+      ],
+      "blocked_promotions": [
+        "hidden_reasoning_claim",
+        "certainty_claim",
+        "public_proof"
+      ]
+    },
+    {
+      "id": "fail_analogy_as_medical_mechanism_003",
+      "domain": "medical_ai_evidence_organization",
+      "source_status": "synthetic_unsafe_example",
+      "claim_status": "unsupported_causal_claim",
+      "privacy_status": "deidentified",
+      "symbolic_phrase": "lightning in the body",
+      "analogy": "lightning resembles nerve firing",
+      "observation": "subjective internal sensation reported",
+      "mechanism_claim": {
+        "text": "This proves a specific nervous-system disorder is being healed.",
+        "status": "unsafe_unsupported"
+      },
+      "measurable_prediction": {
+        "text": "",
+        "variables": [],
+        "decision_threshold": ""
+      },
+      "missingness": "no clinical evaluation, no instrument data, no differential explanation ledger",
+      "revision_reason": "Unsafe example included to test rejection.",
+      "implementation_status": "negative_control",
+      "testability": "should_fail_validator",
+      "falsification_route": "",
+      "next_executable_action": "Block and rewrite as clinician-facing question-prep observation.",
+      "allowed_routes": [
+        "blocked"
+      ],
+      "blocked_promotions": [
+        "diagnosis",
+        "treatment",
+        "cure_claim",
+        "public_proof"
+      ]
+    },
+    {
+      "id": "fail_analogy_as_animal_care_directive_004",
+      "domain": "animal_care_evidence_maps",
+      "source_status": "synthetic_unsafe_example",
+      "claim_status": "veterinary_directive_blocked",
+      "privacy_status": "deidentified",
+      "symbolic_phrase": "eye pressure is a storm clearing",
+      "analogy": "storm clearing implies improvement",
+      "observation": "animal eye appearance described by caregiver",
+      "mechanism_claim": {
+        "text": "Because the storm is clearing, reduce medication tonight.",
+        "status": "unsafe_veterinary_directive"
+      },
+      "measurable_prediction": {
+        "text": "N/A",
+        "variables": [],
+        "decision_threshold": ""
+      },
+      "missingness": "no veterinarian exam data, no pressure measurement, no medication review by professional",
+      "revision_reason": "Unsafe example included to test veterinary advice block.",
+      "implementation_status": "negative_control",
+      "testability": "should_fail_validator",
+      "falsification_route": "",
+      "next_executable_action": "Block directive and convert to vet-facing question list.",
+      "allowed_routes": [
+        "blocked"
+      ],
+      "blocked_promotions": [
+        "veterinary_advice",
+        "dosage_guidance",
+        "treatment",
+        "emergency_triage"
+      ]
+    }
+  ]
+}
