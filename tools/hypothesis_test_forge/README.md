@@ -137,4 +137,12 @@ Run:
 
 Tests whether MC question-prep packets keep observations, interpretations, professional-review questions, missingness, privacy state, and non-promotable claims separated before export. The validator rejects diagnosis, treatment, veterinary advice, dosage guidance, urgency triage, cure certainty, discovery proof, unsupported causality, private identifier retention, and missingness-as-absence collapse.
 
+### Export safety gate fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_export_safety_gate.py`
+
+Tests whether MC packets are safe to export only after target-audience-specific gates check source status, claim status, privacy status, missingness, revision reason, implementation status, testability, falsification route, measurable variables, and next executable action. The validator distinguishes public research summaries, clinician-facing question prep, veterinarian-facing question prep, and privacy-preserving private memory, while blocking diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, cure certainty, discovery proof, unsupported causality, private identifier retention, and missingness-as-absence collapse.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
