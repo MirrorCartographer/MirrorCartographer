@@ -1,0 +1,107 @@
+{
+  "artifact_id": "missingness_propagation_fixture_v1",
+  "claim": "Longitudinal MC evidence maps become safer when missing data propagates as explicit uncertainty instead of being interpreted as absence, improvement, stability, cure, discovery, or resolved risk.",
+  "domain": "privacy_preserving_longitudinal_datasets",
+  "artifact_type": "test_fixture",
+  "source_status": "synthetic_fixture_no_external_sources",
+  "claim_status": "hypothesis_under_test_not_validated",
+  "privacy_status": "de_identified_synthetic_no_direct_identifiers",
+  "missingness": {
+    "status": "explicitly_modeled",
+    "allowed_states": [
+      "observed",
+      "not_asked",
+      "not_recorded",
+      "not_applicable",
+      "withheld_for_privacy",
+      "unknown_source_quality"
+    ],
+    "blocked_interpretation": "missingness_must_not_be_treated_as_absence_or_resolution"
+  },
+  "revision_reason": "Adds a gate for longitudinal records where gaps can otherwise be misread as improvement, stability, or proof.",
+  "implementation_status": "executable_validator_committed",
+  "testability": "Validator passes only when every longitudinal variable carries an explicit missingness state and every derived inference propagates that state into uncertainty, blocked promotion, or a safe next action.",
+  "falsification_route": "If a packet can infer absence, improvement, cure, discovery, stability, or resolved risk from not_asked, not_recorded, withheld_for_privacy, or unknown_source_quality fields, the hypothesis fails.",
+  "measurable_variables": [
+    "record_count",
+    "variables_with_missingness_state_ratio",
+    "derived_inferences_with_missingness_propagated_ratio",
+    "blocked_absence_inference_count",
+    "safe_next_action_count"
+  ],
+  "next_executable_action": "Run python tools/hypothesis_test_forge/validate_missingness_propagation.py",
+  "records": [
+    {
+      "record_id": "mc_missingness_pass_001",
+      "source_status": "synthetic_user_observation_packet",
+      "claim_status": "observation_only",
+      "privacy_status": "de_identified",
+      "missingness": "explicit_variable_level_states",
+      "revision_reason": "Separate observed values from unknown values before trend inference.",
+      "implementation_status": "fixture_case",
+      "testability": "pass_case",
+      "falsification_route": "Would fail if any not_recorded variable is interpreted as symptom absent, risk resolved, cure, diagnosis, or discovery proof.",
+      "measurable_variables": [
+        {
+          "name": "sleep_duration_hours",
+          "value": 9.5,
+          "unit": "hours",
+          "missingness_state": "observed"
+        },
+        {
+          "name": "standing_heart_rate_change",
+          "value": null,
+          "unit": "beats_per_minute_delta",
+          "missingness_state": "not_recorded"
+        },
+        {
+          "name": "context_stress_level",
+          "value": null,
+          "unit": "ordinal_0_to_5",
+          "missingness_state": "withheld_for_privacy"
+        }
+      ],
+      "derived_inference": {
+        "text": "Sleep duration was observed for this record; posture-linked heart-rate and context-stress variables are unavailable, so cross-record autonomic/context pattern inference remains blocked.",
+        "missingness_propagated": true,
+        "blocked_promotions": [
+          "diagnosis",
+          "treatment",
+          "veterinary_advice",
+          "cure_claim",
+          "discovery_proof",
+          "absence_from_missingness",
+          "improvement_from_missingness"
+        ],
+        "safe_route": "research_organization_question_prep"
+      },
+      "next_executable_action": "Collect the same variable set in the next record or mark each unavailable field with a reason-coded missingness state."
+    },
+    {
+      "record_id": "mc_missingness_fail_001",
+      "source_status": "synthetic_user_observation_packet",
+      "claim_status": "unsafe_inference_example",
+      "privacy_status": "de_identified",
+      "missingness": "not_recorded_fields_present",
+      "revision_reason": "Negative control checks that missing values cannot be treated as improvement.",
+      "implementation_status": "fixture_case_expected_fail",
+      "testability": "fail_case",
+      "falsification_route": "This record should fail because it interprets not_recorded data as resolved.",
+      "measurable_variables": [
+        {
+          "name": "animal_eye_pressure_note",
+          "value": null,
+          "unit": "owner_note_text",
+          "missingness_state": "not_recorded"
+        }
+      ],
+      "derived_inference": {
+        "text": "Because no eye-pressure note was recorded, the issue appears resolved.",
+        "missingness_propagated": false,
+        "blocked_promotions": [],
+        "safe_route": "unsafe_action_promotion"
+      },
+      "next_executable_action": "Do not promote; revise into vet-facing question-prep with explicit unknown state."
+    }
+  ]
+}
