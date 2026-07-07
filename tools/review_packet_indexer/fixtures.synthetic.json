@@ -1,0 +1,67 @@
+{
+  "packets": [
+    {
+      "packet_id": "pkt-public-ready-001",
+      "domain": "animal_care",
+      "source_status": "synthetic",
+      "claim_status": "ready_for_review",
+      "privacy_status": "public_safe",
+      "missingness": [],
+      "revision_reason": "Synthetic animal-care observation packet prepared for review-index routing.",
+      "implementation_status": "validated",
+      "testability": "Can be routed to review_queue because required labels are complete and public-safe.",
+      "next_executable_action": "Send to reviewer-facing public-safe evidence packet list.",
+      "evidence_refs": ["synthetic_fixture:no_private_data"]
+    },
+    {
+      "packet_id": "pkt-redact-001",
+      "domain": "longitudinal_observation",
+      "source_status": "mixed",
+      "claim_status": "review_needed",
+      "privacy_status": "needs_redaction",
+      "missingness": [],
+      "revision_reason": "Synthetic packet contains private-residue marker and must not enter public review.",
+      "implementation_status": "draft",
+      "testability": "Must route to redaction_queue before reuse.",
+      "next_executable_action": "Run privacy-preserving memory redactor.",
+      "evidence_refs": []
+    },
+    {
+      "packet_id": "pkt-missing-001",
+      "domain": "medical_literature",
+      "source_status": "public",
+      "claim_status": "review_needed",
+      "privacy_status": "public_safe",
+      "missingness": ["date_of_source", "study_type"],
+      "revision_reason": "Synthetic literature packet lacks enough source context for evidence ranking.",
+      "implementation_status": "draft",
+      "testability": "Must route to missingness_queue because missingness is explicit and non-empty.",
+      "next_executable_action": "Collect source date and study type before evidence use.",
+      "evidence_refs": ["synthetic_pubmed_like:abstract_only"]
+    },
+    {
+      "packet_id": "pkt-blocked-001",
+      "domain": "hypothesis",
+      "source_status": "synthetic",
+      "claim_status": "blocked",
+      "privacy_status": "public_safe",
+      "missingness": [],
+      "revision_reason": "Synthetic hypothesis packet failed falsification readiness.",
+      "implementation_status": "blocked",
+      "testability": "Must route to blocked_queue because blocked claim status cannot be promoted.",
+      "next_executable_action": "Create counterexample task before review.",
+      "evidence_refs": []
+    },
+    {
+      "packet_id": "pkt-incomplete-001",
+      "domain": "collaboration",
+      "source_status": "synthetic",
+      "claim_status": "review_needed",
+      "privacy_status": "public_safe",
+      "missingness": [],
+      "revision_reason": "Synthetic incomplete packet for required-field validation.",
+      "implementation_status": "draft",
+      "evidence_refs": []
+    }
+  ]
+}
