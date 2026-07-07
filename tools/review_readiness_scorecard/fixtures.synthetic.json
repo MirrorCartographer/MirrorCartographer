@@ -1,0 +1,58 @@
+[
+  {
+    "packet_id": "review-ready-001",
+    "domain": "longitudinal_pattern_tracking",
+    "source_status": "synthetic",
+    "claim_status": "hypothesis_only",
+    "privacy_status": "public_safe",
+    "evidence_route": "observation_cluster",
+    "missingness": ["baseline_window"],
+    "falsification_status": "counterexample_defined",
+    "revision_reason": "new review fixture",
+    "implementation_status": "routed",
+    "testability": "machine_checkable",
+    "next_executable_action": "run effect window comparator"
+  },
+  {
+    "packet_id": "needs-revision-001",
+    "domain": "medical_literature_organization",
+    "source_status": "synthetic",
+    "claim_status": "hypothesis_only",
+    "privacy_status": "public_safe",
+    "evidence_route": "literature_note",
+    "missingness": [],
+    "falsification_status": "missing_falsification_path",
+    "revision_reason": "synthetic revision fixture",
+    "implementation_status": "routed",
+    "testability": "machine_checkable",
+    "next_executable_action": "define falsification task"
+  },
+  {
+    "packet_id": "blocked-private-001",
+    "domain": "privacy_preserving_research_memory",
+    "source_status": "synthetic",
+    "claim_status": "observation_only",
+    "privacy_status": "private",
+    "evidence_route": "memory_candidate",
+    "missingness": ["redaction_review"],
+    "falsification_status": "not_applicable",
+    "revision_reason": "privacy blocker fixture",
+    "implementation_status": "blocked",
+    "testability": "machine_checkable",
+    "next_executable_action": "send to privacy redactor"
+  },
+  {
+    "packet_id": "blocked-overclaim-001",
+    "domain": "discovery",
+    "source_status": "synthetic",
+    "claim_status": "claim_cure",
+    "privacy_status": "public_safe",
+    "evidence_route": "unsupported_claim",
+    "missingness": ["controlled_test", "independent_replication"],
+    "falsification_status": "missing_falsification_path",
+    "revision_reason": "overclaim blocker fixture",
+    "implementation_status": "blocked",
+    "testability": "machine_checkable",
+    "next_executable_action": "downgrade to hypothesis or block"
+  }
+]
