@@ -185,4 +185,12 @@ Run:
 
 Tests whether animal-care evidence maps become safer and more useful when observations are separated from interpretation, species/context metadata, missingness, privacy state, professional-review questions, blocked care directives, measurable variables, and falsification route before export. The validator rejects diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, unsupported causality, private identifier retention, and missingness-as-absence collapse.
 
+### Confounder separation fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_confounder_separation_fixture.py`
+
+Tests whether MC hypothesis packets become more scientifically useful when proposed patterns are forced to carry plausible confounders, alternative explanations, discriminating measurements, and falsification routes before promotion into memory, research maps, question prep, or public claims. The validator rejects unsupported causality, discovery proof, unsafe public proof, missingness-as-absence collapse, and proposed patterns that cannot be separated from plausible confounders.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
