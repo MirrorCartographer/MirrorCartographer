@@ -159,62 +159,10 @@ Run:
 
 `python tools/hypothesis_test_forge/validate_longitudinal_privacy_consent.py`
 
-Tests whether privacy-preserving longitudinal MC records remain useful only when every record carries consent scope, de-identification state, retention policy, missingness state, measurable variables, allowed export routes, blocked export routes, and falsification routes. The validator rejects direct identifiers, unsafe public raw export, unbounded retention, missingness-as-absence collapse, missing measurement variables, and unsafe clinical/veterinary/action promotion.
-
-### Inference provenance handoff fixture
+### Promotion traceability gate fixture
 
 Run:
 
-`python tools/hypothesis_test_forge/validate_inference_provenance_handoff.py`
+`python tools/hypothesis_test_forge/validate_promotion_traceability_gate.py`
 
-Tests whether human-AI sensemaking packets become safer and more useful when every inference records source boundaries, transformation steps, user-visible rationale fields, privacy state, missingness, measurable variables, safe routes, blocked promotions, falsification route, and next executable action before entering memory, research maps, question prep, or public summaries. The validator rejects diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, cure certainty, discovery proof, unsupported causality, private identifier retention, and missingness-as-absence collapse.
-
-### Temporal alignment fixture
-
-Run:
-
-`python tools/hypothesis_test_forge/validate_temporal_alignment_fixture.py`
-
-Tests whether longitudinal MC evidence maps become safer and more scientifically useful when observations are temporally aligned by absolute timestamp, observation window, lag uncertainty, source boundary, missingness, measurable variables, safe route, and falsification route before any cross-record pattern is inferred. The validator rejects temporal causality creep, diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, cure certainty, discovery proof, private identifier retention, and missingness-as-absence collapse.
-
-### Animal question-prep boundary fixture
-
-Run:
-
-`python tools/hypothesis_test_forge/validate_animal_question_prep_boundary.py`
-
-Tests whether animal-care evidence maps become safer and more useful when observations are separated from interpretation, species/context metadata, missingness, privacy state, professional-review questions, blocked care directives, measurable variables, and falsification route before export. The validator rejects diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, unsupported causality, private identifier retention, and missingness-as-absence collapse.
-
-### Confounder separation fixture
-
-Run:
-
-`python tools/hypothesis_test_forge/validate_confounder_separation_fixture.py`
-
-Tests whether MC hypothesis packets become more scientifically useful when proposed patterns are forced to carry plausible confounders, alternative explanations, discriminating measurements, and falsification routes before promotion into memory, research maps, question prep, or public claims. The validator rejects unsupported causality, discovery proof, unsafe public proof, missingness-as-absence collapse, and proposed patterns that cannot be separated from plausible confounders.
-
-### Disagreement adjudication fixture
-
-Run:
-
-`python tools/hypothesis_test_forge/validate_disagreement_adjudication_fixture.py`
-
-Tests whether human-AI sensemaking packets become safer when human labels, AI labels, agreement state, disagreement type, adjudication route, privacy state, missingness, measurable variables, and falsification route are preserved before memory or export promotion. The validator rejects silent AI override, silent human override, unsafe public/action promotion, diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, cure certainty, discovery proof, unsupported causality, private identifier retention, and missingness-as-absence collapse.
-
-### Measurement readiness gate fixture
-
-Run:
-
-`python tools/hypothesis_test_forge/validate_measurement_readiness_gate.py`
-
-Tests whether MC hypothesis packets become scientifically safer when measurement readiness is explicitly gated before claims are promoted as tested, validated, discovered, cured, or externally actionable. The validator requires operational definitions, measurement instruments, sampling plans, decision thresholds, confounders, disconfirmation criteria, privacy status, missingness, measurable variables, falsification route, and next executable action while blocking diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, cure certainty, discovery proof, unsupported causality, symbolic certainty as evidence, unsafe public/action promotion, and missingness-as-absence collapse.
-
-### Missingness propagation fixture
-
-Run:
-
-`python tools/hypothesis_test_forge/validate_missingness_propagation.py`
-
-Tests whether longitudinal MC evidence maps become safer when missing data propagates as explicit uncertainty instead of being interpreted as absence, improvement, stability, cure, discovery, or resolved risk. The validator requires variable-level missingness states, propagated uncertainty in derived inference, safe route selection, blocked unsafe promotions, and at least one expected-fail negative control.
-
-This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
+Tests whether MC evidence packets become safer when every promoted claim preserves a traceable route from source observation to transformation steps, uncertainty, privacy gate, measurable variables, blocked promotions, and next executable action. The validator rejects source-free promotion, unsafe routes, missing transformation steps, missing uncertainty statements, missing measurable variables, diagnosis/treatment/veterinary/dosage/urgency classes, cure certainty, discovery proof, unsupported causality, private identifier export, and missingness collapse.
