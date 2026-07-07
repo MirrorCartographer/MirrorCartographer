@@ -121,4 +121,12 @@ Artifact:
 
 Tests whether MC literature notes become safer and more scientifically useful when every cited claim is scored for source type, evidentiary strength, boundary conditions, missingness, replication status, and promotability before it can influence longitudinal memory, research maps, question prep, or public claims. The rubric blocks diagnosis, treatment, dosage guidance, veterinary instruction, emergency triage, cure certainty, discovery proof, unsupported causality, symbolic resonance as factual evidence, single-paper certainty, abstract-only certainty, private identifier retention, and missingness-as-absence.
 
+### Revision integrity fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_revision_integrity_fixture.py`
+
+Tests whether revised MC packets preserve prior claim, revised claim, revision reason, evidence delta, missingness delta, privacy state, measurable variables, and falsification route before influencing longitudinal memory, research maps, question prep, or public claims. The validator rejects empty revision reasons, private identifier retention, unsafe diagnosis/treatment/veterinary/dosage/urgency/cure/proof language, and missingness-as-absence collapse.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
