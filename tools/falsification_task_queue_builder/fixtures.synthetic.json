@@ -1,0 +1,57 @@
+[
+  {
+    "hypothesis_id": "HYP-SYN-001",
+    "domain": "animal_care",
+    "claim_text": "A repeated evening observation may indicate an exposure-linked symptom pattern in a small companion animal.",
+    "claim_status": "candidate",
+    "evidence_refs": ["OBS-SYN-101", "OBS-SYN-102"],
+    "missingness": ["no baseline week", "no clinician review", "no controlled exposure comparison"],
+    "risk_level": "high",
+    "proposed_test": "Compare symptom logs across exposure and non-exposure evenings using the same observation fields.",
+    "privacy_status": "public_safe_synthetic"
+  },
+  {
+    "hypothesis_id": "HYP-SYN-002",
+    "domain": "medical_literature",
+    "claim_text": "A literature claim may support a mechanism category but not an individual recommendation.",
+    "claim_status": "needs_review",
+    "evidence_refs": ["LIT-SYN-201"],
+    "missingness": ["no systematic review", "no contradiction search", "no date freshness check"],
+    "risk_level": "high",
+    "proposed_test": "Search for contradictory reviews and route to evidence drift watchlist before promotion.",
+    "privacy_status": "public_safe_synthetic"
+  },
+  {
+    "hypothesis_id": "HYP-SYN-003",
+    "domain": "system_evaluation",
+    "claim_text": "A retrieval boundary checker reduces unsupported claim leakage in public packets.",
+    "claim_status": "falsification_ready",
+    "evidence_refs": ["EVAL-SYN-301"],
+    "missingness": ["no adversarial fixture set"],
+    "risk_level": "low",
+    "proposed_test": "Run adversarial packets containing private residue and unsupported claims.",
+    "privacy_status": "public_safe_redacted"
+  },
+  {
+    "hypothesis_id": "HYP-SYN-004",
+    "domain": "longitudinal_pattern",
+    "claim_text": "A sparse timeline is enough to infer a stable pattern.",
+    "claim_status": "candidate",
+    "evidence_refs": [],
+    "missingness": [],
+    "risk_level": "medium",
+    "proposed_test": "",
+    "privacy_status": "public_safe_synthetic"
+  },
+  {
+    "hypothesis_id": "HYP-SYN-005",
+    "domain": "collaboration",
+    "claim_text": "This packet contains private residue and must not enter public handoff.",
+    "claim_status": "candidate",
+    "evidence_refs": ["PRIVATE-EXAMPLE"],
+    "missingness": ["privacy review failed"],
+    "risk_level": "medium",
+    "proposed_test": "Redact and re-run privacy preserving memory redactor.",
+    "privacy_status": "private"
+  }
+]
