@@ -1,0 +1,46 @@
+{
+  "packet_id": "vcfg-2026-07-07-invalid-001",
+  "source_status": "preprint_with_caveat",
+  "claim_status": "evaluation_criterion",
+  "privacy_status": "public_safe_synthetic",
+  "missingness": "This packet intentionally omits biological-fidelity support and is expected to fail validation.",
+  "revision_reason": "Synthetic negative fixture for reconstruction-only evaluation failure.",
+  "implementation_status": "tests_added",
+  "evidence_strength": "weak",
+  "falsification_route": "This packet should fail because reconstruction-only scoring cannot support virtual-cell discovery-memory promotion.",
+  "next_executable_action": "Run the regression test and confirm this fixture fails.",
+  "perturbation": {
+    "type": "chemical",
+    "target": "synthetic perturbation label",
+    "dose_or_intensity_status": "missing",
+    "time_horizon_status": "missing"
+  },
+  "cell_context": {
+    "species": "human",
+    "cell_type_or_line": "synthetic cell context",
+    "assay": "single-cell RNA sequencing",
+    "dataset_or_benchmark": "synthetic benchmark"
+  },
+  "semantic_harmonization": {
+    "status": "missing",
+    "ontology_or_mapping": "",
+    "unmapped_fields": ["cell_type", "perturbation"]
+  },
+  "distribution_shift": {
+    "status": "not_tested",
+    "shift_types": ["none_declared"],
+    "ood_evaluation_status": "not_performed"
+  },
+  "metrics": {
+    "biological_fidelity": [],
+    "reconstruction_only": true,
+    "metric_notes": "Only reconstruction loss is available."
+  },
+  "validation_status": {
+    "benchmark_validation": "missing",
+    "experimental_validation": "unknown",
+    "dual_use_review": "missing"
+  },
+  "blocked_inferences": ["Do not infer cure or clinical action."],
+  "source_map": ["Synthetic negative fixture"]
+}
