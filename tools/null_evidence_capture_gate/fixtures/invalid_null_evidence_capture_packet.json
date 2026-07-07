@@ -1,0 +1,30 @@
+{
+  "packet_id": "bad",
+  "claim": "This hypothesis is probably true.",
+  "source_status": "blog_only",
+  "claim_status": "hypothesis",
+  "privacy_status": "public_safe",
+  "missingness": {
+    "status": "none_declared",
+    "description": "none",
+    "known_unknowns": []
+  },
+  "revision_reason": "too short",
+  "implementation_status": "implemented_with_tests",
+  "evidence_strength": "strong",
+  "null_evidence_inventory": [],
+  "source_boundary": {
+    "species": [],
+    "modality": [],
+    "dataset_or_corpus": "",
+    "transfer_boundary": ""
+  },
+  "confirmation_bias_risk": {
+    "risk_level": "none",
+    "risk_route": "none",
+    "mitigation": "none"
+  },
+  "blocked_inferences": [],
+  "falsification_route": "none",
+  "next_executable_action": "none"
+}
