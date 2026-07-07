@@ -1,0 +1,35 @@
+{
+  "packet_id": "tceag-valid-001",
+  "created_utc": "2026-07-07T20:55:01Z",
+  "current_task_intent": "Evaluate whether a candidate public frontier source may influence a longitudinal health or veterinary research-infrastructure hypothesis.",
+  "candidate_memory_or_evidence": "Preprint evidence that task-conditioned memory admission reduces memory-induced threats compared with similarity-only retrieval.",
+  "source_status": "preprint",
+  "claim_status": "evaluation_criterion",
+  "task_fit_status": "bounded_task_fit",
+  "task_fit_rationale": "The source directly addresses memory admission as a trust boundary, but it is bounded to agent benchmarks rather than clinical or veterinary outcomes.",
+  "privacy_status": "public_only",
+  "privacy_transformation": "No private user or animal data included; fixture is synthetic and public-safe.",
+  "provenance_status": "partial_provenance",
+  "transfer_boundaries": [
+    "personal-agent memory benchmark to biomedical research workflow",
+    "human workflow/HCI evidence to veterinary infrastructure design",
+    "preprint claim to production gate requirement"
+  ],
+  "missingness": [
+    "no clinical validation",
+    "no animal-health outcome validation",
+    "limited external replication status",
+    "no longitudinal deployment audit yet"
+  ],
+  "synthetic_real_mismatch": "Benchmark and fixture data may not reproduce real-world timing, privacy, and longitudinal missingness patterns.",
+  "blocked_inferences": [
+    "does not imply medical diagnosis quality",
+    "does not imply veterinary treatment validity",
+    "does not permit private memory reuse without consent and provenance checks"
+  ],
+  "revision_reason": "Similarity-only evidence retrieval is insufficient for safe scientific memory admission.",
+  "implementation_status": "tests_added",
+  "evidence_strength": "moderate",
+  "falsification_route": "Compare reviewer error, leakage rate, and inappropriate cross-domain reuse with and without this gate; falsify if the gate adds no measurable reduction in admitted unsafe evidence.",
+  "next_executable_action": "Run validator and compare valid and invalid fixtures."
+}
