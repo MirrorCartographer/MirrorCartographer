@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/evidence_route_portability_packet.json",
+  "title": "Evidence Route Portability Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "created_at",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "falsification_route",
+    "next_executable_action",
+    "research_domain",
+    "claim",
+    "evidence_route",
+    "transfer_boundaries",
+    "promotion_decision"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "created_at": {"type": "string", "format": "date-time"},
+    "research_domain": {
+      "type": "string",
+      "enum": [
+        "scientific_ai",
+        "medical_ai",
+        "mechanistic_biology",
+        "neuroscience",
+        "longitudinal_health_data",
+        "animal_health_research_infrastructure",
+        "hci",
+        "privacy_preserving_memory",
+        "hypothesis_generation_system"
+      ]
+    },
+    "source_status": {
+      "type": "string",
+      "enum": ["peer_reviewed", "preprint", "clinical_or_research_institution", "grant_or_prize_program", "dataset_or_benchmark", "open_source_tool", "synthetic_fixture", "mixed_public_sources"]
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": ["hypothesis", "schema", "evaluation_criterion", "source_map", "prototype_requirement", "collaborator_or_opportunity_target", "blocked_claim"]
+    },
+    "privacy_status": {
+      "type": "string",
+      "enum": ["public_safe", "synthetic_only", "deidentified_requires_review", "private_memory_blocked", "requires_local_only_processing"]
+    },
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["declared", "unobserved_variables", "irregular_time", "excluded_modalities", "impact_on_claim"],
+      "properties": {
+        "declared": {"type": "boolean", "const": true},
+        "unobserved_variables": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "irregular_time": {"type": "string", "minLength": 5},
+        "excluded_modalities": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "impact_on_claim": {"type": "string", "minLength": 20}
+      }
+    },
+    "revision_reason": {"type": "string", "minLength": 20},
+    "implementation_status": {
+      "type": "string",
+      "enum": ["proposed", "schema_committed", "validator_committed", "fixtures_committed", "tests_committed", "integrated", "blocked"]
+    },
+    "evidence_strength": {
+      "type": "string",
+      "enum": ["weak", "moderate", "strong", "mixed", "insufficient"]
+    },
+    "falsification_route": {"type": "string", "minLength": 30},
+    "next_executable_action": {"type": "string", "minLength": 15},
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "allowed_scope", "disallowed_scope", "decision_readiness"],
+      "properties": {
+        "text": {"type": "string", "minLength": 20},
+        "allowed_scope": {"type": "string", "minLength": 10},
+        "disallowed_scope": {"type": "string", "minLength": 10},
+        "decision_readiness": {"type": "string", "enum": ["research_organization_only", "prototype_design", "benchmark_design", "not_ready_for_action"]}
+      }
+    },
+    "evidence_route": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["step_id", "input", "transformation", "output", "actor_or_tool", "portability_risk", "reconstruction_requirement"],
+        "properties": {
+          "step_id": {"type": "string", "minLength": 3},
+          "input": {"type": "string", "minLength": 5},
+          "transformation": {"type": "string", "minLength": 10},
+          "output": {"type": "string", "minLength": 5},
+          "actor_or_tool": {"type": "string", "minLength": 3},
+          "portability_risk": {"type": "string", "minLength": 15},
+          "reconstruction_requirement": {"type": "string", "minLength": 20}
+        }
+      }
+    },
+    "transfer_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["species", "modality", "model", "site", "time", "privacy"],
+      "properties": {
+        "species": {"type": "string", "minLength": 5},
+        "modality": {"type": "string", "minLength": 5},
+        "model": {"type": "string", "minLength": 5},
+        "site": {"type": "string", "minLength": 5},
+        "time": {"type": "string", "minLength": 5},
+        "privacy": {"type": "string", "minLength": 5}
+      }
+    },
+    "promotion_decision": {
+      "type": "string",
+      "enum": ["pass", "fail", "revise_before_promotion"]
+    }
+  }
+}
