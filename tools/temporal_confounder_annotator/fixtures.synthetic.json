@@ -1,0 +1,80 @@
+[
+  {
+    "id": "tca_syn_001",
+    "domain": "animal_care",
+    "source_status": "synthetic_observation",
+    "claim_status": "observation_cluster",
+    "privacy_status": "public_safe_synthetic",
+    "observations": [
+      {"date": "2026-07-01", "signal": "restlessness", "severity": 5, "measurement_method": "owner_log"},
+      {"date": "2026-07-03", "signal": "restlessness", "severity": 6, "measurement_method": "owner_log"},
+      {"date": "2026-07-05", "signal": "restlessness", "severity": 5, "measurement_method": "owner_log"}
+    ],
+    "context_events": [],
+    "missingness": [],
+    "expected_route": "allow_pattern_scan"
+  },
+  {
+    "id": "tca_syn_002",
+    "domain": "human_health",
+    "source_status": "synthetic_observation",
+    "claim_status": "observation_cluster",
+    "privacy_status": "public_safe_synthetic",
+    "observations": [
+      {"date": "2026-07-01", "signal": "upright_dizziness", "severity": 4, "measurement_method": "self_report"},
+      {"date": "2026-07-02", "signal": "upright_dizziness", "severity": 6, "measurement_method": "self_report"},
+      {"date": "2026-07-03", "signal": "upright_dizziness", "severity": 7, "measurement_method": "self_report"}
+    ],
+    "context_events": [
+      {"date": "2026-07-02", "event_type": "heat", "description": "synthetic high heat exposure context"}
+    ],
+    "missingness": [],
+    "expected_route": "needs_review"
+  },
+  {
+    "id": "tca_syn_003",
+    "domain": "animal_care",
+    "source_status": "synthetic_observation",
+    "claim_status": "observation_cluster",
+    "privacy_status": "public_safe_synthetic",
+    "observations": [
+      {"date": "2026-07-01", "signal": "low_appetite", "severity": 3, "measurement_method": "owner_log"},
+      {"date": "2026-07-04", "signal": "low_appetite", "severity": 6, "measurement_method": "different_owner_scale"}
+    ],
+    "context_events": [],
+    "missingness": [],
+    "expected_route": "block_pattern_claim"
+  },
+  {
+    "id": "tca_syn_004",
+    "domain": "general_research",
+    "source_status": "synthetic_observation",
+    "claim_status": "cure_claim",
+    "privacy_status": "public_safe_synthetic",
+    "observations": [
+      {"date": "2026-07-01", "signal": "symptom_shift", "severity": 5, "measurement_method": "self_report"},
+      {"date": "2026-07-02", "signal": "symptom_shift", "severity": 5, "measurement_method": "self_report"},
+      {"date": "2026-07-03", "signal": "symptom_shift", "severity": 5, "measurement_method": "self_report"}
+    ],
+    "context_events": [],
+    "missingness": [],
+    "expected_route": "block_pattern_claim"
+  },
+  {
+    "id": "tca_syn_005",
+    "domain": "human_health",
+    "source_status": "synthetic_observation",
+    "claim_status": "observation_cluster",
+    "privacy_status": "public_safe_synthetic",
+    "observations": [
+      {"date": "2026-07-01", "signal": "sleep_delay", "severity": 3, "measurement_method": "self_report"},
+      {"date": "2026-07-03", "signal": "sleep_delay", "severity": 4, "measurement_method": "self_report"},
+      {"date": "2026-07-05", "signal": "sleep_delay", "severity": 6, "measurement_method": "self_report"}
+    ],
+    "context_events": [
+      {"date": "2026-07-05", "event_type": "sleep_disruption", "description": "synthetic schedule disruption"}
+    ],
+    "missingness": ["baseline_sleep_window_unknown"],
+    "expected_route": "needs_review"
+  }
+]
