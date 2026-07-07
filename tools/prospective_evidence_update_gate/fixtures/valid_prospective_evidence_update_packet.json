@@ -1,0 +1,53 @@
+{
+  "packet_id": "peug-2026-07-07-001",
+  "claim": "Discovery-memory promotion should require prospective update metadata so scientific hypotheses can be revised or retired when later evidence contradicts the original evidence window.",
+  "source_status": [
+    {
+      "source": "Continuous Knowledge Metabolism",
+      "status": "preprint",
+      "caveat": "Not peer reviewed; reported benchmark is limited to selected topics and post-window grading design.",
+      "url_or_identifier": "arXiv:2604.12243v2"
+    },
+    {
+      "source": "Agent-Memory Protocol",
+      "status": "peer_reviewed",
+      "caveat": "Protocol-level memory privacy work; not specific to biomedical validation.",
+      "url_or_identifier": "PMLR 2026 AMP"
+    },
+    {
+      "source": "Cornell CVM animal health benchmarks",
+      "status": "institutional",
+      "caveat": "Award page describes infrastructure project, not completed public benchmark results.",
+      "url_or_identifier": "Cornell CVM Aug 2025-May 2026 award"
+    }
+  ],
+  "claim_status": "evaluation_criterion",
+  "privacy_status": {
+    "data_class": "public_only",
+    "allowed_reuse_scope": "Reusable as a public research-organization gate and synthetic evaluation fixture only.",
+    "redaction_required": false,
+    "consent_boundary": "No personal health or veterinary records are included in this packet."
+  },
+  "evidence_window": {
+    "opened_on": "2026-03-01",
+    "closed_on": "2026-07-07",
+    "rationale": "Captures current frontier work on continuous hypothesis updating, long-horizon memory, privacy-preserving agent memory, biology-agent benchmarks, and veterinary benchmark infrastructure."
+  },
+  "update_trigger": {
+    "trigger_type": "new_preprint_revision",
+    "minimum_signal": "A source revision, benchmark release, failed reproduction, or institution-published dataset that changes claim confidence or boundary conditions.",
+    "review_frequency": "per_run"
+  },
+  "post_window_validation_signal": "At least one post-window source confirms, weakens, falsifies, or narrows the promoted hypothesis or its benchmark criterion.",
+  "stale_claim_behavior": "requires_human_review",
+  "missingness": [
+    "No direct reproduction of CKM benchmark results in this repository yet.",
+    "No public veterinary benchmark artifact from the Cornell project was found in this run.",
+    "No private or clinical data was used to test privacy behavior."
+  ],
+  "revision_reason": "Previous gates captured workflow, memory, privacy, species, and benchmark boundaries but did not isolate prospective evidence-window updating.",
+  "implementation_status": "implemented_and_testable",
+  "evidence_strength": "moderate",
+  "falsification_route": "Compare curator performance on stale-claim detection using packets with and without prospective update metadata; retire this gate if it does not improve detection or safe claim retirement.",
+  "next_executable_action": "Run the regression test for the prospective evidence update validator."
+}
