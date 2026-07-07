@@ -1,0 +1,80 @@
+[
+  {
+    "packet_id": "pkt.synthetic.pass.001",
+    "domain": "longitudinal_observation",
+    "claim_status": "observation",
+    "privacy_status": "public_safe",
+    "source_status": "synthetic",
+    "sources": [
+      {
+        "source_id": "src.synthetic.log.001",
+        "source_type": "synthetic",
+        "citation": "Synthetic longitudinal observation fixture, generated for public-safe MC testing.",
+        "retrieved_at": "2026-07-07",
+        "supports": ["claim.synthetic.001"],
+        "limitations": ["synthetic data", "not medical or veterinary advice"]
+      }
+    ],
+    "claims": [
+      {
+        "claim_id": "claim.synthetic.001",
+        "text": "Synthetic observation cluster changed across a defined before/after window.",
+        "claim_type": "observation",
+        "source_ids": ["src.synthetic.log.001"]
+      }
+    ],
+    "missingness": []
+  },
+  {
+    "packet_id": "pkt.synthetic.review.001",
+    "domain": "medical_literature",
+    "claim_status": "literature_summary",
+    "privacy_status": "public_safe",
+    "source_status": "unknown",
+    "sources": [
+      {
+        "source_id": "src.synthetic.paper.001",
+        "source_type": "derived_summary",
+        "citation": "",
+        "retrieved_at": "2026-07-07",
+        "supports": ["claim.synthetic.002"],
+        "limitations": []
+      }
+    ],
+    "claims": [
+      {
+        "claim_id": "claim.synthetic.002",
+        "text": "A synthetic literature summary suggests a mechanism worth checking.",
+        "claim_type": "interpretation",
+        "source_ids": ["src.synthetic.paper.001", "src.synthetic.missing"]
+      }
+    ],
+    "missingness": ["citation_text", "unresolved_source_id"]
+  },
+  {
+    "packet_id": "pkt.synthetic.block.001",
+    "domain": "animal_care",
+    "claim_status": "hypothesis",
+    "privacy_status": "private",
+    "source_status": "first_party_observation",
+    "sources": [
+      {
+        "source_id": "src.synthetic.private.001",
+        "source_type": "observation_log",
+        "citation": "Synthetic private-residue fixture.",
+        "retrieved_at": "2026-07-07",
+        "supports": ["claim.synthetic.003"],
+        "limitations": ["privacy unsafe"]
+      }
+    ],
+    "claims": [
+      {
+        "claim_id": "claim.synthetic.003",
+        "text": "Synthetic intervention cures the issue.",
+        "claim_type": "cure_claim",
+        "source_ids": ["src.synthetic.private.001"]
+      }
+    ],
+    "missingness": []
+  }
+]
