@@ -1,0 +1,43 @@
+{
+  "packet_id": "phl-2026-07-07-001",
+  "created_at": "2026-07-07T16:00:00Z",
+  "source_status": "mixed",
+  "claim_status": "evaluation_criterion",
+  "privacy_status": "synthetic_only",
+  "evidence_cutoff_date": "2026-07-07",
+  "hypothesis": "Prospectively ledgered hypotheses will be easier to update, falsify, and safely reuse than free-form frontier research notes.",
+  "generation_context": "Frontier scan covering scientific AI, longitudinal health agents, virtual-cell benchmarks, veterinary benchmark infrastructure, and moving-literature hypothesis generation.",
+  "prediction_target": "Curator reconstruction accuracy and stale-claim detection for future discovery-memory updates.",
+  "prospective_validation_window": {
+    "starts_after": "2026-07-08",
+    "ends_before": "2026-12-31",
+    "rationale": "The gate should be judged only against evidence and curator actions that occur after the source cutoff."
+  },
+  "expected_evidence_type": [
+    "new_peer_reviewed_paper",
+    "benchmark_result",
+    "dataset_release",
+    "veterinary_dataset_or_benchmark"
+  ],
+  "boundary_conditions": {
+    "domain": "scientific AI research organization",
+    "species": "human, animal, and cross-species only as labeled evidence domains",
+    "modality": "literature, benchmark, dataset, and synthetic packet metadata",
+    "site_or_cohort": "public sources and synthetic fixtures only",
+    "blocked_inferences": [
+      "does not claim any cure or diagnosis",
+      "does not translate human clinical evidence into veterinary advice",
+      "does not treat benchmark success as biological mechanism proof"
+    ]
+  },
+  "missingness": [
+    "No real patient or animal records are included.",
+    "No prospective curator comparison has been run yet.",
+    "Source scan may miss paywalled or unpublished institutional work."
+  ],
+  "revision_reason": "Prior gates labeled evidence boundaries but did not force each hypothesis to carry a future evidence ledger.",
+  "implementation_status": "tests_created",
+  "evidence_strength": "moderate",
+  "falsification_route": "Compare later update quality for ledgered packets versus ungated notes; remove or revise if there is no measurable improvement.",
+  "next_executable_action": "Run the validator regression test for this gate."
+}
