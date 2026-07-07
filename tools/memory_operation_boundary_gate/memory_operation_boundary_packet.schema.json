@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/memory_operation_boundary_packet.schema.json",
+  "title": "Memory Operation Boundary Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["packet_id", "created_at", "operation", "source_status", "claim_status", "privacy_status", "boundaries", "allowed_reuse_scope", "missingness", "revision_reason", "implementation_status", "evidence_strength", "falsification_route", "next_executable_action"],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "created_at": {"type": "string", "format": "date-time"},
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "target_memory", "promotion_decision", "review_required"],
+      "properties": {
+        "type": {"enum": ["write", "retrieve", "reuse", "export", "handoff", "delete", "revise"]},
+        "target_memory": {"enum": ["scratch", "project_memory", "discovery_graph", "handoff_packet", "public_artifact"]},
+        "promotion_decision": {"enum": ["block", "quarantine", "allow_scoped", "allow_public_synthetic_only"]},
+        "review_required": {"type": "boolean"}
+      }
+    },
+    "source_status": {"enum": ["peer_reviewed", "research_institution", "preprint", "grant_or_prize", "dataset_or_benchmark", "open_source_tool", "news_or_policy", "synthetic_fixture"]},
+    "claim_status": {"enum": ["hypothesis", "test", "schema", "evaluation_criterion", "source_map", "prototype_requirement", "collaborator_or_opportunity_target"]},
+    "privacy_status": {"enum": ["public_safe", "synthetic_only", "restricted_sensitive", "blocked_from_reuse"]},
+    "boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_boundary", "subject_boundary", "modality_boundary", "species_context_boundary", "temporal_boundary", "tool_boundary", "privacy_boundary"],
+      "properties": {
+        "source_boundary": {"type": "string", "minLength": 12},
+        "subject_boundary": {"type": "string", "minLength": 12},
+        "modality_boundary": {"type": "string", "minLength": 12},
+        "species_context_boundary": {"type": "string", "minLength": 12},
+        "temporal_boundary": {"type": "string", "minLength": 12},
+        "tool_boundary": {"type": "string", "minLength": 12},
+        "privacy_boundary": {"type": "string", "minLength": 12}
+      }
+    },
+    "allowed_reuse_scope": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"enum": ["same_packet_only", "same_project", "synthetic_test_only", "public_research_summary", "schema_design", "benchmark_design", "collaborator_outreach"]}
+    },
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_gaps", "subject_gaps", "modality_gaps", "temporal_gaps", "privacy_gaps"],
+      "properties": {
+        "dataset_gaps": {"type": "array", "items": {"type": "string"}},
+        "subject_gaps": {"type": "array", "items": {"type": "string"}},
+        "modality_gaps": {"type": "array", "items": {"type": "string"}},
+        "temporal_gaps": {"type": "array", "items": {"type": "string"}},
+        "privacy_gaps": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "revision_reason": {"type": "string", "minLength": 20},
+    "implementation_status": {"enum": ["proposed", "schema_committed", "validator_committed", "fixtures_committed", "tests_committed", "active_gate"]},
+    "evidence_strength": {"enum": ["low", "moderate", "high", "unknown"]},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  }
+}
