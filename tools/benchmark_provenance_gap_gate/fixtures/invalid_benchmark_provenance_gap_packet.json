@@ -1,0 +1,44 @@
+{
+  "packet_id": "bad-bpgp",
+  "benchmark_identity": {
+    "name": "Benchmark",
+    "version_or_date": "2026",
+    "domain": "mechanistic_biology",
+    "benchmark_status": "preprint"
+  },
+  "source_status": "preprint_with_caveat",
+  "claim_status": "evaluation_criterion",
+  "claim_under_review": "Benchmark proves cure.",
+  "dataset_provenance": {
+    "origin": "unknown",
+    "population_or_species": "unknown",
+    "site_or_lab": "unknown",
+    "modality": "score",
+    "collection_context": "unknown",
+    "license_or_access": "unknown",
+    "provenance_risk": "unknown"
+  },
+  "task_metric_binding": {
+    "task": "score",
+    "metric": "AUC",
+    "metric_claim_fit": "direct",
+    "blocked_metric_inference": "none"
+  },
+  "transfer_boundary": {
+    "within_scope": ["everything"],
+    "out_of_scope": [],
+    "required_bridge_evidence": []
+  },
+  "benchmark_gap_model": {
+    "known_gaps": [],
+    "gap_severity": "low",
+    "why_gap_matters": "does not matter"
+  },
+  "privacy_status": "public_safe",
+  "missingness": [],
+  "revision_reason": "none",
+  "implementation_status": "tests_added",
+  "evidence_strength": "strong",
+  "falsification_route": "none",
+  "next_executable_action": "promote claim"
+}
