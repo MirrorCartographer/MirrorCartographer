@@ -1,0 +1,125 @@
+{
+  "source_status": "synthetic_fixture_no_personal_or_clinical_source_data",
+  "claim_status": "hypothesis_under_test_not_promoted_to_fact",
+  "privacy_status": "deidentified_synthetic_records_only",
+  "missingness": {
+    "known_missing": [
+      "real longitudinal user data",
+      "independent evaluator labels",
+      "downstream outcome data"
+    ],
+    "not_assumed_absent": [
+      "unrecorded disagreement",
+      "unrecorded privacy risk",
+      "unrecorded symbolic meanings"
+    ]
+  },
+  "revision_reason": "Adds a human-AI sensemaking test for evaluator disagreement before memory/export promotion.",
+  "implementation_status": "executable_fixture_with_validator",
+  "testability": "Passes only if records preserve human label, AI label, disagreement type, adjudication route, measurable variables, privacy state, and falsification route.",
+  "falsification_route": "Fails if AI output can override human/evaluator disagreement, collapse missingness, retain identifiers, or promote a contested packet into public proof/action.",
+  "measurable_variables": [
+    "human_label",
+    "ai_label",
+    "agreement_state",
+    "disagreement_type",
+    "adjudication_route",
+    "confidence_delta",
+    "privacy_risk_level"
+  ],
+  "next_executable_action": "Run python tools/hypothesis_test_forge/validate_disagreement_adjudication_fixture.py",
+  "fixture_records": [
+    {
+      "record_id": "DA-001",
+      "source_status": "synthetic_fixture_record",
+      "claim_status": "contested_interpretation_requires_adjudication",
+      "privacy_status": "deidentified",
+      "missingness": {
+        "human_context_missing": ["reason for human uncertainty"],
+        "ai_context_missing": ["unseen prior sessions"],
+        "adjudication_missing": ["independent reviewer label"],
+        "outcome_missing": ["whether selected route improved later retrieval"]
+      },
+      "revision_reason": "Separates pattern recognition from promotion when human and AI disagree.",
+      "implementation_status": "fixture_case_expected_to_pass",
+      "testability": "Can be tested by checking that disagreement blocks promotion and routes to review.",
+      "falsification_route": "If later adjudication shows the AI label repeatedly overrides human labels without review, the claim fails.",
+      "measurable_variables": [
+        {"name": "human_label", "value": "symbolic_resonance_only"},
+        {"name": "ai_label", "value": "possible_observation_cluster"},
+        {"name": "agreement_state", "value": "disagreement"},
+        {"name": "disagreement_type", "value": "claim_strength_mismatch"},
+        {"name": "confidence_delta", "value": 0.42},
+        {"name": "privacy_risk_level", "value": "low"}
+      ],
+      "packet_summary": "A metaphor-rich entry appears related to repeated observation structure, but the human label is symbolic resonance only.",
+      "human_label": "symbolic_resonance_only",
+      "ai_label": "possible_observation_cluster",
+      "agreement_state": "disagreement",
+      "disagreement_type": "claim_strength_mismatch",
+      "adjudication_route": "hold_for_review",
+      "allowed_routes": ["private_memory_candidate", "research_question", "contradiction_ledger"],
+      "blocked_promotions": ["public_proof", "clinical_or_veterinary_action", "diagnosis_or_treatment", "discovery_claim"],
+      "next_executable_action": "Add a third-party or later-self adjudication label before export."
+    },
+    {
+      "record_id": "DA-002",
+      "source_status": "synthetic_fixture_record",
+      "claim_status": "aligned_low_strength_observation",
+      "privacy_status": "deidentified",
+      "missingness": {
+        "human_context_missing": [],
+        "ai_context_missing": ["external validation"],
+        "adjudication_missing": [],
+        "outcome_missing": ["retest result"]
+      },
+      "revision_reason": "Allows low-strength memory routing only when human and AI labels agree and public/action promotion is blocked.",
+      "implementation_status": "fixture_case_expected_to_pass",
+      "testability": "Can be tested by checking that agreement still does not become proof or advice.",
+      "falsification_route": "If aligned labels are treated as certainty or used for direct advice, the routing claim fails.",
+      "measurable_variables": [
+        {"name": "human_label", "value": "longitudinal_observation"},
+        {"name": "ai_label", "value": "longitudinal_observation"},
+        {"name": "agreement_state", "value": "agreement"},
+        {"name": "disagreement_type", "value": "none"},
+        {"name": "confidence_delta", "value": 0.05},
+        {"name": "privacy_risk_level", "value": "low"}
+      ],
+      "packet_summary": "Both human and AI label the packet as a longitudinal observation that needs future comparison.",
+      "human_label": "longitudinal_observation",
+      "ai_label": "longitudinal_observation",
+      "agreement_state": "agreement",
+      "disagreement_type": "none",
+      "adjudication_route": "low_strength_private_memory",
+      "allowed_routes": ["private_memory_candidate", "longitudinal_observation"],
+      "blocked_promotions": ["public_proof", "clinical_or_veterinary_action", "diagnosis_or_treatment", "discovery_claim"],
+      "next_executable_action": "Retest against a later record using the same variables and source boundaries."
+    },
+    {
+      "record_id": "DA-NEG-001",
+      "source_status": "synthetic_negative_control",
+      "claim_status": "unsafe_promotion_attempt",
+      "privacy_status": "contains_identifier_like_content",
+      "missingness": {
+        "human_context_missing": [],
+        "ai_context_missing": [],
+        "adjudication_missing": [],
+        "outcome_missing": []
+      },
+      "revision_reason": "Negative control: demonstrates that agreement plus certainty language must still fail.",
+      "implementation_status": "fixture_case_expected_to_fail",
+      "testability": "Should fail because it promotes agreement to proof and action without adjudication.",
+      "falsification_route": "",
+      "measurable_variables": [],
+      "packet_summary": "Human and AI agree, therefore this proves the pattern and should guide treatment.",
+      "human_label": "confirmed_cause",
+      "ai_label": "confirmed_cause",
+      "agreement_state": "agreement",
+      "disagreement_type": "none",
+      "adjudication_route": "public_proof",
+      "allowed_routes": ["public_proof", "clinical_or_veterinary_action"],
+      "blocked_promotions": [],
+      "next_executable_action": "Use the agreed cause as an instruction."
+    }
+  ]
+}
