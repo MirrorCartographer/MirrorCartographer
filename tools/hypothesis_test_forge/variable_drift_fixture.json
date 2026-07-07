@@ -1,0 +1,90 @@
+{
+  "artifact_id": "mc_variable_drift_fixture_v1",
+  "domain": "privacy-preserving longitudinal datasets / scientific reasoning",
+  "claim": "Longitudinal MC records become more scientifically useful when variable names, meanings, units, and measurement contexts are checked for drift before cross-session comparison.",
+  "source_status": "assistant-generated synthetic research-organization fixture",
+  "claim_status": "executable infrastructure hypothesis; not a scientific finding",
+  "privacy_status": "public-safe synthetic only; no real person, animal, clinician, location, or account identifiers",
+  "missingness": "explicitly represented with observed, unknown, not_collected, redacted, and not_applicable states; unknown must not be treated as absence",
+  "revision_reason": "adds a drift-detection gate for longitudinal continuity records before claims are compared across time",
+  "implementation_status": "test fixture for validator",
+  "testability": "python tools/hypothesis_test_forge/validate_variable_drift_fixture.py",
+  "falsification_route": "fails if a changed variable meaning, changed unit, changed collection context, private identifier, unsafe medical/veterinary claim, unsupported causality, or missingness collapse is promoted as comparable continuity evidence",
+  "measurable_variables": [
+    "drift_event_count",
+    "unit_change_count",
+    "definition_change_count",
+    "collection_context_change_count",
+    "missingness_collapse_count",
+    "unsafe_promotion_count",
+    "comparable_record_count"
+  ],
+  "next_executable_action": "run validator, then integrate drift-gate result into MC evidence routing before longitudinal comparison",
+  "records": [
+    {
+      "record_id": "valid.stable.synthetic.001",
+      "variable_name": "sleep_duration_hours",
+      "definition": "self-reported sleep duration from attempted sleep onset to final wake time",
+      "unit": "hours",
+      "collection_context": "daily self-report summary",
+      "timepoint_a": {"value": 7.5, "missingness": "observed"},
+      "timepoint_b": {"value": 8.0, "missingness": "observed"},
+      "comparison_status": "comparable",
+      "claimed_inference": "sleep duration changed by 0.5 hours in the synthetic record",
+      "boundary_flags": [],
+      "decision": "pass"
+    },
+    {
+      "record_id": "valid.drift.synthetic.001",
+      "variable_name": "body_activation",
+      "definition": "subjective activation score after standing",
+      "unit": "0_to_10_subjective_scale",
+      "collection_context": "posture-change self-report",
+      "timepoint_a": {"value": 6, "missingness": "observed"},
+      "timepoint_b": {"value": "warm chest sensation", "missingness": "observed"},
+      "comparison_status": "not_comparable_definition_drift",
+      "claimed_inference": "the variable meaning changed, so the two observations should be preserved but not compared as a numeric trend",
+      "boundary_flags": ["definition_drift"],
+      "decision": "pass"
+    },
+    {
+      "record_id": "invalid.missingness.synthetic.001",
+      "variable_name": "animal_eye_observation",
+      "definition": "owner-observed eye appearance note for veterinary question preparation",
+      "unit": "categorical_note",
+      "collection_context": "synthetic animal-care observation log",
+      "timepoint_a": {"value": "not_collected", "missingness": "not_collected"},
+      "timepoint_b": {"value": "no issue", "missingness": "unknown"},
+      "comparison_status": "comparable",
+      "claimed_inference": "no eye issue existed at timepoint B",
+      "boundary_flags": ["missingness_as_absence"],
+      "decision": "fail"
+    },
+    {
+      "record_id": "invalid.unsafe.synthetic.001",
+      "variable_name": "medical_symptom_cluster",
+      "definition": "synthetic health-related observation cluster for clinician question preparation",
+      "unit": "mixed_subjective_observation",
+      "collection_context": "research organization only",
+      "timepoint_a": {"value": "synthetic symptom note", "missingness": "observed"},
+      "timepoint_b": {"value": "synthetic symptom note", "missingness": "observed"},
+      "comparison_status": "comparable",
+      "claimed_inference": "this proves diagnosis and treatment should start",
+      "boundary_flags": ["diagnosis_claim", "treatment_claim", "unsafe_promotion"],
+      "decision": "fail"
+    },
+    {
+      "record_id": "invalid.private.synthetic.001",
+      "variable_name": "contact_trace_note",
+      "definition": "synthetic continuity note",
+      "unit": "text",
+      "collection_context": "longitudinal memory import",
+      "timepoint_a": {"value": "email test@example.com", "missingness": "observed"},
+      "timepoint_b": {"value": "phone 555-123-4567", "missingness": "observed"},
+      "comparison_status": "not_comparable_private_identifier_present",
+      "claimed_inference": "private contact details can be retained for continuity",
+      "boundary_flags": ["private_identifier_present"],
+      "decision": "fail"
+    }
+  ]
+}
