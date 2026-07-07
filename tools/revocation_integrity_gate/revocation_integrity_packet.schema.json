@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/revocation_integrity_packet.schema.json",
+  "title": "RevocationIntegrityPacket",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "claim",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "memory_operation",
+    "revocation_route",
+    "redaction_route",
+    "downgrade_route",
+    "downstream_dependencies",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "claim": {"type": "string", "minLength": 20},
+    "source_status": {"enum": ["primary", "clinical_research_institution", "preprint_caveated", "dataset_or_benchmark", "open_source_tool", "grant_or_prize", "mixed_public_scan", "synthetic_fixture"]},
+    "claim_status": {"enum": ["hypothesis", "schema", "test", "evaluation_criterion", "prototype_requirement", "collaborator_target", "source_map"]},
+    "privacy_status": {"enum": ["public_safe", "synthetic_only", "deidentified_required", "sensitive_blocked", "consent_required", "unknown_privacy_risk"]},
+    "memory_operation": {"enum": ["write", "promote", "revise", "redact", "revoke", "downgrade", "export", "block"]},
+    "revocation_route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["can_revoke", "revocation_target", "required_actor", "verification_signal"],
+      "properties": {
+        "can_revoke": {"type": "boolean"},
+        "revocation_target": {"type": "string", "minLength": 5},
+        "required_actor": {"type": "string", "minLength": 3},
+        "verification_signal": {"type": "string", "minLength": 10}
+      }
+    },
+    "redaction_route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["redactable_fields", "non_redactable_fields", "semantic_loss_note"],
+      "properties": {
+        "redactable_fields": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "non_redactable_fields": {"type": "array", "items": {"type": "string"}},
+        "semantic_loss_note": {"type": "string", "minLength": 10}
+      }
+    },
+    "downgrade_route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["downgrade_to", "blocked_after_downgrade", "revalidation_trigger"],
+      "properties": {
+        "downgrade_to": {"enum": ["discard", "private_note", "weak_signal", "hypothesis_only", "needs_revalidation", "blocked"]},
+        "blocked_after_downgrade": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "revalidation_trigger": {"type": "string", "minLength": 10}
+      }
+    },
+    "downstream_dependencies": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["dependent_id", "dependency_type", "impact_if_removed"],
+        "properties": {
+          "dependent_id": {"type": "string", "minLength": 3},
+          "dependency_type": {"enum": ["citation", "schema_field", "test_fixture", "hypothesis", "prototype_requirement", "personalization_rule", "source_map"]},
+          "impact_if_removed": {"type": "string", "minLength": 10}
+        }
+      }
+    },
+    "missingness": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 5}},
+    "revision_reason": {"type": "string", "minLength": 10},
+    "implementation_status": {"enum": ["planned", "implemented", "validated", "blocked", "needs_revision"]},
+    "evidence_strength": {"enum": ["low", "moderate", "high"]},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  }
+}
