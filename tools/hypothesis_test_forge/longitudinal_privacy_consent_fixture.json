@@ -1,0 +1,171 @@
+{
+  "artifact_type": "test_fixture",
+  "claim": "Privacy-preserving longitudinal MC datasets become safer and more scientifically useful when every record carries consent scope, de-identification state, retention limit, missingness state, measurable variables, and explicit export blocks before cross-session use.",
+  "source_status": "synthetic_fixture_no_personal_data",
+  "claim_status": "infrastructure_hypothesis_not_empirical_proof",
+  "privacy_status": "de_identified_synthetic_records_only",
+  "missingness": "missing fields must remain explicit and cannot be interpreted as absence",
+  "revision_reason": "Adds consent and retention gates to earlier longitudinal privacy tests so privacy is checked as an executable constraint, not only a descriptive label.",
+  "implementation_status": "executable_fixture_with_validator",
+  "testability": "Passes only if each record includes required labels, measurable variables, consent scope, retention policy, privacy transform, and falsification route while blocking unsafe export classes.",
+  "falsification_route": "If a record can be exported without consent scope, contains direct identifiers, collapses unknowns into absence, promotes clinical/veterinary action, or lacks measurable variables, the claim is falsified for that record.",
+  "measurable_variables": [
+    "consent_scope_present",
+    "direct_identifier_count",
+    "privacy_transform_count",
+    "retention_limit_present",
+    "missingness_state_present",
+    "measurable_variable_count",
+    "blocked_export_route_count",
+    "unsafe_promotion_count"
+  ],
+  "next_executable_action": "Run python tools/hypothesis_test_forge/validate_longitudinal_privacy_consent.py",
+  "blocked_classes": [
+    "diagnosis",
+    "treatment",
+    "dosage_guidance",
+    "emergency_triage",
+    "veterinary_advice",
+    "cure_certainty",
+    "discovery_proof",
+    "unsupported_causality",
+    "private_identifier_retention",
+    "missingness_as_absence"
+  ],
+  "records": [
+    {
+      "record_id": "lpcr_001",
+      "domain": "human_ai_sensemaking",
+      "source_status": "user_reported_observation_synthetic_example",
+      "claim_status": "observation_packet_not_conclusion",
+      "privacy_status": "pseudonymous_session_record",
+      "consent_scope": "private_memory_only",
+      "retention_policy": "retain_until_user_requests_deletion_or_project_archive",
+      "privacy_transforms": [
+        "remove_names",
+        "replace_exact_dates_with_relative_sequence",
+        "drop_contact_information",
+        "store_symbolic_language_separately_from identity_fields"
+      ],
+      "direct_identifiers": [],
+      "missingness": {
+        "state": "known_unknowns_present",
+        "items": [
+          "external corroboration unavailable",
+          "physiological measurements not collected",
+          "environmental context partially described"
+        ],
+        "missingness_as_absence_allowed": false
+      },
+      "measurable_variables": [
+        {
+          "name": "context_switch_count",
+          "unit": "count_per_session",
+          "collection_context": "conversation annotation"
+        },
+        {
+          "name": "symbol_to_variable_translation_count",
+          "unit": "count_per_packet",
+          "collection_context": "MC parsing output"
+        },
+        {
+          "name": "uncertainty_boundary_count",
+          "unit": "count_per_packet",
+          "collection_context": "safety review"
+        }
+      ],
+      "allowed_exports": [
+        "private_memory",
+        "de_identified_research_summary"
+      ],
+      "blocked_exports": [
+        "public_raw_record",
+        "clinician_instruction",
+        "diagnostic_summary",
+        "treatment_plan"
+      ],
+      "falsification_route": "Record fails if a raw identity field, exact identifying date, contact field, diagnosis, treatment instruction, or missingness-as-absence claim appears in an allowed export.",
+      "next_executable_action": "Validate required privacy gates and blocked export routes."
+    },
+    {
+      "record_id": "lpcr_002",
+      "domain": "animal_care_evidence_map",
+      "source_status": "caregiver_observation_synthetic_example",
+      "claim_status": "question_prep_packet_not_veterinary_advice",
+      "privacy_status": "pet_and_owner_identifiers_removed",
+      "consent_scope": "vet_question_prep_or_private_memory_only",
+      "retention_policy": "retain_for_longitudinal_pattern_review_until_deleted_by_user",
+      "privacy_transforms": [
+        "remove_owner_contact_information",
+        "replace_pet_name_with_pet_role_id",
+        "store clinic names outside research fixture",
+        "coarsen event timing"
+      ],
+      "direct_identifiers": [],
+      "missingness": {
+        "state": "known_unknowns_present",
+        "items": [
+          "exam findings not included",
+          "medication timing not verified in this fixture",
+          "professional interpretation unavailable"
+        ],
+        "missingness_as_absence_allowed": false
+      },
+      "measurable_variables": [
+        {
+          "name": "observation_frequency",
+          "unit": "count_per_week",
+          "collection_context": "caregiver log"
+        },
+        {
+          "name": "question_prep_items",
+          "unit": "count_per_export",
+          "collection_context": "vet-facing prep packet"
+        },
+        {
+          "name": "professional_review_status",
+          "unit": "enum_unreviewed_reviewed_updated",
+          "collection_context": "post-visit record update"
+        }
+      ],
+      "allowed_exports": [
+        "private_memory",
+        "vet_question_prep"
+      ],
+      "blocked_exports": [
+        "veterinary_instruction",
+        "dosage_guidance",
+        "emergency_triage",
+        "cure_claim",
+        "public_raw_record"
+      ],
+      "falsification_route": "Record fails if it tells the user what to do medically or veterininarily, supplies dosage guidance, implies urgency triage, or treats missing professional data as absence.",
+      "next_executable_action": "Validate separation between observation, question prep, and blocked veterinary advice."
+    },
+    {
+      "record_id": "lpcr_003_negative_control",
+      "domain": "negative_control",
+      "source_status": "synthetic_bad_record",
+      "claim_status": "should_fail_validation",
+      "privacy_status": "unsafe_contains_direct_identifier",
+      "consent_scope": "public_export",
+      "retention_policy": "missing",
+      "privacy_transforms": [],
+      "direct_identifiers": [
+        "example@example.com"
+      ],
+      "missingness": {
+        "state": "collapsed_to_absence",
+        "items": [],
+        "missingness_as_absence_allowed": true
+      },
+      "measurable_variables": [],
+      "allowed_exports": [
+        "public_raw_record"
+      ],
+      "blocked_exports": [],
+      "falsification_route": "This negative control intentionally violates privacy, missingness, and measurement rules.",
+      "next_executable_action": "Validator must reject this record."
+    }
+  ]
+}
