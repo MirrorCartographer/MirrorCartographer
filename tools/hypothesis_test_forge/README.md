@@ -89,4 +89,12 @@ Artifact:
 
 Tests whether nervous-system/cognition context-switch observations can be represented as measurable transition records that preserve subjective experience, uncertainty, and question-prep utility without becoming diagnosis, treatment, urgency, or causality claims.
 
+### Evidence routing fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_evidence_routing_fixture.py`
+
+Tests whether MC claims can be routed by evidence status into research questions, longitudinal observations, contradiction-ledger entries, or blocked packets. The validator rejects unsafe promotion, private leakage, unsupported causality, missingness collapse, diagnosis/treatment/veterinary/dosage/urgency claims, and discovery-proof claims.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
