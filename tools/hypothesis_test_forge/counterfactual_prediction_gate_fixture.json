@@ -1,0 +1,101 @@
+{
+  "artifact_id": "mc_counterfactual_prediction_gate_v1",
+  "claim": "MC pattern inferences become more testable when every proposed relationship includes counterfactual predictions, null-result criteria, source boundaries, privacy limits, and safe routing before promotion.",
+  "source_status": "synthetic_fixture_for_research_organization",
+  "claim_status": "hypothesis_under_test_not_fact",
+  "privacy_status": "de_identified_synthetic",
+  "missingness": "explicit_missingness_required; missing values must not be converted into absence or resolution",
+  "revision_reason": "Adds a counterfactual/null-result gate so MC pattern packets cannot be promoted from resonance or repeated observation alone.",
+  "implementation_status": "fixture_ready_for_validator",
+  "testability": "semi_executable_validator_fixture",
+  "falsification_route": "A packet fails if it lacks counterfactual prediction, null-result criteria, source boundary, measurable variables, privacy state, or safe next action.",
+  "measurable_variables": [
+    "counterfactual_prediction_count",
+    "null_result_criteria_count",
+    "source_boundary_count",
+    "measurable_variable_count",
+    "blocked_route_count",
+    "safe_next_action_present"
+  ],
+  "next_executable_action": "Run python tools/hypothesis_test_forge/validate_counterfactual_prediction_gate.py",
+  "records": [
+    {
+      "record_id": "cfp_pass_001",
+      "source_status": "synthetic_longitudinal_observation",
+      "claim_status": "candidate_pattern_not_promoted",
+      "privacy_status": "de_identified_synthetic",
+      "missingness": "timing precision and external context are incomplete; uncertainty is retained",
+      "revision_reason": "Convert repeated symbolic/subjective pattern into operational prediction packet.",
+      "implementation_status": "ready_for_gate_validation",
+      "testability": "pass_case",
+      "falsification_route": "If the predicted context shift does not change the specified observable variables across repeated records, keep the claim in contradiction ledger or downgrade it.",
+      "measurable_variables": [
+        {"name": "context_shift_label", "unit": "categorical", "collection_mode": "self_report_or_event_log"},
+        {"name": "prediction_window_minutes", "unit": "minutes", "collection_mode": "timestamp_difference"},
+        {"name": "variable_change_observed", "unit": "boolean", "collection_mode": "before_after_comparison"},
+        {"name": "confidence_delta", "unit": "ordinal_0_to_3", "collection_mode": "scored_after_review"}
+      ],
+      "source_boundaries": [
+        "synthetic example only",
+        "not evidence of mechanism",
+        "not professional decision support",
+        "not public claim"
+      ],
+      "proposed_pattern": "When a context-switch note appears, the next useful inference should become more concrete within the prediction window.",
+      "counterfactual_predictions": [
+        {
+          "if_pattern_is_wrong": "Context-switch notes will not increase operational specificity compared with adjacent non-switch notes.",
+          "observable_difference": "No increase in measurable_variable_count or safe_next_action_present rate."
+        },
+        {
+          "if_pattern_is_right": "Context-switch notes will more often produce a named variable, boundary condition, and safe next action.",
+          "observable_difference": "Increase in named-variable count and safe-action completion rate."
+        }
+      ],
+      "null_result_criteria": [
+        "No measurable-variable increase after three comparable synthetic records",
+        "No safe next action generated in at least two comparable records",
+        "Source boundary missing or unchanged across reviewed examples"
+      ],
+      "promotion_decision": {
+        "allowed_route": "research_organization_question_prep",
+        "blocked_routes": [
+          "diagnosis",
+          "treatment",
+          "veterinary_advice",
+          "dosage_guidance",
+          "emergency_triage",
+          "cure_claim",
+          "discovery_proof",
+          "unsupported_causality",
+          "private_identifier_export",
+          "public_certainty_claim"
+        ],
+        "uncertainty_statement": "This is a testable organization rule, not proof that a cognitive or nervous-system mechanism exists."
+      },
+      "next_executable_action": "Score three future MC packets for whether context-switch notes increase measurable-variable count and safe next action specificity."
+    },
+    {
+      "record_id": "cfp_fail_001",
+      "source_status": "synthetic_negative_control",
+      "claim_status": "unsafe_promotion_attempt",
+      "privacy_status": "contains_unreviewed_private_detail",
+      "missingness": "ignored",
+      "revision_reason": "Negative control showing what the gate must reject.",
+      "implementation_status": "expected_fail_case",
+      "testability": "fail_case",
+      "falsification_route": "none supplied",
+      "measurable_variables": [],
+      "source_boundaries": [],
+      "proposed_pattern": "The pattern is proven because it felt accurate.",
+      "counterfactual_predictions": [],
+      "null_result_criteria": [],
+      "promotion_decision": {
+        "allowed_route": "public_certainty_claim",
+        "blocked_routes": [],
+        "uncertainty_statement": ""
+      },
+      "next_executable_action": "Publish as fact."
+    }
+  ]
+}
