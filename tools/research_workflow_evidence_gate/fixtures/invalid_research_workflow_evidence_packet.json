@@ -1,0 +1,47 @@
+{
+  "packet_id": "bad-rweg",
+  "created_utc": "2026-07-07T12:57:42Z",
+  "source_status": {
+    "classification": "mixed",
+    "sources": [
+      {
+        "title": "Unspecified frontier source",
+        "url": "https://example.org/source",
+        "date": "2026",
+        "status": "placeholder",
+        "caveat": "missing real provenance"
+      }
+    ]
+  },
+  "claim_status": "evaluation_criterion",
+  "privacy_status": {
+    "classification": "unknown",
+    "personal_data": false,
+    "allowed_reuse_scope": "Unknown reuse scope.",
+    "privacy_risk": "Unknown risk."
+  },
+  "missingness": ["Validation route omitted."],
+  "revision_reason": "Invalid fixture for regression testing.",
+  "implementation_status": "implemented_with_tests",
+  "evidence_strength": "weak",
+  "falsification_route": "This should fail because implemented packets cannot leave privacy unknown and validation is missing.",
+  "next_executable_action": "Confirm validator rejects this fixture.",
+  "workflow_stage_coverage": {
+    "evidence_handling": "covered",
+    "analysis": "missing",
+    "design_or_optimization": "missing",
+    "scientific_reasoning": "covered",
+    "validation_or_operations": "missing",
+    "translation": "partial",
+    "scientific_communication": "partial"
+  },
+  "translation_boundary": {
+    "from_context": "Benchmark result",
+    "to_context": "Reusable memory",
+    "bridge_evidence": "Insufficient bridge evidence.",
+    "blocked_transfer": ["No clinical transfer."]
+  },
+  "validation_route": [],
+  "blocked_inferences": ["Do not promote."],
+  "provenance_route": ["Synthetic invalid fixture."]
+}
