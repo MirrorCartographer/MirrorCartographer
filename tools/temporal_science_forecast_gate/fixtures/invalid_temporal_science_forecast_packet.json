@@ -1,0 +1,18 @@
+{
+  "packet_id": "bad",
+  "research_domain": "biology",
+  "source_status": "mixed",
+  "claim_status": "hypothesis",
+  "privacy_status": "synthetic_only",
+  "forecast_claim": "AI will find cures soon.",
+  "prior_work_dependencies": ["papers"],
+  "collaborator_or_dataset_targets": [],
+  "expected_contribution_shape": "big discovery",
+  "evaluation_signal": "it works",
+  "missingness": "unknown",
+  "revision_reason": "none",
+  "implementation_status": "planned",
+  "evidence_strength": "strong",
+  "falsification_route": "unclear",
+  "next_executable_action": "think more"
+}
