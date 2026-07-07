@@ -1,0 +1,50 @@
+{
+  "packet_id": "mobg-20260707-001",
+  "created_at": "2026-07-07T06:55:27Z",
+  "operation": {
+    "type": "write",
+    "target_memory": "discovery_graph",
+    "promotion_decision": "allow_scoped",
+    "review_required": true
+  },
+  "source_status": "research_institution",
+  "claim_status": "evaluation_criterion",
+  "privacy_status": "synthetic_only",
+  "boundaries": {
+    "source_boundary": "Research summaries and synthetic packets only; no raw records are included.",
+    "subject_boundary": "Population-level and infrastructure-level claims only, not individual guidance.",
+    "modality_boundary": "Textual source map and schema validation; no imaging, sensor, or genomic input.",
+    "species_context_boundary": "Human healthcare, veterinary infrastructure, and general science AI are separated.",
+    "temporal_boundary": "Evidence cutoff is the scan date; future claims require a new packet revision.",
+    "tool_boundary": "Validator checks packet structure but does not verify external scientific truth.",
+    "privacy_boundary": "Only public sources and synthetic fixtures may enter reusable test memory."
+  },
+  "allowed_reuse_scope": [
+    "synthetic_test_only",
+    "schema_design",
+    "benchmark_design"
+  ],
+  "missingness": {
+    "dataset_gaps": [
+      "No raw longitudinal EHR or veterinary dataset is included.",
+      "Benchmark availability differs by species, institution, and modality."
+    ],
+    "subject_gaps": [
+      "No individual human or animal subject is represented."
+    ],
+    "modality_gaps": [
+      "No direct clinical notes, images, labs, wearable data, or sensor streams are included."
+    ],
+    "temporal_gaps": [
+      "Frontier sources may change after the scan date."
+    ],
+    "privacy_gaps": [
+      "The gate models privacy status but does not prove de-identification safety."
+    ]
+  },
+  "revision_reason": "Add an operation-level boundary check before memory writes, retrieval, reuse, export, or handoff.",
+  "implementation_status": "tests_committed",
+  "evidence_strength": "moderate",
+  "falsification_route": "Run blinded curator review and reject this gate if it does not reduce unsupported memory promotion or boundary drift.",
+  "next_executable_action": "Run the regression test script for the memory operation boundary validator."
+}
