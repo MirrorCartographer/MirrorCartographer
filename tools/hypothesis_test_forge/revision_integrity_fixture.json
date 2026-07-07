@@ -1,0 +1,120 @@
+{
+  "artifact_name": "revision_integrity_fixture",
+  "domain": "human_ai_sensemaking",
+  "hypothesis": "MC packets become safer and more useful when every revision preserves the prior claim, revised claim, revision reason, evidence delta, missingness delta, privacy status, and falsification route before the packet can influence memory, public claims, or next actions.",
+  "source_status": "synthetic_fixture_for_validator_development",
+  "claim_status": "research_infrastructure_hypothesis_not_empirical_proof",
+  "privacy_status": "synthetic_no_private_identifiers",
+  "missingness": "fixture intentionally includes passing and failing examples; absence of a field means validator failure, not evidence that the underlying phenomenon is absent",
+  "revision_reason": "New test domain added after prior forge artifacts covered evidence routing, contradiction ledgers, literature strength, and variable drift; this artifact tests whether change-over-time claims preserve why the change happened.",
+  "implementation_status": "executable_fixture_with_validator",
+  "testability": "Run the validator and confirm only packets with explicit revision metadata, safe claim boundaries, measurable variables, and falsification routes pass.",
+  "falsification_route": "If packets missing revision reasons, evidence deltas, or prior claim snapshots are accepted, the hypothesis fails for this implementation.",
+  "measurable_variables": [
+    "prior_claim_present",
+    "revised_claim_present",
+    "revision_reason_present",
+    "evidence_delta_count",
+    "missingness_delta_count",
+    "privacy_scan_passed",
+    "blocked_claim_scan_passed",
+    "falsification_route_present",
+    "next_action_executable"
+  ],
+  "next_executable_action": "python tools/hypothesis_test_forge/validate_revision_integrity_fixture.py",
+  "packets": [
+    {
+      "packet_id": "revision_pass_001",
+      "expected_result": "pass",
+      "source_status": "synthetic_user_observation_summary",
+      "claim_status": "question_prep_observation_not_diagnosis_or_treatment",
+      "privacy_status": "deidentified_synthetic",
+      "missingness": "timing precision and external confirmation are unknown; unknowns remain open variables",
+      "revision_reason": "New structured observation added measurable timing and context fields, so the packet changed from symbolic phrasing to operational observation.",
+      "implementation_status": "fixture_case",
+      "testability": "Can be checked for required fields and blocked claims.",
+      "falsification_route": "Fails if revision metadata is absent or if revised claim becomes diagnosis, treatment, urgency, cure certainty, or unsupported causality.",
+      "measurable_variables": [
+        {"name": "context_label_present", "unit": "boolean", "value": true},
+        {"name": "observation_window_minutes", "unit": "minutes", "value": 20},
+        {"name": "evidence_delta_count", "unit": "count", "value": 2},
+        {"name": "missingness_delta_count", "unit": "count", "value": 2}
+      ],
+      "next_executable_action": "retain as longitudinal question-prep record and compare only with records using the same variable definitions",
+      "prior_claim": "The symbolic phrase may indicate a body-state transition.",
+      "revised_claim": "The phrase is retained as a subjective context label paired with observable timing, posture, and task-transition variables for later comparison.",
+      "evidence_delta": [
+        "Added observation window field.",
+        "Added explicit context label rather than treating symbol as factual mechanism."
+      ],
+      "missingness_delta": [
+        "No external measurement source attached.",
+        "No clinician interpretation attached."
+      ],
+      "allowed_route": "longitudinal_observation"
+    },
+    {
+      "packet_id": "revision_fail_missing_reason_001",
+      "expected_result": "fail",
+      "source_status": "synthetic_fixture_case",
+      "claim_status": "research_note",
+      "privacy_status": "synthetic_no_private_identifiers",
+      "missingness": "unknown",
+      "revision_reason": "",
+      "implementation_status": "fixture_case",
+      "testability": "Validator should reject empty revision reason.",
+      "falsification_route": "If this passes, revision integrity gate is too weak.",
+      "measurable_variables": [
+        {"name": "evidence_delta_count", "unit": "count", "value": 1}
+      ],
+      "next_executable_action": "block until revision reason is supplied",
+      "prior_claim": "A pattern appeared.",
+      "revised_claim": "The pattern changed.",
+      "evidence_delta": ["Added new note."],
+      "missingness_delta": ["No source boundary supplied."],
+      "allowed_route": "blocked_packet"
+    },
+    {
+      "packet_id": "revision_fail_unsafe_claim_001",
+      "expected_result": "fail",
+      "source_status": "synthetic_fixture_case",
+      "claim_status": "unsafe_overclaim_fixture",
+      "privacy_status": "synthetic_no_private_identifiers",
+      "missingness": "unknowns not resolved",
+      "revision_reason": "Fixture tests blocked claim language.",
+      "implementation_status": "fixture_case",
+      "testability": "Validator should reject diagnosis/treatment/cure-style promotion.",
+      "falsification_route": "If this passes, blocked claim scan failed.",
+      "measurable_variables": [
+        {"name": "blocked_claim_terms_present", "unit": "boolean", "value": true}
+      ],
+      "next_executable_action": "block unsafe route and rewrite as question-prep infrastructure",
+      "prior_claim": "Observation should be organized for review.",
+      "revised_claim": "This proves the condition is cured and gives treatment certainty.",
+      "evidence_delta": ["No validated evidence supplied."],
+      "missingness_delta": ["External review missing."],
+      "allowed_route": "blocked_packet"
+    },
+    {
+      "packet_id": "revision_fail_missingness_collapse_001",
+      "expected_result": "fail",
+      "source_status": "synthetic_fixture_case",
+      "claim_status": "research_note",
+      "privacy_status": "synthetic_no_private_identifiers",
+      "missingness": "not recorded so no issue exists",
+      "revision_reason": "Fixture tests missingness-as-absence collapse.",
+      "implementation_status": "fixture_case",
+      "testability": "Validator should reject missingness collapse language.",
+      "falsification_route": "If this passes, unknowns can be misread as negatives.",
+      "measurable_variables": [
+        {"name": "missingness_collapse_terms_present", "unit": "boolean", "value": true}
+      ],
+      "next_executable_action": "block until unknowns are represented as unknowns",
+      "prior_claim": "Observation lacked a source.",
+      "revised_claim": "No source means no problem exists.",
+      "evidence_delta": ["No new evidence."],
+      "missingness_delta": [],
+      "allowed_route": "blocked_packet"
+    }
+  ]
+}
