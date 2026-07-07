@@ -1,0 +1,40 @@
+{
+  "packet_id": "rig-2026-07-07-001",
+  "claim": "Reusable scientific memory should not be promoted unless downstream claims can be audited and downgraded after revocation.",
+  "source_status": "mixed_public_scan",
+  "claim_status": "evaluation_criterion",
+  "privacy_status": "synthetic_only",
+  "memory_operation": "promote",
+  "revocation_route": {
+    "can_revoke": true,
+    "revocation_target": "durable reusable memory packet and derived retrieval index entry",
+    "required_actor": "memory curator or automated policy gate",
+    "verification_signal": "packet is absent from active retrieval and all dependent packets show downgraded status"
+  },
+  "redaction_route": {
+    "redactable_fields": ["claim", "source_note", "free_text_context"],
+    "non_redactable_fields": ["packet_id", "audit_timestamp"],
+    "semantic_loss_note": "Redaction may preserve governance metadata while removing biological or personal-context semantics."
+  },
+  "downgrade_route": {
+    "downgrade_to": "needs_revalidation",
+    "blocked_after_downgrade": ["diagnostic inference", "care recommendation", "cross-species translation", "durable hypothesis promotion"],
+    "revalidation_trigger": "new source evidence, renewed consent, or successful dependency reconstruction test"
+  },
+  "downstream_dependencies": [
+    {
+      "dependent_id": "claim-memory-promotion-policy",
+      "dependency_type": "prototype_requirement",
+      "impact_if_removed": "promotion must pause until the claim is rebuilt from remaining evidence"
+    }
+  ],
+  "missingness": [
+    "hidden cache copies are not yet exhaustively detectable",
+    "no live benchmark yet scores privacy-risk reduction after revocation"
+  ],
+  "revision_reason": "Adds safe removal and downstream downgrade semantics to prior promotion-focused gates.",
+  "implementation_status": "implemented",
+  "evidence_strength": "moderate",
+  "falsification_route": "Run a dependency-removal simulation; if dependent claims remain promoted or retrieval still exposes revoked content, the gate fails.",
+  "next_executable_action": "Run the regression test and add this gate to the discovery-memory promotion pipeline."
+}
