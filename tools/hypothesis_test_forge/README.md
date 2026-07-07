@@ -105,4 +105,12 @@ Run:
 
 Tests whether MC hypothesis packets become more scientifically useful when contradictions are preserved as ledger entries with both sides, source boundaries, missingness state, measurable variables, falsification routes, and safe next actions. The validator rejects premature certainty, unsafe route promotion, diagnosis/treatment/veterinary/dosage/urgency classes, cure certainty, discovery proof, unsupported causality, symbolic certainty, private identifier retention, and missingness-as-absence.
 
+### Variable drift fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_variable_drift_fixture.py`
+
+Tests whether longitudinal MC records become more scientifically useful when variable names, meanings, units, and measurement contexts are checked for drift before cross-session comparison. The validator rejects unsafe comparison, private identifier retention, diagnosis/treatment/veterinary/dosage/urgency claims, cure certainty, discovery-proof claims, unsupported causality, and missingness-as-absence.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
