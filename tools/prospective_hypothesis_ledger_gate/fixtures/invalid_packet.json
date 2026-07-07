@@ -1,0 +1,30 @@
+{
+  "packet_id": "bad-phl",
+  "created_at": "2026-07-07T16:00:00Z",
+  "source_status": "mixed",
+  "claim_status": "hypothesis",
+  "privacy_status": "synthetic_only",
+  "evidence_cutoff_date": "2026-07-07",
+  "hypothesis": "Too weak",
+  "generation_context": "Missing future boundary structure.",
+  "prediction_target": "Cures",
+  "prospective_validation_window": {
+    "starts_after": "2026-07-01",
+    "ends_before": "2026-07-02",
+    "rationale": "Invalid because the window starts before the cutoff."
+  },
+  "expected_evidence_type": ["benchmark_result"],
+  "boundary_conditions": {
+    "domain": "health",
+    "species": "all",
+    "modality": "all",
+    "site_or_cohort": "all",
+    "blocked_inferences": []
+  },
+  "missingness": ["none"],
+  "revision_reason": "Too short and overclaims translational validity.",
+  "implementation_status": "tests_created",
+  "evidence_strength": "moderate",
+  "falsification_route": "No route is actually specified.",
+  "next_executable_action": "Do nothing."
+}
