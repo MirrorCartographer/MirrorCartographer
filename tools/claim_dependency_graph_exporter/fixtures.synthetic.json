@@ -1,0 +1,65 @@
+{
+  "run_id": "synthetic.claim_dependency_graph.001",
+  "packets": [
+    {
+      "id": "obs.synthetic.001",
+      "kind": "observation",
+      "title": "Synthetic symptom intensity logged after environmental context change",
+      "claim_status": "observation",
+      "privacy_status": "synthetic",
+      "source_status": "synthetic",
+      "missingness": [],
+      "depends_on": [],
+      "contradicts": [],
+      "next_action": "Compare against adjacent time windows before pattern promotion."
+    },
+    {
+      "id": "lit.synthetic.001",
+      "kind": "literature_note",
+      "title": "Synthetic literature note about context-sensitive physiology",
+      "claim_status": "observation",
+      "privacy_status": "public_safe",
+      "source_status": "public_literature",
+      "missingness": [],
+      "depends_on": [],
+      "contradicts": [],
+      "next_action": "Route through medical literature claim router."
+    },
+    {
+      "id": "hyp.synthetic.001",
+      "kind": "hypothesis",
+      "title": "Synthetic hypothesis linking observation and literature context",
+      "claim_status": "hypothesis_seed",
+      "privacy_status": "redacted",
+      "source_status": "synthetic",
+      "missingness": [],
+      "depends_on": ["obs.synthetic.001", "lit.synthetic.001"],
+      "contradicts": ["contra.synthetic.001"],
+      "next_action": "Send to falsification task queue builder."
+    },
+    {
+      "id": "contra.synthetic.001",
+      "kind": "contradiction",
+      "title": "Synthetic contradiction: same context did not reproduce change",
+      "claim_status": "observation",
+      "privacy_status": "synthetic",
+      "source_status": "synthetic",
+      "missingness": [],
+      "depends_on": ["obs.synthetic.001"],
+      "contradicts": ["hyp.synthetic.001"],
+      "next_action": "Require counterexample search before promotion."
+    },
+    {
+      "id": "hyp.synthetic.blocked",
+      "kind": "hypothesis",
+      "title": "Blocked synthetic cure phrasing",
+      "claim_status": "cure_claim",
+      "privacy_status": "synthetic",
+      "source_status": "synthetic",
+      "missingness": ["no falsification plan"],
+      "depends_on": ["missing.synthetic.node"],
+      "contradicts": [],
+      "next_action": "Rewrite as non-advice hypothesis seed and resolve missing dependency."
+    }
+  ]
+}
