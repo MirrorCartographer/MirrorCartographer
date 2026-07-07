@@ -113,4 +113,12 @@ Run:
 
 Tests whether longitudinal MC records become more scientifically useful when variable names, meanings, units, and measurement contexts are checked for drift before cross-session comparison. The validator rejects unsafe comparison, private identifier retention, diagnosis/treatment/veterinary/dosage/urgency claims, cure certainty, discovery-proof claims, unsupported causality, and missingness-as-absence.
 
+### Literature claim strength scoring rubric
+
+Artifact:
+
+`tools/hypothesis_test_forge/literature_claim_strength_scoring_rubric.json`
+
+Tests whether MC literature notes become safer and more scientifically useful when every cited claim is scored for source type, evidentiary strength, boundary conditions, missingness, replication status, and promotability before it can influence longitudinal memory, research maps, question prep, or public claims. The rubric blocks diagnosis, treatment, dosage guidance, veterinary instruction, emergency triage, cure certainty, discovery proof, unsupported causality, symbolic resonance as factual evidence, single-paper certainty, abstract-only certainty, private identifier retention, and missingness-as-absence.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
