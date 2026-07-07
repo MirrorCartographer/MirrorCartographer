@@ -3,32 +3,46 @@
     "name": "pass_decision_ready_discovery_claim",
     "expect_valid": true,
     "packet": {
-      "packet_id": "drg-pass-001",
-      "claim": "A generated discovery claim should be routed to human collaborator review only when it exposes decision options, provenance, uncertainty, measurable variables, and a falsification path.",
+      "packet_id": "drg-pass-002",
+      "claim": "A generated discovery claim should advance to reusable discovery memory only when ambiguity, consequence class, readiness evidence, blocking evidence, provenance, uncertainty, and falsification route are explicit.",
       "source_status": "mixed_public",
       "claim_status": "evaluation_criterion",
       "privacy_status": "synthetic_only",
-      "missingness": ["No real collaborator study has been run yet."],
-      "revision_reason": "Frontier scientific AI and HCI work increasingly evaluates workflow validity and sensemaking trajectory, not final-answer plausibility alone.",
+      "missingness": ["No real collaborator study has been run yet.", "No domain expert calibration set is attached."],
+      "revision_reason": "GeneBench-Pro and related frontier systems emphasize ambiguity handling, consequential judgment, tool-grounded workflow reconstruction, and knowing when a result is decision-ready.",
       "implementation_status": "implemented",
       "evidence_strength": "moderate",
-      "human_decision_needed": "Choose whether the claim should advance to collaborator review or remain in automated hypothesis testing.",
+      "human_decision_needed": "Choose whether the claim should advance to reusable discovery memory, collaborator review, or remain in automated hypothesis testing.",
+      "consequence_class": "medium_memory_promotion",
+      "ambiguity_register": [
+        {
+          "ambiguity": "The claim may be plausible but not decision-ready.",
+          "why_it_matters": "Premature promotion can make later retrieval treat exploratory output as established infrastructure knowledge.",
+          "resolution_path": "Require explicit readiness and blocking evidence before promotion."
+        }
+      ],
       "decision_options": [
-        {"option": "advance_to_review", "tradeoff": "Higher human attention cost but improved auditability before memory promotion.", "acceptance_criterion": "Reviewer can identify what evidence, uncertainty, and next action are being judged."},
-        {"option": "return_to_test_harness", "tradeoff": "Lower human burden but delayed collaborator feedback.", "acceptance_criterion": "Automated gates can generate a missing variable, provenance step, or falsification route."}
+        {"option": "promote_to_memory", "tradeoff": "Higher reuse value but higher risk if ambiguity is under-specified.", "acceptance_criterion": "Readiness evidence, blocking evidence, consequence class, provenance, and falsification route are complete."},
+        {"option": "return_to_test_harness", "tradeoff": "Lower immediate reuse but reduces unsupported memory promotion.", "acceptance_criterion": "At least one readiness or ambiguity field is missing or too vague."}
+      ],
+      "decision_readiness_evidence": [
+        {"evidence_needed": "Curator can identify the decision surface and consequence class.", "measurement": "Binary curator rating plus disagreement notes.", "decision_threshold": "At least two independent reviewers agree the packet is review-ready."}
+      ],
+      "blocking_evidence": [
+        {"blocker": "Claim implies clinical, veterinary, or personal advice.", "measurement": "Presence of individual diagnosis, treatment, or care directive language.", "downgrade_action": "Block promotion and rewrite as research organization only."}
       ],
       "measurable_variables": [
-        {"name": "reviewer_decision_agreement", "measurement": "percent agreement across reviewers on advance versus return decision", "target_direction": "increase"},
-        {"name": "unsupported_promotion_rate", "measurement": "fraction of claims promoted without provenance, uncertainty, variables, or falsification route", "target_direction": "decrease"}
+        {"name": "reviewer_decision_agreement", "measurement": "percent agreement across reviewers on promote versus return decision", "target_direction": "increase"},
+        {"name": "unsupported_promotion_rate", "measurement": "fraction of claims promoted without ambiguity, consequence, readiness evidence, blocking evidence, or falsification route", "target_direction": "decrease"}
       ],
-      "falsification_route": "If collaborator agreement and unsupported-promotion rate do not improve versus ungated promotion, the gate fails its purpose and must be revised.",
+      "falsification_route": "If reviewer agreement and unsupported-promotion rate do not improve versus ungated promotion, the gate fails its purpose and must be revised.",
       "provenance_chain": [
-        {"step": "frontier_scan", "artifact": "public sources on scientific AI validity and sensemaking", "status": "observed"},
-        {"step": "design_implication", "artifact": "decision-readiness gate requirement", "status": "generated"},
+        {"step": "frontier_scan", "artifact": "GeneBench-Pro, LABBench2, Co-Scientist, VETNET, privacy-preserving clinical data sources", "status": "observed"},
+        {"step": "design_implication", "artifact": "consequence-aware decision-readiness requirement", "status": "generated"},
         {"step": "schema_validation", "artifact": "decision readiness packet schema", "status": "validated"}
       ],
-      "uncertainty_summary": "The design implication is plausible but not yet validated by an MC-specific collaborator study.",
-      "next_executable_action": "Run this fixture through the validation CLI and wire the gate before human review queues."
+      "uncertainty_summary": "The gate is grounded in frontier benchmark direction but remains unvalidated inside MC collaborator workflows.",
+      "next_executable_action": "Run this fixture through the validation CLI and wire the gate before discovery-memory promotion."
     }
   },
   {
@@ -45,6 +59,16 @@
       "implementation_status": "specified",
       "evidence_strength": "low",
       "human_decision_needed": "Decide whether this is useful.",
+      "consequence_class": "medium_memory_promotion",
+      "ambiguity_register": [
+        {"ambiguity": "Decision options absent.", "why_it_matters": "Reviewers cannot tell what action is requested.", "resolution_path": "Add bounded options before review."}
+      ],
+      "decision_readiness_evidence": [
+        {"evidence_needed": "Bounded decision options.", "measurement": "Count of options with tradeoff and acceptance criterion.", "decision_threshold": "At least two complete options."}
+      ],
+      "blocking_evidence": [
+        {"blocker": "No decision options.", "measurement": "decision_options field missing or length below two.", "downgrade_action": "Reject packet until options are supplied."}
+      ],
       "measurable_variables": [
         {"name": "promotion_rate", "measurement": "rate of promotion", "target_direction": "bounded"},
         {"name": "error_rate", "measurement": "rate of unsupported claims", "target_direction": "decrease"}
@@ -72,9 +96,19 @@
       "implementation_status": "specified",
       "evidence_strength": "low",
       "human_decision_needed": "Choose whether private records can be reviewed.",
+      "consequence_class": "high_clinical_or_veterinary_relevance",
+      "ambiguity_register": [
+        {"ambiguity": "Privacy status is not public-safe.", "why_it_matters": "Repeated retrieval can leak sensitive longitudinal context.", "resolution_path": "Convert to synthetic-only or deidentified public-safe form."}
+      ],
       "decision_options": [
         {"option": "reject", "tradeoff": "Protects privacy but blocks the packet.", "acceptance_criterion": "No private identifiers remain."},
         {"option": "deidentify", "tradeoff": "Adds preprocessing burden.", "acceptance_criterion": "Packet becomes public-safe or synthetic-only."}
+      ],
+      "decision_readiness_evidence": [
+        {"evidence_needed": "Allowed privacy status.", "measurement": "privacy_status enum value.", "decision_threshold": "public_safe, deidentified_public_safe, or synthetic_only."}
+      ],
+      "blocking_evidence": [
+        {"blocker": "private_raw privacy status.", "measurement": "privacy_status field value.", "downgrade_action": "Block memory promotion."}
       ],
       "measurable_variables": [
         {"name": "privacy_fail_count", "measurement": "count of packets with non-public-safe privacy status", "target_direction": "decrease"},
@@ -87,6 +121,47 @@
       ],
       "uncertainty_summary": "No uncertainty should override the privacy boundary.",
       "next_executable_action": "Convert the packet into synthetic or deidentified public-safe form before review."
+    }
+  },
+  {
+    "name": "fail_personal_advice_not_blocked",
+    "expect_valid": false,
+    "packet": {
+      "packet_id": "drg-fail-003",
+      "claim": "A research packet that implies personal medical or veterinary action should be promoted.",
+      "source_status": "synthetic_fixture",
+      "claim_status": "hypothesis",
+      "privacy_status": "synthetic_only",
+      "missingness": ["Personal-advice boundary not respected."],
+      "revision_reason": "Medical and veterinary content must remain research organization rather than care advice.",
+      "implementation_status": "implemented",
+      "evidence_strength": "low",
+      "human_decision_needed": "Choose whether advice-like content can enter discovery memory.",
+      "consequence_class": "blocked_personal_advice",
+      "ambiguity_register": [
+        {"ambiguity": "Advice-like wording present.", "why_it_matters": "Could be retrieved later as action guidance.", "resolution_path": "Block or rewrite as research organization."}
+      ],
+      "decision_options": [
+        {"option": "block", "tradeoff": "Prevents misuse but requires rewrite.", "acceptance_criterion": "No personal action guidance remains."},
+        {"option": "rewrite", "tradeoff": "Preserves research value but adds curation burden.", "acceptance_criterion": "Packet states research-only boundary."}
+      ],
+      "decision_readiness_evidence": [
+        {"evidence_needed": "No personal advice language.", "measurement": "Manual or automated advice-language screen.", "decision_threshold": "Zero diagnosis, treatment, or care directives."}
+      ],
+      "blocking_evidence": [
+        {"blocker": "Personal advice consequence class not blocked.", "measurement": "consequence_class and implementation_status pair.", "downgrade_action": "Set implementation_status to blocked."}
+      ],
+      "measurable_variables": [
+        {"name": "advice_leak_count", "measurement": "count of advice-like packets promoted", "target_direction": "decrease"},
+        {"name": "blocked_packet_count", "measurement": "count of blocked personal-advice packets", "target_direction": "detect"}
+      ],
+      "falsification_route": "If advice-like packets pass without blocked status, the gate fails.",
+      "provenance_chain": [
+        {"step": "boundary_check", "artifact": "personal advice detection", "status": "rejected"},
+        {"step": "schema_check", "artifact": "blocked status missing", "status": "rejected"}
+      ],
+      "uncertainty_summary": "The fixture intentionally violates the personal-advice boundary.",
+      "next_executable_action": "Set implementation_status to blocked or rewrite the packet as research organization only."
     }
   }
 ]
