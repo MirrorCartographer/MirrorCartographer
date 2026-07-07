@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/null_evidence_capture_packet.schema.json",
+  "title": "Null Evidence Capture Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "claim",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "null_evidence_inventory",
+    "source_boundary",
+    "confirmation_bias_risk",
+    "blocked_inferences",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "claim": {"type": "string", "minLength": 20},
+    "source_status": {
+      "type": "string",
+      "enum": ["primary", "peer_reviewed", "preprint", "benchmark", "clinical_research_institution", "grant_or_prize_program", "open_source_tool", "mixed_public_sources", "synthetic_fixture"]
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": ["hypothesis", "evaluation_criterion", "schema_requirement", "prototype_requirement", "source_map", "collaborator_target", "opportunity_target", "blocked_claim"]
+    },
+    "privacy_status": {
+      "type": "string",
+      "enum": ["public_safe", "synthetic_only", "deidentified_required", "aggregate_only", "sensitive_raw_trace_forbidden"]
+    },
+    "missingness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "description", "known_unknowns"],
+      "properties": {
+        "status": {"type": "string", "enum": ["none_declared", "insufficient_data", "missing_materials", "untested_boundary", "privacy_redaction", "unknown"]},
+        "description": {"type": "string", "minLength": 10},
+        "known_unknowns": {"type": "array", "items": {"type": "string", "minLength": 3}, "minItems": 1}
+      }
+    },
+    "revision_reason": {"type": "string", "minLength": 10},
+    "implementation_status": {
+      "type": "string",
+      "enum": ["proposed", "schema_only", "implemented_with_tests", "validated_in_prototype", "rejected"]
+    },
+    "evidence_strength": {"type": "string", "enum": ["weak", "moderate", "strong", "conflicting", "unknown"]},
+    "null_evidence_inventory": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_type", "description", "source", "interpretation"],
+        "properties": {
+          "evidence_type": {"type": "string", "enum": ["null_result", "negative_control", "failed_reproduction", "non_verifiable", "missing_materials", "insufficient_data", "retracted_or_contested", "not_searched"]},
+          "description": {"type": "string", "minLength": 10},
+          "source": {"type": "string", "minLength": 5},
+          "interpretation": {"type": "string", "enum": ["true_negative_possible", "absence_of_evidence", "method_failure", "privacy_limited", "boundary_gap", "requires_followup"]}
+        }
+      }
+    },
+    "source_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["species", "modality", "dataset_or_corpus", "transfer_boundary"],
+      "properties": {
+        "species": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "modality": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "dataset_or_corpus": {"type": "string", "minLength": 3},
+        "transfer_boundary": {"type": "string", "minLength": 10}
+      }
+    },
+    "confirmation_bias_risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["risk_level", "risk_route", "mitigation"],
+      "properties": {
+        "risk_level": {"type": "string", "enum": ["low", "medium", "high", "unknown"]},
+        "risk_route": {"type": "string", "minLength": 10},
+        "mitigation": {"type": "string", "minLength": 10}
+      }
+    },
+    "blocked_inferences": {"type": "array", "items": {"type": "string", "minLength": 8}, "minItems": 1},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 10}
+  }
+}
