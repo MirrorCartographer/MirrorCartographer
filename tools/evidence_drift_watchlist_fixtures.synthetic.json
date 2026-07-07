@@ -1,0 +1,74 @@
+{
+  "packets": [
+    {
+      "id": "lit-stable-001",
+      "domain": "medical_literature",
+      "claim_text": "Synthetic public-safe literature note with current review and no contradictions.",
+      "claim_status": "review_needed",
+      "source_status": "primary",
+      "privacy_status": "synthetic",
+      "evidence_date": "2026-06-01",
+      "last_reviewed_date": "2026-07-01",
+      "contradiction_count": 0,
+      "superseded_by": [],
+      "missingness": [],
+      "revision_reason": "baseline stable route fixture"
+    },
+    {
+      "id": "animal-old-001",
+      "domain": "animal_care",
+      "claim_text": "Synthetic animal-care observation that has not been reviewed recently.",
+      "claim_status": "observation",
+      "source_status": "anecdotal",
+      "privacy_status": "redacted",
+      "evidence_date": "2025-01-01",
+      "last_reviewed_date": "2026-07-01",
+      "contradiction_count": 0,
+      "superseded_by": [],
+      "missingness": [],
+      "revision_reason": "stale evidence should route to watch"
+    },
+    {
+      "id": "science-superseded-001",
+      "domain": "general_science",
+      "claim_text": "Synthetic science note that has been superseded by a newer packet.",
+      "claim_status": "hypothesis",
+      "source_status": "secondary",
+      "privacy_status": "public_safe",
+      "evidence_date": "2026-02-01",
+      "last_reviewed_date": "2026-07-01",
+      "contradiction_count": 0,
+      "superseded_by": ["science-update-002"],
+      "missingness": [],
+      "revision_reason": "superseded evidence should route to review"
+    },
+    {
+      "id": "private-block-001",
+      "domain": "longitudinal_observation",
+      "claim_text": "Synthetic private-residue fixture that must be blocked.",
+      "claim_status": "observation",
+      "source_status": "anecdotal",
+      "privacy_status": "private",
+      "evidence_date": "2026-06-15",
+      "last_reviewed_date": "2026-07-01",
+      "contradiction_count": 0,
+      "superseded_by": [],
+      "missingness": ["identifier_redaction_not_confirmed"],
+      "revision_reason": "private evidence must never be promoted"
+    },
+    {
+      "id": "contradicted-block-001",
+      "domain": "medical_literature",
+      "claim_text": "Synthetic contradicted packet fixture.",
+      "claim_status": "contradicted",
+      "source_status": "primary",
+      "privacy_status": "synthetic",
+      "evidence_date": "2026-05-01",
+      "last_reviewed_date": "2026-07-01",
+      "contradiction_count": 2,
+      "superseded_by": [],
+      "missingness": [],
+      "revision_reason": "contradicted evidence must route to block"
+    }
+  ]
+}
