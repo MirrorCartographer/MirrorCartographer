@@ -201,4 +201,12 @@ Run:
 
 Tests whether human-AI sensemaking packets become safer when human labels, AI labels, agreement state, disagreement type, adjudication route, privacy state, missingness, measurable variables, and falsification route are preserved before memory or export promotion. The validator rejects silent AI override, silent human override, unsafe public/action promotion, diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, cure certainty, discovery proof, unsupported causality, private identifier retention, and missingness-as-absence collapse.
 
+### Measurement readiness gate fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_measurement_readiness_gate.py`
+
+Tests whether MC hypothesis packets become scientifically safer when measurement readiness is explicitly gated before claims are promoted as tested, validated, discovered, cured, or externally actionable. The validator requires operational definitions, measurement instruments, sampling plans, decision thresholds, confounders, disconfirmation criteria, privacy status, missingness, measurable variables, falsification route, and next executable action while blocking diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, cure certainty, discovery proof, unsupported causality, symbolic certainty as evidence, unsafe public/action promotion, and missingness-as-absence collapse.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
