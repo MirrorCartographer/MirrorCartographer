@@ -177,4 +177,12 @@ Run:
 
 Tests whether longitudinal MC evidence maps become safer and more scientifically useful when observations are temporally aligned by absolute timestamp, observation window, lag uncertainty, source boundary, missingness, measurable variables, safe route, and falsification route before any cross-record pattern is inferred. The validator rejects temporal causality creep, diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, cure certainty, discovery proof, private identifier retention, and missingness-as-absence collapse.
 
+### Animal question-prep boundary fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_animal_question_prep_boundary.py`
+
+Tests whether animal-care evidence maps become safer and more useful when observations are separated from interpretation, species/context metadata, missingness, privacy state, professional-review questions, blocked care directives, measurable variables, and falsification route before export. The validator rejects diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, unsupported causality, private identifier retention, and missingness-as-absence collapse.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
