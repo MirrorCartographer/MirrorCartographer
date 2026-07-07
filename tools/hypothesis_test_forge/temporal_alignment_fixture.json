@@ -1,0 +1,311 @@
+{
+  "artifact_type": "executable_fixture",
+  "claim": "Longitudinal MC evidence maps become safer and more scientifically useful when observations are temporally aligned by absolute timestamp, observation window, lag uncertainty, and source boundary before any cross-record pattern is inferred.",
+  "source_status": "synthetic fixture for research organization; no clinical, veterinary, or personal source used",
+  "claim_status": "testable infrastructure claim, not medical or veterinary claim",
+  "privacy_status": "no_private_identifiers_retained",
+  "missingness": {
+    "status": "explicit_missingness_required",
+    "known_missing_fields": [
+      "clinical diagnosis",
+      "treatment outcome",
+      "veterinarian diagnosis",
+      "medication or dosage",
+      "exact private identity",
+      "causal mechanism"
+    ],
+    "rule": "Missing fields remain unknown; missingness must not be interpreted as absence or improvement."
+  },
+  "revision_reason": "Adds temporal-alignment validation to the forge so longitudinal evidence maps do not collapse sequence, lag, co-occurrence, and causality.",
+  "implementation_status": "fixture_plus_validator",
+  "testability": "Executable validator checks temporal anchors, observation windows, lag fields, measurable variables, safe routes, blocked promotions, privacy state, and falsification route.",
+  "falsification_route": "The hypothesis fails if records without absolute time anchors, observation windows, lag uncertainty, or source boundaries are allowed to generate pattern claims.",
+  "measurable_variables": [
+    {
+      "name": "absolute_timestamp_present",
+      "unit": "boolean",
+      "measurement_context": "Each record must include an ISO 8601 timestamp or explicit unknown state."
+    },
+    {
+      "name": "observation_window_minutes",
+      "unit": "minutes",
+      "measurement_context": "Estimated duration over which the observation was collected."
+    },
+    {
+      "name": "lag_uncertainty_minutes",
+      "unit": "minutes or null",
+      "measurement_context": "Uncertainty between candidate trigger/context and observed change. Null is allowed only when temporal relation is unknown."
+    },
+    {
+      "name": "temporal_relation_class",
+      "unit": "enum",
+      "measurement_context": "before, after, during, same_window, unknown, or not_applicable."
+    }
+  ],
+  "next_executable_action": "Run python tools/hypothesis_test_forge/validate_temporal_alignment_fixture.py and inspect rejected records for unsafe temporal inference.",
+  "pass_thresholds": {
+    "min_record_count": 4,
+    "min_source_boundaries_per_record": 3,
+    "min_measurable_variables_per_record": 3,
+    "min_blocked_promotions_per_record": 4,
+    "required_safe_routes": [
+      "longitudinal_observation",
+      "research_question",
+      "question_prep",
+      "contradiction_ledger"
+    ],
+    "allowed_temporal_relation_classes": [
+      "before",
+      "after",
+      "during",
+      "same_window",
+      "unknown",
+      "not_applicable"
+    ]
+  },
+  "records": [
+    {
+      "record_id": "TA-001",
+      "domain": "nervous_system_cognition_models",
+      "claim": "A subjective state-shift can be logged as a temporal observation without asserting diagnosis, treatment response, urgency, or causality.",
+      "source_status": "synthetic user-observation style fixture",
+      "claim_status": "observation packet, not diagnosis",
+      "privacy_status": "deidentified",
+      "missingness": "Missing: objective biomarker, clinician interpretation, exact preceding exposures, and independent replication.",
+      "revision_reason": "Separates sequence from causality and preserves lag uncertainty.",
+      "implementation_status": "validator_case",
+      "testability": "Passes only if timestamp, observation window, lag uncertainty, and relation class are explicit.",
+      "falsification_route": "Fails if same-window co-occurrence is promoted as cause, diagnosis, treatment instruction, or certainty.",
+      "temporal_anchor": {
+        "absolute_timestamp": "2026-07-07T07:10:00-04:00",
+        "timestamp_precision": "minute",
+        "observation_window_minutes": 25,
+        "temporal_relation_class": "same_window",
+        "candidate_context": "context switch during reflective AI session",
+        "lag_uncertainty_minutes": 20
+      },
+      "source_boundaries": [
+        "Self-report style input is not equivalent to medical examination.",
+        "Temporal proximity is not causal evidence.",
+        "AI-generated structuring is not independent confirmation."
+      ],
+      "measurable_variables": [
+        {
+          "name": "reported_transition_intensity",
+          "unit": "0-10 ordinal",
+          "measurement_context": "Subjective rating logged at the end of the observation window."
+        },
+        {
+          "name": "task_context_label",
+          "unit": "categorical label",
+          "measurement_context": "Context label assigned before downstream inference."
+        },
+        {
+          "name": "lag_uncertainty_minutes",
+          "unit": "minutes",
+          "measurement_context": "Estimated uncertainty between context and reported transition."
+        }
+      ],
+      "allowed_routes": [
+        "longitudinal_observation",
+        "research_question",
+        "question_prep"
+      ],
+      "blocked_promotions": [
+        "diagnosis",
+        "treatment_recommendation",
+        "emergency_triage",
+        "unsupported_causality",
+        "cure_claim"
+      ],
+      "next_executable_action": "Store as a deidentified temporal record and compare only with records using compatible windows."
+    },
+    {
+      "record_id": "TA-002",
+      "domain": "animal_care_evidence_maps",
+      "claim": "Animal-care observations can be prepared for professional review by preserving timing, window, and missingness without giving veterinary advice.",
+      "source_status": "synthetic question-prep fixture",
+      "claim_status": "vet question-prep infrastructure, not veterinary advice",
+      "privacy_status": "deidentified",
+      "missingness": "Missing: veterinarian exam, diagnostic tests, professional plan, dose history, environmental controls, and objective trend baseline.",
+      "revision_reason": "Prevents an observed change after a context event from being treated as proof of cause or improvement.",
+      "implementation_status": "validator_case",
+      "testability": "Passes only if professional-review framing, timing uncertainty, and blocked veterinary advice classes are present.",
+      "falsification_route": "Fails if the record instructs medication, asserts diagnosis, or treats missing follow-up as normal.",
+      "temporal_anchor": {
+        "absolute_timestamp": "2026-07-06T21:30:00-04:00",
+        "timestamp_precision": "hour",
+        "observation_window_minutes": 60,
+        "temporal_relation_class": "after",
+        "candidate_context": "travel or environment change",
+        "lag_uncertainty_minutes": 180
+      },
+      "source_boundaries": [
+        "Owner-style observation is not a veterinary diagnosis.",
+        "Post-event timing is not proof of mechanism.",
+        "Question-prep output must not include dosage or treatment instructions."
+      ],
+      "measurable_variables": [
+        {
+          "name": "appetite_observation_state",
+          "unit": "categorical: baseline/reduced/unknown",
+          "measurement_context": "Owner-style observation prepared for veterinarian discussion."
+        },
+        {
+          "name": "activity_change_count",
+          "unit": "count per observation window",
+          "measurement_context": "Number of observed behavior changes within the window."
+        },
+        {
+          "name": "lag_uncertainty_minutes",
+          "unit": "minutes",
+          "measurement_context": "Uncertainty from candidate context to observed change."
+        }
+      ],
+      "allowed_routes": [
+        "question_prep",
+        "longitudinal_observation",
+        "contradiction_ledger"
+      ],
+      "blocked_promotions": [
+        "veterinary_advice",
+        "dosage_guidance",
+        "diagnosis",
+        "treatment_recommendation",
+        "unsupported_causality"
+      ],
+      "next_executable_action": "Export as a timing-aware question-prep row for professional review, not as advice."
+    },
+    {
+      "record_id": "TA-003",
+      "domain": "medical_ai_evidence_organization",
+      "claim": "A health-related note can be temporally indexed for later review while blocking diagnosis, treatment, urgency, and certainty claims.",
+      "source_status": "synthetic research-organization fixture",
+      "claim_status": "evidence organization, not clinical claim",
+      "privacy_status": "deidentified",
+      "missingness": "Missing: clinician assessment, formal test results, baseline measurement protocol, confounders, and validated outcome measure.",
+      "revision_reason": "Adds temporal comparability before cross-session pattern inference.",
+      "implementation_status": "validator_case",
+      "testability": "Passes only if comparable timing fields and missingness labels are present.",
+      "falsification_route": "Fails if the record converts temporal alignment into diagnosis, treatment, or proof.",
+      "temporal_anchor": {
+        "absolute_timestamp": "2026-07-05T14:00:00-04:00",
+        "timestamp_precision": "hour",
+        "observation_window_minutes": 120,
+        "temporal_relation_class": "during",
+        "candidate_context": "heat exposure window",
+        "lag_uncertainty_minutes": 90
+      },
+      "source_boundaries": [
+        "Personal observation is not a clinical finding.",
+        "Candidate context is a research variable, not a confirmed trigger.",
+        "Temporal alignment is infrastructure for questions, not triage."
+      ],
+      "measurable_variables": [
+        {
+          "name": "ambient_condition_label",
+          "unit": "categorical",
+          "measurement_context": "Context label for later comparison, not a confirmed cause."
+        },
+        {
+          "name": "observation_presence_flag",
+          "unit": "boolean or unknown",
+          "measurement_context": "Logged observation state with unknown allowed."
+        },
+        {
+          "name": "observation_window_minutes",
+          "unit": "minutes",
+          "measurement_context": "Window duration for longitudinal comparability."
+        }
+      ],
+      "allowed_routes": [
+        "longitudinal_observation",
+        "research_question",
+        "question_prep"
+      ],
+      "blocked_promotions": [
+        "diagnosis",
+        "treatment_recommendation",
+        "dosage_guidance",
+        "emergency_triage",
+        "unsupported_causality"
+      ],
+      "next_executable_action": "Keep as a deidentified longitudinal row and require professional-review framing before export."
+    },
+    {
+      "record_id": "TA-004",
+      "domain": "human_ai_sensemaking",
+      "claim": "AI-assisted pattern detection should mark temporal gaps and uncertainty before proposing a new inference.",
+      "source_status": "synthetic AI transformation fixture",
+      "claim_status": "sensemaking process claim",
+      "privacy_status": "no_private_identifiers_retained",
+      "missingness": "Missing: independent observer, raw transcript, exact environmental timeline, and external validation.",
+      "revision_reason": "Prevents AI from smoothing over time gaps when building coherent narratives.",
+      "implementation_status": "validator_case",
+      "testability": "Passes if unknown temporal relation remains unknown and blocks narrative certainty.",
+      "falsification_route": "Fails if the AI assigns sequence or causality when the timestamp or relation class is unknown.",
+      "temporal_anchor": {
+        "absolute_timestamp": "unknown",
+        "timestamp_precision": "unknown",
+        "observation_window_minutes": 0,
+        "temporal_relation_class": "unknown",
+        "candidate_context": "unverified prior session memory",
+        "lag_uncertainty_minutes": null
+      },
+      "source_boundaries": [
+        "Memory-like continuity is not a timestamped record.",
+        "Coherent narrative is not evidence of sequence.",
+        "Unknown timing must block causal or trend claims."
+      ],
+      "measurable_variables": [
+        {
+          "name": "timestamp_known_flag",
+          "unit": "boolean",
+          "measurement_context": "Whether absolute timestamp is available."
+        },
+        {
+          "name": "temporal_relation_class",
+          "unit": "enum",
+          "measurement_context": "Unknown must remain unknown unless evidence supports assignment."
+        },
+        {
+          "name": "narrative_certainty_score",
+          "unit": "0-1 score",
+          "measurement_context": "Confidence cap for unverified temporal reconstruction."
+        }
+      ],
+      "allowed_routes": [
+        "contradiction_ledger",
+        "research_question"
+      ],
+      "blocked_promotions": [
+        "memory_fact_promotion",
+        "unsupported_causality",
+        "discovery_proof",
+        "diagnosis",
+        "treatment_recommendation"
+      ],
+      "next_executable_action": "Route to contradiction ledger until timestamp or source evidence is recovered."
+    }
+  ],
+  "negative_controls": [
+    {
+      "record_id": "NEG-001",
+      "failure_mode": "causality_creep",
+      "unsafe_text": "Because the observation happened after the context, this proves the context caused it.",
+      "expected_result": "reject"
+    },
+    {
+      "record_id": "NEG-002",
+      "failure_mode": "missingness_collapse",
+      "unsafe_text": "No follow-up data means the issue was absent.",
+      "expected_result": "reject"
+    },
+    {
+      "record_id": "NEG-003",
+      "failure_mode": "advice_promotion",
+      "unsafe_text": "This timing record is enough to choose a care action without professional review.",
+      "expected_result": "reject"
+    }
+  ]
+}
