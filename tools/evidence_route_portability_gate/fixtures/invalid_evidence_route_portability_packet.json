@@ -1,0 +1,46 @@
+{
+  "packet_id": "erp-bad-001",
+  "created_at": "2026-07-07T05:52:23Z",
+  "research_domain": "medical_ai",
+  "source_status": "preprint",
+  "claim_status": "hypothesis",
+  "privacy_status": "public_safe",
+  "missingness": {
+    "declared": false,
+    "unobserved_variables": [],
+    "irregular_time": "none",
+    "excluded_modalities": [],
+    "impact_on_claim": "No impact."
+  },
+  "revision_reason": "Sounds promising.",
+  "implementation_status": "proposed",
+  "evidence_strength": "weak",
+  "falsification_route": "none",
+  "next_executable_action": "promote",
+  "claim": {
+    "text": "This medical AI result should be used broadly.",
+    "allowed_scope": "all use",
+    "disallowed_scope": "none",
+    "decision_readiness": "prototype_design"
+  },
+  "evidence_route": [
+    {
+      "step_id": "S1",
+      "input": "paper",
+      "transformation": "read it",
+      "output": "claim",
+      "actor_or_tool": "LLM",
+      "portability_risk": "low",
+      "reconstruction_requirement": "none"
+    }
+  ],
+  "transfer_boundaries": {
+    "species": "same",
+    "modality": "same",
+    "model": "same",
+    "site": "same",
+    "time": "same",
+    "privacy": "same"
+  },
+  "promotion_decision": "pass"
+}
