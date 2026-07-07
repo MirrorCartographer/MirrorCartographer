@@ -1,0 +1,57 @@
+{
+  "packet_id": "null-evidence-2026-07-07-001",
+  "claim": "AI-scientist hypothesis promotion should require explicit null, negative, failed, missing, and non-verifiable evidence capture before reusable discovery-memory promotion.",
+  "source_status": "mixed_public_sources",
+  "claim_status": "evaluation_criterion",
+  "privacy_status": "synthetic_only",
+  "missingness": {
+    "status": "untested_boundary",
+    "description": "The gate has not yet been tested against real MC discovery-memory packets or reviewer reconstruction tasks.",
+    "known_unknowns": [
+      "Whether null evidence labels improve downstream curator accuracy",
+      "Whether the schema creates too much capture friction for fast frontier scans",
+      "Whether species-specific veterinary null evidence needs a separate controlled vocabulary"
+    ]
+  },
+  "revision_reason": "Prior gates emphasized action, boundary, provenance, and revocation; this revision adds first-class handling for null evidence and optimism bias.",
+  "implementation_status": "implemented_with_tests",
+  "evidence_strength": "moderate",
+  "null_evidence_inventory": [
+    {
+      "evidence_type": "non_verifiable",
+      "description": "BioDSA-1K highlights biomedical hypotheses where available data are insufficient to support or refute the claim.",
+      "source": "Wang et al., BioDSA-1K, arXiv 2025",
+      "interpretation": "requires_followup"
+    },
+    {
+      "evidence_type": "missing_materials",
+      "description": "SocSci-Repro-Bench separates reproducible studies from non-reproducible cases caused by unavailable replication materials.",
+      "source": "Alizadeh et al., SocSci-Repro-Bench, arXiv 2026",
+      "interpretation": "method_failure"
+    },
+    {
+      "evidence_type": "null_result",
+      "description": "Dead Science Walking argues that AI-scientist systems can amplify the underrepresentation of null results in the scientific corpus.",
+      "source": "Chauhan, Dead Science Walking, arXiv 2026",
+      "interpretation": "absence_of_evidence"
+    }
+  ],
+  "source_boundary": {
+    "species": ["human", "animal", "synthetic_fixture"],
+    "modality": ["literature", "benchmark", "replication_materials", "memory_record"],
+    "dataset_or_corpus": "Public frontier scan plus synthetic MC packet fixture",
+    "transfer_boundary": "Do not infer a biomedical or veterinary mechanism merely because negative evidence was not found in the searched corpus."
+  },
+  "confirmation_bias_risk": {
+    "risk_level": "high",
+    "risk_route": "Prompt framing, publication bias, and paper-provided context can push agents toward confirmatory specification search.",
+    "mitigation": "Require null evidence inventory, blocked inferences, and a falsification route before promotion."
+  },
+  "blocked_inferences": [
+    "Do not treat absence of a null result in public search as evidence that the hypothesis is true.",
+    "Do not treat a non-verifiable biomedical hypothesis as supported or refuted.",
+    "Do not transfer human benchmark findings into animal-health claims without species-specific evidence."
+  ],
+  "falsification_route": "Compare curator reconstruction accuracy on matched discovery-memory packets with and without null evidence capture fields.",
+  "next_executable_action": "Run the validator and then add this gate to the discovery-memory promotion checklist."
+}
