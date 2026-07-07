@@ -1,0 +1,97 @@
+[
+  {
+    "id": "transition.synthetic.pass.observation_to_seed",
+    "source_status": "synthetic_fixture",
+    "privacy_status": "public_safe",
+    "from_claim_status": "normalized_evidence",
+    "to_claim_status": "hypothesis_seed",
+    "missingness": [],
+    "revision_reason": "route normalized evidence into falsifiable seed",
+    "evidence_packets": [
+      {
+        "id": "packet.synthetic.001",
+        "source_chain_validated": true,
+        "retrieval_boundary_checked": true,
+        "outcome_measures_defined": true,
+        "falsification_tasks_defined": false,
+        "review_readiness_score": 0.42
+      }
+    ]
+  },
+  {
+    "id": "transition.synthetic.block.private",
+    "source_status": "synthetic_fixture",
+    "privacy_status": "private",
+    "from_claim_status": "observation",
+    "to_claim_status": "normalized_evidence",
+    "missingness": [],
+    "revision_reason": "attempt unsafe transition",
+    "evidence_packets": []
+  },
+  {
+    "id": "transition.synthetic.block.no_missingness",
+    "source_status": "synthetic_fixture",
+    "privacy_status": "public_safe",
+    "from_claim_status": "observation",
+    "to_claim_status": "normalized_evidence",
+    "revision_reason": "missingness field omitted",
+    "evidence_packets": []
+  },
+  {
+    "id": "transition.synthetic.block.skip",
+    "source_status": "synthetic_fixture",
+    "privacy_status": "public_safe",
+    "from_claim_status": "observation",
+    "to_claim_status": "review_ready",
+    "missingness": [],
+    "revision_reason": "unsafe skipped promotion",
+    "evidence_packets": [
+      {
+        "id": "packet.synthetic.002",
+        "source_chain_validated": true,
+        "retrieval_boundary_checked": true,
+        "outcome_measures_defined": true,
+        "falsification_tasks_defined": true,
+        "review_readiness_score": 0.91
+      }
+    ]
+  },
+  {
+    "id": "transition.synthetic.pass.review_ready",
+    "source_status": "synthetic_fixture",
+    "privacy_status": "public_safe",
+    "from_claim_status": "falsification_ready",
+    "to_claim_status": "review_ready",
+    "missingness": [],
+    "revision_reason": "promote after falsification tasks and score threshold",
+    "evidence_packets": [
+      {
+        "id": "packet.synthetic.003",
+        "source_chain_validated": true,
+        "retrieval_boundary_checked": true,
+        "outcome_measures_defined": true,
+        "falsification_tasks_defined": true,
+        "review_readiness_score": 0.86
+      }
+    ]
+  },
+  {
+    "id": "transition.synthetic.block.export_too_early",
+    "source_status": "synthetic_fixture",
+    "privacy_status": "public_safe",
+    "from_claim_status": "hypothesis_seed",
+    "to_claim_status": "collaborator_export_ready",
+    "missingness": [],
+    "revision_reason": "attempt collaborator export before review",
+    "evidence_packets": [
+      {
+        "id": "packet.synthetic.004",
+        "source_chain_validated": true,
+        "retrieval_boundary_checked": true,
+        "outcome_measures_defined": true,
+        "falsification_tasks_defined": true,
+        "review_readiness_score": 0.94
+      }
+    ]
+  }
+]
