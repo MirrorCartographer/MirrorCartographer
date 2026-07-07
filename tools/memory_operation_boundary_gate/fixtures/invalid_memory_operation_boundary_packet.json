@@ -1,0 +1,35 @@
+{
+  "packet_id": "mobg-bad",
+  "created_at": "2026-07-07T06:55:27Z",
+  "operation": {
+    "type": "write",
+    "target_memory": "public_artifact",
+    "promotion_decision": "allow_scoped",
+    "review_required": false
+  },
+  "source_status": "preprint",
+  "claim_status": "hypothesis",
+  "privacy_status": "restricted_sensitive",
+  "boundaries": {
+    "source_boundary": "Too vague",
+    "subject_boundary": "Too vague",
+    "modality_boundary": "Too vague",
+    "species_context_boundary": "Too vague",
+    "temporal_boundary": "Too vague",
+    "tool_boundary": "Too vague",
+    "privacy_boundary": "Too vague"
+  },
+  "allowed_reuse_scope": ["public_research_summary"],
+  "missingness": {
+    "dataset_gaps": [],
+    "subject_gaps": [],
+    "modality_gaps": [],
+    "temporal_gaps": [],
+    "privacy_gaps": []
+  },
+  "revision_reason": "Unsafe public promotion example that should fail validation.",
+  "implementation_status": "proposed",
+  "evidence_strength": "low",
+  "falsification_route": "This packet is intentionally invalid and should be rejected by the validator.",
+  "next_executable_action": "Confirm validator rejects this fixture."
+}
