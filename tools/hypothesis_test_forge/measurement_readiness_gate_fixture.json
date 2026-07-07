@@ -1,0 +1,223 @@
+{
+  "artifact_id": "mc_measurement_readiness_gate_fixture_v1",
+  "artifact_type": "test_fixture",
+  "domain": "scientific_reasoning_and_cure_discovery_infrastructure",
+  "created_for": "Hypothesis Test Forge",
+  "source_status": "synthetic_fixture_research_organization_only",
+  "claim_status": "testable_infrastructure_claim_not_medical_or_veterinary_claim",
+  "privacy_status": "no_direct_identifiers_synthetic_examples_only",
+  "missingness": {
+    "known_missing": [
+      "real-world instrument reliability data",
+      "domain-specific clinical or veterinary review",
+      "validated thresholds for any live population",
+      "external replication records"
+    ],
+    "missingness_policy": "missing measurement details block promotion to tested_claim rather than being treated as negative evidence"
+  },
+  "revision_reason": "Add a gate that separates measurable research readiness from symbolic coherence, narrative force, or AI confidence.",
+  "implementation_status": "fixture_created_validator_required",
+  "testability": "executable_validator_can_check_required_measurement_fields_and_blocked_promotions",
+  "falsification_route": "The gate fails if a packet is marked measurement_ready while lacking operational variables, instruments, sampling window, decision thresholds, confounders, or explicit disconfirmation criteria.",
+  "measurable_variables": [
+    "operational_definition_count",
+    "instrument_count",
+    "sampling_window_count",
+    "decision_threshold_count",
+    "confounder_count",
+    "disconfirmation_criterion_count",
+    "unsafe_promotion_count"
+  ],
+  "next_executable_action": "Run validate_measurement_readiness_gate.py and inspect rejected packets for missing measurement fields.",
+  "blocked_output_classes": [
+    "diagnosis",
+    "treatment",
+    "dosage_guidance",
+    "emergency_triage",
+    "veterinary_advice",
+    "cure_certainty",
+    "discovery_proof",
+    "unsupported_causality",
+    "symbolic_certainty_as_evidence",
+    "missingness_as_absence"
+  ],
+  "claim": "MC hypothesis packets become scientifically safer when measurement readiness is explicitly gated before claims are promoted as tested, validated, discovered, cured, or externally actionable.",
+  "pass_criteria": {
+    "allowed_routes_when_ready": [
+      "research_map",
+      "experiment_design",
+      "question_prep",
+      "private_longitudinal_memory"
+    ],
+    "required_fields_for_measurement_ready": [
+      "source_status",
+      "claim_status",
+      "privacy_status",
+      "missingness",
+      "revision_reason",
+      "implementation_status",
+      "testability",
+      "falsification_route",
+      "measurable_variables",
+      "next_executable_action",
+      "operational_definitions",
+      "measurement_instruments",
+      "sampling_plan",
+      "decision_thresholds",
+      "confounders",
+      "disconfirmation_criteria"
+    ],
+    "minimum_counts": {
+      "operational_definitions": 1,
+      "measurement_instruments": 1,
+      "sampling_plan": 1,
+      "decision_thresholds": 1,
+      "confounders": 1,
+      "disconfirmation_criteria": 1
+    }
+  },
+  "packets": [
+    {
+      "packet_id": "pass_symbolic_to_operational_measurement_ready",
+      "source_status": "synthetic_observation_packet",
+      "claim_status": "measurement_ready_research_question",
+      "privacy_status": "synthetic_no_identifiers",
+      "missingness": "instrument validity and real-world replication not yet established",
+      "revision_reason": "Converted symbolic phrase into observable variables while preserving ambiguity.",
+      "implementation_status": "semi_executable_fixture_entry",
+      "testability": "field completeness and route safety can be checked by validator",
+      "falsification_route": "If repeated records show no stable relationship between the operationalized variables under defined sampling windows, the proposed pattern remains unsupported.",
+      "measurable_variables": [
+        "reported_transition_intensity_0_to_10",
+        "context_label_before",
+        "context_label_after",
+        "time_to_reorientation_seconds"
+      ],
+      "next_executable_action": "Collect three de-identified synthetic-format entries and run the same gate before pattern inference.",
+      "operational_definitions": [
+        {
+          "symbolic_term": "context switch",
+          "operational_variable": "context_label_change",
+          "definition": "A recorded change from one named interpretive frame to another within a single session note.",
+          "unit": "categorical_transition"
+        }
+      ],
+      "measurement_instruments": [
+        {
+          "instrument": "structured_session_note_template",
+          "measurement_mode": "self-report_or_AI-assisted_labeling",
+          "reliability_status": "not_validated_research_organization_only"
+        }
+      ],
+      "sampling_plan": [
+        {
+          "window": "single_session",
+          "frequency": "one_record_per_identified_transition",
+          "timestamp_required": true
+        }
+      ],
+      "decision_thresholds": [
+        {
+          "threshold": "minimum_three_records_before_pattern_discussion",
+          "reason": "prevents single-instance certainty"
+        }
+      ],
+      "confounders": [
+        "prompt wording effects",
+        "AI label drift",
+        "retrospective reinterpretation",
+        "missing contradictory records"
+      ],
+      "disconfirmation_criteria": [
+        "transition labels cannot be reproduced by a second pass",
+        "variable definitions change between records without revision log",
+        "alternative explanation fits the record with fewer assumptions"
+      ],
+      "intended_route": "research_map"
+    },
+    {
+      "packet_id": "fail_missing_thresholds",
+      "source_status": "synthetic_observation_packet",
+      "claim_status": "not_measurement_ready",
+      "privacy_status": "synthetic_no_identifiers",
+      "missingness": "decision thresholds absent",
+      "revision_reason": "Fixture negative case for missing threshold detection.",
+      "implementation_status": "semi_executable_fixture_entry",
+      "testability": "validator should reject as measurement_ready if thresholds are missing",
+      "falsification_route": "Cannot be falsified until decision thresholds are stated.",
+      "measurable_variables": ["symbolic_resonance_score"],
+      "next_executable_action": "Define a decision threshold before any promotion.",
+      "operational_definitions": [
+        {
+          "symbolic_term": "resonance",
+          "operational_variable": "symbolic_resonance_score",
+          "definition": "User-rated fit between phrase and experience.",
+          "unit": "0_to_10_rating"
+        }
+      ],
+      "measurement_instruments": [
+        {
+          "instrument": "rating_prompt",
+          "measurement_mode": "self-report",
+          "reliability_status": "not_validated_research_organization_only"
+        }
+      ],
+      "sampling_plan": [
+        {
+          "window": "single_prompt_response",
+          "frequency": "one_rating_per_claim",
+          "timestamp_required": true
+        }
+      ],
+      "decision_thresholds": [],
+      "confounders": ["demand characteristics"],
+      "disconfirmation_criteria": ["rating not stable across repeated phrasing"],
+      "intended_route": "experiment_design"
+    },
+    {
+      "packet_id": "fail_unsafe_promotion",
+      "source_status": "synthetic_observation_packet",
+      "claim_status": "measurement_ready_research_question",
+      "privacy_status": "synthetic_no_identifiers",
+      "missingness": "no professional review and no replication",
+      "revision_reason": "Fixture negative case for blocked class detection.",
+      "implementation_status": "semi_executable_fixture_entry",
+      "testability": "validator should reject unsafe output class even if measurement fields exist",
+      "falsification_route": "If safe alternatives explain the records, the action claim is rejected.",
+      "measurable_variables": ["observation_count"],
+      "next_executable_action": "Block action promotion and rewrite as research organization or question prep.",
+      "operational_definitions": [
+        {
+          "symbolic_term": "signal",
+          "operational_variable": "observation_count",
+          "definition": "Number of matching de-identified observations in the packet.",
+          "unit": "count"
+        }
+      ],
+      "measurement_instruments": [
+        {
+          "instrument": "evidence_map_counter",
+          "measurement_mode": "structured_count",
+          "reliability_status": "not_validated_research_organization_only"
+        }
+      ],
+      "sampling_plan": [
+        {
+          "window": "longitudinal_notes",
+          "frequency": "one_count_per_review_batch",
+          "timestamp_required": true
+        }
+      ],
+      "decision_thresholds": [
+        {
+          "threshold": "two_or_more_independent_source_types_before_question_prep",
+          "reason": "separates pattern curiosity from actionability"
+        }
+      ],
+      "confounders": ["selection bias", "recording bias"],
+      "disconfirmation_criteria": ["contradictory records exceed supporting records"],
+      "intended_route": "public_proof",
+      "unsafe_text": "This proves a cure and should be treated as actionable guidance."
+    }
+  ]
+}
