@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/task_conditioned_evidence_admission_packet.schema.json",
+  "title": "TaskConditionedEvidenceAdmissionPacket",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "created_utc",
+    "current_task_intent",
+    "candidate_memory_or_evidence",
+    "source_status",
+    "claim_status",
+    "task_fit_status",
+    "task_fit_rationale",
+    "privacy_status",
+    "privacy_transformation",
+    "provenance_status",
+    "transfer_boundaries",
+    "missingness",
+    "synthetic_real_mismatch",
+    "blocked_inferences",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "falsification_route",
+    "next_executable_action"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "created_utc": {"type": "string", "format": "date-time"},
+    "current_task_intent": {"type": "string", "minLength": 12},
+    "candidate_memory_or_evidence": {"type": "string", "minLength": 12},
+    "source_status": {
+      "type": "string",
+      "enum": ["primary_source", "clinical_research_institution", "preprint", "benchmark", "open_source_tool", "dataset", "grant_or_prize", "synthetic_fixture", "mixed_public_sources"]
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": ["hypothesis", "schema_requirement", "evaluation_criterion", "prototype_requirement", "collaborator_target", "source_map", "blocked_claim"]
+    },
+    "task_fit_status": {
+      "type": "string",
+      "enum": ["direct_task_fit", "bounded_task_fit", "weak_task_fit", "semantic_similarity_only", "task_fit_rejected"]
+    },
+    "task_fit_rationale": {"type": "string", "minLength": 20},
+    "privacy_status": {
+      "type": "string",
+      "enum": ["public_only", "deidentified", "placeholder_transformed", "synthetic_only", "restricted_sensitive", "undeclared"]
+    },
+    "privacy_transformation": {"type": "string", "minLength": 8},
+    "provenance_status": {
+      "type": "string",
+      "enum": ["full_provenance", "partial_provenance", "synthetic_provenance", "derived_summary", "unknown"]
+    },
+    "transfer_boundaries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 4}
+    },
+    "missingness": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 4}
+    },
+    "synthetic_real_mismatch": {"type": "string", "minLength": 8},
+    "blocked_inferences": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 8}
+    },
+    "revision_reason": {"type": "string", "minLength": 12},
+    "implementation_status": {
+      "type": "string",
+      "enum": ["proposed", "schema_only", "validator_added", "fixtures_added", "tests_added", "implemented"]
+    },
+    "evidence_strength": {
+      "type": "string",
+      "enum": ["low", "moderate", "high", "mixed", "insufficient"]
+    },
+    "falsification_route": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 12}
+  }
+}
