@@ -97,4 +97,12 @@ Run:
 
 Tests whether MC claims can be routed by evidence status into research questions, longitudinal observations, contradiction-ledger entries, or blocked packets. The validator rejects unsafe promotion, private leakage, unsupported causality, missingness collapse, diagnosis/treatment/veterinary/dosage/urgency claims, and discovery-proof claims.
 
+### Contradiction ledger fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_contradiction_ledger_fixture.py`
+
+Tests whether MC hypothesis packets become more scientifically useful when contradictions are preserved as ledger entries with both sides, source boundaries, missingness state, measurable variables, falsification routes, and safe next actions. The validator rejects premature certainty, unsafe route promotion, diagnosis/treatment/veterinary/dosage/urgency classes, cure certainty, discovery proof, unsupported causality, symbolic certainty, private identifier retention, and missingness-as-absence.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
