@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.local/schemas/research_workflow_evidence_packet.schema.json",
+  "title": "Research Workflow Evidence Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "created_utc",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "falsification_route",
+    "next_executable_action",
+    "workflow_stage_coverage",
+    "translation_boundary",
+    "validation_route",
+    "blocked_inferences",
+    "provenance_route"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 8},
+    "created_utc": {"type": "string", "format": "date-time"},
+    "source_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "sources"],
+      "properties": {
+        "classification": {"enum": ["primary", "clinical_or_research_institution", "preprint", "benchmark", "open_source_tool", "mixed"]},
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["title", "url", "date", "status", "caveat"],
+            "properties": {
+              "title": {"type": "string", "minLength": 3},
+              "url": {"type": "string", "format": "uri"},
+              "date": {"type": "string", "minLength": 4},
+              "status": {"type": "string", "minLength": 3},
+              "caveat": {"type": "string", "minLength": 3}
+            }
+          }
+        }
+      }
+    },
+    "claim_status": {"enum": ["hypothesis", "test", "schema", "evaluation_criterion", "source_map", "prototype_requirement", "collaborator_or_opportunity_target"]},
+    "privacy_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "personal_data", "allowed_reuse_scope", "privacy_risk"],
+      "properties": {
+        "classification": {"enum": ["public_safe_synthetic", "deidentified_research", "contains_sensitive_data", "unknown"]},
+        "personal_data": {"type": "boolean"},
+        "allowed_reuse_scope": {"type": "string", "minLength": 3},
+        "privacy_risk": {"type": "string", "minLength": 3}
+      }
+    },
+    "missingness": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}},
+    "revision_reason": {"type": "string", "minLength": 10},
+    "implementation_status": {"enum": ["proposed", "schema_only", "implemented_with_tests", "validated", "deprecated"]},
+    "evidence_strength": {"enum": ["weak", "moderate", "strong", "mixed"]},
+    "falsification_route": {"type": "string", "minLength": 20},
+    "next_executable_action": {"type": "string", "minLength": 10},
+    "workflow_stage_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence_handling", "analysis", "design_or_optimization", "scientific_reasoning", "validation_or_operations", "translation", "scientific_communication"],
+      "properties": {
+        "evidence_handling": {"enum": ["covered", "partial", "missing", "not_applicable"]},
+        "analysis": {"enum": ["covered", "partial", "missing", "not_applicable"]},
+        "design_or_optimization": {"enum": ["covered", "partial", "missing", "not_applicable"]},
+        "scientific_reasoning": {"enum": ["covered", "partial", "missing", "not_applicable"]},
+        "validation_or_operations": {"enum": ["covered", "partial", "missing", "not_applicable"]},
+        "translation": {"enum": ["covered", "partial", "missing", "not_applicable"]},
+        "scientific_communication": {"enum": ["covered", "partial", "missing", "not_applicable"]}
+      }
+    },
+    "translation_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from_context", "to_context", "bridge_evidence", "blocked_transfer"],
+      "properties": {
+        "from_context": {"type": "string", "minLength": 3},
+        "to_context": {"type": "string", "minLength": 3},
+        "bridge_evidence": {"type": "string", "minLength": 3},
+        "blocked_transfer": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}}
+      }
+    },
+    "validation_route": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}},
+    "blocked_inferences": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}},
+    "provenance_route": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}}
+  }
+}
