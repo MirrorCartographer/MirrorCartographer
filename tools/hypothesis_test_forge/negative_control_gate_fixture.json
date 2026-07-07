@@ -1,0 +1,138 @@
+{
+  "artifact_id": "negative_control_gate_fixture_v1",
+  "artifact_type": "test_fixture",
+  "domain": "scientific_reasoning",
+  "claim": "MC pattern inferences become more scientifically useful when each proposed relationship includes at least one positive-control expectation, one negative-control expectation, and one disconfirming observation route before promotion.",
+  "source_status": "synthetic_fixture_no_external_sources",
+  "claim_status": "hypothesis_under_test_not_established_fact",
+  "privacy_status": "de_identified_no_personal_identifiers",
+  "missingness": {
+    "status": "explicitly_labeled",
+    "known_missing": [
+      "real-world repeated measurements",
+      "independent evaluator labels",
+      "domain-expert review",
+      "external literature citations"
+    ],
+    "must_not_infer_absence_from_missingness": true
+  },
+  "revision_reason": "Adds a stronger scientific reasoning gate after counterfactual prediction by requiring controls that can separate true signal from expectation, attention bias, coincidence, or symbolic overfit.",
+  "implementation_status": "fixture_created_validator_required",
+  "testability": "semi_executable_schema_and_rule_validation",
+  "falsification_route": "The gate fails if a promoted relationship lacks a positive control, negative control, disconfirming route, measurable variables, source boundary, privacy boundary, or blocked unsafe route list.",
+  "measurable_variables": [
+    {
+      "name": "positive_control_present",
+      "type": "boolean",
+      "pass_condition": true
+    },
+    {
+      "name": "negative_control_present",
+      "type": "boolean",
+      "pass_condition": true
+    },
+    {
+      "name": "disconfirming_route_count",
+      "type": "integer",
+      "minimum": 1
+    },
+    {
+      "name": "unsafe_route_count",
+      "type": "integer",
+      "expected": 0
+    },
+    {
+      "name": "missingness_preserved",
+      "type": "boolean",
+      "pass_condition": true
+    }
+  ],
+  "next_executable_action": "Run validate_negative_control_gate.py against this fixture and add at least one failing fixture before integrating with broader Forge CI.",
+  "promotion_rules": {
+    "allowed_outputs": [
+      "research_question",
+      "measurement_plan",
+      "contradiction_ledger_entry",
+      "question_prep_note",
+      "private_deidentified_longitudinal_note"
+    ],
+    "blocked_outputs": [
+      "diagnosis",
+      "treatment_recommendation",
+      "veterinary_advice",
+      "dosage_guidance",
+      "emergency_triage",
+      "cure_certainty",
+      "discovery_proof",
+      "unsupported_causality",
+      "public_certainty_claim"
+    ]
+  },
+  "test_cases": [
+    {
+      "case_id": "valid_pattern_with_controls",
+      "source_status": "synthetic_user_observation",
+      "claim_status": "pattern_hypothesis",
+      "privacy_status": "de_identified",
+      "missingness": "partial_time_series_missing_exact_timestamps",
+      "revision_reason": "Converted symbolic pattern language into control-ready measurement logic.",
+      "implementation_status": "ready_for_validation",
+      "testability": "measurable_with_repeated_observation",
+      "proposed_relationship": "Context-switch language may improve sensemaking quality when it produces separable observations, controls, and next actions.",
+      "source_boundary": "synthetic observation only; no medical, veterinary, or factual-world claim is made",
+      "positive_control": {
+        "expectation": "When a packet includes an explicit context switch reason, independent reviewers should more often identify why the inference changed.",
+        "measurement": "reviewer_switch_reason_accuracy",
+        "unit": "proportion_correct",
+        "minimum_signal_threshold": 0.7
+      },
+      "negative_control": {
+        "expectation": "When unrelated symbolic words are inserted without a context switch reason, reviewer accuracy should not increase above baseline.",
+        "measurement": "reviewer_accuracy_under_unrelated_symbol_insertion",
+        "unit": "proportion_correct",
+        "maximum_baseline_threshold": 0.55
+      },
+      "disconfirming_observations": [
+        "Reviewer accuracy improves equally in unrelated-symbol packets and reasoned-switch packets.",
+        "Reviewers cannot distinguish observation, interpretation, and action fields above chance.",
+        "Missingness labels are ignored or treated as absence by downstream summaries."
+      ],
+      "measurable_variables": [
+        "reviewer_switch_reason_accuracy",
+        "reviewer_accuracy_under_unrelated_symbol_insertion",
+        "field_boundary_error_rate",
+        "missingness_collapse_count"
+      ],
+      "falsification_route": "If negative-control packets improve the same amount as reasoned-switch packets, the observed benefit is likely attention, style, or novelty rather than context-switch structure.",
+      "blocked_routes": [],
+      "next_executable_action": "Create ten paired packets: five with reasoned context switches and five with unrelated symbolic insertions, then score blinded reviewer accuracy."
+    },
+    {
+      "case_id": "invalid_pattern_without_negative_control",
+      "source_status": "synthetic_user_observation",
+      "claim_status": "pattern_hypothesis",
+      "privacy_status": "de_identified",
+      "missingness": "not_reported",
+      "revision_reason": "Insufficient; claim promoted from resonance without controls.",
+      "implementation_status": "blocked_by_validator",
+      "testability": "not_control_ready",
+      "proposed_relationship": "A symbolic phrase proves a new mechanism.",
+      "source_boundary": "unclear",
+      "positive_control": {
+        "expectation": "The phrase feels meaningful.",
+        "measurement": "subjective_resonance",
+        "unit": "rating"
+      },
+      "negative_control": null,
+      "disconfirming_observations": [],
+      "measurable_variables": [],
+      "falsification_route": "none",
+      "blocked_routes": [
+        "discovery_proof",
+        "unsupported_causality",
+        "public_certainty_claim"
+      ],
+      "next_executable_action": "Rewrite as a measurement plan with a negative control and disconfirming observations."
+    }
+  ]
+}
