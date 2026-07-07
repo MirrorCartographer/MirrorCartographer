@@ -1,0 +1,137 @@
+{
+  "artifact_type": "test_fixture",
+  "claim": "Symbolic MC language becomes operationally useful only when each symbol is translated into observable variables, ambiguity is preserved, and the result can roundtrip back to the original meaning without being promoted into factual certainty.",
+  "source_status": "synthetic_fixture_for_system_validation",
+  "claim_status": "hypothesis_under_test",
+  "privacy_status": "no_private_identifiers_retained",
+  "missingness": {
+    "status": "explicitly_represented",
+    "known_missing_fields": [
+      "real_user_session_context",
+      "validated psychometric measures",
+      "external observer ratings"
+    ],
+    "missingness_rule": "Missing context must reduce confidence and may not be interpreted as absence of distress, absence of meaning, or evidence of clinical state."
+  },
+  "revision_reason": "Adds an executable check for whether symbolic-to-operational translation preserves ambiguity and testability instead of flattening symbols into unsupported facts.",
+  "implementation_status": "executable_fixture_with_validator",
+  "testability": "Validator checks required metadata, symbol mappings, ambiguity preservation, measurable variables, roundtrip summaries, blocked promotions, and safe next actions.",
+  "falsification_route": "The claim fails if symbolic entries cannot produce measurable variables, if ambiguity is erased, if roundtrip summaries distort the source symbol, or if outputs become diagnosis, treatment, veterinary advice, supernatural certainty, cure certainty, discovery proof, or private memory leakage.",
+  "measurable_variables": [
+    "symbol_count",
+    "symbols_with_operational_variables",
+    "ambiguity_preservation_rate",
+    "roundtrip_integrity_rate",
+    "blocked_promotion_count",
+    "safe_next_action_count"
+  ],
+  "next_executable_action": "Run python tools/hypothesis_test_forge/validate_symbolic_operational_roundtrip.py",
+  "pass_thresholds": {
+    "min_symbol_count": 3,
+    "required_operational_variables_per_symbol": 2,
+    "min_ambiguity_options_per_symbol": 2,
+    "min_roundtrip_terms_overlap": 1,
+    "min_blocked_promotions_per_symbol": 2
+  },
+  "symbols": [
+    {
+      "symbol_id": "sym_fire_chest_001",
+      "symbol_phrase": "fire in chest",
+      "symbol_domain": "embodied_symbolic_language",
+      "source_status": "synthetic_example_from_MC_style_language",
+      "claim_status": "symbolic_observation_not_factual_claim",
+      "privacy_status": "deidentified",
+      "missingness": "No timestamp, posture, activity context, duration, intensity rating, or co-occurring variables are supplied.",
+      "revision_reason": "Convert evocative phrase into measurable observation candidates while preserving multiple possible meanings.",
+      "implementation_status": "fixture_row",
+      "testability": "Can be checked for candidate variable presence, ambiguity preservation, and non-promotion boundaries.",
+      "falsification_route": "Fails if mapped to one certain meaning or used as evidence of diagnosis, treatment need, or metaphysical proof.",
+      "measurable_variables": [
+        {"name": "reported_location", "unit": "body_region_label", "measurement_context": "self-report body map"},
+        {"name": "sensation_intensity", "unit": "0_to_10_rating", "measurement_context": "momentary self-report"},
+        {"name": "duration_minutes", "unit": "minutes", "measurement_context": "session log"},
+        {"name": "co_occurring_context", "unit": "categorical_tags", "measurement_context": "activity/emotion/environment log"}
+      ],
+      "ambiguity_options": [
+        "strong affective salience",
+        "interoceptive sensation description",
+        "creative metaphor for urgency or intensity",
+        "memory-linked symbolic marker"
+      ],
+      "roundtrip_summary": "The phrase remains a symbol of intense chest-centered experience, not a diagnosis or proof claim.",
+      "blocked_promotions": [
+        "diagnosis",
+        "treatment_recommendation",
+        "certainty_claim",
+        "supernatural_proof"
+      ],
+      "next_executable_action": "Ask for timestamped observation fields or place into deidentified longitudinal symbol log."
+    },
+    {
+      "symbol_id": "sym_eye_light_002",
+      "symbol_phrase": "eye and light",
+      "symbol_domain": "symbolic_to_perceptual_translation",
+      "source_status": "synthetic_example_from_MC_style_language",
+      "claim_status": "symbolic_observation_not_factual_claim",
+      "privacy_status": "deidentified",
+      "missingness": "No visual task, lighting condition, screen use, sleep, stress, or external observation supplied.",
+      "revision_reason": "Separate symbolic resonance from measurable perception-context variables.",
+      "implementation_status": "fixture_row",
+      "testability": "Can be checked for variable candidates, alternative meanings, and blocked clinical/supernatural promotion.",
+      "falsification_route": "Fails if treated as proof of neurological, spiritual, or perceptual state without external evidence.",
+      "measurable_variables": [
+        {"name": "lighting_condition", "unit": "categorical_or_lux_if_available", "measurement_context": "environment log"},
+        {"name": "visual_task", "unit": "categorical_task_label", "measurement_context": "reading/driving/screen/outdoor context"},
+        {"name": "symbolic_salience", "unit": "0_to_10_rating", "measurement_context": "reflection log"},
+        {"name": "interpretation_confidence", "unit": "0_to_1_score", "measurement_context": "AI/user sensemaking output"}
+      ],
+      "ambiguity_options": [
+        "attention and perception theme",
+        "symbolic insight marker",
+        "literal environmental lighting context",
+        "aesthetic motif for MC interface design"
+      ],
+      "roundtrip_summary": "The phrase keeps the relationship between seeing, attention, and illumination while remaining operationally bounded.",
+      "blocked_promotions": [
+        "diagnosis",
+        "veterinary_advice",
+        "supernatural_certainty",
+        "unsupported_causality"
+      ],
+      "next_executable_action": "Convert into UI/theme variable candidates and optional deidentified observation prompts."
+    },
+    {
+      "symbol_id": "sym_slug_path_003",
+      "symbol_phrase": "slug path",
+      "symbol_domain": "creative_symbol_to_process_model",
+      "source_status": "synthetic_example_from_MC_story_design_language",
+      "claim_status": "process_metaphor_not_empirical_claim",
+      "privacy_status": "deidentified",
+      "missingness": "No actual project timeline, artifact trace, or behavioral log is supplied.",
+      "revision_reason": "Test whether a story-like symbol can become process variables without losing metaphorical meaning.",
+      "implementation_status": "fixture_row",
+      "testability": "Can be checked for measurable process variables and roundtrip preservation of slow trace-making meaning.",
+      "falsification_route": "Fails if metaphor is flattened into a fixed psychological profile or used as proof of identity, diagnosis, or capability.",
+      "measurable_variables": [
+        {"name": "iteration_count", "unit": "count", "measurement_context": "artifact version log"},
+        {"name": "trace_persistence", "unit": "present_absent_or_score", "measurement_context": "diff/history review"},
+        {"name": "movement_speed", "unit": "qualitative_pace_category", "measurement_context": "project narrative"},
+        {"name": "environment_resistance", "unit": "0_to_10_rating", "measurement_context": "workflow friction log"}
+      ],
+      "ambiguity_options": [
+        "slow creation process",
+        "visible evidence trail",
+        "vulnerability moving through hostile terrain",
+        "animation/story motif"
+      ],
+      "roundtrip_summary": "The phrase remains a metaphor for a small organism leaving a visible trace through repeated movement.",
+      "blocked_promotions": [
+        "identity_certainty",
+        "diagnosis",
+        "discovery_proof",
+        "private_memory_leakage"
+      ],
+      "next_executable_action": "Use as a process-model row in an artifact-history visualization test."
+    }
+  ]
+}
