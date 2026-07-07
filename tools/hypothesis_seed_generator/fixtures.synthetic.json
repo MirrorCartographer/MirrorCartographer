@@ -1,0 +1,50 @@
+[
+  {
+    "packet_id": "obs-public-001",
+    "domain": "animal",
+    "source_status": "synthetic",
+    "claim_status": "candidate_pattern",
+    "privacy_status": "public_safe",
+    "missingness": ["no clinician review", "no baseline frequency"],
+    "signals": ["evening eye-pressure note", "travel-context behavior change", "medication-timing note"],
+    "context_factors": ["travel", "schedule shift"],
+    "contradictions": [],
+    "revision_reason": "create falsifiable animal-care observation seed without advice"
+  },
+  {
+    "packet_id": "obs-block-cure-claim",
+    "domain": "human",
+    "source_status": "synthetic",
+    "claim_status": "cure_claim",
+    "privacy_status": "public_safe",
+    "missingness": [],
+    "signals": ["symptom improved", "intervention occurred"],
+    "context_factors": ["unknown"],
+    "contradictions": [],
+    "revision_reason": "demonstrate cure-claim blocking"
+  },
+  {
+    "packet_id": "obs-block-private",
+    "domain": "human",
+    "source_status": "private",
+    "claim_status": "observation",
+    "privacy_status": "private_residue",
+    "missingness": [],
+    "signals": ["identifier-like detail", "clinical note"],
+    "context_factors": [],
+    "contradictions": [],
+    "revision_reason": "demonstrate privacy blocking"
+  },
+  {
+    "packet_id": "obs-block-thin",
+    "domain": "literature",
+    "source_status": "public",
+    "claim_status": "summary",
+    "privacy_status": "public_safe",
+    "missingness": [],
+    "signals": ["single literature note"],
+    "context_factors": [],
+    "contradictions": [],
+    "revision_reason": "demonstrate low-signal blocking"
+  }
+]
