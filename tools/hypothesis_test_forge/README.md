@@ -153,4 +153,12 @@ Run:
 
 Tests whether symbolic MC language can be translated into measurable variables while preserving ambiguity and roundtrip meaning. The validator rejects diagnosis, treatment, veterinary advice, dosage guidance, emergency triage, cure certainty, discovery proof, supernatural certainty, unsupported causality, private identifier retention, and missingness-as-absence collapse.
 
+### Longitudinal privacy consent fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_longitudinal_privacy_consent.py`
+
+Tests whether privacy-preserving longitudinal MC records remain useful only when every record carries consent scope, de-identification state, retention policy, missingness state, measurable variables, allowed export routes, blocked export routes, and falsification routes. The validator rejects direct identifiers, unsafe public raw export, unbounded retention, missingness-as-absence collapse, missing measurement variables, and unsafe clinical/veterinary/action promotion.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
