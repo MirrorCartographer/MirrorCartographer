@@ -129,4 +129,12 @@ Run:
 
 Tests whether revised MC packets preserve prior claim, revised claim, revision reason, evidence delta, missingness delta, privacy state, measurable variables, and falsification route before influencing longitudinal memory, research maps, question prep, or public claims. The validator rejects empty revision reasons, private identifier retention, unsafe diagnosis/treatment/veterinary/dosage/urgency/cure/proof language, and missingness-as-absence collapse.
 
+### Question-prep packet fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_question_prep_packet_fixture.py`
+
+Tests whether MC question-prep packets keep observations, interpretations, professional-review questions, missingness, privacy state, and non-promotable claims separated before export. The validator rejects diagnosis, treatment, veterinary advice, dosage guidance, urgency triage, cure certainty, discovery proof, unsupported causality, private identifier retention, and missingness-as-absence collapse.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
