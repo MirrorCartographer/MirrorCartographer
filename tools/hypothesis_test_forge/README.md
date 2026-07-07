@@ -193,4 +193,12 @@ Run:
 
 Tests whether MC hypothesis packets become more scientifically useful when proposed patterns are forced to carry plausible confounders, alternative explanations, discriminating measurements, and falsification routes before promotion into memory, research maps, question prep, or public claims. The validator rejects unsupported causality, discovery proof, unsafe public proof, missingness-as-absence collapse, and proposed patterns that cannot be separated from plausible confounders.
 
+### Disagreement adjudication fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_disagreement_adjudication_fixture.py`
+
+Tests whether human-AI sensemaking packets become safer when human labels, AI labels, agreement state, disagreement type, adjudication route, privacy state, missingness, measurable variables, and falsification route are preserved before memory or export promotion. The validator rejects silent AI override, silent human override, unsafe public/action promotion, diagnosis, treatment, dosage guidance, emergency triage, veterinary advice, cure certainty, discovery proof, unsupported causality, private identifier retention, and missingness-as-absence collapse.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
