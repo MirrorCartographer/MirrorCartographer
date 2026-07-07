@@ -1,0 +1,67 @@
+{
+  "packet_id": "bpgp-assaybench-001",
+  "benchmark_identity": {
+    "name": "AssayBench-style assay-level virtual cell benchmark",
+    "version_or_date": "2026-05-11",
+    "domain": "mechanistic_biology",
+    "benchmark_status": "preprint"
+  },
+  "source_status": "preprint_with_caveat",
+  "claim_status": "evaluation_criterion",
+  "claim_under_review": "A model score on phenotypic screen prediction supports mechanism-discovery memory promotion.",
+  "dataset_provenance": {
+    "origin": "public CRISPR phenotypic screens",
+    "population_or_species": "human and/or cell-line contexts as declared by each screen",
+    "site_or_lab": "heterogeneous public source studies",
+    "modality": "CRISPR screen phenotype ranking",
+    "collection_context": "assay-level experimental screen aggregation rather than direct clinical intervention",
+    "license_or_access": "public or benchmark-mediated access",
+    "provenance_risk": "moderate"
+  },
+  "task_metric_binding": {
+    "task": "gene rank prediction for phenotypic screen outcomes",
+    "metric": "adjusted nDCG",
+    "metric_claim_fit": "partial",
+    "blocked_metric_inference": "A strong rank metric does not by itself prove causal mechanism, cure relevance, clinical transfer, or cross-species validity."
+  },
+  "transfer_boundary": {
+    "within_scope": [
+      "assay-level ranking performance",
+      "benchmark-specific screen prediction",
+      "hypothesis prioritization"
+    ],
+    "out_of_scope": [
+      "individual diagnosis",
+      "treatment recommendation",
+      "clinical cure claim",
+      "veterinary species transfer without bridge evidence"
+    ],
+    "required_bridge_evidence": [
+      "independent assay replication",
+      "mechanistic perturbation validation",
+      "context-matched biological endpoint",
+      "privacy and consent review if linked to longitudinal health memory"
+    ]
+  },
+  "benchmark_gap_model": {
+    "known_gaps": [
+      "screen aggregation may hide lab effects",
+      "rank metrics may not capture biological fidelity",
+      "cell context may not match organism or patient context",
+      "negative or failed experiments may be underrepresented"
+    ],
+    "gap_severity": "high",
+    "why_gap_matters": "Discovery memory can overgeneralize from benchmark success if benchmark provenance and biological transfer limits are not preserved."
+  },
+  "privacy_status": "public_safe",
+  "missingness": [
+    "complete screen-level provenance may be incomplete",
+    "failed or unpublished screens may be absent",
+    "cell-state and batch-effect metadata may be uneven"
+  ],
+  "revision_reason": "Add benchmark provenance gate to prevent benchmark-score collapse into unsupported biological or clinical claims.",
+  "implementation_status": "tests_added",
+  "evidence_strength": "moderate",
+  "falsification_route": "Compare curator reconstruction accuracy with and without this packet; revise if provenance and transfer errors do not decrease.",
+  "next_executable_action": "Run the validator and require this packet before benchmark-derived memory promotion."
+}
