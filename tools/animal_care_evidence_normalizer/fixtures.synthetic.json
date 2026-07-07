@@ -1,0 +1,76 @@
+[
+  {
+    "packet_id": "animal-syn-001",
+    "species": "dog",
+    "domain": "ophthalmology",
+    "observation_text": "Synthetic dog had higher measured eye pressure at night in a fictional care log.",
+    "source_type": "owner_observation",
+    "source_status": "synthetic",
+    "claim_status": "observation_only",
+    "privacy_status": "public_safe",
+    "timestamp": "2026-07-07T12:00:00Z",
+    "measurements": [
+      {"name": "eye_pressure_pattern", "value": "higher_at_night", "unit": "categorical"}
+    ],
+    "missingness": ["no_exam_findings", "no_treatment_outcome"],
+    "revision_reason": "normalize animal-care observation before downstream reasoning"
+  },
+  {
+    "packet_id": "animal-syn-002",
+    "species": "cat",
+    "domain": "lymph_node_observation",
+    "observation_text": "Synthetic cat has a fictional review question about enlarged lymph nodes; no diagnosis is asserted.",
+    "source_type": "review_question",
+    "source_status": "synthetic",
+    "claim_status": "review_question",
+    "privacy_status": "public_safe",
+    "timestamp": "2026-07-07T12:30:00Z",
+    "measurements": [],
+    "missingness": ["no_cytology", "no_veterinary_diagnosis", "no_trend_duration"],
+    "revision_reason": "route animal-care question to review without overclaiming"
+  },
+  {
+    "packet_id": "animal-syn-003",
+    "species": "dog",
+    "domain": "medication_reaction",
+    "observation_text": "Synthetic dog walked in repeated circles after a fictional travel medication exposure; no causality is asserted.",
+    "source_type": "owner_observation",
+    "source_status": "synthetic",
+    "claim_status": "observation_only",
+    "privacy_status": "public_safe",
+    "timestamp": "2026-07-07T13:00:00Z",
+    "measurements": [
+      {"name": "behavior_change_after_exposure", "value": "repetitive_walking", "unit": "categorical"}
+    ],
+    "missingness": ["no_dose_confirmation", "no_exam_notes", "no_alternative_exposure_log"],
+    "revision_reason": "preserve temporal observation without converting it into causality"
+  },
+  {
+    "packet_id": "animal-syn-block-private",
+    "species": "dog",
+    "domain": "cardiology",
+    "observation_text": "Synthetic packet with private status should be blocked.",
+    "source_type": "owner_observation",
+    "source_status": "synthetic",
+    "claim_status": "observation_only",
+    "privacy_status": "private",
+    "timestamp": "2026-07-07T13:30:00Z",
+    "measurements": [],
+    "missingness": ["no_echo", "no_exam_findings"],
+    "revision_reason": "test privacy blocker"
+  },
+  {
+    "packet_id": "animal-syn-block-overclaim",
+    "species": "cat",
+    "domain": "general",
+    "observation_text": "This synthetic text says the animal is cured and tells the reader to treat immediately.",
+    "source_type": "owner_observation",
+    "source_status": "synthetic",
+    "claim_status": "observation_only",
+    "privacy_status": "public_safe",
+    "timestamp": "2026-07-07T14:00:00Z",
+    "measurements": [],
+    "missingness": ["unsafe_overclaim_fixture"],
+    "revision_reason": "test overclaim blocker"
+  }
+]
