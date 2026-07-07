@@ -1,0 +1,28 @@
+{
+  "packet_id": "tsfg-2026-07-06-001",
+  "research_domain": "scientific AI hypothesis generation and longitudinal biomedical discovery infrastructure",
+  "source_status": "mixed",
+  "claim_status": "evaluation_criterion",
+  "privacy_status": "synthetic_only",
+  "evidence_cutoff": "2026-07-06",
+  "forecast_horizon": "12 months",
+  "forecast_claim": "Discovery-memory promotion should require a temporally bounded forecast: what contribution, collaborator, prior-work dependency, or benchmark improvement should become observable after the evidence cutoff.",
+  "prior_work_dependencies": [
+    "PreScience-style fixed-cutoff scientific contribution forecasting",
+    "FrontierScience-style rubric evaluation of open-ended research subtasks",
+    "agentic scientific reasoning systems with tool-integrated evidence routes"
+  ],
+  "collaborator_or_dataset_targets": [
+    "authors or labs releasing scientific forecasting benchmarks",
+    "MIMIC-style reproducible longitudinal clinical benchmarks",
+    "open-source scientific agent evaluation harnesses"
+  ],
+  "expected_contribution_shape": "A gate that turns vague discovery claims into forecastable packets with prior-work links, expected contribution form, evaluation signal, and falsification route.",
+  "evaluation_signal": "Reviewer can decide after the forecast horizon whether the predicted contribution direction, benchmark movement, collaborator target, or dataset dependency materialized.",
+  "missingness": "No production corpus, curator labels, or live bibliometric backtest has been attached yet.",
+  "revision_reason": "Prior MC gates checked evidence structure but did not force a fixed evidence cutoff plus prospective evaluation horizon.",
+  "implementation_status": "implemented_synthetic",
+  "evidence_strength": "moderate",
+  "falsification_route": "Revise or remove this gate if fixed-cutoff forecast packets fail to improve reviewer agreement or do not reduce vague unsupported discovery-memory promotions.",
+  "next_executable_action": "Run the validator against valid and invalid fixtures, then add a CI job once the repository test layout is consolidated."
+}
