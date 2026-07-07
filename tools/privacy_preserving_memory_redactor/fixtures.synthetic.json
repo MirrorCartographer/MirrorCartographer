@@ -1,0 +1,50 @@
+[
+  {
+    "packet_id": "pmr-001",
+    "domain": "animal_care",
+    "source_status": "synthetic",
+    "claim_status": "observation_only",
+    "privacy_status": "synthetic_public_safe",
+    "text": "Small dog eye-pressure note: evening swelling pattern appears temporally near travel stress in a synthetic fixture. Track time, medication timing, appetite, restlessness, vomiting, and vet-reviewed red flags without claiming causation.",
+    "missingness": ["no measured pressure value", "no clinician exam result", "synthetic fixture only"],
+    "revision_reason": "test memory-ready animal-care observation without private residue",
+    "tags": ["animal-care", "longitudinal-pattern"],
+    "evidence_refs": []
+  },
+  {
+    "packet_id": "pmr-002",
+    "domain": "human_health",
+    "source_status": "user_private",
+    "claim_status": "unbounded_note",
+    "privacy_status": "private_contains_identifiers",
+    "text": "Full name marker Charity Alessandra Sturgell, email hr9kx76pyf@privaterelay.appleid.com, phone 555-202-1978, address 123 Example Street, exact date of birth 1994-07-08. This should never enter public memory.",
+    "missingness": ["private source", "not public-safe"],
+    "revision_reason": "test identifier detection and blocked route",
+    "tags": ["privacy"],
+    "evidence_refs": []
+  },
+  {
+    "packet_id": "pmr-003",
+    "domain": "hypothesis",
+    "source_status": "synthetic",
+    "claim_status": "overclaim",
+    "privacy_status": "synthetic_public_safe",
+    "text": "If the protocol is used, the condition is healed. This would diagnose and treat the issue and should take priority over clinician review.",
+    "missingness": ["no control group", "no outcome metric", "no preregistered falsifier"],
+    "revision_reason": "test medical/veterinary advice and cure certainty boundary routing",
+    "tags": ["falsification", "claim-boundary"],
+    "evidence_refs": []
+  },
+  {
+    "packet_id": "pmr-004",
+    "domain": "literature",
+    "source_status": "public_literature_note",
+    "claim_status": "bounded_summary",
+    "privacy_status": "public_safe",
+    "text": "A literature note can be retained when it separates observed association from causation, keeps source handles public-safe, and lists missing methods details.",
+    "missingness": ["sample size not captured", "study type not captured"],
+    "revision_reason": "test public literature memory readiness",
+    "tags": ["literature", "evidence-boundary"],
+    "evidence_refs": ["public-ref-placeholder-001"]
+  }
+]
