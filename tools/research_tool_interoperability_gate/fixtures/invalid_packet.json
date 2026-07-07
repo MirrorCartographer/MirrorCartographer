@@ -1,0 +1,34 @@
+{
+  "packet_id": "rti-invalid-001",
+  "source_status": "private unclear note",
+  "claim_status": "promoted cure claim",
+  "privacy_status": "restricted_private_data",
+  "missingness": [],
+  "revision_reason": "bad",
+  "implementation_status": "incomplete",
+  "evidence_strength": "high",
+  "falsification_route": "unclear",
+  "next_executable_action": "none",
+  "toolchain_components": [
+    {
+      "name": "chat",
+      "role": "claim generation",
+      "reproducibility_status": "unknown",
+      "privacy_risk": "high"
+    }
+  ],
+  "data_boundary": {
+    "data_type": "private note",
+    "species_or_subject": "animal patient",
+    "identifiability": "identified",
+    "allowed_use": ""
+  },
+  "execution_environment": {
+    "environment_type": "unknown",
+    "versioning": "none",
+    "external_dependencies": "not-a-list"
+  },
+  "provenance_log": [],
+  "human_review_role": "none",
+  "blocked_inferences": []
+}
