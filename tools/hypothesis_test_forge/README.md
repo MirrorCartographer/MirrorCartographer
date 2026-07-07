@@ -166,3 +166,11 @@ Run:
 `python tools/hypothesis_test_forge/validate_promotion_traceability_gate.py`
 
 Tests whether MC evidence packets become safer when every promoted claim preserves a traceable route from source observation to transformation steps, uncertainty, privacy gate, measurable variables, blocked promotions, and next executable action. The validator rejects source-free promotion, unsafe routes, missing transformation steps, missing uncertainty statements, missing measurable variables, diagnosis/treatment/veterinary/dosage/urgency classes, cure certainty, discovery proof, unsupported causality, private identifier export, and missingness collapse.
+
+### Counterfactual prediction gate fixture
+
+Run:
+
+`python tools/hypothesis_test_forge/validate_counterfactual_prediction_gate.py`
+
+Tests whether MC pattern inferences become more testable when every proposed relationship includes counterfactual predictions, null-result criteria, source boundaries, privacy limits, measurable variables, blocked unsafe routes, and safe next action before memory or export promotion. The validator rejects source-boundary gaps, missing wrong/right prediction branches, missing null-result criteria, unsafe routes, diagnosis/treatment/veterinary/dosage/urgency classes, cure certainty, discovery proof, unsupported causality, private identifier export, public-certainty claims, and missingness collapse.
