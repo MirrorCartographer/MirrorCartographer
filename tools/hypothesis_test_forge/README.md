@@ -81,4 +81,12 @@ Artifact:
 
 Tests whether health-related AI inferences become safer and more scientifically useful when organized as evidence rows with source boundaries, missingness states, privacy state, measurable variables, falsification routes, blocked-class scans, and clinician/veterinarian question-prep outputs. This artifact is a semi-executable evidence table and scoring contract; it does not provide diagnosis, treatment, dosage guidance, emergency triage, or veterinary advice.
 
+### Nervous-system context-switch simulated dataset
+
+Artifact:
+
+`tools/hypothesis_test_forge/nervous_system_context_switch_simulated_dataset.json`
+
+Tests whether nervous-system/cognition context-switch observations can be represented as measurable transition records that preserve subjective experience, uncertainty, and question-prep utility without becoming diagnosis, treatment, urgency, or causality claims.
+
 This folder is research-organization infrastructure only. It is not medical advice, veterinary advice, diagnosis, treatment, dosage guidance, or emergency triage.
