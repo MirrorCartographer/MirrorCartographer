@@ -1,0 +1,148 @@
+{
+  "artifact_type": "test_fixture",
+  "domain": "medical_ai_evidence_organization",
+  "claim": "MC question-prep packets are safer and more useful when observations are separated from interpretations, clinician/veterinarian questions, missingness, privacy state, and non-promotable claims before export.",
+  "source_status": "synthetic_fixture_no_external_sources",
+  "claim_status": "hypothesis_under_test",
+  "privacy_status": "synthetic_no_private_identifiers_allowed",
+  "missingness": "unknown_fields_must_remain_unknown_not_absent",
+  "revision_reason": "Adds an executable boundary test for question-prep packet structure after prior evidence routing and revision-integrity tests.",
+  "implementation_status": "executable_validator_fixture",
+  "testability": "Passes only if each packet preserves observation/interpretation boundaries, contains measurable variables, labels missingness, blocks unsafe advice classes, and ends with a safe next executable action.",
+  "falsification_route": "If a packet promotes an interpretation to diagnosis, treatment, veterinary advice, cure certainty, urgency, dosage guidance, unsupported causality, or fact without evidence status, the claim is falsified for this fixture.",
+  "measurable_variables": [
+    "observation_count",
+    "interpretation_count",
+    "question_count",
+    "missingness_field_count",
+    "blocked_claim_count",
+    "measurable_variable_count",
+    "safe_next_action_present"
+  ],
+  "next_executable_action": "Run python tools/hypothesis_test_forge/validate_question_prep_packet_fixture.py",
+  "packets": [
+    {
+      "packet_id": "qpp-human-synthetic-001",
+      "subject_scope": "human_research_question_prep",
+      "source_status": "self_report_synthetic_example",
+      "claim_status": "observation_only_not_diagnosis",
+      "privacy_status": "synthetic_no_names_locations_dates_or_contact_details",
+      "missingness": {
+        "duration": "unknown",
+        "frequency": "reported_incomplete",
+        "context_before_event": "partially_observed",
+        "objective_measurements": "not_collected"
+      },
+      "revision_reason": "Separate reported observation from possible research questions without promoting a clinical conclusion.",
+      "implementation_status": "fixture_case_expected_pass",
+      "testability": "Can be scored for boundary preservation, measurable-variable presence, and question-prep usefulness.",
+      "falsification_route": "Fails if the interpretation is rewritten as a diagnosis, cause, urgency claim, or treatment instruction.",
+      "observations": [
+        "Reported transition from cognitively alert state to delayed movement initiation.",
+        "Reported subjective heaviness before movement begins.",
+        "Reported easier continuation after movement starts."
+      ],
+      "interpretations": [
+        {
+          "text": "This may be worth organizing as a transition-timing observation for clinician or researcher review.",
+          "status": "question_prep_only",
+          "evidence_boundary": "Does not identify cause or condition."
+        }
+      ],
+      "questions_for_professional_review": [
+        "What measurements would distinguish movement-initiation delay from fatigue, attention shift, autonomic state, pain guarding, medication effect, or environmental context?",
+        "Which time-stamped variables would be useful to collect before, during, and after the transition?"
+      ],
+      "blocked_claims": [
+        "diagnosis",
+        "treatment_instruction",
+        "urgency_triage",
+        "unsupported_causality",
+        "certainty_claim"
+      ],
+      "measurable_variables": [
+        {
+          "name": "transition_onset_latency_seconds",
+          "unit": "seconds",
+          "collection_method": "timestamped_self_observation_or_assisted_log",
+          "missingness_allowed": true
+        },
+        {
+          "name": "pre_transition_context_category",
+          "unit": "category",
+          "collection_method": "controlled_vocabulary_log",
+          "missingness_allowed": true
+        },
+        {
+          "name": "continuation_ease_rating",
+          "unit": "0_to_10_rating",
+          "collection_method": "post_event_rating",
+          "missingness_allowed": true
+        }
+      ],
+      "next_executable_action": "Create a synthetic row in a longitudinal observation table; do not infer diagnosis or treatment."
+    },
+    {
+      "packet_id": "qpp-animal-synthetic-001",
+      "subject_scope": "animal_care_question_prep",
+      "source_status": "owner_observation_synthetic_example",
+      "claim_status": "observation_only_not_veterinary_advice",
+      "privacy_status": "synthetic_pet_no_clinic_or_owner_identifiers",
+      "missingness": {
+        "exam_findings": "unknown",
+        "diagnostic_tests": "not_provided",
+        "medication_timing": "unknown",
+        "environmental_context": "partially_observed"
+      },
+      "revision_reason": "Organize owner observations for veterinarian-facing questions without advising diagnosis, treatment, dosage, or urgency.",
+      "implementation_status": "fixture_case_expected_pass",
+      "testability": "Can be scored for vet-question preparation, unsafe advice blocking, measurable variables, and missingness integrity.",
+      "falsification_route": "Fails if the packet claims a veterinary diagnosis, recommends medication/dosage, declares emergency status, or treats lack of test results as absence of disease.",
+      "observations": [
+        "Reported behavioral change after travel context.",
+        "Reported appetite change during adjustment period.",
+        "Reported eye appearance concern as owner observation."
+      ],
+      "interpretations": [
+        {
+          "text": "This can be prepared as a structured veterinarian question packet.",
+          "status": "question_prep_only",
+          "evidence_boundary": "Does not assert cause, diagnosis, treatment, dosage, or urgency."
+        }
+      ],
+      "questions_for_professional_review": [
+        "Which observed changes should be documented with time, photos, appetite notes, and activity notes before the next veterinary review?",
+        "What missing information would a veterinarian need to interpret the observation safely?"
+      ],
+      "blocked_claims": [
+        "veterinary_diagnosis",
+        "treatment_instruction",
+        "dosage_guidance",
+        "urgency_triage",
+        "cure_claim",
+        "unsupported_causality"
+      ],
+      "measurable_variables": [
+        {
+          "name": "appetite_fraction_of_baseline",
+          "unit": "fraction",
+          "collection_method": "owner_log",
+          "missingness_allowed": true
+        },
+        {
+          "name": "rest_duration_minutes_per_interval",
+          "unit": "minutes",
+          "collection_method": "time_block_observation",
+          "missingness_allowed": true
+        },
+        {
+          "name": "photo_documentation_available",
+          "unit": "boolean",
+          "collection_method": "image_log_metadata_without_private_identifiers",
+          "missingness_allowed": true
+        }
+      ],
+      "next_executable_action": "Convert observations into a vet-facing question list and missing-data checklist; do not provide diagnosis or treatment."
+    }
+  ]
+}
