@@ -1,0 +1,58 @@
+{
+  "packet_id": "vcfg-2026-07-07-valid-001",
+  "source_status": "preprint_with_caveat",
+  "claim_status": "evaluation_criterion",
+  "privacy_status": "public_safe_synthetic",
+  "missingness": "No wet-lab endpoint is available in this synthetic fixture; dose and time are represented only as declared metadata status.",
+  "revision_reason": "Prior discovery-memory gates did not separately protect virtual-cell perturbation claims from reconstruction-only scoring or semantic metadata drift.",
+  "implementation_status": "tests_added",
+  "evidence_strength": "moderate",
+  "falsification_route": "Reject this gate if curator review shows that packets passing it still routinely promote reconstruction-only virtual-cell predictions into mechanism, cure, clinical, or veterinary claims.",
+  "next_executable_action": "Run the validator against valid and invalid fixtures, then require this packet shape for virtual-cell memory promotion.",
+  "perturbation": {
+    "type": "chemical",
+    "target": "synthetic kinase-inhibitor perturbation label",
+    "dose_or_intensity_status": "declared",
+    "time_horizon_status": "declared"
+  },
+  "cell_context": {
+    "species": "human",
+    "cell_type_or_line": "synthetic immune-cell context",
+    "assay": "single-cell RNA sequencing",
+    "dataset_or_benchmark": "synthetic Tahoe-style perturbation benchmark packet"
+  },
+  "semantic_harmonization": {
+    "status": "declared",
+    "ontology_or_mapping": "cell ontology style label plus synthetic perturbation metadata map",
+    "unmapped_fields": []
+  },
+  "distribution_shift": {
+    "status": "declared",
+    "shift_types": ["dataset", "cell_type", "assay"],
+    "ood_evaluation_status": "performed"
+  },
+  "metrics": {
+    "biological_fidelity": ["perturbation_direction_correlation", "differential_expression_overlap", "ontology_grounded_correctness"],
+    "reconstruction_only": false,
+    "metric_notes": "The packet requires perturbation-effect and ontology-grounded metrics, not only expression reconstruction loss."
+  },
+  "validation_status": {
+    "benchmark_validation": "declared",
+    "experimental_validation": "not_wet_validated",
+    "dual_use_review": "not_relevant"
+  },
+  "blocked_inferences": [
+    "Do not infer a clinical treatment effect from this packet.",
+    "Do not infer a veterinary treatment effect from this packet.",
+    "Do not infer cure, diagnosis, or individual-level actionability."
+  ],
+  "source_map": [
+    "LABBench2 2026 preprint and public eval harness",
+    "HeurekaBench 2026 preprint",
+    "SC-Arena 2026 preprint",
+    "HarmonyCell 2026 preprint",
+    "SCALE 2026 preprint",
+    "OCOO-T 2026 preprint",
+    "ABC-Bench 2026 preprint"
+  ]
+}
