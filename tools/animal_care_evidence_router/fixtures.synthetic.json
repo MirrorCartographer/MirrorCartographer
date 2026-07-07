@@ -1,0 +1,35 @@
+[
+  {
+    "packet_id": "synthetic-dog-eye-001",
+    "species": "dog",
+    "observation_date": "2026-07-01",
+    "signals": ["eye swelling", "reduced appetite", "restlessness"],
+    "context": ["recent travel", "medication exposure noted"],
+    "source_status": "synthetic_observation",
+    "claim_status": "observation_only",
+    "privacy_status": "public_safe_synthetic",
+    "missingness": ["no exam findings", "no measured pressure"]
+  },
+  {
+    "packet_id": "synthetic-cat-node-001",
+    "species": "cat",
+    "observation_date": "2026-07-02",
+    "signals": ["enlarged lymph nodes", "breathing effort", "lower appetite"],
+    "context": ["clinician review desired"],
+    "source_status": "synthetic_observation",
+    "claim_status": "observation_only",
+    "privacy_status": "public_safe_synthetic",
+    "missingness": []
+  },
+  {
+    "packet_id": "synthetic-sparse-001",
+    "species": "dog",
+    "observation_date": "2026-07-03",
+    "signals": ["off"],
+    "context": [],
+    "source_status": "synthetic_observation",
+    "claim_status": "unclear",
+    "privacy_status": "public_safe_synthetic",
+    "missingness": ["specific sign", "duration", "severity", "context"]
+  }
+]
