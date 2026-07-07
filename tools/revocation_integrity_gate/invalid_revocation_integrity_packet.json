@@ -1,0 +1,31 @@
+{
+  "packet_id": "bad-rig",
+  "claim": "This memory is safe forever.",
+  "source_status": "synthetic_fixture",
+  "claim_status": "hypothesis",
+  "privacy_status": "synthetic_only",
+  "memory_operation": "promote",
+  "revocation_route": {
+    "can_revoke": false,
+    "revocation_target": "unknown",
+    "required_actor": "n/a",
+    "verification_signal": "none"
+  },
+  "redaction_route": {
+    "redactable_fields": [],
+    "non_redactable_fields": [],
+    "semantic_loss_note": "none"
+  },
+  "downgrade_route": {
+    "downgrade_to": "hypothesis_only",
+    "blocked_after_downgrade": [],
+    "revalidation_trigger": "none"
+  },
+  "downstream_dependencies": [],
+  "missingness": [],
+  "revision_reason": "none",
+  "implementation_status": "implemented",
+  "evidence_strength": "high",
+  "falsification_route": "none",
+  "next_executable_action": "none"
+}
