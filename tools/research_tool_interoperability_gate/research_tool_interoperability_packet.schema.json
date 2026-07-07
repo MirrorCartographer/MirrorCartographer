@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.local/schemas/research_tool_interoperability_packet.schema.json",
+  "title": "Research Tool Interoperability Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packet_id",
+    "source_status",
+    "claim_status",
+    "privacy_status",
+    "missingness",
+    "revision_reason",
+    "implementation_status",
+    "evidence_strength",
+    "falsification_route",
+    "next_executable_action",
+    "toolchain_components",
+    "data_boundary",
+    "execution_environment",
+    "provenance_log",
+    "human_review_role",
+    "blocked_inferences"
+  ],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 3},
+    "source_status": {"type": "string", "minLength": 3},
+    "claim_status": {"type": "string", "minLength": 3},
+    "privacy_status": {"type": "string", "enum": ["public_safe_synthetic", "public_sources_only", "restricted_private_data", "unknown"]},
+    "missingness": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}},
+    "revision_reason": {"type": "string", "minLength": 8},
+    "implementation_status": {"type": "string", "minLength": 3},
+    "evidence_strength": {"type": "string", "enum": ["low", "moderate", "high", "mixed"]},
+    "falsification_route": {"type": "string", "minLength": 12},
+    "next_executable_action": {"type": "string", "minLength": 8},
+    "toolchain_components": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "role", "reproducibility_status", "privacy_risk"],
+        "properties": {
+          "name": {"type": "string", "minLength": 2},
+          "role": {"type": "string", "minLength": 3},
+          "reproducibility_status": {"type": "string", "enum": ["open", "documented", "closed", "unknown"]},
+          "privacy_risk": {"type": "string", "enum": ["none", "low", "moderate", "high", "unknown"]}
+        }
+      }
+    },
+    "data_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["data_type", "species_or_subject", "identifiability", "allowed_use"],
+      "properties": {
+        "data_type": {"type": "string", "minLength": 3},
+        "species_or_subject": {"type": "string", "minLength": 3},
+        "identifiability": {"type": "string", "enum": ["synthetic", "deidentified", "identified", "unknown"]},
+        "allowed_use": {"type": "string", "minLength": 5}
+      }
+    },
+    "execution_environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["environment_type", "versioning", "external_dependencies"],
+      "properties": {
+        "environment_type": {"type": "string", "minLength": 3},
+        "versioning": {"type": "string", "minLength": 3},
+        "external_dependencies": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "provenance_log": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 4}},
+    "human_review_role": {"type": "string", "minLength": 5},
+    "blocked_inferences": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 4}}
+  }
+}
