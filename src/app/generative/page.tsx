@@ -21,6 +21,8 @@ type Grammar = {
   tilt: number;
 };
 
+type InteractionEvent = "manual-rebuild" | "dead-end-selected";
+
 const deadEnds: DeadEnd[] = [
   {
     name: "beautiful wallpaper",
@@ -93,6 +95,7 @@ const weather = ["murmur", "aurora", "wind", "dawn", "rain", "lightning", "clear
 const organs = ["atlas", "heart", "gate", "thread", "weather", "mirror", "mouth", "comet", "root", "choir"];
 const motions = ["spiral", "drift", "pulse", "flicker", "braid", "tilt", "bloom", "collapse", "orbit", "return"];
 const layouts = ["constellation", "fault line", "organ map", "weather score", "ritual console", "broken arcade", "field notebook"];
+const sessionKey = "mc-generative-session-v1";
 
 function mulberry32(seed: number) {
   return function next() {
@@ -123,6 +126,43 @@ function makeGrammar(seed: number): Grammar {
     density: 0.32 + next() * 0.68,
     tilt: -14 + next() * 28,
   };
+}
+
+function getSessionId() {
+  try {
+    const existing = window.localStorage.getItem(sessionKey);
+    if (existing) return existing;
+    const created = `s-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 9)}`;
+    window.localStorage.setItem(sessionKey, created);
+    return created;
+  } catch {
+    return "storage-blocked";
+  }
+}
+
+function sendInteraction(eventType: InteractionEvent, generation: number, grammar: Grammar, selectedDeadEnd: DeadEnd) {
+  const payload = {
+    eventType,
+    generation,
+    grammar,
+    selectedDeadEnd,
+    sessionId: getSessionId(),
+    clientTime: new Date().toISOString(),
+    path: window.location.pathname,
+  };
+  const body = JSON.stringify(payload);
+
+  if (navigator.sendBeacon) {
+    const sent = navigator.sendBeacon("/api/interactions", new Blob([body], { type: "application/json" }));
+    if (sent) return;
+  }
+
+  void fetch("/api/interactions", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body,
+    keepalive: true,
+  }).catch(() => undefined);
 }
 
 export default function GenerativePage() {
@@ -158,6 +198,19 @@ export default function GenerativePage() {
     }));
   }, [grammar]);
 
+  const handleRebuild = () => {
+    setGeneration((value) => {
+      const nextGeneration = value + 1;
+      sendInteraction("manual-rebuild", nextGeneration, makeGrammar(7309 + nextGeneration * 97), selected);
+      return nextGeneration;
+    });
+  };
+
+  const handleSelect = (item: DeadEnd) => {
+    setSelected(item);
+    sendInteraction("dead-end-selected", generation, grammar, item);
+  };
+
   return (
     <main className="shell" data-weather={grammar.weather}>
       <style>{css}</style>
@@ -182,7 +235,7 @@ export default function GenerativePage() {
           <p className="kicker">public rebuild chamber</p>
           <h1>{grammar.title}</h1>
           <p className="thesis">{grammar.thesis}</p>
-          <button onClick={() => setGeneration((value) => value + 1)}>rebuild now</button>
+          <button onClick={handleRebuild}>rebuild now</button>
         </article>
         <article className="card grammar">
           <p>generation {generation}</p>
@@ -198,7 +251,7 @@ export default function GenerativePage() {
           <h2>dead ends</h2>
           <div className="deadList">
             {deadEnds.map((item) => (
-              <button key={item.name} onClick={() => setSelected(item)} className={selected.name === item.name ? "active" : ""}>
+              <button key={item.name} onClick={() => handleSelect(item)} className={selected.name === item.name ? "active" : ""}>
                 {item.name}
               </button>
             ))}
