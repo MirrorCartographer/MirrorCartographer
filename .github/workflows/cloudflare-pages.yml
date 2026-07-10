@@ -5,11 +5,11 @@ on:
   push:
     branches: [main]
     paths:
-      - "src/**"
+      - "cloudflare-static/**"
       - "functions/**"
-      - "public/**"
-      - "next.config.ts"
+      - "tools/cloudflare-connector.mjs"
       - "wrangler.jsonc"
+      - "wrangler.toml"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/cloudflare-pages.yml"
@@ -38,3 +38,4 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_PROJECT_NAME: mirror-cartographer
           CLOUDFLARE_PRODUCTION_BRANCH: main
+          CLOUDFLARE_OUTPUT_DIR: cloudflare-static
