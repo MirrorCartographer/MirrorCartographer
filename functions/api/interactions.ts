@@ -7,6 +7,13 @@ type Env = {
   MC_INGEST_SECRET?: string;
 };
 
+type PagesContext<E> = {
+  request: Request;
+  env: E;
+};
+
+type PagesFunction<E> = (context: PagesContext<E>) => Response | Promise<Response>;
+
 type InteractionPayload = {
   generation?: number;
   grammar?: Record<string, unknown>;
@@ -16,6 +23,8 @@ type InteractionPayload = {
   clientTime?: string;
   path?: string;
 };
+
+const allowedEvents = new Set(["manual-rebuild", "dead-end-selected"]);
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body, null, 2), {
@@ -40,6 +49,9 @@ const encodeBase64 = (value: string) => btoa(unescape(encodeURIComponent(value))
 export const onRequestOptions: PagesFunction<Env> = async () => json({ ok: true });
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+  const contentLength = Number(request.headers.get("content-length") || 0);
+  if (contentLength > 10000) return json({ ok: false, error: "payload too large" }, 413);
+
   if (!env.GITHUB_TOKEN) return json({ ok: false, error: "missing GITHUB_TOKEN" }, 501);
   if (!env.GITHUB_OWNER || !env.GITHUB_REPO) return json({ ok: false, error: "missing GitHub repo env" }, 501);
 
@@ -55,9 +67,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return json({ ok: false, error: "invalid JSON" }, 400);
   }
 
+  const eventType = cleanText(payload.eventType, "interaction");
+  if (!allowedEvents.has(eventType)) return json({ ok: false, error: "unsupported event" }, 400);
+
   const now = new Date().toISOString();
   const generation = Number.isFinite(Number(payload.generation)) ? Number(payload.generation) : 0;
-  const eventType = cleanText(payload.eventType, "interaction");
   const sessionId = cleanText(payload.sessionId, "anonymous");
   const branch = env.GITHUB_BRANCH || "main";
   const root = env.GITHUB_EVENT_PATH || "data/public-interactions";
