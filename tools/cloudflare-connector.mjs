@@ -12,7 +12,7 @@ const token = process.env.CLOUDFLARE_API_TOKEN;
 const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
 const projectName = process.env.CLOUDFLARE_PROJECT_NAME || "mirror-cartographer";
 const productionBranch = process.env.CLOUDFLARE_PRODUCTION_BRANCH || "main";
-const outputDir = process.env.CLOUDFLARE_OUTPUT_DIR || "out";
+const outputDir = process.env.CLOUDFLARE_OUTPUT_DIR || "cloudflare-static";
 
 async function api(path, options = {}) {
   const response = await fetch(`https://api.cloudflare.com/client/v4${path}`, {
@@ -61,7 +61,6 @@ async function main() {
   console.log("Cloudflare token verified.");
   const project = await ensureProject();
 
-  run("npm", ["run", "build:cloudflare"]);
   run("npx", ["--yes", "wrangler@latest", "pages", "deploy", outputDir, "--project-name", projectName, "--branch", productionBranch], {
     CLOUDFLARE_API_TOKEN: token,
     CLOUDFLARE_ACCOUNT_ID: accountId,
