@@ -4,21 +4,25 @@ Purpose: deploy the public `MirrorCartographer/MirrorCartographer` site to Cloud
 
 ## What is already in the repo
 
-- `src/app/page.tsx` — public landing page for the generative/Cloudflare side.
-- `src/app/generative/page.tsx` — public self-rebuilding generative interface.
-- `functions/api/interactions.ts` — Cloudflare Pages Function that receives interaction capsules and commits them to GitHub.
-- `wrangler.jsonc` and `wrangler.toml` — Pages output directory is `out`.
-- `next.config.ts` — static export is enabled.
+- `cloudflare-static/index.html` — committed public landing page for the generative/Cloudflare side.
+- `cloudflare-static/generative/index.html` — committed self-rebuilding generative chamber.
+- `src/app/page.tsx` and `src/app/generative/page.tsx` — Next source versions for later rebuilds.
+- `functions/api/interactions.ts` — Cloudflare Pages Function that receives intentional interaction capsules and commits them to GitHub.
+- `wrangler.jsonc` and `wrangler.toml` — Pages output directory is `cloudflare-static`.
+- `next.config.ts` — static export remains available if the project returns to a build step later.
 
 ## Cloudflare Pages project
 
-Create a Cloudflare Pages project from GitHub.
+Create or update a Cloudflare Pages project from GitHub.
 
 Repository: `MirrorCartographer/MirrorCartographer`
 Production branch: `main`
-Build command: `npm run build:cloudflare`
-Build output directory: `out`
+Build command: `exit 0`
+Build output directory: `cloudflare-static`
 Root directory: `/`
+Functions directory: `functions`
+
+This committed-static path exists to keep deployment working even when the Cloudflare dashboard build command is blank or not yet configured. Cloudflare's current static-site guidance recommends `exit 0` for no-build projects that still need Pages features such as Functions.
 
 This is intended as the public generative site, separate from the private Vercel phone-first weather/music prototype.
 
@@ -79,4 +83,4 @@ The site should learn, but not silently rewrite the project without review.
 
 ## Suggested next action
 
-After Cloudflare Pages is connected, open `/generative`, click `rebuild now`, choose one dead end, then check whether new JSON files appear under `data/public-interactions` on the `interaction-capsules` branch. If no file appears, inspect Cloudflare Function logs first for missing `GITHUB_TOKEN`, missing `GITHUB_BRANCH`, or GitHub permission errors.
+Redeploy Cloudflare Pages, then open `/`, open `/generative`, click `rebuild now`, choose one dead end, and check whether new JSON files appear under `data/public-interactions` on the `interaction-capsules` branch. If no file appears, inspect Cloudflare Function logs first for missing `GITHUB_TOKEN`, missing `GITHUB_BRANCH`, or GitHub permission errors.
