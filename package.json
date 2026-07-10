@@ -9,6 +9,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "verify": "npm run typecheck && npm run build",
+    "cloudflare:connect": "node tools/cloudflare-connector.mjs",
+    "cloudflare:deploy": "node tools/cloudflare-connector.mjs",
     "test:agency": "node --test tools/agency-validation/*.test.mjs",
     "fixture-parity:smoke": "node tools/agency-validation/run-fixture-parity.mjs --report-out artifacts/agency-validation/fixture-parity-report.json",
     "verify:agency": "npm run test:agency && npm run fixture-parity:smoke",
