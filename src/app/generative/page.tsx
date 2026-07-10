@@ -130,7 +130,6 @@ export default function GenerativePage() {
   const [sessionId] = useState(makeSessionId);
   const [commitState, setCommitState] = useState("local until Cloudflare secrets exist");
   const timer = useRef<number | null>(null);
-  const lastAutoRecord = useRef(0);
 
   const grammar = useMemo(() => makeGrammar(7309 + generation * 97), [generation]);
 
@@ -144,15 +143,6 @@ export default function GenerativePage() {
       if (timer.current) window.clearInterval(timer.current);
     };
   }, []);
-
-  useEffect(() => {
-    const now = Date.now();
-    if (now - lastAutoRecord.current < 25000) return;
-    lastAutoRecord.current = now;
-    void recordInteraction("auto-rebuild", generation, grammar, selected, sessionId).then((ok) => {
-      if (ok) setCommitState("last rebuild committed to GitHub");
-    });
-  }, [generation, grammar, selected, sessionId]);
 
   const nodes = useMemo(() => {
     const next = mulberry32(grammar.seed + 404);
