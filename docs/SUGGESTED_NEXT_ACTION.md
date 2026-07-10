@@ -2,13 +2,13 @@
 
 ## Current best next move
 
-Deploy this repository to Cloudflare Pages as the public generative site, then test `/generative` and `/api/interactions` from the deployed origin.
+Deploy this repository to Cloudflare Pages as the public generative site, then test `/`, `/generative`, and `/api/interactions` from the deployed origin.
 
 Recommended Cloudflare Pages settings:
 
 - Repository: `MirrorCartographer/MirrorCartographer`
 - Production branch: `main`
-- Build command: `npm run build`
+- Build command: `npm run build:cloudflare`
 - Build output directory: `out`
 - Functions directory: `functions`
 - Required environment variables/secrets:
@@ -20,7 +20,7 @@ Recommended Cloudflare Pages settings:
 
 ## Why this is next
 
-The page now sends two intentional interaction capsules to `/api/interactions`:
+The public landing page now points visitors into the generative side, and `/generative` records only intentional interaction capsules:
 
 - `manual-rebuild`
 - `dead-end-selected`
@@ -34,12 +34,14 @@ The Cloudflare Pages Function can turn those capsules into GitHub JSON files wit
 - low CPU
 - phone-first stability
 - no browser-exposed GitHub token
+- no passive timer-driven GitHub commits
 - interaction data as public behavioral capsules, not private chat or identity
 
 ## Next cycle check
 
 1. Confirm the Cloudflare Pages deployment exists and resolves.
-2. Open `/generative` on the deployed URL.
-3. Tap `rebuild now` and one dead-end button.
-4. Confirm JSON files appear under `data/public-interactions` on the `interaction-capsules` branch.
-5. If working, build the first summarizer that reads interaction capsules and proposes one grammar mutation without automatically changing public UI code.
+2. Open `/` and confirm it links to `/generative`.
+3. Open `/generative` on the deployed URL.
+4. Tap `rebuild now` and one dead-end button.
+5. Confirm JSON files appear under `data/public-interactions` on the `interaction-capsules` branch.
+6. If working, build the first summarizer that reads interaction capsules and proposes one grammar mutation without automatically changing public UI code.
