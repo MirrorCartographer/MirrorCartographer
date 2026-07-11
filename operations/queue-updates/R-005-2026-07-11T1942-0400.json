@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Prevent stale or foreign automation writers from overwriting shared repository state.",
+    "dependencies": ["R-004"],
+    "required_evidence": [
+      "primary concurrency standard",
+      "committed guard",
+      "deterministic stale-write tests",
+      "explicit semantic limit",
+      "falsification route"
+    ],
+    "status": "completed"
+  },
+  "progress": {
+    "primary_sources": [
+      "https://www.rfc-editor.org/rfc/rfc9110.html#name-if-match",
+      "https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#create-or-update-file-contents"
+    ],
+    "finding": "Require exact observed blob SHA equality before a shared-state replacement, independently enforce owner identity, and reject force as a retry strategy.",
+    "module": "tools/frontier-research/optimistic-concurrency-guard.mjs",
+    "test": "tools/frontier-research/optimistic-concurrency-guard.test.mjs",
+    "evidence": "operations/evidence/frontier-research-optimistic-concurrency-2026-07-11.json",
+    "commits": [
+      "8f619d0d428ea8ea21ddc0691a99d64cfa5f99a2",
+      "99a5b8ea2eaa0f8b0232f5f6075c80e796f640b5",
+      "a4f2bc7d647018f65a90d45b9d488bf1b006fbae"
+    ],
+    "verification": "5 deterministic Node tests passed in an isolated runtime; committed module was fetched and inspected after write."
+  },
+  "handoff": "Continuity Mining should define a merge policy for contradictory owned records. Cloudflare and Vercel workflow writers should use observed blob SHA preconditions and never force-update shared state after a conflict.",
+  "non_overwrite_statement": "This append-only queue update records Frontier Research state without replacing ACTIVE_QUEUE.json or any peer-owned record."
+}
