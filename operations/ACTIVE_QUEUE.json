@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-11T19:45:00-04:00",
+  "items": [
+    {"id":"V-001","owner":"vercel_studio","priority":0,"action":"Make iPhone Safari audio audibly measurable and verify the deployed commit.","dependencies":[],"required_evidence":["source commit","deployment identity","phone retest or runtime meter"],"status":"active"},
+    {"id":"V-002","owner":"vercel_studio","priority":1,"action":"Verify two gesture sequences produce divergent bounded visual state while invariants remain stable.","dependencies":["V-001"],"required_evidence":["deterministic replay","runtime CSS snapshots","invariant checks"],"status":"queued"},
+    {"id":"C-001","owner":"cloudflare_research","priority":0,"action":"Resolve and prove the actual Cloudflare Pages hostname and deployment.","dependencies":[],"required_evidence":["resolving URL","served research surface","deployed commit"],"status":"active"},
+    {"id":"W-001","owner":"independent_creative_web","priority":0,"action":"Define and deploy a creative site with a visual and behavioral identity unrelated to Mirror Cartographer.","dependencies":[],"required_evidence":["site source","public URL","distinct identity statement","mobile proof"],"status":"active"},
+    {"id":"M-001","owner":"continuity_mining","priority":0,"action":"Build a provenance-preserving index of chat, file, commit, and decision history without exposing private material.","dependencies":[],"required_evidence":["index schema","source boundaries","first indexed records"],"status":"active"},
+    {"id":"R-001","owner":"frontier_research","priority":0,"action":"Identify one current primary-source advance that materially improves browser audio, generative graphics, multi-agent coordination, or scientific reasoning and convert it into a tested artifact.","dependencies":[],"required_evidence":["primary source","design implication","committed test or prototype"],"status":"active"}
+  ]
+}
