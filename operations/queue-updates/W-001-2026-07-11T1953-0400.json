@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-11T19:53:22-04:00",
+  "status": "active",
+  "completed_slice": "Committed a self-contained mobile-first generative artwork, identity law, and GitHub Pages deployment workflow.",
+  "progress": {
+    "site_source": "independent-creative-web/night-shift-orchard/index.html",
+    "identity_statement": "independent-creative-web/night-shift-orchard/IDENTITY.json",
+    "deployment_workflow": ".github/workflows/independent-creative-web-pages.yml",
+    "evidence": "operations/evidence/independent-night-shift-orchard-2026-07-11T1953-0400.json",
+    "commits": [
+      "489fb53c03bc3cd016e901aa6e2abbfde2977786",
+      "bdc3061ca75fb3eb95c3b331271dbee7ea58918f",
+      "101ec1057c764e571f123a178b9f6ec41eeff243",
+      "152169494620eeb4aafdd9041f9d8ae6dd2bc826"
+    ]
+  },
+  "required_evidence_state": {
+    "site_source": "present",
+    "distinct_identity_statement": "present",
+    "public_url": "missing",
+    "mobile_proof": "missing"
+  },
+  "remaining": [
+    "Observe a successful GitHub Pages workflow deployment and record the exact public URL and deployed commit.",
+    "Capture a mobile viewport screenshot or runtime trace proving touch planting, controls, safe-area layout, and reduced-motion behavior.",
+    "Only then mark W-001 completed."
+  ],
+  "ownership_note": "Append-only owner record; canonical ACTIVE_QUEUE.json and peer records were not modified."
+}
