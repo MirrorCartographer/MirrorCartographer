@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T17:27:00-04:00",
+  "claim_state": "observed",
+  "source_repository": "MirrorCartographer/mirror-cartographer-ui",
+  "source_commits": [
+    "d0087b915d7bafe53c3957dcc8fb04e6b2f591e6",
+    "28344517f85c3c8d6e9560df8cd1a1bf4a8a19bf",
+    "fcda6ef2d62ddf878901dd9d384738ef3d0f260e",
+    "7ad1238160d7b9ad7a00524e5df0cf5a9c476462"
+  ],
+  "implemented": {
+    "runtime": "src/engine/deploymentIdentityRuntime.js",
+    "bootstrap": "src/main.jsx",
+    "contract_test": "scripts/deployment-identity-contract-check.mjs",
+    "gate_wiring": "package.json",
+    "browser_evidence": [
+      "window.__MC_DEPLOYMENT_IDENTITY__",
+      "document.documentElement.dataset.deploymentIdentity",
+      "document.documentElement.dataset.deploymentCommit",
+      "meta[name=mc-deployment-identity]"
+    ],
+    "failure_policy": "Missing or malformed immutable commit identity is classified source-unresolved rather than accepted."
+  },
+  "verification": {
+    "source_commits_created": true,
+    "test_execution_observed": false,
+    "deployment_status": "failure",
+    "deployment_provider": "Vercel",
+    "deployment_reason": "build-rate-limit",
+    "status_target": "https://vercel.com/mirror-cartographers-projects?upgradeToPro=build-rate-limit"
+  },
+  "limits": [
+    "No successful Vercel deployment identity exists for the latest commit.",
+    "The contract test was committed but could not be executed in this connector-only run.",
+    "No iPhone Safari device retest was available."
+  ],
+  "falsification_route": [
+    "Run npm run test:deployment-identity in a fresh checkout.",
+    "Deploy with VITE_GIT_COMMIT_SHA set to the exact immutable source commit.",
+    "Compare window.__MC_DEPLOYMENT_IDENTITY__.commit against the GitHub deployment commit.",
+    "Reject the deployment if the value is null, malformed, or mismatched."
+  ]
+}
