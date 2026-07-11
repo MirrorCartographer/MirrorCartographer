@@ -1,0 +1,27 @@
+{
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "observed_at": "2026-07-11T16:11:14-04:00",
+  "specialists": ["Cloudflare Deployment Engineer", "Evidence Auditor", "Provenance Engineer"],
+  "source_commit": "5ed1ae503e04c249bbade110dabe584d0f40bc05",
+  "source_path": "cloudflare-static/index.html",
+  "candidate_checks": [
+    {
+      "url": "https://mirror-cartographer.pages.dev",
+      "result": "DNS resolution failed"
+    },
+    {
+      "url": "https://mirrorcartographer.pages.dev",
+      "result": "DNS resolution failed"
+    }
+  ],
+  "implemented": [
+    "cloudflare-static/wrangler.jsonc defines a durable Pages project/output contract",
+    "cloudflare-static/verify-deployment.mjs verifies HTTP status, final URL, and three source-identity markers"
+  ],
+  "acceptance_test": "node cloudflare-static/verify-deployment.mjs https://<actual-project>.pages.dev exits 0 only when the served page matches the research surface",
+  "status": "blocked_external_configuration",
+  "missing": "An authenticated Cloudflare Pages project/deployment or the actual assigned pages.dev hostname",
+  "privacy_boundary": "No private chat or health material was published. The surface contains only general research-method language.",
+  "rollback": "Revert commits 6ca897b8f940d96a3b7b6b7c9b8d32394e35700a and 5b270e93fd555ea8535e6dbf98114ecf36fd3ca5."
+}
