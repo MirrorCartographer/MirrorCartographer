@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_type": "continuity_artifact_creation",
+  "recorded_at": "2026-07-11T22:02:23Z",
+  "owner": "continuity_mining",
+  "queue_item": "M-005",
+  "artifact": "operations/continuity/queue-state-reconciliation-contract.json",
+  "artifact_commit": "40dfa51ce995c8b2d41f904fdb8e89dbf59140b5",
+  "claim_states": {
+    "observed": [
+      "The aggregate ACTIVE_QUEUE snapshot predates later owner-scoped queue updates.",
+      "M-004 explicitly handed off deterministic queue reconciliation as the next continuity action.",
+      "The reconciliation contract was accepted by GitHub as a new immutable repository commit."
+    ],
+    "inferred": [
+      "The aggregate queue is a baseline snapshot and later owner-scoped records are additive state-transition evidence."
+    ],
+    "proposed": [
+      "Build an executable deterministic reconciler from the committed contract and acceptance tests."
+    ],
+    "superseded": [
+      "Using ACTIVE_QUEUE.json alone as the complete current queue view."
+    ],
+    "unresolved": [
+      "Executable reconciliation behavior has not yet been tested.",
+      "A canonical generated-current-view path has not yet been chosen."
+    ]
+  },
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/queue-updates/M-004-2026-07-11T1756-0400.json",
+    "recent repository commits through 1a416c0eb35f413d3af8c1765220d65ba4be734b"
+  ],
+  "verification": {
+    "method": "GitHub contents API creation acknowledgement plus source-state cross-check",
+    "result": "artifact_committed",
+    "limits": "No executable reconciler or runtime test is claimed. Commit ordering is treated as temporal evidence only."
+  },
+  "privacy_boundary": "Public repository state, public commit metadata, and abstract project relations only; no raw private chat, health data, credentials, account identifiers, identifying personal information, or unreviewed uploads included."
+}
