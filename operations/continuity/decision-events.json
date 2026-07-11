@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-07-11T21:18:00Z",
+  "generated_at": "2026-07-11T21:34:14Z",
   "events": [
     {
       "schema_version": "1.0.0",
@@ -55,6 +55,24 @@
       "contradicts_event_ids": [],
       "privacy": "public_repository_safe",
       "review_route": "Run node --test operations/continuity/validate-decision-events.test.mjs and node operations/continuity/validate-decision-events.mjs operations/continuity/decision-events.json. Treat any nonzero exit as falsification of this validation contract."
+    },
+    {
+      "schema_version": "1.0.0",
+      "event_id": "DE-0004",
+      "subject_id": "continuity-ledger-ci-gate",
+      "event_type": "observe",
+      "claim_state": "observed",
+      "valid_time": {"from": "2026-07-11T21:34:14Z", "to": null},
+      "transaction_time": {"recorded_at": "2026-07-11T21:34:14Z", "recorded_commit": null},
+      "summary": "A repository workflow now invokes both the adversarial decision-event tests and validation of the committed ledger whenever continuity validation inputs change. The workflow source is committed; a successful workflow execution is not yet observed.",
+      "sources": [
+        {"type": "github_commit", "locator": "90b8ed6d4c628f2c3f0b3d6b4c033f0051bd5352", "content_sha": "90b8ed6d4c628f2c3f0b3d6b4c033f0051bd5352", "observed_at": "2026-07-11T21:34:14Z"},
+        {"type": "github_file", "locator": ".github/workflows/continuity-ledger-validation.yml", "content_sha": "90b8ed6d4c628f2c3f0b3d6b4c033f0051bd5352", "observed_at": "2026-07-11T21:34:14Z"}
+      ],
+      "supersedes_event_ids": [],
+      "contradicts_event_ids": [],
+      "privacy": "public_repository_safe",
+      "review_route": "Fetch workflow runs associated with commit 90b8ed6d4c628f2c3f0b3d6b4c033f0051bd5352 or a descendant. A completed successful run must include both Node commands; any failure or missing command leaves runtime validation unresolved."
     }
   ]
 }
