@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/continuity-index.schema.json",
+  "title": "Mirror Cartographer Continuity Index",
+  "type": "object",
+  "required": ["schema_version", "generated_at", "privacy_boundary", "records"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0.0"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "privacy_boundary": {
+      "type": "object",
+      "required": ["allowed", "forbidden"],
+      "properties": {
+        "allowed": {"type": "array", "items": {"type": "string"}},
+        "forbidden": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "records": {"type": "array", "items": {"$ref": "#/$defs/record"}}
+  },
+  "$defs": {
+    "record": {
+      "type": "object",
+      "required": ["id", "kind", "title", "claim_state", "evidence_strength", "sources", "summary", "privacy", "falsification_or_review_route"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^CM-[0-9]{4}$"},
+        "kind": {"enum": ["operating_rule", "queue_item", "decision", "artifact", "commit", "language_term", "contradiction", "unresolved_question"]},
+        "title": {"type": "string", "minLength": 1},
+        "claim_state": {"enum": ["observed", "inferred", "proposed", "superseded", "unresolved"]},
+        "evidence_strength": {"enum": ["primary_repository_source", "corroborated_repository_sources", "single_secondary_source", "unverified"]},
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["type", "locator", "content_sha"],
+            "properties": {
+              "type": {"enum": ["github_file", "github_commit", "public_document", "private_chat_reference", "uploaded_file_reference"]},
+              "locator": {"type": "string"},
+              "content_sha": {"type": ["string", "null"]},
+              "observed_at": {"type": ["string", "null"], "format": "date-time"}
+            }
+          }
+        },
+        "summary": {"type": "string"},
+        "privacy": {"enum": ["public_repository_safe", "restricted_reference_only", "do_not_publish"]},
+        "contradicts": {"type": "array", "items": {"type": "string"}},
+        "supersedes": {"type": "array", "items": {"type": "string"}},
+        "falsification_or_review_route": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
