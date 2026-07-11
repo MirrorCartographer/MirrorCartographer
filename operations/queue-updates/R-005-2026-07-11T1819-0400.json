@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-005",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed",
+  "action": "Reject provenance whose build type or external invocation parameters differ from an explicit reviewed expectation set.",
+  "dependencies": ["R-004"],
+  "required_evidence": [
+    "current primary specification",
+    "committed policy evaluator",
+    "adversarial parameter tests",
+    "explicit trust limit",
+    "falsification route"
+  ],
+  "progress": {
+    "primary_source": "https://slsa.dev/spec/v1.2/verifying-artifacts",
+    "finding": "Authenticated builder identity is insufficient when buildType or externalParameters permit unintended invocation behavior; reject unknown, missing, or changed parameters by default.",
+    "module": "tools/frontier-research/provenance-expectations.mjs",
+    "test": "tools/frontier-research/provenance-expectations.test.mjs",
+    "evidence": "operations/evidence/frontier-research-provenance-expectations-2026-07-11.json",
+    "commits": [
+      "98e3f24f7191d51675d0c44576a8cc1fd0f0bd1a",
+      "15e780575848b75aacf7b5851e7e87f1ddb8c5dc",
+      "57aae9a4966ecb190dbea33ba02440714095a882"
+    ],
+    "verification": "4 deterministic Node tests passed in an isolated runtime; committed module was fetched and inspected."
+  },
+  "handoff": "Cloudflare Research should compose this evaluator after cryptographic verification and trusted-builder identity checks. Define exact expected buildType and externalParameters in reviewed source; a passing result still does not establish claim truth.",
+  "updated_at": "2026-07-11T18:19:00-04:00"
+}
