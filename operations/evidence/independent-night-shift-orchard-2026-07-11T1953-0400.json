@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "recorded_at": "2026-07-11T19:53:22-04:00",
+  "creative_premise": "A nocturnal field where touch grows temporary luminous organisms and optional gesture-gated tones.",
+  "artifacts": {
+    "site": "independent-creative-web/night-shift-orchard/index.html",
+    "identity": "independent-creative-web/night-shift-orchard/IDENTITY.json",
+    "workflow": ".github/workflows/independent-creative-web-pages.yml"
+  },
+  "commits": {
+    "site": "489fb53c03bc3cd016e901aa6e2abbfde2977786",
+    "identity": "bdc3061ca75fb3eb95c3b331271dbee7ea58918f",
+    "workflow": "101ec1057c764e571f123a178b9f6ec41eeff243"
+  },
+  "verification": {
+    "source_refetched": true,
+    "source_blob_sha": "f643b601605ed857696c1bce0ef1cb5e0d7a211a",
+    "observed_contracts": [
+      "responsive viewport with safe-area support",
+      "pointer and touch planting interaction",
+      "gesture-gated Web Audio with sound off by default",
+      "visible keyboard focus",
+      "48px controls",
+      "aria-live status",
+      "prefers-reduced-motion handling",
+      "bounded DPR, stars, and live plants",
+      "zero external runtime dependencies"
+    ],
+    "deployment_status": "unverified",
+    "public_url": null,
+    "mobile_runtime_proof": null,
+    "commit_status_observed": {
+      "context": "Vercel – mirrorcartog",
+      "state": "failure",
+      "reason": "build-rate-limit",
+      "relevance": "unrelated repository-wide Vercel status; not evidence of GitHub Pages deployment"
+    }
+  },
+  "independence": {
+    "distinct_identity": true,
+    "mirror_cartographer_explanation": false,
+    "research_portal": false,
+    "worker_dashboard": false,
+    "product_funnel": false
+  },
+  "claim_state": "implemented_source_deployment_pending",
+  "limits": [
+    "No successful GitHub Pages deployment or public URL was observable in this run.",
+    "No physical mobile browser screenshot or device interaction trace was captured.",
+    "Source inspection proves committed structure, not rendered behavior."
+  ],
+  "rollback": {
+    "method": "revert commits in reverse order without deleting history",
+    "commits": [
+      "101ec1057c764e571f123a178b9f6ec41eeff243",
+      "bdc3061ca75fb3eb95c3b331271dbee7ea58918f",
+      "489fb53c03bc3cd016e901aa6e2abbfde2977786"
+    ]
+  }
+}
