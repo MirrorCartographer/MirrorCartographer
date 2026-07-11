@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T16:23:58-04:00",
+  "status": "implementation_complete_runtime_pending",
+  "finding": "The actual Pages hostname does not need to be guessed. Cloudflare's supported GitHub Actions path exposes deployment-url and pages-deployment-alias-url after an authenticated Wrangler Pages deployment; those outputs can be passed directly to the committed identity verifier.",
+  "primary_sources": [
+    {
+      "url": "https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/",
+      "status": "official_documentation",
+      "last_updated": "2026-04-21",
+      "supports": [
+        "wrangler pages deploy for prebuilt assets",
+        "CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN as GitHub secrets",
+        "cloudflare/wrangler-action@v3 for Pages deployment"
+      ]
+    },
+    {
+      "url": "https://github.com/cloudflare/wrangler-action",
+      "status": "official_tool_repository",
+      "supports": [
+        "deployment-url output",
+        "pages-deployment-alias-url output",
+        "command-output and command-stderr outputs",
+        "Wrangler v4 default support"
+      ]
+    }
+  ],
+  "implemented": {
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "commit": "61e4e431d706f51403286defeebbaf83cea95494",
+    "project_name": "mirror-cartographer-research",
+    "source_directory": "cloudflare-static",
+    "identity_verifier": "cloudflare-static/verify-deployment.mjs",
+    "proof_artifact": "cloudflare-deployment-proof-<source-sha>"
+  },
+  "acceptance_path": [
+    "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN.",
+    "Dispatch the Deploy Cloudflare research surface workflow.",
+    "Require Wrangler to return deployment-url.",
+    "Require verify-deployment.mjs to confirm HTTP success and all committed surface markers.",
+    "Retain the generated JSON proof artifact and workflow run URL.",
+    "Only then mark C-001 completed."
+  ],
+  "verification": {
+    "source_behavior": "Workflow binds the deployed artifact to github.sha via --commit-hash and verifies the returned deployment URL rather than a guessed hostname.",
+    "runtime_status": "not_executed",
+    "reason": "Cloudflare account credentials and a workflow dispatch are external configuration not available to this run."
+  },
+  "boundaries": {
+    "payment_on_vercel": false,
+    "diagnosis_or_treatment_claims": false,
+    "private_health_or_chat_material": false,
+    "files_or_history_deleted": false
+  },
+  "falsification": [
+    "Credential validation fails if either required secret is absent.",
+    "The deploy step fails if the project cannot be created or updated.",
+    "The verification step fails if no deployment URL is returned, DNS or HTTP fails, or the served page lacks required identity markers.",
+    "A workflow success plus retained proof artifact is required; source presence alone is insufficient."
+  ]
+}
