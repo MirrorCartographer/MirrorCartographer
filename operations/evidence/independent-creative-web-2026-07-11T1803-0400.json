@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "owner": "independent_creative_web",
+  "queue_item": "W-001",
+  "created_at": "2026-07-11T18:03:45-04:00",
+  "creative_premise": "The Unreliable Observatory is a self-contained instrument that reports weather from impossible places.",
+  "source": {
+    "path": "independent-site/index.html",
+    "commit": "9c40cda49988e9ff2a0d3b0d76ddea4e3343a61a",
+    "blob_sha": "4da6f5b3a6ec91232caba5847e5ac0ff2a3f42e8"
+  },
+  "identity_contract": {
+    "path": "independent-site/identity.json",
+    "commit": "edd196681bd60094ef827158bb64a27103016106"
+  },
+  "test_contract": {
+    "path": "independent-site/contract.test.mjs",
+    "commit": "9ebc3f1b8396b5253c03d0444337a99f4434f6f4",
+    "local_result": {
+      "tests": 4,
+      "passed": 4,
+      "failed": 0,
+      "scope": "contract-equivalent local fixture due runtime network egress failure; committed source was separately fetched and inspected through GitHub"
+    }
+  },
+  "observed": [
+    "Committed source contains a mobile viewport declaration, safe-area-aware layout, responsive breakpoint, reduced-motion rule, 44px controls, keyboard scan, live regions, opt-in Web Audio, and no external runtime dependency.",
+    "The experience contains seven impossible-place weather reports and exposes a small runtime identity object for testing.",
+    "The source does not contain Mirror Cartographer explanatory language, commerce controls, account state, or private user material."
+  ],
+  "inferred": [
+    "The artifact has a distinct literary-instrument identity rather than a research portal, dashboard, or product funnel.",
+    "The single-file dependency-free architecture is suitable for static hosting once a public route is configured."
+  ],
+  "unresolved": [
+    "No public hosting URL was observed.",
+    "No real-device mobile screenshot or interaction recording was captured.",
+    "The committed test file was not executed directly from a fresh checkout because the runtime could not resolve github.com."
+  ],
+  "privacy_boundary": "Public creative source and operational evidence only; no private chat, health material, credentials, account identifiers, or personal data.",
+  "rollback": [
+    "Revert commit 9ebc3f1b8396b5253c03d0444337a99f4434f6f4.",
+    "Revert commit edd196681bd60094ef827158bb64a27103016106.",
+    "Revert commit 9c40cda49988e9ff2a0d3b0d76ddea4e3343a61a."
+  ]
+}
