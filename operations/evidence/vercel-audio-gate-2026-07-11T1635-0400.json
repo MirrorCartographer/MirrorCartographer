@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T16:35:41-04:00",
+  "claim_state": "observed",
+  "change": {
+    "repository": "MirrorCartographer/mirror-cartographer-ui",
+    "file": "package.json",
+    "commit": "61ea35761e98f47ec6f54493cdd80fb17f6a59d5",
+    "summary": "Added test:audio-observability and inserted it into both test:local-gate and test:pages-preview so the audio classification contract is enforced by normal quality gates."
+  },
+  "verification": {
+    "isolated_runtime": {
+      "command": "npm run test:audio-observability",
+      "result": "passed",
+      "output": "audio observability contract: ok",
+      "scope": "byte-equivalent classification module and committed contract assertions"
+    },
+    "github_status": {
+      "commit": "61ea35761e98f47ec6f54493cdd80fb17f6a59d5",
+      "context": "Vercel",
+      "state": "failure",
+      "target": "https://vercel.com/mirror-cartographers-projects?upgradeToPro=build-rate-limit",
+      "interpretation": "Deployment was not verified; the provider reported a build-rate-limit failure."
+    }
+  },
+  "evidence_strength": "source-committed-and-contract-executed; deployment-unverified",
+  "falsification_routes": [
+    "Run npm run test:audio-observability from a fresh checkout and observe any non-zero exit.",
+    "Run npm run test:local-gate and confirm the audio contract is skipped or fails to execute.",
+    "Inspect commit 61ea35761e98f47ec6f54493cdd80fb17f6a59d5 and verify package.json does not contain the claimed wiring."
+  ],
+  "limits": [
+    "No physical iPhone audible/not-audible observation was available.",
+    "No successful Vercel deployment identity was produced because the Vercel status failed on build rate limiting.",
+    "The isolated execution does not substitute for repository CI or device-level audio output evidence."
+  ],
+  "rollback": "Revert commit 61ea35761e98f47ec6f54493cdd80fb17f6a59d5 in MirrorCartographer/mirror-cartographer-ui."
+}
