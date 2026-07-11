@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T19:38:53-04:00",
+  "slice": "resilient audio evidence export for mobile browsers",
+  "source_repository": "MirrorCartographer/mirror-cartographer-ui",
+  "source_commits": [
+    "22ffa504c1908e87fe6e6246ecfe4b2be87ebe63",
+    "22008fe37f4011c037708f06f1c7c2b51b228b48"
+  ],
+  "files": [
+    "src/engine/audioEvidenceExportRuntime.js",
+    "scripts/audio-evidence-export-contract-check.mjs"
+  ],
+  "behavior": {
+    "primary": "copy a privacy-filtered audio evidence packet to the clipboard",
+    "fallback": "download the same packet as JSON when clipboard APIs are unavailable or rejected",
+    "accessibility": "announce copied, downloaded, or failed status through a polite live region",
+    "safety": "export remains restricted to the existing SAFE_KEYS allowlist"
+  },
+  "verification": {
+    "source_contract": "filename sanitization and fallback behavior are represented in committed source",
+    "contract_test": "test updated to require deterministic sanitized filenames",
+    "runtime_deployment": "not verified",
+    "vercel_status": "failure",
+    "vercel_reason": "build-rate-limit",
+    "vercel_target": "https://vercel.com/mirror-cartographers-projects?upgradeToPro=build-rate-limit"
+  },
+  "limits": [
+    "No iPhone audible outcome was captured in this run.",
+    "Browser evidence does not prove physical speaker output.",
+    "The latest commit was not successfully deployed because Vercel reported a build-rate limit.",
+    "The connector did not provide an executable checkout, so the Node contract was not run locally in this run."
+  ],
+  "rollback": {
+    "method": "revert commits in reverse order",
+    "commits": [
+      "22008fe37f4011c037708f06f1c7c2b51b228b48",
+      "22ffa504c1908e87fe6e6246ecfe4b2be87ebe63"
+    ]
+  }
+}
