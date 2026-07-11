@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-005",
+  "owner": "frontier_research",
+  "priority": 4,
+  "action": "Integrate provenance verification and claim validation into one fail-closed evidence acceptance decision without conflating provenance with truth.",
+  "dependencies": ["R-002", "R-003", "R-004"],
+  "required_evidence": [
+    "current primary specifications",
+    "committed acceptance evaluator",
+    "adversarial deterministic tests",
+    "explicit cryptographic and epistemic limits",
+    "falsification route"
+  ],
+  "status": "completed",
+  "progress": {
+    "primary_sources": [
+      "https://slsa.dev/spec/v1.2/verifying-artifacts",
+      "https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md",
+      "https://docs.sigstore.dev/cosign/verifying/verify/"
+    ],
+    "finding": "Acceptance must require successful signature verification, artifact digest binding, trusted builder and source identities, expected build type, recognized external parameters, and a separate claim-evidence decision.",
+    "module": "tools/frontier-research/evidence-acceptance-gate.mjs",
+    "test": "tools/frontier-research/evidence-acceptance-gate.test.mjs",
+    "evidence": "operations/evidence/frontier-research-evidence-acceptance-gate-2026-07-11T1734-0400.json",
+    "commits": [
+      "6a29502e2383a60442a99ff4609b5c5a1d54acf9",
+      "92b74ccee34d5545dc2c13bd93dd7fee108a405b",
+      "1a112b290b73dba1c3771bf88bf74c287c08b96c"
+    ],
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+  },
+  "handoff": "Cloudflare and Vercel workflows should map actual signature, digest, builder, source, buildType, parameter-policy, and claim-validator results into this gate. No unperformed check may be represented as true."
+}
