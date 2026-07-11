@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-11T21:46:29Z",
+  "purpose": "Preserve project-state transitions without converting implementation evidence into deployment or runtime proof.",
+  "privacy_boundary": {
+    "included": [
+      "Public repository files",
+      "Public commit metadata",
+      "Abstract project-state transitions"
+    ],
+    "excluded": [
+      "Raw private chat",
+      "Health or pet-health material",
+      "Credentials and account identifiers",
+      "Unreviewed uploads and identifying personal data"
+    ]
+  },
+  "state_vocabulary": [
+    "observed",
+    "inferred",
+    "proposed",
+    "superseded",
+    "unresolved"
+  ],
+  "transitions": [
+    {
+      "id": "CMT-0001",
+      "subject": "continuity_mining/M-001",
+      "from": {
+        "state": "observed",
+        "status": "active",
+        "source": {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "ecc5833b793fb583ff0ca006f63a09e50ba72f7e"
+        }
+      },
+      "to": {
+        "state": "observed",
+        "status": "completed",
+        "source": {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+        }
+      },
+      "relation": "supersedes_current_status_only",
+      "preserved_history": "The earlier active state remains historically valid at its source blob; only the current-status proposition is superseded.",
+      "evidence_strength": "primary_repository_source",
+      "review_route": "Fetch both queue blobs and compare M-001 status, progress, and handoff fields."
+    },
+    {
+      "id": "CMT-0002",
+      "subject": "cloudflare_research/C-001",
+      "from": {
+        "state": "observed",
+        "status": "proof_pipeline_implemented",
+        "source": {
+          "type": "github_commit",
+          "locator": "e1c777ef4f9142f739f1994eda57ec514f2ae8a1",
+          "content_sha": "e1c777ef4f9142f739f1994eda57ec514f2ae8a1"
+        }
+      },
+      "to": {
+        "state": "unresolved",
+        "status": "deployment_not_proven",
+        "source": {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+        }
+      },
+      "relation": "coexists_not_contradiction",
+      "preserved_history": "Implemented provenance and acceptance logic does not establish a resolving Cloudflare URL, served identity, or deployed commit.",
+      "evidence_strength": "corroborated_repository_sources",
+      "review_route": "Resolve only with retained deployment evidence containing a reachable URL, matching served identity, and immutable source commit."
+    },
+    {
+      "id": "CMT-0003",
+      "subject": "vercel_studio/V-001",
+      "from": {
+        "state": "observed",
+        "status": "live_identity_gate_committed",
+        "source": {
+          "type": "github_commit",
+          "locator": "a6a55e4b37212c1b96128bf3940f266fc6c52d8d",
+          "content_sha": "a6a55e4b37212c1b96128bf3940f266fc6c52d8d"
+        }
+      },
+      "to": {
+        "state": "unresolved",
+        "status": "audible_phone_outcome_unverified",
+        "source": {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+        }
+      },
+      "relation": "coexists_not_contradiction",
+      "preserved_history": "A committed verification gate is implementation evidence, not evidence that the target commit deployed or produced audible sound on iPhone Safari.",
+      "evidence_strength": "corroborated_repository_sources",
+      "review_route": "Resolve only with successful deployment identity plus retained phone audible outcome or device-level runtime evidence."
+    }
+  ],
+  "contradiction_rule": "Mark two records contradictory only when they assert mutually exclusive propositions about the same subject, scope, and observation interval. Different evidence layers or different times are linked as coexistence or supersession, not contradiction.",
+  "verification": {
+    "method": "JSON structural review and source-locator cross-check",
+    "result": "Three transitions retain source identity, temporal scope, evidence strength, privacy class, and review route."
+  }
+}
