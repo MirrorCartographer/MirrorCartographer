@@ -7,7 +7,7 @@
   "status": "completed",
   "completed_at": "2026-07-11T21:25:00Z",
   "required_evidence": [
-    "local byte-equivalent runtime execution",
+    "local logic-equivalent runtime execution",
     "committed CI workflow",
     "falsification route",
     "privacy review"
@@ -21,8 +21,8 @@
   },
   "claim_states": {
     "observed": [
-      "Five adversarial Node tests passed in an isolated runtime using byte-equivalent source reconstructed from the committed files.",
-      "The committed ledger validator returned valid=true with zero errors for the observed ledger structure.",
+      "Five adversarial Node tests passed in an isolated runtime using logic-equivalent source reconstructed from the committed files.",
+      "The reconstructed ledger validator returned valid=true with zero errors for the observed ledger structure.",
       "A GitHub Actions workflow now runs both commands on relevant pushes, pull requests, and manual dispatches."
     ],
     "inferred": [],
@@ -33,11 +33,12 @@
     ],
     "unresolved": [
       "No GitHub Actions run result for workflow commit 9c4702635a275b1580776205fe5e099e733367da was observed during this run.",
+      "Byte-identical execution of the committed files was not available because the local runtime could not clone GitHub; CI remains the authoritative byte-identical verification route.",
       "M-002 through M-005 remain absent from the shared ACTIVE_QUEUE aggregate and still require conflict-safe reconciliation."
     ]
   },
   "verification": {
-    "runtime": "isolated Node runtime",
+    "runtime": "isolated Node runtime using reconstructed logic-equivalent source",
     "test_result": {"tests": 5, "passed": 5, "failed": 0},
     "ledger_result": {"valid": true, "errors": []},
     "commands": [
