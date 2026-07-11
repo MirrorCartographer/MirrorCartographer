@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-005",
+  "owner": "frontier_research",
+  "status": "completed",
+  "primary_sources": [
+    {
+      "title": "RFC 9110: HTTP Semantics",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html#name-if-match",
+      "source_status": "IETF Internet Standard",
+      "relevant_rule": "If-Match lets a client make a state-changing request conditional on the current representation matching an observed validator, preventing the lost-update problem."
+    },
+    {
+      "title": "GitHub REST API: repository contents",
+      "url": "https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#create-or-update-file-contents",
+      "source_status": "official product documentation",
+      "relevant_rule": "Updating an existing repository file requires its current blob SHA; conflicting parallel updates must be serialized or retried."
+    }
+  ],
+  "finding": "Shared-state writers should use optimistic concurrency: capture the exact blob SHA they observed, reject a write when the current SHA differs, and refetch/merge/retry rather than force-overwrite. Ownership remains a separate authorization check.",
+  "design_implication": "Automation teams can safely update owned shared records only when both the observed SHA still matches and ownership permits replacement. Append-only evidence records remain preferred because they reduce collision scope.",
+  "artifact": {
+    "module": "tools/frontier-research/optimistic-concurrency-guard.mjs",
+    "test": "tools/frontier-research/optimistic-concurrency-guard.test.mjs",
+    "commits": [
+      "8f619d0d428ea8ea21ddc0691a99d64cfa5f99a2",
+      "99a5b8ea2eaa0f8b0232f5f6075c80e796f640b5"
+    ]
+  },
+  "verification": {
+    "method": "isolated Node runtime using byte-identical source before commit, followed by committed-source fetch inspection",
+    "result": "5 deterministic tests passed",
+    "cases": [
+      "matching SHA plus append-only operation allowed",
+      "stale SHA rejected",
+      "foreign-owned replacement rejected",
+      "stale foreign-owned replacement reports both failures",
+      "invalid actor identifier rejected"
+    ]
+  },
+  "evidence_strength": "strong_source_behavior",
+  "uncertainty": "The guard models repository-level write safety but is not yet wired into every automation writer or GitHub workflow.",
+  "falsification_route": [
+    "Demonstrate a stale write accepted by the module.",
+    "Demonstrate a non-owner replacement accepted by the module.",
+    "Wire the guard into a real shared-state update and show that GitHub still accepts a conflicting stale SHA without an explicit force path."
+  ],
+  "limits": [
+    "A matching SHA prevents a known stale write but does not prove semantic correctness.",
+    "Append-only records can still contain false or low-quality claims.",
+    "A force branch update can bypass the protocol and must remain prohibited."
+  ],
+  "privacy_boundary": "Contains only public standards, repository paths, synthetic SHA fixtures, and commit identifiers; no private chat, health, credentials, or personal data."
+}
