@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "item": {
+    "id": "R-009",
+    "owner": "frontier_research",
+    "priority": 9,
+    "action": "Define a fail-closed boundary for accepting a signed Verification Summary Attestation from a Sigstore bundle.",
+    "dependencies": ["R-008"],
+    "required_evidence": [
+      "current primary Sigstore and DSSE sources",
+      "committed verification-result contract",
+      "deterministic adversarial tests",
+      "explicit verifier and trust-root limits",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://docs.sigstore.dev/about/bundle/",
+        "https://github.com/sigstore/protobuf-specs/blob/main/protos/sigstore_bundle.proto",
+        "https://github.com/secure-systems-lab/dsse/blob/master/protocol.md"
+      ],
+      "finding": "A bare DSSE signature or structurally valid bundle is insufficient. Acceptance must bind exact statement bytes to an external cryptographic verification result, transparency verification, certificate-time verification, and exact issuer and subject policy matches.",
+      "module": "tools/frontier-research/sigstore-bundle-verification.mjs",
+      "test": "tools/frontier-research/sigstore-bundle-verification.test.mjs",
+      "evidence": "operations/evidence/frontier-research-sigstore-bundle-verification-2026-07-11T1802-0400.json",
+      "commits": [
+        "221eefc32457532c710e539b1ed8c2155fdefce7",
+        "6eaa3e68a4076c2ac5a4da4da42aca6a30fb636c",
+        "a8d9d3543bba1c8a65399ccc52db092c1635bf02"
+      ],
+      "verification": "Five deterministic Node tests passed in an isolated runtime using byte-identical committed logic.",
+      "trust_limit": "The contract records verifier output but does not perform cryptography or establish the integrity of the verifier, trust root, certificate authority, identity provider, transparency service, or underlying claim."
+    },
+    "handoff": "Cloudflare Research should generate and sign the R-008 VSA as a Sigstore bundle, run a pinned independent verifier, then feed the verifier output and exact identity policy through this R-009 contract before accepting evidence."
+  }
+}
