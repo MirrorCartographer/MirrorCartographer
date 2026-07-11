@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "observed_at": "2026-07-11T22:24:16Z",
+  "sources": [
+    {"path": "operations/CURRENT_STATE.json", "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc"},
+    {"path": "operations/ACTIVE_QUEUE.json", "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"},
+    {"path": "operations/SPECIALIST_REGISTRY.json", "blob_sha": "88451b05101bcd8a259f98de5d9290e15357366b"},
+    {"path": "operations/TRIGGER_REQUESTS.json", "blob_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4"},
+    {"path": "operations/continuity/continuity-index.json", "blob_sha": "3dc3b2cd659616dfe665f5dade3d2b9a4daa3be3"},
+    {"path": "operations/continuity/continuity-index.schema.json", "blob_sha": "12e0a37a5bb93784b58bfc381e05dc5c59205259"},
+    {"path": "operations/queue-updates/R-005-2026-07-11T1819-0400.json", "blob_sha": "1af0fa033e1502f112eef8eb59b3db7f39343580"},
+    {"path": "operations/queue-updates/V-001-2026-07-11T1821-0400.json", "blob_sha": "9350a4d825bd2cc7ab8d7795b997f5f3c60758c1"}
+  ],
+  "finding": "The aggregate ACTIVE_QUEUE snapshot predates later append-only queue updates, so reading the aggregate alone reconstructs stale project state.",
+  "classification": {
+    "observed": [
+      "ACTIVE_QUEUE updated_at is 2026-07-11T16:51:00-04:00",
+      "R-005 is recorded completed at 2026-07-11T18:19:00-04:00 outside the aggregate",
+      "V-001 has a later verification slice at 2026-07-11T18:21:50-04:00 outside the aggregate"
+    ],
+    "inferred": [
+      "automation runs that consult only ACTIVE_QUEUE can choose work from stale state"
+    ],
+    "proposed": [
+      "derive current queue truth by folding owner-authorized deltas over the base snapshot"
+    ],
+    "superseded": [],
+    "unresolved": [
+      "deterministic merge behavior has not yet been implemented and tested"
+    ]
+  },
+  "artifact": "operations/continuity/continuity-delta-2026-07-11T1824-0400.json",
+  "artifact_commit": "b5586e0963fe74aadec0ca5b58c89f02df64f1a9",
+  "privacy_boundary": "Only public repository paths, blob SHAs, timestamps, and abstract operational conclusions are included.",
+  "verification_route": "Fetch the artifact commit and exact source blobs; confirm timestamps and item contents; then validate the delta JSON parses and contains CM-0009 through CM-0011.",
+  "limits": [
+    "No deterministic reconciler was implemented in this slice.",
+    "Absence of an indexed reconciler is not proof that no unindexed prototype exists elsewhere.",
+    "The proposed fold rule is not authoritative until accepted and tested."
+  ]
+}
