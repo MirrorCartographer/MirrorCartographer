@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "observed",
+  "improvement": "Added an executable deployment-workflow invariant validator and a dedicated CI workflow that prevents silent regression of the Cloudflare evidence chain.",
+  "artifacts": {
+    "validator": "cloudflare-static/validate-workflow-contract.mjs",
+    "tests": "cloudflare-static/validate-workflow-contract.test.mjs",
+    "ci_workflow": ".github/workflows/cloudflare-workflow-contract.yml"
+  },
+  "contracts": [
+    "readiness classification precedes deployment",
+    "local and remote research-surface identity checks remain present",
+    "deployment is bound to github.sha",
+    "proof validation precedes provenance attestation",
+    "proof artifacts are mandatory and retained for 30 days",
+    "workflow permissions remain contents:read plus deployments:write",
+    "production concurrency cannot cancel an in-flight deployment",
+    "secret values are never emitted and direct secret echo commands are rejected"
+  ],
+  "verification": {
+    "local_node_test": {
+      "status": "passed",
+      "tests": 4,
+      "failures": 0,
+      "cases": [
+        "complete ordered chain accepted",
+        "deployment before readiness rejected",
+        "missing github.sha binding rejected",
+        "direct Cloudflare secret echo rejected"
+      ]
+    },
+    "github_actions": {
+      "status": "unverified",
+      "reason": "The CI workflow was committed during this run; no completed Actions run was available yet."
+    }
+  },
+  "privacy": {
+    "credentials_accessed": false,
+    "secret_values_recorded": false,
+    "private_health_or_chat_material_published": false
+  },
+  "limits": [
+    "This does not configure Cloudflare credentials.",
+    "This does not prove a resolving Cloudflare Pages URL or deployed commit.",
+    "A passing workflow-contract gate proves structural invariants, not successful deployment or scientific truth."
+  ],
+  "commits": [
+    "fdc7304f4023058121ce307654833cfd79499c0e",
+    "6a8f71a0b05075d04d037773164e0575a94088d1",
+    "add69df433442adc6bde17cb90c701ac61997355"
+  ]
+}
