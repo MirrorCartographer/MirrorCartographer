@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "recorded_at": "2026-07-11T17:44:00-04:00",
+  "status": "active_blocked_on_deployment",
+  "completed_vertical_slice": {
+    "name": "live deployment identity assertion",
+    "source_commit": "391a992f02cf398c1e638adc4fd03cc63736ce1a",
+    "file": "tests/live-hosting.spec.js",
+    "acceptance": [
+      "runtime deployment identity exists",
+      "commit is an immutable normalized SHA-1",
+      "verification state is source-identified",
+      "meta marker equals runtime evidence",
+      "Vercel host classifies provider as vercel",
+      "optional expected commit matches deployed commit"
+    ]
+  },
+  "evidence": [
+    "operations/evidence/vercel-live-deployment-identity-gate-2026-07-11T1744-0400.json"
+  ],
+  "deployment": {
+    "commit": "391a992f02cf398c1e638adc4fd03cc63736ce1a",
+    "state": "failure",
+    "reason": "Vercel build-rate-limit",
+    "runtime_verified": false
+  },
+  "remaining": [
+    "obtain a successful Vercel deployment for this commit or a descendant",
+    "run the live Playwright gate with EXPECTED_DEPLOYMENT_COMMIT set to the deployed SHA",
+    "capture an iPhone audible outcome paired with audio pulse, audio evidence, audibility evidence, and deployment identity"
+  ],
+  "rollback": "git revert 391a992f02cf398c1e638adc4fd03cc63736ce1a"
+}
