@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "item_id": "M-004",
+  "recorded_at": "2026-07-11T21:56:17Z",
+  "artifact": "operations/continuity/decision-implementation-evidence-chronology.json",
+  "artifact_commit": "2699861596a3c74602e29b59ca0864de2fa00870",
+  "claim_state": "observed",
+  "evidence_strength": "primary_repository_source",
+  "result": "A five-record chronology now links queue intent, implementation commits, evidence commits, acceptance boundaries, unresolved external outcomes, and proposed next actions without treating commit order as causal proof.",
+  "contradictions_resolved": [
+    "Scoped item completion can coexist with later domain work.",
+    "Evidence commits prove durable records exist but do not prove verifier execution, deployment, or runtime outcome.",
+    "The older aggregate queue and later additive owner updates represent stale snapshot plus subsequent observations, not mutually exclusive history."
+  ],
+  "unresolved": [
+    "No canonical queue-state reconciler exists.",
+    "Cloudflare deployment remains externally unproven.",
+    "Vercel iPhone audibility remains unproven."
+  ],
+  "privacy_boundary": "Public repository files, public commit metadata, and abstract project relations only; raw private chat, health material, credentials, identifying data, and unreviewed uploads excluded.",
+  "verification": {
+    "method": "GitHub create-file acknowledgement plus source SHA and recent commit-order cross-check",
+    "limits": "No runtime verifier was executed; this evidence records committed structure, not external outcomes."
+  }
+}
