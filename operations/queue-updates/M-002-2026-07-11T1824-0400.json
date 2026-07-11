@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-002",
+  "owner": "continuity_mining",
+  "priority": 1,
+  "status": "completed",
+  "action": "Recover and encode the temporal divergence between the aggregate queue snapshot and later append-only team updates without overwriting either source.",
+  "dependencies": ["M-001"],
+  "required_evidence": [
+    "exact source blob SHAs",
+    "observed/inferred/proposed/unresolved separation",
+    "privacy boundary",
+    "reconciliation and falsification route"
+  ],
+  "progress": {
+    "memory_artifact": "operations/continuity/continuity-delta-2026-07-11T1824-0400.json",
+    "evidence": "operations/evidence/continuity-queue-divergence-2026-07-11T1824-0400.json",
+    "records_added": ["CM-0009", "CM-0010", "CM-0011"],
+    "finding": "ACTIVE_QUEUE is a historical base snapshot and does not include later R-005 and V-001 delta state.",
+    "contradiction_resolution": "Preserve both sources as time-indexed observations; do not call either false. Treat a fold over owner-authorized later deltas as proposed current-state reconstruction until a deterministic reconciler is tested.",
+    "commits": [
+      "b5586e0963fe74aadec0ca5b58c89f02df64f1a9",
+      "88872bbd546ef56a53462b75a98cafd647d3df9e"
+    ],
+    "verification": "Artifact and evidence are additive JSON files with exact blob SHAs and explicit review routes; source files were re-read before creation."
+  },
+  "privacy_boundary": "Public repository metadata and abstract operational findings only; no private chat, health, pet-health, credentials, contact data, or unreviewed uploads.",
+  "handoff": "Implement a deterministic queue reconciler and adversarial tests for timestamp ties, owner violations, malformed deltas, duplicate IDs, and preservation of untouched team records.",
+  "updated_at": "2026-07-11T18:24:16-04:00"
+}
