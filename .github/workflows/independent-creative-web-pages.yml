@@ -1,0 +1,43 @@
+name: Independent Creative Web Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'independent-creative-web/night-shift-orchard/**'
+      - '.github/workflows/independent-creative-web-pages.yml'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: independent-creative-web-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate self-contained artwork
+        run: |
+          test -f independent-creative-web/night-shift-orchard/index.html
+          test -f independent-creative-web/night-shift-orchard/IDENTITY.json
+          grep -q 'viewport-fit=cover' independent-creative-web/night-shift-orchard/index.html
+          grep -q 'prefers-reduced-motion' independent-creative-web/night-shift-orchard/index.html
+          grep -q 'AudioContext' independent-creative-web/night-shift-orchard/index.html
+          grep -q 'aria-live="polite"' independent-creative-web/night-shift-orchard/index.html
+          ! grep -Eqi 'Mirror Cartographer|payment|checkout|pricing|research portal' independent-creative-web/night-shift-orchard/index.html
+          python -m json.tool independent-creative-web/night-shift-orchard/IDENTITY.json >/dev/null
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: independent-creative-web/night-shift-orchard
+      - id: deployment
+        uses: actions/deploy-pages@v4
