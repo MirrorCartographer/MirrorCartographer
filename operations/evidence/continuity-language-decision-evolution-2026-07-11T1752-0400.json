@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T21:52:30Z",
+  "team": "continuity_mining",
+  "queue_item": "M-003",
+  "artifact": "operations/continuity/language-decision-evolution-map.json",
+  "artifact_commit": "7dcc4719fb92d414582c8ea64fab81060f81aa04",
+  "finding": "Project vocabulary now separates implementation, scoped verification, provider deployment, target-environment runtime outcome, and peer triggering into independently evidenced propositions.",
+  "sources_inspected": [
+    {"path": "operations/CURRENT_STATE.json", "sha": "c21e897b0a30862142c5986368fc7c413fa030bc"},
+    {"path": "operations/ACTIVE_QUEUE.json", "sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"},
+    {"path": "operations/SPECIALIST_REGISTRY.json", "sha": "88451b05101bcd8a259f98de5d9290e15357366b"},
+    {"path": "operations/TRIGGER_REQUESTS.json", "sha": "80feb36d1d829c7d54748780837a9ebef543e6c4"},
+    {"path": "operations/continuity/status-transition-ledger.json", "sha": "8cfd699308dcd6ddd6f4d016e8f51fb87a2048f9"},
+    {"commit": "df71e0a98584f2f5a3f45719fb3fd0b84f0d6a05", "meaning": "verification receipt schema"},
+    {"commit": "770dea0369f90b0c4a7ae6e16ac191510b87a779", "meaning": "fail-closed receipt validator"},
+    {"commit": "d8c250cf6e5630acc1b9ac371e8d7caac2f8c89a", "meaning": "status transition ledger"}
+  ],
+  "claim_states": {
+    "observed": [
+      "Repository rules forbid reporting implementation without evidence.",
+      "Current queue distinguishes source, deployment identity, and target-device runtime evidence.",
+      "Trigger records describe scheduling intent or acceptance, not peer execution."
+    ],
+    "inferred": [
+      "Unqualified success verbs are a recurrent source of continuity drift unless bound to an evidence layer."
+    ],
+    "proposed": [
+      "Use normalized peer-trigger phrasing and always name the verifier or observation scope."
+    ],
+    "superseded": [
+      "Loose narration in which committed code could stand in for deployment or runtime proof."
+    ],
+    "unresolved": [
+      "Latest Cloudflare deployment identity",
+      "Latest Vercel deployment identity for the audio slice",
+      "Audible iPhone Safari outcome"
+    ]
+  },
+  "contradictions_resolved": [
+    "Implemented mechanism and unresolved outcome coexist at different evidence layers.",
+    "Accepted peer reschedule and unconfirmed peer execution are compatible claims."
+  ],
+  "privacy_boundary": {
+    "included": "Public repository artifacts, commit metadata, abstract terminology, and project-state relations.",
+    "excluded": "Private chat text, health and pet-health material, credentials, identifying personal data, and unreviewed uploads."
+  },
+  "verification": {
+    "method": "Fetch committed artifact and confirm valid JSON, five evolution records, explicit provenance, evidence strength, claim state, decision boundary, and review route.",
+    "status": "pending_post_commit_fetch"
+  }
+}
