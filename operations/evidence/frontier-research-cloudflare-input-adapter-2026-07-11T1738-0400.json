@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-006",
+  "generated_at": "2026-07-11T17:38:53-04:00",
+  "finding": "A fail-closed acceptance gate still requires a strict adapter between heterogeneous verifier outputs and its required booleans. Only explicit success statuses may map to true; missing, malformed, ambiguous, and unknown values must fail or map false.",
+  "primary_sources": [
+    {
+      "url": "https://docs.github.com/en/actions/how-tos/secure-your-work/use-artifact-attestations/verify-artifact-attestations",
+      "status": "official implementation guidance",
+      "use": "cryptographic attestation verification must be performed by a verifier rather than inferred from an attestation file"
+    },
+    {
+      "url": "https://slsa.dev/spec/v1.2/verifying-artifacts",
+      "status": "official specification guidance",
+      "use": "artifact, provenance subject, trusted builder, source, build type, and external parameters require independent verification"
+    }
+  ],
+  "artifact": {
+    "module": "tools/frontier-research/cloudflare-evidence-input-adapter.mjs",
+    "test": "tools/frontier-research/cloudflare-evidence-input-adapter.test.mjs",
+    "module_commit": "6abbb8a17da14f4f56d13fb3d900bd61fdc4e77a",
+    "test_commit": "cc68e071a1fa9f0ee3bb0270fa54f4a2bd927dd6"
+  },
+  "verification": {
+    "command": "node --test tools/frontier-research/cloudflare-evidence-input-adapter.test.mjs",
+    "environment": "isolated Node runtime using byte-identical pre-commit files",
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "all explicit success statuses map true",
+      "failure and unknown statuses map false",
+      "missing status throws",
+      "absent verifier object throws",
+      "raw statuses remain available for audit"
+    ]
+  },
+  "evidence_strength": "tested implementation-ready adapter; not yet integrated into the deployment workflow",
+  "uncertainty": "Actual verifier output schemas may differ and require an explicit upstream normalization step. No cryptographic verification is performed by this adapter.",
+  "falsification_route": [
+    "provide a missing or ambiguous status that maps to true",
+    "show that a malformed verifier object is silently accepted",
+    "integrate the adapter and observe that raw source status cannot be audited",
+    "run the committed test in CI and obtain a failure"
+  ],
+  "handoff": "Cloudflare Research should normalize actual signature, digest, trusted-builder, source, buildType, external-parameter, and proof-validator outputs into this adapter, pass mapped booleans to evaluateEvidenceAcceptance(), and upload the final decision as a separate artifact."
+}
