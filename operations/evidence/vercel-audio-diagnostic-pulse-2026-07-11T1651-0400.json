@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T16:51:00-04:00",
+  "claim_state": "implemented_source_not_deployed",
+  "evidence_strength": "source_and_contract",
+  "specialists": [
+    "Audio Engineer",
+    "Mobile Safari Investigator",
+    "Accessibility Auditor",
+    "Deployment Verifier"
+  ],
+  "implementation": {
+    "repository": "MirrorCartographer/mirror-cartographer-ui",
+    "runtime_file": "src/engine/audioObservabilityRuntime.js",
+    "runtime_commit": "1aa375dc58e9b8309d2dfe8b16e444beb7146d7b",
+    "test_file": "scripts/audio-observability-contract-check.mjs",
+    "test_commit": "249e825096b4d6d56aafee614e24b5220f688062",
+    "slice": "A 44px accessible Test sound control creates and resumes AudioContext inside the click gesture, emits a 523.25 Hz sine pulse for 220 ms at bounded gain 0.08, then records pulse metadata and render-progress classification."
+  },
+  "runtime_contract": {
+    "control": "[data-audio-diagnostic]",
+    "pulse_evidence": "window.__MC_AUDIO_PULSE__",
+    "render_evidence": "window.__MC_AUDIO_EVIDENCE__",
+    "states": ["ready", "playing", "played", "unsupported", "activation-blocked-or-suspended", "pulse-error"]
+  },
+  "verification": {
+    "deterministic_contract": "Committed fake AudioContext coverage verifies resume, 523.25 Hz frequency assignment, bounded envelope, exact start/stop timing, and unsupported fallback.",
+    "ci_runs_for_test_commit": 0,
+    "fresh_checkout": "blocked: execution container could not resolve github.com",
+    "deployment": "not verified in this run"
+  },
+  "rollback": {
+    "revert_commits": ["249e825096b4d6d56aafee614e24b5220f688062", "1aa375dc58e9b8309d2dfe8b16e444beb7146d7b"],
+    "effect": "Restores passive audio observability without the diagnostic control or generated pulse."
+  },
+  "limits": [
+    "Source and contract commits do not prove that Vercel deployed the change.",
+    "Browser render progress does not prove the user heard the tone or that the physical speaker path was unmuted.",
+    "A real iPhone Safari retest remains required.",
+    "No payment or conversion behavior was added."
+  ]
+}
