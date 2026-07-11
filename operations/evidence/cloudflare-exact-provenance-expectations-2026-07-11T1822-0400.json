@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T18:22:00-04:00",
+  "claim_state": "source_verified",
+  "improvement": "Cloudflare deployment-proof attestations now require the exact reviewed SLSA buildType and exact externalParameters in addition to structural validation and deny-by-default builder identity policy.",
+  "source_status": {
+    "frontier_handoff": "tools/frontier-research/provenance-expectations.mjs",
+    "primary_specification_basis": "SLSA provenance v1.2 verification guidance",
+    "uncertainty": "The local evaluator verifies statement contents only; cryptographic signature, certificate, transparency-log, and deployed-runtime verification remain separate gates."
+  },
+  "implementation": {
+    "module": "cloudflare-static/attest-deployment-proof.mjs",
+    "module_commit": "254ad6c1706e03c377b916b96b4e4f7200289d03",
+    "test": "cloudflare-static/attest-deployment-proof.test.mjs",
+    "test_commit": "4992fa8e8f919b07ef6fa392abe76e21bade0ea3",
+    "expected_build_type": "https://mirrorcartographer.org/build-types/evidence-envelope/v1",
+    "expected_external_parameters": {
+      "artifactName": "cloudflare-deployment-proof.json",
+      "sourceRepository": "MirrorCartographer/MirrorCartographer"
+    }
+  },
+  "verification": {
+    "route": "isolated Node 22-compatible test runtime using byte-equivalent committed modules",
+    "command": "node --test cloudflare-static/attest-deployment-proof.test.mjs",
+    "result": {"tests": 5, "passed": 5, "failed": 0},
+    "adversarial_cases": [
+      "unknown external parameter rejected",
+      "changed artifact name rejected",
+      "changed build type rejected",
+      "missing immutable source commit rejected",
+      "one-byte proof change produces a different digest"
+    ]
+  },
+  "falsification_route": [
+    "Show that an unknown external parameter is accepted.",
+    "Show that a changed artifact name, source repository, or buildType is accepted.",
+    "Show that the workflow can emit an attestation without the provenanceDecision being accepted.",
+    "Show that canonical comparison changes semantic values or permits type confusion."
+  ],
+  "privacy_boundary": "No secret values, private chat, health information, diagnosis, treatment claim, or personal identifier is present.",
+  "deployment_status": "not_verified",
+  "deployment_blocker": "Cloudflare environment credentials and a successful workflow dispatch are still required to obtain a resolving Pages URL and served-commit proof."
+}
