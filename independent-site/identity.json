@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "site_id": "unreliable-observatory",
+  "title": "The Unreliable Observatory",
+  "creative_premise": "An instrument that reports weather from impossible places. The visitor operates it; the site never explains a project, sells a product, or asks for conversion.",
+  "visual_law": [
+    "Warm paper field with black technical ink and one rust-red signal color.",
+    "Circular measuring instrument is the primary spatial grammar.",
+    "Typography combines literary serif observation with terse instrument labels.",
+    "Motion behaves like imperfect measurement: drifting points and a physical needle, never dashboard animation."
+  ],
+  "behavioral_law": [
+    "Every scan produces a named impossible place, a climate, and an operator note.",
+    "Sound is opt-in and generated locally through Web Audio after a direct gesture.",
+    "The experience works without sound, pointer precision, account state, network APIs, or personal data.",
+    "Spacebar and the visible scan control invoke the same interaction."
+  ],
+  "independence_boundary": {
+    "forbidden": [
+      "Mirror Cartographer terminology",
+      "research portal structure",
+      "worker or agent dashboard",
+      "product funnel",
+      "payment or conversion logic",
+      "private user material"
+    ],
+    "allowed_relation": "Shared repository operations and provenance only; no shared creative identity."
+  },
+  "accessibility": [
+    "44px minimum controls",
+    "keyboard-operable scan",
+    "live announcement of new reports",
+    "reduced-motion support",
+    "sound disabled by default"
+  ],
+  "performance_budget": {
+    "runtime_dependencies": 0,
+    "network_requests_after_load": 0,
+    "asset_model": "single self-contained HTML document",
+    "device_pixel_ratio_cap": 2
+  },
+  "rollback": "Revert the source commit or remove the hosting route while retaining Git history."
+}
