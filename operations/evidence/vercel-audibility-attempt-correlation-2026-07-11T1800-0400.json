@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T18:00:59-04:00",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "claim_state": "implemented_source_unverified_runtime",
+  "finding": "Pulse, render observation, and human audibility response require one shared attempt identifier; otherwise a valid-looking result can combine evidence from different sound tests.",
+  "implementation": {
+    "repository": "MirrorCartographer/mirror-cartographer-ui",
+    "runtime_file": "src/engine/audibilityOutcomeRuntime.js",
+    "runtime_commit": "c2fa85574367e679677cfc391576e9d70aeb4a6b",
+    "test_file": "scripts/audibility-outcome-contract-check.mjs",
+    "test_commit": "3b934efbef9e85809510c60aae94491b07e1445a",
+    "schema_version": "1.2.0",
+    "new_fields": ["attemptId", "attemptMatched"],
+    "fail_closed_diagnosis": "attempt-evidence-mismatch"
+  },
+  "behavior": [
+    "Each direct sound-test gesture creates a non-empty attempt identifier.",
+    "Pending pulse state, produced pulse evidence, render evidence, panel state, and final human response are correlated to that identifier.",
+    "A played pulse requires matching render evidence before the result is accepted as same-attempt evidence.",
+    "An unscheduled pulse can be classified without render evidence, but still requires its own attempt identifier.",
+    "Mismatched or missing identities fail closed as attempt-evidence-mismatch."
+  ],
+  "verification": {
+    "deterministic_contract_cases_committed": true,
+    "cases": [
+      "matching pulse and render identities accepted",
+      "different render identity rejected",
+      "missing render identity rejected for a played pulse",
+      "unscheduled pulse remains diagnosable within its attempt",
+      "retry creates and stores a fresh attempt identity",
+      "empty explicit attempt identity rejected"
+    ],
+    "github_actions_runs": 0,
+    "vercel_status": "failure",
+    "vercel_reason": "build-rate-limit",
+    "runtime_execution_claimed": false,
+    "deployment_identity_claimed": false,
+    "iphone_audibility_claimed": false
+  },
+  "rollback": {
+    "order": [
+      "revert 3b934efbef9e85809510c60aae94491b07e1445a",
+      "revert c2fa85574367e679677cfc391576e9d70aeb4a6b"
+    ],
+    "migration_required": false
+  },
+  "limits": [
+    "The committed test was not executed by GitHub Actions during this run.",
+    "Vercel did not deploy the commit because the project hit its build-rate limit.",
+    "No physical iPhone Safari audible result was captured."
+  ],
+  "next_action": "Execute the committed contract test in CI or a fresh checkout, obtain a successful Vercel deployment identity for this commit or a descendant, then capture one iPhone Safari test whose pulse, render, and human response all expose the same attemptId."
+}
