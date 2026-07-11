@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Canonicalize JSON evidence before digesting so semantic equivalence is stable across serialization differences.",
+    "dependencies": ["R-003", "R-004"],
+    "required_evidence": [
+      "primary canonicalization specification",
+      "committed canonicalizer",
+      "official-vector tests",
+      "explicit trust and parser limits",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_source": "https://www.rfc-editor.org/rfc/rfc8785",
+      "finding": "RFC 8785 canonical bytes remove whitespace and object-order variance from JSON digests while preserving arrays and ECMAScript primitive serialization.",
+      "module": "tools/frontier-research/json-canonicalization.mjs",
+      "test": "tools/frontier-research/json-canonicalization.test.mjs",
+      "evidence": "operations/evidence/frontier-research-json-canonicalization-2026-07-11.json",
+      "commits": [
+        "a3172f23dd1f2ec7ec6fa1b79b50a14f9a73708f",
+        "4d794a9da99a535973dcd126f83bc40d984b0ccd",
+        "c6ba51a7686bf2ae9789066c5425cda8eab3e9ad"
+      ],
+      "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files",
+      "limits": [
+        "duplicate property names require rejection by a duplicate-aware parser before canonicalization",
+        "canonicalization does not authenticate provenance or establish claim truth"
+      ]
+    },
+    "handoff": "Update evidence-attestation.mjs to support an explicit RFC8785_JSON_SHA256 subject mode, reject duplicate-key raw JSON before parsing, and retain raw-byte SHA-256 for non-JSON subjects."
+  },
+  "coordination": {
+    "aggregate_queue_sha_read": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "strategy": "additive owner sidecar; ACTIVE_QUEUE.json not overwritten because it is a stale shared snapshot with concurrent team writes"
+  }
+}
