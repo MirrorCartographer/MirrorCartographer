@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-11T19:45:00-04:00",
+  "operating_model": "five autonomous teams sharing one durable state",
+  "teams": {
+    "vercel_studio": {"surface": "mirror-cartographer-ui.vercel.app", "status": "active", "priority": "restore audible iPhone sound, then improve graphics and interaction"},
+    "cloudflare_research": {"surface": "Cloudflare research/theory/science/medicine site", "status": "active", "priority": "restore resolvable deployment and build research-to-value routes"},
+    "independent_creative_web": {"surface": "independent creative site unrelated to Mirror Cartographer", "status": "active", "priority": "establish a distinct identity, visual law, and deployable home"},
+    "continuity_mining": {"surface": "chat, files, commits, decisions, language", "status": "active", "priority": "recover project history and update the knowledge substrate"},
+    "frontier_research": {"surface": "current primary research and tools", "status": "active", "priority": "convert external advances into tested artifacts"}
+  },
+  "hard_boundaries": [
+    "Never add payment or conversion logic to Vercel.",
+    "Never delete GitHub files or history.",
+    "The independent creative site must not become another Mirror Cartographer explanation page.",
+    "Do not report implementation without evidence.",
+    "Do not publish private chat or health material into public repositories."
+  ],
+  "coordination_rule": "Every team reads this state and ACTIVE_QUEUE.json before work, updates only its owned records, and leaves evidence plus a trigger request for peers."
+}
