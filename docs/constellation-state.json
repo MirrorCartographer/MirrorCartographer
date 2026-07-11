@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-11T15:01:40-04:00",
+  "privacy_class": "public-safe-derived",
+  "topology": [
+    {
+      "surface": "living-encounter",
+      "repository": "MirrorCartographer/mirror-cartographer-ui",
+      "deployment": "vercel",
+      "role": "daily-changing experiential and advanced-graphics surface",
+      "prohibitions": ["payments", "conversion-flow", "autoplay"]
+    },
+    {
+      "surface": "research-field",
+      "repository": "MirrorCartographer/MirrorCartographer",
+      "deployment": "cloudflare",
+      "role": "theory design, science, medicine-facing research organization, evidence, and conversion",
+      "prohibitions": ["diagnosis", "treatment-claims", "untyped-evidence"]
+    },
+    {
+      "surface": "worker-constellation",
+      "repository": "MirrorCartographer/MirrorCartographer",
+      "path": "constellation",
+      "deployment": "github-pages",
+      "role": "public operational transparency and worker coordination",
+      "prohibitions": ["experiential-duplication", "research-interface-duplication", "private-reasoning-exposure"]
+    }
+  ],
+  "superseded_claims": [
+    "two-site architecture is the complete topology",
+    "GitHub Pages is the canonical Vercel fallback",
+    "Cloudflare is only an artist field"
+  ],
+  "workers": {
+    "cartographer": {
+      "role": "coordinator and continuity keeper",
+      "style": ["context-preserving", "semantic", "privacy-aware"]
+    },
+    "engineer": {
+      "role": "reliability and deployment evidence",
+      "style": ["skeptical", "adversarial", "evidence-first"]
+    },
+    "builder": {
+      "role": "completed experiential vertical slices",
+      "style": ["ambitious", "visual", "playful", "reversible"]
+    },
+    "revenue_architect": {
+      "role": "Cloudflare research-to-value conversion",
+      "style": ["concrete", "buyer-aware", "measurable"]
+    },
+    "capability_lab": {
+      "role": "shared adapters, schemas, probes, validators, and evaluations",
+      "style": ["experimental", "cross-disciplinary", "tool-building"]
+    }
+  },
+  "queue": [
+    {
+      "priority": 0,
+      "id": "P0-runtime-deployment-proof",
+      "owner": "engineer",
+      "status": "assigned",
+      "dependencies": ["vercel-deployment-41a29cf3", "cloudflare-current-deployment", "github-pages-first-deployment"],
+      "evidence_required": ["gesture-variable-snapshots", "visible-text-invariance", "audio-owner-invariance", "pointer-transparency", "reduced-motion", "hidden-visible-single-loop", "three-surface-url-proof"]
+    },
+    {
+      "priority": 1,
+      "id": "P1-state-validator",
+      "owner": "capability_lab",
+      "status": "initiated",
+      "dependencies": ["docs/CONSTELLATION_COORDINATION.md", "docs/constellation-state.json"],
+      "evidence_required": ["schema-or-validator", "passing-fixture"]
+    },
+    {
+      "priority": 2,
+      "id": "P2-explicit-encounter-frame",
+      "owner": "builder",
+      "status": "blocked-by-P0",
+      "dependencies": ["P0-runtime-deployment-proof"],
+      "evidence_required": ["contract-test", "build", "smoke-test", "state-divergence"]
+    },
+    {
+      "priority": 3,
+      "id": "P3-cloudflare-conversion-path",
+      "owner": "revenue_architect",
+      "status": "blocked-by-P0-cloudflare-proof",
+      "dependencies": ["P0-runtime-deployment-proof"],
+      "evidence_required": ["live-route", "defined-deliverable", "price-or-payment-handoff", "conversion-metric", "privacy-boundary"]
+    },
+    {
+      "priority": 4,
+      "id": "P4-private-corpus-index",
+      "owner": "cartographer",
+      "status": "blocked-by-P1-identifiers",
+      "dependencies": ["P1-state-validator"],
+      "evidence_required": ["public-safe-schema", "storage-boundary", "no-private-content"]
+    },
+    {
+      "priority": 5,
+      "id": "P5-daily-visual-protocol",
+      "owner": "builder",
+      "status": "blocked-by-P0-and-P2",
+      "dependencies": ["P0-runtime-deployment-proof", "P2-explicit-encounter-frame"],
+      "evidence_required": ["before-after-capture", "performance-gate", "commit", "rollback-route"]
+    }
+  ],
+  "evidence": {
+    "hidden_tab_source_fix": "present",
+    "possibility_field_source_and_contract": "present",
+    "browser_visual_divergence": "missing",
+    "vercel_deployed_commit": "missing-or-not-durable",
+    "cloudflare_research_source": "present",
+    "github_pages_workflow": "present",
+    "github_pages_deployment": "not-recorded",
+    "cloudflare_conversion": "not-implemented"
+  }
+}
