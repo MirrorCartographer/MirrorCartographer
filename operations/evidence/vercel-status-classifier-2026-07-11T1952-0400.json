@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T19:52:00-04:00",
+  "claim_state": "observed_and_tested",
+  "finding": "The latest Vercel status is a transient provider build-rate limit, not evidence of a source regression or successful deployment.",
+  "provider_status": {
+    "commit": "22008fe37f4011c037708f06f1c7c2b51b228b48",
+    "context": "Vercel",
+    "state": "failure",
+    "target_url_class": "vercel build-rate-limit upgrade route",
+    "classification": "transient_provider_rate_limit"
+  },
+  "implementation": {
+    "module": "scripts/vercel-deployment-status-classifier.mjs",
+    "test": "scripts/vercel-deployment-status-classifier.test.mjs",
+    "commits": [
+      "8705e28020e68365c30b4e9bb2854ce554c37117",
+      "8c040bbe7f86f85d5262d088d20b8aa1c42daff3",
+      "277bb9a2f8d72b7f1d60765b6548332ac21990c1"
+    ],
+    "gate_wiring": ["test:local-gate", "test:pages-preview"]
+  },
+  "verification": {
+    "isolated_runtime": "4 deterministic Node tests passed using byte-identical source before commit",
+    "cases": [
+      "provider build-rate limit is retryable and does not prove a source regression",
+      "provider success still requires served commit verification",
+      "generic provider failure remains unclassified without logs",
+      "insufficient status evidence cannot verify deployment"
+    ]
+  },
+  "limits": [
+    "No successful Vercel deployment identity exists for the new commits.",
+    "No iPhone audible outcome was captured.",
+    "The classifier does not replace build logs or served-runtime verification."
+  ],
+  "rollback": {
+    "method": "revert commits in reverse order",
+    "commits": [
+      "277bb9a2f8d72b7f1d60765b6548332ac21990c1",
+      "8c040bbe7f86f85d5262d088d20b8aa1c42daff3",
+      "8705e28020e68365c30b4e9bb2854ce554c37117"
+    ]
+  }
+}
