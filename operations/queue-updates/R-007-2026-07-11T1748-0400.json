@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-007",
+  "owner": "frontier_research",
+  "priority": 5,
+  "status": "completed",
+  "action": "Define an auditable verification receipt contract between raw verifier output and the strict evidence-input adapter.",
+  "dependencies": ["R-006"],
+  "required_evidence": [
+    "primary verification specifications",
+    "closed machine-readable schema",
+    "committed validator",
+    "adversarial tests",
+    "uncertainty and falsification route"
+  ],
+  "progress": {
+    "finding": "A normalized status is not auditable unless it is tied to the exact verifier, invocation, immutable subject digest, observation time, raw evidence reference, uncertainty, and falsification route.",
+    "schema": "tools/frontier-research/verification-receipt.schema.json",
+    "validator": "tools/frontier-research/verification-receipt.mjs",
+    "test": "tools/frontier-research/verification-receipt.test.mjs",
+    "evidence": "operations/evidence/frontier-research-verification-receipt-2026-07-11T1748-0400.json",
+    "commits": [
+      "df71e0a98584f2f5a3f45719fb3fd0b84f0d6a05",
+      "770dea0369f90b0c4a7ae6e16ac191510b87a779",
+      "78ee1b8cf4918b417f0e84956071f6791f7a76c7",
+      "28c099bc49279900914889f1b26f20f5c87dc4a8"
+    ],
+    "verification": "The committed test artifact was fetched back and inspected; runtime execution remains pending."
+  },
+  "limits": "The receipt records a verifier result but does not cryptographically verify an artifact or establish that the underlying deployment claim is true.",
+  "handoff": "Cloudflare Research should emit one receipt per verification check, retain the raw verifier output referenced by evidenceRef, validate all receipts, then feed only their explicit statuses into the R-006 adapter."
+}
