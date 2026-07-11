@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "created_at": "2026-07-11T16:51:00-04:00",
+  "creative_premise": "A full-screen playable weather instrument where touch pressure becomes weather and weather rings as metal.",
+  "artifact": {
+    "source": "independent-web/index.html",
+    "identity": "independent-web/IDENTITY.md",
+    "verifier": "independent-web/verify.mjs",
+    "deployment_workflow": ".github/workflows/independent-web-pages.yml"
+  },
+  "commits": [
+    "97b3da9b2ae3cdae08d661f2733d2f5f14034c5a",
+    "8a9aeda755f0cb90aed3f06a9973320435c77de1",
+    "d24843e4d8991de2ecb586695e52112143313d90",
+    "b58ade7839a74bcfa60e212ddeed4a80429cff70"
+  ],
+  "interaction_contract": ["tap bell strike", "drag spectral wind", "two-pointer rain", "keyboard strike", "gesture-gated Web Audio"],
+  "accessibility": ["keyboard controls", "aria-live state", "reduced-motion support", "safe-area layout", "sound optional"],
+  "independence_boundary": "No Mirror Cartographer vocabulary, symbolic mapping, research portal, dashboard, user data, payment, conversion, analytics, or external assets.",
+  "verification": {
+    "source_presence": "committed",
+    "static_contract": "committed but not executed by this runtime because GitHub DNS resolution failed and no workflow run was yet visible",
+    "deployment": "GitHub Pages workflow committed; public URL not yet evidenced",
+    "mobile_proof": "responsive and safe-area contracts implemented; physical-device proof pending"
+  },
+  "rollback": "Revert the four artifact commits or deploy any earlier repository commit. The artifact has no persistent state, database, secrets, or migration.",
+  "limits": [
+    "No public URL was observed in this run.",
+    "No physical mobile device was available for runtime capture.",
+    "The verifier has not yet been independently executed by CI evidence."
+  ]
+}
