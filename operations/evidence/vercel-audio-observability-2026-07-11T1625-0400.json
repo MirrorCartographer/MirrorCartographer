@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T16:25:00-04:00",
+  "slice": "Install a browser-visible Web Audio render-progress meter before application bootstrap.",
+  "source_repository": "MirrorCartographer/mirror-cartographer-ui",
+  "commits": [
+    "a90fae70f502f4d3758cbba38edb7b0b164a654f",
+    "9dad5e8355a3795df8e049408c3175a1c0836ab8",
+    "f75a1fd3352e04d9d45979847b4f19bed7954d92"
+  ],
+  "files": [
+    "src/engine/audioObservabilityRuntime.js",
+    "src/main.jsx",
+    "scripts/audio-observability-contract-check.mjs"
+  ],
+  "behavior_contract": {
+    "render_confirmed": "getOutputTimestamp().contextTime advances",
+    "clock_progress_only": "AudioContext.currentTime advances without observable output position",
+    "failure_states": [
+      "running-without-observed-progress",
+      "activation-blocked-or-suspended",
+      "closed",
+      "unsupported"
+    ],
+    "runtime_evidence_handle": "window.__MC_AUDIO_EVIDENCE__",
+    "dom_probe": "[data-audio-observability]"
+  },
+  "verification": {
+    "source": "committed",
+    "deterministic_test": "committed_not_executed_by_connector",
+    "deployment": "unverified_due_to_runtime_dns_failure",
+    "phone": "not_retested"
+  },
+  "limits": [
+    "Render progress is browser-level evidence, not proof that physical sound reached the speaker.",
+    "The current run had no executable checkout or successful network route to the Vercel hostname.",
+    "V-001 remains active until deployed commit identity and an iPhone audible result or device-level meter are captured."
+  ],
+  "rollback": [
+    "Revert f75a1fd3352e04d9d45979847b4f19bed7954d92",
+    "Revert 9dad5e8355a3795df8e049408c3175a1c0836ab8",
+    "Revert a90fae70f502f4d3758cbba38edb7b0b164a654f"
+  ]
+}
