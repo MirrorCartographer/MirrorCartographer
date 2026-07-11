@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T18:11:00-04:00",
+  "slice": "Bridge Vercel system deployment variables into immutable Vite browser build identity.",
+  "specialists": [
+    "Deployment Verifier",
+    "Reliability Engineer",
+    "Test Harness Engineer",
+    "Mobile Safari Investigator"
+  ],
+  "source": {
+    "repository": "MirrorCartographer/mirror-cartographer-ui",
+    "commits": [
+      "b77c29fb975b4f9b6e946aecafc01325df09cd26",
+      "271c929164350d4d242766139e3a19b28447e355",
+      "39512aabea7aed121e64dbf7895e4c216957c080"
+    ],
+    "files": [
+      "vite.config.js",
+      "scripts/vercel-build-identity-contract-check.mjs",
+      "package.json"
+    ]
+  },
+  "behavior": {
+    "input": ["VERCEL_GIT_COMMIT_SHA", "VERCEL_URL", "VERCEL"],
+    "output": ["VITE_GIT_COMMIT_SHA", "VITE_VERCEL_URL", "VITE_DEPLOYMENT_PROVIDER"],
+    "fail_closed": "Malformed or mutable commit values compile to an empty identity rather than a false source claim.",
+    "gate_wiring": ["test:local-gate", "test:pages-preview"]
+  },
+  "verification": {
+    "source_fetch": "committed files were written through the GitHub contents API",
+    "workflow_runs": [],
+    "vercel_status": "failure",
+    "vercel_target": "build-rate-limit upgrade page",
+    "runtime_claim": "not established",
+    "deployment_identity_claim": "not established"
+  },
+  "rollback": [
+    "revert 39512aabea7aed121e64dbf7895e4c216957c080",
+    "revert 271c929164350d4d242766139e3a19b28447e355",
+    "revert b77c29fb975b4f9b6e946aecafc01325df09cd26"
+  ],
+  "limits": [
+    "The contract test was committed but no CI workflow run was available for this commit.",
+    "Vercel did not build the commit because the project remained build-rate-limited.",
+    "No iPhone Safari audible outcome was captured."
+  ]
+}
