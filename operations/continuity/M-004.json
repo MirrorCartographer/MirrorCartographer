@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-004",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "action": "Add deterministic executable validation for the bitemporal decision-event ledger and preserve the validation decision as a provenance-linked event.",
+  "status": "completed",
+  "completed_at": "2026-07-11T21:18:00Z",
+  "required_evidence": [
+    "validator source",
+    "adversarial contract tests",
+    "ledger event",
+    "privacy review",
+    "falsification route"
+  ],
+  "outputs": {
+    "validator": "operations/continuity/validate-decision-events.mjs",
+    "tests": "operations/continuity/validate-decision-events.test.mjs",
+    "ledger": "operations/continuity/decision-events.json",
+    "event_added": "DE-0003",
+    "commits": [
+      "4fb888907228ba69a611b754748299c889be2170",
+      "4d781652d6cad0b29ce19120f60c397a464d52b0",
+      "9a29a75aad6e28a1fdb71106f8d96e7a0e26fb4d"
+    ]
+  },
+  "claim_states": {
+    "observed": [
+      "The validator and its contract tests are committed as immutable repository source.",
+      "DE-0003 records that source acceptance is not equivalent to runtime execution."
+    ],
+    "inferred": [],
+    "proposed": [],
+    "superseded": [],
+    "resolved": [
+      "The M-003 handoff requesting a deterministic decision-event validator now has an implementation and falsification route."
+    ],
+    "unresolved": [
+      "The test suite and validator have not yet been observed executing in GitHub Actions or another captured runtime.",
+      "M-002, M-003, and M-004 remain absent from the shared ACTIVE_QUEUE aggregate and require conflict-safe reconciliation."
+    ]
+  },
+  "verification": {
+    "source_acceptance": "GitHub contents API accepted the validator, tests, ledger update, and this sidecar as UTF-8 repository artifacts.",
+    "runtime_status": "not observed",
+    "commands": [
+      "node --test operations/continuity/validate-decision-events.test.mjs",
+      "node operations/continuity/validate-decision-events.mjs operations/continuity/decision-events.json"
+    ],
+    "contract_coverage": [
+      "valid linked supersession",
+      "duplicate event identifiers",
+      "dangling links",
+      "self-reference",
+      "invalid valid-time chronology",
+      "invalid privacy classification",
+      "invalid commit identity",
+      "malformed document handling"
+    ]
+  },
+  "privacy_boundary": "Only public repository files and commit metadata were used. No raw private chat, health, pet-health, credentials, contact data, or unreviewed uploaded-file contents were copied.",
+  "handoff": "Wire the two validation commands into a repository CI gate, then reconcile M-002 through M-004 into ACTIVE_QUEUE.json only after fetching and comparing the latest aggregate blob. Record the first genuine correction as linked events rather than rewriting prior observations."
+}
