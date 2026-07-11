@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T18:28:25-04:00",
+  "owner": "continuity_mining",
+  "queue_item": "M-007",
+  "claim_states": {
+    "observed": [
+      "The executable reconciler existed with six deterministic contract tests before this slice.",
+      "The aggregate queue and owner-scoped update files are separate historical sources.",
+      "A repository-aware generator and a GitHub Actions verification workflow are now committed."
+    ],
+    "inferred": [
+      "Generating a derived current view in CI reduces stale aggregate-only reads while preserving source history."
+    ],
+    "proposed": [
+      "Consumers should use the generated artifact as a reviewable projection, not as a replacement for ACTIVE_QUEUE.json or queue-update records."
+    ],
+    "superseded": [
+      "The prior handoff that repository discovery and CI wiring were absent is superseded by this implementation slice."
+    ],
+    "unresolved": [
+      "No completed workflow run or uploaded artifact was available at evidence-recording time.",
+      "Commit ancestry is captured per source file, but explicit ancestry comparison between competing commits remains future work."
+    ]
+  },
+  "implementation": {
+    "generator": "operations/continuity/generate-current-queue.mjs",
+    "generator_commit": "4c5ae6d60da5ce7d62c60fe19c22df2c8128f6d5",
+    "workflow": ".github/workflows/continuity-queue-view.yml",
+    "workflow_commit": "152dab81c65e0d8cb3e75c15efe0eeb900212ca1",
+    "behavior": [
+      "discovers sorted owner-scoped queue updates",
+      "binds each source to path, blob SHA, commit SHA, and commit time",
+      "runs the deterministic reconciler tests",
+      "generates a canonical current-view artifact",
+      "fails CI on validation errors or unresolved conflicts",
+      "uploads the projection without overwriting source history"
+    ]
+  },
+  "verification": {
+    "source_behavior": "Committed source and workflow were accepted by GitHub and can be fetched by immutable commit.",
+    "runtime_status": "unverified_pending_workflow_run",
+    "acceptance_limit": "Do not claim the generated artifact exists until a workflow run completes and its artifact is inspected."
+  },
+  "privacy_boundary": "Public repository paths, queue metadata, commit identities, and abstract operational conclusions only. Raw private chats, health or pet-health information, credentials, contact data, and unreviewed uploads are excluded.",
+  "falsification_route": "Run the workflow against malformed updates, owner mismatches, and equal-time divergent states; acceptance fails if the job passes despite non-empty validation_errors or conflicts."
+}
