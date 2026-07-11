@@ -26,11 +26,26 @@ jobs:
 
       - name: Test deployment evidence contracts
         run: |
+          node --test cloudflare-static/research-surface-identity.test.mjs
           node --test cloudflare-static/check-deployment-readiness.test.mjs
           node --test cloudflare-static/summarize-deployment-blocker.test.mjs
           node --test cloudflare-static/validate-deployment-blocker.test.mjs
           node --test cloudflare-static/build-deployment-decision.test.mjs
           node --test cloudflare-static/attest-deployment-proof.test.mjs
+
+      - name: Verify committed research surface identity
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import { inspectResearchSurfaceIdentity } from './cloudflare-static/research-surface-identity.mjs';
+          const body = fs.readFileSync('./cloudflare-static/index.html', 'utf8');
+          const result = inspectResearchSurfaceIdentity(body, {
+            status: 200,
+            resolvedUrl: 'file://cloudflare-static/index.html'
+          });
+          process.stdout.write(`${JSON.stringify(result)}\n`);
+          if (!result.ok) process.exit(1);
+          NODE
 
       - name: Classify deployment readiness
         env:
@@ -141,6 +156,7 @@ jobs:
             echo "- Source commit: \`${GITHUB_SHA}\`"
             echo "- Deployment URL: ${DEPLOYMENT_URL:-not returned}"
             echo "- Alias URL: ${ALIAS_URL:-not returned}"
+            echo "- Local identity contract: \`cloudflare-static/research-surface-identity.mjs\`"
             echo "- Readiness evidence: \`cloudflare-deployment-readiness.json\` (never contains secret values)"
             echo "- Actionable blocker: \`cloudflare-deployment-blocker.json\` (schema-validated names and reason codes only)"
             echo "- Deployment decision: \`cloudflare-deployment-decision.json\` (explicitly distinguishes skipped, attempted, and URL-returned states)"
