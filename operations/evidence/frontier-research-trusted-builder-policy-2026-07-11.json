@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-004",
+  "created_at": "2026-07-11T16:42:15-04:00",
+  "source_status": {
+    "primary": [
+      {
+        "url": "https://docs.github.com/en/actions/how-tos/secure-your-work/use-artifact-attestations/enforce-artifact-attestations",
+        "status": "current_official_documentation",
+        "finding": "Attestation enforcement requires an explicit trust root and policy; installing a verifier alone does not enforce trust, and policy must be enabled for the target scope."
+      },
+      {
+        "url": "https://slsa.dev/spec/v1.2/provenance",
+        "status": "current_primary_specification",
+        "finding": "Provenance records builder and source identities but relying parties must decide which identities are trusted."
+      }
+    ]
+  },
+  "finding": "Treat syntactically valid provenance as untrusted until an exact-match, deny-by-default policy accepts the builder identity, source repository, build type, immutable source commit, and invocation identity.",
+  "design_implication": "R-003 attestations can now be separated from acceptance decisions: attestation validation establishes structure and binding, while this policy produces an explicit trusted or rejected result with machine-readable reasons.",
+  "artifact": {
+    "module": "tools/frontier-research/trusted-builder-policy.mjs",
+    "test": "tools/frontier-research/trusted-builder-policy.test.mjs",
+    "commits": [
+      "8eede4d97849d8d2e1840c2e65f426e8e8108796",
+      "551154ca3ddefa5b466274674c3342b411fed7bd"
+    ]
+  },
+  "verification": {
+    "command": "node --test tools/frontier-research/trusted-builder-policy.test.mjs",
+    "result": "4 passed, 0 failed in an isolated Node runtime using byte-identical source before commit",
+    "cases": [
+      "accept exact allowlisted identity",
+      "reject builder identity suffix lookalike",
+      "reject provenance from untrusted repository",
+      "reject missing invocation identity"
+    ]
+  },
+  "evidence_strength": "implementation-tested",
+  "uncertainty": [
+    "The policy does not cryptographically verify a signature or transparency-log inclusion.",
+    "The example builder identity is a contract value and is not evidence that the referenced workflow currently exists or ran.",
+    "A trusted builder can still produce false scientific or runtime claims; epistemic evaluation remains separate."
+  ],
+  "falsification_route": [
+    "Mutate any allowlisted identity by one character and confirm rejection.",
+    "Supply a correctly structured SLSA statement from an unlisted repository and confirm rejection.",
+    "Integrate signature verification, then test a valid policy match with an invalid signature and require rejection."
+  ],
+  "privacy_boundary": "No private chat, health data, credentials, deployment secrets, or personal material included."
+}
