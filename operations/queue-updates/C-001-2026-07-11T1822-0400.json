@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "updated_at": "2026-07-11T18:22:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Compose the Frontier provenance-expectations evaluator into Cloudflare deployment-proof attestation and reject unreviewed invocation parameters.",
+  "specialists_used": [
+    "Provenance Engineer",
+    "Evidence Auditor",
+    "Cloudflare Deployment Engineer",
+    "Theory Architect"
+  ],
+  "files": [
+    "cloudflare-static/attest-deployment-proof.mjs",
+    "cloudflare-static/attest-deployment-proof.test.mjs",
+    "operations/evidence/cloudflare-exact-provenance-expectations-2026-07-11T1822-0400.json"
+  ],
+  "commits": [
+    "254ad6c1706e03c377b916b96b4e4f7200289d03",
+    "4992fa8e8f919b07ef6fa392abe76e21bade0ea3",
+    "2dc86bb88485225f8d43a7fe2e8092b13e27891a"
+  ],
+  "verification": {
+    "source": "committed exact buildType and external-parameter enforcement",
+    "test": "5 isolated Node tests passed; 0 failed",
+    "workflow_coverage": ".github/workflows/cloudflare-pages-research.yml already runs cloudflare-static/attest-deployment-proof.test.mjs before deployment"
+  },
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research environment and dispatch the workflow to produce deployment URL, served identity, proof, and signed verification evidence.",
+  "next_action": "Pin and wire a cryptographic Sigstore verifier, then dispatch the deployment workflow after credentials exist; do not accept evidence unless signature, certificate identity, transparency evidence, builder policy, exact invocation expectations, artifact digest, and served identity all pass."
+}
