@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "observed",
+  "improvement": "Added an explicit fail-closed deployment execution plan that separates deployment authorization from evidence production.",
+  "files": [
+    "cloudflare-static/build-deployment-execution-plan.mjs",
+    "cloudflare-static/build-deployment-execution-plan.test.mjs"
+  ],
+  "commits": [
+    "b6b3c83e09925feb02ae0cf173c7815e3851deb7",
+    "c1344edc017a9877d63aa321659a2ae595ef65f0"
+  ],
+  "verification": {
+    "method": "isolated Node test using byte-identical committed source",
+    "result": "4 tests passed",
+    "covered": [
+      "ready deployment authorization",
+      "missing-configuration fail-closed behavior",
+      "evidence-only mode",
+      "secret-value non-emission"
+    ]
+  },
+  "privacy_boundary": "Only secret names and non-sensitive reason codes may appear; no credential values are emitted.",
+  "deployment_status": "not_deployed",
+  "external_blocker": [
+    "CLOUDFLARE_ACCOUNT_ID",
+    "CLOUDFLARE_API_TOKEN"
+  ],
+  "limit": "The execution-plan module is committed and tested but is not yet wired into the workflow; it does not prove a resolving Cloudflare hostname or served commit.",
+  "generated_at": "2026-07-11T19:39:01-04:00"
+}
