@@ -1,0 +1,58 @@
+name: Continuity ledger validation
+
+on:
+  push:
+    paths:
+      - 'operations/continuity/decision-events.json'
+      - 'operations/continuity/validate-decision-events.mjs'
+      - 'operations/continuity/validate-decision-events.test.mjs'
+      - '.github/workflows/continuity-ledger-validation.yml'
+  pull_request:
+    paths:
+      - 'operations/continuity/decision-events.json'
+      - 'operations/continuity/validate-decision-events.mjs'
+      - 'operations/continuity/validate-decision-events.test.mjs'
+      - '.github/workflows/continuity-ledger-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: continuity-ledger-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact source revision
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run adversarial contract tests
+        run: node --test operations/continuity/validate-decision-events.test.mjs
+
+      - name: Validate committed decision ledger
+        run: node operations/continuity/validate-decision-events.mjs operations/continuity/decision-events.json
+
+      - name: Record validation identity
+        if: always()
+        run: |
+          printf 'source_commit=%s\nworkflow_run=%s\nworkflow_attempt=%s\n' \
+            "${GITHUB_SHA}" "${GITHUB_RUN_ID}" "${GITHUB_RUN_ATTEMPT}" \
+            > continuity-validation-identity.txt
+
+      - name: Upload validation identity
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: continuity-validation-identity-${{ github.run_id }}-${{ github.run_attempt }}
+          path: continuity-validation-identity.txt
+          if-no-files-found: error
+          retention-days: 30
