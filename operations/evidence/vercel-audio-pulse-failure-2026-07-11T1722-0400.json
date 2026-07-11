@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T17:22:00-04:00",
+  "claim_state": "observed_source_and_isolated_test",
+  "summary": "Made the previously unreachable pulse-not-scheduled diagnostic observable through the live audibility panel. When the direct audio pulse is not scheduled, the runtime now records window.__MC_AUDIBILITY_EVIDENCE__, exposes data-audibility-panel=pulse-failed and data-audibility-diagnosis=pulse-not-scheduled, announces the failure through the existing aria-live output, disables outcome buttons, and instructs the listener to retry.",
+  "source": {
+    "repository": "MirrorCartographer/mirror-cartographer-ui",
+    "runtime_path": "src/engine/audibilityOutcomeRuntime.js",
+    "runtime_commit": "10f56a120be2dce2bf6dc81579157b731bd4d03b",
+    "test_path": "scripts/audibility-outcome-contract-check.mjs",
+    "test_commit": "321e94521de3a7c1bcbb119a29fab669153b142e"
+  },
+  "verification": {
+    "command": "node scripts/audibility-outcome-contract-check.mjs",
+    "result": "passed in isolated Node runtime using the exact committed source and test contents",
+    "workflow_runs_for_test_commit": 0
+  },
+  "runtime_contract": {
+    "global": "window.__MC_AUDIBILITY_EVIDENCE__",
+    "panel_state": "pulse-failed",
+    "diagnosis": "pulse-not-scheduled",
+    "accessibility": "existing aria-live output announces that the browser did not schedule the pulse and provides a retry instruction"
+  },
+  "limits": [
+    "No Vercel deployment identity was available for commit 321e94521de3a7c1bcbb119a29fab669153b142e.",
+    "No iPhone Safari runtime or audible-speaker test was performed in this run.",
+    "A passing source contract does not prove deployed browser behavior."
+  ],
+  "falsification_route": [
+    "Run node scripts/audibility-outcome-contract-check.mjs in a clean checkout.",
+    "Deploy commit 321e94521de3a7c1bcbb119a29fab669153b142e or a descendant.",
+    "On iPhone Safari activate the diagnostic with audio blocked or unscheduled and verify window.__MC_AUDIBILITY_EVIDENCE__.diagnosis equals pulse-not-scheduled and the panel exposes data-audibility-panel=pulse-failed."
+  ],
+  "privacy": "No private chat, health information, credentials, payment logic, or identifying user material is included."
+}
