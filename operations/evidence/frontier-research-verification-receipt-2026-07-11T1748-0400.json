@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-007",
+  "observed_at": "2026-07-11T17:48:00-04:00",
+  "sources": [
+    {
+      "url": "https://docs.github.com/en/actions/how-tos/secure-your-work/use-artifact-attestations/verify-artifact-attestations",
+      "status": "primary_official",
+      "use": "artifact verification produces a verifier result that must remain inspectable"
+    },
+    {
+      "url": "https://slsa.dev/spec/v1.2/verifying-artifacts",
+      "status": "primary_specification",
+      "use": "verification must bind policy evaluation to a specific artifact subject"
+    },
+    {
+      "url": "https://json-schema.org/draft/2020-12/schema",
+      "status": "primary_specification",
+      "use": "machine-readable closed contract for receipt structure"
+    }
+  ],
+  "finding": "Safe status mapping is insufficient without a receipt that records the exact check, verifier identity and invocation, immutable subject digest, observation time, raw evidence reference, uncertainty, and falsification route.",
+  "evidence_strength": "implementation_ready_contract",
+  "uncertainty": "The contract is verifier-neutral and has not yet been exercised against live gh or Cloudflare verifier output.",
+  "artifacts": {
+    "schema": "tools/frontier-research/verification-receipt.schema.json",
+    "validator": "tools/frontier-research/verification-receipt.mjs",
+    "tests": "tools/frontier-research/verification-receipt.test.mjs"
+  },
+  "commits": [
+    "df71e0a98584f2f5a3f45719fb3fd0b84f0d6a05",
+    "770dea0369f90b0c4a7ae6e16ac191510b87a779",
+    "78ee1b8cf4918b417f0e84956071f6791f7a76c7"
+  ],
+  "verification": {
+    "source_review": "Committed test file was fetched back from the default branch and contains five deterministic cases.",
+    "runtime": "not executed in this connector-only run",
+    "expected_command": "node --test tools/frontier-research/verification-receipt.test.mjs"
+  },
+  "falsification_route": "Reject the design if malformed digests, missing evidence references, unknown status aliases, or absent verifier metadata pass validation; also reject if a receipt is later treated as proof of the underlying claim rather than an audit record of a verifier result."
+}
