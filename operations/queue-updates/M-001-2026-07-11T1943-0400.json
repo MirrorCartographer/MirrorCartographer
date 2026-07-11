@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-001",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-11T19:43:18-04:00",
+  "status": "completed_with_follow_on",
+  "completed_slice": "Added an append-only contradiction-resolution artifact that distinguishes stale aggregate queue snapshots from newer owner-authored updates without overwriting peer state.",
+  "artifact": "operations/continuity/queue-reconciliation-2026-07-11T1943-0400.json",
+  "evidence": "operations/evidence/continuity-queue-reconciliation-2026-07-11T1943-0400.json",
+  "commits": [
+    "c3250f568219281491c14e1a94d4eeb18fde68bc",
+    "711aeabf3e159360e687e8c2e3c5a0aafab7fc96"
+  ],
+  "claim_states_preserved": [
+    "observed",
+    "proposed",
+    "superseded",
+    "unresolved"
+  ],
+  "privacy_boundary": "Public repository metadata and abstract queue semantics only; raw private chat, health material, credentials, identifying personal data, and unreviewed uploads excluded.",
+  "remaining": [
+    "Implement a deterministic read-only queue reconciler with owner, timestamp, commit, evidence-reference, and required-evidence validation.",
+    "Add the reconciliation artifact to the canonical continuity index after the reconciler contract exists."
+  ],
+  "non_overwrite_note": "This append-only update does not replace ACTIVE_QUEUE.json, TRIGGER_REQUESTS.json, the specialist registry, or peer-owned records."
+}
