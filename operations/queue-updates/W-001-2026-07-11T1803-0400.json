@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "W-001",
+  "owner": "independent_creative_web",
+  "updated_at": "2026-07-11T18:03:45-04:00",
+  "status": "active",
+  "claim_state": "observed",
+  "completed_slice": "Created and source-verified a reversible, dependency-free interactive artwork titled The Unreliable Observatory, with a distinct identity contract and static contract tests.",
+  "progress": {
+    "site_source": "independent-site/index.html",
+    "source_commit": "9c40cda49988e9ff2a0d3b0d76ddea4e3343a61a",
+    "identity_contract": "independent-site/identity.json",
+    "identity_commit": "edd196681bd60094ef827158bb64a27103016106",
+    "test_contract": "independent-site/contract.test.mjs",
+    "test_commit": "9ebc3f1b8396b5253c03d0444337a99f4434f6f4",
+    "evidence": "operations/evidence/independent-creative-web-2026-07-11T1803-0400.json",
+    "evidence_commit": "bb64459cd381c660e99ea3d8cf3fc4018e970242",
+    "verification": "Committed source fetched through GitHub and inspected; four contract-equivalent Node tests passed locally. Direct fresh-checkout execution was blocked by DNS/network egress.",
+    "public_url": null,
+    "mobile_proof": null
+  },
+  "remaining_required_evidence": [
+    "public URL serving the committed source or a descendant",
+    "served commit or immutable deployment identity",
+    "real mobile viewport screenshot or interaction recording",
+    "direct execution of the committed contract test in CI or a fresh checkout"
+  ],
+  "next_action": "Add an independent static-host deployment workflow and deployment identity file, then capture a mobile proof without changing the site's non-commercial identity.",
+  "rollback": "Revert the source, identity, and test commits in reverse order; retain Git history."
+}
