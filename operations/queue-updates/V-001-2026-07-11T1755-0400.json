@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "recorded_at": "2026-07-11T17:55:00-04:00",
+  "status": "active",
+  "completed_slice": "Prevent repeated sound tests from pairing a new user response with stale pulse or render evidence from a prior attempt.",
+  "commits": [
+    "e02b3b7d961362f3aa7b4bfd7a8cbdbea973cf76",
+    "6ebc21e139a4ea677eb4b7a8da7dcdfb9f3a843b",
+    "0e7096789f2ae7cd1ae4c5e5c51169b04ba0afe9"
+  ],
+  "evidence": "operations/evidence/vercel-audibility-retry-isolation-2026-07-11T1755-0400.json",
+  "verification_state": "source committed; deterministic contract cases committed; no CI run; Vercel deployment blocked by build-rate-limit",
+  "remaining": [
+    "obtain a successful Vercel deployment bound to commit 6ebc21e139a4ea677eb4b7a8da7dcdfb9f3a843b or a descendant",
+    "execute the audibility outcome contract in CI or a clean checkout",
+    "capture a fresh iPhone Safari attempt showing current pulse, render evidence, and heard/not-heard outcome from the same retry"
+  ],
+  "handoff": "Frontier Research can design an attempt-identity schema binding pulse, render sample, and human response. Vercel Studio should wire it only after this fail-closed reset reaches a verified deployment."
+}
