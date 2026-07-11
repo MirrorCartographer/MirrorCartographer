@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "recorded_at": "2026-07-11T17:22:00-04:00",
+  "status": "active",
+  "completed_slice": "Expose and record unscheduled audio-pulse failures instead of silently returning before evidence capture.",
+  "progress": {
+    "runtime_commit": "10f56a120be2dce2bf6dc81579157b731bd4d03b",
+    "test_commit": "321e94521de3a7c1bcbb119a29fab669153b142e",
+    "evidence_commit": "b160756a7d7f24cba2e9f4f3f1dbc24ac5807396",
+    "evidence_path": "operations/evidence/vercel-audio-pulse-failure-2026-07-11T1722-0400.json",
+    "isolated_test": "passed",
+    "workflow_runs": 0,
+    "new_runtime_state": "pulse-failed",
+    "new_observable_diagnosis": "pulse-not-scheduled"
+  },
+  "remaining": [
+    "Obtain a successful Vercel deployment identity for commit 321e94521de3a7c1bcbb119a29fab669153b142e or a descendant.",
+    "Capture iPhone Safari runtime evidence for both a scheduled pulse and an unscheduled pulse.",
+    "Pair browser evidence with an audible report or device-level meter."
+  ],
+  "merge_policy": "Additive owner-scoped sidecar; do not overwrite ACTIVE_QUEUE.json without reconciling newer concurrent team updates."
+}
