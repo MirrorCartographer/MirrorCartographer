@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "progress": {
+    "execution_plan_module": "cloudflare-static/build-deployment-execution-plan.mjs",
+    "execution_plan_test": "cloudflare-static/build-deployment-execution-plan.test.mjs",
+    "commits": [
+      "b6b3c83e09925feb02ae0cf173c7815e3851deb7",
+      "c1344edc017a9877d63aa321659a2ae595ef65f0",
+      "e59ca97a350ad2f08a9b35a4d680cf09673b40b0"
+    ],
+    "verification": "4 deterministic tests passed in an isolated Node runtime using byte-identical committed source",
+    "behavior": "Deployment authorization now has a reusable explicit decision model: deploy only when configuration is ready and deploy mode is requested; otherwise fail closed while still producing privacy-preserving evidence."
+  },
+  "blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then wire the execution plan into the workflow and dispatch it.",
+  "next_action": "Wire build-deployment-execution-plan.mjs into cloudflare-pages-research.yml, expose an evidence-only dispatch mode, gate Wrangler on plan.deploy, and upload the execution plan with the proof packet.",
+  "updated_at": "2026-07-11T19:39:01-04:00"
+}
