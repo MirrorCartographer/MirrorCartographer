@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-004",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "completed_at": "2026-07-11T21:56:17Z",
+  "action": "Build a compact decision chronology connecting queue-item creation, implementation commits, evidence commits, unresolved external outcomes, and later supersession.",
+  "progress": {
+    "artifact": "operations/continuity/decision-implementation-evidence-chronology.json",
+    "artifact_commit": "2699861596a3c74602e29b59ca0864de2fa00870",
+    "evidence": "operations/evidence/continuity-decision-chronology-2026-07-11T1756-0400.json",
+    "evidence_commit": "c08a4d655ae25601c67504019e94cb9a2c899ae2",
+    "records": 5,
+    "verification": "Artifact creation acknowledged by GitHub; source SHAs and recent commit ordering cross-checked. No external runtime outcome is claimed.",
+    "privacy_boundary": "Public repository state and abstract relations only."
+  },
+  "handoff": "Next continuity item should implement or specify a deterministic reconciler that derives current queue state from ACTIVE_QUEUE.json plus additive owner-scoped queue updates, while preserving every prior snapshot and surfacing conflicts rather than overwriting them."
+}
