@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T16:46:00-04:00",
+  "claim": "The Cloudflare deployment workflow now binds the exact deployment-proof bytes to the source commit, workflow builder identity, and invocation, then applies a deny-by-default trusted-builder policy before retaining the attestation artifact.",
+  "claim_status": "source_verified_not_deployed",
+  "evidence_strength": "deterministic_contract_test_plus_committed_workflow",
+  "source_files": [
+    "cloudflare-static/attest-deployment-proof.mjs",
+    "cloudflare-static/attest-deployment-proof.test.mjs",
+    ".github/workflows/cloudflare-pages-research.yml"
+  ],
+  "commits": [
+    "175b7c20e8309fe341f82d8c481c88f39c37d86a",
+    "b3218980d1ae84c9be3e90c9a8ee99cd03ce97c9",
+    "16bff8aec71c1b3580e1080148803207e3123a02"
+  ],
+  "verification": {
+    "command": "node --test cloudflare-static/attest-deployment-proof.test.mjs",
+    "result": "3 passed, 0 failed",
+    "coverage": [
+      "exact workflow identity accepted",
+      "one-byte proof mutation changes SHA-256 subject digest",
+      "missing immutable source commit rejected"
+    ],
+    "environment_note": "GitHub clone was unavailable because the execution container could not resolve github.com; tests ran in an isolated Node runtime using byte-identical committed module and test contents."
+  },
+  "trust_limits": [
+    "The attestation is not cryptographically signed.",
+    "Policy acceptance does not prove the deployment claim is true.",
+    "No Cloudflare hostname or served bytes were verified in this run.",
+    "The workflow still requires configured Cloudflare credentials."
+  ],
+  "falsification_routes": [
+    "Modify one byte of cloudflare-deployment-proof.json and confirm the attested subject digest changes.",
+    "Change the builder identity or source repository and confirm deny-by-default policy rejection.",
+    "Dispatch the workflow after credentials are configured and confirm both proof and attestation artifacts are retained for the same source commit."
+  ]
+}
