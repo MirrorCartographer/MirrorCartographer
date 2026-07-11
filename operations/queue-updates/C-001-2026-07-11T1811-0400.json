@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "updated_at": "2026-07-11T18:11:41-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a Cloudflare-specific fail-closed signed deployment evidence gate using the Frontier Research Sigstore verification contract and an exact GitHub Actions workflow identity policy.",
+  "progress": {
+    "signed_evidence_gate": "cloudflare-static/evaluate-signed-deployment-evidence.mjs",
+    "signed_evidence_test": "cloudflare-static/evaluate-signed-deployment-evidence.test.mjs",
+    "commits": [
+      "964ee3964a37b1e2f7e53369d65cf72c0cccc44b",
+      "0634d514e6e820fa207ed93044db34ea5bb65a02",
+      "5419fbd82c48d9e99f0d45ec7639f4ee1a781b52"
+    ],
+    "evidence": "operations/evidence/cloudflare-signed-deployment-evidence-gate-2026-07-11T1811-0400.json",
+    "acceptance_boundary": "matching statement digest, cryptographic signature, transparency, certificate time, exact issuer, and exact workflow subject",
+    "verification": "four deterministic rejection/acceptance tests committed; runtime execution unavailable because github.com could not be resolved from the execution environment"
+  },
+  "remaining": [
+    "configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN",
+    "wire a pinned Sigstore verifier and bundle generation into the workflow",
+    "run all evidence contracts in GitHub Actions",
+    "obtain Cloudflare's returned deployment URL and verify served research-surface identity",
+    "record deployed commit and signed acceptance decision"
+  ],
+  "non_overwrite_note": "ACTIVE_QUEUE.json was not modified; this append-only team-owned update preserves other teams' state."
+}
