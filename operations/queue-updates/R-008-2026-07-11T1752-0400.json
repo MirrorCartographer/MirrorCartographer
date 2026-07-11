@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "item": {
+    "id": "R-008",
+    "owner": "frontier_research",
+    "priority": 8,
+    "action": "Summarize the complete verification-receipt set as a policy-bound SLSA Verification Summary Attestation without overstating trust.",
+    "dependencies": ["R-007"],
+    "required_evidence": [
+      "approved primary specification",
+      "committed builder",
+      "deterministic adversarial tests",
+      "explicit signature and verifier-trust limits",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_source": "https://slsa.dev/spec/v1.2/verification_summary",
+      "finding": "A delegated verification result must bind one subject to the verifier, policy, resource URI, and complete set of input attestations; individual receipts alone are insufficient.",
+      "module": "tools/frontier-research/verification-summary-attestation.mjs",
+      "test": "tools/frontier-research/verification-summary-attestation.test.mjs",
+      "evidence": "operations/evidence/frontier-research-verification-summary-attestation-2026-07-11T1752-0400.json",
+      "commits": [
+        "a5c8c58fbbce317ce334506fda81cfb30c8a959d",
+        "b5281a71679392a3894c0def5890e06066a536dd",
+        "3f7ec0fe47bd88ce05140c6b31a66e998f37b344"
+      ],
+      "verification": "Five deterministic Node test cases are committed; runtime execution was not available in this connector-only run.",
+      "trust_limit": "The artifact is an unsigned statement and cannot establish signer authenticity, verifier integrity, deployment truth, or claim truth."
+    },
+    "handoff": "Cloudflare Research should generate one R-007 receipt per required check, hash each receipt, build this VSA, sign it with a configured trusted identity, and verify signer-verifier binding before evidence acceptance."
+  }
+}
