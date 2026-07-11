@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T18:25:00-04:00",
+  "improvement": "Added a privacy-bounded phone runtime evidence exporter that packages same-attempt audibility evidence with deployment identity and explicit limits, then exposes it through a 44px copy control.",
+  "ui_repository": "MirrorCartographer/mirror-cartographer-ui",
+  "commits": [
+    "b80876e244d4429f628120a2fa10bac942c1f13d",
+    "8d272310212472bdd3e25957a61819f55a7f9458",
+    "3e4cdaca36c7e3bd1c1697ea902fdef87a6e1b51",
+    "e65330f39b9ad3a5b196e3b92230967130e412f0"
+  ],
+  "files": [
+    "src/engine/audioEvidenceExportRuntime.js",
+    "scripts/audio-evidence-export-contract-check.mjs",
+    "src/main.jsx",
+    "package.json"
+  ],
+  "verification": {
+    "source": "committed",
+    "contract_test": "committed and wired into test:local-gate and test:pages-preview",
+    "workflow_run": "not observed for latest commit",
+    "vercel": {
+      "state": "failure",
+      "reason": "build-rate-limit",
+      "commit": "e65330f39b9ad3a5b196e3b92230967130e412f0"
+    },
+    "runtime": "not claimed"
+  },
+  "privacy_boundary": "The exported packet allowlists audibility, pulse, render, and deployment identity fields; unrelated window state is excluded.",
+  "limits": [
+    "Human audibility remains self-reported.",
+    "Browser render progress does not prove physical speaker output.",
+    "Deployment identity requires independent verification.",
+    "No successful deployment or phone retest was observed in this run."
+  ],
+  "rollback": "Revert commits e65330f39b9ad3a5b196e3b92230967130e412f0, 3e4cdaca36c7e3bd1c1697ea902fdef87a6e1b51, 8d272310212472bdd3e25957a61819f55a7f9458, and b80876e244d4429f628120a2fa10bac942c1f13d in reverse order."
+}
