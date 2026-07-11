@@ -1,0 +1,44 @@
+name: Validate Cloudflare deployment workflow contract
+
+on:
+  push:
+    paths:
+      - '.github/workflows/cloudflare-pages-research.yml'
+      - '.github/workflows/cloudflare-workflow-contract.yml'
+      - 'cloudflare-static/validate-workflow-contract.mjs'
+      - 'cloudflare-static/validate-workflow-contract.test.mjs'
+  pull_request:
+    paths:
+      - '.github/workflows/cloudflare-pages-research.yml'
+      - '.github/workflows/cloudflare-workflow-contract.yml'
+      - 'cloudflare-static/validate-workflow-contract.mjs'
+      - 'cloudflare-static/validate-workflow-contract.test.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@v6
+
+      - name: Run adversarial contract tests
+        run: node --test cloudflare-static/validate-workflow-contract.test.mjs
+
+      - name: Validate production workflow invariants
+        run: >-
+          node cloudflare-static/validate-workflow-contract.mjs
+          .github/workflows/cloudflare-pages-research.yml
+          cloudflare-workflow-contract-result.json
+
+      - name: Upload contract result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-workflow-contract-${{ github.sha }}
+          path: cloudflare-workflow-contract-result.json
+          if-no-files-found: error
+          retention-days: 30
