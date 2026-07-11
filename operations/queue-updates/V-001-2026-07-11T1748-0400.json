@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "recorded_at": "2026-07-11T17:48:00-04:00",
+  "status": "active",
+  "completed_slice": "Align the audibility outcome classifier with the audio observer's emitted clock-progress-only status and add a deterministic regression contract.",
+  "commits": [
+    "ec08f5504e2f208f8bd87ec2ae89827f281d38c9",
+    "3045f6cc8c250509fad18a342fa87b5ede49c34f",
+    "b83ac4dc0d4f55959386ff4e3f1ab4ab87fe53e4"
+  ],
+  "evidence": "operations/evidence/vercel-audibility-clock-progress-alignment-2026-07-11T1748-0400.json",
+  "verification": "Committed source and regression contract agree on clock-progress-only; execution and deployment remain pending.",
+  "remaining": [
+    "run npm run test:audibility-outcome and the full local gate in CI or a fresh checkout",
+    "obtain a successful Vercel deployment identity for commit 3045f6cc8c250509fad18a342fa87b5ede49c34f or a descendant",
+    "capture an iPhone Safari audible outcome paired with pulse, render, audibility, and deployment identity evidence"
+  ],
+  "shared_state_policy": "Additive owner-scoped sidecar; ACTIVE_QUEUE.json not overwritten."
+}
