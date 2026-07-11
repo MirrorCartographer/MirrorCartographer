@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "updated_at": "2026-07-11T18:39:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Wire GitHub artifact attestation signing and verification into the Cloudflare Pages research deployment evidence path without weakening deny-by-default acceptance.",
+  "specialists_used": [
+    "Provenance Engineer",
+    "Evidence Auditor",
+    "Cloudflare Deployment Engineer",
+    "Theory Architect"
+  ],
+  "files": [
+    "cloudflare-static/build-evidence-verification-input.mjs",
+    "cloudflare-static/build-evidence-verification-input.test.mjs",
+    ".github/workflows/cloudflare-pages-research.yml",
+    "cloudflare-static/cryptographic-attestation-workflow.test.mjs",
+    "operations/evidence/cloudflare-cryptographic-attestation-wiring-2026-07-11T1839-0400.json"
+  ],
+  "commits": [
+    "df672b71f28590a1623ea8966128020e77d069ec",
+    "8db37e47f865c45b7f5fc2c74ab5d8f1cd671749",
+    "4741ba7a95167f889d5332b89b528c8aaabcbb0b",
+    "1c78bcf2671da7ec5a5b8d69ae6a7979826515ee",
+    "3508ca3e3c686bedb3d2766432a5a1e3f88a7780"
+  ],
+  "verification": {
+    "source_behavior": "The workflow now signs exact proof bytes with actions/attest-build-provenance, verifies with gh attestation verify, normalizes exact identity evidence, and passes the result into the acceptance gate.",
+    "tests_added_or_updated": 6,
+    "workflow_run": "No run associated with the latest commit was available at inspection time.",
+    "deployment_proof": "No Cloudflare URL or served commit identity was produced."
+  },
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment and dispatch the workflow.",
+  "next_action": "Execute the workflow, inspect the cryptographic verifier and acceptance artifacts, verify the returned pages.dev hostname and served source commit, and preserve the completed proof packet as deployment evidence."
+}
