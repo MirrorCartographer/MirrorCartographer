@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T17:48:00-04:00",
+  "finding": "The workflow could generate a structurally valid provenance statement and trusted-builder decision without producing an explicit verifier-status manifest or final fail-closed acceptance artifact. The new wiring preserves that distinction and keeps unsigned evidence rejected.",
+  "implementation": {
+    "verification_input_builder": "cloudflare-static/build-evidence-verification-input.mjs",
+    "test": "cloudflare-static/build-evidence-verification-input.test.mjs",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "artifacts_added": [
+      "cloudflare-evidence-verification-input.json",
+      "cloudflare-deployment-acceptance.json"
+    ],
+    "commits": [
+      "78c539e70b0ce97ca3eb9e376adc4cf9518d0d03",
+      "a4d2e574a893d5619052e148780a2692094d8e82",
+      "08a0ac94b4c571f4bff25f4d5d3f8e1edd72ec83"
+    ]
+  },
+  "verification": {
+    "local_isolated_test": "node --test build-evidence-verification-input.test.mjs",
+    "result": {"passed": 4, "failed": 0},
+    "covered": [
+      "signature remains explicitly not_verified even when local checks pass",
+      "subject digest mismatch is detected",
+      "untrusted builder identity is rejected independently",
+      "failed deployment claim remains invalid"
+    ],
+    "committed_workflow_status": "No GitHub Actions result observed for the workflow wiring commit. Repository commit status only reported unrelated Vercel build-rate-limit failures."
+  },
+  "evidence_strength": "source-tested; deployment-unverified",
+  "privacy_boundary": "No secret values are emitted. Only public deployment URLs, reason codes, digests, source identity, workflow identity, and boolean/status outcomes are recorded.",
+  "trust_limit": "The workflow does not yet execute a cryptographic signature verifier. Therefore signatureVerification.status is deliberately not_verified and final accepted remains false.",
+  "falsification_route": [
+    "A missing cryptographic verification step maps to verified.",
+    "A proof-byte digest mismatch maps to match.",
+    "A lookalike builder or source identity maps to trusted.",
+    "The workflow accepts evidence while signatureVerification.status is not_verified.",
+    "The committed contract tests fail in CI or a clean checkout."
+  ],
+  "external_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment and dispatch the deployment workflow."
+}
