@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-003",
+  "created_at": "2026-07-11T16:36:03-04:00",
+  "claim_state": "observed",
+  "evidence_state": "test-verified",
+  "primary_sources": [
+    {
+      "title": "SLSA Provenance v1",
+      "url": "https://slsa.dev/spec/v1.2/provenance",
+      "source_status": "current primary specification",
+      "finding": "Provenance should identify exact output subjects by digest, capture resolved source dependencies by immutable digest, and distinguish the builder identity and invocation metadata."
+    },
+    {
+      "title": "in-toto Statement v1",
+      "url": "https://in-toto.io/Statement/v1",
+      "source_status": "primary attestation statement specification",
+      "finding": "A statement binds named subjects and their digests to a typed predicate without treating the statement itself as proof that the predicate is trustworthy."
+    }
+  ],
+  "finding": "Cross-team evidence needs two independent layers: R-002 describes epistemic state and falsification; R-003 binds the exact evidence bytes to a source commit, builder identity, and invocation using an in-toto Statement with a SLSA provenance predicate.",
+  "design_implication": "Deployment, runtime, and research packets can now be rejected when their bytes change or when they are not bound to an immutable source commit. Trace correlation remains separate from provenance and from claim truth.",
+  "artifacts": [
+    "tools/frontier-research/evidence-attestation.mjs",
+    "tools/frontier-research/evidence-attestation.test.mjs"
+  ],
+  "commits": [
+    "9debae624fa1776395b89e825d24cd03609cc7db",
+    "13271180ff77115689169b65a55dba00057ab862"
+  ],
+  "verification": {
+    "command": "node --test tools/frontier-research/evidence-attestation.test.mjs",
+    "environment": "isolated local Node runtime using byte-identical pre-commit files",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "covered": [
+      "deterministic SHA-256 subject digest",
+      "valid in-toto Statement v1 and SLSA provenance predicate",
+      "artifact-byte mutation changes subject digest",
+      "missing immutable source commit is rejected"
+    ]
+  },
+  "uncertainty": "The contract validates structure and digest binding but does not verify a cryptographic signature or establish that the named builder is trusted.",
+  "falsification_routes": [
+    "Change one byte of an attested artifact and verify the subject digest no longer matches.",
+    "Remove or alter the resolved gitCommit and verify validation fails.",
+    "Present a structurally valid statement from an untrusted builder and verify downstream policy still denies it."
+  ],
+  "privacy_boundary": "No private chat, health information, credentials, or personal data are included."
+}
