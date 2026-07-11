@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T19:54:51-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added and tested a secret-free environment setup-plan builder that converts deployment readiness into exact operator actions while preserving the distinction between configuration and deployment proof.",
+  "files": [
+    "cloudflare-static/build-environment-setup-plan.mjs",
+    "cloudflare-static/build-environment-setup-plan.test.mjs",
+    "operations/evidence/cloudflare-environment-setup-plan-2026-07-11T1954-0400.json"
+  ],
+  "commits": [
+    "c36f77dd013e81bf963e4a9acabce7b3af5579aa",
+    "af9066be50231393883d22a40c08d42530d048a7",
+    "3db255fec9a71a3710944a3192e1d65047e143d7"
+  ],
+  "verification": "4 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files.",
+  "required_external_action": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub Environment, then dispatch .github/workflows/cloudflare-pages-research.yml.",
+  "completion_not_claimed": [
+    "resolving URL",
+    "served research surface",
+    "deployed commit"
+  ],
+  "next_action": "Wire the setup-plan builder into the deployment workflow artifact set, then dispatch after the environment secrets are configured and verify the returned Cloudflare deployment identity."
+}
