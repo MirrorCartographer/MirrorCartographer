@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T17:11:00-04:00",
+  "slice": "paired audibility diagnostic classification",
+  "specialists": [
+    "Audio Engineer",
+    "Mobile Safari Investigator",
+    "Accessibility Auditor",
+    "Deployment Verifier",
+    "Interaction Composer"
+  ],
+  "source": {
+    "repository": "MirrorCartographer/mirror-cartographer-ui",
+    "runtime_path": "src/engine/audibilityOutcomeRuntime.js",
+    "runtime_commit": "dfe667273af348b9d4ab0aa903fdb9e957b8f31a",
+    "test_path": "scripts/audibility-outcome-contract-check.mjs",
+    "test_commit": "ff22175f61b73147f853e890d62be0120d356be4"
+  },
+  "behavior": {
+    "evidence_schema": "1.1.0",
+    "runtime_probe": "window.__MC_AUDIBILITY_EVIDENCE__.diagnosis",
+    "classes": [
+      "pulse-not-scheduled",
+      "audible-confirmed",
+      "render-confirmed-not-heard",
+      "clock-advanced-not-heard",
+      "not-heard-render-unconfirmed"
+    ],
+    "ui_probe": "[data-audibility-panel][data-audibility-diagnosis]",
+    "reset_behavior": "A new Test sound gesture clears the previous outcome, diagnosis, disabled state, and prompt before collecting another result."
+  },
+  "verification": {
+    "contract": "The committed deterministic Node contract asserts all five diagnostic classes and invalid-outcome rejection.",
+    "workflow_runs": [],
+    "vercel_status": {
+      "state": "failure",
+      "reason": "build-rate-limit",
+      "target": "Vercel project upgrade/build-rate-limit page"
+    },
+    "runtime_claim": "Source and contract commits are confirmed. No successful deployment, browser execution, physical speaker output, or iPhone retest is claimed."
+  },
+  "boundaries": {
+    "payments_or_conversion": false,
+    "network_transmission_added": false,
+    "persistent_personal_data_added": false,
+    "files_or_history_deleted": false
+  },
+  "rollback": [
+    "Revert ff22175f61b73147f853e890d62be0120d356be4",
+    "Revert dfe667273af348b9d4ab0aa903fdb9e957b8f31a"
+  ],
+  "next_action": "Obtain a successful Vercel deployment identity for ff22175f61b73147f853e890d62be0120d356be4 or a descendant, then capture one iPhone Safari result containing pulse, render, audibility outcome, and diagnosis."
+}
