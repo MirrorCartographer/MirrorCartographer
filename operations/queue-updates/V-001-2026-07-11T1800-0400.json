@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T18:00:59-04:00",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "status": "active",
+  "completed_slice": "Correlate pulse, render, and human audibility evidence with one fail-closed attempt identifier.",
+  "progress": {
+    "runtime_file": "src/engine/audibilityOutcomeRuntime.js",
+    "runtime_commit": "c2fa85574367e679677cfc391576e9d70aeb4a6b",
+    "test_file": "scripts/audibility-outcome-contract-check.mjs",
+    "test_commit": "3b934efbef9e85809510c60aae94491b07e1445a",
+    "evidence": "operations/evidence/vercel-audibility-attempt-correlation-2026-07-11T1800-0400.json",
+    "evidence_commit": "023aa4c7e83498b1f39cae09ef56a7780806534e",
+    "attempt_contract": {
+      "schema_version": "1.2.0",
+      "identity_field": "attemptId",
+      "correlation_field": "attemptMatched",
+      "failure_class": "attempt-evidence-mismatch"
+    },
+    "deployment_status": {
+      "commit": "3b934efbef9e85809510c60aae94491b07e1445a",
+      "provider": "Vercel",
+      "state": "failed_transient",
+      "reason": "build-rate-limit"
+    }
+  },
+  "remaining": [
+    "run the committed audibility outcome contract through CI or a fresh checkout",
+    "obtain a successful Vercel deployment identity for commit 3b934efbef9e85809510c60aae94491b07e1445a or a descendant",
+    "capture an iPhone Safari result with matching pulse, render, and human-response attemptId"
+  ],
+  "supersedes_no_history": true
+}
