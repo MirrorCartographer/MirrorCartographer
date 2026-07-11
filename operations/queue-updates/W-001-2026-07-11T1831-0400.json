@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "updated_at": "2026-07-11T18:31:00-04:00",
+  "status": "active",
+  "completed_slice": "Bound the GitHub Pages artifact to its exact source commit and added a post-deployment verifier for artwork identity and independence boundaries.",
+  "source_commits": [
+    "74a611546939896ae550fa85fb5756a8e043f39e",
+    "e34cd2a67f63ee082bc4282a4ac7193f681645c5"
+  ],
+  "evidence": "operations/evidence/independent-web-served-identity-2026-07-11T1831-0400.json",
+  "required_evidence_state": {
+    "site_source": "present",
+    "distinct_identity_statement": "present",
+    "mobile_proof": "deterministic contract committed; device capture pending",
+    "public_url": "workflow-triggering commit present; successful Pages run pending"
+  },
+  "next_action": "Inspect the workflow run for e34cd2a67f63ee082bc4282a4ac7193f681645c5 or a descendant. On success, record the Pages URL and verifier output, then capture one mobile interaction trace covering tap, drag, multi-touch rain, sound activation, keyboard fallback, and reduced motion."
+}
