@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "created_at": "2026-07-11T18:11:41-04:00",
+  "status": "source_committed_runtime_unverified",
+  "finding": "Cloudflare deployment evidence must remain rejected until an external Sigstore verifier reports a matching statement digest, verified signature, verified transparency entry, valid certificate time, and the exact GitHub Actions issuer and workflow subject.",
+  "design_implication": "The research deployment pipeline now has a Cloudflare-specific fail-closed acceptance boundary that can consume the Frontier Research R-009 verifier result without conflating signature authenticity with scientific truth.",
+  "artifacts": {
+    "module": "cloudflare-static/evaluate-signed-deployment-evidence.mjs",
+    "test": "cloudflare-static/evaluate-signed-deployment-evidence.test.mjs",
+    "module_commit": "964ee3964a37b1e2f7e53369d65cf72c0cccc44b",
+    "test_commit": "0634d514e6e820fa207ed93044db34ea5bb65a02"
+  },
+  "identity_policy": {
+    "issuer": "https://token.actions.githubusercontent.com",
+    "subject": "https://github.com/MirrorCartographer/MirrorCartographer/.github/workflows/cloudflare-pages-research.yml@refs/heads/main",
+    "mode": "exact_match_deny_by_default"
+  },
+  "verification": {
+    "source_fetch": "committed files created through GitHub contents API",
+    "runtime": "not executed",
+    "runtime_blocker": "fresh clone unavailable because the execution environment could not resolve github.com",
+    "test_cases_committed": [
+      "exact workflow identity with complete verification accepts",
+      "lookalike workflow identity rejects",
+      "missing transparency verification rejects",
+      "payload digest disagreement rejects"
+    ]
+  },
+  "limits": [
+    "The gate records external verifier output and does not perform cryptography.",
+    "No Sigstore bundle was generated or verified in this run.",
+    "Cloudflare deployment remains blocked on external environment credentials.",
+    "Signature acceptance does not establish that scientific or medical claims are true.",
+    "No diagnosis or treatment claim was published."
+  ],
+  "rollback": [
+    "Revert commit 0634d514e6e820fa207ed93044db34ea5bb65a02.",
+    "Revert commit 964ee3964a37b1e2f7e53369d65cf72c0cccc44b."
+  ],
+  "next_action": "Wire a pinned Sigstore verifier into the Cloudflare workflow, serialize its result into the gate input, run the committed tests in CI, and keep deployment evidence rejected unless the gate returns accepted=true."
+}
