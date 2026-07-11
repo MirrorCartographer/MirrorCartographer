@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.org/schemas/verification-receipt.schema.json",
+  "title": "Verification Receipt",
+  "description": "Fail-closed receipt for one verifier result. A receipt records what was checked and where raw evidence lives; it does not prove the underlying claim by itself.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "check", "status", "verifier", "subject", "observedAt", "evidenceRef", "uncertainty", "falsificationRoute"],
+  "properties": {
+    "schemaVersion": {"const": "1.0.0"},
+    "check": {"enum": ["signature", "subjectDigest", "builder", "source", "buildType", "externalParameters", "claimEvidence"]},
+    "status": {"enum": ["verified", "match", "trusted", "recognized", "valid", "failed", "mismatch", "untrusted", "unrecognized", "invalid", "unknown", "not_verified"]},
+    "verifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "invocation"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "invocation": {"type": "string", "minLength": 1}
+      }
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "sha256"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "observedAt": {"type": "string", "format": "date-time"},
+    "evidenceRef": {"type": "string", "minLength": 1},
+    "uncertainty": {"enum": ["none", "bounded", "material", "unknown"]},
+    "falsificationRoute": {"type": "string", "minLength": 1},
+    "notes": {"type": "string"}
+  }
+}
