@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "updated_at": "2026-07-11T18:24:00-04:00",
+  "status": "active",
+  "completed_slice": "Added and wired a deterministic mobile, accessibility, gesture-gated audio, and independence contract before GitHub Pages deployment.",
+  "source_commits": [
+    "502b6ff1893f8c4480c2888b14d46eb1583924e3",
+    "aa71016cf6bd1fc45223160094b867ed5302b11c"
+  ],
+  "evidence": "operations/evidence/independent-web-mobile-contract-2026-07-11T1824-0400.json",
+  "required_evidence_state": {
+    "site_source": "present",
+    "distinct_identity_statement": "present",
+    "mobile_proof": "contract committed; CI execution pending",
+    "public_url": "deployment workflow present; current run not yet proven"
+  },
+  "next_action": "Inspect the Pages workflow run for aa71016cf6bd1fc45223160094b867ed5302b11c or its descendant, record the returned page URL and served source identity, then capture a mobile viewport screenshot or browser-level interaction trace."
+}
