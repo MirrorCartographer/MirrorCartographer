@@ -76,6 +76,10 @@ jobs:
           fs.writeFileSync('cloudflare-deployment-proof.json', JSON.stringify(proof, null, 2) + '\n');
           NODE
 
+      - name: Validate deployment proof contract
+        if: always()
+        run: node cloudflare-static/validate-deployment-proof.mjs cloudflare-deployment-proof.json
+
       - name: Upload proof artifact
         if: always()
         uses: actions/upload-artifact@v4
@@ -97,4 +101,5 @@ jobs:
             echo "- Deployment URL: ${DEPLOYMENT_URL:-not returned}"
             echo "- Alias URL: ${ALIAS_URL:-not returned}"
             echo "- Identity verifier: \`cloudflare-static/verify-deployment.mjs\`"
+            echo "- Proof validator: \`cloudflare-static/validate-deployment-proof.mjs\`"
           } >> "$GITHUB_STEP_SUMMARY"
