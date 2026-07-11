@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "recorded_at": "2026-07-11T19:38:53-04:00",
+  "status": "active",
+  "completed_slice": "Add a privacy-filtered JSON download fallback and accessible status announcements to the audio evidence export control.",
+  "source_commits": [
+    "22ffa504c1908e87fe6e6246ecfe4b2be87ebe63",
+    "22008fe37f4011c037708f06f1c7c2b51b228b48"
+  ],
+  "evidence": "operations/evidence/vercel-audio-evidence-fallback-2026-07-11T1938-0400.json",
+  "deployment": {
+    "state": "blocked_transient",
+    "provider": "Vercel",
+    "reason": "build-rate-limit",
+    "commit": "22008fe37f4011c037708f06f1c7c2b51b228b48"
+  },
+  "remaining": [
+    "obtain a successful Vercel deployment identity for this commit or a descendant",
+    "run the full repository gate in CI or a fresh checkout",
+    "capture an iPhone audible outcome paired with the exported same-attempt evidence packet"
+  ],
+  "non_overwrite_note": "This append-only queue update does not replace operations/ACTIVE_QUEUE.json or peer-owned records."
+}
