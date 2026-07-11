@@ -34,6 +34,7 @@ jobs:
           node --test cloudflare-static/attest-deployment-proof.test.mjs
           node --test cloudflare-static/build-evidence-verification-input.test.mjs
           node --test cloudflare-static/build-evidence-acceptance.test.mjs
+          node --test cloudflare-static/evaluate-signed-deployment-evidence.test.mjs
 
       - name: Verify committed research surface identity
         run: |
