@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-005",
+  "created_at": "2026-07-11T17:24:12-04:00",
+  "source_status": {
+    "primary": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc8785",
+        "status": "primary_rfc",
+        "finding": "Cryptographic hashing and signing require invariant JSON bytes; JCS constrains input to I-JSON, uses ECMAScript primitive serialization, recursively sorts object properties by UTF-16 code units, preserves array order, emits no inter-token whitespace, and encodes the result as UTF-8."
+      }
+    ]
+  },
+  "finding": "Hashing arbitrary JSON serialization binds formatting choices rather than only the JSON data model. Canonicalizing evidence envelopes before SHA-256 removes digest variance caused by object-member order and whitespace while preserving a strict failure path for unsupported or non-I-JSON values.",
+  "design_implication": "R-003 evidence attestations should hash RFC 8785 canonical bytes for JSON subjects, record the canonicalization profile explicitly, and retain raw-byte hashing for non-JSON artifacts. Canonical equivalence is not evidence that the underlying claim is true.",
+  "artifact": {
+    "module": "tools/frontier-research/json-canonicalization.mjs",
+    "test": "tools/frontier-research/json-canonicalization.test.mjs",
+    "commits": [
+      "a3172f23dd1f2ec7ec6fa1b79b50a14f9a73708f",
+      "4d794a9da99a535973dcd126f83bc40d984b0ccd"
+    ]
+  },
+  "verification": {
+    "command": "node --test tools/frontier-research/json-canonicalization.test.mjs",
+    "result": "5 passed, 0 failed in an isolated Node runtime using byte-identical source before commit",
+    "cases": [
+      "match RFC 8785 primitive serialization vector",
+      "sort nested object properties while preserving array order",
+      "produce identical SHA-256 for semantically identical JSON texts",
+      "reject non-finite numbers, bigint, and lone UTF-16 surrogates",
+      "match RFC 8785 UTF-16 property-order vector"
+    ]
+  },
+  "evidence_strength": "primary-source-linked implementation-tested",
+  "uncertainty": [
+    "The implementation operates on already-parsed JavaScript values and therefore cannot detect duplicate property names that were discarded by JSON.parse.",
+    "RFC 8785 is an Informational RFC rather than an Internet Standards Track specification.",
+    "Canonicalization creates stable bytes but does not authenticate the producer, verify a signature, or establish claim truth."
+  ],
+  "falsification_route": [
+    "Run the committed test suite and require all five cases to pass.",
+    "Feed a raw JSON document with duplicate property names through a duplicate-aware parser and require rejection before canonicalization.",
+    "Compare output and digest against an independent RFC 8785 implementation using the official number and property-order vectors.",
+    "Mutate a semantic value while preserving formatting and require the canonical digest to change."
+  ],
+  "privacy_boundary": "No private chat, health data, credentials, deployment secrets, or personal material included."
+}
