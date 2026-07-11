@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "update_kind": "additive_progress",
+  "progress": {
+    "workflow_contract_validator": "cloudflare-static/validate-workflow-contract.mjs",
+    "workflow_contract_tests": "cloudflare-static/validate-workflow-contract.test.mjs",
+    "workflow_contract_ci": ".github/workflows/cloudflare-workflow-contract.yml",
+    "verification": "4 adversarial Node tests passed locally; committed CI execution remains pending",
+    "evidence": "operations/evidence/cloudflare-workflow-contract-2026-07-11T1733-0400.json",
+    "commits": [
+      "fdc7304f4023058121ce307654833cfd79499c0e",
+      "6a8f71a0b05075d04d037773164e0575a94088d1",
+      "add69df433442adc6bde17cb90c701ac61997355",
+      "9072135ad0a72081c163b98a735dacec7405c706"
+    ]
+  },
+  "remaining": [
+    "obtain a completed passing run of the Cloudflare workflow-contract CI gate",
+    "configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research environment",
+    "dispatch the production deployment workflow",
+    "capture a resolving Pages URL, served identity, exact deployed commit, proof validation, and provenance attestation"
+  ],
+  "coordination": "Recorded as an owner-scoped sidecar to avoid overwriting concurrent shared queue state."
+}
