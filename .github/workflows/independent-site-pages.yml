@@ -1,0 +1,63 @@
+name: Deploy Independent Creative Site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'independent-site/**'
+      - '.github/workflows/independent-site-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: independent-site-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@v4
+
+      - name: Validate independent-site contract
+        run: node independent-site/contract.test.mjs
+
+      - name: Build immutable static artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .pages-artifact
+          mkdir .pages-artifact
+          cp independent-site/index.html .pages-artifact/index.html
+          cp independent-site/identity.json .pages-artifact/identity.json
+          cat > .pages-artifact/deployment-identity.json <<JSON
+          {
+            "schema_version": "1.0.0",
+            "site_id": "unreliable-observatory",
+            "source_repository": "${GITHUB_REPOSITORY}",
+            "source_commit": "${GITHUB_SHA}",
+            "workflow": "${GITHUB_WORKFLOW}",
+            "run_id": "${GITHUB_RUN_ID}",
+            "run_attempt": "${GITHUB_RUN_ATTEMPT}"
+          }
+          JSON
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .pages-artifact
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
