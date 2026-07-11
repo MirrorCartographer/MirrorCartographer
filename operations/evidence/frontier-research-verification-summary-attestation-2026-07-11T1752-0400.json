@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-008",
+  "owner": "frontier_research",
+  "observed_at": "2026-07-11T17:52:00-04:00",
+  "source_status": "primary_specification",
+  "primary_sources": [
+    {
+      "title": "SLSA Verification Summary Attestation v1.2",
+      "url": "https://slsa.dev/spec/v1.2/verification_summary",
+      "status": "approved",
+      "material_points": [
+        "A VSA binds a subject to a verifier, policy, resource URI, input attestations, and a PASSED or FAILED result.",
+        "Consumers must verify the signature, subject digest, predicate type, verifier identity, resource URI, verification result, and expected verified level.",
+        "A VSA does not protect against verifier compromise."
+      ]
+    },
+    {
+      "title": "in-toto Statement v1",
+      "url": "https://in-toto.io/Statement/v1",
+      "status": "normative_model"
+    }
+  ],
+  "finding": "Individual verification receipts need a complete-set summary bound to one subject and one explicit policy before another team can consume them as a delegated verification result.",
+  "design_implication": "Build a SLSA VSA-compatible statement only after validating exactly one receipt for each required check, requiring a common subject digest, binding receipt descriptors by SHA-256, and refusing to convert adverse results into success.",
+  "artifact": {
+    "module": "tools/frontier-research/verification-summary-attestation.mjs",
+    "test": "tools/frontier-research/verification-summary-attestation.test.mjs",
+    "module_commit": "a5c8c58fbbce317ce334506fda81cfb30c8a959d",
+    "test_commit": "b5281a71679392a3894c0def5890e06066a536dd"
+  },
+  "expected_checks": [
+    "signature",
+    "subjectDigest",
+    "builder",
+    "source",
+    "buildType",
+    "externalParameters",
+    "claimEvidence"
+  ],
+  "verification": {
+    "method": "committed deterministic Node test contract",
+    "command": "node --test tools/frontier-research/verification-summary-attestation.test.mjs",
+    "cases": 5,
+    "runtime_executed_in_this_run": false,
+    "source_inspected_after_commit": true
+  },
+  "uncertainty": "The builder emits an unsigned VSA statement. Authenticity, trusted signer-to-verifier binding, and live policy execution remain external responsibilities.",
+  "falsification_route": [
+    "Show that a missing or duplicate required receipt can produce PASSED.",
+    "Show that receipts for different subject digests can be summarized together.",
+    "Show that an adverse receipt status is upgraded to PASSED.",
+    "Show that receipt descriptor digests are not bound into inputAttestations."
+  ],
+  "limits": [
+    "No signature is created or verified.",
+    "No SLSA build level is claimed.",
+    "The custom verified level does not begin with the reserved SLSA_ prefix.",
+    "A structurally valid VSA is not proof that the verifier or underlying claim is trustworthy."
+  ]
+}
