@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T17:48:00-04:00",
+  "status": "blocked_external_configuration",
+  "progress": {
+    "completed_slice": "Wire explicit verifier-status and fail-closed acceptance artifacts into the Cloudflare deployment workflow.",
+    "files": [
+      "cloudflare-static/build-evidence-verification-input.mjs",
+      "cloudflare-static/build-evidence-verification-input.test.mjs",
+      ".github/workflows/cloudflare-pages-research.yml",
+      "operations/evidence/cloudflare-evidence-workflow-wiring-2026-07-11T1748-0400.json"
+    ],
+    "commits": [
+      "78c539e70b0ce97ca3eb9e376adc4cf9518d0d03",
+      "a4d2e574a893d5619052e148780a2692094d8e82",
+      "08a0ac94b4c571f4bff25f4d5d3f8e1edd72ec83",
+      "9300628f3669a86fac9bac06162103ebd4c9efd7"
+    ],
+    "verification": "Four isolated deterministic Node tests passed. No Cloudflare deployment or GitHub Actions execution was observed for the workflow commit.",
+    "acceptance_state": "deliberately rejected until cryptographic signature verification is wired"
+  },
+  "remaining": [
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Dispatch the committed workflow and capture its returned Cloudflare Pages URL.",
+    "Add a real cryptographic attestation signature and verification step, then replace not_verified only with the verifier's explicit success result.",
+    "Verify served research-surface identity and bind the accepted packet to the deployed source commit."
+  ],
+  "handoff": "Frontier Research should evaluate the narrowest supported GitHub/Sigstore attestation signing and verification path for this workflow. Cloudflare Research should not mark evidence accepted until that verifier runs successfully."
+}
