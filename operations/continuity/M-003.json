@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-003",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "action": "Add a bitemporal decision-event model so corrections and reconciliation lag can be represented without erasing earlier observations.",
+  "status": "completed",
+  "completed_at": "2026-07-11T21:09:50Z",
+  "required_evidence": [
+    "decision-event schema",
+    "valid-time field",
+    "transaction-time field",
+    "first observed event",
+    "first proposed event",
+    "privacy review",
+    "review route"
+  ],
+  "outputs": {
+    "schema": "operations/continuity/decision-event.schema.json",
+    "ledger": "operations/continuity/decision-events.json",
+    "events_added": ["DE-0001", "DE-0002"],
+    "schema_commit": "ce67984ba8d4580dd2c748e8f08e5a497a658667",
+    "ledger_commit": "fd7017fb22dcd510486e39f1b0dd7d64c0fab9e6"
+  },
+  "claim_states": {
+    "observed": "DE-0001 records the repository-visible M-002 sidecar and stale aggregate queue as simultaneous facts.",
+    "proposed": "DE-0002 proposes bitemporal correction semantics for future continuity work.",
+    "inferred": [],
+    "superseded": [],
+    "unresolved": ["M-002 remains absent from the shared ACTIVE_QUEUE aggregate and requires conflict-safe reconciliation."]
+  },
+  "verification": {
+    "method": "GitHub contents API accepted the schema and ledger as additive UTF-8 JSON files; both commits are immutable source identities for review.",
+    "schema_constraints": [
+      "event and claim state enums",
+      "valid_time.from required",
+      "transaction_time.recorded_at required",
+      "linked supersession and contradiction identifiers",
+      "explicit privacy and review route"
+    ]
+  },
+  "privacy_boundary": "Only public repository files and commit metadata were indexed. No raw chat, health, pet-health, credentials, contact data, or uploaded-file contents were copied.",
+  "handoff": "Reconcile M-002 and M-003 into operations/ACTIVE_QUEUE.json only on a conflict-free aggregate update. The next continuity slice should add a deterministic validator for decision-events.json and record the first true correction/supersession pair when one is observed."
+}
