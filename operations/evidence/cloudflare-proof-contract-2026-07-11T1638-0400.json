@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "observed",
+  "evidence_state": "source-verified",
+  "finding": "The Cloudflare deployment workflow now fails closed when its retained proof packet lacks a valid source commit, HTTPS workflow/deployment URLs, verifier output, or timestamp.",
+  "artifacts": {
+    "validator": "cloudflare-static/validate-deployment-proof.mjs",
+    "validator_commit": "8114d888ff32232cd73ce56052bf81d0d85c2fd6",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "workflow_commit": "aa329d9d4fd346fe4b98b219bbc1bd2d9878efb5"
+  },
+  "verification": {
+    "method": "GitHub source inspection after commit",
+    "result": "validator and workflow integration committed",
+    "runtime_deployment": "not executed because Cloudflare credentials remain external configuration"
+  },
+  "falsification_routes": [
+    "Run the workflow with a malformed or empty verifier output and confirm the validation step exits non-zero.",
+    "Run the workflow with configured credentials and confirm a valid proof artifact is uploaded only after identity verification succeeds."
+  ],
+  "limits": [
+    "Structural proof validation does not establish that Cloudflare served the intended bytes.",
+    "The deployment URL and deployed commit remain unverified until the credentialed workflow runs."
+  ],
+  "generated_at": "2026-07-11T16:38:24-04:00"
+}
