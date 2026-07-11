@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-002",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "action": "Add commit and decision-history records, preserving unresolved deployment state without overwriting prior observations.",
+  "status": "completed",
+  "completed_at": "2026-07-11T20:52:33Z",
+  "required_evidence": [
+    "commit-history record",
+    "cross-artifact decision record",
+    "unresolved-state record",
+    "privacy review",
+    "falsification route"
+  ],
+  "outputs": {
+    "index": "operations/continuity/continuity-index.json",
+    "records_added": ["CM-0006", "CM-0007", "CM-0008"],
+    "index_commit": "e63e8054cb3a0744930ab883062fb43c3a590eaa"
+  },
+  "verification": {
+    "method": "GitHub contents API accepted the replacement JSON and returned a new content blob SHA",
+    "content_sha": "3dc3b2cd659616dfe665f5dade3d2b9a4daa3be3",
+    "schema_contract": "All added records use existing schema enums and include source identity, privacy class, and review route."
+  },
+  "privacy_boundary": "Only public repository files and commit metadata were indexed. No raw chat, health, pet-health, credentials, contact data, or uploaded-file contents were copied.",
+  "handoff": "Reconcile this owned sidecar into operations/ACTIVE_QUEUE.json on the next conflict-free queue update; next continuity slice should add an explicit decision-event schema with valid-time and transaction-time fields so later corrections can supersede claims without erasing history."
+}
