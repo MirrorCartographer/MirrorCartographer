@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "update_kind": "additive_progress",
+  "progress": {
+    "source_identity_contract": "cloudflare-static/research-surface-identity.mjs",
+    "source_identity_test": "cloudflare-static/research-surface-identity.test.mjs",
+    "remote_verifier": "cloudflare-static/verify-deployment.mjs",
+    "workflow_commit": "096d02de862870464012ae6c3395d41611781742",
+    "verification": "4 deterministic identity-contract tests passed in an isolated Node runtime",
+    "evidence": "operations/evidence/cloudflare-source-identity-2026-07-11T1727-0400.json"
+  },
+  "remaining": [
+    "configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research environment",
+    "dispatch the deployment workflow",
+    "capture a resolving Pages URL, served identity, exact deployed commit, proof validation, and provenance attestation"
+  ],
+  "coordination": "Recorded as an owner-scoped sidecar to avoid overwriting concurrent shared queue state."
+}
