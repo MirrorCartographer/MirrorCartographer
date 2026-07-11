@@ -1,0 +1,182 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-11T21:56:17Z",
+  "item_id": "M-004",
+  "purpose": "Preserve the ordered relationship between queue intent, implementation commits, evidence commits, acceptance boundaries, unresolved external outcomes, and later supersession without treating commit order as causal proof.",
+  "privacy_boundary": {
+    "included": [
+      "public repository files",
+      "public commit metadata",
+      "abstract project decisions and evidence relations"
+    ],
+    "excluded": [
+      "raw private chat",
+      "health or pet-health material",
+      "credentials and account identifiers",
+      "identifying personal information",
+      "unreviewed uploads"
+    ]
+  },
+  "claim_state_vocabulary": ["observed", "inferred", "proposed", "superseded", "unresolved"],
+  "chronology_rules": {
+    "temporal_order": "Commit timestamps and queue snapshots establish ordering only.",
+    "causality": "A later commit may implement, document, test, or supersede an earlier decision, but chronology alone is not causal proof.",
+    "status": "Current-status propositions may supersede earlier status while preserving the earlier observation as historically valid.",
+    "evidence_layers": "Queue intent, source implementation, verifier execution, deployment, runtime outcome, and peer execution require separate evidence."
+  },
+  "records": [
+    {
+      "id": "DIEC-0001",
+      "subject": "continuity_mining/M-001",
+      "decision": {
+        "state": "observed",
+        "proposition": "Build a provenance-preserving continuity index while excluding private material.",
+        "source": {"type": "github_file", "locator": "operations/ACTIVE_QUEUE.json", "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"}
+      },
+      "implementation": {
+        "state": "observed",
+        "artifacts": ["operations/continuity/continuity-index.schema.json", "operations/continuity/continuity-index.json"],
+        "commits": ["044c36bb4ee8577af68d243232ecad0dd5502a29", "ecd80ae7e1abb0bf55965f0d9b5ba682e34027d0"]
+      },
+      "evidence": {
+        "state": "observed",
+        "proposition": "Five records were retained with claim state, evidence strength, source identity, privacy class, and review route.",
+        "strength": "primary_repository_source"
+      },
+      "current_status": {
+        "state": "superseded",
+        "proposition": "The earlier active status was superseded by completed; the earlier snapshot remains historically valid."
+      },
+      "next_relation": "The handoff proposed adding commit and decision-history records and linking contradictions instead of overwriting observations."
+    },
+    {
+      "id": "DIEC-0002",
+      "subject": "continuity_mining/M-002",
+      "decision": {
+        "state": "inferred",
+        "proposition": "Convert the M-001 handoff into an explicit status-transition ledger.",
+        "basis": "M-001 handoff plus later continuity commit sequence"
+      },
+      "implementation": {
+        "state": "observed",
+        "artifact": "operations/continuity/status-transition-ledger.json",
+        "content_sha": "8cfd699308dcd6ddd6f4d016e8f51fb87a2048f9",
+        "queue_commit": "d8af958f38d6473facffe6a3795ef79fe212c856"
+      },
+      "evidence": {
+        "state": "observed",
+        "proposition": "Three transitions distinguish supersession from coexistence and retain review routes.",
+        "strength": "primary_repository_source"
+      },
+      "unresolved": [
+        "Cloudflare deployment remains unproven.",
+        "Vercel iPhone audible outcome remains unverified."
+      ]
+    },
+    {
+      "id": "DIEC-0003",
+      "subject": "continuity_mining/M-003",
+      "decision": {
+        "state": "proposed",
+        "proposition": "Normalize project evidence language so implementation, verification, deployment, runtime outcome, and triggering cannot be collapsed into one success claim.",
+        "basis": "Repeated cross-team ambiguity visible in queue and evidence summaries"
+      },
+      "implementation": {
+        "state": "observed",
+        "artifact": "operations/continuity/language-decision-evolution-map.json",
+        "content_sha": "b8e906d4d0e9fc940aa43975b527cf23c0194796",
+        "commits": ["7dcc4719fb92d414582c8ea64fab81060f81aa04", "efae5aba75fff085e09fe685b357961f44b28e19", "fd7d6d1babf45d87a6a66717636865eb7db0cdde"]
+      },
+      "evidence": {
+        "state": "observed",
+        "proposition": "Five terms now have scoped meanings, decision boundaries, provenance, and review routes.",
+        "strength": "corroborated_repository_sources"
+      },
+      "unresolved": [
+        "Whether current provider deployments match latest relevant commits.",
+        "Whether iPhone Safari produced audible output for the deployed audio slice."
+      ]
+    },
+    {
+      "id": "DIEC-0004",
+      "subject": "cloudflare_research/C-001",
+      "decision": {
+        "state": "observed",
+        "proposition": "Resolve and prove the actual Cloudflare Pages hostname and deployment.",
+        "source": {"type": "github_file", "locator": "operations/ACTIVE_QUEUE.json", "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"}
+      },
+      "implementation_sequence": [
+        {"state": "observed", "commit": "78c539e70b0ce97ca3eb9e376adc4cf9518d0d03", "role": "verification input manifest builder"},
+        {"state": "observed", "commit": "a4d2e574a893d5619052e148780a2692094d8e82", "role": "verification input tests"},
+        {"state": "observed", "commit": "08a0ac94b4c571f4bff25f4d5d3f8e1edd72ec83", "role": "fail-closed workflow wiring"},
+        {"state": "observed", "commit": "9300628f3669a86fac9bac06162103ebd4c9efd7", "role": "workflow evidence record"},
+        {"state": "observed", "commit": "c965d8f8ccb34f6a1d3be122d7406bb97ad22d9c", "role": "additive queue progress record"}
+      ],
+      "evidence_boundary": {
+        "state": "observed",
+        "proposition": "The workflow and acceptance artifacts exist, but existence does not prove a resolving deployment or cryptographically verified signature."
+      },
+      "external_outcome": {
+        "state": "unresolved",
+        "missing": ["configured Cloudflare credentials", "successful workflow execution", "resolving URL", "served identity bound to source commit"]
+      }
+    },
+    {
+      "id": "DIEC-0005",
+      "subject": "frontier_research/R-007_to_R-008",
+      "decision": {
+        "state": "inferred",
+        "proposition": "Individual verifier receipts require a complete policy-level summary before delegated evidence acceptance.",
+        "basis": "R-007 receipt contract followed by R-008 verification summary attestation"
+      },
+      "implementation_sequence": [
+        {"state": "observed", "commit": "df71e0a98584f2f5a3f45719fb3fd0b84f0d6a05", "role": "verification receipt schema"},
+        {"state": "observed", "commit": "770dea0369f90b0c4a7ae6e16ac191510b87a779", "role": "fail-closed receipt validator"},
+        {"state": "observed", "commit": "a5c8c58fbbce317ce334506fda81cfb30c8a959d", "role": "verification summary attestation builder"},
+        {"state": "observed", "commit": "b5281a71679392a3894c0def5890e06066a536dd", "role": "summary attestation tests"},
+        {"state": "observed", "commit": "3f7ec0fe47bd88ce05140c6b31a66e998f37b344", "role": "summary attestation evidence"},
+        {"state": "observed", "commit": "b0727308cd3609cf28e7d50a044fe77a8190caaa", "role": "additive queue completion record"}
+      ],
+      "evidence_boundary": {
+        "state": "observed",
+        "proposition": "Unsigned summary attestations organize verification results but do not establish cryptographic authenticity, signer trust, deployment truth, or underlying claim truth."
+      },
+      "next_action": {
+        "state": "proposed",
+        "proposition": "Cloudflare Research should generate complete receipts, build and sign the summary, then verify signer and verifier identity before acceptance."
+      }
+    }
+  ],
+  "contradiction_resolution": {
+    "resolved": [
+      {
+        "apparent_conflict": "A queue item is completed while later work continues in the same domain.",
+        "resolution": "Completion applies to the scoped item; later items extend the substrate and do not invalidate prior completion."
+      },
+      {
+        "apparent_conflict": "Evidence commits follow implementation commits and appear to prove execution.",
+        "resolution": "They prove durable evidence records were committed; verifier execution, deployment, and runtime outcomes still require their own retained receipts."
+      },
+      {
+        "apparent_conflict": "The aggregate queue is older than additive queue-update commits.",
+        "resolution": "The aggregate queue is a stale snapshot; owner-scoped additive updates are later observations and must be reconciled rather than silently overwriting the snapshot."
+      }
+    ],
+    "unresolved": [
+      "No canonical reconciler currently computes current queue state from the aggregate snapshot plus additive owner updates.",
+      "External deployment and iPhone audibility outcomes remain unproven."
+    ]
+  },
+  "knowledge_graph_edges": [
+    {"from": "queue_intent", "relation": "authorizes_scope_for", "to": "implementation"},
+    {"from": "implementation_commit", "relation": "may_be_documented_by", "to": "evidence_commit"},
+    {"from": "evidence_commit", "relation": "does_not_entail", "to": "verifier_execution"},
+    {"from": "verifier_execution", "relation": "does_not_entail", "to": "deployment"},
+    {"from": "deployment", "relation": "does_not_entail", "to": "runtime_outcome"},
+    {"from": "later_status", "relation": "supersedes_current_status_only", "to": "earlier_status"}
+  ],
+  "verification": {
+    "method": "JSON structural review, source SHA cross-check, and recent commit-order comparison",
+    "acceptance": "Each chronology record separates decision, implementation, evidence, unresolved outcome, and next action while preserving source identity and claim state."
+  }
+}
