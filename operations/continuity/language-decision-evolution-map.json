@@ -1,0 +1,183 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-11T21:52:30Z",
+  "item_id": "M-003",
+  "purpose": "Preserve how project language evolved into explicit decision boundaries so future teams do not collapse implementation, verification, deployment, runtime outcome, and peer triggering into one success claim.",
+  "privacy_boundary": {
+    "included": [
+      "public repository files",
+      "public commit metadata",
+      "abstract project terminology and decision rules"
+    ],
+    "excluded": [
+      "raw private chat",
+      "health or pet-health material",
+      "credentials and account identifiers",
+      "identifying personal information",
+      "unreviewed uploads"
+    ]
+  },
+  "claim_state_vocabulary": [
+    "observed",
+    "inferred",
+    "proposed",
+    "superseded",
+    "unresolved"
+  ],
+  "evolution_records": [
+    {
+      "id": "LDE-0001",
+      "term": "implemented",
+      "observed_meaning": "Source code, workflow logic, schema, test, or gate exists in a repository commit.",
+      "decision_boundary": "Implementation evidence may support code-exists, but cannot by itself support deployed, executed, audible, resolving, or accepted.",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/CURRENT_STATE.json",
+          "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+          "supports": "Do not report implementation without evidence."
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/continuity/status-transition-ledger.json",
+          "content_sha": "8cfd699308dcd6ddd6f4d016e8f51fb87a2048f9",
+          "supports": "Committed gates coexist with unresolved deployment or runtime outcomes."
+        }
+      ],
+      "supersedes": "Earlier loose usage in which a committed mechanism could be narrated as if the external outcome had already occurred.",
+      "review_route": "Require immutable source commit and inspect the exact changed artifact."
+    },
+    {
+      "id": "LDE-0002",
+      "term": "verified",
+      "observed_meaning": "A named verifier executed a defined check and retained its result, inputs, version, invocation, evidence location, uncertainty, and falsification route.",
+      "decision_boundary": "A verified check is scoped to that check; it is not universal proof of the underlying project claim.",
+      "claim_state": "observed",
+      "evidence_strength": "primary_repository_source",
+      "sources": [
+        {
+          "type": "github_commit",
+          "locator": "df71e0a98584f2f5a3f45719fb3fd0b84f0d6a05",
+          "content_sha": "df71e0a98584f2f5a3f45719fb3fd0b84f0d6a05",
+          "supports": "Introduced an auditable verification receipt contract."
+        },
+        {
+          "type": "github_commit",
+          "locator": "770dea0369f90b0c4a7ae6e16ac191510b87a779",
+          "content_sha": "770dea0369f90b0c4a7ae6e16ac191510b87a779",
+          "supports": "Added fail-closed receipt validation."
+        }
+      ],
+      "inferred_implication": "Future summaries should name the verifier and checked proposition instead of using verified as an unqualified project-wide status.",
+      "review_route": "Fetch the verification receipt schema, validator, raw evidence reference, and exact artifact digest."
+    },
+    {
+      "id": "LDE-0003",
+      "term": "deployed",
+      "observed_meaning": "A provider returned or served a reachable deployment whose runtime identity is bound to an immutable source commit.",
+      "decision_boundary": "A deployment workflow, configuration file, or deployment gate is not deployment proof.",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "supports": "Cloudflare and Vercel deployment outcomes remain explicitly unverified despite committed deployment mechanisms."
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/continuity/status-transition-ledger.json",
+          "content_sha": "8cfd699308dcd6ddd6f4d016e8f51fb87a2048f9",
+          "supports": "Implementation and deployment-not-proven are coexistence, not contradiction."
+        }
+      ],
+      "unresolved": [
+        "Cloudflare resolving URL and served identity",
+        "Vercel deployment identity for the relevant audio commit or descendant"
+      ],
+      "review_route": "Retain provider deployment output, reachable URL, served runtime identity, and matching immutable source commit."
+    },
+    {
+      "id": "LDE-0004",
+      "term": "runtime outcome",
+      "observed_meaning": "The target environment produced a measured behavior during a defined observation interval.",
+      "decision_boundary": "A runtime probe or diagnostic control existing in source does not establish that a user device produced the intended result.",
+      "claim_state": "observed",
+      "evidence_strength": "primary_repository_source",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "supports": "V-001 requires phone retest or runtime meter in addition to source and deployment identity."
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/continuity/status-transition-ledger.json",
+          "content_sha": "8cfd699308dcd6ddd6f4d016e8f51fb87a2048f9",
+          "supports": "A committed live-identity gate coexists with an unresolved audible-phone outcome."
+        }
+      ],
+      "review_route": "Bind device, observation time, deployed identity, runtime measurements, and reported outcome in one retained evidence packet."
+    },
+    {
+      "id": "LDE-0005",
+      "term": "triggered",
+      "observed_meaning": "A direct trigger or schedule mutation was accepted by the available tool.",
+      "decision_boundary": "A trigger attempt or successful reschedule does not prove that the peer team executed or completed work.",
+      "claim_state": "observed",
+      "evidence_strength": "primary_repository_source",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/TRIGGER_REQUESTS.json",
+          "content_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4",
+          "supports": "Defines durable trigger requests when direct peer triggering is unavailable."
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/CURRENT_STATE.json",
+          "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+          "supports": "Teams leave evidence plus a trigger request for peers."
+        }
+      ],
+      "proposed_normalized_phrasing": [
+        "peer trigger accepted",
+        "peer reschedule accepted",
+        "peer trigger recorded",
+        "peer execution unconfirmed"
+      ],
+      "review_route": "Inspect tool acknowledgement or durable trigger-request record; require separate peer output or commit before claiming execution."
+    }
+  ],
+  "contradiction_resolution": {
+    "resolved": [
+      {
+        "apparent_conflict": "mechanism implemented versus outcome unresolved",
+        "resolution": "Different evidence layers coexist and are not contradictory."
+      },
+      {
+        "apparent_conflict": "peer trigger accepted versus peer not yet run",
+        "resolution": "Scheduling evidence and execution evidence are distinct propositions."
+      }
+    ],
+    "unresolved": [
+      "Whether current provider deployments match the latest source commits",
+      "Whether iPhone Safari produced audible output for the deployed audio slice"
+    ]
+  },
+  "knowledge_graph_edges": [
+    {"from": "implemented", "relation": "requires_separate_evidence_for", "to": "verified"},
+    {"from": "verified", "relation": "scoped_check_may_support", "to": "accepted"},
+    {"from": "implemented", "relation": "does_not_entail", "to": "deployed"},
+    {"from": "deployed", "relation": "does_not_entail", "to": "runtime_outcome"},
+    {"from": "triggered", "relation": "does_not_entail", "to": "peer_executed"}
+  ],
+  "verification": {
+    "method": "JSON structural review plus source SHA and commit cross-check",
+    "acceptance": "Every term has a scoped meaning, decision boundary, claim state, evidence strength, provenance, and review route."
+  }
+}
