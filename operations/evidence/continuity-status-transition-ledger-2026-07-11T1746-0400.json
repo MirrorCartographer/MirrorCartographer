@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "created_at": "2026-07-11T17:46:29-04:00",
+  "artifact": "operations/continuity/status-transition-ledger.json",
+  "artifact_commit": "d8c250cf6e5630acc1b9ac371e8d7caac2f8c89a",
+  "sources_inspected": [
+    {"path": "operations/CURRENT_STATE.json", "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc"},
+    {"path": "operations/ACTIVE_QUEUE.json", "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"},
+    {"path": "operations/SPECIALIST_REGISTRY.json", "content_sha": "88451b05101bcd8a259f98de5d9290e15357366b"},
+    {"path": "operations/TRIGGER_REQUESTS.json", "content_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4"},
+    {"path": "operations/continuity/continuity-index.json", "content_sha": "3dc3b2cd659616dfe665f5dade3d2b9a4daa3be3"}
+  ],
+  "recent_commits_inspected": [
+    "a6a55e4b37212c1b96128bf3940f266fc6c52d8d",
+    "7ae2d76402f5d0a07430f23a22d03e519c32db65",
+    "e1c777ef4f9142f739f1994eda57ec514f2ae8a1",
+    "b62c8832c3ab9b86723ff416fa46fe3b6a1f93aa",
+    "37777e9a332cb7e820aec4211395e5084d541ef1"
+  ],
+  "memory_recovered": "Project status must be modeled as temporal and layered. A committed verifier, deployment gate, or provenance pipeline can coexist with an unresolved deployment or runtime claim without contradiction.",
+  "contradictions_resolved": [
+    "M-001 active versus completed is a temporal supersession, not deletion of the earlier observation.",
+    "Cloudflare proof-pipeline implementation versus unproven deployment are different evidence layers and coexist.",
+    "Vercel live-identity gate implementation versus unverified iPhone audibility are different evidence layers and coexist."
+  ],
+  "privacy_boundary": "Only public repository files, commit identifiers, and abstract project-state transitions were indexed. Raw chat, health, pet-health, credentials, account identifiers, and unreviewed uploads were excluded.",
+  "verification": {
+    "artifact_created": true,
+    "records": 3,
+    "required_fields_present": ["source identity", "claim state", "evidence strength", "relation", "review route"],
+    "deployment_or_runtime_claimed": false
+  },
+  "limits": [
+    "The connector did not expose historical queue blobs directly, so the first transition retains the previously indexed blob SHA as provenance rather than re-fetching its content in this run.",
+    "No private chat-history material was inspected or published."
+  ]
+}
