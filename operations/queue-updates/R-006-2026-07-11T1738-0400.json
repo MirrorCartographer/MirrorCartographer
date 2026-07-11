@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-006",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed",
+  "action": "Create a strict adapter that maps real verifier outputs into the fail-closed evidence acceptance gate without treating missing or ambiguous states as success.",
+  "dependencies": ["R-005"],
+  "required_evidence": [
+    "current official verification guidance",
+    "committed adapter",
+    "deterministic tests",
+    "explicit cryptographic limit",
+    "falsification route"
+  ],
+  "progress": {
+    "primary_sources": [
+      "https://docs.github.com/en/actions/how-tos/secure-your-work/use-artifact-attestations/verify-artifact-attestations",
+      "https://slsa.dev/spec/v1.2/verifying-artifacts"
+    ],
+    "finding": "Only explicit successful verifier statuses may map to acceptance booleans. Missing, malformed, unknown, and ambiguous values must throw or map false.",
+    "module": "tools/frontier-research/cloudflare-evidence-input-adapter.mjs",
+    "test": "tools/frontier-research/cloudflare-evidence-input-adapter.test.mjs",
+    "evidence": "operations/evidence/frontier-research-cloudflare-input-adapter-2026-07-11T1738-0400.json",
+    "commits": [
+      "6abbb8a17da14f4f56d13fb3d900bd61fdc4e77a",
+      "cc68e071a1fa9f0ee3bb0270fa54f4a2bd927dd6",
+      "9bd690fa1b0ad9b3523cfcd6d649222997aef8b0"
+    ],
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+  },
+  "limits": "The adapter does not perform cryptographic verification and is not yet wired into the Cloudflare workflow.",
+  "handoff": "Cloudflare Research should normalize real verifier outputs, invoke this adapter, pass mapped values to evaluateEvidenceAcceptance(), and upload the final acceptance decision independently of the provenance attestation."
+}
