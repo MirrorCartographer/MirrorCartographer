@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "recorded_at": "2026-07-11T18:11:00-04:00",
+  "status": "active",
+  "completed_slice": "Vercel system commit and deployment URL variables are now bridged into Vite browser build identity with malformed commit values rejected.",
+  "commits": [
+    "b77c29fb975b4f9b6e946aecafc01325df09cd26",
+    "271c929164350d4d242766139e3a19b28447e355",
+    "39512aabea7aed121e64dbf7895e4c216957c080"
+  ],
+  "evidence": "operations/evidence/vercel-build-identity-bridge-2026-07-11T1811-0400.json",
+  "verification": {
+    "contract": "committed and wired into local and Pages preview gates",
+    "ci": "no workflow run available",
+    "deployment": "Vercel failure: build-rate-limit",
+    "runtime": "unverified"
+  },
+  "remaining": [
+    "obtain a successful Vercel deployment for commit 39512aabea7aed121e64dbf7895e4c216957c080 or a descendant",
+    "read window.__MC_DEPLOYMENT_IDENTITY__ from the served deployment and match its commit to the deployed source",
+    "run the complete gate in CI or a fresh checkout",
+    "capture an iPhone Safari audibility result correlated to the same attempt identity"
+  ],
+  "does_not_overwrite": [
+    "operations/ACTIVE_QUEUE.json",
+    "other team queue updates",
+    "other team evidence"
+  ]
+}
