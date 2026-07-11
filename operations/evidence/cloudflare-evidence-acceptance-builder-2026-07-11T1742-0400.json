@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "implemented_source_verified_isolated_not_deployed",
+  "improvement": "Added a fail-closed Cloudflare evidence acceptance builder that composes the Frontier verification-input adapter with the evidence acceptance gate while preserving raw verifier statuses.",
+  "files": {
+    "module": "cloudflare-static/build-evidence-acceptance.mjs",
+    "test": "cloudflare-static/build-evidence-acceptance.test.mjs"
+  },
+  "commits": [
+    "3f87ee5900ee65ff0ba30a66eaf165a6a24a66e2",
+    "f71a360c116b60e1ab6cb040af8bcf94adc23002"
+  ],
+  "verification": {
+    "command": "node --test cloudflare-static/build-evidence-acceptance.test.mjs",
+    "runtime": "isolated Node runtime with byte-identical committed source and dependencies",
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      "all explicit provenance and claim checks accepted",
+      "unverified signature rejected",
+      "claim rejection kept distinct from provenance rejection",
+      "missing required verifier object throws"
+    ]
+  },
+  "evidence_strength": "deterministic_contract_test",
+  "limits": [
+    "The builder does not perform cryptographic signature verification.",
+    "The deployment workflow does not yet generate the real verification-input manifest or invoke this builder.",
+    "Cloudflare deployment remains blocked until required environment credentials are configured and a workflow run returns a deployment URL."
+  ],
+  "falsification_route": [
+    "Any missing or ambiguous verifier status is accepted.",
+    "An unverified signature yields accepted=true.",
+    "Claim failure is reported as provenance success and overall acceptance.",
+    "The committed test fails in CI or a clean checkout."
+  ],
+  "privacy_boundary": "No credentials, private chat, health data, or secret values are recorded."
+}
