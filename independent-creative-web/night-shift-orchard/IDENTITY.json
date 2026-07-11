@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "title": "Night Shift Orchard",
+  "premise": "A dark field where touch plants temporary luminous organisms; the work is experienced, not explained.",
+  "visual_law": [
+    "near-black sky",
+    "warm phosphorescent linework",
+    "monospace labels used only as quiet instruments",
+    "no cards, dashboards, maps, graphs, product sections, or explanatory funnels"
+  ],
+  "behavioral_law": [
+    "touch and pointer gestures create organisms",
+    "each organism grows, sways, and disappears",
+    "sound is optional, gesture-gated, quiet, and generative",
+    "the empty field remains a valid complete state"
+  ],
+  "independence_boundary": {
+    "not_mirror_cartographer": true,
+    "forbidden_patterns": [
+      "reflection workflow",
+      "symbol interpretation",
+      "research portal",
+      "worker dashboard",
+      "conversion funnel",
+      "project explanation page"
+    ]
+  },
+  "accessibility": {
+    "minimum_control_target_px": 48,
+    "keyboard_focus_visible": true,
+    "live_region": true,
+    "reduced_motion_supported": true,
+    "sound_default": "off"
+  },
+  "performance": {
+    "external_dependencies": 0,
+    "maximum_device_pixel_ratio": 2,
+    "maximum_live_plants": 90,
+    "maximum_star_count": 150
+  },
+  "source_commit": "489fb53c03bc3cd016e901aa6e2abbfde2977786"
+}
