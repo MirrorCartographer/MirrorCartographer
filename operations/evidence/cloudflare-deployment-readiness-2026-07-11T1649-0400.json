@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T16:49:00-04:00",
+  "claim_state": "observed",
+  "evidence_strength": "deterministic_contract_test",
+  "finding": "The deployment workflow can now distinguish missing, placeholder, malformed-account, and implausibly-short credential configuration states without recording either secret value.",
+  "artifacts": {
+    "classifier": "cloudflare-static/check-deployment-readiness.mjs",
+    "tests": "cloudflare-static/check-deployment-readiness.test.mjs",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml"
+  },
+  "commits": [
+    "dab9899c34fd2a9c0a2aa34c35b39f7cb022e9e4",
+    "0191e370298635fe8ab6e22bd195ffa709ddc26e",
+    "8223b462ab50fe58ba24171c7acf48d155c89212"
+  ],
+  "verification": {
+    "command": "node --test cloudflare-static/check-deployment-readiness.test.mjs",
+    "result": {"tests": 4, "passed": 4, "failed": 0},
+    "runtime": "isolated Node runtime using byte-identical committed logic"
+  },
+  "privacy_boundary": {
+    "secret_values_emitted": false,
+    "recorded_fields": ["credential name", "configured boolean", "non-sensitive reason codes"],
+    "excluded_fields": ["account ID value", "API token value"]
+  },
+  "deployment_status": "not_attempted_in_this_run",
+  "limits": [
+    "Configuration-shape readiness is not authentication proof.",
+    "A plausible token can still be expired, revoked, under-scoped, or attached to the wrong account.",
+    "No Cloudflare hostname or served response was verified in this run."
+  ],
+  "falsification_route": "Run the workflow with configured environment secrets. The readiness gate must pass without exposing values; Cloudflare must then accept the credentials, return a deployment URL, and the served-identity verifier must match the committed surface."
+}
