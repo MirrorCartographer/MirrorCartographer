@@ -24,6 +24,9 @@ jobs:
       - name: Checkout committed source
         uses: actions/checkout@v6
 
+      - name: Test proof attestation contract
+        run: node --test cloudflare-static/attest-deployment-proof.test.mjs
+
       - name: Validate required credentials
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -80,12 +83,20 @@ jobs:
         if: always()
         run: node cloudflare-static/validate-deployment-proof.mjs cloudflare-deployment-proof.json
 
-      - name: Upload proof artifact
+      - name: Attest exact proof bytes and enforce builder policy
+        if: always()
+        env:
+          RUN_STARTED_AT: ${{ github.event.repository.updated_at }}
+        run: node cloudflare-static/attest-deployment-proof.mjs cloudflare-deployment-proof.json cloudflare-deployment-proof.intoto.json
+
+      - name: Upload proof artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cloudflare-deployment-proof-${{ github.sha }}
-          path: cloudflare-deployment-proof.json
+          path: |
+            cloudflare-deployment-proof.json
+            cloudflare-deployment-proof.intoto.json
           if-no-files-found: error
           retention-days: 30
 
@@ -102,4 +113,6 @@ jobs:
             echo "- Alias URL: ${ALIAS_URL:-not returned}"
             echo "- Identity verifier: \`cloudflare-static/verify-deployment.mjs\`"
             echo "- Proof validator: \`cloudflare-static/validate-deployment-proof.mjs\`"
+            echo "- Provenance attestation: \`cloudflare-deployment-proof.intoto.json\`"
+            echo "- Trust policy: exact workflow builder and repository, deny by default"
           } >> "$GITHUB_STEP_SUMMARY"
