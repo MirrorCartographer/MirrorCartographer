@@ -73,6 +73,25 @@
       "contradicts_event_ids": [],
       "privacy": "public_repository_safe",
       "review_route": "Fetch workflow runs associated with commit 90b8ed6d4c628f2c3f0b3d6b4c033f0051bd5352 or a descendant. A completed successful run must include both Node commands; any failure or missing command leaves runtime validation unresolved."
+    },
+    {
+      "schema_version": "1.0.0",
+      "event_id": "DE-0005",
+      "subject_id": "continuity-ledger-ci-gate",
+      "event_type": "supersede",
+      "claim_state": "superseded",
+      "valid_time": {"from": "2026-07-11T21:34:14Z", "to": null},
+      "transaction_time": {"recorded_at": "2026-07-11T21:34:14Z", "recorded_commit": null},
+      "summary": "DE-0004 was a correct observation of a newly committed automatic workflow, but concurrent repository state already contained the canonical automatic gate at .github/workflows/continuity-decision-ledger.yml. To prevent duplicate automatic validation runs without deleting history, the later workflow was converted to manual diagnostic use and the pre-existing workflow remains canonical.",
+      "sources": [
+        {"type": "github_file", "locator": ".github/workflows/continuity-decision-ledger.yml", "content_sha": "7926ee0f0f25d0b9d964c0f44d9cf9d9f1f97948", "observed_at": "2026-07-11T21:34:14Z"},
+        {"type": "github_commit", "locator": "9c4702635a275b1580776205fe5e099e733367da", "content_sha": "9c4702635a275b1580776205fe5e099e733367da", "observed_at": "2026-07-11T21:34:14Z"},
+        {"type": "github_commit", "locator": "400b13c731a22beed3127904968641b54e8e4e09", "content_sha": "400b13c731a22beed3127904968641b54e8e4e09", "observed_at": "2026-07-11T21:34:14Z"}
+      ],
+      "supersedes_event_ids": ["DE-0004"],
+      "contradicts_event_ids": [],
+      "privacy": "public_repository_safe",
+      "review_route": "Confirm that only continuity-decision-ledger.yml runs automatically for continuity source changes and that continuity-ledger-validation.yml is manual-only. Any duplicate automatic runs reopen this resolution."
     }
   ]
 }
