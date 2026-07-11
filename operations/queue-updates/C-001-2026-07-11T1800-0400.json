@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T18:00:00-04:00",
+  "status": "blocked_external_configuration",
+  "progress": {
+    "verification_summary_adapter": "cloudflare-static/build-verification-summary.mjs",
+    "verification_summary_test": "cloudflare-static/build-verification-summary.test.mjs",
+    "source_commits": [
+      "d347ac9f964c733597d39f9befe751a34d7b939d",
+      "b0823ffd48f92ae12d32d6ec9a19f1ad5743fd0e"
+    ],
+    "evidence": "operations/evidence/cloudflare-verification-summary-2026-07-11T1800-0400.json",
+    "verification": "4 deterministic Node tests passed in an isolated runtime",
+    "new_capability": "Seven Cloudflare verifier states are normalized into provenance-preserving receipts and a fail-closed SLSA Verification Summary Attestation."
+  },
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment, dispatch the deployment workflow, preserve the verifier outputs, then cryptographically sign and independently verify the summary before evidence acceptance.",
+  "handoff": "Wire build-verification-summary.mjs into the deployment workflow artifact set after the explicit verification-input manifest is produced; preserve unsigned FAILED behavior until a trusted signature verifier is available."
+}
