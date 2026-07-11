@@ -32,6 +32,8 @@ jobs:
           node --test cloudflare-static/validate-deployment-blocker.test.mjs
           node --test cloudflare-static/build-deployment-decision.test.mjs
           node --test cloudflare-static/attest-deployment-proof.test.mjs
+          node --test cloudflare-static/build-evidence-verification-input.test.mjs
+          node --test cloudflare-static/build-evidence-acceptance.test.mjs
 
       - name: Verify committed research surface identity
         run: |
@@ -131,6 +133,32 @@ jobs:
           RUN_STARTED_AT: ${{ github.event.repository.updated_at }}
         run: node cloudflare-static/attest-deployment-proof.mjs cloudflare-deployment-proof.json cloudflare-deployment-proof.intoto.json
 
+      - name: Build explicit verification input manifest
+        if: always()
+        run: >-
+          node cloudflare-static/build-evidence-verification-input.mjs
+          cloudflare-deployment-proof.json
+          cloudflare-deployment-proof.intoto.json
+          cloudflare-evidence-verification-input.json
+
+      - name: Evaluate deployment evidence acceptance
+        if: always()
+        run: >-
+          node cloudflare-static/build-evidence-acceptance.mjs
+          cloudflare-evidence-verification-input.json
+          cloudflare-deployment-acceptance.json
+
+      - name: Assert unsigned evidence remains rejected
+        if: always()
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const decision = JSON.parse(fs.readFileSync('cloudflare-deployment-acceptance.json', 'utf8'));
+          if (decision.accepted !== false) throw new Error('unsigned-evidence-must-not-be-accepted');
+          if (decision.source_status?.signature !== 'not_verified') throw new Error('signature-status-must-remain-explicit');
+          process.stdout.write(`${JSON.stringify({ accepted: decision.accepted, decision: decision.decision, signature: decision.source_status.signature })}\n`);
+          NODE
+
       - name: Upload proof artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -142,6 +170,8 @@ jobs:
             cloudflare-deployment-decision.json
             cloudflare-deployment-proof.json
             cloudflare-deployment-proof.intoto.json
+            cloudflare-evidence-verification-input.json
+            cloudflare-deployment-acceptance.json
           if-no-files-found: error
           retention-days: 30
 
@@ -163,5 +193,8 @@ jobs:
             echo "- Identity verifier: \`cloudflare-static/verify-deployment.mjs\`"
             echo "- Proof validator: \`cloudflare-static/validate-deployment-proof.mjs\`"
             echo "- Provenance attestation: \`cloudflare-deployment-proof.intoto.json\`"
+            echo "- Verification input: \`cloudflare-evidence-verification-input.json\`"
+            echo "- Acceptance decision: \`cloudflare-deployment-acceptance.json\`"
             echo "- Trust policy: exact workflow builder and repository, deny by default"
+            echo "- Signature limit: no cryptographic signature verifier is wired yet, so acceptance remains false"
           } >> "$GITHUB_STEP_SUMMARY"
