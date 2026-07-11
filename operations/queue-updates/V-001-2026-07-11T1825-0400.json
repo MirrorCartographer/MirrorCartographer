@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "recorded_at": "2026-07-11T18:25:00-04:00",
+  "status": "active",
+  "progress": {
+    "completed_slice": "Portable phone evidence export for the correlated audibility attempt.",
+    "runtime_module": "src/engine/audioEvidenceExportRuntime.js",
+    "contract_test": "scripts/audio-evidence-export-contract-check.mjs",
+    "latest_ui_commit": "e65330f39b9ad3a5b196e3b92230967130e412f0",
+    "evidence": "operations/evidence/vercel-audio-evidence-export-2026-07-11T1825-0400.json",
+    "deployment_status": {
+      "provider": "Vercel",
+      "state": "failed",
+      "reason": "build-rate-limit"
+    }
+  },
+  "remaining": [
+    "Obtain a successful deployment identity for the latest commit or a descendant.",
+    "Observe the committed contract in CI or a fresh checkout.",
+    "Run the sound test on iPhone Safari, record heard or not-heard, and copy the resulting evidence packet.",
+    "Bind that packet to the verified served commit."
+  ],
+  "handoff": "Deployment Verifier should compare the exported deployment identity with the served commit before accepting the phone packet."
+}
