@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T17:44:00-04:00",
+  "claim_state": "implemented_not_deployed",
+  "evidence_strength": "source_commit_plus_provider_status",
+  "source_repository": "MirrorCartographer/mirror-cartographer-ui",
+  "source_commit": "391a992f02cf398c1e638adc4fd03cc63736ce1a",
+  "files": [
+    "tests/live-hosting.spec.js"
+  ],
+  "change": {
+    "summary": "The live Playwright phone smoke now fails closed unless window.__MC_DEPLOYMENT_IDENTITY__ exists, contains a normalized immutable 40-character commit SHA, reports source-identified, and matches its machine-readable meta marker.",
+    "optional_exact_match": "EXPECTED_DEPLOYMENT_COMMIT may require the deployed commit to equal an expected SHA.",
+    "provider_check": "A .vercel.app host must classify the runtime provider as vercel."
+  },
+  "verification": {
+    "source_write": "committed",
+    "commit_status": "failure",
+    "provider": "Vercel",
+    "provider_reason": "build-rate-limit",
+    "target": "https://vercel.com/mirror-cartographers-projects?upgradeToPro=build-rate-limit",
+    "runtime_execution": "not_observed",
+    "deployment_identity": "not_observed"
+  },
+  "falsification_route": [
+    "Run SITE_URL=https://mirror-cartographer-ui.vercel.app EXPECTED_DEPLOYMENT_COMMIT=<deployed-sha> npm run test:live.",
+    "The slice is falsified if a missing, malformed, mutable, mismatched, or non-Vercel deployment identity passes.",
+    "The audio claim remains unverified until the live gate passes and an iPhone audible outcome is paired with runtime evidence."
+  ],
+  "rollback": {
+    "method": "git revert",
+    "commit": "391a992f02cf398c1e638adc4fd03cc63736ce1a"
+  },
+  "privacy": "No private chat, health material, credentials, payment, or conversion logic included."
+}
