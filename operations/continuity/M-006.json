@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-006",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "action": "Detect and reconcile concurrent duplicate continuity CI gates without deleting source history or overwriting the earlier canonical implementation.",
+  "status": "completed",
+  "completed_at": "2026-07-11T21:34:14Z",
+  "required_evidence": [
+    "canonical workflow source",
+    "duplicate workflow source",
+    "conflict-safe retirement change",
+    "linked supersession event",
+    "privacy review"
+  ],
+  "outputs": {
+    "canonical_workflow": ".github/workflows/continuity-decision-ledger.yml",
+    "manual_diagnostic_workflow": ".github/workflows/continuity-ledger-validation.yml",
+    "ledger": "operations/continuity/decision-events.json",
+    "events": ["DE-0004", "DE-0005"],
+    "commits": [
+      "90b8ed6d4c628f2c3f0b3d6b4c033f0051bd5352",
+      "400b13c731a22beed3127904968641b54e8e4e09",
+      "64dd7ac1345fdfe21bea5024e731213e8833ce85",
+      "d112d4851e884062dc34093295cc5e8c54297905"
+    ]
+  },
+  "claim_states": {
+    "observed": [
+      "Concurrent repository state already contained M-005 and the canonical automatic workflow before this run attempted to create a similarly scoped gate.",
+      "The duplicate workflow was preserved but restricted to manual dispatch, so repository history remains intact and automatic validation is not duplicated."
+    ],
+    "inferred": [],
+    "proposed": [],
+    "superseded": [
+      "DE-0004's implication that continuity-ledger-validation.yml should remain an automatic gate is superseded by DE-0005 after discovery of the earlier canonical workflow."
+    ],
+    "resolved": [
+      "The two competing automatic workflow definitions now have explicit roles: continuity-decision-ledger.yml is canonical and continuity-ledger-validation.yml is manual diagnostic evidence capture."
+    ],
+    "unresolved": [
+      "A successful GitHub Actions execution of the canonical workflow remains unobserved in this run.",
+      "M-002 through M-006 remain absent from the shared ACTIVE_QUEUE aggregate and require a conflict-safe aggregate reconciliation."
+    ]
+  },
+  "verification": {
+    "source_acceptance": "GitHub accepted the manual-only workflow update, linked supersession ledger update, and this sidecar as immutable commits.",
+    "structural_check": "The canonical workflow retains push, pull_request, and workflow_dispatch triggers; the diagnostic workflow retains workflow_dispatch only.",
+    "falsification_route": "Re-fetch both workflow files. Any push or pull_request trigger in continuity-ledger-validation.yml, or removal of automatic triggers from continuity-decision-ledger.yml, reopens the duplicate-gate resolution."
+  },
+  "privacy_boundary": "Only public repository files, sidecars, workflow definitions, and commit metadata were used. Raw private chats, health and pet-health content, credentials, contact details, and unreviewed uploads were excluded.",
+  "handoff": "Observe the canonical workflow result, then reconcile M-002 through M-006 into ACTIVE_QUEUE.json using the newest aggregate blob and explicit sidecar references."
+}
