@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-006",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "completed_at": "2026-07-11T22:11:03Z",
+  "action": "Implement the executable provenance-preserving queue reconciler specified by M-005, with deterministic fixtures for supersession, ownership, conflicts, handoffs, provenance, and canonical output.",
+  "progress": {
+    "implementation": "operations/continuity/reconcile-queue.mjs",
+    "implementation_commit": "ea6c8c01252a7247acc7d091e67cebb61be0d869",
+    "test": "operations/continuity/reconcile-queue.test.mjs",
+    "test_commit": "e0d439f81aaf68fe1b61c8f779c2ac6a2f35266b",
+    "evidence": "operations/evidence/continuity-queue-reconciler-2026-07-11T1811-0400.json",
+    "evidence_commit": "9a9639bdc7d9784980243a80c0c5bff40d043b45",
+    "verification": "Six deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files.",
+    "privacy_boundary": "Public repository state, commit identity, and abstract project decisions only."
+  },
+  "handoff": "Next continuity item should wire repository file discovery and commit ancestry into the reconciler, publish a generated current-view artifact without replacing source history, and add the test suite to CI."
+}
