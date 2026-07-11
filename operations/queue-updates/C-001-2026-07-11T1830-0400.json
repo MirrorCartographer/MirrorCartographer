@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "updated_at": "2026-07-11T18:30:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Create a deny-by-default normalizer for GitHub artifact-attestation verification output, with adversarial identity and digest tests, without falsely claiming the deployment workflow is already cryptographically wired.",
+  "specialists_used": [
+    "Provenance Engineer",
+    "Evidence Auditor",
+    "Cloudflare Deployment Engineer",
+    "Theory Architect"
+  ],
+  "files": [
+    "cloudflare-static/normalize-github-attestation-verification.mjs",
+    "cloudflare-static/normalize-github-attestation-verification.test.mjs",
+    "cloudflare-static/cryptographic-attestation-workflow.test.mjs",
+    "operations/evidence/cloudflare-cryptographic-verification-adapter-2026-07-11T1830-0400.json"
+  ],
+  "commits": [
+    "8e7bd43e6daf4216dfac04bd42dbb75bbbb4fe0b",
+    "76dbdd3b377677a322d537b336e581ae7f7eafe7",
+    "a332f134aca0eb9d82d8e1c5c785fef5a363713d",
+    "585fe8d3c33a02bc01af7189271b28a0add979e7"
+  ],
+  "verification": {
+    "contract": "Exact repository, signer workflow, verified flag, and SHA-256 subject digest are required; all other inputs remain not_verified.",
+    "adversarial_cases": [
+      "lookalike repository rejected",
+      "different workflow rejected",
+      "false verified flag rejected",
+      "malformed digest rejected"
+    ],
+    "production_limit": "No signed GitHub attestation or Cloudflare deployment run exists yet; production acceptance remains false."
+  },
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research environment, then wire actions/attest-build-provenance plus gh attestation verify into the deployment workflow and dispatch it.",
+  "next_action": "Update cloudflare-pages-research.yml to grant id-token:write and attestations:write, sign cloudflare-deployment-proof.json, run gh attestation verify against the exact repository, normalize the verifier output, pass it into the acceptance manifest, and retain deny-by-default behavior when any cryptographic or identity check is absent."
+}
