@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-07-11T21:09:50Z",
+  "generated_at": "2026-07-11T21:18:00Z",
   "events": [
     {
       "schema_version": "1.0.0",
@@ -8,28 +8,12 @@
       "subject_id": "M-002",
       "event_type": "observe",
       "claim_state": "observed",
-      "valid_time": {
-        "from": "2026-07-11T20:52:33Z",
-        "to": null
-      },
-      "transaction_time": {
-        "recorded_at": "2026-07-11T21:09:50Z",
-        "recorded_commit": null
-      },
+      "valid_time": {"from": "2026-07-11T20:52:33Z", "to": null},
+      "transaction_time": {"recorded_at": "2026-07-11T21:09:50Z", "recorded_commit": null},
       "summary": "The continuity-owned M-002 sidecar records completion of the decision-history slice, while the shared ACTIVE_QUEUE snapshot still contains only the earlier M-001 continuity item. This is a reconciliation lag between additive owned state and shared aggregate state, not evidence that M-002 did not occur.",
       "sources": [
-        {
-          "type": "github_commit",
-          "locator": "8f4307a2f3529a2157f68d956a29cae03fb3cbc0",
-          "content_sha": "8f4307a2f3529a2157f68d956a29cae03fb3cbc0",
-          "observed_at": "2026-07-11T21:09:50Z"
-        },
-        {
-          "type": "github_file",
-          "locator": "operations/ACTIVE_QUEUE.json",
-          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
-          "observed_at": "2026-07-11T21:09:50Z"
-        }
+        {"type": "github_commit", "locator": "8f4307a2f3529a2157f68d956a29cae03fb3cbc0", "content_sha": "8f4307a2f3529a2157f68d956a29cae03fb3cbc0", "observed_at": "2026-07-11T21:09:50Z"},
+        {"type": "github_file", "locator": "operations/ACTIVE_QUEUE.json", "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f", "observed_at": "2026-07-11T21:09:50Z"}
       ],
       "supersedes_event_ids": [],
       "contradicts_event_ids": [],
@@ -42,33 +26,35 @@
       "subject_id": "continuity-state-model",
       "event_type": "propose",
       "claim_state": "proposed",
-      "valid_time": {
-        "from": "2026-07-11T21:09:50Z",
-        "to": null
-      },
-      "transaction_time": {
-        "recorded_at": "2026-07-11T21:09:50Z",
-        "recorded_commit": null
-      },
+      "valid_time": {"from": "2026-07-11T21:09:50Z", "to": null},
+      "transaction_time": {"recorded_at": "2026-07-11T21:09:50Z", "recorded_commit": null},
       "summary": "Future continuity corrections should preserve both valid time, when a claim applies to the modeled project, and transaction time, when the repository learned or recorded it. Corrections should supersede linked events rather than rewrite historical observations.",
       "sources": [
-        {
-          "type": "github_file",
-          "locator": "operations/continuity/decision-event.schema.json",
-          "content_sha": "ce67984ba8d4580dd2c748e8f08e5a497a658667",
-          "observed_at": "2026-07-11T21:09:50Z"
-        },
-        {
-          "type": "github_commit",
-          "locator": "8f4307a2f3529a2157f68d956a29cae03fb3cbc0",
-          "content_sha": "8f4307a2f3529a2157f68d956a29cae03fb3cbc0",
-          "observed_at": "2026-07-11T21:09:50Z"
-        }
+        {"type": "github_file", "locator": "operations/continuity/decision-event.schema.json", "content_sha": "ce67984ba8d4580dd2c748e8f08e5a497a658667", "observed_at": "2026-07-11T21:09:50Z"},
+        {"type": "github_commit", "locator": "8f4307a2f3529a2157f68d956a29cae03fb3cbc0", "content_sha": "8f4307a2f3529a2157f68d956a29cae03fb3cbc0", "observed_at": "2026-07-11T21:09:50Z"}
       ],
       "supersedes_event_ids": [],
       "contradicts_event_ids": [],
       "privacy": "public_repository_safe",
       "review_route": "Reject or revise this proposal if a later schema cannot represent delayed observations, corrections, supersession, and reopening without deleting prior events."
+    },
+    {
+      "schema_version": "1.0.0",
+      "event_id": "DE-0003",
+      "subject_id": "decision-event-validation",
+      "event_type": "resolve",
+      "claim_state": "resolved",
+      "valid_time": {"from": "2026-07-11T21:18:00Z", "to": null},
+      "transaction_time": {"recorded_at": "2026-07-11T21:18:00Z", "recorded_commit": null},
+      "summary": "The previously unresolved lack of an executable decision-event validator now has committed deterministic validation logic and adversarial contract tests. Runtime execution remains separately reviewable and must not be inferred from source acceptance alone.",
+      "sources": [
+        {"type": "github_commit", "locator": "4fb888907228ba69a611b754748299c889be2170", "content_sha": "4fb888907228ba69a611b754748299c889be2170", "observed_at": "2026-07-11T21:18:00Z"},
+        {"type": "github_commit", "locator": "4d781652d6cad0b29ce19120f60c397a464d52b0", "content_sha": "4d781652d6cad0b29ce19120f60c397a464d52b0", "observed_at": "2026-07-11T21:18:00Z"}
+      ],
+      "supersedes_event_ids": [],
+      "contradicts_event_ids": [],
+      "privacy": "public_repository_safe",
+      "review_route": "Run node --test operations/continuity/validate-decision-events.test.mjs and node operations/continuity/validate-decision-events.mjs operations/continuity/decision-events.json. Treat any nonzero exit as falsification of this validation contract."
     }
   ]
 }
