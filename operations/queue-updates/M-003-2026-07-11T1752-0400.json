@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T21:52:30Z",
+  "item": {
+    "id": "M-003",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Map project-language evolution to explicit evidence and decision boundaries.",
+    "status": "completed",
+    "dependencies": ["M-002"],
+    "required_evidence": [
+      "provenance-linked language records",
+      "claim-state distinctions",
+      "contradiction resolution",
+      "privacy boundary",
+      "review routes"
+    ],
+    "progress": {
+      "artifact": "operations/continuity/language-decision-evolution-map.json",
+      "artifact_commit": "7dcc4719fb92d414582c8ea64fab81060f81aa04",
+      "evidence": "operations/evidence/continuity-language-decision-evolution-2026-07-11T1752-0400.json",
+      "evidence_commit": "efae5aba75fff085e09fe685b357961f44b28e19",
+      "records": 5,
+      "terms": ["implemented", "verified", "deployed", "runtime outcome", "triggered"],
+      "privacy_scope": "public repository sources and abstract project terminology only",
+      "aggregate_queue_overwritten": false
+    },
+    "handoff": "Next continuity item should build a compact decision chronology connecting queue-item creation, implementation commits, evidence commits, unresolved external outcomes, and later supersession without treating commit order alone as causal proof."
+  }
+}
