@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-11T16:13:52-04:00",
+  "status_definitions": {
+    "observed": "directly supported by a cited repository source",
+    "inferred": "derived from observed records with rationale",
+    "proposed": "planned but not verified",
+    "superseded": "replaced by a later decision",
+    "unresolved": "evidence is missing or conflicting"
+  },
+  "records": [
+    {
+      "id": "CONT-0001",
+      "status": "observed",
+      "claim": "The project uses five teams sharing one durable state.",
+      "source": "operations/CURRENT_STATE.json#operating_model"
+    },
+    {
+      "id": "CONT-0002",
+      "status": "observed",
+      "claim": "Implementation claims require evidence.",
+      "source": "operations/CURRENT_STATE.json#hard_boundaries"
+    },
+    {
+      "id": "CONT-0003",
+      "status": "observed",
+      "claim": "The Cloudflare source exists while public deployment remains unproven.",
+      "source": "operations/ACTIVE_QUEUE.json#C-001"
+    },
+    {
+      "id": "CONT-0004",
+      "status": "observed",
+      "claim": "The independent creative site must remain distinct from Mirror Cartographer.",
+      "source": "operations/CURRENT_STATE.json#hard_boundaries"
+    },
+    {
+      "id": "CONT-0005",
+      "status": "inferred",
+      "claim": "A normalized provenance index is the first dependency for continuity mining.",
+      "rationale": "M-001 requires an index schema, source boundaries, and first records.",
+      "source": "operations/ACTIVE_QUEUE.json#M-001"
+    },
+    {
+      "id": "CONT-0006",
+      "status": "unresolved",
+      "claim": "A canonical language lexicon and decision supersession graph have not yet been located.",
+      "source": "repository search during continuity run"
+    }
+  ],
+  "rules": [
+    "Do not upgrade inferred claims to observed without a cited source.",
+    "Retain superseded records and link their replacements.",
+    "Index summaries and source locators rather than raw source text."
+  ]
+}
