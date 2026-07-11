@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T18:30:00-04:00",
+  "completed_slice": "Add a deny-by-default adapter that converts GitHub CLI artifact-attestation verification output into a narrowly scoped signature-verification decision.",
+  "specialists_used": [
+    "Provenance Engineer",
+    "Evidence Auditor",
+    "Cloudflare Deployment Engineer",
+    "Theory Architect"
+  ],
+  "files": [
+    "cloudflare-static/normalize-github-attestation-verification.mjs",
+    "cloudflare-static/normalize-github-attestation-verification.test.mjs",
+    "cloudflare-static/cryptographic-attestation-workflow.test.mjs"
+  ],
+  "commits": [
+    "8e7bd43e6daf4216dfac04bd42dbb75bbbb4fe0b",
+    "76dbdd3b377677a322d537b336e581ae7f7eafe7",
+    "a332f134aca0eb9d82d8e1c5c785fef5a363713d"
+  ],
+  "source_basis": {
+    "official_action": "actions/attest-build-provenance",
+    "verified_properties": [
+      "signed provenance uses Sigstore-issued short-lived certificates",
+      "public repositories use the public-good Sigstore instance",
+      "verification is performed with GitHub CLI attestation verify",
+      "workflow signing requires id-token:write and attestations:write"
+    ]
+  },
+  "acceptance_contract": {
+    "required": [
+      "verified flag true",
+      "exact repository MirrorCartographer/MirrorCartographer",
+      "signer workflow contains .github/workflows/cloudflare-pages-research.yml",
+      "well-formed sha256 subject digest"
+    ],
+    "default": "not_verified",
+    "lookalike_repository": "rejected",
+    "different_workflow": "rejected",
+    "malformed_digest": "rejected"
+  },
+  "verification": {
+    "source_review": "Committed module and tests were written against the official action contract.",
+    "runtime_limit": "No GitHub Actions run or gh attestation verify output exists for these commits yet.",
+    "workflow_status": "The production deployment workflow intentionally remains unwired and continues to reject unsigned evidence."
+  },
+  "privacy_boundary": "Contains only public repository identities, workflow paths, commit SHAs, and abstract verification rules; no credentials, secret values, health data, or private chat material.",
+  "claim_limits": [
+    "The adapter does not itself perform cryptographic verification.",
+    "A verified signature authenticates provenance identity and subject binding; it does not prove the deployment or scientific claim is true.",
+    "C-001 remains blocked on Cloudflare credentials and an executed deployment workflow."
+  ]
+}
