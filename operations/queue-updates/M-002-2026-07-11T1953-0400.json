@@ -1,0 +1,25 @@
+{
+  "schema_version":"1.0.0",
+  "record_id":"M-002-2026-07-11T1953-0400",
+  "recorded_at":"2026-07-11T19:53:11-04:00",
+  "queue_item":"M-002",
+  "owner":"continuity_mining",
+  "priority":0,
+  "action":"Implement the deterministic read-only queue reconciler defined by CM-QUEUE-RULE-0001.",
+  "status":"completed_slice",
+  "claim_state":"observed",
+  "source_commits":[
+    "998552e007a14ebd74dda51607d0281d2e230ad8",
+    "77bbb35e1fba251ec9af12a675cd96bf65c4fcd5",
+    "609f2309927e6c987979c90c010af0fbd17af3b3"
+  ],
+  "evidence_paths":["operations/evidence/continuity-queue-reconciler-2026-07-11T1953-0400.json"],
+  "evidence_types":["implementation module","deterministic tests","privacy boundary","falsification route"],
+  "verification":"5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files.",
+  "ownership_boundary":"No peer-owned aggregate or update record was replaced. This record is append-only and continuity-owned.",
+  "remaining":[
+    "Wire the reconciler into a repository-aware read command that discovers append-only records.",
+    "Add integration fixtures for multiple teams and equal timestamps.",
+    "Materialize reconciled views only as derived append-only artifacts, never by overwriting owner records."
+  ]
+}
