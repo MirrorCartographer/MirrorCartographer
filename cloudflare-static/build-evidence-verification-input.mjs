@@ -11,7 +11,7 @@ function status(ok, success = 'verified', failure = 'not_verified') {
   return ok === true ? success : failure;
 }
 
-export function buildEvidenceVerificationInput({ proofText, proof, attestationBundle }) {
+export function buildEvidenceVerificationInput({ proofText, proof, attestationBundle, signatureVerification = null }) {
   if (typeof proofText !== 'string' || !proofText) throw new TypeError('proofText must be a non-empty string');
   if (!proof || typeof proof !== 'object' || Array.isArray(proof)) throw new TypeError('proof must be an object');
   if (!attestationBundle || typeof attestationBundle !== 'object' || Array.isArray(attestationBundle)) {
@@ -33,12 +33,25 @@ export function buildEvidenceVerificationInput({ proofText, proof, attestationBu
     && proof.deployment_url.length > 0
     && verifierRows.some((row) => row?.ok === true);
 
+  const normalizedSignature = signatureVerification?.status === 'verified'
+    ? {
+        status: 'verified',
+        verifier: signatureVerification.verifier ?? 'gh attestation verify',
+        repository: signatureVerification.repository ?? null,
+        workflow: signatureVerification.workflow ?? null,
+        subject_digest: signatureVerification.subject_digest ?? null,
+        certificate_identity: signatureVerification.certificate_identity ?? null,
+        transparency_log_verified: signatureVerification.transparency_log_verified === true
+      }
+    : {
+        status: 'not_verified',
+        verifier: signatureVerification?.verifier ?? 'gh attestation verify',
+        reason: signatureVerification?.reason ?? 'No accepted cryptographic verification result was supplied.'
+      };
+
   return {
     schema_version: '1.0.0',
-    signatureVerification: {
-      status: 'not_verified',
-      reason: 'No cryptographic signature verifier is executed by this workflow yet.'
-    },
+    signatureVerification: normalizedSignature,
     subjectVerification: {
       status: status(declaredDigest === digest, 'match', 'mismatch'),
       computed_sha256: digest,
@@ -58,17 +71,25 @@ export function buildEvidenceVerificationInput({ proofText, proof, attestationBu
     limits: [
       'Subject digest matching is not signature verification.',
       'Trusted workflow identity is a policy check, not proof that the deployment claim is true.',
-      'Overall acceptance must remain false until signatureVerification.status is verified.'
+      'A verified signature authenticates provenance identity and artifact binding, not scientific truth or deployment availability.'
     ]
   };
 }
 
 function main(argv = process.argv.slice(2)) {
-  const [proofPath = 'cloudflare-deployment-proof.json', attestationPath = 'cloudflare-deployment-proof.intoto.json', outputPath = 'cloudflare-evidence-verification-input.json'] = argv;
+  const [
+    proofPath = 'cloudflare-deployment-proof.json',
+    attestationPath = 'cloudflare-deployment-proof.intoto.json',
+    signaturePath = 'cloudflare-deployment-proof.signature-verification.json',
+    outputPath = 'cloudflare-evidence-verification-input.json'
+  ] = argv;
   const proofText = fs.readFileSync(proofPath, 'utf8');
   const proof = JSON.parse(proofText);
   const attestationBundle = JSON.parse(fs.readFileSync(attestationPath, 'utf8'));
-  const result = buildEvidenceVerificationInput({ proofText, proof, attestationBundle });
+  const signatureVerification = fs.existsSync(signaturePath)
+    ? JSON.parse(fs.readFileSync(signaturePath, 'utf8'))
+    : null;
+  const result = buildEvidenceVerificationInput({ proofText, proof, attestationBundle, signatureVerification });
   fs.writeFileSync(outputPath, JSON.stringify(result, null, 2) + '\n');
   process.stdout.write(JSON.stringify({ output: outputPath, signature: result.signatureVerification.status, claim: result.claimEvidence.status }) + '\n');
 }
