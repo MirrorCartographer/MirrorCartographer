@@ -14,12 +14,23 @@ test('cryptographic verification adapter is deny by default and exact-identity s
   assert.match(normalizer, /sha256:\[a-f0-9\]\{64\}/);
 });
 
-test('current deployment workflow still states that cryptographic verification is not wired', () => {
-  assert.match(workflow, /Signature limit: no cryptographic signature verifier is wired yet/);
-  assert.doesNotMatch(workflow, /gh attestation verify cloudflare-deployment-proof\.json/);
+test('deployment workflow signs and verifies exact proof bytes', () => {
+  assert.match(workflow, /id-token: write/);
+  assert.match(workflow, /attestations: write/);
+  assert.match(workflow, /actions\/attest-build-provenance@v3/);
+  assert.match(workflow, /subject-path: cloudflare-deployment-proof\.json/);
+  assert.match(workflow, /gh attestation verify cloudflare-deployment-proof\.json/);
+  assert.match(workflow, /normalize-github-attestation-verification\.mjs/);
+  assert.match(workflow, /cloudflare-deployment-proof\.signature-verification\.json/);
 });
 
-test('future wiring must use GitHub artifact attestation verification rather than local digest matching', () => {
+test('acceptance remains an explicit conjunction of provenance and claim checks', () => {
+  assert.match(workflow, /acceptance-must-equal-all-required-checks/);
+  assert.match(workflow, /signatureVerification\?\.status === 'verified'/);
+  assert.match(workflow, /claimEvidence\?\.status === 'valid'/);
+});
+
+test('verification uses GitHub artifact attestations rather than local digest matching', () => {
   assert.match(normalizer, /gh attestation verify/);
   assert.match(normalizer, /transparencyLogVerified/);
   assert.doesNotMatch(normalizer, /createHash|subtle\.digest/);
