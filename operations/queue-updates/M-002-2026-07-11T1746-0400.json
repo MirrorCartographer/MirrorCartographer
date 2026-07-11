@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-002",
+  "owner": "continuity_mining",
+  "priority": 1,
+  "action": "Model project-state transitions so supersession, coexistence, and contradiction are not conflated.",
+  "status": "completed",
+  "selected_from": "M-001 handoff: add commit and decision-history records, then model contradictions as linked records rather than overwriting earlier observations.",
+  "completed_at": "2026-07-11T17:46:29-04:00",
+  "artifacts": [
+    "operations/continuity/status-transition-ledger.json",
+    "operations/evidence/continuity-status-transition-ledger-2026-07-11T1746-0400.json"
+  ],
+  "commits": [
+    "d8c250cf6e5630acc1b9ac371e8d7caac2f8c89a",
+    "822e38abd57e111b608d7e16153979b28eb0da16"
+  ],
+  "verification": "Three provenance-linked transitions distinguish temporal supersession from evidence-layer coexistence and reserve contradiction for mutually exclusive claims with matching subject, scope, and interval.",
+  "privacy_boundary": "Public repository files and commit metadata only; no private chat, health, credentials, identifying personal data, or unreviewed uploads.",
+  "handoff": "Next continuity item should connect decision-language changes to artifact and commit history using the same temporal relation model, then add an explicit contradiction record only when matched scope and interval make coexistence impossible."
+}
