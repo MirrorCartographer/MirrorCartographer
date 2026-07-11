@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-11T22:24:16Z",
+  "extends": "operations/continuity/continuity-index.json",
+  "privacy_boundary": "public repository files and commit metadata only; no private chat, health, pet-health, credential, contact, or unreviewed upload content",
+  "records": [
+    {
+      "id": "CM-0009",
+      "kind": "contradiction",
+      "title": "Aggregate queue snapshot omits later append-only team updates",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "observed_at": "2026-07-11T22:24:16Z"
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/queue-updates/R-005-2026-07-11T1819-0400.json",
+          "content_sha": "1af0fa033e1502f112eef8eb59b3db7f39343580",
+          "observed_at": "2026-07-11T22:24:16Z"
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/queue-updates/V-001-2026-07-11T1821-0400.json",
+          "content_sha": "9350a4d825bd2cc7ab8d7795b997f5f3c60758c1",
+          "observed_at": "2026-07-11T22:24:16Z"
+        }
+      ],
+      "summary": "ACTIVE_QUEUE.json is timestamped 2026-07-11T16:51:00-04:00 and contains R-001 through R-004, while a later append-only R-005 record marks an additional Frontier item completed at 18:19 and a later V-001 record changes the current verification commit and blocker at 18:21. These files are not mutually false; they describe different repository times. Consumers that read only the aggregate queue will reconstruct stale state.",
+      "privacy": "public_repository_safe",
+      "contradicts": ["CM-0003"],
+      "supersedes": [],
+      "falsification_or_review_route": "Re-read the three exact blobs. Falsify the record if ACTIVE_QUEUE already contains R-005 and the later V-001 slice, or if either append-only update predates the aggregate snapshot."
+    },
+    {
+      "id": "CM-0010",
+      "kind": "decision",
+      "title": "Queue truth is a fold over aggregate snapshot plus later owned deltas",
+      "claim_state": "proposed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/CURRENT_STATE.json",
+          "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+          "observed_at": "2026-07-11T22:24:16Z"
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "observed_at": "2026-07-11T22:24:16Z"
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/queue-updates/R-005-2026-07-11T1819-0400.json",
+          "content_sha": "1af0fa033e1502f112eef8eb59b3db7f39343580",
+          "observed_at": "2026-07-11T22:24:16Z"
+        }
+      ],
+      "summary": "Until an atomic reconciler is implemented, readers should treat ACTIVE_QUEUE as a base snapshot and fold later operations/queue-updates records by item owner and updated_at. A delta may extend an existing item or introduce a later item; it must not erase another team's state. This preserves the coordination rule and prevents stale aggregate data from being mistaken for current truth.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Build a deterministic fold test over the base queue and known deltas. Reject this proposal if it produces owner collisions, timestamp ambiguity, or a state different from a manually reviewed reconstruction."
+    },
+    {
+      "id": "CM-0011",
+      "kind": "unresolved_question",
+      "title": "No committed deterministic queue reconciler is indexed",
+      "claim_state": "unresolved",
+      "evidence_strength": "primary_repository_source",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "observed_at": "2026-07-11T22:24:16Z"
+        }
+      ],
+      "summary": "The repository currently exposes a base queue and append-only deltas, but this run found no indexed artifact proving a deterministic merge order, duplicate-item rule, owner-authority rule, or conflict report. The proposed fold remains a design decision until implemented and tested.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Resolve by committing a reconciler plus tests covering later timestamps, equal timestamps, duplicate item IDs, cross-owner writes, malformed deltas, and preservation of untouched team records."
+    }
+  ],
+  "reconciliation_rule": {
+    "base": "operations/ACTIVE_QUEUE.json",
+    "delta_glob": "operations/queue-updates/*.json",
+    "ordering": "updated_at ascending, then repository commit order",
+    "authority": "only the declared owner may mutate an existing item; new item IDs require an owner",
+    "conflict_behavior": "retain both records and emit an unresolved contradiction; never silently overwrite"
+  }
+}
