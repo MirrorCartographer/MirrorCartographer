@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "queue_state_reconciliation_contract",
+  "created_at": "2026-07-11T22:02:23Z",
+  "owner": "continuity_mining",
+  "purpose": "Derive a reviewable current queue view from the immutable operations/ACTIVE_QUEUE.json snapshot and additive owner-scoped operations/queue-updates/*.json records without deleting, overwriting, or silently resolving contradictory history.",
+  "source_model": {
+    "baseline": {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "role": "historical aggregate snapshot",
+      "authority": "initial state only",
+      "claim_state": "observed"
+    },
+    "updates": {
+      "glob": "operations/queue-updates/*.json",
+      "role": "append-only owner-scoped observations",
+      "authority": "later state transitions when valid",
+      "claim_state": "observed"
+    },
+    "repository_history": {
+      "role": "ordering and provenance evidence",
+      "authority": "temporal ordering only; never causal proof",
+      "claim_state": "observed"
+    }
+  },
+  "normalization": {
+    "identity_key": "item_id, falling back to id only for baseline items",
+    "owner_required": true,
+    "allowed_claim_states": ["observed", "inferred", "proposed", "superseded", "unresolved"],
+    "allowed_status_classes": ["queued", "active", "blocked", "completed", "superseded", "unknown"],
+    "status_aliases": {
+      "blocked_external_configuration": "blocked"
+    },
+    "timestamp_order": [
+      "completed_at",
+      "updated_at",
+      "created_at",
+      "git_commit_committer_time"
+    ],
+    "tie_breaker": "git commit ancestry, then lexical path; ties remain explicit conflicts"
+  },
+  "validation_rules": [
+    {
+      "id": "QR-001",
+      "rule": "An owner-scoped update may change only an item whose owner matches the update owner.",
+      "failure": "owner_mismatch"
+    },
+    {
+      "id": "QR-002",
+      "rule": "Every derived field must retain source path, blob SHA when available, commit SHA when available, and source timestamp.",
+      "failure": "missing_provenance"
+    },
+    {
+      "id": "QR-003",
+      "rule": "A later record supersedes a prior current-state value but never removes the prior record from history.",
+      "failure": "destructive_overwrite"
+    },
+    {
+      "id": "QR-004",
+      "rule": "Two incomparable records that assign different normalized statuses to the same item produce a conflict, not an arbitrary winner.",
+      "failure": "unresolved_status_conflict"
+    },
+    {
+      "id": "QR-005",
+      "rule": "A completed item may have a handoff proposing a new item; the handoff does not reopen the completed item unless an explicit later update says so.",
+      "failure": "implicit_reopen"
+    },
+    {
+      "id": "QR-006",
+      "rule": "Commit order establishes before/after only and must not be represented as proof that one artifact caused another.",
+      "failure": "causal_overclaim"
+    }
+  ],
+  "derivation_algorithm": [
+    "Parse the baseline snapshot and emit one observed historical record per item.",
+    "Parse every owner-scoped update; reject malformed or owner-mismatched records into an error stream without deleting them.",
+    "Group valid records by item identity.",
+    "Order records using explicit record timestamps, then commit ancestry, then lexical path.",
+    "Normalize status aliases while retaining the original status string.",
+    "Mark each earlier comparable state as superseded by the later state; retain both records.",
+    "When ordering is incomplete or states disagree across incomparable records, emit an unresolved conflict and do not choose a current status.",
+    "Emit a derived current view, complete history, provenance graph, validation errors, and unresolved conflicts as separate collections."
+  ],
+  "derived_output_contract": {
+    "required_collections": [
+      "current_items",
+      "history",
+      "provenance_edges",
+      "validation_errors",
+      "conflicts"
+    ],
+    "current_item_required_fields": [
+      "item_id",
+      "owner",
+      "normalized_status",
+      "original_status",
+      "claim_state",
+      "source_path",
+      "source_blob_sha",
+      "source_commit_sha",
+      "effective_timestamp"
+    ],
+    "conflict_required_fields": [
+      "item_id",
+      "conflict_type",
+      "competing_records",
+      "reason_unresolved",
+      "review_route"
+    ]
+  },
+  "recovered_memory": {
+    "observed": [
+      "operations/ACTIVE_QUEUE.json is older than multiple owner-scoped queue-update artifacts.",
+      "Completed continuity records M-001 through M-004 preserve handoffs for subsequent work without reopening the completed records.",
+      "The repository already follows an append-only evidence and queue-update pattern."
+    ],
+    "inferred": [
+      "The aggregate queue functions as a baseline snapshot rather than a continuously authoritative current-state document.",
+      "Current state should be computed, not manually overwritten, to preserve cross-team provenance."
+    ],
+    "proposed": [
+      "Implement an executable reconciler and deterministic fixtures from this contract.",
+      "Publish derived queue views as generated artifacts, never as replacements for source history."
+    ],
+    "superseded": [
+      "Treating operations/ACTIVE_QUEUE.json alone as the complete live queue is superseded by the later additive update model."
+    ],
+    "unresolved": [
+      "No executable reconciler currently proves behavior against malformed timestamps, owner mismatches, or incomparable commit histories.",
+      "No canonical generated-current-view path has been selected."
+    ]
+  },
+  "privacy_boundary": {
+    "included": ["public repository paths", "public commit identities", "abstract queue states", "non-personal project decisions"],
+    "excluded": ["raw private chat", "health or pet-health material", "credentials", "account identifiers", "identifying personal information", "unreviewed uploads"]
+  },
+  "acceptance_tests_for_implementation": [
+    "A later completed update supersedes an active baseline state while both remain in history.",
+    "An owner mismatch is rejected and surfaced without mutating the derived item.",
+    "Two incomparable conflicting updates produce an unresolved conflict.",
+    "A handoff on a completed item does not reopen that item.",
+    "Every derived current field has source and commit provenance.",
+    "Running the reconciler twice over identical inputs produces byte-identical canonical JSON."
+  ]
+}
