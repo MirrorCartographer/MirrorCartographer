@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "claim_state": "observed",
+  "improvement": "Deployment blocker evidence is now rejected unless its status, blocker count, reason vocabulary, remediation alignment, and no-secret privacy declaration are internally consistent.",
+  "source": {
+    "validator": "cloudflare-static/validate-deployment-blocker.mjs",
+    "validator_commit": "808cbfd0d929db1658fb0d6109ee5de3bab7256b",
+    "test": "cloudflare-static/validate-deployment-blocker.test.mjs",
+    "test_commit": "fe12eb58549d3655afc3bd6c99bb0196c4156fd7",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "workflow_commit": "3abd7d9bfdb67b4e2d2647db5da028ca7aa8e373"
+  },
+  "verification": {
+    "route": "isolated Node 22-compatible node:test execution using byte-identical committed source",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "ready evidence accepted",
+      "blocked evidence accepted",
+      "mismatched blocker count rejected",
+      "secret-emitting evidence rejected",
+      "unapproved reason vocabulary rejected"
+    ]
+  },
+  "deployment": {
+    "state": "blocked_external_configuration",
+    "resolving_url_observed": false,
+    "served_identity_observed": false,
+    "missing": ["CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_API_TOKEN"]
+  },
+  "privacy": {
+    "classification": "public_repository_metadata_only",
+    "secret_values_included": false,
+    "private_chat_or_health_material_included": false
+  },
+  "falsification_route": "Run the committed workflow with malformed or privacy-violating blocker JSON; the validation step must fail before artifact acceptance."
+}
