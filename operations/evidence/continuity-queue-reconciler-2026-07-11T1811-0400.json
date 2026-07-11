@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "owner": "continuity_mining",
+  "item_id": "M-006",
+  "created_at": "2026-07-11T22:11:03Z",
+  "artifact": "operations/continuity/reconcile-queue.mjs",
+  "test": "operations/continuity/reconcile-queue.test.mjs",
+  "source_commits": {
+    "implementation": "ea6c8c01252a7247acc7d091e67cebb61be0d869",
+    "tests": "e0d439f81aaf68fe1b61c8f779c2ac6a2f35266b"
+  },
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/continuity/continuity-index.json",
+    "operations/continuity/queue-state-reconciliation-contract.json",
+    "recent repository commits and owner-scoped queue updates"
+  ],
+  "memory_recovered": {
+    "observed": [
+      "ACTIVE_QUEUE.json is a historical baseline while later owner-scoped updates carry subsequent state transitions.",
+      "M-005 specified deterministic reconciliation but did not yet provide executable behavior.",
+      "A handoff on a completed item proposes subsequent work and does not reopen that item."
+    ],
+    "inferred": [
+      "The live queue should be derived from baseline plus additive updates rather than manually overwritten."
+    ],
+    "proposed": [
+      "Add a repository workflow that runs the reconciler tests and publishes a generated current-view artifact."
+    ],
+    "superseded": [
+      "Treating ACTIVE_QUEUE.json alone as the complete current queue."
+    ],
+    "unresolved": [
+      "The executable currently accepts preloaded records; repository file discovery and commit-ancestry lookup are not yet wired.",
+      "No canonical generated-current-view path has been selected."
+    ]
+  },
+  "contradictions_resolved": [
+    {
+      "apparent_conflict": "A baseline item can remain active while a later owner update marks it completed.",
+      "resolution": "Retain both records, mark the earlier state superseded, and derive completed only when ordering is decisive."
+    },
+    {
+      "apparent_conflict": "Two same-time updates can disagree about status.",
+      "resolution": "Emit an unresolved conflict and omit an arbitrary current winner."
+    }
+  ],
+  "verification": {
+    "command": "node --test operations/continuity/reconcile-queue.test.mjs",
+    "environment": "isolated Node runtime using byte-identical pre-commit files",
+    "passed": 6,
+    "failed": 0,
+    "cases": [
+      "later completion supersedes active baseline while preserving both",
+      "owner mismatch is rejected",
+      "incomparable conflicting updates remain unresolved",
+      "handoff does not reopen completion",
+      "current state retains source and commit provenance",
+      "repeated output is byte-identical"
+    ]
+  },
+  "privacy_boundary": {
+    "included": ["public repository paths", "public commit identities", "abstract queue state", "non-personal project decisions"],
+    "excluded": ["raw private chat", "health or pet-health material", "credentials", "account identifiers", "identifying personal information", "unreviewed uploads"]
+  }
+}
