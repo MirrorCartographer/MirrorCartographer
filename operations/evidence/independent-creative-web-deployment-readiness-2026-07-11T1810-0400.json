@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T18:10:32-04:00",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "creative_premise": "The Unreliable Observatory reports weather from impossible places through a self-contained fictional instrument.",
+  "slice": "GitHub Pages deployment readiness with immutable source identity",
+  "specialists": [
+    "Creative Director",
+    "Experimental Interface Designer",
+    "Independent Hosting Architect",
+    "Generative Media Engineer"
+  ],
+  "source": {
+    "site": "independent-site/index.html",
+    "identity": "independent-site/identity.json",
+    "workflow": ".github/workflows/independent-site-pages.yml",
+    "deployment_contract_test": "independent-site/deployment-contract.test.mjs",
+    "workflow_commit": "7a2464b0e1113fb0ba09da9d9816ebe8498992f6",
+    "test_commit": "18e04f1ca5c89a19de4c3530b2be3ef659c11fec"
+  },
+  "verification": {
+    "source_fetch": "workflow and test commits accepted by GitHub and committed on the default branch",
+    "workflow_run": "none observed for test commit at inspection time",
+    "fresh_clone_test": "blocked because the execution runtime could not resolve github.com",
+    "deployment_claim": false,
+    "public_url_claim": false
+  },
+  "contract": {
+    "artifact_scope": "only index.html, identity.json, and generated deployment-identity.json",
+    "immutable_identity_fields": [
+      "source_repository",
+      "source_commit",
+      "workflow",
+      "run_id",
+      "run_attempt"
+    ],
+    "permissions": ["contents:read", "pages:write", "id-token:write"],
+    "concurrency": "independent-site-pages with cancel-in-progress"
+  },
+  "independence_boundary": {
+    "mirror_cartographer_explanation": false,
+    "research_portal": false,
+    "worker_dashboard": false,
+    "product_funnel": false,
+    "payment_or_conversion_logic": false,
+    "private_material": false
+  },
+  "rollback": [
+    "revert 18e04f1ca5c89a19de4c3530b2be3ef659c11fec",
+    "revert 7a2464b0e1113fb0ba09da9d9816ebe8498992f6"
+  ],
+  "remaining": [
+    "observe a successful GitHub Pages workflow run",
+    "record the returned public page URL",
+    "fetch deployment-identity.json and match source_commit",
+    "capture real mobile viewport and scan-interaction evidence"
+  ]
+}
