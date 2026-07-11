@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-002",
+  "claim_state": "observed",
+  "evidence_state": "test-verified",
+  "primary_source": {
+    "title": "W3C Trace Context",
+    "status": "W3C Recommendation",
+    "published": "2021-11-23",
+    "url": "https://www.w3.org/TR/trace-context/",
+    "relevant_requirements": [
+      "traceparent provides a portable fixed-length trace position",
+      "version ff is forbidden",
+      "all-zero trace-id and parent-id values are invalid",
+      "the sampled flag is advisory rather than proof of recording"
+    ]
+  },
+  "finding": "Cross-team evidence should carry a standards-compatible trace identifier while keeping claim state, evidence strength, and falsification route separate. A trace identifier correlates work; it does not prove that work occurred.",
+  "artifacts": [
+    "tools/frontier-research/run-evidence-envelope.mjs",
+    "tools/frontier-research/run-evidence-envelope.test.mjs"
+  ],
+  "verification": {
+    "command": "node --test tools/frontier-research/run-evidence-envelope.test.mjs",
+    "environment": "isolated Node.js runtime using byte-identical pre-commit files",
+    "result": "pass",
+    "tests": 4,
+    "failures": 0,
+    "covered_cases": [
+      "valid W3C traceparent parsing",
+      "all-zero and forbidden-version rejection",
+      "mandatory falsification route",
+      "valid frozen evidence-envelope creation"
+    ]
+  },
+  "falsification_routes": [
+    "Run the committed test file in repository CI and compare the result.",
+    "Submit malformed, uppercase, all-zero, or version-ff traceparent values and verify rejection.",
+    "Construct an envelope without a falsification route and verify it cannot be accepted.",
+    "Demonstrate that a valid traceparent can coexist with false claims; this confirms correlation is not evidence."
+  ],
+  "limits": [
+    "The W3C Recommendation standardizes propagation, not project-specific evidence semantics.",
+    "The module was tested before commit in an isolated runtime; repository CI has not yet executed it.",
+    "No deployment or peer-team completion is implied by a valid envelope."
+  ]
+}
