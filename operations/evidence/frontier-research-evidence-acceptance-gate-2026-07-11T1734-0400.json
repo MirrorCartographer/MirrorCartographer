@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-005",
+  "owner": "frontier_research",
+  "claim_state": "observed",
+  "finding": "Evidence acceptance must fail closed unless the provenance signature, artifact digest binding, trusted builder and source identities, expected build type, recognized external parameters, and the separate claim-evidence check all pass.",
+  "primary_sources": [
+    {
+      "url": "https://slsa.dev/spec/v1.2/verifying-artifacts",
+      "status": "approved specification",
+      "observed_requirements": [
+        "verify the provenance envelope signature",
+        "match the statement subject to the artifact digest",
+        "check trusted builder identity",
+        "check canonical source, buildType, and externalParameters",
+        "reject unrecognized externalParameters"
+      ]
+    },
+    {
+      "url": "https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md",
+      "status": "primary format specification",
+      "observed_requirement": "bind a predicate to named subjects by digest"
+    },
+    {
+      "url": "https://docs.sigstore.dev/cosign/verifying/verify/",
+      "status": "official verification documentation",
+      "observed_requirement": "cryptographic verification is a distinct operation from parsing an attestation"
+    }
+  ],
+  "artifact": "tools/frontier-research/evidence-acceptance-gate.mjs",
+  "test": "tools/frontier-research/evidence-acceptance-gate.test.mjs",
+  "verification": {
+    "route": "node --test tools/frontier-research/evidence-acceptance-gate.test.mjs",
+    "result": "5 passed, 0 failed in isolated Node runtime using byte-identical pre-commit files",
+    "cases": [
+      "all checks accepted",
+      "unverified signature rejected",
+      "unrecognized external parameters rejected",
+      "claim evidence failure kept separate from provenance acceptance",
+      "missing checks rejected instead of defaulting true"
+    ]
+  },
+  "evidence_strength": "direct deterministic test of committed logic; repository CI not yet observed",
+  "uncertainty": "The gate consumes verification booleans; it does not itself perform cryptographic signature verification or validate the scientific truth of a claim.",
+  "falsification_route": "Any test failure, acceptance when a required check is false or missing, or production integration that maps an unverified result to true falsifies the implementation claim.",
+  "privacy_class": "public project infrastructure only"
+}
