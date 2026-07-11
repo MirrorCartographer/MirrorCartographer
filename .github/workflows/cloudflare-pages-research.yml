@@ -11,6 +11,8 @@ on:
 permissions:
   contents: read
   deployments: write
+  id-token: write
+  attestations: write
 
 concurrency:
   group: cloudflare-research-production
@@ -32,9 +34,11 @@ jobs:
           node --test cloudflare-static/validate-deployment-blocker.test.mjs
           node --test cloudflare-static/build-deployment-decision.test.mjs
           node --test cloudflare-static/attest-deployment-proof.test.mjs
+          node --test cloudflare-static/normalize-github-attestation-verification.test.mjs
           node --test cloudflare-static/build-evidence-verification-input.test.mjs
           node --test cloudflare-static/build-evidence-acceptance.test.mjs
           node --test cloudflare-static/evaluate-signed-deployment-evidence.test.mjs
+          node --test cloudflare-static/cryptographic-attestation-workflow.test.mjs
 
       - name: Verify committed research surface identity
         run: |
@@ -128,11 +132,36 @@ jobs:
         if: always()
         run: node cloudflare-static/validate-deployment-proof.mjs cloudflare-deployment-proof.json
 
-      - name: Attest exact proof bytes and enforce builder policy
+      - name: Build local in-toto evidence envelope
         if: always()
         env:
           RUN_STARTED_AT: ${{ github.event.repository.updated_at }}
         run: node cloudflare-static/attest-deployment-proof.mjs cloudflare-deployment-proof.json cloudflare-deployment-proof.intoto.json
+
+      - name: Sign exact deployment proof bytes
+        if: always()
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: cloudflare-deployment-proof.json
+
+      - name: Verify GitHub artifact attestation
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          gh attestation verify cloudflare-deployment-proof.json \
+            --repo "$GITHUB_REPOSITORY" \
+            --format json > cloudflare-deployment-proof.signature-verification.raw.json
+          verify_status=$?
+          set -e
+          if [ ! -s cloudflare-deployment-proof.signature-verification.raw.json ]; then
+            printf '[]\n' > cloudflare-deployment-proof.signature-verification.raw.json
+          fi
+          node cloudflare-static/normalize-github-attestation-verification.mjs \
+            cloudflare-deployment-proof.signature-verification.raw.json \
+            cloudflare-deployment-proof.signature-verification.json
+          test "$verify_status" -eq 0
 
       - name: Build explicit verification input manifest
         if: always()
@@ -140,6 +169,7 @@ jobs:
           node cloudflare-static/build-evidence-verification-input.mjs
           cloudflare-deployment-proof.json
           cloudflare-deployment-proof.intoto.json
+          cloudflare-deployment-proof.signature-verification.json
           cloudflare-evidence-verification-input.json
 
       - name: Evaluate deployment evidence acceptance
@@ -149,15 +179,22 @@ jobs:
           cloudflare-evidence-verification-input.json
           cloudflare-deployment-acceptance.json
 
-      - name: Assert unsigned evidence remains rejected
+      - name: Assert acceptance invariants
         if: always()
         run: |
           node --input-type=module - <<'NODE'
           import fs from 'node:fs';
           const decision = JSON.parse(fs.readFileSync('cloudflare-deployment-acceptance.json', 'utf8'));
-          if (decision.accepted !== false) throw new Error('unsigned-evidence-must-not-be-accepted');
-          if (decision.source_status?.signature !== 'not_verified') throw new Error('signature-status-must-remain-explicit');
-          process.stdout.write(`${JSON.stringify({ accepted: decision.accepted, decision: decision.decision, signature: decision.source_status.signature })}\n`);
+          const input = JSON.parse(fs.readFileSync('cloudflare-evidence-verification-input.json', 'utf8'));
+          const allRequired = input.signatureVerification?.status === 'verified'
+            && input.subjectVerification?.status === 'match'
+            && input.trustedBuilderPolicy?.builder === 'trusted'
+            && input.trustedBuilderPolicy?.source === 'trusted'
+            && input.trustedBuilderPolicy?.buildType === 'match'
+            && input.trustedBuilderPolicy?.externalParameters === 'recognized'
+            && input.claimEvidence?.status === 'valid';
+          if (decision.accepted !== allRequired) throw new Error('acceptance-must-equal-all-required-checks');
+          process.stdout.write(`${JSON.stringify({ accepted: decision.accepted, signature: input.signatureVerification?.status, claim: input.claimEvidence?.status })}\n`);
           NODE
 
       - name: Upload proof artifacts
@@ -171,6 +208,8 @@ jobs:
             cloudflare-deployment-decision.json
             cloudflare-deployment-proof.json
             cloudflare-deployment-proof.intoto.json
+            cloudflare-deployment-proof.signature-verification.raw.json
+            cloudflare-deployment-proof.signature-verification.json
             cloudflare-evidence-verification-input.json
             cloudflare-deployment-acceptance.json
           if-no-files-found: error
@@ -190,12 +229,12 @@ jobs:
             echo "- Local identity contract: \`cloudflare-static/research-surface-identity.mjs\`"
             echo "- Readiness evidence: \`cloudflare-deployment-readiness.json\` (never contains secret values)"
             echo "- Actionable blocker: \`cloudflare-deployment-blocker.json\` (schema-validated names and reason codes only)"
-            echo "- Deployment decision: \`cloudflare-deployment-decision.json\` (explicitly distinguishes skipped, attempted, and URL-returned states)"
+            echo "- Deployment decision: \`cloudflare-deployment-decision.json\`"
             echo "- Identity verifier: \`cloudflare-static/verify-deployment.mjs\`"
-            echo "- Proof validator: \`cloudflare-static/validate-deployment-proof.mjs\`"
-            echo "- Provenance attestation: \`cloudflare-deployment-proof.intoto.json\`"
+            echo "- Local provenance envelope: \`cloudflare-deployment-proof.intoto.json\`"
+            echo "- GitHub cryptographic verification: \`cloudflare-deployment-proof.signature-verification.json\`"
             echo "- Verification input: \`cloudflare-evidence-verification-input.json\`"
             echo "- Acceptance decision: \`cloudflare-deployment-acceptance.json\`"
             echo "- Trust policy: exact workflow builder and repository, deny by default"
-            echo "- Signature limit: no cryptographic signature verifier is wired yet, so acceptance remains false"
+            echo "- Epistemic limit: signature verification authenticates provenance, not scientific truth"
           } >> "$GITHUB_STEP_SUMMARY"
