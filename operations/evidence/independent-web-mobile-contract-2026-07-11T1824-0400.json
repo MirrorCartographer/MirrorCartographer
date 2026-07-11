@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "created_at": "2026-07-11T18:24:00-04:00",
+  "creative_premise": "The Weather Inside a Bell is a full-screen playable weather instrument where touch disturbs air, rings synthetic metal, and can summon rain.",
+  "durable_improvement": {
+    "kind": "deployment quality gate",
+    "test": "independent-web/mobile-contract.test.mjs",
+    "workflow": ".github/workflows/independent-web-pages.yml",
+    "contracts": [
+      "zero-build and network-independent",
+      "mobile safe-area and pointer behavior",
+      "gesture-gated sound",
+      "keyboard, live-region, and reduced-motion fallbacks"
+    ]
+  },
+  "commits": [
+    "502b6ff1893f8c4480c2888b14d46eb1583924e3",
+    "aa71016cf6bd1fc45223160094b867ed5302b11c"
+  ],
+  "verification": {
+    "source": "committed test and workflow were accepted by GitHub",
+    "workflow_run": "not yet available for aa71016cf6bd1fc45223160094b867ed5302b11c",
+    "deployment": "not claimed in this evidence packet"
+  },
+  "independence_boundary": "No Mirror Cartographer explanation, research dashboard, personal data model, payments, conversion path, diagnosis, or treatment behavior is introduced.",
+  "rollback": "Revert aa71016cf6bd1fc45223160094b867ed5302b11c and 502b6ff1893f8c4480c2888b14d46eb1583924e3; no data migration or destructive operation is required."
+}
