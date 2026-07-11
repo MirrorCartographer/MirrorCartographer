@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-001",
+  "recorded_at": "2026-07-11T19:43:18-04:00",
+  "completed_slice": "Model stale aggregate queue state and newer owner-authored append-only updates as temporally linked records instead of overwriting either source.",
+  "artifact": "operations/continuity/queue-reconciliation-2026-07-11T1943-0400.json",
+  "artifact_commit": "c3250f568219281491c14e1a94d4eeb18fde68bc",
+  "sources": [
+    {
+      "path": "operations/CURRENT_STATE.json",
+      "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc"
+    },
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+    },
+    {
+      "path": "operations/SPECIALIST_REGISTRY.json",
+      "blob_sha": "88451b05101bcd8a259f98de5d9290e15357366b"
+    },
+    {
+      "path": "operations/TRIGGER_REQUESTS.json",
+      "blob_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4"
+    },
+    {
+      "path": "operations/continuity/continuity-index.json",
+      "blob_sha": "3dc3b2cd659616dfe665f5dade3d2b9a4daa3be3"
+    },
+    {
+      "commit": "64dff18302b2546d50d88c97cec804c57d11be5e",
+      "meaning": "newer V-001 append-only owner update"
+    },
+    {
+      "commit": "5cd37203f28c7991e94a64a527410ac240728668",
+      "meaning": "newer C-001 append-only owner update"
+    }
+  ],
+  "verification": {
+    "method": "repository-source comparison",
+    "checks": [
+      "ACTIVE_QUEUE updated_at is earlier than both append-only queue update timestamps",
+      "append-only update owners match their queue item owners",
+      "neither update claims required deployment evidence is complete",
+      "artifact preserves observed, proposed, superseded, and unresolved states separately",
+      "artifact contains no private chat, health, credential, or identifying personal content"
+    ],
+    "result": "passed"
+  },
+  "limits": [
+    "This artifact does not mutate or replace ACTIVE_QUEUE.json.",
+    "The proposed precedence rule is not yet enforced by a deterministic reconciler.",
+    "Commit existence and file content establish repository history, not runtime or deployment truth."
+  ]
+}
