@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "generated_at": "2026-07-11T19:54:51-04:00",
+  "claim_state": "observed_and_tested",
+  "finding": "The remaining deployment blocker is external GitHub Environment configuration. A secret-free machine-readable setup plan now converts readiness results into exact operator actions without treating configuration readiness as deployment proof.",
+  "source_artifacts": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    ".github/workflows/cloudflare-pages-research.yml",
+    "cloudflare-static/check-deployment-readiness.mjs"
+  ],
+  "implementation": {
+    "module": "cloudflare-static/build-environment-setup-plan.mjs",
+    "test": "cloudflare-static/build-environment-setup-plan.test.mjs",
+    "commits": [
+      "c36f77dd013e81bf963e4a9acabce7b3af5579aa",
+      "af9066be50231393883d22a40c08d42530d048a7"
+    ]
+  },
+  "verification": {
+    "method": "Node built-in test runner against byte-identical pre-commit files",
+    "result": "4 tests passed",
+    "cases": [
+      "missing configuration produces exact secret names and operator route",
+      "ready configuration never claims deployment proof",
+      "missing required named check is rejected",
+      "contradictory top-level readiness is never accepted"
+    ]
+  },
+  "privacy": {
+    "secret_values_recorded": false,
+    "allowed": ["secret names", "configured booleans", "non-sensitive reason codes"],
+    "excluded": ["secret values", "credentials", "private health material", "private chat"]
+  },
+  "evidence_strength": "strong_source_behavior",
+  "limits": [
+    "The GitHub Environment still requires external configuration.",
+    "No Cloudflare deployment URL or served commit was produced in this run.",
+    "Configuration readiness is not evidence that deployment, identity verification, or scientific claims succeeded."
+  ],
+  "falsification_route": "Provide a readiness document that passes the existing checker but causes the setup-plan builder to emit a secret value, accept a missing named check, or claim deployment proof; any such case falsifies the contract."
+}
