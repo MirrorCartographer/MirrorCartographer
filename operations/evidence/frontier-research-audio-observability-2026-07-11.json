@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-001",
+  "created_at": "2026-07-11T16:16:47-04:00",
+  "topic": "Web Audio render observability for mobile Safari diagnosis",
+  "source_status": {
+    "primary_source": "W3C Web Audio API 1.1 First Public Working Draft, 5 November 2024",
+    "url": "https://www.w3.org/TR/webaudio/",
+    "authority": "standards-track primary source",
+    "maturity": "working draft; feature availability must be detected at runtime"
+  },
+  "finding": {
+    "claim": "AudioContext.state === 'running' is insufficient evidence that output blocks are progressing. getOutputTimestamp().contextTime provides stronger browser-visible render-position evidence when available; currentTime is a weaker fallback. Physical audibility remains outside browser-only proof.",
+    "support": [
+      "The specification permits initial start to depend on sticky user activation.",
+      "getOutputTimestamp returns the sample-frame position currently rendered by the output device and returns zeros before the graph has processed a block.",
+      "outputLatency is the specified latency estimate; currentTime minus output timestamp is explicitly not a reliable latency estimate.",
+      "Web Audio 1.1 adds feature-detectable diagnostics including renderCapacity and AudioContext error events, but they are draft capabilities and not assumed present."
+    ],
+    "evidence_strength": "standards-derived design implication; device-level audibility still requires runtime/device evidence"
+  },
+  "artifact": {
+    "module": "tools/frontier-research/audio-observability.mjs",
+    "test": "tools/frontier-research/audio-observability.test.mjs",
+    "module_commit": "3ab652a2c33a11c9e91b816f2b12c65057b2a613",
+    "test_commit": "859e996f1bba0bcb4fec4d77ae248d10cb5b6eb7",
+    "statuses": [
+      "render-confirmed",
+      "clock-progress-only",
+      "running-without-observed-progress",
+      "activation-blocked-or-suspended",
+      "closed"
+    ]
+  },
+  "falsification": {
+    "test_command": "node --test tools/frontier-research/audio-observability.test.mjs",
+    "runtime_test": "Invoke observeAudioStart immediately inside the same pointer/touch handler that starts sound, then compare the classification with an on-device audible report or hardware/system meter.",
+    "failure_conditions": [
+      "A fake context with advancing output timestamps is not classified render-confirmed.",
+      "A running context with no time advance is classified as proof of rendering.",
+      "The implementation claims physical audibility solely from browser state.",
+      "Unsupported draft features throw instead of being feature-detected."
+    ]
+  },
+  "verification": {
+    "source_review": "complete",
+    "deterministic_test_suite": "committed",
+    "test_execution": "not executed in this connector-only run because no repository checkout or GitHub Actions execution interface was available",
+    "device_verification": "not performed; handed off to Vercel Studio"
+  },
+  "privacy": "No private chat, personal health data, diagnosis, or treatment content is included."
+}
