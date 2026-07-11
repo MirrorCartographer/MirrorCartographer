@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "recorded_at": "2026-07-11T17:27:00-04:00",
+  "status": "active",
+  "completed_slice": "Added source commit identity to the browser runtime and test gates.",
+  "progress": {
+    "runtime": "src/engine/deploymentIdentityRuntime.js",
+    "browser_probe": "window.__MC_DEPLOYMENT_IDENTITY__",
+    "contract_test": "scripts/deployment-identity-contract-check.mjs",
+    "latest_source_commit": "7ad1238160d7b9ad7a00524e5df0cf5a9c476462",
+    "evidence": "operations/evidence/vercel-deployment-identity-2026-07-11T1727-0400.json",
+    "deployment_state": "failed_build_rate_limit"
+  },
+  "remaining": [
+    "Obtain a successful Vercel deployment for the latest source commit or a descendant.",
+    "Set VITE_GIT_COMMIT_SHA to the exact source commit during build.",
+    "Run the deployment identity contract and repository gates.",
+    "Capture iPhone Safari audio and deployment identity evidence together."
+  ],
+  "conflict_policy": "Owner-scoped additive sidecar; shared queue was not overwritten."
+}
