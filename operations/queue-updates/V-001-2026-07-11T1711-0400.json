@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "recorded_at": "2026-07-11T17:11:00-04:00",
+  "status": "active",
+  "completed_slice": "Classify paired pulse, browser-render, and listener outcomes into machine-readable diagnostic states and reset the confirmation UI for repeat testing.",
+  "progress": {
+    "runtime_commit": "dfe667273af348b9d4ab0aa903fdb9e957b8f31a",
+    "test_commit": "ff22175f61b73147f853e890d62be0120d356be4",
+    "evidence": "operations/evidence/vercel-audio-diagnostic-classification-2026-07-11T1711-0400.json",
+    "runtime_probe": "window.__MC_AUDIBILITY_EVIDENCE__.diagnosis",
+    "deployment_status": {
+      "commit": "ff22175f61b73147f853e890d62be0120d356be4",
+      "provider": "Vercel",
+      "state": "failed",
+      "reason": "build-rate-limit"
+    }
+  },
+  "remaining": [
+    "obtain a successful Vercel deployment identity for ff22175f61b73147f853e890d62be0120d356be4 or a descendant",
+    "run the committed contract and full repository gate in CI or a fresh checkout",
+    "capture an iPhone Safari audible outcome paired with pulse, render, and diagnostic classification evidence"
+  ],
+  "merge_policy": "Apply only to the V-001 record after checking the current ACTIVE_QUEUE.json blob; do not replace other teams' records."
+}
