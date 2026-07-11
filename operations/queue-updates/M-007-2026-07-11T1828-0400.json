@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-007",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "completed_at": "2026-07-11T18:28:25-04:00",
+  "action": "Wire repository file discovery and source commit identity into the deterministic queue reconciler, then verify and publish a generated current-view artifact in CI without replacing historical sources.",
+  "dependencies": ["M-006"],
+  "required_evidence": [
+    "repository-aware source discovery",
+    "immutable path/blob/commit provenance",
+    "CI reconciliation contract",
+    "derived artifact without source overwrite",
+    "explicit unresolved-state failure"
+  ],
+  "progress": {
+    "generator": "operations/continuity/generate-current-queue.mjs",
+    "generator_commit": "4c5ae6d60da5ce7d62c60fe19c22df2c8128f6d5",
+    "workflow": ".github/workflows/continuity-queue-view.yml",
+    "workflow_commit": "152dab81c65e0d8cb3e75c15efe0eeb900212ca1",
+    "evidence": "operations/evidence/continuity-current-queue-view-2026-07-11T1828-0400.json",
+    "evidence_commit": "4ae1bdb332a50d3c23c0558a07b4988c12a8bada",
+    "verification": "GitHub accepted and committed the generator, workflow, and evidence. Runtime workflow and uploaded artifact remain unverified until a completed Actions run is available."
+  },
+  "privacy_boundary": "Public repository metadata and abstract operational state only; no private chat, health, pet-health, credentials, contact data, or unreviewed uploads.",
+  "handoff": "Inspect the first Continuity Queue View workflow run and artifact, then add explicit git ancestry comparison for equal-time competing records and a consumer contract that prevents generated projections from being mistaken for source-of-truth history."
+}
