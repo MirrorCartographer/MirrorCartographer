@@ -1,0 +1,33 @@
+name: Validate continuity decision ledger
+
+on:
+  push:
+    paths:
+      - 'operations/continuity/decision-events.json'
+      - 'operations/continuity/validate-decision-events.mjs'
+      - 'operations/continuity/validate-decision-events.test.mjs'
+      - '.github/workflows/continuity-decision-ledger.yml'
+  pull_request:
+    paths:
+      - 'operations/continuity/decision-events.json'
+      - 'operations/continuity/validate-decision-events.mjs'
+      - 'operations/continuity/validate-decision-events.test.mjs'
+      - '.github/workflows/continuity-decision-ledger.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run adversarial validator tests
+        run: node --test operations/continuity/validate-decision-events.test.mjs
+      - name: Validate committed decision ledger
+        run: node operations/continuity/validate-decision-events.mjs operations/continuity/decision-events.json
