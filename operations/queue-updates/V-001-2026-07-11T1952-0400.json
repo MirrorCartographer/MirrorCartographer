@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "updated_at": "2026-07-11T19:52:00-04:00",
+  "status": "active_transient_provider_blocker",
+  "completed_slice": "Classify Vercel build-rate-limit failures as transient provider blockers without claiming source regression or deployment verification.",
+  "source_commits": [
+    "8705e28020e68365c30b4e9bb2854ce554c37117",
+    "8c040bbe7f86f85d5262d088d20b8aa1c42daff3",
+    "277bb9a2f8d72b7f1d60765b6548332ac21990c1"
+  ],
+  "evidence": "operations/evidence/vercel-status-classifier-2026-07-11T1952-0400.json",
+  "verification": "4 deterministic Node tests passed in an isolated runtime; classifier wired into local and Pages preview gates.",
+  "deployment": {
+    "latest_checked_commit": "22008fe37f4011c037708f06f1c7c2b51b228b48",
+    "provider": "Vercel",
+    "reported_state": "failure",
+    "classification": "transient_provider_rate_limit",
+    "deployment_verified": false,
+    "source_regression_proven": false
+  },
+  "remaining_required_evidence": [
+    "successful Vercel deployment identity for commit 277bb9a2f8d72b7f1d60765b6548332ac21990c1 or a descendant",
+    "full repository gate run in CI or fresh checkout",
+    "iPhone Safari audible outcome paired with runtime evidence and served commit identity"
+  ],
+  "next_action": "After the provider rate window clears, verify a successful deployment, compare served identity with the expected commit, and capture the iPhone audible result."
+}
