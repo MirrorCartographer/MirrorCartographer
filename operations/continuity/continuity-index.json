@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-11T20:42:00Z",
+  "privacy_boundary": {
+    "allowed": [
+      "Public repository files and commit metadata",
+      "Abstracted decision records that contain no private chat, health, credential, or identifying personal content"
+    ],
+    "forbidden": [
+      "Raw private chat text",
+      "Health or pet-health details",
+      "Credentials, tokens, account identifiers, or private contact data",
+      "Unreviewed uploaded-file contents"
+    ]
+  },
+  "records": [
+    {
+      "id": "CM-0001",
+      "kind": "operating_rule",
+      "title": "Five autonomous teams share one durable state",
+      "claim_state": "observed",
+      "evidence_strength": "primary_repository_source",
+      "sources": [{"type": "github_file", "locator": "operations/CURRENT_STATE.json", "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc", "observed_at": "2026-07-11T20:42:06Z"}],
+      "summary": "The repository defines five active teams and requires each to read shared state, update only owned records, and leave evidence plus a peer trigger request.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Re-read CURRENT_STATE.json at the indexed blob SHA and compare the operating_model, teams, and coordination_rule fields."
+    },
+    {
+      "id": "CM-0002",
+      "kind": "decision",
+      "title": "Public repositories must exclude private chat and health material",
+      "claim_state": "observed",
+      "evidence_strength": "primary_repository_source",
+      "sources": [{"type": "github_file", "locator": "operations/CURRENT_STATE.json", "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc", "observed_at": "2026-07-11T20:42:06Z"}],
+      "summary": "Continuity artifacts may reference private-source categories abstractly but must not reproduce private chat or health content into the public repository.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Inspect hard_boundaries in CURRENT_STATE.json; reject this record if the boundary is absent or materially changed."
+    },
+    {
+      "id": "CM-0003",
+      "kind": "queue_item",
+      "title": "M-001 provenance-preserving continuity index",
+      "claim_state": "observed",
+      "evidence_strength": "primary_repository_source",
+      "sources": [{"type": "github_file", "locator": "operations/ACTIVE_QUEUE.json", "content_sha": "ecc5833b793fb583ff0ca006f63a09e50ba72f7e", "observed_at": "2026-07-11T20:42:06Z"}],
+      "summary": "The highest-priority continuity task requires an index schema, explicit source boundaries, and initial indexed records.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Re-read ACTIVE_QUEUE.json at the indexed blob SHA and verify item M-001 owner, priority, action, and required_evidence."
+    },
+    {
+      "id": "CM-0004",
+      "kind": "decision",
+      "title": "Specialists require distinct reusable responsibility",
+      "claim_state": "observed",
+      "evidence_strength": "primary_repository_source",
+      "sources": [{"type": "github_file", "locator": "operations/SPECIALIST_REGISTRY.json", "content_sha": "88451b05101bcd8a259f98de5d9290e15357366b", "observed_at": "2026-07-11T20:42:06Z"}],
+      "summary": "A specialist can be added only when responsibility, interface, owner, acceptance test, and reusable output are distinct; duplicate or nonproductive roles are retired under the registry rule.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Compare this summary with the registry rule and retirement_rule at the indexed blob SHA."
+    },
+    {
+      "id": "CM-0005",
+      "kind": "unresolved_question",
+      "title": "No durable peer-trigger requests were pending at observation time",
+      "claim_state": "observed",
+      "evidence_strength": "primary_repository_source",
+      "sources": [{"type": "github_file", "locator": "operations/TRIGGER_REQUESTS.json", "content_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4", "observed_at": "2026-07-11T20:42:06Z"}],
+      "summary": "The trigger request array was empty when inspected. This does not prove peers ran; it only records absence of durable pending requests at that blob.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Re-read the exact blob and verify requests is an empty array; later nonempty versions supersede only the temporal observation, not the historical record."
+    }
+  ]
+}
