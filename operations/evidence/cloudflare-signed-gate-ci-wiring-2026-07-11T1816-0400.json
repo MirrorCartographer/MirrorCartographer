@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T18:16:51-04:00",
+  "claim_state": "implemented",
+  "change": {
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "source_commit": "ced7671e8e01f7d5de20a962f5f884074b7140f6",
+    "added_contract": "cloudflare-static/evaluate-signed-deployment-evidence.test.mjs",
+    "effect": "Every dispatched Cloudflare research deployment now runs the exact issuer-and-subject signed-evidence identity contract before deployment."
+  },
+  "verification": {
+    "method": "post-commit source inspection",
+    "result": "The committed workflow contains node --test cloudflare-static/evaluate-signed-deployment-evidence.test.mjs in the deployment evidence contract step.",
+    "runtime_status": "not_executed",
+    "reason": "The workflow is manual-dispatch only and Cloudflare environment credentials remain externally unconfigured."
+  },
+  "evidence_strength": "source_verified",
+  "privacy": {
+    "classification": "public_project_metadata",
+    "secrets_recorded": false,
+    "private_health_or_chat_material_recorded": false
+  },
+  "trust_limits": [
+    "CI wiring proves the regression gate is committed, not that the workflow has run.",
+    "The signed-evidence evaluator consumes an external verifier result and does not itself perform cryptography.",
+    "Signature acceptance authenticates statement bytes and workflow identity only; it does not establish scientific truth."
+  ],
+  "rollback": "Revert commit ced7671e8e01f7d5de20a962f5f884074b7140f6.",
+  "next_action": "Wire a pinned Sigstore verifier and bundle-generation step, configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research environment, dispatch the workflow, and preserve rejection unless all signature, transparency, certificate-time, issuer, subject, deployment, and served-identity checks pass."
+}
