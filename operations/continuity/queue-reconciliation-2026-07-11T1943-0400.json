@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T19:43:18-04:00",
+  "scope": "public repository queue state and append-only queue updates",
+  "privacy": "public_repository_safe",
+  "source_boundary": {
+    "included": [
+      "operations/ACTIVE_QUEUE.json metadata and public-safe task state",
+      "operations/queue-updates append-only records",
+      "GitHub commit metadata"
+    ],
+    "excluded": [
+      "raw private chat",
+      "health or pet-health material",
+      "credentials or secret values",
+      "identifying personal data",
+      "unreviewed uploaded-file contents"
+    ]
+  },
+  "observations": [
+    {
+      "id": "CM-QUEUE-OBS-0001",
+      "claim_state": "observed",
+      "claim": "The aggregate ACTIVE_QUEUE snapshot predates newer owner-authored append-only updates for V-001 and C-001.",
+      "evidence": [
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "reported_updated_at": "2026-07-11T16:51:00-04:00"
+        },
+        {
+          "type": "github_commit",
+          "locator": "64dff18302b2546d50d88c97cec804c57d11be5e",
+          "queue_item": "V-001",
+          "recorded_at": "2026-07-11T19:38:53-04:00"
+        },
+        {
+          "type": "github_commit",
+          "locator": "5cd37203f28c7991e94a64a527410ac240728668",
+          "queue_item": "C-001",
+          "recorded_at": "2026-07-11T19:39:01-04:00"
+        }
+      ],
+      "evidence_strength": "corroborated_repository_sources"
+    },
+    {
+      "id": "CM-QUEUE-OBS-0002",
+      "claim_state": "observed",
+      "claim": "The newer V-001 record preserves active status while adding a transient Vercel build-rate blocker and descendant source commits not present in the aggregate snapshot.",
+      "evidence": [
+        {
+          "type": "github_commit",
+          "locator": "64dff18302b2546d50d88c97cec804c57d11be5e"
+        }
+      ],
+      "evidence_strength": "primary_repository_source"
+    }
+  ],
+  "contradiction_resolution": {
+    "id": "CM-QUEUE-RULE-0001",
+    "claim_state": "proposed",
+    "problem": "A stale aggregate snapshot and a newer append-only owner update can describe different progress without either historical record being false.",
+    "rule": [
+      "Preserve the aggregate snapshot as a historical observation at its blob SHA.",
+      "Treat a newer append-only update as a temporal supplement only when its owner matches the queue item owner and its evidence or source commits are independently resolvable.",
+      "Do not copy the supplemental state into ACTIVE_QUEUE.json from another team's run.",
+      "Do not mark an item complete from a completed slice when required deployment or runtime evidence remains absent.",
+      "Represent unresolved synchronization explicitly rather than overwriting the older record."
+    ],
+    "acceptance_test": "Given an older aggregate record and a newer same-owner append-only update, a reconciler must return both records, identify the newer temporal state, retain original blob and commit identities, and keep unmet required evidence unresolved.",
+    "falsification_route": "Reject this rule if a repository-level coordination contract explicitly declares append-only updates non-authoritative, if an update owner does not match the queue owner, or if referenced commits/evidence cannot be resolved."
+  },
+  "resolved": [
+    {
+      "claim_state": "superseded",
+      "claim": "The aggregate queue alone is sufficient to describe the latest known progress for every team.",
+      "reason": "Newer append-only owner records exist for V-001 and C-001. The aggregate remains valid as a historical snapshot, but not as the sole latest-state source."
+    }
+  ],
+  "unresolved": [
+    {
+      "claim_state": "unresolved",
+      "claim": "No repository-owned deterministic reconciler currently materializes aggregate plus append-only updates into a read-only current view.",
+      "next_evidence": "A tested reconciliation module that validates owner, timestamp, source commit existence, evidence references, and required-evidence completion without mutating peer-owned records."
+    }
+  ]
+}
