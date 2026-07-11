@@ -1,0 +1,62 @@
+name: Continuity Queue View
+
+on:
+  push:
+    paths:
+      - 'operations/ACTIVE_QUEUE.json'
+      - 'operations/queue-updates/**'
+      - 'operations/continuity/reconcile-queue.mjs'
+      - 'operations/continuity/reconcile-queue.test.mjs'
+      - 'operations/continuity/generate-current-queue.mjs'
+      - '.github/workflows/continuity-queue-view.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out immutable source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run continuity reconciliation contracts
+        run: node --test operations/continuity/reconcile-queue.test.mjs
+
+      - name: Generate provenance-preserving current queue view
+        run: |
+          mkdir -p verification-artifacts
+          node operations/continuity/generate-current-queue.mjs "$GITHUB_WORKSPACE" verification-artifacts/CURRENT_QUEUE_VIEW.generated.json
+
+      - name: Reject unresolved reconciliation state
+        run: |
+          node --input-type=module <<'EOF'
+          import fs from 'node:fs';
+          const view = JSON.parse(fs.readFileSync('verification-artifacts/CURRENT_QUEUE_VIEW.generated.json', 'utf8'));
+          if (view.validation_errors.length || view.conflicts.length) {
+            console.error(JSON.stringify({ validation_errors: view.validation_errors, conflicts: view.conflicts }, null, 2));
+            process.exit(1);
+          }
+          console.log(JSON.stringify({ current_items: view.current_items.length, history: view.history.length, canonical_sha256: view.canonical_sha256 }));
+          EOF
+
+      - name: Record source identity
+        run: |
+          printf '%s\n' "$GITHUB_SHA" > verification-artifacts/source-commit.txt
+          git status --short > verification-artifacts/git-status.txt
+
+      - name: Upload reconciled view
+        uses: actions/upload-artifact@v4
+        with:
+          name: continuity-current-queue-${{ github.sha }}
+          path: verification-artifacts/
+          retention-days: 14
+          if-no-files-found: error
