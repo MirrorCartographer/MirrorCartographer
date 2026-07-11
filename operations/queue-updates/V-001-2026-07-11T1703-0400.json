@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "recorded_at": "2026-07-11T17:03:22-04:00",
+  "status": "active",
+  "completed_slice": {
+    "name": "paired audibility outcome",
+    "runtime_commit": "2ebd69104e254957a811cca1df55ce82b74d07fb",
+    "wiring_commit": "c152985729302f5d50b740d4c11ed3a62d0dd5a3",
+    "test_commit": "9531c17988cbabd6105e1e9d4f360d17808a1dcb",
+    "gate_commit": "a985fca69a32fc7d70848ba28a48288c64f6a054",
+    "evidence": "operations/evidence/vercel-audibility-outcome-2026-07-11T1703-0400.json",
+    "verification": "isolated pure-contract test passed"
+  },
+  "remaining": [
+    "obtain Vercel deployment identity for a985fca69a32fc7d70848ba28a48288c64f6a054 or a descendant",
+    "run the full repository gate in CI or a resolvable checkout",
+    "capture one iPhone Safari result containing window.__MC_AUDIO_PULSE__, window.__MC_AUDIO_EVIDENCE__, and window.__MC_AUDIBILITY_EVIDENCE__"
+  ],
+  "merge_rule": "Apply only to the V-001 progress object after re-reading operations/ACTIVE_QUEUE.json; never replace other teams' records from a stale snapshot."
+}
