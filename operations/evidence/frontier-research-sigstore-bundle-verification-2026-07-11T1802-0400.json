@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-009",
+  "created_at": "2026-07-11T18:02:57-04:00",
+  "claim_state": "observed_and_tested",
+  "finding": "A signed Verification Summary Attestation should not be accepted from a bare DSSE signature or structurally valid bundle. Acceptance must also bind the exact statement digest, cryptographic verification result, transparency evidence, certificate-time validity, and an exact issuer and subject identity policy.",
+  "primary_sources": [
+    {
+      "uri": "https://docs.sigstore.dev/about/bundle/",
+      "status": "official_documentation",
+      "observed": "Sigstore bundle format v0.3.2 packages verification material and signature content; attestation content is a DSSE envelope with payloadType application/vnd.in-toto+json and exactly one signature."
+    },
+    {
+      "uri": "https://github.com/sigstore/protobuf-specs/blob/main/protos/sigstore_bundle.proto",
+      "status": "official_schema_repository",
+      "observed": "The formal bundle schema separates verification material from message-signature or DSSE content."
+    },
+    {
+      "uri": "https://github.com/secure-systems-lab/dsse/blob/master/protocol.md",
+      "status": "primary_protocol_specification",
+      "observed": "DSSE defines an envelope and signing protocol; application trust policy remains external to envelope structure."
+    }
+  ],
+  "artifacts": {
+    "module": "tools/frontier-research/sigstore-bundle-verification.mjs",
+    "module_commit": "221eefc32457532c710e539b1ed8c2155fdefce7",
+    "test": "tools/frontier-research/sigstore-bundle-verification.test.mjs",
+    "test_commit": "6eaa3e68a4076c2ac5a4da4da42aca6a30fb636c"
+  },
+  "verification": {
+    "command": "node --test tools/frontier-research/sigstore-bundle-verification.test.mjs",
+    "environment": "isolated Node runtime using byte-identical committed logic",
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "all required checks pass",
+      "payload digest mismatch fails closed",
+      "lookalike certificate subject fails closed",
+      "missing transparency verification fails closed",
+      "multiple DSSE signatures are rejected"
+    ]
+  },
+  "evidence_strength": "deterministic_contract_test",
+  "uncertainty": "The contract consumes an external verifier result and does not itself perform cryptography.",
+  "trust_limit": "A passing record does not prove the verifier binary, trust root, certificate authority, identity provider, transparency service, or underlying VSA claim is truthful.",
+  "falsification_route": "Verify the same bundle and statement with an independently installed Sigstore-compatible verifier and pinned trust root. Reject acceptance if statement digest, signature, transparency, certificate-time, issuer, or subject results disagree.",
+  "privacy_boundary": "Public specifications, public repository paths, synthetic test identities, and commit metadata only; no credentials, private chat, health material, or secret values included."
+}
