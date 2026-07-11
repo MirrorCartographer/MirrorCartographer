@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { inspectResearchSurfaceIdentity } from './research-surface-identity.mjs';
 
 const candidates = process.argv.slice(2);
 if (candidates.length === 0) {
@@ -6,24 +7,21 @@ if (candidates.length === 0) {
   process.exit(2);
 }
 
-const requiredMarkers = [
-  '<title>Mirror Cartographer Research Field</title>',
-  'Build theories that can survive contact with evidence.',
-  'Theory instrument'
-];
-
 let verified = false;
 for (const candidate of candidates) {
   try {
     const response = await fetch(candidate, { redirect: 'follow' });
     const body = await response.text();
-    const missing = requiredMarkers.filter((marker) => !body.includes(marker));
+    const identity = inspectResearchSurfaceIdentity(body, {
+      status: response.status,
+      resolvedUrl: response.url
+    });
     const result = {
       candidate,
-      resolvedUrl: response.url,
-      status: response.status,
-      ok: response.ok && missing.length === 0,
-      missingMarkers: missing
+      resolvedUrl: identity.resolved_url,
+      status: identity.status,
+      ok: identity.ok,
+      missingMarkers: identity.missing_markers
     };
     console.log(JSON.stringify(result));
     verified ||= result.ok;
