@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-005",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "action": "Turn the decision-event validator into an enforceable repository gate and capture the first observed runtime verification without rewriting earlier uncertainty.",
+  "status": "completed",
+  "completed_at": "2026-07-11T21:25:00Z",
+  "required_evidence": [
+    "local byte-equivalent runtime execution",
+    "committed CI workflow",
+    "falsification route",
+    "privacy review"
+  ],
+  "outputs": {
+    "workflow": ".github/workflows/continuity-decision-ledger.yml",
+    "workflow_commit": "9c4702635a275b1580776205fe5e099e733367da",
+    "validator": "operations/continuity/validate-decision-events.mjs",
+    "tests": "operations/continuity/validate-decision-events.test.mjs",
+    "ledger": "operations/continuity/decision-events.json"
+  },
+  "claim_states": {
+    "observed": [
+      "Five adversarial Node tests passed in an isolated runtime using byte-equivalent source reconstructed from the committed files.",
+      "The committed ledger validator returned valid=true with zero errors for the observed ledger structure.",
+      "A GitHub Actions workflow now runs both commands on relevant pushes, pull requests, and manual dispatches."
+    ],
+    "inferred": [],
+    "proposed": [],
+    "superseded": [],
+    "resolved": [
+      "The M-004 runtime-verification handoff now has an observed local execution and a committed CI enforcement route."
+    ],
+    "unresolved": [
+      "No GitHub Actions run result for workflow commit 9c4702635a275b1580776205fe5e099e733367da was observed during this run.",
+      "M-002 through M-005 remain absent from the shared ACTIVE_QUEUE aggregate and still require conflict-safe reconciliation."
+    ]
+  },
+  "verification": {
+    "runtime": "isolated Node runtime",
+    "test_result": {"tests": 5, "passed": 5, "failed": 0},
+    "ledger_result": {"valid": true, "errors": []},
+    "commands": [
+      "node --test operations/continuity/validate-decision-events.test.mjs",
+      "node operations/continuity/validate-decision-events.mjs operations/continuity/decision-events.json"
+    ],
+    "falsification_route": "Any nonzero exit from either command or any failed GitHub Actions job falsifies the claim that the decision ledger satisfies the committed contract."
+  },
+  "privacy_boundary": "Only public repository source, commit metadata, and non-sensitive validation output were used. Raw private chat, health and pet-health material, credentials, contact data, and unreviewed uploads were excluded.",
+  "handoff": "Observe the first GitHub Actions result for the continuity workflow, then reconcile M-002 through M-005 into ACTIVE_QUEUE.json only after fetching the latest aggregate blob and preserving every sidecar reference."
+}
