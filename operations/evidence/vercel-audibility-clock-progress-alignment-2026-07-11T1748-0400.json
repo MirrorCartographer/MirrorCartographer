@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T17:48:00-04:00",
+  "finding": "The audio observer emits clock-progress-only, while the audibility outcome classifier previously matched clock-only. The mismatch incorrectly downgraded a valid clock-advance observation to not-heard-render-unconfirmed.",
+  "change": {
+    "repository": "MirrorCartographer/mirror-cartographer-ui",
+    "runtime_file": "src/engine/audibilityOutcomeRuntime.js",
+    "runtime_commit": "ec08f5504e2f208f8bd87ec2ae89827f281d38c9",
+    "test_file": "scripts/audibility-outcome-contract-check.mjs",
+    "test_commit": "3045f6cc8c250509fad18a342fa87b5ede49c34f",
+    "expected_mapping": {
+      "observer_result": "clock-progress-only",
+      "audibility_diagnosis": "clock-advanced-not-heard"
+    }
+  },
+  "verification": {
+    "source_inspection": "Committed runtime and test now use the same emitted status string.",
+    "adversarial_case": "The obsolete clock-only string is explicitly asserted to remain unconfirmed, preventing accidental aliasing.",
+    "execution_status": "not executed in this run because the GitHub connector exposes repository contents but not a runner, and the isolated container could not resolve github.com",
+    "deployment_status": "unverified"
+  },
+  "evidence_strength": "committed source plus deterministic contract update; runtime and deployment execution pending",
+  "rollback": "Revert commits 3045f6cc8c250509fad18a342fa87b5ede49c34f and ec08f5504e2f208f8bd87ec2ae89827f281d38c9 in reverse order.",
+  "privacy": "No user data, health data, credentials, payment logic, or private chat material included."
+}
