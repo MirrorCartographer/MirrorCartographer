@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "rule": "A specialist exists only when it has a distinct responsibility, interface, owner, acceptance test, and reusable output.",
+  "teams": {
+    "vercel_studio": ["Audio Engineer","Mobile Safari Investigator","Generative Art Director","Motion Choreographer","Performance Budgeter","Accessibility Auditor","Deployment Verifier","Interaction Composer"],
+    "cloudflare_research": ["Theory Architect","Evidence Auditor","Medical Research Mapper","Provenance Engineer","Conversion Architect","Cloudflare Deployment Engineer"],
+    "independent_creative_web": ["Creative Director","Worldbuilder","Experimental Interface Designer","Independent Hosting Architect","Generative Media Engineer"],
+    "continuity_mining": ["Chat Archaeologist","Language Evolution Mapper","Decision Historian","Contradiction Resolver","Privacy Boundary Auditor"],
+    "frontier_research": ["Primary Source Scout","Technical Synthesist","Experiment Designer","Tool Evaluator","Cross-Domain Translator"]
+  },
+  "retirement_rule": "Merge or retire specialists that duplicate work for three consecutive cycles or fail to produce a reusable artifact."
+}
