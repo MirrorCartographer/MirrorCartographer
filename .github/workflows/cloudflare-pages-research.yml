@@ -24,16 +24,16 @@ jobs:
       - name: Checkout committed source
         uses: actions/checkout@v6
 
-      - name: Test proof attestation contract
-        run: node --test cloudflare-static/attest-deployment-proof.test.mjs
+      - name: Test deployment evidence contracts
+        run: |
+          node --test cloudflare-static/check-deployment-readiness.test.mjs
+          node --test cloudflare-static/attest-deployment-proof.test.mjs
 
-      - name: Validate required credentials
+      - name: Classify deployment readiness
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: |
-          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 2; }
-          test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN"; exit 2; }
+        run: node cloudflare-static/check-deployment-readiness.mjs cloudflare-deployment-readiness.json
 
       - name: Deploy static research surface
         id: deploy
@@ -71,6 +71,9 @@ jobs:
             workflow_run: `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`,
             deployment_url: process.env.DEPLOYMENT_URL || null,
             alias_url: process.env.ALIAS_URL || null,
+            readiness: fs.existsSync('cloudflare-deployment-readiness.json')
+              ? JSON.parse(fs.readFileSync('cloudflare-deployment-readiness.json', 'utf8'))
+              : null,
             verifier_output: fs.existsSync('cloudflare-deployment-proof.ndjson')
               ? fs.readFileSync('cloudflare-deployment-proof.ndjson', 'utf8').trim().split('\n').filter(Boolean).map((line) => JSON.parse(line))
               : [],
@@ -95,6 +98,7 @@ jobs:
         with:
           name: cloudflare-deployment-proof-${{ github.sha }}
           path: |
+            cloudflare-deployment-readiness.json
             cloudflare-deployment-proof.json
             cloudflare-deployment-proof.intoto.json
           if-no-files-found: error
@@ -111,6 +115,7 @@ jobs:
             echo "- Source commit: \`${GITHUB_SHA}\`"
             echo "- Deployment URL: ${DEPLOYMENT_URL:-not returned}"
             echo "- Alias URL: ${ALIAS_URL:-not returned}"
+            echo "- Readiness evidence: \`cloudflare-deployment-readiness.json\` (never contains secret values)"
             echo "- Identity verifier: \`cloudflare-static/verify-deployment.mjs\`"
             echo "- Proof validator: \`cloudflare-static/validate-deployment-proof.mjs\`"
             echo "- Provenance attestation: \`cloudflare-deployment-proof.intoto.json\`"
