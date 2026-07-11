@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "observed",
+  "improvement": "A reusable research-surface identity contract now validates committed source before deployment and is shared by the remote deployment verifier.",
+  "files": [
+    "cloudflare-static/research-surface-identity.mjs",
+    "cloudflare-static/research-surface-identity.test.mjs",
+    "cloudflare-static/verify-deployment.mjs",
+    ".github/workflows/cloudflare-pages-research.yml"
+  ],
+  "commits": [
+    "783bbadd62367cdf77d87f1c81a6248b12d9361a",
+    "8e3bf37cd0ee1e65a26aae3731bff494fc084831",
+    "1da3cd14fed7fbb576fa13a070f612c83ea9776e",
+    "096d02de862870464012ae6c3395d41611781742"
+  ],
+  "verification": {
+    "route": "isolated Node test against byte-identical pre-commit module and tests",
+    "result": "4 passed, 0 failed",
+    "covered": [
+      "accept complete identity",
+      "reject missing marker",
+      "reject unsuccessful HTTP status",
+      "reject non-string body without throwing"
+    ]
+  },
+  "deployment_status": {
+    "state": "not_verified",
+    "reason": "Cloudflare credentials and a resolving deployed URL remain unavailable to this run."
+  },
+  "privacy_boundary": "No credential values, private chat, health information, diagnosis, or treatment claim is included.",
+  "falsification_route": "Run node --test cloudflare-static/research-surface-identity.test.mjs, then dispatch the workflow and verify that source drift fails before Wrangler deployment while a valid deployed page passes verify-deployment.mjs."
+}
