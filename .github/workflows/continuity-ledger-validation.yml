@@ -1,25 +1,16 @@
-name: Continuity ledger validation
+name: Continuity ledger validation (manual diagnostic)
 
+# The canonical automatic gate is continuity-decision-ledger.yml.
+# This workflow is retained without deletion as a manual diagnostic that also
+# uploads immutable run identity evidence.
 on:
-  push:
-    paths:
-      - 'operations/continuity/decision-events.json'
-      - 'operations/continuity/validate-decision-events.mjs'
-      - 'operations/continuity/validate-decision-events.test.mjs'
-      - '.github/workflows/continuity-ledger-validation.yml'
-  pull_request:
-    paths:
-      - 'operations/continuity/decision-events.json'
-      - 'operations/continuity/validate-decision-events.mjs'
-      - 'operations/continuity/validate-decision-events.test.mjs'
-      - '.github/workflows/continuity-ledger-validation.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: continuity-ledger-${{ github.workflow }}-${{ github.ref }}
+  group: continuity-ledger-manual-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -44,8 +35,9 @@ jobs:
       - name: Record validation identity
         if: always()
         run: |
-          printf 'source_commit=%s\nworkflow_run=%s\nworkflow_attempt=%s\n' \
+          printf 'source_commit=%s\nworkflow_run=%s\nworkflow_attempt=%s\ncanonical_workflow=%s\n' \
             "${GITHUB_SHA}" "${GITHUB_RUN_ID}" "${GITHUB_RUN_ATTEMPT}" \
+            '.github/workflows/continuity-decision-ledger.yml' \
             > continuity-validation-identity.txt
 
       - name: Upload validation identity
