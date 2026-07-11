@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-07-11T20:42:00Z",
+  "generated_at": "2026-07-11T20:52:33Z",
   "privacy_boundary": {
     "allowed": [
       "Public repository files and commit metadata",
@@ -78,6 +78,56 @@
       "contradicts": [],
       "supersedes": [],
       "falsification_or_review_route": "Re-read the exact blob and verify requests is an empty array; later nonempty versions supersede only the temporal observation, not the historical record."
+    },
+    {
+      "id": "CM-0006",
+      "kind": "commit",
+      "title": "M-001 was completed as an additive three-commit continuity slice",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {"type": "github_commit", "locator": "044c36bb4ee8577af68d243232ecad0dd5502a29", "content_sha": "044c36bb4ee8577af68d243232ecad0dd5502a29", "observed_at": "2026-07-11T20:52:33Z"},
+        {"type": "github_commit", "locator": "ecd80ae7e1abb0bf55965f0d9b5ba682e34027d0", "content_sha": "ecd80ae7e1abb0bf55965f0d9b5ba682e34027d0", "observed_at": "2026-07-11T20:52:33Z"},
+        {"type": "github_commit", "locator": "f90dd7480998961632ec288b46fe25831ae9b14e", "content_sha": "f90dd7480998961632ec288b46fe25831ae9b14e", "observed_at": "2026-07-11T20:52:33Z"}
+      ],
+      "summary": "The first continuity slice added a schema, added an initial index, and then marked the owned queue item complete. The sequence preserves implementation history rather than collapsing it into one unsupported completion claim.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Fetch all three commits, verify their changed paths and order, and reject the record if any commit does not correspond to schema creation, index creation, or the M-001 queue update."
+    },
+    {
+      "id": "CM-0007",
+      "kind": "decision",
+      "title": "Evidence identity, provenance, trust policy, and claim truth are separate layers",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {"type": "github_file", "locator": "operations/ACTIVE_QUEUE.json", "content_sha": "26cfa9dbd75686b7ec1f62a765960f397039d2ae", "observed_at": "2026-07-11T20:52:33Z"},
+        {"type": "github_commit", "locator": "74a38bda28b982bcac5f7a74f86f1286efd385bd", "content_sha": "74a38bda28b982bcac5f7a74f86f1286efd385bd", "observed_at": "2026-07-11T20:52:33Z"},
+        {"type": "github_commit", "locator": "78863a7d77451856e8567b78a091f54094245af5", "content_sha": "78863a7d77451856e8567b78a091f54094245af5", "observed_at": "2026-07-11T20:52:33Z"}
+      ],
+      "summary": "The project now treats trace correlation, exact-byte provenance, trusted-builder acceptance, and truth of the underlying runtime or research claim as distinct propositions. Passing an earlier layer must not be reported as proof of a later layer.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Inspect R-002 through R-004 and Cloudflare C-001 progress in the indexed queue blob; falsify this record if those artifacts merge correlation, provenance, policy acceptance, and claim truth into one status."
+    },
+    {
+      "id": "CM-0008",
+      "kind": "unresolved_question",
+      "title": "Cloudflare deployment remains unproven despite a complete readiness and proof pipeline",
+      "claim_state": "unresolved",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {"type": "github_file", "locator": "operations/ACTIVE_QUEUE.json", "content_sha": "26cfa9dbd75686b7ec1f62a765960f397039d2ae", "observed_at": "2026-07-11T20:52:33Z"},
+        {"type": "github_commit", "locator": "66d1aeabde569329e32603562daf8e259d004c32", "content_sha": "66d1aeabde569329e32603562daf8e259d004c32", "observed_at": "2026-07-11T20:52:33Z"}
+      ],
+      "summary": "Readiness classification, proof validation, attestation, and trusted-builder policy are implemented, but no resolving Cloudflare Pages URL, served identity, or deployed commit has been observed. The durable memory therefore preserves both implementation progress and the unresolved external deployment claim.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Resolve this record only with a retained deployment proof containing a resolving Cloudflare URL, matching served identity, and immutable source commit; implementation artifacts alone are insufficient."
     }
   ]
 }
