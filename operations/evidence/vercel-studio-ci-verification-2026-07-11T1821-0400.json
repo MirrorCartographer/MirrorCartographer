@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T18:21:50-04:00",
+  "change": {
+    "repository": "MirrorCartographer/mirror-cartographer-ui",
+    "commit": "2be89c02f599aa2505e25969e697223010699fe0",
+    "file": ".github/workflows/vercel-studio-verification.yml",
+    "purpose": "Run the audio observability, audibility outcome, deployment identity, and Vercel build identity contracts against immutable source, then build and assert that the resulting bundle contains the exact Git commit."
+  },
+  "verification": {
+    "source_commit_status": {
+      "vercel": "failure",
+      "reason": "Vercel build-rate-limit",
+      "target": "https://vercel.com/mirror-cartographers-projects?upgradeToPro=build-rate-limit"
+    },
+    "github_actions_runs_observed": 0,
+    "claim": "workflow source committed; runtime execution not yet observed"
+  },
+  "boundaries": [
+    "No payment or conversion logic was added to Vercel.",
+    "No files or Git history were deleted.",
+    "No audible iPhone result is claimed without device evidence.",
+    "No successful deployment is claimed while Vercel reports a rate-limit failure."
+  ],
+  "rollback": {
+    "method": "revert commit",
+    "commit": "2be89c02f599aa2505e25969e697223010699fe0"
+  },
+  "next_action": "Observe or dispatch the GitHub Actions workflow, inspect job and artifact evidence, then obtain a successful Vercel deployment and pair its immutable commit identity with an iPhone audibility outcome."
+}
