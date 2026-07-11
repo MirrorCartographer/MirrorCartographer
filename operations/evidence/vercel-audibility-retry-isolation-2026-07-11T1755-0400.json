@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T17:55:00-04:00",
+  "claim_state": "implemented",
+  "evidence_strength": "source-and-contract-test-committed-runtime-unverified",
+  "finding": "A repeated sound-test gesture could retain the prior attempt's successful pulse and render evidence until the new asynchronous pulse completed, allowing the confirmation panel to pair a response with stale evidence.",
+  "implementation": {
+    "repository": "MirrorCartographer/mirror-cartographer-ui",
+    "runtime_file": "src/engine/audibilityOutcomeRuntime.js",
+    "runtime_commit": "e02b3b7d961362f3aa7b4bfd7a8cbdbea973cf76",
+    "test_file": "scripts/audibility-outcome-contract-check.mjs",
+    "test_commit": "6ebc21e139a4ea677eb4b7a8da7dcdfb9f3a843b",
+    "behavior": [
+      "clear prior pulse evidence synchronously in the capture-phase diagnostic gesture handler",
+      "replace it with an explicit pending pulse state",
+      "clear prior render and audibility outcome evidence",
+      "fail closed as pulse-not-scheduled until the current attempt overwrites pending state"
+    ]
+  },
+  "verification": {
+    "source_fetch": "committed files were written successfully through the GitHub contents API",
+    "contract_cases_added": [
+      "prior successful pulse is replaced by pending state",
+      "prior render evidence is cleared",
+      "prior user audibility outcome is cleared",
+      "pending retry classifies as pulse-not-scheduled",
+      "invalid reset target is rejected"
+    ],
+    "ci_runs_observed": 0,
+    "deployment_status": "failure",
+    "deployment_status_detail": "Vercel build-rate-limit status observed for commit 6ebc21e139a4ea677eb4b7a8da7dcdfb9f3a843b"
+  },
+  "limits": [
+    "No GitHub Actions run was available for the test commit.",
+    "No successful Vercel deployment identity was available.",
+    "No iPhone Safari audible outcome was captured.",
+    "This slice prevents stale retry evidence; it does not itself prove audible output."
+  ],
+  "rollback": {
+    "route": "Revert commits 6ebc21e139a4ea677eb4b7a8da7dcdfb9f3a843b and e02b3b7d961362f3aa7b4bfd7a8cbdbea973cf76 in reverse order.",
+    "data_migration_required": false
+  },
+  "privacy": "No private chat, health data, credentials, payment logic, or identifying user content was added."
+}
