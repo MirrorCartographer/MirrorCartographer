@@ -28,6 +28,7 @@ jobs:
         run: |
           node --test cloudflare-static/check-deployment-readiness.test.mjs
           node --test cloudflare-static/summarize-deployment-blocker.test.mjs
+          node --test cloudflare-static/validate-deployment-blocker.test.mjs
           node --test cloudflare-static/attest-deployment-proof.test.mjs
 
       - name: Classify deployment readiness
@@ -39,6 +40,10 @@ jobs:
       - name: Summarize deployment blocker
         if: always()
         run: node cloudflare-static/summarize-deployment-blocker.mjs cloudflare-deployment-readiness.json cloudflare-deployment-blocker.json
+
+      - name: Validate deployment blocker contract
+        if: always()
+        run: node cloudflare-static/validate-deployment-blocker.mjs cloudflare-deployment-blocker.json
 
       - name: Deploy static research surface
         id: deploy
@@ -125,7 +130,7 @@ jobs:
             echo "- Deployment URL: ${DEPLOYMENT_URL:-not returned}"
             echo "- Alias URL: ${ALIAS_URL:-not returned}"
             echo "- Readiness evidence: \`cloudflare-deployment-readiness.json\` (never contains secret values)"
-            echo "- Actionable blocker: \`cloudflare-deployment-blocker.json\` (names and reason codes only)"
+            echo "- Actionable blocker: \`cloudflare-deployment-blocker.json\` (schema-validated names and reason codes only)"
             echo "- Identity verifier: \`cloudflare-static/verify-deployment.mjs\`"
             echo "- Proof validator: \`cloudflare-static/validate-deployment-proof.mjs\`"
             echo "- Provenance attestation: \`cloudflare-deployment-proof.intoto.json\`"
