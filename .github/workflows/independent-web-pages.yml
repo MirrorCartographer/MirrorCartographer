@@ -27,6 +27,8 @@ jobs:
           node-version: '22'
       - name: Verify creative artifact contract
         run: node independent-web/verify.mjs
+      - name: Verify mobile and independence behavior
+        run: node --test independent-web/mobile-contract.test.mjs
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
