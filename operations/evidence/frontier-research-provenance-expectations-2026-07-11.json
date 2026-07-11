@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-005",
+  "created_at": "2026-07-11T18:19:00-04:00",
+  "claim_state": "observed_and_tested",
+  "evidence_strength": "deterministic_contract_test_plus_primary_specification",
+  "primary_sources": [
+    {
+      "url": "https://slsa.dev/spec/v1.2/verifying-artifacts",
+      "status": "approved specification",
+      "retrieved_at": "2026-07-11",
+      "relevant_requirement": "Verification should compare buildType and externalParameters against expectations and should reject unrecognized externalParameters."
+    }
+  ],
+  "finding": "Builder identity and signature verification are necessary but insufficient. An authenticated workflow can still produce unintended behavior when its invocation parameters differ from the expected build contract. Evidence acceptance therefore needs exact buildType and externalParameters validation with unknown fields rejected by default.",
+  "design_implication": "Run provenance expectation evaluation after signature, subject-digest, and trusted-builder checks, but before accepting a deployment or runtime evidence packet.",
+  "artifact": {
+    "module": "tools/frontier-research/provenance-expectations.mjs",
+    "test": "tools/frontier-research/provenance-expectations.test.mjs",
+    "commits": [
+      "98e3f24f7191d51675d0c44576a8cc1fd0f0bd1a",
+      "15e780575848b75aacf7b5851e7e87f1ddb8c5dc"
+    ]
+  },
+  "verification": {
+    "command": "node --test tools/frontier-research/provenance-expectations.test.mjs",
+    "result": "4 passed, 0 failed",
+    "cases": [
+      "exact expected build type and parameters accepted",
+      "unknown parameter rejected",
+      "changed expected parameter rejected",
+      "missing parameters and unexpected build type rejected"
+    ],
+    "execution_scope": "isolated Node runtime using byte-identical pre-commit files; committed module was subsequently fetched and inspected"
+  },
+  "falsification_route": [
+    "Show an accepted statement containing an unrecognized external parameter.",
+    "Show an accepted statement with a changed expected environment, workflow, repository, or build type.",
+    "Demonstrate that canonical JSON comparison changes semantic values or accepts type-confused values."
+  ],
+  "limits": [
+    "This evaluator does not verify signatures, certificate identity, transparency logs, or artifact digests.",
+    "Expected values are policy inputs and remain only as trustworthy as their review and change control.",
+    "Passing provenance expectations does not prove that the underlying scientific or deployment claim is true."
+  ],
+  "privacy": "No private chat, health information, credentials, secrets, or personal identifiers included."
+}
