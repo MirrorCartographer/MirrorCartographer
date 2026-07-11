@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T18:39:00-04:00",
+  "claim_state": "observed",
+  "completed_slice": "Wire GitHub artifact attestation signing and verification into the Cloudflare deployment workflow, then pass the normalized signature result into the deny-by-default evidence acceptance manifest.",
+  "specialists_used": [
+    "Provenance Engineer",
+    "Evidence Auditor",
+    "Cloudflare Deployment Engineer",
+    "Theory Architect"
+  ],
+  "source_files": [
+    ".github/workflows/cloudflare-pages-research.yml",
+    "cloudflare-static/build-evidence-verification-input.mjs",
+    "cloudflare-static/build-evidence-verification-input.test.mjs",
+    "cloudflare-static/normalize-github-attestation-verification.mjs",
+    "cloudflare-static/cryptographic-attestation-workflow.test.mjs"
+  ],
+  "commits": [
+    "df672b71f28590a1623ea8966128020e77d069ec",
+    "8db37e47f865c45b7f5fc2c74ab5d8f1cd671749",
+    "4741ba7a95167f889d5332b89b528c8aaabcbb0b",
+    "1c78bcf2671da7ec5a5b8d69ae6a7979826515ee"
+  ],
+  "verification": {
+    "source_contract": [
+      "workflow grants id-token:write and attestations:write",
+      "actions/attest-build-provenance signs cloudflare-deployment-proof.json",
+      "gh attestation verify targets the exact repository",
+      "normalizer requires exact repository, workflow identity, verified state, and SHA-256 subject",
+      "acceptance is asserted equal to the conjunction of signature, subject, builder, source, build type, invocation, and deployment claim checks"
+    ],
+    "workflow_runs_for_latest_commit": [],
+    "runtime_status": "not_executed",
+    "deployment_status": "not_proven"
+  },
+  "privacy_boundary": "No credentials, secret values, private chat material, health information, or identifying personal data are included.",
+  "limits": [
+    "No GitHub Actions run was associated with the latest commit at inspection time.",
+    "No signed attestation bundle, verifier output, Cloudflare URL, or served commit identity was produced in this run.",
+    "Cryptographic provenance can authenticate artifact origin and binding; it cannot establish scientific truth or medical validity.",
+    "Cloudflare deployment remains blocked until CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are configured in the cloudflare-research environment."
+  ],
+  "falsification_route": "Run the workflow after environment configuration, inspect the attestation and acceptance artifacts, and reject the slice if the signature normalizer, trusted-builder checks, subject digest, deployment verifier, or acceptance invariant disagree."
+}
