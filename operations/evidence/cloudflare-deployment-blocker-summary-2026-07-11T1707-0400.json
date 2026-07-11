@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "observed",
+  "improvement": "Cloudflare deployment workflows now emit an actionable, privacy-preserving blocker artifact that names only missing configuration keys, reason codes, and remediation text.",
+  "files": [
+    "cloudflare-static/summarize-deployment-blocker.mjs",
+    "cloudflare-static/summarize-deployment-blocker.test.mjs",
+    ".github/workflows/cloudflare-pages-research.yml"
+  ],
+  "commits": [
+    "0f87431fd796c8265ddf9d4b85c9cd11c5a9f9bb",
+    "e7b7e40d732a9cce3300dc4d30e735732c2f3a24",
+    "8359f8e49014907df76d66dbf14d4a0d03d55682"
+  ],
+  "verification": {
+    "local_isolated_node_tests": {
+      "passed": 4,
+      "failed": 0,
+      "command": "node --test summarize-deployment-blocker.test.mjs"
+    },
+    "workflow_execution": "not observed",
+    "deployment_url": null,
+    "deployed_commit": null
+  },
+  "privacy_boundary": {
+    "secret_values_emitted": false,
+    "emitted_fields": ["configuration key name", "reason code", "remediation text"],
+    "excluded": ["credential values", "account identifiers", "private chat", "health material"]
+  },
+  "limits": [
+    "This does not configure the GitHub environment.",
+    "This does not prove a Cloudflare deployment occurred.",
+    "A workflow run is still required to obtain and verify a served URL."
+  ],
+  "next_action": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment, dispatch the workflow, and inspect the uploaded readiness, blocker, proof, and attestation artifacts."
+}
