@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T17:21:00-04:00",
+  "improvement": "Add explicit deployment-decision evidence that distinguishes configuration skips, attempted failures, cancellations, unresolved outcomes, and provider-returned URLs without treating a URL as served-identity proof.",
+  "artifacts": {
+    "builder": "cloudflare-static/build-deployment-decision.mjs",
+    "test": "cloudflare-static/build-deployment-decision.test.mjs",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml"
+  },
+  "commits": [
+    "fc733ca58ef3ec9224c1c0f7f06b0de2e1eb45ca",
+    "c74d1fdec8d93209f54da752541f38439deaa7fc",
+    "931efc8fa66497e200705e322d9521732ab0bd2e"
+  ],
+  "verification": {
+    "method": "isolated Node test run using byte-identical committed decision logic and equivalent committed assertions",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "covered_states": [
+      "skipped_external_configuration",
+      "deployment_returned_url",
+      "deployment_attempt_failed",
+      "deployment_result_unresolved"
+    ]
+  },
+  "deployment_evidence": {
+    "cloudflare_run_for_new_commit": false,
+    "resolving_url": null,
+    "served_identity_verified": false,
+    "deployed_commit_verified": false
+  },
+  "privacy": {
+    "secret_values_emitted": false,
+    "private_material_published": false,
+    "boundary": "Only repository-visible configuration state, step outcome, public provider URL when present, and commit identities are permitted."
+  },
+  "claim_limit": "This slice improves deployment-state evidence. It does not prove that Cloudflare credentials exist, that a deployment ran, or that a URL serves the expected research surface."
+}
