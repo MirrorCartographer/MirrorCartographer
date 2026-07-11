@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "progress_update": {
+    "completed_slice": "Implemented and deterministically tested a fail-closed evidence acceptance builder for Cloudflare deployment proof inputs.",
+    "module": "cloudflare-static/build-evidence-acceptance.mjs",
+    "test": "cloudflare-static/build-evidence-acceptance.test.mjs",
+    "evidence": "operations/evidence/cloudflare-evidence-acceptance-builder-2026-07-11T1742-0400.json",
+    "commits": [
+      "3f87ee5900ee65ff0ba30a66eaf165a6a24a66e2",
+      "f71a360c116b60e1ab6cb040af8bcf94adc23002",
+      "b62c8832c3ab9b86723ff416fa46fe3b6a1f93aa"
+    ],
+    "verification": "4 deterministic Node tests passed; 0 failed.",
+    "remaining": [
+      "Generate a real cloudflare-evidence-verification-input.json from cryptographic verification, digest comparison, trusted-builder policy, and deployment-proof validation outputs.",
+      "Invoke build-evidence-acceptance.mjs in the deployment workflow and upload cloudflare-deployment-acceptance.json as a separate artifact.",
+      "Fail the final workflow gate when decision is not accept, after evidence artifacts are uploaded.",
+      "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN and dispatch the workflow to obtain a resolving deployment URL."
+    ]
+  }
+}
