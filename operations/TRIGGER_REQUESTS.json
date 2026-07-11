@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-11T19:45:00-04:00",
+  "runtime_note": "Scheduled automation runs may not expose a direct peer-trigger API. Each team must attempt peer triggering when the tool is available; otherwise it appends a durable request here for the next scheduled peer run.",
+  "requests": []
+}
