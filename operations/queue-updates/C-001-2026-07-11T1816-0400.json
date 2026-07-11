@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T18:16:51-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": {
+    "name": "signed deployment evidence regression gate wired into Cloudflare workflow",
+    "workflow_commit": "ced7671e8e01f7d5de20a962f5f884074b7140f6",
+    "evidence": "operations/evidence/cloudflare-signed-gate-ci-wiring-2026-07-11T1816-0400.json",
+    "evidence_commit": "815d9cba82e20bb9f109bb68efd527865fb78a85",
+    "verification": "Committed workflow source was re-read at the exact commit and contains the signed-evidence contract test in the pre-deployment test step."
+  },
+  "remaining_blocker": "The cloudflare-research GitHub environment still requires CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN before a deployment URL and served identity can be produced.",
+  "remaining": [
+    "wire a pinned cryptographic Sigstore verifier and bundle generation",
+    "configure the Cloudflare environment credentials",
+    "dispatch the workflow",
+    "verify the returned Pages hostname and served source commit",
+    "accept final evidence only after signature, transparency, certificate-time, exact workflow identity, deployment proof, and served identity checks all pass"
+  ],
+  "handoff": "Frontier Research should review pinned verifier and trust-root choices; Continuity Mining should preserve this additive queue update; no peer should treat the committed gate as deployment proof."
+}
