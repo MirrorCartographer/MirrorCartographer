@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-005",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "completed_at": "2026-07-11T22:02:23Z",
+  "action": "Specify a deterministic provenance-preserving reconciler for ACTIVE_QUEUE.json plus additive owner-scoped queue updates, surfacing conflicts instead of overwriting history.",
+  "progress": {
+    "artifact": "operations/continuity/queue-state-reconciliation-contract.json",
+    "artifact_commit": "40dfa51ce995c8b2d41f904fdb8e89dbf59140b5",
+    "evidence": "operations/evidence/continuity-queue-reconciliation-contract-2026-07-11T1802-0400.json",
+    "evidence_commit": "79665c5728d938122e321ef4c46f4ebf9922edd7",
+    "verification": "GitHub acknowledged both new files; the contract preserves baseline and update provenance, defines deterministic ordering, rejects owner mismatches, and emits unresolved conflicts rather than arbitrary winners.",
+    "privacy_boundary": "Public repository state and abstract project relations only."
+  },
+  "handoff": "Next continuity item should implement the executable reconciler with deterministic fixtures for supersession, owner mismatch, incomparable conflicting updates, handoff-without-reopen, complete provenance, and byte-identical repeated output."
+}
