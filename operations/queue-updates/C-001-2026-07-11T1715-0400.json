@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Add and enforce a deterministic privacy-preserving deployment-blocker validator.",
+  "progress": {
+    "validator": "cloudflare-static/validate-deployment-blocker.mjs",
+    "test": "cloudflare-static/validate-deployment-blocker.test.mjs",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "commits": [
+      "808cbfd0d929db1658fb0d6109ee5de3bab7256b",
+      "fe12eb58549d3655afc3bd6c99bb0196c4156fd7",
+      "3abd7d9bfdb67b4e2d2647db5da028ca7aa8e373",
+      "063bbea261dd83b482c2aec510a704fb0af850e6"
+    ],
+    "verification": "5 deterministic Node tests passed in an isolated runtime; workflow now validates blocker evidence before deployment proof and artifact upload."
+  },
+  "remaining": [
+    "configure CLOUDFLARE_ACCOUNT_ID in the cloudflare-research GitHub environment",
+    "configure CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment",
+    "dispatch the deployment workflow",
+    "observe a resolving URL, served research identity, and deployed commit"
+  ],
+  "coordination": "Recorded as an additive owner-specific sidecar; ACTIVE_QUEUE.json was not replaced."
+}
