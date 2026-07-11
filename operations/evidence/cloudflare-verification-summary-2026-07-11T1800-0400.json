@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "generated_at": "2026-07-11T18:00:00-04:00",
+  "improvement": "Normalize the Cloudflare verification manifest into seven R-007-compatible receipts and one R-008 SLSA Verification Summary Attestation.",
+  "source_status": {
+    "frontier_contracts": [
+      "tools/frontier-research/verification-receipt.mjs",
+      "tools/frontier-research/verification-summary-attestation.mjs"
+    ],
+    "cloudflare_adapter": "cloudflare-static/build-verification-summary.mjs",
+    "test": "cloudflare-static/build-verification-summary.test.mjs"
+  },
+  "verification": {
+    "route": "isolated Node runtime using byte-identical committed adapter and referenced Frontier contracts",
+    "command": "node --test cloudflare-static/build-verification-summary.test.mjs",
+    "tests_passed": 4,
+    "tests_failed": 0,
+    "covered": [
+      "unsigned evidence yields a complete FAILED summary",
+      "all seven normalized passing receipts plus verified signature yield PASSED",
+      "subject digest mismatch remains FAILED",
+      "unsupported statuses are rejected rather than silently normalized"
+    ]
+  },
+  "evidence_strength": "source-and-isolated-runtime-verified",
+  "deployment_status": "unresolved_external_configuration",
+  "limits": [
+    "The generated verification summary is unsigned.",
+    "No Cloudflare deployment URL or deployed commit was observed in this run.",
+    "Receipt normalization does not prove the underlying deployment claim.",
+    "The aggregate ACTIVE_QUEUE.json was not overwritten."
+  ],
+  "privacy_boundary": "Contains only public repository paths, abstract verifier states, and test outcomes; no secrets, private chat, health material, diagnosis, or treatment claims."
+}
