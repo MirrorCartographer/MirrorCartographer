@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "queue_update",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T12:33:08-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added a deterministic, idempotent, fail-closed workflow rewriter that wires the atomic deployment-evidence finalizer into the authoritative Cloudflare workflow without replacing shared state.",
+  "files": [
+    "cloudflare-static/wire-finalize-deployment-evidence.mjs",
+    "cloudflare-static/wire-finalize-deployment-evidence.test.mjs",
+    "operations/evidence/cloudflare-finalizer-workflow-wiring-2026-07-12T1233-0400.json"
+  ],
+  "commits": [
+    "76acdc302d13bd5aa744171e00c27c800e2e3ff4",
+    "c5fe752d6ff971e78b2bbd5fbbbe8e90ebcc0a10",
+    "cd468934e09432416300d64252b36508e93732f0"
+  ],
+  "verification": {
+    "command": "node --test wire-finalize-deployment-evidence.test.mjs",
+    "tests": 3,
+    "passed": 3,
+    "failed": 0
+  },
+  "blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values before the authoritative workflow can deploy and prove a resolving hostname.",
+  "next_action": "Run the committed rewriter against .github/workflows/cloudflare-pages-research.yml, review and commit the resulting workflow-only diff, then dispatch the workflow after credentials are configured.",
+  "canonical_state_modified": false
+}
