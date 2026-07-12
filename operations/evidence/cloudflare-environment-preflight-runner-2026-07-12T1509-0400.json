@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T15:09:00-04:00",
+  "evidence_type": "implementation_verification",
+  "finding": "The existing environment contract validator and preflight evidence builder required two separate invocations and an intermediate JSON handoff. A single fail-closed runner now produces both bounded artifacts from committed workflow and requirements inputs.",
+  "design_implication": "The deployment workflow can invoke one command before secret-bearing readiness probes, retain both the normalized contract and bounded preflight packet, and fail before deployment when repository declarations drift.",
+  "files": [
+    "cloudflare-static/run-environment-preflight.mjs",
+    "cloudflare-static/run-environment-preflight.test.mjs"
+  ],
+  "commits": [
+    "30c255a74057df9c7d650d8a774c8f23a1839745",
+    "581e08f0608ba8b16ea3306017593d807cc209fc"
+  ],
+  "verification": {
+    "local_runtime": "Node test runner",
+    "tests_passed": 3,
+    "tests_failed": 0,
+    "covered": [
+      "matching declarations produce contract and bounded evidence outputs",
+      "environment or secret-reference drift fails closed",
+      "outputs expose secret names but not credential values"
+    ],
+    "deployment_attempted": false,
+    "served_hostname_verified": false
+  },
+  "evidence_strength": "locally_executed_deterministic_tests_plus_committed_source",
+  "limits": [
+    "GitHub environment existence is not proven",
+    "secret installation or correctness is not proven",
+    "Cloudflare authorization is not proven",
+    "deployment and DNS resolution are not proven",
+    "scientific or medical claims are not evaluated"
+  ],
+  "falsification_route": [
+    "run node --test cloudflare-static/run-environment-preflight.test.mjs",
+    "invoke the runner against a workflow missing either required secret reference and require a non-zero exit",
+    "inspect generated files and reject any credential value material",
+    "dispatch the exact-commit workflow only after repository-environment configuration exists"
+  ]
+}
