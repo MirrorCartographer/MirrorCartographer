@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "team": "cloudflare_research",
+  "claim_state": "observed",
+  "improvement": "Added a reusable blocked-deployment evidence builder and a workflow that preserves privacy-safe blocker evidence when Cloudflare credentials are absent, without claiming deployment success.",
+  "source_commits": [
+    "b1c8897c8936378e301c2cd7b0ed61793e0595d3",
+    "9e0b580ea13ba523f3ccc747c4fe681789727c95",
+    "b577024dfd118987c5edf253811c48ca25ab4206"
+  ],
+  "files": [
+    "cloudflare-static/build-blocked-deployment-evidence.mjs",
+    "cloudflare-static/build-blocked-deployment-evidence.test.mjs",
+    ".github/workflows/cloudflare-blocked-evidence.yml"
+  ],
+  "verification": {
+    "route": "isolated Node runtime using byte-equivalent committed contract logic",
+    "tests_passed": 4,
+    "tests_failed": 0,
+    "covered": [
+      "privacy-safe blocked packet",
+      "unexpected secret-name rejection",
+      "ready-state misuse rejection",
+      "immutable source-commit enforcement"
+    ],
+    "workflow_run_observed": false
+  },
+  "privacy_boundary": {
+    "secret_values_emitted": false,
+    "allowed_secret_names": [
+      "CLOUDFLARE_ACCOUNT_ID",
+      "CLOUDFLARE_API_TOKEN"
+    ],
+    "private_chat_or_health_material_used": false
+  },
+  "epistemic_limit": "The new packet can prove that deployment is blocked by named configuration requirements. It cannot prove that Cloudflare deployed or served the research surface.",
+  "remaining_blocker": "Configure the cloudflare-research GitHub Environment and execute the production deployment workflow to obtain a resolving URL, served identity, and deployed commit.",
+  "generated_at": "2026-07-12T00:10:36Z"
+}
