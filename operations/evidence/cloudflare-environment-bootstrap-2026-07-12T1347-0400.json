@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T13:47:00-04:00",
+  "claim_state": "observed",
+  "evidence_strength": "repository_source_committed",
+  "finding": "The deployment implementation already validates repository declarations, but the external configuration blocker lacked a bounded least-privilege installation, dispatch, failure-classification, and revocation procedure.",
+  "durable_improvement": {
+    "path": "cloudflare-static/CLOUDFLARE_ENVIRONMENT_BOOTSTRAP.md",
+    "commit": "c05328fe23678df7d05010843dcc0dc9aa54b2c7",
+    "properties": [
+      "names the exact GitHub environment and required secret identifiers without storing values",
+      "defines least-privilege Cloudflare token scope",
+      "separates configuration, access, control-plane, runtime, and claim evidence",
+      "defines pre-dispatch validation and completion evidence",
+      "defines non-secret failure classifications",
+      "defines token revocation and rollback boundaries"
+    ]
+  },
+  "verification": {
+    "source_commit_created": true,
+    "secret_values_accessed": false,
+    "deployment_attempted": false,
+    "runtime_hostname_verified": false,
+    "reason": "C-001 remains externally blocked until the GitHub environment secrets are installed and the deployment workflow is dispatched."
+  },
+  "privacy_boundary": "No credential values, private chat, personal health information, or unpublished scientific claims are present.",
+  "falsification_route": "Review the runbook against the committed workflow and requirements contracts; reject it if names, scopes, evidence requirements, or failure states conflict with executable repository behavior."
+}
