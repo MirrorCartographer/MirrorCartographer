@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-015",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Add a deterministic CLI that composes repository discovery with continuity inventory interpretation without modifying historical queue records.",
+  "dependencies": ["M-014"],
+  "selected_from": {
+    "canonical_item": "M-001",
+    "effective_head": "M-014",
+    "selection_reason": "M-014 explicitly handed off a CLI wrapper that composes repository discovery with the report builder before generating the complete checked-out repository inventory."
+  },
+  "unresolved_inherited": [
+    "complete generated repository inventory artifact",
+    "classification of intentional versus accidental forks",
+    "CI integration",
+    "M-007 workflow execution artifact",
+    "M-008 adapter audit",
+    "semantic matching for differently worded but equivalent unresolved claims"
+  ],
+  "resolved_claims": [
+    "deterministic executable composition of repository discovery and continuity report interpretation"
+  ],
+  "progress": {
+    "memory": "Inventory generation is a third boundary after discovery and interpretation: it composes the two layers, serializes a report, and may write a new artifact, but it must never mutate the historical M-* records it reads.",
+    "module": "tools/continuity/generate-continuity-inventory.mjs",
+    "module_commit": "1161ecae9c7c5ade79899cac8296baf055332afa",
+    "test": "tools/continuity/generate-continuity-inventory.test.mjs",
+    "test_commit": "fb168b3110497e2a2568d3f8f67ed0ce3841ea3e",
+    "evidence": "operations/evidence/continuity-inventory-cli-2026-07-11T2333-0400.json",
+    "evidence_commit": "2516ec66183a533f1dd918cbb490abb18475a3ca",
+    "verification": "Source and committed test coverage were reviewed. Test execution and exact-commit CI were not observed, so passing execution is not claimed.",
+    "claim_states": {
+      "observed": "The CLI composes buildRepositoryContinuityInventory with buildContinuityInventoryReport, emits stable formatted JSON, optionally writes a caller-selected artifact, and does not alter discovered history.",
+      "inferred": "Separating execution and serialization from discovery and interpretation makes provenance boundaries inspectable and reduces accidental semantic coupling.",
+      "proposed": "Run the CLI in a checked-out default branch and preserve the complete generated report through CI or a reviewed evidence commit.",
+      "superseded": "Manual ad hoc composition as the only route to generating a repository continuity inventory.",
+      "unresolved": [
+        "exact-commit test execution evidence",
+        "complete generated repository inventory artifact",
+        "classification of intentional versus accidental forks",
+        "CI integration",
+        "M-007 workflow execution artifact",
+        "M-008 adapter audit",
+        "semantic matching for differently worded but equivalent unresolved claims"
+      ]
+    }
+  },
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "specialist_registry_change": "none",
+  "completed_at": "2026-07-11T23:33:43-04:00",
+  "privacy_boundary": "Only public repository code, abstract queue metadata, and commit metadata were used. Raw private chat, health and pet-health material, credentials, personal identifiers, and unreviewed uploads were excluded.",
+  "handoff": "Execute the committed CLI against a checked-out default branch, preserve the complete generated inventory as evidence, and add CI that fails on malformed records, missing dependencies, or dropped unresolved claims without rewriting historical M-* files."
+}
