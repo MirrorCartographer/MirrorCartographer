@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-009",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "completed",
+  "action": "Bind cryptographically verified signer fingerprints to exact repository, workflow, ref, and claim-class authorization scope.",
+  "derived_from": [
+    "operations/queue-updates/R-008-2026-07-11T2310-0400.json",
+    "tools/frontier-research/dsse-signature-verifier.mjs"
+  ],
+  "required_evidence": [
+    "current primary specification",
+    "deny-by-default policy evaluator",
+    "adversarial scope tests",
+    "explicit trust limit",
+    "falsification route"
+  ],
+  "progress": {
+    "primary_sources": [
+      "https://slsa.dev/spec/v1.2/verifying-artifacts",
+      "https://docs.github.com/en/actions/how-tos/secure-your-work/use-artifact-attestations/enforce-artifact-attestations"
+    ],
+    "finding": "Signature validity and distinct-key threshold satisfaction do not authorize a signer for a particular evidence class. Authorization must be explicit and exact-scope.",
+    "module": "tools/frontier-research/signer-authorization-policy.mjs",
+    "test": "tools/frontier-research/signer-authorization-policy.test.mjs",
+    "evidence": "operations/evidence/frontier-research-signer-authorization-2026-07-11T2322-0400.json",
+    "commits": [
+      "15a3c9ef62bc516b7eba8b6f11b638436fef5922",
+      "90aebeae4751626ceba2073783a78c58719f37a8",
+      "1ac09576540fdfa28d31198a3733653062463bb5"
+    ],
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical source and test content"
+  },
+  "handoff": "Cloudflare and Vercel evidence acceptance should invoke signer authorization only after DSSE verification and distinct-key threshold evaluation, using real authorized fingerprints loaded from protected configuration rather than repository test fixtures.",
+  "next_action": "Integrate the policy into verified-evidence-acceptance and add certificate or OIDC-derived identity binding so repository, workflow, and ref cannot be supplied only by an untrusted caller."
+}
