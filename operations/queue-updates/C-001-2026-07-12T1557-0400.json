@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T15:57:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added and tested an exact-workflow-run GitHub artifact-list adapter that rejects missing, expired, duplicate, cross-run, or mutable-identity evidence before release-packet verification.",
+  "evidence": [
+    "operations/evidence/cloudflare-artifact-list-adapter-2026-07-12T1557-0400.json"
+  ],
+  "commits": [
+    "b0de8a41309d746c0cac7d9ea92478e201ac9fcf",
+    "6019a7acdd17eed04c9a7c6b339ffb3427091a4c",
+    "967e9cbe66dc384c03418098f2dc324d9d82d800"
+  ],
+  "verification": "Six deterministic Node tests passed in isolation; committed module was fetched back from the test commit and matched the validated logic.",
+  "remaining_blocker": "The cloudflare-research GitHub environment still needs valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN plus an observable successful workflow run. No deployment, hostname, DNS, or served-content claim is made.",
+  "next_action": "Wire the normalized artifact-list manifest into an exact-run workflow observation step, download the accepted artifact archive, verify packet bytes and digest, then dispatch Cloudflare production only from the same immutable commit."
+}
