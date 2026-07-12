@@ -17,12 +17,13 @@ export function buildEvidenceAcceptance(input) {
   });
   const reasons = [...evaluation.reasons];
   if (input.signatureSubjectVerification?.status !== 'match') reasons.push('signature.subject-mismatch');
+  if (input.freshnessEvidence?.status !== 'fresh') reasons.push('proof.stale-or-unverified');
   if (input.claimEvidence?.status !== 'valid') reasons.push('claim.invalid');
   const uniqueReasons = [...new Set(reasons)];
   const accepted = uniqueReasons.length === 0;
 
   return {
-    schema_version: '2.1.0',
+    schema_version: '2.2.0',
     accepted,
     decision: accepted ? 'accept' : 'reject',
     reasons: uniqueReasons,
@@ -30,13 +31,14 @@ export function buildEvidenceAcceptance(input) {
     source_status: {
       signature: input.signatureVerification?.status ?? 'not_verified',
       signature_subject: input.signatureSubjectVerification?.status ?? 'unknown',
+      freshness: input.freshnessEvidence?.status ?? 'invalid',
       claim: input.claimEvidence?.status ?? 'invalid',
       subject: input.subjectVerification?.status ?? 'unknown',
       builder: input.trustedBuilderPolicy?.builder ?? 'unknown',
       source: input.trustedBuilderPolicy?.source ?? 'unknown'
     },
-    derivation_rule: 'Deployment acceptance requires cryptographic verification bound to the exact proof digest, exact artifact/provenance binding, trusted builder policy, and valid served-deployment claim evidence. Caller-supplied summary booleans are not acceptance inputs.',
-    trust_limit: evaluation.trustLimit
+    derivation_rule: 'Deployment acceptance requires cryptographic verification bound to the exact proof digest, exact artifact/provenance binding, trusted builder policy, a fresh proof timestamp inside configured bounds, and valid served-deployment claim evidence. Caller-supplied summary booleans are not acceptance inputs.',
+    trust_limit: `${evaluation.trustLimit} Freshness proves only that the recorded proof time is inside the configured acceptance window; it does not prove continuing availability or scientific truth.`
   };
 }
 
