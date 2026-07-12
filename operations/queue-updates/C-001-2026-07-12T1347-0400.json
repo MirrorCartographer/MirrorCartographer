@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T13:47:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a least-privilege, privacy-preserving bootstrap and verification runbook for the cloudflare-research GitHub environment.",
+  "files": [
+    "cloudflare-static/CLOUDFLARE_ENVIRONMENT_BOOTSTRAP.md",
+    "operations/evidence/cloudflare-environment-bootstrap-2026-07-12T1347-0400.json"
+  ],
+  "commits": [
+    "c05328fe23678df7d05010843dcc0dc9aa54b2c7",
+    "af55cfec78df59519eb0ac6c327608628d558dcb"
+  ],
+  "verification": {
+    "repository_write": "accepted by GitHub",
+    "deployment": "not attempted",
+    "runtime": "not verified"
+  },
+  "remaining_blocker": "Install CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN as environment secrets in cloudflare-research, then dispatch .github/workflows/cloudflare-pages-research.yml and retain the returned deployment proof and attestation artifacts.",
+  "next_action": "Run the exact-commit deployment workflow and classify the result using the committed bootstrap runbook."
+}
