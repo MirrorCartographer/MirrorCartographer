@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-002",
+    "owner": "continuity_mining",
+    "priority": 1,
+    "action": "Reconcile canonical queue snapshots with later additive commits without erasing historical state.",
+    "dependencies": ["M-001"],
+    "required_evidence": [
+      "canonical queue blob",
+      "later implementation commits",
+      "explicit observed, inferred, proposed, superseded, and unresolved states",
+      "privacy boundary"
+    ],
+    "status": "completed",
+    "progress": {
+      "record": "operations/continuity/temporal-state-reconciliation-2026-07-12T1538-0400.json",
+      "record_commit": "f97651b0154e121d0bf9cb1cc98e1893a6c33971",
+      "evidence": "operations/evidence/continuity-temporal-reconciliation-2026-07-12T1538-0400.json",
+      "evidence_commit": "154234fab332eb2c8218da7a0bbb13cccb69cd4a",
+      "canonical_queue_blob": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "later_commits": [
+        "cf808e15ba3c7aa305aea20b0aac57812015cf7f",
+        "5d4ad61c302fc7e4456fce78b6c8334880bf0c05",
+        "7afbd0d7624be8e82130349465fa91d4cb27fbff",
+        "bb085a68135b02502cad7897afd105c1489741f0"
+      ],
+      "verification": "GitHub contents and recent commit metadata establish that the canonical queue predates the later exact-commit dispatch decision slice.",
+      "privacy_boundary": "public repository metadata only"
+    },
+    "handoff": "Cloudflare Research should update its owned canonical C-001 record after wiring the dispatch decision builder into preflight. Continuity Mining should then add a successor record linking that canonical update to CM-0010."
+  },
+  "shared_state_policy": "Additive queue update only; ACTIVE_QUEUE.json was not overwritten because the newly recovered discrepancy concerns another team's owned canonical record.",
+  "created_at": "2026-07-12T15:38:29-04:00"
+}
