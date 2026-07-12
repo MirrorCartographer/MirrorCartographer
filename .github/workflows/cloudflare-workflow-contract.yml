@@ -7,12 +7,16 @@ on:
       - '.github/workflows/cloudflare-workflow-contract.yml'
       - 'cloudflare-static/validate-workflow-contract.mjs'
       - 'cloudflare-static/validate-workflow-contract.test.mjs'
+      - 'cloudflare-static/validate-cloudflare-workflow-contract.mjs'
+      - 'cloudflare-static/validate-cloudflare-workflow-contract.test.mjs'
   pull_request:
     paths:
       - '.github/workflows/cloudflare-pages-research.yml'
       - '.github/workflows/cloudflare-workflow-contract.yml'
       - 'cloudflare-static/validate-workflow-contract.mjs'
       - 'cloudflare-static/validate-workflow-contract.test.mjs'
+      - 'cloudflare-static/validate-cloudflare-workflow-contract.mjs'
+      - 'cloudflare-static/validate-cloudflare-workflow-contract.test.mjs'
   workflow_dispatch:
 
 permissions:
@@ -25,8 +29,11 @@ jobs:
       - name: Checkout committed source
         uses: actions/checkout@v6
 
-      - name: Run adversarial contract tests
+      - name: Run adversarial structural contract tests
         run: node --test cloudflare-static/validate-workflow-contract.test.mjs
+
+      - name: Run credential-binding contract tests
+        run: node --test cloudflare-static/validate-cloudflare-workflow-contract.test.mjs
 
       - name: Validate production workflow invariants
         run: >-
@@ -34,11 +41,19 @@ jobs:
           .github/workflows/cloudflare-pages-research.yml
           cloudflare-workflow-contract-result.json
 
-      - name: Upload contract result
+      - name: Validate credential and deployment binding
+        run: >-
+          node cloudflare-static/validate-cloudflare-workflow-contract.mjs
+          .github/workflows/cloudflare-pages-research.yml
+          cloudflare-workflow-credential-contract-result.json
+
+      - name: Upload contract results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cloudflare-workflow-contract-${{ github.sha }}
-          path: cloudflare-workflow-contract-result.json
+          path: |
+            cloudflare-workflow-contract-result.json
+            cloudflare-workflow-credential-contract-result.json
           if-no-files-found: error
           retention-days: 30
