@@ -1,3 +1,10 @@
+function unresolvedClaims(record) {
+  return [
+    ...(Array.isArray(record.unresolved) ? record.unresolved : []),
+    ...(Array.isArray(record.unresolved_inherited) ? record.unresolved_inherited : []),
+  ];
+}
+
 export function validateInheritedUnresolved(records) {
   if (!Array.isArray(records)) throw new TypeError('records must be an array');
 
@@ -20,11 +27,7 @@ export function validateInheritedUnresolved(records) {
         continue;
       }
 
-      const predecessorUnresolved = Array.isArray(predecessor.unresolved)
-        ? predecessor.unresolved
-        : [];
-
-      for (const claim of predecessorUnresolved) {
+      for (const claim of unresolvedClaims(predecessor)) {
         if (!inherited.has(claim) && !resolved.has(claim)) {
           violations.push({
             type: 'dropped_unresolved_claim',
