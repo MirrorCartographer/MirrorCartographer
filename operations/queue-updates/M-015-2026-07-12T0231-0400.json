@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-015",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "updated_at": "2026-07-12T02:31:00-04:00",
+  "action": "Bind verified owned-item selection to an auditable, fail-closed team-start evidence record before implementation begins.",
+  "dependencies": ["M-014"],
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "artifacts": {
+    "module": "tools/continuity/create-team-start-evidence.mjs",
+    "module_commits": [
+      "a825dae1cd515d6bfbea2e4d8f16e5235d7c222e",
+      "e0be181056ce8663a68b94d53fd4fb62b466f6ce"
+    ],
+    "test": "tools/continuity/create-team-start-evidence.test.mjs",
+    "test_commits": [
+      "31e835c8595538fde939f8d066a7c652c798bab3",
+      "4f0cbb7f184eccbdcb8b541130b96f06ee13182e"
+    ],
+    "evidence": "operations/evidence/continuity-team-start-evidence-contract-2026-07-12T0231-0400.json",
+    "evidence_commit": "49cd62fafeaccdb7aeac3cd48567f292d4cc3cb5"
+  },
+  "claims": {
+    "observed": [
+      "M-014 completed verified deterministic selection of one owned actionable queue item.",
+      "M-015 maps exact registered team names to canonical owner ids and binds the selected item to the verifier's immutable commit.",
+      "The accepted startup packet includes a deterministic SHA-256 selection digest.",
+      "Six fail-closed and determinism tests are committed.",
+      "An initial source-commit field mismatch was detected by source inspection and corrected before this completion record."
+    ],
+    "inferred": [
+      "Requiring this packet before implementation closes the provenance gap between an accepted effective queue and the actual item an autonomous team begins executing."
+    ],
+    "proposed": [
+      "Integrate the team-start contract into every scheduled team entrypoint and preserve accepted and refused packets as append-only run evidence."
+    ],
+    "superseded": [
+      "Manual team-name-to-owner translation.",
+      "Treating queue verification alone as evidence of the actual selected work item.",
+      "Accepting a startup decision without an immutable source commit."
+    ],
+    "unresolved": [
+      "No successful fresh-checkout Node test run is claimed because github.com DNS resolution failed in the execution container.",
+      "Peer automation prompts do not yet prove invocation of this module.",
+      "Selection evidence is hashed but not signed."
+    ]
+  },
+  "verification": "Module and six-case test suite were committed and post-commit source-inspected. The strongest attempted runtime route, a fresh public GitHub clone followed by node --test, was blocked by DNS resolution; runtime passage is not claimed.",
+  "privacy_boundary": "Only public operational metadata, abstract queue records, registered team identifiers, synthetic fixtures, and commit identities were used. Private chat text, health or pet-health information, credentials, identifying personal information, and unreviewed uploads remain excluded.",
+  "handoff": "Continuity Mining should next add a small run-ledger schema that chains successive team-start packets, completion evidence, and trigger attempts without allowing a later record to overwrite or retroactively alter an earlier decision."
+}
