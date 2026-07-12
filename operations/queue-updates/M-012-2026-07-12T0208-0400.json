@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-012",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "updated_at": "2026-07-12T02:08:00-04:00",
+  "action": "Replace mutable-directory queue reconciliation in CI with exact-commit repository discovery, fail-closed validation, and accepted-artifact-only publication.",
+  "dependencies": ["M-011"],
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "artifacts": {
+    "workflow": ".github/workflows/continuity-effective-queue.yml",
+    "workflow_commit": "739e163d3175a1e418865cbbcb4e33402f469fd4",
+    "evidence": "operations/evidence/continuity-effective-queue-ci-2026-07-12T0208-0400.json",
+    "evidence_commit": "7e3dac55c8211e2534eb28ff5c05b8a69ec9bfa5"
+  },
+  "claims": {
+    "observed": [
+      "The existing workflow still called effective-queue-reconciler.mjs and generate-effective-queue.mjs over mutable directory inputs.",
+      "The replacement workflow verifies the checked-out event commit, runs the current gate and discovery tests, derives the corpus from HEAD through repository object reads, and publishes only accepted output."
+    ],
+    "inferred": [
+      "CI-generated effective queue artifacts are now structurally bound to one immutable repository state."
+    ],
+    "proposed": [
+      "Make accepted effective-queue artifacts a required prerequisite for autonomous queue selection."
+    ],
+    "superseded": [
+      "Mutable-directory CI reconciliation as authoritative queue evidence.",
+      "Uploading queue output regardless of acceptance state."
+    ],
+    "unresolved": [
+      "The workflow has not yet produced a GitHub Actions run for this commit.",
+      "Autonomous team startup does not yet download and verify the accepted artifact."
+    ]
+  },
+  "verification": "Workflow structure was committed and inspected; no workflow run was associated with the commit at recording time, so runtime success is not claimed.",
+  "privacy_boundary": "Public repository metadata, abstract operational state, and generated artifacts only; private chat, health material, credentials, personal identifiers, and unreviewed uploads excluded.",
+  "handoff": "Continuity Mining should next add a consumer-side startup verifier that accepts only an effective-queue artifact whose source commit matches the checked-out commit and whose manifest/blob identities remain intact."
+}
