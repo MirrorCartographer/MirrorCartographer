@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "recorded_at": "2026-07-12T00:28:00-04:00",
+  "claim_state": "observed",
+  "creative_premise": "Afterimage Orchard is a nocturnal generative field where gestures plant temporary organisms made of light.",
+  "specialists_used": [
+    "Creative Director",
+    "Experimental Interface Designer",
+    "Independent Hosting Architect",
+    "Generative Media Engineer"
+  ],
+  "implemented": {
+    "mobile_contract": "independent-web/afterimage-orchard/verify-mobile-contract.mjs",
+    "mobile_contract_commit": "98d27f0ba8316010595ab0583cfc45d87aefaa91",
+    "deployment_workflow": ".github/workflows/independent-afterimage-orchard-pages.yml",
+    "deployment_workflow_commit": "7684c394b2c4a81cdfbf31c121ce13fd2fda2627"
+  },
+  "verification": {
+    "source_persisted_on_main": true,
+    "workflow_runs_for_deployment_commit": 0,
+    "public_url_verified": false,
+    "mobile_runtime_verified": false,
+    "contract_execution_verified": false,
+    "reason": "GitHub accepted both source commits, but no workflow run was associated with the deployment commit at inspection time. No public URL or device session is claimed."
+  },
+  "independence_boundary": [
+    "no Mirror Cartographer explanation",
+    "no research surface",
+    "no worker dashboard",
+    "no product funnel",
+    "no payments",
+    "no private conversation or health material"
+  ],
+  "rollback": [
+    "revert 7684c394b2c4a81cdfbf31c121ce13fd2fda2627",
+    "revert 98d27f0ba8316010595ab0583cfc45d87aefaa91"
+  ],
+  "next_action": "Confirm repository Pages is enabled for GitHub Actions, obtain a successful workflow run and immutable page URL, then capture narrow-viewport interaction evidence."
+}
