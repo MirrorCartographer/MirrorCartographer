@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-015",
+  "recorded_at": "2026-07-11T23:33:43-04:00",
+  "source_scope": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/queue-updates/M-014-2026-07-11T2324-0400.json",
+    "tools/continuity/continuity-inventory-discovery.mjs",
+    "tools/continuity/continuity-inventory-report.mjs",
+    "recent public commit metadata"
+  ],
+  "memory_recovered": "Continuity inventory generation is an execution boundary distinct from both repository discovery and lineage interpretation. A CLI may compose those layers and serialize their result, but it must not mutate historical M-* records or imply that generated output is itself canonical history.",
+  "claim_states": {
+    "observed": [
+      "The CLI composes buildRepositoryContinuityInventory with buildContinuityInventoryReport.",
+      "The CLI emits deterministic pretty-printed JSON with a trailing newline and optionally writes it to a caller-selected path.",
+      "The CLI requires an explicit repository root at the programmatic interface and preserves discovery.history_modified=false from the discovery layer."
+    ],
+    "inferred": [
+      "Keeping serialization in a separate executable layer reduces the risk that report generation silently changes discovery or interpretation semantics."
+    ],
+    "proposed": [
+      "Run the CLI in a checked-out default branch and preserve the resulting complete inventory as a CI artifact or reviewed evidence file."
+    ],
+    "superseded": [
+      "Manual ad hoc composition as the only way to produce a repository continuity inventory."
+    ],
+    "unresolved": [
+      "exact-commit test execution evidence",
+      "complete generated repository inventory artifact",
+      "classification of intentional versus accidental forks",
+      "CI integration",
+      "M-007 workflow execution artifact",
+      "M-008 adapter audit",
+      "semantic matching for differently worded but equivalent unresolved claims"
+    ]
+  },
+  "files": {
+    "module": "tools/continuity/generate-continuity-inventory.mjs",
+    "module_commit": "1161ecae9c7c5ade79899cac8296baf055332afa",
+    "test": "tools/continuity/generate-continuity-inventory.test.mjs",
+    "test_commit": "fb168b3110497e2a2568d3f8f67ed0ce3841ea3e"
+  },
+  "verification": {
+    "source_review": "completed",
+    "test_execution": "not observed in this run",
+    "ci": "not observed",
+    "claim_limit": "Committed test coverage is present, but passing execution is not claimed without runtime evidence."
+  },
+  "privacy_boundary": "Only public repository code, abstract queue metadata, and commit metadata were used. Raw private chat, health and pet-health material, credentials, personal identifiers, and unreviewed uploads were excluded.",
+  "history_modified": false
+}
