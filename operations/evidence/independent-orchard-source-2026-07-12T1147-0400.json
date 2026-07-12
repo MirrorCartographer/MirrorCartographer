@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "recorded_at": "2026-07-12T11:47:00-04:00",
+  "claim": "The Orchard That Remembers Rain is committed as a self-contained independent interactive artwork with a static source contract.",
+  "claim_state": "observed_source",
+  "evidence_strength": "repository_source_inspection",
+  "artifact": {
+    "path": "independent-web/orchard-that-remembers-rain/index.html",
+    "blob_sha": "467e541150609d9b908814d5a5ad63e34afe8adb",
+    "source_commit": "15d4252269fa22cc784b0563b740743653a5d6e3"
+  },
+  "identity": {
+    "path": "independent-web/orchard-that-remembers-rain/IDENTITY.md",
+    "commit": "8e173a1f0e60e69e46b30c528d1e891cb8a69d11"
+  },
+  "contract_test": {
+    "path": "independent-web/orchard-that-remembers-rain/contract.test.mjs",
+    "blob_sha": "8172e1dc2d1868edaaba93673fadff7276140b69",
+    "commit": "d209b39ed91c1eab02e8615ed54a4f6815bc64eb",
+    "execution_state": "not_executed",
+    "reason": "The runtime could not resolve raw.githubusercontent.com for a fresh checkout. The committed source and test were fetched through the GitHub connector and inspected directly."
+  },
+  "observed_contracts": [
+    "single-file HTML runtime",
+    "no external script, stylesheet, font, image, analytics, or network dependency",
+    "pointer and drag rain interaction",
+    "keyboard storm interaction",
+    "bounded rain and tree collections",
+    "rain-to-tree causal planting path",
+    "opt-in generated Web Audio",
+    "live-region announcements",
+    "safe-area and reduced-motion handling",
+    "no Mirror Cartographer, medical, payment, or conversion runtime content"
+  ],
+  "privacy_boundary": "No private chat, health information, credentials, personal identifiers, or user data are present.",
+  "limits": [
+    "No public hosting URL was verified.",
+    "No browser rendering was captured.",
+    "No physical mobile-device interaction or audio outcome was observed.",
+    "The static contract test is committed but was not executed in this run."
+  ],
+  "falsification_route": "Run node --test independent-web/orchard-that-remembers-rain/contract.test.mjs in a fresh checkout, serve the directory as static files, capture desktop and mobile screenshots, and verify pointer, keyboard, reset, storm, and opt-in sound behavior in a real browser."
+}
