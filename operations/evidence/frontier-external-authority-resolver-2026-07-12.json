@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-016",
+  "owner": "frontier_research",
+  "created_at": "2026-07-12T15:55:00-04:00",
+  "primary_sources": [
+    {
+      "title": "The Update Framework Specification 1.0.34",
+      "url": "https://theupdateframework.github.io/specification/latest/",
+      "source_status": "current_primary_specification",
+      "relevant_findings": [
+        "threshold or quorum trust limits the effect of fewer-than-threshold key compromises",
+        "signatures from one key must not be counted more than once toward a threshold",
+        "freshness and rollback resistance require retained trusted state and validity windows"
+      ]
+    },
+    {
+      "title": "Node.js Crypto API",
+      "url": "https://nodejs.org/api/crypto.html",
+      "source_status": "current_official_runtime_documentation",
+      "relevant_findings": [
+        "Ed25519 verification is available through node:crypto verify with a null algorithm parameter",
+        "public keys can be loaded from PEM SubjectPublicKeyInfo material"
+      ]
+    }
+  ],
+  "finding": "A divergent two-replica state cannot be safely resolved by choosing the highest sequence. Resolution requires a separately configured authority set, threshold-valid signatures over the exact candidate digest and sequence, freshness checks, unique signer counting, and fail-closed handling of conflicting threshold statements.",
+  "design_implication": "Add a pure resolver that accepts only threshold-signed, unexpired statements for one of the observed divergent candidates. Reject insufficient signatures, duplicate signer inflation, outside candidates, expired statements, and simultaneous threshold authorization of different candidates.",
+  "artifact": "tools/frontier-research/external-authority-resolver.mjs",
+  "test": "tools/frontier-research/external-authority-resolver.test.mjs",
+  "verification": {
+    "runtime": "Node.js built-in test runner",
+    "result": "6 tests passed, 0 failed",
+    "tested_behaviors": [
+      "threshold selection",
+      "below-threshold rejection",
+      "duplicate signer rejection",
+      "expiry rejection",
+      "outside-candidate rejection",
+      "conflicting-threshold rejection"
+    ]
+  },
+  "evidence_strength": "implemented_and_locally_tested",
+  "uncertainty": "The test harness uses generated in-process Ed25519 keys and does not prove independent administration, hardware protection, remote availability, or secure root-policy distribution.",
+  "falsification_route": "Provide a statement that the resolver accepts without threshold-valid unique signatures, after expiry, for a non-candidate state, or while another threshold-valid statement authorizes a different candidate.",
+  "trust_limit": "Compromise of threshold keys, stale or malicious root policy, or collusion among threshold authorities can authorize a false state. Cryptographic authorization does not prove factual truth."
+}
