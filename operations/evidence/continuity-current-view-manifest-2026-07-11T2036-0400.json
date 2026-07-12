@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-004",
+  "recorded_at": "2026-07-12T00:36:36Z",
+  "artifact": "operations/continuity/current-view-manifest-2026-07-11.json",
+  "artifact_commit": "ceb3810b231fed4ad8fd023945b5bf8c57062d85",
+  "finding": "The canonical queue snapshot and later append-only continuity updates can be replayed as distinct temporal layers without mutating either source.",
+  "verification": {
+    "status": "passed_for_cited_inputs",
+    "inputs": [
+      "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "operations/queue-updates/M-002-2026-07-11T2023-0400.json@77bd1d7c6722a25fac43fb706eb81aa817bbe2ca",
+      "operations/queue-updates/M-003-2026-07-11T2029-0400.json@53d1dfd3b92bc032906d2419632495eabdae9543"
+    ],
+    "ordering": "completed_at ascending, then queue_item lexical ascending",
+    "resulting_states": ["M-001 completed", "M-002 completed", "M-003 completed", "M-004 completed"]
+  },
+  "evidence_strength": "corroborated_repository_sources_with_explicit_completeness_limit",
+  "privacy_boundary": "Public repository state and commit metadata only; private chat, health, credentials, identifiers, and unreviewed uploads excluded.",
+  "limit": "The available connector did not provide a complete directory listing, so the curated replay is deterministic but repository-wide completeness remains unresolved.",
+  "falsification_route": "Find a continuity_mining queue update completed before this artifact that is absent from the manifest, or replay the cited inputs and obtain a different resulting state."
+}
