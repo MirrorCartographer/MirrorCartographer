@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-12T11:00:00-04:00",
+  "team": "frontier_research",
+  "artifact": "tools/frontier-research/browser-audio-evidence-packet.mjs",
+  "test": "tools/frontier-research/browser-audio-evidence-packet.test.mjs",
+  "primary_sources": [
+    {
+      "url": "https://www.w3.org/TR/webaudio/#dom-audiocontext-getoutputtimestamp",
+      "status": "W3C working draft",
+      "finding": "AudioContext output timestamps expose context and performance clock positions for browser-side render correlation; they are not an audibility measurement."
+    },
+    {
+      "url": "https://www.w3.org/TR/hr-time-3/#sec-time-origin",
+      "status": "W3C specification",
+      "finding": "DOMHighResTimeStamp values are interpreted relative to a defined time origin, so evidence components require one preserved session and explicit correlation rather than timestamp comparison across unrelated contexts."
+    }
+  ],
+  "finding": "Browser audio evidence becomes materially stronger when clock samples, clock evaluation, route observations, diagnostic pulse identity, deployed commit, freshness, and optional audibility observation are bound into one digest-checked session packet while keeping processing and audibility as separate claim classes.",
+  "evidence_strength": "tested contract; no live browser or device observation",
+  "source_status": "primary standards plus repository-local prior artifacts",
+  "uncertainty": "The packet cannot establish that a browser implementation reports timestamps correctly, that a device emitted acoustic energy, or that a human heard the signal.",
+  "falsification_route": [
+    "Mutate any bound component and require digest rejection.",
+    "Compose components from different session identifiers and require rejection.",
+    "Supply stale evidence and require rejection.",
+    "Supply inconsistent or incomplete clock evidence and require rejection.",
+    "Compare a packet reporting processing without audibility against an external device-level measurement."
+  ],
+  "verification": {
+    "command": "node --test browser-audio-evidence-packet.test.mjs",
+    "environment": "isolated Node runtime with byte-identical pre-commit files",
+    "passed": 6,
+    "failed": 0
+  },
+  "implementation_commits": [
+    "7cf25c5395fd7c6495f2c0a45e460baa365d40eb",
+    "9fde44126ae3324f916d9e2346ebd448e09ea192"
+  ]
+}
