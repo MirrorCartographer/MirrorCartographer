@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-12T01:41:44-04:00",
+  "sources": [
+    {
+      "url": "https://w3c.github.io/event-timing/",
+      "status": "primary_editor_draft",
+      "observed": "The Event Timing draft requires support detection through PerformanceObserver.supportedEntryTypes, defines event and first-input entry types, exposes interactionId on PerformanceEventTiming, and sets an effective minimum duration threshold of 16 ms."
+    },
+    {
+      "url": "https://w3c.github.io/performance-timeline/",
+      "status": "primary_editor_draft",
+      "observed": "Performance Timeline defines the observer and supported-entry-type mechanism used for runtime capability detection."
+    }
+  ],
+  "finding": "A standards-linked capability evaluator is insufficient until a browser-side collector derives its inputs from actual runtime interfaces without retaining raw interaction data or browser fingerprint strings.",
+  "design_implication": "Collect a privacy-bounded capability packet from PerformanceObserver.supportedEntryTypes, PerformanceEventTiming.prototype.interactionId, and performance.eventCounts before replay evidence is evaluated. Unsupported runtimes remain unresolved rather than becoming zero-event successes.",
+  "artifact": {
+    "module": "tools/frontier-research/event-timing-capability-collector.mjs",
+    "test": "tools/frontier-research/event-timing-capability-collector.test.mjs",
+    "commits": [
+      "6ed90640542297733422c8a0be17614baa926ba7",
+      "6f1b5e05f508f0d6fedf351d2622afe46597a1c5"
+    ]
+  },
+  "verification": {
+    "route": "isolated Node.js runtime using byte-identical source and test content before commit",
+    "result": "6 passed; 0 failed",
+    "coverage": [
+      "supported runtime produces an observed capability packet",
+      "missing observer remains unresolved",
+      "supported strings without interaction interface fail closed",
+      "missing eventCounts remains an explicit completeness limit",
+      "raw entries, event names, selectors, targets, and user-agent strings are excluded",
+      "threshold below 16 ms fails closed"
+    ]
+  },
+  "evidence_state": {
+    "observed": [
+      "R-013 had an evaluator but no runtime collector.",
+      "The committed collector derives only capability flags and threshold metadata.",
+      "Six deterministic tests passed locally."
+    ],
+    "inferred": [
+      "Separating collection from evaluation makes browser support failures explicit and reduces the risk that empty datasets are misclassified as good performance."
+    ],
+    "proposed": [
+      "Vercel Studio should invoke the collector in the deployed runtime and attach the packet to bounded replay evidence."
+    ],
+    "unresolved": [
+      "No physical iPhone Safari packet has been captured.",
+      "No deployed integration has invoked the collector.",
+      "The specifications are evolving Editor's Drafts and runtime behavior remains authoritative."
+    ]
+  },
+  "privacy_boundary": {
+    "retains": [
+      "opaque navigation id",
+      "supported entry-type names",
+      "interface availability flags",
+      "duration threshold",
+      "timestamp"
+    ],
+    "excludes": [
+      "event names",
+      "event targets",
+      "selectors",
+      "raw timing entries",
+      "user-agent strings",
+      "private chat",
+      "health material",
+      "credentials"
+    ]
+  },
+  "falsification_route": [
+    "Execute in a runtime lacking Event Timing and require unresolved output.",
+    "Compare declared supportedEntryTypes with successful observer construction in target browsers.",
+    "Capture a physical iPhone Safari packet and revise assumptions if actual interfaces differ.",
+    "Verify downstream replay validation rejects absent or invalid capability packets."
+  ]
+}
