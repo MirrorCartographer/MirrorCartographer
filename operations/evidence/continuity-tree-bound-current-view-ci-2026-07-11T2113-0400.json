@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-007",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-11T21:13:33-04:00",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/continuity/continuity-index.json",
+    "tools/continuity/repository-tree-current-view.mjs",
+    "operations/queue-updates/M-006-2026-07-11T2048-0400.json",
+    "recent repository commits"
+  ],
+  "memory_recovered": "Continuity completeness is now represented as an executable GitHub Actions path: resolve an immutable commit to its recursive tree, reject truncated trees, enumerate every queue-update document, fetch every document at that same commit, reduce the continuity-owned current view, and retain the tree-bound manifest as a workflow artifact.",
+  "claim_states": {
+    "observed": [
+      "M-006 left live recursive-tree execution and an immutable generated manifest unresolved",
+      "GitHub Actions can provide an immutable GITHUB_SHA and repository-scoped read token",
+      "the committed adapter and workflow bind the generated view to commit and tree identities"
+    ],
+    "inferred": [
+      "a successful workflow artifact closes the prior discovery-completeness gap for the exact repository snapshot it names"
+    ],
+    "proposed": [
+      "consume the uploaded manifest in later continuity and evidence workflows rather than rebuilding current state from curated file lists"
+    ],
+    "superseded": [
+      "treating deterministic reduction alone as proof that every update was discovered"
+    ],
+    "unresolved": [
+      "no successful GitHub Actions run or uploaded manifest was observed during this run"
+    ]
+  },
+  "contradictions_resolved": [
+    {
+      "apparent_conflict": "The canonical ACTIVE_QUEUE snapshot says M-001 is completed while later append-only continuity work M-002 through M-006 exists outside that snapshot.",
+      "resolution": "The canonical snapshot and append-only updates are different source layers. The generated current view retains both and orders updates deterministically instead of overwriting the historical snapshot.",
+      "status": "resolved_by_model"
+    },
+    {
+      "apparent_conflict": "A reducer can be deterministic while its input discovery is incomplete.",
+      "resolution": "The CI adapter makes completeness a separately testable condition tied to a non-truncated recursive tree and complete fetch coverage.",
+      "status": "resolved_by_implementation"
+    }
+  ],
+  "artifacts": [
+    {"path": "tools/continuity/github-tree-current-view.mjs", "commit": "1390dc2aac530fc463c803b2d93f62e154c6a662"},
+    {"path": "tools/continuity/github-tree-current-view.test.mjs", "commit": "e6a27fe5e6b863161d286dfd70ddadd8db8444cf"},
+    {"path": ".github/workflows/continuity-current-view.yml", "commit": "fc540414c01821cf852e24e644509718fbf10826"}
+  ],
+  "verification": {
+    "source_review": "passed",
+    "contract_cases_committed": 4,
+    "cases": [
+      "accept complete tree-bound manifest",
+      "reject truncated recursive tree",
+      "reject invalid enumerated update JSON",
+      "reject failed GitHub API response"
+    ],
+    "runtime_test": "not executed locally because the automation container could not resolve github.com",
+    "workflow_run": "not observed",
+    "commit_status": "only unrelated Vercel build-rate-limit failures were visible"
+  },
+  "privacy_boundary": "Only public repository paths, commit identifiers, abstract project decisions, queue metadata, and non-sensitive verification status were retained. Raw private chat, health and pet-health material, credentials, account identifiers, contact information, and unreviewed uploads were excluded.",
+  "specialists_used": [
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor",
+    "Chat Archaeologist"
+  ],
+  "registry_change": "none",
+  "falsification_route": "Dispatch or observe the Continuity Current View workflow. Reject the completeness claim if the recursive tree is truncated, any enumerated document cannot be fetched or parsed at the same commit, tests fail, or the uploaded manifest does not name the triggering commit and tree."
+}
