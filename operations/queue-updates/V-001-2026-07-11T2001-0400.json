@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T20:01:45-04:00",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "claim_state": "observed",
+  "status": "active",
+  "priority": 0,
+  "completed_slice": {
+    "name": "latest-commit deployment status verification",
+    "source_commit": "277bb9a2f8d72b7f1d60765b6548332ac21990c1",
+    "provider": "Vercel",
+    "classification": "transient_provider_rate_limit",
+    "deployment_verified": false,
+    "source_regression_proven": false,
+    "retryable": true,
+    "evidence": "operations/evidence/vercel-deployment-status-2026-07-11T2001-0400.json"
+  },
+  "required_evidence_state": {
+    "source_commit": "observed",
+    "deployment_identity": "unresolved",
+    "phone_retest_or_runtime_meter": "unresolved"
+  },
+  "contradictions_resolved": [
+    "A provider failure status is not equivalent to a source regression.",
+    "A transient build-rate limit is not deployment proof and cannot satisfy deployment identity evidence."
+  ],
+  "remaining": [
+    "Obtain a successful Vercel deployment for the latest commit or a verified descendant.",
+    "Compare the served deployment identity with the expected immutable commit.",
+    "Run the direct iPhone sound pulse and record heard/not-heard evidence paired to browser render evidence."
+  ],
+  "rollback": "No application source was changed in this slice. Preserve the append-only evidence record; no rollback is required.",
+  "next_action": "Recheck provider status after the transient rate-limit window and verify served identity before device testing."
+}
