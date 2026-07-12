@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-012",
+  "owner": "frontier_research",
+  "status": "completed",
+  "completed_at": "2026-07-12T15:23:00-04:00",
+  "action": "Implement rollback-resistant witness-key policy rotation with constrained emergency revocation.",
+  "progress": {
+    "primary_sources": [
+      "https://theupdateframework.github.io/specification/latest/",
+      "https://www.rfc-editor.org/rfc/rfc8032.html"
+    ],
+    "module": "tools/frontier-research/witness-policy-chain.mjs",
+    "test": "tools/frontier-research/witness-policy-chain.test.mjs",
+    "evidence": "operations/evidence/frontier-witness-policy-chain-2026-07-12.json",
+    "commits": [
+      "eeb7e332bb41e200be2c0d202296560afdad1dbb",
+      "730fc8ca7b3e1981f700cb0757c44fd8a2c00d27",
+      "57f4aa028eb2a3b7cd8cb91570430211012a1484"
+    ],
+    "verification": "5 deterministic Node tests passed locally; committed test source was re-fetched from GitHub.",
+    "evidence_strength": "implementation_tested_locally"
+  },
+  "handoff": "R-013 should add a monotonic client state store and recovery packet so accepted policy sequence and digest survive restart and stale mirrors cannot replay an older otherwise-valid policy.",
+  "limits": [
+    "No production key service or witness network was exercised.",
+    "Threshold signatures do not prove operator independence or uncompromised custody.",
+    "Emergency authority distribution remains an operational trust decision."
+  ]
+}
