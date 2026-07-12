@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "continuity-queue-lineage-fork-2026-07-11T2125-0400",
+  "team": "continuity_mining",
+  "created_at": "2026-07-11T21:25:43-04:00",
+  "artifact": {
+    "path": "operations/continuity/queue-lineage-fork-M-007-M-008-2026-07-11.json",
+    "commit_sha": "1ba72236c9daff7db6538e82cf387f416b4b323b"
+  },
+  "source_evidence": [
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "finding": "canonical continuity state remains M-001"
+    },
+    {
+      "path": "operations/queue-updates/M-007-2026-07-11T2113-0400.json",
+      "commit_sha": "67bc84af78d75d0b4d29cb34d84be4dd5e7b381a",
+      "finding": "completed tree-bound current-view adapter with unresolved workflow execution"
+    },
+    {
+      "path": "operations/queue-updates/M-008-2026-07-11T2121-0400.json",
+      "blob_sha": "dce0d1e4eaa38efdd8745d9e4ef7f9f19966b164",
+      "commit_sha": "a90cdd76669ff9ade999d7c86167f68ff38789a3",
+      "finding": "completed decision-evolution record with explicit dependency on M-007"
+    }
+  ],
+  "verification": {
+    "repository_write": "passed",
+    "structural_review": "passed",
+    "dependency_check": "M-008 explicitly lists M-007 and R-006",
+    "overwrite_check": "no source record was modified or deleted",
+    "runtime_test": "not applicable; this is a provenance-preserving decision-lineage record"
+  },
+  "evidence_strength": "direct repository metadata and immutable commit identities",
+  "claim_limits": [
+    "The record proves the repository-visible lineage, not the private internal reasoning of prior runs.",
+    "Commit timestamps and identifiers establish repository order but do not prove every run observed every predecessor before selecting work.",
+    "The unresolved M-007 workflow artifact and M-008 adapter audit remain open."
+  ],
+  "falsification_route": "Retrieve the three named repository objects and compare their contents. Reject this evidence if M-008 lacks its M-007 dependency, if the source hashes do not match, or if either source record was overwritten.",
+  "privacy_boundary": "Public project metadata only; no private chat, health, pet-health, credentials, personal identifiers, or unreviewed uploads included."
+}
