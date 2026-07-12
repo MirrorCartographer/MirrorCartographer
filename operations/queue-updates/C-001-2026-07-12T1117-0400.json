@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "update": "Pages project identity is now a deny-by-default final acceptance requirement derived from the exact deployment proof. The existing workflow invocation remains backward compatible.",
+  "evidence": "operations/evidence/cloudflare-project-identity-acceptance-2026-07-12T1117-0400.json",
+  "commits": [
+    "29c9a7f860f5c0abe55db9aa5696ce53da0d9af1",
+    "77788284faedbf8e09b91906d5648fd3b993076f",
+    "6eb332b6c8948ac1646fbc8fdff2849819c1fb28",
+    "013f35ced2a7cbd440e80fd77c8208b425079f49",
+    "74b937a5fa0aff86e0bf2a66d17f0d68a83b736d",
+    "60899d2013b54d0ccb4fa7965d0a6e1067b86c17"
+  ],
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment, then dispatch the workflow and preserve the resulting proof artifacts.",
+  "next_action": "Execute both project-identity boundary tests in CI, then dispatch one deployment and confirm projectIdentityEvidence.status=valid and final acceptance is bound to the expected Pages project."
+}
