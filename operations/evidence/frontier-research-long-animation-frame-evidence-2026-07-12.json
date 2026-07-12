@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-009",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-12T01:02:00-04:00",
+  "source": {
+    "type": "primary_specification",
+    "title": "Long Animation Frames API",
+    "url": "https://w3c.github.io/long-animation-frames/",
+    "version_observed": "Editor's Draft, 16 April 2026",
+    "status": "work_in_progress",
+    "source_claims": [
+      "The API reports long animation frames that monopolize the UI thread.",
+      "The long-animation-frame entry threshold is greater than 50 ms.",
+      "Entries expose duration, blockingDuration, renderStart, styleAndLayoutStart, and script timing attribution.",
+      "The draft may change and does not imply W3C endorsement."
+    ]
+  },
+  "finding": {
+    "observed": "Long-animation-frame entries provide frame-correlated congestion evidence and rendering-phase timing that is closer to perceived jank than task-only timing.",
+    "inferred": "Mirror Cartographer can retain aggregate frame and rendering-pressure measurements while discarding script URLs, function names, DOM identifiers, and raw entries.",
+    "proposed": "Classify durations at or above 200 ms or blockingDuration at or above 150 ms as severe for internal triage. These severe thresholds are project policy, not specification thresholds.",
+    "unresolved": "Cross-browser support and field fidelity must be measured on each target device; unsupported observation cannot establish absence of congestion."
+  },
+  "artifact": {
+    "module": "tools/frontier-research/long-animation-frame-evidence.mjs",
+    "test": "tools/frontier-research/long-animation-frame-evidence.test.mjs",
+    "source_commit": "6762acf65893184faab0785c5cd7e59feb40fc21",
+    "test_commit": "782aebb35302f73c9b3be41e13118fd7dbed46be"
+  },
+  "verification": {
+    "method": "isolated Node.js execution using byte-identical source and test content before commit",
+    "result": "6 deterministic tests passed",
+    "cases": [
+      "unsupported entry type",
+      "supported but callback unconfirmed",
+      "known incomplete due to dropped entries",
+      "bounded no observation",
+      "congestion observed with sensitive attribution discarded",
+      "severe congestion observed"
+    ]
+  },
+  "privacy_boundary": {
+    "retained": [
+      "entry counts",
+      "maximum frame duration",
+      "aggregate blocking duration",
+      "rendering frame count",
+      "severe frame count",
+      "aggregate style/layout window estimate"
+    ],
+    "excluded": [
+      "script URLs",
+      "function names",
+      "character positions",
+      "DOM identifiers",
+      "raw performance entries",
+      "page text",
+      "private chat",
+      "health information"
+    ]
+  },
+  "falsification_route": [
+    "Run the observer on target browsers and record supportedEntryTypes, callback count, and droppedEntriesCount.",
+    "Inject a controlled main-thread stall and require a corresponding long-animation-frame classification when supported.",
+    "Compare aggregate output with raw entries locally to verify that sensitive attribution is not serialized.",
+    "Reject bounded absence claims whenever support is absent, callback execution is unconfirmed, or dropped entries are nonzero."
+  ],
+  "limits": [
+    "The primary source is an editor's draft and may change.",
+    "Deterministic tests validate classifier behavior, not browser implementation conformance.",
+    "The project severe thresholds are heuristic and require empirical calibration.",
+    "A complete bounded session does not prove absence outside that session."
+  ]
+}
