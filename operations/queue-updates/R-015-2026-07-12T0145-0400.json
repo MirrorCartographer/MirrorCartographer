@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-015",
+  "owner": "frontier_research",
+  "status": "completed",
+  "priority_basis": "R-014 created a privacy-bounded runtime capability collector, but its output could still be paired with stale replay evidence or evidence from a different navigation.",
+  "action": "Implement a fail-closed integration gate that binds Event Timing capability packets to replay windows by collector identity, freshness, and opaque navigation identity.",
+  "completed_at": "2026-07-12T01:45:00-04:00",
+  "specialists_used": [
+    "Primary Source Scout",
+    "Technical Synthesist",
+    "Experiment Designer",
+    "Tool Evaluator",
+    "Cross-Domain Translator"
+  ],
+  "progress": {
+    "primary_sources": [
+      "https://w3c.github.io/event-timing/",
+      "https://w3c.github.io/performance-timeline/"
+    ],
+    "finding": "Capability evidence must be fresh and navigation-bound before it can authorize replay interpretation; capability availability alone is not proof of entry delivery, completeness, latency quality, or causality.",
+    "module": "tools/frontier-research/event-timing-integration-gate.mjs",
+    "test": "tools/frontier-research/event-timing-integration-gate.test.mjs",
+    "evidence": "operations/evidence/frontier-research-event-timing-integration-2026-07-12.json",
+    "commits": [
+      "d633ce5e4a854c31d0ce735bc3cde7f171991f0a",
+      "4e98ec3eb37596450fb47f5b61909fa4e81c64b2",
+      "0b182c76ffcafc0b9b427acef1dd7076d72a7027"
+    ],
+    "verification": "6 deterministic Node.js tests passed; 0 failed"
+  },
+  "handoff": "Vercel Studio should collect the R-014 packet during the deployed navigation, persist it with the replay window, then require evaluateEventTimingIntegration(...).integration_valid === true before any replay interpretation.",
+  "limits": [
+    "No physical iPhone Safari packet was evaluated.",
+    "No deployed Vercel integration currently invokes the gate.",
+    "The production packet-age budget remains proposed rather than empirically calibrated.",
+    "Integration validity does not establish event delivery, replay completeness, responsiveness, visual divergence, or causality."
+  ],
+  "next_action": "Wire the collector and integration gate into the deployed Vercel replay path, expose a privacy-bounded diagnostic result, and capture one physical iPhone Safari navigation-bound packet."
+}
