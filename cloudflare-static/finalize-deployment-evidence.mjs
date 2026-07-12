@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDeploymentEvidenceManifest, REQUIRED_EVIDENCE_FILES } from './build-deployment-evidence-manifest.mjs';
 import { verifyDeploymentEvidenceManifest } from './verify-deployment-evidence-manifest.mjs';
+import { materializeMissingDeploymentEvidence } from './materialize-missing-deployment-evidence.mjs';
 
 export function finalizeDeploymentEvidence({
   directory='.',
@@ -15,6 +16,12 @@ export function finalizeDeploymentEvidence({
   const outputPath = path.join(directory, output);
   if (fs.existsSync(outputPath)) throw new Error(`manifest-output-exists:${output}`);
 
+  const closure = materializeMissingDeploymentEvidence({
+    directory,
+    sourceCommit,
+    runId,
+    generatedAt
+  });
   const manifest = buildDeploymentEvidenceManifest({ directory, files, sourceCommit, runId, generatedAt });
   fs.writeFileSync(outputPath, `${JSON.stringify(manifest, null, 2)}\n`, { flag: 'wx' });
 
@@ -33,7 +40,7 @@ export function finalizeDeploymentEvidence({
     throw error;
   }
 
-  return { manifest_path: outputPath, manifest, verification };
+  return { manifest_path: outputPath, manifest, verification, closure };
 }
 
 function main() {
@@ -45,7 +52,7 @@ function main() {
     runId: process.env.GITHUB_RUN_ID,
     generatedAt: process.env.RUN_STARTED_AT || new Date().toISOString()
   });
-  process.stdout.write(`${JSON.stringify({ ok: true, manifest_path: result.manifest_path, ...result.verification })}\n`);
+  process.stdout.write(`${JSON.stringify({ ok: true, manifest_path: result.manifest_path, closure: result.closure, ...result.verification })}\n`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) main();
