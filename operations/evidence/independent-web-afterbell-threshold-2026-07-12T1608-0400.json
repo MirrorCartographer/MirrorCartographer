@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "created_at": "2026-07-12T16:08:00-04:00",
+  "creative_premise": "A hidden second chamber should be earned through play rather than exposed as ordinary navigation: after three pressure-written weather notes, the bell reveals Afterbell, a room for the echoes left behind.",
+  "identity_boundary": {
+    "independent_from_mirror_cartographer": true,
+    "not_a_research_portal": true,
+    "not_a_worker_dashboard": true,
+    "not_a_product_funnel": true,
+    "forbidden_language_tested": ["payment", "checkout", "subscribe", "diagnosis", "treatment", "Mirror Cartographer"]
+  },
+  "implementation": {
+    "source": "independent-web/index.html",
+    "source_commit": "f564aa6945122b96560414da24f42364c46757f1",
+    "test": "independent-web/afterbell-threshold.test.mjs",
+    "test_commit": "d799054944a41a220b12c3454f36e06080e09515",
+    "behavior": [
+      "Afterbell begins hidden and outside keyboard order",
+      "three pressure-written weather notes reveal the chamber",
+      "the reveal is announced through the existing polite live region",
+      "the revealed chamber becomes keyboard reachable",
+      "the A key opens the chamber only after it has been earned",
+      "erasing the weather score closes the threshold again",
+      "reveal motion is disabled under prefers-reduced-motion"
+    ]
+  },
+  "verification": {
+    "source_fetch": "confirmed updated blob 9fb5b253ff25445aaa39e422e88649055c66c293 from the default branch",
+    "static_contract": "committed but not executed by an observable runtime in this run",
+    "browser_runtime": "not observed",
+    "mobile_runtime": "not observed",
+    "public_url": "not established"
+  },
+  "rollback": [
+    "revert commit d799054944a41a220b12c3454f36e06080e09515",
+    "revert commit f564aa6945122b96560414da24f42364c46757f1"
+  ],
+  "claim_limits": [
+    "A committed static test is not proof that the browser interaction executed.",
+    "Repository source is not proof of deployment.",
+    "No public hosting or mobile rendering claim is made."
+  ]
+}
