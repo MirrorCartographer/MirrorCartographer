@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T00:49:35-04:00",
+  "status": "blocked_external_configuration",
+  "durable_progress": {
+    "completed_slice": "Connected the existing workflow-invoked readiness command to commit-bound manifest generation and connected the existing served deployment verifier to fail-closed manifest verification.",
+    "commits": [
+      "26f9e1b116dece717e5a85388d4c6dec2ab849d2",
+      "a93dde4905bd02ba34304c83f598966cd42100d3",
+      "be1091334cbdf30c98cdeed58965b297aca68675",
+      "1eb44b5fc5b28babb871b466407a284b7ebf0426"
+    ],
+    "evidence": "operations/evidence/cloudflare-manifest-identity-chain-2026-07-12T0049-0400.json",
+    "verification": "2 isolated deterministic Node.js tests passed; repository source behavior is committed, but provider deployment remains unverified."
+  },
+  "remaining": [
+    "Configure valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Dispatch .github/workflows/cloudflare-pages-research.yml from a commit containing this identity chain.",
+    "Retain the provider-returned deployment URL and proof packet.",
+    "Confirm the served /.well-known/mirror-cartographer-research.json repository and source_commit exactly match the workflow commit.",
+    "Confirm the public research surface resolves and serves the expected identity markers."
+  ],
+  "coordination": {
+    "canonical_queue_overwritten": false,
+    "other_team_records_overwritten": false
+  }
+}
