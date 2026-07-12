@@ -15,6 +15,8 @@ on:
       - 'cloudflare-static/verify-environment-preflight-run.test.mjs'
       - 'cloudflare-static/build-cloudflare-dispatch-decision.mjs'
       - 'cloudflare-static/build-cloudflare-dispatch-decision.test.mjs'
+      - 'cloudflare-static/verify-preflight-release-packet.mjs'
+      - 'cloudflare-static/verify-preflight-release-packet.test.mjs'
 
 permissions:
   contents: read
@@ -46,6 +48,7 @@ jobs:
           node --test cloudflare-static/run-environment-preflight.test.mjs
           node --test cloudflare-static/verify-environment-preflight-run.test.mjs
           node --test cloudflare-static/build-cloudflare-dispatch-decision.test.mjs
+          node --test cloudflare-static/verify-preflight-release-packet.test.mjs
 
       - name: Build bounded preflight evidence
         run: >-
@@ -95,6 +98,7 @@ jobs:
               'cloudflare-workflow-environment-contract.json',
               'cloudflare-environment-preflight.json',
               'cloudflare-environment-preflight.sha256',
+              'cloudflare-environment-preflight-run.json',
               'cloudflare-environment-preflight-verdict.json',
               'cloudflare-dispatch-decision.json'
             ]
@@ -132,7 +136,25 @@ jobs:
           if (decision.preflight?.classification !== 'repository_declarations_verified') throw new Error('dispatch-preflight-not-verified');
           process.stdout.write(`${JSON.stringify({ classification: decision.classification, ref: decision.target.ref })}\n`);
           NODE
-          sha256sum cloudflare-dispatch-decision.json >> cloudflare-environment-preflight.sha256
+
+      - name: Verify coherent preflight release packet
+        run: >-
+          node cloudflare-static/verify-preflight-release-packet.mjs
+          cloudflare-environment-preflight-run.json
+          cloudflare-environment-preflight-verdict.json
+          cloudflare-dispatch-decision.json
+          "$GITHUB_REPOSITORY"
+          "$GITHUB_SHA"
+          cloudflare-preflight-release-verdict.json
+
+      - name: Finalize immutable evidence digest
+        run: |
+          sha256sum \
+            cloudflare-environment-preflight-run.json \
+            cloudflare-environment-preflight-verdict.json \
+            cloudflare-dispatch-decision.json \
+            cloudflare-preflight-release-verdict.json \
+            >> cloudflare-environment-preflight.sha256
 
       - name: Upload exact-commit preflight evidence
         uses: actions/upload-artifact@v4
@@ -146,6 +168,7 @@ jobs:
             cloudflare-environment-preflight-run.json
             cloudflare-environment-preflight-verdict.json
             cloudflare-dispatch-decision.json
+            cloudflare-preflight-release-verdict.json
           if-no-files-found: error
           retention-days: 30
 
@@ -157,8 +180,9 @@ jobs:
             echo '- Workflow contract: passed'
             echo '- Artifact integrity and provenance verifier: passed'
             echo '- Exact-commit dispatch decision: `dispatch_ready`'
+            echo '- Coherent release packet: `release_packet_verified`'
             echo '- Secret values inspected: no'
             echo '- Cloudflare deployment attempted: no'
             echo '- Evidence artifact: `cloudflare-environment-preflight-${{ github.sha }}`'
-            echo '- Claim boundary: repository declarations and an exact-commit dispatch request are ready; credential installation, authorization, workflow execution, deployment, hostname resolution, served identity, and scientific truth remain unverified.'
+            echo '- Claim boundary: repository declarations and an internally coherent exact-commit dispatch packet are ready; credential installation, authorization, workflow execution, deployment, hostname resolution, served identity, and scientific truth remain unverified.'
           } >> "$GITHUB_STEP_SUMMARY"
