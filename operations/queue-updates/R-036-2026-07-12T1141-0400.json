@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-036",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "completed",
+  "action": "Fuse browser render, acoustic loopback, capture-integrity, and muted-control observations into a deny-by-default evidence classification.",
+  "dependencies": ["R-001", "R-034", "R-035", "V-001"],
+  "required_evidence": [
+    "current primary standards",
+    "committed classifier",
+    "deterministic tests",
+    "explicit privacy and claim boundaries",
+    "falsification route"
+  ],
+  "progress": {
+    "primary_sources": [
+      "https://www.w3.org/TR/webaudio/",
+      "https://www.w3.org/TR/mediacapture-streams/"
+    ],
+    "finding": "Audibility evidence must be conjunctive and fail closed: browser render advance, microphone tone detection, verified capture settings, and a discriminating muted control remain separate observations and only their qualified combination may be labeled strong acoustic evidence.",
+    "module": "tools/frontier-research/acoustic-evidence-fusion.mjs",
+    "test": "tools/frontier-research/acoustic-evidence-fusion.test.mjs",
+    "evidence": "operations/evidence/frontier-acoustic-evidence-fusion-2026-07-12T1141-0400.json",
+    "commits": [
+      "238fb9211e7e38b26dba9f0323c661c4e271deb3",
+      "98d161b15f5158766c8d0d6d96be577f5df7b276",
+      "05cabb704464d4b852fdf79b5cd8eb08c55d4857"
+    ],
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+  },
+  "handoff": "Vercel Studio should integrate classifyAcousticEvidence after R-034 and R-035, persist only the derived packet, and require acceptedAsStrongAcousticEvidence before describing a session as microphone-correlated acoustic output. Human audible outcome remains a separate field."
+}
