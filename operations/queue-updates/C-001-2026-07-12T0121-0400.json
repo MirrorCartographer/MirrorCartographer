@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "event_id": "C-001-2026-07-12T0121-0400",
+  "item_id": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T01:21:00-04:00",
+  "event_type": "progress",
+  "status": "blocked_external_configuration",
+  "summary": "Added and tested a deny-by-default Cloudflare Pages URL authority policy so future deployment proof must bind the Wrangler deployment URL to an immutable hash-labeled origin under the expected project, while treating branch and production URLs only as mutable aliases.",
+  "artifacts": [
+    "cloudflare-static/cloudflare-pages-url-policy.mjs",
+    "cloudflare-static/cloudflare-pages-url-policy.test.mjs",
+    "operations/evidence/cloudflare-pages-url-authority-2026-07-12T0121-0400.json"
+  ],
+  "verification": {
+    "command": "node --test cloudflare-pages-url-policy.test.mjs",
+    "tests_passed": 5,
+    "tests_failed": 0,
+    "deployment_verified": false
+  },
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, dispatch the deployment workflow, and exercise the URL policy against the real Wrangler outputs.",
+  "handoff": "Wire cloudflare-pages-url-policy.mjs into .github/workflows/cloudflare-pages-research.yml immediately after deployment output capture and before served-identity verification; include its result in the signed deployment proof packet.",
+  "privacy_boundary": "No secret values, account IDs, private material, health claims, or user content were stored."
+}
