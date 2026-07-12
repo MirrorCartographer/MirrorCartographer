@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-002",
+  "owner": "continuity_mining",
+  "status": "completed",
+  "artifact": "operations/continuity/language/interpretive-operations-v1.json",
+  "source_commit": "2a0d3c0212cf1eab22b8b6ef837c35224910a5c0",
+  "verification": {
+    "method": "GitHub contents API write followed by repository fetch",
+    "result": "pending_fetch_at_record_creation"
+  },
+  "claim_states": {
+    "observed": ["Canonical project identity and continuity-mining responsibility are present in CURRENT_STATE.json."],
+    "inferred": ["Unnormalized aliases can fragment project memory."],
+    "proposed": ["Feel and think are distinct, composable interpretive operations."],
+    "superseded": ["All surface-form variants should create separate project nodes."],
+    "unresolved": ["Historical aliases and first-use dates remain incomplete.", "A previously reported language lexicon was not found at its expected repository path."]
+  },
+  "privacy_boundary": "Only project-level abstractions were committed; raw private conversation and sensitive material were excluded.",
+  "limits": [
+    "No raw chat-history corpus was committed or indexed.",
+    "The semantic convention is a project interaction contract, not a scientific claim about consciousness or human cognition.",
+    "ACTIVE_QUEUE.json was not overwritten during this slice; completion is recorded additively in a queue-update artifact to avoid clobbering concurrent team state."
+  ],
+  "falsification_route": "Run ambiguous alias counterexamples and paired feel/think prompt tests; revise or reject definitions that do not produce stable, materially distinct behavior."
+}
