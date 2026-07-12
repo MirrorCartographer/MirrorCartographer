@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "update_id": "CM-014",
+  "team": "continuity_mining",
+  "created_at": "2026-07-12T07:40:00-04:00",
+  "source_queue_item": "M-001",
+  "source_state": "completed",
+  "action_completed": "Added a fail-closed reconciliation gate between handoff promotion records and canonical queue state.",
+  "artifacts": [
+    "tools/continuity-mining/queue-promotion-gate.mjs",
+    "tools/continuity-mining/queue-promotion-gate.test.mjs",
+    "operations/evidence/continuity-queue-promotion-gate-2026-07-12T0740-0400.json"
+  ],
+  "commits": [
+    "8d5a39d15683c11813f5b28d40f17b8e680822f5",
+    "c4d7571bb3267e6a383beac2c4ad9f0bbd93aa70",
+    "1f815d92a5085451cc1f83a19e05b8232c6068e7"
+  ],
+  "verification": "Four deterministic tests passed in an isolated Node runtime using byte-identical committed content.",
+  "claim_states": {
+    "observed": "The existing promotion validator did not prove canonical queue correspondence.",
+    "inferred": "Executable continuity work requires exact agreement between promotion authorization and ACTIVE_QUEUE fields.",
+    "proposed": "Wire the gate into queue-changing CI or tooling.",
+    "superseded": "Isolated promotion validation as sufficient queue authorization proof.",
+    "unresolved": "No M-002 record or repository-wide queue gate exists yet."
+  },
+  "privacy_boundary": "Public repository metadata and governance logic only; private chat, health material, credentials, personal identifiers, and unreviewed uploads remain excluded.",
+  "next_action": "Add a repository workflow that loads ACTIVE_QUEUE.json and all promotion records, runs the gate, and blocks mismatched executable successors without modifying completed history."
+}
