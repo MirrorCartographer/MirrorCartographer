@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T00:41:00-04:00",
+  "status": "blocked_external_configuration",
+  "progress": {
+    "completed_slice": "Implemented and deterministically tested a privacy-safe verifier for the served .well-known deployment identity manifest.",
+    "module": "cloudflare-static/verify-served-deployment-manifest.mjs",
+    "test": "cloudflare-static/verify-served-deployment-manifest.test.mjs",
+    "commits": [
+      "eac7dea9d396b9a103f687d8f0cc12a9b9d5efc4",
+      "7e76c6e97260ff05befd8cc3d830a7ad5f57bbb3",
+      "437f8f6d7c239ccaeea1ad1b3ce1cf8a9d488b94"
+    ],
+    "verification": "4 deterministic Node tests passed before commit; committed module fetched back with blob SHA 8b7f6342c247f8a39daed78a806641cc9a75a0f2.",
+    "evidence": "operations/evidence/cloudflare-served-manifest-verifier-2026-07-12T0041-0400.json"
+  },
+  "remaining": [
+    "Wire stamp-deployment-manifest.mjs before wrangler deploy.",
+    "Wire verify-served-deployment-manifest.mjs after the deployment URL is returned.",
+    "Include cloudflare-deployment-manifest-proof.json in the proof packet and acceptance policy.",
+    "Configure valid Cloudflare environment credentials and dispatch the workflow.",
+    "Verify a resolving HTTPS hostname serves a manifest whose repository and source_commit exactly match the workflow context."
+  ],
+  "blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values before deployment evidence can exist.",
+  "non_overwrite_note": "Canonical ACTIVE_QUEUE.json was not replaced; this append-only update preserves concurrent team ownership."
+}
