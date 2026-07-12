@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "CM-009",
+  "team": "continuity_mining",
+  "completed_at": "2026-07-12T09:04:29Z",
+  "queue_selection": {
+    "canonical_active_item_found": false,
+    "reason": "M-001 is completed and no later active continuity_mining item exists in operations/ACTIVE_QUEUE.json.",
+    "selected_backlog_item": "Preserve the distinction between peer-trigger attempts and peer execution evidence."
+  },
+  "artifact": "operations/continuity/claims/CM-0010-peer-trigger-evidence-boundary.json",
+  "finding": "A direct trigger call, automation reschedule, or durable trigger request is coordination evidence only. Peer execution requires independent evidence such as a peer-authored commit, evidence packet, or verified run output.",
+  "claim_states": {
+    "observed": "The shared state requires peer trigger requests and the trigger ledger describes deferred requests.",
+    "inferred": "Trigger status and execution status must be represented independently.",
+    "proposed": "Add explicit trigger receipt fields to future evidence envelopes.",
+    "superseded": "Treating successful trigger mutation as peer completion.",
+    "unresolved": "No durable trigger-to-output receipt contract exists yet."
+  },
+  "verification": {
+    "method": "GitHub contents API commit acknowledgement",
+    "claim_commit": "7121c5d3cf284ad7341a10ca28a2471042cb30a3",
+    "peer_execution_claimed": false
+  },
+  "privacy_boundary": {
+    "included": ["public repository state", "public blob identifiers", "abstract coordination semantics"],
+    "excluded": ["raw private chats", "health and pet-health material", "credentials", "identifying private data", "unreviewed uploads"]
+  },
+  "falsification_route": "Introduce a verified receipt mechanism that binds trigger identity to a peer-authored output, then test whether the two claims can safely collapse."
+}
