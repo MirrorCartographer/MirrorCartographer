@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-042",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-12T13:00:00-04:00",
+  "primary_sources": [
+    {
+      "title": "RFC 8032: Edwards-Curve Digital Signature Algorithm (EdDSA)",
+      "url": "https://www.rfc-editor.org/rfc/rfc8032.html",
+      "status": "primary_specification",
+      "relevance": "Defines Ed25519 signing and verification semantics used to bind a retained ledger checkpoint to a separately trusted public key."
+    },
+    {
+      "title": "RFC 8785: JSON Canonicalization Scheme",
+      "url": "https://www.rfc-editor.org/rfc/rfc8785.html",
+      "status": "primary_specification",
+      "relevance": "Motivates invariant JSON bytes before signing; the prototype implements a constrained deterministic canonicalizer for the checkpoint schema."
+    },
+    {
+      "title": "R-041 preregistered acoustic trial ledger",
+      "repository_path": "tools/frontier-research/acoustic-trial-ledger.mjs",
+      "status": "prior_committed_artifact",
+      "relevance": "R-041 detects mutation when an earlier trusted digest is retained but explicitly cannot stop a controller from rewriting the full ledger and recomputing its chain."
+    }
+  ],
+  "finding": "A hash chain needs an independently trusted checkpoint. Signing the protocol hash, current head hash, ledger identity, trial count, and issuance time with Ed25519 converts whole-ledger rewrite from an undetectable local recomputation into a signature or trust-policy failure, provided the verifier retains the trusted public key and expected state outside the ledger controller's rewrite boundary.",
+  "design_implication": "After each preregistered milestone, sign the R-041 ledger head with createSignedCheckpoint and persist the signed checkpoint plus trusted public-key mapping in a separate evidence boundary. Before statistical evaluation, require both verifyTrialLedger and verifySignedCheckpoint to accept the same protocol hash, head hash, and trial count.",
+  "artifact": {
+    "module": "tools/frontier-research/acoustic-ledger-checkpoint.mjs",
+    "test": "tools/frontier-research/acoustic-ledger-checkpoint.test.mjs",
+    "commits": [
+      "73a7cf1fc66b09a603997ccc9369707eece6ea59",
+      "1b8971b3f8db79b4c5f0cb2cada8b86b33c6266e",
+      "4d4ee9e8e45e1041fbabed708d2ab4a95c349963"
+    ]
+  },
+  "verification": {
+    "route": "isolated Node test run using the committed logic reproduced byte-for-byte for the changed key-handling path",
+    "result": "6 tests passed; 0 failed",
+    "covered": [
+      "trusted Ed25519 checkpoint acceptance",
+      "post-signature mutation rejection",
+      "wrong private key rejection",
+      "complete rewrite under untrusted key-id rejection",
+      "retained expected-head mismatch rejection",
+      "deterministic constrained canonical bytes"
+    ]
+  },
+  "claim_state": "implemented_and_deterministically_tested_not_runtime_integrated",
+  "evidence_strength": "isolated_deterministic_test",
+  "uncertainty": [
+    "The checkpoint is only as trustworthy as the separately managed trusted public-key mapping and retained expected state.",
+    "A compromised trusted private key can sign a rewritten ledger; this prototype does not provide hardware-backed keys, transparency-log inclusion, revocation, or trusted timestamps.",
+    "The constrained canonicalizer is not claimed as a complete general-purpose RFC 8785 implementation.",
+    "Cryptographic integrity does not prove trial independence, correct experimental execution, physical audibility, or causal interpretation."
+  ],
+  "falsification_route": [
+    "Demonstrate a changed protocol hash, head hash, trial count, ledger identity, signature, or key-id that is accepted under an unchanged trusted-key map and expected state.",
+    "Demonstrate a full rewrite signed by an untrusted key that is accepted.",
+    "Demonstrate two checkpoint objects valid under this constrained schema that have the same semantics but produce different canonical bytes.",
+    "Demonstrate a valid unchanged trusted checkpoint that the verifier rejects."
+  ]
+}
