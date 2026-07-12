@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "cloudflare-research-evidence",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T12:12:09-04:00",
+  "finding": "Deployment evidence manifest construction and verification must be one fail-closed operation so an unverified or partially written manifest cannot be uploaded as if it were accepted evidence.",
+  "implementation": {
+    "module": "cloudflare-static/finalize-deployment-evidence.mjs",
+    "test": "cloudflare-static/finalize-deployment-evidence.test.mjs",
+    "behavior": [
+      "refuses to overwrite an existing manifest",
+      "builds the manifest from the exact required evidence set",
+      "immediately re-reads and verifies source commit, workflow run, file membership, sizes, digests, order, and manifest digest",
+      "removes the new manifest and throws if verification fails"
+    ]
+  },
+  "commits": [
+    "52f7333dff6a5c7f2d806181f6a9c8286d685225",
+    "e25249e423aa45f3998b613bf24bbb933472ac97"
+  ],
+  "verification": {
+    "source_parse": "Both module and test passed node --check before commit.",
+    "runtime_tests": "not executed in trusted checkout or CI during this run",
+    "deployment": "not attempted because Cloudflare credentials remain externally unconfigured"
+  },
+  "evidence_strength": "committed source plus syntax verification",
+  "limits": [
+    "The authoritative workflow is not yet wired to invoke the finalizer.",
+    "No resolving Cloudflare hostname or deployed commit is claimed.",
+    "Manifest integrity authenticates bounded artifact bytes and run provenance, not scientific or medical truth."
+  ],
+  "privacy_boundary": "No secret values, private chat, health material, raw request payloads, or account identifiers are persisted.",
+  "falsification_route": "Delete or mutate any required evidence file before finalization; the finalizer must throw and must not leave a manifest output."
+}
