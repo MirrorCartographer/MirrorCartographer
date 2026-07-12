@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T21:13:00-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "change": "Added a Cloudflare Pages adapter that converts a returned deployment URL and exact 40-character source commit into the shared WebDriver BiDi verification-plan contract.",
+  "sources": [
+    {
+      "type": "repository_primary_artifact",
+      "location": "tools/frontier-research/browser-verification-transcript.mjs",
+      "status": "committed shared contract"
+    },
+    {
+      "type": "standard",
+      "location": "https://www.w3.org/TR/webdriver-bidi/",
+      "status": "working draft; browser implementation variability remains"
+    }
+  ],
+  "implementation": {
+    "module": "cloudflare-static/build-browser-verification-plan.mjs",
+    "test": "cloudflare-static/build-browser-verification-plan.test.mjs",
+    "commits": [
+      "d58aaf00a72b8d13bdd16d8acc5c2b1746632d95",
+      "1eb1bf819166b5d22d6829ce06030432dee0e041"
+    ],
+    "runtime_commit_sources": [
+      "document.documentElement.dataset.sourceCommit",
+      "meta[name=mc-source-commit]"
+    ]
+  },
+  "acceptance": {
+    "requires": [
+      "https deployment URL",
+      "full git commit SHA",
+      "one browsing context",
+      "successful document response",
+      "load event",
+      "runtime commit match",
+      "screenshot bytes"
+    ],
+    "excludes": [
+      "scientific truth",
+      "diagnosis",
+      "treatment efficacy",
+      "physical audio output",
+      "human perception",
+      "cryptographic provenance"
+    ]
+  },
+  "verification": {
+    "status": "contract test committed; no workflow execution was available in this run",
+    "static_checks": [
+      "adapter imports the shared frontier contract",
+      "rejects non-HTTPS URLs",
+      "rejects abbreviated commit identities",
+      "preserves explicit epistemic exclusions"
+    ]
+  },
+  "falsification_route": "Run the test under Node, then execute the generated plan with a BiDi-capable browser against the Cloudflare deployment. Reject the adapter if the returned Pages URL cannot produce the required ordered same-context transcript or if the runtime identity differs from the expected commit.",
+  "privacy": "No credentials, account IDs, private chat, health data, diagnoses, or treatment claims are included."
+}
