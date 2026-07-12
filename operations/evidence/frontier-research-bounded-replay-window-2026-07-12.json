@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-012",
+  "created_at": "2026-07-12T01:26:00-04:00",
+  "title": "Bounded replay window integrity",
+  "primary_sources": [
+    {
+      "url": "https://w3c.github.io/performance-timeline/",
+      "status": "W3C Editor's Draft, 24 March 2026",
+      "relevance": "PerformanceEntry timestamps belong to a performance timeline; PerformanceObserver delivery is queued, buffered delivery is bounded, droppedEntriesCount reports lost observations, takeRecords drains queued records, and supported entry types are runtime-detectable."
+    },
+    {
+      "url": "https://w3c.github.io/event-timing/",
+      "status": "current W3C Editor's Draft inspected 2026-07-12",
+      "relevance": "Defines Event Timing entries and interaction timing fields used by the existing R-009 summary."
+    },
+    {
+      "url": "https://w3c.github.io/long-animation-frames/",
+      "status": "current W3C Editor's Draft inspected 2026-07-12",
+      "relevance": "Defines Long Animation Frame entries used by the existing R-010 summary."
+    }
+  ],
+  "observed": [
+    "R-011 validates a shared replay label and aggregate completeness but does not establish same navigation, same clock domain, or sufficiently overlapping collection windows.",
+    "PerformanceObserver callbacks are scheduled by the user agent, buffered delivery is finite, takeRecords drains pending records, and droppedEntriesCount exposes known loss.",
+    "Six deterministic Node.js tests passed locally before commit."
+  ],
+  "finding": "Cross-observer fusion must fail closed unless both summaries declare the same navigation identity and time-origin token, report drained buffers with zero known drops, and cover a strongly overlapping bounded interval.",
+  "design_implication": "Run this validator before R-011. Only packets with window_integrity=true may enter the gesture replay evidence combiner; a matching replay string alone is correlation metadata, not proof of shared observation scope.",
+  "artifact": {
+    "module": "tools/frontier-research/bounded-replay-window.mjs",
+    "test": "tools/frontier-research/bounded-replay-window.test.mjs",
+    "module_commit": "ff4180f9ff7bb813ba2b5d7d76ba037575edd8f7",
+    "test_commit": "e86233421ec2921a45f224719ca621b1eb4a10b0"
+  },
+  "verification": {
+    "runtime": "node --test",
+    "passed": 6,
+    "failed": 0,
+    "cases": [
+      "same-navigation same-clock strongly overlapping drained windows accepted",
+      "navigation mismatch rejected",
+      "clock-domain mismatch rejected",
+      "undrained buffers and dropped entries rejected",
+      "non-overlapping and weakly overlapping windows rejected",
+      "raw entries, DOM targets, event names, and script attribution excluded from output"
+    ]
+  },
+  "heuristic": {
+    "minimum_overlap_ratio": 0.9,
+    "status": "project threshold, not a standards-defined cutoff"
+  },
+  "privacy_boundary": "Stores opaque replay, navigation, and time-origin tokens plus aggregate interval bounds. It excludes raw PerformanceEntry objects, DOM targets, selectors, event names, script URLs, page text, private chat, health data, and credentials.",
+  "uncertainty": [
+    "The 0.9 overlap threshold is a project heuristic.",
+    "Opaque navigation and time-origin tokens must be generated consistently by the runtime; this artifact does not prescribe a cryptographic identity scheme.",
+    "Same-window integrity prevents accidental cross-window fusion but does not prove causal attribution.",
+    "Target-browser support and observer delivery behavior remain runtime questions."
+  ],
+  "falsification_route": [
+    "Collect Event Timing and Long Animation Frame summaries from intentionally different navigations and require rejection.",
+    "Offset observer start or stop boundaries until overlap drops below the threshold and require rejection.",
+    "Leave pending records undrained or simulate dropped entries and require unresolved output.",
+    "Run both observers over one controlled gesture interval and compare accepted bounds against local raw entries without persisting those entries.",
+    "Vary the overlap threshold and measure false acceptance and false rejection against controlled replay fixtures."
+  ]
+}
