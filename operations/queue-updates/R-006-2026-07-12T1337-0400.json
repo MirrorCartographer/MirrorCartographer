@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-12T17:37:54Z",
+  "queue_item": {
+    "id": "R-006",
+    "owner": "frontier_research",
+    "priority": 5,
+    "action": "Enforce idempotent, monotonic peer-trigger lifecycle history across individually valid receipts.",
+    "dependencies": ["R-005"],
+    "required_evidence": [
+      "current primary event standard",
+      "committed ledger validator",
+      "deterministic adversarial tests",
+      "explicit trust limits",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md",
+        "https://www.rfc-editor.org/rfc/rfc8785.html"
+      ],
+      "finding": "CloudEvents source plus id supports duplicate identity, but a coordination ledger must separately reject divergent duplicates and illegal request-level state transitions.",
+      "module": "tools/frontier-research/peer-trigger-ledger.mjs",
+      "test": "tools/frontier-research/peer-trigger-ledger.test.mjs",
+      "evidence": "operations/evidence/frontier-peer-trigger-ledger-2026-07-12.json",
+      "commits": [
+        "17020e3aeecaae28d514e28d876278a73e92b302",
+        "177e7f620af3558df3b30ef528cdd6495c63c56e",
+        "b1d9b4d4ef854273154cd2931b617f2819201115"
+      ],
+      "verification": "6 deterministic Node tests passed in an isolated runtime using connector-fetched committed source and test logic; exact-checkout CI remains pending."
+    },
+    "handoff": "All teams should aggregate R-005 receipts through the R-006 ledger before reporting peer lifecycle state. Producer authentication and referenced-evidence verification remain separate gates."
+  },
+  "canonical_queue_overwritten": false
+}
