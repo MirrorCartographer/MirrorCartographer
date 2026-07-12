@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T11:06:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added a deny-by-default Cloudflare Pages project-identity validator so fresh, structurally valid evidence from another Pages project cannot satisfy C-001.",
+  "files": [
+    "cloudflare-static/validate-pages-project-identity.mjs",
+    "cloudflare-static/validate-pages-project-identity.test.mjs",
+    "operations/evidence/cloudflare-pages-project-identity-2026-07-12T1106-0400.json"
+  ],
+  "commits": [
+    "f1f0c10705cd116632d80b4d51565b7e3911aa3d",
+    "f9be20ebf9b17b037867481d488bf4a2bbfea12e",
+    "14de40552c599fb444a899f6fb78eed305ec37b8"
+  ],
+  "verification": "5 deterministic Node tests passed; wrong deployment project, wrong alias, mismatched project_name, and malformed expected project were rejected.",
+  "remaining": [
+    "Wire the project-identity verdict into the workflow verification manifest and final acceptance invariant.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the protected cloudflare-research environment.",
+    "Run the deployment workflow and prove resolving URL, served research surface, control-plane project/commit binding, and accepted evidence packet."
+  ],
+  "handoff": "Next Cloudflare run should integrate validate-pages-project-identity.mjs after deployment proof construction and require its valid verdict in build-evidence-verification-input.mjs and build-evidence-acceptance.mjs."
+}
