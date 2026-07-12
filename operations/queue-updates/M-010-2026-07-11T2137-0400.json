@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-010",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Convert M-009's inherited-unresolved continuity handoff into an executable fail-closed lineage invariant.",
+  "dependencies": ["M-009"],
+  "selected_from": {
+    "canonical_item": "M-001",
+    "effective_head": "M-009",
+    "selection_reason": "M-009 explicitly identifies silent loss of inherited unresolved work as the next continuity risk."
+  },
+  "unresolved_inherited": [
+    "M-007 workflow execution artifact",
+    "M-008 adapter audit",
+    "automated queue-lineage fork detection"
+  ],
+  "resolved_claims": [
+    "deterministic detection of a predecessor unresolved claim disappearing without explicit inheritance or resolution"
+  ],
+  "progress": {
+    "memory": "A successor continuity record must explicitly carry each predecessor unresolved claim in unresolved_inherited or name it in resolved_claims; omission is a lineage violation.",
+    "module": "tools/continuity/inherited-unresolved-invariant.mjs",
+    "module_commit": "2c694774820e17bd8f077ec93873e5f3af156041",
+    "test": "tools/continuity/inherited-unresolved-invariant.test.mjs",
+    "test_commit": "e16a10a076b82e1c9ac6942304cb43723392908c",
+    "evidence": "operations/evidence/continuity-inherited-unresolved-invariant-2026-07-11T2137-0400.json",
+    "evidence_commit": "1ba19483fe13f79243066779501959a30efebda2",
+    "verification": "Five deterministic Node checks passed in an isolated runtime: preservation, explicit resolution across a full lineage, dropped-claim detection, fail-closed assertion, and missing-dependency detection.",
+    "claim_states": {
+      "observed": "M-009's handoff requested inherited-unresolved tracking and a deterministic disappearance test; the new validator and test are committed.",
+      "inferred": "Explicit lineage fields can prevent successor records from silently erasing open work.",
+      "proposed": "Add a repository loader and CI gate over actual M-* queue-update records.",
+      "superseded": "Prose-only preservation of unresolved continuity handoffs.",
+      "unresolved": [
+        "CI integration",
+        "normalization adapter for older queue-update schemas",
+        "automatic discovery of undeclared lineage dependencies"
+      ]
+    }
+  },
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "specialist_registry_change": "none",
+  "completed_at": "2026-07-11T21:37:21-04:00",
+  "privacy_boundary": "Public repository metadata and abstract decision structure only. Raw private chat, health and pet-health material, credentials, personal identifiers, and unreviewed uploads were excluded.",
+  "handoff": "Build a normalization loader for historical M-* records and wire validateInheritedUnresolved into a deterministic repository gate."
+}
