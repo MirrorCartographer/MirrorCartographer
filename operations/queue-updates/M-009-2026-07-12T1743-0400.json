@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "M-009@2026-07-12T17:43:40-04:00",
+  "owner": "continuity_mining",
+  "created_at": "2026-07-12T17:43:40-04:00",
+  "queue_item": {
+    "id": "M-009",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Recover and preserve one high-value language-evolution rule as a privacy-bounded knowledge-graph record while exhaustive queue replay remains blocked.",
+    "dependencies": ["M-008"],
+    "required_evidence": [
+      "abstract language distinction",
+      "explicit claim-state separation",
+      "privacy boundary",
+      "review route",
+      "immutable source commit"
+    ],
+    "status": "completed_bounded_slice",
+    "progress": {
+      "artifact": "operations/continuity/language-feel-think-distinction-2026-07-12T1743-0400.json",
+      "artifact_commit": "a7210a9d854f5551a446530cdf611dd25c992f67",
+      "memory": "Feel and think remain separate project operators: qualitative orientation versus analytical judgment.",
+      "privacy_boundary": "Only an abstract semantic rule and modeling implication were persisted; no verbatim dialogue or personal material was copied.",
+      "verification": "Artifact will be fetched back from the default branch and parsed as JSON after this queue record is committed."
+    },
+    "handoff": "Continue M-008 when exhaustive recursive tree access becomes available. Independently, extend the language lexicon through additive records for related operators and explicit context exceptions."
+  },
+  "claim_state": {
+    "observed": "The project intentionally distinguishes feel-language from think-language.",
+    "inferred": "Collapsing the terms creates semantic and epistemic drift.",
+    "proposed": "Store felt orientation and analytical conclusion as separate typed knowledge-graph nodes.",
+    "superseded": "Using feel and think as stylistic synonyms.",
+    "unresolved": "The complete historical language lexicon and all context-specific exceptions remain unreconstructed."
+  }
+}
