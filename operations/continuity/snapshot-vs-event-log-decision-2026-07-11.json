@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-0010",
+  "recorded_at": "2026-07-12T00:29:26Z",
+  "kind": "decision_bundle",
+  "title": "Canonical snapshots and append-only queue updates are different temporal layers",
+  "claims": [
+    {
+      "id": "CM-0010-A",
+      "state": "observed",
+      "statement": "operations/ACTIVE_QUEUE.json is a canonical snapshot whose embedded updated_at may precede later team work.",
+      "evidence_strength": "primary_repository_source",
+      "source": {
+        "path": "operations/ACTIVE_QUEUE.json",
+        "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+        "fields": ["updated_at", "items[M-001]"]
+      }
+    },
+    {
+      "id": "CM-0010-B",
+      "state": "observed",
+      "statement": "Later continuity work is recorded additively in operations/queue-updates rather than by rewriting the canonical snapshot on every run.",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_commit",
+          "commit": "8d1fde3a4e282bed2510b8ae16c19b371fab779a",
+          "path": "operations/queue-updates/M-002-2026-07-11T2023-0400.json"
+        },
+        {
+          "type": "github_commit",
+          "commit": "cba7e53f73415ac46215bc79c08cff1b769bdd60",
+          "path": "operations/queue-updates/W-001-2026-07-11T2022-0400.json"
+        },
+        {
+          "type": "github_commit",
+          "commit": "c533e8a4b191d3c660ddf1bb26376a6452fa6403",
+          "path": "operations/queue-updates/R-005-2026-07-11T2023-0400.json"
+        }
+      ]
+    },
+    {
+      "id": "CM-0010-C",
+      "state": "inferred",
+      "statement": "A current operational view must be derived by replaying newer append-only updates over the last canonical snapshot, while retaining both layers for auditability.",
+      "evidence_strength": "reasoned_from_correlated_primary_sources",
+      "depends_on": ["CM-0010-A", "CM-0010-B"]
+    },
+    {
+      "id": "CM-0010-D",
+      "state": "proposed",
+      "statement": "Future queue readers should classify a snapshot field as current only when no later owned queue-update record supersedes it.",
+      "evidence_strength": "implementation_rule_proposal",
+      "depends_on": ["CM-0010-C"]
+    },
+    {
+      "id": "CM-0010-E",
+      "state": "unresolved",
+      "statement": "The repository does not yet expose one signed or deterministic materialized current-view artifact that proves all snapshot and event-log records were replayed in order.",
+      "evidence_strength": "absence_of_retained_materialization_proof",
+      "depends_on": ["CM-0010-C"]
+    }
+  ],
+  "contradictions_resolved": [
+    {
+      "apparent_conflict": "ACTIVE_QUEUE.json can show an item completed with older progress while later commits and queue-update records describe additional completed work.",
+      "resolution": "The snapshot is historically valid at its own blob and timestamp; later append-only records supersede only the current-view interpretation, not the historical snapshot.",
+      "status": "resolved_by_temporal_layering"
+    }
+  ],
+  "superseded_claims": [],
+  "privacy_boundary": {
+    "included": ["public repository files", "public commit metadata", "public queue-update records"],
+    "excluded": ["raw private chat", "health and pet-health material", "credentials", "personal identifiers", "unreviewed uploads"]
+  },
+  "falsification_or_review_route": "Fetch the cited blob and commits. Falsify CM-0010-B if queue updates are shown to replace rather than append to history. Resolve CM-0010-E only with a retained deterministic current-view artifact whose inputs, ordering rule, and source identities are inspectable.",
+  "next_action": "Create a deterministic current-view manifest that lists the canonical snapshot blob, every replayed queue-update record, ordering keys, and the resulting item states without deleting or mutating source history."
+}
