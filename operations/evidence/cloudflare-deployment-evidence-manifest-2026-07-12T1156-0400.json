@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T11:56:05-04:00",
+  "claim_state": "implemented_source_behavior",
+  "evidence_strength": "deterministic_local_test",
+  "improvement": "Added a fail-closed deployment evidence manifest builder that binds each required proof-packet artifact by SHA-256, byte length, immutable source commit, and workflow run identifier before archival or downstream review.",
+  "source_files": [
+    "cloudflare-static/build-deployment-evidence-manifest.mjs",
+    "cloudflare-static/build-deployment-evidence-manifest.test.mjs"
+  ],
+  "commits": [
+    "b1968e27b78abc2d95d993a5f0331a4c496ef2cc",
+    "def2cd4070cbb0851b9e00b39d393be4a515e6e7"
+  ],
+  "verification": {
+    "runner": "node --test",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      "deterministic ordering and stable manifest digest",
+      "digest changes when evidence bytes change",
+      "missing, empty, duplicate, and unsafe paths fail closed",
+      "invalid source commit and workflow run identifiers fail closed"
+    ]
+  },
+  "privacy_boundary": "The manifest records artifact paths, hashes, sizes, source commit, run identifier, and generation time only. It does not record Cloudflare credential values, account identifiers, API tokens, private chat, health information, or user content.",
+  "limits": [
+    "A digest manifest proves byte identity and completeness only; it does not prove that the deployment or scientific claim is true.",
+    "The builder is committed but not yet wired into the authoritative workflow.",
+    "No live Cloudflare deployment, hostname resolution, or served-commit proof was obtained in this run."
+  ],
+  "falsification_route": "Modify one proof artifact, omit one required file, duplicate a path, supply an unsafe path, or replace immutable run provenance; the builder must produce a different digest or reject the packet.",
+  "canonical_queue_overwritten": false
+}
