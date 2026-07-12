@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-014",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "updated_at": "2026-07-12T02:25:00-04:00",
+  "action": "Create a fail-closed startup adapter that verifies the commit-bound effective queue and returns exactly one highest-priority actionable item owned by the requesting team.",
+  "dependencies": ["M-013"],
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "artifacts": {
+    "module": "tools/continuity/select-owned-effective-queue-item.mjs",
+    "module_commit": "eba44de4267b10965589fb143404db2b7a6cd35e",
+    "test": "tools/continuity/select-owned-effective-queue-item.test.mjs",
+    "test_commit": "072b2ca6f8e52c0029ad6ad2cdbe1fabec57b1d7",
+    "workflow": ".github/workflows/continuity-effective-queue.yml",
+    "workflow_commit": "500bb34ef62ed47fcf990710170530e0d0f31d8c",
+    "evidence": "operations/evidence/continuity-owned-queue-startup-selector-2026-07-12T0225-0400.json",
+    "evidence_commit": "066e55a455833d70af2c1e76b8532635d26d1ee8"
+  },
+  "claims": {
+    "observed": [
+      "M-013 completed consumer-side artifact verification and handed off verified owned-item selection.",
+      "The new adapter verifies the artifact first, filters by exact owner and actionable status, resolves dependencies, and deterministically selects one item by priority and id.",
+      "Five synthetic adversarial tests and CI wiring are committed."
+    ],
+    "inferred": [
+      "A runtime using this adapter will fail closed rather than consume stale, tampered, foreign-owner, or dependency-blocked work."
+    ],
+    "proposed": [
+      "Add a thin team-start wrapper or shared invocation contract so every scheduled team calls the selector before reading its chosen work item."
+    ],
+    "superseded": [
+      "Manual queue scanning as an adequate autonomous selection boundary.",
+      "Selecting solely by owner and priority without verifying provenance, status, and dependencies."
+    ],
+    "unresolved": [
+      "GitHub Actions runtime success for the selector workflow is not yet proven.",
+      "Peer team prompts do not yet execute the adapter directly."
+    ]
+  },
+  "verification": "Module, five-case synthetic test suite, CI path triggers, and fail-closed test command were committed and source-inspected. Runtime passage is not claimed without a workflow result.",
+  "privacy_boundary": "Public repository metadata, abstract queue records, synthetic fixtures, and generated evidence only; private chat, health material, credentials, personal identifiers, and unreviewed uploads excluded.",
+  "handoff": "Continuity Mining should next define a shared team-start invocation contract that maps each registered team to its exact owner id, invokes the selector, records the selection digest, and refuses implementation when no accepted item is returned."
+}
