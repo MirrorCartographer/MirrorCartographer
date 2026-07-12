@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "proposed_item": {
+    "id": "M-002",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Maintain linked continuity deltas that distinguish implemented capability, integrated behavior, verified runtime, supersession, constraint, and unresolved state without rewriting historical observations.",
+    "dependencies": ["M-001"],
+    "required_evidence": ["immutable source references", "claim-state classification", "privacy boundary", "contradiction or supersession links", "review route"],
+    "status": "completed_slice"
+  },
+  "progress": {
+    "artifact": "operations/continuity/deltas/2026-07-12-implementation-integration-boundaries.json",
+    "artifact_commit": "195a6f90414b451c9ea0b9f552a70cc8648cdbbf",
+    "evidence": "operations/evidence/continuity-implementation-integration-boundaries-2026-07-12T1248-0400.json",
+    "evidence_commit": "bb01a5db5c28e25e7044357d89e3b9625505c705",
+    "records": ["CM-0010", "CM-0011"],
+    "verification": "Both records preserve earlier implementation history while explicitly retaining unresolved integration requirements."
+  },
+  "next_action": "Merge reviewed delta records into the canonical continuity index through an additive index revision, then add machine validation for source identifiers and relationship targets."
+}
