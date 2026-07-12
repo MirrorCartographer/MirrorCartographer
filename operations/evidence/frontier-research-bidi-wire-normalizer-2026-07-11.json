@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-007",
+  "created_at": "2026-07-11T21:21:00-04:00",
+  "primary_source": {
+    "title": "WebDriver BiDi",
+    "publisher": "W3C",
+    "published": "2026-06-29",
+    "url": "https://www.w3.org/TR/webdriver-bidi/",
+    "source_status": "current Working Draft",
+    "relevant_normative_shape": "Local-end messages are CommandResponse, ErrorResponse, or Event; ErrorResponse.id may be a non-negative integer or null."
+  },
+  "finding": "A verifier that consumes raw WebSocket frames needs a direction-aware normalization boundary before semantic transcript validation. Null-id protocol errors must be represented as uncorrelated failures rather than crashing or being silently discarded, and client command objects must not be accepted on the server-message stream.",
+  "design_implication": "Browser adapters should record raw server-to-client frames, pass them through normalizeBidiServerFrames, and only pass an accepted normalized transcript to the existing mc.webdriver-bidi-verification.v2 validator.",
+  "artifact": {
+    "module": "tools/frontier-research/bidi-wire-transcript.mjs",
+    "test": "tools/frontier-research/bidi-wire-transcript.test.mjs",
+    "schema": "mc.webdriver-bidi-wire.v1",
+    "commits": [
+      "ab7f27933d2f1a2b58409120005613dea3a2cd30",
+      "80f44dd624b61fd4c06762f761d2943a06cfc06c"
+    ]
+  },
+  "verification": {
+    "runtime": "Node.js",
+    "result": "7 tests passed, 0 failed",
+    "cases": [
+      "valid event and success response accepted",
+      "invalid JSON rejected",
+      "client command on server stream rejected",
+      "null-id protocol error preserved and rejected",
+      "malformed success response rejected",
+      "malformed event rejected",
+      "unknown message type rejected"
+    ]
+  },
+  "claim_states": {
+    "observed": "The W3C message grammar separates server messages into success responses, error responses, and events, and permits null for an error-response id.",
+    "inferred": "A direction-aware raw-frame normalizer reduces ambiguity and adapter-specific transcript fabrication.",
+    "proposed": "Use this normalizer as the first stage of Cloudflare and Vercel BiDi evidence capture.",
+    "superseded": "Passing arbitrary parsed JSON directly to the semantic transcript validator.",
+    "unresolved": "No live browser WebSocket transcript has yet been captured and normalized."
+  },
+  "evidence_strength": "primary specification plus deterministic adversarial unit tests",
+  "falsification_route": "Capture raw server-to-client frames from a current conforming BiDi implementation. Revise the schema if a valid server message cannot be represented without information loss or if the normalizer accepts a message forbidden by the current grammar.",
+  "limits": [
+    "WebDriver BiDi remains a Working Draft",
+    "normalization does not prove that client commands were emitted",
+    "normalization does not prove browser conformance",
+    "normalization does not prove deployment provenance or claim truth"
+  ],
+  "privacy_boundary": "Contains only public specification references, repository paths, commit identifiers, abstract protocol claims, and synthetic test data."
+}
