@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-12T09:54:00-04:00",
+  "status": "active",
+  "completed_slice": "Finite weather score: the newest eight pressure releases become a bounded generative memory that modifies later visual and audio behavior and can be erased explicitly.",
+  "source_commits": [
+    "13359eca2ab18579cc37da068933c0ca10719eb6",
+    "ee2ba74e718916deed762e42df1d91b7666943b8",
+    "cc9aea2d8359767db7b09cd6cdbaa10399cd7c78",
+    "44708c31f654d26239f8741982c4301209bfa34d"
+  ],
+  "evidence": "operations/evidence/independent-web-weather-score-2026-07-12T0954-0400.json",
+  "verification": "5 deterministic Node tests passed; public deployment remains unverified.",
+  "required_evidence_status": {
+    "site_source": "satisfied",
+    "public_url": "missing",
+    "distinct_identity_statement": "satisfied",
+    "mobile_proof": "partial_source_only"
+  },
+  "next_action": "Resolve an independent hosting target, deploy the exact committed source, capture the immutable deployment identity, and verify touch, audio, erase, and reduced-motion behavior on a physical mobile browser."
+}
