@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-020",
+  "owner": "frontier_research",
+  "priority_basis": "No active Frontier-owned item remained in ACTIVE_QUEUE.json; selected the highest unresolved handoff from R-019: bind coverage evidence to replay navigation identity.",
+  "status": "completed_with_verification_limit",
+  "finding": "Coverage and replay evidence must match one opaque navigation identity before interpretation is allowed.",
+  "files": [
+    "tools/frontier-research/event-timing-navigation-binding.mjs",
+    "tools/frontier-research/event-timing-navigation-binding.test.mjs",
+    "tools/frontier-research/event-timing-interpretation-gate.mjs",
+    "tools/frontier-research/event-timing-interpretation-gate.test.mjs",
+    "operations/evidence/frontier-research-event-timing-navigation-binding-2026-07-12.json"
+  ],
+  "commits": [
+    "43b29ad988a3cdf0f4b17f11d5ea3c10382c2532",
+    "8f70a0201f4aa53e41676b3bfe9ee6e6dc1ff17b",
+    "561e3141b34d6b562b28b1024c9a802d6aa9c4b6",
+    "27ab94061bf48e644cf89a5350c731375f285324",
+    "11b626b957304ac2aa0fafa78e1487dfea3c202a"
+  ],
+  "verification": {
+    "navigation_binding_unit_tests": "4 passed, 0 failed",
+    "integrated_gate_tests": "committed, not independently executed due unavailable fresh checkout/network DNS"
+  },
+  "handoff": "Vercel Studio should add navigationId to the Event Timing coverage collector, then run both committed test files and evaluate a physical Safari packet. Frontier should next define a privacy-bounded non-zero interaction interpretation policy only after same-navigation runtime evidence exists."
+}
