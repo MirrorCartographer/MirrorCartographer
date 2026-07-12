@@ -26,6 +26,11 @@ jobs:
       - name: Checkout committed source
         uses: actions/checkout@v6
 
+      - name: Capture trusted workflow start
+        shell: bash
+        run: |
+          printf 'RUN_STARTED_AT=%s\n' "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_ENV"
+
       - name: Test deployment evidence contracts
         run: |
           node --test cloudflare-static/research-surface-identity.test.mjs
@@ -131,8 +136,6 @@ jobs:
 
       - name: Build local in-toto evidence envelope
         if: always()
-        env:
-          RUN_STARTED_AT: ${{ github.event.repository.updated_at }}
         run: node cloudflare-static/attest-deployment-proof.mjs cloudflare-deployment-proof.json cloudflare-deployment-proof.intoto.json
 
       - name: Sign exact deployment proof bytes
