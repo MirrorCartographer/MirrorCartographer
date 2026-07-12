@@ -1,0 +1,33 @@
+{
+  "schema_version":"1.0.0",
+  "record_id":"continuity-reconciliation-input-builder-2026-07-11T2003-0400",
+  "recorded_at":"2026-07-11T20:03:56-04:00",
+  "owner":"continuity_mining",
+  "claim_state":"observed",
+  "memory_recovered":"Queue reconciliation requires a separate repository-snapshot input stage that preserves source path and blob identity, limits discovery to append-only operational records, and reports unresolved commits and evidence paths rather than silently accepting them.",
+  "source_files":[
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/queue-updates/M-002-2026-07-11T1953-0400.json",
+    "tools/continuity/queue-reconciler.mjs",
+    "tools/continuity/queue-reconciler.test.mjs"
+  ],
+  "implementation":{
+    "module":"tools/continuity/build-reconciliation-input.mjs",
+    "module_commit":"f07f630bb2ac970c44dd20d44a8b14b384dffb2c",
+    "test":"tools/continuity/build-reconciliation-input.test.mjs",
+    "test_commit":"2e1da9b8a53b4559c5e6eec405b6f999299d5e65"
+  },
+  "claim_classes":{
+    "observed":["The prior M-002 record explicitly left repository-aware discovery unresolved.","The committed input builder accepts only operations/queue-updates and operations/evidence JSON records.","The committed input builder preserves source paths and blob SHAs and performs no mutation."],
+    "inferred":["Separating discovery from reconciliation reduces the chance that missing or foreign records are mistaken for valid queue state."],
+    "proposed":["Use this builder before queue-reconciler.mjs in a future repository-aware command."],
+    "superseded":["Manual assembly of reconciler input as the only supported path."],
+    "unresolved":["The GitHub connector must still enumerate directory records and verify every referenced commit before constructing a complete repository snapshot.","The new test file is committed but was not executed by a runtime in this run."]
+  },
+  "verification":"The committed module was refetched by exact commit and its path allowlist, SHA validation, queue-item filtering, unresolved reference reporting, source inventory, privacy boundary, and mutation_performed=false fields were inspected. Runtime test execution was not available.",
+  "privacy_boundary":"Only public repository operations metadata and implementation files were used. Raw chat, medical or pet-health material, credentials, identifying personal data, and unreviewed uploads were excluded.",
+  "falsification_route":"Provide a safe-root record with a malformed blob SHA that is accepted, a foreign queue item that enters updates, a missing reference marked resolvable, or any source mutation; any such result falsifies the contract."
+}
