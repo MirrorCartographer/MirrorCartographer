@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-0009",
+  "generated_at": "2026-07-12T01:36:56-04:00",
+  "kind": "decision_evolution",
+  "title": "Canonical queue state and append-only queue history are distinct authorities",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-12T01:36:56-04:00"
+    },
+    {
+      "type": "github_commit",
+      "locator": "5355577b8fa40cc2c822b4ec2078d8845cf6ae80",
+      "content_sha": "5355577b8fa40cc2c822b4ec2078d8845cf6ae80",
+      "observed_at": "2026-07-12T01:36:56-04:00"
+    },
+    {
+      "type": "github_commit",
+      "locator": "9a60c0a791cab631b7f36e63afd2b72749b1e75e",
+      "content_sha": "9a60c0a791cab631b7f36e63afd2b72749b1e75e",
+      "observed_at": "2026-07-12T01:36:56-04:00"
+    }
+  ],
+  "memory": {
+    "observed": [
+      "ACTIVE_QUEUE.json marks M-001 completed and points to a next continuity item, but it does not enumerate later continuity work.",
+      "The append-only queue-update corpus contains a completed M-007 record with dependency on M-006.",
+      "A committed discovery gate now scans the queue-update directory and records parse and compatibility failures before reconciliation."
+    ],
+    "inferred": [
+      "ACTIVE_QUEUE.json is a canonical snapshot, while operations/queue-updates is the authoritative append-only evolution log for work completed after that snapshot.",
+      "Selecting continuity work from ACTIVE_QUEUE.json alone can repeat completed work or miss the newest handoff."
+    ],
+    "proposed": [
+      "Future continuity runs should derive the effective queue from the canonical snapshot plus the validated append-only corpus, then select the newest compatible continuity handoff."
+    ],
+    "superseded": [
+      "Treating the newest item visible in ACTIVE_QUEUE.json as necessarily the newest continuity item in repository history.",
+      "Treating an externally supplied subset of queue-update records as a complete corpus without directory discovery."
+    ],
+    "unresolved": [
+      "The corpus discovery report has not yet been wired into CI against the live repository tree.",
+      "No commit-bound effective-queue report currently proves independent agreement between discovered file count and reconciled record count."
+    ]
+  },
+  "contradiction_resolution": {
+    "apparent_conflict": "ACTIVE_QUEUE.json presents M-001 as the continuity endpoint while later commits record M-002 through M-007 work.",
+    "resolution": "The records describe different temporal layers: ACTIVE_QUEUE.json is an older canonical snapshot; append-only queue updates preserve subsequent evolution. Neither record is deleted or rewritten.",
+    "status": "resolved_as_temporal_layering"
+  },
+  "privacy_boundary": {
+    "included": [
+      "public repository paths",
+      "blob and commit SHAs",
+      "operational claim states",
+      "abstracted queue and decision history"
+    ],
+    "excluded": [
+      "raw private chat",
+      "health or pet-health material",
+      "credentials and account identifiers",
+      "personal contact data",
+      "unreviewed uploaded-file contents"
+    ]
+  },
+  "falsification_or_review_route": "Fetch ACTIVE_QUEUE.json at blob abb807e1a25d399f301238f6b8cc26d6be10385f, fetch commits 5355577b8fa40cc2c822b4ec2078d8845cf6ae80 and 9a60c0a791cab631b7f36e63afd2b72749b1e75e, and reject this memory if M-007 is not a later continuity record or if the corpus gate does not discover queue-update JSON files before compatibility evaluation.",
+  "next_handoff": "Integrate buildQueueUpdateCorpusReport into a commit-bound effective-queue report and require reconciliation_allowed plus independent discovered-file-count agreement before selecting the next continuity item."
+}
