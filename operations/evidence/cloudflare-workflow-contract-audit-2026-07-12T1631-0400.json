@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T16:31:00-04:00",
+  "improvement": "Added a static cross-check that compares the Cloudflare Pages deployment workflow against the committed GitHub environment contract.",
+  "source_state": {
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "workflow_blob_sha": "c6b83543d24cfad8a3981b19da9a021948608729",
+    "contract": "cloudflare-static/cloudflare-environment-contract.mjs",
+    "contract_blob_sha": "6234ac27399c412a80d9c6c840d8a0f2fff6aa90"
+  },
+  "artifacts": {
+    "auditor": "cloudflare-static/audit-cloudflare-workflow-contract.mjs",
+    "auditor_commit": "ea7cce99875178c03fef7b37007cf7734f491978",
+    "test": "cloudflare-static/audit-cloudflare-workflow-contract.test.mjs",
+    "test_commit": "c7971ff3d0bd726c8fc7340927d023fc4e929815"
+  },
+  "verification": {
+    "deterministic_tests": {"passed": 4, "failed": 0},
+    "workflow_source_observed": {
+      "github_environment": "cloudflare-research",
+      "required_secret_references": ["CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_API_TOKEN"],
+      "wrangler_action": "cloudflare/wrangler-action@v3",
+      "project_name": "mirror-cartographer-research"
+    },
+    "claim": "The committed workflow source expresses the exact environment, secret-name references, Wrangler action, and Pages project required by the committed configuration contract."
+  },
+  "privacy_boundary": {
+    "secret_values_read": false,
+    "secret_values_recorded": false,
+    "public_data_only": true
+  },
+  "evidence_strength": "source-verified configuration intent plus deterministic contract tests",
+  "limits": [
+    "This does not prove the GitHub environment exists.",
+    "This does not prove either secret is configured or valid.",
+    "This does not prove Cloudflare authorization, deployment, hostname resolution, or served identity.",
+    "No diagnosis or treatment claim is present."
+  ],
+  "falsification_route": "Change the workflow environment, remove a required secret reference, change the Pages project, remove Wrangler v3, or introduce Vercel/payment coupling; the auditor must return workflow_contract_mismatch."
+}
