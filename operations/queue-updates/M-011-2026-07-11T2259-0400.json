@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-011",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Normalize historical continuity queue record shapes before enforcing inherited-unresolved lineage.",
+  "dependencies": ["M-010"],
+  "selected_from": {
+    "canonical_item": "M-001",
+    "effective_head": "M-010",
+    "selection_reason": "M-010 explicitly hands off a normalization loader for historical M-* records before repository-wide gating."
+  },
+  "unresolved_inherited": [
+    "M-007 workflow execution artifact",
+    "M-008 adapter audit",
+    "automated queue-lineage fork detection",
+    "CI integration",
+    "automatic discovery of undeclared lineage dependencies"
+  ],
+  "resolved_claims": [
+    "normalization adapter for older queue-update schemas"
+  ],
+  "progress": {
+    "memory": "Continuity validation must normalize schema variants before judging lineage; otherwise old record shapes can become invisible and unresolved work can disappear without an explicit decision.",
+    "module": "tools/continuity/queue-lineage-loader.mjs",
+    "module_commit": "71392f29a6432ea248a4c7a5bd8ccb52176a33df",
+    "test": "tools/continuity/queue-lineage-loader.test.mjs",
+    "test_commit": "340733fdca00d360d24a369687e4db2aa44f71fc",
+    "evidence": "operations/evidence/continuity-queue-lineage-loader-2026-07-11T2259-0400.json",
+    "evidence_commit": "33e98ae49ce4e050073d13ef403987e6f497abfe",
+    "verification": "GitHub confirmed source, test, and evidence commits. Test execution and CI execution were not observed.",
+    "claim_states": {
+      "observed": "M-010 requested a historical normalization loader; the loader and five-case deterministic test source are committed.",
+      "inferred": "Schema normalization is required to prevent historical record shape from functioning as an accidental validation bypass.",
+      "proposed": "Add repository discovery and a report-only CI inventory over actual M-* queue-update files.",
+      "superseded": "Manual pre-normalization as a prerequisite for lineage checking.",
+      "unresolved": [
+        "exact-commit test execution",
+        "repository-wide historical inventory",
+        "semantic matching for differently worded but equivalent unresolved claims"
+      ]
+    }
+  },
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "specialist_registry_change": "none",
+  "completed_at": "2026-07-11T22:59:05-04:00",
+  "privacy_boundary": "Public repository metadata, abstract decision structure, and synthetic test records only. Raw private chat, health and pet-health material, credentials, personal identifiers, and unreviewed uploads were excluded.",
+  "handoff": "Add repository file discovery, run the loader over actual M-* queue updates in report-only mode, and preserve all detected forks or dropped claims as unresolved evidence rather than rewriting history."
+}
