@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T20:36:31-04:00",
+  "claim_state": "observed",
+  "evidence_strength": "repository_and_issue_api",
+  "finding": "The Cloudflare production workflow and evidence contracts are committed, but no workflow run exists for the latest readiness-handoff commit and the deployment remains blocked on external GitHub Environment configuration.",
+  "sources": {
+    "active_queue": "operations/ACTIVE_QUEUE.json",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "readiness_classifier": "cloudflare-static/check-deployment-readiness.mjs",
+    "latest_checked_commit": "460ce36b16c9cffdb124fde4c35ce91a3017febd",
+    "workflow_runs_for_latest_checked_commit": 0,
+    "tracking_issue": "https://github.com/MirrorCartographer/MirrorCartographer/issues/3"
+  },
+  "durable_improvement": {
+    "type": "external_blocker_tracking_issue",
+    "issue_number": 3,
+    "acceptance_gate": "Issue may close only after a resolving URL, served identity, immutable commit, cryptographic verification, trusted-builder evaluation, and accepted evidence artifact are retained.",
+    "privacy_boundary": "Only required secret names and non-sensitive configuration steps are recorded; credential values, token prefixes, account identifiers, and authorization headers are prohibited."
+  },
+  "deployment_proven": false,
+  "limits": [
+    "No Cloudflare deployment URL was returned in this run.",
+    "No served runtime identity was observed in this run.",
+    "No credential values were available or inspected.",
+    "Creation of the issue does not prove configuration or deployment completion."
+  ],
+  "falsification_route": "Configure the cloudflare-research GitHub Environment, dispatch the committed workflow, and inspect retained workflow artifacts. This record is superseded only when cloudflare-deployment-acceptance.json reports accepted true for a resolving deployment URL and immutable source commit."
+}
