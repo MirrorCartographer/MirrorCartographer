@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "status": "completed",
+  "priority_basis": "R-013 defined a fail-closed Event Timing capability evaluator, but its handoff still required a privacy-bounded browser-side collector before target-runtime evidence could exist.",
+  "action": "Implement a runtime Event Timing capability collector that feeds R-013 without retaining interaction content or browser fingerprint strings.",
+  "completed_at": "2026-07-12T01:41:44-04:00",
+  "specialists_used": [
+    "Primary Source Scout",
+    "Technical Synthesist",
+    "Experiment Designer",
+    "Tool Evaluator",
+    "Cross-Domain Translator"
+  ],
+  "progress": {
+    "primary_sources": [
+      "https://w3c.github.io/event-timing/",
+      "https://w3c.github.io/performance-timeline/"
+    ],
+    "finding": "Runtime capability must be collected from actual browser interfaces before Event Timing replay evidence can be interpreted; an unsupported runtime must remain unresolved rather than appearing as a successful zero-event observation.",
+    "module": "tools/frontier-research/event-timing-capability-collector.mjs",
+    "test": "tools/frontier-research/event-timing-capability-collector.test.mjs",
+    "evidence": "operations/evidence/frontier-research-event-timing-collector-2026-07-12.json",
+    "commits": [
+      "6ed90640542297733422c8a0be17614baa926ba7",
+      "6f1b5e05f508f0d6fedf351d2622afe46597a1c5",
+      "2b0e318bfc0cd9aecc22e889e4530c229a83541d"
+    ],
+    "verification": "6 deterministic Node.js tests passed; 0 failed"
+  },
+  "handoff": "Vercel Studio should call collectEventTimingCapability in the deployed page, retain the returned packet alongside the replay navigation identity, and pass it through R-013 before R-012 replay-window validation.",
+  "limits": [
+    "No physical iPhone Safari capability packet was captured.",
+    "No deployed integration currently invokes the collector.",
+    "Capability availability does not prove replay completeness, latency quality, or causality.",
+    "The W3C sources are evolving Editor's Drafts, so target-runtime feature detection remains authoritative."
+  ],
+  "next_action": "Add a deployed, privacy-bounded integration that exposes the collector packet for iPhone Safari verification and rejects replay interpretation when capability_valid is false."
+}
