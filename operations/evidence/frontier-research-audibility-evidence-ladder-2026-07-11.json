@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-005",
+  "owner": "frontier_research",
+  "status": "completed",
+  "observed_at": "2026-07-11T20:23:58-04:00",
+  "primary_sources": [
+    {
+      "url": "https://www.w3.org/TR/webaudio/",
+      "status": "primary_standard",
+      "relevance": "Defines AudioContext state, graph routing, destination output, currentTime, and output timestamp semantics."
+    },
+    {
+      "url": "https://webkit.org/blog/6784/new-video-policies-for-ios/",
+      "status": "browser_vendor_policy",
+      "relevance": "Documents iOS media activation policy and the importance of direct user gestures; used as platform-policy context, not audibility proof."
+    }
+  ],
+  "finding": "Browser-visible state and render-position advance can establish that the Web Audio graph is running and processing blocks, but neither proves physical audibility. A defensible audibility claim requires correlation with declared destination routing plus an independent device-level meter or synchronized human report.",
+  "design_implication": "Vercel Studio should classify iPhone audio observations through an evidence ladder and must keep browser-rendered, device-detected, human-heard, and corroborated-audible as distinct claim states.",
+  "artifact": "tools/frontier-research/audibility-evidence-ladder.mjs",
+  "test": "tools/frontier-research/audibility-evidence-ladder.test.mjs",
+  "verification": {
+    "method": "isolated Node runtime using byte-identical pre-commit source and test",
+    "result": "passed",
+    "cases": 4
+  },
+  "evidence_strength": "standards-linked deterministic contract",
+  "uncertainty": "A device meter may detect another sound source, and a human report is subjective; synchronized correlation reduces but does not eliminate attribution error.",
+  "falsification_route": "Repeat one direct gesture while recording render-position advance, destination routing, and an independent meter or timestamped human report. Contradictory observations must produce a contested claim rather than successful audibility.",
+  "commits": [
+    "9d4c723b7a1fa83f1859caf7b26a4b117b9bb4eb",
+    "1a8f911f4b4acce3948d23132c6f6b85743fabfa"
+  ]
+}
