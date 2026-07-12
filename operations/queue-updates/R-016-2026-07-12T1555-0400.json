@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-016",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Resolve divergent redundant monotonic-state replicas through a separately configured threshold authority without allowing either local replica to self-authorize.",
+    "dependencies": ["R-015"],
+    "required_evidence": [
+      "current primary specification",
+      "committed authority resolver",
+      "deterministic adversarial tests",
+      "explicit trust limit",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://theupdateframework.github.io/specification/latest/",
+        "https://nodejs.org/api/crypto.html"
+      ],
+      "finding": "Divergent replicas require separately administered threshold authorization over the exact candidate sequence and digest; highest-sequence selection alone is unsafe.",
+      "module": "tools/frontier-research/external-authority-resolver.mjs",
+      "test": "tools/frontier-research/external-authority-resolver.test.mjs",
+      "evidence": "operations/evidence/frontier-external-authority-resolver-2026-07-12.json",
+      "commits": [
+        "4cbe2ba2b586708276905079767628e5dc7309e2",
+        "d53b6cd2b21dc0b3cceab8060b25344b7c885a19",
+        "e523060b8492d5d74f7683eb8e64fc4568b27435"
+      ],
+      "verification": "6 deterministic Node tests passed: threshold selection; insufficient threshold; duplicate signer; expiry; non-candidate statement; conflicting threshold authorities.",
+      "limits": "Generated in-process keys do not demonstrate independent administration, hardware-backed custody, remote witness availability, or secure root-policy rotation."
+    },
+    "handoff": "R-017 should define root-policy rotation and recovery: require old-threshold plus new-threshold authorization, monotonic root versions, expiry handling, and rejection of authority-set rollback."
+  },
+  "update_mode": "additive_owner_scoped_record",
+  "canonical_queue_note": "ACTIVE_QUEUE.json remains historically stale for frontier_research; continuity tooling should resolve effective owner state from additive queue-update records without overwriting other teams."
+}
