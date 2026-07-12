@@ -35,6 +35,8 @@ jobs:
           node --test cloudflare-static/summarize-deployment-blocker.test.mjs
           node --test cloudflare-static/validate-deployment-blocker.test.mjs
           node --test cloudflare-static/build-deployment-decision.test.mjs
+          node --test cloudflare-static/build-deployment-proof.test.mjs
+          node --test cloudflare-static/validate-deployment-proof.test.mjs
           node --test cloudflare-static/attest-deployment-proof.test.mjs
           node --test cloudflare-static/normalize-github-attestation-verification.test.mjs
           node --test cloudflare-static/evaluate-signer-authorization.test.mjs
@@ -114,36 +116,10 @@ jobs:
       - name: Record deployment proof
         if: always()
         env:
+          CLOUDFLARE_PAGES_PROJECT: mirror-cartographer-research
           DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
           ALIAS_URL: ${{ steps.deploy.outputs.pages-deployment-alias-url }}
-        run: |
-          node - <<'NODE'
-          const fs = require('node:fs');
-          const proof = {
-            schema_version: '1.0.0',
-            source_commit: process.env.GITHUB_SHA,
-            workflow_run: `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`,
-            deployment_url: process.env.DEPLOYMENT_URL || null,
-            alias_url: process.env.ALIAS_URL || null,
-            readiness: fs.existsSync('cloudflare-deployment-readiness.json')
-              ? JSON.parse(fs.readFileSync('cloudflare-deployment-readiness.json', 'utf8'))
-              : null,
-            access_probe: fs.existsSync('cloudflare-access-probe.json')
-              ? JSON.parse(fs.readFileSync('cloudflare-access-probe.json', 'utf8'))
-              : null,
-            blocker: fs.existsSync('cloudflare-deployment-blocker.json')
-              ? JSON.parse(fs.readFileSync('cloudflare-deployment-blocker.json', 'utf8'))
-              : null,
-            deployment_decision: fs.existsSync('cloudflare-deployment-decision.json')
-              ? JSON.parse(fs.readFileSync('cloudflare-deployment-decision.json', 'utf8'))
-              : null,
-            verifier_output: fs.existsSync('cloudflare-deployment-proof.ndjson')
-              ? fs.readFileSync('cloudflare-deployment-proof.ndjson', 'utf8').trim().split('\n').filter(Boolean).map((line) => JSON.parse(line))
-              : [],
-            generated_at: new Date().toISOString()
-          };
-          fs.writeFileSync('cloudflare-deployment-proof.json', JSON.stringify(proof, null, 2) + '\n');
-          NODE
+        run: node cloudflare-static/build-deployment-proof.mjs cloudflare-deployment-proof.json
 
       - name: Validate deployment proof contract
         if: always()
@@ -256,6 +232,7 @@ jobs:
             echo "- Actionable blocker: \`cloudflare-deployment-blocker.json\` (schema-validated names and reason codes only)"
             echo "- Deployment decision: \`cloudflare-deployment-decision.json\`"
             echo "- Identity verifier: \`cloudflare-static/verify-deployment.mjs\`"
+            echo "- Proof builder: \`cloudflare-static/build-deployment-proof.mjs\` (schema 1.1.0 with URL authority)"
             echo "- Run-context validator: \`cloudflare-static/validate-deployment-proof-context.mjs\`"
             echo "- Local provenance envelope: \`cloudflare-deployment-proof.intoto.json\`"
             echo "- GitHub cryptographic verification: \`cloudflare-deployment-proof.signature-verification.json\`"
