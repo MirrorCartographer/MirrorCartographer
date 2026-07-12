@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "event_id": "C-001-2026-07-12T0127-0400",
+  "item_id": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T01:27:00-04:00",
+  "event_type": "progress",
+  "status": "blocked_external_configuration",
+  "summary": "Added and tested a dedicated deployment-proof builder that embeds the deny-by-default Cloudflare Pages URL authority classification into the exact proof packet intended for signing and acceptance evaluation.",
+  "artifacts": [
+    "cloudflare-static/build-deployment-proof.mjs",
+    "cloudflare-static/build-deployment-proof.test.mjs",
+    "operations/evidence/cloudflare-deployment-proof-authority-binding-2026-07-12T0127-0400.json"
+  ],
+  "verification": {
+    "command": "node --test build-deployment-proof.test.mjs",
+    "tests_passed": 3,
+    "tests_failed": 0,
+    "deployment_verified": false
+  },
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch the deployment workflow.",
+  "handoff": "Replace the inline proof-construction block in .github/workflows/cloudflare-pages-research.yml with cloudflare-static/build-deployment-proof.mjs, add build-deployment-proof.test.mjs to the contract test step, and require url_authority.valid before evidence acceptance can succeed.",
+  "privacy_boundary": "No secret values, account IDs, private material, health claims, or user content were stored."
+}
