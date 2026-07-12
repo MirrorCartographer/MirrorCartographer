@@ -8,6 +8,7 @@ const REPOSITORY = 'MirrorCartographer/MirrorCartographer';
 const BUILDER_ID = 'https://github.com/MirrorCartographer/MirrorCartographer/.github/workflows/cloudflare-pages-research.yml@refs/heads/main';
 const ARTIFACT_NAME = 'cloudflare-deployment-proof.json';
 const TRUSTED_START_SOURCE = 'workflow-captured';
+const MAX_PROVENANCE_DURATION_MS = 6 * 60 * 60 * 1000;
 
 const PROVENANCE_EXPECTATIONS = createProvenanceExpectations({
   buildType: BUILD_TYPE,
@@ -36,6 +37,9 @@ export function resolveProvenanceTimes({ candidateStartedOn, candidateSource, fi
   const started = new Date(candidateStartedOn);
   if (Number.isNaN(started.getTime())) throw new Error('startedOn-invalid');
   if (started.getTime() > finished.getTime()) throw new Error('startedOn-after-finishedOn');
+  if (finished.getTime() - started.getTime() > MAX_PROVENANCE_DURATION_MS) {
+    throw new Error('startedOn-exceeds-maximum-duration');
+  }
 
   return Object.freeze({
     startedOn: started.toISOString(),
