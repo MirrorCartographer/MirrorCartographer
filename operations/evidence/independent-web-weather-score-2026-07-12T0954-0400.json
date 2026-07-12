@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "created_at": "2026-07-12T09:54:00-04:00",
+  "creative_premise": "Pressure released into the bell is not discarded; the newest eight releases become a finite weather score that bends later light, geometry, and pitch.",
+  "specialists": ["Creative Director","Worldbuilder","Experimental Interface Designer","Generative Media Engineer"],
+  "files": {
+    "runtime": "independent-web/weather-score.mjs",
+    "runtime_test": "independent-web/weather-score.test.mjs",
+    "surface": "independent-web/index.html"
+  },
+  "commits": [
+    "13359eca2ab18579cc37da068933c0ca10719eb6",
+    "ee2ba74e718916deed762e42df1d91b7666943b8",
+    "cc9aea2d8359767db7b09cd6cdbaa10399cd7c78"
+  ],
+  "verification": {
+    "method": "isolated Node test execution using byte-identical committed module logic",
+    "command": "node --test weather-score.test.mjs",
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "bounded newest-event retention",
+      "input clamping",
+      "deterministic weighted state",
+      "bounded equal-tempered pitch movement",
+      "score erasure"
+    ]
+  },
+  "accessibility": {
+    "keyboard": "Space writes pressure; S wakes sound; E erases the score",
+    "live_region": "score-writing and erase outcomes are announced",
+    "reduced_motion": "existing reduced-motion behavior is preserved",
+    "touch": "safe-area layout and large controls remain present"
+  },
+  "identity_boundary": "The work is a self-contained playable artwork with its own fictional physical law. It contains no Mirror Cartographer explanation, research dashboard, worker interface, payment route, or product funnel.",
+  "deployment_claim": {
+    "state": "unverified",
+    "reason": "No authoritative public hosting URL or deployment identity was available in this run. Source behavior and deterministic score logic are verified; public serving is not claimed."
+  },
+  "rollback": [
+    "Revert cc9aea2d8359767db7b09cd6cdbaa10399cd7c78 to remove surface integration.",
+    "Revert ee2ba74e718916deed762e42df1d91b7666943b8 to remove score tests.",
+    "Revert 13359eca2ab18579cc37da068933c0ca10719eb6 to remove the score module."
+  ],
+  "limits": [
+    "No public deployment was observed.",
+    "Audio behavior was not physically verified on mobile hardware.",
+    "The score intentionally persists only for the current page session."
+  ]
+}
