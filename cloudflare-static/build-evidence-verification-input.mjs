@@ -29,6 +29,16 @@ function normalizeDigest(value) {
   return /^[a-f0-9]{64}$/.test(normalized) ? normalized : null;
 }
 
+function projectIdentityReportMatches(derived, supplied) {
+  if (!supplied || typeof supplied !== 'object' || Array.isArray(supplied)) return true;
+  return supplied.valid === derived.valid
+    && supplied.project === derived.project
+    && supplied.canonical_hostname === derived.canonical_hostname
+    && supplied.deployment_hostname === derived.deployment_hostname
+    && supplied.alias_hostname === derived.alias_hostname
+    && JSON.stringify(supplied.errors ?? []) === JSON.stringify(derived.errors ?? []);
+}
+
 export function buildEvidenceVerificationInput({ proofText, proof, attestationBundle, signatureVerification = null, freshnessVerification = null, projectIdentityVerification = null }) {
   if (typeof proofText !== 'string' || !proofText) throw new TypeError('proofText must be a non-empty string');
   if (!proof || typeof proof !== 'object' || Array.isArray(proof)) throw new TypeError('proof must be an object');
@@ -64,17 +74,19 @@ export function buildEvidenceVerificationInput({ proofText, proof, attestationBu
     future_skew_ms: Number.isFinite(freshnessVerification?.future_skew_ms) ? freshnessVerification.future_skew_ms : null,
     errors: Array.isArray(freshnessVerification?.errors) ? freshnessVerification.errors : ['freshness-verification-required']
   };
-  const identityResult = projectIdentityVerification ?? validatePagesProjectIdentity(proof, EXPECTED.pagesProject);
-  const projectIdentityValid = identityResult?.valid === true
-    && Array.isArray(identityResult?.errors)
-    && identityResult.errors.length === 0;
+  const identityResult = validatePagesProjectIdentity(proof, EXPECTED.pagesProject);
+  const reportMatches = projectIdentityReportMatches(identityResult, projectIdentityVerification);
+  const identityErrors = [...identityResult.errors];
+  if (!reportMatches) identityErrors.push('project-identity-report-mismatch');
+  const projectIdentityValid = identityResult.valid === true && reportMatches && identityErrors.length === 0;
   const projectIdentityEvidence = {
     status: projectIdentityValid ? 'valid' : 'invalid', valid: projectIdentityValid,
-    project: identityResult?.project ?? null,
-    canonical_hostname: identityResult?.canonical_hostname ?? null,
-    deployment_hostname: identityResult?.deployment_hostname ?? null,
-    alias_hostname: identityResult?.alias_hostname ?? null,
-    errors: Array.isArray(identityResult?.errors) ? identityResult.errors : ['project-identity-verification-required']
+    project: identityResult.project ?? null,
+    canonical_hostname: identityResult.canonical_hostname ?? null,
+    deployment_hostname: identityResult.deployment_hostname ?? null,
+    alias_hostname: identityResult.alias_hostname ?? null,
+    errors: identityErrors,
+    derivation: 'recomputed-from-exact-proof'
   };
 
   const subjectVerification = { status: status(declaredDigest === digest, 'match', 'mismatch'), computed_sha256: digest, declared_sha256: typeof declaredDigest === 'string' ? declaredDigest : null };
@@ -103,12 +115,12 @@ export function buildEvidenceVerificationInput({ proofText, proof, attestationBu
   const policy = { schema_version: '1.1.0', enabled: true, allowed_builder_ids: [EXPECTED.builderId], allowed_source_repositories: [EXPECTED.sourceRepository], allowed_build_types: [EXPECTED.buildType], require_invocation_id: true, require_freshness: true, require_project_identity: true };
 
   return {
-    schema_version: '2.3.0', artifactName: EXPECTED.artifactName, artifactText: proofText, envelope, attestation: statement, policy,
+    schema_version: '2.4.0', artifactName: EXPECTED.artifactName, artifactText: proofText, envelope, attestation: statement, policy,
     signatureVerification: normalizedSignature, freshnessEvidence, projectIdentityEvidence,
     expected: { sourceRepository: EXPECTED.sourceRepository, sourceCommit: proof.source_commit ?? null, team: EXPECTED.team, queueItem: EXPECTED.queueItem },
     subjectVerification, signatureSubjectVerification, trustedBuilderPolicy, claimEvidence,
     diagnostics: { signatureVerification: normalizedSignature, subjectVerification, signatureSubjectVerification, trustedBuilderPolicy, freshnessEvidence, projectIdentityEvidence, claimEvidence },
-    limits: ['Subject digest matching is not signature verification.', 'Project hostname identity is required but does not prove Cloudflare account ownership.', 'A cryptographic verification report is accepted only when its reported subject digest matches the exact proof bytes.', 'Trusted workflow identity is a policy check, not proof that the deployment claim is true.', 'Freshness is a bounded timestamp check, not proof that the deployment remains available.', 'A verified signature authenticates provenance identity and artifact binding, not scientific truth or deployment availability.']
+    limits: ['Subject digest matching is not signature verification.', 'Project identity is recomputed from the exact proof; a supplied report is consistency evidence only.', 'Project hostname identity is required but does not prove Cloudflare account ownership.', 'A cryptographic verification report is accepted only when its reported subject digest matches the exact proof bytes.', 'Trusted workflow identity is a policy check, not proof that the deployment claim is true.', 'Freshness is a bounded timestamp check, not proof that the deployment remains available.', 'A verified signature authenticates provenance identity and artifact binding, not scientific truth or deployment availability.']
   };
 }
 
