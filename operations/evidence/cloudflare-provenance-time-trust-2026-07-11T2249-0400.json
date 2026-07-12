@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T22:49:00-04:00",
+  "claim_state": "implemented_source_verified_ci_unavailable",
+  "improvement": {
+    "summary": "Prevent repository metadata from being represented as the Cloudflare deployment run start time in provenance attestations.",
+    "problem": "The workflow supplied github.event.repository.updated_at as RUN_STARTED_AT. That timestamp describes repository metadata, not the start of the deployment invocation, and could create false temporal provenance.",
+    "behavior": [
+      "Accept a candidate start timestamp only when its source is exactly workflow-captured.",
+      "Reject malformed timestamps and captured starts later than finish.",
+      "When the start source is absent or untrusted, collapse startedOn to finishedOn rather than inventing run duration.",
+      "Emit startTimeStatus so downstream evidence distinguishes captured timing from unavailable timing."
+    ]
+  },
+  "source": {
+    "module": "cloudflare-static/attest-deployment-proof.mjs",
+    "module_commit": "c4d126d7b274626e9d858d306b16ca406c300ca4",
+    "test": "cloudflare-static/attest-deployment-proof.test.mjs",
+    "test_commit": "19e80dd48a7620b0c491483573985ab6fa00357d"
+  },
+  "verification": {
+    "repository_commit_fetch": "confirmed",
+    "new_contract_cases": [
+      "workflow-captured start accepted",
+      "repository-updated-at start collapsed to finish",
+      "captured start after finish rejected"
+    ],
+    "workflow_runs_for_test_commit": 0,
+    "execution_status": "not_executed_in_ci",
+    "strongest_feasible_proof": "GitHub confirmed both source and test commits and returned no workflow runs for the test commit."
+  },
+  "deployment": {
+    "status": "still_blocked_external_configuration",
+    "public_url_claimed": false,
+    "served_commit_claimed": false
+  },
+  "privacy": {
+    "secret_values_emitted": false,
+    "account_identifiers_emitted": false,
+    "private_chat_or_health_material_published": false
+  },
+  "limits": [
+    "The new tests have not executed in GitHub Actions.",
+    "The current workflow does not yet capture and label an actual run-start timestamp, so provenance will conservatively report zero observed duration.",
+    "Temporal provenance does not prove deployment success, served identity, scientific truth, diagnosis, or treatment efficacy."
+  ],
+  "rollback": {
+    "method": "revert commits in reverse order",
+    "commits": [
+      "19e80dd48a7620b0c491483573985ab6fa00357d",
+      "c4d126d7b274626e9d858d306b16ca406c300ca4"
+    ]
+  }
+}
