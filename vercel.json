@@ -1,0 +1,4 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "ignoreCommand": "node -e \"console.log('MirrorCartographer public research deploys through Cloudflare; skipping duplicate Vercel build'); process.exit(0)\""
+}
