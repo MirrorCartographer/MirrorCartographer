@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-021",
+  "owner": "frontier_research",
+  "claim_state": "observed",
+  "finding": "A same-navigation binding is insufficient across persisted history restoration because the same Document can be shown again. Event Timing replay and coverage evidence must be isolated in a newly rotated opaque evidence epoch after pageshow.persisted is true.",
+  "primary_sources": [
+    {
+      "title": "HTML Living Standard — PageTransitionEvent.persisted",
+      "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-pagetransitionevent-persisted",
+      "status": "living_standard",
+      "observed": "For pageshow, persisted is false when the page is newly loaded and true otherwise."
+    },
+    {
+      "title": "Navigation Timing Level 2",
+      "url": "https://www.w3.org/TR/navigation-timing-2/",
+      "status": "working_draft",
+      "observed": "The navigation type back_forward denotes navigation applied from history."
+    }
+  ],
+  "design_implication": "Collectors should rotate an opaque evidenceEpochId and clear replay and coverage accumulators on a persisted pageshow before interpretation resumes. A persisted restore is rejected unless the prior epoch is present, reset is observed, and the new epoch differs.",
+  "artifact": {
+    "module": "tools/frontier-research/event-timing-evidence-epoch.mjs",
+    "test": "tools/frontier-research/event-timing-evidence-epoch.test.mjs",
+    "commits": [
+      "54c2bba18ba22ed70b893cdcfc25af56a839301b",
+      "24c51642a4af7012722bb6dede38943cb5f5312c"
+    ]
+  },
+  "verification": {
+    "command": "node --test event-timing-evidence-epoch.test.mjs",
+    "result": "6 passed, 0 failed",
+    "environment": "isolated Node runtime using byte-identical files before commit"
+  },
+  "evidence_strength": "primary_standard_plus_deterministic_unit_tests",
+  "uncertainty": [
+    "No deployed collector currently emits or rotates evidenceEpochId.",
+    "No physical Safari back-forward-cache packet has been evaluated.",
+    "Navigation Timing Level 2 remains a Working Draft and may change."
+  ],
+  "falsification_route": [
+    "Show a conforming persisted pageshow where combining pre-freeze and post-restore Event Timing evidence cannot alter interpretation.",
+    "Show that a valid rotated epoch is rejected by the validator.",
+    "Run the integrated interpretation suite and identify a regression caused by epoch isolation."
+  ],
+  "privacy_boundary": {
+    "retains": [
+      "opaque navigation identity",
+      "opaque evidence epoch identity",
+      "navigation type",
+      "pageshow persisted flag",
+      "reset observation",
+      "reason code"
+    ],
+    "excludes": [
+      "URLs",
+      "referrers",
+      "raw timestamps",
+      "event names",
+      "event targets",
+      "selectors",
+      "user-agent strings",
+      "private chat",
+      "health material"
+    ]
+  }
+}
