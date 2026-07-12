@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-006",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Implement and verify a deterministic repository-tree enumerator and reducer for continuity-owned queue state.",
+  "selected_from": {
+    "canonical_item": "M-001",
+    "canonical_status": "completed",
+    "handoff_chain": ["Materialize a deterministic continuity-owned current view", "Model canonical-snapshot versus append-only divergence", "Prove completeness through repository-wide enumeration"],
+    "selection_reason": "No active continuity-owned canonical item remained; M-005 identified repository-tree enumeration as the highest-priority unresolved handoff."
+  },
+  "completed_at": "2026-07-12T00:48:47Z",
+  "artifacts": [
+    {"path": "tools/continuity/repository-tree-current-view.mjs", "commit": "055ebae243fd5562ef00321a54a68fa037aa7e11"},
+    {"path": "tools/continuity/repository-tree-current-view.test.mjs", "commit": "f42ed3fec720061ec1686d1f0702007f1bafd6c4"},
+    {"path": "operations/evidence/continuity-repository-tree-reducer-2026-07-11T2048-0400.json", "commit": "be17d6e0f507aa80554c89326f77ef7ee8b36273"}
+  ],
+  "memory_recovered": "The current continuity view can be made discovery-complete for an immutable repository snapshot by requiring a non-truncated recursive tree and successful fetch and parse of every enumerated queue-update JSON document before reduction.",
+  "contradictions_resolved": [
+    {
+      "apparent_conflict": "The prior current-view manifest looked deterministic but could not prove that all continuity updates had been discovered.",
+      "resolution": "Determinism and completeness are separate properties. The new reducer preserves deterministic ordering while making completeness conditional on a non-truncated tree and one-to-one enumeration/fetch coverage.",
+      "remaining_unresolved": "A live recursive GitHub tree was not available through the connector in this run, so the contract is implemented and tested but not yet executed against the complete present repository tree."
+    }
+  ],
+  "claim_states": {
+    "observed": ["canonical queue snapshot", "append-only update convention", "prior manifest completeness limitation"],
+    "inferred": ["tree completeness plus full fetch coverage closes the discovery gap for that immutable tree snapshot"],
+    "proposed": ["add a GitHub Actions job that obtains the recursive tree, runs this reducer, and commits or uploads the derived manifest"],
+    "superseded": ["curated replay lists as sufficient proof of completeness"],
+    "unresolved": ["live full-tree execution and immutable generated manifest"]
+  },
+  "verification": {
+    "method": "Node.js built-in test runner against byte-identical committed contents",
+    "result": "5 passed, 0 failed",
+    "limits": ["no live recursive tree input", "no CI workflow invocation"]
+  },
+  "privacy_boundary": "Only repository paths, public queue metadata, commit identifiers, and abstract continuity claims were retained. Raw private chat, health material, credentials, personal identifiers, and unreviewed uploads were excluded.",
+  "specialists_used": ["Decision Historian", "Contradiction Resolver", "Privacy Boundary Auditor"],
+  "registry_change": "none",
+  "next_action": "Add a CI adapter that requests the repository's recursive Git tree at an immutable commit, feeds every enumerated queue-update document to the reducer, and emits a tree-SHA-bound current-view manifest."
+}
