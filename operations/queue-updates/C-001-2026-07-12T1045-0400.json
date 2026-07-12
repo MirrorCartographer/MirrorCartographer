@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T10:45:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added a deny-by-default deployment-proof freshness validator with deterministic tests.",
+  "files": [
+    "cloudflare-static/validate-deployment-proof-freshness.mjs",
+    "cloudflare-static/validate-deployment-proof-freshness.test.mjs",
+    "operations/evidence/cloudflare-proof-freshness-2026-07-12T1045-0400.json"
+  ],
+  "commits": [
+    "f1f895521a023caaa5bb5fb1237c8782e005449b",
+    "12942685c91a05b848b93a2771762f17d29f0ae0",
+    "afb7976016ce0171130b56e490cfb19360bd2529"
+  ],
+  "verification": "Four deterministic Node tests passed in an isolated runtime using byte-identical committed source and test files.",
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment, dispatch the deployment workflow, and bind the freshness result into the final evidence-acceptance path.",
+  "next_action": "Wire cloudflare-deployment-proof.freshness.json into the workflow artifact set and acceptance manifest, then dispatch after credentials are configured."
+}
