@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-013",
+  "team": "frontier_research",
+  "created_at": "2026-07-12T01:31:16-04:00",
+  "primary_sources": [
+    {
+      "title": "Event Timing API Editor's Draft",
+      "url": "https://w3c.github.io/event-timing/",
+      "source_status": "current_primary_specification",
+      "observations": [
+        "User agents expose Event Timing support through PerformanceObserver.supportedEntryTypes.",
+        "The default event duration threshold is 104 ms; an observer can request a lower threshold, but the effective minimum is 16 ms.",
+        "first-input entries are reported regardless of durationThreshold and have distinct buffering behavior.",
+        "interactionId groups related event entries but is not a sequential interaction counter."
+      ]
+    },
+    {
+      "title": "Performance Timeline Editor's Draft",
+      "url": "https://w3c.github.io/performance-timeline/",
+      "source_status": "current_primary_specification",
+      "observations": [
+        "Runtime support must be detected rather than assumed across user agents."
+      ]
+    }
+  ],
+  "finding": "R-012 replay-window integrity is insufficient when a browser lacks Event Timing, first-input, or interaction grouping support, or when collection claims a threshold below the specification minimum. A capability packet must be validated before replay evidence is classified.",
+  "design_implication": "Run event-timing-capability.mjs before bounded-replay-window.mjs. Treat unsupported entry types, unavailable interaction grouping, malformed thresholds, or thresholds below 16 ms as unresolved rather than as zero-latency evidence.",
+  "artifact": {
+    "module": "tools/frontier-research/event-timing-capability.mjs",
+    "test": "tools/frontier-research/event-timing-capability.test.mjs",
+    "module_commit": "b84d61e6d9f961787a5456c1f97631d85e42d188",
+    "test_commit": "d447c201f6cdb9d007deaebec45d56a81fe7f047"
+  },
+  "verification": {
+    "runtime": "Node.js test runner",
+    "result": "7 passed, 0 failed",
+    "coverage": [
+      "complete capability packet accepted",
+      "missing event support rejected",
+      "missing first-input support rejected",
+      "sub-16-ms threshold rejected",
+      "missing interaction grouping rejected",
+      "missing eventCounts preserved as an explicit limitation",
+      "raw event names, targets, selectors, and entries excluded"
+    ]
+  },
+  "evidence_strength": "direct local deterministic test plus current primary specification",
+  "uncertainty": [
+    "Actual Safari and iPhone support must be measured at runtime.",
+    "eventCounts is treated as a completeness cross-check rather than a hard requirement because browser support may differ.",
+    "A valid capability packet does not prove that a particular replay was captured completely or caused a visual outcome."
+  ],
+  "falsification_route": [
+    "Run the gate on browsers with intentionally missing supportedEntryTypes and require unresolved output.",
+    "Request thresholds below 16 ms and require rejection.",
+    "Compare runtime capability packets against actual PerformanceObserver construction and delivered entries.",
+    "Demonstrate that a valid packet can still accompany incomplete replay data, preserving the distinction between capability and evidence truth."
+  ],
+  "privacy_boundary": {
+    "retained": ["opaque navigation identity", "entry-type support flags", "duration threshold", "aggregate capability state"],
+    "excluded": ["event names", "event targets", "selectors", "raw timing entries", "private chat", "health data", "credentials"]
+  }
+}
