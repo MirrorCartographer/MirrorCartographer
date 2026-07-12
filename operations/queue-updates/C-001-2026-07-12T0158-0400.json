@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T01:58:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Replaced repository-update metadata as deployment-provenance start time with a UTC timestamp captured inside the current trusted GitHub Actions job before tests and deployment.",
+  "specialists_used": [
+    "Evidence Auditor",
+    "Provenance Engineer",
+    "Cloudflare Deployment Engineer"
+  ],
+  "files": [
+    ".github/workflows/cloudflare-pages-research.yml",
+    "operations/evidence/cloudflare-trusted-run-start-2026-07-12T0158-0400.json"
+  ],
+  "commits": [
+    "782419e9e4a432315a0fd13f7ddcd76a9dfacfa7",
+    "e83869e3304085b432161a694ff57ee72a54c923"
+  ],
+  "verification": {
+    "source_behavior": "Exact-commit fetch shows Capture trusted workflow start immediately after checkout, exports RUN_STARTED_AT from date -u through GITHUB_ENV, and removes github.event.repository.updated_at from the attestation step.",
+    "workflow_run": "none observed for the changed commit",
+    "deployment": "unverified"
+  },
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment, dispatch the workflow, and verify the immutable Pages URL, served research identity, deployed commit, signed proof, run-local chronology, and acceptance artifact.",
+  "next_action": "Dispatch the integrated workflow after environment access is configured; inspect the attestation predicate to confirm startedOn equals the job-captured timestamp and remains within the bounded chronology gate. Do not close C-001 until the resolving URL, served identity, and deployed commit are evidenced."
+}
