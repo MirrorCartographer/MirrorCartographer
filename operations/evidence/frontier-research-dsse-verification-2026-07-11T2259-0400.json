@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-006",
+  "team": "frontier_research",
+  "claim_state": "implemented_and_locally_verified",
+  "finding": "The prior evidence acceptance gate still depended on a caller-supplied signature-verification boolean. DSSE verification can instead be performed directly over the exact payload bytes using Pre-Authentication Encoding and trusted public keys, returning the same verified bytes to the application layer.",
+  "primary_sources": [
+    {
+      "url": "https://github.com/secure-systems-lab/dsse/blob/master/protocol.md",
+      "status": "primary_specification",
+      "version": "1.0.2",
+      "relevant_requirements": ["PAE binds payload type and serialized body", "reject decoding or signature failure", "keyid is only an unauthenticated hint", "the verified serialized body must be the same bytes delivered to the application"]
+    },
+    {
+      "url": "https://docs.sigstore.dev/about/bundle/",
+      "status": "official_documentation",
+      "version": "0.3.2",
+      "relevant_requirements": ["attestations use a DSSE envelope", "in-toto payload type is application/vnd.in-toto+json", "verification material and signature content are both required"]
+    }
+  ],
+  "artifact": "tools/frontier-research/dsse-signature-verifier.mjs",
+  "test": "tools/frontier-research/dsse-signature-verifier.test.mjs",
+  "commits": ["850d90d9992f1cd3e122bf6ab5570a6ea5779d60", "f14e2526a0bedc85fe24ebc2ea70d071cb860ce3"],
+  "verification": {
+    "environment": "isolated Node runtime using byte-identical source and test files before commit",
+    "result": "6 passed",
+    "cases": ["valid Ed25519 signature", "tampered payload", "wrong signer", "keyid lookalike", "two-of-two threshold", "unsupported payload type"]
+  },
+  "evidence_strength": "direct deterministic test of cryptographic signature verification and exact payload binding",
+  "uncertainty": "The module does not validate certificate chains, transparency logs, timestamps, signer authorization, or Sigstore identity claims.",
+  "falsification_route": "Provide an envelope that the module accepts even though no threshold set of trusted keys signed the exact DSSE PAE bytes, or show that returned payloadText differs from the verified payload bytes.",
+  "privacy_boundary": "Public standards, synthetic keys, and repository code only; no private chat, health, credentials, or identifying personal material."
+}
