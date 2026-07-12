@@ -1,0 +1,73 @@
+name: Verify Cloudflare production hostname
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'cloudflare-static/index.html'
+      - 'cloudflare-static/research-surface-identity.mjs'
+      - 'cloudflare-static/probe-production-hostname.mjs'
+      - 'cloudflare-static/probe-production-hostname.test.mjs'
+      - '.github/workflows/cloudflare-production-hostname-monitor.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-production-hostname-monitor
+  cancel-in-progress: true
+
+jobs:
+  verify-production-hostname:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact source commit
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Test hostname evidence contract
+        run: node --test cloudflare-static/probe-production-hostname.test.mjs
+
+      - name: Probe stable Pages hostname
+        id: probe
+        continue-on-error: true
+        run: node cloudflare-static/probe-production-hostname.mjs cloudflare-production-hostname-probe.json
+
+      - name: Upload hostname evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-production-hostname-${{ github.sha }}
+          path: cloudflare-production-hostname-probe.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish hostname summary
+        if: always()
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const evidence = JSON.parse(fs.readFileSync('cloudflare-production-hostname-probe.json', 'utf8'));
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, [
+            '## Cloudflare stable hostname',
+            `- Requested URL: ${evidence.requested_url}`,
+            `- Resolved: ${evidence.resolves}`,
+            `- HTTP status: ${evidence.http_status ?? 'none'}`,
+            `- Classification: ${evidence.classification}`,
+            '- Privacy: no credentials, response body, cookies, or personal data persisted.',
+            '- Epistemic limit: hostname and surface identity checks do not establish scientific or medical truth.'
+          ].join('\n') + '\n');
+          NODE
+
+      - name: Enforce verified production surface
+        if: always()
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const evidence = JSON.parse(fs.readFileSync('cloudflare-production-hostname-probe.json', 'utf8'));
+          if (evidence.classification !== 'research_surface_verified') {
+            throw new Error(`production-hostname-not-verified:${evidence.classification}`);
+          }
+          NODE
