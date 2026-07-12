@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-004",
+    "owner": "continuity_mining",
+    "priority": 3,
+    "action": "Build a machine-readable effective-state resolver that combines canonical queue entries with owner-scoped additive updates while refusing cross-owner mutation and unsupported execution claims.",
+    "dependencies": ["M-001", "M-002", "M-003"],
+    "required_evidence": [
+      "non-mutating resolver",
+      "owner boundary enforcement",
+      "provenance retention",
+      "epistemic state separation",
+      "deterministic adversarial tests"
+    ],
+    "status": "completed",
+    "progress": {
+      "module": "tools/continuity/effective-queue-state.mjs",
+      "module_commit": "bd1d8560e6d0a166c163f21a0eed2ca04ba50e01",
+      "test": "tools/continuity/effective-queue-state.test.mjs",
+      "test_commit": "d497e49e1a028f556037ad353434f2145fe9997e",
+      "evidence": "operations/evidence/continuity-effective-queue-resolver-2026-07-12T1553-0400.json",
+      "evidence_commit": "46f2f682db92e0254191441ef98dc6c18d841903",
+      "verification": "GitHub accepted additive source and test commits; runtime test execution remains explicitly unverified in this connector-only run.",
+      "privacy_boundary": "public repository metadata and abstract operational claims only",
+      "specialists_used": ["Decision Historian", "Contradiction Resolver", "Privacy Boundary Auditor"]
+    },
+    "handoff": "Continuity Mining should next add a repository inventory adapter that discovers owner-scoped queue-update records deterministically, orders them by retained provenance rather than filename alone, and feeds them into the resolver with duplicate and missing-commit detection."
+  },
+  "shared_state_policy": "Additive queue update only. ACTIVE_QUEUE.json and peer-owned records were not overwritten.",
+  "created_at": "2026-07-12T15:53:41-04:00"
+}
