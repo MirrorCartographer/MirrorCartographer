@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-006",
+  "owner": "frontier_research",
+  "status": "completed",
+  "primary_source": {
+    "title": "Event Timing API",
+    "publisher": "W3C Web Performance Working Group",
+    "status": "Working Draft",
+    "date": "2026-03-19",
+    "url": "https://www.w3.org/TR/event-timing/"
+  },
+  "finding": "Interaction latency must be decomposed into input delay, processing duration, and presentation delay, and grouped by interactionId. Long-animation-frame evidence alone cannot establish that a specific user interaction was harmed.",
+  "design_implication": "Generative interfaces should emit a privacy-reduced interaction summary that distinguishes unsupported instrumentation, no observed interaction, bounded observed latency, slow interaction, and severe interaction latency. Raw targets and selectors are excluded.",
+  "artifact": {
+    "module": "tools/frontier-research/interaction-responsiveness-budget.mjs",
+    "test": "tools/frontier-research/interaction-responsiveness-budget.test.mjs",
+    "module_commit": "72e6b7029ad3ef0fb7cbf37291f630e675151f92",
+    "test_commit": "b76e03db6f1f55339f3f98b0b8fadf1cd7284559"
+  },
+  "verification": {
+    "method": "isolated Node.js execution using byte-identical pre-commit files",
+    "result": "5 interaction responsiveness tests passed",
+    "cases": [
+      "unsupported API is not classified as healthy",
+      "empty supported window is bounded to that observation window",
+      "events sharing interactionId are grouped and reduced to the worst event",
+      "targetSelector-like private data is excluded",
+      "slow and severe dominant latency phases are classified"
+    ]
+  },
+  "evidence_strength": "prototype_with_deterministic_tests",
+  "uncertainty": [
+    "The Event Timing specification remains a Working Draft and can change.",
+    "Browser support is not universal.",
+    "Synthetic entries are not deployed-device measurements.",
+    "Observed latency does not by itself prove subjective harm or causal source code."
+  ],
+  "falsification_route": "Install the observer in both generative sites, create controlled stalls separately before dispatch, inside an event handler, and before presentation, then compare reported dominant phase against a browser performance trace. The finding is weakened if supported browsers fail to report the controlled interaction or if phase decomposition disagrees materially with trace evidence."
+}
