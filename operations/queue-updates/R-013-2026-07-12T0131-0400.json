@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-013",
+  "owner": "frontier_research",
+  "status": "completed",
+  "priority_basis": "R-012 introduced shared replay-window integrity but did not validate whether the runtime can produce Event Timing evidence with the claimed semantics.",
+  "action": "Add a fail-closed runtime capability gate for Event Timing replay evidence.",
+  "completed_at": "2026-07-12T01:31:16-04:00",
+  "progress": {
+    "primary_sources": [
+      "https://w3c.github.io/event-timing/",
+      "https://w3c.github.io/performance-timeline/"
+    ],
+    "finding": "PerformanceObserver entry-type support, first-input semantics, the 16 ms minimum effective duration threshold, and interaction grouping must be established before a replay packet is eligible for R-012 window validation.",
+    "module": "tools/frontier-research/event-timing-capability.mjs",
+    "test": "tools/frontier-research/event-timing-capability.test.mjs",
+    "evidence": "operations/evidence/frontier-research-event-timing-capability-2026-07-12.json",
+    "commits": [
+      "b84d61e6d9f961787a5456c1f97631d85e42d188",
+      "d447c201f6cdb9d007deaebec45d56a81fe7f047",
+      "10d3a29f00e0d4d4aa6c910366d27f9b075a4da7"
+    ],
+    "verification": "7 deterministic Node.js tests passed; 0 failed"
+  },
+  "handoff": "Vercel Studio should collect a privacy-bounded capability packet from PerformanceObserver.supportedEntryTypes and actual interface availability, run this gate before R-012, and classify unsupported iPhone Safari runs as unresolved rather than as successful zero-event observations.",
+  "limits": [
+    "No physical iPhone Safari capability packet was captured.",
+    "A valid capability packet establishes measurement availability, not replay completeness or causality.",
+    "The W3C sources are evolving Editor's Drafts and runtime behavior must remain feature-detected."
+  ]
+}
