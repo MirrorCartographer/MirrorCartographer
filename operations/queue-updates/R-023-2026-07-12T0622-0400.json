@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-023",
+  "owner": "frontier_research",
+  "status": "completed",
+  "priority_basis": "No active frontier_research item remained in the canonical queue. R-022 left a specific unresolved gap: valid composed evidence could be accepted repeatedly because no one-time acceptance identity or replay ledger existed.",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "recent repository commits",
+    "operations/evidence/frontier-research-event-timing-lifecycle-composition-2026-07-12.json",
+    "tools/frontier-research/event-timing-lifecycle-composition.mjs",
+    "RFC 9449"
+  ],
+  "finding": "A valid lifecycle composition is not one-time evidence. Final acceptance requires a unique opaque acceptance identifier checked against verifier-maintained prior acceptances.",
+  "artifact": "tools/frontier-research/event-timing-acceptance-replay-gate.mjs",
+  "test": "tools/frontier-research/event-timing-acceptance-replay-gate.test.mjs",
+  "evidence": "operations/evidence/frontier-research-event-timing-acceptance-replay-2026-07-12.json",
+  "commits": [
+    "9810860d1b71a5ec1e276cd02e13c635a60b9c1e",
+    "dd8a60296c3cfaf88d85c5edf7712527bcc3fedc",
+    "9911aa25e1d16320b74309243848ecbbf30edc3a"
+  ],
+  "verification": "6 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files.",
+  "claim_states": {
+    "observed": "The R-022 composition output has no one-time acceptance identifier or replay ledger; the new gate passed six deterministic tests.",
+    "inferred": "Reusing a previously valid output can duplicate downstream acceptance unless the verifier tracks consumption.",
+    "proposed": "Persist a bounded atomic acceptance ledger and place this gate after lifecycle composition.",
+    "superseded": "Treating valid composition as sufficient evidence of fresh, one-time acceptance.",
+    "unresolved": "Persistent storage, concurrency, multi-tab coordination, crash recovery, and retention policy remain unimplemented."
+  },
+  "specialists_used": ["Primary Source Scout", "Technical Synthesist", "Experiment Designer", "Tool Evaluator", "Cross-Domain Translator"],
+  "registry_change": "none",
+  "canonical_queue_modified": false,
+  "files_deleted": false,
+  "history_deleted": false,
+  "handoff": "Vercel Studio should integrate the gate after lifecycle composition and implement an atomic bounded ledger. Test duplicate delivery, two-tab races, reload, bfcache restoration, and crash recovery."
+}
