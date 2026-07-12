@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-005",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed",
+  "action": "Replace self-asserted evidence acceptance booleans with a derived, fail-closed binding gate.",
+  "dependencies": ["R-002", "R-003", "R-004"],
+  "required_evidence": [
+    "current primary specification",
+    "committed acceptance evaluator",
+    "deterministic adversarial tests",
+    "explicit cryptographic boundary",
+    "falsification route"
+  ],
+  "progress": {
+    "primary_sources": [
+      "https://slsa.dev/spec/v1.2/verifying-artifacts",
+      "https://in-toto.io/Statement/v1"
+    ],
+    "finding": "Trust booleans are assertions. Acceptance must be derived by comparing actual artifact bytes, attestation subject, envelope declaration, expected source identity, trusted-builder policy, and an external signature-verifier report.",
+    "module": "tools/frontier-research/evidence-acceptance-gate.mjs",
+    "test": "tools/frontier-research/evidence-acceptance-gate.test.mjs",
+    "evidence": "operations/evidence/frontier-research-evidence-acceptance-binding-2026-07-11T2252-0400.json",
+    "commits": [
+      "cbc181ea529416d0e445ca6c44a3ecd2d43da6e2",
+      "1643c7a02b1e61ff0f04fe30f5b5682e43ea3e79",
+      "1f944772dc6a44fd3afbea38ac21c2cadc911772"
+    ],
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical logic"
+  },
+  "handoff": "Cloudflare and Vercel evidence workflows should replace precomputed acceptance booleans with the R-005 gate and supply authenticated output from their cryptographic signature verifier. A passing gate remains provenance acceptance, not proof of claim truth."
+}
