@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-006",
+  "created_at": "2026-07-11T21:16:00-04:00",
+  "primary_source": {
+    "title": "WebDriver BiDi",
+    "publisher": "W3C",
+    "status": "Working Draft",
+    "published": "2026-06-29",
+    "url": "https://www.w3.org/TR/webdriver-bidi/"
+  },
+  "finding": "The prior transcript prototype conflated browser events with command responses. WebDriver BiDi defines browsingContext.navigationStarted, network.responseCompleted, and browsingContext.load as events, while script.evaluate and browsingContext.captureScreenshot are commands whose results are returned as success or error messages correlated by command id.",
+  "design_implication": "Verification transcripts must preserve ordered browser events separately from command-response correlation. Screenshot integrity must hash decoded image bytes rather than the UTF-8 bytes of the Base64 transport string.",
+  "artifact": {
+    "module": "tools/frontier-research/browser-verification-transcript.mjs",
+    "test": "tools/frontier-research/browser-verification-transcript.test.mjs",
+    "schema": "mc.webdriver-bidi-verification.v2",
+    "commits": [
+      "edec5a1a11ae084e7670008c89061891088c7ce3",
+      "eb5ebdb37e876c7b39cd252ae4de4f4820305204"
+    ]
+  },
+  "verification": {
+    "runtime": "Node.js v22.16.0",
+    "result": "7 passed, 0 failed",
+    "cases": [
+      "valid ordered event and correlated command-response transcript accepted",
+      "screenshot represented as a fake event rejected",
+      "duplicate command response rejected",
+      "wrong script command id rejected",
+      "invalid screenshot Base64 rejected",
+      "mixed browsing contexts rejected",
+      "HTTP 503 document response rejected"
+    ]
+  },
+  "evidence_strength": "deterministic local contract tests against a current primary specification",
+  "uncertainty": "No live WebDriver BiDi browser session was captured; implementation details can vary because the specification remains a Working Draft.",
+  "falsification_route": "Capture raw messages from a current BiDi-capable browser. Revise the adapter if conforming messages cannot be normalized into the v2 event/response model without discarding semantically necessary fields.",
+  "claim_limits": [
+    "not cryptographic provenance",
+    "not physical audio output proof",
+    "not user perception proof",
+    "not proof of visual correctness"
+  ]
+}
