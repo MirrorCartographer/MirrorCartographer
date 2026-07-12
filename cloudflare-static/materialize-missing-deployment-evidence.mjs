@@ -1,49 +1,34 @@
 import fs from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 
-export const CONDITIONAL_EVIDENCE = Object.freeze({
-  'cloudflare-pages-hostname-authority.json': 'hostname-authority-not-produced',
-  'cloudflare-deployment-metadata.json': 'deployment-metadata-not-produced'
-});
+const CONDITIONAL = {
+  'cloudflare-pages-hostname-authority.json': 'hostname-authority-unavailable',
+  'cloudflare-deployment-metadata.json': 'deployment-metadata-unavailable'
+};
 
-export function materializeMissingDeploymentEvidence({
-  directory='.',
-  sourceCommit=process.env.GITHUB_SHA ?? null,
-  runId=process.env.GITHUB_RUN_ID ?? null,
-  generatedAt=process.env.RUN_STARTED_AT ?? new Date().toISOString(),
-  files=CONDITIONAL_EVIDENCE
-} = {}) {
+export function materializeMissingDeploymentEvidence(rootDir = '.', context = process.env) {
+  const sourceCommit = String(context.GITHUB_SHA || '').trim();
+  const runId = String(context.GITHUB_RUN_ID || '').trim();
+  const runAttempt = String(context.GITHUB_RUN_ATTEMPT || '').trim();
+  if (!/^[0-9a-f]{40}$/i.test(sourceCommit)) throw new Error('valid GITHUB_SHA required');
+  if (!/^\d+$/.test(runId)) throw new Error('numeric GITHUB_RUN_ID required');
+  if (!/^\d+$/.test(runAttempt)) throw new Error('numeric GITHUB_RUN_ATTEMPT required');
   const written = [];
-  const preserved = [];
-
-  for (const [name, reason] of Object.entries(files)) {
-    const path = `${directory}/${name}`;
-    if (fs.existsSync(path)) {
-      preserved.push(name);
-      continue;
-    }
+  for (const [filename, reasonCode] of Object.entries(CONDITIONAL)) {
+    const target = path.join(rootDir, filename);
+    if (fs.existsSync(target)) continue;
     const record = {
-      schema_version: '1.0.0',
-      artifact_type: 'cloudflare-conditional-evidence-unavailable',
-      evidence_file: name,
-      status: 'unavailable',
-      reason,
-      source_commit: sourceCommit,
-      workflow_run_id: runId,
-      generated_at: generatedAt,
-      acceptance_effect: 'must-not-support-deployment-acceptance'
+      schema_version: '1.0.0', evidence_type: 'conditional-deployment-evidence', status: 'unavailable',
+      reason_code: reasonCode, source_commit: sourceCommit,
+      workflow_run: { id: runId, attempt: runAttempt }, acceptance_capability: 'none',
+      trust_limit: 'This record proves only that conditional evidence was unavailable in this workflow run; it cannot prove deployment, hostname authority, or served identity.'
     };
-    fs.writeFileSync(path, `${JSON.stringify(record, null, 2)}\n`, { flag: 'wx' });
-    written.push(name);
+    fs.writeFileSync(target, `${JSON.stringify(record, null, 2)}\n`, { flag: 'wx' });
+    written.push(filename);
   }
-
-  return { written, preserved };
+  return { written };
 }
 
-function main() {
-  const [directory='.'] = process.argv.slice(2);
-  const result = materializeMissingDeploymentEvidence({ directory });
-  process.stdout.write(`${JSON.stringify({ ok: true, ...result })}\n`);
+if (import.meta.url === `file://${process.argv[1]}`) {
+  process.stdout.write(`${JSON.stringify(materializeMissingDeploymentEvidence(process.argv[2] || '.'))}\n`);
 }
-
-if (process.argv[1] === fileURLToPath(import.meta.url)) main();
