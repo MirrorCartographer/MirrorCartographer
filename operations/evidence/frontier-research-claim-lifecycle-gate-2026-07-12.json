@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-005",
+  "owner": "frontier_research",
+  "created_at": "2026-07-12T02:26:00-04:00",
+  "claim_state": "observed",
+  "evidence_strength": "strong",
+  "source_status": "primary",
+  "primary_sources": [
+    {
+      "title": "NIST AI 600-1: Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile",
+      "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf",
+      "role": "Supports continuous measurement, monitoring, documentation, and risk-management actions rather than one-time acceptance."
+    },
+    {
+      "title": "JSON Schema Validation: A Vocabulary for Structural Validation of JSON",
+      "url": "https://json-schema.org/draft/2020-12/json-schema-validation.html",
+      "role": "Supports machine-checkable structural constraints while leaving domain truth to independent evidence and tests."
+    },
+    {
+      "title": "W3C PROV Overview",
+      "url": "https://www.w3.org/TR/prov-overview/",
+      "role": "Distinguishes provenance records from independent assessments of quality, reliability, or trustworthiness."
+    }
+  ],
+  "finding": "Research evidence should fail closed when a claim is structurally incomplete, superseded, future-dated, past its declared revalidation deadline, or lacks an executable falsification route. Structural validity and provenance do not establish claim truth.",
+  "design_implication": "Every reusable research claim can be passed through a deterministic lifecycle gate before it is admitted into deployment evidence, theory summaries, medicine-facing organization, or cross-team handoffs.",
+  "artifact": {
+    "module": "tools/frontier-research/claim-lifecycle-gate.mjs",
+    "test": "tools/frontier-research/claim-lifecycle-gate.test.mjs",
+    "module_commit": "fde5182a60d900af34d1b15b12731f7178568a14",
+    "test_commit": "b6f068160d1579075912a438f4091afa7cf940ee"
+  },
+  "verification": {
+    "command": "node --test tools/frontier-research/claim-lifecycle-gate.test.mjs",
+    "environment": "isolated Node runtime using byte-equivalent committed source",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "current falsifiable claim accepted",
+      "expired claim rejected",
+      "missing falsification action rejected",
+      "superseded claim rejected",
+      "future-dated observation rejected"
+    ]
+  },
+  "falsification_route": {
+    "test": "Integrate the gate into one evidence-consuming workflow and inject expired, superseded, and incomplete claim packets.",
+    "failure_signal": "Any rejected packet reaches a downstream accepted-evidence state, or a current complete packet is rejected without a documented policy reason.",
+    "action": "Treat the gate as insufficient, preserve the failing fixture, and revise the acceptance contract before reuse."
+  },
+  "limits": [
+    "The gate validates lifecycle metadata and policy constraints, not scientific or medical truth.",
+    "A declared revalidation date is a policy input and may itself be poorly chosen.",
+    "A written falsification route is not proof that the test was executed.",
+    "No diagnosis or treatment claim is produced or accepted by this artifact."
+  ],
+  "privacy_boundary": "Contains public standards, synthetic fixtures, repository paths, and commit identifiers only; excludes private chats, health data, credentials, and personal identifiers."
+}
