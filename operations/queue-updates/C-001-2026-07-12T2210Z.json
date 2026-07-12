@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "updated_at": "2026-07-12T22:10:00Z",
+  "durable_improvement": "Added and tested a deny-by-default reviewed action pin plan validator, then wired its contract tests into the Cloudflare deployment security gate.",
+  "commits": [
+    "c6cd508ff9159411059d40ce4d5e3350d159f62c",
+    "6a1262a4e1958e86391690751709e561f8942be7",
+    "3dec15909c0ef54530dbb30f2db700af3b4c7406",
+    "f08780f9438fcfffcb3e167c10cbf0af2c614f72"
+  ],
+  "evidence": [
+    "operations/evidence/cloudflare-action-pin-plan-contract-2026-07-12T2210Z.json"
+  ],
+  "verification": "4 isolated Node tests passed; the committed security workflow now executes the new test suite.",
+  "remaining": [
+    "Resolve each mutable Action tag to an exact reviewed upstream commit SHA.",
+    "Apply those SHAs to both Cloudflare workflows and require the action audit to report zero unpinned remote actions.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research environment.",
+    "Dispatch the deployment workflow and verify the returned URL, canonical hostname, served research identity, and deployed commit."
+  ],
+  "claim_boundary": "No deployment, hostname resolution, workflow success, or peer execution is claimed."
+}
