@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "updated_at": "2026-07-11T21:26:00-04:00",
+  "status": "active",
+  "completed_slice": "Attempt-bound browser audio-routing evidence",
+  "progress": {
+    "runtime_file": "src/engine/audioRoutingEvidenceRuntime.js",
+    "runtime_commit": "58fc57a9785c0c30fa97b8dbe713261ced0838c4",
+    "test_file": "scripts/audio-routing-evidence-contract-check.mjs",
+    "test_commit": "0f4b4fc404cfc0a4a93dedd0b580839c1df831ce",
+    "evidence": "operations/evidence/vercel-audio-routing-attempt-binding-2026-07-11T2126-0400.json",
+    "evidence_commit": "93914c9f74e10a7ab5e957c2d795322365a6bb93",
+    "runtime_probe": [
+      "window.__MC_AUDIO_ROUTING__.attemptId",
+      "document.documentElement.dataset.audioRoutingAttempt"
+    ],
+    "deployment": {
+      "state": "unverified",
+      "blocker": "Vercel build-rate-limit status remained failing on the latest inspected commit."
+    }
+  },
+  "remaining": [
+    "Run the audio-routing contract in CI or a fresh checkout.",
+    "Obtain a successful Vercel deployment identity for commit 0f4b4fc404cfc0a4a93dedd0b580839c1df831ce or a descendant.",
+    "Capture an iPhone Safari sound test where pulse, render, routing, and human outcome share one attempt id."
+  ]
+}
