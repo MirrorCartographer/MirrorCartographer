@@ -30,6 +30,8 @@ jobs:
         run: |
           node --test cloudflare-static/research-surface-identity.test.mjs
           node --test cloudflare-static/check-deployment-readiness.test.mjs
+          node --test cloudflare-static/probe-cloudflare-access.test.mjs
+          node --test cloudflare-static/cloudflare-access-workflow-contract.test.mjs
           node --test cloudflare-static/summarize-deployment-blocker.test.mjs
           node --test cloudflare-static/validate-deployment-blocker.test.mjs
           node --test cloudflare-static/build-deployment-decision.test.mjs
@@ -61,6 +63,14 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: node cloudflare-static/check-deployment-readiness.mjs cloudflare-deployment-readiness.json
 
+      - name: Probe active Cloudflare Pages access
+        id: access_probe
+        continue-on-error: true
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node cloudflare-static/probe-cloudflare-access.mjs cloudflare-access-probe.json
+
       - name: Summarize deployment blocker
         if: always()
         run: node cloudflare-static/summarize-deployment-blocker.mjs cloudflare-deployment-readiness.json cloudflare-deployment-blocker.json
@@ -71,6 +81,7 @@ jobs:
 
       - name: Deploy static research surface
         id: deploy
+        if: steps.access_probe.outcome == 'success'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -92,6 +103,7 @@ jobs:
         run: node cloudflare-static/build-deployment-decision.mjs cloudflare-deployment-readiness.json cloudflare-deployment-decision.json
 
       - name: Verify served identity
+        if: steps.deploy.outcome == 'success'
         env:
           DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
         run: |
@@ -114,6 +126,9 @@ jobs:
             alias_url: process.env.ALIAS_URL || null,
             readiness: fs.existsSync('cloudflare-deployment-readiness.json')
               ? JSON.parse(fs.readFileSync('cloudflare-deployment-readiness.json', 'utf8'))
+              : null,
+            access_probe: fs.existsSync('cloudflare-access-probe.json')
+              ? JSON.parse(fs.readFileSync('cloudflare-access-probe.json', 'utf8'))
               : null,
             blocker: fs.existsSync('cloudflare-deployment-blocker.json')
               ? JSON.parse(fs.readFileSync('cloudflare-deployment-blocker.json', 'utf8'))
@@ -209,6 +224,7 @@ jobs:
           name: cloudflare-deployment-proof-${{ github.sha }}
           path: |
             cloudflare-deployment-readiness.json
+            cloudflare-access-probe.json
             cloudflare-deployment-blocker.json
             cloudflare-deployment-decision.json
             cloudflare-deployment-proof.json
@@ -233,6 +249,8 @@ jobs:
             echo "- Alias URL: ${ALIAS_URL:-not returned}"
             echo "- Local identity contract: \`cloudflare-static/research-surface-identity.mjs\`"
             echo "- Readiness evidence: \`cloudflare-deployment-readiness.json\` (never contains secret values)"
+            echo "- Access capability evidence: \`cloudflare-access-probe.json\` (token activity and account-scoped Pages authorization; no secret values)"
+            echo "- Deployment gate: deployment runs only after the access probe succeeds"
             echo "- Actionable blocker: \`cloudflare-deployment-blocker.json\` (schema-validated names and reason codes only)"
             echo "- Deployment decision: \`cloudflare-deployment-decision.json\`"
             echo "- Identity verifier: \`cloudflare-static/verify-deployment.mjs\`"
