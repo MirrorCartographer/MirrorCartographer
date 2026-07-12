@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T21:13:00-04:00",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Created a Cloudflare-specific WebDriver BiDi verification-plan adapter that binds the returned Pages URL to the exact expected source commit and the shared same-context browser observation sequence.",
+  "files": [
+    "cloudflare-static/build-browser-verification-plan.mjs",
+    "cloudflare-static/build-browser-verification-plan.test.mjs",
+    "operations/evidence/cloudflare-browser-verification-plan-2026-07-11T2113-0400.json"
+  ],
+  "commits": [
+    "d58aaf00a72b8d13bdd16d8acc5c2b1746632d95",
+    "1eb1bf819166b5d22d6829ce06030432dee0e041",
+    "7b88fafbad12445132fe79c05463e9a083f7b340"
+  ],
+  "verification": "Three deterministic contract cases are committed; live execution remains pending because no successful Cloudflare Pages deployment URL or workflow run was available.",
+  "blocker": "Configure active CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment and dispatch the deployment workflow.",
+  "next_action": "Add the adapter test to the workflow contract suite, generate cloudflare-browser-verification-plan.json from the Wrangler deployment URL, execute it through a BiDi-capable browser, validate the transcript with tools/frontier-research/browser-verification-transcript.mjs, then include the transcript and screenshot digest in the signed evidence packet.",
+  "rollback": [
+    "Revert this queue-update commit.",
+    "Revert evidence commit 7b88fafbad12445132fe79c05463e9a083f7b340.",
+    "Revert test commit 1eb1bf819166b5d22d6829ce06030432dee0e041.",
+    "Revert module commit d58aaf00a72b8d13bdd16d8acc5c2b1746632d95."
+  ]
+}
