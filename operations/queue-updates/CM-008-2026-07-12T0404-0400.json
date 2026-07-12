@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "item_id": "CM-008",
+  "priority_basis": "M-001 is complete and its handoff explicitly called for contradiction/supersession-linked records; no active continuity-owned canonical queue item exists.",
+  "status": "completed",
+  "completed_at": "2026-07-12T08:04:41Z",
+  "action": "Add the first authentic supersession-linked continuity record without rewriting the earlier historical observation.",
+  "result": {
+    "index_record": "CM-0009",
+    "relationship": {"supersedes": ["CM-0003"]},
+    "index_commit": "7b8a840ac9510253db756621b6acd07bd09f03c7",
+    "evidence_commit": "f4348e32b079981f469c1bbf947f030029146c81"
+  },
+  "verification": "Repository refetch and claim-graph CI/status inspection required after commit; no peer execution is implied.",
+  "next_action": "Add the first evidence-backed contradiction pair, preferably around a public repository decision or capability claim whose source state genuinely conflicts rather than merely changes over time."
+}
