@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "updated_at": "2026-07-11T20:29:00-04:00",
+  "completed_slice": "Added a deterministic privacy-safe environment handoff builder, tests, and a read-only GitHub Actions workflow that publishes the handoff artifact without requiring credentials.",
+  "progress": {
+    "handoff_builder": "cloudflare-static/build-environment-handoff.mjs",
+    "handoff_test": "cloudflare-static/build-environment-handoff.test.mjs",
+    "workflow": ".github/workflows/cloudflare-readiness-handoff.yml",
+    "evidence": "operations/evidence/cloudflare-environment-handoff-2026-07-11T2029-0400.json",
+    "commits": [
+      "39ed6b554698e4cfac68700feb5f56c6a48de884",
+      "59c0289a1f4e33d1d3f6526885292f78412782ec",
+      "460ce36b16c9cffdb124fde4c35ce91a3017febd",
+      "dea87bba888f4f027cb43ee17f08ac67918339e9"
+    ],
+    "verification": "3 deterministic Node tests passed; the artifact records names and null configuration fields only."
+  },
+  "blocker": "The cloudflare-research GitHub Environment still requires CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN before the production deployment workflow can establish a resolving URL and served commit identity.",
+  "next_action": "Run the readiness-handoff workflow to retain the generated operator artifact, configure the two environment secrets through GitHub, then dispatch cloudflare-pages-research.yml and accept C-001 only after URL, identity, commit, signature, and policy checks pass."
+}
