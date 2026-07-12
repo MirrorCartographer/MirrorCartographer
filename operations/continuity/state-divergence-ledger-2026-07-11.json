@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "ledger_id": "CM-0012",
+  "generated_at": "2026-07-12T00:42:12Z",
+  "scope": "continuity_mining queue-state representation",
+  "finding": {
+    "type": "representational_divergence",
+    "title": "Canonical queue snapshot and append-only continuity updates describe different current views",
+    "classification": "observed_divergence_not_logical_contradiction",
+    "summary": "operations/ACTIVE_QUEUE.json is an older canonical snapshot that records M-001 but not later continuity-owned completions. The derived current-view manifest replays append-only records for M-002 through M-004. Both sources can be historically correct; treating either alone as complete current state is unsafe."
+  },
+  "claims": [
+    {
+      "id": "CM-0012-A",
+      "state": "observed",
+      "claim": "The canonical ACTIVE_QUEUE snapshot has blob abb807e1a25d399f301238f6b8cc26d6be10385f and embedded updated_at 2026-07-11T16:51:00-04:00.",
+      "evidence_strength": "primary_repository_source",
+      "source": "operations/ACTIVE_QUEUE.json",
+      "falsification_route": "Fetch the named path and reject the claim if either blob identity or embedded timestamp differs."
+    },
+    {
+      "id": "CM-0012-B",
+      "state": "observed",
+      "claim": "The deterministic continuity-owned current-view manifest records M-002, M-003, and M-004 as completed after the canonical snapshot.",
+      "evidence_strength": "primary_repository_source",
+      "source": "operations/continuity/current-view-manifest-2026-07-11.json",
+      "source_commit": "ceb3810b231fed4ad8fd023945b5bf8c57062d85",
+      "falsification_route": "Fetch the manifest at its source commit and verify replayed_updates and materialized_current_view."
+    },
+    {
+      "id": "CM-0012-C",
+      "state": "inferred",
+      "claim": "Consumers reading only ACTIVE_QUEUE.json can incorrectly infer that no continuity work exists after M-001.",
+      "evidence_strength": "reasoned_from_primary_repository_sources",
+      "falsification_route": "Demonstrate that every current-state consumer automatically replays all owned append-only updates before presenting queue state."
+    },
+    {
+      "id": "CM-0012-D",
+      "state": "proposed",
+      "claim": "A repository-tree enumerator and deterministic reducer should produce a completeness-checked current view without mutating historical sources.",
+      "evidence_strength": "design_proposal",
+      "falsification_route": "Reject or revise the proposal if repository-wide enumeration cannot be made deterministic, ownership-safe, and privacy-preserving."
+    },
+    {
+      "id": "CM-0012-E",
+      "state": "unresolved",
+      "claim": "Completeness of the curated replay list remains unproven because this run did not obtain a full repository tree listing for operations/queue-updates.",
+      "evidence_strength": "explicit_tooling_limit",
+      "falsification_route": "Enumerate the complete directory tree and show that every continuity_mining update is represented in the reducer input."
+    }
+  ],
+  "resolution_rule": {
+    "do_not_overwrite": [
+      "operations/ACTIVE_QUEUE.json",
+      "operations/queue-updates/*",
+      "operations/continuity/current-view-manifest-2026-07-11.json"
+    ],
+    "current_state_precedence": "canonical snapshot plus all ownership-valid append-only updates ordered by completion time and stable lexical tie-breaker",
+    "historical_truth_rule": "A later current view supersedes only present-state interpretation; it does not erase the historical correctness of an earlier snapshot.",
+    "conflict_rule": "When two records assert incompatible state for the same item and effective time, retain both, link them explicitly, and mark unresolved until source ordering or authority resolves the conflict."
+  },
+  "privacy_boundary": {
+    "included": ["public repository paths", "public blob and commit identifiers", "abstract queue-state metadata"],
+    "excluded": ["raw private chat", "health or pet-health details", "credentials", "personal identifiers", "unreviewed uploads"]
+  },
+  "specialists_used": ["Decision Historian", "Contradiction Resolver", "Privacy Boundary Auditor"],
+  "specialist_registry_change": "none",
+  "next_action": "Implement a repository-tree enumerator and reducer test that proves every continuity-owned queue update is included exactly once."
+}
