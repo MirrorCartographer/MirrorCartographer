@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T11:56:05-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added a deterministic, fail-closed deployment evidence manifest that binds the complete proof packet by per-file SHA-256, byte size, source commit, workflow run ID, and aggregate manifest digest.",
+  "files": [
+    "cloudflare-static/build-deployment-evidence-manifest.mjs",
+    "cloudflare-static/build-deployment-evidence-manifest.test.mjs",
+    "operations/evidence/cloudflare-deployment-evidence-manifest-2026-07-12T1156-0400.json"
+  ],
+  "commits": [
+    "b1968e27b78abc2d95d993a5f0331a4c496ef2cc",
+    "def2cd4070cbb0851b9e00b39d393be4a515e6e7",
+    "209ee752900995a0e997aed2a04d013c93efb7c1"
+  ],
+  "verification": "Four deterministic Node tests passed locally: stable ordering, mutation sensitivity, fail-closed path/file checks, and immutable provenance validation.",
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, wire the manifest builder into the authoritative workflow immediately before artifact upload, dispatch the workflow, and prove the returned Cloudflare URL serves the exact committed research surface.",
+  "canonical_queue_overwritten": false
+}
