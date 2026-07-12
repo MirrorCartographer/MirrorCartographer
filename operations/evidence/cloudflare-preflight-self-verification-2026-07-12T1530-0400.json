@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "team": "cloudflare_research",
+  "created_at": "2026-07-12T15:30:00-04:00",
+  "improvement": "The exact-commit Cloudflare environment preflight workflow now runs the independent artifact verifier against its own generated artifact set before upload.",
+  "specialists": [
+    "Cloudflare Deployment Engineer",
+    "Provenance Engineer",
+    "Evidence Auditor"
+  ],
+  "source": {
+    "repository": "MirrorCartographer/MirrorCartographer",
+    "workflow": ".github/workflows/cloudflare-environment-preflight.yml",
+    "commit_sha": "b6c5333873adee9887d36fb965006a28334c7546"
+  },
+  "verification": {
+    "source_fetch": "The committed workflow was updated through the GitHub contents API and returned commit b6c5333873adee9887d36fb965006a28334c7546.",
+    "workflow_behavior": [
+      "runs verify-environment-preflight-run.test.mjs",
+      "builds the bounded preflight artifact set",
+      "runs verify-environment-preflight-run.mjs against the exact repository and commit",
+      "uploads cloudflare-environment-preflight-verdict.json with the retained artifact"
+    ],
+    "provider_execution": "No GitHub Actions workflow run was observable for the commit at evidence-record time."
+  },
+  "privacy_boundary": "The workflow validates required secret names and repository declarations only. It does not inspect or retain credential values.",
+  "claim_boundary": "This improvement proves committed source wiring only until a provider workflow run completes. It does not prove credentials, authorization, deployment, hostname resolution, served content, diagnosis, treatment, or scientific truth.",
+  "rollback": "Revert commit b6c5333873adee9887d36fb965006a28334c7546."
+}
