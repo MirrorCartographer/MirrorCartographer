@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-007",
+    "owner": "frontier_research",
+    "priority": 6,
+    "action": "Correlate observed interaction latency with overlapping long-animation-frame windows while preserving the distinction between temporal overlap and causation.",
+    "dependencies": ["R-005", "R-006"],
+    "required_evidence": [
+      "current primary specifications",
+      "committed correlator",
+      "deterministic overlap tests",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "status": "completed"
+  },
+  "progress": {
+    "primary_sources": [
+      "https://www.w3.org/TR/performance-timeline/",
+      "https://www.w3.org/TR/hr-time-3/",
+      "https://www.w3.org/TR/long-animation-frames/",
+      "https://www.w3.org/TR/event-timing/"
+    ],
+    "finding": "Event Timing and Long Animation Frame records share the Performance Timeline time basis, so bounded interval overlap can identify temporal co-occurrence without asserting causation.",
+    "module": "tools/frontier-research/interaction-frame-correlation.mjs",
+    "test": "tools/frontier-research/interaction-frame-correlation.test.mjs",
+    "evidence": "operations/evidence/frontier-research-interaction-frame-correlation-2026-07-12.json",
+    "commits": [
+      "ec9974af67df8b3144a36c80081730ed65ae0623",
+      "1fd0f07a2c01d2cbb7c317b99d3e1095f1437fb8",
+      "cc6b3b80fa71d51857f126999784597bf616845c"
+    ],
+    "verification": "Five deterministic Node tests passed in an isolated runtime.",
+    "privacy_boundary": "No DOM targets, selectors, script URLs, user-agent strings, or private content are emitted."
+  },
+  "handoff": "Vercel Studio should install the R-005, R-006, and R-007 observers behind a development-only evidence switch, compare overlap output against a browser trace, and keep congestion, interaction latency, and temporal correlation as three separate claims."
+}
