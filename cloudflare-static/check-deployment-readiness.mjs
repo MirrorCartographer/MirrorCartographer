@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
+import { writeDeploymentManifest } from './stamp-deployment-manifest.mjs';
 
 const PLACEHOLDERS = new Set([
   'changeme',
@@ -42,11 +43,25 @@ export function evaluateDeploymentReadiness(env = process.env) {
   };
 }
 
+export function stampWorkflowDeploymentManifest(env = process.env, outputRoot = 'cloudflare-static') {
+  return writeDeploymentManifest(outputRoot, {
+    sourceCommit: env.GITHUB_SHA,
+    repository: env.GITHUB_REPOSITORY,
+    surface: env.CLOUDFLARE_RESEARCH_SURFACE || 'mirror-cartographer-research'
+  });
+}
+
 function main() {
   const outputPath = process.argv[2] || 'cloudflare-deployment-readiness.json';
+  const manifest = stampWorkflowDeploymentManifest();
   const result = evaluateDeploymentReadiness();
   fs.writeFileSync(outputPath, `${JSON.stringify(result, null, 2)}\n`, { mode: 0o600 });
-  process.stdout.write(`${JSON.stringify({ ready: result.ready, output: outputPath })}\n`);
+  process.stdout.write(`${JSON.stringify({
+    ready: result.ready,
+    output: outputPath,
+    deployment_manifest: manifest.outputPath,
+    source_commit: manifest.manifest.source_commit
+  })}\n`);
   process.exitCode = result.ready ? 0 : 2;
 }
 
