@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "recorded_at": "2026-07-12T09:54:54-04:00",
+  "selected_queue_state": {
+    "canonical_item": "M-001",
+    "canonical_status": "completed",
+    "canonical_queue_blob": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "selection_rule": "No later continuity-owned canonical item exists; perform additive continuity recovery without overwriting stale canonical queue state."
+  },
+  "completed_slice": {
+    "record": "operations/continuity/records/CM-0011-audio-evidence-claim-ladder.json",
+    "memory": "The project now requires audio claims to be labeled by evidence layer: activation, context state, render advance, browser route, physical output, and human report are distinct and non-substitutable.",
+    "claim_states_preserved": ["observed", "inferred", "proposed", "superseded", "unresolved"],
+    "privacy": "public_repository_safe"
+  },
+  "provenance": {
+    "record_commit": "0cb734a1bacceaf805ec7be1c945c196e70d154f",
+    "source_index_blob": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a",
+    "source_handoff_commit": "d48d6f2db80e32211d4ea089b9c18fc0d60ef4c1"
+  },
+  "canonical_queue_update_policy": "Additive continuity-owned update only. Do not overwrite operations/ACTIVE_QUEUE.json until the committed queue-promotion mechanism incorporates successor items.",
+  "next_action": "Promote a continuity successor item that integrates CM-0010 and CM-0011 into continuity-index.json and defines machine-checkable vocabulary constraints for cross-team evidence packets."
+}
