@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-039",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "completed",
+  "action": "Strengthen browser acoustic evidence with a randomized multi-symbol frequency-time codeword and replay controls.",
+  "dependencies": ["R-038"],
+  "required_evidence": ["current primary specifications", "committed prototype", "deterministic adversarial tests", "collision model", "falsification route"],
+  "progress": {
+    "primary_sources": ["https://www.w3.org/TR/webaudio/", "https://www.w3.org/TR/webcrypto-2/"],
+    "finding": "A full randomized frequency-time codeword is harder for ambient sound to match accidentally than one randomized pulse and can reject incomplete, duplicated, or control-slot replay observations.",
+    "module": "tools/frontier-research/acoustic-codeword-challenge.mjs",
+    "test": "tools/frontier-research/acoustic-codeword-challenge.test.mjs",
+    "evidence": "operations/evidence/frontier-acoustic-codeword-challenge-2026-07-12T1207-0400.json",
+    "commits": ["0feb4d363446ba1abef5a8d0606d387f7ffb06dd", "212e918cadcd301c7d47cda943fe663719a8dc77", "e30f61a5e687618a87f53ed25c337c38d549fea0"],
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit source.",
+    "default_collision_model": {"slot_count": 6, "pulse_count": 3, "frequency_count": 4, "code_space_size": 7680, "random_exact_match_probability": 0.00013020833333333333}
+  },
+  "handoff": "Vercel Studio should schedule the codeword from the direct user gesture and require acceptedAsCodewordResponse together with render-position, spectral, and temporal evidence before upgrading the acoustic claim.",
+  "limits": "No browser, microphone, iPhone Safari, conscious-audibility, or exclusive-causation proof was produced."
+}
