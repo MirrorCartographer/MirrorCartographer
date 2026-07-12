@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T01:47:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Replaced inline schema 1.0.0 proof construction in the Cloudflare Pages workflow with the committed schema 1.1.0 authority-aware builder and added builder/validator tests to the pre-deployment contract gate.",
+  "files": [
+    ".github/workflows/cloudflare-pages-research.yml",
+    "operations/evidence/cloudflare-proof-builder-workflow-wiring-2026-07-12T0147-0400.json"
+  ],
+  "commits": [
+    "1056ae9ef2bb52ce45e70bb51972fe045e8082b7",
+    "7aaa106fe8e71cb7e45d37a0ca0b59c145753ea8"
+  ],
+  "verification": {
+    "source_behavior": "Committed workflow fetched by exact commit; builder invocation and both test commands present.",
+    "workflow_run": "none observed for integration commit",
+    "deployment": "unverified"
+  },
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment, then dispatch the workflow and verify the returned immutable Pages URL, served identity, signed proof, and acceptance artifact.",
+  "next_action": "Run the workflow on the integrated commit or a descendant and inspect job logs and uploaded proof artifacts; do not close C-001 until the resolving URL, served research identity, and deployed commit are all evidenced."
+}
