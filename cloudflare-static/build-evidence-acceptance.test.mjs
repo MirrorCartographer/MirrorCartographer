@@ -1,48 +1,92 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { buildEvidenceAcceptance } from './build-evidence-acceptance.mjs';
+import { createEvidenceAttestation, sha256Text } from '../tools/frontier-research/evidence-attestation.mjs';
+import { createTrustedBuilderPolicy } from '../tools/frontier-research/trusted-builder-policy.mjs';
 
-const acceptedInput = {
-  signatureVerification: { status: 'verified' },
-  subjectVerification: { status: 'match' },
-  trustedBuilderPolicy: {
-    builder: 'trusted',
-    source: 'trusted',
-    buildType: 'match',
-    externalParameters: 'recognized'
-  },
-  claimEvidence: { status: 'valid' }
-};
+const artifactName = 'cloudflare-deployment-proof.json';
+const artifactText = '{"deployment_url":"https://example.pages.dev"}\n';
+const sourceRepository = 'MirrorCartographer/MirrorCartographer';
+const sourceCommit = 'a'.repeat(40);
+const builderId = 'https://github.com/MirrorCartographer/MirrorCartographer/.github/workflows/cloudflare-pages-research.yml@refs/heads/main';
+const buildType = 'https://mirrorcartographer.org/build-types/evidence-envelope/v1';
 
-test('accepts only when provenance and claim checks explicitly pass', () => {
-  const result = buildEvidenceAcceptance(acceptedInput);
+function validInput() {
+  const attestation = createEvidenceAttestation({
+    artifactName,
+    artifactText,
+    sourceRepository,
+    sourceCommit,
+    builderId,
+    invocationId: '12345',
+    startedOn: '2026-07-12T00:00:00.000Z',
+    finishedOn: '2026-07-12T00:00:01.000Z'
+  });
+  return {
+    artifactName,
+    artifactText,
+    envelope: {
+      schema_version: '1.0.0',
+      traceparent: `00-${'1'.repeat(32)}-${'2'.repeat(16)}-01`,
+      created_at: '2026-07-12T00:00:01.000Z',
+      team: 'cloudflare_research',
+      queue_item: 'C-001',
+      claim_state: 'observed',
+      evidence_state: 'deployment-verified',
+      summary: 'Cloudflare deployment identity verified.',
+      sources: [{ repository: sourceRepository, commit: sourceCommit }],
+      artifacts: [{ name: artifactName, sha256: sha256Text(artifactText) }],
+      verification: [],
+      falsification_routes: ['Fetch the deployment URL and rerun the identity verifier.'],
+      limits: [],
+      peer_triggers: []
+    },
+    attestation,
+    policy: createTrustedBuilderPolicy({
+      allowedBuilderIds: [builderId],
+      allowedSourceRepositories: [sourceRepository],
+      allowedBuildTypes: [buildType],
+      requireInvocationId: true
+    }),
+    signatureVerification: { verified: true, status: 'verified', verifier: 'gh attestation verify' },
+    expected: { sourceRepository, sourceCommit, team: 'cloudflare_research', queueItem: 'C-001' },
+    diagnostics: {
+      claimEvidence: { status: 'valid' },
+      subjectVerification: { status: 'match' },
+      trustedBuilderPolicy: { builder: 'trusted', source: 'trusted' }
+    }
+  };
+}
+
+test('accepts only exact mutually bound evidence', () => {
+  const result = buildEvidenceAcceptance(validInput());
   assert.equal(result.accepted, true);
   assert.equal(result.decision, 'accept');
-  assert.deepEqual(result.failed_provenance_checks, []);
+  assert.deepEqual(result.reasons, []);
 });
 
-test('rejects an unverified signature even when every other check passes', () => {
-  const result = buildEvidenceAcceptance({
-    ...acceptedInput,
-    signatureVerification: { status: 'not_verified' }
-  });
+test('rejects an unverified signature even when every other binding passes', () => {
+  const input = validInput();
+  input.signatureVerification = { verified: false, status: 'not_verified', verifier: 'gh attestation verify' };
+  const result = buildEvidenceAcceptance(input);
   assert.equal(result.accepted, false);
-  assert.equal(result.decision, 'reject_provenance');
-  assert.deepEqual(result.failed_provenance_checks, ['signatureVerified']);
+  assert.equal(result.decision, 'reject');
+  assert.ok(result.reasons.includes('signature.unverified'));
 });
 
-test('keeps claim rejection distinct from provenance rejection', () => {
-  const result = buildEvidenceAcceptance({
-    ...acceptedInput,
-    claimEvidence: { status: 'invalid' }
-  });
+test('rejects altered artifact bytes', () => {
+  const input = validInput();
+  input.artifactText = `${artifactText} `;
+  const result = buildEvidenceAcceptance(input);
   assert.equal(result.accepted, false);
-  assert.equal(result.provenance_accepted, true);
-  assert.equal(result.claim_accepted, false);
-  assert.equal(result.decision, 'reject_claim_evidence');
+  assert.ok(result.reasons.includes('subject.digest'));
+  assert.ok(result.reasons.includes('envelope.artifact-binding'));
 });
 
-test('throws when a required verifier result is absent', () => {
-  const { subjectVerification, ...missingSubject } = acceptedInput;
-  assert.throws(() => buildEvidenceAcceptance(missingSubject), /subjectVerification must be an object/);
+test('rejects a source commit mismatch', () => {
+  const input = validInput();
+  input.expected.sourceCommit = 'b'.repeat(40);
+  const result = buildEvidenceAcceptance(input);
+  assert.equal(result.accepted, false);
+  assert.ok(result.reasons.includes('expected.sourceCommit'));
 });
