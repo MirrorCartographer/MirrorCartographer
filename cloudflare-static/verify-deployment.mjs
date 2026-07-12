@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { evaluateDeploymentUrl } from './deployment-url-policy.mjs';
 import { DEFAULT_MAX_BODY_BYTES, evaluateDeploymentResponse } from './deployment-response-contract.mjs';
+import { verifyServedDeploymentManifest } from './verify-served-deployment-manifest.mjs';
 
 const candidates = process.argv.slice(2);
 if (candidates.length === 0) {
@@ -56,17 +57,25 @@ for (const candidate of candidates) {
       contentType: response.headers.get('content-type'),
       contentLength: declaredLength
     });
+    const manifest = await verifyServedDeploymentManifest(contract.resolved_url, {
+      sourceCommit: process.env.GITHUB_SHA,
+      repository: process.env.GITHUB_REPOSITORY,
+      surface: process.env.CLOUDFLARE_RESEARCH_SURFACE || 'mirror-cartographer-research'
+    });
+    const reasons = [...contract.reasons];
+    if (!manifest.ok) reasons.push('served-deployment-manifest-invalid');
     const result = {
       candidate,
       resolvedUrl: contract.resolved_url,
       status: contract.status,
-      ok: contract.ok,
-      reasons: contract.reasons,
+      ok: contract.ok && manifest.ok,
+      reasons,
       missingMarkers: contract.missing_markers,
       contentType: contract.content_type,
       bodyBytes: contract.body_bytes,
       maxBodyBytes: contract.max_body_bytes,
-      urlPolicy: resolvedPolicy
+      urlPolicy: resolvedPolicy,
+      deploymentManifest: manifest
     };
     console.log(JSON.stringify(result));
     verified ||= result.ok;
