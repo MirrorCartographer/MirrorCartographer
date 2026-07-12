@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T20:29:29-04:00",
+  "team": "frontier_research",
+  "queue_item": "R-006",
+  "finding": "A device-level meter result becomes materially more attributable to the browser run when it matches a fresh, randomized time-frequency pulse sequence rather than merely detecting sound during a broad time window.",
+  "primary_sources": [
+    {
+      "url": "https://www.w3.org/TR/webaudio/",
+      "status": "W3C First Public Working Draft, 5 November 2024",
+      "supports": [
+        "sample-accurate scheduled sound playback",
+        "oscillator synthesis",
+        "AudioNode routing to AudioDestinationNode"
+      ],
+      "does_not_support": "physical speaker emission or listener perception"
+    },
+    {
+      "url": "https://www.w3.org/TR/webcrypto/",
+      "status": "W3C Web Cryptography Level 2 specification",
+      "supports": "browser generation of fresh random bytes through getRandomValues for production challenge construction",
+      "does_not_support": "truth of an acoustic detection claim"
+    }
+  ],
+  "artifact": {
+    "module": "tools/frontier-research/acoustic-challenge.mjs",
+    "test": "tools/frontier-research/acoustic-challenge.test.mjs",
+    "module_commit": "8e9a3519579b1068debcb3446af3fb6941c48c4c",
+    "test_commit": "28fbf8bf623dfbf65f3d8ec885729927cb801f17"
+  },
+  "design_implication": "Replace the single diagnostic pulse with a fresh six-pulse challenge whose timing and frequencies are recorded beside browser render evidence. Score an external meter trace against the exact challenge before calling device-level evidence correlated.",
+  "evidence_strength": "implementation-ready prototype with deterministic unit tests; no live phone or microphone trace",
+  "uncertainty": [
+    "A nearby source could intentionally reproduce the same challenge.",
+    "Unsynchronized clocks and coarse frequency detection can create false negatives.",
+    "A correlated device signal does not prove that a person heard the sound."
+  ],
+  "falsification_route": "Generate a new challenge for each run. Reject browser attribution when the external detector cannot match at least 80 percent of the expected pulse centers within the declared timing, frequency, and SNR tolerances.",
+  "verification": {
+    "method": "node --test acoustic-challenge.test.mjs in an isolated local runtime using byte-identical source and test content before commit",
+    "result": "4 passed, 0 failed",
+    "cases": [
+      "deterministic non-repeating challenge construction",
+      "accept correlated sequence",
+      "reject unrelated or weak detections",
+      "new entropy produces a distinct challenge"
+    ]
+  },
+  "claim_limits": [
+    "The scheduler specifies intended browser output but does not prove speaker emission.",
+    "Sequence correlation is corroborating device-level evidence, not proof of perception.",
+    "No deployment or iPhone runtime verification occurred in this run."
+  ]
+}
