@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "recorded_at": "2026-07-11T20:52:00-04:00",
+  "status": "active",
+  "completed_slice": "Integrated browser output-routing evidence beside existing render-position evidence.",
+  "evidence": "operations/evidence/V-001-audio-routing-evidence-2026-07-11T2052-0400.json",
+  "source_commit": "b627c11b4124a39e4979ce52d45039f33991a2d4",
+  "verification": "Five deterministic classifier assertions passed in an isolated Node runtime.",
+  "deployment": {
+    "state": "failed",
+    "reason": "Vercel build-rate-limit",
+    "commit": "b627c11b4124a39e4979ce52d45039f33991a2d4"
+  },
+  "remaining": [
+    "obtain a successful Vercel deployment identity for this commit or a descendant",
+    "capture iPhone Safari routing, render, and audible-outcome evidence in one packet",
+    "retain the boundary that browser routing does not prove physical sound"
+  ],
+  "non_overwrite": "This append-only record does not replace ACTIVE_QUEUE.json or another team's state."
+}
