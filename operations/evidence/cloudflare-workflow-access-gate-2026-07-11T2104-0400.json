@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T21:04:49-04:00",
+  "improvement": "The production Cloudflare Pages workflow now runs the active credential and account-scoped Pages capability probe before deployment, gates Wrangler execution on probe success, embeds the redacted probe result in the deployment proof, uploads it with the evidence packet, and tests the workflow contract.",
+  "source": {
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "workflow_commit": "8496c516ff9a8d3f67a45af417063e85d1042d3a",
+    "contract_test": "cloudflare-static/cloudflare-access-workflow-contract.test.mjs",
+    "contract_test_commit": "c4b19e828ad8462126f706f32c1116dbe4ef1ef5",
+    "probe": "cloudflare-static/probe-cloudflare-access.mjs"
+  },
+  "verification": {
+    "method": "Committed-source inspection plus workflow contract assertions",
+    "observed": [
+      "The workflow contains an access_probe step with continue-on-error enabled.",
+      "The deployment step requires steps.access_probe.outcome == 'success'.",
+      "The proof packet includes access_probe when the redacted JSON artifact exists.",
+      "The uploaded artifact set includes cloudflare-access-probe.json.",
+      "The workflow test matrix includes both the capability-probe test and workflow-contract test."
+    ],
+    "ci_status": "No GitHub Actions run was exposed for this commit. Repository status contexts observed were unrelated Vercel build-rate-limit failures.",
+    "live_cloudflare_probe": "not_run",
+    "live_deployment": "not_run"
+  },
+  "privacy": {
+    "secrets_committed": false,
+    "account_id_committed": false,
+    "medical_or_private_material_committed": false
+  },
+  "limits": [
+    "Source inspection is not a completed GitHub Actions execution.",
+    "The protected environment still requires a valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN.",
+    "A successful capability probe proves token activity and Pages enumeration permission, not deployment success or scientific truth.",
+    "The actual Pages hostname and served commit remain unverified."
+  ],
+  "rollback": {
+    "workflow_commit": "8496c516ff9a8d3f67a45af417063e85d1042d3a",
+    "test_commit": "c4b19e828ad8462126f706f32c1116dbe4ef1ef5",
+    "route": "Revert the workflow commit, then revert the contract-test commit."
+  }
+}
