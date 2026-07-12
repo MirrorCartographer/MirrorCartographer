@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "status": "active",
+  "recorded_at": "2026-07-12T16:23:00-04:00",
+  "completed_slice": "Foldable Afterbell rooms",
+  "progress": {
+    "creative_system": "Afterbell echo geometry can be serialized into a versioned URL-fragment room seed and deterministically reconstructed.",
+    "source": [
+      "independent-web/afterbell-score.mjs",
+      "independent-web/afterbell.html"
+    ],
+    "test": "independent-web/afterbell-score.test.mjs",
+    "evidence": "operations/evidence/independent-web-folded-room-2026-07-12T1623-0400.json",
+    "commits": [
+      "45bdff3889b82a981833fb544c634e307782c0f0",
+      "b2423289f69c4ba96e8ab474ae26e264e7d42c95",
+      "cc3510740435dc515552fb87437cc870c1a15cfc",
+      "e3349481f04ced60cd99d56fe0beb84fa8eef923"
+    ],
+    "verification": "4 deterministic Node tests passed locally before commit",
+    "identity": "playable weather-and-echo instrument; no Mirror Cartographer explanation, research portal, dashboard, conversion path, account, or server persistence"
+  },
+  "remaining": [
+    "establish a public independent hosting URL bound to an exact commit",
+    "capture browser interaction evidence for folding and reopening a room",
+    "capture narrow mobile viewport evidence and touch behavior",
+    "verify Web Audio and clipboard fallbacks in Safari"
+  ],
+  "next_action": "Add a static hosting contract for independent-web and a commit-bound browser smoke test that opens a folded seed, verifies reconstructed echo count/signature, and captures a mobile viewport image."
+}
