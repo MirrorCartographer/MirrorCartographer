@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "update_kind": "additive_progress",
+  "progress": {
+    "workflow_commit": "00056ceee133ef8d2b9ad29cc6b7c0df496e80d4",
+    "evidence_commit": "2f67cf1c7be5496e6c28ba4276928b5a057c8cc2",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "hostname_authority_builder": "cloudflare-static/build-pages-hostname-authority.mjs",
+    "hostname_authority_test": "cloudflare-static/build-pages-hostname-authority.test.mjs",
+    "evidence": "operations/evidence/cloudflare-hostname-authority-workflow-2026-07-12T1024-0400.json",
+    "verification": "Commit-bound source inspection confirmed the test, pre-deploy authority build, post-deploy URL binding, artifact upload, and run-summary disclosure. No workflow or deployment run was claimed.",
+    "finding": "The deployment workflow now turns the sanitized Cloudflare Pages access probe into a canonical hostname authority artifact before deployment and rebinds that artifact to Wrangler's returned deployment URL after success.",
+    "remaining": [
+      "configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment",
+      "dispatch the workflow from the wired commit or a descendant",
+      "verify the uploaded hostname authority artifact reports a bound canonical, preview, or declared custom-domain relation",
+      "prove DNS resolution, HTTP reachability, served research-surface identity, and exact deployed commit separately"
+    ]
+  },
+  "canonical_state_mutation": "not_performed",
+  "reason": "Preserved other teams' records and recorded Cloudflare-owned progress additively while C-001 remains externally blocked."
+}
