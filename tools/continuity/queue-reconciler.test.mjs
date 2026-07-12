@@ -17,10 +17,10 @@ const aggregate = { id:'V-001', owner:'vercel_studio', status:'active', required
 }
 {
  const result = reconcileQueueItem({aggregate, updates:[{record_id:'u4',queue_item:'V-001',owner:'vercel_studio',recorded_at:'2026-07-11T19:03:00-04:00',claim_state:'observed',status:'completed',source_commits:['abc'],evidence_paths:['e1'],evidence_types:['source commit','deployment identity']}],resolvableCommits:['abc'],resolvableEvidencePaths:['e1']});
- assert.equal(result.effective_status,'completed'); assert.equal(result.required_evidence_complete,false); assert.deepEqual(result.unresolved,['required_evidence_not_complete_or_not_resolvable']);
+ assert.equal(result.effective_status,'active'); assert.equal(result.required_evidence_complete,false); assert.equal(result.claim_state,'unresolved'); assert.deepEqual(result.unresolved,['completion_claim_not_supported_by_required_evidence']); assert.equal(result.superseded_claims[0].claim,'completed');
 }
 {
  const result = reconcileQueueItem({aggregate, updates:[{record_id:'u5',queue_item:'V-001',owner:'vercel_studio',recorded_at:'2026-07-11T19:04:00-04:00',claim_state:'observed',status:'completed',source_commits:['abc'],evidence_paths:['e1'],evidence_types:aggregate.required_evidence}],resolvableCommits:['abc'],resolvableEvidencePaths:['e1']});
- assert.equal(result.effective_status,'completed'); assert.equal(result.required_evidence_complete,true); assert.deepEqual(result.unresolved,[]);
+ assert.equal(result.effective_status,'completed'); assert.equal(result.required_evidence_complete,true); assert.deepEqual(result.unresolved,[]); assert.deepEqual(result.superseded_claims,[]);
 }
 console.log('queue-reconciler: 5 tests passed');
