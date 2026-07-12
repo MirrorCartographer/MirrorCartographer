@@ -53,12 +53,22 @@ function validateCheckpoint(checkpoint) {
   return checkpoint;
 }
 
+function asPrivateKey(value) {
+  if (value?.type === 'private' && value?.asymmetricKeyType) return value;
+  return createPrivateKey(value);
+}
+
+function asPublicKey(value) {
+  if (value?.type === 'public' && value?.asymmetricKeyType) return value;
+  return createPublicKey(value);
+}
+
 export function checkpointBytes(checkpoint) {
   return Buffer.from(canonicalize(validateCheckpoint(checkpoint)), 'utf8');
 }
 
 export function createSignedCheckpoint({ checkpoint, privateKey }) {
-  const key = createPrivateKey(privateKey);
+  const key = asPrivateKey(privateKey);
   if (key.asymmetricKeyType !== 'ed25519') throw new TypeError('privateKey must be Ed25519');
   const signature = sign(null, checkpointBytes(checkpoint), key).toString('base64url');
   return {
@@ -87,7 +97,7 @@ export function verifySignedCheckpoint({ signedCheckpoint, trustedKeys, expected
 
   let publicKey;
   try {
-    publicKey = createPublicKey(trusted);
+    publicKey = asPublicKey(trusted);
   } catch {
     return { accepted: false, reason: 'invalid_trusted_public_key' };
   }
