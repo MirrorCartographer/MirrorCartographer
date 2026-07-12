@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-12T16:08:00-04:00",
+  "item": {
+    "id": "W-001",
+    "owner": "independent_creative_web",
+    "priority": 0,
+    "action": "Define and deploy a creative site with a visual and behavioral identity unrelated to Mirror Cartographer.",
+    "status": "active",
+    "progress": {
+      "slice": "earned Afterbell threshold",
+      "creative_premise": "The primary weather instrument reveals a hidden echo chamber only after the visitor writes three pressure notes.",
+      "source": "independent-web/index.html",
+      "source_commit": "f564aa6945122b96560414da24f42364c46757f1",
+      "test": "independent-web/afterbell-threshold.test.mjs",
+      "test_commit": "d799054944a41a220b12c3454f36e06080e09515",
+      "evidence": "operations/evidence/independent-web-afterbell-threshold-2026-07-12T1608-0400.json",
+      "evidence_commit": "5dec2154515bca03877f7a276401915ac3daa908",
+      "verification": "updated source was fetched back from the default branch at blob 9fb5b253ff25445aaa39e422e88649055c66c293; static test committed but not runtime-executed",
+      "accessibility": [
+        "hidden route excluded from keyboard order",
+        "revealed route becomes focusable",
+        "state change announced through aria-live",
+        "prefers-reduced-motion disables reveal transition"
+      ],
+      "independence": "The experience remains a self-contained playable weather-and-echo fiction with no project explanation, research dashboard, medical claims, or conversion logic.",
+      "deployment_status": "unverified",
+      "public_url": null,
+      "mobile_proof": null
+    },
+    "remaining": [
+      "execute the static contracts in an observable runtime",
+      "establish a public hosting URL bound to an immutable commit",
+      "capture mobile interaction and layout proof",
+      "verify the three-note reveal and reversible erase behavior in a browser"
+    ]
+  }
+}
