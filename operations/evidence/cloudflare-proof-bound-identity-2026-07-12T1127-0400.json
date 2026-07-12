@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T11:27:00-04:00",
+  "claim_state": "implemented",
+  "evidence_strength": "source-and-adversarial-test-committed",
+  "finding": "A caller-supplied Pages project identity report could previously replace recomputation from the exact deployment proof in the six-argument workflow path.",
+  "improvement": "Pages project identity is now always recomputed from the exact proof bytes' parsed object. A supplied report is consistency evidence only, and disagreement fails closed with project-identity-report-mismatch.",
+  "files": [
+    "cloudflare-static/build-evidence-verification-input.mjs",
+    "cloudflare-static/project-identity-proof-binding.test.mjs"
+  ],
+  "commits": [
+    "81c0b8e094f01bf2f0abfa60149ca857b6c9e517",
+    "7d0f2f182481419a30b2c0a8bdcbdec9132e6818"
+  ],
+  "verification": {
+    "source_review": "The committed verifier invokes validatePagesProjectIdentity(proof, expectedProject) unconditionally and marks supplied-report disagreement invalid.",
+    "test_cases": [
+      "forged valid report plus proof from another Pages project is rejected",
+      "valid exact proof plus matching supplied report is accepted"
+    ],
+    "runtime_execution": "not observed in this run"
+  },
+  "falsification_routes": [
+    "Run node --test cloudflare-static/project-identity-proof-binding.test.mjs.",
+    "Supply a valid-looking report for another-project proof and confirm projectIdentityEvidence.status is invalid.",
+    "Inspect the verification manifest and confirm derivation equals recomputed-from-exact-proof."
+  ],
+  "limits": [
+    "No live Cloudflare deployment was performed.",
+    "Hostname membership does not prove Cloudflare account ownership or exact deployed commit.",
+    "The regression test was committed but no GitHub Actions result was observed during this run.",
+    "No diagnosis or treatment claim is made."
+  ],
+  "privacy": "Public repository source and synthetic deployment fixtures only; no credentials, private chat, or health data persisted."
+}
