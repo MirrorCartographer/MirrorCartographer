@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-12T00:32:00-04:00",
+  "surface": "MirrorCartographer/mirror-cartographer-ui",
+  "improvement": "Added a privacy-safe runtime device-context packet for audio evidence so touch-capable narrow-viewport sessions can be distinguished from desktop sessions without collecting raw user agent strings, exact viewport dimensions, or persistent identifiers.",
+  "specialists": [
+    "Mobile Safari Investigator",
+    "Audio Engineer",
+    "Accessibility Auditor",
+    "Deployment Verifier"
+  ],
+  "source": {
+    "module": "src/engine/audioDeviceEvidenceRuntime.js",
+    "test": "scripts/audio-device-evidence-contract-check.mjs",
+    "runtime_wiring": "src/main.jsx",
+    "gate_wiring": "package.json",
+    "commits": [
+      "97838d3f419799fba40a1e2f014c4840d0f4235a",
+      "8a5b891e681338389063f793d9bd0b261a6d1f75",
+      "4ec339d00b2231df93245d357150ae11fdd10e6c",
+      "f4d08ddf97b1882c9044a9ce4a7e8c31dedbede9",
+      "4a2a3cda1cf957ccdf3bd9be744fb8a5bbd348d2",
+      "fcf189ec2d0cc65298f53e9cd3c10634ec11a06b"
+    ],
+    "final_module_blob": "4229fb07494c42a62c48097f512723e2fb05de2d"
+  },
+  "verification": {
+    "source_refetched_from_main": true,
+    "deterministic_contract": "A byte-equivalent isolated Node check passed after correcting zero-sized viewport classification; the committed repository test is wired into local and Pages gates.",
+    "workflow_runs_for_final_commit": 0,
+    "deployment_state": "unverified"
+  },
+  "runtime_probe": "window.__MC_AUDIO_DEVICE_EVIDENCE__ and document.documentElement.dataset.audioDeviceViewport",
+  "privacy_boundary": {
+    "raw_user_agent": false,
+    "exact_viewport": false,
+    "persistent_identifier": false
+  },
+  "limits": [
+    "Touch capability, viewport buckets, and pixel-ratio buckets do not prove a device is an iPhone.",
+    "Device context does not prove speaker emission or human audibility.",
+    "No Vercel workflow run or deployed commit identity was available for the final commit during this run."
+  ],
+  "rollback": [
+    "fcf189ec2d0cc65298f53e9cd3c10634ec11a06b",
+    "4a2a3cda1cf957ccdf3bd9be744fb8a5bbd348d2",
+    "f4d08ddf97b1882c9044a9ce4a7e8c31dedbede9",
+    "4ec339d00b2231df93245d357150ae11fdd10e6c",
+    "8a5b891e681338389063f793d9bd0b261a6d1f75",
+    "97838d3f419799fba40a1e2f014c4840d0f4235a"
+  ]
+}
