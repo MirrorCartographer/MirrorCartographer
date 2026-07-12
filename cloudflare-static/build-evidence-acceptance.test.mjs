@@ -49,12 +49,11 @@ function validInput() {
       requireInvocationId: true
     }),
     signatureVerification: { verified: true, status: 'verified', verifier: 'gh attestation verify' },
-    expected: { sourceRepository, sourceCommit, team: 'cloudflare_research', queueItem: 'C-001' },
-    diagnostics: {
-      claimEvidence: { status: 'valid' },
-      subjectVerification: { status: 'match' },
-      trustedBuilderPolicy: { builder: 'trusted', source: 'trusted' }
-    }
+    signatureSubjectVerification: { status: 'match', expected_sha256: sha256Text(artifactText), observed_sha256: sha256Text(artifactText) },
+    subjectVerification: { status: 'match' },
+    trustedBuilderPolicy: { builder: 'trusted', source: 'trusted', buildType: 'match', externalParameters: 'recognized' },
+    claimEvidence: { status: 'valid' },
+    expected: { sourceRepository, sourceCommit, team: 'cloudflare_research', queueItem: 'C-001' }
   };
 }
 
@@ -63,6 +62,7 @@ test('accepts only exact mutually bound evidence', () => {
   assert.equal(result.accepted, true);
   assert.equal(result.decision, 'accept');
   assert.deepEqual(result.reasons, []);
+  assert.equal(result.source_status.signature_subject, 'match');
 });
 
 test('rejects an unverified signature even when every other binding passes', () => {
@@ -72,6 +72,29 @@ test('rejects an unverified signature even when every other binding passes', () 
   assert.equal(result.accepted, false);
   assert.equal(result.decision, 'reject');
   assert.ok(result.reasons.includes('signature.unverified'));
+});
+
+test('rejects a verified report whose signed subject does not match the proof bytes', () => {
+  const input = validInput();
+  input.signatureSubjectVerification = {
+    status: 'mismatch',
+    expected_sha256: sha256Text(artifactText),
+    observed_sha256: 'f'.repeat(64)
+  };
+  const result = buildEvidenceAcceptance(input);
+  assert.equal(result.accepted, false);
+  assert.equal(result.decision, 'reject');
+  assert.ok(result.reasons.includes('signature.subject-mismatch'));
+  assert.equal(result.source_status.signature_subject, 'mismatch');
+});
+
+test('rejects when signed-subject verification is absent', () => {
+  const input = validInput();
+  delete input.signatureSubjectVerification;
+  const result = buildEvidenceAcceptance(input);
+  assert.equal(result.accepted, false);
+  assert.ok(result.reasons.includes('signature.subject-mismatch'));
+  assert.equal(result.source_status.signature_subject, 'unknown');
 });
 
 test('rejects altered artifact bytes', () => {
