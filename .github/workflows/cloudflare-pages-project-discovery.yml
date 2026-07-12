@@ -1,0 +1,58 @@
+name: Discover Cloudflare Pages project identity
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  discover-project:
+    runs-on: ubuntu-latest
+    environment: cloudflare-research
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@v6
+
+      - name: Test project discovery contract
+        run: node --test cloudflare-static/discover-pages-project.test.mjs
+
+      - name: Discover exact Pages project and canonical hostname
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_PAGES_PROJECT: mirror-cartographer-research
+        run: node cloudflare-static/discover-pages-project.mjs cloudflare-pages-project.json
+
+      - name: Assert canonical project identity
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const result = JSON.parse(fs.readFileSync('cloudflare-pages-project.json', 'utf8'));
+          if (result.status !== 'project_verified') throw new Error(`project-discovery-failed:${result.status}`);
+          if (result.expected_project !== 'mirror-cartographer-research') throw new Error('unexpected-project-identity');
+          if (!String(result.canonical_hostname || '').endsWith('.pages.dev')) throw new Error('canonical-pages-hostname-missing');
+          process.stdout.write(`${JSON.stringify({ status: result.status, canonical_url: result.canonical_url })}\n`);
+          NODE
+
+      - name: Upload privacy-safe project evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-pages-project-${{ github.sha }}
+          path: cloudflare-pages-project.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish discovery summary
+        run: |
+          node --input-type=module - <<'NODE' >> "$GITHUB_STEP_SUMMARY"
+          import fs from 'node:fs';
+          const result = JSON.parse(fs.readFileSync('cloudflare-pages-project.json', 'utf8'));
+          console.log('## Cloudflare Pages project identity');
+          console.log(`- Source commit: \`${process.env.GITHUB_SHA}\``);
+          console.log(`- Expected project: \`${result.expected_project}\``);
+          console.log(`- Status: \`${result.status}\``);
+          console.log(`- Canonical URL: ${result.canonical_url || 'not established'}`);
+          console.log('- Privacy: evidence contains no account ID, token, headers, or response body.');
+          console.log('- Limit: project identity and hostname do not prove deployment contents or scientific claims.');
+          NODE
