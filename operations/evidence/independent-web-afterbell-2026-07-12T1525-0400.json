@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "recorded_at": "2026-07-12T15:25:00-04:00",
+  "creative_premise": "Afterbell is a playable echo chamber where each touch leaves a decaying ring and each subsequent touch turns spatial distance into a musical interval.",
+  "source": {
+    "path": "independent-web/afterbell.html",
+    "commit": "ae69ade840c6390e51b4df60a52c1dc0577fa30a"
+  },
+  "contract_test": {
+    "path": "independent-web/afterbell.test.mjs",
+    "commit": "2dcecb0626324628184a761485a5ca37361bac43",
+    "status": "committed_not_provider_executed",
+    "assertions": [
+      "canvas field exists",
+      "pointer and keyboard interactions exist",
+      "reduced-motion preference is respected",
+      "local gesture-gated Web Audio exists",
+      "live-region announcements exist",
+      "no external runtime dependency exists",
+      "payment, medical, and Mirror Cartographer explanation language is absent"
+    ]
+  },
+  "accessibility": [
+    "Space key creates an echo",
+    "state changes use aria-live polite",
+    "reduced-motion removes ambient drift while preserving direct interaction",
+    "safe-area insets are respected"
+  ],
+  "performance": {
+    "build": "zero-build static HTML",
+    "external_assets": 0,
+    "network_runtime_dependencies": 0,
+    "canvas_device_pixel_ratio_cap": 2,
+    "retained_marks_cap": 12
+  },
+  "independence_boundary": {
+    "mirror_cartographer_vocabulary": false,
+    "research_or_evidence_portal": false,
+    "worker_dashboard": false,
+    "product_funnel": false,
+    "payment_logic": false,
+    "personal_data": false
+  },
+  "deployment_state": "source_committed_public_url_not_verified",
+  "limits": [
+    "No GitHub Pages deployment identity or public URL was observed in this run.",
+    "The committed Node contract was not executed by a trusted provider in this run.",
+    "No physical mobile screenshot, touch trace, or audio capture was produced."
+  ],
+  "rollback": [
+    "Revert the evidence and queue-update commits.",
+    "Revert 2dcecb0626324628184a761485a5ca37361bac43.",
+    "Revert ae69ade840c6390e51b4df60a52c1dc0577fa30a."
+  ]
+}
