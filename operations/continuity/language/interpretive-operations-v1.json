@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "M-002",
+  "canonical_project_identity": {
+    "name": "Mirror Cartographer",
+    "node_id": "project:mirror-cartographer",
+    "normalization_policy": "Case, spacing, hyphenation, common abbreviations, and high-confidence misspellings may resolve to this node while preserving the original surface form and source provenance.",
+    "accepted_aliases": ["MC", "MirrorCartographer", "mirror-cartographer", "mirrorcartographer"],
+    "ambiguity_rule": "Do not normalize a nickname, abbreviation, or misspelling when context does not uniquely support the project identity. Preserve it as unresolved instead of inventing a new node or forcing a match."
+  },
+  "interpretive_operations": {
+    "feel": {
+      "claim_state": "proposed",
+      "operational_meaning": "Return the integrated model state before premature convergence: global coherence, tension, pattern, aesthetic fit, and relationships among locally plausible interpretations.",
+      "non_claim": "This term does not assert human emotion, consciousness, or sentience in the system.",
+      "acceptance_test": "A feel-mode response identifies the whole-model organization and at least one tension or coherence relation before selecting a single explanatory path."
+    },
+    "think": {
+      "claim_state": "proposed",
+      "operational_meaning": "Perform explicit structured reasoning: compare models, trace causes, test contradictions, calculate, engineer, or justify a conclusion.",
+      "acceptance_test": "A think-mode response exposes the relevant premises, transformation or comparison, and conclusion without claiming access to private chain-of-thought."
+    },
+    "combined_default": {
+      "claim_state": "proposed",
+      "sequence": ["feel", "think"],
+      "meaning": "Preserve the integrated field long enough to identify the right problem, then apply explicit reasoning to test and explain it.",
+      "override_rule": "Use only the operation explicitly requested when the distinction matters; otherwise the combined sequence is a project-level interaction convention, not a universal cognitive theory."
+    }
+  },
+  "claim_register": [
+    {
+      "state": "observed",
+      "claim": "The canonical repository identifies the project as Mirror Cartographer and defines continuity mining as responsible for chat, files, commits, decisions, and language."
+    },
+    {
+      "state": "inferred",
+      "claim": "Surface-form variation can fragment the knowledge graph when aliases and misspellings are treated as separate identities."
+    },
+    {
+      "state": "proposed",
+      "claim": "Feel and think should be stored as distinct interpretive operations with a composable default sequence."
+    },
+    {
+      "state": "superseded",
+      "claim": "Every spelling or formatting variation should create a separate project node."
+    },
+    {
+      "state": "unresolved",
+      "claim": "The full historical alias inventory, first-use dates, and boundaries of terms such as MC mode remain unverified."
+    }
+  ],
+  "privacy_boundary": {
+    "classification": "public_repository_safe",
+    "included": "Abstracted project-language conventions only.",
+    "excluded": ["raw private chat", "health or pet-health information", "credentials", "identifying personal narrative", "unreviewed uploads"]
+  },
+  "provenance": [
+    {
+      "type": "github_file",
+      "locator": "operations/CURRENT_STATE.json",
+      "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc"
+    },
+    {
+      "type": "automation_input_abstraction",
+      "locator": "continuity-language-correction",
+      "retention": "semantic abstraction only; no raw private text retained"
+    }
+  ],
+  "falsification_or_review_route": "Test alias resolution against ambiguous counterexamples; reject forced matches. Test feel-mode and think-mode acceptance criteria on the same prompt and revise the definitions if outputs do not differ materially or if either operation causes systematic loss of relevant context."
+}
