@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": "bounded gesture replay evidence combiner",
+  "date": "2026-07-12",
+  "owner": "frontier_research",
+  "source_status": {
+    "event_timing": "W3C Event Timing Editor's Draft; work in progress",
+    "long_animation_frames": "W3C Long Animation Frames draft; browser support and field availability are target-dependent"
+  },
+  "finding": "Interaction timing decomposition and long-animation-frame congestion become more useful when correlated only inside the same bounded replay and when incomplete observers fail closed. The combined packet can identify the dominant latency component and concurrent main-thread congestion, but it cannot establish causation.",
+  "design_implication": "Vercel Studio can emit one privacy-safe replay packet rather than separate uncorrelated summaries. This enables bounded classifications for input delay, handler work, presentation delay, and concurrent congestion while preserving observer completeness and uncertainty.",
+  "module": "tools/frontier-research/gesture-replay-evidence.mjs",
+  "test": "tools/frontier-research/gesture-replay-evidence.test.mjs",
+  "verification": {
+    "runtime": "Node.js built-in test runner",
+    "result": "6 passed, 0 failed",
+    "cases": [
+      "invalid replay identity fails closed",
+      "incomplete observer fails closed",
+      "handler work with severe congestion",
+      "input delay without congestion",
+      "bounded no-signal classification",
+      "target, event, and script attribution are not serialized"
+    ]
+  },
+  "claim_states": {
+    "observed": [
+      "The existing R-009 and R-010 classifiers expose privacy-safe aggregate summaries.",
+      "Six deterministic tests passed against byte-identical source before commit."
+    ],
+    "inferred": [
+      "Same-replay correlation is more informative than independent summaries for localization of visible latency."
+    ],
+    "proposed": [
+      "A 1.25 ratio between the largest and second-largest component is used as a project dominance heuristic."
+    ],
+    "unresolved": [
+      "Target-browser support, observer delivery, clock alignment, and deployed iPhone behavior remain unverified."
+    ]
+  },
+  "privacy_boundary": {
+    "retained": [
+      "bounded replay identifier",
+      "aggregate interaction counts and component durations",
+      "aggregate frame counts and durations",
+      "observer completeness",
+      "non-causal diagnostic classification"
+    ],
+    "excluded": [
+      "DOM targets and selectors",
+      "event names",
+      "script URLs and attribution",
+      "raw performance entries",
+      "page text",
+      "private chat",
+      "health information"
+    ]
+  },
+  "falsification_route": [
+    "Run both observers over the same explicitly bounded trusted gesture replay.",
+    "Inject controlled input-queue, handler, and render delays separately.",
+    "Require the emitted dominant component to match the injected delay class.",
+    "Require incomplete or dropped-entry sessions to remain unresolved.",
+    "Compare packet values locally with raw browser entries without persisting attribution fields.",
+    "Reject causal language unless an intervention changes the predicted component and outcome reproducibly."
+  ],
+  "commits": {
+    "module": "76c97a5cede4517ba98ef21c0bf215668aff1089",
+    "test": "9a2a28b81160397365f60426216b2df633b92bc6"
+  }
+}
