@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-018",
+  "owner": "frontier_research",
+  "status": "completed",
+  "priority_basis": "R-017 made replay acceptance structurally fail-closed but did not distinguish complete observation from threshold-filtered absence.",
+  "action": "Add a standards-linked coverage gate that prevents missing Event Timing entries from being interpreted as no interactions or good responsiveness.",
+  "completed_at": "2026-07-12T03:52:00-04:00",
+  "specialists_used": [
+    "Primary Source Scout",
+    "Technical Synthesist",
+    "Experiment Designer",
+    "Tool Evaluator",
+    "Cross-Domain Translator"
+  ],
+  "progress": {
+    "primary_source": "https://www.w3.org/TR/event-timing/",
+    "finding": "Buffered entries omit durations below 104 ms and live thresholds cannot be lower than 16 ms, so entry absence is normally partial evidence.",
+    "module": "tools/frontier-research/event-timing-coverage-gate.mjs",
+    "test": "tools/frontier-research/event-timing-coverage-gate.test.mjs",
+    "evidence": "operations/evidence/frontier-research-event-timing-coverage-2026-07-12.json",
+    "commits": [
+      "928a789c785ff6080b79dc1f5e4ecd1f4685a368",
+      "26729f305e02fca698ccacaf92b329625c55ab42",
+      "0d74752f5b957bfb72929554f3e7e2de6b5c7371"
+    ],
+    "verification": "5 deterministic Node.js tests passed; 0 failed"
+  },
+  "handoff": "Vercel Studio should evaluate coverage before replay interpretation and retain partial rather than success when entries may have been hidden by thresholding or late observer installation.",
+  "limits": [
+    "No deployed integration invokes this gate.",
+    "No physical iPhone Safari packet was evaluated.",
+    "The primary specification is a Working Draft.",
+    "Coverage classification does not prove causality, visual divergence, responsiveness quality, or complete event delivery."
+  ],
+  "next_action": "Compose the R-018 coverage result into the R-017 replay acceptance boundary and add physical-browser fixtures for early observer, late observer, buffered retrieval, and zero-interaction navigation cases."
+}
