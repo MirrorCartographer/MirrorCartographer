@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T13:21:00-04:00",
+  "claim_state": "observed",
+  "improvement": "The Cloudflare evidence-contract workflow now fails closed unless the checked-out HEAD equals GITHUB_SHA and both tracked and staged trees are clean before evidence tests execute.",
+  "source": {
+    "pull_request": 5,
+    "branch_commit": "61e13aede2410f313b4e91d9f3a26232cfa1ed03",
+    "merge_commit": "8833300c22cde3e72d21d406599cd1ca09de15a0",
+    "workflow": ".github/workflows/cloudflare-evidence-contracts.yml"
+  },
+  "verification": {
+    "workflow_run_id": 29201811222,
+    "job_id": 86674350763,
+    "steps_observed_successful": [
+      "Checkout committed source",
+      "Verify checkout matches triggering commit",
+      "Run blocked-path evidence materialization tests",
+      "Run atomic evidence finalization tests",
+      "Verify deployment workflow wires both contracts"
+    ]
+  },
+  "limits": [
+    "This does not prove Cloudflare credentials exist.",
+    "This does not prove a Cloudflare Pages deployment succeeded or resolves.",
+    "This does not prove any scientific, diagnostic, or treatment claim."
+  ],
+  "privacy": "public repository metadata and workflow evidence only"
+}
