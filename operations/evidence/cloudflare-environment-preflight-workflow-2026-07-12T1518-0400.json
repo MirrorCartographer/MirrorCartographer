@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T15:18:00-04:00",
+  "claim_state": "implemented_unexecuted",
+  "source": {
+    "repository": "MirrorCartographer/MirrorCartographer",
+    "workflow_path": ".github/workflows/cloudflare-environment-preflight.yml",
+    "workflow_commit": "d5ece3727776baa5b17c9f4905b455a9716f6fe3",
+    "deployment_workflow": ".github/workflows/cloudflare-pages-research.yml"
+  },
+  "improvement": {
+    "summary": "Adds a credential-free exact-commit workflow that validates Cloudflare environment declarations, executes deterministic preflight tests, emits privacy-bounded evidence, records SHA-256 digests, and uploads an immutable run manifest before any secret-bearing deployment is attempted.",
+    "properties": [
+      "checks out github.sha explicitly",
+      "requires a clean checkout",
+      "runs three dependency-free Node contract suites",
+      "fails closed when workflow environment declarations drift",
+      "records repository and commit provenance",
+      "does not inspect or upload credential values",
+      "does not attempt Cloudflare deployment",
+      "states that infrastructure evidence is not scientific or medical truth"
+    ]
+  },
+  "verification": {
+    "source_fetch": "confirmed at committed SHA",
+    "workflow_run_query": "no workflow run returned at recording time",
+    "provider_execution": "unverified",
+    "artifact_upload": "unverified"
+  },
+  "privacy_boundary": {
+    "included": [
+      "repository identity",
+      "commit SHA",
+      "required secret names",
+      "workflow declaration results",
+      "artifact digests"
+    ],
+    "excluded": [
+      "secret values",
+      "account identifiers",
+      "private chat material",
+      "health information",
+      "diagnosis or treatment claims"
+    ]
+  },
+  "limits": [
+    "Does not prove the cloudflare-research environment exists.",
+    "Does not prove required secrets are installed or valid.",
+    "Does not prove Cloudflare API authorization.",
+    "Does not prove deployment, hostname resolution, or served identity.",
+    "Does not establish scientific or medical truth."
+  ],
+  "falsification_route": "Reject the workflow slice if an exact-commit run does not pass all tests, if checkout SHA differs from github.sha, if generated evidence lacks matching repository and commit provenance, if artifact digests fail, or if any credential value appears in retained artifacts."
+}
