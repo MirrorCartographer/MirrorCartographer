@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0010",
+  "title": "A completed queue item handoff does not create new execution authority",
+  "created_at": "2026-07-12T09:20:46Z",
+  "team": "continuity_mining",
+  "privacy": "public_repository_safe",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-12T09:20:46Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/CURRENT_STATE.json",
+      "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+      "observed_at": "2026-07-12T09:20:46Z"
+    }
+  ],
+  "claims": {
+    "observed": [
+      "M-001 is marked completed in the canonical queue.",
+      "M-001 contains a handoff describing possible next continuity work.",
+      "CURRENT_STATE requires teams to update only owned records."
+    ],
+    "inferred": [
+      "A handoff records continuity and recommendation, but is not itself an active queue assignment.",
+      "Executing handoff work without creating a new owned record would blur historical completion with current authorization."
+    ],
+    "proposed": [
+      "Future continuity work derived from a completed item's handoff should receive a new queue item or an additive queue-update record before being represented as owned active work.",
+      "Completion, handoff, authorization, and execution evidence should remain separate linked states."
+    ],
+    "superseded": [
+      "The implicit rule that a completed item's handoff can be treated as an active queue item without a new ownership record."
+    ],
+    "unresolved": [
+      "The repository does not yet define a canonical schema for promoting a handoff into a newly authorized queue item.",
+      "No active continuity_mining queue item exists at this observation point."
+    ]
+  },
+  "design_rule": {
+    "name": "handoff_authority_boundary",
+    "states": ["completed", "handoff_proposed", "authorized", "in_progress", "verified"],
+    "transition_requirement": "handoff_proposed may become authorized only through a new explicit owner-bearing queue or queue-update record",
+    "fail_closed_behavior": "when authorization is absent, preserve the handoff as proposed and do not claim active ownership or completion"
+  },
+  "falsification_or_review_route": "Falsify this boundary only if a canonical repository rule explicitly grants active execution authority through a completed item's handoff field alone. Otherwise verify by reading ACTIVE_QUEUE.json and CURRENT_STATE.json at the recorded blobs.",
+  "privacy_boundary": {
+    "included": ["public repository state", "queue semantics", "abstract workflow rules"],
+    "excluded": ["private chat text", "health or pet-health information", "credentials", "personal identifiers", "unreviewed uploaded files"]
+  }
+}
