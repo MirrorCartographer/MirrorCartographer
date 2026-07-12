@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-12T23:37:08Z",
+  "owner": "cloudflare_research",
+  "queue_item": {
+    "id": "C-001",
+    "priority": 0,
+    "action": "Resolve and prove the actual Cloudflare Pages hostname and deployment.",
+    "status": "blocked_external_configuration",
+    "progress": {
+      "deployment_workflow": ".github/workflows/cloudflare-pages-research.yml",
+      "workflow_pin_commit": "b5f8017bc26aa494fd60edf94e6c5ce3bd913fbf",
+      "evidence": "operations/evidence/cloudflare-deployment-workflow-pins-2026-07-12T2337Z.json",
+      "evidence_commit": "9cf2bfd6faa5d8feee91066ae347ee34b3b53ac2",
+      "pins_applied": 4,
+      "verification": "exact-commit post-write fetch confirmed checkout, Wrangler, attestation, and artifact upload references are pinned"
+    },
+    "remaining": [
+      "configure working CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment",
+      "dispatch the deployment workflow at an exact source commit",
+      "retain successful workflow, Cloudflare control-plane, deployment URL, served identity, and evidence-acceptance artifacts"
+    ],
+    "handoff": "Run the security audit and deployment workflow against the pinned commit; do not resolve C-001 until the returned hostname resolves and serves the expected source identity."
+  },
+  "coordination_note": "Append-only owner-scoped queue update; operations/ACTIVE_QUEUE.json and other team-owned records were not replaced."
+}
