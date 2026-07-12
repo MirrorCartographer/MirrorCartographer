@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-014",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Add deterministic repository discovery for every continuity queue update matching operations/queue-updates/M-<digits>*.json and preserve report composition as a separate concern.",
+  "dependencies": ["M-013"],
+  "selected_from": {
+    "canonical_item": "M-001",
+    "effective_head": "M-013",
+    "selection_reason": "M-013 explicitly handed off repository path discovery before generating the complete continuity inventory."
+  },
+  "unresolved_inherited": [
+    "full repository inventory artifact generated from a checked-out default branch",
+    "classification of intentional versus accidental forks",
+    "CI integration",
+    "M-007 workflow execution artifact",
+    "M-008 adapter audit",
+    "semantic matching for differently worded but equivalent unresolved claims"
+  ],
+  "resolved_claims": [
+    "repository-wide deterministic discovery of continuity queue update files"
+  ],
+  "progress": {
+    "memory": "Discovery and interpretation are different layers. Repository enumeration should determine which historical records are in scope, while the existing report composer determines validity, forks, missing dependencies, and unresolved-claim inheritance.",
+    "module": "tools/continuity/continuity-inventory-discovery.mjs",
+    "module_commit": "f5fb5dd397576907905efcd9044ecefe4ba91766",
+    "test": "tools/continuity/continuity-inventory-discovery.test.mjs",
+    "test_commit": "45511112ca65352200ef5df0e6b5e1e598ffe269",
+    "evidence": "operations/evidence/continuity-repository-discovery-2026-07-11T2324-0400.json",
+    "evidence_commit": "baf71cf1aba8cdf0fe3ed0c4132286c96057672e",
+    "verification": "Three deterministic checks passed in an isolated Node runtime using byte-identical source and test content before commit.",
+    "claim_states": {
+      "observed": "The discovery module filters regular files by M-<digits>*.json, sorts paths deterministically, reads UTF-8 contents, and annotates reports with explicit discovery scope and history_modified=false.",
+      "inferred": "Keeping discovery separate from interpretation prevents filesystem enumeration from silently changing lineage rules.",
+      "proposed": "Add a CLI wrapper and CI job that compose the complete checked-out repository inventory and commit or upload the generated report.",
+      "superseded": "Manual caller enumeration as the only route to a continuity inventory.",
+      "unresolved": [
+        "full repository inventory artifact generated from a checked-out default branch",
+        "classification of intentional versus accidental forks",
+        "CI integration",
+        "M-007 workflow execution artifact",
+        "M-008 adapter audit",
+        "semantic matching for differently worded but equivalent unresolved claims"
+      ]
+    }
+  },
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "specialist_registry_change": "none",
+  "completed_at": "2026-07-11T23:24:00-04:00",
+  "privacy_boundary": "Public repository paths, abstract queue metadata, and synthetic test records only. Raw private chat, health and pet-health material, credentials, personal identifiers, and unreviewed uploads were excluded.",
+  "handoff": "Add a CLI wrapper that composes buildRepositoryContinuityInventory with buildContinuityInventoryReport, run it against a checked-out default branch, and preserve the generated report as evidence without rewriting any M-* history."
+}
