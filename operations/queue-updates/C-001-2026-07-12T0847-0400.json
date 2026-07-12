@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "update_kind": "additive_progress",
+  "progress": {
+    "hostname_authority_resolver": "cloudflare-static/resolve-pages-hostname.mjs",
+    "hostname_authority_test": "cloudflare-static/resolve-pages-hostname.test.mjs",
+    "evidence": "operations/evidence/cloudflare-pages-hostname-authority-2026-07-12T0847-0400.json",
+    "commits": [
+      "6329c364e2356574f020a46c734a9682ff2bd500",
+      "904ec49f109a631ab72cd5ab1fde511803cfac46",
+      "45d0c1d843be63d8d51e9e3841d21ff278f22d28"
+    ],
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files",
+    "finding": "Use the Pages project API result.subdomain as canonical hostname authority; do not infer the hostname from wrangler project name because Cloudflare may append random characters.",
+    "remaining": [
+      "configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment",
+      "integrate the hostname authority resolver after the existing access probe and before DNS/HTTP verification",
+      "dispatch the deployment workflow",
+      "capture control-plane project response without secret values",
+      "prove DNS resolution, HTTP reachability, served identity, and deployed commit as separate claims"
+    ]
+  },
+  "canonical_state_mutation": "not_performed",
+  "reason": "Preserved other teams' queue records and recorded this team's progress as an additive queue update while C-001 remains externally blocked."
+}
