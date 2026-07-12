@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T00:55:29-04:00",
+  "finding": "The prior access probe listed only the first 100 Pages projects and emitted unrelated project names. Cloudflare provides an exact Get Project endpoint, so deployment readiness should resolve the intended project directly rather than infer identity from a bounded account-wide list.",
+  "primary_sources": [
+    {
+      "title": "Cloudflare API: Get project",
+      "url": "https://developers.cloudflare.com/api/resources/pages/subresources/projects/methods/get/",
+      "status": "official_current_api_reference"
+    },
+    {
+      "title": "Cloudflare API: Verify Token",
+      "url": "https://developers.cloudflare.com/api/resources/user/subresources/tokens/methods/verify/",
+      "status": "official_current_api_reference"
+    }
+  ],
+  "implementation": {
+    "module": "cloudflare-static/probe-cloudflare-access.mjs",
+    "test": "cloudflare-static/probe-cloudflare-access.test.mjs",
+    "behavior": [
+      "verify token activity",
+      "GET the exact configured Pages project",
+      "reject mismatched returned project identity",
+      "normalize public hostnames",
+      "emit no account identifier, token, or unrelated project names",
+      "fail closed on missing project, insufficient permission, or missing canonical hostname"
+    ],
+    "commits": [
+      "0b0809e4ada7a4d07b1a1907a2467c5a020dc4e6",
+      "5d559ebe6d5dc4fbc53915afef4178bc03c96919"
+    ]
+  },
+  "verification": {
+    "method": "isolated Node.js deterministic tests using byte-identical implementation content",
+    "tests": 7,
+    "passed": 7,
+    "failed": 0,
+    "covered_cases": [
+      "exact project resolves",
+      "404 missing project",
+      "successful lookalike project response",
+      "missing canonical hostname",
+      "rejected token",
+      "insufficient exact-project permission",
+      "malformed local configuration"
+    ]
+  },
+  "evidence_strength": "implemented_and_deterministically_tested",
+  "privacy_boundary": {
+    "secret_values_emitted": false,
+    "account_id_emitted": false,
+    "unrelated_project_names_emitted": false,
+    "public_data_retained": ["intended project name", "canonical pages.dev hostname", "configured public custom domains"]
+  },
+  "uncertainty": "No live Cloudflare request was possible because valid environment credentials were unavailable to this run. API behavior is grounded in the current official reference and deterministic mocks, not a provider response.",
+  "falsification_route": "Run the committed workflow with valid credentials. Revise the probe if the official exact-project endpoint does not return the documented project object, if valid credentials cannot access it despite Wrangler deployment authorization, or if account-wide enumeration proves necessary for a deployment acceptance property not represented here.",
+  "medical_boundary": "This infrastructure artifact contains no diagnosis, treatment recommendation, or patient-specific information."
+}
