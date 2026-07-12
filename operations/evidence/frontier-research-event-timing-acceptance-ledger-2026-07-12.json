@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-024",
+  "owner": "frontier_research",
+  "claim_state": "observed",
+  "evidence_strength": "implementation_ready_locally_verified",
+  "primary_sources": [
+    {
+      "title": "Node.js File system documentation",
+      "url": "https://nodejs.org/api/fs.html",
+      "status": "current_official_documentation",
+      "relevance": "Documents exclusive-create file opening and rename primitives used for lock acquisition and replacement writes."
+    }
+  ],
+  "prior_artifacts_compared": [
+    "tools/frontier-research/event-timing-acceptance-replay-gate.mjs",
+    "operations/queue-updates/R-023-2026-07-12T0622-0400.json",
+    "tools/frontier-research/trusted-root-store.mjs",
+    "tools/frontier-research/trusted-root-stale-lock-recovery.mjs"
+  ],
+  "finding": "A one-time acceptance decision must be persisted behind an exclusive lock and bounded retention policy; an in-memory seen-ID array cannot prevent duplicate acceptance across reloads or competing processes.",
+  "artifact": "tools/frontier-research/event-timing-acceptance-ledger.mjs",
+  "test": "tools/frontier-research/event-timing-acceptance-ledger.test.mjs",
+  "verification": {
+    "command": "node --test event-timing-acceptance-ledger.test.mjs",
+    "passed": 6,
+    "failed": 0,
+    "covered": [
+      "reload persistence",
+      "eight-way concurrent duplicate race",
+      "retention expiry",
+      "deterministic capacity eviction",
+      "malformed-state fail closed",
+      "invalid identifier rejection"
+    ]
+  },
+  "privacy_boundary": {
+    "retains": ["opaque acceptance identifier", "acceptance time in milliseconds"],
+    "excludes": ["URLs", "referrers", "event names", "event targets", "selectors", "raw timing entries", "user-agent strings", "private dialogue", "health material"]
+  },
+  "uncertainty": [
+    "rename durability depends on filesystem and directory-sync behavior",
+    "lock files can remain after process termination",
+    "the implementation coordinates processes sharing one filesystem only",
+    "retention duration is policy, not a universal replay-safety guarantee"
+  ],
+  "falsification_route": [
+    "kill the process between temporary write and rename and inspect recovery behavior",
+    "kill the process while holding the lock and verify stale-lock handling",
+    "run consumers across distinct hosts or storage mounts and demonstrate duplicate acceptance",
+    "exceed retention and capacity bounds and verify documented replay window"
+  ]
+}
