@@ -66,7 +66,7 @@ test('records a found project with missing canonical hostname as unresolved iden
     { status: 200, body: { success: true, result: [{ name: 'mirror-cartographer-research', domains: ['Research.Example.com'] }] } }
   ]);
   const result = await probeCloudflareAccess({ accountId, apiToken, fetchImpl });
-  assert.equal(result.ready, true);
+  assert.equal(result.ready, false);
   assert.equal(result.target_project.found, true);
   assert.equal(result.target_project.canonical_hostname, null);
   assert.equal(result.target_project.reason, 'target_project_missing_canonical_hostname');
