@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-006-2026-07-12T1156-0400",
+  "queue_item": "M-001",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-12T11:56:43-04:00",
+  "claim_state": "observed",
+  "status": "completed",
+  "action": "Resolve contradictory effective completion when required evidence is incomplete.",
+  "source_commits": [
+    "2c853445d629c352ad9a28b83325baa8da7b0d3a",
+    "6b753927a2d4a35de4bb62c24e5cf37ce8a4d0d9",
+    "34ce4cabc9d6f2aa2186cb5e89702e96b5ca9bc6"
+  ],
+  "evidence_paths": [
+    "tools/continuity/queue-reconciler.mjs",
+    "tools/continuity/queue-reconciler.test.mjs",
+    "operations/continuity/observations/unsupported-completion-claim-2026-07-12T1156-0400.json"
+  ],
+  "evidence_types": ["source commit","deterministic test","contradiction record"],
+  "progress": {
+    "recovered_memory": "Temporal recency cannot override evidentiary completeness when deriving queue status.",
+    "behavior": "Unsupported completed claims now preserve aggregate status, become unresolved, and are recorded as superseded claims.",
+    "verification": "Five local Node assertions passed against byte-equivalent source before commit; committed CI execution remains pending."
+  },
+  "privacy_boundary": "Public repository metadata and abstract queue semantics only; no private user material persisted.",
+  "handoff": "Run the committed test in CI, then build a read-only whole-queue view that applies this fail-closed item reconciler without rewriting ACTIVE_QUEUE.json."
+}
