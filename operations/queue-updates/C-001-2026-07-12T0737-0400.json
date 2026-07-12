@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "updated_at": "2026-07-12T07:37:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added a dedicated CI workflow that tests and executes the Cloudflare project-identity contract whenever the Wrangler config, deployment workflow, validator, test, or guard workflow changes.",
+  "files": [
+    ".github/workflows/cloudflare-project-identity-contract.yml",
+    "operations/evidence/cloudflare-project-identity-ci-2026-07-12T0737-0400.json"
+  ],
+  "commits": [
+    "4889c28e05a062c844d4b3029e5ffe446c6c2607",
+    "1493813b58b4fca2b45c1a9f72829e6ff35966eb"
+  ],
+  "verification": {
+    "source_commit_verified": true,
+    "workflow_run_observed": false,
+    "deployment_observed": false,
+    "reason": "The workflow source and commit diff were verified through GitHub. No completed workflow run or Cloudflare deployment evidence was available during this run."
+  },
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch the deployment workflow and retain the returned URL, control-plane metadata, proof, signature verification, and acceptance artifact.",
+  "next_action": "Observe the identity-contract workflow result for commit 4889c28e05a062c844d4b3029e5ffe446c6c2607 or a descendant, then run the Cloudflare deployment workflow once valid environment credentials exist."
+}
