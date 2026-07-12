@@ -51,6 +51,7 @@ jobs:
           node --test cloudflare-static/cryptographic-attestation-workflow.test.mjs
           node --test cloudflare-static/validate-deployment-proof-context.test.mjs
           node --test cloudflare-static/validate-deployment-branch.test.mjs
+          node --test cloudflare-static/verify-cloudflare-deployment-metadata.test.mjs
 
       - name: Validate deployment branch input
         env:
@@ -115,6 +116,15 @@ jobs:
           DEPLOY_STEP_OUTCOME: ${{ steps.deploy.outcome }}
           DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
         run: node cloudflare-static/build-deployment-decision.mjs cloudflare-deployment-readiness.json cloudflare-deployment-decision.json
+
+      - name: Verify Cloudflare control-plane deployment metadata
+        if: steps.deploy.outcome == 'success'
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_PAGES_PROJECT: mirror-cartographer-research
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: node cloudflare-static/verify-cloudflare-deployment-metadata.mjs cloudflare-deployment-metadata.json
 
       - name: Verify served identity
         if: steps.deploy.outcome == 'success'
@@ -214,6 +224,7 @@ jobs:
             cloudflare-access-probe.json
             cloudflare-deployment-blocker.json
             cloudflare-deployment-decision.json
+            cloudflare-deployment-metadata.json
             cloudflare-deployment-proof.json
             cloudflare-deployment-proof.intoto.json
             cloudflare-deployment-proof.signature-verification.raw.json
@@ -241,6 +252,7 @@ jobs:
             echo "- Deployment gate: deployment runs only after the access probe succeeds"
             echo "- Actionable blocker: \`cloudflare-deployment-blocker.json\` (schema-validated names and reason codes only)"
             echo "- Deployment decision: \`cloudflare-deployment-decision.json\`"
+            echo "- Cloudflare control-plane binding: \`cloudflare-deployment-metadata.json\` must match exact project, commit, URL, and successful deploy stage"
             echo "- Identity verifier: \`cloudflare-static/verify-deployment.mjs\`"
             echo "- Proof builder: \`cloudflare-static/build-deployment-proof.mjs\` (schema 1.1.0 with URL authority)"
             echo "- Run-context validator: \`cloudflare-static/validate-deployment-proof-context.mjs\`"
