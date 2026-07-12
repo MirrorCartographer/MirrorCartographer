@@ -37,6 +37,7 @@ jobs:
           node --test cloudflare-static/check-deployment-readiness.test.mjs
           node --test cloudflare-static/probe-cloudflare-access.test.mjs
           node --test cloudflare-static/cloudflare-access-workflow-contract.test.mjs
+          node --test cloudflare-static/build-pages-hostname-authority.test.mjs
           node --test cloudflare-static/summarize-deployment-blocker.test.mjs
           node --test cloudflare-static/validate-deployment-blocker.test.mjs
           node --test cloudflare-static/build-deployment-decision.test.mjs
@@ -86,6 +87,13 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: node cloudflare-static/probe-cloudflare-access.mjs cloudflare-access-probe.json
 
+      - name: Build canonical Pages hostname authority
+        if: steps.access_probe.outcome == 'success'
+        run: >-
+          node cloudflare-static/build-pages-hostname-authority.mjs
+          cloudflare-access-probe.json
+          cloudflare-pages-hostname-authority.json
+
       - name: Summarize deployment blocker
         if: always()
         run: node cloudflare-static/summarize-deployment-blocker.mjs cloudflare-deployment-readiness.json cloudflare-deployment-blocker.json
@@ -109,6 +117,16 @@ jobs:
             --branch=${{ inputs.branch }}
             --commit-hash=${{ github.sha }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bind deployment URL to Pages hostname authority
+        if: steps.deploy.outcome == 'success'
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: >-
+          node cloudflare-static/build-pages-hostname-authority.mjs
+          cloudflare-access-probe.json
+          cloudflare-pages-hostname-authority.json
+          "$DEPLOYMENT_URL"
 
       - name: Record deployment decision
         if: always()
@@ -222,6 +240,7 @@ jobs:
           path: |
             cloudflare-deployment-readiness.json
             cloudflare-access-probe.json
+            cloudflare-pages-hostname-authority.json
             cloudflare-deployment-blocker.json
             cloudflare-deployment-decision.json
             cloudflare-deployment-metadata.json
@@ -249,6 +268,7 @@ jobs:
             echo "- Deployment branch input: validated before readiness probing and Wrangler invocation"
             echo "- Readiness evidence: \`cloudflare-deployment-readiness.json\` (never contains secret values)"
             echo "- Access capability evidence: \`cloudflare-access-probe.json\` (token activity and account-scoped Pages authorization; no secret values)"
+            echo "- Canonical hostname authority: \`cloudflare-pages-hostname-authority.json\` built from the sanitized direct project probe and rebound to Wrangler's returned URL after deployment"
             echo "- Deployment gate: deployment runs only after the access probe succeeds"
             echo "- Actionable blocker: \`cloudflare-deployment-blocker.json\` (schema-validated names and reason codes only)"
             echo "- Deployment decision: \`cloudflare-deployment-decision.json\`"
@@ -262,5 +282,5 @@ jobs:
             echo "- Verification input: \`cloudflare-evidence-verification-input.json\`"
             echo "- Acceptance decision: \`cloudflare-deployment-acceptance.json\`"
             echo "- Trust policy: exact workflow builder and repository, deny by default"
-            echo "- Epistemic limit: signature verification authenticates provenance, not scientific truth"
+            echo "- Epistemic limit: signature verification and hostname authority authenticate provenance and control-plane relationships, not scientific truth"
           } >> "$GITHUB_STEP_SUMMARY"
