@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-013",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "recorded_at": "2026-07-12T17:54:00Z",
+  "action": "Implement a deterministic non-authoritative projector over the canonical queue snapshot and append-only queue-update deltas.",
+  "dependencies": ["CM-012"],
+  "required_evidence": [
+    "committed dependency-free implementation",
+    "deterministic fixtures",
+    "ownership boundary enforcement",
+    "conflict preservation",
+    "explicit non-authoritative output"
+  ],
+  "progress": {
+    "module": "tools/continuity/project-queue-state.mjs",
+    "test": "tools/continuity/project-queue-state.test.mjs",
+    "evidence": "operations/evidence/continuity-state-projector-2026-07-12T1354-0400.json",
+    "commits": [
+      "fdcd3195e5634b842d50e5961afc94e8a4682fff",
+      "eeca814cc6a6655f3cb9527c219f6df15c4e4b54",
+      "1ca6dd2f0ebdc9c302ad4651768336956eb78d91"
+    ],
+    "verification": "GitHub accepted the additive source, fixture, and evidence commits. Runtime execution remains unverified; the exact falsification command is retained.",
+    "claim_states": {
+      "observed": "Canonical state and later additive deltas can disagree without either source being deleted.",
+      "inferred": "A derived view requires deterministic ordering, ownership validation, and preserved source history.",
+      "proposed": "Add repository-tree discovery and exact-commit CI execution.",
+      "superseded": "CM-0014's statement that the projector was not implemented.",
+      "unresolved": "Completeness of delta discovery and trusted runtime execution."
+    }
+  },
+  "handoff": "Add a repository-tree adapter that enumerates operations/queue-updates, attaches immutable blob and commit provenance, executes the projector in CI, and retains the derived output as evidence without replacing ACTIVE_QUEUE.json."
+}
