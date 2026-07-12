@@ -1,4 +1,4 @@
-name: Discover Cloudflare Pages project identity
+name: Discover and verify Cloudflare Pages project identity
 
 on:
   workflow_dispatch:
@@ -14,8 +14,10 @@ jobs:
       - name: Checkout committed source
         uses: actions/checkout@v6
 
-      - name: Test project discovery contract
-        run: node --test cloudflare-static/discover-pages-project.test.mjs
+      - name: Test project discovery and hostname probe contracts
+        run: |
+          node --test cloudflare-static/discover-pages-project.test.mjs
+          node --test cloudflare-static/probe-production-hostname.test.mjs
 
       - name: Discover exact Pages project and canonical hostname
         env:
@@ -35,24 +37,75 @@ jobs:
           process.stdout.write(`${JSON.stringify({ status: result.status, canonical_url: result.canonical_url })}\n`);
           NODE
 
-      - name: Upload privacy-safe project evidence
+      - name: Probe Cloudflare-returned canonical hostname
+        run: |
+          CANONICAL_URL="$(node -e "const fs=require('fs');const x=JSON.parse(fs.readFileSync('cloudflare-pages-project.json','utf8'));process.stdout.write(x.canonical_url||'')")"
+          test -n "$CANONICAL_URL"
+          node cloudflare-static/probe-production-hostname.mjs cloudflare-pages-hostname-probe.json "$CANONICAL_URL"
+
+      - name: Bind project identity to served research surface
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const project = JSON.parse(fs.readFileSync('cloudflare-pages-project.json', 'utf8'));
+          const probe = JSON.parse(fs.readFileSync('cloudflare-pages-hostname-probe.json', 'utf8'));
+          const canonical = new URL(project.canonical_url).href;
+          if (probe.requested_url !== canonical) throw new Error('probe-url-not-derived-from-project');
+          if (probe.classification !== 'research_surface_verified') throw new Error(`served-surface-not-verified:${probe.classification}`);
+          const evidence = {
+            schema_version: '1.0.0',
+            source_commit: process.env.GITHUB_SHA,
+            project: {
+              status: project.status,
+              expected_project: project.expected_project,
+              canonical_hostname: project.canonical_hostname,
+              canonical_url: project.canonical_url,
+              production_branch: project.production_branch
+            },
+            served_surface: {
+              checked_at: probe.checked_at,
+              requested_url: probe.requested_url,
+              resolved_url: probe.resolved_url,
+              http_status: probe.http_status,
+              classification: probe.classification,
+              resolves: probe.resolves,
+              identity: probe.identity
+            },
+            acceptance: 'project_and_served_surface_verified',
+            privacy: 'No credentials, account identifiers, headers, cookies, response bodies, or personal data are persisted.',
+            limits: [
+              'This proves account-visible project identity and browser-visible research-surface identity only.',
+              'It does not establish diagnosis, treatment efficacy, medical validity, or scientific truth.',
+              'Exact deployed commit still requires deployment-specific commit provenance.'
+            ]
+          };
+          fs.writeFileSync('cloudflare-pages-project-and-surface-evidence.json', `${JSON.stringify(evidence, null, 2)}\n`);
+          NODE
+
+      - name: Upload privacy-safe Cloudflare evidence
         uses: actions/upload-artifact@v4
         with:
-          name: cloudflare-pages-project-${{ github.sha }}
-          path: cloudflare-pages-project.json
+          name: cloudflare-pages-project-and-surface-${{ github.sha }}
+          path: |
+            cloudflare-pages-project.json
+            cloudflare-pages-hostname-probe.json
+            cloudflare-pages-project-and-surface-evidence.json
           if-no-files-found: error
           retention-days: 30
 
-      - name: Publish discovery summary
+      - name: Publish discovery and surface summary
         run: |
           node --input-type=module - <<'NODE' >> "$GITHUB_STEP_SUMMARY"
           import fs from 'node:fs';
-          const result = JSON.parse(fs.readFileSync('cloudflare-pages-project.json', 'utf8'));
-          console.log('## Cloudflare Pages project identity');
-          console.log(`- Source commit: \`${process.env.GITHUB_SHA}\``);
-          console.log(`- Expected project: \`${result.expected_project}\``);
-          console.log(`- Status: \`${result.status}\``);
-          console.log(`- Canonical URL: ${result.canonical_url || 'not established'}`);
-          console.log('- Privacy: evidence contains no account ID, token, headers, or response body.');
-          console.log('- Limit: project identity and hostname do not prove deployment contents or scientific claims.');
+          const result = JSON.parse(fs.readFileSync('cloudflare-pages-project-and-surface-evidence.json', 'utf8'));
+          console.log('## Cloudflare Pages project and served surface');
+          console.log(`- Source commit: \`${result.source_commit}\``);
+          console.log(`- Expected project: \`${result.project.expected_project}\``);
+          console.log(`- Project status: \`${result.project.status}\``);
+          console.log(`- Canonical URL: ${result.project.canonical_url}`);
+          console.log(`- Served-surface status: \`${result.served_surface.classification}\``);
+          console.log(`- HTTP status: \`${result.served_surface.http_status}\``);
+          console.log(`- Acceptance: \`${result.acceptance}\``);
+          console.log('- Privacy: evidence contains no account ID, token, headers, cookies, response body, or personal data.');
+          console.log('- Limit: exact deployed commit still requires deployment-specific provenance; no medical or scientific claim is established.');
           NODE
