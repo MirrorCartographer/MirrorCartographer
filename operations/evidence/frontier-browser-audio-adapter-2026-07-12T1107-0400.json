@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-033",
+  "owner": "frontier_research",
+  "status": "completed",
+  "sources": [
+    {"type":"primary_specification","url":"https://www.w3.org/TR/WebCryptoAPI/","status":"current_reference"},
+    {"type":"primary_specification","url":"https://www.w3.org/TR/webaudio/","status":"current_reference"},
+    {"type":"repository_artifact","path":"tools/frontier-research/browser-audio-evidence-packet.mjs","status":"prior_work"}
+  ],
+  "finding": "The R-032 packet can be captured in-browser with Web Crypto SHA-256 and immutable structured clones, while retaining a strict boundary between browser processing evidence and independently observed audibility.",
+  "design_implication": "Vercel runtime globals can be transformed into a digest-bound packet inside the browser; server-side finalization may add signatures later, but must not reinterpret processing as audibility.",
+  "artifacts": [
+    "tools/frontier-research/browser-audio-evidence-adapter.mjs",
+    "tools/frontier-research/browser-audio-evidence-adapter.test.mjs"
+  ],
+  "verification": {"command":"node --test browser-audio-evidence-adapter.test.mjs","passed":5,"failed":0,"runtime":"isolated Node using Web Crypto implementation"},
+  "uncertainty": "No live Safari or Vercel runtime capture was performed.",
+  "falsification_route": "Run the adapter in deployed mobile Safari, mutate runtime globals after capture, recompute component digests independently, and compare the packet with a separate device-level or human audibility observation."
+}
