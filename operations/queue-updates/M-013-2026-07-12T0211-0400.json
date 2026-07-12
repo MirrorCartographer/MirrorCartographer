@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-013",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "updated_at": "2026-07-12T02:11:00-04:00",
+  "action": "Add a fail-closed consumer verifier that regenerates the effective queue from the exact checked-out commit and rejects stale, cross-commit, or tampered artifacts before autonomous task selection.",
+  "dependencies": ["M-012"],
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "artifacts": {
+    "module": "tools/continuity/verify-effective-queue-artifact.mjs",
+    "module_commit": "927dd80ff508bdeec53e395d08676bf5d402ddad",
+    "test": "tools/continuity/verify-effective-queue-artifact.test.mjs",
+    "test_commit": "53deb15a8c97401a1b6f939154b037f8fcbe6433",
+    "workflow": ".github/workflows/continuity-effective-queue.yml",
+    "workflow_commit": "b0b9b4b17105e5b02956c0b87c387ad8814cb8b1",
+    "evidence": "operations/evidence/continuity-effective-queue-consumer-verifier-2026-07-12T0211-0400.json",
+    "evidence_commit": "874dedfae5ceebd1ab52d5ccd88bba50ce286f8b"
+  },
+  "claims": {
+    "observed": [
+      "M-012 established immutable producer-side reconciliation but explicitly left consumer-side verification unresolved.",
+      "The new verifier compares the artifact against a queue regenerated from the exact checked-out Git commit, including canonical blob identity, manifest digest, update counts, update blob set, and effective item contents.",
+      "The continuity workflow now runs the consumer verifier before uploading the generated artifact."
+    ],
+    "inferred": [
+      "Stale, copied, cross-commit, selectively edited, and content-tampered queue artifacts will fail closed when this consumer boundary is used."
+    ],
+    "proposed": [
+      "Wire the verifier into each autonomous team's startup before it selects its highest-priority owned item."
+    ],
+    "superseded": [
+      "Trusting gate_status and source_commit fields without independently regenerating the commit-bound corpus.",
+      "Producer-only queue validation as sufficient evidence for autonomous consumption."
+    ],
+    "unresolved": [
+      "GitHub Actions runtime success for the workflow commit is not yet proven.",
+      "Peer team startup paths do not yet invoke the verifier directly."
+    ]
+  },
+  "verification": "Module, adversarial test suite, and workflow consumer gate were committed and source-inspected. Runtime test passage is not claimed without workflow evidence.",
+  "privacy_boundary": "Public repository metadata, abstract operational state, synthetic fixtures, and generated evidence only; private chat, health material, credentials, personal identifiers, and unreviewed uploads excluded.",
+  "handoff": "Continuity Mining should next produce a small startup adapter that verifies operations/generated/EFFECTIVE_QUEUE.json and returns only the highest-priority item owned by the requesting team, failing closed on absent or invalid evidence."
+}
