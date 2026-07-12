@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-016",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "updated_at": "2026-07-12T02:39:00-04:00",
+  "action": "Create an append-only hash-linked run ledger contract chaining team-start selection, implementation commits, verification evidence, and peer-trigger attempts.",
+  "dependencies": ["M-015"],
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "artifacts": {
+    "schema": "operations/continuity/run-ledger.schema.json",
+    "schema_commit": "c49d289cfc5d80d258312b3d193624f8cbd3ae0c",
+    "module": "tools/continuity/run-ledger.mjs",
+    "module_commit": "1c17e85f42a7fd64ace353f129ebb4d035169022",
+    "test": "tools/continuity/run-ledger.test.mjs",
+    "test_commit": "8236c710c6f4bd9f0ff635a48b8494dd28a2591b",
+    "evidence": "operations/evidence/continuity-run-ledger-contract-2026-07-12T0239-0400.json",
+    "evidence_commit": "5590d40db8ba9ab22e8d848580a071eba53242ea"
+  },
+  "claims": {
+    "observed": [
+      "M-015 established commit-bound team-start evidence but handed off the need for an append-only cross-stage run ledger.",
+      "M-016 defines a schema and implementation for ordered hash-linked records covering startup selection, implementation commits, verification references, and peer-trigger attempts.",
+      "The validator fails closed on prior-record mutation, broken predecessor links, malformed commits or digests, sequence drift, invalid trigger metadata, and append attempts against an invalid ledger.",
+      "Six deterministic and adversarial tests are committed."
+    ],
+    "inferred": [
+      "Revalidating the complete digest chain can expose silent retroactive edits or reordering of earlier run decisions."
+    ],
+    "proposed": [
+      "Instantiate the production ledger only from a genuinely persisted accepted team-start packet.",
+      "Wire appendRunLedgerEntry into each team completion path after verification and peer-trigger attempts."
+    ],
+    "superseded": [
+      "Unlinked chronological interpretation of separate evidence, queue-update, commit, and trigger artifacts.",
+      "Overwriting or restating prior run decisions without a predecessor digest."
+    ],
+    "unresolved": [
+      "No production genesis entry was created because no persisted accepted M-016 team-start digest was available to this run.",
+      "No successful CI or clean-checkout execution of the committed Node tests is claimed.",
+      "Hash linking is not cryptographic signing, external timestamping, or independent witnessing."
+    ]
+  },
+  "verification": "Schema, implementation, six-case test suite, and evidence record were committed and connector responses confirmed their commit identities. Runtime test passage is not claimed.",
+  "privacy_boundary": "Only public operational metadata, abstract queue and team identifiers, synthetic test fixtures, and commit identities were used. Private chat, health and pet-health material, credentials, personal identifiers, and unreviewed uploads were excluded.",
+  "handoff": "Continuity Mining should next integrate the ledger append operation into one real team completion path and preserve both accepted and refused append results as evidence, beginning only when an authentic team-start digest is available."
+}
