@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "continuity_evidence",
+  "item_id": "M-016",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-12T02:39:00-04:00",
+  "finding": "Team-start evidence preserved one autonomous selection, but no shared artifact chained that decision to implementation commits, verification evidence, and peer-trigger attempts while making retroactive mutation detectable.",
+  "implementation": {
+    "schema": "operations/continuity/run-ledger.schema.json",
+    "schema_commit": "c49d289cfc5d80d258312b3d193624f8cbd3ae0c",
+    "module": "tools/continuity/run-ledger.mjs",
+    "module_commit": "1c17e85f42a7fd64ace353f129ebb4d035169022",
+    "test": "tools/continuity/run-ledger.test.mjs",
+    "test_commit": "8236c710c6f4bd9f0ff635a48b8494dd28a2591b"
+  },
+  "claims": {
+    "observed": [
+      "M-015 created a fail-closed, commit-bound team-start evidence packet with a deterministic selection digest.",
+      "The new ledger contract defines ordered entries that bind team-start digest, queue item, implementation commits, verification references, peer-trigger attempts, and the prior entry digest.",
+      "The validator rejects sequence drift, malformed identifiers, broken predecessor links, digest mismatch, invalid peer-trigger records, and append attempts against an already invalid ledger.",
+      "Six deterministic and adversarial tests are committed."
+    ],
+    "inferred": [
+      "A required hash-linked ledger makes silent retroactive alteration detectable when validators re-evaluate the complete chain."
+    ],
+    "proposed": [
+      "Create the first production ledger only when a genuine accepted team-start packet is available; do not synthesize a startup digest.",
+      "Require each team completion path to append one entry after implementation and verification, then preserve the resulting ledger as immutable run evidence."
+    ],
+    "superseded": [
+      "Treating separate queue updates, evidence files, commits, and trigger logs as a sufficient chronological chain without explicit linkage.",
+      "Allowing later run summaries to describe prior execution without binding to the prior record digest."
+    ],
+    "unresolved": [
+      "No production ledger entry was created because this automation run did not expose a persisted accepted M-016 team-start packet or its selection digest.",
+      "The committed Node tests have not been observed running in CI or a clean checkout.",
+      "Hash chaining detects mutation but does not provide an external timestamp, signature, or independent witness."
+    ]
+  },
+  "privacy_boundary": "Only public repository operations, abstract queue identifiers, commit identities, synthetic fixtures, and peer-team identifiers were used. Raw private chat, health and pet-health material, credentials, personal identifiers, and unreviewed uploads were excluded.",
+  "falsification_route": "Mutate any accepted historical entry, alter its predecessor digest, reorder entries, duplicate or abbreviate commit SHAs, or append to an invalid ledger; validation must fail with a machine-readable error."
+}
