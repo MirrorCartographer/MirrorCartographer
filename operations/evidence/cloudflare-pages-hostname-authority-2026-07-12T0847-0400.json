@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "claim_state": "implemented_unintegrated",
+  "finding": "The Cloudflare Pages project API subdomain is the authoritative canonical hostname. Project-name-derived hostnames are only candidates because Cloudflare may append random characters when a requested name is already taken.",
+  "primary_sources": [
+    {
+      "url": "https://developers.cloudflare.com/pages/get-started/direct-upload/",
+      "status": "official_current_documentation",
+      "observed": "Cloudflare documents that a project is served at <PROJECT_NAME>.pages.dev or the project name plus random characters if the name is already taken; preview aliases are subordinate to the project Pages hostname."
+    },
+    {
+      "url": "https://developers.cloudflare.com/api/resources/pages/subresources/projects/methods/get/",
+      "status": "official_current_api_reference",
+      "observed": "The Pages project control-plane response exposes project deployment identity, including the authoritative subdomain used by the resolver contract."
+    }
+  ],
+  "artifacts": {
+    "module": "cloudflare-static/resolve-pages-hostname.mjs",
+    "test": "cloudflare-static/resolve-pages-hostname.test.mjs",
+    "commits": [
+      "6329c364e2356574f020a46c734a9682ff2bd500",
+      "904ec49f109a631ab72cd5ab1fde511803cfac46"
+    ]
+  },
+  "verification": {
+    "command": "node --test resolve-pages-hostname.test.mjs",
+    "result": "5 passed, 0 failed",
+    "environment": "isolated Node runtime using byte-identical pre-commit files",
+    "cases": [
+      "API subdomain overrides project-name inference",
+      "preview deployment subordinate to authoritative Pages hostname",
+      "declared custom domain accepted",
+      "lookalike domain rejected",
+      "missing, non-HTTPS, and non-pages.dev canonical origins rejected",
+      "deterministic digest"
+    ]
+  },
+  "design_implication": "C-001 deployment proof should first obtain the Pages project response, derive canonical hostname authority from result.subdomain, and only then test DNS resolution, HTTP reachability, served identity, and commit binding as separate claims.",
+  "epistemic_limit": "Control-plane hostname binding does not prove DNS resolution, HTTP reachability, served identity, successful deployment, or deployed commit.",
+  "privacy_boundary": "No credentials, secret values, private chat, health material, or personal identifiers are present."
+}
