@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T18:02:00-04:00",
+  "finding": "The Cloudflare deployment and security-gate workflows contain six remote GitHub Action references that use mutable major-version tags rather than exact 40-character commit SHAs.",
+  "design_implication": "Treat action-reference immutability as explicit machine-readable supply-chain evidence. Resolve, review, and pin each intended upstream release before treating the workflow source as reproducible.",
+  "implementation": {
+    "module": "cloudflare-static/audit-action-references.mjs",
+    "test": "cloudflare-static/audit-action-references.test.mjs",
+    "workflow": ".github/workflows/cloudflare-deployment-security-gate.yml",
+    "commits": [
+      "4e826699ad2e9c3c43537778f7c8e364c0846b74",
+      "bd85237f747ea616c8ea64b114a18779073e8607",
+      "ad47696ac3c1a9e8094fe4a86cff9eef4a2ff37a"
+    ]
+  },
+  "verification": {
+    "local_node_tests": {"passed": 5, "failed": 0},
+    "committed_blob_sha": "46033db86e58850765a20af9319d6cd615ac3d0b",
+    "observed_remote_refs": 6,
+    "observed_unpinned_refs": 6,
+    "hosted_run": "not_proven"
+  },
+  "observed_refs": [
+    "actions/checkout@v6",
+    "cloudflare/wrangler-action@v3",
+    "actions/attest-build-provenance@v3",
+    "actions/upload-artifact@v4",
+    "actions/checkout@v6",
+    "actions/upload-artifact@v4"
+  ],
+  "claim_state": "observed",
+  "evidence_strength": "committed_source_plus_deterministic_local_test",
+  "privacy_boundary": "Static public workflow source only; no secret values, private chat, health material, or identifying personal data were read or emitted.",
+  "limits": [
+    "Exact commit pinning is not yet completed because upstream tag-to-commit resolution and review were not available through the current connector route.",
+    "A 40-character SHA provides immutability, not safety or trustworthiness.",
+    "No Cloudflare deployment, hostname resolution, workflow success, or credential validity is claimed.",
+    "The Vercel commit statuses observed for the workflow commit failed due to provider build-rate limits and are unrelated to Cloudflare deployment proof."
+  ],
+  "falsification_route": "Run the committed audit after replacing every remote action tag with a reviewed exact 40-character commit SHA. The result must report status all_remote_actions_immutable with zero unpinned references; independent review must still evaluate the pinned upstream commits."
+}
