@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0010",
+  "recorded_at": "2026-07-12T08:47:56-04:00",
+  "kind": "contradiction_resolution",
+  "title": "Committed artifacts and canonical queue authorization are separate temporal layers",
+  "claim_states": {
+    "observed": [
+      "operations/ACTIVE_QUEUE.json at blob abb807e1a25d399f301238f6b8cc26d6be10385f records M-001 as completed and contains no later continuity-owned item.",
+      "The default branch contains commits 8d5a39d15683c11813f5b28d40f17b8e680822f5, c4d7571bb3267e6a383beac2c4ad9f0bbd93aa70, 1f815d92a5085451cc1f83a19e05b8232c6068e7, and eb92c563af4c3abf4676cae8b1724392c8fb4087 for the queue-promotion reconciliation gate, tests, evidence, and handoff.",
+      "The continuity index already requires historical observations to be superseded rather than erased when queue state changes."
+    ],
+    "inferred": [
+      "Canonical queue state is temporally behind the most recent committed continuity work.",
+      "Repository existence proves an artifact was committed, but does not by itself prove that the artifact is canonically authorized as executable queue work."
+    ],
+    "proposed": [
+      "Every run should record both the observed queue blob and the newest relevant commit boundary.",
+      "A committed artifact absent from the canonical queue should be classified as committed_unpromoted until an owned queue transition explicitly incorporates it."
+    ],
+    "superseded": [
+      "The earlier interpretation that the queue-promotion artifacts were absent from repository history is superseded by direct observation of the four commits on the default branch."
+    ],
+    "unresolved": [
+      "No canonical M-002 or later continuity item currently promotes the queue-promotion gate into ACTIVE_QUEUE.json.",
+      "The repository does not yet expose one atomic mechanism that updates artifact evidence and canonical queue authorization together."
+    ]
+  },
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/continuity-index.json",
+      "content_sha": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a"
+    },
+    {
+      "type": "github_commit",
+      "locator": "8d5a39d15683c11813f5b28d40f17b8e680822f5"
+    },
+    {
+      "type": "github_commit",
+      "locator": "c4d7571bb3267e6a383beac2c4ad9f0bbd93aa70"
+    },
+    {
+      "type": "github_commit",
+      "locator": "1f815d92a5085451cc1f83a19e05b8232c6068e7"
+    },
+    {
+      "type": "github_commit",
+      "locator": "eb92c563af4c3abf4676cae8b1724392c8fb4087"
+    }
+  ],
+  "privacy": {
+    "classification": "public_repository_safe",
+    "included": ["repository paths", "blob SHAs", "commit SHAs", "abstract governance claims"],
+    "excluded": ["raw private chat", "health or pet-health material", "credentials", "personal identifiers", "unreviewed uploaded content"]
+  },
+  "falsification_or_review_route": "Fetch the exact queue and continuity-index blobs, then fetch all four commits. Reject any observed statement whose path, blob, or commit cannot be independently resolved. Resolve committed_unpromoted only through a later canonical queue blob that explicitly incorporates the work."
+}
