@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T22:30:53Z",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Replace every mutable remote Action reference in the Cloudflare deployment security gate with the reviewed immutable commit from the approved pin manifest.",
+  "progress": {
+    "workflow": ".github/workflows/cloudflare-deployment-security-gate.yml",
+    "workflow_commit": "7ca7222ecda83b44fda140d38e2500dc4e80e936",
+    "workflow_blob": "3f5ccc2e74d00b023fcc85e6b46e12623bca52ac",
+    "evidence": "operations/evidence/cloudflare-security-gate-action-pins-2026-07-12T2230Z.json",
+    "evidence_commit": "b96e1eb04420c1bd2fd4c02d38f3208838154237",
+    "verification": "Source refetch found two remote Action references and both are exact reviewed 40-character commits; no workflow run was returned for the commit."
+  },
+  "remaining": [
+    "Apply the reviewed immutable references to the Cloudflare deployment workflow.",
+    "Run the independent action-reference audit over both workflows and require zero mutable remote actions.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research environment.",
+    "Dispatch deployment and verify resolving URL, served research identity, control-plane metadata, and exact deployed commit."
+  ],
+  "non_overwrite_note": "This append-only queue update preserves the canonical queue and all other team-owned records; it does not claim deployment success."
+}
