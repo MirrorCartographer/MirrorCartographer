@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-040",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "completed",
+  "action": "Add a repeated-trial statistical gate above the randomized acoustic codeword classifier.",
+  "dependencies": ["R-039"],
+  "required_evidence": ["primary sources", "committed prototype", "deterministic adversarial tests", "explicit assumptions", "falsification route"],
+  "progress": {
+    "finding": "Repeated independently randomized acoustic codeword outcomes can be compared with the declared random exact-match null using an exact binomial upper-tail probability, but only when trial records are complete and no environmental confound is present.",
+    "module": "tools/frontier-research/acoustic-repeated-trial-gate.mjs",
+    "test": "tools/frontier-research/acoustic-repeated-trial-gate.test.mjs",
+    "evidence": "operations/evidence/frontier-acoustic-repeated-trial-gate-2026-07-12T1217-0400.json",
+    "commits": ["8d561b985ccd48b9ec9347fcba9385a98a0d91ce", "c9a4ec98bc8115b4979a3d617dda4b8bd8acb04f", "d4ef30507f84639ccdb6d9e3c630a8df620df478"],
+    "verification": "6 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit source.",
+    "default_gate": {"alpha": 0.01, "minimum_trials": 5, "minimum_accepted": 3},
+    "claim_state": "implemented_tested_not_device_verified"
+  },
+  "handoff": "Vercel Studio should maintain an append-only complete trial ledger, run independently randomized R-039 challenges, and call evaluateRepeatedAcousticTrials only after each trial has passed through the existing render, spectral, temporal, and confound gates.",
+  "limits": "No browser, microphone, iPhone Safari, conscious-audibility, independence, or exclusive-causation proof was produced."
+}
