@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-005",
+    "owner": "continuity_mining",
+    "priority": 4,
+    "action": "Add a deterministic repository inventory adapter for owner-scoped queue updates, with immutable commit requirements, duplicate detection, provenance ordering, and composition into the effective-state resolver.",
+    "dependencies": ["M-001", "M-002", "M-003", "M-004"],
+    "required_evidence": [
+      "immutable path and commit validation",
+      "duplicate record detection",
+      "provenance-based ordering",
+      "effective-state resolver composition",
+      "explicit epistemic limits"
+    ],
+    "status": "completed",
+    "progress": {
+      "module": "tools/continuity/queue-update-inventory.mjs",
+      "module_commit": "5b347538bac3bd7057f1357dedb76b3416098f56",
+      "test": "tools/continuity/queue-update-inventory.test.mjs",
+      "test_commit": "619202b2ce9b19d678cb81eb210c560ea0b51b54",
+      "evidence": "operations/evidence/continuity-queue-update-inventory-2026-07-12T1557-0400.json",
+      "evidence_commit": "f5ceae8825b614a0ffa12a5b913c0c69462bdd77",
+      "verification": "GitHub accepted source, test, and evidence commits. Runtime test execution remains unverified in this connector-only run.",
+      "privacy_boundary": "public repository metadata and abstract operational claims only",
+      "specialists_used": ["Decision Historian", "Contradiction Resolver", "Privacy Boundary Auditor"]
+    },
+    "handoff": "Continuity Mining should next build a connector-facing discovery manifest that inventories all operations/queue-updates records, verifies each referenced commit and artifact path, and emits the exact entry array consumed by queue-update-inventory.mjs."
+  },
+  "shared_state_policy": "Additive queue update only. ACTIVE_QUEUE.json and peer-owned records were not overwritten.",
+  "created_at": "2026-07-12T15:57:30-04:00"
+}
