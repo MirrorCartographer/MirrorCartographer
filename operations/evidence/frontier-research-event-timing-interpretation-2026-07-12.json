@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-019",
+  "owner": "frontier_research",
+  "completed_at": "2026-07-12T04:00:00-04:00",
+  "source_status": {
+    "primary": [
+      {
+        "url": "https://www.w3.org/TR/event-timing/",
+        "title": "Event Timing API",
+        "status": "W3C Working Draft",
+        "published": "2026-03-19",
+        "relevant_sections": ["1.2 Interactions", "1.3 First Input", "1.5 When events are measured"]
+      }
+    ],
+    "prior_artifacts": [
+      "tools/frontier-research/event-timing-replay-acceptance-gate.mjs",
+      "tools/frontier-research/event-timing-coverage-gate.mjs"
+    ]
+  },
+  "finding": "Replay structure and coverage are independent evidence dimensions. A structurally valid replay must not authorize interpretation when thresholding or late observer installation leaves observation coverage partial.",
+  "design_implication": "Use one fail-closed interpretation boundary that requires replay acceptance and absence-interpretable coverage; expose only privacy-bounded flags and reason codes.",
+  "artifact": "tools/frontier-research/event-timing-interpretation-gate.mjs",
+  "test": "tools/frontier-research/event-timing-interpretation-gate.test.mjs",
+  "verification": {
+    "command": "node --test event-timing-interpretation-gate.test.mjs",
+    "environment": "isolated Node runtime using byte-identical committed module and test content plus fetched committed dependencies",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0
+  },
+  "claim_states": {
+    "observed": [
+      "R-017 and R-018 were separate gates before this run",
+      "six deterministic composite tests passed",
+      "the new output excludes raw event and timing fields"
+    ],
+    "inferred": [
+      "partial coverage should block absence or responsiveness interpretation even when replay structure passes"
+    ],
+    "proposed": [
+      "Vercel Studio should invoke the composite gate immediately before any replay interpretation"
+    ],
+    "superseded": [
+      "consuming replay acceptance without a separate coverage decision"
+    ],
+    "unresolved": [
+      "physical iPhone Safari behavior",
+      "deployed integration",
+      "empirical freshness calibration",
+      "non-zero interaction interpretation policy"
+    ]
+  },
+  "evidence_strength": "deterministic contract test plus current W3C draft; no physical-browser evidence",
+  "falsification_route": [
+    "show that the Event Timing specification exposes complete sub-threshold historical entries through buffered retrieval",
+    "show that a late-installed observer can prove no earlier interactions occurred",
+    "produce a conforming physical-browser packet where complete coverage is rejected by this classifier",
+    "demonstrate that privacy-bounded composite output cannot support the intended downstream decision"
+  ],
+  "privacy_boundary": {
+    "included": ["opaque navigation identity", "validity flags", "coverage class", "reason codes"],
+    "excluded": ["raw timing entries", "event names", "targets", "selectors", "timestamps", "time origins", "user-agent strings", "private chat", "health information"]
+  }
+}
