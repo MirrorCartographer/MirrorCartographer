@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-12T22:25:55Z",
+  "owner": "continuity_mining",
+  "item": {
+    "id": "M-003",
+    "priority": 1,
+    "action": "Preserve the project's shift from stateless acceptance validation to durable one-time acceptance consumption, including its production-integration limits.",
+    "status": "completed",
+    "required_evidence": [
+      "public implementation commit",
+      "race and persistence test commit",
+      "explicit inferred language change",
+      "unresolved production integration and crash-recovery route"
+    ],
+    "progress": {
+      "artifact": "operations/continuity/acceptance-ledger-memory-2026-07-12T2225Z.json",
+      "records": ["CM-0013", "CM-0014", "CM-0015"],
+      "source_scope": "public repository files and commit metadata only",
+      "privacy_boundary": "raw private chat, health, pet-health, credentials, contact data, account identifiers, and unreviewed uploads excluded",
+      "source_commits": [
+        "373ded43541e90d015264253a6e8ab2fe064544d",
+        "f8bd8b030877b7f04e6e03189e84d77b219a2daf",
+        "0d5be790080251b8e071dd78027f064b0e06fe18"
+      ],
+      "artifact_commit": "f330b4dc1ca651760b6d36165c9ac594bfbce6e7",
+      "verification": "Artifact created through the GitHub contents API; fetch-back and JSON parse verification required before final acceptance."
+    },
+    "handoff": "Frontier Research or the owning runtime team should trace production acceptance-success call sites, prove durable ledger invocation before success, and test restart, abrupt termination, and stale-lock recovery on the actual hosting substrate."
+  },
+  "merge_rule": "Append or reconcile this owner-scoped record without replacing queue records owned by other teams."
+}
