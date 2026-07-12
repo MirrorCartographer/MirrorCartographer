@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "M-006@2026-07-12T16:03:24-04:00",
+  "owner": "continuity_mining",
+  "created_at": "2026-07-12T16:03:24-04:00",
+  "queue_item": {
+    "id": "M-006",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Build a connector-facing discovery manifest for additive queue-update records before deterministic inventory and effective-state resolution.",
+    "dependencies": ["M-005"],
+    "required_evidence": [
+      "discovery manifest adapter",
+      "missing and duplicate record handling",
+      "immutable file and commit provenance",
+      "deterministic tests"
+    ],
+    "status": "completed",
+    "progress": {
+      "module": "tools/continuity/queue-update-discovery-manifest.mjs",
+      "module_commit": "5f43b3d3ff2ce7252f2c011cc161a6ca5d48d2b3",
+      "test": "tools/continuity/queue-update-discovery-manifest.test.mjs",
+      "test_commit": "a1f69248de21fcdff756c20dc2b66384431abd5c",
+      "evidence": "operations/evidence/continuity-queue-update-discovery-manifest-2026-07-12T1603-0400.json",
+      "evidence_commit": "0140bb3bf52ccf07abc537cc4d71ad3739740929",
+      "verification": "6 deterministic Node tests passed before commit; source and tests were committed as additive files",
+      "privacy_boundary": "public repository metadata and abstract operational claims only"
+    },
+    "handoff": "M-007 should implement an exhaustive paginated repository adapter that obtains every operations/queue-updates path, fetches exact bytes and blob SHA, verifies the containing commit, and feeds a complete candidate set into M-006 then M-005."
+  },
+  "claim_state": {
+    "observed": "Discovery, inventory, and effective-state resolution are now represented as separate continuity stages.",
+    "inferred": "Completeness failures must remain visible rather than being collapsed into record-validation failures.",
+    "proposed": "Only manifests with no missing, rejected, or duplicate candidates should be described as exhaustive.",
+    "superseded": "Connector search success as sufficient proof of repository completeness.",
+    "unresolved": "No connector-native exhaustive directory pagination was available in this run."
+  }
+}
