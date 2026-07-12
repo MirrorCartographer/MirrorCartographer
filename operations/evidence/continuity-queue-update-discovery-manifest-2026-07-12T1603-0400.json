@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-006",
+  "created_at": "2026-07-12T16:03:24-04:00",
+  "claim_state": {
+    "observed": [
+      "ACTIVE_QUEUE.json is a historical canonical snapshot rather than a complete live projection.",
+      "M-004 resolves accepted additive records and M-005 validates supplied inventory entries.",
+      "Before this slice, no pure discovery-manifest layer explicitly separated missing, duplicate, rejected, and accepted queue-update candidates."
+    ],
+    "inferred": [
+      "Repository discovery completeness and individual record validity are different claims and must be represented separately."
+    ],
+    "proposed": [
+      "Connector adapters should exhaustively paginate queue-update paths, verify exact file bytes and immutable commits, then pass only complete manifest entries to M-005."
+    ],
+    "superseded": [
+      "Treating a successful search response or connector return order as proof of exhaustive queue-update discovery."
+    ],
+    "unresolved": [
+      "The available GitHub connector did not expose a single exhaustive directory-listing call for operations/queue-updates during this run.",
+      "The pure adapter depends on its caller to verify file bytes and commit identity.",
+      "A structurally complete manifest does not prove claims contained inside queue-update records."
+    ]
+  },
+  "artifacts": {
+    "module": "tools/continuity/queue-update-discovery-manifest.mjs",
+    "module_commit": "5f43b3d3ff2ce7252f2c011cc161a6ca5d48d2b3",
+    "test": "tools/continuity/queue-update-discovery-manifest.test.mjs",
+    "test_commit": "a1f69248de21fcdff756c20dc2b66384431abd5c"
+  },
+  "acceptance_behavior": [
+    "requires owner-scoped queue-update paths",
+    "requires verified file bytes and immutable 40-character commit identities",
+    "requires parseable queue-update content with queue item identity and owner",
+    "reports duplicate paths and duplicate blob identities without replacement",
+    "reports expected records that were not discovered",
+    "emits exact path, commit, and content entries compatible with M-005",
+    "retains blob SHA, queue item identity, and owner as provenance metadata",
+    "marks the manifest incomplete when any record is missing, rejected, or duplicated"
+  ],
+  "verification": {
+    "source_committed": true,
+    "tests_committed": true,
+    "tests_executed": true,
+    "test_result": "6 passed, 0 failed in local Node runtime before committing byte-identical source and tests",
+    "deployment_claimed": false,
+    "peer_runs_claimed": false
+  },
+  "privacy_boundary": "Public repository paths, commit identifiers, abstract queue metadata, and non-sensitive operational claims only. Raw private chat, health material, credentials, identifying personal data, and unreviewed uploads excluded."
+}
