@@ -50,6 +50,7 @@ function validInput() {
     }),
     signatureVerification: { verified: true, status: 'verified', verifier: 'gh attestation verify' },
     signatureSubjectVerification: { status: 'match', expected_sha256: sha256Text(artifactText), observed_sha256: sha256Text(artifactText) },
+    freshnessEvidence: { status: 'fresh', valid: true, age_ms: 1000, max_age_ms: 900000, errors: [] },
     subjectVerification: { status: 'match' },
     trustedBuilderPolicy: { builder: 'trusted', source: 'trusted', buildType: 'match', externalParameters: 'recognized' },
     claimEvidence: { status: 'valid' },
@@ -57,12 +58,13 @@ function validInput() {
   };
 }
 
-test('accepts only exact mutually bound evidence', () => {
+test('accepts only exact mutually bound and fresh evidence', () => {
   const result = buildEvidenceAcceptance(validInput());
   assert.equal(result.accepted, true);
   assert.equal(result.decision, 'accept');
   assert.deepEqual(result.reasons, []);
   assert.equal(result.source_status.signature_subject, 'match');
+  assert.equal(result.source_status.freshness, 'fresh');
 });
 
 test('rejects an unverified signature even when every other binding passes', () => {
@@ -95,6 +97,23 @@ test('rejects when signed-subject verification is absent', () => {
   assert.equal(result.accepted, false);
   assert.ok(result.reasons.includes('signature.subject-mismatch'));
   assert.equal(result.source_status.signature_subject, 'unknown');
+});
+
+test('rejects stale freshness evidence', () => {
+  const input = validInput();
+  input.freshnessEvidence = { status: 'invalid', valid: false, errors: ['proof-stale'] };
+  const result = buildEvidenceAcceptance(input);
+  assert.equal(result.accepted, false);
+  assert.ok(result.reasons.includes('proof.stale-or-unverified'));
+  assert.equal(result.source_status.freshness, 'invalid');
+});
+
+test('rejects when freshness evidence is absent', () => {
+  const input = validInput();
+  delete input.freshnessEvidence;
+  const result = buildEvidenceAcceptance(input);
+  assert.equal(result.accepted, false);
+  assert.ok(result.reasons.includes('proof.stale-or-unverified'));
 });
 
 test('rejects altered artifact bytes', () => {
