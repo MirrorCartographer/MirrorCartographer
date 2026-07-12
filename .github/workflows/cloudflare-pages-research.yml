@@ -37,6 +37,7 @@ jobs:
           node --test cloudflare-static/build-deployment-decision.test.mjs
           node --test cloudflare-static/attest-deployment-proof.test.mjs
           node --test cloudflare-static/normalize-github-attestation-verification.test.mjs
+          node --test cloudflare-static/evaluate-signer-authorization.test.mjs
           node --test cloudflare-static/build-evidence-verification-input.test.mjs
           node --test cloudflare-static/build-evidence-acceptance.test.mjs
           node --test cloudflare-static/evaluate-signed-deployment-evidence.test.mjs
