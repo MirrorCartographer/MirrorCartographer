@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "updated_at": "2026-07-12T13:42:00-04:00",
+  "completed_slice": "Bound the canonical Cloudflare environment requirements contract to a dedicated path-scoped GitHub Actions workflow with exact-clean-checkout proof and least-privilege contents:read permissions.",
+  "specialists_used": [
+    "Cloudflare Deployment Engineer",
+    "Provenance Engineer",
+    "Evidence Auditor"
+  ],
+  "files": [
+    ".github/workflows/cloudflare-environment-contract.yml",
+    "operations/evidence/cloudflare-environment-ci-binding-2026-07-12T1342-0400.json"
+  ],
+  "commits": [
+    "f280678378bb760e95769d1aecf8244017559c51",
+    "6ab286547e72e0807082e0c3afd20199434c063c"
+  ],
+  "verification": {
+    "source": "committed",
+    "workflow_execution": "not yet observed",
+    "deployment": "not attempted",
+    "external_blocker_unchanged": true
+  },
+  "external_blocker": "The cloudflare-research GitHub environment still requires CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN with Cloudflare Pages edit authorization before deployment and hostname proof can complete.",
+  "next_action": "Observe the dedicated environment-contract workflow result for the exact commit, then configure the GitHub environment secrets and dispatch the deployment workflow to obtain Cloudflare control-plane and served-hostname evidence.",
+  "canonical_queue_overwritten": false
+}
