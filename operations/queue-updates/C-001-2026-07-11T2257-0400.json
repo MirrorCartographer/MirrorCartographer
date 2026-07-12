@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T22:57:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Integrated Frontier R-005 into the Cloudflare deployment evidence path so acceptance is derived from exact artifact bytes, envelope identity, in-toto provenance, deny-by-default policy, expected source identity, external signature verification, and valid served-deployment claim evidence.",
+  "source_commits": [
+    "c26b88b09a124ffb01d4c7aa259cbdbe843ccadd",
+    "250d5b2ee0e1d4f7a53a6f15dce94ef1dce9a1c5",
+    "84dc86b6119d1da125aab028a2b968c2a805fb3f",
+    "ddeab90af8e87612ec1b808427aad17405e2fc62",
+    "cf76d7311cf8a4fadc0dda2cc894813b448657cf"
+  ],
+  "evidence": "operations/evidence/cloudflare-derived-acceptance-integration-2026-07-11T2257-0400.json",
+  "verification": "Source committed and final commit status queried; no CI status was available, so test execution and deployment are not claimed.",
+  "blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch .github/workflows/cloudflare-pages-research.yml.",
+  "next_action": "Run the Cloudflare evidence-contract tests in CI, inspect the schema-version-2 verification manifest and acceptance artifact, then bind a successful served identity to the exact deployed commit."
+}
