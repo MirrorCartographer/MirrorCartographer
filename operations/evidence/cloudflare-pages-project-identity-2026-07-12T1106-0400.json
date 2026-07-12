@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "generated_at": "2026-07-12T11:06:00-04:00",
+  "finding": "A structurally valid and fresh deployment proof can still identify the wrong Cloudflare Pages project unless project identity is checked independently.",
+  "artifact": "cloudflare-static/validate-pages-project-identity.mjs",
+  "test": "cloudflare-static/validate-pages-project-identity.test.mjs",
+  "expected_project": "mirror-cartographer-research",
+  "acceptance_rule": {
+    "deployment_url": "must be an immutable preview hostname under <hash>.mirror-cartographer-research.pages.dev",
+    "alias_url": "when present, must equal mirror-cartographer-research.pages.dev",
+    "project_name": "when present, must equal mirror-cartographer-research"
+  },
+  "verification": {
+    "command": "node --test validate-pages-project-identity.test.mjs",
+    "runtime": "isolated Node runtime using byte-identical pre-commit files",
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "expected immutable preview and canonical alias accepted",
+      "wrong deployment project rejected",
+      "wrong alias project rejected",
+      "mismatched explicit project_name rejected",
+      "malformed expected project rejected"
+    ]
+  },
+  "claim_state": "implemented_source_verified",
+  "evidence_strength": "deterministic_unit_test",
+  "limits": [
+    "The validator is not yet wired into the GitHub Actions acceptance manifest.",
+    "Hostname identity does not prove Cloudflare account ownership or successful deployment.",
+    "No live Cloudflare deployment was performed because protected credentials remain unavailable."
+  ],
+  "privacy_boundary": "Contains only public repository paths, project hostname rules, and test outcomes; no credentials, private chat, or health material."
+}
