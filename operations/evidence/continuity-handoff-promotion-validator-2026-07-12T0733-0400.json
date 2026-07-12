@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "created_at": "2026-07-12T11:33:30Z",
+  "queue_basis": {
+    "source_item": "M-001",
+    "source_status": "completed",
+    "source_queue_blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "selected_gap": "Runtime enforcement of the handoff-promotion schema was unresolved."
+  },
+  "artifact": {
+    "module": "tools/continuity-mining/handoff-promotion-validator.mjs",
+    "module_blob_sha": "5d38777bfe17c7edaa825a741ad2f3551b034184",
+    "test": "tools/continuity-mining/handoff-promotion-validator.test.mjs",
+    "test_blob_sha": "976aec96dd29a3fff5f8871f9a7b06830e61a44d"
+  },
+  "verification": {
+    "command": "node --test handoff-promotion-validator.test.mjs",
+    "result": "5 passed, 0 failed",
+    "boundaries": [
+      "valid provenance-bound owner authorization accepted",
+      "wrong receiving-team signer rejected",
+      "mismatched handoff digest rejected",
+      "unauthorized active state rejected",
+      "source queue identity reuse rejected"
+    ]
+  },
+  "claims": {
+    "observed": [
+      "M-001 is completed and its handoff is not itself an active queue item.",
+      "The prior continuity claim identified runtime validation as unresolved."
+    ],
+    "inferred": [
+      "Schema shape alone is insufficient unless executable state, owner acceptance, and exact handoff bytes are checked together."
+    ],
+    "proposed": [
+      "Require this validator before any handoff-derived item is represented as queued, active, or verified."
+    ],
+    "superseded": [
+      "Treating schema-valid structure without digest and owner-acceptance checks as sufficient promotion authority."
+    ],
+    "unresolved": [
+      "No canonical M-002 queue record has been authorized or added.",
+      "The validator is not yet wired into a repository-wide queue gate."
+    ]
+  },
+  "privacy_boundary": {
+    "classification": "public_repository_safe",
+    "included": ["public repository state", "abstract governance rules", "content hashes", "test outcomes"],
+    "excluded": ["private chat text", "health and pet-health data", "credentials", "personal identifiers", "unreviewed uploads"]
+  }
+}
