@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-034",
+  "team": "frontier_research",
+  "created_at": "2026-07-12T11:16:00-04:00",
+  "finding": "Browser render-state evidence cannot establish acoustic output. A permission-gated microphone capture can provide stronger, independently falsifiable evidence when it contains the diagnostic pulse frequency and passes signal, spectral-distinctness, and clipping gates.",
+  "primary_sources": [
+    {
+      "title": "Media Capture and Streams",
+      "url": "https://www.w3.org/TR/mediacapture-streams/",
+      "status": "primary_standard",
+      "relevance": "Defines permission-gated acquisition of microphone MediaStreams through getUserMedia."
+    },
+    {
+      "title": "Web Audio API",
+      "url": "https://www.w3.org/TR/webaudio/",
+      "status": "primary_standard",
+      "relevance": "Defines browser audio processing and analysis primitives but does not make browser processing equivalent to physical audibility."
+    }
+  ],
+  "artifact": {
+    "module": "tools/frontier-research/acoustic-loopback-detector.mjs",
+    "test": "tools/frontier-research/acoustic-loopback-detector.test.mjs",
+    "module_commit": "7050610ed764573aba26835538a3112eda96a8d9",
+    "test_commit": "649504cf656f1cec76c3239b2b60d0009544eee4"
+  },
+  "verification": {
+    "command": "node --test tools/frontier-research/acoustic-loopback-detector.test.mjs",
+    "environment": "isolated Node runtime using byte-identical pre-commit files",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "configured 523.25 Hz pulse detected",
+      "off-target 880 Hz tone rejected",
+      "sub-threshold pulse classified as no_signal",
+      "deterministic broadband noise rejected",
+      "clipped target capture classified as ambiguous"
+    ]
+  },
+  "evidence_strength": "prototype_validated_synthetic_input",
+  "uncertainty": [
+    "No physical iPhone microphone capture was performed.",
+    "Thresholds are initial engineering defaults and require device calibration.",
+    "Microphone detection cannot identify which transducer emitted the tone.",
+    "Acoustic detection does not prove conscious perception by a listener."
+  ],
+  "falsification_route": "Run the same capture with the speaker muted or output route changed. Target-band power and target-to-neighbor ratio should materially decline below acceptance thresholds.",
+  "privacy_boundary": "The detector consumes transient Float32Array samples. The implementation does not persist or publish microphone recordings, private speech, health data, credentials, or identifying content."
+}
