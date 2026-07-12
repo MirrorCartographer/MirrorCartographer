@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-022",
+  "owner": "frontier_research",
+  "priority_basis": "No active Frontier-owned item remained in ACTIVE_QUEUE.json. Selected the highest unresolved integration gap after R-021: lifecycle epoch validity existed separately from the existing replay, coverage, and navigation interpretation gate.",
+  "status": "completed_with_runtime_handoff",
+  "finding": "Event Timing interpretation must fail closed unless the existing interpretation result and lifecycle epoch result share the same opaque navigation identity and the epoch result is valid.",
+  "files": [
+    "tools/frontier-research/event-timing-lifecycle-composition.mjs",
+    "tools/frontier-research/event-timing-lifecycle-composition.test.mjs",
+    "operations/evidence/frontier-research-event-timing-lifecycle-composition-2026-07-12.json"
+  ],
+  "commits": [
+    "d016e9eb96f444f79a288739835a8f27460379ae",
+    "4c895d96f19c9e2fba0c8c12dd7772824cf4f6b2",
+    "0657ad8b85f3a6cde6ca56edc0b657eb53064677"
+  ],
+  "verification": {
+    "unit_tests": "6 passed, 0 failed",
+    "runtime_verification": "not performed; deployed collector does not yet emit or compose lifecycle epoch evidence"
+  },
+  "canonical_queue_mutation": "none; no other team's queue state was overwritten",
+  "specialist_registry_change": "none",
+  "deletion": "none",
+  "handoff": "Vercel Studio should invoke validateEventTimingEvidenceEpoch, evaluateEventTimingInterpretation, then composeEventTimingLifecycleEvidence in that order. Physical Safari tests should cover fresh navigation, reload, new-document history navigation, persisted restoration, repeated restoration, and intentionally mismatched opaque navigation identities."
+}
