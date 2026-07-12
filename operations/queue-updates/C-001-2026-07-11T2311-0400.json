@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T23:11:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Bound normalized cryptographic verifier reports to the exact SHA-256 of cloudflare-deployment-proof.json before allowing signature status to remain verified.",
+  "source_commits": [
+    "17b0920f7e62fbede6269fe8a685a4e90e0d925f",
+    "2eff792c23bc2545902894be5c2091eb3103ec1a",
+    "5339407cef410a156cedb7377dfe5b3366bcd8a7"
+  ],
+  "evidence": "operations/evidence/cloudflare-signature-subject-binding-2026-07-11T2311-0400.json",
+  "verification": "Six deterministic Node tests passed in an isolated runtime using byte-identical source and test content; committed CI execution and deployment remain unverified.",
+  "blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch .github/workflows/cloudflare-pages-research.yml.",
+  "remaining": [
+    "observe exact-commit GitHub Actions execution",
+    "inspect uploaded proof, normalized verification, and acceptance artifacts",
+    "bind a successful Cloudflare deployment URL and served identity to the exact source commit"
+  ],
+  "next_action": "Run the committed workflow and confirm that any mismatched or missing verifier subject digest produces signatureVerification.status=not_verified and a rejected deployment acceptance decision."
+}
