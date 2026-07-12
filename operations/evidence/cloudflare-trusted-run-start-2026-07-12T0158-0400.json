@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T01:58:00-04:00",
+  "claim_state": "observed",
+  "finding": "The deployment workflow previously populated RUN_STARTED_AT from github.event.repository.updated_at, which is repository metadata rather than the current workflow execution start. The workflow now captures an RFC 3339 UTC timestamp inside the trusted job immediately after checkout and exports it through GITHUB_ENV before evidence tests, access probing, deployment, proof construction, and attestation.",
+  "design_implication": "The existing six-hour provenance chronology bound can now evaluate a run-local start time instead of an unrelated repository update time. This prevents valid current deployments from being rejected because repository metadata is stale and prevents stale repository metadata from masquerading as execution chronology.",
+  "source": {
+    "repository": "MirrorCartographer/MirrorCartographer",
+    "path": ".github/workflows/cloudflare-pages-research.yml",
+    "commit": "782419e9e4a432315a0fd13f7ddcd76a9dfacfa7",
+    "blob_sha": "d1f8168640522edc35f5ee572738c8149581339e"
+  },
+  "verification": {
+    "method": "exact-commit source fetch",
+    "observed_invariants": [
+      "Capture trusted workflow start appears immediately after checkout",
+      "RUN_STARTED_AT is generated with date -u during the current job",
+      "the attestation step consumes the exported environment value",
+      "github.event.repository.updated_at is no longer used as provenance start"
+    ],
+    "workflow_run": "not observed",
+    "deployment": "not verified"
+  },
+  "evidence_strength": "source-verified, runtime-unverified",
+  "falsification_route": "Dispatch the workflow and inspect the generated in-toto predicate. Fail this claim if startedOn does not match the job-captured timestamp, if it predates the run, or if the six-hour chronology gate rejects a normal-duration run.",
+  "privacy_boundary": "No secret values, account identifiers, private chat, health material, or user-identifying data are stored.",
+  "limits": [
+    "This does not prove Cloudflare credentials exist.",
+    "This does not prove a Pages deployment succeeded.",
+    "This does not cryptographically protect GITHUB_ENV from later trusted workflow steps.",
+    "Scientific or medical claims remain outside deployment provenance truth."
+  ]
+}
