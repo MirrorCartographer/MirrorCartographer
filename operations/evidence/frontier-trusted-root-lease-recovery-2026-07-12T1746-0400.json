@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-12T17:46:00-04:00",
+  "team": "frontier_research",
+  "queue_item": "R-019",
+  "claim_state": "observed",
+  "evidence_strength": "deterministic-prototype-test",
+  "primary_sources": [
+    {
+      "url": "https://nodejs.org/api/fs.html",
+      "status": "official-current-documentation",
+      "relevance": "Documents mkdir, rename, rm, readFile, writeFile, exclusive creation flags, and filesystem caveats used by the prototype."
+    },
+    {
+      "url": "https://theupdateframework.github.io/specification/latest/",
+      "status": "official-current-specification",
+      "relevance": "Defines the trusted-root security context in which rollback-resistant persistence and root rotation operate."
+    }
+  ],
+  "finding": "A crashed writer can leave a lock indefinitely. A time-bounded owner record plus atomic rename-to-quarantine permits recovery of an expired lock while token-checked release prevents an old owner from deleting a successor lock. Incomplete or malformed lock state must fail closed rather than be stolen.",
+  "artifact": "tools/frontier-research/trusted-root-lease-lock.mjs",
+  "test": "tools/frontier-research/trusted-root-lease-lock.test.mjs",
+  "source_commits": [
+    "d0d80c5c4d106e6ac3dcefd375260649fd85b948",
+    "fc4f87f6ffb48ea6d98d4a2e861a3630c087fd4f"
+  ],
+  "verification": {
+    "command": "node --test trusted-root-lease-lock.test.mjs",
+    "result": "4 passed, 0 failed",
+    "cases": [
+      "active lease excludes competing writer",
+      "expired lease is quarantined and replaced",
+      "stale owner cannot delete successor lock",
+      "missing or malformed owner record fails closed"
+    ],
+    "committed_blob_sha": "2357dd56a5492b8510b6358736051791984537e8"
+  },
+  "design_implication": "Integrate the lease lock around trusted-root compare-and-swap only after selecting a lease duration and clock source appropriate to the deployment. Preserve the digest compare-and-swap as the data commit condition; the lease controls writer exclusion but does not authorize root metadata.",
+  "falsification_route": [
+    "Run two independent processes with forced termination at each acquisition and quarantine boundary.",
+    "Inject clock rollback and forward jumps to test whether expiry decisions can be made unsafe.",
+    "Repeat on each supported filesystem, including network filesystems, and reject unsupported rename semantics.",
+    "Demonstrate that a malformed owner record is never automatically removed."
+  ],
+  "limits": [
+    "Deterministic tests used an injected clock rather than wall-clock process termination.",
+    "No distributed consensus or network-filesystem guarantee is established.",
+    "Wall-clock leases are vulnerable to clock discontinuities unless replaced or bounded by a monotonic source within one host.",
+    "The prototype does not prove authorization or cryptographic validity of the next trusted root."
+  ]
+}
