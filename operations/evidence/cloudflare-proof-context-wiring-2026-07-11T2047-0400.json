@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T20:47:49-04:00",
+  "source_commit": "6dfc8309eefd19e75ecc59926909878e73cf4274",
+  "change": {
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "test_added": "node --test cloudflare-static/validate-deployment-proof-context.test.mjs",
+    "acceptance_step_added": "node cloudflare-static/validate-deployment-proof-context.mjs cloudflare-deployment-proof.json",
+    "ordering": "after structural proof validation and before in-toto envelope construction"
+  },
+  "verification": {
+    "source_readback": "confirmed committed workflow contains both the context test and production validation step",
+    "isolated_runtime": {
+      "command": "node --test validate-deployment-proof-context.test.mjs",
+      "passed": 4,
+      "failed": 0
+    },
+    "deployment": {
+      "state": "not_observed",
+      "reason": "Cloudflare environment credentials remain externally configured; no workflow dispatch evidence was available"
+    }
+  },
+  "claim_state": "observed",
+  "evidence_strength": "source-and-isolated-runtime",
+  "limits": [
+    "No live Cloudflare URL was produced.",
+    "Context validation prevents stale or cross-run proof replay but does not prove scientific claims.",
+    "Repository commit status only exposed unrelated Vercel build-rate-limit failures; no Cloudflare run was observed."
+  ],
+  "privacy": {
+    "contains_secrets": false,
+    "contains_private_chat": false,
+    "contains_health_material": false
+  }
+}
