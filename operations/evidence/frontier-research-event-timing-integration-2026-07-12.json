@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-015",
+  "recorded_at": "2026-07-12T01:45:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://w3c.github.io/event-timing/",
+      "status": "W3C Editor's Draft",
+      "source_date": "2026-03-19",
+      "relevant_findings": [
+        "Event Timing support is detected through PerformanceObserver.supportedEntryTypes.",
+        "Conforming implementations expose event and first-input entry types.",
+        "interactionId groups related event entries into interactions.",
+        "Event entries use an effective minimum duration threshold of 16 milliseconds."
+      ]
+    },
+    {
+      "url": "https://w3c.github.io/performance-timeline/",
+      "status": "W3C Editor's Draft",
+      "relevant_finding": "PerformanceObserver is the runtime mechanism through which registered performance entry types are observed."
+    }
+  ],
+  "finding": "A capability packet is not safely composable with replay evidence unless it is fresh, produced by the expected collector, and bound to the same opaque navigation identity as the replay window.",
+  "artifact": "tools/frontier-research/event-timing-integration-gate.mjs",
+  "test": "tools/frontier-research/event-timing-integration-gate.test.mjs",
+  "verification": {
+    "command": "node --test event-timing-integration-gate.test.mjs",
+    "environment": "isolated Node.js runtime using byte-identical source and test content before commit",
+    "passed": 6,
+    "failed": 0
+  },
+  "claim_states": {
+    "observed": [
+      "R-014 collector packets include an opaque navigation identity, collection timestamp, collector identity, claim state, and capability_valid flag.",
+      "The integration gate rejects unsupported, stale, malformed, cross-navigation, and replay-unacknowledged capability packets.",
+      "Six deterministic tests passed."
+    ],
+    "inferred": [
+      "Navigation and freshness binding reduces the risk that a valid packet from another page load is reused as evidence for the current replay."
+    ],
+    "proposed": [
+      "Vercel Studio should run this gate immediately before replay-window interpretation and expose only its privacy-bounded result."
+    ],
+    "unresolved": [
+      "No physical iPhone Safari packet or deployed replay window was evaluated.",
+      "The acceptable capability packet age for production has not been empirically calibrated."
+    ]
+  },
+  "privacy_boundary": {
+    "retains": ["opaque navigation id", "capability validity", "collector timestamp", "replay window bounds"],
+    "excludes": ["event names", "event targets", "selectors", "raw timing entries", "user-agent strings", "private chat", "health information"]
+  },
+  "falsification_route": [
+    "Pair a valid packet with a different navigation identity and require rejection.",
+    "Advance the verification clock beyond the configured age budget and require rejection.",
+    "Provide a replay window that has not independently recorded capability acceptance and require rejection.",
+    "Run the gate against a physical iPhone Safari packet and revise the contract if actual runtime structure differs."
+  ],
+  "limits": [
+    "Integration validity does not prove that Event Timing entries were delivered.",
+    "It does not prove replay completeness, low latency, visual change, or causality.",
+    "The W3C sources are evolving Editor's Drafts, so target-runtime observation remains authoritative."
+  ]
+}
