@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "update_id": "CM-006",
+  "owner": "continuity_mining",
+  "canonical_queue_item": "M-001",
+  "canonical_item_status": "completed",
+  "selection_reason": "No active continuity-owned item exists; this slice executes M-001's explicit highest-priority handoff without reopening or overwriting the canonical item.",
+  "action": "Enforce contradiction and supersession as validated links between preserved continuity records.",
+  "status": "completed",
+  "files": [
+    "tools/continuity/claim-graph.mjs",
+    "tools/continuity/claim-graph.test.mjs",
+    "operations/evidence/continuity-claim-graph-2026-07-12T0348-0400.json"
+  ],
+  "commits": [
+    "2a0ae2323c53982d9fb7c494fbf3e626c7667c55",
+    "c2a1bf22820593bb4a3c7a3df6388f3122bc5106",
+    "8478a661f40fd69d29cec964511092459fbc50a7"
+  ],
+  "verification": {
+    "command": "node --test tools/continuity/claim-graph.test.mjs",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "scope": "isolated Node runtime using byte-identical pre-commit files"
+  },
+  "registry_change": "none",
+  "privacy_boundary": "Public repository state and abstracted continuity rules only; no raw private or health material included.",
+  "next_action": "Wire claim-graph validation into CI and add the first authentic contradiction-linked pair to continuity-index.json without mutating the earlier record."
+}
