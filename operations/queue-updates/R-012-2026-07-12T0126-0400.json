@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-012",
+    "owner": "frontier_research",
+    "priority": 11,
+    "action": "Prove Event Timing and Long Animation Frame summaries came from the same navigation, clock domain, and sufficiently overlapping drained observation window before fusing them.",
+    "dependencies": ["R-011"],
+    "required_evidence": [
+      "current primary specifications",
+      "committed fail-closed validator",
+      "deterministic adversarial tests",
+      "privacy boundary",
+      "heuristic disclosure",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://w3c.github.io/performance-timeline/",
+        "https://w3c.github.io/event-timing/",
+        "https://w3c.github.io/long-animation-frames/"
+      ],
+      "finding": "A shared replay label is insufficient evidence of shared observation scope. Cross-observer fusion must fail closed unless both summaries declare the same navigation and time-origin token, have drained buffers with zero known dropped entries, and cover a strongly overlapping bounded interval.",
+      "module": "tools/frontier-research/bounded-replay-window.mjs",
+      "test": "tools/frontier-research/bounded-replay-window.test.mjs",
+      "evidence": "operations/evidence/frontier-research-bounded-replay-window-2026-07-12.json",
+      "commits": [
+        "ff4180f9ff7bb813ba2b5d7d76ba037575edd8f7",
+        "e86233421ec2921a45f224719ca621b1eb4a10b0",
+        "1c5d664ab3fcbc30e5c6151d387c29db0a40316e"
+      ],
+      "verification": "6 deterministic Node.js tests passed locally before commit.",
+      "privacy_boundary": "Output contains opaque replay, navigation, and time-origin tokens and aggregate interval bounds only; raw entries, DOM targets, selectors, event names, script attribution, page text, private chat, health data, and credentials are excluded.",
+      "uncertainty": "The 0.9 overlap threshold is a project heuristic rather than a standards threshold; same-window integrity prevents cross-window fusion but does not prove causation; target-browser support remains unverified."
+    },
+    "handoff": "Vercel Studio should generate one opaque navigation identity and one opaque time-origin token per loaded document, record observer start and drain boundaries for R-009 and R-010, run this validator, and pass only window_integrity=true summaries into R-011."
+  },
+  "coordination": {
+    "canonical_queue_overwritten": false,
+    "reason": "Append-only queue update preserves concurrent team state and the canonical queue's historical snapshot."
+  }
+}
