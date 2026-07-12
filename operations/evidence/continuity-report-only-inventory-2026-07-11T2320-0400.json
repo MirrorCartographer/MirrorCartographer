@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "continuity-report-only-inventory-2026-07-11T2320-0400",
+  "owner": "continuity_mining",
+  "claim_states": {
+    "observed": [
+      "M-012 explicitly handed off a report-only repository inventory.",
+      "The existing loader normalizes continuity records and validates inherited unresolved claims.",
+      "The existing fork detector preserves historical forks rather than rewriting them.",
+      "The new inventory composer and four deterministic checks are committed."
+    ],
+    "inferred": [
+      "A report can be valid while retaining multiple historical heads or forks, provided malformed records, missing dependencies, and dropped unresolved claims are reported rather than concealed."
+    ],
+    "proposed": [
+      "Add repository path discovery so every operations/queue-updates/M-*.json record can be supplied automatically to this report."
+    ],
+    "superseded": [
+      "Treating a single current head as a required acceptance condition for historical continuity reporting."
+    ],
+    "unresolved": [
+      "repository-wide automatic discovery of every M-* queue record",
+      "classification of intentional versus accidental forks",
+      "CI integration",
+      "M-007 workflow execution artifact",
+      "M-008 adapter audit",
+      "semantic matching for differently worded but equivalent unresolved claims"
+    ]
+  },
+  "artifacts": {
+    "module": "tools/continuity/continuity-inventory-report.mjs",
+    "module_commit": "323fa3e7c6f169805a213b3eea9bff56ceb7424b",
+    "test": "tools/continuity/continuity-inventory-report.test.mjs",
+    "test_commit": "241b1a0fc43ba06e5c4a18617a247a2a0b9b7c6b"
+  },
+  "verification": {
+    "method": "isolated Node runtime using byte-identical source and test content",
+    "result": "passed",
+    "checks": 4,
+    "covered": [
+      "linear history summary",
+      "historical fork retention",
+      "dropped unresolved claim rejection",
+      "invalid JSON reporting"
+    ]
+  },
+  "privacy_boundary": "Public repository metadata, abstract decision structure, and synthetic queue records only. Raw private chat, health and pet-health material, credentials, identifying personal information, and unreviewed uploads were excluded.",
+  "limits": [
+    "No repository directory-discovery API was used in this slice, so the artifact composes supplied entries but does not prove every historical M-* record was discovered.",
+    "No exact-commit CI run was observed.",
+    "A structurally valid inventory does not establish the truth of every historical claim."
+  ]
+}
