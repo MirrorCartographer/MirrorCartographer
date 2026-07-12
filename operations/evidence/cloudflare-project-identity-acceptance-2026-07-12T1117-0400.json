@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T11:17:00-04:00",
+  "claim_state": "implemented_source_unexecuted",
+  "improvement": "Cloudflare Pages project identity is now derived from the exact deployment proof and required by the final evidence acceptance decision.",
+  "files": [
+    "cloudflare-static/build-evidence-verification-input.mjs",
+    "cloudflare-static/build-evidence-acceptance.mjs",
+    "cloudflare-static/build-evidence-acceptance.test.mjs",
+    "cloudflare-static/project-identity-acceptance-boundary.test.mjs"
+  ],
+  "commits": [
+    "29c9a7f860f5c0abe55db9aa5696ce53da0d9af1",
+    "77788284faedbf8e09b91906d5648fd3b993076f",
+    "6eb332b6c8948ac1646fbc8fdff2849819c1fb28",
+    "013f35ced2a7cbd440e80fd77c8208b425079f49",
+    "74b937a5fa0aff86e0bf2a66d17f0d68a83b736d"
+  ],
+  "verification": {
+    "source_review": "The existing five-argument workflow invocation remains backward compatible: the fifth argument is still treated as the output path, while project identity is derived internally from the exact proof.",
+    "test_artifact": "project-identity-acceptance-boundary.test.mjs covers expected-project acceptance and wrong-project rejection.",
+    "workflow_runs_for_latest_commit": 0,
+    "runtime_status": "not executed by GitHub Actions in this run"
+  },
+  "falsification_routes": [
+    "Run node --test cloudflare-static/project-identity-acceptance-boundary.test.mjs.",
+    "Run node --test cloudflare-static/build-evidence-acceptance.test.mjs.",
+    "Supply a proof URL from another Pages project and confirm project.identity-invalid-or-unverified blocks acceptance.",
+    "Dispatch the Cloudflare workflow after credentials are configured and inspect cloudflare-evidence-verification-input.json."
+  ],
+  "limits": [
+    "Hostname project identity does not prove Cloudflare account ownership.",
+    "No live deployment or workflow execution occurred in this run.",
+    "No scientific, diagnostic, or treatment claim is established by deployment evidence."
+  ],
+  "privacy": "No credentials, private chat, health data, or secret values were read or persisted."
+}
