@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-035",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "completed",
+  "action": "Create a deny-by-default microphone capture-integrity classifier for acoustic loopback evidence.",
+  "dependencies": ["R-034", "V-001"],
+  "required_evidence": [
+    "current primary standard",
+    "committed classifier",
+    "deterministic tests",
+    "explicit privacy and claim boundaries",
+    "falsification route"
+  ],
+  "progress": {
+    "primary_sources": ["https://www.w3.org/TR/mediacapture-streams/"],
+    "finding": "Requested constraints are not proof of effective microphone settings; inspect getSettings and downgrade evidence whenever browser-controllable DSP is active or unreported.",
+    "module": "tools/frontier-research/capture-integrity.mjs",
+    "test": "tools/frontier-research/capture-integrity.test.mjs",
+    "evidence": "operations/evidence/frontier-capture-integrity-2026-07-12T1129-0400.json",
+    "commits": [
+      "e18057c56387985b8d1a68d4b179a45efc23ee56",
+      "ad02d387e72b64e35c4295122413738ebc814de1",
+      "8d81a57adaf2cc2e86ea165382697c91b4d8f1ed"
+    ],
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+  },
+  "handoff": "Vercel Studio should request echoCancellation, noiseSuppression, and autoGainControl off, then pass getSupportedConstraints(), requested constraints, track.getSettings(), and the analyzer sample rate into assessCaptureIntegrity before accepting R-034 detection as strong acoustic evidence. Persist no raw audio or device identifiers."
+}
