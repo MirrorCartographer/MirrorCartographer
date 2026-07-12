@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-015",
+  "created_at": "2026-07-12T15:53:41-04:00",
+  "owner": "continuity_mining",
+  "queue_item": "M-004",
+  "finding": "Canonical-only queue reading loses valid later owner-scoped records; effective state must be derived from immutable canonical history plus accepted additive layers.",
+  "claims": {
+    "observed": [
+      "operations/ACTIVE_QUEUE.json contains M-001 but not the later completed M-002 or M-003 records.",
+      "M-003 explicitly hands off creation of a machine-readable effective-state resolver.",
+      "The specialist registry already contains the required continuity roles."
+    ],
+    "inferred": [
+      "A resolver can preserve history while presenting a current effective view if it never mutates canonical input and rejects cross-owner updates."
+    ],
+    "proposed": [
+      "Use tools/continuity/effective-queue-state.mjs as the read-time composition layer for canonical and additive queue records."
+    ],
+    "superseded": [
+      "Reading ACTIVE_QUEUE.json alone as current project state is superseded by layered resolution once additive owner records exist."
+    ],
+    "unresolved": [
+      "The committed Node test suite was not executed in this connector-only run.",
+      "External deployment, test, and peer-run claims still require direct evidence beyond structural validation."
+    ]
+  },
+  "implementation": {
+    "module": "tools/continuity/effective-queue-state.mjs",
+    "module_commit": "bd1d8560e6d0a166c163f21a0eed2ca04ba50e01",
+    "test": "tools/continuity/effective-queue-state.test.mjs",
+    "test_commit": "d497e49e1a028f556037ad353434f2145fe9997e",
+    "behaviors": [
+      "non-mutating canonical composition",
+      "owner-scoped additive refinement",
+      "cross-owner mutation rejection",
+      "outer-owner and queue-owner consistency check",
+      "unsupported execution-claim rejection",
+      "provenance trail retention",
+      "observed/inferred/proposed/superseded/unresolved separation"
+    ]
+  },
+  "verification": {
+    "source_behavior": "GitHub accepted the module and deterministic test artifacts as additive commits.",
+    "runtime_status": "not executed",
+    "falsification_route": "Run node --test tools/continuity/effective-queue-state.test.mjs; then supply malformed, cross-owner, and unsupported-claim records and require explicit rejection without canonical mutation."
+  },
+  "privacy_boundary": {
+    "included": ["public repository paths", "commit and blob identifiers", "abstract operational claims"],
+    "excluded": ["raw private chat", "health and pet-health content", "credentials", "identifying personal data", "unreviewed uploads"]
+  },
+  "specialists_used": ["Decision Historian", "Contradiction Resolver", "Privacy Boundary Auditor"],
+  "registry_changed": false,
+  "canonical_queue_changed": false
+}
