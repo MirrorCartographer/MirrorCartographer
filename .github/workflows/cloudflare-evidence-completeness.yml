@@ -1,0 +1,71 @@
+name: Verify Cloudflare evidence completeness
+
+on:
+  workflow_run:
+    workflows: ["Deploy Cloudflare research surface"]
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: cloudflare-evidence-completeness-${{ github.event.workflow_run.id }}
+  cancel-in-progress: false
+
+jobs:
+  verify-completeness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout verifier source
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Test completeness contract
+        run: node --test cloudflare-static/build-artifact-completeness.test.mjs
+
+      - name: Download deployment evidence bundle
+        uses: actions/download-artifact@v4
+        with:
+          pattern: cloudflare-deployment-proof-*
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+          merge-multiple: true
+          path: cloudflare-evidence
+
+      - name: Build state-aware completeness manifest
+        id: completeness
+        continue-on-error: true
+        working-directory: cloudflare-evidence
+        run: node ../cloudflare-static/build-artifact-completeness.mjs cloudflare-artifact-completeness.json
+
+      - name: Upload completeness evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-artifact-completeness-${{ github.event.workflow_run.head_sha }}
+          path: cloudflare-evidence/cloudflare-artifact-completeness.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish completeness summary
+        if: always()
+        env:
+          SOURCE_RUN_URL: ${{ github.event.workflow_run.html_url }}
+          SOURCE_COMMIT: ${{ github.event.workflow_run.head_sha }}
+          COMPLETENESS_OUTCOME: ${{ steps.completeness.outcome }}
+        run: |
+          {
+            echo "## Cloudflare evidence completeness"
+            echo "- Source workflow: ${SOURCE_RUN_URL}"
+            echo "- Source commit: \`${SOURCE_COMMIT}\`"
+            echo "- Completeness check outcome: \`${COMPLETENESS_OUTCOME}\`"
+            echo "- Manifest: \`cloudflare-artifact-completeness.json\`"
+            echo "- Interpretation: deployment-only files may be absent when access or deployment did not succeed; state-required absences fail closed."
+            echo "- Epistemic limit: completeness does not prove deployment success, hostname reachability, served identity, or scientific truth."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Enforce completeness result
+        if: steps.completeness.outcome != 'success'
+        run: exit 1
