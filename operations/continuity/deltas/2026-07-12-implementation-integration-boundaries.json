@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-12T16:48:31Z",
+  "scope": "public repository files and commit metadata only",
+  "privacy_boundary": "Excludes raw private chat, health and pet-health material, credentials, identifying personal data, and unreviewed uploads.",
+  "records": [
+    {
+      "id": "CM-0010",
+      "kind": "decision_state_transition",
+      "title": "A workflow rewriter is implemented while authoritative workflow integration remains unresolved",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_commits",
+      "sources": [
+        {"type": "github_commit", "locator": "76acdc302d13bd5aa744171e00c27c800e2e3ff4", "meaning": "adds deterministic evidence-finalizer workflow rewriter"},
+        {"type": "github_commit", "locator": "292921ba6b3b7aecae7b1c4bb2b746d0ddc16ad2", "meaning": "adds verifier that classifies authoritative workflow wiring"},
+        {"type": "github_commit", "locator": "d6472c4b1c3dbf24fb772a4d940b28a3b73804c4", "meaning": "records C-001 as not wired"}
+      ],
+      "summary": "The repository contains a tested mechanism capable of wiring atomic evidence finalization into the Cloudflare workflow, but the authoritative workflow was still classified as not wired. Capability-to-change and applied-change are separate states.",
+      "contradicts": [],
+      "supersedes": [],
+      "unresolved": ["Apply the rewriter to the authoritative workflow and verify the committed workflow before claiming integration."],
+      "review_route": "Inspect the three commits and verify that utility existence, wiring verification, and actual workflow mutation remain separately evidenced."
+    },
+    {
+      "id": "CM-0011",
+      "kind": "decision_state_transition",
+      "title": "Repeated-trial inference now requires preregistered ledger integrity",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_commits",
+      "sources": [
+        {"type": "github_commit", "locator": "2f7c15a51c2b6dfdbb955a36849c8d27d86de8d4", "meaning": "completes fixed-sample repeated acoustic trial gate"},
+        {"type": "github_commit", "locator": "6e53168ca8fc75b7ffc9d832b32b283bd72f9c3e", "meaning": "adds preregistered tamper-evident acoustic trial ledger"},
+        {"type": "github_commit", "locator": "4d8fbed3c71801c270ff2671216fbe7f280a227d", "meaning": "records R-041 completion and integration requirement"}
+      ],
+      "summary": "R-040's statistical gate remains a valid component, but its interpretation is constrained by R-041: evaluation should occur only after frozen protocol verification and complete tamper-evident ledger validation. The later artifact narrows the conditions for a trustworthy claim rather than erasing the earlier implementation.",
+      "contradicts": [],
+      "supersedes": [],
+      "constrains": ["R-040 repeated-trial inference acceptance"],
+      "unresolved": ["Integrate ledger verification into the browser challenge harness and retain an external digest attestation."],
+      "review_route": "Inspect the three commits and reject this record if R-041 does not gate evaluation or if R-040 already enforced equivalent protocol and ledger integrity."
+    }
+  ]
+}
