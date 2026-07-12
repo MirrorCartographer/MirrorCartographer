@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T03:47:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added and CI-wired a credential-binding workflow validator that fails closed when the Cloudflare environment, required secret references, access-probe gate, project name, exact github.sha binding, or secret non-disclosure invariant drifts.",
+  "evidence": [
+    "operations/evidence/cloudflare-workflow-credential-contract-2026-07-12T0347-0400.json"
+  ],
+  "files": [
+    "cloudflare-static/validate-cloudflare-workflow-contract.mjs",
+    "cloudflare-static/validate-cloudflare-workflow-contract.test.mjs",
+    ".github/workflows/cloudflare-workflow-contract.yml"
+  ],
+  "commits": [
+    "2d6ee79cc0718a8ed85b716bfe90d0d6d0936eb5",
+    "61b7080787e1a7dcbcbc777751ad00fae57f3800",
+    "477affbf529a3fd0c9bce2eb488ca49bf05468a7",
+    "0c179921d08c7b70b5eb0425f131dd62906f48db"
+  ],
+  "verification": {
+    "isolated_tests": "5 passed, 0 failed",
+    "workflow_run": "not observed",
+    "deployment": "not observed"
+  },
+  "blocker": "Valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values must exist in the cloudflare-research GitHub environment before the production workflow can prove a resolving deployment.",
+  "next_action": "Dispatch .github/workflows/cloudflare-pages-research.yml after environment configuration, then require the access probe, Wrangler URL, control-plane metadata, served identity, signed proof, and acceptance artifact to agree on the same commit."
+}
