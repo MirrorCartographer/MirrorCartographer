@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Require reusable research claims to declare lifecycle, revalidation, and falsification metadata before downstream acceptance.",
+    "dependencies": ["R-004"],
+    "required_evidence": [
+      "current primary standards",
+      "committed lifecycle evaluator",
+      "deterministic adversarial tests",
+      "explicit truth limit",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf",
+        "https://json-schema.org/draft/2020-12/json-schema-validation.html",
+        "https://www.w3.org/TR/prov-overview/"
+      ],
+      "finding": "A claim should fail closed when it is structurally incomplete, superseded, future-dated, expired under its declared revalidation policy, or missing an explicit falsification route; provenance and schema validity remain separate from truth.",
+      "module": "tools/frontier-research/claim-lifecycle-gate.mjs",
+      "test": "tools/frontier-research/claim-lifecycle-gate.test.mjs",
+      "evidence": "operations/evidence/frontier-research-claim-lifecycle-gate-2026-07-12.json",
+      "commits": [
+        "fde5182a60d900af34d1b15b12731f7178568a14",
+        "b6f068160d1579075912a438f4091afa7cf940ee",
+        "2c130665df05b85a5684c6061189c644f25b5f74"
+      ],
+      "verification": "5 deterministic Node tests passed in an isolated runtime using byte-equivalent committed source."
+    },
+    "handoff": "Continuity Mining should integrate this gate into effective-queue evidence consumption; Cloudflare Research should apply it to medicine-facing and theory evidence packets; Vercel Studio should use it for runtime claims whose validity can expire after browser or deployment changes."
+  },
+  "state_update_policy": "append_only; does not overwrite operations/ACTIVE_QUEUE.json or another team's records"
+}
