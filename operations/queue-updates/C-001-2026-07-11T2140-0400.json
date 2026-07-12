@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T21:40:00-04:00",
+  "status": "blocked_external_configuration",
+  "selected_from": "operations/ACTIVE_QUEUE.json",
+  "priority": 0,
+  "action": "Resolve and prove the actual Cloudflare Pages hostname and deployment.",
+  "completed_slice": {
+    "name": "bounded served-response verification",
+    "summary": "The post-deploy verifier now fails closed unless the response is bounded HTML or XHTML, has an acceptable HTTP status, remains within declared and actual size limits, and carries the research identity markers.",
+    "source_commits": [
+      "fd8251d1c333749f3e0232469000ca521326d046",
+      "ff85bf3de47a1e399f760ac2ac6d22a42e0d502b",
+      "c5b94823fb9d933c13fa8e4b13e2c5719c619a34"
+    ],
+    "evidence": "operations/evidence/cloudflare-bounded-response-verification-2026-07-11T2140-0400.json"
+  },
+  "claim_states": {
+    "observed": [
+      "The deployment workflow invokes verify-deployment.mjs after successful Wrangler deployment and records the verifier output in the proof packet.",
+      "The prior verifier checked URL policy, HTTP status, and research identity markers but did not constrain response media type or body size."
+    ],
+    "implemented": [
+      "Content-Type allowlist for text/html and application/xhtml+xml.",
+      "One-megabyte declared and actual body-size limits.",
+      "Fifteen-second request timeout and explicit HTML Accept header.",
+      "Five deterministic contract tests with zero failures in isolated Node execution."
+    ],
+    "unresolved": [
+      "Cloudflare environment credentials remain unavailable to this run.",
+      "No resolving Pages hostname or deployed commit has been observed.",
+      "The committed tests have not yet executed in GitHub Actions."
+    ]
+  },
+  "blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch the deployment workflow.",
+  "next_action": "Run the workflow and require the returned Pages URL to pass URL policy, bounded-response verification, proof validation, attestation, and trusted-builder policy before marking C-001 complete.",
+  "privacy_boundary": "Public repository metadata and public deployment responses only; no secrets, account IDs, private chat, health material, diagnosis, or treatment claims."
+}
