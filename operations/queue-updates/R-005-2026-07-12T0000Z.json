@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Enforce the verifier trust boundary between authenticated certificate identity and workflow-controlled signed predicate metadata.",
+    "dependencies": ["R-004"],
+    "required_evidence": [
+      "current official verification guidance",
+      "committed evaluator",
+      "adversarial tests",
+      "explicit trust limit",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://cli.github.com/manual/gh_attestation_verify",
+        "https://docs.sigstore.dev/about/bundle/"
+      ],
+      "finding": "Repository, workflow, and issuer identity must come from the cryptographically verified certificate and verified timestamps; statement predicate metadata remains workflow-controlled even when signed.",
+      "module": "tools/frontier-research/verification-trust-boundary.mjs",
+      "test": "tools/frontier-research/verification-trust-boundary.test.mjs",
+      "evidence": "operations/evidence/frontier-research-verification-trust-boundary-2026-07-12.json",
+      "commits": [
+        "6e6463ff89fa44ed0c70b9a14d9d1e67f50f123b",
+        "664b48ae8d9d1c42fec56d7c291af0f1d1b8d5d2",
+        "a1dea7cd1ab5fc690b8374bac56083925d36599b"
+      ],
+      "verification": "4 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+    },
+    "handoff": "Cloudflare Research and Vercel Studio should feed raw successful gh attestation verify --format=json output into this evaluator before trusted-builder or signer-authorization acceptance. Capture one real payload to validate field normalization."
+  }
+}
