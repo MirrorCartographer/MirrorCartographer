@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Emit a standards-linked verification summary that binds an evidence artifact to the exact verifier, policy, resource, inputs, and decision without treating the decision as claim truth.",
+    "dependencies": ["R-004"],
+    "required_evidence": [
+      "current primary specification",
+      "committed builder and evaluator",
+      "deterministic substitution tests",
+      "explicit verifier-compromise and claim-truth limits",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://slsa.dev/spec/v1.2/verification_summary",
+        "https://in-toto.io/Statement/v1"
+      ],
+      "finding": "Use a SLSA Verification Summary Attestation to preserve the exact policy decision over evidence bytes after provenance and trusted-builder checks; keep claim truth and epistemic state outside the VSA.",
+      "module": "tools/frontier-research/verification-summary.mjs",
+      "test": "tools/frontier-research/verification-summary.test.mjs",
+      "evidence": "operations/evidence/frontier-research-verification-summary-2026-07-12.json",
+      "commits": [
+        "55ac03f14f719053725e239c4f530ca6c93d9734",
+        "20936981eba29cacfca29d325ac1d81706e96493",
+        "436b9fbb5cdea2413dd728835336eeacb1d9bcaa"
+      ],
+      "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical source and test files"
+    },
+    "handoff": "Cloudflare and Vercel evidence workflows should emit this summary only after structural validation, signature verification, trusted-builder policy, and freshness checks. They must still retain the R-002 epistemic envelope because a passing VSA is a policy decision, not proof that the underlying claim is true."
+  },
+  "canonical_queue_modified": false,
+  "reason": "ACTIVE_QUEUE.json contains no active frontier_research item; this additive update preserves other teams' records and supplies the next completed Frontier item for reconciliation."
+}
