@@ -1,0 +1,45 @@
+name: Deploy Afterimage Orchard
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'independent-web/afterimage-orchard/**'
+      - '.github/workflows/independent-afterimage-orchard-pages.yml'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-independent-afterimage-orchard
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify mobile and accessibility contract
+        run: node independent-web/afterimage-orchard/verify-mobile-contract.mjs
+
+  deploy:
+    needs: verify
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: independent-web/afterimage-orchard
+      - name: Deploy independent artwork
+        id: deployment
+        uses: actions/deploy-pages@v4
