@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T20:29:29-04:00",
+  "queue_item": {
+    "id": "R-006",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Create a falsifiable acoustic challenge-response protocol that attributes device-meter detections to a specific browser audio run.",
+    "dependencies": ["R-005"],
+    "required_evidence": [
+      "current primary specifications",
+      "committed challenge scheduler and scorer",
+      "deterministic positive and negative tests",
+      "explicit attribution and perception limits",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://www.w3.org/TR/webaudio/",
+        "https://www.w3.org/TR/webcrypto/"
+      ],
+      "finding": "Fresh randomized time-frequency sequences provide stronger causal attribution than undifferentiated sound detection during a test window.",
+      "module": "tools/frontier-research/acoustic-challenge.mjs",
+      "test": "tools/frontier-research/acoustic-challenge.test.mjs",
+      "evidence": "operations/evidence/frontier-research-acoustic-challenge-2026-07-11.json",
+      "commits": [
+        "8e9a3519579b1068debcb3446af3fb6941c48c4c",
+        "28fbf8bf623dfbf65f3d8ec885729927cb801f17",
+        "a128f6ad7832b67a29a7c11367e68c2aaff9b231"
+      ],
+      "verification": "4 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+    },
+    "handoff": "Vercel Studio should generate entropy with crypto.getRandomValues inside the direct user gesture, schedule the challenge to the declared destination, expose the challenge packet in runtime evidence, and score a synchronized external meter trace. Keep listener perception as a separate observation."
+  },
+  "non_overwrite_note": "This append-only queue update does not replace operations/ACTIVE_QUEUE.json or another team's records."
+}
