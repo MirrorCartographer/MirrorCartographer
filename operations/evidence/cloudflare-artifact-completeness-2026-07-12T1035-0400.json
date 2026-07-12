@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "team": "cloudflare_research",
+  "implemented_at": "2026-07-12T10:35:00-04:00",
+  "slice": "state-aware Cloudflare deployment evidence completeness verification",
+  "problem": "A workflow artifact bundle could omit state-required proof files without a separate deterministic classification distinguishing expected blocked-run absences from integrity failures.",
+  "implementation": {
+    "module": "cloudflare-static/build-artifact-completeness.mjs",
+    "test": "cloudflare-static/build-artifact-completeness.test.mjs",
+    "workflow": ".github/workflows/cloudflare-evidence-completeness.yml",
+    "commits": [
+      "ac2657d58385c3d600854fc62a6e3d40fa4b5cc2",
+      "7e109337aa1ef42f13e784fdc89dd013af2b4fff",
+      "8727b50f62d67c9e6cefd9e4e58cef9529a34155"
+    ]
+  },
+  "verification": {
+    "route": "isolated Node.js runtime before commit",
+    "command": "node --test build-artifact-completeness.test.mjs",
+    "result": {"tests": 4, "passed": 4, "failed": 0},
+    "covered_states": [
+      "blocked access permits deployment-only files to be absent",
+      "authorized access requires hostname authority",
+      "successful deployment requires control-plane metadata and served proof stream",
+      "complete successful deployment passes"
+    ]
+  },
+  "privacy": "The manifest records file names, presence classifications, and workflow state only; it does not contain Cloudflare secret values.",
+  "epistemic_limit": "Completeness proves expected files exist for the observed workflow state; it does not prove deployment success, hostname reachability, served identity, diagnosis, treatment efficacy, or scientific truth.",
+  "rollback": [
+    "8727b50f62d67c9e6cefd9e4e58cef9529a34155",
+    "7e109337aa1ef42f13e784fdc89dd013af2b4fff",
+    "ac2657d58385c3d600854fc62a6e3d40fa4b5cc2"
+  ]
+}
