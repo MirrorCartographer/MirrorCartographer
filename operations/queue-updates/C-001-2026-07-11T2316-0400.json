@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T23:16:59-04:00",
+  "status": "blocked_external_configuration",
+  "durable_slice": "Require exact signed-subject digest binding in both the evidence acceptance function and the workflow's final acceptance invariant.",
+  "commits": [
+    "e6062b8d5bd2b1d848e090c71f8f1a01cffaa4f3",
+    "00b7a57fed9dc7ae9c4708b2c52f7e934ba649a5",
+    "ef837d624db4ba967fe1d29b9a7cb73576ca5d1a",
+    "68e357de6b3483e2b7c2cffe0327e4217a5570e0",
+    "b2b058d6887f652a3099ec8c8dde9d00afc8899f"
+  ],
+  "evidence": "operations/evidence/cloudflare-signed-subject-acceptance-2026-07-11T2316-0400.json",
+  "acceptance_delta": {
+    "before": "Final decision did not explicitly require signatureSubjectVerification.status=match.",
+    "after": "Absent or mismatched signed-subject binding produces signature.subject-mismatch and the workflow all-required conjunction requires match."
+  },
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch the workflow and bind the returned Pages URL to the exact successful commit.",
+  "next_action": "Observe exact-commit CI for commit 68e357de6b3483e2b7c2cffe0327e4217a5570e0 or a descendant, then run the credentialed deployment workflow."
+}
