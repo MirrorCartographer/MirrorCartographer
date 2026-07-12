@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_type": "continuity_effective_queue_ci",
+  "recorded_at": "2026-07-12T02:08:00-04:00",
+  "source_commit": "739e163d3175a1e418865cbbcb4e33402f469fd4",
+  "workflow": ".github/workflows/continuity-effective-queue.yml",
+  "claim_state": {
+    "observed": [
+      "The prior workflow invoked mutable-directory generators rather than repository-native commit-bound discovery.",
+      "The updated workflow checks out the exact event commit with full history, verifies HEAD identity and a clean tree, runs both fail-closed continuity test suites, discovers queue records from HEAD through git object reads, rejects non-accepted output, verifies the result source_commit equals HEAD, and uploads only the accepted derived artifact."
+    ],
+    "inferred": [
+      "Queue selection artifacts produced by this workflow cannot silently incorporate uncommitted files or queue records from another commit."
+    ],
+    "proposed": [
+      "Require this workflow's accepted artifact before autonomous teams select work from the effective queue."
+    ],
+    "superseded": [
+      "CI reconciliation based on mutable directory enumeration and older effective-queue generators."
+    ],
+    "unresolved": [
+      "No GitHub Actions run was associated with the workflow commit at evidence-recording time.",
+      "Autonomous startup does not yet consume the accepted artifact."
+    ]
+  },
+  "verification": {
+    "workflow_commit_created": true,
+    "workflow_run_found": false,
+    "static_contract_checks": [
+      "exact event commit checkout",
+      "full history available for git object discovery",
+      "clean-tree assertion before reconciliation",
+      "effective-queue gate and discovery tests invoked",
+      "gate_status must equal accepted",
+      "source_commit must equal checked-out HEAD",
+      "artifact upload occurs only after acceptance"
+    ]
+  },
+  "privacy_boundary": "Public repository paths, commit identities, abstract queue state, and generated operational evidence only; no private chat, health material, credentials, personal identifiers, or unreviewed uploads.",
+  "falsification_route": "A workflow run that accepts a dirty checkout, emits an artifact with a different source_commit, includes an uncommitted queue update, omits a committed queue update, or uploads rejected output falsifies the implementation claim."
+}
