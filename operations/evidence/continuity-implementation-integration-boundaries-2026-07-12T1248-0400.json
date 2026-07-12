@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-002-proposed",
+  "observed_at": "2026-07-12T16:48:31Z",
+  "artifact": "operations/continuity/deltas/2026-07-12-implementation-integration-boundaries.json",
+  "artifact_commit": "195a6f90414b451c9ea0b9f552a70cc8648cdbbf",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/continuity/continuity-index.json",
+    "recent repository commits through 4d8fbed3c71801c270ff2671216fbe7f280a227d"
+  ],
+  "recovered_memory": [
+    "Cloudflare finalizer capability exists but authoritative workflow integration remained unproven.",
+    "Repeated-trial inference is now constrained by preregistered protocol and ledger integrity requirements."
+  ],
+  "claim_states": {"observed": 2, "inferred": 0, "proposed": 1, "superseded": 0, "unresolved": 2},
+  "verification": "Artifact is valid JSON and each observed record cites immutable commit identifiers plus an explicit review route.",
+  "privacy_boundary": "Public repository metadata only; no raw chats, health data, credentials, personal identifiers, or unreviewed uploads included.",
+  "limits": [
+    "No claim is made that Cloudflare workflow integration or deployment succeeded.",
+    "No claim is made that the acoustic experiment proves audibility, perception, or causation.",
+    "M-002 is proposed through an additive queue update rather than modification of the shared canonical queue."
+  ]
+}
