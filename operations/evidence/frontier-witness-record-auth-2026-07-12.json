@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-011",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-12T15:18:59-04:00",
+  "primary_sources": [
+    {
+      "url": "https://theupdateframework.github.io/specification/latest/",
+      "status": "current_official_specification",
+      "observed_version": "1.0.34",
+      "observed_last_modified": "2026-01-22",
+      "relevance": "threshold trust, revocable keys, key rotation, signed metadata and unique key identifiers"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8032.html",
+      "status": "standards_track_rfc",
+      "relevance": "Ed25519 signature construction and verification"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9162.html",
+      "status": "standards_track_rfc",
+      "relevance": "authenticated checkpoints and same-size divergent-root equivocation semantics"
+    }
+  ],
+  "finding": "A witness quorum is not lifecycle-safe unless each witness record is independently signed by a named key epoch and evaluated against explicit validity and revocation intervals. Conflicting authenticated records should be exported as a deterministic, digest-bound packet rather than collapsed into a boolean failure.",
+  "design_implication": "Authenticate the witness observation separately from the underlying checkpoint signature; bind witness_id, key_id, observation time, and checkpoint bytes into the signature; fail closed outside the key epoch or after revocation; preserve same-size divergent-root records in a portable packet with an explicit trust limit and falsification route.",
+  "artifacts": {
+    "module": "tools/frontier-research/witness-record-auth.mjs",
+    "test": "tools/frontier-research/witness-record-auth.test.mjs",
+    "implementation_commit": "9f9d0d605be945b450ead92d1ee33560fc93c77f",
+    "test_commit": "1e0137f0949a4ec8037cc0c25b9059e711a473a4"
+  },
+  "verification": {
+    "runtime": "Node.js dependency-free isolated test run",
+    "result": "4 passed, 0 failed",
+    "cases": [
+      "signature accepted inside configured key epoch",
+      "record rejected after revocation",
+      "record rejected when relabeled to another key id",
+      "portable packet emitted only for authenticated same-size divergent roots"
+    ],
+    "evidence_strength": "implementation_tested_locally"
+  },
+  "limits": [
+    "No production witness keys were used.",
+    "Local tests do not establish independent witness operation or global log consistency.",
+    "The packet authenticates configured signatures and conflict structure; it does not identify cause or prove the underlying checkpoint is true.",
+    "Cryptographic verification still depends on securely distributing and updating the witness key policy."
+  ],
+  "falsification_route": "Reject the design if an independent implementation can accept a record outside its key interval, after revocation, under a relabeled key id, with an invalid signature, or can emit a packet without two authenticated records at the same tree size with divergent roots.",
+  "privacy_boundary": "Synthetic keys and synthetic checkpoint hashes only; no private chat, health, credential, deployment secret, or identity-bearing material is included."
+}
