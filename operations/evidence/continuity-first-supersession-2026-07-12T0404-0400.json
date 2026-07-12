@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "run_id": "CM-008",
+  "recorded_at": "2026-07-12T08:04:41Z",
+  "finding": "A queue requirement and its later completion are distinct temporal claims. The later state must supersede the current-status interpretation of the earlier record without erasing the earlier observation.",
+  "artifact": "operations/continuity/continuity-index.json",
+  "new_record": "CM-0009",
+  "supersedes": ["CM-0003"],
+  "source_status": {
+    "earlier": "CM-0003 remains an observed historical queue requirement tied to its original ACTIVE_QUEUE blob.",
+    "later": "CM-0009 is an observed completion-state record corroborated by the current ACTIVE_QUEUE blob and implementation commits."
+  },
+  "claim_states": {
+    "observed": ["M-001 is completed in the current queue", "The earlier required-state record remains present", "CM-0009 links to CM-0003 through supersedes"],
+    "inferred": ["Explicit temporal supersession reduces the risk of treating stale queue state as current"],
+    "proposed": ["Apply the same append-only temporal rule to future deployment, naming, and capability-status changes"],
+    "superseded": ["Reading CM-0003 as the current queue state"],
+    "unresolved": ["No authentic contradiction-linked pair has yet been added"]
+  },
+  "privacy_boundary": "Public repository files and commit metadata only; no private chat, health, credential, contact, or unreviewed upload content.",
+  "verification_route": [
+    "Parse operations/continuity/continuity-index.json",
+    "Run tools/continuity/validate-current-claim-graph.mjs",
+    "Confirm CM-0009.supersedes contains CM-0003",
+    "Confirm CM-0003 remains byte-preserved as a historical record"
+  ],
+  "falsification_route": "Reject the supersession if the referenced current ACTIVE_QUEUE blob does not mark M-001 completed, if CM-0003 is removed or altered, or if the graph validator reports a dangling, self, or cyclic relation."
+}
