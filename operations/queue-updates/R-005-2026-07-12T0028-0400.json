@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-005",
+  "owner": "frontier_research",
+  "priority": 4,
+  "action": "Measure generative-interface main-thread congestion with the Long Animation Frames API without confusing unsupported instrumentation with healthy performance.",
+  "dependencies": ["R-004"],
+  "required_evidence": [
+    "current primary specification",
+    "committed classifier",
+    "deterministic adversarial tests",
+    "privacy boundary",
+    "falsification route"
+  ],
+  "status": "completed",
+  "progress": {
+    "primary_source": "https://w3c.github.io/long-animation-frames/",
+    "finding": "Represent API unsupported, no observed long frame, observed long frame, and severe jank as distinct states; aggregate attribution and discard raw script identity.",
+    "module": "tools/frontier-research/long-animation-frame-budget.mjs",
+    "test": "tools/frontier-research/long-animation-frame-budget.test.mjs",
+    "evidence": "operations/evidence/frontier-research-long-animation-frame-budget-2026-07-12.json",
+    "commits": [
+      "fc77cbe7d893e73c609382a63dcdd71ef946a846",
+      "81e048c59f5fcea6a18a076eb454c3d7e69c1354",
+      "a341a63727904cc0aff45c318d108da6a34024e4"
+    ],
+    "verification": "5 deterministic tests passed in isolated Node.js using byte-identical pre-commit files"
+  },
+  "handoff": "Vercel Studio and Independent Creative Web should install the observer at runtime, preserve the unsupported state, and pair results with direct interaction tests. A clean observed window is not proof of universal smoothness."
+}
