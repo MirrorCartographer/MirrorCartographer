@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-007",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "updated_at": "2026-07-12T01:23:00-04:00",
+  "action": "Discover and classify the complete append-only queue-update corpus before effective-queue reconciliation.",
+  "dependencies": ["M-006"],
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "artifacts": {
+    "module": "tools/continuity/queue-update-corpus.mjs",
+    "test": "tools/continuity/queue-update-corpus.test.mjs",
+    "evidence": "operations/evidence/continuity-queue-update-corpus-gate-2026-07-12T0123-0400.json",
+    "commits": [
+      "9a60c0a791cab631b7f36e63afd2b72749b1e75e",
+      "4d031e4e4eb8df9f066659cae384b3570044a31c",
+      "e43bcf634d3598f1531f9dd0651ef74b6b5b40b2"
+    ]
+  },
+  "claims": {
+    "observed": [
+      "M-006 classifies individual records but did not discover the corpus.",
+      "The new gate records parse failures and compatibility failures together.",
+      "Four deterministic tests passed before commit."
+    ],
+    "inferred": [
+      "Corpus discovery closes an omission path in effective-queue reconciliation."
+    ],
+    "proposed": [
+      "Wire the report into the existing effective-queue CI gate and bind it to the source commit."
+    ],
+    "superseded": [
+      "Assuming the supplied record list is necessarily the complete repository corpus."
+    ],
+    "unresolved": [
+      "Full live-corpus execution and CI proof remain outstanding."
+    ]
+  },
+  "privacy_boundary": "Repository metadata and operational schemas only; private chat, health material, credentials, uploaded-file contents, and personal identifiers excluded.",
+  "handoff": "Continuity Mining should next integrate buildQueueUpdateCorpusReport into the effective-queue CI workflow, emit a commit-bound corpus report, and require independent discovered-file-count agreement before reconciliation."
+}
