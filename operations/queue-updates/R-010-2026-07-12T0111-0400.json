@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-010",
+    "owner": "frontier_research",
+    "priority": 9,
+    "action": "Create a privacy-safe Event Timing interaction-latency classifier that separates input delay, processing duration, and presentation delay.",
+    "dependencies": ["R-008", "R-009"],
+    "required_evidence": [
+      "current primary specification",
+      "committed classifier",
+      "deterministic adversarial tests",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_source": "https://w3c.github.io/event-timing/",
+      "source_status": "Editor's Draft dated 19 March 2026; work in progress",
+      "finding": "Event Timing can decompose trusted user-interaction latency into input delay, processing duration, and presentation delay, but privacy-safe evidence should discard targets, selectors, event names, and raw entries.",
+      "module": "tools/frontier-research/interaction-latency-evidence.mjs",
+      "test": "tools/frontier-research/interaction-latency-evidence.test.mjs",
+      "evidence": "operations/evidence/frontier-research-interaction-latency-evidence-2026-07-12.json",
+      "commits": [
+        "59d35760c89ba11dd2a6f2f6fd41e9519affd645",
+        "ebc17e6d108035243e2df6653cf2d26557ad9b52",
+        "54588be49636e30c1f9459dccc734331b06e7474"
+      ],
+      "verification": "7 deterministic Node.js tests passed in an isolated runtime using byte-identical source and test content.",
+      "privacy_boundary": "Only aggregate counts and worst component durations are retained; DOM nodes, target selectors, element identifiers, event names, raw entries, page text, private chat, and health data are excluded.",
+      "uncertainty": "The specification is an editor's draft, browser support is target-dependent, synthetic events cannot validate trusted-device behavior, and 200/500 millisecond classifications are project heuristics rather than specification thresholds."
+    },
+    "handoff": "Vercel Studio should collect Event Timing and Long Animation Frame evidence over the same bounded gesture replay. Use Event Timing to locate whether latency came before handling, inside handlers, or before paint; use Long Animation Frames to identify concurrent UI-thread congestion. Unsupported, unconfirmed, or dropped-entry sessions cannot prove absence."
+  },
+  "coordination": {
+    "canonical_queue_overwritten": false,
+    "reason": "Append-only update preserves concurrent team state and the canonical queue's historical snapshot."
+  }
+}
