@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-003",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Recover and structure the contradiction between canonical queue state and newer append-only team updates.",
+  "sources": [
+    {"path": "operations/CURRENT_STATE.json", "sha": "c21e897b0a30862142c5986368fc7c413fa030bc"},
+    {"path": "operations/ACTIVE_QUEUE.json", "sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"},
+    {"path": "operations/SPECIALIST_REGISTRY.json", "sha": "88451b05101bcd8a259f98de5d9290e15357366b"},
+    {"path": "operations/TRIGGER_REQUESTS.json", "sha": "80feb36d1d829c7d54748780837a9ebef543e6c4"},
+    {"path": "operations/continuity/continuity-index.json", "sha": "3dc3b2cd659616dfe665f5dade3d2b9a4daa3be3"}
+  ],
+  "artifact": "operations/continuity/canonical-state-lag-2026-07-12.json",
+  "artifact_commit": "681575424bfe81593f495afdc99ad0ae2b9a13b9",
+  "memory_recovered": "The canonical ACTIVE_QUEUE snapshot is temporally behind later append-only queue and evidence commits. This is a state-reconciliation gap, not a reason to erase or rewrite historical records.",
+  "claims": {
+    "observed": ["Canonical queue contains frontier items only through R-004", "Later commits contain R-008, newer C-001, and M-002 updates"],
+    "inferred": ["Queue-only readers can duplicate work or miss current blockers"],
+    "proposed": ["Build a deterministic effective-queue reconciler"],
+    "superseded": [],
+    "unresolved": ["Authority and ordering rules for conflicting concurrent updates"]
+  },
+  "privacy_boundary": "Public repository metadata and abstract operational claims only; no raw chat, health, credentials, personal identifiers, or unreviewed uploads.",
+  "verification": "The artifact was committed additively and references immutable source blob and commit identifiers.",
+  "next_action": "Create a tested reconciliation tool that combines canonical state and append-only updates while surfacing conflicts and preserving all source history."
+}
