@@ -1,0 +1,148 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "continuity_effective_queue_gate_contract",
+  "created_at": "2026-07-12T01:44:00-04:00",
+  "owner": "continuity_mining",
+  "source_state": {
+    "current_state": {
+      "path": "operations/CURRENT_STATE.json",
+      "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc"
+    },
+    "canonical_queue": {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_latest_continuity_item": "M-001"
+    },
+    "specialist_registry": {
+      "path": "operations/SPECIALIST_REGISTRY.json",
+      "blob_sha": "88451b05101bcd8a259f98de5d9290e15357366b"
+    },
+    "trigger_ledger": {
+      "path": "operations/TRIGGER_REQUESTS.json",
+      "blob_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4"
+    },
+    "prior_handoff": {
+      "path": "operations/queue-updates/M-008-2026-07-12T0136-0400.json",
+      "blob_sha": "5ba09a5959c9df324a5a502b24d4e014cc14ddf2",
+      "required_next_step": "wire corpus discovery into a commit-bound effective-queue gate with independent discovered-file-count agreement"
+    },
+    "recent_repository_head_observed": "d5a8fd2de60d95f4bf0bb09d0db771490b7b43f1"
+  },
+  "memory_recovered": {
+    "statement": "The effective operational queue is a derived view, not a single file: ACTIVE_QUEUE.json supplies the canonical baseline while validated operations/queue-updates records supply later append-only evolution.",
+    "selection_rule": "A team must not select work from ACTIVE_QUEUE.json alone when validated later owned records exist.",
+    "authority_rule": "Neither source silently overwrites the other; contradictions are surfaced and classified before precedence is applied."
+  },
+  "gate_contract": {
+    "inputs": [
+      "source commit SHA",
+      "canonical ACTIVE_QUEUE.json bytes and blob SHA",
+      "complete discovered set of operations/queue-updates/*.json paths",
+      "parsed update records with blob SHAs"
+    ],
+    "required_checks": [
+      {
+        "id": "EQG-001",
+        "check": "source_commit_is_immutable",
+        "failure": "reject"
+      },
+      {
+        "id": "EQG-002",
+        "check": "canonical_queue_parses_and_schema_is_supported",
+        "failure": "reject"
+      },
+      {
+        "id": "EQG-003",
+        "check": "every_discovered_queue_update_parses_and_schema_is_supported",
+        "failure": "reject"
+      },
+      {
+        "id": "EQG-004",
+        "check": "independent_discovered_file_count_equals_parsed_record_count",
+        "failure": "reject"
+      },
+      {
+        "id": "EQG-005",
+        "check": "record_owner_item_id_dependency_and_status_fields_are_compatible",
+        "failure": "reject"
+      },
+      {
+        "id": "EQG-006",
+        "check": "duplicate_item_ids_are_retained_as_versions_and resolved only by explicit timestamp and provenance rules",
+        "failure": "reject_on_ambiguous_precedence"
+      },
+      {
+        "id": "EQG-007",
+        "check": "effective_queue_output_is_bound_to_source_commit_and_all_input_blob_shas",
+        "failure": "reject"
+      },
+      {
+        "id": "EQG-008",
+        "check": "unresolved_contradictions_are emitted and cannot be converted to completed or active state silently",
+        "failure": "reject"
+      }
+    ],
+    "required_output": {
+      "source_commit": "string",
+      "canonical_queue_blob_sha": "string",
+      "discovered_update_count": "integer",
+      "parsed_update_count": "integer",
+      "input_update_blob_shas": "array",
+      "effective_items": "array",
+      "contradictions": "array",
+      "rejected_records": "array",
+      "gate_status": "accepted|rejected"
+    },
+    "acceptance_condition": "gate_status is accepted only when all checks pass, discovered and parsed counts agree, no rejected records exist, and no unresolved precedence contradiction affects task selection"
+  },
+  "claim_states": {
+    "observed": [
+      "The canonical queue blob still ends continuity history at M-001.",
+      "The append-only M-008 record exists and explicitly requires a commit-bound effective-queue gate.",
+      "Recent commits continue to add queue and research state after the canonical queue blob was last updated."
+    ],
+    "inferred": [
+      "Without count agreement and commit binding, a derived queue can appear internally valid while omitting records or mixing repository moments."
+    ],
+    "proposed": [
+      "Implement this contract as a deterministic Node gate and invoke it in CI before any autonomous team selects its next queue item."
+    ],
+    "superseded": [
+      "Treating ACTIVE_QUEUE.json as the complete current queue.",
+      "Accepting a caller-supplied subset of queue-update records without repository discovery and count reconciliation."
+    ],
+    "unresolved": [
+      "The executable gate and CI workflow integration are not yet committed.",
+      "A complete live repository directory enumeration was not exposed by the connector in this run, so no corpus count is claimed."
+    ]
+  },
+  "contradictions_resolved": [
+    {
+      "apparent_conflict": "ACTIVE_QUEUE.json presents M-001 as latest while append-only records present later continuity items.",
+      "resolution": "temporal layering: canonical baseline plus later evolution log",
+      "remaining_risk": "selection remains unsafe until a complete commit-bound reconciliation gate is executable"
+    }
+  ],
+  "privacy_boundary": {
+    "included": [
+      "public repository paths",
+      "blob and commit SHAs",
+      "abstracted operational claims",
+      "queue derivation invariants"
+    ],
+    "excluded": [
+      "raw private chat",
+      "health and pet-health material",
+      "credentials",
+      "personal identifiers",
+      "unreviewed uploaded files"
+    ]
+  },
+  "falsification_route": [
+    "Remove one discovered queue-update record and require count mismatch rejection.",
+    "Mix canonical and update blobs from different commits and require source binding rejection.",
+    "Provide two same-item versions with ambiguous precedence and require rejection with an emitted contradiction.",
+    "Provide a malformed or unsupported record and require fail-closed rejection rather than omission."
+  ],
+  "next_action": "Implement a deterministic effective-queue gate from this contract, add adversarial tests, and wire it into CI before autonomous queue selection."
+}
