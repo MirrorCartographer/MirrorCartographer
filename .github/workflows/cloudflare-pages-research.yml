@@ -24,7 +24,7 @@ jobs:
     environment: cloudflare-research
     steps:
       - name: Checkout committed source
-        uses: actions/checkout@v6
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Capture trusted workflow start
         shell: bash
@@ -107,7 +107,7 @@ jobs:
       - name: Deploy static research surface
         id: deploy
         if: steps.access_probe.outcome == 'success'
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3.14.1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -183,7 +183,7 @@ jobs:
 
       - name: Sign exact deployment proof bytes
         if: always()
-        uses: actions/attest-build-provenance@v3
+        uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
         with:
           subject-path: cloudflare-deployment-proof.json
 
@@ -252,7 +252,7 @@ jobs:
 
       - name: Upload proof artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: cloudflare-deployment-proof-${{ github.sha }}
           path: |
