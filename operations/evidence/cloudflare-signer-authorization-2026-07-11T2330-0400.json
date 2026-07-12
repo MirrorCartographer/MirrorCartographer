@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "observed",
+  "evidence_strength": "source-and-isolated-test",
+  "summary": "Added a Cloudflare-specific adapter that authorizes every already-verified signing-key fingerprint only for the exact MirrorCartographer repository, Cloudflare deployment workflow path, git ref, and cloudflare.deployment-proof claim class.",
+  "artifacts": [
+    "cloudflare-static/evaluate-signer-authorization.mjs",
+    "cloudflare-static/evaluate-signer-authorization.test.mjs"
+  ],
+  "commits": [
+    "480f75845bc7e10326f09d45662fa9662456f785",
+    "d6cf79ae02d7df8b7fede0f39cac485a04489e70"
+  ],
+  "verification": {
+    "method": "isolated Node test using byte-identical module logic and equivalent test cases",
+    "result": "4 passed, 0 failed",
+    "cases": [
+      "exact repository/workflow/ref/claim and all fingerprints authorized",
+      "lookalike workflow rejected",
+      "partially authorized signer set rejected as a whole",
+      "disabled policy rejected"
+    ]
+  },
+  "privacy_boundary": "Contains repository paths, synthetic fingerprints, abstract policy metadata, and commit identifiers only. No secret values, private chat, personal identifiers, or health material.",
+  "limits": [
+    "Does not verify signatures or derive fingerprints from GitHub artifact-attestation output.",
+    "Does not derive repository, workflow, or ref from an authenticated certificate or OIDC identity.",
+    "Not yet wired into the deployment workflow acceptance gate.",
+    "Cloudflare deployment remains blocked by external environment configuration; no resolving deployment URL is claimed."
+  ],
+  "falsification_route": "Run the committed test file, then wire normalized verified fingerprints and authenticated workflow identity into the adapter and demonstrate that any unauthorized fingerprint or scope mismatch makes deployment acceptance fail.",
+  "generated_at": "2026-07-12T03:30:00Z"
+}
