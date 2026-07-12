@@ -21,6 +21,12 @@ function traceparentFor(invocationId, digest) {
   return `00-${traceId}-${parentId}-01`;
 }
 
+function normalizeDigest(value) {
+  if (typeof value !== 'string') return null;
+  const normalized = value.toLowerCase().replace(/^sha256:/, '');
+  return /^[a-f0-9]{64}$/.test(normalized) ? normalized : null;
+}
+
 export function buildEvidenceVerificationInput({ proofText, proof, attestationBundle, signatureVerification = null }) {
   if (typeof proofText !== 'string' || !proofText) throw new TypeError('proofText must be a non-empty string');
   if (!proof || typeof proof !== 'object' || Array.isArray(proof)) throw new TypeError('proof must be an object');
@@ -38,11 +44,14 @@ export function buildEvidenceVerificationInput({ proofText, proof, attestationBu
     && typeof proof.deployment_url === 'string' && proof.deployment_url.length > 0
     && verifierRows.some((row) => row?.ok === true);
 
-  const normalizedSignature = signatureVerification?.status === 'verified'
-    ? { status: 'verified', verified: true, verifier: signatureVerification.verifier ?? 'gh attestation verify', repository: signatureVerification.repository ?? null, workflow: signatureVerification.workflow ?? null, subject_digest: signatureVerification.subject_digest ?? null, certificate_identity: signatureVerification.certificate_identity ?? null, transparency_log_verified: signatureVerification.transparency_log_verified === true }
-    : { status: 'not_verified', verified: false, verifier: signatureVerification?.verifier ?? 'gh attestation verify', reason: signatureVerification?.reason ?? 'No accepted cryptographic verification result was supplied.' };
+  const reportedSignatureDigest = normalizeDigest(signatureVerification?.subject_digest);
+  const signatureDigestMatches = reportedSignatureDigest === digest;
+  const normalizedSignature = signatureVerification?.status === 'verified' && signatureDigestMatches
+    ? { status: 'verified', verified: true, verifier: signatureVerification.verifier ?? 'gh attestation verify', repository: signatureVerification.repository ?? null, workflow: signatureVerification.workflow ?? null, subject_digest: signatureVerification.subject_digest, certificate_identity: signatureVerification.certificate_identity ?? null, transparency_log_verified: signatureVerification.transparency_log_verified === true }
+    : { status: 'not_verified', verified: false, verifier: signatureVerification?.verifier ?? 'gh attestation verify', reason: signatureVerification?.status === 'verified' ? 'Verified signature report was not bound to the exact deployment proof SHA-256.' : signatureVerification?.reason ?? 'No accepted cryptographic verification result was supplied.', subject_digest: signatureVerification?.subject_digest ?? null };
 
   const subjectVerification = { status: status(declaredDigest === digest, 'match', 'mismatch'), computed_sha256: digest, declared_sha256: typeof declaredDigest === 'string' ? declaredDigest : null };
+  const signatureSubjectVerification = { status: status(signatureDigestMatches, 'match', 'mismatch'), computed_sha256: digest, reported_sha256: reportedSignatureDigest };
   const trustedBuilderPolicy = {
     builder: status(details?.builder?.id === EXPECTED.builderId, 'trusted', 'untrusted'),
     source: status(definition?.externalParameters?.sourceRepository === EXPECTED.sourceRepository, 'trusted', 'untrusted'),
@@ -69,12 +78,12 @@ export function buildEvidenceVerificationInput({ proofText, proof, attestationBu
   const policy = { schema_version: '1.0.0', enabled: true, allowed_builder_ids: [EXPECTED.builderId], allowed_source_repositories: [EXPECTED.sourceRepository], allowed_build_types: [EXPECTED.buildType], require_invocation_id: true };
 
   return {
-    schema_version: '2.0.0', artifactName: EXPECTED.artifactName, artifactText: proofText, envelope, attestation: statement, policy,
+    schema_version: '2.1.0', artifactName: EXPECTED.artifactName, artifactText: proofText, envelope, attestation: statement, policy,
     signatureVerification: normalizedSignature,
     expected: { sourceRepository: EXPECTED.sourceRepository, sourceCommit: proof.source_commit ?? null, team: EXPECTED.team, queueItem: EXPECTED.queueItem },
-    subjectVerification, trustedBuilderPolicy, claimEvidence,
-    diagnostics: { signatureVerification: normalizedSignature, subjectVerification, trustedBuilderPolicy, claimEvidence },
-    limits: ['Subject digest matching is not signature verification.', 'Trusted workflow identity is a policy check, not proof that the deployment claim is true.', 'A verified signature authenticates provenance identity and artifact binding, not scientific truth or deployment availability.']
+    subjectVerification, signatureSubjectVerification, trustedBuilderPolicy, claimEvidence,
+    diagnostics: { signatureVerification: normalizedSignature, subjectVerification, signatureSubjectVerification, trustedBuilderPolicy, claimEvidence },
+    limits: ['Subject digest matching is not signature verification.', 'A cryptographic verification report is accepted only when its reported subject digest matches the exact proof bytes.', 'Trusted workflow identity is a policy check, not proof that the deployment claim is true.', 'A verified signature authenticates provenance identity and artifact binding, not scientific truth or deployment availability.']
   };
 }
 
