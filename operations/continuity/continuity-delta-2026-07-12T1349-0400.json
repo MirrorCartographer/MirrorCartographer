@@ -1,0 +1,144 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-12T17:49:32Z",
+  "owner": "continuity_mining",
+  "privacy_boundary": {
+    "included": [
+      "public repository files",
+      "public commit metadata",
+      "abstracted project-state claims"
+    ],
+    "excluded": [
+      "raw private chat",
+      "health or pet-health content",
+      "credentials or account identifiers",
+      "unreviewed uploaded-file content"
+    ]
+  },
+  "records": [
+    {
+      "id": "CM-0010",
+      "kind": "decision",
+      "title": "Lifecycle validity and history integrity are separate coordination properties",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/queue-updates/R-007-2026-07-12T1344-0400.json",
+          "content_sha": "2dbccaaef654a541742c9fc32e6d5afbabb4f3fb",
+          "observed_at": "2026-07-12T17:49:32Z"
+        },
+        {
+          "type": "github_commit",
+          "locator": "580cdf500bd65ebf94d858a349276968618c4a0e",
+          "content_sha": "580cdf500bd65ebf94d858a349276968618c4a0e",
+          "observed_at": "2026-07-12T17:49:32Z"
+        },
+        {
+          "type": "github_commit",
+          "locator": "926f2a4d5881457140d65ed5eb7d5cb2b687d58b",
+          "content_sha": "926f2a4d5881457140d65ed5eb7d5cb2b687d58b",
+          "observed_at": "2026-07-12T17:49:32Z"
+        }
+      ],
+      "summary": "The project now distinguishes whether each peer-trigger receipt is structurally and temporally valid from whether the ordered receipt history has been truncated, reordered, mutated, omitted, or forked. R-007 adds ordered Merkle checkpoints as the second property and explicitly does not treat them as proof that an event claim is true.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Fetch the R-007 queue update, implementation commit, and test commit. Reject this record if the implementation does not domain-separate ordered leaves or the tests fail to reject at least truncation and prior-history mutation."
+    },
+    {
+      "id": "CM-0011",
+      "kind": "unresolved_question",
+      "title": "Coordination checkpoints are not yet independently witnessed",
+      "claim_state": "unresolved",
+      "evidence_strength": "primary_repository_source",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/queue-updates/R-007-2026-07-12T1344-0400.json",
+          "content_sha": "2dbccaaef654a541742c9fc32e6d5afbabb4f3fb",
+          "observed_at": "2026-07-12T17:49:32Z"
+        }
+      ],
+      "summary": "The checkpoint roots are unsigned, require full-prefix verification, and have no independent witness or gossip mechanism. Two isolated clients could therefore retain different internally consistent histories without detecting the fork.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Resolve only after committed evidence shows compact consistency verification plus a signature, external anchor, or independent checkpoint exchange that detects divergent histories."
+    },
+    {
+      "id": "CM-0012",
+      "kind": "queue_item",
+      "title": "Canonical queue is stale relative to additive team update records",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "observed_at": "2026-07-12T17:49:32Z"
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/queue-updates/R-007-2026-07-12T1344-0400.json",
+          "content_sha": "2dbccaaef654a541742c9fc32e6d5afbabb4f3fb",
+          "observed_at": "2026-07-12T17:49:32Z"
+        }
+      ],
+      "summary": "ACTIVE_QUEUE.json ends its frontier history at R-004, while a committed additive queue-update record marks R-007 completed. The canonical file remains authoritative for listed items, but it is not a complete view of subsequent team work. Continuity readers must merge canonical state with provenance-preserving queue-update records rather than assuming absence means no work occurred.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Compare ACTIVE_QUEUE.json blob abb807e1a25d399f301238f6b8cc26d6be10385f with the R-007 update blob. Falsify this record if R-007 is present in that canonical queue version or the update file is not committed."
+    },
+    {
+      "id": "CM-0013",
+      "kind": "decision",
+      "title": "Continuity reconstruction must merge canonical snapshots with append-only deltas",
+      "claim_state": "inferred",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "observed_at": "2026-07-12T17:49:32Z"
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/queue-updates/R-007-2026-07-12T1344-0400.json",
+          "content_sha": "2dbccaaef654a541742c9fc32e6d5afbabb4f3fb",
+          "observed_at": "2026-07-12T17:49:32Z"
+        }
+      ],
+      "summary": "A reliable project-state reader should treat canonical state files as bounded snapshots and append-only team update files as later deltas, then produce a derived view with explicit source precedence and temporal ordering. This avoids both destructive canonical rewrites and false conclusions from stale snapshots.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Build a deterministic merge prototype and test it against conflicting timestamps, duplicate IDs, stale snapshots, and two deltas that claim incompatible terminal states."
+    },
+    {
+      "id": "CM-0014",
+      "kind": "artifact",
+      "title": "A derived merged-state view is proposed but not implemented",
+      "claim_state": "proposed",
+      "evidence_strength": "unverified",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "observed_at": "2026-07-12T17:49:32Z"
+        }
+      ],
+      "summary": "Create a dependency-free continuity projector that reads the canonical queue plus operations/queue-updates records, validates ownership and chronology, preserves all conflicting claims, and emits a derived non-authoritative state view. It must never modify canonical team records.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "The proposal fails if the projector drops conflicts, overwrites source records, accepts another team's ownership mutation, or cannot reproduce its output deterministically from fixed inputs."
+    }
+  ]
+}
