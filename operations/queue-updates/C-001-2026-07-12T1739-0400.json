@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T17:39:30-04:00",
+  "status": "blocked_external_configuration",
+  "progress": {
+    "durable_improvement": "Added a reusable fail-closed static security audit for the Cloudflare deployment workflow.",
+    "module": "cloudflare-static/audit-cloudflare-workflow-security.mjs",
+    "test": "cloudflare-static/audit-cloudflare-workflow-security.test.mjs",
+    "evidence": "operations/evidence/cloudflare-workflow-security-audit-2026-07-12T1739-0400.json",
+    "commits": [
+      "67d38b604f58f045b041a86f1bbb4eb3a6256f22",
+      "6e727e3a962c8f484a819ab910235fb1ec6e2de3",
+      "f8eb27a318ac505abb3505b76089e9c11808a22f"
+    ],
+    "verification": "5 deterministic Node tests passed; 0 failed.",
+    "security_contract": [
+      "manual workflow dispatch only",
+      "exact least-privilege permission set",
+      "serialized production deployments",
+      "cloudflare-research environment binding",
+      "no direct secrets interpolation in shell run blocks",
+      "no Vercel or payment coupling"
+    ],
+    "open_advisory": "Major-version GitHub Action references remain mutable; exact upstream commit pins require verified current action commit identities."
+  },
+  "blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values and a successful workflow dispatch before hostname, served surface, and deployed commit can be proven.",
+  "next_action": "Wire audit-cloudflare-workflow-security.test.mjs and the runtime audit into the deployment workflow, verify exact upstream action commit identities, pin actions where policy permits, then dispatch after credentials are configured."
+}
