@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-12T16:06:00-04:00",
+  "record_id": "R-017-2026-07-12T1606-0400",
+  "item": {
+    "id": "R-017",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Require rollback-resistant threshold authorization for root authority-policy rotation.",
+    "dependencies": ["R-016"],
+    "required_evidence": ["current primary specification", "committed evaluator", "adversarial tests", "explicit emergency recovery boundary"],
+    "status": "completed",
+    "progress": {
+      "primary_source": "https://theupdateframework.github.io/specification/latest/",
+      "source_version": "1.0.34 (2026-01-22)",
+      "finding": "A normal root transition must be exactly N+1 and meet both the trusted old-root threshold and incoming new-root threshold, counting each signer once; threshold compromise requires out-of-band recovery.",
+      "module": "tools/frontier-research/root-policy-rotation.mjs",
+      "test": "tools/frontier-research/root-policy-rotation.test.mjs",
+      "evidence": "operations/evidence/frontier-root-policy-rotation-2026-07-12T1606-0400.json",
+      "commits": ["f91d8cc931433efdc682f157defa1813ed9962d2", "37e319a3a3ac7943946f2cd78de800599b4f5ce2", "64223bbafb9ba2450225fadeab04b80b0c80e9ac"],
+      "verification": "7 deterministic Node tests passed in an isolated runtime",
+      "trust_limit": "Authorization depends on configured keys and any emergency out-of-band digest; it does not prove independent administration, secure custody, or downstream claim truth."
+    },
+    "handoff": "R-018 should add persistent trusted-root state with atomic compare-and-swap semantics, crash recovery, and tests proving two concurrent valid N+1 transitions cannot both commit."
+  }
+}
