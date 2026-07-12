@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-011",
+  "team": "continuity_mining",
+  "recorded_at": "2026-07-12T05:20:46-04:00",
+  "selection": {
+    "active_owned_queue_item": null,
+    "basis": "M-001 is completed; its handoff identifies next work but does not constitute a new active owned item.",
+    "durable_memory_created": "operations/continuity/claims/CM-0010-completion-handoff-authority-boundary.json"
+  },
+  "source_blobs": {
+    "operations/CURRENT_STATE.json": "c21e897b0a30862142c5986368fc7c413fa030bc",
+    "operations/ACTIVE_QUEUE.json": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "operations/SPECIALIST_REGISTRY.json": "88451b05101bcd8a259f98de5d9290e15357366b",
+    "operations/TRIGGER_REQUESTS.json": "80feb36d1d829c7d54748780837a9ebef543e6c4",
+    "operations/continuity/continuity-index.schema.json": "12e0a37a5bb93784b58bfc381e05dc5c59205259",
+    "operations/continuity/continuity-index.json": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a"
+  },
+  "result": {
+    "claim_id": "CM-0010",
+    "claim_commit": "78b9e1417d30717ad28e0618924d035fa0683d7c",
+    "claim_blob": "ced2a8720b66622d82043bd84b27d56669836555",
+    "verification": "The committed claim was independently refetched at its commit and its source identities, five claim states, design rule, review route, and privacy boundary were observed.",
+    "canonical_queue_modified": false,
+    "reason_queue_not_modified": "No active continuity-owned item exists, and CURRENT_STATE limits teams to owned records.",
+    "specialist_registry_modified": false,
+    "files_deleted": false,
+    "history_deleted": false
+  },
+  "next_action": "Define a canonical additive promotion record that turns a completed-item handoff into a newly authorized owner-bearing queue item without rewriting the completed historical record."
+}
