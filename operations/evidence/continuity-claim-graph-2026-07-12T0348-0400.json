@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "continuity_claim_graph_evidence",
+  "owner": "continuity_mining",
+  "queue_basis": {
+    "canonical_item": "M-001",
+    "canonical_status": "completed",
+    "handoff_used": "model contradictions as linked records rather than overwriting earlier observations"
+  },
+  "memory_recovered": {
+    "statement": "Contradiction and supersession are relations between preserved historical claims, not permission to replace or erase the earlier record.",
+    "claim_state": "observed",
+    "evidence_strength": "corroborated_repository_sources",
+    "sources": [
+      "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "operations/continuity/continuity-index.json@3dc3b2cd659616dfe665f5dade3d2b9a4daa3be3",
+      "tools/continuity/run-ledger.mjs commit 1c17e85f42a7fd64ace353f129ebb4d035169022"
+    ]
+  },
+  "implementation": {
+    "module": "tools/continuity/claim-graph.mjs",
+    "test": "tools/continuity/claim-graph.test.mjs",
+    "rules": [
+      "record identifiers are unique",
+      "claim states are explicit",
+      "contradiction and supersession targets exist",
+      "self-relations are rejected",
+      "superseded records identify the prior record",
+      "supersession cycles are rejected"
+    ]
+  },
+  "verification": {
+    "command": "node --test tools/continuity/claim-graph.test.mjs",
+    "environment": "isolated Node runtime using byte-identical pre-commit files",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0
+  },
+  "claim_states": {
+    "observed": [
+      "M-001 is complete and its handoff explicitly requires linked contradiction records.",
+      "The continuity index already exposes contradicts and supersedes arrays.",
+      "Six deterministic tests passed before commit."
+    ],
+    "inferred": [
+      "Graph validation reduces accidental historical erasure and dangling provenance links."
+    ],
+    "proposed": [
+      "Run claim-graph validation whenever continuity-index.json changes."
+    ],
+    "superseded": [
+      "Replacing an earlier claim in place when a later claim conflicts with it."
+    ],
+    "unresolved": [
+      "The current continuity index has not yet been wired into repository CI through this validator.",
+      "No private chat-derived record was ingested in this run."
+    ]
+  },
+  "privacy_boundary": {
+    "included": ["public repository files", "commit metadata", "abstract project-memory rules"],
+    "excluded": ["raw private chat", "health and pet-health material", "credentials", "identifying personal data", "unreviewed uploads"]
+  }
+}
