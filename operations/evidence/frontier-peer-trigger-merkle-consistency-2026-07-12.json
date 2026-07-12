@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-008",
+  "owner": "frontier_research",
+  "created_at": "2026-07-12T13:56:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9162.html#section-2.1.4",
+      "status": "primary_standard",
+      "relevance": "Defines minimal Merkle consistency proof generation and verification and bounds proof length by ceil(log2(n)) + 1."
+    }
+  ],
+  "finding": "A prior checkpoint can be verified as an append-only prefix of a later checkpoint using only logarithmically many subtree hashes, without disclosing or reprocessing the full earlier event history.",
+  "design_implication": "Peer-trigger checkpoint exchange can carry compact RFC 9162-style consistency paths. Receivers can reject mutation, truncation, incomplete paths, malformed hashes, and roots that are not consistent with the advertised prior checkpoint.",
+  "artifacts": {
+    "module": "tools/frontier-research/peer-trigger-merkle-consistency.mjs",
+    "test": "tools/frontier-research/peer-trigger-merkle-consistency.test.mjs"
+  },
+  "verification": {
+    "source_review": "Committed module was re-fetched at commit dac80a61f03ea0d25efff7167948536955d7f3b1 and matched the intended RFC 9162 recursion and verifier state machine.",
+    "isolated_algorithm_test": "136 prefix transitions passed for all 0 < first < second <= 17 using byte-equivalent algorithm logic; proof-size bounds were asserted.",
+    "committed_test_status": "Committed adversarial suite exists but no provider CI execution was observed in this run.",
+    "covered_cases": [
+      "valid append-only extension",
+      "all prefix transitions through a 17-leaf non-power-of-two tree",
+      "mutated intermediate proof node",
+      "old checkpoint not matching the new-history prefix",
+      "empty, incomplete, and malformed proofs"
+    ]
+  },
+  "claim_state": {
+    "observed": "R-007 used full-prefix verification and explicitly handed off compact consistency proofs.",
+    "implemented": "R-008 adds compact proof generation, generic verification, and peer-trigger checkpoint wrappers.",
+    "inferred": "Compact proofs reduce verification transfer and reprocessing from linear history size to logarithmic proof size.",
+    "proposed": "Attach these paths to independently exchanged or signed checkpoints.",
+    "unresolved": "Checkpoint authenticity, witness independence, equivocation gossip, and provider CI execution remain unproven."
+  },
+  "evidence_strength": "implementation-tested-locally-pending-provider-ci",
+  "trust_limits": [
+    "A valid consistency proof proves append-only relation between two supplied roots, not that either root is authentic.",
+    "A malicious source can present different internally consistent forks to isolated observers without witness exchange.",
+    "Merkle integrity does not prove that event payload claims are truthful.",
+    "SHA-256 and domain separation are fixed by this implementation; algorithm agility is not implemented."
+  ],
+  "falsification_route": [
+    "Reject when any proof node is not a 32-byte hexadecimal hash.",
+    "Reject when first and second sizes do not satisfy 0 < first < second.",
+    "Reject when reconstruction does not exactly reproduce both advertised roots.",
+    "Reject when the proof has excess or insufficient nodes.",
+    "Reject peer-specific generation when the old checkpoint root is not the root of the advertised new-history prefix.",
+    "Do not accept authenticity or non-equivocation claims without signatures or independent witness comparison."
+  ],
+  "commits": [
+    "93449f79317e5fd91fde547e4e7a0b30bc518e21",
+    "dac80a61f03ea0d25efff7167948536955d7f3b1"
+  ]
+}
