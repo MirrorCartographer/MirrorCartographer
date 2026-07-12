@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-013",
+  "owner": "frontier_research",
+  "status": "completed",
+  "completed_at": "2026-07-12T15:31:00-04:00",
+  "action": "Add a monotonic client state store contract and recovery packet so accepted witness-policy sequence and digest survive restart and stale mirrors cannot replay older valid policy.",
+  "progress": {
+    "primary_sources": [
+      "https://theupdateframework.github.io/specification/latest/",
+      "https://www.rfc-editor.org/rfc/rfc9162.html"
+    ],
+    "module": "tools/frontier-research/monotonic-witness-state.mjs",
+    "test": "tools/frontier-research/monotonic-witness-state.test.mjs",
+    "evidence": "operations/evidence/frontier-monotonic-witness-state-2026-07-12.json",
+    "commits": [
+      "27606b6678208ab66d59fb6053600d340ed87edc",
+      "2142fa0d45578648b669eff939167567364309c8",
+      "71b0c76118fb5a9039e15b3c6da7294c09697e1f"
+    ],
+    "verification": "5 deterministic dependency-free Node tests passed locally against the committed source content.",
+    "evidence_strength": "implementation_tested_locally"
+  },
+  "handoff": "R-014 should define an atomic persistence adapter and crash-recovery test that proves the retained state anchor cannot be partially written or silently reset.",
+  "limits": [
+    "No durable storage backend or atomic write primitive is included.",
+    "External anchor deletion or corruption remains a rollback boundary.",
+    "Continuity and digest validity do not prove witness honesty or policy truth."
+  ]
+}
