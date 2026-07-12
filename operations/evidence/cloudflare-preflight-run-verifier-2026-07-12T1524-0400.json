@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T15:24:00-04:00",
+  "change": {
+    "module": "cloudflare-static/verify-environment-preflight-run.mjs",
+    "test": "cloudflare-static/verify-environment-preflight-run.test.mjs",
+    "purpose": "Verify downloaded exact-commit environment-preflight artifacts before treating repository declarations as dispatch-ready."
+  },
+  "commits": [
+    "8f654fa8e55ccbe330a18b374c52ed3034f03163",
+    "9d7e4cdded4bf087db44f3b594d98a083bd8c63b"
+  ],
+  "verified_by_inspection": [
+    "SHA-256 comparison is required for checkout, workflow-contract, and preflight-evidence files.",
+    "Repository and commit must agree across caller expectation, checkout proof, run manifest, and evidence packet.",
+    "Workflow contract must be valid and evidence must be ready_for_dispatch.",
+    "Run provenance fields must be present.",
+    "Forbidden secret-value field names fail closed."
+  ],
+  "test_status": "committed_not_provider_executed",
+  "claim_boundary": "This verifier can authenticate artifact integrity and exact-commit repository declaration readiness. It does not verify secret installation, Cloudflare authorization, deployment, hostname resolution, served content, or scientific or medical truth.",
+  "privacy_boundary": "No credential values, private chat, health information, or identifying personal material are read, emitted, or committed.",
+  "next_action": "Run the exact-commit preflight workflow, download its artifact, execute this verifier against the triggering repository and SHA, then retain the verdict before dispatching the deployment workflow."
+}
