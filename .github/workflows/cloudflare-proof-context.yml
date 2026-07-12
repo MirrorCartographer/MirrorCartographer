@@ -1,0 +1,25 @@
+name: Verify Cloudflare deployment proof context
+
+on:
+  push:
+    paths:
+      - 'cloudflare-static/validate-deployment-proof-context.mjs'
+      - 'cloudflare-static/validate-deployment-proof-context.test.mjs'
+      - '.github/workflows/cloudflare-proof-context.yml'
+  pull_request:
+    paths:
+      - 'cloudflare-static/validate-deployment-proof-context.mjs'
+      - 'cloudflare-static/validate-deployment-proof-context.test.mjs'
+      - '.github/workflows/cloudflare-proof-context.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  replay-protection-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Run deployment proof context tests
+        run: node --test cloudflare-static/validate-deployment-proof-context.test.mjs
