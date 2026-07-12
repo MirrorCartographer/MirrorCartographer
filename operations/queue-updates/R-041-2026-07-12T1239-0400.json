@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-041",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "completed",
+  "action": "Freeze repeated acoustic trial protocols and preserve append-only challenge records before statistical evaluation.",
+  "dependencies": ["R-040"],
+  "required_evidence": ["primary specification", "committed prototype", "deterministic adversarial tests", "uncertainty", "falsification route"],
+  "progress": {
+    "finding": "R-040's fixed-sample binomial gate requires enforceable protection against optional stopping, selective omission, challenge replay, and mutable trial history.",
+    "module": "tools/frontier-research/acoustic-trial-ledger.mjs",
+    "test": "tools/frontier-research/acoustic-trial-ledger.test.mjs",
+    "evidence": "operations/evidence/frontier-acoustic-trial-ledger-2026-07-12T1239-0400.json",
+    "commits": [
+      "6e53168ca8fc75b7ffc9d832b32b283bd72f9c3e",
+      "a59e40644500b12a26a2ebf71096c493df2a37d9",
+      "e4675916b4dd54d68829de048c85cafc1e25cb28"
+    ],
+    "verification": "6 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit source.",
+    "claim_state": "implemented_and_deterministically_tested_not_runtime_integrated"
+  },
+  "handoff": "Vercel Studio should create the protocol before the first R-039 challenge, persist every returned ledger state outside mutable page memory, and call R-040 only when verifyTrialLedger reports evaluationAllowed=true.",
+  "limits": "The hash chain is tamper-evident only relative to a retained trusted digest or external attestation. It does not establish microphone integrity, trial independence, physical audibility, conscious perception, or causal exclusivity."
+}
