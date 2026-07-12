@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-033",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed",
+  "action": "Create a browser-compatible adapter that captures Vercel audio observability globals into the R-032 evidence packet without collapsing processing and audibility claims.",
+  "dependencies": ["R-032"],
+  "required_evidence": ["current primary specifications","committed browser adapter","deterministic tests","explicit falsification route"],
+  "progress": {
+    "primary_sources": ["https://www.w3.org/TR/WebCryptoAPI/","https://www.w3.org/TR/webaudio/"],
+    "module": "tools/frontier-research/browser-audio-evidence-adapter.mjs",
+    "test": "tools/frontier-research/browser-audio-evidence-adapter.test.mjs",
+    "evidence": "operations/evidence/frontier-browser-audio-adapter-2026-07-12T1107-0400.json",
+    "commits": ["c339a31194ad399c025e7fb29b6c8cb466872ba4","25014a1b6652548cdfc1e9e03f0c935929625442","80d75c26f2d25e2de492aa17ec75a53f6f3fc5bb"],
+    "verification": "5 deterministic Node tests passed using Web Crypto",
+    "claim_boundary": "processing evidence remains distinct from independently observed audibility"
+  },
+  "handoff": "Vercel Studio should import the adapter, supply the deployed commit and session identifier, capture window.__MC_AUDIO_EVIDENCE__ and window.__MC_AUDIO_PULSE__, and export the packet alongside a separately recorded iPhone audible outcome."
+}
