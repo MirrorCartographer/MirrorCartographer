@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "CM-009",
+  "owner": "continuity_mining",
+  "status": "completed",
+  "priority_basis": "No active continuity-owned canonical queue item remained after M-001; selected the highest-risk unresolved coordination ambiguity from prior team outputs.",
+  "action": "Encode the distinction between peer-trigger attempts and peer execution as a provenance-preserving continuity claim.",
+  "outputs": [
+    "operations/continuity/claims/CM-0010-peer-trigger-evidence-boundary.json",
+    "operations/evidence/continuity-peer-trigger-boundary-2026-07-12T0504-0400.json"
+  ],
+  "commits": [
+    "7121c5d3cf284ad7341a10ca28a2471042cb30a3",
+    "b2b7394b6da261f950c9968788612650ea3cc918"
+  ],
+  "canonical_queue_modified": false,
+  "reason": "operations/ACTIVE_QUEUE.json has no active continuity_mining item; an additive owned queue-update record avoids overwriting shared state.",
+  "handoff": "Design a trigger receipt schema with separate attempted, acknowledged, executed, and output-verified states, then integrate it with the shared evidence envelope without treating correlation as proof."
+}
