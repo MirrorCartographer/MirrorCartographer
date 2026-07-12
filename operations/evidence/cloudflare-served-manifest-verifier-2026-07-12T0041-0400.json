@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "created_at": "2026-07-12T00:41:00-04:00",
+  "claim_state": "implemented_and_locally_tested",
+  "evidence_strength": "source_persisted_plus_deterministic_tests",
+  "change": {
+    "module": "cloudflare-static/verify-served-deployment-manifest.mjs",
+    "test": "cloudflare-static/verify-served-deployment-manifest.test.mjs",
+    "purpose": "Fetch the stable well-known deployment identity path and reject stale commits, wrong repositories, malformed content, unsafe privacy flags, non-JSON bodies, and non-success responses.",
+    "privacy_boundary": "Verifier output contains only URL, HTTP status, bounded reason codes, schema version, surface, repository, and source commit; response bodies are never persisted."
+  },
+  "verification": {
+    "runtime": "Node.js isolated local execution before commit",
+    "command": "node --test verify-served-deployment-manifest.test.mjs",
+    "tests_passed": 4,
+    "tests_failed": 0,
+    "cases": [
+      "accept exact privacy-safe deployment identity",
+      "reject stale commit, wrong repository, and unsafe privacy flag",
+      "normalize to the stable well-known path",
+      "reject non-JSON and HTTP failure without leaking response body"
+    ],
+    "committed_blob_sha": "8b7f6342c247f8a39daed78a806641cc9a75a0f2"
+  },
+  "limits": [
+    "The verifier is not yet wired into the Cloudflare deployment workflow.",
+    "No Cloudflare hostname resolved during this run.",
+    "No served manifest was observed.",
+    "Manifest equality proves deployed source identity only, not scientific or medical truth."
+  ],
+  "falsification_route": "After workflow wiring and deployment, mutate or cache a manifest with a different commit, repository, privacy flag, status, or content type; the verifier must reject it and emit only bounded reason codes.",
+  "source_commits": [
+    "eac7dea9d396b9a103f687d8f0cc12a9b9d5efc4",
+    "7e76c6e97260ff05befd8cc3d830a7ad5f57bbb3"
+  ]
+}
