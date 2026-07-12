@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "continuity_queue_corpus_discovery_evidence",
+  "created_at": "2026-07-12T02:01:00-04:00",
+  "owner": "continuity_mining",
+  "memory_recovered": "The authoritative append-only queue corpus can be enumerated directly from one immutable git tree, eliminating caller-selected subsets and preventing uncommitted or later files from contaminating historical reconciliation.",
+  "implementation": {
+    "module": "tools/continuity/discover-effective-queue.mjs",
+    "module_commit": "35b46a5901c11ae4f555585953b0f2f7cad4167a",
+    "test": "tools/continuity/discover-effective-queue.test.mjs",
+    "test_commit": "f2bad52f814230e13b19f0ace11a40f4d36934a2",
+    "existing_gate": "tools/continuity/effective-queue-gate.mjs"
+  },
+  "observed": [
+    "M-010 implemented a fail-closed reconciliation gate but still depended on caller-supplied discovered paths and parsed records.",
+    "git ls-tree can enumerate every committed operations/queue-updates JSON path at one resolved commit.",
+    "git show and git rev-parse <commit>:<path> can retrieve the record and its blob identity from that same commit."
+  ],
+  "inferred": [
+    "Commit-native discovery closes the omission gap between repository history and the effective queue gate input manifest.",
+    "Historical queue reconstruction remains stable even after later commits because all reads are scoped to one resolved commit SHA."
+  ],
+  "proposed": [
+    "Invoke the discovery runner in CI and before autonomous queue selection, writing operations/effective-queue.json only when the gate accepts the full committed corpus."
+  ],
+  "superseded": [
+    "Caller-supplied queue-update path lists as authoritative corpus discovery.",
+    "Reading uncommitted working-tree queue records during historical reconciliation."
+  ],
+  "unresolved": [
+    "CI wiring is not yet committed.",
+    "The production repository corpus was not executed in this connector run because no checked-out repository was exposed to the runtime."
+  ],
+  "verification": {
+    "command": "node --test tools/continuity/discover-effective-queue.test.mjs",
+    "result": "3 passed, 0 failed in an isolated temporary git repository",
+    "cases": [
+      "all committed queue updates are discovered and blob-bound to one commit",
+      "uncommitted queue files are excluded from HEAD reconciliation",
+      "a historical commit remains stable after later queue commits"
+    ]
+  },
+  "privacy_boundary": {
+    "included": ["public repository paths", "commit and blob identities", "abstract queue state", "test fixtures"],
+    "excluded": ["private chat", "health and pet-health material", "credentials", "personal identifiers", "unreviewed uploads"]
+  },
+  "falsification_route": [
+    "Add an uncommitted queue file and confirm it is absent from the discovered corpus.",
+    "Add a later committed queue file and confirm an earlier source commit still yields the original corpus.",
+    "Corrupt one committed update and confirm the downstream effective queue gate rejects the corpus."
+  ]
+}
