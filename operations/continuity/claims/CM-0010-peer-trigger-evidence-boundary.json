@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0010",
+  "kind": "operating_rule",
+  "title": "Peer-trigger attempts and peer execution are separate claims",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/CURRENT_STATE.json",
+      "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+      "observed_at": "2026-07-12T09:04:29Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/TRIGGER_REQUESTS.json",
+      "content_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4",
+      "observed_at": "2026-07-12T09:04:29Z"
+    }
+  ],
+  "summary": "The shared coordination model requires teams to leave evidence plus a peer trigger request, while the trigger ledger explicitly describes requests as durable requests for a later peer run. Therefore a successful trigger call, schedule update, or appended request proves only that coordination was attempted; it does not prove the peer executed, produced artifacts, or completed its queue item.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": [],
+  "related_records": ["CM-0001", "CM-0005"],
+  "claim_classes": {
+    "observed": [
+      "CURRENT_STATE.json requires evidence plus a peer trigger request.",
+      "TRIGGER_REQUESTS.json states that requests may wait for the next scheduled peer run.",
+      "The inspected trigger request array was empty at its current blob."
+    ],
+    "inferred": [
+      "Trigger evidence and execution evidence require separate status fields to prevent false completion claims."
+    ],
+    "proposed": [
+      "Future team evidence packets should record trigger_attempt_status, trigger_mechanism, peer_execution_observed, and peer_output_locator separately."
+    ],
+    "superseded": [
+      "Any reporting convention that treats a successful schedule update or trigger request as proof that the peer ran."
+    ],
+    "unresolved": [
+      "No repository-level receipt schema currently binds a trigger attempt to a later peer output without conflating the two."
+    ]
+  },
+  "falsification_or_review_route": "Reject or revise this record if the shared operating files are changed to define trigger acknowledgement as execution proof, or if a durable receipt mechanism cryptographically or transactionally binds each trigger to a verified peer run and output. Until then, require independent peer-run evidence."
+}
