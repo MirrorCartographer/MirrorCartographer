@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { inspectResearchSurfaceIdentity } from './research-surface-identity.mjs';
 import { evaluateDeploymentUrl } from './deployment-url-policy.mjs';
+import { DEFAULT_MAX_BODY_BYTES, evaluateDeploymentResponse } from './deployment-response-contract.mjs';
 
 const candidates = process.argv.slice(2);
 if (candidates.length === 0) {
@@ -17,7 +17,11 @@ for (const candidate of candidates) {
   }
 
   try {
-    const response = await fetch(candidate, { redirect: 'follow' });
+    const response = await fetch(candidate, {
+      redirect: 'follow',
+      signal: AbortSignal.timeout(15_000),
+      headers: { accept: 'text/html,application/xhtml+xml' }
+    });
     const resolvedPolicy = evaluateDeploymentUrl(response.url);
     if (!resolvedPolicy.ok) {
       console.log(JSON.stringify({
@@ -30,17 +34,38 @@ for (const candidate of candidates) {
       continue;
     }
 
+    const declaredLength = response.headers.get('content-length');
+    if (declaredLength != null && Number(declaredLength) > DEFAULT_MAX_BODY_BYTES) {
+      console.log(JSON.stringify({
+        candidate,
+        resolvedUrl: response.url,
+        ok: false,
+        reasons: ['declared-body-too-large-or-invalid'],
+        declaredContentLength: Number(declaredLength),
+        maxBodyBytes: DEFAULT_MAX_BODY_BYTES,
+        urlPolicy: resolvedPolicy
+      }));
+      continue;
+    }
+
     const body = await response.text();
-    const identity = inspectResearchSurfaceIdentity(body, {
+    const contract = evaluateDeploymentResponse({
+      body,
       status: response.status,
-      resolvedUrl: response.url
+      resolvedUrl: response.url,
+      contentType: response.headers.get('content-type'),
+      contentLength: declaredLength
     });
     const result = {
       candidate,
-      resolvedUrl: identity.resolved_url,
-      status: identity.status,
-      ok: identity.ok,
-      missingMarkers: identity.missing_markers,
+      resolvedUrl: contract.resolved_url,
+      status: contract.status,
+      ok: contract.ok,
+      reasons: contract.reasons,
+      missingMarkers: contract.missing_markers,
+      contentType: contract.content_type,
+      bodyBytes: contract.body_bytes,
+      maxBodyBytes: contract.max_body_bytes,
       urlPolicy: resolvedPolicy
     };
     console.log(JSON.stringify(result));
