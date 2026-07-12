@@ -1,0 +1,44 @@
+name: Continuity Current View
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'operations/ACTIVE_QUEUE.json'
+      - 'operations/queue-updates/**.json'
+      - 'tools/continuity/repository-tree-current-view.mjs'
+      - 'tools/continuity/github-tree-current-view.mjs'
+      - 'tools/continuity/**.test.mjs'
+      - '.github/workflows/continuity-current-view.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-and-materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Verify continuity reducer and adapter
+        run: node --test tools/continuity/repository-tree-current-view.test.mjs tools/continuity/github-tree-current-view.test.mjs
+
+      - name: Materialize immutable current view
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          CONTINUITY_OUTPUT: continuity-current-view.json
+        run: node tools/continuity/github-tree-current-view.mjs
+
+      - name: Upload tree-bound manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: continuity-current-view-${{ github.sha }}
+          path: continuity-current-view.json
+          if-no-files-found: error
+          retention-days: 30
