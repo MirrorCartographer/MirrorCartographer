@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T10:13:00-04:00",
+  "improvement": "Build a privacy-preserving Cloudflare Pages hostname authority record directly from the existing sanitized target-project access probe, with optional deployment URL binding.",
+  "artifacts": {
+    "module": "cloudflare-static/build-pages-hostname-authority.mjs",
+    "test": "cloudflare-static/build-pages-hostname-authority.test.mjs",
+    "module_commit": "7422476f707b00fd9c4f5f24ef1ee45193680c78",
+    "test_commit": "4b7eae19017c7034ac965f77f7edd67e1667e659"
+  },
+  "verification": {
+    "command": "node --test build-pages-hostname-authority.test.mjs",
+    "environment": "isolated Node runtime using byte-identical authored files before GitHub commit",
+    "passed": 7,
+    "failed": 0,
+    "cases": [
+      "canonical hostname authority from a ready privacy-safe probe",
+      "Pages preview deployment binding",
+      "unbound lookalike deployment preservation",
+      "not-ready probe rejection",
+      "privacy assertion rejection",
+      "non-Pages hostname rejection",
+      "deterministic digest under equivalent normalized inputs"
+    ]
+  },
+  "claim_state": "source_behavior_verified",
+  "evidence_strength": "deterministic_unit_test",
+  "privacy_boundary": "The artifact consumes only the existing access probe's public project name and hostnames and requires explicit assertions that secret values and account ID were not emitted.",
+  "epistemic_limit": "This proves deterministic source behavior only. It does not prove credentials exist, the Pages project currently resolves, DNS works, HTTP responds, the intended surface is served, the deployment commit matches, or any scientific claim is true.",
+  "falsification_route": "Provide a ready privacy-safe access probe whose canonical hostname or deployment relationship is misclassified, or run the committed test suite and observe a failure."
+}
