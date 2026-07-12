@@ -3,8 +3,9 @@ import crypto from 'node:crypto';
 import test from 'node:test';
 import { buildEvidenceVerificationInput } from './build-evidence-verification-input.mjs';
 
-function fixture({ claimOk = true, digestOk = true, builderOk = true, signatureOk = false, signatureDigestOk = true } = {}) {
+function fixture({ claimOk = true, digestOk = true, builderOk = true, signatureOk = false, signatureDigestOk = true, freshnessOk = true } = {}) {
   const proof = {
+    generated_at: '2026-07-12T14:50:00.000Z',
     deployment_url: 'https://example.pages.dev',
     deployment_decision: { status: claimOk ? 'deployment_returned_url' : 'deployment_attempt_failed' },
     verifier_output: [{ ok: claimOk, resolvedUrl: 'https://example.pages.dev' }]
@@ -35,13 +36,33 @@ function fixture({ claimOk = true, digestOk = true, builderOk = true, signatureO
     certificate_identity: 'https://github.com/MirrorCartographer/MirrorCartographer/.github/workflows/cloudflare-pages-research.yml@refs/heads/main',
     transparency_log_verified: true
   } : null;
-  return { proofText, proof, attestationBundle, signatureVerification };
+  const freshnessVerification = freshnessOk ? {
+    valid: true,
+    status: 'fresh',
+    generated_at: proof.generated_at,
+    evaluated_at: '2026-07-12T14:50:10.000Z',
+    age_ms: 10000,
+    max_age_ms: 900000,
+    future_skew_ms: 60000,
+    errors: []
+  } : {
+    valid: false,
+    status: 'invalid',
+    generated_at: proof.generated_at,
+    evaluated_at: '2026-07-12T15:10:00.000Z',
+    age_ms: 1200000,
+    max_age_ms: 900000,
+    future_skew_ms: 60000,
+    errors: ['proof-stale']
+  };
+  return { proofText, proof, attestationBundle, signatureVerification, freshnessVerification };
 }
 
 test('keeps signature status unverified when no cryptographic result is supplied', () => {
   const result = buildEvidenceVerificationInput(fixture());
   assert.equal(result.signatureVerification.status, 'not_verified');
   assert.equal(result.subjectVerification.status, 'match');
+  assert.equal(result.freshnessEvidence.status, 'fresh');
   assert.equal(result.claimEvidence.status, 'valid');
 });
 
@@ -76,4 +97,19 @@ test('keeps failed deployment claim invalid', () => {
   const result = buildEvidenceVerificationInput(fixture({ claimOk: false }));
   assert.equal(result.claimEvidence.status, 'invalid');
   assert.deepEqual(result.claimEvidence.verified_candidates, []);
+});
+
+test('fails closed when freshness evidence is stale', () => {
+  const result = buildEvidenceVerificationInput(fixture({ freshnessOk: false }));
+  assert.equal(result.freshnessEvidence.status, 'invalid');
+  assert.equal(result.freshnessEvidence.valid, false);
+  assert.deepEqual(result.freshnessEvidence.errors, ['proof-stale']);
+});
+
+test('fails closed when freshness evidence is missing', () => {
+  const input = fixture();
+  delete input.freshnessVerification;
+  const result = buildEvidenceVerificationInput(input);
+  assert.equal(result.freshnessEvidence.status, 'invalid');
+  assert.deepEqual(result.freshnessEvidence.errors, ['freshness-verification-required']);
 });
