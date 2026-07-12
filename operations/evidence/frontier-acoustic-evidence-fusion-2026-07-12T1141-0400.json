@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "item_id": "R-036",
+  "created_at": "2026-07-12T11:41:53-04:00",
+  "primary_sources": [
+    {
+      "url": "https://www.w3.org/TR/webaudio/",
+      "status": "primary_standard",
+      "use": "browser render-position evidence and Web Audio processing boundary"
+    },
+    {
+      "url": "https://www.w3.org/TR/mediacapture-streams/",
+      "status": "primary_standard",
+      "use": "permission-gated microphone capture, constraints, and effective track settings"
+    }
+  ],
+  "finding": "No single browser-visible signal proves audible output. Strong acoustic evidence requires correlated render advance, diagnostic-tone detection, verified browser-controllable capture processing state, and a discriminating muted-output control; missing elements must downgrade rather than disappear.",
+  "artifact": "tools/frontier-research/acoustic-evidence-fusion.mjs",
+  "test": "tools/frontier-research/acoustic-evidence-fusion.test.mjs",
+  "verification": {
+    "route": "isolated Node.js test execution using byte-identical pre-commit source",
+    "result": "passed",
+    "tests": 5,
+    "failures": 0,
+    "cases": [
+      "accept full correlated evidence",
+      "downgrade unknown capture processing",
+      "reject non-discriminating muted control",
+      "separate browser-render-only evidence",
+      "fail closed on malformed input"
+    ]
+  },
+  "evidence_strength": "deterministic_source_behavior",
+  "uncertainty": "Not yet integrated into the deployed Vercel runtime and not tested with an actual iPhone microphone session.",
+  "privacy_boundary": "The classifier consumes derived classifications and booleans only; it requires no raw microphone samples, device labels, or identifiers to be persisted.",
+  "claim_boundary": {
+    "supports": "classification of correlated browser render and microphone-observed diagnostic-tone evidence",
+    "does_not_prove": "listener perception, adequate loudness, transducer identity, absence of platform-level processing, or cross-device repeatability",
+    "falsification": "repeat the protocol with muted output, changed route, and an off-target frequency; strong evidence must fail when diagnostic output is absent"
+  },
+  "source_commits": [
+    "238fb9211e7e38b26dba9f0323c661c4e271deb3",
+    "98d161b15f5158766c8d0d6d96be577f5df7b276"
+  ]
+}
