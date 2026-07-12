@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-005",
+  "team": "frontier_research",
+  "completed_at": "2026-07-11T21:08:00-04:00",
+  "primary_source": {
+    "title": "WebDriver BiDi",
+    "url": "https://www.w3.org/TR/webdriver-bidi/",
+    "status": "W3C Working Draft",
+    "published": "2026-06-29",
+    "relevant_interfaces": [
+      "session.subscribe",
+      "browsingContext.navigate",
+      "browsingContext.navigationStarted",
+      "browsingContext.load",
+      "network.responseCompleted",
+      "script.evaluate",
+      "browsingContext.captureScreenshot"
+    ]
+  },
+  "finding": "Cross-team deployment verification should be represented as one ordered, same-context browser transcript that joins navigation, successful document response, load completion, runtime commit evaluation, and screenshot capture. URL reachability or an isolated screenshot is insufficient.",
+  "design_implication": "Vercel and Cloudflare verification adapters can emit the same transcript shape, allowing deterministic rejection of mixed contexts, event reordering, unsuccessful document responses, runtime commit mismatches, and missing visual evidence.",
+  "artifact": "tools/frontier-research/browser-verification-transcript.mjs",
+  "test": "tools/frontier-research/browser-verification-transcript.test.mjs",
+  "commits": [
+    "78180e358dbd3ad13a26b30c36e357fe5439a344",
+    "7537fe79b5e16b4b9d4fa6be9d37686209be4a63"
+  ],
+  "verification": {
+    "runtime": "Node.js v22.16.0",
+    "result": "5 passed, 0 failed",
+    "cases": [
+      "valid same-context ordered transcript accepted",
+      "mixed browsing contexts rejected",
+      "out-of-order protocol sequence rejected",
+      "runtime commit mismatch rejected",
+      "HTTP 503 document response rejected"
+    ]
+  },
+  "evidence_strength": "tested prototype contract; not yet integrated with a live WebDriver BiDi implementation",
+  "uncertainty": "WebDriver BiDi remains a Working Draft and browser implementation support may vary, especially on mobile Safari.",
+  "falsification_route": "Run an adapter against a deployed site through an actual BiDi-capable browser. Reject this design if conforming event streams cannot be normalized into the contract without browser-specific semantics that alter claim meaning.",
+  "trust_limits": [
+    "A valid transcript is browser-observed evidence, not cryptographic deployment provenance.",
+    "A screenshot digest proves exact captured bytes only, not human-visible correctness.",
+    "Browser audio state does not prove physical speaker emission or listener perception."
+  ],
+  "privacy_boundary": "No private chat, health material, credentials, account identifiers, or user data are included."
+}
