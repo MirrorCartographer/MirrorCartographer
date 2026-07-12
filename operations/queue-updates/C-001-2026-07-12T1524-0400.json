@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T15:24:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a fail-closed verifier for exact-commit Cloudflare environment-preflight workflow artifacts.",
+  "progress": {
+    "preflight_run_verifier": "cloudflare-static/verify-environment-preflight-run.mjs",
+    "preflight_run_verifier_test": "cloudflare-static/verify-environment-preflight-run.test.mjs",
+    "evidence": "operations/evidence/cloudflare-preflight-run-verifier-2026-07-12T1524-0400.json",
+    "commits": [
+      "8f654fa8e55ccbe330a18b374c52ed3034f03163",
+      "9d7e4cdded4bf087db44f3b594d98a083bd8c63b",
+      "ef2d7a9bbd228fd42dcd1e3ab6960c0f5141617c"
+    ],
+    "verification_state": "source_and_adversarial_tests_committed; provider execution not observed"
+  },
+  "blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN before deployment and hostname proof can complete.",
+  "next_action": "Obtain an exact-commit preflight workflow artifact, verify it with the new module, then dispatch the production deployment workflow only after the bounded verdict passes."
+}
