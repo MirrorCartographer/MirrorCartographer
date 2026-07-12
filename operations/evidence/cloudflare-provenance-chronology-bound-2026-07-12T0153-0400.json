@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-12T01:53:00-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "implemented_unexecuted",
+  "finding": "A workflow-captured provenance start can be structurally trusted yet stale enough to describe an unrelated or reused execution window. Deployment-proof provenance now fails closed when the claimed build duration exceeds six hours.",
+  "design_implication": "Cloudflare deployment evidence chronology is bounded before an in-toto statement is emitted; untrusted start sources still collapse to the observed finish, future starts are rejected, and trusted-but-stale starts are rejected.",
+  "source_files": [
+    "cloudflare-static/attest-deployment-proof.mjs",
+    "cloudflare-static/attest-deployment-proof.test.mjs",
+    ".github/workflows/cloudflare-pages-research.yml"
+  ],
+  "commits": {
+    "implementation": "7cc6da7786aec13ce9efd077e7f8b2e692ca08e7",
+    "test": "482fbc0d954c716a3e603154a583cccc8e2d22b1"
+  },
+  "verification": {
+    "exact_commit_fetch": "passed",
+    "verified_behavior": "The exact committed implementation rejects finishedOn - startedOn greater than 21600000 milliseconds with startedOn-exceeds-maximum-duration.",
+    "workflow_runs_for_test_commit": 0,
+    "test_execution": "not observed"
+  },
+  "evidence_strength": "source_verified_test_not_run",
+  "falsification_route": "Run node --test cloudflare-static/attest-deployment-proof.test.mjs in GitHub Actions or a fresh checkout. The new adversarial case must fail if a workflow-captured start is six hours and one minute before finish, while the one-minute case must pass.",
+  "privacy_boundary": "No Cloudflare credentials, token values, private chat, health data, user-agent strings, or personal identifiers are stored.",
+  "limits": [
+    "The six-hour ceiling is a defensive operational bound, not a measured Cloudflare maximum.",
+    "No workflow run or Cloudflare deployment was observed for the test commit.",
+    "This protects provenance chronology; it does not prove the deployment or scientific claims are true."
+  ]
+}
