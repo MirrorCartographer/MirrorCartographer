@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "continuity_effective_queue_gate_evidence",
+  "created_at": "2026-07-12T01:48:00-04:00",
+  "owner": "continuity_mining",
+  "queue_item": "M-010",
+  "source_contract": {
+    "path": "operations/continuity/effective-queue-gate-contract-2026-07-12T0144-0400.json",
+    "blob_sha": "ee9c28fb0b98dc386b042f3705f9e1f567d7e73a"
+  },
+  "implementation": {
+    "module": "tools/continuity/effective-queue-gate.mjs",
+    "commit": "5385aa3c2d6517200ce128b6e81e33a6b81f65d2",
+    "test": "tools/continuity/effective-queue-gate.test.mjs",
+    "test_commit": "0387c6810a697451ed22741944173b7699a22a1a"
+  },
+  "verification": {
+    "runtime": "Node.js built-in test runner",
+    "result": "6 passed, 0 failed",
+    "cases": [
+      "accept complete commit-bound corpus",
+      "reject omitted parsed update",
+      "reject mutable or malformed source identity",
+      "reject unsupported update schema",
+      "reject ambiguous same-item precedence",
+      "reject parsed path absent from independent discovery"
+    ],
+    "scope": "isolated byte-identical local execution before GitHub commit"
+  },
+  "memory_recovered": {
+    "observed": [
+      "The effective queue contract existed without an executable gate.",
+      "ACTIVE_QUEUE.json remains a canonical baseline rather than a complete current queue.",
+      "Append-only queue updates require complete discovery, immutable commit binding, and explicit precedence handling."
+    ],
+    "inferred": [
+      "A fail-open merger can silently omit history or convert contradictory records into an apparently authoritative task selection."
+    ],
+    "proposed": [
+      "Add repository-native corpus discovery and invoke this gate before autonomous queue selection."
+    ],
+    "superseded": [
+      "Selecting work directly from ACTIVE_QUEUE.json alone.",
+      "Accepting caller-supplied update subsets without independent path discovery."
+    ],
+    "unresolved": [
+      "The connector still does not provide complete directory enumeration for operations/queue-updates.",
+      "The gate is not yet wired into CI or every team runtime.",
+      "Blob-to-commit membership must be established by the future repository discovery wrapper."
+    ]
+  },
+  "privacy_boundary": {
+    "included": ["public repository paths", "commit and blob SHAs", "abstract queue history", "test outcomes"],
+    "excluded": ["raw private chat", "health and pet-health material", "credentials", "personal identifiers", "unreviewed uploads"]
+  },
+  "falsification_route": [
+    "Run the committed test file in a fresh checkout.",
+    "Provide incomplete discovery input and require EQG-004 rejection.",
+    "Provide conflicting same-timestamp versions and require emitted EQG-006 contradiction.",
+    "Wire repository discovery, then compare discovered path count against parsed update count at one immutable commit."
+  ]
+}
