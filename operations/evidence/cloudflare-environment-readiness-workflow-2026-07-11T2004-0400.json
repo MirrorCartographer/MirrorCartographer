@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T20:04:54-04:00",
+  "claim_state": "implemented_source_unverified_runtime",
+  "improvement": {
+    "path": ".github/workflows/cloudflare-environment-readiness.yml",
+    "commit": "1e9e5e119551535a65233dec0a373c0eae1174aa",
+    "purpose": "Produce secret-free Cloudflare environment readiness and exact operator setup-plan artifacts without attempting deployment or claiming deployment proof."
+  },
+  "verification": {
+    "isolated_contract_tests": {
+      "command": "node --test build-environment-setup-plan.test.mjs",
+      "passed": 4,
+      "failed": 0,
+      "scope": "byte-equivalent setup-plan logic reconstructed from committed source"
+    },
+    "source_review": [
+      "workflow references the cloudflare-research GitHub Environment",
+      "secret values are passed only as process environment inputs",
+      "readiness failure is deferred until after artifact upload",
+      "privacy and deployment-proof boundaries are asserted",
+      "no payment or Vercel behavior is present"
+    ],
+    "workflow_runs_for_commit": 0
+  },
+  "evidence_strength": "source_and_isolated_contract_test",
+  "limits": [
+    "No GitHub Actions execution was observable for the workflow commit.",
+    "No Cloudflare deployment URL or served identity was produced.",
+    "Configuration readiness is not deployment evidence.",
+    "The workflow may remain blocked until repository environment execution is permitted and required secrets are configured."
+  ],
+  "privacy_boundary": "Only secret names, configured booleans, and non-sensitive reason codes may be emitted; secret values must not appear in artifacts, logs, commits, or queue records.",
+  "falsification_route": "Run the workflow and reject this implementation if artifacts are missing, any secret value appears, the plan claims deployment proof, or the required secret set differs from CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN."
+}
