@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-009-evidence",
+  "owner": "frontier_research",
+  "created_at": "2026-07-12T15:00:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8032.html",
+      "status": "primary_standard",
+      "use": "Ed25519 signature algorithm"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9162.html#section-2.1.4",
+      "status": "primary_standard",
+      "use": "append-only Merkle consistency verification and split-view trust boundary"
+    }
+  ],
+  "finding": "A compact consistency proof can establish append-only relation between two roots, but authentication and equivocation detection require signed checkpoint statements plus comparison across retained witness observations.",
+  "artifact": {
+    "module": "tools/frontier-research/signed-checkpoint-witness.mjs",
+    "test": "tools/frontier-research/signed-checkpoint-witness.test.mjs",
+    "module_commit": "a759a300321bd937886cda3a90ab8ff0c7a05113",
+    "test_commit": "f9a7eaee8dd0ef5ae6ec17f7427858687063f7be"
+  },
+  "claim_states": {
+    "observed": "R-008 explicitly left checkpoint authentication and split-view detection unresolved.",
+    "implemented": "Ed25519 checkpoint signing, trusted-signer verification, witness observation records, rollback classification, proof binding checks, and equal-size divergent-root equivocation detection.",
+    "inferred": "Independent witnesses that retain signed checkpoints can produce portable equivocation evidence when the same signer presents different roots for the same tree size.",
+    "proposed": "Run exact-commit tests in CI and add a multi-witness quorum policy with key rotation and revocation semantics.",
+    "unresolved": "Private-key custody, signer authorization lifecycle, witness independence, quorum thresholds, freshness policy, and provider CI execution."
+  },
+  "evidence_strength": "implementation_ready_unexecuted",
+  "verification": {
+    "source_committed": true,
+    "test_committed": true,
+    "provider_ci_observed": false,
+    "local_execution": "blocked because the runtime could not resolve raw.githubusercontent.com; no test-pass claim is made"
+  },
+  "falsification_route": [
+    "reject signatures that fail Ed25519 verification or use an untrusted signer identity",
+    "classify equal tree sizes with divergent roots as equivocation",
+    "reject a newer observation with a smaller tree size as rollback",
+    "reject unequal checkpoints without a valid consistency proof bound to both signed roots",
+    "do not infer global non-equivocation from one witness or one internally consistent history"
+  ],
+  "limits": "Signatures authenticate possession of a key, not organizational authorization, payload truth, witness independence, freshness, or global consistency."
+}
