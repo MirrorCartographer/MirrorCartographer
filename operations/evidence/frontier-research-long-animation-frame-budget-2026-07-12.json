@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-005",
+  "owner": "frontier_research",
+  "claim_state": "observed",
+  "evidence_strength": "tested_prototype",
+  "primary_source": {
+    "title": "Long Animation Frames API",
+    "url": "https://w3c.github.io/long-animation-frames/",
+    "status": "W3C Editor's Draft",
+    "dated": "2026-04-16"
+  },
+  "finding": "Long-animation-frame entries provide a user-centric browser signal for main-thread congestion, including frame duration, blocking duration, render timing, and aggregated script attribution. API support and absence of observed entries must be represented separately to avoid false smoothness claims.",
+  "design_implication": "Generative interfaces should emit a bounded, privacy-preserving performance summary that distinguishes unsupported browsers, no long frame observed in the measurement window, long frame observed, and severe jank observed.",
+  "artifact": {
+    "module": "tools/frontier-research/long-animation-frame-budget.mjs",
+    "test": "tools/frontier-research/long-animation-frame-budget.test.mjs",
+    "module_commit": "fc77cbe7d893e73c609382a63dcdd71ef946a846",
+    "test_commit": "81e048c59f5fcea6a18a076eb454c3d7e69c1354"
+  },
+  "verification": {
+    "method": "isolated Node.js execution using byte-identical pre-commit files",
+    "result": "5 deterministic tests passed",
+    "coverage": [
+      "unsupported API is not treated as healthy",
+      "empty observed window is bounded in scope",
+      "long frame and blocking duration are summarized",
+      "source URLs and query secrets are excluded",
+      "severe frame threshold is classified"
+    ]
+  },
+  "uncertainty": "The specification is an editor's draft and may change. Browser support is not universal. Synthetic entries prove classifier behavior, not deployed runtime performance.",
+  "falsification_route": "Run the observer in the deployed Vercel and independent creative sites, induce a controlled main-thread stall over 50 ms, verify a long-animation-frame entry is captured where supported, and compare classification against DevTools performance traces and direct interaction latency.",
+  "privacy_boundary": "The prototype retains only aggregate duration, invoker type, window attribution, and forced-layout totals. It intentionally discards sourceURL, function names, character positions, query strings, and raw script identities."
+}
