@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "update_kind": "additive_progress",
+  "progress": {
+    "hostname_authority_builder": "cloudflare-static/build-pages-hostname-authority.mjs",
+    "hostname_authority_test": "cloudflare-static/build-pages-hostname-authority.test.mjs",
+    "evidence": "operations/evidence/cloudflare-pages-hostname-authority-2026-07-12T1013-0400.json",
+    "commits": [
+      "7422476f707b00fd9c4f5f24ef1ee45193680c78",
+      "4b7eae19017c7034ac965f77f7edd67e1667e659",
+      "05b183800857cb1df514885c747c6effa95958fa"
+    ],
+    "verification": "7 deterministic Node tests passed in an isolated runtime using byte-identical authored files",
+    "finding": "The existing privacy-safe direct Pages project probe is sufficient to produce a canonical hostname authority artifact without re-emitting credentials, account ID, or unrelated project names. Optional deployment URLs remain unaccepted when they are not canonical, a Pages preview descendant, or a declared custom domain.",
+    "remaining": [
+      "configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment",
+      "wire the hostname authority builder immediately after the existing access probe and again after deployment with the returned deployment URL",
+      "upload the hostname authority artifact with the deployment evidence packet",
+      "dispatch the workflow and prove DNS, HTTP, served identity, and deployed commit separately"
+    ]
+  },
+  "canonical_state_mutation": "not_performed",
+  "reason": "Preserved other teams' records and recorded Cloudflare-owned progress additively while C-001 remains externally blocked."
+}
