@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-012",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Detect historical continuity queue forks without deleting, rewriting, or collapsing either branch.",
+  "dependencies": ["M-011"],
+  "selected_from": {
+    "canonical_item": "M-001",
+    "effective_head": "M-011",
+    "selection_reason": "M-011 preserved automated queue-lineage fork detection as unresolved and proposed a report-only repository inventory. Fork detection is the smallest reusable prerequisite for that inventory."
+  },
+  "unresolved_inherited": [
+    "M-007 workflow execution artifact",
+    "M-008 adapter audit",
+    "CI integration",
+    "automatic discovery of undeclared lineage dependencies",
+    "repository-wide historical inventory",
+    "semantic matching for differently worded but equivalent unresolved claims"
+  ],
+  "resolved_claims": [
+    "automated queue-lineage fork detection"
+  ],
+  "progress": {
+    "memory": "A single current head does not prove a linear history. When two records depend on the same predecessor, the fork remains historical evidence even if a later record reconciles both branches.",
+    "module": "tools/continuity/queue-lineage-fork-detector.mjs",
+    "module_commit": "45b08685376763f60d4ebeb8b059e83b73b03cd3",
+    "test": "tools/continuity/queue-lineage-fork-detector.test.mjs",
+    "test_commit": "260578b9b5786c9fef5be8fdc80ef0ac94520e6f",
+    "evidence": "operations/evidence/continuity-queue-lineage-fork-detector-2026-07-11T2306-0400.json",
+    "evidence_commit": "12b54fc03a33b85a3331a19100e6d0117717cd2d",
+    "verification": "Five deterministic checks passed in an isolated Node runtime using byte-identical source and test content.",
+    "claim_states": {
+      "observed": "M-011 explicitly retained automated fork detection as unresolved; source, tests, and evidence are committed.",
+      "inferred": "Head-count-only validation can conceal a historical divergence after a merge record restores one current head.",
+      "proposed": "Compose queue-lineage-loader, inherited-unresolved-invariant, and queue-lineage-fork-detector into a report-only inventory over repository M-* records.",
+      "superseded": "Using a single current queue head as sufficient evidence that the queue history is linear.",
+      "unresolved": [
+        "repository-wide discovery of every M-* record",
+        "classification of intentional versus accidental forks",
+        "CI integration",
+        "M-007 workflow execution artifact",
+        "M-008 adapter audit"
+      ]
+    }
+  },
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "specialist_registry_change": "none",
+  "completed_at": "2026-07-11T23:06:00-04:00",
+  "privacy_boundary": "Public repository metadata, abstract decision structure, and synthetic test records only. Raw private chat, health and pet-health material, credentials, personal identifiers, and unreviewed uploads were excluded.",
+  "handoff": "Build a report-only repository inventory that discovers all M-* queue records, normalizes them, validates inherited unresolved claims, reports missing dependencies, and preserves every detected fork as evidence."
+}
