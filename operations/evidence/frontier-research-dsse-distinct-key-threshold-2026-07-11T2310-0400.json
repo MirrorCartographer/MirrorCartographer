@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-008",
+  "created_at": "2026-07-11T23:10:00-04:00",
+  "sources": [
+    {
+      "url": "https://github.com/secure-systems-lab/dsse/blob/master/protocol.md",
+      "status": "primary specification",
+      "use": "DSSE signature verification and key identifier semantics"
+    },
+    {
+      "url": "https://in-toto.io/",
+      "status": "primary project documentation",
+      "use": "Supply-chain authorization model in which cryptographic keys represent functionaries"
+    }
+  ],
+  "finding": "A threshold over distinct keyid strings is not a threshold over distinct cryptographic signers. The same public key can be registered under multiple aliases and satisfy the former unless verified keys are deduplicated by canonical public-key material.",
+  "design_implication": "Compute SHA-256 over canonical DER SubjectPublicKeyInfo for every successfully verified key and apply the signature threshold to distinct fingerprints, while retaining key IDs only as diagnostic labels.",
+  "artifact": {
+    "module": "tools/frontier-research/dsse-signature-verifier.mjs",
+    "test": "tools/frontier-research/dsse-signature-verifier.test.mjs",
+    "commits": [
+      "a7d983060ac037476a3a735a892459ab2d73a4d8",
+      "e23b1e57b78d46089602eabe084c2314c6bf7b91"
+    ]
+  },
+  "verification": {
+    "status": "passed in isolated Node runtime",
+    "checks": [
+      "one valid Ed25519 signer passes threshold 1",
+      "two cryptographically distinct Ed25519 signers pass threshold 2",
+      "one Ed25519 key exposed under two key IDs fails threshold 2"
+    ],
+    "repository_ci": "not observed for the exact commits during this run"
+  },
+  "evidence_strength": "committed source plus deterministic isolated runtime",
+  "uncertainty": "The verifier still relies on caller-supplied trust anchors and does not establish signer authorization, certificate-chain validity, transparency-log inclusion, trusted time, or claim truth.",
+  "falsification_route": "Construct two different SPKI encodings that resolve to the same effective verification key but yield different canonical DER fingerprints, or demonstrate a supported key type for which canonical SPKI export is unstable across equivalent keys.",
+  "privacy_boundary": "Public standards, public repository source, and synthetic generated keys only; no private user material."
+}
