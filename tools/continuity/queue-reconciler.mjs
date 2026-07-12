@@ -40,22 +40,25 @@ export function reconcileQueueItem({ aggregate, updates = [], resolvableCommits 
   accepted.sort((a,b) => a.recorded_at_epoch_ms - b.recorded_at_epoch_ms || String(a.record_id).localeCompare(String(b.record_id)));
   const latest = accepted.at(-1) || null;
   const required = aggregate.required_evidence || [];
-  const complete = Boolean(latest && latest.status === 'completed' && evidenceSatisfied(required, latest));
+  const completionClaimed = Boolean(latest && latest.status === 'completed');
+  const complete = Boolean(completionClaimed && evidenceSatisfied(required, latest));
+  const unsupportedCompletion = completionClaimed && !complete;
 
   return {
-    schema_version: '1.0.0',
+    schema_version: '1.1.0',
     queue_item: aggregate.id,
     owner: aggregate.owner,
     aggregate_snapshot: aggregate,
     accepted_updates: accepted,
     rejected_updates: rejected,
     latest_temporal_update: latest,
-    effective_status: complete ? 'completed' : (latest?.status || aggregate.status),
+    effective_status: complete ? 'completed' : (unsupportedCompletion ? aggregate.status : (latest?.status || aggregate.status)),
     required_evidence: required,
     required_evidence_complete: complete,
-    claim_state: latest ? 'inferred' : 'observed',
+    claim_state: unsupportedCompletion ? 'unresolved' : (latest ? 'inferred' : 'observed'),
     mutation_performed: false,
-    unresolved: complete ? [] : ['required_evidence_not_complete_or_not_resolvable'],
+    superseded_claims: unsupportedCompletion ? [{ source_record_id: latest.record_id || null, claim: 'completed', reason: 'required_evidence_incomplete' }] : [],
+    unresolved: complete ? [] : [unsupportedCompletion ? 'completion_claim_not_supported_by_required_evidence' : 'required_evidence_not_complete_or_not_resolvable'],
     review_route: 'Re-fetch aggregate and append-only records, resolve referenced commits and evidence paths, then rerun without mutating source records.'
   };
 }
