@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-022",
+  "owner": "frontier_research",
+  "claim_state": "observed",
+  "finding": "A valid Event Timing interpretation must be rejected unless its opaque navigation identity also belongs to a valid lifecycle evidence epoch. Epoch validation must run before the existing replay, coverage, and navigation interpretation result is accepted.",
+  "primary_sources": [
+    {
+      "title": "HTML Living Standard: navigation and session history",
+      "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#event-pageshow",
+      "status": "living_standard",
+      "inspected_on": "2026-07-12",
+      "relevance": "PageTransitionEvent.persisted distinguishes a newly loaded page from restoration without a new load."
+    },
+    {
+      "title": "Event Timing API",
+      "url": "https://www.w3.org/TR/event-timing/",
+      "status": "working_draft",
+      "inspected_on": "2026-07-12",
+      "relevance": "Defines the Event Timing evidence surface being interpreted."
+    }
+  ],
+  "design_implication": "Compose the R-021 lifecycle epoch result with the pre-existing Event Timing interpretation gate. Fail closed on missing or invalid epoch evidence, reject navigation mismatch between the two outputs, and preserve only opaque identities and component validity.",
+  "artifact": "tools/frontier-research/event-timing-lifecycle-composition.mjs",
+  "test": "tools/frontier-research/event-timing-lifecycle-composition.test.mjs",
+  "verification": {
+    "command": "node --test tools/frontier-research/event-timing-lifecycle-composition.test.mjs",
+    "result": "6 passed, 0 failed",
+    "environment": "isolated Node runtime using byte-identical pre-commit files"
+  },
+  "evidence_strength": "deterministic_unit_test_plus_primary_specification",
+  "uncertainty": "The composition artifact validates component outputs but is not yet wired into the deployed collector or physical Safari runtime.",
+  "falsification_route": [
+    "Show that combining evidence across lifecycle epochs cannot change any accepted interpretation.",
+    "Produce a valid same-navigation, same-epoch packet that this composition rejects.",
+    "Demonstrate that gate ordering does not affect acceptance under malformed or stale component outputs.",
+    "Run physical Safari back-forward-cache tests and compare accepted packets against this composition."
+  ],
+  "privacy_boundary": {
+    "retains": ["opaque navigation id", "opaque evidence epoch id", "component validity flags", "reason code"],
+    "excludes": ["URLs", "referrers", "raw timing entries", "event names", "event targets", "selectors", "raw timestamps", "user-agent strings", "private chat", "health information"]
+  }
+}
