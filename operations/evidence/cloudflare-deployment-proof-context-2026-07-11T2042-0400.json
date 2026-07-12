@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T20:42:43-04:00",
+  "claim_state": "implemented_and_locally_verified",
+  "evidence_strength": "moderate",
+  "finding": "A signed and structurally valid deployment proof can still be replayed from an older workflow invocation unless acceptance also binds the proof to the current source commit, exact workflow-run URL, and a bounded freshness window.",
+  "durable_improvement": {
+    "module": "cloudflare-static/validate-deployment-proof-context.mjs",
+    "test": "cloudflare-static/validate-deployment-proof-context.test.mjs",
+    "workflow": ".github/workflows/cloudflare-proof-context.yml",
+    "rules": [
+      "source_commit must match the current workflow commit",
+      "workflow_run must match the current workflow invocation",
+      "generated_at must be within a two-hour freshness window",
+      "generated_at may not exceed five minutes of tolerated future clock skew"
+    ]
+  },
+  "commits": [
+    "4333cccd6c8fc8f10b5114daffae9cb732e4295a",
+    "8e5b57109aa12bc3ae85cf535e38f62ab4aeec2e",
+    "9e7c1135837137d81e9b3a037e07366582185271"
+  ],
+  "verification": {
+    "route": "isolated Node test execution using byte-identical committed logic",
+    "result": "4 passed, 0 failed",
+    "cases": [
+      "fresh proof bound to current commit and run accepted",
+      "different commit or run rejected",
+      "stale proof rejected",
+      "excessively future-dated proof rejected"
+    ]
+  },
+  "limits": [
+    "The new validator is committed and independently tested but is not yet wired into cloudflare-pages-research.yml.",
+    "Freshness and context binding reduce replay risk but do not prove scientific claims, content correctness, or operator intent.",
+    "No live Cloudflare deployment occurred because the required GitHub Environment credentials remain unavailable to this run."
+  ],
+  "falsification_route": "Construct a proof from a different commit, run URL, stale timestamp, or future timestamp and confirm the validator rejects it; then wire the validator into the production deployment workflow and verify a real run accepts only its own generated proof.",
+  "privacy_boundary": "No credentials, private chat, health information, diagnosis, or treatment content is included."
+}
