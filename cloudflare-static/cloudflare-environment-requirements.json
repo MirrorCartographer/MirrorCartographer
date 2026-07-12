@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "environment": "cloudflare-research",
+  "provider": "Cloudflare Pages",
+  "project_name": "mirror-cartographer-research",
+  "required_secrets": [
+    {
+      "name": "CLOUDFLARE_ACCOUNT_ID",
+      "kind": "account_identifier",
+      "required": true,
+      "allowed_in_logs": false
+    },
+    {
+      "name": "CLOUDFLARE_API_TOKEN",
+      "kind": "api_token",
+      "required": true,
+      "allowed_in_logs": false,
+      "minimum_permissions": [
+        "Account.Cloudflare Pages.Edit"
+      ]
+    }
+  ],
+  "workflow": ".github/workflows/cloudflare-pages-research.yml",
+  "deployment_branch_default": "main",
+  "verification_requirements": [
+    "workflow dispatch succeeds",
+    "Wrangler returns a deployment URL",
+    "Cloudflare control-plane metadata binds project, commit, and URL",
+    "served identity verifier succeeds",
+    "final evidence acceptance is true"
+  ],
+  "epistemic_limit": "Configuration and deployment evidence prove bounded infrastructure state, not scientific or medical truth."
+}
