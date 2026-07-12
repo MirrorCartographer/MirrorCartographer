@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T11:40:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Integrated exact verifier-to-deployment URL binding into the authoritative evidence builder. Deployment claim state can no longer become observed from a successful verifier row for another URL.",
+  "files": [
+    "cloudflare-static/build-evidence-verification-input.mjs",
+    "cloudflare-static/build-evidence-verifier-binding.integration.test.mjs",
+    "operations/evidence/cloudflare-verifier-proof-binding-integrated-2026-07-12T1140-0400.json"
+  ],
+  "commits": [
+    "5862efc068c01690dba91cc2a5c7c5b14f0a8a73",
+    "01b7c049df3d5bde73a6f48703abd80a529ae05c",
+    "f32597b9bd65f7bf85dfb4abcb62503dd8c75175"
+  ],
+  "verification": "Four deterministic adversarial integration cases passed in a local Node runtime using reconstructed committed source logic; no CI or live deployment evidence is claimed.",
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment, run the committed Pages workflow, and verify the returned URL, served identity, exact deployed commit, signature, freshness, project identity, and verifier-proof binding.",
+  "canonical_queue_overwritten": false
+}
