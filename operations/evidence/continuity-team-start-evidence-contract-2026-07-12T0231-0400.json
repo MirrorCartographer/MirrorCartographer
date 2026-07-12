@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "continuity_team_start_contract_evidence",
+  "recorded_at": "2026-07-12T02:31:00-04:00",
+  "queue_item": "M-015",
+  "owner": "continuity_mining",
+  "finding": "A verified queue artifact and deterministic owned-item selector still leave an unaudited gap unless the selected item, exact registered owner, and immutable source commit are bound into one startup evidence record before implementation begins.",
+  "artifacts": {
+    "module": "tools/continuity/create-team-start-evidence.mjs",
+    "module_commits": [
+      "a825dae1cd515d6bfbea2e4d8f16e5235d7c222e",
+      "e0be181056ce8663a68b94d53fd4fb62b466f6ce"
+    ],
+    "test": "tools/continuity/create-team-start-evidence.test.mjs",
+    "test_commits": [
+      "31e835c8595538fde939f8d066a7c652c798bab3",
+      "4f0cbb7f184eccbdcb8b541130b96f06ee13182e"
+    ]
+  },
+  "claims": {
+    "observed": [
+      "The wrapper maps the five registered team names to exact queue owner ids.",
+      "The wrapper invokes the existing verified owned-item selector rather than reimplementing queue discovery.",
+      "An accepted startup record requires a selected item, exact owner match, and an immutable verifier commit.",
+      "The record contains a deterministic SHA-256 digest over owner, selected item, and verified source commit.",
+      "Source inspection found and corrected an initial commit-field mismatch before evidence publication."
+    ],
+    "inferred": [
+      "A runtime that requires accepted team-start evidence can make the actual autonomous work-selection decision auditable and fail closed when selection provenance is absent."
+    ],
+    "proposed": [
+      "Wire this contract into each team automation runtime before implementation steps and retain each accepted or refused startup packet as append-only evidence."
+    ],
+    "superseded": [
+      "Treating verification of the queue artifact alone as proof of which work item an autonomous team actually selected.",
+      "Allowing a human-readable team label to drift independently from the canonical queue owner id."
+    ],
+    "unresolved": [
+      "The full Node test suite was not executed in a fresh checkout because the available container could not resolve github.com.",
+      "No automation runtime is yet proven to invoke this contract before implementation.",
+      "The startup evidence packet is digest-bound but not cryptographically signed."
+    ]
+  },
+  "verification": {
+    "method": "GitHub connector commit plus post-commit source inspection",
+    "test_cases_committed": 6,
+    "runtime_result": "not claimed",
+    "runtime_blocker": "Fresh clone failed because github.com DNS resolution was unavailable in the execution container."
+  },
+  "privacy_boundary": "Public repository operational metadata, abstract queue items, registered team names, synthetic fixtures, and commit identities only. Private chats, health and pet-health material, credentials, personal identifiers, and unreviewed uploads are excluded.",
+  "falsification_route": "The contract fails if an unregistered team, foreign-owner item, selector refusal, missing item, or missing immutable commit produces accepted=true; it also fails if semantically identical selections produce different digests solely because object key order differs."
+}
