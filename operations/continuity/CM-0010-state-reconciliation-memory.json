@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0010",
+  "kind": "operating_rule",
+  "title": "Canonical state is a checkpoint, not a complete live-event ledger",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "recovered_at": "2026-07-12T10:55:56-04:00",
+  "summary": "The canonical CURRENT_STATE.json and ACTIVE_QUEUE.json are shared coordination checkpoints, while newer team work may exist in additive evidence files, queue-update records, and commits before those canonical files are reconciled. A continuity run must therefore compare canonical timestamps and blob SHAs with newer repository commits and owned queue-update artifacts before declaring an item absent, current, completed, or blocked.",
+  "claims": [
+    {
+      "state": "observed",
+      "text": "CURRENT_STATE.json was last updated on 2026-07-11T19:45:00-04:00 and ACTIVE_QUEUE.json was last updated on 2026-07-11T16:51:00-04:00."
+    },
+    {
+      "state": "observed",
+      "text": "Repository commits dated 2026-07-12 record later continuity, Cloudflare, and Frontier outputs that are not represented in the canonical queue blob inspected during this run."
+    },
+    {
+      "state": "inferred",
+      "text": "Reading canonical state alone can produce a false-negative conclusion that no newer owned work exists."
+    },
+    {
+      "state": "proposed",
+      "text": "Treat canonical state as authoritative for shared coordination only after reconciling it against newer additive queue updates, evidence artifacts, and commit history."
+    },
+    {
+      "state": "superseded",
+      "text": "The assumption that the newest canonical queue blob necessarily contains every completed team run."
+    },
+    {
+      "state": "unresolved",
+      "text": "No automated reconciler currently promotes additive team updates into a fresh canonical state snapshot while preserving concurrent team ownership."
+    }
+  ],
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/CURRENT_STATE.json",
+      "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+      "observed_at": "2026-07-12T10:55:56-04:00"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-12T10:55:56-04:00"
+    },
+    {
+      "type": "github_commit",
+      "locator": "ab70a540acf3a4b5cf05ead50921216d590eb2e4",
+      "content_sha": "ab70a540acf3a4b5cf05ead50921216d590eb2e4",
+      "observed_at": "2026-07-12T10:55:56-04:00",
+      "note": "Later continuity queue-update commit."
+    },
+    {
+      "type": "github_commit",
+      "locator": "efc0469315b0febc742f4d3921834e23a5c9ca88",
+      "content_sha": "efc0469315b0febc742f4d3921834e23a5c9ca88",
+      "observed_at": "2026-07-12T10:55:56-04:00",
+      "note": "Later Cloudflare queue-update commit."
+    },
+    {
+      "type": "github_commit",
+      "locator": "e1a5e708801f7e194ac44f9ea0d0f914c6b6c73c",
+      "content_sha": "e1a5e708801f7e194ac44f9ea0d0f914c6b6c73c",
+      "observed_at": "2026-07-12T10:55:56-04:00",
+      "note": "Later Frontier queue-update commit."
+    }
+  ],
+  "privacy": "public_repository_safe",
+  "privacy_boundary": {
+    "included": [
+      "public repository paths",
+      "public blob and commit SHAs",
+      "coordination timestamps",
+      "abstract operating-state claims"
+    ],
+    "excluded": [
+      "raw private chat",
+      "health or pet-health material",
+      "credentials or account identifiers",
+      "unreviewed uploaded-file contents"
+    ]
+  },
+  "contradicts": [],
+  "supersedes": [],
+  "falsification_or_review_route": "Fetch the cited canonical blobs and commits. Falsify this rule if the canonical files are newer than or fully incorporate all cited additive updates, or if repository policy explicitly defines canonical state as an automatically complete event ledger.",
+  "next_action": "Implement a deterministic reconciliation report that compares canonical updated_at values and owned queue records against newer operations/queue-updates artifacts and commits without rewriting another team's records."
+}
