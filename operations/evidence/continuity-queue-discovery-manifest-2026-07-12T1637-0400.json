@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-008",
+  "created_at": "2026-07-12T16:37:34-04:00",
+  "claim_state": {
+    "observed": [
+      "ACTIVE_QUEUE.json is an older base snapshot than committed additive queue-update records.",
+      "The available GitHub connector can fetch known paths and recent commits but did not expose an exhaustive recursive tree endpoint in this run.",
+      "A local git clone attempt failed because the runtime could not resolve github.com."
+    ],
+    "inferred": [
+      "Search results and recent commit lists cannot prove absence of undiscovered queue-update files.",
+      "Effective queue replay must remain fail-closed until its input manifest is derived from a non-truncated repository tree."
+    ],
+    "proposed": [
+      "Feed a complete recursive Git tree response into tools/continuity/queue-discovery-manifest.mjs, then fetch and verify every recorded blob before replay."
+    ],
+    "superseded": [
+      "Treating code search, recent commits, or known filenames as a complete queue-update inventory."
+    ],
+    "unresolved": [
+      "No exhaustive tree response was obtainable through the connected tools, so the full queue corpus and effective state remain unproven."
+    ]
+  },
+  "durable_memory": {
+    "statement": "Discovery completeness is a property of the repository traversal, not of the filtering or replay code.",
+    "operational_rule": "A manifest may set complete=true only when the upstream recursive tree explicitly reports truncated=false; downstream replay must reject every other manifest."
+  },
+  "artifacts": {
+    "module": "tools/continuity/queue-discovery-manifest.mjs",
+    "module_commit": "bf5bf9bd5eec8306eddeaac71b1d42b394943b75",
+    "test": "tools/continuity/queue-discovery-manifest.test.mjs",
+    "test_commit": "d61f94783787b893aacbb4616253962781df40d0"
+  },
+  "verification": {
+    "command": "node --test queue-discovery-manifest.test.mjs",
+    "result": "4 passed, 0 failed",
+    "coverage": [
+      "truncated tree rejection",
+      "queue-update JSON filtering and deterministic ordering",
+      "duplicate path rejection",
+      "order-independent manifest digest"
+    ]
+  },
+  "privacy_boundary": "Public repository paths, blob identifiers, abstract operational rules, and test results only; no private chat, health, credentials, identifying personal data, or unreviewed uploads included."
+}
