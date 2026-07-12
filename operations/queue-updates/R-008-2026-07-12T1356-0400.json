@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-008",
+  "owner": "frontier_research",
+  "priority": 5,
+  "status": "completed",
+  "action": "Add compact RFC 9162 consistency proofs between peer-trigger Merkle checkpoints.",
+  "dependencies": ["R-007"],
+  "required_evidence": ["primary standard", "committed implementation", "adversarial tests", "explicit trust limits", "falsification route"],
+  "progress": {
+    "primary_source": "https://www.rfc-editor.org/rfc/rfc9162.html#section-2.1.4",
+    "finding": "Append-only relation between an earlier and later checkpoint can be verified with a minimal logarithmic consistency path rather than replaying the complete earlier prefix.",
+    "module": "tools/frontier-research/peer-trigger-merkle-consistency.mjs",
+    "test": "tools/frontier-research/peer-trigger-merkle-consistency.test.mjs",
+    "evidence": "operations/evidence/frontier-peer-trigger-merkle-consistency-2026-07-12.json",
+    "commits": [
+      "93449f79317e5fd91fde547e4e7a0b30bc518e21",
+      "dac80a61f03ea0d25efff7167948536955d7f3b1",
+      "a44243ca48edd649f995c685bd4057570417ffd5"
+    ],
+    "verification": "The exact committed module was re-fetched. Byte-equivalent algorithm logic passed 136 prefix transitions for all 0 < first < second <= 17 with proof-size bounds. Provider CI for the committed adversarial suite was not observed.",
+    "limits": "Proof validity does not authenticate roots, prevent split-view equivocation without witness exchange, prove payload truth, or provide hash-algorithm agility."
+  },
+  "handoff": "A future Frontier slice should bind checkpoint exchange to signatures or independent witnesses and add equivocation comparison across observers. Coordination writers may replace full-prefix append-only checks with this compact proof only after exact-commit tests execute successfully in CI."
+}
