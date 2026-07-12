@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T02:18:59-04:00",
+  "claim_state": "implemented_unexecuted",
+  "durable_improvement": "Added an account-scoped Cloudflare Pages project discovery contract that derives the canonical pages.dev hostname from the Cloudflare API instead of assuming it from repository configuration.",
+  "artifacts": {
+    "discovery_module": "cloudflare-static/discover-pages-project.mjs",
+    "contract_test": "cloudflare-static/discover-pages-project.test.mjs",
+    "workflow": ".github/workflows/cloudflare-pages-project-discovery.yml"
+  },
+  "commits": [
+    "5838c58539df575f47c9e845731d06669f79811e",
+    "bbbbc79fdac0ccf9d1c52ab1bd1716b6b225a5c5",
+    "d904d446a5c3cbe00869c656f9e08f265e1b9ec7"
+  ],
+  "verification": {
+    "source_review": "The module requires exact project-name equality, rejects malformed and ambiguous responses, derives a canonical HTTPS Pages URL, and omits credentials and account identifiers from its output.",
+    "test_status": "committed_not_run_in_this_evidence_record",
+    "workflow_status": "no successful GitHub Actions execution observed at record creation"
+  },
+  "privacy_boundary": {
+    "included": ["project name", "canonical hostname", "custom domain names", "production branch", "HTTP status", "reason codes"],
+    "excluded": ["API token", "account ID", "authorization headers", "raw Cloudflare response bodies", "private research or health material"]
+  },
+  "epistemic_limit": "A verified Pages project and hostname establish infrastructure identity only. They do not prove served content, deployment commit, medical validity, diagnosis, treatment efficacy, or scientific truth.",
+  "falsification_route": "Run the workflow with the cloudflare-research environment. Reject this improvement as operationally complete unless the artifact reports project_verified for mirror-cartographer-research and a canonical .pages.dev URL."
+}
