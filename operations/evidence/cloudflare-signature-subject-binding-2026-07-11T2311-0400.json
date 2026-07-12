@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T23:11:00-04:00",
+  "claim_state": "observed",
+  "evidence_strength": "source-tested",
+  "finding": "A cryptographic verifier report cannot contribute to deployment acceptance unless its reported SHA-256 subject digest equals the exact cloudflare-deployment-proof.json bytes being evaluated.",
+  "implementation": {
+    "module": "cloudflare-static/build-evidence-verification-input.mjs",
+    "test": "cloudflare-static/build-evidence-verification-input.test.mjs",
+    "source_commits": [
+      "17b0920f7e62fbede6269fe8a685a4e90e0d925f",
+      "2eff792c23bc2545902894be5c2091eb3103ec1a"
+    ],
+    "behavior": [
+      "normalizes sha256:<hex> verifier subjects",
+      "downgrades verified reports with absent, malformed, or mismatched subject digests to not_verified",
+      "records an independent signatureSubjectVerification diagnostic",
+      "preserves separation between cryptographic provenance and deployment-claim truth"
+    ]
+  },
+  "verification": {
+    "method": "isolated Node test using byte-identical proposed source and test content before commit",
+    "result": "6 tests passed",
+    "covered": [
+      "missing cryptographic result remains unverified",
+      "matching signature digest remains verified",
+      "mismatched signature digest fails closed",
+      "local in-toto digest mismatch remains independently visible",
+      "untrusted builder remains rejected",
+      "failed deployment claim remains invalid"
+    ]
+  },
+  "privacy_boundary": "No credentials, private chat, health information, personal identifiers, or secret values were read or committed.",
+  "limits": [
+    "This does not configure Cloudflare credentials or produce a deployment.",
+    "A matching digest does not prove certificate-chain validity, trusted time, workflow authorization, served availability, or scientific truth.",
+    "Repository CI execution for the committed SHAs was not yet observed at record creation."
+  ],
+  "falsification_route": "Supply a normalized verifier result marked verified whose subject_digest differs from the SHA-256 of proofText; acceptance input must mark signatureVerification not_verified and signatureSubjectVerification mismatch."
+}
