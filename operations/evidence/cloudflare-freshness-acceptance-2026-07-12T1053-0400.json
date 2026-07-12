@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "implemented",
+  "evidence_state": "source-verified",
+  "summary": "Cloudflare deployment-proof freshness is now carried into the explicit verification manifest and is a deny-by-default acceptance requirement.",
+  "changes": {
+    "verification_input": "cloudflare-static/build-evidence-verification-input.mjs",
+    "acceptance_gate": "cloudflare-static/build-evidence-acceptance.mjs",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "tests": [
+      "cloudflare-static/build-evidence-verification-input.test.mjs",
+      "cloudflare-static/build-evidence-acceptance.test.mjs",
+      "cloudflare-static/validate-deployment-proof-freshness.test.mjs"
+    ]
+  },
+  "commits": [
+    "ad1817cb6a8bffb41696d0d66a7228c9a3bded9a",
+    "95f5cdc235c30cd04287398390e9e27afdbff7c6",
+    "c5168cf9c33eaea1922fe4264a23225c1f84bb2a",
+    "f3b36a3670f13789ec9d4218e4c6d0594d1c472e",
+    "e281d8a0b602de7d6759f80ba197563a706a8388"
+  ],
+  "verification": {
+    "source_review": "confirmed workflow generates freshness verdict, passes it into verification input, requires fresh status in acceptance invariants, uploads the artifact, and reports the epistemic limit",
+    "test_execution": "not completed in this run because the runtime could not resolve github.com for a fresh checkout",
+    "deployment": "not attempted; Cloudflare credentials and successful workflow evidence remain unavailable"
+  },
+  "falsification_routes": [
+    "Run the three named Node test files in GitHub Actions or a fresh checkout.",
+    "Supply a stale or missing freshness verdict and confirm build-evidence-acceptance returns proof.stale-or-unverified.",
+    "Dispatch the Cloudflare workflow and inspect cloudflare-deployment-proof.freshness.json plus cloudflare-deployment-acceptance.json."
+  ],
+  "limits": [
+    "Freshness is a bounded timestamp assertion, not proof of continuing availability.",
+    "No deployment, DNS resolution, served identity, or deployed commit was proved in this run.",
+    "No scientific, diagnostic, or treatment claim is made."
+  ],
+  "privacy_boundary": "No secrets, private chat, health data, or personal identifiers were read or persisted."
+}
