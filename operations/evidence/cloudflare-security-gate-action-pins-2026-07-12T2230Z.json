@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T22:30:53Z",
+  "claim_state": "observed",
+  "evidence_strength": "source-verified",
+  "finding": "The Cloudflare deployment security gate now uses only reviewed 40-character immutable commit references for its two remote GitHub Actions.",
+  "source": {
+    "workflow": ".github/workflows/cloudflare-deployment-security-gate.yml",
+    "commit": "7ca7222ecda83b44fda140d38e2500dc4e80e936",
+    "blob_sha": "3f5ccc2e74d00b023fcc85e6b46e12623bca52ac",
+    "manifest": "cloudflare-static/action-pin-plan.json"
+  },
+  "pins": [
+    {
+      "action": "actions/checkout",
+      "commit": "8e8c483db84b4bee98b60c0593521ed34d9990e8",
+      "reviewed_release": "v6.0.1"
+    },
+    {
+      "action": "actions/upload-artifact",
+      "commit": "ea165f8d65b6e75b540449e92b4886f43607fa02",
+      "reviewed_release": "v4.6.2"
+    }
+  ],
+  "verification": {
+    "source_fetch": "passed",
+    "remote_action_references_observed": 2,
+    "immutable_40_character_references": 2,
+    "mutable_references_in_security_gate": 0,
+    "workflow_runs_for_commit": 0
+  },
+  "limits": [
+    "No GitHub Actions run was returned for the commit at verification time.",
+    "The deployment workflow still contains mutable remote Action references and remains the next pin-application target.",
+    "Commit pinning prevents tag movement but does not prove upstream code or transitive dependencies are safe.",
+    "No Cloudflare deployment, hostname resolution, or served identity is claimed."
+  ],
+  "falsification_route": "Fetch the workflow at the recorded commit and fail this claim if any remote uses reference is not exactly 40 lowercase hexadecimal characters or differs from the reviewed pin manifest."
+}
