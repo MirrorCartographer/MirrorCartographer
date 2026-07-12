@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "implemented_and_locally_verified",
+  "summary": "Added a fail-closed validator requiring at least one successful served-deployment verifier row to resolve to the exact deployment_url recorded in the proof. An unrelated successful verifier row can no longer satisfy this boundary.",
+  "artifacts": [
+    "cloudflare-static/validate-verifier-proof-binding.mjs",
+    "cloudflare-static/validate-verifier-proof-binding.test.mjs"
+  ],
+  "source_commits": [
+    "5a05689e76474d99f0ab59b766bc37f0f73e6c14",
+    "dd621a2c9ba884d2e89754a732ad9184d969f31b"
+  ],
+  "verification": {
+    "command": "node --test validate-verifier-proof-binding.test.mjs",
+    "environment": "isolated Node runtime using byte-identical committed module and test content",
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      "exact returned deployment URL accepted",
+      "successful verifier row for another deployment rejected",
+      "failed exact row plus unrelated success rejected",
+      "missing deployment URL or successful row rejected"
+    ]
+  },
+  "evidence_strength": "source-and-deterministic-test",
+  "limits": [
+    "The validator is a reusable acceptance boundary and is not yet wired into build-evidence-verification-input.mjs.",
+    "URL equality does not prove Cloudflare account ownership, exact deployed commit, continued availability, or scientific truth.",
+    "No live Cloudflare deployment occurred because protected Cloudflare credentials remain unavailable."
+  ],
+  "falsification_routes": [
+    "Supply a successful verifier row whose resolvedUrl differs from deployment_url and confirm rejection.",
+    "Supply the exact URL with a trailing slash difference and confirm canonical equivalence.",
+    "Wire the validator into the evidence builder and run the complete Cloudflare test suite."
+  ],
+  "privacy": "No credentials, private chat, health information, diagnosis, or treatment claims are included."
+}
