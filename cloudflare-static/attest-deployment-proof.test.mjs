@@ -1,6 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { attestDeploymentProof, evaluateDeploymentProvenance } from './attest-deployment-proof.mjs';
+import {
+  attestDeploymentProof,
+  evaluateDeploymentProvenance,
+  resolveProvenanceTimes
+} from './attest-deployment-proof.mjs';
 
 const input = {
   proofText: JSON.stringify({ schema_version: '1.0.0', deployment_url: 'https://example.pages.dev' }) + '\n',
@@ -48,4 +52,38 @@ test('rejects a changed artifact name or build type', () => {
   const changedBuildType = clone(attestDeploymentProof(input).attestation);
   changedBuildType.predicate.buildDefinition.buildType = 'https://example.invalid/build/v1';
   assert.deepEqual(evaluateDeploymentProvenance(changedBuildType).reasons, ['buildType']);
+});
+
+test('accepts a start timestamp only when explicitly marked workflow-captured', () => {
+  const times = resolveProvenanceTimes({
+    candidateStartedOn: '2026-07-11T20:40:00.000Z',
+    candidateSource: 'workflow-captured',
+    finishedOn: '2026-07-11T20:41:00.000Z'
+  });
+  assert.deepEqual(times, {
+    startedOn: '2026-07-11T20:40:00.000Z',
+    finishedOn: '2026-07-11T20:41:00.000Z',
+    startTimeStatus: 'workflow-captured'
+  });
+});
+
+test('collapses an untrusted repository timestamp to the observed finish time', () => {
+  const times = resolveProvenanceTimes({
+    candidateStartedOn: '2026-07-10T12:00:00.000Z',
+    candidateSource: 'repository-updated-at',
+    finishedOn: '2026-07-11T20:41:00.000Z'
+  });
+  assert.deepEqual(times, {
+    startedOn: '2026-07-11T20:41:00.000Z',
+    finishedOn: '2026-07-11T20:41:00.000Z',
+    startTimeStatus: 'unavailable-collapsed-to-finish'
+  });
+});
+
+test('rejects captured start times that occur after finish', () => {
+  assert.throws(() => resolveProvenanceTimes({
+    candidateStartedOn: '2026-07-11T20:42:00.000Z',
+    candidateSource: 'workflow-captured',
+    finishedOn: '2026-07-11T20:41:00.000Z'
+  }), /startedOn-after-finishedOn/);
 });
