@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0011",
+  "recorded_at": "2026-07-12T09:54:54-04:00",
+  "kind": "language_evolution_and_decision",
+  "title": "Audio evidence is a non-collapsible claim ladder",
+  "claim_states": {
+    "observed": [
+      "The continuity index already separates evidence identity, provenance, trusted-builder acceptance, and underlying claim truth.",
+      "Frontier Research item R-027 separately classifies browser-bound output routing, render activity, physical acoustic output, and human audibility.",
+      "R-027 reports that a fulfilled setSinkId request with a matching observed sinkId and enumerated audiooutput membership can support only a browser-bound routing claim.",
+      "R-027 explicitly states that browser-bound routing does not prove continuing device availability, acoustic output, or human audibility, and that an empty sinkId identifies only the user-agent default route."
+    ],
+    "inferred": [
+      "The project's use of the word 'audio works' has become too coarse for durable evidence records.",
+      "Future audio reports require an explicit layer label so that success at one layer is not promoted into success at a stronger layer."
+    ],
+    "proposed": [
+      "Use the ordered vocabulary activation_observed, context_running, render_advancing, route_bound, physical_output_observed, and human_audibility_reported.",
+      "Record each layer independently with its own source, time, environment, and falsification route.",
+      "Treat disagreement between layers as preserved contradiction evidence rather than averaging the observations into one status."
+    ],
+    "superseded": [
+      "Any earlier unqualified statement that a running AudioContext, advancing render clock, selected sink, or successful route request alone proves that a person heard sound."
+    ],
+    "unresolved": [
+      "No immutable production deployment and physical iPhone Safari observation currently joins all audio evidence layers in one retained packet.",
+      "Browser-visible route evidence cannot establish the continued availability or acoustic behavior of the selected physical device."
+    ]
+  },
+  "claim_ladder": [
+    {
+      "layer": "activation_observed",
+      "proves": "A qualifying user activation was observed.",
+      "does_not_prove": ["AudioContext running", "render advance", "route binding", "physical output", "human audibility"]
+    },
+    {
+      "layer": "context_running",
+      "proves": "The Web Audio context reported a running state.",
+      "does_not_prove": ["render advance", "route binding", "physical output", "human audibility"]
+    },
+    {
+      "layer": "render_advancing",
+      "proves": "Browser-visible audio rendering advanced across retained samples.",
+      "does_not_prove": ["intended route binding", "physical acoustic output", "human audibility"]
+    },
+    {
+      "layer": "route_bound",
+      "proves": "The browser reported a bound output route under the recorded API conditions.",
+      "does_not_prove": ["continued device availability", "physical acoustic output", "human audibility"]
+    },
+    {
+      "layer": "physical_output_observed",
+      "proves": "A device-level or acoustic measurement observed output under recorded conditions.",
+      "does_not_prove": ["human audibility for a specific person"]
+    },
+    {
+      "layer": "human_audibility_reported",
+      "proves": "A human reported hearing or not hearing sound under recorded conditions.",
+      "does_not_prove": ["which internal browser or device layer caused the outcome"]
+    }
+  ],
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/continuity-index.json",
+      "content_sha": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a"
+    },
+    {
+      "type": "github_commit",
+      "locator": "d48d6f2db80e32211d4ea089b9c18fc0d60ef4c1"
+    },
+    {
+      "type": "github_commit",
+      "locator": "462b5319b43bfd622827bca4690da10d8f551130"
+    },
+    {
+      "type": "github_commit",
+      "locator": "f7bd6a3efc81648b707e23c3ed844292487fb788"
+    },
+    {
+      "type": "github_commit",
+      "locator": "facb48e6227c42897c18057027149fe5aa94b8b5"
+    }
+  ],
+  "privacy": {
+    "classification": "public_repository_safe",
+    "included": ["repository paths", "commit and blob SHAs", "abstract browser-audio evidence vocabulary", "claim limits"],
+    "excluded": ["raw private chat", "health or pet-health material", "credentials", "personal identifiers", "unreviewed uploaded content"]
+  },
+  "falsification_or_review_route": "Fetch the indexed continuity blob and the R-027 handoff commit. Reject any observed statement not supported by those exact sources. Revise an individual claim-ladder layer only when a later standards-linked artifact explicitly changes what that layer can establish; do not erase prior historical wording."
+}
