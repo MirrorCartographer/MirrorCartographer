@@ -27,7 +27,7 @@ function normalizeDigest(value) {
   return /^[a-f0-9]{64}$/.test(normalized) ? normalized : null;
 }
 
-export function buildEvidenceVerificationInput({ proofText, proof, attestationBundle, signatureVerification = null, freshnessVerification = null }) {
+export function buildEvidenceVerificationInput({ proofText, proof, attestationBundle, signatureVerification = null, freshnessVerification = null, projectIdentityVerification = null }) {
   if (typeof proofText !== 'string' || !proofText) throw new TypeError('proofText must be a non-empty string');
   if (!proof || typeof proof !== 'object' || Array.isArray(proof)) throw new TypeError('proof must be an object');
   if (!attestationBundle || typeof attestationBundle !== 'object' || Array.isArray(attestationBundle)) throw new TypeError('attestationBundle must be an object');
@@ -55,14 +55,23 @@ export function buildEvidenceVerificationInput({ proofText, proof, attestationBu
     && Array.isArray(freshnessVerification?.errors)
     && freshnessVerification.errors.length === 0;
   const freshnessEvidence = {
-    status: freshnessValid ? 'fresh' : 'invalid',
-    valid: freshnessValid,
-    generated_at: freshnessVerification?.generated_at ?? null,
-    evaluated_at: freshnessVerification?.evaluated_at ?? null,
+    status: freshnessValid ? 'fresh' : 'invalid', valid: freshnessValid,
+    generated_at: freshnessVerification?.generated_at ?? null, evaluated_at: freshnessVerification?.evaluated_at ?? null,
     age_ms: Number.isFinite(freshnessVerification?.age_ms) ? freshnessVerification.age_ms : null,
     max_age_ms: Number.isFinite(freshnessVerification?.max_age_ms) ? freshnessVerification.max_age_ms : null,
     future_skew_ms: Number.isFinite(freshnessVerification?.future_skew_ms) ? freshnessVerification.future_skew_ms : null,
     errors: Array.isArray(freshnessVerification?.errors) ? freshnessVerification.errors : ['freshness-verification-required']
+  };
+  const projectIdentityValid = projectIdentityVerification?.valid === true
+    && Array.isArray(projectIdentityVerification?.errors)
+    && projectIdentityVerification.errors.length === 0;
+  const projectIdentityEvidence = {
+    status: projectIdentityValid ? 'valid' : 'invalid', valid: projectIdentityValid,
+    project: projectIdentityVerification?.project ?? null,
+    canonical_hostname: projectIdentityVerification?.canonical_hostname ?? null,
+    deployment_hostname: projectIdentityVerification?.deployment_hostname ?? null,
+    alias_hostname: projectIdentityVerification?.alias_hostname ?? null,
+    errors: Array.isArray(projectIdentityVerification?.errors) ? projectIdentityVerification.errors : ['project-identity-verification-required']
   };
 
   const subjectVerification = { status: status(declaredDigest === digest, 'match', 'mismatch'), computed_sha256: digest, declared_sha256: typeof declaredDigest === 'string' ? declaredDigest : null };
@@ -74,8 +83,7 @@ export function buildEvidenceVerificationInput({ proofText, proof, attestationBu
     externalParameters: status(Boolean(invocationId), 'recognized', 'unrecognized')
   };
   const claimEvidence = {
-    status: status(claimVerified, 'valid', 'invalid'),
-    deployment_url: proof.deployment_url ?? null,
+    status: status(claimVerified, 'valid', 'invalid'), deployment_url: proof.deployment_url ?? null,
     verified_candidates: verifierRows.filter((row) => row?.ok === true).map((row) => row.resolvedUrl || row.candidate || null).filter(Boolean)
   };
 
@@ -86,33 +94,32 @@ export function buildEvidenceVerificationInput({ proofText, proof, attestationBu
     summary: claimVerified ? 'Cloudflare returned a deployment URL and the served identity verifier reported success.' : 'Cloudflare deployment evidence is incomplete or the served identity verifier did not report success.',
     sources: [{ repository: EXPECTED.sourceRepository, commit: proof.source_commit ?? null }],
     artifacts: [{ name: EXPECTED.artifactName, sha256: digest }], verification: verifierRows,
-    falsification_routes: ['Recompute the proof SHA-256 and compare it with the attestation subject.', 'Re-run gh attestation verify against the exact proof bytes and repository.', 'Recompute freshness from generated_at using the recorded maximum age and clock-skew bounds.', 'Fetch the recorded deployment URL and rerun the served identity verifier.'],
-    limits: ['Artifact and provenance acceptance does not prove scientific truth.', 'A deployment URL without successful served-identity verification is not deployment evidence.', 'Freshness proves only that a proof timestamp falls inside the configured acceptance window.'], peer_triggers: []
+    falsification_routes: ['Recompute the proof SHA-256 and compare it with the attestation subject.', 'Re-run gh attestation verify against the exact proof bytes and repository.', 'Recompute freshness from generated_at using the recorded maximum age and clock-skew bounds.', 'Re-run the Pages project identity validator against the exact proof and expected project.', 'Fetch the recorded deployment URL and rerun the served identity verifier.'],
+    limits: ['Artifact and provenance acceptance does not prove scientific truth.', 'A deployment URL without successful served-identity verification is not deployment evidence.', 'Project identity validates hostname membership, not account ownership or commit identity.', 'Freshness proves only that a proof timestamp falls inside the configured acceptance window.'], peer_triggers: []
   };
-
-  const policy = { schema_version: '1.1.0', enabled: true, allowed_builder_ids: [EXPECTED.builderId], allowed_source_repositories: [EXPECTED.sourceRepository], allowed_build_types: [EXPECTED.buildType], require_invocation_id: true, require_freshness: true };
+  const policy = { schema_version: '1.1.0', enabled: true, allowed_builder_ids: [EXPECTED.builderId], allowed_source_repositories: [EXPECTED.sourceRepository], allowed_build_types: [EXPECTED.buildType], require_invocation_id: true, require_freshness: true, require_project_identity: true };
 
   return {
-    schema_version: '2.2.0', artifactName: EXPECTED.artifactName, artifactText: proofText, envelope, attestation: statement, policy,
-    signatureVerification: normalizedSignature,
-    freshnessEvidence,
+    schema_version: '2.3.0', artifactName: EXPECTED.artifactName, artifactText: proofText, envelope, attestation: statement, policy,
+    signatureVerification: normalizedSignature, freshnessEvidence, projectIdentityEvidence,
     expected: { sourceRepository: EXPECTED.sourceRepository, sourceCommit: proof.source_commit ?? null, team: EXPECTED.team, queueItem: EXPECTED.queueItem },
     subjectVerification, signatureSubjectVerification, trustedBuilderPolicy, claimEvidence,
-    diagnostics: { signatureVerification: normalizedSignature, subjectVerification, signatureSubjectVerification, trustedBuilderPolicy, freshnessEvidence, claimEvidence },
-    limits: ['Subject digest matching is not signature verification.', 'A cryptographic verification report is accepted only when its reported subject digest matches the exact proof bytes.', 'Trusted workflow identity is a policy check, not proof that the deployment claim is true.', 'Freshness is a bounded timestamp check, not proof that the deployment remains available.', 'A verified signature authenticates provenance identity and artifact binding, not scientific truth or deployment availability.']
+    diagnostics: { signatureVerification: normalizedSignature, subjectVerification, signatureSubjectVerification, trustedBuilderPolicy, freshnessEvidence, projectIdentityEvidence, claimEvidence },
+    limits: ['Subject digest matching is not signature verification.', 'Project hostname identity is required but does not prove Cloudflare account ownership.', 'A cryptographic verification report is accepted only when its reported subject digest matches the exact proof bytes.', 'Trusted workflow identity is a policy check, not proof that the deployment claim is true.', 'Freshness is a bounded timestamp check, not proof that the deployment remains available.', 'A verified signature authenticates provenance identity and artifact binding, not scientific truth or deployment availability.']
   };
 }
 
 function main(argv = process.argv.slice(2)) {
-  const [proofPath = 'cloudflare-deployment-proof.json', attestationPath = 'cloudflare-deployment-proof.intoto.json', signaturePath = 'cloudflare-deployment-proof.signature-verification.json', freshnessPath = 'cloudflare-deployment-proof.freshness.json', outputPath = 'cloudflare-evidence-verification-input.json'] = argv;
+  const [proofPath = 'cloudflare-deployment-proof.json', attestationPath = 'cloudflare-deployment-proof.intoto.json', signaturePath = 'cloudflare-deployment-proof.signature-verification.json', freshnessPath = 'cloudflare-deployment-proof.freshness.json', projectIdentityPath = 'cloudflare-pages-project-identity.json', outputPath = 'cloudflare-evidence-verification-input.json'] = argv;
   const proofText = fs.readFileSync(proofPath, 'utf8');
   const proof = JSON.parse(proofText);
   const attestationBundle = JSON.parse(fs.readFileSync(attestationPath, 'utf8'));
   const signatureVerification = fs.existsSync(signaturePath) ? JSON.parse(fs.readFileSync(signaturePath, 'utf8')) : null;
   const freshnessVerification = fs.existsSync(freshnessPath) ? JSON.parse(fs.readFileSync(freshnessPath, 'utf8')) : null;
-  const result = buildEvidenceVerificationInput({ proofText, proof, attestationBundle, signatureVerification, freshnessVerification });
+  const projectIdentityVerification = fs.existsSync(projectIdentityPath) ? JSON.parse(fs.readFileSync(projectIdentityPath, 'utf8')) : null;
+  const result = buildEvidenceVerificationInput({ proofText, proof, attestationBundle, signatureVerification, freshnessVerification, projectIdentityVerification });
   fs.writeFileSync(outputPath, JSON.stringify(result, null, 2) + '\n');
-  process.stdout.write(JSON.stringify({ output: outputPath, signature: result.signatureVerification.status, freshness: result.freshnessEvidence.status, claim: result.claimEvidence.status }) + '\n');
+  process.stdout.write(JSON.stringify({ output: outputPath, signature: result.signatureVerification.status, freshness: result.freshnessEvidence.status, projectIdentity: result.projectIdentityEvidence.status, claim: result.claimEvidence.status }) + '\n');
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) main();
