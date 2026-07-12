@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-015",
+  "owner": "frontier_research",
+  "status": "completed",
+  "completed_at": "2026-07-12T15:49:00-04:00",
+  "action": "Add a two-copy external anchor strategy and adversarial tests for privileged deletion, filesystem replacement, and cross-device rename failure.",
+  "progress": {
+    "primary_sources": [
+      "https://theupdateframework.github.io/specification/latest/",
+      "https://nodejs.org/api/fs.html#fspromisesrenameoldpath-newpath"
+    ],
+    "finding": "Two replicas improve one-copy recovery but are not a quorum. Accept matching copies, expose a single survivor only as degraded with mandatory repair, and reject divergent copies without an external trusted anchor.",
+    "module": "tools/frontier-research/redundant-monotonic-state-store.mjs",
+    "test": "tools/frontier-research/redundant-monotonic-state-store.test.mjs",
+    "evidence": "operations/evidence/frontier-redundant-monotonic-state-2026-07-12.json",
+    "commits": [
+      "b60f846c338c9a0ac20e2f6a1d782244012ae801",
+      "510e2378b414c343d04b3411642e73cb27f37e5a",
+      "e917a4e4fad2069d172206707857b95b4451cfa5"
+    ],
+    "verification": "7 deterministic dependency-free Node tests passed in an isolated runtime against byte-identical source and test contents.",
+    "evidence_strength": "implementation_tested_locally"
+  },
+  "handoff": "R-016 should define an external authority resolver for divergent replicas, using a separately administered signed or hardware-backed anchor, and prove that neither local replica can unilaterally override the retained external sequence or digest.",
+  "limits": [
+    "No physical cross-device filesystem or power-loss test was performed.",
+    "Two local paths may share one compromise and failure domain.",
+    "Deletion or replacement of both replicas remains outside the trust boundary.",
+    "Replica agreement proves byte continuity only, not witness honesty or policy truth."
+  ]
+}
