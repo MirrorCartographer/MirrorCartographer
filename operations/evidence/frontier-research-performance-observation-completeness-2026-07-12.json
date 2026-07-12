@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-008",
+  "created_at": "2026-07-12T00:47:57-04:00",
+  "status": "implemented_and_deterministically_tested",
+  "primary_sources": [
+    {
+      "title": "W3C Performance Timeline",
+      "url": "https://www.w3.org/TR/performance-timeline/",
+      "status": "Candidate Recommendation Draft, 2025-05-21",
+      "relevance": "Defines PerformanceObserver callback options, droppedEntriesCount, bounded buffered delivery, and buffer-full behavior."
+    }
+  ],
+  "finding": "A performance trace that reports no problematic entries cannot support an absence claim unless observer support is established, at least one callback is delivered, and droppedEntriesCount is zero. Buffered observation is bounded rather than continuous.",
+  "design_implication": "Every R-005 through R-007 browser evidence packet should carry a separate observation-completeness classification: unsupported, unconfirmed, known_incomplete, or no_known_loss. A missing event is not evidence of smoothness when entries may have been dropped or no callback occurred.",
+  "artifact": {
+    "module": "tools/frontier-research/performance-observation-completeness.mjs",
+    "test": "tools/frontier-research/performance-observation-completeness.test.mjs",
+    "module_commit": "2c25ac543a18c7fe5478c10d13fb99dedcc168ba",
+    "test_commit": "c67683e361c3473c7111199e1b05d2976a4ede01"
+  },
+  "verification": {
+    "runtime": "Node.js built-in test runner",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "coverage": [
+      "unsupported entry types cannot support absence claims",
+      "reported dropped entries classify evidence as known incomplete",
+      "zero callbacks remain unconfirmed",
+      "one callback with zero drops permits only a bounded absence claim",
+      "accumulator stores counts without raw entry content",
+      "invalid counts are rejected"
+    ]
+  },
+  "privacy_boundary": "The artifact stores only support flags and aggregate counts. It does not serialize PerformanceEntry names, DOM targets, selectors, URLs, script locations, user-agent strings, private text, or health information.",
+  "evidence_strength": "Deterministic unit behavior verified with synthetic callback summaries; browser support and real buffer-loss behavior are not yet verified.",
+  "uncertainty": [
+    "User-agent implementations may differ while the specification remains draft-track.",
+    "A zero droppedEntriesCount means no loss was reported, not that every relevant real-world event was measured.",
+    "Buffered capture is limited by the defining metric specification and is not unbounded historical coverage."
+  ],
+  "falsification_route": "Integrate the classifier into a browser harness, intentionally overflow a supported performance-entry buffer or replay a Web Platform Test fixture, and compare callback droppedEntriesCount with the classifier. Reject the artifact if known drops are classified as complete, if zero callbacks permit an absence claim, or if browser callback semantics materially diverge from the current W3C specification."
+}
