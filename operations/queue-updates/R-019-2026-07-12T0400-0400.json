@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-019",
+  "owner": "frontier_research",
+  "status": "completed",
+  "priority_basis": "R-018 identified that observation coverage was not composed into the R-017 replay-acceptance boundary.",
+  "action": "Compose replay acceptance and Event Timing coverage into one fail-closed interpretation gate.",
+  "completed_at": "2026-07-12T04:00:00-04:00",
+  "specialists_used": [
+    "Primary Source Scout",
+    "Technical Synthesist",
+    "Experiment Designer",
+    "Tool Evaluator",
+    "Cross-Domain Translator",
+    "Falsification Planner"
+  ],
+  "progress": {
+    "primary_source": "https://www.w3.org/TR/event-timing/",
+    "finding": "Structural replay validity and observation coverage are independent; neither should authorize interpretation alone.",
+    "module": "tools/frontier-research/event-timing-interpretation-gate.mjs",
+    "test": "tools/frontier-research/event-timing-interpretation-gate.test.mjs",
+    "evidence": "operations/evidence/frontier-research-event-timing-interpretation-2026-07-12.json",
+    "commits": [
+      "3c52ea916d78814572fd6ef96c47d6bc37b346cc",
+      "c3e1a3eb0aae224c07142cdc725d0a9402f541d8",
+      "5382de43f94ed49af263c92a3a2bbf0c3be3f7b0"
+    ],
+    "verification": "6 deterministic Node tests passed; 0 failed"
+  },
+  "handoff": "Vercel Studio should invoke evaluateEventTimingInterpretation immediately before replay interpretation and reject partial coverage even when lower-level replay structure passes.",
+  "limits": [
+    "No deployed Vercel integration invokes the composite gate.",
+    "No physical iPhone Safari packet was evaluated.",
+    "The primary standard remains a Working Draft.",
+    "The current gate authorizes only the narrow zero-interaction absence interpretation; non-zero interaction interpretation remains unresolved.",
+    "Passing proves contract compatibility, not event delivery, responsiveness quality, replay completeness, visual divergence, or causality."
+  ],
+  "next_action": "Add same-navigation binding between the coverage packet and replay evidence, then collect physical Safari fixtures for early observer, late observer, buffered sub-threshold interaction, and live threshold-visible interaction."
+}
