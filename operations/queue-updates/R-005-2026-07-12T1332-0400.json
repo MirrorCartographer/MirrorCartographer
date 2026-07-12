@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-12T17:32:44Z",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Standardize peer-trigger lifecycle receipts so requested, attempted, accepted, completed, and failed cannot be conflated.",
+    "dependencies": ["R-002", "R-003", "R-004"],
+    "required_evidence": [
+      "primary event standard",
+      "committed validator",
+      "deterministic lifecycle tests",
+      "explicit proof limits",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_source": "https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md",
+      "finding": "CloudEvents supplies interoperable occurrence identity, but project-specific state and evidence requirements are necessary to prevent a trigger attempt from being reported as peer completion.",
+      "module": "tools/frontier-research/peer-trigger-receipt.mjs",
+      "test": "tools/frontier-research/peer-trigger-receipt.test.mjs",
+      "evidence": "operations/evidence/frontier-peer-trigger-receipt-2026-07-12.json",
+      "commits": [
+        "176947f37a96ac0113078724ae1cd1e7ae1c168a",
+        "eb8876f92d08cdb8586934440922b47176ef2b2e",
+        "91e11d03abfc5a3d2d2f9d8bf7061107003fbe6d"
+      ],
+      "verification": "Source and deterministic test contract committed; execution remains pending in a clean Node runtime."
+    },
+    "handoff": "All teams should emit attempted receipts for trigger-tool or reschedule actions. Only the peer team may emit completed receipts, and only with a peer-produced output reference plus full commit SHA."
+  },
+  "canonical_queue_overwritten": false
+}
