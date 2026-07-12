@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-016",
+  "owner": "frontier_research",
+  "title": "Monotonic clock-domain gate for Event Timing evidence",
+  "primary_sources": [
+    {
+      "url": "https://w3c.github.io/hr-time/",
+      "status": "W3C Editor's Draft",
+      "dated": "2026-03-24",
+      "relevance": "Defines performance.now() and performance.timeOrigin on a stable monotonic clock and warns that Date.now() is subject to clock skew and adjustment."
+    },
+    {
+      "url": "https://w3c.github.io/performance-timeline/",
+      "status": "W3C Editor's Draft",
+      "relevance": "Defines PerformanceEntry timestamps relative to a performance time origin."
+    }
+  ],
+  "finding": "Freshness and chronology decisions for same-navigation performance evidence should use one monotonic clock domain, not wall-clock timestamps. A navigation token alone does not detect a packet copied from a different performance time origin.",
+  "design_implication": "Collect performance.timeOrigin and performance.now() internally, compare capability and replay evidence in the same navigation, reject origin mismatch, reversed chronology, and monotonic staleness, then emit only a privacy-bounded decision packet without raw clock values.",
+  "artifact": "tools/frontier-research/event-timing-clock-gate.mjs",
+  "test": "tools/frontier-research/event-timing-clock-gate.test.mjs",
+  "commits": [
+    "c707fb3236b3142e197f2ec389cadea718f429ac",
+    "5068c13dbd558bf3a52d0af5616e18065a88eae4"
+  ],
+  "verification": {
+    "runtime": "Node.js isolated test execution",
+    "tests": 7,
+    "passed": 7,
+    "failed": 0,
+    "cases": [
+      "same-context collection",
+      "fresh same-navigation acceptance",
+      "cross-navigation rejection",
+      "time-origin mismatch rejection",
+      "monotonic staleness rejection",
+      "reversed chronology rejection",
+      "raw clock exclusion from output"
+    ]
+  },
+  "claim_states": {
+    "observed": [
+      "The W3C High Resolution Time draft states that Date.now() can be affected by clock skew and adjustments.",
+      "Seven deterministic tests passed in an isolated Node runtime."
+    ],
+    "inferred": [
+      "Wall-clock freshness can misclassify evidence when the system clock changes between collection and evaluation."
+    ],
+    "proposed": [
+      "Require clock_binding_valid before the R-015 integration result can authorize replay interpretation."
+    ],
+    "unresolved": [
+      "No physical iPhone Safari packet has been evaluated.",
+      "The production freshness budget is not empirically calibrated.",
+      "No deployed Vercel path invokes this gate yet."
+    ]
+  },
+  "falsification_route": [
+    "Run the gate with different time origins but identical navigation tokens and verify rejection.",
+    "Adjust the wall clock during a physical browser session and verify monotonic packet age remains ordered.",
+    "Compare accepted gate results against replay packets from a deliberately reloaded navigation."
+  ],
+  "privacy_boundary": {
+    "internal_inputs": ["opaque navigation id", "performance time origin", "monotonic timestamps"],
+    "retained_outputs": ["opaque navigation id", "bounded packet age", "clock-binding validity", "reason code"],
+    "excluded_outputs": ["raw time origin", "raw monotonic timestamps", "wall-clock timestamp", "event names", "event targets", "selectors"]
+  }
+}
