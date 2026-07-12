@@ -1,0 +1,94 @@
+name: Inspect Cloudflare research environment readiness
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'cloudflare-static/check-deployment-readiness.mjs'
+      - 'cloudflare-static/check-deployment-readiness.test.mjs'
+      - 'cloudflare-static/build-environment-setup-plan.mjs'
+      - 'cloudflare-static/build-environment-setup-plan.test.mjs'
+      - '.github/workflows/cloudflare-environment-readiness.yml'
+
+permissions:
+  contents: read
+
+env:
+  READINESS_ARTIFACT: cloudflare-deployment-readiness.json
+  SETUP_PLAN_ARTIFACT: cloudflare-environment-setup-plan.json
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    environment: cloudflare-research
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@v6
+
+      - name: Test readiness and setup-plan contracts
+        run: |
+          node --test cloudflare-static/check-deployment-readiness.test.mjs
+          node --test cloudflare-static/build-environment-setup-plan.test.mjs
+
+      - name: Classify environment without exposing secret values
+        id: readiness
+        continue-on-error: true
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node cloudflare-static/check-deployment-readiness.mjs "$READINESS_ARTIFACT"
+
+      - name: Build exact operator setup plan
+        if: always()
+        run: node cloudflare-static/build-environment-setup-plan.mjs "$READINESS_ARTIFACT" "$SETUP_PLAN_ARTIFACT"
+
+      - name: Assert privacy and epistemic boundaries
+        if: always()
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const readiness = JSON.parse(fs.readFileSync(process.env.READINESS_ARTIFACT, 'utf8'));
+          const plan = JSON.parse(fs.readFileSync(process.env.SETUP_PLAN_ARTIFACT, 'utf8'));
+          if (plan.privacy?.secret_values_emitted !== false) throw new Error('secret-values-must-never-be-emitted');
+          if (plan.acceptance?.deployment_proven !== false) throw new Error('readiness-must-not-claim-deployment-proof');
+          const allowed = new Set(['CLOUDFLARE_ACCOUNT_ID', 'CLOUDFLARE_API_TOKEN']);
+          for (const item of plan.required_secrets || []) {
+            if (!allowed.has(item.name)) throw new Error(`unexpected-secret-name:${item.name}`);
+            if (typeof item.configured !== 'boolean') throw new Error(`invalid-configured-state:${item.name}`);
+          }
+          process.stdout.write(`${JSON.stringify({ ready: readiness.ready, plan_ready: plan.ready, deployment_proven: plan.acceptance.deployment_proven })}\n`);
+          NODE
+
+      - name: Upload readiness evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-environment-readiness-${{ github.sha }}
+          path: |
+            cloudflare-deployment-readiness.json
+            cloudflare-environment-setup-plan.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish operator summary
+        if: always()
+        run: |
+          node --input-type=module - <<'NODE' >> "$GITHUB_STEP_SUMMARY"
+          import fs from 'node:fs';
+          const plan = JSON.parse(fs.readFileSync(process.env.SETUP_PLAN_ARTIFACT, 'utf8'));
+          console.log('## Cloudflare research environment readiness');
+          console.log(`- Configuration complete: \`${plan.acceptance.configuration_complete}\``);
+          console.log('- Deployment proven: `false`');
+          console.log(`- GitHub Environment: \`${plan.target.github_environment}\``);
+          console.log(`- Deployment workflow: \`${plan.target.workflow}\``);
+          console.log('- Secret values emitted: `false`');
+          console.log('### Next actions');
+          for (const action of plan.operator_actions) console.log(`- ${action}`);
+          NODE
+
+      - name: Fail only after preserving actionable evidence
+        if: steps.readiness.outcome != 'success'
+        run: |
+          echo 'Cloudflare environment configuration is incomplete; inspect the uploaded setup-plan artifact.'
+          exit 1
