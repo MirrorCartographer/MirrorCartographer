@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "continuity-owner-scoped-reconciliation-2026-07-12T1545-0400",
+  "recorded_at": "2026-07-12T15:45:03-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-003",
+  "artifact": "operations/continuity/owner-scoped-reconciliation-manifest-2026-07-12T1545-0400.json",
+  "artifact_commit": "25a3f9dd099af62278e16f4f348b49f0bf972af1",
+  "source_status": "public_repository_metadata_only",
+  "evidence_strength": "direct_repository_evidence",
+  "verification": {
+    "method": "GitHub contents and commit metadata",
+    "checks": [
+      "artifact commit exists",
+      "artifact parses as JSON",
+      "canonical ACTIVE_QUEUE blob is explicitly retained",
+      "CM-013 and M-002 source records are linked by path and commit",
+      "claim states include observed, inferred, proposed, superseded, and unresolved",
+      "privacy exclusions are explicit"
+    ]
+  },
+  "limits": [
+    "This evidence does not update peer-owned canonical queue entries.",
+    "This evidence does not prove deployment, runtime, test, or peer execution.",
+    "Referenced semantic relationships remain reviewable interpretations, not cryptographic truth."
+  ],
+  "falsification_route": "Reject the reconciliation if any referenced commit or path is missing, if the manifest cannot be parsed, if the canonical blob differs without a linked successor record, or if a later record shows CM-013 and M-002 concern different underlying discrepancies."
+}
