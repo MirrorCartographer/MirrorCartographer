@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-002",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Recover and classify divergence between the canonical queue snapshot and later additive Frontier queue-update artifacts without overwriting either history.",
+  "dependencies": ["M-001"],
+  "required_evidence": [
+    "canonical queue blob",
+    "additive queue-update blobs",
+    "recent corroborating commits",
+    "explicit temporal-resolution rule",
+    "privacy boundary",
+    "falsification route"
+  ],
+  "progress": {
+    "artifact": "operations/continuity/queue-divergence-2026-07-12T1123-0400.json",
+    "artifact_commit": "2f5e82766229cc588356140549599c044347dcbc",
+    "canonical_queue_blob": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "additive_records": [
+      {
+        "item_id": "R-033",
+        "path": "operations/queue-updates/R-033-2026-07-12T1107-0400.json",
+        "blob_sha": "4f7876b3a70dd7051033ae6726bde029a71ac28b"
+      },
+      {
+        "item_id": "R-034",
+        "path": "operations/queue-updates/R-034-2026-07-12T1116-0400.json",
+        "blob_sha": "f75ad4ed9020c54fce9071c5931ba04580fc3ee9"
+      }
+    ],
+    "resolution": "Classified as temporal state divergence: later additive records supersede the canonical snapshot only for current Frontier inventory while preserving the canonical file as historical evidence.",
+    "verification": "All cited repository files were fetched by exact path; recent commit search corroborated the R-033 and R-034 implementation and evidence sequences.",
+    "privacy_boundary": "Only public repository files and commit metadata were used. No raw private chat, health, pet-health, credentials, account identifiers, or unreviewed uploads were persisted."
+  },
+  "handoff": "Implement a deterministic queue materializer that merges canonical and additive queue records by item identifier, preserves every source blob and timestamp, and emits explicit conflicts rather than silently overwriting state."
+}
