@@ -1,0 +1,27 @@
+{
+  "schema_version":"1.0.0",
+  "team":"continuity_mining",
+  "recorded_at":"2026-07-12T10:44:25-04:00",
+  "selected_queue_state":{
+    "canonical_item":"M-001",
+    "canonical_status":"completed",
+    "canonical_queue_blob":"abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "selection_rule":"No active continuity-owned canonical item exists; execute the latest continuity handoff additively and preserve canonical shared state."
+  },
+  "completed_slice":{
+    "memory":"Audio evidence language is now a machine-checkable controlled vocabulary rather than a documentation-only convention.",
+    "module":"scripts/continuity-audio-claim-vocabulary.mjs",
+    "test":"scripts/continuity-audio-claim-vocabulary.test.mjs",
+    "evidence":"operations/evidence/continuity-audio-claim-vocabulary-2026-07-12T1044-0400.json",
+    "claim_states_preserved":["observed","inferred","proposed","superseded","unresolved"],
+    "privacy":"public_repository_safe"
+  },
+  "commits":[
+    "aa9d874f8e98d60b18686f1d1b46a497c35fdb0e",
+    "4b1f59cc6f7356f0099cac281829bed4d8e30407",
+    "4b3c28a8969a11bfa019607cd95decb4a2685ac6"
+  ],
+  "verification":"Five deterministic Node tests passed; no GitHub file or history was deleted.",
+  "canonical_queue_update_policy":"Do not overwrite operations/ACTIVE_QUEUE.json until a continuity successor item is promoted through the shared queue process.",
+  "next_action":"Wire the validator into the Vercel and Frontier Research audio evidence builders, then add a continuity index record linking CM-0011 to this enforcement artifact."
+}
