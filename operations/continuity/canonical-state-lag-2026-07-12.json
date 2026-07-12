@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-0009",
+  "kind": "contradiction_set",
+  "title": "Canonical queue state lags append-only team evidence",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "observed_at": "2026-07-12T00:57:20-04:00",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "role": "canonical queue snapshot"
+    },
+    {
+      "type": "github_commit",
+      "locator": "48adb28c3a20651369ada656a4401fcce5d5f64d",
+      "role": "R-008 append-only completion update"
+    },
+    {
+      "type": "github_commit",
+      "locator": "aa48f5a62f4c615a2da376e442f096c10576bda2",
+      "role": "C-001 append-only progress update"
+    },
+    {
+      "type": "github_commit",
+      "locator": "66ddceb08cb367f95f9c92d7010814c52f09a602",
+      "role": "M-002 append-only continuity update"
+    }
+  ],
+  "observed_claims": [
+    "The canonical ACTIVE_QUEUE snapshot records frontier work only through R-004.",
+    "Later repository commits preserve completed R-008 work and newer C-001 progress outside the canonical snapshot.",
+    "M-002 explicitly preserves the distinction between committed implementation and externally verified deployment."
+  ],
+  "inferred_claims": [
+    "A reader using only ACTIVE_QUEUE.json can undercount completed work and select already-addressed research gaps.",
+    "Append-only queue updates currently function as the fresher operational ledger, but no repository artifact defines a deterministic reconciliation rule."
+  ],
+  "proposed_claims": [
+    "Add a reconciliation artifact that computes effective queue state from the canonical snapshot plus ordered append-only updates.",
+    "Retain the canonical snapshot as historical input rather than rewriting or deleting it during reconciliation."
+  ],
+  "superseded_claims": [],
+  "unresolved_claims": [
+    "Which artifact is authoritative when the canonical queue and append-only updates disagree?",
+    "What ordering and conflict-resolution rule should apply when two teams update the same queue item concurrently?"
+  ],
+  "contradicts": [
+    {
+      "left": "ACTIVE_QUEUE.json appears complete as a canonical operational queue",
+      "right": "Newer append-only updates contain material state absent from that snapshot",
+      "resolution": "Treat this as temporal lag, not evidence that either historical artifact is false. Preserve both and require reconciliation before work selection."
+    }
+  ],
+  "privacy": {
+    "classification": "public_repository_safe",
+    "included": ["public repository paths", "blob and commit identifiers", "abstract operational claims"],
+    "excluded": ["raw private chat", "health or pet-health material", "credentials", "identifying personal data", "unreviewed uploads"]
+  },
+  "verification": "Fetched the canonical queue blob, specialist registry, trigger ledger, continuity index, recent commit list, and M-002 commit during this run.",
+  "falsification_or_review_route": "Re-read ACTIVE_QUEUE.json at blob abb807e1a25d399f301238f6b8cc26d6be10385f and inspect the cited later commits. Falsify the lag claim if the snapshot already contains equivalent R-008, newer C-001, and M-002 state, or if the cited commits do not contain those updates.",
+  "next_action": "Implement and test a deterministic effective-queue reconciler that reports conflicts without overwriting source artifacts."
+}
