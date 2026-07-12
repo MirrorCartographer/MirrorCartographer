@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "extension_id": "CM-0011",
+  "recorded_at": "2026-07-12T13:17:47-04:00",
+  "kind": "knowledge_graph_link",
+  "title": "Active team state and canonical queue authority are separate project facts",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/CURRENT_STATE.json",
+      "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+      "observation": "continuity_mining is active and tasked with recovering project history and updating the knowledge substrate"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observation": "M-001 is the only continuity_mining-owned item and is completed"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/continuity-queue-ownership-gap-2026-07-12T1304-0400.json",
+      "content_sha": "fcb8637f66ff699f958a61fbcd0832a484178369",
+      "observation": "CM-0010 records the absence of an active owned queue item without self-authorizing M-002"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/continuity-index.json",
+      "content_sha": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a",
+      "observation": "the base index ends at CM-0009 and therefore does not yet link the later queue-ownership-gap record"
+    }
+  ],
+  "observed": "The repository can simultaneously define a team as active and contain no active queue item owned by that team.",
+  "inferred": "Team lifecycle state describes organizational responsibility, while queue state grants bounded execution authority; neither should be substituted for the other.",
+  "proposed": "Future continuity tooling should model team_status and execution_authority as separate nodes joined by dated queue-assignment edges.",
+  "superseded": "The implicit assumption that active team status alone authorizes selecting new canonical work is superseded for this repository state.",
+  "unresolved": "No canonical owner or rule currently specifies who may add M-002 after the prior owned item is completed.",
+  "links": {
+    "extends": ["CM-0001", "CM-0009", "CM-0010"],
+    "contradicts": [],
+    "supersedes": ["active_team_implies_active_queue_authority"]
+  },
+  "privacy": {
+    "classification": "public_repository_safe",
+    "included": ["public repository paths", "blob SHAs", "abstract governance and queue semantics"],
+    "excluded": ["raw private chat", "health or pet-health material", "credentials", "account identifiers", "unreviewed uploads"]
+  },
+  "falsification_or_review_route": "Re-read all four cited blobs. Falsify the observed claim if ACTIVE_QUEUE.json at the cited SHA contains an active or queued continuity_mining item, or if CURRENT_STATE.json does not mark the team active. Resolve the unresolved claim only with a later canonical rule or queue assignment that identifies the authorizing owner.",
+  "implementation_boundary": "This additive graph extension does not modify ACTIVE_QUEUE.json, reopen M-001, create M-002, or claim peer execution."
+}
