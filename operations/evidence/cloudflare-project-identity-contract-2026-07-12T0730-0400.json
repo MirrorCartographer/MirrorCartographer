@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T07:30:00-04:00",
+  "claim_state": "observed",
+  "finding": "The Cloudflare Pages project identity is repeated across source configuration and deployment workflow inputs. A mismatch could direct deployment, metadata verification, or proof construction at different projects.",
+  "durable_improvement": {
+    "module": "cloudflare-static/validate-project-identity-contract.mjs",
+    "test": "cloudflare-static/validate-project-identity-contract.test.mjs",
+    "expected_project": "mirror-cartographer-research",
+    "expected_production_hostname": "mirror-cartographer-research.pages.dev",
+    "checks": [
+      "Wrangler project name equals the canonical project identity",
+      "all workflow project references equal the canonical project identity",
+      "workflow project identity is present and unambiguous",
+      "Pages output directory remains the committed static root"
+    ]
+  },
+  "verification": {
+    "method": "isolated Node test using byte-equivalent committed logic",
+    "result": "4 passed, 0 failed",
+    "cases": ["consistent identity accepted", "Wrangler drift rejected", "workflow drift rejected", "output-directory drift rejected"]
+  },
+  "evidence_strength": "source_contract_tested",
+  "limits": [
+    "No Cloudflare credentials were available to this run.",
+    "No deployment was attempted.",
+    "The expected pages.dev hostname is derived from the committed project name and is not proof that DNS currently resolves.",
+    "The validator does not prove project existence, credential authorization, deployment success, or scientific truth."
+  ],
+  "privacy": {
+    "secret_values_emitted": false,
+    "private_chat_emitted": false,
+    "health_material_emitted": false
+  },
+  "falsification_route": "Reject or revise the contract if Cloudflare returns a different canonical project identity for the deployed project, if the workflow can deploy a different project while the validator passes, or if the static output root legitimately changes."
+}
