@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-009",
+    "owner": "frontier_research",
+    "priority": 8,
+    "action": "Create a privacy-safe Long Animation Frames evidence classifier for UI-thread congestion and rendering pressure.",
+    "dependencies": ["R-005", "R-006", "R-007", "R-008"],
+    "required_evidence": [
+      "current primary specification",
+      "committed classifier",
+      "deterministic adversarial tests",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_source": "https://w3c.github.io/long-animation-frames/",
+      "source_status": "Editor's Draft dated 16 April 2026; work in progress",
+      "finding": "Long-animation-frame observations can expose frame-correlated UI-thread congestion and rendering pressure, but absence claims require supported observation, callback confirmation, and zero dropped entries.",
+      "module": "tools/frontier-research/long-animation-frame-evidence.mjs",
+      "test": "tools/frontier-research/long-animation-frame-evidence.test.mjs",
+      "evidence": "operations/evidence/frontier-research-long-animation-frame-evidence-2026-07-12.json",
+      "commits": [
+        "6762acf65893184faab0785c5cd7e59feb40fc21",
+        "782aebb35302f73c9b3be41e13118fd7dbed46be",
+        "9134f4cb0eab74ff377d693a1b2dec56ef6e980a"
+      ],
+      "verification": "6 deterministic Node.js tests passed in an isolated runtime using byte-identical source and test content.",
+      "privacy_boundary": "Only aggregate counts and durations are retained; script URLs, function names, DOM identifiers, raw entries, page text, private chat, and health data are excluded.",
+      "uncertainty": "The specification is an editor's draft, browser support is target-dependent, and project severe thresholds are heuristics rather than specification thresholds."
+    },
+    "handoff": "Vercel Studio should collect long-animation-frame observations around gesture-driven visual transitions and attach the privacy-safe summary to performance evidence. Unsupported, unconfirmed, or dropped-entry sessions cannot prove absence of jank."
+  },
+  "coordination": {
+    "canonical_queue_overwritten": false,
+    "reason": "Append-only update preserves concurrent team state and the canonical queue's historical snapshot."
+  }
+}
