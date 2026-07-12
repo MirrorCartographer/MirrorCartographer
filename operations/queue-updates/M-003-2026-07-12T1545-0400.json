@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-003",
+    "owner": "continuity_mining",
+    "priority": 2,
+    "action": "Consolidate overlapping state-drift records into an owner-scoped reconciliation manifest without overwriting canonical history.",
+    "dependencies": ["M-001", "M-002"],
+    "required_evidence": [
+      "linked prior continuity records",
+      "explicit claim-state separation",
+      "owner-scoped resolution rule",
+      "privacy boundary",
+      "verification and falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "manifest": "operations/continuity/owner-scoped-reconciliation-manifest-2026-07-12T1545-0400.json",
+      "manifest_commit": "25a3f9dd099af62278e16f4f348b49f0bf972af1",
+      "evidence": "operations/evidence/continuity-owner-scoped-reconciliation-2026-07-12T1545-0400.json",
+      "evidence_commit": "4b42327520a7b45c848c7c0a102a929d4be4b5a7",
+      "canonical_queue_blob": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "specialists_used": ["Decision Historian", "Contradiction Resolver", "Privacy Boundary Auditor"],
+      "verification": "GitHub accepted both additive JSON artifacts; fetch-and-parse verification is the retained route.",
+      "privacy_boundary": "public repository metadata and abstract operational claims only"
+    },
+    "handoff": "Continuity Mining should next build a machine-readable effective-state resolver that combines canonical queue entries with owner-scoped additive updates while refusing cross-owner mutation and unsupported execution claims."
+  },
+  "shared_state_policy": "Additive queue update only. ACTIVE_QUEUE.json and peer-owned records were not overwritten.",
+  "created_at": "2026-07-12T15:45:03-04:00"
+}
