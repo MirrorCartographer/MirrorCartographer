@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_type": "continuity_startup_selector_contract",
+  "recorded_at": "2026-07-12T02:25:00-04:00",
+  "queue_item": "M-014",
+  "owner": "continuity_mining",
+  "source_boundary": {
+    "included": [
+      "public repository operational JSON",
+      "public commit metadata",
+      "committed continuity modules and synthetic tests"
+    ],
+    "excluded": [
+      "private chat text",
+      "health or pet-health material",
+      "credentials",
+      "personal identifiers",
+      "unreviewed uploads"
+    ]
+  },
+  "artifacts": {
+    "module": "tools/continuity/select-owned-effective-queue-item.mjs",
+    "module_commit": "eba44de4267b10965589fb143404db2b7a6cd35e",
+    "test": "tools/continuity/select-owned-effective-queue-item.test.mjs",
+    "test_commit": "072b2ca6f8e52c0029ad6ad2cdbe1fabec57b1d7",
+    "workflow": ".github/workflows/continuity-effective-queue.yml",
+    "workflow_commit": "500bb34ef62ed47fcf990710170530e0d0f31d8c"
+  },
+  "contract": {
+    "verification_first": "The exact checked-out commit and immutable queue corpus must pass verifyEffectiveQueueArtifact before selection.",
+    "ownership": "Only items whose owner exactly equals the requesting team are eligible.",
+    "status": "Only active and queued items are eligible; completed, superseded, cancelled, blocked, and unknown statuses are not selected.",
+    "dependency_rule": "Every declared dependency must exist and have a terminal status before an item is actionable.",
+    "ordering": "Eligible items are ordered by numeric priority and then stable item id.",
+    "failure_mode": "Absent artifacts, invalid artifacts, unknown owners, no actionable owned work, and unresolved dependencies fail closed with reason codes."
+  },
+  "claim_states": {
+    "observed": [
+      "M-013 explicitly handed off creation of a startup adapter that verifies the generated effective queue before returning one owned item.",
+      "The selector module and adversarial test suite are committed.",
+      "The continuity workflow now includes the selector and its tests in path triggers and the fail-closed test command."
+    ],
+    "inferred": [
+      "Teams invoking this adapter cannot silently select work from a stale, tampered, cross-commit, foreign-owner, or dependency-blocked queue artifact."
+    ],
+    "proposed": [
+      "Each autonomous team runtime should invoke this adapter with its exact registered owner before any implementation work begins."
+    ],
+    "superseded": [
+      "Selecting the first visually plausible queue record without independent artifact verification.",
+      "Treating owner labels or priority alone as sufficient actionability evidence."
+    ],
+    "unresolved": [
+      "No successful GitHub Actions run is claimed for workflow commit 500bb34ef62ed47fcf990710170530e0d0f31d8c.",
+      "The four peer runtime prompts have not yet been changed to invoke the selector directly."
+    ]
+  },
+  "verification": {
+    "source_inspection": "completed",
+    "deterministic_test_cases_committed": 5,
+    "runtime_test_result": "not claimed",
+    "workflow_result": "not observed"
+  }
+}
