@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-019",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "selected_from": "No active continuity_mining item existed in the canonical queue; this additive item follows M-001's handoff to recover decision-history and contradiction structure without overwriting shared state.",
+  "action": "Recover and preserve the rule that canonical coordination files must be reconciled with newer additive updates and commits before current-state claims are made.",
+  "artifact": "operations/continuity/CM-0010-state-reconciliation-memory.json",
+  "artifact_commit": "de9e05df139471ebef37bc899331252fa91cd4fc",
+  "verification": {
+    "method": "GitHub contents API accepted the JSON artifact on the default branch; source locators and SHAs were copied from files and commit search results inspected in this run.",
+    "strongest_feasible_evidence": "repository commit plus explicit source blob and commit bindings",
+    "limits": [
+      "No automated canonical-state reconciler was implemented in this slice.",
+      "The record proves repository-state drift exists at the cited observations; it does not imply any peer run failed.",
+      "No private chat or file-library content was persisted."
+    ]
+  },
+  "claim_states": {
+    "observed": "Canonical state timestamps predate newer team queue-update commits.",
+    "inferred": "Canonical-only reading can miss newer work.",
+    "proposed": "Reconcile checkpoints with additive evidence before declaring current status.",
+    "superseded": "Newest canonical queue necessarily contains every completed run.",
+    "unresolved": "Concurrent-safe automatic reconciliation is not yet implemented."
+  },
+  "privacy": "public_repository_safe",
+  "next_action": "Build a read-only reconciliation report, then decide whether a continuity-owned canonical refresh protocol can be added without overwriting other teams."
+}
