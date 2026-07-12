@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "created_at": "2026-07-12T15:37:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://nodejs.org/api/fs.html",
+      "status": "official_current_documentation",
+      "relevance": "Documents FileHandle.sync and fsPromises.rename primitives used by the adapter."
+    },
+    {
+      "url": "https://pubs.opengroup.org/onlinepubs/9799919799/functions/rename.html",
+      "status": "primary_standard",
+      "relevance": "Defines rename replacement behavior used as the commit point on a single filesystem."
+    }
+  ],
+  "finding": "A retained rollback anchor needs a fail-closed storage boundary: write a uniquely created temporary file, fsync its complete bytes, atomically rename it over the target, fsync the containing directory, and reject missing, corrupt, or digest-invalid records rather than silently regenerating genesis state.",
+  "design_implication": "The monotonic witness client can now distinguish explicit first-run authorization from anchor loss, while interruption before rename preserves the old complete state and interruption after rename exposes the new complete state.",
+  "artifacts": {
+    "module": "tools/frontier-research/atomic-monotonic-state-store.mjs",
+    "test": "tools/frontier-research/atomic-monotonic-state-store.test.mjs"
+  },
+  "verification": {
+    "method": "dependency-free Node test runner against byte-identical pre-commit source",
+    "result": "6 tests passed",
+    "covered": [
+      "exact state round-trip",
+      "failure before rename preserves old anchor",
+      "failure after rename exposes complete new anchor",
+      "corrupt JSON rejected",
+      "missing anchor rejected unless explicitly authorized",
+      "parseable digest tampering rejected"
+    ],
+    "evidence_strength": "implementation_tested_locally"
+  },
+  "falsification_route": "Fail the contract if an interrupted write yields partial accepted JSON, if a pre-rename failure changes the accepted anchor, if missing or corrupt storage silently returns genesis, or if a modified state with an invalid digest loads successfully.",
+  "uncertainty": [
+    "Directory fsync and rename durability semantics vary across filesystems and operating systems.",
+    "The test injects process-level failures around operations; it does not simulate sudden power loss or storage-controller reordering.",
+    "An attacker able to delete both the anchor and the explicit first-run authorization boundary can still reopen rollback risk."
+  ],
+  "trust_limit": "Atomic persistence protects local state continuity under the tested filesystem contract; it does not prove witness honesty, policy truth, hardware integrity, or resistance to privileged local attackers."
+}
