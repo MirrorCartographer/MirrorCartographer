@@ -33,7 +33,7 @@ assert.deepEqual(validateInheritedUnresolved([predecessor, preservingSuccessor])
   violations: [],
 });
 
-assert.deepEqual(validateInheritedUnresolved([predecessor, resolvingSuccessor]), {
+assert.deepEqual(validateInheritedUnresolved([predecessor, preservingSuccessor, resolvingSuccessor]), {
   valid: true,
   violations: [],
 });
