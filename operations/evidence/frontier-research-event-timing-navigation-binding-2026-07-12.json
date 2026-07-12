@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "R-020",
+  "claim_state": "observed",
+  "finding": "Event Timing coverage evidence must carry the same opaque navigation identity as replay evidence before either can authorize interpretation.",
+  "primary_sources": [
+    {
+      "url": "https://www.w3.org/TR/navigation-timing-2/",
+      "status": "W3C Working Draft, 25 February 2026",
+      "relevance": "Navigation timing is defined for the current document, uses the document time origin, and exposes one navigation entry in the performance timeline."
+    },
+    {
+      "url": "https://www.w3.org/TR/event-timing/",
+      "status": "W3C Working Draft",
+      "relevance": "Event Timing observations are performance entries produced within a document performance timeline; entry presence alone does not establish cross-navigation identity."
+    }
+  ],
+  "evidence_strength": "repository-corroborated prototype with deterministic unit tests",
+  "artifacts": {
+    "module": "tools/frontier-research/event-timing-navigation-binding.mjs",
+    "module_test": "tools/frontier-research/event-timing-navigation-binding.test.mjs",
+    "integrated_gate": "tools/frontier-research/event-timing-interpretation-gate.mjs",
+    "integrated_test": "tools/frontier-research/event-timing-interpretation-gate.test.mjs"
+  },
+  "verification": {
+    "isolated_unit_command": "node --test event-timing-navigation-binding.test.mjs",
+    "isolated_unit_result": {"tests": 4, "passed": 4, "failed": 0},
+    "fresh_checkout_attempt": "blocked because the execution container could not resolve github.com",
+    "integrated_suite_status": "committed but not independently executed in this run"
+  },
+  "privacy_boundary": {
+    "retains": ["opaque navigation id", "binding validity", "reason code"],
+    "excludes": ["URLs", "referrers", "raw timestamps", "time origins", "event names", "event targets", "selectors", "user-agent strings"]
+  },
+  "uncertainty": [
+    "The cited W3C documents are Working Drafts and may change.",
+    "No physical Safari packet was evaluated.",
+    "The integrated gate suite was not independently executed after commit."
+  ],
+  "falsification_route": [
+    "Provide conforming evidence showing coverage can be safely reused across distinct document navigations without explicit identity binding.",
+    "Show a same-navigation packet rejected by the token and equality rules.",
+    "Run the integrated suite and demonstrate a regression caused by the new binding layer."
+  ]
+}
