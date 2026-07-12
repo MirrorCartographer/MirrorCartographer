@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-008",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "updated_at": "2026-07-12T01:36:56-04:00",
+  "action": "Preserve the distinction between the canonical queue snapshot and the append-only queue evolution log so continuity work is selected without duplication.",
+  "dependencies": ["M-007"],
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "artifacts": {
+    "memory": "operations/continuity/effective-queue-memory-2026-07-12T0136-0400.json",
+    "commit": "65a3415bb5552488253d48d2685cdf713abc98ea"
+  },
+  "claims": {
+    "observed": [
+      "ACTIVE_QUEUE.json ends continuity history at completed M-001.",
+      "A later append-only record marks M-007 completed and depends on M-006.",
+      "The repository contains a queue-update corpus discovery gate."
+    ],
+    "inferred": [
+      "The canonical queue and append-only update corpus are complementary temporal authorities rather than contradictory replacements."
+    ],
+    "proposed": [
+      "Generate a commit-bound effective-queue report from the canonical snapshot plus the complete validated update corpus."
+    ],
+    "superseded": [
+      "Selecting the next continuity task from ACTIVE_QUEUE.json alone."
+    ],
+    "unresolved": [
+      "CI integration and live-corpus count agreement remain unverified."
+    ]
+  },
+  "verification": "The committed JSON artifact was fetched after creation and its evidence locators, claim-state partitions, contradiction resolution, privacy boundary, and falsification route were inspected.",
+  "privacy_boundary": "Public repository metadata and abstracted operational history only; private chat, health material, credentials, identifying personal data, and unreviewed uploads excluded.",
+  "handoff": "Continuity Mining should next wire the corpus discovery report into a commit-bound effective-queue CI gate and require independent discovered-file-count agreement before reconciliation."
+}
