@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "artifact": "queue promotion reconciliation gate",
+  "created_at": "2026-07-12T07:40:00-04:00",
+  "sources": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "tools/continuity-mining/handoff-promotion-validator.mjs",
+    "tools/continuity-mining/handoff-promotion-validator.test.mjs"
+  ],
+  "observed": [
+    "M-001 is terminal and contains a successor handoff.",
+    "The existing handoff validator validates one promotion record but does not reconcile it with ACTIVE_QUEUE.json.",
+    "The canonical queue currently contains no M-002 successor item."
+  ],
+  "inferred": [
+    "Without queue reconciliation, a structurally valid authorization record and canonical executable work can diverge.",
+    "Queue identity, owner, action, priority, evidence requirements, source status, and source blob must be checked together."
+  ],
+  "proposed": [
+    "Run validateQueuePromotionGate before accepting handoff-derived work as queued, active, or verified."
+  ],
+  "superseded": [
+    "Treating validation of an isolated promotion record as sufficient proof that canonical queue state matches it."
+  ],
+  "unresolved": [
+    "The gate is not yet wired into repository-wide CI or queue update tooling.",
+    "No owner-authorized M-002 promotion record has been committed."
+  ],
+  "implementation": {
+    "module": "tools/continuity-mining/queue-promotion-gate.mjs",
+    "test": "tools/continuity-mining/queue-promotion-gate.test.mjs",
+    "module_commit": "8d5a39d15683c11813f5b28d40f17b8e680822f5",
+    "test_commit": "c4d7571bb3267e6a383beac2c4ad9f0bbd93aa70"
+  },
+  "verification": {
+    "command": "node --test tools/continuity-mining/queue-promotion-gate.test.mjs",
+    "result": "4 passed, 0 failed",
+    "method": "isolated Node runtime using byte-identical committed module and test contents"
+  },
+  "privacy_boundary": {
+    "classification": "public_repository_safe",
+    "included": ["public repository state", "governance abstractions", "commit identifiers", "deterministic test outcomes"],
+    "excluded": ["private chat text", "health material", "credentials", "personal identifiers", "unreviewed uploads"]
+  }
+}
