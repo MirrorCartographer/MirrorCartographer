@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T13:09:00-04:00",
+  "claim_state": "implemented_source_unverified_ci",
+  "finding": "The deployment workflow's contract-test block did not execute materialize-missing-deployment-evidence.test.mjs even though blocked-path materialization is required by atomic evidence finalization.",
+  "improvement": "Added a dedicated source-change workflow that runs blocked-path materialization and atomic finalization tests and asserts the finalizer and deployment workflow remain wired.",
+  "source_commit": "7e5d8cfa0d125d687e2112617e43d23dc9c83530",
+  "files": [
+    ".github/workflows/cloudflare-evidence-contracts.yml"
+  ],
+  "verification": {
+    "source_commit_fetched": true,
+    "workflow_run_observed": false,
+    "workflow_runs_for_commit": 0,
+    "strongest_supported_claim": "The workflow definition is committed on the default branch; no GitHub Actions execution was available when inspected."
+  },
+  "privacy_boundary": "Contains repository paths, commit identity, and test-contract state only; no secrets, private chat, health material, or user-identifying content.",
+  "limits": [
+    "Does not establish valid Cloudflare credentials.",
+    "Does not prove a resolving Cloudflare Pages hostname.",
+    "Does not prove the tests pass in GitHub Actions until a run is observed.",
+    "Does not establish scientific or medical truth."
+  ],
+  "falsification_route": "A future source change to blocked-path materialization or finalization that does not trigger this workflow, a failing workflow run, or removal of either wiring assertion falsifies the claimed gate coverage."
+}
