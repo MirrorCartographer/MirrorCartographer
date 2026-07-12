@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "recorded_at": "2026-07-11T20:52:00-04:00",
+  "finding": "Browser render progress and browser output routing are separate evidence axes. Neither browser-confirmed routing nor render advance proves physical speaker emission or listener perception.",
+  "implementation": {
+    "repository": "MirrorCartographer/mirror-cartographer-ui",
+    "runtime": "src/engine/audioRoutingEvidenceRuntime.js",
+    "test": "scripts/audio-routing-evidence-contract-check.mjs",
+    "entrypoint": "src/main.jsx",
+    "gate": "package.json#test:audio-routing",
+    "commits": [
+      "dcc61babdd91c5c2e32d503835057913d2da25fa",
+      "e4c29201ead613ca5ff2b38101a0e4b088b44f96",
+      "b1bcc768297b8ff63de9b61644f7fb451b168412",
+      "c18e3b5d92723903efcf577d6fabab38ee2522bb",
+      "b627c11b4124a39e4979ce52d45039f33991a2d4"
+    ]
+  },
+  "runtime_surface": {
+    "global": "window.__MC_AUDIO_ROUTING__",
+    "dom": "document.documentElement.dataset.audioRouting",
+    "states": ["unsupported", "policy-blocked", "default-or-undisclosed", "selected-unverified", "selected-confirmed"],
+    "hard_limit": "physicalOutputProven is always false because browser APIs cannot establish acoustic emission or listener perception"
+  },
+  "verification": {
+    "method": "isolated Node execution of byte-equivalent classifier assertions",
+    "assertions": 5,
+    "result": "passed",
+    "deployment_status": "failed",
+    "deployment_reason": "Vercel build-rate-limit status on commit b627c11b4124a39e4979ce52d45039f33991a2d4"
+  },
+  "privacy": "No private chat, health data, credentials, device identifiers, payment logic, or conversion logic were added.",
+  "rollback": [
+    "b627c11b4124a39e4979ce52d45039f33991a2d4",
+    "c18e3b5d92723903efcf577d6fabab38ee2522bb",
+    "b1bcc768297b8ff63de9b61644f7fb451b168412",
+    "e4c29201ead613ca5ff2b38101a0e4b088b44f96",
+    "dcc61babdd91c5c2e32d503835057913d2da25fa"
+  ]
+}
