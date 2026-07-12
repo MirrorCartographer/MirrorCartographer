@@ -8,9 +8,11 @@ on:
       - 'tools/continuity/effective-queue-gate.mjs'
       - 'tools/continuity/discover-effective-queue.mjs'
       - 'tools/continuity/verify-effective-queue-artifact.mjs'
+      - 'tools/continuity/select-owned-effective-queue-item.mjs'
       - 'tools/continuity/effective-queue-gate.test.mjs'
       - 'tools/continuity/discover-effective-queue.test.mjs'
       - 'tools/continuity/verify-effective-queue-artifact.test.mjs'
+      - 'tools/continuity/select-owned-effective-queue-item.test.mjs'
       - '.github/workflows/continuity-effective-queue.yml'
   pull_request:
     paths:
@@ -19,9 +21,11 @@ on:
       - 'tools/continuity/effective-queue-gate.mjs'
       - 'tools/continuity/discover-effective-queue.mjs'
       - 'tools/continuity/verify-effective-queue-artifact.mjs'
+      - 'tools/continuity/select-owned-effective-queue-item.mjs'
       - 'tools/continuity/effective-queue-gate.test.mjs'
       - 'tools/continuity/discover-effective-queue.test.mjs'
       - 'tools/continuity/verify-effective-queue-artifact.test.mjs'
+      - 'tools/continuity/select-owned-effective-queue-item.test.mjs'
       - '.github/workflows/continuity-effective-queue.yml'
   workflow_dispatch:
 
@@ -51,7 +55,7 @@ jobs:
           git diff --exit-code
 
       - name: Run fail-closed continuity tests
-        run: node --test tools/continuity/effective-queue-gate.test.mjs tools/continuity/discover-effective-queue.test.mjs tools/continuity/verify-effective-queue-artifact.test.mjs
+        run: node --test tools/continuity/effective-queue-gate.test.mjs tools/continuity/discover-effective-queue.test.mjs tools/continuity/verify-effective-queue-artifact.test.mjs tools/continuity/select-owned-effective-queue-item.test.mjs
 
       - name: Discover immutable corpus and reconcile
         shell: bash
