@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-003",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "action": "Recover and preserve the temporal relationship between canonical queue snapshots and append-only team updates.",
+  "status": "completed",
+  "created_from_handoff": "M-002 preserved surface boundaries; the next non-duplicative continuity gap was the stale-snapshot versus later-event-log interpretation visible across team outputs.",
+  "completed_at": "2026-07-12T00:29:26Z",
+  "source_commits": [
+    "32eb0bb4b9e04dd546a20e70f5bc381e081f3726",
+    "d77d47528612cbe46e6d999aa4fde83d5ffd1df4"
+  ],
+  "evidence_paths": [
+    "operations/continuity/snapshot-vs-event-log-decision-2026-07-11.json",
+    "operations/evidence/continuity-snapshot-event-log-2026-07-11T2029-0400.json"
+  ],
+  "result": {
+    "records": 1,
+    "observed_claims": 2,
+    "inferred_claims": 1,
+    "proposed_claims": 1,
+    "unresolved_claims": 1,
+    "contradictions_resolved": 1,
+    "superseded_claims": 0
+  },
+  "privacy_boundary": "Only public repository files, public commit metadata, and public queue-update records were used.",
+  "next_action": "Build a deterministic current-view manifest that records snapshot identity, replayed update identities, ordering rules, and resulting states while preserving every source artifact unchanged."
+}
