@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "created_at": "2026-07-12T03:40:00-04:00",
+  "specialists": [
+    "Cloudflare Deployment Engineer",
+    "Provenance Engineer",
+    "Evidence Auditor"
+  ],
+  "change": {
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "commit": "dd561a1e1471fac528f524e4865cd45d44ba4339",
+    "verifier": "cloudflare-static/verify-cloudflare-deployment-metadata.mjs",
+    "test": "cloudflare-static/verify-cloudflare-deployment-metadata.test.mjs",
+    "artifact": "cloudflare-deployment-metadata.json"
+  },
+  "observed": [
+    "The production workflow now runs the deployment metadata verifier after a successful Wrangler deployment.",
+    "The contract test is now included in the production workflow test stage.",
+    "The metadata artifact is included in the uploaded evidence bundle.",
+    "The run summary now reports the exact project, commit, URL, and successful deploy-stage binding requirement."
+  ],
+  "inferred": [
+    "A deployment whose Cloudflare control-plane record does not match the workflow commit and Wrangler URL will fail before served-identity verification completes."
+  ],
+  "proposed": [
+    "Include the metadata artifact digest in the signed evidence acceptance input so control-plane binding becomes part of final acceptance rather than an upstream workflow gate only."
+  ],
+  "superseded": [
+    "Treating the committed metadata verifier and its standalone CI contract as sufficient production integration."
+  ],
+  "unresolved": [
+    "Cloudflare credentials remain external configuration.",
+    "No credentialed deployment or resolving hostname was observed in this run.",
+    "No GitHub Actions execution result for commit dd561a1e1471fac528f524e4865cd45d44ba4339 was observed."
+  ],
+  "privacy_boundary": {
+    "included": ["public repository paths", "commit identity", "abstract verification states"],
+    "excluded": ["credential values", "account identifiers", "authorization headers", "private chat", "health material"]
+  },
+  "verification": {
+    "source_write": "GitHub contents API returned commit dd561a1e1471fac528f524e4865cd45d44ba4339",
+    "runtime": "not observed",
+    "deployment": "not observed"
+  },
+  "falsification_route": [
+    "Dispatch the production workflow with valid environment credentials.",
+    "Demonstrate that a mismatched commit, URL, project, unsuccessful stage, or duplicate exact match prevents workflow success.",
+    "Confirm cloudflare-deployment-metadata.json is present in the uploaded artifact bundle."
+  ]
+}
