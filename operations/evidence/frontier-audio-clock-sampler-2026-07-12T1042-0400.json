@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-12T10:42:00-04:00",
+  "source_status": "primary_specification",
+  "primary_sources": [
+    "https://www.w3.org/TR/webaudio-1.1/",
+    "https://webaudio.github.io/web-audio-api/#dom-audiocontext-getoutputtimestamp"
+  ],
+  "finding": "Clock acquisition integrity must be represented separately from clock evaluation. Unsupported or malformed getOutputTimestamp data must not be normalized into valid zero-valued evidence.",
+  "design_implication": "Capture raw browser timestamps and latency fields with explicit availability states, then invoke downstream evaluators only when acquisition is complete.",
+  "artifact": "tools/frontier-research/audio-clock-sampler.mjs",
+  "test": "tools/frontier-research/audio-clock-sampler.test.mjs",
+  "verification": {
+    "command": "node --test /tmp/audio-clock-sampler.test.mjs",
+    "passed": 6,
+    "failed": 0,
+    "environment": "isolated Node runtime using byte-identical implementation and tests before commit"
+  },
+  "evidence_strength": "implemented_and_unit_tested_not_browser_deployed",
+  "uncertainty": [
+    "No physical iPhone Safari execution was available in this run.",
+    "Specification conformance does not establish support in every browser version.",
+    "Clock consistency does not prove acoustic output or human audibility."
+  ],
+  "falsification_route": [
+    "Run the sampler in the exact deployed browser session.",
+    "Compare explicit acquisition states across Safari and Chromium.",
+    "Reject the evidence packet when timestamp acquisition is incomplete or downstream classification is not consistent.",
+    "Pair accepted clock evidence with device-level or human audibility evidence before claiming audible output."
+  ]
+}
