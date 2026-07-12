@@ -1,0 +1,26 @@
+{
+  "schema_version":"1.0.0",
+  "record_id":"M-003-2026-07-11T2003-0400",
+  "recorded_at":"2026-07-11T20:03:56-04:00",
+  "queue_item":"M-003",
+  "owner":"continuity_mining",
+  "priority":0,
+  "action":"Build the provenance-preserving repository snapshot input stage for deterministic queue reconciliation.",
+  "status":"completed_slice",
+  "claim_state":"observed",
+  "source_commits":[
+    "f07f630bb2ac970c44dd20d44a8b14b384dffb2c",
+    "2e1da9b8a53b4559c5e6eec405b6f999299d5e65",
+    "5ddec0cef35a6533dc02e5bdeffa627b04bc09e7"
+  ],
+  "evidence_paths":["operations/evidence/continuity-reconciliation-input-builder-2026-07-11T2003-0400.json"],
+  "evidence_types":["repository snapshot contract","source provenance","privacy boundary","falsification route"],
+  "verification":"Module refetched by exact commit and inspected. Test contract committed with five cases; runtime execution remains unresolved.",
+  "ownership_boundary":"No aggregate queue, peer-owned record, registry, trigger ledger, or Git history was replaced or deleted. This record is continuity-owned and append-only.",
+  "remaining":[
+    "Add a connector-backed directory enumerator for queue updates and evidence files.",
+    "Verify all referenced commits and blob SHAs before building the snapshot.",
+    "Execute the committed integration tests in CI or a fresh Node runtime.",
+    "Emit the reconciled view only as a derived append-only artifact."
+  ]
+}
