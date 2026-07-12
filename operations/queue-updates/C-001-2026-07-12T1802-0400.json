@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T18:02:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added and wired a machine-readable audit that inventories every third-party GitHub Action reference across the Cloudflare deployment and security-gate workflows, distinguishes exact commit pins from mutable refs, and uploads the result with the security evidence packet.",
+  "progress": {
+    "module": "cloudflare-static/audit-action-references.mjs",
+    "test": "cloudflare-static/audit-action-references.test.mjs",
+    "workflow": ".github/workflows/cloudflare-deployment-security-gate.yml",
+    "evidence": "operations/evidence/cloudflare-action-reference-audit-2026-07-12T1802-0400.json",
+    "commits": [
+      "4e826699ad2e9c3c43537778f7c8e364c0846b74",
+      "bd85237f747ea616c8ea64b114a18779073e8607",
+      "ad47696ac3c1a9e8094fe4a86cff9eef4a2ff37a",
+      "16837492a1ca0965fd1abe34322e153de43648d5"
+    ],
+    "verification": "5 deterministic Node tests passed; committed module fetched at blob 46033db86e58850765a20af9319d6cd615ac3d0b; six mutable remote Action references identified."
+  },
+  "remaining": [
+    "Resolve each intended upstream major tag to an exact reviewed 40-character commit SHA and replace the six mutable references.",
+    "Inspect the first hosted security-gate artifact and verify that the action-reference audit is present and matches committed source.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Dispatch the deployment workflow and prove canonical hostname, exact deployed commit, served research identity, proof freshness, signature verification, and final evidence acceptance."
+  ],
+  "blocker": "Cloudflare credentials and hosted deployment evidence remain unavailable; action tag resolution and upstream commit review remain incomplete.",
+  "non_overwrite_note": "This append-only queue update records only cloudflare_research-owned C-001 progress and does not replace ACTIVE_QUEUE.json or another team's state."
+}
