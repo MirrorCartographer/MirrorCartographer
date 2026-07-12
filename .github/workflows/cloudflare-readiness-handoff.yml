@@ -1,0 +1,45 @@
+name: Cloudflare deployment readiness handoff
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'cloudflare-static/cloudflare-environment-contract.mjs'
+      - 'cloudflare-static/cloudflare-environment-contract.test.mjs'
+      - 'cloudflare-static/build-environment-handoff.mjs'
+      - 'cloudflare-static/build-environment-handoff.test.mjs'
+      - '.github/workflows/cloudflare-readiness-handoff.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-and-publish-handoff:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout immutable source
+        uses: actions/checkout@v6
+      - name: Verify environment and handoff contracts
+        run: |
+          node --test cloudflare-static/cloudflare-environment-contract.test.mjs
+          node --test cloudflare-static/build-environment-handoff.test.mjs
+      - name: Build privacy-safe operator handoff
+        run: node cloudflare-static/build-environment-handoff.mjs cloudflare-environment-handoff.json
+      - name: Upload handoff artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-environment-handoff-${{ github.sha }}
+          path: cloudflare-environment-handoff.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Publish evidence boundary
+        run: |
+          {
+            echo '## Cloudflare deployment handoff'
+            echo "- Source commit: \`${GITHUB_SHA}\`"
+            echo '- Queue item: `C-001`'
+            echo '- Artifact: `cloudflare-environment-handoff.json`'
+            echo '- Contains secret names and configuration status fields only; never credential values.'
+            echo '- This workflow does not deploy and does not prove a resolving Cloudflare URL.'
+          } >> "$GITHUB_STEP_SUMMARY"
