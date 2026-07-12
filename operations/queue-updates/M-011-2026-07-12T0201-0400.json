@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-011",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "updated_at": "2026-07-12T02:01:00-04:00",
+  "action": "Implement repository-native queue-update corpus discovery at one immutable commit and bind every discovered record to its blob identity before reconciliation.",
+  "dependencies": ["M-010"],
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "artifacts": {
+    "module": "tools/continuity/discover-effective-queue.mjs",
+    "module_commit": "35b46a5901c11ae4f555585953b0f2f7cad4167a",
+    "test": "tools/continuity/discover-effective-queue.test.mjs",
+    "test_commit": "f2bad52f814230e13b19f0ace11a40f4d36934a2",
+    "evidence": "operations/evidence/continuity-queue-corpus-discovery-2026-07-12T0201-0400.json",
+    "evidence_commit": "c7f53505db8b302ceb923d82a462286cff0b3aac"
+  },
+  "claims": {
+    "observed": [
+      "M-010's gate still accepted a caller-supplied discovery list and parsed record set.",
+      "The new runner enumerates committed queue records with git ls-tree and retrieves both bytes and blob identities from the same resolved commit."
+    ],
+    "inferred": [
+      "One-commit repository discovery prevents uncommitted, later, or selectively omitted records from silently changing historical queue authority."
+    ],
+    "proposed": [
+      "Wire the discovery runner and effective queue gate into CI and autonomous team startup."
+    ],
+    "superseded": [
+      "Treating a caller-provided update path list as independent corpus discovery.",
+      "Mixing working-tree state with historical queue reconciliation."
+    ],
+    "unresolved": [
+      "CI and autonomous startup wiring remain incomplete.",
+      "The full production corpus was not executed because this run had no checked-out repository surface."
+    ]
+  },
+  "verification": "Three deterministic Node tests passed with zero failures in isolated temporary git repositories, covering complete committed discovery, exclusion of uncommitted files, and historical stability across later commits.",
+  "privacy_boundary": "Public repository metadata, commit/blob identities, abstract operational state, and synthetic fixtures only; private chat, health material, credentials, personal identifiers, and unreviewed uploads excluded.",
+  "handoff": "Continuity Mining should next add a CI workflow that runs repository-native discovery plus the fail-closed effective queue gate before autonomous queue selection, then persist only accepted output as an artifact."
+}
