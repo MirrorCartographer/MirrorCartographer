@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "specialists_used": [
+    "Provenance Engineer",
+    "Evidence Auditor",
+    "Cloudflare Deployment Engineer"
+  ],
+  "completed_slice": "Added a fail-closed adapter from gh attestation verification output to exact-scope signer-authorization input, plus four deterministic tests.",
+  "files": [
+    "cloudflare-static/build-gh-signer-authorization-input.mjs",
+    "cloudflare-static/build-gh-signer-authorization-input.test.mjs",
+    "operations/evidence/cloudflare-gh-signer-adapter-2026-07-12T0413Z.json"
+  ],
+  "commits": [
+    "28eede971f1f9be82511f09ec232c827db93abb7",
+    "c488b7c0f2ab21f48d5c43167802b8ab94567a08",
+    "f857f0ff95299607916a37626934e941b591a293"
+  ],
+  "verification": {
+    "source": "GitHub commit objects confirm the adapter and test definitions are present on main.",
+    "runtime": "not independently executed; container DNS could not resolve github.com and no exact-commit Actions run was available",
+    "deployment": "not verified; Cloudflare credentials and resolving hostname remain external blockers"
+  },
+  "limits": [
+    "Real gh certificate field compatibility remains to be demonstrated from workflow output.",
+    "No payment functionality was moved to Vercel.",
+    "No diagnosis or treatment claims were published.",
+    "No GitHub files or history were deleted."
+  ],
+  "next_action": "Wire the adapter test and runtime step into the Cloudflare workflow, add the explicit deny-by-default signer policy artifact, and require authorized signer output in the evidence acceptance invariant before dispatching after credentials are configured.",
+  "updated_at": "2026-07-12T04:13:00Z"
+}
