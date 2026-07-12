@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-006",
+    "owner": "frontier_research",
+    "priority": 5,
+    "action": "Normalize and fail closed on documented gh attestation verify --format=json output before downstream trust-policy evaluation.",
+    "dependencies": ["R-005"],
+    "required_evidence": [
+      "current official CLI contract",
+      "committed adapter",
+      "deterministic tests",
+      "explicit cryptographic limit",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://cli.github.com/manual/gh_attestation_verify"
+      ],
+      "finding": "Successful gh attestation verification emits an array of verified entries. Downstream policy must reject non-array output, ambiguous cardinality, missing attestation or verificationResult objects, missing verifier-authenticated certificate or timestamps, and incomplete statement structure before identity evaluation.",
+      "module": "tools/frontier-research/gh-attestation-output-adapter.mjs",
+      "test": "tools/frontier-research/gh-attestation-output-adapter.test.mjs",
+      "evidence": "operations/evidence/frontier-research-gh-attestation-output-adapter-2026-07-12.json",
+      "commits": [
+        "ef3e3e63726db9b3c78cda5744725db8b7da0b07",
+        "defe22db64c5883a658ff07bc6d491c9dbb99655",
+        "49de8bb3fca3b2018b0494fba5ee576dd7769790"
+      ],
+      "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+    },
+    "handoff": "Cloudflare Research or Vercel Studio should capture one real successful repository attestation JSON payload and run it through this adapter plus evaluateVerificationOutput. Any shape mismatch should become a new failing fixture rather than a permissive normalization rule."
+  }
+}
