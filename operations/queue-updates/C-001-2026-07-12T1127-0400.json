@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T11:27:00-04:00",
+  "status": "blocked_external_configuration",
+  "progress": {
+    "durable_improvement": "Project identity is now derived from the exact deployment proof in all invocation forms; supplied identity reports cannot authorize acceptance and mismatches fail closed.",
+    "source_commit": "81c0b8e094f01bf2f0abfa60149ca857b6c9e517",
+    "test_commit": "7d0f2f182481419a30b2c0a8bdcbdec9132e6818",
+    "evidence_commit": "6c328e8822c2a0f307a78dc47ebc7b51ee8fdcad",
+    "evidence": "operations/evidence/cloudflare-proof-bound-identity-2026-07-12T1127-0400.json",
+    "verification": "Source behavior was inspected after commit; two adversarial regression cases were committed. No CI or live deployment result was observed in this run."
+  },
+  "remaining": [
+    "Run the focused Node tests and repository Cloudflare evidence gate in CI.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the protected cloudflare-research environment.",
+    "Dispatch the Pages deployment workflow and capture resolving URL, served identity, exact deployed commit, cryptographic provenance, freshness, and final acceptance."
+  ],
+  "merge_policy": "Additive queue update only; do not overwrite operations/ACTIVE_QUEUE.json."
+}
