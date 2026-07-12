@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Hardened deployment verification with an HTTPS and hostname allowlist policy that validates both the requested URL and final redirect target before research-surface identity markers can satisfy proof.",
+  "progress": {
+    "deployment_url_policy": "cloudflare-static/deployment-url-policy.mjs",
+    "deployment_url_policy_test": "cloudflare-static/deployment-url-policy.test.mjs",
+    "integrated_verifier": "cloudflare-static/verify-deployment.mjs",
+    "ci_workflow": ".github/workflows/cloudflare-url-policy.yml",
+    "evidence": "operations/evidence/cloudflare-deployment-url-policy-2026-07-11T2038-0400.json",
+    "commits": [
+      "051fd084d8614f56f6c7bfed2d2149b1fb7f2d3c",
+      "6ff1f4f68be0458206026e1df5731b38b4e8d182",
+      "e657901e72acd93acdb73b19c661d7a8071c8b2c",
+      "efaa2c94b45e2c7dcef627ba6530b64d26adce9d",
+      "f95c91c120f0a67dc9e4570133100847a359514d"
+    ],
+    "verification": "4 deterministic URL-policy tests passed; live deployment remains unavailable"
+  },
+  "remaining": [
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub Environment.",
+    "Dispatch the production Cloudflare Pages workflow.",
+    "Retain a resolving allowed Cloudflare URL, served identity proof, deployed immutable commit, signature verification, and accepted evidence decision."
+  ],
+  "updated_at": "2026-07-11T20:38:30-04:00"
+}
