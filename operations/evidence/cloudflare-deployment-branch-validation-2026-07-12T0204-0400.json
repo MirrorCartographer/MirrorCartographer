@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-12T02:04:00-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "observed",
+  "evidence_strength": "deterministic_isolated_test_plus_committed_workflow_wiring",
+  "finding": "The workflow_dispatch branch input reached the Wrangler command without an explicit allowlist validator. A fail-closed validator now runs before readiness probing or deployment.",
+  "artifacts": {
+    "validator": "cloudflare-static/validate-deployment-branch.mjs",
+    "test": "cloudflare-static/validate-deployment-branch.test.mjs",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml"
+  },
+  "commits": [
+    "dff6c1bfc7c927f7e6364a627b596759552e2ba5",
+    "87d91a517fe6fbbf255874c069bcbd3c62d5afec",
+    "42a709d08871ae6c71f8247b561f3d078093695e"
+  ],
+  "verification": {
+    "runtime": "Node.js isolated byte-identical reconstruction",
+    "tests_passed": 3,
+    "tests_failed": 0,
+    "accepted_examples": ["main", "preview/mobile-audio", "release_2026-07"],
+    "rejected_classes": ["option-like input", "parent traversal", "double slash", "reflog syntax", "backslash", "trailing slash", "missing", "overlong"]
+  },
+  "privacy_boundary": "No secrets, token values, account identifiers, private chat, or health material were read or stored.",
+  "limits": [
+    "The integrated GitHub Actions workflow has not executed on this commit.",
+    "No Cloudflare deployment occurred.",
+    "Input validation does not prove Cloudflare credentials or Pages authorization are configured."
+  ],
+  "falsification_route": "Dispatch the workflow with an invalid branch such as --commit-dirty=true and confirm it exits before the access probe and Wrangler action; dispatch with main and confirm the validator succeeds."
+}
