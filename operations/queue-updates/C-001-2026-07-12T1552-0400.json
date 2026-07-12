@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Preflight release-packet coherence verification",
+  "progress": {
+    "verifier": "cloudflare-static/verify-preflight-release-packet.mjs",
+    "test": "cloudflare-static/verify-preflight-release-packet.test.mjs",
+    "workflow": ".github/workflows/cloudflare-environment-preflight.yml",
+    "commits": [
+      "f0689a5782ee3db417c5853f02bbdc8e10dbfae3",
+      "7a68d34dcdd82a28dc67fc6fd79177194092b1ba",
+      "42bf389d63f815d7ecb2d2f15f65891f137d2cd4",
+      "1ec152daed68ede439ee5aea618d3c46791f2202"
+    ],
+    "evidence": "operations/evidence/cloudflare-preflight-release-packet-2026-07-12T1552-0400.json"
+  },
+  "remaining_blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN plus a successful exact-commit preflight and deployment run.",
+  "next_action": "Observe the workflow run for commit 42bf389d63f815d7ecb2d2f15f65891f137d2cd4 or a descendant, require release_packet_verified, then dispatch the deployment workflow at the approved immutable commit and verify URL, served identity, and deployed commit.",
+  "ownership_boundary": "This additive record does not modify canonical queue entries or peer-owned state."
+}
