@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-005",
+  "created_at": "2026-07-12T00:00:00Z",
+  "primary_sources": [
+    {
+      "url": "https://cli.github.com/manual/gh_attestation_verify",
+      "status": "current official GitHub CLI manual",
+      "finding": "Successful JSON verification separates the verified bundle from verificationResult; only signature.certificate and verifiedTimestamps are described as non-workflow-manipulable, while statement.predicate may be workflow-controlled."
+    },
+    {
+      "url": "https://docs.sigstore.dev/about/bundle/",
+      "status": "official Sigstore bundle format v0.3.2",
+      "finding": "A bundle contains verification material and signed content; X.509 identity extensions are consumed at verification time, and transparency or RFC3161 timestamps support signing-time validation."
+    }
+  ],
+  "finding": "Policy must derive repository, signer-workflow, and issuer identity from the cryptographically verified certificate, not from statement predicate fields. Signed predicate metadata remains workflow-controlled and cannot independently establish trust.",
+  "artifact": "tools/frontier-research/verification-trust-boundary.mjs",
+  "test": "tools/frontier-research/verification-trust-boundary.test.mjs",
+  "commits": [
+    "6e6463ff89fa44ed0c70b9a14d9d1e67f50f123b",
+    "664b48ae8d9d1c42fec56d7c291af0f1d1b8d5d2"
+  ],
+  "verification": {
+    "route": "isolated Node runtime using byte-identical pre-commit files",
+    "result": "4 tests passed",
+    "cases": [
+      "exact certificate identity, timestamp, subject digest, and predicate type accepted",
+      "matching workflow-controlled predicate cannot override a mismatched certificate repository",
+      "missing verified timestamp rejected",
+      "ambiguous multiple-attestation output rejected"
+    ]
+  },
+  "evidence_strength": "implemented-and-deterministically-tested",
+  "uncertainty": "The evaluator supports known certificate field aliases but has not yet been exercised against a live gh attestation verify --format=json payload from this repository.",
+  "falsification_route": "Capture a real GitHub CLI verification JSON payload, run it through the evaluator, and reject or revise the adapter if certificate fields do not normalize without manual rewriting.",
+  "trust_limit": "This adapter does not perform cryptographic verification. It only consumes a verifier result and enforces a trust boundary over its fields."
+}
