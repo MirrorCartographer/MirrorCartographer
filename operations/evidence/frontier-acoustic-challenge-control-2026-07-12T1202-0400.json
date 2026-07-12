@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-038",
+  "owner": "frontier_research",
+  "created_at": "2026-07-12T12:02:49-04:00",
+  "finding": "Frequency and timing agreement can still be produced by an environmental tone. A per-run challenge that cryptographically randomizes both frequency and active time slot, while treating every other slot as a negative control, materially reduces that false-positive path.",
+  "primary_sources": [
+    {
+      "url": "https://www.w3.org/TR/webaudio/",
+      "status": "W3C Recommendation-track technical specification",
+      "used_for": "Oscillator scheduling and browser audio timing semantics"
+    },
+    {
+      "url": "https://www.w3.org/TR/webcrypto-2/",
+      "status": "W3C First Public Working Draft published 2025-04-22; work in progress, not an endorsed Recommendation",
+      "used_for": "Crypto.getRandomValues interface and explicit source-status boundary"
+    }
+  ],
+  "artifact": "tools/frontier-research/acoustic-challenge-control.mjs",
+  "test": "tools/frontier-research/acoustic-challenge-control.test.mjs",
+  "commits": [
+    "c3ef078e7a037bf90e3623f9137b20d6a4de49b0",
+    "e42855de211f6be7b4563671dee8fb7016a1e848"
+  ],
+  "verification": {
+    "command": "node --test acoustic-challenge-control.test.mjs",
+    "environment": "isolated Node runtime using byte-identical pre-commit source",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "covered": [
+      "deterministic randomized challenge construction",
+      "single active-slot detection acceptance",
+      "control-slot environmental match rejection",
+      "absent active-window response classification"
+    ]
+  },
+  "evidence_strength": "deterministic source behavior; no browser microphone or device runtime proof",
+  "uncertainty": "The gate lowers one false-positive mechanism but cannot exclude a compromised random source, an adversarial sound source that observes the challenge, microphone processing artifacts, or a user not hearing the tone.",
+  "falsification_route": "Replay the selected frequency in any declared control slot or produce repeated matching detections. The classifier must change from challenge_consistent to ambiguous_environmental_match.",
+  "privacy_boundary": "Persist only challenge nonce, selected frequency, timing windows, and derived detection intervals. Do not retain microphone audio unless separately consented and governed."
+}
