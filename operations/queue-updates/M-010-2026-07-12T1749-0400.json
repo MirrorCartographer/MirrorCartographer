@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "M-010@2026-07-12T17:49:52-04:00",
+  "owner": "continuity_mining",
+  "created_at": "2026-07-12T17:49:52-04:00",
+  "queue_item": {
+    "id": "M-010",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Preserve stable project identity across aliases, abbreviations, nicknames, and misspellings without inventing rename events.",
+    "dependencies": ["M-009"],
+    "required_evidence": [
+      "canonical identity rule",
+      "alias disambiguation rule",
+      "explicit claim-state separation",
+      "privacy boundary",
+      "immutable source commit"
+    ],
+    "status": "completed_bounded_slice",
+    "progress": {
+      "artifact": "operations/continuity/project-name-identity-and-alias-rule-2026-07-12T1749-0400.json",
+      "artifact_commit": "0b5bfd69c86967a869275502dd6d4848f8a8776f",
+      "memory": "Mirror Cartographer remains one canonical project identity; written variants are aliases unless an explicit provenance-backed rename decision exists.",
+      "privacy_boundary": "Only an abstract project-identity and alias-resolution rule was persisted; no verbatim dialogue or personal material was copied.",
+      "verification": "Fetch the committed artifact from the default branch, confirm its blob SHA, and parse its JSON structure."
+    },
+    "handoff": "Build an additive alias inventory with first-observed provenance and ambiguity flags, then continue exhaustive M-008 replay when a complete recursive tree is available."
+  },
+  "claim_state": {
+    "observed": "The project retained one identity while multiple written forms and informal variants were used.",
+    "inferred": "Treating variants as renames fragments project continuity.",
+    "proposed": "Represent variants as alias_of edges to one canonical project node unless an explicit rename decision is found.",
+    "superseded": "Inferring a rename from spelling, spacing, capitalization, nickname, or abbreviation changes alone.",
+    "unresolved": "The exhaustive alias inventory and first-observed provenance remain incomplete."
+  }
+}
