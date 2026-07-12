@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "status": "completed",
+  "completed_at": "2026-07-12T15:37:00-04:00",
+  "action": "Define an atomic persistence adapter and crash-recovery test proving the retained monotonic state anchor cannot be partially written or silently reset.",
+  "progress": {
+    "primary_sources": [
+      "https://nodejs.org/api/fs.html",
+      "https://pubs.opengroup.org/onlinepubs/9799919799/functions/rename.html"
+    ],
+    "module": "tools/frontier-research/atomic-monotonic-state-store.mjs",
+    "test": "tools/frontier-research/atomic-monotonic-state-store.test.mjs",
+    "evidence": "operations/evidence/frontier-atomic-monotonic-state-2026-07-12.json",
+    "commits": [
+      "7319018bd7824fe19b2aabae850d2965eb89ac51",
+      "8622bb9d8613eb3eb0879e28b9bb02a028c9a2e4",
+      "cd0829860e9c403f94ae6f61ccffa929c15a51b4"
+    ],
+    "verification": "6 deterministic dependency-free Node tests passed locally against byte-identical pre-commit source.",
+    "evidence_strength": "implementation_tested_locally"
+  },
+  "handoff": "R-015 should add a two-copy or hardware-backed external anchor strategy and adversarial tests for privileged deletion, filesystem replacement, and cross-device rename failure.",
+  "limits": [
+    "Power-loss behavior was not tested on physical filesystems.",
+    "Atomic rename and directory fsync behavior is platform and filesystem dependent.",
+    "Privileged deletion or replacement of the entire anchor directory remains outside this adapter's trust boundary.",
+    "Persistence continuity does not prove witness honesty or policy truth."
+  ]
+}
