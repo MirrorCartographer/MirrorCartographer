@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-023",
+  "owner": "frontier_research",
+  "claim_state": "observed",
+  "finding": "A valid lifecycle interpretation remains replayable unless final acceptance is bound to a unique opaque acceptance identifier and a verifier-maintained seen-set. Component validity, navigation identity, and lifecycle epoch identity do not by themselves prove one-time use.",
+  "primary_sources": [
+    {
+      "title": "RFC 9449: OAuth 2.0 Demonstrating Proof of Possession",
+      "url": "https://www.rfc-editor.org/rfc/rfc9449.html",
+      "status": "internet_standard_track_rfc",
+      "inspected_on": "2026-07-12",
+      "relevance": "Uses a unique proof identifier and replay detection, and states that a valid proof alone is insufficient for an access-control decision. The artifact transfers only this replay-resistance pattern, not the OAuth protocol."
+    }
+  ],
+  "design_implication": "Place a one-time acceptance gate after lifecycle composition. Require a fresh opaque acceptance_id, reject identifiers already present in the verifier-maintained seen-set, and retain only opaque identifiers plus reason codes.",
+  "artifact": "tools/frontier-research/event-timing-acceptance-replay-gate.mjs",
+  "test": "tools/frontier-research/event-timing-acceptance-replay-gate.test.mjs",
+  "verification": {
+    "command": "node --test tools/frontier-research/event-timing-acceptance-replay-gate.test.mjs",
+    "result": "6 passed, 0 failed",
+    "environment": "isolated Node runtime using byte-identical pre-commit files"
+  },
+  "evidence_strength": "deterministic_unit_test_plus_primary_standard",
+  "uncertainty": "The implementation uses an in-memory caller-supplied seen-set contract. Persistence, bounded retention, concurrency, crash consistency, and multi-tab coordination are not implemented.",
+  "falsification_route": [
+    "Demonstrate that replaying the same previously accepted lifecycle interpretation cannot cause duplicate state transition, counting, or evidence acceptance.",
+    "Produce a fresh valid acceptance identifier that the gate incorrectly rejects.",
+    "Show that a duplicate identifier can be accepted under concurrent verifier updates.",
+    "Implement persistent multi-tab storage and compare its observed behavior with this pure-function contract."
+  ],
+  "privacy_boundary": {
+    "retains": ["opaque acceptance id", "opaque navigation id", "opaque evidence epoch id", "reason code"],
+    "excludes": ["URLs", "referrers", "raw timing entries", "event names", "event targets", "selectors", "raw timestamps", "user-agent strings", "private chat", "health information"]
+  }
+}
