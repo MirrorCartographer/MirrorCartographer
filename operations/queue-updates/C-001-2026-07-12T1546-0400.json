@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T15:46:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": {
+    "summary": "Integrated the exact-commit dispatch-decision builder into the Cloudflare environment preflight workflow.",
+    "workflow_commit": "f219d1176db24850e468d7d0379caae6e8856fca",
+    "workflow_blob_sha": "5f54a656db33c32cc5fc1eeba0bb7a6b55ed06ad",
+    "evidence": "operations/evidence/cloudflare-preflight-dispatch-wiring-2026-07-12T1546-0400.json",
+    "evidence_commit": "d5a0f3f9705305417c9b1b82108dfafac328690e"
+  },
+  "progress": [
+    "Preflight source changes now retrigger when the dispatch builder or its tests change.",
+    "The preflight gate now runs the dispatch-decision test suite.",
+    "A verified preflight verdict is transformed into a fail-closed decision bound to the exact repository and commit.",
+    "The decision is asserted, hashed, and retained in the uploaded artifact."
+  ],
+  "verification": {
+    "source": "exact-commit fetch confirmed committed workflow behavior",
+    "runtime": "GitHub Actions conclusion not yet observed",
+    "deployment": "not attempted"
+  },
+  "remaining_blocker": "Configure valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values in the cloudflare-research GitHub environment, observe a successful preflight artifact containing cloudflare-dispatch-decision.json, then dispatch the production workflow at the exact approved commit.",
+  "required_closure_evidence": [
+    "successful preflight workflow run",
+    "dispatch_ready decision artifact bound to exact commit",
+    "successful production workflow run",
+    "resolving Cloudflare URL",
+    "control-plane project binding",
+    "served identity and deployed commit proof"
+  ],
+  "claim_boundary": "No deployment, hostname, credential, diagnosis, treatment, payment, or scientific-truth claim is made."
+}
