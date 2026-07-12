@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-025",
+  "created_at": "2026-07-12T07:32:00-04:00",
+  "sources": [
+    {
+      "type": "primary_standard",
+      "url": "https://html.spec.whatwg.org/multipage/interaction.html#tracking-user-activation",
+      "status": "current living standard",
+      "use": "Transient user activation is browser-maintained state and must be sampled at gesture time; it does not prove audible output."
+    },
+    {
+      "type": "primary_standard",
+      "url": "https://www.w3.org/TR/webaudio/",
+      "status": "W3C Recommendation",
+      "use": "AudioContext runtime state and routing describe browser audio processing prerequisites, not human audibility."
+    }
+  ],
+  "finding": "A physical-device audio report needs a single bounded capture session that records transient activation synchronously, then runtime state, then the human outcome in temporal order. Free-form notes, analyser arrays, and unrelated device data are not required and should be excluded.",
+  "design_implication": "Use createAudioCaptureSession as the privacy-minimal adapter before classification and deployment binding. Require physical_iphone, active transient activation, complete running audio route, ordered timestamps, opaque session identity, exact commit and immutable deployment identity, and a ten-minute maximum session duration.",
+  "artifact": {
+    "module": "tools/frontier-research/audio-capture-session.mjs",
+    "test": "tools/frontier-research/audio-capture-session.test.mjs",
+    "commits": [
+      "2af84114b296bacb0fe0b4436b26916633e9d87c",
+      "d41512eddb9e243c00b7cacac4c2827014a5beaa"
+    ]
+  },
+  "verification": {
+    "command": "node --test tools/frontier-research/audio-capture-session.test.mjs",
+    "environment": "isolated Node runtime using byte-identical pre-commit files",
+    "result": "7 passed, 0 failed",
+    "cases": [
+      "allowlisted bounded packet",
+      "inactive transient activation rejected",
+      "simulator device rejected",
+      "runtime-before-activation rejected",
+      "incomplete route rejected",
+      "human-before-runtime rejected",
+      "session over ten minutes rejected"
+    ]
+  },
+  "evidence_strength": "implemented_and_locally_tested",
+  "limits": [
+    "The adapter does not itself prove that sound was heard.",
+    "The physical iPhone and immutable deployment assertions still require external verification.",
+    "The adapter is not yet wired into the deployed Vercel UI.",
+    "No cryptographic signature is produced by this module."
+  ],
+  "falsification_route": [
+    "Reject the design if it permits a runtime or human timestamp before activation.",
+    "Reject the design if extra free-form or identifying fields survive output allowlisting.",
+    "Revise the duration bound if real physical verification cannot reliably complete within ten minutes.",
+    "Reject any downstream claim of audibility that lacks an explicit heard outcome from the same session."
+  ],
+  "privacy_boundary": "Stores only exact build/deployment identifiers, opaque session ID, coarse physical-device class, activation booleans, minimal runtime booleans, ordered timestamps, and a binary heard/not_heard outcome."
+}
