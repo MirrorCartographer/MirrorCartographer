@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "recorded_at": "2026-07-11T20:48:00-04:00",
+  "status": "active",
+  "completed_slice": "Committed and tested a CLI that verifies the canonical Vercel identity endpoint against an immutable commit and emits a machine-readable evidence packet.",
+  "source_commits": [
+    "40148b764b634f6e66552806e7ca06361469e0b8",
+    "0a9475dc1429308dc47092f9174320e733983dfa",
+    "8f28f5719dc03ef7def6a11cf93d48a5456d83b9"
+  ],
+  "evidence": "operations/evidence/V-001-vercel-evidence-cli-2026-07-11T2048-0400.json",
+  "verification": "5 deterministic assertions passed in an isolated Node runtime.",
+  "remaining": [
+    "Run SITE_URL=https://mirror-cartographer-ui.vercel.app EXPECTED_COMMIT=<deployed-sha> node scripts/verify-vercel-deployment.mjs after a successful deployment.",
+    "Capture iPhone Safari audible outcome paired with window.__MC_AUDIO_PULSE__ and window.__MC_AUDIO_EVIDENCE__.",
+    "Bind the phone-side outcome to the verified deployment packet."
+  ],
+  "handoff": "Deployment Verifier should execute the CLI against the next successful Vercel deployment; Mobile Safari Investigator and Audio Engineer should then perform the paired phone retest."
+}
