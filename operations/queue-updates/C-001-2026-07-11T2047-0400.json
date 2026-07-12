@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "updated_at": "2026-07-11T20:47:49-04:00",
+  "status": "blocked_external_configuration",
+  "progress": {
+    "completed_slice": "wired deployment proof run-context validation into the production Cloudflare Pages workflow",
+    "workflow_commit": "6dfc8309eefd19e75ecc59926909878e73cf4274",
+    "evidence": "operations/evidence/cloudflare-proof-context-wiring-2026-07-11T2047-0400.json",
+    "verification": "committed source readback plus 4 passing deterministic Node tests",
+    "acceptance_chain": [
+      "structural proof validation",
+      "current commit and workflow-run binding",
+      "freshness enforcement",
+      "in-toto envelope construction",
+      "GitHub artifact attestation verification",
+      "deny-by-default evidence acceptance"
+    ]
+  },
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub Environment and dispatch the production workflow.",
+  "completion_requires": [
+    "resolving Cloudflare Pages URL",
+    "served research surface identity",
+    "deployment proof bound to the immutable source commit and exact workflow invocation"
+  ]
+}
