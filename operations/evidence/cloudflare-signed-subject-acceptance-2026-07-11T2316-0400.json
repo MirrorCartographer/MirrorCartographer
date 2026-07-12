@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "created_at": "2026-07-11T23:16:59-04:00",
+  "claim_state": "implemented",
+  "summary": "Deployment evidence acceptance now fails closed unless the cryptographic verifier report is bound to the exact deployment-proof digest under evaluation.",
+  "problem": {
+    "observed": "build-evidence-verification-input.mjs emitted signatureSubjectVerification, but build-evidence-acceptance.mjs and the workflow's all-required invariant did not require that status to equal match.",
+    "risk": "A verified signature report naming different artifact bytes could be excluded from the final acceptance conjunction, creating inconsistent evidence semantics."
+  },
+  "changes": [
+    {
+      "path": "cloudflare-static/build-evidence-acceptance.mjs",
+      "commit": "e6062b8d5bd2b1d848e090c71f8f1a01cffaa4f3",
+      "effect": "Adds signature.subject-mismatch as a rejecting reason when signatureSubjectVerification is absent or not match, records signature_subject status, and upgrades the derivation rule."
+    },
+    {
+      "path": "cloudflare-static/build-evidence-acceptance.test.mjs",
+      "commit": "00b7a57fed9dc7ae9c4708b2c52f7e934ba649a5",
+      "effect": "Adds explicit mismatch and missing-binding regression cases and aligns valid fixtures with the verification-input schema."
+    },
+    {
+      "path": ".github/workflows/cloudflare-pages-research.yml",
+      "commits": [
+        "ef837d624db4ba967fe1d29b9a7cb73576ca5d1a",
+        "68e357de6b3483e2b7c2cffe0327e4217a5570e0"
+      ],
+      "effect": "Requires signatureSubjectVerification.status=match in the final invariant and publishes the binding requirement in the run summary; the second commit corrects shell quoting."
+    }
+  ],
+  "verification": {
+    "source_review": "pass",
+    "deterministic_cases_committed": 6,
+    "exact_commit_ci": "not_observed_at_record_time",
+    "deployment": "not_attempted_missing_external_credentials"
+  },
+  "evidence_strength": "source-implemented-with-regression-tests-committed",
+  "falsification_routes": [
+    "Run node --test cloudflare-static/build-evidence-acceptance.test.mjs on commit 68e357de6b3483e2b7c2cffe0327e4217a5570e0 or a descendant.",
+    "Construct a verification manifest with signatureVerification.status=verified and signatureSubjectVerification.status=mismatch; acceptance must reject with signature.subject-mismatch.",
+    "Dispatch the Cloudflare workflow after credentials exist and inspect cloudflare-deployment-acceptance.json."
+  ],
+  "limits": [
+    "No Cloudflare credentials were available to this run.",
+    "No public Pages hostname or served identity was verified.",
+    "Cryptographic provenance does not establish scientific or medical truth."
+  ],
+  "privacy": "No secrets, private chat, or health material are included."
+}
