@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-010",
+  "recorded_at": "2026-07-12T01:11:00-04:00",
+  "primary_source": {
+    "url": "https://w3c.github.io/event-timing/",
+    "title": "Event Timing API",
+    "status": "Editor's Draft",
+    "dated": "2026-03-19",
+    "evidence_strength": "primary specification; work in progress"
+  },
+  "observed": [
+    "PerformanceEventTiming exposes duration, processingStart, processingEnd, and interactionId for qualifying trusted user events.",
+    "The specification defines duration as input-to-next-render timing with 8 millisecond granularity.",
+    "The default buffered threshold is 104 milliseconds; observers may request future entries with a threshold no lower than 16 milliseconds.",
+    "interactionId groups related event entries into a user interaction but is not a stable interaction counter.",
+    "target and targetSelector may expose page structure and are not required for aggregate latency evidence."
+  ],
+  "inferred": [
+    "A privacy-safe evidence packet can decompose the worst observed interaction into input delay, processing duration, and presentation delay while discarding event names and target attribution.",
+    "Absence claims require supported observation, confirmed observer execution, a bounded session, and zero dropped entries."
+  ],
+  "proposed": [
+    "Classify interactions at 200 milliseconds as slow and 500 milliseconds as very slow for internal diagnostic routing.",
+    "These thresholds are project heuristics and are not asserted as Event Timing specification thresholds."
+  ],
+  "artifact": {
+    "module": "tools/frontier-research/interaction-latency-evidence.mjs",
+    "test": "tools/frontier-research/interaction-latency-evidence.test.mjs",
+    "module_commit": "59d35760c89ba11dd2a6f2f6fd41e9519affd645",
+    "test_commit": "ebc17e6d108035243e2df6653cf2d26557ad9b52"
+  },
+  "verification": {
+    "method": "isolated Node.js runtime using byte-identical source and test content before commit",
+    "result": "7 tests passed, 0 failed",
+    "covered": [
+      "unsupported entry type",
+      "unconfirmed observer",
+      "complete empty bounded session",
+      "interaction grouping and component maxima",
+      "sensitive target and event-name exclusion",
+      "slow-interaction heuristic",
+      "dropped-entry incompleteness",
+      "invalid interaction identifiers"
+    ]
+  },
+  "privacy_boundary": {
+    "retained": [
+      "aggregate interaction count",
+      "aggregate event count",
+      "dropped-entry count",
+      "worst duration",
+      "worst input delay",
+      "worst processing duration",
+      "worst presentation delay"
+    ],
+    "excluded": [
+      "DOM nodes",
+      "target selectors",
+      "element identifiers",
+      "event names",
+      "raw entries",
+      "page text",
+      "private chat",
+      "health information"
+    ]
+  },
+  "uncertainty": [
+    "The source is an editor's draft and may change.",
+    "Browser support and reporting fidelity are target-dependent.",
+    "Synthetic events are excluded by the specification and cannot substitute for trusted device interaction in browser validation.",
+    "The deterministic tests validate classifier behavior, not browser conformance."
+  ],
+  "falsification_route": "On each target browser, observe supported event entries during a bounded trusted tap or key interaction, locally compare raw component calculations to the emitted aggregate, verify target and event attribution never serialize, and reject absence claims whenever support, callback confirmation, or complete delivery is missing."
+}
