@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-12T17:46:00-04:00",
+  "record_id": "R-019-2026-07-12T1746-0400",
+  "item": {
+    "id": "R-019",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Add stale-lock lease recovery for trusted-root persistence without permitting stale owners to delete successor locks.",
+    "dependencies": ["R-018"],
+    "required_evidence": [
+      "current official filesystem documentation",
+      "committed lease-lock prototype",
+      "active-versus-expired lock tests",
+      "stale-owner release test",
+      "fail-closed malformed-state test",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://nodejs.org/api/fs.html",
+        "https://theupdateframework.github.io/specification/latest/"
+      ],
+      "finding": "Time-bounded lock ownership plus atomic stale-lock quarantine restores progress after a crashed writer; token-checked release prevents an expired owner from deleting a successor. Missing or malformed ownership state is not safely distinguishable from an interrupted acquisition and therefore fails closed.",
+      "module": "tools/frontier-research/trusted-root-lease-lock.mjs",
+      "test": "tools/frontier-research/trusted-root-lease-lock.test.mjs",
+      "evidence": "operations/evidence/frontier-trusted-root-lease-recovery-2026-07-12T1746-0400.json",
+      "commits": [
+        "d0d80c5c4d106e6ac3dcefd375260649fd85b948",
+        "fc4f87f6ffb48ea6d98d4a2e861a3630c087fd4f",
+        "49d59ad124e84a7bccddd9c43ab936d8040f3d3e"
+      ],
+      "verification": "4 deterministic Node tests passed; committed module fetched back from main at blob 2357dd56a5492b8510b6358736051791984537e8",
+      "trust_limit": "The lease provides single-host writer recovery only. It does not establish distributed consensus, network-filesystem safety, clock correctness, or authorization of trusted-root metadata."
+    },
+    "handoff": "R-020 should add true child-process fault injection at acquisition, owner-record write, quarantine rename, root rename, and release boundaries, then define a supported-filesystem matrix and a monotonic-clock strategy."
+  }
+}
