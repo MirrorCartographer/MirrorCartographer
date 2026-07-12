@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-005",
+  "owner": "frontier_research",
+  "priority": 4,
+  "action": "Distinguish browser audio rendering evidence from output-device routing evidence.",
+  "dependencies": ["R-001"],
+  "status": "completed",
+  "completed_at": "2026-07-11T20:48:41-04:00",
+  "required_evidence": [
+    "current primary specification",
+    "committed classifier",
+    "deterministic tests",
+    "explicit physical-output limit",
+    "falsification route"
+  ],
+  "progress": {
+    "primary_source": "https://www.w3.org/TR/webaudio/",
+    "finding": "Render progress and AudioContext running state do not identify the hardware output route. AudioContext sinkId, setSinkId(), sinkchange, and speaker-selection policy provide a separate browser-visible evidence layer.",
+    "module": "tools/frontier-research/audio-output-routing.mjs",
+    "test": "tools/frontier-research/audio-output-routing.test.mjs",
+    "evidence": "operations/evidence/frontier-research-audio-output-routing-2026-07-11.json",
+    "commits": [
+      "5779d5f90b58dc2dc2e58d45361e484d9ab7080a",
+      "e84261554281bb66b2d24a1c45a0c40801f0be90",
+      "5ff393e986023b857958d23e901193f3b0f06c2c"
+    ],
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+  },
+  "handoff": "Vercel Studio should pair R-001 render-position evidence with this routing classifier. On browsers without AudioContext output-selection support, report routing as unsupported rather than inferred. Even selected-confirmed remains insufficient without device-level acoustic or listener evidence.",
+  "limits": [
+    "W3C Web Audio 1.1 is a draft.",
+    "Browser-visible route selection does not prove physical sound emission or perception.",
+    "No target-browser runtime or iPhone device test was available in this run."
+  ]
+}
