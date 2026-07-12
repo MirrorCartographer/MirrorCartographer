@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import fs from 'node:fs';
+import { validatePagesProjectIdentity } from './validate-pages-project-identity.mjs';
 
 const EXPECTED = Object.freeze({
   builderId: 'https://github.com/MirrorCartographer/MirrorCartographer/.github/workflows/cloudflare-pages-research.yml@refs/heads/main',
@@ -7,7 +8,8 @@ const EXPECTED = Object.freeze({
   buildType: 'https://mirrorcartographer.org/build-types/evidence-envelope/v1',
   artifactName: 'cloudflare-deployment-proof.json',
   team: 'cloudflare_research',
-  queueItem: 'C-001'
+  queueItem: 'C-001',
+  pagesProject: 'mirror-cartographer-research'
 });
 
 function status(ok, success = 'verified', failure = 'not_verified') {
@@ -62,16 +64,17 @@ export function buildEvidenceVerificationInput({ proofText, proof, attestationBu
     future_skew_ms: Number.isFinite(freshnessVerification?.future_skew_ms) ? freshnessVerification.future_skew_ms : null,
     errors: Array.isArray(freshnessVerification?.errors) ? freshnessVerification.errors : ['freshness-verification-required']
   };
-  const projectIdentityValid = projectIdentityVerification?.valid === true
-    && Array.isArray(projectIdentityVerification?.errors)
-    && projectIdentityVerification.errors.length === 0;
+  const identityResult = projectIdentityVerification ?? validatePagesProjectIdentity(proof, EXPECTED.pagesProject);
+  const projectIdentityValid = identityResult?.valid === true
+    && Array.isArray(identityResult?.errors)
+    && identityResult.errors.length === 0;
   const projectIdentityEvidence = {
     status: projectIdentityValid ? 'valid' : 'invalid', valid: projectIdentityValid,
-    project: projectIdentityVerification?.project ?? null,
-    canonical_hostname: projectIdentityVerification?.canonical_hostname ?? null,
-    deployment_hostname: projectIdentityVerification?.deployment_hostname ?? null,
-    alias_hostname: projectIdentityVerification?.alias_hostname ?? null,
-    errors: Array.isArray(projectIdentityVerification?.errors) ? projectIdentityVerification.errors : ['project-identity-verification-required']
+    project: identityResult?.project ?? null,
+    canonical_hostname: identityResult?.canonical_hostname ?? null,
+    deployment_hostname: identityResult?.deployment_hostname ?? null,
+    alias_hostname: identityResult?.alias_hostname ?? null,
+    errors: Array.isArray(identityResult?.errors) ? identityResult.errors : ['project-identity-verification-required']
   };
 
   const subjectVerification = { status: status(declaredDigest === digest, 'match', 'mismatch'), computed_sha256: digest, declared_sha256: typeof declaredDigest === 'string' ? declaredDigest : null };
@@ -110,13 +113,15 @@ export function buildEvidenceVerificationInput({ proofText, proof, attestationBu
 }
 
 function main(argv = process.argv.slice(2)) {
-  const [proofPath = 'cloudflare-deployment-proof.json', attestationPath = 'cloudflare-deployment-proof.intoto.json', signaturePath = 'cloudflare-deployment-proof.signature-verification.json', freshnessPath = 'cloudflare-deployment-proof.freshness.json', projectIdentityPath = 'cloudflare-pages-project-identity.json', outputPath = 'cloudflare-evidence-verification-input.json'] = argv;
+  const [proofPath = 'cloudflare-deployment-proof.json', attestationPath = 'cloudflare-deployment-proof.intoto.json', signaturePath = 'cloudflare-deployment-proof.signature-verification.json', freshnessPath = 'cloudflare-deployment-proof.freshness.json'] = argv;
+  const outputPath = argv.length >= 6 ? argv[5] : (argv[4] || 'cloudflare-evidence-verification-input.json');
+  const projectIdentityPath = argv.length >= 6 ? argv[4] : null;
   const proofText = fs.readFileSync(proofPath, 'utf8');
   const proof = JSON.parse(proofText);
   const attestationBundle = JSON.parse(fs.readFileSync(attestationPath, 'utf8'));
   const signatureVerification = fs.existsSync(signaturePath) ? JSON.parse(fs.readFileSync(signaturePath, 'utf8')) : null;
   const freshnessVerification = fs.existsSync(freshnessPath) ? JSON.parse(fs.readFileSync(freshnessPath, 'utf8')) : null;
-  const projectIdentityVerification = fs.existsSync(projectIdentityPath) ? JSON.parse(fs.readFileSync(projectIdentityPath, 'utf8')) : null;
+  const projectIdentityVerification = projectIdentityPath && fs.existsSync(projectIdentityPath) ? JSON.parse(fs.readFileSync(projectIdentityPath, 'utf8')) : null;
   const result = buildEvidenceVerificationInput({ proofText, proof, attestationBundle, signatureVerification, freshnessVerification, projectIdentityVerification });
   fs.writeFileSync(outputPath, JSON.stringify(result, null, 2) + '\n');
   process.stdout.write(JSON.stringify({ output: outputPath, signature: result.signatureVerification.status, freshness: result.freshnessEvidence.status, projectIdentity: result.projectIdentityEvidence.status, claim: result.claimEvidence.status }) + '\n');
