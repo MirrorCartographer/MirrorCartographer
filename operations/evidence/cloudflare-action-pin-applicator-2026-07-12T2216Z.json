@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T22:16:43Z",
+  "claim_state": "implemented_local_verification",
+  "finding": "A reviewed pin manifest is insufficient unless workflow mutation is deterministic and uncovered mutable references fail closed.",
+  "design_implication": "Use an exact textual applicator driven by the reviewed manifest, then run the independent action-reference audit before accepting workflow security evidence.",
+  "artifacts": {
+    "manifest": "cloudflare-static/action-pin-plan.json",
+    "applicator": "cloudflare-static/apply-action-pin-plan.mjs",
+    "test": "cloudflare-static/apply-action-pin-plan.test.mjs",
+    "security_gate": ".github/workflows/cloudflare-deployment-security-gate.yml"
+  },
+  "verification": {
+    "runtime": "Node.js test runner",
+    "passed": 5,
+    "failed": 0,
+    "adversarial_discovery": "The initial detector missed list-form YAML uses entries and an uncovered owner/unknown@main reference; parser was corrected before evidence was recorded.",
+    "covered": [
+      "reviewed replacements are deterministic",
+      "absent reviewed refs do not create content",
+      "unapproved plans fail closed",
+      "malformed commit targets fail closed",
+      "uncovered mutable actions are reported"
+    ]
+  },
+  "primary_sources": [
+    {
+      "url": "https://github.com/actions/checkout/releases/tag/v6.0.1",
+      "resolved_sha": "8e8c483db84b4bee98b60c0593521ed34d9990e8",
+      "status": "official_release_page_and_signed_commit"
+    },
+    {
+      "url": "https://github.com/actions/upload-artifact/releases/tag/v4.6.2",
+      "resolved_sha": "ea165f8d65b6e75b540449e92b4886f43607fa02",
+      "status": "official_release_page_and_signed_commit"
+    },
+    {
+      "url": "https://github.com/actions/attest-build-provenance/releases/tag/v3.0.0",
+      "resolved_sha": "977bb373ede98d70efdf65b84cb5f73e068dcc2a",
+      "status": "official_release_page_and_signed_commit"
+    },
+    {
+      "url": "https://github.com/cloudflare/wrangler-action/releases/tag/v3.14.1",
+      "resolved_sha": "da0e0dfe58b7a431659754fdf3f186c529afbe65",
+      "status": "official_release_page_and_signed_commit"
+    }
+  ],
+  "evidence_strength": "implementation_ready_locally_verified",
+  "limits": [
+    "The production and security workflows still contain mutable action references until the generated replacements are applied.",
+    "No Cloudflare deployment ran and no hostname or deployed commit was verified.",
+    "Release identity and signed commit binding do not prove upstream source or transitive dependencies are safe.",
+    "Cloudflare credentials remain external configuration blockers."
+  ],
+  "falsification_route": "Run the applicator on both workflows, run audit-action-references.mjs over the generated files, and reject the change unless the independent audit reports zero mutable remote actions."
+}
