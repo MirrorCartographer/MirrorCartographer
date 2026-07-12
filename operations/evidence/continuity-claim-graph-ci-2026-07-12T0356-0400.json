@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "CM-007",
+  "created_at": "2026-07-12T03:56:00-04:00",
+  "finding": "The repository had a tested continuity claim-graph validator, but no automatic repository gate required the committed continuity index to satisfy it after future changes.",
+  "memory_recovered": "Contradictions and supersessions must remain additive linked records; repository automation should reject dangling, circular, self-referential, duplicate, or state-invalid claim histories before they merge.",
+  "implementation": {
+    "cli": "tools/continuity/validate-current-claim-graph.mjs",
+    "workflow": ".github/workflows/continuity-claim-graph.yml",
+    "cli_commit": "ec6433e2d848e263c9fdf28cf41181d9a3584790",
+    "workflow_commit": "8adbbb707fb9b8d50204a8307ed22bb2f7b03f0d"
+  },
+  "claim_states": {
+    "observed": [
+      "The continuity index contains explicit contradicts and supersedes relations.",
+      "The claim-graph module and deterministic tests existed before this run.",
+      "No continuity-specific CI workflow was found before this run.",
+      "A CLI validator and path-scoped GitHub Actions workflow were committed."
+    ],
+    "inferred": [
+      "Running both contract fixtures and validation of the committed index should reduce silent corruption of project memory."
+    ],
+    "proposed": [
+      "Require the Continuity claim graph integrity check before merging continuity-index changes."
+    ],
+    "superseded": [
+      "Manual-only validation of contradiction and supersession relationships."
+    ],
+    "unresolved": [
+      "The new workflow has not yet produced an observed successful run for its own commit.",
+      "The index still lacks an authentic contradiction-linked record pair."
+    ]
+  },
+  "privacy_boundary": {
+    "included": ["public repository files", "commit metadata", "abstract continuity rules", "synthetic validation behavior"],
+    "excluded": ["raw private chat", "health or pet-health material", "credentials", "identifying personal data", "unreviewed uploads"]
+  },
+  "verification": {
+    "source_behavior": "The CLI parses the selected JSON index, invokes validateClaimGraph, emits a structured report, and exits nonzero on graph or parse failure.",
+    "workflow_behavior": "The workflow runs deterministic tests, validates the committed index, and retains the JSON report even when the job fails.",
+    "runtime_status": "committed_not_yet_observed_in_actions"
+  },
+  "falsification_route": "Introduce a fixture or branch change containing a dangling relation, self-relation, duplicate id, invalid state, superseded record without predecessor, or supersession cycle; the workflow must fail and retain a report naming the corresponding error code."
+}
