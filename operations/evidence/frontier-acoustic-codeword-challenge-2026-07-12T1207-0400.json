@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-039",
+  "recorded_at": "2026-07-12T12:07:26-04:00",
+  "primary_sources": [
+    {
+      "url": "https://www.w3.org/TR/webaudio/",
+      "status": "W3C First Public Working Draft, 2024-11-05",
+      "relevance": "Defines sample-accurate scheduled sound playback, oscillators, analysis, and live MediaStream input."
+    },
+    {
+      "url": "https://www.w3.org/TR/webcrypto-2/",
+      "status": "W3C First Public Working Draft, work in progress",
+      "relevance": "Defines Crypto.getRandomValues used to select challenge slots, frequencies, and nonce."
+    }
+  ],
+  "finding": "Replace a single randomized active tone with a multi-symbol frequency-time codeword. Requiring every symbol exactly once, with no matching control-slot or duplicate hits, materially reduces accidental ambient matches and exposes simple replay behavior.",
+  "design_implication": "Vercel Studio should schedule the complete codeword within the direct user gesture, retain negative-control slots, and accept acoustic evidence only when the full codeword classifier returns codeword_consistent alongside existing render, spectral, and temporal gates.",
+  "artifacts": {
+    "module": "tools/frontier-research/acoustic-codeword-challenge.mjs",
+    "test": "tools/frontier-research/acoustic-codeword-challenge.test.mjs",
+    "module_commit": "0feb4d363446ba1abef5a8d0606d387f7ffb06dd",
+    "test_commit": "212e918cadcd301c7d47cda943fe663719a8dc77"
+  },
+  "verification": {
+    "command": "node --test acoustic-codeword-challenge.test.mjs",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "scope": "isolated Node runtime using byte-identical pre-commit source"
+  },
+  "evidence_strength": "deterministic source behavior",
+  "uncertainty": [
+    "The collision estimate assumes uniform independent frequency selection and ordered active-slot sampling without replacement.",
+    "Browser scheduling jitter, room acoustics, microphone processing, and iPhone Safari behavior were not measured.",
+    "A matching codeword does not prove conscious audibility or exclusive browser causation."
+  ],
+  "falsification_route": "Omit, reorder, alter, duplicate, or replay any symbol in a control slot. The classifier must refuse codeword_consistent.",
+  "privacy_boundary": "Persist challenge metadata and derived detections only. Do not persist raw microphone audio without separate consent and governance."
+}
