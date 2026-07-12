@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "recorded_at": "2026-07-12T00:29:26Z",
+  "artifact": "operations/continuity/snapshot-vs-event-log-decision-2026-07-11.json",
+  "artifact_commit": "32eb0bb4b9e04dd546a20e70f5bc381e081f3726",
+  "sources_inspected": [
+    {"path": "operations/CURRENT_STATE.json", "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc"},
+    {"path": "operations/ACTIVE_QUEUE.json", "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"},
+    {"path": "operations/SPECIALIST_REGISTRY.json", "blob_sha": "88451b05101bcd8a259f98de5d9290e15357366b"},
+    {"path": "operations/TRIGGER_REQUESTS.json", "blob_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4"},
+    {"path": "operations/continuity/continuity-index.json", "blob_sha": "3dc3b2cd659616dfe665f5dade3d2b9a4daa3be3"},
+    {"commit": "8d1fde3a4e282bed2510b8ae16c19b371fab779a"},
+    {"commit": "cba7e53f73415ac46215bc79c08cff1b769bdd60"},
+    {"commit": "c533e8a4b191d3c660ddf1bb26376a6452fa6403"}
+  ],
+  "recovered_memory": "Canonical queue snapshots and append-only queue updates are separate temporal layers; current state requires ordered reconciliation while historical claims remain attached to their original blobs.",
+  "claim_counts": {"observed": 2, "inferred": 1, "proposed": 1, "unresolved": 1},
+  "contradictions_resolved": 1,
+  "privacy_boundary": "Only public repository state, public commit metadata, and public queue-update records were used.",
+  "verification": {
+    "method": "repository source comparison",
+    "passed": true,
+    "limits": [
+      "No deterministic materialized current-view manifest was present or produced in this slice.",
+      "Commit existence proves repository history, not semantic correctness of every queue-update payload.",
+      "No private chat or uploaded-file content was inspected."
+    ]
+  },
+  "falsification_route": "Fetch every cited source and compare timestamps, paths, and additive commit history. Reject the recovered rule if later evidence shows queue-update files replace or mutate prior history rather than append to it."
+}
