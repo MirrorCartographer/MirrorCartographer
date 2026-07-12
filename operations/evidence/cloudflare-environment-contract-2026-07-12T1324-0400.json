@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "team": "cloudflare_research",
+  "recorded_at": "2026-07-12T13:24:00-04:00",
+  "improvement": "Added a machine-verifiable contract for the cloudflare-research GitHub environment, required secret names, minimum Pages permission, non-logging policy, deployment workflow, project identity, and required verification outcomes.",
+  "files": [
+    "cloudflare-static/cloudflare-environment-requirements.json",
+    "cloudflare-static/validate-environment-requirements.mjs",
+    "cloudflare-static/validate-environment-requirements.test.mjs"
+  ],
+  "commits": [
+    "a3d2e3e05e2473c7ab82e49b67ca8e9c4f298e37",
+    "e63ad9f4dd1add0437162207f16ca54aeb94dff3",
+    "d1bae0c60e12ce64e0ef569656e4d0a95c193563"
+  ],
+  "verification": {
+    "method": "isolated Node runtime using byte-identical authored files",
+    "tests": 4,
+    "passed": 4,
+    "validator_result": {"ok": true, "errors": []}
+  },
+  "claim_state": "source-and-isolated-runtime-verified",
+  "evidence_strength": "moderate",
+  "limits": [
+    "The GitHub environment and secrets were not inspected or configured.",
+    "No Cloudflare deployment was dispatched.",
+    "No hostname resolution or served-commit proof was obtained.",
+    "The repository commit currently has unrelated Vercel build-rate-limit failures.",
+    "Infrastructure evidence does not establish scientific or medical truth."
+  ],
+  "privacy_boundary": "Secret values are neither represented nor permitted in logs; only names, required capability, and verification outcomes are recorded.",
+  "falsification_route": "Mutate the declared secret set, token permission, logging policy, project identity, workflow identity, or verification requirements and run the validator tests; dispatch the deployment workflow after configuration and require final evidence acceptance before marking C-001 complete."
+}
