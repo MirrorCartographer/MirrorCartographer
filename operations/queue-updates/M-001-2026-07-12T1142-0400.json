@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-001",
+  "owner": "continuity_mining",
+  "status": "completed_with_followup",
+  "progress_update": {
+    "memory_recovered": "The canonical queue is a historical snapshot and can lag additive queue updates and later commits; current-state interpretation must reconcile all three layers rather than overwrite earlier observations.",
+    "artifact": "operations/continuity/observations/canonical-queue-drift-2026-07-12T1142-0400.json",
+    "artifact_commit": "1cf4e26260673a41d132e2961c780a2dab4d9d6f",
+    "claim_states": {
+      "observed": "Canonical C-001 progress is older than a later owned queue update and integration commit.",
+      "inferred": "Canonical-only readers may understate current progress.",
+      "proposed": "Build an additive queue-state reconciler.",
+      "superseded": "None; older snapshots remain valid historical observations.",
+      "unresolved": "No accepted reconciliation rule exists, and Cloudflare deployment remains unproven."
+    },
+    "verification": "The artifact names exact public repository paths, blob SHAs, and commit SHAs with a falsification route."
+  },
+  "remaining": [
+    "Add CM-0010 to the canonical continuity index through an owned append-only update.",
+    "Implement and test a queue-state reconciler that never treats commit recency as deployment proof.",
+    "Extend the reconciler to Vercel, independent creative web, continuity, and frontier queue updates."
+  ],
+  "canonical_queue_overwritten": false,
+  "other_team_records_overwritten": false
+}
