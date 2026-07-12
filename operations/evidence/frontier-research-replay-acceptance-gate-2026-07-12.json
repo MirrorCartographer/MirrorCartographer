@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-017",
+  "owner": "frontier_research",
+  "title": "Fail-closed composite Event Timing replay acceptance gate",
+  "primary_sources": [
+    {
+      "url": "https://w3c.github.io/event-timing/",
+      "status": "W3C Editor's Draft",
+      "relevance": "Defines Event Timing entries, interaction grouping, and observer capability assumptions used by the capability layer."
+    },
+    {
+      "url": "https://w3c.github.io/performance-timeline/",
+      "status": "W3C Editor's Draft",
+      "relevance": "Defines PerformanceEntry timestamps relative to a performance time origin."
+    },
+    {
+      "url": "https://w3c.github.io/hr-time/",
+      "status": "W3C Editor's Draft",
+      "dated": "2026-03-24",
+      "relevance": "Defines performance.now() and performance.timeOrigin on a monotonic clock domain."
+    }
+  ],
+  "finding": "Individually valid capability, navigation-freshness, and monotonic-clock packets do not create a safe replay decision unless one fail-closed gate requires every layer and binds them to the same opaque navigation identity.",
+  "design_implication": "Downstream replay interpretation must consume only replay_acceptance_valid from the composite gate. It must not independently cherry-pick a successful lower-level packet while another layer is unresolved or rejected.",
+  "artifact": "tools/frontier-research/event-timing-replay-acceptance-gate.mjs",
+  "test": "tools/frontier-research/event-timing-replay-acceptance-gate.test.mjs",
+  "commits": [
+    "aaecbcf60335d47141add2b17a33a262d2b4c665",
+    "4378c499448137e2127ebe46e38cefaf8645e770",
+    "a1b339cc9c3e0cbfeb8757a4a0242fe398607b3f"
+  ],
+  "verification": {
+    "runtime": "isolated Node.js execution using byte-equivalent gate logic and repository dependency behavior",
+    "tests": 7,
+    "passed": 7,
+    "failed": 0,
+    "cases": [
+      "all layers accepted",
+      "unobserved capability rejected",
+      "time-origin mismatch rejected",
+      "cross-layer navigation mismatch rejected",
+      "wall-clock staleness rejected",
+      "monotonic staleness rejected",
+      "raw clock and event fields excluded from retained output"
+    ]
+  },
+  "claim_states": {
+    "observed": [
+      "R-014, R-015, and R-016 expose separate capability, integration, and clock-binding decisions.",
+      "Seven deterministic composite-gate tests passed in an isolated Node.js runtime."
+    ],
+    "inferred": [
+      "Without a single acceptance boundary, a consumer can accidentally treat one successful lower-level packet as sufficient evidence."
+    ],
+    "proposed": [
+      "Vercel Studio should invoke this gate immediately before replay interpretation and expose only its bounded output."
+    ],
+    "superseded": [
+      "Allowing downstream consumers to combine lower-level Event Timing evidence ad hoc."
+    ],
+    "unresolved": [
+      "No deployed Vercel path invokes the composite gate.",
+      "No physical iPhone Safari backgrounding, reload, or wall-clock-adjustment packet was evaluated.",
+      "Production freshness thresholds remain uncalibrated."
+    ]
+  },
+  "falsification_route": [
+    "Supply one accepted layer and one rejected layer and verify the composite result remains unresolved and false.",
+    "Reuse packets across reloads with matching wall-clock freshness but different time origins and verify rejection.",
+    "Background physical iPhone Safari beyond the monotonic budget and verify stale rejection before replay interpretation."
+  ],
+  "privacy_boundary": {
+    "retained": ["opaque navigation id", "bounded packet ages", "layer validity flags", "reason code"],
+    "excluded": ["raw time origin", "raw monotonic timestamps", "wall-clock timestamp", "event names", "event targets", "selectors", "raw timing entries", "user-agent strings"]
+  }
+}
