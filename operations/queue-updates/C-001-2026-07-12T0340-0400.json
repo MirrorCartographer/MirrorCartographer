@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "updated_at": "2026-07-12T03:40:00-04:00",
+  "completed_slice": {
+    "description": "Integrated the committed Cloudflare deployment metadata verifier into the production Pages workflow.",
+    "workflow_commit": "dd561a1e1471fac528f524e4865cd45d44ba4339",
+    "evidence_commit": "055be2e0639de5201a83bf09f0189b0228261bba",
+    "evidence": "operations/evidence/cloudflare-production-metadata-binding-2026-07-12T0340-0400.json"
+  },
+  "required_evidence_progress": {
+    "resolving_url": "not observed",
+    "served_research_surface": "not observed",
+    "deployed_commit": "not observed",
+    "control_plane_binding": "implemented but not runtime-observed"
+  },
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment, then dispatch .github/workflows/cloudflare-pages-research.yml.",
+  "next_action": "Run the credentialed workflow and require the metadata artifact to match exact project, full commit SHA, Wrangler deployment URL, and successful deploy stage before accepting deployment evidence."
+}
