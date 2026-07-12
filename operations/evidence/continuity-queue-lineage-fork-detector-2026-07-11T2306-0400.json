@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-012",
+  "recorded_at": "2026-07-11T23:06:00-04:00",
+  "finding": "A continuity queue can have a single current head while still containing an unresolved historical fork. Fork evidence must therefore be derived from predecessor-to-successor cardinality, not head count alone, and must remain visible after a later merge record.",
+  "artifact": {
+    "module": "tools/continuity/queue-lineage-fork-detector.mjs",
+    "module_commit": "45b08685376763f60d4ebeb8b059e83b73b03cd3",
+    "test": "tools/continuity/queue-lineage-fork-detector.test.mjs",
+    "test_commit": "260578b9b5786c9fef5be8fdc80ef0ac94520e6f"
+  },
+  "verification": {
+    "method": "isolated Node runtime using byte-identical source and test content",
+    "result": "passed",
+    "checks": 5,
+    "covered": [
+      "linear lineage acceptance",
+      "sibling successor fork detection",
+      "historical fork preservation after merge",
+      "missing dependency rejection",
+      "fail-closed assertion"
+    ]
+  },
+  "claim_states": {
+    "observed": "Recent continuity records explicitly preserve fork detection as unresolved work; the committed detector and test now implement that check.",
+    "inferred": "Counting only current heads is insufficient because a reconciliation record can hide the fact that two sibling records once diverged from the same predecessor.",
+    "proposed": "Compose normalization, inherited-unresolved validation, and fork detection into one report-only repository inventory before CI enforcement.",
+    "superseded": "Treating a single current queue head as proof that queue history is linear.",
+    "unresolved": [
+      "repository-wide discovery of every M-* record",
+      "classification of intentional versus accidental forks",
+      "CI integration",
+      "M-007 workflow execution artifact",
+      "M-008 adapter audit"
+    ]
+  },
+  "privacy_boundary": "Public repository metadata, abstract queue semantics, and synthetic test records only. No private chat text, health or pet-health material, credentials, personal identifiers, or unreviewed uploads were included.",
+  "falsification_route": "Supply a record set with two successors sharing one predecessor. The detector must report the predecessor and both successors even if a later record depends on both branches; failure to do so falsifies the implementation claim."
+}
