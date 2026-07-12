@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T17:54:36-04:00",
+  "finding": "The deployment workflow security audit existed as tested source but was not independently enforced when the workflow or its audit logic changed.",
+  "durable_improvement": {
+    "workflow": ".github/workflows/cloudflare-deployment-security-gate.yml",
+    "contract_inspector": "cloudflare-static/cloudflare-security-gate-workflow-contract.mjs",
+    "contract_test": "cloudflare-static/cloudflare-security-gate-workflow-contract.test.mjs",
+    "behavior": [
+      "Runs on changes to the deployment workflow or security-audit implementation and can also be manually dispatched.",
+      "Executes the existing fail-closed deployment-workflow audit tests.",
+      "Audits the committed Cloudflare deployment workflow and emits a JSON artifact.",
+      "Uses read-only repository permission and accesses no Cloudflare credentials.",
+      "Contains no deployment, Vercel, payment, billing, or conversion behavior."
+    ]
+  },
+  "verification": {
+    "local_deterministic_tests": {
+      "passed": 3,
+      "failed": 0,
+      "contract_status": "gate_contract_satisfied"
+    },
+    "committed_workflow_runs_observed_for_latest_commit": 0,
+    "source_commits": [
+      "4bc4144ac62827c55498adc6b48da5977e9d1204",
+      "29ca622cfa66f0424cb37cd712aaa18f02990484",
+      "07beca8590e200e9d48ab87c262343b5724de7ae"
+    ]
+  },
+  "evidence_strength": "deterministic static contract verification; committed source; no hosted-run evidence yet",
+  "privacy_boundary": "No secret values, private chat, health information, credentials, or identifying personal material were read or persisted.",
+  "limits": [
+    "No GitHub Actions run was observed for the latest commit at inspection time.",
+    "Static validation does not prove repository environment protection, credential validity, action integrity, Cloudflare deployment, hostname resolution, or served identity.",
+    "The primary C-001 deployment blocker remains external configuration of the cloudflare-research environment and successful dispatch of the deployment workflow.",
+    "Major-version action references remain mutable until exact upstream commit identities are independently verified and pinned."
+  ],
+  "falsification_route": "Modify the gate to stop watching the deployment workflow, add credential access, or add a deployment command; the committed contract tests must fail. A successful hosted gate run must later produce the named JSON audit artifact.",
+  "claim_status": {
+    "observed": "The prior audit and tests were committed, while the deployment workflow did not invoke that audit in its listed contract-test step.",
+    "inferred": "An independent path-filtered gate reduces the chance that workflow-security regressions reach a credentialed manual deployment run unnoticed.",
+    "proposed": "After exact action commit identities are verified, pin the gate and deployment workflow action references.",
+    "unresolved": "Cloudflare account authorization, deployment URL, canonical hostname, deployed commit, and served research identity remain unproven."
+  }
+}
