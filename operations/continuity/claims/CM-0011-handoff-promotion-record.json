@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0011",
+  "title": "Handoff promotion requires a provenance-bound additive authorization record",
+  "created_at": "2026-07-12T10:25:37Z",
+  "team": "continuity_mining",
+  "privacy": "public_repository_safe",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-12T10:25:37Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/CURRENT_STATE.json",
+      "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+      "observed_at": "2026-07-12T10:25:37Z"
+    },
+    {
+      "type": "github_claim",
+      "locator": "operations/continuity/claims/CM-0010-completion-handoff-authority-boundary.json",
+      "content_sha": "ced2a8720b66622d82043bd84b27d56669836555",
+      "observed_at": "2026-07-12T10:25:37Z"
+    }
+  ],
+  "claims": {
+    "observed": [
+      "M-001 is completed and includes a handoff, while no active continuity_mining queue item exists.",
+      "CM-0010 already separates completed state, proposed handoff, authorization, execution, and verification.",
+      "The repository previously lacked a canonical machine-readable record for promoting a handoff into newly owned work."
+    ],
+    "inferred": [
+      "A promotion record must preserve the immutable source item and bind the exact handoff content before assigning a new owner.",
+      "Promotion is a state transition between linked records, not mutation of the completed source record."
+    ],
+    "proposed": [
+      "Use operations/continuity/handoff-promotion.schema.json for every future handoff-derived authorization.",
+      "Require source blob identity, handoff content digest, new queue identity, owner, authority basis, acceptance state, and privacy boundary."
+    ],
+    "superseded": [
+      "Representing handoff-derived work only as prose in a completed queue item's handoff field.",
+      "Reopening or rewriting a completed queue item to imply new ownership."
+    ],
+    "unresolved": [
+      "No runtime validator currently enforces this JSON Schema.",
+      "The canonical ACTIVE_QUEUE format does not yet link promoted work back to a promotion_id.",
+      "No authorized promotion instance has yet been accepted by a receiving team."
+    ]
+  },
+  "durable_memory": {
+    "rule": "A handoff becomes executable only through a new additive record that binds source history, exact handoff content, new ownership, explicit authority, and acceptance state.",
+    "artifact": "operations/continuity/handoff-promotion.schema.json",
+    "source_history_preserved": true,
+    "fail_closed": "Absent a schema-valid authorization with acceptance_status=authorized, retain the handoff as proposed and do not claim active execution."
+  },
+  "falsification_or_review_route": "Reject or revise this rule if a canonical repository governance document explicitly authorizes execution through a handoff field alone while preserving equivalent source identity, owner acceptance, and state provenance.",
+  "privacy_boundary": {
+    "included": ["public repository state", "abstract workflow governance", "content hashes", "team identifiers"],
+    "excluded": ["private chat text", "health or pet-health information", "credentials", "personal identifiers", "unreviewed uploaded files"]
+  }
+}
