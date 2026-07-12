@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T00:49:35-04:00",
+  "improvement": "Bind the deployable Cloudflare Pages package to the exact GitHub commit during readiness classification and require the served well-known manifest to match that commit during the existing deployment verification step.",
+  "source_changes": [
+    {
+      "path": "cloudflare-static/check-deployment-readiness.mjs",
+      "commit": "26f9e1b116dece717e5a85388d4c6dec2ab849d2",
+      "effect": "The workflow-invoked readiness command now writes cloudflare-static/.well-known/mirror-cartographer-research.json using GITHUB_SHA and GITHUB_REPOSITORY before deployment."
+    },
+    {
+      "path": "cloudflare-static/verify-deployment.mjs",
+      "commit": "a93dde4905bd02ba34304c83f598966cd42100d3",
+      "effect": "The workflow-invoked served-surface verifier now also fetches and validates the well-known manifest and fails closed on commit, repository, surface, privacy, HTTP, or JSON mismatch."
+    },
+    {
+      "path": "cloudflare-static/check-deployment-readiness.test.mjs",
+      "commit": "be1091334cbdf30c98cdeed58965b297aca68675",
+      "effect": "Adds deterministic coverage that the exact workflow commit and repository are stamped into the deployable manifest without secret or private-user-data flags."
+    }
+  ],
+  "verification": {
+    "route": "isolated Node.js execution using byte-equivalent committed readiness and stamper logic",
+    "tests": 2,
+    "passed": 2,
+    "failed": 0,
+    "assertions": [
+      "readiness output does not emit credential values",
+      "well-known manifest contains the exact 40-character source commit",
+      "well-known manifest contains the exact owner/name repository identity",
+      "privacy flags remain false"
+    ]
+  },
+  "claim_state": {
+    "observed": "The repository source now connects the existing workflow-invoked readiness and served-verification commands to the deployment manifest identity chain.",
+    "inferred": "A future successful workflow run will include the stamped file in the cloudflare-static directory deployed by Wrangler and will reject a served deployment whose manifest does not match GITHUB_SHA.",
+    "unresolved": "No resolving Cloudflare Pages deployment or provider-returned URL was available in this run.",
+    "not_claimed": [
+      "successful Cloudflare deployment",
+      "public hostname resolution",
+      "scientific validity",
+      "medical diagnosis or treatment efficacy"
+    ]
+  },
+  "privacy": {
+    "contains_secrets": false,
+    "contains_private_user_data": false,
+    "boundary": "Only public repository paths, commit identifiers, deterministic test outcomes, and non-sensitive reason classes are recorded."
+  },
+  "rollback": "Revert commits be1091334cbdf30c98cdeed58965b297aca68675, a93dde4905bd02ba34304c83f598966cd42100d3, and 26f9e1b116dece717e5a85388d4c6dec2ab849d2 in reverse order."
+}
