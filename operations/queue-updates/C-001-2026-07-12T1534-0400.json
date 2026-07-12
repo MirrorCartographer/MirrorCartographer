@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "recorded_at": "2026-07-12T15:34:00-04:00",
+  "completed_slice": "Implemented and tested a fail-closed dispatch decision builder that binds a verified preflight verdict to one exact repository, commit, workflow, ref, and sanitized branch input.",
+  "specialists_used": [
+    "Cloudflare Deployment Engineer",
+    "Provenance Engineer",
+    "Evidence Auditor",
+    "Privacy Boundary Reviewer"
+  ],
+  "artifacts": [
+    "cloudflare-static/build-cloudflare-dispatch-decision.mjs",
+    "cloudflare-static/build-cloudflare-dispatch-decision.test.mjs",
+    "operations/evidence/cloudflare-dispatch-decision-2026-07-12T1534-0400.json"
+  ],
+  "commits": [
+    "cf808e15ba3c7aa305aea20b0aac57812015cf7f",
+    "5d4ad61c302fc7e4456fce78b6c8334880bf0c05",
+    "7afbd0d7624be8e82130349465fa91d4cb27fbff"
+  ],
+  "verification": "Five deterministic Node tests passed in an isolated runtime before commit.",
+  "remaining_blocker": "Valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN must be configured in the cloudflare-research GitHub environment before the production workflow can prove deployment and hostname resolution.",
+  "next_action": "Wire the dispatch decision builder into the preflight artifact workflow, then require an allowed exact-commit decision before dispatching cloudflare-pages-research.yml."
+}
