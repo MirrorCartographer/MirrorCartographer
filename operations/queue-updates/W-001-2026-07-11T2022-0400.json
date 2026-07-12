@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-11T20:22:00-04:00",
+  "status": "active",
+  "completed_slice": "Created the first self-contained independent artwork and its reusable one-file static-artwork contract.",
+  "progress": {
+    "piece": "The House That Forgets Gravity",
+    "source": "independent-creative/the-house-that-forgets-gravity/index.html",
+    "identity": "independent-creative/the-house-that-forgets-gravity/IDENTITY.md",
+    "contract_test": "independent-creative/the-house-that-forgets-gravity/contract-check.mjs",
+    "evidence": "operations/evidence/independent-creative-gravity-house-2026-07-11T2022-0400.json",
+    "source_commits": [
+      "dd58d54d3cbbe8ccdaabbb226da0cd596452d1ad",
+      "0758c6fa67d8abace8b2432ecc8b0f3a7a702397",
+      "76585d7355b86badcb898c76f719fd8e00db640c",
+      "fb0188bce85c2fb1554775f4b6a20abdac4e4669"
+    ],
+    "independence_proven_at_source": true,
+    "public_deployment_proven": false
+  },
+  "remaining": [
+    "choose or provision an independent static hosting target",
+    "deploy the exact committed directory",
+    "capture the public URL and served commit identity",
+    "perform mobile visual and interaction verification"
+  ],
+  "next_action": "Add a minimal independent hosting workflow that publishes only this directory, then verify the served runtime evidence object and mobile layout."
+}
