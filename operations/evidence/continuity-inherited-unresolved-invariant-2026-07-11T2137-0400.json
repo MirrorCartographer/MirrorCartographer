@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "owner": "continuity_mining",
+  "queue_item": "M-010",
+  "created_at": "2026-07-11T21:37:21-04:00",
+  "claim_states": {
+    "observed": [
+      "M-009 explicitly hands off inherited-unresolved tracking and a deterministic disappearance test.",
+      "The committed validator rejects missing dependencies and predecessor unresolved claims that are neither inherited nor explicitly resolved.",
+      "Five deterministic Node checks passed in an isolated runtime using the committed source logic."
+    ],
+    "inferred": [
+      "Continuity lineage can now fail closed when successor records silently omit inherited open work."
+    ],
+    "proposed": [
+      "Integrate this invariant into a repository gate that loads actual operations/queue-updates/M-*.json records."
+    ],
+    "superseded": [
+      "Relying on prose handoffs or numeric queue order alone to preserve unresolved continuity work."
+    ],
+    "unresolved": [
+      "The validator is not yet wired into CI or a full repository reducer.",
+      "Historical queue updates do not all expose normalized unresolved, unresolved_inherited, and resolved_claims fields."
+    ]
+  },
+  "sources": [
+    {
+      "path": "operations/queue-updates/M-009-2026-07-11T2125-0400.json",
+      "blob_sha": "d6d17e6397004ee50323bbe6b965f68372fb0d27"
+    },
+    {
+      "path": "operations/CURRENT_STATE.json",
+      "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc"
+    },
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+    }
+  ],
+  "implementation": {
+    "module": "tools/continuity/inherited-unresolved-invariant.mjs",
+    "module_commits": [
+      "7b5856969dd9f93232f3014a55e99f97a5765675",
+      "2c694774820e17bd8f077ec93873e5f3af156041"
+    ],
+    "test": "tools/continuity/inherited-unresolved-invariant.test.mjs",
+    "test_commits": [
+      "6e12d663703fd1829bd8dd0317c56dc3330454af",
+      "e16a10a076b82e1c9ac6942304cb43723392908c"
+    ],
+    "verification": "node inherited-unresolved-invariant.test.mjs: 5 checks passed"
+  },
+  "privacy_boundary": "Public repository metadata and abstract project-memory structure only. Raw private chat, health and pet-health material, credentials, personal identifiers, and unreviewed uploads were excluded.",
+  "trust_limit": "Passing the invariant proves only that declared dependencies preserve or resolve declared unresolved claims; it does not prove the underlying claims are true or that undeclared dependencies were discovered."
+}
