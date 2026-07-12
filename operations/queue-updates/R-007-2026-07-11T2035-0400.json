@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T20:35:02-04:00",
+  "queue_item": {
+    "id": "R-007",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Calibrate detector timestamps into the browser performance timeline before scoring randomized acoustic challenges.",
+    "dependencies": ["R-006"],
+    "required_evidence": [
+      "current primary specifications",
+      "committed clock-alignment model",
+      "deterministic drift and residual tests",
+      "explicit uncertainty and trust limits",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://www.w3.org/TR/webaudio/",
+        "https://www.w3.org/TR/hr-time-3/"
+      ],
+      "finding": "Cross-device detector timestamps require explicit offset-and-drift calibration before challenge scoring; residual and detector resolution must remain attached as uncertainty.",
+      "module": "tools/frontier-research/acoustic-clock-alignment.mjs",
+      "test": "tools/frontier-research/acoustic-clock-alignment.test.mjs",
+      "evidence": "operations/evidence/frontier-research-acoustic-clock-alignment-2026-07-11.json",
+      "commits": [
+        "9720e33a1e26275a98c8e01970a4825308199c24",
+        "260ddd0c2ffb42cda597e83d4fe40afbc092e421",
+        "f5339700f88fe1cdb3e082cc3a6f4d4456e84c35"
+      ],
+      "verification": "4 deterministic Node tests passed locally using byte-identical source and test content before commit"
+    },
+    "handoff": "Vercel Studio should capture at least two synchronization anchors bracketing each challenge, estimate alignment, require the quality gate to pass, transform detector timestamps, and expand challenge timing tolerance by the recorded alignment uncertainty. Keep output rendering, acoustic correlation, and listener perception as separate claims."
+  },
+  "non_overwrite_note": "This append-only queue update does not replace operations/ACTIVE_QUEUE.json or another team's records."
+}
