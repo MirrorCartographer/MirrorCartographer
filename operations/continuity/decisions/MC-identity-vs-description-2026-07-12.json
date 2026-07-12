@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-0009",
+  "kind": "decision",
+  "title": "Mirror Cartographer identity is stable while descriptions evolve",
+  "claim_state": "observed",
+  "evidence_strength": "unverified",
+  "sources": [
+    {
+      "type": "private_chat_reference",
+      "locator": "private conversation correction recorded 2026-07-12; raw wording intentionally excluded",
+      "content_sha": null,
+      "observed_at": "2026-07-12T04:15:08Z"
+    }
+  ],
+  "summary": "The project name and identity remain Mirror Cartographer. Terms such as website, interface, context engine, continuity architecture, knowledge substrate, or operating system are descriptions of facets, implementations, or interpretive frames; they are not prior names and must not be represented as identity changes.",
+  "privacy": "restricted_reference_only",
+  "contradicts": [
+    "Any continuity record or narrative claiming that the project repeatedly changed names without primary evidence"
+  ],
+  "supersedes": [],
+  "status_distinctions": {
+    "observed": [
+      "A direct project-owner correction states that the project did not change names.",
+      "The stable project identifier is Mirror Cartographer."
+    ],
+    "inferred": [
+      "Changing descriptions likely reflect evolving understanding or implementation scope rather than changing identity."
+    ],
+    "proposed": [
+      "Future continuity records should store identity, description, implementation, and metaphor as separate fields."
+    ],
+    "superseded": [
+      "The unsupported interpretation that changing descriptions were changing project names."
+    ],
+    "unresolved": [
+      "A complete historical inventory of descriptions and the dates each entered use has not yet been produced."
+    ]
+  },
+  "language_rule": {
+    "identity_field": "Mirror Cartographer",
+    "description_field": "May evolve and may be plural",
+    "implementation_field": "May change without implying identity change",
+    "metaphor_field": "Must never be promoted to a former name without explicit primary evidence"
+  },
+  "privacy_boundary": "No raw private chat, personal health material, identifying details, credentials, or unreviewed uploads are reproduced. Only the minimum abstracted decision needed for continuity is retained.",
+  "falsification_or_review_route": "Review against direct project-owner statements or dated primary project artifacts. Reclassify only if explicit evidence shows an actual formal rename; descriptive labels alone are insufficient."
+}
