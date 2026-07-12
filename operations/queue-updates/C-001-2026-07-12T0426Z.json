@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added an independently configured, deny-by-default signer policy builder so trust cannot be bootstrapped from the attestation currently under evaluation.",
+  "specialists_used": [
+    "Provenance Engineer",
+    "Evidence Auditor",
+    "Cloudflare Deployment Engineer"
+  ],
+  "files": [
+    "cloudflare-static/build-signer-policy.mjs",
+    "cloudflare-static/build-signer-policy.test.mjs",
+    "operations/evidence/cloudflare-independent-signer-policy-2026-07-12T0426Z.json"
+  ],
+  "commits": [
+    "a38d62f4076d893f676c255cab21ad6ded956d60",
+    "b5c8e7c82ca5c5333a922243e94df50ed48cf6e0",
+    "20f23935245792a71be136f486a88948e2998834"
+  ],
+  "verification": {
+    "source": "GitHub accepted the module, deterministic tests, and evidence artifact on the default branch.",
+    "runtime": "not executed in this run",
+    "deployment": "not verified"
+  },
+  "blocker": "Configure Cloudflare credentials plus an independently reviewed TRUSTED_SIGNER_CERT_SHA256 value in the cloudflare-research environment, wire the builder and signer-authorization output into the workflow acceptance invariant, then dispatch the workflow.",
+  "boundaries": [
+    "No payment functionality was moved to Vercel.",
+    "No diagnosis or treatment claims were published.",
+    "No GitHub files or history were deleted."
+  ],
+  "next_action": "Wire build-signer-policy.mjs, build-gh-signer-authorization-input.mjs, and evaluate-signer-authorization.mjs into the Cloudflare workflow and require status=authorized before final evidence acceptance.",
+  "updated_at": "2026-07-12T04:26:00Z"
+}
