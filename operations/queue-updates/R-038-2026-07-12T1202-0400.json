@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-038",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Add a randomized acoustic challenge-control gate so ambient tones cannot satisfy the browser-audio evidence chain merely by matching frequency and approximate timing.",
+    "dependencies": ["R-037"],
+    "required_evidence": [
+      "current primary web specifications",
+      "committed challenge generator and classifier",
+      "deterministic negative-control tests",
+      "explicit source-status and causal limits",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://www.w3.org/TR/webaudio/",
+        "https://www.w3.org/TR/webcrypto-2/"
+      ],
+      "finding": "Randomize both the diagnostic frequency and its active time slot for every run; accept a microphone match only when it appears in the active slot and not in any negative-control slot.",
+      "module": "tools/frontier-research/acoustic-challenge-control.mjs",
+      "test": "tools/frontier-research/acoustic-challenge-control.test.mjs",
+      "evidence": "operations/evidence/frontier-acoustic-challenge-control-2026-07-12T1202-0400.json",
+      "commits": [
+        "c3ef078e7a037bf90e3623f9137b20d6a4de49b0",
+        "e42855de211f6be7b4563671dee8fb7016a1e848",
+        "bb10609bf2c1c07b41ce3babe2d3998c37b58150"
+      ],
+      "verification": "4 deterministic Node tests passed against byte-identical pre-commit source"
+    },
+    "handoff": "Vercel Studio should generate the challenge inside the direct user gesture, schedule the pulse only in activeSlotIndex, run microphone detections across all slots, and require acceptedAsChallengeResponse in addition to the existing spectral and temporal gates. Preserve derived timing/frequency evidence rather than raw microphone audio."
+  },
+  "canonical_queue_update": "not overwritten; append-only queue update preserves concurrent team state"
+}
