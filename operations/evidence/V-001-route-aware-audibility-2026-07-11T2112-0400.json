@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T21:12:00-04:00",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "slice": "Bind browser routing state into the same audibility diagnosis recorded after the direct phone sound test.",
+  "specialists": [
+    "Audio Engineer",
+    "Mobile Safari Investigator",
+    "Accessibility Auditor",
+    "Deployment Verifier"
+  ],
+  "source": {
+    "repository": "MirrorCartographer/mirror-cartographer-ui",
+    "runtime_file": "src/engine/audibilityOutcomeRuntime.js",
+    "runtime_commit": "6515b6930623d6c201e7437d174d38e7a51a7748",
+    "test_file": "scripts/audibility-outcome-contract-check.mjs",
+    "test_commit": "6f18ca3572d676b7d0ed57f9c8b847b16b828bb2"
+  },
+  "behavior": {
+    "schema_version": "1.3.0",
+    "routing_snapshot_fields": [
+      "status",
+      "browserConfirmed",
+      "physicalOutputProven",
+      "sinkId",
+      "sampledAt",
+      "evidenceLimit"
+    ],
+    "new_diagnoses": [
+      "render-confirmed-selected-route-not-heard",
+      "render-confirmed-default-route-not-heard",
+      "render-confirmed-routing-unavailable-not-heard",
+      "render-confirmed-routing-policy-blocked-not-heard",
+      "render-confirmed-route-unresolved-not-heard"
+    ],
+    "accessibility": "The existing live region now announces both diagnosis and routing status; the 44px response controls remain unchanged.",
+    "privacy": "Only bounded browser runtime state is recorded; no microphone capture, device inventory, personal data, payment data, or health data is added."
+  },
+  "verification": {
+    "source_identity": "The committed runtime blob was re-fetched at test commit 6f18ca3572d676b7d0ed57f9c8b847b16b828bb2 and contains the route-aware classifier and evidence schema 1.3.0.",
+    "contract_assertions": 11,
+    "execution_status": "not executed in this automation runtime; connector access exposed committed source and status APIs but no repository checkout or direct Actions dispatch",
+    "deployment_status": "failure",
+    "deployment_provider": "Vercel",
+    "deployment_reason": "build-rate-limit",
+    "deployment_url": "https://vercel.com/mirror-cartographers-projects?upgradeToPro=build-rate-limit"
+  },
+  "evidence_limits": [
+    "Browser render evidence does not prove physical speaker emission.",
+    "Browser routing state does not prove physical speaker emission or listener perception.",
+    "A committed test is not equivalent to an executed test.",
+    "No fresh public deployment or iPhone Safari outcome was available for this commit."
+  ],
+  "rollback": [
+    "6f18ca3572d676b7d0ed57f9c8b847b16b828bb2",
+    "6515b6930623d6c201e7437d174d38e7a51a7748"
+  ]
+}
