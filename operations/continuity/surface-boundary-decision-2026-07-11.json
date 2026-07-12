@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-0009",
+  "recorded_at": "2026-07-12T00:23:06Z",
+  "kind": "decision_bundle",
+  "title": "Product surfaces have distinct responsibilities and must not collapse into one funnel",
+  "claims": [
+    {
+      "id": "CM-0009-A",
+      "state": "observed",
+      "statement": "The Vercel surface is an active interactive Mirror Cartographer experience and must not contain payment or conversion logic.",
+      "evidence_strength": "primary_repository_source",
+      "source": {
+        "path": "operations/CURRENT_STATE.json",
+        "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+        "fields": ["teams.vercel_studio.surface", "hard_boundaries[0]"]
+      }
+    },
+    {
+      "id": "CM-0009-B",
+      "state": "observed",
+      "statement": "The Cloudflare research surface owns research, theory, science, medicine-facing organization, deployment, and conversion architecture, while deployment remains externally blocked.",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "path": "operations/CURRENT_STATE.json",
+          "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+          "fields": ["teams.cloudflare_research"]
+        },
+        {
+          "path": "operations/SPECIALIST_REGISTRY.json",
+          "blob_sha": "88451b05101bcd8a259f98de5d9290e15357366b",
+          "fields": ["teams.cloudflare_research"]
+        },
+        {
+          "path": "operations/ACTIVE_QUEUE.json",
+          "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "fields": ["items[C-001]"]
+        }
+      ]
+    },
+    {
+      "id": "CM-0009-C",
+      "state": "observed",
+      "statement": "The independent creative site must preserve an identity unrelated to Mirror Cartographer and must not become another explanation page or product funnel.",
+      "evidence_strength": "primary_repository_source",
+      "source": {
+        "path": "operations/CURRENT_STATE.json",
+        "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+        "fields": ["teams.independent_creative_web.surface", "hard_boundaries[2]"]
+      }
+    },
+    {
+      "id": "CM-0009-D",
+      "state": "inferred",
+      "statement": "These boundaries define a three-surface architecture: experience on Vercel, evidence/research/value routing on Cloudflare, and autonomous art on the independent host.",
+      "evidence_strength": "reasoned_from_correlated_primary_sources",
+      "depends_on": ["CM-0009-A", "CM-0009-B", "CM-0009-C"]
+    },
+    {
+      "id": "CM-0009-E",
+      "state": "unresolved",
+      "statement": "The exact public handoff between the Vercel experience and Cloudflare research surface is not yet evidenced by a deployed, resolving Cloudflare URL.",
+      "evidence_strength": "corroborated_absence_of_required_deployment_evidence",
+      "depends_on": ["CM-0009-B"]
+    }
+  ],
+  "contradictions_resolved": [
+    {
+      "apparent_conflict": "Both Vercel Studio and Cloudflare Research may discuss user value and public presentation.",
+      "resolution": "Presentation is shared, but conversion ownership is not: Vercel remains non-commercial and experiential; Cloudflare may own conversion architecture after its deployment is proven.",
+      "status": "resolved_by_explicit_boundary"
+    }
+  ],
+  "superseded_claims": [],
+  "proposed_followup": "Define and test a non-commercial, privacy-safe outbound handoff contract from Vercel to the verified Cloudflare research URL after C-001 is resolved.",
+  "privacy_boundary": {
+    "included": ["public repository state", "public queue metadata", "public specialist responsibilities"],
+    "excluded": ["raw chat", "health and pet-health material", "credentials", "personal identifiers", "unreviewed uploads"]
+  },
+  "falsification_or_review_route": "Re-read the cited blobs. Mark individual claims superseded rather than deleting this record if surface ownership or hard boundaries change. CM-0009-E may be resolved only by retained Cloudflare deployment evidence with a resolving URL and immutable served commit."
+}
