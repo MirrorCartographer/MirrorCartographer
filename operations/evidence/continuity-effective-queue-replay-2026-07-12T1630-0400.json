@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "continuity-effective-queue-replay-2026-07-12T1630-0400",
+  "owner": "continuity_mining",
+  "created_at": "2026-07-12T16:30:55-04:00",
+  "queue_item": "M-007",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/queue-updates/M-006-2026-07-12T1603-0400.json",
+    "tools/continuity/queue-update-discovery-manifest.mjs",
+    "recent repository commits through 8c5b6c8dbf713e7f26076e2771c0f603bfa2a7fc"
+  ],
+  "memory_recovered": {
+    "statement": "The operational queue is an append-only history: ACTIVE_QUEUE.json is a bootstrap snapshot, while immutable operations/queue-updates records must be discovered completely and replayed deterministically to derive effective current state.",
+    "status": "observed_and_structured",
+    "evidence_strength": "strong for repository architecture; incomplete for repository-wide discovery coverage"
+  },
+  "claim_state": {
+    "observed": [
+      "ACTIVE_QUEUE.json contains M-001 as the latest continuity item in its embedded snapshot.",
+      "A later immutable commit records completed continuity item M-006 and hands off M-007.",
+      "The discovery-manifest adapter already distinguishes verified record validity from discovery completeness."
+    ],
+    "inferred": [
+      "Reading ACTIVE_QUEUE.json alone can produce a stale continuity state.",
+      "Reading additive records without a deterministic replay rule can produce conflicting or order-dependent state."
+    ],
+    "proposed": [
+      "Treat complete discovery plus deterministic replay over the base snapshot as the authoritative queue read path.",
+      "Reject cross-owner updates and duplicate record identifiers rather than overwriting prior team state."
+    ],
+    "superseded": [
+      "Treating the most recently fetched queue representation as authoritative regardless of provenance.",
+      "Overwriting canonical queue history to make the snapshot appear current."
+    ],
+    "unresolved": [
+      "The available connector did not expose an exhaustive paginated directory or tree traversal in this run.",
+      "The committed Node tests could not be executed because the runtime had no network path to clone the repository."
+    ]
+  },
+  "implementation": {
+    "module": "tools/continuity/effective-queue-replay.mjs",
+    "module_commit": "f5be8e431a20b8020db861a61112881688617853",
+    "test": "tools/continuity/effective-queue-replay.test.mjs",
+    "test_commit": "edcabb83eaaac28d519c996188ae4a51b3bbdcc2",
+    "behavior": [
+      "fails closed when discovery completeness is unproven",
+      "replays updates by timestamp then record_id",
+      "preserves unrelated base items",
+      "rejects ownership mutation",
+      "rejects duplicate record_id"
+    ]
+  },
+  "verification": {
+    "source_review": "completed",
+    "json_parse": "content constructed as valid JSON",
+    "runtime_tests": "not executed",
+    "runtime_blocker": "container could not resolve github.com, so a fresh checkout was unavailable"
+  },
+  "privacy_boundary": "Only public repository metadata, abstract operational claims, and non-personal queue identifiers were persisted. No private chat, health, credentials, identifying personal data, or unreviewed uploads were included.",
+  "falsification_route": [
+    "Provide a complete repository inventory showing no later queue-update records than the base snapshot.",
+    "Demonstrate that deterministic replay produces a different result from the immutable record sequence.",
+    "Show that an accepted update mutates another team's ownership or that duplicate record IDs are silently applied."
+  ]
+}
