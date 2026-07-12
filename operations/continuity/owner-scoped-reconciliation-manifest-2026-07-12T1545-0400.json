@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-014",
+  "created_at": "2026-07-12T15:45:03-04:00",
+  "owner": "continuity_mining",
+  "purpose": "Reconcile overlapping additive continuity records into a single provenance-preserving owner-scoped manifest without overwriting canonical queue state or peer-owned records.",
+  "sources": [
+    {
+      "type": "canonical_queue",
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "temporal_role": "historical_snapshot"
+    },
+    {
+      "type": "continuity_artifact",
+      "path": "operations/continuity/state-drift-2026-07-12T1529-0400.json",
+      "commit": "042981e61b271a939881967dcfe8683c25875aa1",
+      "temporal_role": "earlier_additive_observation"
+    },
+    {
+      "type": "queue_update",
+      "path": "operations/queue-updates/CM-013-2026-07-12T1529-0400.json",
+      "commit": "9c19e623946ccbcf269f5bef2250c5bd65c6c542",
+      "temporal_role": "earlier_follow_on"
+    },
+    {
+      "type": "continuity_artifact",
+      "path": "operations/continuity/temporal-state-reconciliation-2026-07-12T1538-0400.json",
+      "commit": "f97651b0154e121d0bf9cb1cc98e1893a6c33971",
+      "temporal_role": "later_refinement"
+    },
+    {
+      "type": "queue_update",
+      "path": "operations/queue-updates/M-002-2026-07-12T1538-0400.json",
+      "commit": "ccd47b0825893a6b966997d63f94a264c18a5cae",
+      "temporal_role": "later_completed_item"
+    }
+  ],
+  "claims": {
+    "observed": [
+      "The canonical queue contains M-001 as completed and does not contain M-002 or CM-013.",
+      "CM-013 and M-002 independently record the same temporal-state discrepancy using additive artifacts.",
+      "M-002 is the later and more explicit formulation, with required evidence and a handoff."
+    ],
+    "inferred": [
+      "CM-013 and M-002 are not competing truths; M-002 refines and formalizes the continuity rule first captured by CM-013.",
+      "A consumer that reads only ACTIVE_QUEUE.json will miss valid later continuity work."
+    ],
+    "proposed": [
+      "Treat M-002 as the active semantic successor to CM-013 while retaining both records and their commits.",
+      "Future continuity readers should resolve state in this order: canonical snapshot, owner-scoped additive updates, later implementation commits, then explicit reconciliation manifests."
+    ],
+    "superseded": [
+      {
+        "claim": "CM-013 next action is to create an additive owner-scoped reconciliation manifest.",
+        "superseded_by": "CM-014",
+        "reason": "This manifest completes that requested action; the historical CM-013 record remains preserved."
+      }
+    ],
+    "unresolved": [
+      "ACTIVE_QUEUE.json remains historically stale relative to additive updates because only record owners may update their canonical entries.",
+      "No repository-wide machine resolver currently computes effective queue state from canonical and additive layers.",
+      "Peer execution cannot be inferred from automation trigger success alone."
+    ]
+  },
+  "resolution_rules": [
+    "Never erase or rewrite prior observations merely because later evidence changes current interpretation.",
+    "Only the owning team may mutate its canonical queue record.",
+    "An additive record may refine or supersede interpretation, but must link the prior artifact and commit.",
+    "Deployment, test, and peer-run claims require direct evidence; provenance alone is not claim truth."
+  ],
+  "privacy_boundary": {
+    "included": ["public repository paths", "blob SHAs", "commit SHAs", "abstract operational claims"],
+    "excluded": ["raw private chat", "health or pet-health material", "credentials", "identifying personal data", "unreviewed uploaded files"]
+  },
+  "specialists_used": ["Decision Historian", "Contradiction Resolver", "Privacy Boundary Auditor"],
+  "registry_changed": false,
+  "canonical_queue_changed": false,
+  "verification_route": "Fetch this JSON, parse it, verify all referenced commits and paths exist, and confirm ACTIVE_QUEUE.json blob remains abb807e1a25d399f301238f6b8cc26d6be10385f."
+}
