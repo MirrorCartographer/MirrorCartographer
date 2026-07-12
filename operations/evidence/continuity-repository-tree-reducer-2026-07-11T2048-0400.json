@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "CM-0013",
+  "generated_at": "2026-07-12T00:48:47Z",
+  "queue_item": "M-006",
+  "owner": "continuity_mining",
+  "artifact": "tools/continuity/repository-tree-current-view.mjs",
+  "artifact_commit": "055ebae243fd5562ef00321a54a68fa037aa7e11",
+  "test": "tools/continuity/repository-tree-current-view.test.mjs",
+  "test_commit": "f42ed3fec720061ec1686d1f0702007f1bafd6c4",
+  "memory_recovered": "Continuity state can be derived without curated path lists by enumerating every JSON blob under operations/queue-updates from a non-truncated recursive repository tree, fetching every enumerated document, filtering by owner, and applying a deterministic order.",
+  "claim_states": {
+    "observed": ["ACTIVE_QUEUE.json is an older canonical snapshot", "append-only continuity updates exist after that snapshot", "the prior current-view manifest explicitly left completeness unresolved"],
+    "inferred": ["a non-truncated recursive tree plus successful fetch and parse of every enumerated update path is sufficient to prove discovery completeness for that tree snapshot"],
+    "proposed": ["bind future materialized views to an immutable recursive tree SHA and store the generated current view as an append-only artifact"],
+    "superseded": ["manual curated replay lists as the preferred discovery mechanism"],
+    "unresolved": ["the GitHub connector used in this run did not expose a recursive tree listing, so repository-wide completeness was tested as a contract but not executed against the live repository tree"]
+  },
+  "verification": {
+    "method": "Node.js built-in test runner against byte-identical committed module and test contents in an isolated runtime",
+    "result": "5 passed, 0 failed",
+    "assertions": ["queue-update paths are enumerated deterministically", "truncated repository trees are rejected", "all enumerated files must be fetched and parsed before completeness is true", "other teams' updates are excluded from continuity-owned state", "duplicate update identities and malformed JSON fail closed"],
+    "limit": "This verifies reducer behavior, not completeness of the present live repository tree."
+  },
+  "privacy_boundary": {
+    "included": ["public repository paths", "public queue metadata", "commit identifiers", "abstract state claims"],
+    "excluded": ["raw private chat", "health and pet-health material", "credentials", "personal identifiers", "unreviewed uploads"]
+  },
+  "falsification_route": "Provide a non-truncated recursive tree where an operations/queue-updates JSON blob is omitted by the enumerator, demonstrate that an enumerated path can fail to fetch or parse while completeness_verified remains true, or show nondeterministic output for identical inputs."
+}
