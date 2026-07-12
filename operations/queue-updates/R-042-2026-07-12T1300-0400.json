@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-042",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed",
+  "action": "Add a separately trusted Ed25519 checkpoint over the preregistered acoustic trial ledger head.",
+  "dependencies": ["R-041"],
+  "required_evidence": [
+    "current primary signature specification",
+    "committed checkpoint signer and verifier",
+    "adversarial deterministic tests",
+    "explicit trust boundary",
+    "falsification route"
+  ],
+  "progress": {
+    "primary_sources": [
+      "https://www.rfc-editor.org/rfc/rfc8032.html",
+      "https://www.rfc-editor.org/rfc/rfc8785.html"
+    ],
+    "finding": "A separately trusted Ed25519 checkpoint binds the protocol hash, ledger head, identity, count, and issuance time so a complete local chain rewrite fails unless the attacker also controls a trusted signing key or the verifier's retained state.",
+    "module": "tools/frontier-research/acoustic-ledger-checkpoint.mjs",
+    "test": "tools/frontier-research/acoustic-ledger-checkpoint.test.mjs",
+    "evidence": "operations/evidence/frontier-acoustic-ledger-checkpoint-2026-07-12T1300-0400.json",
+    "commits": [
+      "73a7cf1fc66b09a603997ccc9369707eece6ea59",
+      "1b8971b3f8db79b4c5f0cb2cada8b86b33c6266e",
+      "4d4ee9e8e45e1041fbabed708d2ab4a95c349963",
+      "5c556d823a15172be87a496e8e527cedd2ee294a"
+    ],
+    "verification": "6 deterministic Node tests passed in an isolated runtime; no trusted CI run or production integration is claimed."
+  },
+  "handoff": "Vercel Studio should integrate checkpoint creation at preregistered milestones and require matching R-041 ledger verification plus R-042 trusted checkpoint verification before evaluating repeated iPhone audibility trials. Keep the trusted public key and retained expected checkpoint state outside the mutable trial ledger boundary."
+}
