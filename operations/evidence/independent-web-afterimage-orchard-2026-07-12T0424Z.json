@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "recorded_at": "2026-07-12T04:24:00Z",
+  "creative_premise": "A nocturnal field where gestures plant temporary organisms made of light; each remembers direction, grows once, produces luminous fruit, and becomes weather.",
+  "source": {
+    "path": "independent-web/afterimage-orchard/index.html",
+    "commit": "09829e2bb4f8b72a261310ab27d026af6433b3e0",
+    "blob_sha": "ced5098d23028c36e865168f920aa163c9e33240"
+  },
+  "identity": {
+    "path": "independent-web/afterimage-orchard/IDENTITY.md",
+    "commit": "85fa235b56b533d3830675533b625c3b7d590c34"
+  },
+  "implemented": [
+    "pointer-driven generative planting",
+    "direction-sensitive growth",
+    "transient storm system",
+    "gesture-activated optional Web Audio",
+    "reduced-motion handling",
+    "44px controls and visible keyboard focus",
+    "live-region status",
+    "device-pixel-ratio cap",
+    "zero external runtime dependencies"
+  ],
+  "verification": {
+    "source_refetched_from_main": true,
+    "doctype_present": true,
+    "viewport_present": true,
+    "interactive_handlers_present": true,
+    "reduced_motion_rule_present": true,
+    "public_deployment_verified": false
+  },
+  "independence_boundary": "No Mirror Cartographer explanation, symbolic self-mapping, research portal, operations dashboard, conversion funnel, private material, or payment logic.",
+  "limits": [
+    "No public hosting identity was available in this run.",
+    "No browser screenshot or mobile-device execution was available.",
+    "Source verification does not prove runtime behavior on every browser."
+  ],
+  "rollback": [
+    "revert 85fa235b56b533d3830675533b625c3b7d590c34",
+    "revert 09829e2bb4f8b72a261310ab27d026af6433b3e0"
+  ]
+}
