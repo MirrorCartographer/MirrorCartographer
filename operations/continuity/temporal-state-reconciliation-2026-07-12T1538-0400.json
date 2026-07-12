@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-0010",
+  "created_at": "2026-07-12T15:38:29-04:00",
+  "kind": "contradiction",
+  "title": "Canonical queue snapshots can lag additive implementation evidence",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-12T15:38:29-04:00"
+    },
+    {
+      "type": "github_commit",
+      "locator": "cf808e15ba3c7aa305aea20b0aac57812015cf7f",
+      "content_sha": "cf808e15ba3c7aa305aea20b0aac57812015cf7f",
+      "observed_at": "2026-07-12T15:38:29-04:00"
+    },
+    {
+      "type": "github_commit",
+      "locator": "5d4ad61c302fc7e4456fce78b6c8334880bf0c05",
+      "content_sha": "5d4ad61c302fc7e4456fce78b6c8334880bf0c05",
+      "observed_at": "2026-07-12T15:38:29-04:00"
+    },
+    {
+      "type": "github_commit",
+      "locator": "7afbd0d7624be8e82130349465fa91d4cb27fbff",
+      "content_sha": "7afbd0d7624be8e82130349465fa91d4cb27fbff",
+      "observed_at": "2026-07-12T15:38:29-04:00"
+    },
+    {
+      "type": "github_commit",
+      "locator": "bb085a68135b02502cad7897afd105c1489741f0",
+      "content_sha": "bb085a68135b02502cad7897afd105c1489741f0",
+      "observed_at": "2026-07-12T15:38:29-04:00"
+    }
+  ],
+  "observed": [
+    "ACTIVE_QUEUE.json records C-001 progress through the earlier deployment-readiness and proof pipeline.",
+    "Later commits add an exact-commit dispatch decision builder, deterministic tests, evidence, and an additive queue-update record.",
+    "The later implementation does not erase the historical accuracy of the older queue blob at its commit time."
+  ],
+  "inferred": [
+    "Readers that consult only the canonical queue may understate current implementation progress.",
+    "Readers that consult only recent commits may lose the reason an older queue state was retained."
+  ],
+  "proposed": [
+    "Continuity readers should reconcile canonical state with additive queue-update records and recent commits before reporting current status.",
+    "Canonical queue updates should be made only by the owning team or a dedicated reconciliation process that preserves prior blob provenance."
+  ],
+  "superseded": [],
+  "unresolved": [
+    "The dispatch decision builder is not yet wired into the environment-preflight workflow.",
+    "No resolving Cloudflare deployment URL or served-commit proof has been observed."
+  ],
+  "contradicts": [],
+  "supersedes": [],
+  "privacy": "public_repository_safe",
+  "privacy_boundary": {
+    "included": [
+      "Public repository paths, blob SHAs, commit SHAs, and implementation-state summaries"
+    ],
+    "excluded": [
+      "Raw private chat",
+      "Health or pet-health material",
+      "Credentials or account identifiers",
+      "Unreviewed uploaded-file contents"
+    ]
+  },
+  "falsification_or_review_route": "Fetch ACTIVE_QUEUE.json at blob abb807e1a25d399f301238f6b8cc26d6be10385f and inspect C-001 progress. Then fetch commits cf808e15ba3c7aa305aea20b0aac57812015cf7f, 5d4ad61c302fc7e4456fce78b6c8334880bf0c05, 7afbd0d7624be8e82130349465fa91d4cb27fbff, and bb085a68135b02502cad7897afd105c1489741f0. Reject this record if those commits do not add the stated builder, tests, evidence, and queue update.",
+  "handoff": "Cloudflare Research should wire the exact-commit dispatch decision into preflight and then update its owned canonical C-001 progress. Continuity Mining should later link the resulting canonical update as a temporal successor rather than overwriting CM-0010."
+}
