@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "timestamp": "2026-07-12T01:24:00-04:00",
+  "creative_premise": "A nocturnal orchard where every new organism rewrites nearby organisms, making interaction relational rather than additive.",
+  "source": {
+    "path": "independent-web/afterimage-orchard/index.html",
+    "commit": "4d3ff13718efd2f27125436fe24ea4970ae2aeb7"
+  },
+  "verification_contract": {
+    "path": "independent-web/afterimage-orchard/verify-mobile-contract.mjs",
+    "commit": "88e5323e8cbc146462ee61a0d75efe502d631bcb",
+    "checks": 15,
+    "runtime_status": "workflow_pending_or_unobserved"
+  },
+  "observed": [
+    "Source now implements a bounded 180-pixel reciprocal disturbance radius.",
+    "A new organism can alter neighboring direction, hue, and lifetime.",
+    "Alteration count is exposed through the existing polite live region.",
+    "The artwork remains dependency-free and keeps explicit-gesture audio activation."
+  ],
+  "inferred": [
+    "Relational rewriting creates a more distinctive world law than independent decorative particles."
+  ],
+  "unresolved": [
+    "A successful GitHub Pages deployment identity has not yet been observed for the new commits.",
+    "The updated contract has not yet been observed running in GitHub Actions.",
+    "Mobile visual behavior has not yet been captured from a physical device."
+  ],
+  "privacy_boundary": "No private chat, health information, credentials, analytics, trackers, or user-identifying data are included.",
+  "rollback": "Revert commits 88e5323e8cbc146462ee61a0d75efe502d631bcb and 4d3ff13718efd2f27125436fe24ea4970ae2aeb7; no other site or team files are coupled to the reciprocal-field behavior."
+}
