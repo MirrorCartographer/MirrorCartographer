@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-12T16:12:00-04:00",
+  "team": "frontier_research",
+  "queue_item": "R-018",
+  "sources": [
+    {
+      "url": "https://nodejs.org/api/fs.html",
+      "status": "primary_official_documentation",
+      "observed": "Node.js exposes exclusive creation, file synchronization, rename, and directory handles needed for a durable replacement protocol."
+    },
+    {
+      "url": "https://www.sqlite.org/atomiccommit.html",
+      "status": "primary_implementation_documentation",
+      "observed": "Crash-safe commit protocols separate temporary state from the committed image and require an explicit commit boundary."
+    },
+    {
+      "url": "https://theupdateframework.github.io/specification/latest/",
+      "status": "primary_specification_from_R-017",
+      "observed": "Trusted root rotation requires sequential authorization; persistence must not allow two competing N+1 roots to become trusted."
+    }
+  ],
+  "finding": "Authorization and persistence are separate trust boundaries. A valid N+1 root must be committed with compare-and-swap against the exact trusted-root digest, under a single-writer lock, using a synchronized temporary file followed by rename and directory synchronization.",
+  "design_implication": "Store the canonical root bytes with a SHA-256 digest and previous-digest link. Reject stale writers, ignore incomplete temporary files during recovery, and fail closed on digest mismatch.",
+  "artifact": {
+    "module": "tools/frontier-research/trusted-root-store.mjs",
+    "test": "tools/frontier-research/trusted-root-store.test.mjs",
+    "commits": [
+      "31e19bbd9acd0be1712674fa569f507d60a426df",
+      "e8169b6b64969aa6ffe268bd6f2c5b2e616440b1"
+    ]
+  },
+  "verification": {
+    "runtime": "Node.js v22.16.0 isolated local execution",
+    "command": "node --test trusted-root-store.test.mjs",
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "initial digest-bound write/read",
+      "stale expected-digest rejection",
+      "only one concurrent N+1 writer commits",
+      "interrupted temporary-file recovery",
+      "persisted-record tamper detection"
+    ]
+  },
+  "uncertainty": "Filesystem rename and directory-sync behavior remains platform and filesystem dependent; network filesystems and Windows semantics require separate qualification.",
+  "falsification_route": "Run the same test suite under concurrent child processes and inject termination after temp-file fsync, after rename, and before directory fsync on each target filesystem. Any state where both candidates become trusted, a partial record becomes trusted, or the previous valid root disappears falsifies the design.",
+  "claim_state": "observed_and_locally_tested",
+  "evidence_strength": "strong_for_single_host_local_filesystem_prototype"
+}
