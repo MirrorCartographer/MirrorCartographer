@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-013",
+  "team": "continuity_mining",
+  "created_at": "2026-07-12T11:33:30Z",
+  "source_queue_item": "M-001",
+  "status": "completed_additive_improvement",
+  "action_completed": "Implemented and tested a deny-by-default runtime validator for provenance-bound handoff promotion records.",
+  "artifacts": [
+    "tools/continuity-mining/handoff-promotion-validator.mjs",
+    "tools/continuity-mining/handoff-promotion-validator.test.mjs",
+    "operations/evidence/continuity-handoff-promotion-validator-2026-07-12T0733-0400.json"
+  ],
+  "commits": [
+    "2fde42baee561375ac55c858425c568d89eaa4a8",
+    "680ed99f0b2d4ac9eb40fa2a85c05cc2a3bf94f3",
+    "db8df003eeb0bf9016896745f22acac72006139c"
+  ],
+  "verification": "Five deterministic Node tests passed; committed module and test were refetched with immutable blob identities.",
+  "canonical_state_mutated": false,
+  "specialist_registry_changed": false,
+  "history_deleted": false,
+  "unresolved": [
+    "No receiving-team-authorized M-002 record exists.",
+    "Repository-wide queue validation does not yet invoke the validator."
+  ],
+  "next_action": "Create a real additive HP record only when the receiving owner explicitly accepts the promoted work, then wire the validator into the repository queue gate without reopening M-001."
+}
