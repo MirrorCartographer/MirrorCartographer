@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T10:45:00-04:00",
+  "claim_state": "observed",
+  "evidence_strength": "tested_source_behavior",
+  "improvement": {
+    "problem": "A structurally valid and signed deployment proof can still be stale or implausibly future-dated.",
+    "artifact": "cloudflare-static/validate-deployment-proof-freshness.mjs",
+    "policy": {
+      "default_max_age_ms": 900000,
+      "default_future_skew_ms": 60000,
+      "failure_mode": "deny"
+    }
+  },
+  "verification": {
+    "command": "node --test validate-deployment-proof-freshness.test.mjs",
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      "fresh proof accepted",
+      "stale proof rejected",
+      "future-dated proof rejected",
+      "missing or malformed timestamp rejected"
+    ],
+    "runtime": "isolated Node runtime using byte-identical committed source and test"
+  },
+  "limits": [
+    "Freshness does not prove that Cloudflare deployed the source.",
+    "Freshness does not authenticate the signer or hostname.",
+    "Freshness does not establish scientific, diagnostic, or treatment truth.",
+    "The Cloudflare environment credentials remain externally unconfigured."
+  ],
+  "falsification_route": "Provide a proof older than the configured maximum age, more than the allowed clock skew in the future, or without a parseable generated_at value; the validator must reject it."
+}
