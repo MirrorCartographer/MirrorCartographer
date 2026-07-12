@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T05:06:00-04:00",
+  "claim_state": {
+    "observed": [
+      "C-001 remains blocked on external GitHub environment configuration.",
+      "The deployment workflow names the cloudflare-research environment and references CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN.",
+      "No prior standalone CI contract prevented environment-name or Cloudflare-secret-reference drift."
+    ],
+    "inferred": [
+      "Static contract validation reduces operator error before credentials are configured, but cannot prove that secrets exist, are valid, or are authorized."
+    ],
+    "proposed": [
+      "Require the Cloudflare environment-contract workflow to pass before changes to deployment environment or secret references are merged."
+    ],
+    "superseded": [
+      "Relying only on deployment-time readiness classification to detect environment-reference drift."
+    ],
+    "unresolved": [
+      "The GitHub environment secrets are still not externally evidenced as configured.",
+      "No successful Cloudflare Pages deployment identity is available.",
+      "The new GitHub Actions workflow has not yet produced an observed successful run."
+    ]
+  },
+  "artifacts": {
+    "validator": "cloudflare-static/validate-workflow-environment-contract.mjs",
+    "tests": "cloudflare-static/validate-workflow-environment-contract.test.mjs",
+    "workflow": ".github/workflows/cloudflare-environment-contract.yml",
+    "commits": [
+      "c2d5f04e6267ff8e3bd72376075d3afd5d0e8616",
+      "dd97c803a4fec9b78466c7da2b699393c3f31240",
+      "6f9cf3ed5bb118b65ca8c1636696e6b1e4e4d736"
+    ]
+  },
+  "acceptance_contract": {
+    "required_environment": "cloudflare-research",
+    "required_secret_references": [
+      "CLOUDFLARE_ACCOUNT_ID",
+      "CLOUDFLARE_API_TOKEN"
+    ],
+    "rejects": [
+      "missing workflow text",
+      "environment-name mismatch",
+      "missing required secret reference",
+      "unexpected CLOUDFLARE_* secret reference"
+    ]
+  },
+  "privacy_boundary": {
+    "included": ["secret names", "environment name", "public workflow structure", "commit identifiers"],
+    "excluded": ["secret values", "account identifiers", "API responses containing credentials", "private health or chat material"]
+  },
+  "verification": {
+    "source_review": "committed validator, tests, and workflow were inspected through GitHub connector responses",
+    "workflow_run": "not observed",
+    "deployment": "not attempted because C-001 remains externally blocked",
+    "falsification_route": "Change the deployment workflow environment name, remove either required secret reference, or introduce an unapproved CLOUDFLARE_* secret reference; the contract test or validator must return nonzero."
+  }
+}
