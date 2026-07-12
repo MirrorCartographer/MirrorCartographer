@@ -15,6 +15,9 @@ on:
       - cloudflare-static/audit-action-references.test.mjs
       - cloudflare-static/validate-action-pin-plan.mjs
       - cloudflare-static/validate-action-pin-plan.test.mjs
+      - cloudflare-static/action-pin-plan.json
+      - cloudflare-static/apply-action-pin-plan.mjs
+      - cloudflare-static/apply-action-pin-plan.test.mjs
   pull_request:
     paths:
       - .github/workflows/cloudflare-pages-research.yml
@@ -27,6 +30,9 @@ on:
       - cloudflare-static/audit-action-references.test.mjs
       - cloudflare-static/validate-action-pin-plan.mjs
       - cloudflare-static/validate-action-pin-plan.test.mjs
+      - cloudflare-static/action-pin-plan.json
+      - cloudflare-static/apply-action-pin-plan.mjs
+      - cloudflare-static/apply-action-pin-plan.test.mjs
 
 permissions:
   contents: read
@@ -44,6 +50,7 @@ jobs:
           node --test cloudflare-static/cloudflare-security-gate-workflow-contract.test.mjs
           node --test cloudflare-static/audit-action-references.test.mjs
           node --test cloudflare-static/validate-action-pin-plan.test.mjs
+          node --test cloudflare-static/apply-action-pin-plan.test.mjs
 
       - name: Audit deployment workflow
         run: >-
