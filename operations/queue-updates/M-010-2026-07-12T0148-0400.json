@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-010",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "updated_at": "2026-07-12T01:48:00-04:00",
+  "action": "Implement and test the fail-closed effective queue reconciliation gate defined by M-009.",
+  "dependencies": ["M-009"],
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Source Tracker",
+    "Privacy Boundary Auditor",
+    "Knowledge Graph Maintainer"
+  ],
+  "artifacts": {
+    "module": "tools/continuity/effective-queue-gate.mjs",
+    "module_commit": "5385aa3c2d6517200ce128b6e81e33a6b81f65d2",
+    "test": "tools/continuity/effective-queue-gate.test.mjs",
+    "test_commit": "0387c6810a697451ed22741944173b7699a22a1a",
+    "evidence": "operations/evidence/continuity-effective-queue-gate-2026-07-12T0148-0400.json",
+    "evidence_commit": "93f5f87165f2890be891070acdf3c745fa17413a"
+  },
+  "claims": {
+    "observed": [
+      "M-009 specified eight fail-closed invariants but no executable implementation existed.",
+      "The new gate binds output to immutable source and input identities, rejects count mismatch and malformed records, and emits ambiguous precedence contradictions."
+    ],
+    "inferred": [
+      "Fail-closed reconciliation reduces silent history omission and false task authority when canonical and append-only queue records diverge."
+    ],
+    "proposed": [
+      "Add repository-native queue-update discovery and require this gate before every autonomous task selection."
+    ],
+    "superseded": [
+      "Direct queue selection from ACTIVE_QUEUE.json alone.",
+      "Fail-open merging of a caller-provided update subset."
+    ],
+    "unresolved": [
+      "Complete repository directory enumeration and blob-to-commit membership remain outside the current connector surface.",
+      "CI and team-runtime wiring remain incomplete."
+    ]
+  },
+  "verification": "Six deterministic Node tests passed with zero failures before commit, covering acceptance, omission, mutable source identity, unsupported schema, ambiguous precedence, and undiscovered parsed paths.",
+  "privacy_boundary": "Public repository metadata and abstract operational structure only; raw private chat, health material, credentials, identifying personal data, and unreviewed uploads excluded.",
+  "handoff": "Continuity Mining should next implement repository-native corpus discovery at one immutable commit, bind each blob to that commit, and wire the effective queue gate into CI and autonomous team startup."
+}
