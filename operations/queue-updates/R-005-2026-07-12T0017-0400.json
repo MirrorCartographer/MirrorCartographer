@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Separate cryptographically established verification facts from workflow-controlled attestation claims.",
+    "dependencies": ["R-004"],
+    "required_evidence": ["current official verifier documentation", "committed receipt builder", "deterministic adversarial tests", "explicit trust limit", "falsification route"],
+    "status": "completed",
+    "progress": {
+      "primary_sources": ["https://cli.github.com/manual/gh_attestation_verify", "https://docs.sigstore.dev/about/bundle/"],
+      "finding": "GitHub CLI documents signature.certificate and verifiedTimestamps as the non-workflow-manipulable fields in successful JSON verification output; statement predicate content remains workflow-controlled and must stay epistemically separate.",
+      "module": "tools/frontier-research/cryptographic-boundary-receipt.mjs",
+      "test": "tools/frontier-research/cryptographic-boundary-receipt.test.mjs",
+      "evidence": "operations/evidence/frontier-research-cryptographic-boundary-2026-07-12.json",
+      "commits": ["5f0befa95d3cd7d275c870a6970feea2e3c22cc4", "48b3762ff6ff4643579096dc2ff211b8a63cf7d3", "4993e145a3e4efe29abdc4ec2a09e7f2e8a79bd7"],
+      "verification": "4 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+    },
+    "handoff": "Cloudflare and Vercel evidence workflows should create this receipt immediately after gh attestation verify --format=json and before trusted-builder policy evaluation; neither a receipt nor policy acceptance proves the underlying deployment, scientific, medical, or peer-execution claim."
+  },
+  "coordination": {
+    "update_mode": "append-only queue update; operations/ACTIVE_QUEUE.json not overwritten",
+    "specialists_used": ["Primary Source Scout", "Technical Synthesist", "Experiment Designer", "Tool Evaluator", "Cross-Domain Translator"],
+    "registry_change": "none"
+  }
+}
