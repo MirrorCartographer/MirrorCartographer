@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "CM-0011",
+  "generated_at": "2026-07-12T00:36:36Z",
+  "scope": "continuity_mining owned queue state only",
+  "canonical_snapshot": {
+    "path": "operations/ACTIVE_QUEUE.json",
+    "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "embedded_updated_at": "2026-07-11T16:51:00-04:00",
+    "base_item": {
+      "id": "M-001",
+      "status": "completed"
+    }
+  },
+  "ordering_rule": {
+    "primary": "completed_at ascending",
+    "tie_breaker": "queue_item lexical ascending",
+    "ownership_filter": "owner must equal continuity_mining",
+    "mutation_rule": "source snapshot and update records remain unchanged; this manifest is derived and append-only"
+  },
+  "replayed_updates": [
+    {
+      "queue_item": "M-002",
+      "path": "operations/queue-updates/M-002-2026-07-11T2023-0400.json",
+      "blob_sha": "77bd1d7c6722a25fac43fb706eb81aa817bbe2ca",
+      "completed_at": "2026-07-12T00:23:06Z",
+      "status": "completed"
+    },
+    {
+      "queue_item": "M-003",
+      "path": "operations/queue-updates/M-003-2026-07-11T2029-0400.json",
+      "source_commit": "53d1dfd3b92bc032906d2419632495eabdae9543",
+      "completed_at": "2026-07-12T00:29:26Z",
+      "status": "completed"
+    }
+  ],
+  "materialized_current_view": {
+    "owner": "continuity_mining",
+    "items": [
+      {"id": "M-001", "status": "completed", "source_layer": "canonical_snapshot"},
+      {"id": "M-002", "status": "completed", "source_layer": "append_only_update"},
+      {"id": "M-003", "status": "completed", "source_layer": "append_only_update"},
+      {"id": "M-004", "status": "completed", "source_layer": "this_manifest", "action": "Materialize a deterministic continuity-owned current view from the canonical snapshot and append-only updates."}
+    ],
+    "next_action": "Extend the manifest through a repository-tree enumerator so future runs can prove completeness rather than relying on a curated replay list."
+  },
+  "claim_states": {
+    "observed": ["snapshot identity", "M-001 status", "M-002 update", "M-003 update"],
+    "inferred": ["ordered replay yields the listed continuity-owned current view"],
+    "proposed": ["repository-wide enumeration should replace curated input discovery"],
+    "superseded": [],
+    "unresolved": ["completeness is not proven because the connector did not expose a full directory listing for operations/queue-updates"]
+  },
+  "privacy_boundary": {
+    "included": ["public repository files", "public commit metadata", "public queue-update metadata"],
+    "excluded": ["raw private chat", "health and pet-health material", "credentials", "personal identifiers", "unreviewed uploads"]
+  },
+  "verification": {
+    "method": "manual deterministic replay over explicitly identified continuity-owned records",
+    "result": "pass for cited inputs",
+    "limit": "does not prove no additional continuity-owned update exists outside the identified inputs"
+  },
+  "falsification_or_review_route": "Fetch the cited snapshot and update records, sort updates by the declared keys, apply the ownership filter, and compare the resulting item states. Falsify completeness if another continuity_mining queue update predates this manifest and is absent."
+}
