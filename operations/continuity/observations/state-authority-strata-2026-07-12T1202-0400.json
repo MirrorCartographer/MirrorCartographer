@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-007-state-authority-strata",
+  "created_at": "2026-07-12T12:02:59-04:00",
+  "owner": "continuity_mining",
+  "source_scope": "public repository state, queue, registry, trigger records, additive team outputs, and commit metadata only",
+  "privacy_class": "public_repository_metadata",
+  "memory_recovered": {
+    "statement": "MirrorCartographer operational state is layered. Canonical files define shared authority; append-only team records preserve claims and evidence; reconciler output is a derived read model; deployment or runtime proof remains an external evidence layer. Newer timestamps order records but do not automatically promote authority.",
+    "durability": "This distinction prevents recent additive records from silently overwriting canonical state while still preserving their evidentiary value."
+  },
+  "authority_strata": [
+    {
+      "rank": 1,
+      "name": "canonical_shared_state",
+      "examples": [
+        "operations/CURRENT_STATE.json",
+        "operations/ACTIVE_QUEUE.json",
+        "operations/SPECIALIST_REGISTRY.json",
+        "operations/TRIGGER_REQUESTS.json"
+      ],
+      "meaning": "Authoritative coordination inputs until explicitly and validly updated under ownership rules.",
+      "mutation_rule": "Only the owning or authorized coordination path may update; never infer mutation from newer side records."
+    },
+    {
+      "rank": 2,
+      "name": "append_only_team_claims",
+      "examples": [
+        "operations/queue-updates/*.json",
+        "operations/evidence/*.json",
+        "operations/continuity/observations/*.json"
+      ],
+      "meaning": "Provenance-preserving claims, observations, evidence references, and handoffs.",
+      "mutation_rule": "Add records; do not rewrite competing team history."
+    },
+    {
+      "rank": 3,
+      "name": "derived_projection",
+      "examples": [
+        "tools/continuity/queue-reconciler.mjs output"
+      ],
+      "meaning": "A reproducible interpretation of canonical and append-only records.",
+      "mutation_rule": "Read-only and regenerable; never treat the projection itself as canonical mutation."
+    },
+    {
+      "rank": 4,
+      "name": "external_behavioral_proof",
+      "examples": [
+        "resolving deployment URL",
+        "served commit identity",
+        "runtime measurement",
+        "device retest",
+        "trusted CI result"
+      ],
+      "meaning": "Evidence about actual deployed or runtime behavior.",
+      "mutation_rule": "May satisfy required evidence but does not bypass source ownership or privacy boundaries."
+    }
+  ],
+  "claim_states": {
+    "observed": [
+      "operations/CURRENT_STATE.json and operations/ACTIVE_QUEUE.json predate multiple newer additive team commits.",
+      "The canonical queue contains completed M-001 and does not contain a newly promoted continuity item.",
+      "CM-006 added fail-closed handling for unsupported completion claims."
+    ],
+    "inferred": [
+      "The repository currently uses canonical snapshots plus append-only event-like records, even though that architecture is not named explicitly in the canonical state.",
+      "A whole-queue projection should preserve both canonical authority and newer unresolved claims."
+    ],
+    "proposed": [
+      "Future queue reconciliation artifacts should expose authority_stratum and source_record for every projected field.",
+      "Canonical updates should cite the append-only records they accept, reject, or supersede."
+    ],
+    "superseded": [
+      "The newest timestamp always represents current authoritative project state.",
+      "A derived reconciler result may silently replace operations/ACTIVE_QUEUE.json."
+    ],
+    "unresolved": [
+      "Which authorized process promotes accepted additive records into canonical shared state.",
+      "Whether canonical files should become event-sourced projections or remain manually curated snapshots."
+    ]
+  },
+  "contradiction_resolution": {
+    "apparent_conflict": "Newer additive records describe progress not reflected in older canonical files.",
+    "resolution": "Treat this as authority-layer divergence, not automatic factual contradiction: the additive record is a newer claim; the canonical file remains the coordination authority until an authorized promotion occurs.",
+    "falsification_route": "A repository rule or committed workflow proving that additive records automatically and authoritatively regenerate canonical files would supersede this interpretation."
+  },
+  "sources": [
+    {
+      "path": "operations/CURRENT_STATE.json",
+      "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc"
+    },
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+    },
+    {
+      "path": "operations/SPECIALIST_REGISTRY.json",
+      "blob_sha": "88451b05101bcd8a259f98de5d9290e15357366b"
+    },
+    {
+      "path": "operations/TRIGGER_REQUESTS.json",
+      "blob_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4"
+    },
+    {
+      "commit": "c741fe559a4a77cf7d1f9d2afd9b483ae0908229",
+      "meaning": "Latest inspected continuity queue update"
+    },
+    {
+      "commit": "ee1123771ea53998772c71c785d2a192ed1f76f2",
+      "meaning": "Recent Cloudflare additive queue update"
+    },
+    {
+      "commit": "38061922d7984bb9ddd08b73e9a761e78d9c5707",
+      "meaning": "Recent independent-web additive queue update"
+    }
+  ],
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "registry_change": "none",
+  "privacy_boundary": {
+    "included": [
+      "public repository paths",
+      "blob and commit identifiers",
+      "abstract state semantics",
+      "claim classifications"
+    ],
+    "excluded": [
+      "raw private chats",
+      "health or pet-health material",
+      "credentials",
+      "financial, relationship, or identifying personal details",
+      "unreviewed uploaded-file contents"
+    ]
+  }
+}
