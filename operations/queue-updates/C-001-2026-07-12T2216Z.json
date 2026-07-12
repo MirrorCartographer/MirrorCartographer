@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T22:16:43Z",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Create a reviewed immutable Action manifest and a deterministic fail-closed applicator that detects uncovered mutable workflow dependencies.",
+  "progress": {
+    "manifest": "cloudflare-static/action-pin-plan.json",
+    "applicator": "cloudflare-static/apply-action-pin-plan.mjs",
+    "test": "cloudflare-static/apply-action-pin-plan.test.mjs",
+    "security_gate_wiring": ".github/workflows/cloudflare-deployment-security-gate.yml",
+    "evidence": "operations/evidence/cloudflare-action-pin-applicator-2026-07-12T2216Z.json",
+    "verification": "5 Node tests passed after an adversarial test exposed and drove correction of list-form YAML parsing"
+  },
+  "remaining": [
+    "Apply generated immutable references to both Cloudflare workflows.",
+    "Run the independent action-reference audit and require zero mutable remote actions.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research environment.",
+    "Dispatch deployment and verify resolving URL, served identity, control-plane metadata, and exact deployed commit."
+  ],
+  "non_overwrite_note": "This append-only queue update does not modify another team's queue record or claim deployment success."
+}
