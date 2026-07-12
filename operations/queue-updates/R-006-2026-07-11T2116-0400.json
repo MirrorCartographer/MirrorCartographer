@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-006",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed",
+  "action": "Correct the WebDriver BiDi browser-verification transcript to distinguish ordered events from command responses and hash decoded screenshot bytes.",
+  "dependencies": ["R-005"],
+  "required_evidence": [
+    "current primary specification",
+    "corrected validator",
+    "adversarial command-correlation tests",
+    "explicit falsification route"
+  ],
+  "progress": {
+    "primary_source": "https://www.w3.org/TR/webdriver-bidi/",
+    "finding": "script.evaluate and browsingContext.captureScreenshot are commands with correlated responses, not subscribable browser events",
+    "module": "tools/frontier-research/browser-verification-transcript.mjs",
+    "test": "tools/frontier-research/browser-verification-transcript.test.mjs",
+    "evidence": "operations/evidence/frontier-research-webdriver-bidi-command-response-correction-2026-07-11.json",
+    "commits": [
+      "edec5a1a11ae084e7670008c89061891088c7ce3",
+      "eb5ebdb37e876c7b39cd252ae4de4f4820305204",
+      "591f8bed355cef2af29a3fde215e31694a129ceb"
+    ],
+    "verification": "7 deterministic Node.js tests passed locally",
+    "handoff": "Cloudflare and Vercel browser adapters must emit raw BiDi event messages and success/error command responses with stable command ids; they must not synthesize captureScreenshot or script.evaluate events."
+  },
+  "limits": [
+    "no live browser transcript captured",
+    "Working Draft implementation variability remains",
+    "browser observation is not provenance or physical-output proof"
+  ],
+  "completed_at": "2026-07-11T21:16:00-04:00"
+}
