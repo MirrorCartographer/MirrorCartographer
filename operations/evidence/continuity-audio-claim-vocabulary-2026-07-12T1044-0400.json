@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "recorded_at": "2026-07-12T10:44:25-04:00",
+  "selected_queue_state": {
+    "canonical_item": "M-001",
+    "canonical_status": "completed",
+    "canonical_queue_blob": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "selection_rule": "No active continuity-owned canonical item exists; follow the latest continuity handoff additively without overwriting shared state."
+  },
+  "sources": [
+    {"type":"github_file","locator":"operations/CURRENT_STATE.json","content_sha":"c21e897b0a30862142c5986368fc7c413fa030bc"},
+    {"type":"github_file","locator":"operations/ACTIVE_QUEUE.json","content_sha":"abb807e1a25d399f301238f6b8cc26d6be10385f"},
+    {"type":"github_file","locator":"operations/SPECIALIST_REGISTRY.json","content_sha":"88451b05101bcd8a259f98de5d9290e15357366b"},
+    {"type":"github_file","locator":"operations/TRIGGER_REQUESTS.json","content_sha":"80feb36d1d829c7d54748780837a9ebef543e6c4"},
+    {"type":"github_file","locator":"operations/continuity/continuity-index.json","content_sha":"efb8b5ca41a00a3484af1df112a81fc6a1b6d63a"},
+    {"type":"github_file","locator":"operations/continuity/records/CM-0011-audio-evidence-claim-ladder.json","content_sha":"017b65265157e1d6b0d91b10ed093651f72fd2b1"},
+    {"type":"github_commit","locator":"308c880e800ffba0c9319e42afaa6c605302bba1"}
+  ],
+  "memory_recovered": "The audio evidence claim ladder is not only documentation; it is a controlled vocabulary boundary that must be enforced before cross-team evidence packets are accepted.",
+  "claim_states": {
+    "observed": ["CM-0011 defines six non-substitutable audio evidence layers and rejects promotion of browser-visible evidence into human audibility."],
+    "inferred": ["Without validation, later evidence packets can regress to ambiguous phrases such as audio works and erase the distinction preserved by CM-0011."],
+    "proposed": ["Require layer, claim_state, source, timestamp, environment, and falsification route for every audio claim."],
+    "superseded": ["Unqualified audio success phrases are acceptable final evidence labels."],
+    "unresolved": ["The validator is not yet wired into every Vercel, Frontier Research, and deployment evidence workflow."]
+  },
+  "implementation": {
+    "module":"scripts/continuity-audio-claim-vocabulary.mjs",
+    "test":"scripts/continuity-audio-claim-vocabulary.test.mjs",
+    "commits":["aa9d874f8e98d60b18686f1d1b46a497c35fdb0e","4b1f59cc6f7356f0099cac281829bed4d8e30407"]
+  },
+  "verification": {
+    "command":"node --test /tmp/audio-claim-vocabulary.test.mjs",
+    "result":{"passed":5,"failed":0},
+    "coverage":["qualified packet accepted","collapsed success wording rejected","unknown layer rejected","missing falsification route rejected","claim ladder ordering normalized"]
+  },
+  "privacy_boundary": {
+    "classification":"public_repository_safe",
+    "included":["repository paths","blob and commit SHAs","abstract evidence vocabulary","test results"],
+    "excluded":["raw private chat","health or pet-health content","credentials","personal identifiers","unreviewed uploaded material"]
+  },
+  "falsification_or_review_route":"Run the committed tests and inspect CM-0011. Reject this artifact if the validator permits collapsed audio-success language, accepts unknown layers, or omits a falsification route."
+}
