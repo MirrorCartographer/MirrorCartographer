@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T14:56:00-04:00",
+  "finding": "The repository had human-readable environment bootstrap instructions and structural validators, but no deterministic secret-free packet that converts those declarations into bounded pre-dispatch evidence.",
+  "durable_improvement": {
+    "module": "cloudflare-static/build-environment-preflight-evidence.mjs",
+    "test": "cloudflare-static/build-environment-preflight-evidence.test.mjs",
+    "behavior": [
+      "bind environment, project, required secret names, workflow references, repository identity, and commit identity into one canonical packet",
+      "mark evidence strength as repository_declaration_only",
+      "fail closed when required declarations disagree",
+      "reject credential-shaped fields instead of copying or ambiguously redacting them",
+      "retain explicit does-not-prove and falsification routes"
+    ]
+  },
+  "source_status": {
+    "canonical_queue": "C-001 remains blocked_external_configuration",
+    "workflow_contract": ".github/workflows/cloudflare-pages-research.yml declares environment cloudflare-research and references CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN",
+    "requirements_contract": "cloudflare-static/cloudflare-environment-requirements.json declares the same environment, project, and required secret names",
+    "prior_work": "cloudflare-static/CLOUDFLARE_ENVIRONMENT_BOOTSTRAP.md already defines the operator procedure and epistemic boundary"
+  },
+  "verification": {
+    "local_node_test": {
+      "status": "passed",
+      "tests": 4,
+      "cases": [
+        "bounded declaration-only packet",
+        "missing required secret reference fails closed",
+        "credential material is rejected",
+        "canonical output is deterministic across key and list ordering"
+      ]
+    },
+    "github_writes": "module and test commits accepted",
+    "provider_deployment": "not attempted",
+    "runtime_hostname": "not verified"
+  },
+  "commits": [
+    "aca6a1f5825e54c58e4491d8e734daca78bc5c7d",
+    "d082aa671f56f422093254a7f5cdf0a272c53088"
+  ],
+  "evidence_strength": "implementation_tested_locally_not_provider_verified",
+  "uncertainty": [
+    "GitHub environment existence and secret installation remain unobservable from repository declarations",
+    "Cloudflare token authorization and project ownership remain unverified",
+    "the deployment workflow has not produced a successful exact-commit proof in this run"
+  ],
+  "falsification_route": [
+    "run node --test cloudflare-static/build-environment-preflight-evidence.test.mjs",
+    "generate the workflow contract JSON with validate-workflow-environment-contract.mjs",
+    "build a preflight packet and reject it unless ready_for_dispatch is true",
+    "reject any packet containing credential material or claiming deployment success"
+  ],
+  "privacy_boundary": "Only secret names and repository declarations are retained; secret values, credentials, personal data, private chat, and health material are excluded."
+}
