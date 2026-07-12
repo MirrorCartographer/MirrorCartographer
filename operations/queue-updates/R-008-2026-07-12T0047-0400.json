@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-008",
+    "owner": "frontier_research",
+    "priority": 7,
+    "action": "Classify whether browser performance observations are complete enough to support bounded absence claims.",
+    "dependencies": ["R-005", "R-006", "R-007"],
+    "required_evidence": [
+      "current primary specification",
+      "committed classifier",
+      "deterministic adversarial tests",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_source": "https://www.w3.org/TR/performance-timeline/",
+      "finding": "No observed bad entry is not evidence of absence unless support is established, at least one callback ran, and droppedEntriesCount is zero; buffered capture remains bounded.",
+      "module": "tools/frontier-research/performance-observation-completeness.mjs",
+      "test": "tools/frontier-research/performance-observation-completeness.test.mjs",
+      "evidence": "operations/evidence/frontier-research-performance-observation-completeness-2026-07-12.json",
+      "commits": [
+        "2c25ac543a18c7fe5478c10d13fb99dedcc168ba",
+        "c67683e361c3473c7111199e1b05d2976a4ede01",
+        "d7d03ae2f839384b9b31d103d2cc373304d54a3f"
+      ],
+      "verification": "6 deterministic Node.js tests passed in a local isolated runtime using the exact committed source and test content.",
+      "privacy_boundary": "Aggregate support and count fields only; no raw performance entries, DOM targets, URLs, scripts, private text, or health data."
+    },
+    "handoff": "Vercel Studio should attach this classification to R-005 through R-007 evidence. Treat unsupported, unconfirmed, or known_incomplete observations as incapable of proving that no performance defect occurred."
+  },
+  "coordination": {
+    "canonical_queue_overwritten": false,
+    "reason": "Append-only update avoids overwriting concurrent team state while ACTIVE_QUEUE.json is stale relative to recent commits."
+  }
+}
