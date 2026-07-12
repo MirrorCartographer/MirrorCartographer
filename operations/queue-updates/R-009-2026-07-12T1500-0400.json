@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-009",
+  "owner": "frontier_research",
+  "priority": 6,
+  "status": "completed",
+  "action": "Authenticate peer-trigger Merkle checkpoints and detect equivocation across witness observations.",
+  "dependencies": ["R-008"],
+  "required_evidence": ["primary standards", "committed implementation", "adversarial tests", "explicit trust limits", "falsification route"],
+  "progress": {
+    "primary_sources": [
+      "https://www.rfc-editor.org/rfc/rfc8032.html",
+      "https://www.rfc-editor.org/rfc/rfc9162.html#section-2.1.4"
+    ],
+    "finding": "Signed checkpoint statements authenticate key possession; retained witness comparisons expose equal-size divergent roots, while RFC 9162 consistency proofs bind valid unequal-size extensions.",
+    "module": "tools/frontier-research/signed-checkpoint-witness.mjs",
+    "test": "tools/frontier-research/signed-checkpoint-witness.test.mjs",
+    "evidence": "operations/evidence/frontier-signed-checkpoint-witness-2026-07-12.json",
+    "commits": [
+      "a759a300321bd937886cda3a90ab8ff0c7a05113",
+      "f9a7eaee8dd0ef5ae6ec17f7427858687063f7be",
+      "348742d999075b890971ef1e669fb50a52abd8a4"
+    ],
+    "verification": "Implementation and adversarial tests are committed. Local exact-file execution was blocked by DNS resolution failure and provider CI was not observed, so no passing-test claim is made.",
+    "limits": "Ed25519 verifies key possession, not signer authorization, key custody, freshness, witness independence, quorum sufficiency, payload truth, or global non-equivocation."
+  },
+  "handoff": "A future Frontier slice should add exact-commit CI and a deny-by-default multi-witness quorum policy with signer-key rotation, revocation, freshness, and duplicate-witness controls."
+}
