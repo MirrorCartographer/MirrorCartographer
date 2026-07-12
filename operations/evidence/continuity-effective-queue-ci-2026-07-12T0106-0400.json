@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "item_id": "M-005",
+  "observed_at": "2026-07-12T01:06:00-04:00",
+  "claim_state": {
+    "observed": [
+      "The repository contained a deterministic effective-queue reconciler but no repository-level workflow that discovered all append-only queue updates and failed closed on malformed identity or unresolved conflicts.",
+      "The new generator, deterministic tests, and GitHub Actions workflow were committed to the default branch."
+    ],
+    "inferred": [
+      "A read-only generated queue artifact reduces stale work selection while preserving canonical and append-only source history."
+    ],
+    "proposed": [
+      "Use the generated effective queue as the first work-selection view for all teams after the workflow has produced passing evidence."
+    ],
+    "superseded": [
+      "Manual queue reconciliation without a repository-level discovery and conflict gate."
+    ],
+    "unresolved": [
+      "No workflow run was visible through the available commit-run lookup at evidence creation time, so CI passage is not claimed.",
+      "Historical update files may still expose malformed identity, ambiguous chronology, or same-time material conflicts when the workflow runs."
+    ]
+  },
+  "artifacts": [
+    {"path": "tools/continuity/generate-effective-queue.mjs", "commit": "dd782d09f21c906af2aa48bb331ceb7460b10d14"},
+    {"path": "tools/continuity/generate-effective-queue.test.mjs", "commit": "612963be412d889c17c0546b9f8da0fe37348474"},
+    {"path": ".github/workflows/continuity-effective-queue.yml", "commit": "0d624c653faf32036817d714e82d091bdab32e32"}
+  ],
+  "acceptance_contract": [
+    "discover every JSON update below operations/queue-updates",
+    "preserve ACTIVE_QUEUE.json and update files unchanged",
+    "write operations/generated/EFFECTIVE_QUEUE.json",
+    "surface same-item same-time material conflicts",
+    "fail closed on conflict, malformed update identity, empty update ledger, or missing artifact",
+    "upload the derived queue and exact source commit as a bounded CI artifact"
+  ],
+  "verification": {
+    "source_persistence": "GitHub create-file operations returned commit SHAs for generator, tests, and workflow.",
+    "workflow_lookup": "No workflow run was returned for commit 0d624c653faf32036817d714e82d091bdab32e32 at inspection time.",
+    "runtime_test_status": "not_observed",
+    "claim_limit": "Committed test coverage is evidence of an executable contract, not evidence that GitHub Actions passed."
+  },
+  "privacy_boundary": "Public repository operations metadata and abstract project-state claims only. No raw chat, health, pet-health, credentials, personal identifiers, or unreviewed uploads.",
+  "falsification_route": "A failing workflow, absent generated artifact, silent conflict acceptance, source mutation, or successful malformed update would falsify the gate claim."
+}
