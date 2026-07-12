@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-12T10:42:00-04:00",
+  "team": "frontier_research",
+  "queue_item": "R-031",
+  "selection_basis": "No active frontier_research item exists in operations/ACTIVE_QUEUE.json; this slice advances the unresolved browser-audio evidence handoff without modifying another team's queue record.",
+  "status": "completed_slice",
+  "action": "Add a browser-safe AudioContext clock acquisition sampler with fail-closed evidence gating.",
+  "artifacts": [
+    "tools/frontier-research/audio-clock-sampler.mjs",
+    "tools/frontier-research/audio-clock-sampler.test.mjs",
+    "operations/evidence/frontier-audio-clock-sampler-2026-07-12T1042-0400.json"
+  ],
+  "commits": [
+    "860067537395a88e55bb1fc173fb4439fb27865a",
+    "c178e900aeba3b2790ac4d690d93e31d10383656",
+    "3a2eb5b51ca8a692897ede74be559e9985967093"
+  ],
+  "verification": "Six deterministic Node tests passed in an isolated runtime using byte-identical implementation and test files before commit.",
+  "handoff": "Vercel Studio should invoke sampleAudioClock in the same immutable browser session as the direct diagnostic pulse, preserve the session identifier, and refuse the composed evidence packet when acquisitionStatus is incomplete or clock evaluation is not consistent.",
+  "next_action": "Create a composed browser evidence packet contract binding sampler output, clock evaluation, route observations, diagnostic pulse identity, and deployed commit under one session identifier."
+}
