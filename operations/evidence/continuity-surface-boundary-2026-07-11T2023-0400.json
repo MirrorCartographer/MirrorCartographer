@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "observed_at": "2026-07-12T00:23:06Z",
+  "result": "durable_memory_recovered",
+  "artifact": "operations/continuity/surface-boundary-decision-2026-07-11.json",
+  "artifact_commit": "b401aa3499c072f8d254419937d26b6ecf03cb65",
+  "source_blobs": {
+    "operations/CURRENT_STATE.json": "c21e897b0a30862142c5986368fc7c413fa030bc",
+    "operations/ACTIVE_QUEUE.json": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "operations/SPECIALIST_REGISTRY.json": "88451b05101bcd8a259f98de5d9290e15357366b",
+    "operations/TRIGGER_REQUESTS.json": "80feb36d1d829c7d54748780837a9ebef543e6c4"
+  },
+  "claims_by_state": {
+    "observed": ["CM-0009-A", "CM-0009-B", "CM-0009-C"],
+    "inferred": ["CM-0009-D"],
+    "proposed": ["Define a tested non-commercial Vercel-to-Cloudflare handoff after C-001 resolves"],
+    "superseded": [],
+    "unresolved": ["CM-0009-E"]
+  },
+  "contradiction_resolution": "Separated shared public-presentation concerns from conversion ownership: Vercel remains experiential and non-commercial; Cloudflare may own conversion architecture; the independent site remains autonomous art.",
+  "verification": {
+    "method": "GitHub contents API commit followed by exact-path refetch",
+    "status": "pending_refetch_at_packet_creation"
+  },
+  "privacy_boundary": "Public repository state and metadata only. No raw chat, health, pet-health, credentials, identifiers, or unreviewed uploads were copied.",
+  "limits": [
+    "No deployed Cloudflare URL was observed.",
+    "The inferred three-surface architecture is not an explicit single-source statement.",
+    "This packet proves artifact creation, not peer execution or runtime deployment."
+  ]
+}
