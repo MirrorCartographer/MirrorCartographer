@@ -50,6 +50,12 @@ jobs:
           node --test cloudflare-static/evaluate-signed-deployment-evidence.test.mjs
           node --test cloudflare-static/cryptographic-attestation-workflow.test.mjs
           node --test cloudflare-static/validate-deployment-proof-context.test.mjs
+          node --test cloudflare-static/validate-deployment-branch.test.mjs
+
+      - name: Validate deployment branch input
+        env:
+          CLOUDFLARE_PAGES_BRANCH: ${{ inputs.branch }}
+        run: node cloudflare-static/validate-deployment-branch.mjs
 
       - name: Verify committed research surface identity
         run: |
@@ -229,6 +235,7 @@ jobs:
             echo "- Deployment URL: ${DEPLOYMENT_URL:-not returned}"
             echo "- Alias URL: ${ALIAS_URL:-not returned}"
             echo "- Local identity contract: \`cloudflare-static/research-surface-identity.mjs\`"
+            echo "- Deployment branch input: validated before readiness probing and Wrangler invocation"
             echo "- Readiness evidence: \`cloudflare-deployment-readiness.json\` (never contains secret values)"
             echo "- Access capability evidence: \`cloudflare-access-probe.json\` (token activity and account-scoped Pages authorization; no secret values)"
             echo "- Deployment gate: deployment runs only after the access probe succeeds"
