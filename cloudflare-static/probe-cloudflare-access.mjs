@@ -94,7 +94,7 @@ export async function probeCloudflareAccess({
     }
   }
 
-  const ready = token.ok && pages.ok && targetProject.found;
+  const ready = token.ok && pages.ok && targetProject.reason === 'target_project_resolved';
   return {
     schema_version: '1.1.0',
     checked_at: verifiedAt,
