@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T15:18:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": {
+    "name": "exact-commit credential-free environment preflight workflow",
+    "workflow": ".github/workflows/cloudflare-environment-preflight.yml",
+    "workflow_commit": "d5ece3727776baa5b17c9f4905b455a9716f6fe3",
+    "evidence": "operations/evidence/cloudflare-environment-preflight-workflow-2026-07-12T1518-0400.json",
+    "evidence_commit": "f6a7e2ea310c64ddcdb190100e120b44a51b8e6e"
+  },
+  "verification": {
+    "committed_source_confirmed": true,
+    "provider_run_observed": false,
+    "deployment_attempted": false,
+    "reason": "The workflow was committed and fetched at the exact SHA, but no associated GitHub Actions run was returned at recording time."
+  },
+  "blocker_unchanged": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch the committed deployment workflow.",
+  "next_action": "Inspect the first Verify Cloudflare environment contract run, verify exact checkout SHA and artifact digests, then wire the same preflight outputs into the deployment workflow before readiness and access probing.",
+  "boundaries": [
+    "No payment or conversion logic was moved to Vercel.",
+    "No diagnosis or treatment claim was published.",
+    "No GitHub file or history was deleted.",
+    "No peer-owned canonical queue record was overwritten."
+  ]
+}
