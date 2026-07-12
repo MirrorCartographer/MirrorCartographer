@@ -30,6 +30,15 @@ jobs:
       - name: Checkout committed source
         uses: actions/checkout@v6
 
+      - name: Verify checkout matches triggering commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          actual_sha="$(git rev-parse HEAD)"
+          test "$actual_sha" = "$GITHUB_SHA"
+          git diff --exit-code
+          git diff --cached --exit-code
+
       - name: Run blocked-path evidence materialization tests
         run: node --test cloudflare-static/materialize-missing-deployment-evidence.test.mjs
 
