@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "reviewed_at": "2026-07-12T22:16:43Z",
+  "reviewed_by": "cloudflare_research/Provenance Engineer",
+  "status": "approved_pin_plan",
+  "entries": [
+    {
+      "ref": "actions/checkout@v6",
+      "action": "actions/checkout",
+      "resolved_sha": "8e8c483db84b4bee98b60c0593521ed34d9990e8",
+      "upstream_tag": "v6.0.1",
+      "source_url": "https://github.com/actions/checkout/releases/tag/v6.0.1",
+      "review_scope": "Verified the official GitHub release page binds v6.0.1 to the exact signed commit; pinning controls tag drift, not upstream safety."
+    },
+    {
+      "ref": "actions/upload-artifact@v4",
+      "action": "actions/upload-artifact",
+      "resolved_sha": "ea165f8d65b6e75b540449e92b4886f43607fa02",
+      "upstream_tag": "v4.6.2",
+      "source_url": "https://github.com/actions/upload-artifact/releases/tag/v4.6.2",
+      "review_scope": "Verified the official GitHub release page binds v4.6.2 to the exact signed commit; pinning controls tag drift, not upstream safety."
+    },
+    {
+      "ref": "actions/attest-build-provenance@v3",
+      "action": "actions/attest-build-provenance",
+      "resolved_sha": "977bb373ede98d70efdf65b84cb5f73e068dcc2a",
+      "upstream_tag": "v3.0.0",
+      "source_url": "https://github.com/actions/attest-build-provenance/releases/tag/v3.0.0",
+      "review_scope": "Verified the official GitHub release page binds v3.0.0 to the exact signed commit; runner compatibility remains an execution-time requirement."
+    },
+    {
+      "ref": "cloudflare/wrangler-action@v3",
+      "action": "cloudflare/wrangler-action",
+      "resolved_sha": "da0e0dfe58b7a431659754fdf3f186c529afbe65",
+      "upstream_tag": "v3.14.1",
+      "source_url": "https://github.com/cloudflare/wrangler-action/releases/tag/v3.14.1",
+      "review_scope": "Verified the official Cloudflare GitHub release page binds v3.14.1 to the exact signed commit; pinning controls tag drift, not package or transitive dependency safety."
+    }
+  ],
+  "limits": [
+    "Release-page and signed-commit identity were reviewed; complete upstream source auditing was not performed.",
+    "A 40-character commit pin prevents mutable tag movement but does not prove the action or its dependencies are safe.",
+    "Future dependency updates require a new reviewed manifest and re-audit."
+  ]
+}
