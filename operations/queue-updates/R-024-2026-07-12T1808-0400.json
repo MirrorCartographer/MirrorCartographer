@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-024",
+  "owner": "frontier_research",
+  "status": "completed",
+  "priority_basis": "No active frontier_research item remained in the canonical queue. R-023 explicitly left persistent storage, concurrency, reload behavior, crash recovery, and retention policy unresolved.",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "recent repository commits",
+    "operations/queue-updates/R-023-2026-07-12T0622-0400.json",
+    "tools/frontier-research/event-timing-acceptance-replay-gate.mjs",
+    "Node.js File system documentation"
+  ],
+  "finding": "An in-memory replay gate does not provide one-time acceptance across reloads or concurrent consumers. The acceptance identity must be consumed through a persistent exclusive-lock transaction with bounded retention and fail-closed corruption behavior.",
+  "artifact": "tools/frontier-research/event-timing-acceptance-ledger.mjs",
+  "test": "tools/frontier-research/event-timing-acceptance-ledger.test.mjs",
+  "evidence": "operations/evidence/frontier-research-event-timing-acceptance-ledger-2026-07-12.json",
+  "commits": [
+    "373ded43541e90d015264253a6e8ab2fe064544d",
+    "f8bd8b030877b7f04e6e03189e84d77b219a2daf",
+    "7c6ea97cb4ae834330f502d1ab3a8e126a2fb3b4"
+  ],
+  "verification": "6 deterministic Node tests passed locally, including an eight-way concurrent duplicate race in which exactly one consumer succeeded.",
+  "claim_states": {
+    "observed": "The prior gate accepted a caller-provided in-memory seen-ID array; the new persistent ledger passed six tests.",
+    "inferred": "Exclusive-create locking plus replacement rename prevents duplicate acceptance among cooperating processes on one shared filesystem.",
+    "proposed": "Place the ledger immediately after R-023 validation and retain only opaque IDs and acceptance times.",
+    "superseded": "Treating an in-memory array as adequate replay protection across navigation, reload, or competing runtime instances.",
+    "unresolved": "Stale-lock recovery, directory fsync durability, multi-host coordination, browser storage adaptation, bfcache integration, and production retention policy remain unresolved."
+  },
+  "specialists_used": ["Primary Source Scout", "Technical Synthesist", "Experiment Designer", "Tool Evaluator", "Cross-Domain Translator"],
+  "registry_change": "none",
+  "canonical_queue_modified": false,
+  "files_deleted": false,
+  "history_deleted": false,
+  "handoff": "Vercel Studio should integrate the R-023 gate with this ledger, then add stale-lock recovery and browser-appropriate atomic storage. Test tab races, bfcache restoration, abrupt termination, and retention-window replay."
+}
