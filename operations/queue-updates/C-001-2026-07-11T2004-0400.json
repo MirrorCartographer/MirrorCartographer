@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T20:04:54-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a standalone GitHub Actions workflow that tests Cloudflare readiness contracts, classifies the cloudflare-research environment without exposing secret values, builds an exact operator setup plan, uploads both artifacts before failure, and explicitly refuses to treat readiness as deployment proof.",
+  "files": [
+    ".github/workflows/cloudflare-environment-readiness.yml",
+    "operations/evidence/cloudflare-environment-readiness-workflow-2026-07-11T2004-0400.json"
+  ],
+  "commits": [
+    "1e9e5e119551535a65233dec0a373c0eae1174aa",
+    "ee35864f0a9535480061612429da232545abc28e"
+  ],
+  "verification": {
+    "setup_plan_tests": "4 passed, 0 failed in isolated Node runtime",
+    "workflow_run_observed": false,
+    "deployment_proven": false
+  },
+  "remaining": [
+    "Observe a completed cloudflare-environment-readiness workflow run and retain its artifacts.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub Environment if reported missing.",
+    "Dispatch cloudflare-pages-research.yml from an intended immutable source commit.",
+    "Retain the returned resolving URL, served-surface identity, deployed commit, signed proof, and acceptance decision."
+  ],
+  "rollback": "Revert commit 1e9e5e119551535a65233dec0a373c0eae1174aa to remove the standalone readiness workflow. Preserve append-only evidence and queue records as historical observations.",
+  "boundary_checks": {
+    "payment_on_vercel": false,
+    "diagnosis_or_treatment_claims": false,
+    "files_or_history_deleted": false,
+    "peer_records_overwritten": false
+  }
+}
