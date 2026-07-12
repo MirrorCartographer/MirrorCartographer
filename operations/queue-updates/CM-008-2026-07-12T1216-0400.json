@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "update_id": "CM-008",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-12T12:16:00-04:00",
+  "queue_item": "M-001-follow-on",
+  "status": "completed",
+  "action": "Recover and structure the project-wide evolution of completion semantics.",
+  "result": {
+    "memory_artifact": "operations/continuity/observations/completion-semantics-evolution-2026-07-12T1216-0400.json",
+    "finding": "Completion is an evidence-gated vector, not artifact existence or a single boolean.",
+    "claim_states": ["observed", "inferred", "proposed", "superseded", "unresolved"],
+    "privacy_boundary": "public repository metadata and abstract project semantics only"
+  },
+  "evidence": {
+    "artifact_commit": "5c31e6e2aed0ad99e78713cf19c7bda4b087c823",
+    "sources_inspected": [
+      "operations/CURRENT_STATE.json",
+      "operations/ACTIVE_QUEUE.json",
+      "operations/SPECIALIST_REGISTRY.json",
+      "operations/TRIGGER_REQUESTS.json",
+      "recent commits",
+      "prior continuity observations"
+    ],
+    "verification": "GitHub contents API accepted the UTF-8 JSON artifact and returned an immutable commit SHA."
+  },
+  "canonical_mutation": false,
+  "next_action": "Define a reusable evidence-dimension schema and a read-only mapper from queue required_evidence strings to standardized dimensions."
+}
