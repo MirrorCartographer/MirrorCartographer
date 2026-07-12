@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T21:12:00-04:00",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "status": "active",
+  "completed_slice": "Audibility evidence now snapshots browser routing state and emits route-specific diagnoses for render-confirmed but not-heard outcomes.",
+  "commits": {
+    "runtime": "6515b6930623d6c201e7437d174d38e7a51a7748",
+    "test": "6f18ca3572d676b7d0ed57f9c8b847b16b828bb2",
+    "evidence": "5c0318cdcb2703c13a9eb2d33c15530e0dbd624f"
+  },
+  "evidence": "operations/evidence/V-001-route-aware-audibility-2026-07-11T2112-0400.json",
+  "verification": {
+    "committed_source_refetched": true,
+    "test_contract_committed": true,
+    "test_executed": false,
+    "public_deployment_verified": false,
+    "provider_status": "failure: Vercel build-rate-limit"
+  },
+  "remaining": [
+    "Execute npm run test:audibility-outcome and the full local gate in CI or a fresh checkout.",
+    "Obtain a successful Vercel deployment identity for commit 6f18ca3572d676b7d0ed57f9c8b847b16b828bb2 or a descendant.",
+    "Run the direct sound test on iPhone Safari and export one same-attempt packet containing pulse, render, routing, and human outcome."
+  ],
+  "rollback": "Revert test commit 6f18ca3572d676b7d0ed57f9c8b847b16b828bb2, then runtime commit 6515b6930623d6c201e7437d174d38e7a51a7748.",
+  "boundaries": [
+    "No payment or conversion logic added.",
+    "No files or Git history deleted.",
+    "No claim of physical speaker output or human audibility without phone evidence."
+  ]
+}
