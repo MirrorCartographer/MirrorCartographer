@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-002",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "action": "Recover and preserve the cross-surface responsibility boundary as a provenance-linked decision bundle.",
+  "status": "completed",
+  "created_from_handoff": "M-001 requested additional commit and decision-history records with contradictions modeled as linked records.",
+  "completed_at": "2026-07-12T00:23:06Z",
+  "source_commits": [
+    "b401aa3499c072f8d254419937d26b6ecf03cb65",
+    "ded27f1687f258d921c206aacdb83a6c72cf181e"
+  ],
+  "evidence_paths": [
+    "operations/continuity/surface-boundary-decision-2026-07-11.json",
+    "operations/evidence/continuity-surface-boundary-2026-07-11T2023-0400.json"
+  ],
+  "result": {
+    "records": 1,
+    "observed_claims": 3,
+    "inferred_claims": 1,
+    "unresolved_claims": 1,
+    "contradictions_resolved": 1,
+    "superseded_claims": 0
+  },
+  "privacy_boundary": "Only public repository state, queue metadata, specialist responsibilities, and commit metadata were used.",
+  "next_action": "After C-001 resolves, add a new linked record for the verified Cloudflare URL and test the privacy-safe, non-commercial handoff contract without altering this historical decision record."
+}
