@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-12T12:37:27-04:00",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added and tested a fail-closed verifier for the authoritative workflow's atomic evidence-finalizer wiring, then classified the current workflow as not wired without overwriting canonical queue state.",
+  "files": [
+    "cloudflare-static/verify-finalizer-workflow-wiring.mjs",
+    "cloudflare-static/verify-finalizer-workflow-wiring.test.mjs",
+    "operations/evidence/cloudflare-finalizer-wiring-verifier-2026-07-12T1237-0400.json"
+  ],
+  "commits": [
+    "292921ba6b3b7aecae7b1c4bb2b746d0ddc16ad2",
+    "aeb61f746478bad9ef3cc822d1c7bc78f4dc593e",
+    "b08aee58d444bba58560cec7aacfc6ec2a06f781"
+  ],
+  "verification": "4 deterministic Node tests passed. Direct default-branch workflow inspection found all four finalizer wiring elements absent from blob 827636409ec0a439161b9126393a6551df47e248.",
+  "remaining": [
+    "Apply cloudflare-static/wire-finalize-deployment-evidence.mjs to .github/workflows/cloudflare-pages-research.yml and commit the workflow-only diff.",
+    "Configure or repair CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Dispatch the authoritative workflow and retain resolving URL, served identity, exact deployed commit, signed proof, and finalized evidence manifest."
+  ],
+  "canonical_state_overwritten": false
+}
