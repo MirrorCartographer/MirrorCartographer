@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T01:39:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_this_run": {
+    "problem_resolved": "Removed the schema incompatibility between build-deployment-proof.mjs (1.1.0) and validate-deployment-proof.mjs (previously 1.0.0-only).",
+    "files": [
+      "cloudflare-static/validate-deployment-proof.mjs",
+      "cloudflare-static/validate-deployment-proof.test.mjs",
+      "operations/evidence/cloudflare-proof-schema-authority-validation-2026-07-12T0139-0400.json"
+    ],
+    "commits": [
+      "a7f36ab24bc4967414e45073be7cc720b67249f3",
+      "d1750a48a3597cbfbad261365d9ccda1badde14e",
+      "2504794a2b0b4de4ef0c3a50f88c17a885f10d4b"
+    ],
+    "verification": "4 deterministic Node.js tests passed in an isolated runtime; 0 failed."
+  },
+  "remaining": [
+    "Replace the workflow inline 1.0.0 proof construction with cloudflare-static/build-deployment-proof.mjs.",
+    "Add validate-deployment-proof.test.mjs and build-deployment-proof.test.mjs to the workflow contract test step.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Dispatch the workflow and capture a resolving immutable Pages deployment URL, served research identity, and deployed commit."
+  ],
+  "handoff": "The next Cloudflare run should wire the committed 1.1.0 builder into .github/workflows/cloudflare-pages-research.yml and fail closed before attestation when url_authority.valid is not true."
+}
