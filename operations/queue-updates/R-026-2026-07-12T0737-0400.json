@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": {
+    "id": "R-026",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Define a Safari-compatible output-timeline evidence contract that distinguishes render progression from human audibility.",
+    "status": "completed",
+    "required_evidence": [
+      "current primary Web Audio specification",
+      "committed validator",
+      "deterministic adversarial tests",
+      "explicit audibility limit",
+      "implementation handoff"
+    ],
+    "progress": {
+      "primary_sources": [
+        "https://webaudio.github.io/web-audio-api/#dom-audiocontext-getoutputtimestamp",
+        "https://webaudio.github.io/web-audio-api/#dom-audiocontext-outputlatency"
+      ],
+      "finding": "Require a monotonic non-zero getOutputTimestamp timeline and treat outputLatency as optional; browser render timing is not proof of human audibility.",
+      "module": "tools/frontier-research/audio-output-timeline.mjs",
+      "test": "tools/frontier-research/audio-output-timeline.test.mjs",
+      "evidence": "operations/evidence/frontier-audio-output-timeline-2026-07-12T0737-0400.json",
+      "commits": [
+        "21ab605149ada8f328e523e099cf8d8f5381fab8",
+        "3b8678d324233ab8c3a34b1650cc806bf08e2a8a",
+        "524314f400dea4f1de3b66aefe2b6eec9b8d7d28"
+      ],
+      "verification": "6 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+    },
+    "handoff": "Vercel Studio should sample getOutputTimestamp at least twice inside the bounded physical-iPhone session, pass the samples through validateAudioOutputTimeline, and retain the separate heard/not_heard human report. Do not require outputLatency on Safari and do not classify render_timeline_observed as audible."
+  },
+  "shared_state_policy": "Additive queue update only; operations/ACTIVE_QUEUE.json was not overwritten."
+}
