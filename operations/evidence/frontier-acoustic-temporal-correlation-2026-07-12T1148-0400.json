@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-037",
+  "recorded_at": "2026-07-12T11:48:00-04:00",
+  "sources": [
+    {
+      "status": "primary_standard",
+      "url": "https://www.w3.org/TR/webaudio/",
+      "finding": "AudioContext.getOutputTimestamp() relates contextTime to performanceTime at the output device; projection accuracy improves when the scheduled context time is close to the sampled output position."
+    },
+    {
+      "status": "primary_standard",
+      "url": "https://www.w3.org/TR/webaudio/#dom-audiocontext-outputlatency",
+      "finding": "outputLatency is the specification-defined estimate from host playback request to physical sample production, and may vary with platform and output hardware."
+    }
+  ],
+  "finding": "A frequency match and render advance can still be coincidental. Strong acoustic evidence should require the microphone detection window to overlap a declared timing window projected from the scheduled Web Audio pulse through getOutputTimestamp(), with explicit capture-delay and tolerance bounds.",
+  "artifact": {
+    "module": "tools/frontier-research/acoustic-temporal-correlation.mjs",
+    "test": "tools/frontier-research/acoustic-temporal-correlation.test.mjs",
+    "source_commit": "9cb4081897da98ebd4ea52238cd0bd6f046691c4",
+    "test_commit": "a1a8bb2727b4c62fdafcf4a1b0402ff87d652dbc"
+  },
+  "verification": {
+    "runtime": "Node test runner against byte-identical pre-commit files",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "accept overlapping predicted window",
+      "reject unrelated off-window detection",
+      "fail closed before output timestamp starts",
+      "reject stale timestamp projection",
+      "reject impossible detection interval"
+    ]
+  },
+  "evidence_strength": "deterministic_source_behavior",
+  "uncertainty": [
+    "The declared capture-delay range is a protocol parameter and must be calibrated per device/session.",
+    "Temporal overlap does not prove causal emitter identity or listener perception.",
+    "No iPhone Safari runtime session was performed in this run."
+  ],
+  "falsification_route": "Shift the scheduled pulse, replay an off-window tone, or use a stale output timestamp. The classifier must reject temporal correlation in each case.",
+  "privacy_boundary": "Only derived timing values and classifications are required; raw microphone audio, device labels, and persistent hardware identifiers are excluded."
+}
