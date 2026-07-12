@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "observation_id": "CM-0011",
+  "observed_at": "2026-07-12T15:56:43Z",
+  "kind": "contradiction_resolution",
+  "title": "Completion claims must fail closed when required evidence is incomplete",
+  "claim_state": "observed",
+  "evidence_strength": "deterministic_source_behavior",
+  "sources": [
+    {"type":"github_file","locator":"operations/ACTIVE_QUEUE.json","content_sha":"abb807e1a25d399f301238f6b8cc26d6be10385f"},
+    {"type":"github_file","locator":"tools/continuity/queue-reconciler.mjs","content_sha":"86b3e396698ac05abe33cd65406459bc7cc76547"},
+    {"type":"github_file","locator":"tools/continuity/queue-reconciler.test.mjs","content_sha":"6734daeca5f7292e2a8e6362a8f0ebd36c8ddbe0"}
+  ],
+  "observed": [
+    "The prior reconciler could emit effective_status completed while required_evidence_complete was false.",
+    "The corrected reconciler preserves the aggregate status, marks the completion claim unresolved, and records the unsupported completed claim as superseded."
+  ],
+  "inferred": [
+    "Fail-closed status projection prevents additive records from upgrading shared state beyond their evidence."
+  ],
+  "proposed": [
+    "Use the reconciler output as a derived read model; do not mutate canonical or append-only source records automatically."
+  ],
+  "superseded": [
+    "A latest temporal update may determine effective completion even when required evidence is incomplete."
+  ],
+  "unresolved": [
+    "Repository CI has not yet executed the corrected committed test file."
+  ],
+  "privacy": "public_repository_safe",
+  "privacy_boundary": "Uses only public repository paths, blob SHAs, abstract queue states, and deterministic test outcomes. Excludes private chat, health, relationship, financial, credential, and uploaded-file content.",
+  "falsification_or_review_route": "Run node tools/continuity/queue-reconciler.test.mjs from a checkout at or after commit 6b753927a2d4a35de4bb62c24e5cf37ce8a4d0d9. Reject this resolution if an incomplete evidence set can still produce effective_status completed."
+}
