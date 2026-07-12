@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "updated_at": "2026-07-12T13:09:00-04:00",
+  "completed_slice": "Add an independent GitHub Actions gate for blocked-path evidence materialization and atomic finalization so source changes cannot silently bypass the newly introduced contracts.",
+  "specialists_used": [
+    "Cloudflare Deployment Engineer",
+    "Evidence Auditor",
+    "Provenance Engineer"
+  ],
+  "files": [
+    ".github/workflows/cloudflare-evidence-contracts.yml",
+    "operations/evidence/cloudflare-evidence-contract-gate-2026-07-12T1309-0400.json"
+  ],
+  "commits": [
+    "7e5d8cfa0d125d687e2112617e43d23dc9c83530",
+    "e88b1d327032adcd57d1cdff8a5b6d6475f51ca6"
+  ],
+  "verification": "The exact workflow commit was fetched and inspected. No associated GitHub Actions workflow run was observed at inspection time, so CI execution remains unverified.",
+  "blocker": "Valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment are still required to prove a resolving Pages deployment and exact served commit.",
+  "next_action": "Observe the new contract workflow result, then dispatch the Cloudflare deployment workflow and retain either a complete blocked-path artifact bundle or successful hostname, served-identity, and commit proof."
+}
