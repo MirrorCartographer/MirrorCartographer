@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T20:42:43-04:00",
+  "status": "blocked_external_configuration",
+  "progress": {
+    "improvement": "Deployment proof replay and cross-run substitution protection",
+    "module": "cloudflare-static/validate-deployment-proof-context.mjs",
+    "test": "cloudflare-static/validate-deployment-proof-context.test.mjs",
+    "workflow": ".github/workflows/cloudflare-proof-context.yml",
+    "evidence": "operations/evidence/cloudflare-deployment-proof-context-2026-07-11T2042-0400.json",
+    "commits": [
+      "4333cccd6c8fc8f10b5114daffae9cb732e4295a",
+      "8e5b57109aa12bc3ae85cf535e38f62ab4aeec2e",
+      "9e7c1135837137d81e9b3a037e07366582185271",
+      "cf5c2aa7d36a284845a8545afb10e99cf7151d58"
+    ],
+    "verification": "4 deterministic Node tests passed in an isolated runtime using byte-identical committed logic"
+  },
+  "remaining": [
+    "Wire validate-deployment-proof-context.mjs into cloudflare-pages-research.yml immediately after structural proof validation.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub Environment.",
+    "Dispatch the deployment workflow and verify the real proof is accepted only for its own commit and workflow-run URL.",
+    "Confirm the returned Cloudflare Pages URL resolves and serves the expected research surface from the immutable commit."
+  ],
+  "shared_state_policy": "Append-only update; operations/ACTIVE_QUEUE.json was not overwritten."
+}
