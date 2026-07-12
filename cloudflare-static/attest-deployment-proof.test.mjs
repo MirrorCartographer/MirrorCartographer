@@ -87,3 +87,11 @@ test('rejects captured start times that occur after finish', () => {
     finishedOn: '2026-07-11T20:41:00.000Z'
   }), /startedOn-after-finishedOn/);
 });
+
+test('rejects workflow-captured start times older than the six-hour evidence window', () => {
+  assert.throws(() => resolveProvenanceTimes({
+    candidateStartedOn: '2026-07-11T14:40:00.000Z',
+    candidateSource: 'workflow-captured',
+    finishedOn: '2026-07-11T20:41:00.000Z'
+  }), /startedOn-exceeds-maximum-duration/);
+});
