@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T07:37:00-04:00",
+  "claim_state": "observed",
+  "evidence_strength": "committed_source",
+  "finding": "The Cloudflare Pages project-identity contract is now enforced by a dedicated GitHub Actions workflow on relevant pull requests, pushes to main, and manual dispatches.",
+  "implementation": {
+    "workflow": ".github/workflows/cloudflare-project-identity-contract.yml",
+    "commit": "4889c28e05a062c844d4b3029e5ffe446c6c2607",
+    "validator": "cloudflare-static/validate-project-identity-contract.mjs",
+    "test": "cloudflare-static/validate-project-identity-contract.test.mjs",
+    "artifact": "cloudflare-project-identity-contract.json",
+    "canonical_project": "mirror-cartographer-research"
+  },
+  "acceptance_contract": [
+    "validator tests pass",
+    "wrangler and deployment workflow resolve to one canonical project identity",
+    "generated identity evidence artifact is retained for 30 days",
+    "source-level identity is not represented as deployment proof"
+  ],
+  "privacy_boundary": "No credentials, secret values, health information, private chat, or personal identifiers are included.",
+  "limits": [
+    "No workflow run result was available at record creation time.",
+    "This does not prove Cloudflare project existence, account authorization, deployment success, DNS resolution, served identity, or scientific truth.",
+    "C-001 remains blocked on Cloudflare GitHub environment credentials and an actual deployment run."
+  ],
+  "falsification_route": "Change the Wrangler project name or one deployment-workflow project reference and confirm the CI workflow fails before deployment evidence can be trusted."
+}
