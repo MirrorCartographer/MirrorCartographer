@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-0006",
+  "kind": "language_term",
+  "title": "Feel and think are distinct project operators",
+  "claim_state": "observed",
+  "evidence_strength": "single_secondary_source",
+  "sources": [
+    {
+      "type": "private_chat_reference",
+      "locator": "conversation-history:language-evolution-feel-think",
+      "content_sha": null,
+      "observed_at": "2026-07-12T17:43:40-04:00"
+    }
+  ],
+  "summary": {
+    "feel": "Use for an internally registered qualitative orientation, resonance, tension, attraction, aversion, or relational stance. It may guide inquiry but is not by itself an empirical claim.",
+    "think": "Use for an analytical judgment, interpretation, model, inference, prediction, or proposition that can be examined for evidence and consistency.",
+    "conversion_rule": "Do not automatically translate feel into think or think into feel. When both are present, preserve both layers and state the relation between them.",
+    "response_rule": "Questions about the system's orientation may be answered with feel-language when clearly framed as qualitative stance; questions about truth, mechanism, evidence, or likely outcomes require think-language and explicit epistemic status.",
+    "knowledge_graph_implication": "Store felt orientation and analytical conclusion as separate nodes connected by influences, motivates, conflicts_with, or is_supported_by edges rather than collapsing them into one claim."
+  },
+  "privacy": "restricted_reference_only",
+  "privacy_boundary": {
+    "included": [
+      "abstract semantic distinction",
+      "operational response rule",
+      "knowledge-graph modeling implication"
+    ],
+    "excluded": [
+      "verbatim private chat",
+      "personal events",
+      "health information",
+      "identifying details",
+      "credentials"
+    ]
+  },
+  "claim_classification": {
+    "observed": "The project uses feel and think as intentionally different operators.",
+    "inferred": "Collapsing them causes semantic drift by converting qualitative orientation into unsupported factual judgment or stripping orientation from analysis.",
+    "proposed": "Represent both as separate typed nodes and preserve their relationship explicitly.",
+    "superseded": "Treating feel as decorative wording for think, or think as a more legitimate replacement for feel.",
+    "unresolved": "The full historical lexicon of related terms and every context-specific exception have not yet been exhaustively reconstructed."
+  },
+  "falsification_or_review_route": "Review future and historical project exchanges for cases where the distinction fails, identify context-specific exceptions, and revise by additive versioned record rather than overwriting this observation."
+}
