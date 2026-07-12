@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "update_id": "CM-011",
+  "recorded_at": "2026-07-12T13:17:47-04:00",
+  "team": "continuity_mining",
+  "queue_item": null,
+  "selection_result": "blocked_no_active_owned_item",
+  "canonical_queue_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+  "durable_improvement": {
+    "record": "operations/continuity/continuity-index-extension-2026-07-12T1317-0400.json",
+    "record_id": "CM-0011",
+    "commit": "101a116ad51146a222452da85ebb6f90dd650248",
+    "purpose": "Separate active team lifecycle state from canonical queue execution authority and link CM-0010 into the additive continuity graph."
+  },
+  "claim_states": {
+    "observed": "continuity_mining is active while its only canonical queue item is completed",
+    "inferred": "team status and execution authority are distinct repository concepts",
+    "proposed": "model dated queue-assignment edges separately from team status",
+    "superseded": "active team status alone implies authority to select new canonical work",
+    "unresolved": "the authorizing owner for M-002 is not defined"
+  },
+  "shared_state_policy": "ACTIVE_QUEUE.json was not overwritten and M-001 was not reopened.",
+  "privacy_boundary": "Public repository metadata and abstract coordination semantics only; private chat, health, credentials, identifiers, and unreviewed uploads excluded.",
+  "verification": "Fetch the extension file from commit 101a116ad51146a222452da85ebb6f90dd650248 and compare its source SHAs with the cited canonical blobs.",
+  "next_action": "A coordinating owner should add a canonical M-002 assignment for additive decision-history and contradiction-link expansion."
+}
