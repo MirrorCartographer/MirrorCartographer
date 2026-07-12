@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-001",
+  "team": "continuity_mining",
+  "slice_id": "CM-013",
+  "recorded_at": "2026-07-12T15:29:11-04:00",
+  "status": "completed_additive_follow_on",
+  "selected_reason": "M-001 is the only continuity-owned canonical item and its handoff requires additional commit and decision-history records plus contradiction modeling.",
+  "durable_memory": "Canonical queue state and later additive evidence are temporally layered; later commits supersede current-status interpretation without erasing the earlier queue snapshot.",
+  "artifact": "operations/continuity/state-drift-2026-07-12T1529-0400.json",
+  "artifact_commit": "042981e61b271a939881967dcfe8683c25875aa1",
+  "canonical_queue_modified": false,
+  "specialist_registry_modified": false,
+  "privacy": "public repository metadata and abstract operational claims only",
+  "verification": "Fetch and parse the artifact; compare ACTIVE_QUEUE blob abb807e1a25d399f301238f6b8cc26d6be10385f with listed later commits.",
+  "next_action": "Create an additive owner-scoped reconciliation manifest for recent queue updates and commits."
+}
