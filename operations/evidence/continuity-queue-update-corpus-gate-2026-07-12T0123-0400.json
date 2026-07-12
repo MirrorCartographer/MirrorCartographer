@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-12T01:23:00-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-007",
+  "artifact": "tools/continuity/queue-update-corpus.mjs",
+  "test": "tools/continuity/queue-update-corpus.test.mjs",
+  "finding": "Compatibility policy is not operational until every append-only queue-update artifact is discovered, parsed, classified, and allowed to block reconciliation fail-closed.",
+  "claims": {
+    "observed": [
+      "M-006 provides per-record compatibility classification.",
+      "The canonical queue is stale relative to append-only queue-update records.",
+      "Four deterministic Node.js tests passed against byte-identical local copies before commit."
+    ],
+    "inferred": [
+      "Without corpus discovery, malformed or omitted historical records can escape compatibility review."
+    ],
+    "proposed": [
+      "Effective-queue reconciliation should consume a commit-bound corpus report and stop whenever reconciliation_allowed is false."
+    ],
+    "superseded": [
+      "Treating parser-readable records as the complete queue-update corpus without directory discovery."
+    ],
+    "unresolved": [
+      "The live repository corpus has not yet been executed through this gate in CI.",
+      "A reviewed compatibility-exception manifest has not yet been committed for any actual legacy defects."
+    ]
+  },
+  "verification": {
+    "runtime": "node --test queue-update-corpus.test.mjs",
+    "passed": 4,
+    "failed": 0,
+    "coverage": [
+      "all conformant records permit reconciliation",
+      "malformed JSON blocks reconciliation",
+      "uncovered schema defects block reconciliation",
+      "only explicit narrow reviewed exceptions permit compatibility"
+    ]
+  },
+  "privacy_boundary": {
+    "included": ["public repository paths", "schema defects", "aggregate corpus counts", "commit identity"],
+    "excluded": ["private chat", "health material", "credentials", "raw uploaded files", "personal identifiers"]
+  },
+  "falsification_route": [
+    "Add malformed JSON to a disposable fixture corpus and require blocking_parse_failure.",
+    "Add an uncovered defect and require blocking_incompatible.",
+    "Add an expired or incomplete exception and require blocking_invalid_exception.",
+    "Run against the full repository queue-update directory and compare discovered file count with an independent file listing."
+  ]
+}
