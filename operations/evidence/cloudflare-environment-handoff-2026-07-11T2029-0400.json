@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "claim_state": "verified_source_behavior",
+  "evidence_strength": "deterministic_contract_test",
+  "source_commits": [
+    "39ed6b554698e4cfac68700feb5f56c6a48de884",
+    "59c0289a1f4e33d1d3f6526885292f78412782ec",
+    "460ce36b16c9cffdb124fde4c35ce91a3017febd"
+  ],
+  "artifacts": [
+    "cloudflare-static/build-environment-handoff.mjs",
+    "cloudflare-static/build-environment-handoff.test.mjs",
+    ".github/workflows/cloudflare-readiness-handoff.yml"
+  ],
+  "verification": {
+    "runner": "isolated Node runtime using byte-identical source logic",
+    "tests_passed": 3,
+    "tests_failed": 0,
+    "assertions": [
+      "handoff names the correct GitHub environment and Pages project",
+      "handoff exposes required secret names but no values",
+      "mutated environment contracts are rejected"
+    ]
+  },
+  "privacy_boundary": "No credential values, token prefixes, account identifier values, authorization headers, private chat, or health material are recorded.",
+  "deployment_proof": false,
+  "limits": [
+    "No resolving Cloudflare URL was established.",
+    "No served commit identity was verified.",
+    "The readiness workflow publishes an operator handoff; it does not deploy."
+  ],
+  "falsification_route": "Run the committed tests, inspect the generated handoff artifact, and reject this evidence if it contains credential values or names a different environment/project."
+}
