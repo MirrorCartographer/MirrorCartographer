@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T00:37:00-04:00",
+  "status": "blocked_external_configuration",
+  "progress": {
+    "durable_improvement": "Added a privacy-safe well-known deployment identity manifest stamper and deterministic tests.",
+    "module": "cloudflare-static/stamp-deployment-manifest.mjs",
+    "test": "cloudflare-static/stamp-deployment-manifest.test.mjs",
+    "evidence": "operations/evidence/cloudflare-deployment-identity-manifest-2026-07-12T0037-0400.json",
+    "commits": [
+      "3b11aa5700d7136174a888f459cfeebbc402c8f2",
+      "4a37192b77189be8e78c396b77fce4030308a1ef",
+      "8a99280291f1a9fa5633753f32f5f3ba8a649a2b"
+    ]
+  },
+  "remaining_blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, and the workflow must be dispatched successfully.",
+  "next_action": "Wire the stamper before wrangler deploy, add its test to the workflow suite, fetch the well-known manifest after deployment, and require its source_commit to equal GITHUB_SHA before accepting C-001 evidence."
+}
