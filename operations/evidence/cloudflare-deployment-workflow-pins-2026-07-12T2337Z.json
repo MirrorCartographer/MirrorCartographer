@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-12T23:37:08Z",
+  "owner": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "observed",
+  "evidence_strength": "repository_state_verified",
+  "source_commit": "b5f8017bc26aa494fd60edf94e6c5ce3bd913fbf",
+  "workflow": ".github/workflows/cloudflare-pages-research.yml",
+  "workflow_blob_sha": "3752dd349731d411710b085d7ac71dd8136a1c4b",
+  "approved_pin_plan": "cloudflare-static/action-pin-plan.json",
+  "pins": [
+    {
+      "action": "actions/checkout",
+      "sha": "8e8c483db84b4bee98b60c0593521ed34d9990e8",
+      "release": "v6.0.1"
+    },
+    {
+      "action": "cloudflare/wrangler-action",
+      "sha": "da0e0dfe58b7a431659754fdf3f186c529afbe65",
+      "release": "v3.14.1"
+    },
+    {
+      "action": "actions/attest-build-provenance",
+      "sha": "977bb373ede98d70efdf65b84cb5f73e068dcc2a",
+      "release": "v3.0.0"
+    },
+    {
+      "action": "actions/upload-artifact",
+      "sha": "ea165f8d65b6e75b540449e92b4886f43607fa02",
+      "release": "v4.6.2"
+    }
+  ],
+  "verification": {
+    "method": "post-commit GitHub contents fetch at exact commit",
+    "result": "all four third-party uses references in the deployment workflow are exact 40-character commits",
+    "deployment_executed": false
+  },
+  "limits": [
+    "Immutable pins prevent mutable tag drift but do not establish upstream action safety.",
+    "No Cloudflare deployment, hostname resolution, served identity, or CI success is claimed.",
+    "C-001 remains blocked until the cloudflare-research environment has working Cloudflare credentials and the workflow executes successfully."
+  ],
+  "privacy_boundary": "Public repository workflow and release-review metadata only; no credentials or private user material included."
+}
