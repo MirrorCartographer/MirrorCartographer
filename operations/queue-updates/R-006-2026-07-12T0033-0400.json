@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-006",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Measure interaction-specific latency using Event Timing phase decomposition rather than inferring user harm from frame congestion alone.",
+    "dependencies": ["R-005"],
+    "required_evidence": [
+      "current primary specification",
+      "committed classifier",
+      "deterministic privacy test",
+      "phase-specific falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_source": "https://www.w3.org/TR/event-timing/",
+      "finding": "Group PerformanceEventTiming entries by interactionId and decompose the worst event into input delay, processing duration, and presentation delay.",
+      "module": "tools/frontier-research/interaction-responsiveness-budget.mjs",
+      "test": "tools/frontier-research/interaction-responsiveness-budget.test.mjs",
+      "evidence": "operations/evidence/frontier-research-interaction-responsiveness-2026-07-12.json",
+      "commits": [
+        "72e6b7029ad3ef0fb7cbf37291f630e675151f92",
+        "b76e03db6f1f55339f3f98b0b8fadf1cd7284559",
+        "d73aab17ec619abc1e4a2c9db8f822e5092fbc60"
+      ],
+      "verification": "5 deterministic Node.js tests passed in an isolated runtime using byte-identical pre-commit files"
+    },
+    "handoff": "Vercel Studio and Independent Creative Web should pair this observer with R-005 Long Animation Frames evidence and run controlled stalls in each latency phase. Neither signal alone should be treated as proof of subjective harm."
+  }
+}
