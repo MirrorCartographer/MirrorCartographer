@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "created_at": "2026-07-12T22:10:00Z",
+  "finding": "Detecting mutable GitHub Action tags is insufficient unless each required replacement is represented by a complete, reviewed, immutable resolution record before workflow edits are accepted.",
+  "artifact": {
+    "module": "cloudflare-static/validate-action-pin-plan.mjs",
+    "test": "cloudflare-static/validate-action-pin-plan.test.mjs",
+    "workflow": ".github/workflows/cloudflare-deployment-security-gate.yml"
+  },
+  "verification": {
+    "method": "isolated Node test against byte-identical authored files before commit",
+    "result": "4 passed, 0 failed",
+    "cases": [
+      "complete reviewed plan accepted",
+      "missing resolution rejected",
+      "malformed or mutable SHA rejected",
+      "action mismatch and unexpected entry rejected"
+    ]
+  },
+  "source_status": {
+    "repository_state": "observed",
+    "deployment_state": "unverified",
+    "action_tag_resolution": "not_yet_performed"
+  },
+  "evidence_strength": "implementation_ready_locally_verified",
+  "limits": [
+    "The validator does not independently resolve upstream tags.",
+    "A 40-character commit SHA provides immutability, not safety.",
+    "No Cloudflare deployment, hostname, or served commit is claimed.",
+    "The current workflows still contain mutable action references until reviewed resolutions are supplied and applied."
+  ],
+  "falsification_route": "Provide an audit requiring two mutable references and a plan that omits one, uses a non-40-character SHA, changes the action identity, or adds an unexpected entry; the validator must reject it. After applying a complete plan, rerun the action-reference audit and require zero unpinned remote actions."
+}
