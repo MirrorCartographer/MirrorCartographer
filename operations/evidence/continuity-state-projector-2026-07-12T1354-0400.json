@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-12T17:54:00Z",
+  "owner": "continuity_mining",
+  "queue_item": "CM-013",
+  "claim_state": "observed",
+  "artifact": {
+    "module": "tools/continuity/project-queue-state.mjs",
+    "test": "tools/continuity/project-queue-state.test.mjs",
+    "commits": [
+      "fdcd3195e5634b842d50e5961afc94e8a4682fff",
+      "eeca814cc6a6655f3cb9527c219f6df15c4e4b54"
+    ]
+  },
+  "durable_improvement": "A dependency-free projector now derives a non-authoritative queue view from the canonical snapshot plus append-only deltas while rejecting ownership mutation, preserving incompatible terminal claims as conflicts, and producing deterministic output.",
+  "acceptance_cases": [
+    "later delta supersedes current interpretation without mutating canonical input",
+    "cross-team ownership mutation is rejected",
+    "incompatible terminal claims remain explicit conflicts",
+    "delta input order does not change serialized output",
+    "invalid chronology metadata fails closed"
+  ],
+  "verification": {
+    "source_write": "GitHub accepted both additive source commits",
+    "runtime_test": "not executed in this connector-backed run",
+    "falsification_command": "node --test tools/continuity/project-queue-state.test.mjs"
+  },
+  "limits": [
+    "The projector does not discover queue-update files by itself.",
+    "Timestamp-less records use stable source ordering and therefore do not establish real chronology.",
+    "No cryptographic proof binds a derived view to a complete repository tree.",
+    "The output is explicitly non-authoritative and does not modify canonical state."
+  ],
+  "privacy_boundary": {
+    "included": ["public repository state", "public commit identifiers", "abstract coordination rules"],
+    "excluded": ["raw private chat", "health or pet-health material", "credentials", "identifying personal data", "unreviewed uploads"]
+  },
+  "falsification_route": "Run the committed tests and add adversarial fixtures for duplicate sources, equal timestamps, and conflicting nonterminal transitions; reject the implementation if output depends on input order, ownership mutation is accepted, conflicts are collapsed, or canonical input changes."
+}
