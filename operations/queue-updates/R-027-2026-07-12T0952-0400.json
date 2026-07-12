@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-027",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Separate browser-visible audio output routing evidence from rendering, physical output, and human audibility.",
+    "dependencies": ["R-026"],
+    "required_evidence": [
+      "current primary standards",
+      "committed route validator",
+      "deterministic adversarial tests",
+      "explicit privacy and claim limits",
+      "implementation handoff"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://www.w3.org/TR/audio-output/",
+        "https://www.w3.org/TR/mediacapture-streams/"
+      ],
+      "finding": "A fulfilled setSinkId request with matching observed sinkId and enumerated audiooutput membership can attest browser-bound non-default routing, but cannot prove continuing device availability, acoustic output, or human audibility. Empty sinkId identifies only the user-agent default route.",
+      "module": "tools/frontier-research/audio-output-route-evidence.mjs",
+      "test": "tools/frontier-research/audio-output-route-evidence.test.mjs",
+      "evidence": "operations/evidence/frontier-audio-output-route-evidence-2026-07-12T0952-0400.json",
+      "commits": [
+        "462b5319b43bfd622827bca4690da10d8f551130",
+        "f7bd6a3efc81648b707e23c3ed844292487fb788",
+        "facb48e6227c42897c18057027149fe5aa94b8b5"
+      ],
+      "verification": "6 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+    },
+    "handoff": "Vercel Studio should append route evidence to the existing activation, AudioContext, render-timeline, and human-outcome packet. Unsupported routing APIs and default-route observations must remain explicit classifications. A browser-bound route must never be promoted to physical-output or heard evidence."
+  },
+  "canonical_queue_update_policy": "Additive team-owned record only. Do not overwrite operations/ACTIVE_QUEUE.json until the queue promotion gate reconciles stale canonical state."
+}
