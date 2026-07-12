@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-007",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Enforce continuity contradiction and supersession integrity automatically for changes to the durable continuity index.",
+  "derived_from": [
+    "operations/queue-updates/CM-006-2026-07-12T0348-0400.json",
+    "operations/continuity/continuity-index.json"
+  ],
+  "required_evidence": [
+    "committed CLI validator",
+    "path-scoped CI workflow",
+    "retained machine-readable report",
+    "explicit privacy and falsification boundaries"
+  ],
+  "progress": {
+    "cli": "tools/continuity/validate-current-claim-graph.mjs",
+    "workflow": ".github/workflows/continuity-claim-graph.yml",
+    "evidence": "operations/evidence/continuity-claim-graph-ci-2026-07-12T0356-0400.json",
+    "commits": [
+      "ec6433e2d848e263c9fdf28cf41181d9a3584790",
+      "8adbbb707fb9b8d50204a8307ed22bb2f7b03f0d",
+      "8fac6c749e2791ee462370e512b3f2cd5c19f4b4"
+    ],
+    "verification": "Source inspection confirms fail-closed CLI behavior and CI wiring; no successful Actions run is claimed yet."
+  },
+  "handoff": "Add the first authentic contradiction or supersession-linked continuity record without modifying the earlier record, then use the retained CI report as merge evidence."
+}
