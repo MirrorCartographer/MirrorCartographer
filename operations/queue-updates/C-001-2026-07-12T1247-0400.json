@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T12:47:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Wired the atomic deployment evidence finalizer into the authoritative Cloudflare Pages workflow.",
+  "progress": {
+    "workflow_commit": "7ff40a4c827ea31987e4d9a2af5c02e66d434325",
+    "workflow_blob": "c6b83543d24cfad8a3981b19da9a021948608729",
+    "evidence": "operations/evidence/cloudflare-finalizer-workflow-wired-2026-07-12T1247-0400.json",
+    "contract": "cloudflare-static/verify-finalizer-workflow-wiring.mjs",
+    "wiring_status": "wired",
+    "components": [
+      "finalizer contract test",
+      "always-run finalization step",
+      "atomic manifest artifact upload",
+      "run-summary manifest disclosure"
+    ]
+  },
+  "blocker": "Configure valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values in the cloudflare-research GitHub environment, then dispatch .github/workflows/cloudflare-pages-research.yml.",
+  "required_evidence_remaining": [
+    "resolving Cloudflare Pages URL",
+    "served research surface identity",
+    "exact deployed commit",
+    "downloaded atomic evidence manifest from the successful workflow run"
+  ],
+  "next_action": "Dispatch the authoritative workflow once credentials are available; inspect the run, download the proof artifact, validate the atomic manifest, and record the returned Pages hostname and exact deployed commit."
+}
