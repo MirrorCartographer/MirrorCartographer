@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-009",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-11T23:22:00-04:00",
+  "claim_state": "observed_and_implemented",
+  "evidence_strength": "deterministic_unit_tests_plus_primary_specification",
+  "primary_sources": [
+    {
+      "url": "https://slsa.dev/spec/v1.2/verifying-artifacts",
+      "status": "approved_specification",
+      "finding": "Verification should bind recognized signing identity and builder identity to preconfigured roots of trust, then compare canonical repository, build type, and external parameters against expectations."
+    },
+    {
+      "url": "https://docs.github.com/en/actions/how-tos/secure-your-work/use-artifact-attestations/enforce-artifact-attestations",
+      "status": "official_platform_documentation",
+      "finding": "Attestation enforcement requires an enabled policy and rejects artifacts outside configured origin and matching rules; trust roots alone do not create enforcement."
+    }
+  ],
+  "finding": "A cryptographically valid DSSE signature is not sufficient authorization. Every accepted key fingerprint must be explicitly permitted for the exact repository, workflow path, git ref, and claim class under an enabled deny-by-default policy.",
+  "design_implication": "Apply authorization after DSSE verification and distinct-key threshold evaluation. Reject the whole evidence packet when any verified fingerprint lacks an exact matching authorization rule.",
+  "artifact": {
+    "module": "tools/frontier-research/signer-authorization-policy.mjs",
+    "test": "tools/frontier-research/signer-authorization-policy.test.mjs",
+    "commits": [
+      "15a3c9ef62bc516b7eba8b6f11b638436fef5922",
+      "90aebeae4751626ceba2073783a78c58719f37a8"
+    ]
+  },
+  "verification": {
+    "runtime": "Node.js isolated local execution using byte-identical source and test content",
+    "result": "5 tests passed",
+    "cases": [
+      "two authorized distinct fingerprints accepted",
+      "wrong workflow rejected",
+      "wrong claim class rejected",
+      "partially authorized threshold set rejected",
+      "disabled policy rejected"
+    ]
+  },
+  "uncertainty": "The module consumes caller-supplied verified fingerprints and identity fields. It does not independently derive workflow identity from a certificate or GitHub OIDC claim.",
+  "falsification_route": "Provide a verified fingerprint, repository, workflow, ref, or claim class outside the exact allowlist. Authorization must fail with signer.unauthorized or a policy validation reason. A test that accepts any such mismatch falsifies the implementation.",
+  "trust_limit": "Authorization is not signature verification, execution proof, certificate-chain validation, transparency-log verification, trusted time, or proof that the signed claim is true."
+}
