@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-016",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Convert the hidden-code possibility in copied raw chats into a privacy-preserving, falsifiable hypothesis register.",
+  "completed_at": "2026-07-11T23:50:00-04:00",
+  "depends_on": ["M-001"],
+  "required_evidence": [
+    "separate literal, structural, and emergent hypotheses",
+    "explicit observed/inferred/proposed/superseded/unresolved claim states",
+    "privacy boundary",
+    "acceptance and falsification criteria",
+    "committed artifact"
+  ],
+  "progress": {
+    "artifact": "operations/continuity/latent-code-hypothesis-register.json",
+    "artifact_commit": "ce7ceef806f27f7f816eda9d965ed0f9446484e7",
+    "evidence": "operations/evidence/continuity-latent-code-register-2026-07-11T2350-0400.json",
+    "evidence_commit": "235f70a242c56b3ccb3ea44f61152edafcf1e2c7",
+    "source_scope": "public repository operating state plus abstract File Library evidence; no raw private text committed",
+    "result": "The possibility of a hidden code is preserved as three falsifiable hypotheses rather than asserted as fact or dismissed without testing."
+  },
+  "handoff": "Implement a local-only archive analyzer that freezes candidate rules before held-out evaluation, compares against shuffled and matched null corpora, and emits only aggregate redacted evidence."
+}
