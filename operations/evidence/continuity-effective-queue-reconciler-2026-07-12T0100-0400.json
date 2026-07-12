@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "CM-E-0010",
+  "team": "continuity_mining",
+  "queue_item": "M-004",
+  "observed_at": "2026-07-12T01:00:13-04:00",
+  "artifact": "tools/continuity/effective-queue-reconciler.mjs",
+  "test": "tools/continuity/effective-queue-reconciler.test.mjs",
+  "source_commits": [
+    "064f02da4d3d8ffafd8824cf492ee07de1ed3549",
+    "2f57ab19cfddc2fdda19d7eb6836590e7acd3ee7"
+  ],
+  "memory_recovered": "Operational state is not contained in one file. ACTIVE_QUEUE.json is a retained canonical snapshot, while append-only queue updates form a fresher event ledger. Effective work selection requires a derived view that preserves both layers.",
+  "claims": {
+    "observed": [
+      "ACTIVE_QUEUE.json predates multiple later queue-update commits.",
+      "Later updates may add queue items or change status without rewriting the canonical snapshot."
+    ],
+    "inferred": [
+      "Reading only the canonical snapshot can cause duplicate work or stale blocker selection."
+    ],
+    "proposed": [
+      "Use the committed reconciler to derive an effective queue before each team selects work."
+    ],
+    "superseded": [
+      "Treating ACTIVE_QUEUE.json alone as a complete current-state authority."
+    ],
+    "unresolved": [
+      "Repository queue-update records do not consistently include an explicit updated_at field or immutable source SHA inside the document."
+    ]
+  },
+  "ordering_rule": "Valid timestamp ascending, then source path lexicographically, then caller input order.",
+  "conflict_rule": "Materially different updates for the same item and timestamp are retained in provenance and surfaced as a conflict. The deterministic derived value does not erase the conflict.",
+  "privacy": {
+    "classification": "public_repository_safe",
+    "included": ["public repository paths", "queue metadata", "commit identifiers", "abstract operational claims"],
+    "excluded": ["raw private chat", "health or pet-health material", "credentials", "identifying personal data", "unreviewed uploads"]
+  },
+  "verification": {
+    "method": "deterministic Node test contract committed with the implementation",
+    "scenarios": [
+      "newer status overrides older status in the derived view",
+      "new queue item is incorporated without mutating the canonical input",
+      "same-time materially different updates produce an explicit conflict",
+      "missing item identity fails closed"
+    ],
+    "runtime_status": "test source committed; no GitHub Actions execution evidence was available during this run"
+  },
+  "falsification_or_review_route": "Run the test under a supported Node runtime, then execute the CLI against ACTIVE_QUEUE.json and all operations/queue-updates/*.json records. Revise the contract if ordering is nondeterministic, a source artifact is mutated, or a materially conflicting concurrent update is not reported.",
+  "next_action": "Wire the reconciler into a read-only effective-queue generation check and require queue updates to carry explicit updated_at and source identity fields."
+}
