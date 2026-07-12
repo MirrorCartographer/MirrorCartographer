@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T12:47:00-04:00",
+  "claim_state": "observed",
+  "evidence_strength": "committed source inspection",
+  "change": {
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "commit": "7ff40a4c827ea31987e4d9a2af5c02e66d434325",
+    "previous_blob": "827636409ec0a439161b9126393a6551df47e248",
+    "new_blob": "c6b83543d24cfad8a3981b19da9a021948608729",
+    "wiring": {
+      "finalizer_test": true,
+      "finalizer_step": true,
+      "manifest_upload": true,
+      "manifest_summary": true
+    }
+  },
+  "verification": {
+    "method": "post-commit source fetch at exact commit",
+    "verifier_contract": "cloudflare-static/verify-finalizer-workflow-wiring.mjs",
+    "expected_status": "wired",
+    "observed_needles": [
+      "node --test cloudflare-static/finalize-deployment-evidence.test.mjs",
+      "name: Finalize and verify exact deployment evidence manifest",
+      "cloudflare-deployment-evidence-manifest.json",
+      "Atomic evidence manifest:"
+    ]
+  },
+  "deployment_status": {
+    "attempted": false,
+    "reason": "C-001 remains externally blocked until the cloudflare-research environment has valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values",
+    "public_url_proven": false,
+    "served_identity_proven": false,
+    "deployed_commit_proven": false
+  },
+  "privacy_boundary": "No credentials, secret values, private chat, or health material were read or written.",
+  "epistemic_limit": "Workflow wiring proves the evidence finalizer is part of the authoritative source path. It does not prove a deployment ran or that any scientific claim is true.",
+  "rollback": "Revert commit 7ff40a4c827ea31987e4d9a2af5c02e66d434325; do not delete history."
+}
