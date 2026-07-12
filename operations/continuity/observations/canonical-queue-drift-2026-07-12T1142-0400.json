@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "observation_id": "CM-0010",
+  "observed_at": "2026-07-12T15:42:09Z",
+  "kind": "contradiction",
+  "title": "Canonical queue snapshot lags additive team progress",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/queue-updates/C-001-2026-07-12T1135-0400.json",
+      "content_sha": "224e14966e65018d57578d3171859590fe0923c3"
+    },
+    {
+      "type": "github_commit",
+      "locator": "5862efc068c01690dba91cc2a5c7c5b14f0a8a73",
+      "content_sha": "5862efc068c01690dba91cc2a5c7c5b14f0a8a73"
+    }
+  ],
+  "observed": [
+    "The canonical ACTIVE_QUEUE.json records an older C-001 progress state.",
+    "A later additive C-001 queue-update artifact records verifier-to-proof URL binding work.",
+    "A still later commit integrates verifier success binding into the Cloudflare evidence path."
+  ],
+  "inferred": [
+    "Readers that inspect only ACTIVE_QUEUE.json can understate current implementation progress."
+  ],
+  "proposed": [
+    "Introduce an additive queue-state reconciler that orders canonical snapshots, owned queue updates, evidence packets, and commits by immutable source identity and observation time."
+  ],
+  "superseded": [],
+  "unresolved": [
+    "No canonical reconciliation rule currently establishes which additive queue update has been accepted into shared state.",
+    "The live Cloudflare deployment claim remains unresolved; source progress does not prove deployment."
+  ],
+  "contradicts": [
+    "Any interpretation that ACTIVE_QUEUE.json alone is a complete current-progress view."
+  ],
+  "privacy": "public_repository_safe",
+  "privacy_boundary": "Uses only public repository paths, blob SHAs, commit SHAs, and abstract implementation status. Excludes raw chat, health or pet-health material, credentials, account identifiers, and uploaded-file contents.",
+  "falsification_or_review_route": "Fetch the three exact sources. Reject the drift claim if ACTIVE_QUEUE.json already contains the later verifier-binding integration, if the queue-update artifact predates the canonical blob, or if commit 5862efc068c01690dba91cc2a5c7c5b14f0a8a73 does not integrate verifier success with the exact deployment proof URL."
+}
