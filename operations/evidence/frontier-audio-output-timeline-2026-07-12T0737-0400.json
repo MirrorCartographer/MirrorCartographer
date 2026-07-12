@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-026",
+  "captured_at": "2026-07-12T07:37:00-04:00",
+  "sources": [
+    {
+      "type": "primary_specification",
+      "url": "https://webaudio.github.io/web-audio-api/#dom-audiocontext-getoutputtimestamp",
+      "finding": "getOutputTimestamp correlates output contextTime with performanceTime; zero values mean no audio block has yet been processed, and currentTime must exceed output contextTime after rendering begins."
+    },
+    {
+      "type": "primary_specification",
+      "url": "https://webaudio.github.io/web-audio-api/#dom-audiocontext-outputlatency",
+      "finding": "outputLatency is the appropriate latency estimate when exposed, but it is device-dependent and may change; the currentTime-contextTime difference is not a reliable substitute."
+    }
+  ],
+  "finding": "A physical-device audio packet should preserve a monotonic getOutputTimestamp timeline. outputLatency must remain optional so Safari evidence can still record rendering without inventing acoustic timing.",
+  "claim_state": "tested_source_contract",
+  "evidence_strength": "deterministic_unit_tests_plus_primary_specification",
+  "artifact": "tools/frontier-research/audio-output-timeline.mjs",
+  "test": "tools/frontier-research/audio-output-timeline.test.mjs",
+  "verification": {
+    "command": "node --test tools/frontier-research/audio-output-timeline.test.mjs",
+    "result": "6 passed, 0 failed",
+    "environment": "isolated Node runtime using byte-identical pre-commit files"
+  },
+  "limits": [
+    "Render-position coherence does not prove that a human heard sound.",
+    "estimatedAcousticTimeMs is unavailable when the user agent does not expose outputLatency.",
+    "The 250 ms performance-clock coherence bound is an operational capture guard, not a browser conformance threshold."
+  ],
+  "falsification_route": [
+    "Reject the design if valid physical Safari captures routinely exceed the coherence bound despite a stable monotonic clock.",
+    "Reject any downstream interpretation that promotes render_timeline_observed to heard.",
+    "Revise the optional latency branch if a current primary implementation source demonstrates a different Safari exposure contract."
+  ]
+}
