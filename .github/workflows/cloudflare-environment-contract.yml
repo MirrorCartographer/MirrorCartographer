@@ -6,6 +6,9 @@ on:
     paths:
       - '.github/workflows/cloudflare-pages-research.yml'
       - '.github/workflows/cloudflare-environment-contract.yml'
+      - 'cloudflare-static/cloudflare-environment-requirements.json'
+      - 'cloudflare-static/validate-environment-requirements.mjs'
+      - 'cloudflare-static/validate-environment-requirements.test.mjs'
       - 'cloudflare-static/validate-workflow-environment-contract.mjs'
       - 'cloudflare-static/validate-workflow-environment-contract.test.mjs'
   push:
@@ -13,23 +16,56 @@ on:
     paths:
       - '.github/workflows/cloudflare-pages-research.yml'
       - '.github/workflows/cloudflare-environment-contract.yml'
+      - 'cloudflare-static/cloudflare-environment-requirements.json'
+      - 'cloudflare-static/validate-environment-requirements.mjs'
+      - 'cloudflare-static/validate-environment-requirements.test.mjs'
       - 'cloudflare-static/validate-workflow-environment-contract.mjs'
       - 'cloudflare-static/validate-workflow-environment-contract.test.mjs'
 
 permissions:
   contents: read
 
+concurrency:
+  group: cloudflare-environment-contract-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate-contract:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout committed source
+      - name: Checkout exact committed source
         uses: actions/checkout@v6
 
-      - name: Test fail-closed environment contract
+      - name: Prove exact clean checkout
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test -z "$(git status --porcelain)"
+
+      - name: Test fail-closed workflow environment contract
         run: node --test cloudflare-static/validate-workflow-environment-contract.test.mjs
 
       - name: Validate deployment workflow references
         run: >-
           node cloudflare-static/validate-workflow-environment-contract.mjs
           .github/workflows/cloudflare-pages-research.yml
+
+      - name: Test declared Cloudflare environment requirements
+        run: node --test cloudflare-static/validate-environment-requirements.test.mjs
+
+      - name: Validate canonical environment requirements
+        run: >-
+          node cloudflare-static/validate-environment-requirements.mjs
+          cloudflare-static/cloudflare-environment-requirements.json
+
+      - name: Record bounded verification summary
+        shell: bash
+        run: |
+          {
+            echo '## Cloudflare environment contract'
+            echo "- Source commit: \`$GITHUB_SHA\`"
+            echo '- Workflow references: structurally valid'
+            echo '- Declared environment requirements: structurally valid'
+            echo '- Secret values: neither read nor emitted'
+            echo '- Epistemic limit: this proves the committed contract, not that secrets are installed, valid, or authorized by Cloudflare.'
+          } >> "$GITHUB_STEP_SUMMARY"
