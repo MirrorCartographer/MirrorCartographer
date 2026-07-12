@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "recorded_at": "2026-07-11T20:48:00-04:00",
+  "slice": "Add a machine-readable Vercel deployment verification CLI that binds served identity to an expected immutable commit.",
+  "source_repository": "MirrorCartographer/mirror-cartographer-ui",
+  "files": [
+    "scripts/verify-vercel-deployment.mjs",
+    "scripts/verify-vercel-deployment.test.mjs",
+    "package.json"
+  ],
+  "commits": [
+    "40148b764b634f6e66552806e7ca06361469e0b8",
+    "0a9475dc1429308dc47092f9174320e733983dfa",
+    "8f28f5719dc03ef7def6a11cf93d48a5456d83b9"
+  ],
+  "verification": {
+    "route": "isolated Node runtime using byte-equivalent committed logic",
+    "result": "passed",
+    "assertions": 5,
+    "coverage": [
+      "matching served commit accepted",
+      "mismatched commit rejected",
+      "redirect to untrusted host rejected",
+      "CLI emits parseable evidence packet",
+      "missing required environment rejected"
+    ]
+  },
+  "deployment_status": "not_observed",
+  "limits": [
+    "No successful Vercel deployment response was available in this run.",
+    "Deployment identity does not prove audible speaker output.",
+    "A phone-side report or device-level acoustic measurement remains required.",
+    "No payment or conversion logic was added."
+  ],
+  "rollback": [
+    "Revert 8f28f5719dc03ef7def6a11cf93d48a5456d83b9",
+    "Revert 0a9475dc1429308dc47092f9174320e733983dfa",
+    "Revert 40148b764b634f6e66552806e7ca06361469e0b8"
+  ]
+}
