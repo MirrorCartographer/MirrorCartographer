@@ -1,0 +1,58 @@
+name: Continuity Effective Queue
+
+on:
+  push:
+    paths:
+      - 'operations/ACTIVE_QUEUE.json'
+      - 'operations/queue-updates/**'
+      - 'tools/continuity/effective-queue-reconciler.mjs'
+      - 'tools/continuity/generate-effective-queue.mjs'
+      - 'tools/continuity/*.test.mjs'
+      - '.github/workflows/continuity-effective-queue.yml'
+  pull_request:
+    paths:
+      - 'operations/ACTIVE_QUEUE.json'
+      - 'operations/queue-updates/**'
+      - 'tools/continuity/effective-queue-reconciler.mjs'
+      - 'tools/continuity/generate-effective-queue.mjs'
+      - 'tools/continuity/*.test.mjs'
+      - '.github/workflows/continuity-effective-queue.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OUTPUT_PATH: operations/generated/EFFECTIVE_QUEUE.json
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run continuity tests
+        run: node --test tools/continuity/effective-queue-reconciler.test.mjs tools/continuity/generate-effective-queue.test.mjs
+
+      - name: Generate effective queue and fail on conflicts
+        run: node tools/continuity/generate-effective-queue.mjs operations/ACTIVE_QUEUE.json operations/queue-updates "$OUTPUT_PATH"
+
+      - name: Record source commit
+        run: printf '%s\n' "$GITHUB_SHA" > operations/generated/SOURCE_COMMIT.txt
+
+      - name: Upload derived queue evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: continuity-effective-queue-${{ github.sha }}
+          path: |
+            operations/generated/EFFECTIVE_QUEUE.json
+            operations/generated/SOURCE_COMMIT.txt
+          if-no-files-found: error
+          retention-days: 30
