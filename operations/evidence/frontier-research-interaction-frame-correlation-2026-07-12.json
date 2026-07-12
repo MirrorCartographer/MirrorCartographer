@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-007",
+  "owner": "frontier_research",
+  "created_at": "2026-07-12T00:40:52-04:00",
+  "claim_state": "implemented_and_deterministically_tested",
+  "evidence_strength": "committed source plus five passing isolated Node tests",
+  "primary_sources": [
+    {
+      "title": "Performance Timeline",
+      "url": "https://www.w3.org/TR/performance-timeline/",
+      "status": "W3C Candidate Recommendation Draft, 2025-05-21",
+      "use": "PerformanceEntry startTime and duration provide a shared high-resolution performance timeline."
+    },
+    {
+      "title": "High Resolution Time Level 3",
+      "url": "https://www.w3.org/TR/hr-time-3/",
+      "status": "W3C technical report",
+      "use": "DOMHighResTimeStamp supplies the monotonic time basis used by performance entries."
+    },
+    {
+      "title": "Long Animation Frames API",
+      "url": "https://www.w3.org/TR/long-animation-frames/",
+      "status": "W3C Working Draft",
+      "use": "Long-animation-frame entries expose main-thread congestion windows."
+    },
+    {
+      "title": "Event Timing API",
+      "url": "https://www.w3.org/TR/event-timing/",
+      "status": "W3C Working Draft",
+      "use": "Event Timing entries expose interaction windows and interactionId grouping."
+    }
+  ],
+  "finding": "Event Timing and Long Animation Frame entries can be correlated by interval overlap because both are PerformanceEntry records on the same performance timeline. Overlap is temporal co-occurrence, not causal proof.",
+  "artifact": "tools/frontier-research/interaction-frame-correlation.mjs",
+  "test": "tools/frontier-research/interaction-frame-correlation.test.mjs",
+  "commits": [
+    "ec9974af67df8b3144a36c80081730ed65ae0623",
+    "1fd0f07a2c01d2cbb7c317b99d3e1095f1437fb8"
+  ],
+  "verification": {
+    "runtime": "Node.js isolated test run",
+    "tests_passed": 5,
+    "tests_failed": 0,
+    "covered": [
+      "unsupported dual-API condition",
+      "interaction without frame overlap",
+      "bounded interval overlap arithmetic",
+      "interactionId grouping with worst-event selection",
+      "privacy exclusion for DOM targets and script URLs"
+    ]
+  },
+  "privacy_boundary": "The artifact exports interaction IDs, event type, aggregate durations, and anonymous frame indexes only. DOM targets, selectors, script URLs, raw user agents, and private content are excluded.",
+  "claim_limit": "A shared-timeline overlap establishes temporal co-occurrence only. It does not establish that frame congestion caused interaction latency, identify responsible source code, or prove subjective harm.",
+  "falsification_route": "Collect browser PerformanceObserver entries for event and long-animation-frame, compare harness overlap intervals against a DevTools trace, and reject the method if entry timestamps use incompatible origins, interval arithmetic disagrees materially with trace windows, or buffered-entry loss makes classifications unstable."
+}
