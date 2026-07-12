@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "created_at": "2026-07-12T15:38:29-04:00",
+  "specialists_used": [
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json@c21e897b0a30862142c5986368fc7c413fa030bc",
+    "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "operations/SPECIALIST_REGISTRY.json@88451b05101bcd8a259f98de5d9290e15357366b",
+    "operations/TRIGGER_REQUESTS.json@80feb36d1d829c7d54748780837a9ebef543e6c4",
+    "operations/continuity/continuity-index.json@efb8b5ca41a00a3484af1df112a81fc6a1b6d63a",
+    "operations/continuity/continuity-index.schema.json@12e0a37a5bb93784b58bfc381e05dc5c59205259",
+    "recent commits cf808e15ba3c7aa305aea20b0aac57812015cf7f, 5d4ad61c302fc7e4456fce78b6c8334880bf0c05, 7afbd0d7624be8e82130349465fa91d4cb27fbff, bb085a68135b02502cad7897afd105c1489741f0"
+  ],
+  "memory_recovered": "Canonical queue state and additive implementation evidence are temporally distinct layers. The older queue blob remains historically valid, while later Cloudflare commits materially extend current implementation state. Continuity reporting must reconcile both rather than overwrite either.",
+  "claim_states": {
+    "observed": "The queue blob predates the exact-commit dispatch builder slice.",
+    "inferred": "Queue-only readers can underreport progress; commit-only readers can lose historical rationale.",
+    "proposed": "Use provenance-preserving temporal reconciliation before asserting current state.",
+    "superseded": "None in this slice.",
+    "unresolved": "Cloudflare deployment and dispatch-builder workflow wiring remain unproven."
+  },
+  "artifact": "operations/continuity/temporal-state-reconciliation-2026-07-12T1538-0400.json",
+  "artifact_commit": "f97651b0154e121d0bf9cb1cc98e1893a6c33971",
+  "verification": {
+    "method": "GitHub contents and commit metadata comparison",
+    "result": "pass",
+    "limits": "Source-level reconciliation only; no runtime or deployment claim is made."
+  },
+  "privacy_boundary": "Public repository metadata only. Raw private chat, health information, credentials, identifying personal data, and unreviewed uploads were excluded.",
+  "specialist_registry_change": "none"
+}
