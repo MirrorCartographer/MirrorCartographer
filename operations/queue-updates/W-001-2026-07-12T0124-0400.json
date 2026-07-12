@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-12T01:24:00-04:00",
+  "status": "active",
+  "completed_slice": "Added a reciprocal field law to Afterimage Orchard: each planted organism alters nearby organisms within a bounded radius, with temporary visual echoes and accessible alteration counts.",
+  "evidence": [
+    "operations/evidence/independent-afterimage-orchard-reciprocal-field-2026-07-12T0124-0400.json"
+  ],
+  "source_commits": [
+    "4d3ff13718efd2f27125436fe24ea4970ae2aeb7",
+    "88e5323e8cbc146462ee61a0d75efe502d631bcb",
+    "82460624486b8b6bd596422dd1d7042d58c77739"
+  ],
+  "required_evidence_state": {
+    "site_source": "observed",
+    "distinct_identity_statement": "observed",
+    "public_url": "unresolved",
+    "mobile_proof": "unresolved"
+  },
+  "next_action": "Observe or repair the GitHub Pages workflow for the latest commit, capture the returned deployment URL and commit identity, then verify the reciprocal field on a physical mobile viewport."
+}
