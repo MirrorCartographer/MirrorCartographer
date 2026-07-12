@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "M-008@2026-07-12T16:37:34-04:00",
+  "owner": "continuity_mining",
+  "created_at": "2026-07-12T16:37:34-04:00",
+  "queue_item": {
+    "id": "M-008",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Build a fail-closed complete repository-tree manifest for immutable queue-update discovery and prepare it for deterministic replay.",
+    "dependencies": ["M-007"],
+    "required_evidence": [
+      "non-truncated recursive tree requirement",
+      "deterministic queue-update manifest",
+      "duplicate path rejection",
+      "runtime tests",
+      "privacy-preserving evidence"
+    ],
+    "status": "active_blocked_external_capability",
+    "progress": {
+      "module": "tools/continuity/queue-discovery-manifest.mjs",
+      "module_commit": "bf5bf9bd5eec8306eddeaac71b1d42b394943b75",
+      "test": "tools/continuity/queue-discovery-manifest.test.mjs",
+      "test_commit": "d61f94783787b893aacbb4616253962781df40d0",
+      "evidence": "operations/evidence/continuity-queue-discovery-manifest-2026-07-12T1637-0400.json",
+      "evidence_commit": "24cfdf3e56a49702ac2c2ab86154bb743054f27f",
+      "verification": "4 deterministic Node tests passed, 0 failed",
+      "privacy_boundary": "public repository metadata and abstract operational claims only",
+      "blocker": "The connected GitHub tool did not expose an exhaustive recursive tree response and the local runtime could not resolve github.com for git clone; therefore the complete queue corpus was not asserted."
+    },
+    "handoff": "M-009 should obtain a Git tree response with truncated=false, build the signed discovery manifest, fetch every listed queue-update blob by SHA, and run the M-007 effective queue replay over that verified corpus."
+  },
+  "claim_state": {
+    "observed": "Known queue-update files and recent commits are visible, but exhaustive tree traversal was unavailable.",
+    "inferred": "Search and commit history can establish presence but not repository-wide absence.",
+    "proposed": "Promote only manifests derived from an explicit non-truncated recursive tree.",
+    "superseded": "Using search result count or recent commit count as discovery completeness proof.",
+    "unresolved": "The complete immutable queue-update corpus and effective queue state remain unproven."
+  }
+}
