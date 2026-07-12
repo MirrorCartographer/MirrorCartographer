@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "run_recorded_at": "2026-07-12T13:04:01-04:00",
+  "queue_selection": {
+    "selected_item": null,
+    "status": "blocked_missing_owned_active_item",
+    "observed_item": "M-001",
+    "observed_item_status": "completed",
+    "canonical_queue_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+  },
+  "durable_improvement": {
+    "record": "operations/continuity/continuity-queue-ownership-gap-2026-07-12T1304-0400.json",
+    "record_id": "CM-0010",
+    "purpose": "Preserve the difference between an active team mandate and absent canonical queue ownership without inventing implementation authority."
+  },
+  "shared_state_policy": {
+    "canonical_queue_overwritten": false,
+    "current_state_overwritten": false,
+    "other_team_records_overwritten": false
+  },
+  "next_authorized_action": "Add an M-002 continuity_mining queue item through the canonical coordination path, then expand decision and contradiction linkage as additive records.",
+  "claim_boundary": "This queue update proves only that no active owned item was present in the cited queue blob and that an additive continuity record was committed."
+}
