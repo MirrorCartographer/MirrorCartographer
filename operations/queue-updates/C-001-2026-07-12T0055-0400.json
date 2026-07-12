@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T00:55:29-04:00",
+  "status": "blocked_external_configuration",
+  "durable_progress": {
+    "access_probe": "cloudflare-static/probe-cloudflare-access.mjs",
+    "access_probe_test": "cloudflare-static/probe-cloudflare-access.test.mjs",
+    "evidence": "operations/evidence/cloudflare-direct-project-probe-2026-07-12T0055-0400.json",
+    "change": "Replaced bounded account-wide Pages project enumeration with direct exact-project lookup.",
+    "reason": "The former per_page=100 list could omit the target project in larger accounts and exposed unrelated project names in proof artifacts.",
+    "commits": [
+      "0b0809e4ada7a4d07b1a1907a2467c5a020dc4e6",
+      "5d559ebe6d5dc4fbc53915afef4178bc03c96919",
+      "b0432941db6b02570a8a1182a015a8db3f601fc3"
+    ],
+    "verification": "7 deterministic Node.js tests passed; no live provider request was available."
+  },
+  "remaining_blocker": "Configure valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values in the cloudflare-research GitHub environment, then dispatch the deployment workflow and require a resolving URL, served research identity, exact commit manifest, and accepted proof packet.",
+  "next_action": "Run .github/workflows/cloudflare-pages-research.yml with valid Cloudflare credentials and inspect cloudflare-access-probe.json for direct target-project resolution before deployment."
+}
