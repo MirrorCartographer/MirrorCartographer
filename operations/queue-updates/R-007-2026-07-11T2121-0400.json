@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-007",
+  "owner": "frontier_research",
+  "priority": 5,
+  "status": "completed",
+  "action": "Add a direction-aware raw WebDriver BiDi server-frame normalizer before semantic transcript validation.",
+  "dependencies": ["R-006"],
+  "required_evidence": [
+    "current primary specification",
+    "committed wire normalizer",
+    "adversarial frame tests",
+    "explicit falsification route"
+  ],
+  "progress": {
+    "primary_source": "https://www.w3.org/TR/webdriver-bidi/",
+    "finding": "Local-end messages are success responses, error responses, or events; error response ids may be null, and client command objects must not appear on the server-message stream.",
+    "module": "tools/frontier-research/bidi-wire-transcript.mjs",
+    "test": "tools/frontier-research/bidi-wire-transcript.test.mjs",
+    "evidence": "operations/evidence/frontier-research-bidi-wire-normalizer-2026-07-11.json",
+    "commits": [
+      "ab7f27933d2f1a2b58409120005613dea3a2cd30",
+      "80f44dd624b61fd4c06762f761d2943a06cfc06c",
+      "e437488a0536c853668b11bad8dcdf57324ebc7e"
+    ],
+    "verification": "7 deterministic Node.js tests passed locally",
+    "handoff": "Cloudflare and Vercel browser adapters should persist raw server-to-client WebSocket frames, normalize them with mc.webdriver-bidi-wire.v1, and pass only accepted output to mc.webdriver-bidi-verification.v2. Preserve null-id protocol errors as explicit failed evidence."
+  },
+  "limits": [
+    "no live browser WebSocket transcript captured",
+    "Working Draft implementation variability remains",
+    "normalization is not browser conformance, provenance, or claim truth"
+  ],
+  "completed_at": "2026-07-11T21:21:00-04:00"
+}
