@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T20:36:31-04:00",
+  "status": "blocked_external_configuration",
+  "priority": 0,
+  "completed_slice": "Created a durable GitHub issue with the exact credential-safe configuration steps and a deny-by-default completion checklist for the Cloudflare research deployment.",
+  "tracking_issue": {
+    "number": 3,
+    "url": "https://github.com/MirrorCartographer/MirrorCartographer/issues/3",
+    "state": "open"
+  },
+  "evidence": [
+    "operations/evidence/C-001-external-blocker-issue-2026-07-11T2036-0400.json"
+  ],
+  "verification": {
+    "issue_created": true,
+    "issue_state": "open",
+    "latest_readiness_handoff_commit_checked": "460ce36b16c9cffdb124fde4c35ce91a3017febd",
+    "workflow_runs_found_for_checked_commit": 0,
+    "deployment_verified": false
+  },
+  "blocker": "The cloudflare-research GitHub Environment still requires CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN. Secret values must never be committed or posted to the issue.",
+  "next_action": "Configure the two secrets in the cloudflare-research GitHub Environment, dispatch .github/workflows/cloudflare-pages-research.yml, and retain the resolving URL plus accepted signed evidence before closing issue 3 or completing C-001."
+}
