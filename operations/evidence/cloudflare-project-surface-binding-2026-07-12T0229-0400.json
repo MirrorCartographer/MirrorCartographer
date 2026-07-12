@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T02:29:00-04:00",
+  "claim_state": "implemented_source_unexecuted",
+  "improvement": "The account-scoped Pages project discovery workflow now probes the canonical URL returned by Cloudflare and fails closed unless that exact URL serves the expected research-surface identity.",
+  "source": {
+    "path": ".github/workflows/cloudflare-pages-project-discovery.yml",
+    "commit": "84ced1d6ef75fc0d34ac7b1d524ae23cf7968880"
+  },
+  "verification": {
+    "route": "post-commit source fetch",
+    "result": "verified",
+    "checks": [
+      "both project-discovery and hostname-probe contract tests are invoked",
+      "canonical URL is read from Cloudflare project evidence",
+      "probe requested_url must equal the normalized discovered canonical URL",
+      "workflow fails unless classification is research_surface_verified",
+      "combined privacy-safe evidence artifact is uploaded"
+    ]
+  },
+  "privacy_boundary": "No Cloudflare account ID, API token, authorization header, cookie, response body, private chat, health data, or personal identifier is persisted.",
+  "limits": [
+    "The workflow has not yet run with the cloudflare-research environment.",
+    "No resolving hostname or successful deployment is claimed.",
+    "Exact deployed-commit provenance remains a separate required proof.",
+    "No diagnosis, treatment, medical-validity, or scientific-truth claim is made."
+  ],
+  "falsification_route": "Dispatch the workflow with valid Cloudflare environment credentials; any absent or ambiguous project, missing pages.dev hostname, unresolved URL, unexpected content, unhealthy response, or identity mismatch must fail the job and prevent acceptance evidence."
+}
