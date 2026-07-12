@@ -24,14 +24,13 @@ function classifyResponse(stage, status, body) {
 
 function normalizeHostname(value) {
   if (typeof value !== 'string') return null;
-  const trimmed = value.trim().toLowerCase();
+  const trimmed = value.trim().toLowerCase().replace(/\.$/, '');
   if (!trimmed || !/^[a-z0-9.-]+$/.test(trimmed) || trimmed.includes('..')) return null;
   return trimmed;
 }
 
-function inspectTargetProject(projects, targetProjectName) {
-  const target = projects.find((project) => project?.name === targetProjectName) ?? null;
-  if (!target) {
+function inspectTargetProject(project, targetProjectName) {
+  if (!project || project.name !== targetProjectName) {
     return {
       name: targetProjectName,
       found: false,
@@ -41,9 +40,9 @@ function inspectTargetProject(projects, targetProjectName) {
     };
   }
 
-  const canonicalHostname = normalizeHostname(target.subdomain);
-  const customDomains = Array.isArray(target.domains)
-    ? [...new Set(target.domains.map(normalizeHostname).filter(Boolean))].sort()
+  const canonicalHostname = normalizeHostname(project.subdomain);
+  const customDomains = Array.isArray(project.domains)
+    ? [...new Set(project.domains.map(normalizeHostname).filter(Boolean))].sort()
     : [];
 
   return {
@@ -58,7 +57,8 @@ function inspectTargetProject(projects, targetProjectName) {
 async function requestJson(fetchImpl, url, token) {
   const response = await fetchImpl(url, {
     headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
-    redirect: 'error'
+    redirect: 'error',
+    signal: AbortSignal.timeout(15_000)
   });
   let body = null;
   try { body = await response.json(); } catch { body = null; }
@@ -75,43 +75,37 @@ export async function probeCloudflareAccess({
   if (typeof apiToken !== 'string' || apiToken.trim().length < 20) throw new Error('apiToken is missing or implausibly short');
   if (!/^[a-z0-9-]+$/.test(targetProjectName || '')) throw new Error('targetProjectName must be a lowercase Pages project name');
 
-  const verifiedAt = new Date().toISOString();
+  const checkedAt = new Date().toISOString();
   const tokenResponse = await requestJson(fetchImpl, `${API_BASE}/user/tokens/verify`, apiToken.trim());
   const token = classifyResponse('token_verify', tokenResponse.status, tokenResponse.body);
-  let pages = { stage: 'pages_projects_list', ok: false, status: null, reason: 'not_attempted', errors: [] };
-  let projectCount = null;
-  let projectNames = [];
-  let targetProject = inspectTargetProject([], targetProjectName);
+  let project = { stage: 'pages_project_get', ok: false, status: null, reason: 'not_attempted', errors: [] };
+  let targetProject = inspectTargetProject(null, targetProjectName);
 
   if (token.ok) {
-    const pagesResponse = await requestJson(fetchImpl, `${API_BASE}/accounts/${accountId}/pages/projects?per_page=100`, apiToken.trim());
-    pages = classifyResponse('pages_projects_list', pagesResponse.status, pagesResponse.body);
-    if (pages.ok) {
-      const result = Array.isArray(pagesResponse.body?.result) ? pagesResponse.body.result : [];
-      projectCount = result.length;
-      projectNames = result.map((project) => project?.name).filter((name) => typeof name === 'string').sort();
-      targetProject = inspectTargetProject(result, targetProjectName);
-    }
+    const projectUrl = `${API_BASE}/accounts/${accountId}/pages/projects/${encodeURIComponent(targetProjectName)}`;
+    const projectResponse = await requestJson(fetchImpl, projectUrl, apiToken.trim());
+    project = classifyResponse('pages_project_get', projectResponse.status, projectResponse.body);
+    if (project.ok) targetProject = inspectTargetProject(projectResponse.body?.result ?? null, targetProjectName);
   }
 
-  const ready = token.ok && pages.ok && targetProject.reason === 'target_project_resolved';
+  const ready = token.ok && project.ok && targetProject.reason === 'target_project_resolved';
   return {
-    schema_version: '1.1.0',
-    checked_at: verifiedAt,
+    schema_version: '1.2.0',
+    checked_at: checkedAt,
     ready,
-    checks: [token, pages],
-    pages: { project_count: projectCount, project_names: projectNames },
+    checks: [token, project],
     target_project: targetProject,
     privacy: {
       secret_values_emitted: false,
       account_id_emitted: false,
-      policy: 'Emit only status, bounded Cloudflare error codes/messages, public Pages project names, and public hostnames.'
+      unrelated_project_names_emitted: false,
+      policy: 'Emit only status, bounded Cloudflare error codes/messages, and the intended project public hostnames.'
     },
     interpretation: ready
-      ? 'Credentials are active, Pages projects are enumerable, and the intended project identity is resolved.'
-      : token.ok && pages.ok
-        ? 'Credentials can enumerate Pages projects, but the intended project identity is not yet resolved.'
-        : 'Deployment remains blocked until every access check is accepted.'
+      ? 'Credentials are active and the intended Pages project identity is directly resolved.'
+      : token.ok && project.reason === 'account_or_resource_not_found'
+        ? 'Credentials are active, but the intended Pages project does not resolve in the configured account.'
+        : 'Deployment remains blocked until token verification and direct target-project lookup are accepted.'
   };
 }
 
