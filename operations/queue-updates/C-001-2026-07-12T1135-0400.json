@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "progress_update": {
+    "finding": "A proof must not be accepted merely because any verifier row succeeded; the successful row must bind to the exact deployment_url recorded in the same proof.",
+    "module": "cloudflare-static/validate-verifier-proof-binding.mjs",
+    "test": "cloudflare-static/validate-verifier-proof-binding.test.mjs",
+    "evidence": "operations/evidence/cloudflare-verifier-proof-binding-2026-07-12T1135-0400.json",
+    "commits": [
+      "5a05689e76474d99f0ab59b766bc37f0f73e6c14",
+      "dd621a2c9ba884d2e89754a732ad9184d969f31b",
+      "f27d9a1f512388c6a587a5e910fe967f901e3b9a"
+    ],
+    "verification": "4 deterministic Node tests passed in an isolated runtime using byte-identical committed contents."
+  },
+  "remaining": [
+    "Wire validateVerifierProofBinding into build-evidence-verification-input.mjs so claim_state cannot become observed from an unrelated successful verifier row.",
+    "Run the complete Cloudflare evidence-builder suite after integration.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the protected cloudflare-research GitHub environment.",
+    "Dispatch the Pages workflow and prove a resolving URL, served research surface, and exact deployed commit."
+  ],
+  "canonical_queue_overwritten": false
+}
