@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-027",
+  "created_at": "2026-07-12T09:52:00-04:00",
+  "sources": [
+    {
+      "type": "primary_standard",
+      "title": "Audio Output Devices API",
+      "url": "https://www.w3.org/TR/audio-output/",
+      "status": "W3C Candidate Recommendation Draft, 2025-10-09",
+      "relevant_sections": ["sinkId", "setSinkId", "sink no longer available", "selectAudioOutput", "privacy considerations"]
+    },
+    {
+      "type": "primary_standard",
+      "title": "Media Capture and Streams",
+      "url": "https://www.w3.org/TR/mediacapture-streams/",
+      "status": "W3C Candidate Recommendation Draft, 2025-10-09",
+      "relevant_sections": ["enumerateDevices", "MediaDeviceInfo exposure and labels"]
+    }
+  ],
+  "finding": "Browser-visible audio routing is a separate evidence layer from AudioContext running state, render timeline progression, physical acoustic output, and human audibility. A non-empty sinkId that matches a fulfilled setSinkId request and an enumerated audiooutput device can attest a browser-bound non-default route. An empty sinkId identifies only the user-agent default route. A route may later become unavailable without changing sinkId, so route binding cannot prove continuing physical output.",
+  "design_implication": "Capture route API support, requested and observed sink identifiers, setSinkId outcome, enumerated audiooutput membership, devicechange observation, and label-exposure state in a commit-, deployment-, and session-bound packet. Preserve unsupported APIs and default routing as explicit classifications rather than treating them as proof or failure.",
+  "artifact": {
+    "module": "tools/frontier-research/audio-output-route-evidence.mjs",
+    "test": "tools/frontier-research/audio-output-route-evidence.test.mjs",
+    "commits": [
+      "462b5319b43bfd622827bca4690da10d8f551130",
+      "f7bd6a3efc81648b707e23c3ed844292487fb788"
+    ]
+  },
+  "verification": {
+    "command": "node --test audio-output-route-evidence.test.mjs",
+    "result": "6 passed, 0 failed",
+    "environment": "isolated Node runtime using byte-identical pre-commit files"
+  },
+  "evidence_strength": "moderate",
+  "uncertainty": [
+    "Browser and device support for Audio Output Devices API members varies.",
+    "Device identifiers may be permission-gated or rotated.",
+    "A fulfilled route selection does not prove acoustic energy or human perception."
+  ],
+  "falsification_routes": [
+    "Make a fulfilled record pass when observed sinkId differs from requested sinkId.",
+    "Make a fulfilled non-default route pass when its sink is absent from enumerateDevices.",
+    "Make an unexposed device label pass while retained in the packet.",
+    "Make the validator claim audibility or physical speaker output from route evidence alone."
+  ],
+  "privacy_boundary": "Do not retain unexposed device labels, raw permission prompts, stable hardware identity beyond the session, private chat, health data, credentials, or personal identifiers."
+}
