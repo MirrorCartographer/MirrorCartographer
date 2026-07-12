@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "created_at": "2026-07-11T22:57:00-04:00",
+  "claim_state": "observed",
+  "evidence_state": "source-verified",
+  "summary": "Cloudflare deployment acceptance now consumes exact proof bytes, an evidence envelope, the in-toto statement, deny-by-default policy, expected source identity, and normalized external signature verification instead of reducing verifier outputs to caller-supplied booleans.",
+  "finding": "The prior Cloudflare adapter converted verifier statuses into booleans before invoking the Frontier R-005 gate. After the gate API changed to artifact-bound inputs, that boundary was both semantically unsafe and interface-incompatible.",
+  "design_implication": "Deployment acceptance is now fail-closed across artifact binding, provenance identity, signature verification, and served-deployment claim evidence. Diagnostic status fields remain available for workflow summaries but are not used as the provenance acceptance oracle.",
+  "specialists": [
+    "Evidence Auditor",
+    "Provenance Engineer",
+    "Cloudflare Deployment Engineer"
+  ],
+  "files": [
+    "cloudflare-static/build-evidence-verification-input.mjs",
+    "cloudflare-static/build-evidence-acceptance.mjs",
+    "cloudflare-static/build-evidence-acceptance.test.mjs"
+  ],
+  "commits": [
+    "c26b88b09a124ffb01d4c7aa259cbdbe843ccadd",
+    "250d5b2ee0e1d4f7a53a6f15dce94ef1dce9a1c5",
+    "84dc86b6119d1da125aab028a2b968c2a805fb3f",
+    "ddeab90af8e87612ec1b808427aad17405e2fc62",
+    "cf76d7311cf8a4fadc0dda2cc894813b448657cf"
+  ],
+  "verification": {
+    "method": "repository source inspection and exact commit status query",
+    "result": "source integration committed; no CI statuses were present for the final commit at inspection time",
+    "tests_added": [
+      "accept exact mutually bound evidence",
+      "reject unverified signature",
+      "reject altered artifact bytes",
+      "reject expected source commit mismatch"
+    ]
+  },
+  "limits": [
+    "No GitHub Actions execution is claimed for the new commits.",
+    "No Cloudflare deployment occurred because C-001 remains blocked on environment credentials and dispatch.",
+    "Artifact/provenance acceptance does not prove scientific truth.",
+    "A valid signed artifact is rejected as deployment evidence when the served identity claim is invalid."
+  ],
+  "falsification_routes": [
+    "Run cloudflare-static/build-evidence-acceptance.test.mjs in GitHub Actions and inspect all assertions.",
+    "Alter one byte of cloudflare-deployment-proof.json and confirm subject.digest and envelope.artifact-binding rejection.",
+    "Supply a valid signed proof with no successful served-identity row and confirm claim.invalid rejection.",
+    "Dispatch the Cloudflare workflow after credential configuration and inspect the uploaded acceptance artifact."
+  ]
+}
