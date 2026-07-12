@@ -8,11 +8,13 @@ const payloadType = 'application/vnd.in-toto+json';
 const payload = Buffer.from(JSON.stringify({ _type: 'https://in-toto.io/Statement/v1', subject: [] }), 'utf8');
 const signature = sign(null, dssePAE(payloadType, payload), privateKey).toString('base64');
 const envelope = { payloadType, payload: payload.toString('base64'), signatures: [{ keyid: 'trusted', sig: signature }] };
-const trustedKeys = { trusted: publicKey.export({ type: 'spki', format: 'pem' }) };
+const trustedKeyPem = publicKey.export({ type: 'spki', format: 'pem' });
+const trustedKeys = { trusted: trustedKeyPem };
 
 const accepted = verifyDsseEnvelope({ envelope, trustedKeys });
 assert.equal(accepted.verified, true);
 assert.deepEqual(accepted.acceptedKeyIds, ['trusted']);
+assert.equal(accepted.acceptedKeyFingerprints.length, 1);
 assert.equal(accepted.payloadText, payload.toString('utf8'));
 
 const tampered = { ...envelope, payload: Buffer.from(`${payload.toString('utf8')} `).toString('base64') };
@@ -28,6 +30,14 @@ const multiSignature = { ...envelope, signatures: [envelope.signatures[0], { key
 const thresholdResult = verifyDsseEnvelope({ envelope: multiSignature, trustedKeys: { ...trustedKeys, other: otherPublicKey.export({ type: 'spki', format: 'pem' }) }, threshold: 2 });
 assert.equal(thresholdResult.verified, true);
 assert.deepEqual(thresholdResult.acceptedKeyIds, ['other', 'trusted']);
+assert.equal(thresholdResult.acceptedKeyFingerprints.length, 2);
+
+const aliasedEnvelope = { ...envelope, signatures: [{ keyid: 'trusted', sig: signature }, { keyid: 'trusted-alias', sig: signature }] };
+const aliasThreshold = verifyDsseEnvelope({ envelope: aliasedEnvelope, trustedKeys: { trusted: trustedKeyPem, 'trusted-alias': trustedKeyPem }, threshold: 2 });
+assert.equal(aliasThreshold.verified, false);
+assert.deepEqual(aliasThreshold.acceptedKeyIds, ['trusted', 'trusted-alias']);
+assert.equal(aliasThreshold.acceptedKeyFingerprints.length, 1);
+assert.deepEqual(aliasThreshold.reasons, ['signature.threshold']);
 
 assert.equal(verifyDsseEnvelope({ envelope: { ...envelope, payloadType: 'application/json' }, trustedKeys }).verified, false);
-console.log('6 passed');
+console.log('7 passed');
