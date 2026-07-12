@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-006",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed",
+  "action": "Replace caller-asserted signature verification with direct DSSE verification over exact attestation payload bytes.",
+  "dependencies": ["R-005"],
+  "finding": "DSSE Pre-Authentication Encoding binds the payload type and serialized body; verification must reject decoding or signature failure and must deliver the same verified bytes to the application layer.",
+  "implementation": {
+    "module": "tools/frontier-research/dsse-signature-verifier.mjs",
+    "test": "tools/frontier-research/dsse-signature-verifier.test.mjs",
+    "evidence": "operations/evidence/frontier-research-dsse-verification-2026-07-11T2259-0400.json",
+    "commits": ["850d90d9992f1cd3e122bf6ab5570a6ea5779d60", "f14e2526a0bedc85fe24ebc2ea70d071cb860ce3", "8760a3a02bf5f0a9a6e029748559124c2df9e3d3"]
+  },
+  "verification": "6 deterministic Node tests passed in an isolated runtime using byte-identical source and test files.",
+  "limits": "Direct key verification does not establish certificate-chain validity, transparency-log inclusion, trusted time, signer authorization, provenance policy, or claim truth.",
+  "handoff": "Integrate verifyDsseEnvelope into R-005 so evaluateEvidenceAcceptance receives a verifier result derived from the exact DSSE envelope and trusted key set, then add Sigstore bundle or GitHub attestation verification for certificate, transparency, and identity policy.",
+  "updated_at": "2026-07-11T22:59:00-04:00"
+}
