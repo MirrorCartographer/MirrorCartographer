@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T13:42:00-04:00",
+  "change": {
+    "workflow": ".github/workflows/cloudflare-environment-contract.yml",
+    "commit": "f280678378bb760e95769d1aecf8244017559c51",
+    "purpose": "Bind the canonical Cloudflare environment requirements document and validator to a path-scoped, exact-checkout CI contract without reading secret values."
+  },
+  "verified": [
+    "GitHub accepted the workflow update on the default branch",
+    "the workflow now watches the canonical requirements document, validator, tests, deployment workflow, and workflow-contract validator",
+    "the workflow proves an exact clean checkout before running both contract suites",
+    "the workflow uses contents:read only and does not reference Cloudflare secret values"
+  ],
+  "runtime_status": {
+    "contract_job": "not yet observed through the available connector",
+    "cloudflare_deployment": "not attempted by this slice",
+    "combined_status_observation": "only unrelated Vercel build-rate-limit failures were returned for the commit"
+  },
+  "epistemic_limit": "A passing configuration-contract workflow proves only that committed declarations and workflow references satisfy the validators. It does not prove that GitHub environment secrets exist, that a token is valid, that Cloudflare authorizes it, or that a Pages deployment resolved.",
+  "rollback": {
+    "route": "Revert commit f280678378bb760e95769d1aecf8244017559c51",
+    "deletes_history": false
+  }
+}
