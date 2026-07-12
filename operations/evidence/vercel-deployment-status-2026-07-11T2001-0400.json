@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T20:01:45-04:00",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "claim_state": "observed",
+  "repository": "MirrorCartographer/mirror-cartographer-ui",
+  "source_commit": "277bb9a2f8d72b7f1d60765b6548332ac21990c1",
+  "source_commit_message": "test(deploy): wire Vercel status classifier into gates",
+  "provider_status": {
+    "context": "Vercel",
+    "state": "failure",
+    "target_url": "https://vercel.com/mirror-cartographers-projects?upgradeToPro=build-rate-limit"
+  },
+  "classification": {
+    "value": "transient_provider_rate_limit",
+    "deployment_verified": false,
+    "source_regression_proven": false,
+    "retryable": true,
+    "safe_claim": "Deployment was not created because the provider rate-limited the build. Source correctness and served commit identity remain unverified."
+  },
+  "workflow_evidence": {
+    "github_actions_runs_for_commit": 0,
+    "interpretation": "No GitHub Actions run was associated with this commit through the available connector."
+  },
+  "runtime_evidence": {
+    "available": false,
+    "reason": "No successful deployment identity exists for the inspected commit."
+  },
+  "boundaries": [
+    "This record does not claim the site deployed.",
+    "This record does not claim the source is correct or broken.",
+    "No payment or conversion logic was added to Vercel.",
+    "No private chat, health material, credentials, or identifying personal data are included."
+  ],
+  "next_action": "Retry after the Vercel build-rate window clears, then verify the immutable served commit and run the iPhone audibility test against that deployment."
+}
