@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import test from 'node:test';
-import { evaluateDeploymentReadiness } from './check-deployment-readiness.mjs';
+import { evaluateDeploymentReadiness, stampWorkflowDeploymentManifest } from './check-deployment-readiness.mjs';
 
 test('accepts plausible configured credentials without emitting values', () => {
   const account = '0123456789abcdef0123456789abcdef';
@@ -46,4 +49,20 @@ test('rejects placeholder and implausibly short tokens', () => {
 
   assert.deepEqual(placeholder.checks[1].reasons, ['placeholder', 'implausibly_short']);
   assert.deepEqual(short.checks[1].reasons, ['implausibly_short']);
+});
+
+test('stamps the exact workflow commit into the deployable well-known manifest', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'mc-cloudflare-manifest-'));
+  const sourceCommit = 'a'.repeat(40);
+  const result = stampWorkflowDeploymentManifest({
+    GITHUB_SHA: sourceCommit,
+    GITHUB_REPOSITORY: 'MirrorCartographer/MirrorCartographer'
+  }, root);
+
+  const manifest = JSON.parse(fs.readFileSync(result.outputPath, 'utf8'));
+  assert.equal(manifest.source_commit, sourceCommit);
+  assert.equal(manifest.repository, 'MirrorCartographer/MirrorCartographer');
+  assert.equal(manifest.surface, 'mirror-cartographer-research');
+  assert.equal(manifest.privacy.contains_secrets, false);
+  assert.equal(manifest.privacy.contains_private_user_data, false);
 });
