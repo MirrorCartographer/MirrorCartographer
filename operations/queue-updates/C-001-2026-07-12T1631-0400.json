@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "recorded_at": "2026-07-12T16:31:00-04:00",
+  "progress": {
+    "configuration_contract": "cloudflare-static/cloudflare-environment-contract.mjs",
+    "workflow_contract_auditor": "cloudflare-static/audit-cloudflare-workflow-contract.mjs",
+    "workflow_contract_test": "cloudflare-static/audit-cloudflare-workflow-contract.test.mjs",
+    "commits": [
+      "ea7cce99875178c03fef7b37007cf7734f491978",
+      "c7971ff3d0bd726c8fc7340927d023fc4e929815",
+      "ea52d59696615daaa583d292c4d69af595de4825"
+    ],
+    "verification": "Four deterministic tests passed. Repository source inspection confirms the workflow names the cloudflare-research environment, references CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, uses cloudflare/wrangler-action@v3, and pins mirror-cartographer-research.",
+    "evidence": "operations/evidence/cloudflare-workflow-contract-audit-2026-07-12T1631-0400.json"
+  },
+  "blocker": "The repository now machine-checks configuration intent, but actual deployment still requires the cloudflare-research GitHub environment to contain valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values and a successful workflow dispatch.",
+  "next_action": "Run the auditor in the deployment workflow before readiness classification, then dispatch after the environment secrets are configured and preserve the returned Cloudflare deployment URL and commit-bound proof packet."
+}
