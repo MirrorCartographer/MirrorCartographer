@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T21:34:00-04:00",
+  "status": "blocked_external_configuration",
+  "selected_from": "operations/ACTIVE_QUEUE.json",
+  "priority": 0,
+  "action": "Resolve and prove the actual Cloudflare Pages hostname and deployment.",
+  "completed_slice": {
+    "name": "target Pages project identity gate",
+    "summary": "The Cloudflare access probe now requires the exact mirror-cartographer-research project and a canonical hostname before reporting readiness.",
+    "source_commits": [
+      "1a676843e734e9edebc0e0c90a16e0040f02bcbb",
+      "b0f04cc7453e692fb80344e145e4c811c8fc8839",
+      "2096f92fdf110f02442eae2a64c5a8846157f3e7",
+      "aac1a5d9ff167c3ac2a2a339a2eb959ffb310aa3"
+    ],
+    "evidence": "operations/evidence/cloudflare-target-project-identity-2026-07-11T2134-0400.json"
+  },
+  "claim_states": {
+    "observed": [
+      "The previous access probe checked token validity and Pages project-list permission.",
+      "No workflow run exists for head commit aac1a5d9ff167c3ac2a2a339a2eb959ffb310aa3."
+    ],
+    "implemented": [
+      "Exact target project matching.",
+      "Canonical and custom public hostname normalization.",
+      "Fail-closed readiness when target project or canonical hostname is absent.",
+      "Six deterministic contract cases committed."
+    ],
+    "unresolved": [
+      "Cloudflare environment credentials remain unavailable to this run.",
+      "The test contract has not yet executed in CI or a local checkout.",
+      "No resolving public hostname or served commit identity has been proven."
+    ]
+  },
+  "blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch the deployment workflow.",
+  "next_action": "Run the workflow, require target_project.canonical_hostname in cloudflare-access-probe.json, deploy the committed surface, verify the returned URL serves the research identity, and bind the proof to the deployed commit.",
+  "privacy_boundary": "Public repository metadata and public hostnames only; no secret values, account ID, private chat, health material, or diagnosis/treatment claims."
+}
