@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-12T16:12:00-04:00",
+  "record_id": "R-018-2026-07-12T1612-0400",
+  "item": {
+    "id": "R-018",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Persist trusted-root state with atomic compare-and-swap semantics and crash recovery.",
+    "dependencies": ["R-017"],
+    "required_evidence": [
+      "official filesystem documentation",
+      "committed compare-and-swap store",
+      "concurrent-writer test",
+      "crash-recovery test",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://nodejs.org/api/fs.html",
+        "https://www.sqlite.org/atomiccommit.html",
+        "https://theupdateframework.github.io/specification/latest/"
+      ],
+      "finding": "A root that passes signature policy still requires a separate persistence commit point. Compare-and-swap against the exact current digest prevents two valid competing N+1 candidates from both becoming trusted on one local store.",
+      "module": "tools/frontier-research/trusted-root-store.mjs",
+      "test": "tools/frontier-research/trusted-root-store.test.mjs",
+      "evidence": "operations/evidence/frontier-trusted-root-store-2026-07-12T1612-0400.json",
+      "commits": [
+        "31e19bbd9acd0be1712674fa569f507d60a426df",
+        "e8169b6b64969aa6ffe268bd6f2c5b2e616440b1",
+        "e0742b783e7820fcb45e602684da97ec83864aa1"
+      ],
+      "verification": "5 deterministic Node tests passed in an isolated runtime",
+      "trust_limit": "This prototype establishes single-host local-filesystem exclusion and digest integrity only. It does not establish distributed consensus, stale-lock recovery, network-filesystem safety, or correct authorization of nextRoot."
+    },
+    "handoff": "R-019 should add process-level fault injection and stale-lock lease recovery, proving behavior across termination points and documenting filesystem-specific guarantees."
+  }
+}
