@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T01:53:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added a fail-closed six-hour maximum to workflow-captured deployment-proof provenance chronology and committed an adversarial regression test for stale start-time reuse.",
+  "specialists_used": [
+    "Evidence Auditor",
+    "Provenance Engineer",
+    "Cloudflare Deployment Engineer"
+  ],
+  "files": [
+    "cloudflare-static/attest-deployment-proof.mjs",
+    "cloudflare-static/attest-deployment-proof.test.mjs",
+    "operations/evidence/cloudflare-provenance-chronology-bound-2026-07-12T0153-0400.json"
+  ],
+  "commits": [
+    "7cc6da7786aec13ce9efd077e7f8b2e692ca08e7",
+    "482fbc0d954c716a3e603154a583cccc8e2d22b1",
+    "896da811806f1f4c8ccb741362986970cb8dc7d3"
+  ],
+  "verification": {
+    "source_behavior": "Exact-commit fetch confirms stale trusted starts are rejected with startedOn-exceeds-maximum-duration.",
+    "test_file": "committed with an adversarial six-hour-and-one-minute case",
+    "workflow_run": "none observed for test commit",
+    "deployment": "unverified"
+  },
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment, dispatch the workflow, and verify the immutable Pages URL, served research identity, exact source commit, signed proof, bounded chronology, and acceptance artifact.",
+  "next_action": "Execute the deployment-proof test in CI, then dispatch the integrated Cloudflare workflow after environment access is configured. Do not close C-001 until the resolving URL, served identity, and deployed commit are evidenced."
+}
