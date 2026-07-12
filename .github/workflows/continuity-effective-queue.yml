@@ -5,52 +5,73 @@ on:
     paths:
       - 'operations/ACTIVE_QUEUE.json'
       - 'operations/queue-updates/**'
-      - 'tools/continuity/effective-queue-reconciler.mjs'
-      - 'tools/continuity/generate-effective-queue.mjs'
-      - 'tools/continuity/*.test.mjs'
+      - 'tools/continuity/effective-queue-gate.mjs'
+      - 'tools/continuity/discover-effective-queue.mjs'
+      - 'tools/continuity/effective-queue-gate.test.mjs'
+      - 'tools/continuity/discover-effective-queue.test.mjs'
       - '.github/workflows/continuity-effective-queue.yml'
   pull_request:
     paths:
       - 'operations/ACTIVE_QUEUE.json'
       - 'operations/queue-updates/**'
-      - 'tools/continuity/effective-queue-reconciler.mjs'
-      - 'tools/continuity/generate-effective-queue.mjs'
-      - 'tools/continuity/*.test.mjs'
+      - 'tools/continuity/effective-queue-gate.mjs'
+      - 'tools/continuity/discover-effective-queue.mjs'
+      - 'tools/continuity/effective-queue-gate.test.mjs'
+      - 'tools/continuity/discover-effective-queue.test.mjs'
       - '.github/workflows/continuity-effective-queue.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
-env:
-  OUTPUT_PATH: operations/generated/EFFECTIVE_QUEUE.json
-
 jobs:
   reconcile:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout exact commit
+      - name: Checkout exact commit with full history
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: '22'
 
-      - name: Run continuity tests
-        run: node --test tools/continuity/effective-queue-reconciler.test.mjs tools/continuity/generate-effective-queue.test.mjs
+      - name: Verify checked-out identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          git diff --exit-code
 
-      - name: Generate effective queue and fail on conflicts
-        run: node tools/continuity/generate-effective-queue.mjs operations/ACTIVE_QUEUE.json operations/queue-updates "$OUTPUT_PATH"
+      - name: Run fail-closed continuity tests
+        run: node --test tools/continuity/effective-queue-gate.test.mjs tools/continuity/discover-effective-queue.test.mjs
 
-      - name: Record source commit
-        run: printf '%s\n' "$GITHUB_SHA" > operations/generated/SOURCE_COMMIT.txt
+      - name: Discover immutable corpus and reconcile
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p operations/generated
+          tmp="$(mktemp)"
+          node tools/continuity/discover-effective-queue.mjs . HEAD "$tmp"
+          node -e "const fs=require('fs');const p=process.argv[1];const x=JSON.parse(fs.readFileSync(p,'utf8'));if(x.gate_status!=='accepted')process.exit(1);if(x.source_commit!==process.argv[2])process.exit(1);" "$tmp" "$(git rev-parse HEAD)"
+          mv "$tmp" operations/generated/EFFECTIVE_QUEUE.json
+          printf '%s\n' "$(git rev-parse HEAD)" > operations/generated/SOURCE_COMMIT.txt
 
-      - name: Upload derived queue evidence
-        if: always()
+      - name: Assert generated artifact is derived only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --exit-code -- . ':!operations/generated/EFFECTIVE_QUEUE.json' ':!operations/generated/SOURCE_COMMIT.txt'
+          test -s operations/generated/EFFECTIVE_QUEUE.json
+          test -s operations/generated/SOURCE_COMMIT.txt
+
+      - name: Upload accepted effective queue evidence
         uses: actions/upload-artifact@v4
         with:
-          name: continuity-effective-queue-${{ github.sha }}
+          name: continuity-effective-queue-${{ github.event.pull_request.head.sha || github.sha }}
           path: |
             operations/generated/EFFECTIVE_QUEUE.json
             operations/generated/SOURCE_COMMIT.txt
