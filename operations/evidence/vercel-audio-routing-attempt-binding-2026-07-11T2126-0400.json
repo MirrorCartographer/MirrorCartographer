@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "vercel_studio",
+  "queue_item": "V-001",
+  "created_at": "2026-07-11T21:26:00-04:00",
+  "slice": "Bind browser audio-routing samples to the active diagnostic attempt",
+  "finding": "The routing runtime previously published browser routing state without an audio attempt identifier, allowing a stale route sample to remain observationally indistinguishable from the current sound-test attempt.",
+  "implementation": {
+    "repository": "MirrorCartographer/mirror-cartographer-ui",
+    "runtime_file": "src/engine/audioRoutingEvidenceRuntime.js",
+    "runtime_commit": "58fc57a9785c0c30fa97b8dbe713261ced0838c4",
+    "test_file": "scripts/audio-routing-evidence-contract-check.mjs",
+    "test_commit": "0f4b4fc404cfc0a4a93dedd0b580839c1df831ce",
+    "behavior": [
+      "Routing evidence now carries the active audio attemptId.",
+      "A diagnostic-button gesture resamples the current AudioContext in a microtask after the audibility runtime creates the new attempt.",
+      "The document root exposes data-audio-routing-attempt for runtime inspection.",
+      "Blank attempt identifiers normalize to null rather than becoming misleading evidence."
+    ]
+  },
+  "verification": {
+    "source_review": "The committed contract covers selected-output routing with a stable attempt id and blank-id normalization.",
+    "execution_status": "not_executed_in_this_run",
+    "reason": "The connector provided repository writes and source reads but no local authenticated checkout or completed CI run.",
+    "deployment_status": "blocked_by_vercel_build_rate_limit",
+    "latest_checked_commit": "6f18ca3572d676b7d0ed57f9c8b847b16b828bb2",
+    "latest_status": "failure"
+  },
+  "evidence_strength": "committed source and deterministic test contract; runtime and deployment execution still pending",
+  "limits": [
+    "Browser routing evidence does not prove physical speaker emission.",
+    "Attempt binding does not prove that the user heard the pulse.",
+    "The new commits do not yet have a successful Vercel deployment identity."
+  ],
+  "rollback": {
+    "route": "Revert commits 0f4b4fc404cfc0a4a93dedd0b580839c1df831ce and 58fc57a9785c0c30fa97b8dbe713261ced0838c4 in reverse order.",
+    "data_migration": "none"
+  }
+}
