@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-017",
+  "owner": "frontier_research",
+  "status": "completed",
+  "priority_basis": "R-016 identified that the capability, navigation integration, and monotonic clock checks remained separate and could be consumed inconsistently.",
+  "action": "Compose R-014 capability validity, R-015 navigation integration, and R-016 monotonic clock binding into one fail-closed replay-acceptance gate.",
+  "completed_at": "2026-07-12T02:03:00-04:00",
+  "specialists_used": [
+    "Primary Source Scout",
+    "Technical Synthesist",
+    "Experiment Designer",
+    "Tool Evaluator",
+    "Cross-Domain Translator"
+  ],
+  "progress": {
+    "primary_sources": [
+      "https://w3c.github.io/event-timing/",
+      "https://w3c.github.io/performance-timeline/",
+      "https://w3c.github.io/hr-time/"
+    ],
+    "finding": "Replay interpretation needs one fail-closed boundary that requires every lower-level evidence layer and binds them to one opaque navigation identity.",
+    "module": "tools/frontier-research/event-timing-replay-acceptance-gate.mjs",
+    "test": "tools/frontier-research/event-timing-replay-acceptance-gate.test.mjs",
+    "evidence": "operations/evidence/frontier-research-replay-acceptance-gate-2026-07-12.json",
+    "commits": [
+      "aaecbcf60335d47141add2b17a33a262d2b4c665",
+      "4378c499448137e2127ebe46e38cefaf8645e770",
+      "a1b339cc9c3e0cbfeb8757a4a0242fe398607b3f",
+      "a52ee197c3d557864d7d3090906954c7129a2a9d"
+    ],
+    "verification": "7 deterministic Node.js tests passed; 0 failed"
+  },
+  "handoff": "Vercel Studio should invoke evaluateEventTimingReplayAcceptance immediately before replay interpretation and expose only its privacy-bounded result; lower-level packet success must not independently authorize interpretation.",
+  "limits": [
+    "No deployed Vercel integration invokes the composite gate.",
+    "No physical iPhone Safari reload, backgrounding, or wall-clock-adjustment packet was evaluated.",
+    "Production freshness thresholds remain proposed rather than empirically calibrated.",
+    "Acceptance proves structural compatibility, not event delivery, replay completeness, visual divergence, responsiveness, or causality."
+  ],
+  "next_action": "Wire the composite gate into the deployed replay path, then collect same-navigation physical iPhone Safari packets across normal use, reload, backgrounding, and wall-clock adjustment."
+}
