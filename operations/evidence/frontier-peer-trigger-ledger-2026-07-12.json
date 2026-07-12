@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-12T17:37:54Z",
+  "team": "frontier_research",
+  "queue_item": "R-006",
+  "primary_sources": [
+    {
+      "url": "https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md",
+      "status": "primary specification",
+      "relevance": "CloudEvents defines an event as a record of an occurrence and permits consumers to treat identical source plus id values as duplicates."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8785.html",
+      "status": "IETF RFC",
+      "relevance": "RFC 8785 documents why deterministic JSON representation is necessary for repeatable hashing and signing. The implementation uses a deliberately narrower sorted-key canonicalizer and does not claim full RFC 8785 conformance."
+    }
+  ],
+  "finding": "A structurally valid receipt is insufficient as a coordination history. A ledger must treat source plus id as the duplicate identity, reject divergent content under the same identity, and independently enforce request-level lifecycle order, immutable routing identity, monotonic occurrence time, and terminal states.",
+  "design_implication": "Compose the R-005 receipt validator with a ledger validator before any team aggregates peer-trigger history or reports completion.",
+  "artifacts": {
+    "module": "tools/frontier-research/peer-trigger-ledger.mjs",
+    "test": "tools/frontier-research/peer-trigger-ledger.test.mjs",
+    "commits": [
+      "17020e3aeecaae28d514e28d876278a73e92b302",
+      "177e7f620af3558df3b30ef528cdd6495c63c56e"
+    ]
+  },
+  "verification": {
+    "command": "node --test tools/frontier-research/peer-trigger-ledger.test.mjs",
+    "route": "isolated Node runtime using connector-fetched committed source and test logic after network clone was unavailable",
+    "result": "6 passed, 0 failed",
+    "covered": [
+      "valid requested-attempted-accepted-completed lifecycle",
+      "idempotent identical duplicate",
+      "divergent duplicate rejection",
+      "skipped transition rejection",
+      "request identity mutation rejection",
+      "post-terminal event rejection"
+    ]
+  },
+  "evidence_strength": "moderate",
+  "uncertainty": "The isolated execution reproduced the connector-fetched committed files, but was not a GitHub Actions run bound to the repository commit checkout.",
+  "limits": [
+    "The digest canonicalizer is not a full RFC 8785 implementation.",
+    "A valid ledger does not authenticate the event producer.",
+    "A valid completed lifecycle does not prove the referenced peer output or commit is truthful.",
+    "Concurrent distributed writers still require an append or merge authority outside this module."
+  ],
+  "falsification_route": "Run the committed test in an exact-commit GitHub Actions checkout, then add adversarial fixtures for concurrent branches, clock skew policy, malformed Unicode, and cryptographically authenticated producer identity. Any accepted divergent duplicate or illegal transition falsifies the current contract."
+}
