@@ -16,27 +16,17 @@ function mockFetch(responses) {
   return fetchImpl;
 }
 
-test('accepts active token only when intended Pages project identity resolves', async () => {
+test('accepts active token only when the exact Pages project resolves', async () => {
   const fetchImpl = mockFetch([
     { status: 200, body: { success: true, result: { status: 'active' } } },
-    {
-      status: 200,
-      body: {
-        success: true,
-        result: [
-          { name: 'zeta', subdomain: 'zeta.pages.dev' },
-          {
-            name: 'mirror-cartographer-research',
-            subdomain: 'mirror-cartographer-research.pages.dev',
-            domains: ['Research.Example.com', 'mirror-cartographer-research.pages.dev']
-          }
-        ]
-      }
-    }
+    { status: 200, body: { success: true, result: {
+      name: 'mirror-cartographer-research',
+      subdomain: 'mirror-cartographer-research.pages.dev',
+      domains: ['Research.Example.com.', 'mirror-cartographer-research.pages.dev']
+    } } }
   ]);
   const result = await probeCloudflareAccess({ accountId, apiToken, fetchImpl });
   assert.equal(result.ready, true);
-  assert.deepEqual(result.pages.project_names, ['mirror-cartographer-research', 'zeta']);
   assert.deepEqual(result.target_project, {
     name: 'mirror-cartographer-research',
     found: true,
@@ -45,32 +35,44 @@ test('accepts active token only when intended Pages project identity resolves', 
     reason: 'target_project_resolved'
   });
   assert.equal(fetchImpl.calls.length, 2);
-  assert.equal(result.privacy.secret_values_emitted, false);
+  assert.match(fetchImpl.calls[1].url, /\/pages\/projects\/mirror-cartographer-research$/);
+  assert.equal(result.privacy.unrelated_project_names_emitted, false);
 });
 
-test('does not treat generic Pages access as target deployment readiness', async () => {
+test('classifies a missing exact project without enumerating unrelated projects', async () => {
   const fetchImpl = mockFetch([
     { status: 200, body: { success: true } },
-    { status: 200, body: { success: true, result: [{ name: 'another-project', subdomain: 'another-project.pages.dev' }] } }
+    { status: 404, body: { success: false, errors: [{ code: 8000007, message: 'Project not found' }] } }
   ]);
   const result = await probeCloudflareAccess({ accountId, apiToken, fetchImpl });
   assert.equal(result.ready, false);
+  assert.equal(result.checks[1].stage, 'pages_project_get');
+  assert.equal(result.checks[1].reason, 'account_or_resource_not_found');
   assert.equal(result.target_project.found, false);
+  assert.match(result.interpretation, /does not resolve/);
+  assert.equal('pages' in result, false);
+});
+
+test('rejects a successful response whose project identity does not match the requested name', async () => {
+  const fetchImpl = mockFetch([
+    { status: 200, body: { success: true } },
+    { status: 200, body: { success: true, result: { name: 'lookalike', subdomain: 'lookalike.pages.dev' } } }
+  ]);
+  const result = await probeCloudflareAccess({ accountId, apiToken, fetchImpl });
+  assert.equal(result.ready, false);
   assert.equal(result.target_project.reason, 'target_project_not_found');
-  assert.match(result.interpretation, /intended project identity is not yet resolved/);
 });
 
 test('records a found project with missing canonical hostname as unresolved identity', async () => {
   const fetchImpl = mockFetch([
     { status: 200, body: { success: true } },
-    { status: 200, body: { success: true, result: [{ name: 'mirror-cartographer-research', domains: ['Research.Example.com'] }] } }
+    { status: 200, body: { success: true, result: { name: 'mirror-cartographer-research', domains: ['Research.Example.com'] } } }
   ]);
   const result = await probeCloudflareAccess({ accountId, apiToken, fetchImpl });
   assert.equal(result.ready, false);
   assert.equal(result.target_project.found, true);
   assert.equal(result.target_project.canonical_hostname, null);
   assert.equal(result.target_project.reason, 'target_project_missing_canonical_hostname');
-  assert.deepEqual(result.target_project.custom_domains, ['research.example.com']);
 });
 
 test('stops after rejected token', async () => {
@@ -82,7 +84,7 @@ test('stops after rejected token', async () => {
   assert.equal(fetchImpl.calls.length, 1);
 });
 
-test('distinguishes active token from insufficient Pages permission', async () => {
+test('distinguishes active token from insufficient exact-project permission', async () => {
   const fetchImpl = mockFetch([
     { status: 200, body: { success: true } },
     { status: 403, body: { success: false, errors: [{ code: 9109, message: 'permission denied' }] } }
