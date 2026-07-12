@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "progress_update": {
+    "durable_improvement": "Deployment-proof freshness is now embedded in the verification input and required by the final acceptance decision.",
+    "source_commits": [
+      "ad1817cb6a8bffb41696d0d66a7228c9a3bded9a",
+      "95f5cdc235c30cd04287398390e9e27afdbff7c6",
+      "c5168cf9c33eaea1922fe4264a23225c1f84bb2a",
+      "f3b36a3670f13789ec9d4218e4c6d0594d1c472e",
+      "e281d8a0b602de7d6759f80ba197563a706a8388"
+    ],
+    "evidence": "operations/evidence/cloudflare-freshness-acceptance-2026-07-12T1053-0400.json",
+    "verification_state": "source-verified; runtime test execution unavailable because fresh checkout DNS resolution failed",
+    "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment and dispatch the workflow."
+  },
+  "next_action": "Run the workflow, require a fresh proof verdict and accepted manifest, then verify resolving URL, served research identity, and exact deployed commit before changing C-001 status."
+}
