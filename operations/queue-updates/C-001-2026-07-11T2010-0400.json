@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "priority": 0,
+  "completed_slice": "Preserve a complete, privacy-safe blocked-deployment evidence packet when Cloudflare credentials are unavailable.",
+  "progress": {
+    "blocked_evidence_builder": "cloudflare-static/build-blocked-deployment-evidence.mjs",
+    "test": "cloudflare-static/build-blocked-deployment-evidence.test.mjs",
+    "workflow": ".github/workflows/cloudflare-blocked-evidence.yml",
+    "commits": [
+      "b1c8897c8936378e301c2cd7b0ed61793e0595d3",
+      "9e0b580ea13ba523f3ccc747c4fe681789727c95",
+      "b577024dfd118987c5edf253811c48ca25ab4206",
+      "e3e5fcf0ebcdae7f463b02a57c6b5700270541f2"
+    ],
+    "verification": "4 deterministic tests passed in an isolated Node runtime; no GitHub Actions execution or Cloudflare deployment is claimed.",
+    "evidence": "operations/evidence/cloudflare-blocked-deployment-evidence-2026-07-11T2010-0400.json"
+  },
+  "required_evidence_remaining": [
+    "resolving Cloudflare URL",
+    "served research surface identity",
+    "deployed immutable commit",
+    "accepted signed deployment evidence"
+  ],
+  "blocker": "The cloudflare-research GitHub Environment still requires CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN before production deployment can run.",
+  "next_action": "Observe the blocked-evidence workflow artifact; once readiness is true, dispatch cloudflare-pages-research.yml and verify URL, identity, commit, signature, and acceptance.",
+  "updated_at": "2026-07-12T00:10:36Z"
+}
