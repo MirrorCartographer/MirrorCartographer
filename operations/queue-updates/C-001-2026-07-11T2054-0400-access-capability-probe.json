@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "updated_at": "2026-07-11T20:54:56-04:00",
+  "status": "blocked_external_configuration",
+  "progress": {
+    "completed_slice": "added a privacy-preserving live capability probe that distinguishes configured credentials from active, account-scoped Cloudflare Pages authorization",
+    "module": "cloudflare-static/probe-cloudflare-access.mjs",
+    "test": "cloudflare-static/probe-cloudflare-access.test.mjs",
+    "evidence": "operations/evidence/cloudflare-access-capability-probe-2026-07-11T2054-0400.json",
+    "commits": [
+      "198da87c04aa5df6171cae579514a68a04c04af1",
+      "77585744dad167d17fd0ace8edeb94d2f723cf94",
+      "8ffd7c8a04db64488f0800149fa76b485e13c117"
+    ],
+    "verification": "4 deterministic Node tests passed in an isolated runtime",
+    "readiness_layers": [
+      "credential shape",
+      "token activity",
+      "account-scoped Pages project enumeration",
+      "deployment execution",
+      "served hostname and commit verification"
+    ]
+  },
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub Environment, execute the capability probe, then dispatch the deployment workflow only if ready=true.",
+  "completion_requires": [
+    "live capability probe accepted",
+    "resolving Cloudflare Pages URL",
+    "served research surface identity",
+    "deployment proof bound to immutable source and workflow invocation"
+  ]
+}
