@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-040",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-12T12:17:00-04:00",
+  "claim_state": "implemented_tested_not_device_verified",
+  "finding": "A single accepted randomized acoustic codeword should not be upgraded into repeated evidence. Multiple independently randomized trials can be evaluated against the declared random exact-match probability with an exact binomial upper-tail test, while failing closed on malformed records or any environmental-confound classification.",
+  "primary_sources": [
+    {
+      "url": "https://www.w3.org/TR/webaudio/",
+      "status": "W3C specification",
+      "use": "browser-side scheduling and rendering model for independently generated acoustic challenges"
+    },
+    {
+      "url": "https://www.w3.org/TR/webcrypto-2/",
+      "status": "W3C First Public Working Draft; work in progress",
+      "use": "cryptographically strong random challenge material through getRandomValues"
+    },
+    {
+      "url": "https://arxiv.org/abs/1303.1288",
+      "status": "peer-reviewed-methodology preprint reference; not a web platform specification",
+      "use": "documents conservative exact binomial confidence methods and their tradeoffs"
+    }
+  ],
+  "artifact": "tools/frontier-research/acoustic-repeated-trial-gate.mjs",
+  "test": "tools/frontier-research/acoustic-repeated-trial-gate.test.mjs",
+  "verification": {
+    "command": "node --test acoustic-repeated-trial-gate.test.mjs",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "environment": "isolated Node runtime using byte-identical pre-commit source"
+  },
+  "evidence_strength": "deterministic source behavior only",
+  "assumptions": [
+    "trial challenges are independently randomized",
+    "the null exact-match probability is correctly specified",
+    "trial outcomes are not selectively omitted",
+    "microphone and classifier behavior are stable enough across trials for comparison"
+  ],
+  "falsification_route": "Inject an environmental-confound trial, malformed record, insufficient trial count, or a success pattern whose exact upper-tail probability exceeds alpha; the evaluator must refuse repeated-evidence acceptance.",
+  "privacy_boundary": "Store only derived trial classifications, counts, declared null probability, p-value, and challenge metadata. Do not persist raw microphone audio without separate consent and governance.",
+  "limits": [
+    "No browser or iPhone Safari execution was performed.",
+    "A low p-value does not prove conscious audibility or exclusive browser causation.",
+    "Independence and null-probability assumptions are not verified by this module.",
+    "Repeated trials can be biased by selective retention unless the trial ledger is append-only and complete."
+  ]
+}
