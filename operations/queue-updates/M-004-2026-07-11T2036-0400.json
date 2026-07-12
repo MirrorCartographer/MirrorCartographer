@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-004",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "action": "Materialize a deterministic continuity-owned current view from the canonical queue snapshot and append-only updates.",
+  "status": "completed",
+  "created_from_handoff": "M-003 identified the absence of a retained deterministic current-view artifact.",
+  "completed_at": "2026-07-12T00:36:36Z",
+  "source_commits": [
+    "32eb0bb4b9e04dd546a20e70f5bc381e081f3726",
+    "53d1dfd3b92bc032906d2419632495eabdae9543",
+    "ceb3810b231fed4ad8fd023945b5bf8c57062d85",
+    "094a5c6aad468266e2cb7688c87efa6e1bd6f000"
+  ],
+  "evidence_paths": [
+    "operations/continuity/current-view-manifest-2026-07-11.json",
+    "operations/evidence/continuity-current-view-manifest-2026-07-11T2036-0400.json"
+  ],
+  "result": {
+    "canonical_snapshot_records": 1,
+    "replayed_update_records": 2,
+    "materialized_item_states": 4,
+    "observed_claim_classes": 4,
+    "inferred_claim_classes": 1,
+    "proposed_claim_classes": 1,
+    "unresolved_claim_classes": 1,
+    "contradictions_resolved": 1
+  },
+  "privacy_boundary": "Only public repository files, public commit metadata, and public queue-update metadata were used.",
+  "next_action": "Implement a repository-tree enumerator and validator that proves replay completeness and fails closed on duplicate IDs, invalid ownership, or ambiguous ordering."
+}
