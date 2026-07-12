@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T21:06:53-04:00",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "status": "active",
+  "completed_slice": "Integrated browser routing evidence into the existing exported iPhone audio proof packet.",
+  "commits": [
+    "3ccd28a89374f9b7335ccb89dbb0a2bacf7b4264",
+    "435e29c1b78e80ea1cbb21437f9f31f3cb6e4e7e",
+    "a79413435aca293e6d9a19d3b3b12f7a4a6e1de2"
+  ],
+  "verification": "Audio evidence export contract passed in isolated Node execution; latest Vercel status failed due to build-rate-limit.",
+  "evidence": "operations/evidence/V-001-audio-proof-routing-integration-2026-07-11T2106-0400.json",
+  "remaining": [
+    "Obtain a successful Vercel deployment identity for commit 435e29c1b78e80ea1cbb21437f9f31f3cb6e4e7e or a descendant.",
+    "Capture an iPhone Safari proof packet containing deployment, render, pulse, routing, and audibility outcome.",
+    "Compare render-confirmed plus routing state against heard or not-heard outcome."
+  ]
+}
