@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T01:39:00-04:00",
+  "finding": "The committed deployment proof builder emits schema_version 1.1.0 with url_authority, while the prior validator accepted only 1.0.0. This created a deterministic contract failure before any live deployment proof could be accepted.",
+  "durable_improvement": {
+    "validator": "cloudflare-static/validate-deployment-proof.mjs",
+    "test": "cloudflare-static/validate-deployment-proof.test.mjs",
+    "behavior": [
+      "accepts legacy 1.0.0 proofs for compatibility",
+      "accepts 1.1.0 only when url_authority is present and valid",
+      "requires immutable_preview deployment authority",
+      "requires authority deployment and alias origins to match the proof URLs",
+      "rejects unknown schema versions"
+    ]
+  },
+  "verification": {
+    "method": "isolated Node.js runtime using byte-identical validator logic and equivalent committed test fixtures",
+    "result": "4 passed, 0 failed",
+    "limits": "The full GitHub Actions workflow was not executed because Cloudflare environment credentials remain externally unconfigured. The workflow still needs to invoke build-deployment-proof.mjs and include this new test in its contract suite."
+  },
+  "evidence_strength": "strong_local_contract_evidence",
+  "privacy_boundary": "No credentials, account identifiers, private chat, health material, diagnosis, or treatment claims are included.",
+  "falsification_route": [
+    "Run the committed test in GitHub Actions.",
+    "Construct a 1.1.0 proof with missing or mismatched url_authority and require rejection.",
+    "Run a credentialed deployment and require the emitted proof to pass both URL policy and proof validation.",
+    "Attempt an unknown schema version and require fail-closed behavior."
+  ]
+}
