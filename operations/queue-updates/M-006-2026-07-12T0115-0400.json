@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-006",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed_source_unverified_runtime",
+  "updated_at": "2026-07-12T01:15:00-04:00",
+  "action": "Add an explicit compatibility classifier for historical queue-update schema deviations without rewriting source history.",
+  "sources": [
+    {"path": "operations/CURRENT_STATE.json", "sha": "c21e897b0a30862142c5986368fc7c413fa030bc"},
+    {"path": "operations/ACTIVE_QUEUE.json", "sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"},
+    {"path": "operations/SPECIALIST_REGISTRY.json", "sha": "88451b05101bcd8a259f98de5d9290e15357366b"},
+    {"path": "operations/TRIGGER_REQUESTS.json", "sha": "80feb36d1d829c7d54748780837a9ebef543e6c4"},
+    {"path": "operations/queue-updates/M-005-2026-07-12T0106-0400.json", "sha": "9fd05544cbcf4e1397726219f52f5fc5d5d16654"},
+    {"path": "tools/continuity/generate-effective-queue.mjs", "sha": "33c8e380ef511441bb1592c4836163f7b6af0f50"},
+    {"path": "tools/continuity/effective-queue-reconciler.mjs", "sha": "648c31193203ed853ca7d79bd4ad95d77fcb0502"}
+  ],
+  "memory_recovered": "Historical operational records must remain immutable evidence. Compatibility is a separate, explicit, narrow decision layer; it may permit deterministic processing but cannot convert malformed or ambiguous history into authoritative fact.",
+  "claims": {
+    "observed": ["Compatibility classifier, deterministic test contract, and evidence packet were committed additively", "The inspected M-005 commit returned no associated workflow runs"],
+    "inferred": ["Explicit exceptions reduce the risk of parser tolerance silently becoming historical truth"],
+    "proposed": ["Gate effective-queue reconciliation on a corpus-wide compatibility report"],
+    "superseded": ["Silently normalizing historical queue updates in place or accepting any parser-readable shape"],
+    "unresolved": ["Corpus-wide execution and CI passage remain unobserved"]
+  },
+  "artifacts": [
+    "tools/continuity/queue-update-compatibility.mjs",
+    "tools/continuity/queue-update-compatibility.test.mjs",
+    "operations/evidence/continuity-queue-update-compatibility-2026-07-12T0115-0400.json"
+  ],
+  "commits": [
+    "052c9833fac2f1452ac9c6a282d51a5218e920a9",
+    "67c0021fb3f1f88b445ab7a10e0dc451d5ff7ba2",
+    "019a7956c30c84a214d3d37ac443f7d3b2eeef36"
+  ],
+  "privacy_boundary": "Public repository metadata and abstract operational claims only; private chats, health and pet-health material, credentials, identifiers, and unreviewed uploads excluded.",
+  "verification": "GitHub returned commit identities for each artifact. Runtime tests and CI execution were not available, so passage is not claimed.",
+  "next_action": "Add corpus discovery to execute the compatibility classifier across every queue-update file, emit a compatibility report artifact, and block reconciliation on any unmanifested or invalid exception."
+}
