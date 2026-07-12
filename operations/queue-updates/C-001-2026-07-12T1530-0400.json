@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T15:30:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Wire the independent exact-commit preflight artifact verifier into the Cloudflare environment preflight workflow before artifact upload.",
+  "commits": [
+    "b6c5333873adee9887d36fb965006a28334c7546",
+    "fdd142334321afb33c33d02c63d7ec9ab94b7216"
+  ],
+  "evidence": [
+    "operations/evidence/cloudflare-preflight-self-verification-2026-07-12T1530-0400.json"
+  ],
+  "verification_state": "source_wiring_verified_provider_run_unobserved",
+  "blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN configuration before deployment and hostname proof can complete.",
+  "next_action": "Observe or dispatch the exact-commit environment preflight workflow, download its retained artifact, confirm cloudflare-environment-preflight-verdict.json reports repository_declarations_verified, then dispatch the production deployment workflow only after credentials are configured."
+}
