@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-12T11:47:00-04:00",
+  "status": "source_complete_preview_unpublished",
+  "summary": "Created The Orchard That Remembers Rain as a self-contained independent interactive artwork with explicit identity and source-contract files.",
+  "files": [
+    "independent-web/orchard-that-remembers-rain/index.html",
+    "independent-web/orchard-that-remembers-rain/IDENTITY.md",
+    "independent-web/orchard-that-remembers-rain/contract.test.mjs",
+    "operations/evidence/independent-orchard-source-2026-07-12T1147-0400.json"
+  ],
+  "commits": [
+    "15d4252269fa22cc784b0563b740743653a5d6e3",
+    "8e173a1f0e60e69e46b30c528d1e891cb8a69d11",
+    "d209b39ed91c1eab02e8615ed54a4f6815bc64eb",
+    "8f122c967ddff04046cc4e95351509206647bc93"
+  ],
+  "required_evidence_progress": {
+    "site_source": "complete",
+    "distinct_identity_statement": "complete",
+    "public_url": "missing",
+    "mobile_proof": "missing"
+  },
+  "verification": "Committed source and test were fetched through the GitHub connector and inspected. Fresh-checkout test execution was blocked by DNS resolution failure for raw.githubusercontent.com.",
+  "next_action": "Execute the contract test in CI or a fresh checkout, publish through an independent static host, and capture desktop and mobile visual evidence without changing Mirror Cartographer surfaces."
+}
