@@ -1,5 +1,4 @@
 import fs from 'node:fs';
-import { adaptCloudflareEvidenceInputs } from '../tools/frontier-research/cloudflare-evidence-input-adapter.mjs';
 import { evaluateEvidenceAcceptance } from '../tools/frontier-research/evidence-acceptance-gate.mjs';
 
 export function buildEvidenceAcceptance(input) {
@@ -7,19 +6,30 @@ export function buildEvidenceAcceptance(input) {
     throw new TypeError('input must be an object');
   }
 
-  const adapted = adaptCloudflareEvidenceInputs(input);
-  const evaluation = evaluateEvidenceAcceptance(adapted.mapped);
+  const evaluation = evaluateEvidenceAcceptance({
+    artifactName: input.artifactName,
+    artifactText: input.artifactText,
+    envelope: input.envelope,
+    attestation: input.attestation,
+    policy: input.policy,
+    signatureVerification: input.signatureVerification,
+    expected: input.expected ?? {}
+  });
 
   return {
-    schema_version: '1.0.0',
+    schema_version: '2.0.0',
     accepted: evaluation.accepted,
     decision: evaluation.decision,
-    provenance_accepted: evaluation.provenanceAccepted,
-    claim_accepted: evaluation.claimAccepted,
-    failed_provenance_checks: evaluation.failedProvenanceChecks,
-    mapped_checks: adapted.mapped,
-    source_status: adapted.sourceStatus,
-    mapping_rule: adapted.mappingRule,
+    reasons: evaluation.reasons,
+    artifact_sha256: evaluation.artifactDigest ?? null,
+    source_status: {
+      signature: input.signatureVerification?.status ?? 'not_verified',
+      claim: input.diagnostics?.claimEvidence?.status ?? 'invalid',
+      subject: input.diagnostics?.subjectVerification?.status ?? 'unknown',
+      builder: input.diagnostics?.trustedBuilderPolicy?.builder ?? 'unknown',
+      source: input.diagnostics?.trustedBuilderPolicy?.source ?? 'unknown'
+    },
+    derivation_rule: 'Acceptance is derived from exact artifact bytes, envelope binding, attestation subject and provenance, deny-by-default policy, expected source identity, and an external signature-verifier result. Caller-supplied summary booleans are not acceptance inputs.',
     trust_limit: evaluation.trustLimit
   };
 }
