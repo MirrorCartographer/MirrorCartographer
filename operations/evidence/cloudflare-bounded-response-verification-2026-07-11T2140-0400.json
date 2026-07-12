@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T21:40:00-04:00",
+  "claim_state": "implemented_and_locally_verified",
+  "improvement": "Bound Cloudflare deployment verification by response media type, declared size, actual UTF-8 body size, HTTP status, and research-surface identity markers.",
+  "source": {
+    "contract": "cloudflare-static/deployment-response-contract.mjs",
+    "contract_commit": "fd8251d1c333749f3e0232469000ca521326d046",
+    "test": "cloudflare-static/deployment-response-contract.test.mjs",
+    "test_commit": "ff85bf3de47a1e399f760ac2ac6d22a42e0d502b",
+    "verifier": "cloudflare-static/verify-deployment.mjs",
+    "verifier_commit": "c5b94823fb9d933c13fa8e4b13e2c5719c619a34"
+  },
+  "verification": {
+    "runtime": "Node.js isolated local execution using byte-identical contract and test contents before commit",
+    "command": "node --test cloudflare-static/deployment-response-contract.test.mjs",
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "bounded HTML with all research markers accepted",
+      "non-HTML response rejected despite marker presence",
+      "oversized declared response rejected",
+      "oversized actual body rejected",
+      "invalid status and missing identity markers preserved as separate reasons"
+    ]
+  },
+  "workflow_binding": ".github/workflows/cloudflare-pages-research.yml invokes verify-deployment.mjs after a successful Wrangler deployment and records its NDJSON output in the deployment proof packet.",
+  "trust_limits": [
+    "This does not prove that Cloudflare credentials are configured.",
+    "This does not prove that a public hostname currently resolves.",
+    "This does not cryptographically prove the response originated from Cloudflare.",
+    "Marker presence proves only the committed identity contract, not scientific truth or medical validity."
+  ],
+  "privacy_boundary": "Public source and deployment metadata only; no credentials, account identifiers, private chat, health material, diagnosis, or treatment claims."
+}
