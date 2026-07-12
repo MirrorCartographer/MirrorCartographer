@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-12T11:00:00-04:00",
+  "team": "frontier_research",
+  "queue_item": "R-032",
+  "selection_basis": "No active frontier_research item exists in operations/ACTIVE_QUEUE.json. This slice implements the explicit next action recorded by R-031 and does not overwrite another team's queue state.",
+  "status": "completed_slice",
+  "action": "Create a composed browser audio evidence packet contract binding clock acquisition, clock evaluation, route observation, pulse identity, deployed commit, freshness, and optional audibility evidence under one session identifier.",
+  "artifacts": [
+    "tools/frontier-research/browser-audio-evidence-packet.mjs",
+    "tools/frontier-research/browser-audio-evidence-packet.test.mjs",
+    "operations/evidence/frontier-browser-audio-evidence-packet-2026-07-12T1100-0400.json"
+  ],
+  "commits": [
+    "7cf25c5395fd7c6495f2c0a45e460baa365d40eb",
+    "9fde44126ae3324f916d9e2346ebd448e09ea192",
+    "bd9f6f00002a26fdf24b840f87205c4f2cd64e9d"
+  ],
+  "verification": "Six deterministic Node tests passed in an isolated runtime using byte-identical implementation and test files before commit.",
+  "handoff": "Vercel Studio should construct this packet in the same browser session as the direct diagnostic pulse, bind the actual deployed commit, and append a separate device-level or human audibility observation only when independently captured.",
+  "next_action": "Add a browser adapter that captures the existing Vercel runtime observability objects into this packet without importing Node crypto into the client bundle; use Web Crypto or server-side finalization and preserve the same claim boundary."
+}
