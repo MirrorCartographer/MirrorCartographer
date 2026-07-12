@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T02:18:59-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added a credential-gated, privacy-safe Pages project discovery workflow that resolves the canonical production hostname from Cloudflare account state before deployment proof is accepted.",
+  "progress": {
+    "project_discovery": "cloudflare-static/discover-pages-project.mjs",
+    "project_discovery_test": "cloudflare-static/discover-pages-project.test.mjs",
+    "project_discovery_workflow": ".github/workflows/cloudflare-pages-project-discovery.yml",
+    "evidence": "operations/evidence/cloudflare-pages-project-discovery-2026-07-12T0218-0400.json",
+    "commits": [
+      "5838c58539df575f47c9e845731d06669f79811e",
+      "bbbbc79fdac0ccf9d1c52ab1bd1716b6b225a5c5",
+      "d904d446a5c3cbe00869c656f9e08f265e1b9ec7",
+      "0b7c7afbfb1666d24c752df6f635ec99c73ecac4"
+    ],
+    "verification": "Source and deterministic tests are committed. No Cloudflare API response, workflow success, resolving hostname, or deployed commit is claimed."
+  },
+  "remaining": [
+    "Configure or verify CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Run cloudflare-pages-project-discovery.yml and obtain project_verified evidence for mirror-cartographer-research.",
+    "Use the discovered canonical hostname in the deployment proof path and verify the served research identity at the exact deployed commit."
+  ],
+  "non_overwrite_note": "This append-only queue update does not replace operations/ACTIVE_QUEUE.json or another team's records."
+}
