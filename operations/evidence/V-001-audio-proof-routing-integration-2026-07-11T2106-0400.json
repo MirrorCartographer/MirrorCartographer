@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T21:06:53-04:00",
+  "queue_item": "V-001",
+  "owner": "vercel_studio",
+  "slice": "Include browser audio routing evidence in the existing exported iPhone sound-proof packet.",
+  "source": {
+    "repository": "MirrorCartographer/mirror-cartographer-ui",
+    "runtime_file": "src/engine/audioEvidenceExportRuntime.js",
+    "runtime_commit": "3ccd28a89374f9b7335ccb89dbb0a2bacf7b4264",
+    "test_file": "scripts/audio-evidence-export-contract-check.mjs",
+    "test_commit": "435e29c1b78e80ea1cbb21437f9f31f3cb6e4e7e"
+  },
+  "behavior": {
+    "packet_schema": "1.1.0",
+    "new_field": "routing",
+    "routing_allowlist": ["status", "browserConfirmed", "physicalOutputProven", "sinkId", "sampledAt", "evidenceLimit"],
+    "privacy": "Unknown routing keys are excluded from exported proof packets.",
+    "compatibility": "Packets remain exportable when routing evidence is absent; routing is null."
+  },
+  "verification": {
+    "method": "isolated Node execution using byte-equivalent committed packet builder and contract assertions",
+    "result": "passed",
+    "assertions": [
+      "audibility evidence is still required",
+      "routing state is exported when present",
+      "unknown routing and audibility fields are excluded",
+      "missing routing degrades to null",
+      "filename sanitization remains stable"
+    ]
+  },
+  "deployment": {
+    "commit": "435e29c1b78e80ea1cbb21437f9f31f3cb6e4e7e",
+    "provider": "Vercel",
+    "state": "failed",
+    "reason": "Vercel build-rate-limit status",
+    "public_runtime_verified": false
+  },
+  "evidence_limits": [
+    "A passing source contract does not prove browser execution.",
+    "Browser routing state does not prove physical speaker emission.",
+    "Human audibility remains self-reported.",
+    "The latest commit is not deployed."
+  ],
+  "rollback": [
+    "Revert 435e29c1b78e80ea1cbb21437f9f31f3cb6e4e7e",
+    "Revert 3ccd28a89374f9b7335ccb89dbb0a2bacf7b4264"
+  ]
+}
