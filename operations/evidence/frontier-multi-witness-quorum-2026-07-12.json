@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-010",
+  "owner": "frontier_research",
+  "created_at": "2026-07-12T15:04:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8032.html",
+      "status": "primary_standard",
+      "use": "Ed25519 signature semantics and verification boundary"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9162.html",
+      "status": "primary_standard",
+      "use": "Merkle consistency and split-view limitations"
+    },
+    {
+      "url": "https://github.com/transparency-dev/witness/blob/main/README.md",
+      "status": "primary_implementation_documentation",
+      "use": "independent witness model for transparency checkpoints"
+    }
+  ],
+  "finding": "Authenticated checkpoints require a separate deny-by-default multi-witness acceptance policy. A quorum must count unique configured witnesses, reject stale or future observations, verify the underlying signed checkpoint, and fail on equal-size divergent roots.",
+  "design_implication": "Peer-trigger evidence can be accepted only when a configured number of unique trusted witnesses agree on the same authenticated checkpoint within a bounded observation window. Agreement is recorded as authenticated_multi_witness_agreement, not as proof of checkpoint truth or global non-equivocation.",
+  "artifacts": {
+    "module": "tools/frontier-research/multi-witness-quorum.mjs",
+    "test": "tools/frontier-research/multi-witness-quorum.test.mjs",
+    "module_commit": "41781ab27b18745f27f82fd6b1ffdf1afc27ae3a",
+    "test_commit": "c249ce4d4257411e39d85af34e86f4bf4218fcd8"
+  },
+  "verification": {
+    "route": "isolated Node 22 test run using byte-identical module and test content plus the committed R-009 verifier interface",
+    "result": "4 tests passed",
+    "cases": [
+      "fresh unique trusted witnesses reaching quorum",
+      "duplicate witness excluded from quorum",
+      "equal-size divergent roots classified as equivocation",
+      "stale and untrusted witnesses excluded"
+    ]
+  },
+  "claim_states": {
+    "observed": "R-009 authenticated individual checkpoints and detected pairwise equivocation but did not define quorum acceptance.",
+    "implemented": "Deny-by-default quorum evaluation with witness uniqueness, freshness, trust allowlist, signed-checkpoint verification, and equal-size divergence detection.",
+    "inferred": "Multiple independently operated witnesses reduce reliance on one observer, but configured identity diversity does not establish operational independence.",
+    "proposed": "Add signer-key rotation, witness-key authentication, revocation, and a portable equivocation packet.",
+    "unresolved": "Witness operational independence, key custody, revocation distribution, clock trust, network partition behavior, and exact-commit CI execution."
+  },
+  "falsification_route": [
+    "Reject acceptance if fewer than minimum_witnesses unique configured witnesses agree.",
+    "Reject stale, future, malformed, untrusted, or duplicate witness records.",
+    "Reject any checkpoint whose Ed25519 signature fails or whose signer is outside the trusted signer map.",
+    "Classify equal tree sizes with different roots as equivocation.",
+    "Do not infer global consistency, payload truth, or witness independence from quorum acceptance."
+  ],
+  "evidence_strength": "implementation_tested_locally",
+  "limits": "The local test used a generated Ed25519 key and simulated witness records. No distributed witnesses, external clocks, production keys, network partitions, or GitHub Actions run were observed."
+}
