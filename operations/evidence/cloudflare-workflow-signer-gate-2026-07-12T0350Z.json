@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "claim_state": "observed",
+  "evidence_strength": "source-verified",
+  "change": {
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "commit": "4a724d4746cc48139b5d75e548657778dc08e003",
+    "contract_test_added": "node --test cloudflare-static/evaluate-signer-authorization.test.mjs"
+  },
+  "verification": {
+    "method": "GitHub contents update returned a commit SHA; workflow source now includes the signer-authorization contract test in the deployment evidence gate.",
+    "ci_run_observed": false,
+    "deployment_observed": false
+  },
+  "trust_limit": "This proves source wiring only. It does not prove the test passed in GitHub Actions, that Cloudflare credentials exist, that signer fingerprints are authenticated, or that a deployment occurred.",
+  "privacy": "No credentials, private chat, health material, or personal identifiers are included.",
+  "generated_at": "2026-07-12T03:50:00Z"
+}
