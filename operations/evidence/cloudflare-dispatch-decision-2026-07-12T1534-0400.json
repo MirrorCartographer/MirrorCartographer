@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T15:34:00-04:00",
+  "improvement": "Added a fail-closed exact-repository, exact-commit dispatch decision builder that converts a verified environment-preflight verdict into a bounded production workflow dispatch target.",
+  "files": [
+    "cloudflare-static/build-cloudflare-dispatch-decision.mjs",
+    "cloudflare-static/build-cloudflare-dispatch-decision.test.mjs"
+  ],
+  "commits": [
+    "cf808e15ba3c7aa305aea20b0aac57812015cf7f",
+    "5d4ad61c302fc7e4456fce78b6c8334880bf0c05"
+  ],
+  "verification": {
+    "route": "isolated Node.js test runtime using byte-identical source and test files before commit",
+    "result": "passed",
+    "tests": 5,
+    "cases": [
+      "exact bound dispatch accepted",
+      "repository mismatch rejected",
+      "commit mismatch rejected",
+      "unverified preflight rejected",
+      "unsafe branch syntax rejected"
+    ]
+  },
+  "claim_boundary": "This proves deterministic dispatch-decision behavior only. It does not prove credential installation, Cloudflare authorization, workflow execution, deployment, hostname resolution, served identity, or scientific truth.",
+  "privacy": "No credential values, private chat, health material, diagnosis, or treatment claims were read or committed."
+}
