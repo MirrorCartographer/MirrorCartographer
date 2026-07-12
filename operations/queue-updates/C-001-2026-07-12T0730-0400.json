@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T07:30:00-04:00",
+  "status": "blocked_external_configuration",
+  "change_type": "additive_progress_record",
+  "progress": {
+    "project_identity_validator": "cloudflare-static/validate-project-identity-contract.mjs",
+    "project_identity_test": "cloudflare-static/validate-project-identity-contract.test.mjs",
+    "evidence": "operations/evidence/cloudflare-project-identity-contract-2026-07-12T0730-0400.json",
+    "verification": "4 deterministic tests passed in an isolated Node runtime using byte-equivalent committed logic",
+    "protected_invariant": "Wrangler, workflow deployment, control-plane metadata verification, and proof construction must refer to the same canonical Cloudflare Pages project."
+  },
+  "blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values before the workflow can prove project existence, deploy, return an immutable deployment URL, and verify served identity.",
+  "next_action": "Wire the project identity validator into the workflow test stage, then dispatch the workflow after environment credentials are configured. Accept C-001 only after the returned deployment URL resolves, serves the committed research identity, and is bound to the exact source commit by the existing proof and attestation chain.",
+  "shared_state_policy": "No canonical queue item or other team's record was overwritten.",
+  "deletion_policy": "No files or Git history were deleted."
+}
