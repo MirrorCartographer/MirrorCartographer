@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/MirrorCartographer/MirrorCartographer/blob/main/operations/continuity/handoff-promotion.schema.json",
+  "title": "Continuity Handoff Promotion Record",
+  "description": "Additive authorization record that promotes a proposed handoff from a completed item into newly owned work without rewriting historical queue state.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "promotion_id",
+    "source_item",
+    "handoff_reference",
+    "new_work",
+    "authorization",
+    "state_links",
+    "provenance",
+    "privacy_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "promotion_id": {"type": "string", "pattern": "^HP-[0-9]{4}$"},
+    "source_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["queue_id", "terminal_status", "source_path", "source_blob_sha"],
+      "properties": {
+        "queue_id": {"type": "string", "minLength": 1},
+        "terminal_status": {"enum": ["completed", "cancelled", "superseded"]},
+        "source_path": {"type": "string", "const": "operations/ACTIVE_QUEUE.json"},
+        "source_blob_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "handoff_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value", "content_digest"],
+      "properties": {
+        "kind": {"enum": ["inline_text", "artifact_path", "claim_id"]},
+        "value": {"type": "string", "minLength": 1},
+        "content_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    },
+    "new_work": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["queue_id", "owner", "action", "priority", "required_evidence"],
+      "properties": {
+        "queue_id": {"type": "string", "minLength": 1},
+        "owner": {"enum": ["vercel_studio", "cloudflare_research", "independent_creative_web", "continuity_mining", "frontier_research"]},
+        "action": {"type": "string", "minLength": 1},
+        "priority": {"type": "integer", "minimum": 0},
+        "required_evidence": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authorized_at", "authorized_by", "authority_basis", "acceptance_status"],
+      "properties": {
+        "authorized_at": {"type": "string", "format": "date-time"},
+        "authorized_by": {"type": "string", "minLength": 1},
+        "authority_basis": {"enum": ["canonical_queue_update", "owner_acceptance_record", "explicit_project_decision"]},
+        "acceptance_status": {"enum": ["proposed", "authorized", "declined", "superseded"]}
+      }
+    },
+    "state_links": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_state", "promoted_state", "relationship"],
+      "properties": {
+        "source_state": {"enum": ["completed", "cancelled", "superseded"]},
+        "promoted_state": {"enum": ["proposed", "authorized", "queued", "active", "verified", "declined", "superseded"]},
+        "relationship": {"const": "derived_from_handoff"},
+        "supersedes": {"type": ["string", "null"]}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["created_at", "created_by_team", "record_path"],
+      "properties": {
+        "created_at": {"type": "string", "format": "date-time"},
+        "created_by_team": {"const": "continuity_mining"},
+        "record_path": {"type": "string", "minLength": 1}
+      }
+    },
+    "privacy_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "excluded"],
+      "properties": {
+        "classification": {"const": "public_repository_safe"},
+        "excluded": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"authorization": {"properties": {"acceptance_status": {"const": "authorized"}}}}},
+      "then": {"properties": {"state_links": {"properties": {"promoted_state": {"enum": ["authorized", "queued", "active", "verified"]}}}}}
+    }
+  ]
+}
