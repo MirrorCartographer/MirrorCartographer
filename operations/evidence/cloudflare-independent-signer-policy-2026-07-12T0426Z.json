@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "claim_state": "observed",
+  "evidence_strength": "source-verified",
+  "finding": "Signer authorization must not bootstrap trust from the certificate fingerprint contained in the attestation currently being evaluated. The trusted fingerprint must be supplied independently and failure to supply it must deny acceptance.",
+  "implemented": {
+    "module": "cloudflare-static/build-signer-policy.mjs",
+    "test": "cloudflare-static/build-signer-policy.test.mjs",
+    "behavior": [
+      "normalizes an independently configured SHA-256 certificate fingerprint",
+      "pins repository, workflow path, exact git ref, and claim class",
+      "uses enabled=true with default=deny only when configuration is valid",
+      "fails closed with an empty disabled policy when fingerprint or ref is invalid"
+    ]
+  },
+  "specialists_used": [
+    "Provenance Engineer",
+    "Evidence Auditor",
+    "Cloudflare Deployment Engineer"
+  ],
+  "verification": {
+    "source_commits": [
+      "a38d62f4076d893f676c255cab21ad6ded956d60",
+      "b5c8e7c82ca5c5333a922243e94df50ed48cf6e0"
+    ],
+    "runtime": "not executed in this run; deterministic Node tests are committed for the next repository gate or workflow run",
+    "deployment": "not verified; Cloudflare credentials and a resolving deployment hostname remain external blockers"
+  },
+  "privacy": "No secret value, personal data, private chat, or medical material is stored. The expected fingerprint is referenced only by configuration name.",
+  "falsification_routes": [
+    "Run node --test cloudflare-static/build-signer-policy.test.mjs.",
+    "Unset TRUSTED_SIGNER_CERT_SHA256 and confirm the builder exits nonzero with a disabled deny policy.",
+    "Supply a different valid fingerprint and confirm exact-scope authorization rejects the verified certificate fingerprint."
+  ],
+  "limits": [
+    "A configured fingerprint is an authorization decision, not proof that the signer is benevolent.",
+    "Cryptographic provenance does not prove scientific truth or deployment availability.",
+    "The policy builder is not yet wired into the deployment workflow acceptance invariant."
+  ],
+  "created_at": "2026-07-12T04:26:00Z"
+}
