@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "item_id": "M-006",
+  "recorded_at": "2026-07-12T01:15:00-04:00",
+  "finding": "Historical queue records require an explicit compatibility layer so schema deviations can be reviewed without rewriting source history or silently normalizing ambiguity.",
+  "claim_states": {
+    "observed": [
+      "The canonical queue is older than multiple append-only queue updates.",
+      "The effective-queue generator fails closed on missing identity and unresolved same-time conflicts.",
+      "No workflow run was returned for the inspected M-005 completion commit."
+    ],
+    "inferred": [
+      "Historical records may contain schema deviations that should not be repaired in place.",
+      "A narrow manifest is safer than permissive parsing because tolerated defects remain visible."
+    ],
+    "proposed": [
+      "Run every discovered queue update through the compatibility classifier before reconciliation.",
+      "Permit an exception only when every defect is enumerated, a rationale and reviewer are present, and a replacement record path is named."
+    ],
+    "superseded": [
+      "Silently accepting heterogeneous historical queue records based only on parser tolerance."
+    ],
+    "unresolved": [
+      "The complete historical queue-update corpus has not yet been executed through the classifier.",
+      "The first Continuity Effective Queue workflow result remains unavailable through the inspected commit-run lookup."
+    ]
+  },
+  "artifacts": [
+    "tools/continuity/queue-update-compatibility.mjs",
+    "tools/continuity/queue-update-compatibility.test.mjs"
+  ],
+  "verification": {
+    "source_persistence": "GitHub returned commit identities for module and test files.",
+    "runtime_tests": "not executed in this run",
+    "ci": "not observed"
+  },
+  "privacy_boundary": "Public repository metadata and abstract operational claims only. Raw private chat, health and pet-health information, credentials, personal identifiers, and unreviewed uploads are excluded.",
+  "falsification_route": "Execute the classifier against every operations/queue-updates JSON file. Any unmanifested defect, uncovered defect, expired exception, or incomplete review metadata must block effective-queue publication."
+}
