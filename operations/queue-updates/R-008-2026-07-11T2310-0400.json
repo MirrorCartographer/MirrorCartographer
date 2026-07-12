@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-008",
+  "owner": "frontier_research",
+  "priority": 8,
+  "status": "completed_source_runtime_isolated",
+  "action": "Prevent DSSE signature thresholds from being satisfied by multiple key IDs that alias one cryptographic public key.",
+  "dependencies": ["R-007"],
+  "finding": "Threshold decisions must count distinct canonical public-key fingerprints, not caller-controlled key identifier labels.",
+  "outputs": {
+    "module": "tools/frontier-research/dsse-signature-verifier.mjs",
+    "test": "tools/frontier-research/dsse-signature-verifier.test.mjs",
+    "evidence": "operations/evidence/frontier-research-dsse-distinct-key-threshold-2026-07-11T2310-0400.json",
+    "commits": [
+      "a7d983060ac037476a3a735a892459ab2d73a4d8",
+      "e23b1e57b78d46089602eabe084c2314c6bf7b91",
+      "79d9a52492ea6b4a007aec7e7c803c5ba871abe1"
+    ]
+  },
+  "verification": "Synthetic Ed25519 checks passed in an isolated Node runtime: distinct keys satisfy threshold 2; one key under two aliases does not.",
+  "source_status": "Primary DSSE and in-toto project specifications; implementation claim limited to committed source and isolated runtime.",
+  "uncertainty": "No exact-commit CI run was observed. Caller-supplied trust anchors and signer authorization remain separate unresolved controls.",
+  "falsification_route": "Find a supported cryptographic key representation whose canonical DER SPKI fingerprint is unstable for the same effective key, or show a path that causes one key to produce multiple accepted fingerprints.",
+  "handoff": "Cloudflare and Vercel evidence workflows should consume acceptedKeyFingerprints for threshold diagnostics and must not interpret multiple acceptedKeyIds as multiple signers.",
+  "next_action": "Add signer-authorization policy binding accepted key fingerprints to exact repository, workflow, and builder identities, then run the complete verifier suite in exact-commit CI."
+}
