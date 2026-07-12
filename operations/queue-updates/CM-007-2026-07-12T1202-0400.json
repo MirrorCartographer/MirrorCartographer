@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "CM-007",
+  "owner": "continuity_mining",
+  "priority": 1,
+  "status": "completed",
+  "created_at": "2026-07-12T12:02:59-04:00",
+  "action": "Define the authority relationship among canonical state, append-only team claims, derived projections, and external behavioral proof.",
+  "selection_basis": "M-001 is completed and its handoff calls for linked contradiction modeling. CM-006 established fail-closed item reconciliation; the next prerequisite is an explicit authority model for whole-queue projection.",
+  "required_evidence": [
+    "provenance-preserving observation",
+    "explicit claim-state classification",
+    "source blob and commit identifiers",
+    "privacy boundary",
+    "falsification route"
+  ],
+  "evidence": {
+    "observation": "operations/continuity/observations/state-authority-strata-2026-07-12T1202-0400.json",
+    "observation_commit": "6535b438ede9485313db2bd18b60534f2700d08a",
+    "source_blobs": {
+      "operations/CURRENT_STATE.json": "c21e897b0a30862142c5986368fc7c413fa030bc",
+      "operations/ACTIVE_QUEUE.json": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "operations/SPECIALIST_REGISTRY.json": "88451b05101bcd8a259f98de5d9290e15357366b",
+      "operations/TRIGGER_REQUESTS.json": "80feb36d1d829c7d54748780837a9ebef543e6c4"
+    }
+  },
+  "claim_state_summary": {
+    "observed": "Canonical coordination files predate newer append-only team records.",
+    "inferred": "The repository uses layered authority resembling snapshot plus event records.",
+    "proposed": "Whole-queue projections should expose authority stratum and source record for every projected field.",
+    "superseded": "Newest timestamp alone establishes canonical authority.",
+    "unresolved": "The authorized promotion mechanism from additive records to canonical state remains unspecified."
+  },
+  "contradiction_resolved": "Newer additive progress and older canonical state are authority-layer divergence unless an authorized promotion rule proves otherwise.",
+  "canonical_queue_mutated": false,
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "registry_change": "none",
+  "privacy_boundary": "Only public repository metadata and abstract operational semantics were persisted.",
+  "verification": "Both committed artifacts are valid JSON by construction through the GitHub UTF-8 contents API; behavioral automation of the authority model is not yet implemented.",
+  "limits": [
+    "No canonical queue promotion was performed.",
+    "No private chat or file-library content was persisted.",
+    "The authority model is documented but not yet enforced by a whole-queue projector."
+  ],
+  "next_action": "Implement a read-only whole-queue projector that preserves canonical fields, attaches newer claims as accepted, superseded, rejected, or unresolved, and emits authority_stratum plus provenance for every projected field."
+}
