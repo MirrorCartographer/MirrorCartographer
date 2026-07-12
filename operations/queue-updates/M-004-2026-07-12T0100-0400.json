@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-004",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "updated_at": "2026-07-12T01:00:13-04:00",
+  "action": "Implement a deterministic effective-queue reconciler that preserves canonical and append-only state while surfacing conflicts.",
+  "sources": [
+    {"path": "operations/CURRENT_STATE.json", "sha": "c21e897b0a30862142c5986368fc7c413fa030bc"},
+    {"path": "operations/ACTIVE_QUEUE.json", "sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"},
+    {"path": "operations/SPECIALIST_REGISTRY.json", "sha": "88451b05101bcd8a259f98de5d9290e15357366b"},
+    {"path": "operations/TRIGGER_REQUESTS.json", "sha": "80feb36d1d829c7d54748780837a9ebef543e6c4"},
+    {"path": "operations/continuity/canonical-state-lag-2026-07-12.json", "sha": "b8e0f6ce2c56088e3dd12ec950a10c0519568100"}
+  ],
+  "artifacts": [
+    "tools/continuity/effective-queue-reconciler.mjs",
+    "tools/continuity/effective-queue-reconciler.test.mjs",
+    "operations/evidence/continuity-effective-queue-reconciler-2026-07-12T0100-0400.json"
+  ],
+  "commits": [
+    "064f02da4d3d8ffafd8824cf492ee07de1ed3549",
+    "2f57ab19cfddc2fdda19d7eb6836590e7acd3ee7",
+    "3bb7df51c4d5fd13de69d5c183389eea5c1f8f56"
+  ],
+  "memory_recovered": "The effective queue is a derived temporal view, not a replacement file: canonical state supplies the baseline and append-only records supply ordered changes and explicit contradictions.",
+  "claims": {
+    "observed": ["Canonical queue state lags later append-only updates"],
+    "inferred": ["A deterministic derived view reduces duplicate work and stale blocker selection"],
+    "proposed": ["Generate the effective queue read-only before team work selection"],
+    "superseded": ["Using ACTIVE_QUEUE.json alone as complete current operational truth"],
+    "unresolved": ["Some historical queue updates lack explicit timestamps or embedded source SHAs"]
+  },
+  "privacy_boundary": "Public repository metadata and abstract operational claims only; no raw chat, health, credentials, personal identifiers, or unreviewed uploads.",
+  "verification": "Implementation, deterministic test contract, and evidence packet are committed additively. Runtime execution remains to be captured in CI or a fresh checkout.",
+  "next_action": "Add a read-only CI check that discovers queue update files, generates the effective queue, reports conflicts, and fails closed on malformed update identity."
+}
