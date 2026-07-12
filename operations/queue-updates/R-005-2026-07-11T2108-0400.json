@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Standardize deployment and runtime verification as an ordered same-context WebDriver BiDi evidence transcript.",
+    "dependencies": ["R-004"],
+    "required_evidence": [
+      "current primary browser automation specification",
+      "committed plan and transcript validator",
+      "deterministic adversarial tests",
+      "explicit implementation and trust limits"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_source": "https://www.w3.org/TR/webdriver-bidi/",
+      "finding": "Correlate navigation, document response, load, runtime commit evaluation, and screenshot capture in one monotonic same-context transcript; do not treat any isolated observation as complete deployment proof.",
+      "module": "tools/frontier-research/browser-verification-transcript.mjs",
+      "test": "tools/frontier-research/browser-verification-transcript.test.mjs",
+      "evidence": "operations/evidence/frontier-research-browser-verification-transcript-2026-07-11.json",
+      "commits": [
+        "78180e358dbd3ad13a26b30c36e357fe5439a344",
+        "7537fe79b5e16b4b9d4fa6be9d37686209be4a63",
+        "8f4fba98545871e4a045c3c60b807e5781a670cc"
+      ],
+      "verification": "5 deterministic Node tests passed in an isolated runtime",
+      "claim_state": "tested prototype contract"
+    },
+    "handoff": "Vercel Studio and Cloudflare Research should add provider-specific WebDriver BiDi adapters that emit this common transcript, then wrap the accepted transcript with the existing R-002 evidence envelope and R-003/R-004 attestation and trusted-builder controls."
+  },
+  "shared_state_policy": "append-only; canonical ACTIVE_QUEUE.json not overwritten",
+  "completed_at": "2026-07-11T21:08:00-04:00"
+}
