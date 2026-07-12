@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-12T23:34:09Z",
+  "owner": "continuity_mining",
+  "privacy_boundary": "Public repository files and commit metadata only; no raw chat, health, pet-health, credentials, contact data, account identifiers, or unreviewed uploads.",
+  "memory_slice": {
+    "id": "M-004",
+    "title": "Pinned means immutable reference, not trusted or successfully executed dependency",
+    "status": "completed",
+    "records": [
+      {
+        "id": "CM-0016",
+        "kind": "decision",
+        "claim_state": "observed",
+        "evidence_strength": "corroborated_repository_sources",
+        "summary": "Cloudflare Research adopted reviewed 40-character GitHub Action commit pins and replaced mutable major-version tags in the deployment security gate with exact commit references.",
+        "sources": [
+          {"type": "github_commit", "locator": "912759e6ee16a734ae31a2bf110d84d55ad4d116", "content_sha": "912759e6ee16a734ae31a2bf110d84d55ad4d116", "observed_at": "2026-07-12T23:34:09Z"},
+          {"type": "github_commit", "locator": "7ca7222ecda83b44fda140d38e2500dc4e80e936", "content_sha": "7ca7222ecda83b44fda140d38e2500dc4e80e936", "observed_at": "2026-07-12T23:34:09Z"}
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [],
+        "falsification_or_review_route": "Fetch both commits and verify that each workflow reference equals the reviewed manifest SHA rather than a mutable tag."
+      },
+      {
+        "id": "CM-0017",
+        "kind": "language_evolution",
+        "claim_state": "inferred",
+        "evidence_strength": "corroborated_repository_sources",
+        "summary": "Within the project security vocabulary, 'pinned' must be interpreted narrowly as resistance to later tag movement. It must not be used as a synonym for safe, trusted, compatible, audited, executed, or passing.",
+        "sources": [
+          {"type": "github_commit", "locator": "912759e6ee16a734ae31a2bf110d84d55ad4d116", "content_sha": "912759e6ee16a734ae31a2bf110d84d55ad4d116", "observed_at": "2026-07-12T23:34:09Z"},
+          {"type": "github_commit", "locator": "7ca7222ecda83b44fda140d38e2500dc4e80e936", "content_sha": "7ca7222ecda83b44fda140d38e2500dc4e80e936", "observed_at": "2026-07-12T23:34:09Z"}
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": ["Any prior shorthand that treated immutable pinning as complete dependency verification"],
+        "falsification_or_review_route": "Reject this inference only if a later explicit project decision broadens the term and supplies separate evidence for source audit, dependency audit, compatibility, execution, and successful CI."
+      },
+      {
+        "id": "CM-0018",
+        "kind": "proposed_rule",
+        "claim_state": "proposed",
+        "evidence_strength": "reasoned_from_repository_sources",
+        "summary": "Future evidence packets should report dependency state as separate fields: reference_immutable, source_identity_reviewed, upstream_audited, transitive_dependencies_audited, runtime_compatible, workflow_executed, and workflow_passed. No field may imply another.",
+        "sources": [
+          {"type": "github_commit", "locator": "912759e6ee16a734ae31a2bf110d84d55ad4d116", "content_sha": "912759e6ee16a734ae31a2bf110d84d55ad4d116", "observed_at": "2026-07-12T23:34:09Z"}
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [],
+        "falsification_or_review_route": "Test the rule against future queue and evidence records; revise it if distinct states cannot be determined independently or if an authoritative schema defines stronger semantics."
+      },
+      {
+        "id": "CM-0019",
+        "kind": "unresolved_question",
+        "claim_state": "unresolved",
+        "evidence_strength": "repository_gap",
+        "summary": "The inspected commits establish a reviewed manifest and exact pins in one security-gate workflow, but do not establish that every workflow uses approved immutable references, that transitive dependencies were audited, or that the pinned workflow executed successfully on the canonical branch.",
+        "sources": [
+          {"type": "github_commit", "locator": "912759e6ee16a734ae31a2bf110d84d55ad4d116", "content_sha": "912759e6ee16a734ae31a2bf110d84d55ad4d116", "observed_at": "2026-07-12T23:34:09Z"},
+          {"type": "github_commit", "locator": "7ca7222ecda83b44fda140d38e2500dc4e80e936", "content_sha": "7ca7222ecda83b44fda140d38e2500dc4e80e936", "observed_at": "2026-07-12T23:34:09Z"}
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [],
+        "falsification_or_review_route": "Enumerate all workflow uses entries at the canonical commit, compare them with the reviewed manifest, inspect transitive dependency review evidence, and retain commit-bound GitHub Actions results."
+      }
+    ]
+  }
+}
