@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-012",
+  "owner": "frontier_research",
+  "created_at": "2026-07-12T15:23:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://theupdateframework.github.io/specification/latest/",
+      "version": "1.0.34",
+      "last_modified": "2026-01-22",
+      "status": "current_primary_specification",
+      "relevance": "multiple keys, threshold trust, rollback resistance, safe root-key rotation, revocation"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8032.html",
+      "status": "primary_standard",
+      "relevance": "Ed25519 signature verification"
+    }
+  ],
+  "finding": "A witness-key policy update must be authorized by both the currently trusted policy and the incoming policy to prevent unilateral replacement and key-lockout. Emergency revocation requires a separately configured authority, incoming-key authorization, an explicit reason, exact sequence continuity, and removal of all current key identifiers.",
+  "design_implication": {
+    "module": "tools/frontier-research/witness-policy-chain.mjs",
+    "test": "tools/frontier-research/witness-policy-chain.test.mjs",
+    "normal_rotation": ["bind previous policy digest", "increment sequence by exactly one", "meet current threshold", "meet incoming threshold"],
+    "emergency_revocation": ["meet separate emergency threshold", "meet incoming threshold", "state reason", "remove all current key ids"]
+  },
+  "verification": {
+    "runtime": "Node.js built-in test runner",
+    "result": "5 passed, 0 failed",
+    "cases": [
+      "dual-threshold rotation accepted",
+      "skipped sequence rejected",
+      "missing incoming authorization rejected",
+      "constrained emergency revocation accepted",
+      "emergency retention of a current key rejected"
+    ],
+    "evidence_strength": "implementation_tested_locally"
+  },
+  "commits": [
+    "eeb7e332bb41e200be2c0d202296560afdad1dbb",
+    "730fc8ca7b3e1981f700cb0757c44fd8a2c00d27"
+  ],
+  "uncertainty": "The prototype does not prove signer independence, secure key custody, global policy distribution, or witness truth.",
+  "falsification_route": "Reject the design if it accepts a mismatched previous digest, non-consecutive sequence, expired current policy, insufficient current/incoming/emergency threshold, duplicate signer counting, retained compromised key during emergency revocation, or a signature altered across payload bytes."
+}
