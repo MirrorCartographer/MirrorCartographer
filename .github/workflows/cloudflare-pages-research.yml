@@ -207,6 +207,7 @@ jobs:
           const decision = JSON.parse(fs.readFileSync('cloudflare-deployment-acceptance.json', 'utf8'));
           const input = JSON.parse(fs.readFileSync('cloudflare-evidence-verification-input.json', 'utf8'));
           const allRequired = input.signatureVerification?.status === 'verified'
+            && input.signatureSubjectVerification?.status === 'match'
             && input.subjectVerification?.status === 'match'
             && input.trustedBuilderPolicy?.builder === 'trusted'
             && input.trustedBuilderPolicy?.source === 'trusted'
@@ -214,7 +215,7 @@ jobs:
             && input.trustedBuilderPolicy?.externalParameters === 'recognized'
             && input.claimEvidence?.status === 'valid';
           if (decision.accepted !== allRequired) throw new Error('acceptance-must-equal-all-required-checks');
-          process.stdout.write(`${JSON.stringify({ accepted: decision.accepted, signature: input.signatureVerification?.status, claim: input.claimEvidence?.status })}\n`);
+          process.stdout.write(`${JSON.stringify({ accepted: decision.accepted, signature: input.signatureVerification?.status, signatureSubject: input.signatureSubjectVerification?.status, claim: input.claimEvidence?.status })}\n`);
           NODE
 
       - name: Upload proof artifacts
@@ -257,6 +258,7 @@ jobs:
             echo "- Run-context validator: \`cloudflare-static/validate-deployment-proof-context.mjs\`"
             echo "- Local provenance envelope: \`cloudflare-deployment-proof.intoto.json\`"
             echo "- GitHub cryptographic verification: \`cloudflare-deployment-proof.signature-verification.json\`"
+            echo "- Signed-subject binding: \`signatureSubjectVerification.status` must equal \`match\`"
             echo "- Verification input: \`cloudflare-evidence-verification-input.json\`"
             echo "- Acceptance decision: \`cloudflare-deployment-acceptance.json\`"
             echo "- Trust policy: exact workflow builder and repository, deny by default"
