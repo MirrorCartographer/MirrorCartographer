@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "item_id": "R-035",
+  "created_at": "2026-07-12T11:29:00-04:00",
+  "claim_state": "tested_prototype",
+  "evidence_strength": "deterministic_unit_tests_plus_primary_standard",
+  "primary_sources": [
+    {
+      "url": "https://www.w3.org/TR/mediacapture-streams/",
+      "status": "W3C Candidate Recommendation Draft, 2025-10-09",
+      "relevance": "Defines audio constraints, capabilities, settings, and getSettings semantics."
+    }
+  ],
+  "finding": "Requested microphone constraints are not evidence that those settings took effect. Capture evidence must inspect effective MediaStreamTrack settings and downgrade acoustic claims when echo cancellation, noise suppression, or automatic gain control is active or unreported.",
+  "artifact": "tools/frontier-research/capture-integrity.mjs",
+  "test": "tools/frontier-research/capture-integrity.test.mjs",
+  "verification": {
+    "command": "node --test capture-integrity.test.mjs",
+    "environment": "isolated Node runtime using byte-identical pre-commit files",
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "all controllable DSP settings verified off",
+      "active echo cancellation rejected",
+      "omitted settings downgraded",
+      "requested constraints not confused with effective settings",
+      "sample-rate mismatch downgraded"
+    ]
+  },
+  "uncertainty": [
+    "Track settings report browser-exposed state, not all platform-level signal processing.",
+    "A matching sample rate does not establish microphone calibration or physical sound pressure.",
+    "Browser and device implementations may omit settings even when constraints are supported."
+  ],
+  "falsification_route": "Capture getSupportedConstraints(), requested constraints, and track.getSettings() after permission. The strong classification must fail whenever any controllable DSP setting is active or unavailable, or the analysis sample rate differs from the effective capture sample rate.",
+  "privacy_boundary": "Persist settings and classifications only; do not persist raw microphone samples, device labels, device IDs, or private audio."
+}
