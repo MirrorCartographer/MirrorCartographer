@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "implemented_source_verified",
+  "evidence_strength": "deterministic_source_test",
+  "finding": "The deployment identity verifier previously accepted any supplied URL and any redirect target whose content matched the research-surface markers. Deployment evidence now requires HTTPS and an allowed Cloudflare Pages hostname for the mirror-cartographer-research project, or an explicitly configured custom hostname.",
+  "artifacts": {
+    "policy": "cloudflare-static/deployment-url-policy.mjs",
+    "test": "cloudflare-static/deployment-url-policy.test.mjs",
+    "verifier": "cloudflare-static/verify-deployment.mjs",
+    "workflow": ".github/workflows/cloudflare-url-policy.yml"
+  },
+  "commits": [
+    "051fd084d8614f56f6c7bfed2d2149b1fb7f2d3c",
+    "6ff1f4f68be0458206026e1df5731b38b4e8d182",
+    "e657901e72acd93acdb73b19c661d7a8071c8b2c",
+    "efaa2c94b45e2c7dcef627ba6530b64d26adce9d"
+  ],
+  "verification": {
+    "command": "node --test cloudflare-static/deployment-url-policy.test.mjs",
+    "result": "4 passed, 0 failed in isolated Node runtime using byte-identical source before commit",
+    "cases": [
+      "accept expected production and branch/deployment Pages hosts",
+      "reject unrelated and lookalike suffix hosts",
+      "require HTTPS and reject embedded credentials or nonstandard ports",
+      "allow only explicitly approved custom hosts"
+    ]
+  },
+  "falsification_route": "Provide a URL or redirect target outside the expected Pages hostname suffix that the verifier accepts, or an expected Cloudflare deployment hostname that the policy incorrectly rejects.",
+  "privacy_boundary": "No credentials, account identifiers, private chat, health information, diagnosis, or treatment claims are present.",
+  "limits": [
+    "No live Cloudflare deployment was available for runtime verification.",
+    "Hostname authorization does not prove content truth or operator control by itself.",
+    "Custom domains must be explicitly configured before they can be accepted."
+  ],
+  "generated_at": "2026-07-12T00:38:30Z"
+}
