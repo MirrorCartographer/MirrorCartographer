@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.org/schemas/run-ledger.schema.json",
+  "title": "Continuity Run Ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "artifact_type", "entries"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "artifact_type": {"const": "continuity_run_ledger"},
+    "entries": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/entry"}
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sequence", "recorded_at", "owner", "queue_item_id", "team_start_digest_sha256", "implementation_commits", "verification_evidence", "peer_trigger_attempts", "previous_entry_digest_sha256", "entry_digest_sha256"],
+      "properties": {
+        "sequence": {"type": "integer", "minimum": 0},
+        "recorded_at": {"type": "string", "format": "date-time"},
+        "owner": {"enum": ["vercel_studio", "cloudflare_research", "independent_creative_web", "continuity_mining", "frontier_research"]},
+        "queue_item_id": {"type": "string", "minLength": 1},
+        "team_start_digest_sha256": {"$ref": "#/$defs/sha256"},
+        "implementation_commits": {"type": "array", "items": {"$ref": "#/$defs/commit"}, "uniqueItems": true},
+        "verification_evidence": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "peer_trigger_attempts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["peer_owner", "method", "outcome"],
+            "properties": {
+              "peer_owner": {"enum": ["vercel_studio", "cloudflare_research", "independent_creative_web", "continuity_mining", "frontier_research"]},
+              "method": {"enum": ["direct_trigger", "automation_reschedule", "trigger_request_append"]},
+              "outcome": {"enum": ["attempted", "recorded", "failed"]},
+              "evidence": {"type": ["string", "null"]}
+            }
+          }
+        },
+        "previous_entry_digest_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "entry_digest_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}
