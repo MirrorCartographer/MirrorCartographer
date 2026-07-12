@@ -22,7 +22,8 @@ export function applyActionPinPlan(workflowText, plan) {
     findings.push({ ref: entry.ref, occurrences, replacement });
   }
 
-  const remainingMutable = [...output.matchAll(/^\s*uses:\s*([^\s#]+)@(?![0-9a-f]{40}(?:\s|$))([^\s#]+)/gim)]
+  const remainingMutable = [...output.matchAll(/^\s*uses:\s*([^\s#]+)@([^\s#]+)/gim)]
+    .filter((match) => !SHA40.test(match[2]))
     .map((match) => match[0].trim());
 
   return {
