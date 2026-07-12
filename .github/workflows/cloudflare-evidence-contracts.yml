@@ -1,0 +1,43 @@
+name: Test Cloudflare deployment evidence contracts
+
+on:
+  pull_request:
+    paths:
+      - "cloudflare-static/**"
+      - ".github/workflows/cloudflare-pages-research.yml"
+      - ".github/workflows/cloudflare-evidence-contracts.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "cloudflare-static/**"
+      - ".github/workflows/cloudflare-pages-research.yml"
+      - ".github/workflows/cloudflare-evidence-contracts.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-evidence-contracts-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@v6
+
+      - name: Run blocked-path evidence materialization tests
+        run: node --test cloudflare-static/materialize-missing-deployment-evidence.test.mjs
+
+      - name: Run atomic evidence finalization tests
+        run: node --test cloudflare-static/finalize-deployment-evidence.test.mjs
+
+      - name: Verify deployment workflow wires both contracts
+        shell: bash
+        run: |
+          grep -F "materialize-missing-deployment-evidence.mjs" cloudflare-static/finalize-deployment-evidence.mjs
+          grep -F "finalize-deployment-evidence.mjs" .github/workflows/cloudflare-pages-research.yml
