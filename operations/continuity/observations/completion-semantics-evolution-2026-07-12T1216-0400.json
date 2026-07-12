@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-008-memory",
+  "recorded_at": "2026-07-12T12:16:00-04:00",
+  "title": "Completion semantics evolved from artifact existence to evidence-gated acceptance",
+  "memory": {
+    "observed": [
+      "The canonical queue marks work complete when declared required evidence is satisfied, not merely when source artifacts exist.",
+      "Recent continuity work introduced fail-closed reconciliation for unsupported completion claims and separated canonical state, append-only records, derived projections, and external behavioral proof.",
+      "Recent frontier and Cloudflare commits continue to distinguish deterministic source tests from deployed or device-level proof."
+    ],
+    "inferred": [
+      "Across the project, the operational meaning of complete has evolved into a layered evidence contract: artifact created, source verified, deployment or runtime identity established, and externally relevant behavior observed where required.",
+      "This evolution is a project-wide decision pattern rather than a single-team implementation detail."
+    ],
+    "proposed": [
+      "Represent completion as a vector of evidence dimensions instead of a single boolean: artifact, source_test, provenance, deployment, runtime, and external_observation.",
+      "Derived queue projections should expose which dimensions are satisfied and must preserve unresolved status when any declared required dimension is absent."
+    ],
+    "superseded": [
+      "A committed file or passing isolated test alone is sufficient to claim end-to-end completion."
+    ],
+    "unresolved": [
+      "The repository does not yet have a shared schema that maps each queue item's free-text required_evidence entries onto standardized evidence dimensions.",
+      "No authorized canonical-promotion process has yet been defined for converting append-only completion records into shared queue state."
+    ]
+  },
+  "provenance": {
+    "sources": [
+      "operations/CURRENT_STATE.json",
+      "operations/ACTIVE_QUEUE.json",
+      "operations/SPECIALIST_REGISTRY.json",
+      "operations/TRIGGER_REQUESTS.json",
+      "operations/continuity/observations/unsupported-completion-claim-2026-07-12T1156-0400.json",
+      "operations/continuity/observations/state-authority-strata-2026-07-12T1202-0400.json",
+      "recent repository commit metadata through 2026-07-12T16:11:09Z"
+    ],
+    "evidence_strength": "repository-observed cross-record synthesis",
+    "review_route": "Falsify by identifying an accepted queue completion that lacks one or more evidence dimensions explicitly required by its own queue item."
+  },
+  "privacy": {
+    "classification": "public-project-metadata-only",
+    "excluded": [
+      "raw private chats",
+      "health or pet-health material",
+      "credentials",
+      "financial or relationship information",
+      "unreviewed uploaded-file contents"
+    ]
+  }
+}
