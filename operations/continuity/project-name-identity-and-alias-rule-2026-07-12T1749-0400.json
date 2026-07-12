@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-0007",
+  "kind": "language_term",
+  "title": "Project name identity is stable across aliases, abbreviations, and misspellings",
+  "claim_state": "observed",
+  "evidence_strength": "single_secondary_source",
+  "sources": [
+    {
+      "type": "private_chat_reference",
+      "locator": "conversation-history:project-name-aliases-and-continuity",
+      "content_sha": null,
+      "observed_at": "2026-07-12T17:49:52-04:00"
+    }
+  ],
+  "summary": {
+    "canonical_identity": "Mirror Cartographer is the stable project identity. Variants in spacing, capitalization, abbreviation, nickname, transcription, or misspelling do not by themselves establish a renamed project.",
+    "alias_rule": "Treat forms such as MirrorCartographer, Mirror Cartographer, MC, and contextually attributable misspellings or shorthand as aliases of one project unless an explicit versioned decision states that a rename occurred.",
+    "disambiguation_rule": "Do not merge an ambiguous token into the project identity solely because it resembles an alias. Require contextual linkage through nearby project concepts, repository identity, explicit reference, or a recorded decision.",
+    "history_rule": "Store aliases as attributed labels connected to the canonical project node. Preserve when and where each alias appeared without rewriting the canonical identity or inventing separate projects.",
+    "knowledge_graph_implication": "Represent one canonical project node with alias_of edges from observed variants; reserve renamed_to or supersedes edges for explicit, provenance-backed naming decisions."
+  },
+  "privacy": "restricted_reference_only",
+  "privacy_boundary": {
+    "included": [
+      "abstract project-identity rule",
+      "alias resolution rule",
+      "knowledge-graph modeling implication"
+    ],
+    "excluded": [
+      "verbatim private dialogue",
+      "personal events",
+      "health information",
+      "identifying details",
+      "credentials"
+    ]
+  },
+  "claim_classification": {
+    "observed": "The project identity remained stable while multiple written forms, abbreviations, nicknames, and misspellings were used.",
+    "inferred": "Treating every variant as a rename fragments continuity and creates false project histories.",
+    "proposed": "Maintain one canonical project identity and attach variants as provenance-bearing aliases.",
+    "superseded": "Inferring that the project changed names whenever its wording, spacing, capitalization, shorthand, or spelling changed.",
+    "unresolved": "The exhaustive alias inventory, first-observed dates, and context-specific ambiguous forms remain to be reconstructed."
+  },
+  "falsification_or_review_route": "Search decision logs, repository history, and private-chat references for an explicit rename decision. If found, add a versioned correction linking the old and new identities; do not overwrite this record."
+}
