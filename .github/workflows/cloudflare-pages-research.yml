@@ -39,6 +39,7 @@ jobs:
           node --test cloudflare-static/build-evidence-acceptance.test.mjs
           node --test cloudflare-static/evaluate-signed-deployment-evidence.test.mjs
           node --test cloudflare-static/cryptographic-attestation-workflow.test.mjs
+          node --test cloudflare-static/validate-deployment-proof-context.test.mjs
 
       - name: Verify committed research surface identity
         run: |
@@ -131,6 +132,10 @@ jobs:
       - name: Validate deployment proof contract
         if: always()
         run: node cloudflare-static/validate-deployment-proof.mjs cloudflare-deployment-proof.json
+
+      - name: Validate deployment proof run context
+        if: always()
+        run: node cloudflare-static/validate-deployment-proof-context.mjs cloudflare-deployment-proof.json
 
       - name: Build local in-toto evidence envelope
         if: always()
@@ -231,6 +236,7 @@ jobs:
             echo "- Actionable blocker: \`cloudflare-deployment-blocker.json\` (schema-validated names and reason codes only)"
             echo "- Deployment decision: \`cloudflare-deployment-decision.json\`"
             echo "- Identity verifier: \`cloudflare-static/verify-deployment.mjs\`"
+            echo "- Run-context validator: \`cloudflare-static/validate-deployment-proof-context.mjs\`"
             echo "- Local provenance envelope: \`cloudflare-deployment-proof.intoto.json\`"
             echo "- GitHub cryptographic verification: \`cloudflare-deployment-proof.signature-verification.json\`"
             echo "- Verification input: \`cloudflare-evidence-verification-input.json\`"
