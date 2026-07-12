@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-015",
+  "owner": "frontier_research",
+  "completed_at": "2026-07-12T15:49:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://theupdateframework.github.io/specification/latest/",
+      "status": "current_primary_specification",
+      "version": "1.0.34",
+      "last_modified": "2026-01-22",
+      "relevance": "Rollback resistance requires retained trusted state; threshold trust and detection of stale or mixed state are explicit security goals."
+    },
+    {
+      "url": "https://nodejs.org/api/fs.html#fspromisesrenameoldpath-newpath",
+      "status": "current_official_runtime_documentation",
+      "relevance": "The existing atomic adapter relies on rename semantics; a second replica must treat per-path failures such as EXDEV as degraded persistence rather than success."
+    }
+  ],
+  "finding": "A second independently addressed replica improves availability against single-copy loss, but two replicas do not create an authority quorum. Matching replicas may be accepted, one surviving valid replica may be used only in an explicit degraded state with mandatory repair, and divergent replicas must be rejected unless an external trusted anchor resolves them.",
+  "design_implication": "Wrap the existing atomic monotonic-state adapter with two-copy persistence, explicit degraded classifications, fail-closed divergence, and post-repair equality verification. Do not claim resistance to deletion or replacement of both replicas.",
+  "artifacts": {
+    "module": "tools/frontier-research/redundant-monotonic-state-store.mjs",
+    "test": "tools/frontier-research/redundant-monotonic-state-store.test.mjs",
+    "commits": [
+      "b60f846c338c9a0ac20e2f6a1d782244012ae801",
+      "510e2378b414c343d04b3411642e73cb27f37e5a"
+    ]
+  },
+  "verification": {
+    "environment": "isolated Node test runtime using byte-identical pre-commit module and test contents; default filesystem adapter replaced by injected deterministic memory harness",
+    "result": "7 tests passed, 0 failed",
+    "cases": [
+      "two distinct replicas persist",
+      "EXDEV on one replica yields degraded_single_copy",
+      "matching replicas load as replicated_consistent",
+      "divergent replicas fail closed",
+      "single privileged deletion leaves explicit degraded state",
+      "missing replica repair is re-read and equality verified",
+      "loss of both replicas is unavailable and not accepted"
+    ],
+    "evidence_strength": "implementation_tested_locally"
+  },
+  "uncertainty": [
+    "No physical cross-device filesystem was exercised.",
+    "No power-loss, storage-controller, or hardware-backed anchor test was performed.",
+    "Two paths on one administrative host may share the same compromise and failure domain."
+  ],
+  "falsification_route": [
+    "Run the committed test with the repository's real atomic adapter on two actual filesystems and induce an EXDEV boundary.",
+    "Delete or replace one replica and verify degraded classification plus repair.",
+    "Provide two individually valid but different states and verify automatic selection is refused.",
+    "Delete both replicas and verify the system cannot silently reset or claim continuity."
+  ],
+  "trust_limit": "Redundant local bytes improve detection and recovery from one-copy loss. They do not establish which divergent copy is true and do not resist a privileged actor or failure that controls both replicas."
+}
