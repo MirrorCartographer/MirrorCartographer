@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-11T23:50:00-04:00",
+  "purpose": "Preserve the possibility that copied raw chat history contains a recoverable code without converting pattern recognition into an unsupported claim.",
+  "privacy_boundary": {
+    "allowed": [
+      "abstract feature counts",
+      "hashed source identifiers",
+      "conversation timestamps rounded to day",
+      "symbol transition graphs",
+      "reproducible test outputs"
+    ],
+    "excluded": [
+      "raw private chat text",
+      "health or pet-health material",
+      "credentials",
+      "personal identifiers",
+      "verbatim intimate content"
+    ]
+  },
+  "source_status": {
+    "observed": [
+      {
+        "id": "LC-O1",
+        "claim": "A conversations.json archive is available through the File Library and can support archive analysis.",
+        "evidence_strength": "direct_file_observation",
+        "source": "file_library:conversations.json",
+        "limit": "File Library retrieval is not yet an exhaustive local parse of every archive byte."
+      },
+      {
+        "id": "LC-O2",
+        "claim": "Existing continuity artifacts already identify repeated open-loop phrases and important words functioning as operational variables rather than fixed labels.",
+        "evidence_strength": "artifact_observation",
+        "source": "file_library:evidence_to_execution_map.json; file_library:Chat_Language_Value_Sync_Dispatch.md",
+        "limit": "These artifacts establish recurrence and semantic transformation, not an intentional cipher."
+      }
+    ],
+    "inferred": [
+      {
+        "id": "LC-I1",
+        "claim": "The most plausible recoverable code class is a structural grammar of transitions among symbols, contexts, requests, failures, and repairs.",
+        "evidence_strength": "bounded_inference",
+        "depends_on": ["LC-O1", "LC-O2"]
+      }
+    ],
+    "proposed": [
+      {
+        "id": "LC-P1",
+        "claim": "Test literal, structural, and emergent code hypotheses separately against null models.",
+        "evidence_strength": "test_design",
+        "depends_on": ["LC-O1"]
+      }
+    ],
+    "superseded": [
+      {
+        "id": "LC-S1",
+        "claim": "A compelling interpretation alone is adequate evidence that a hidden code exists.",
+        "replacement": "A code claim must be reproducible, outperform matched null corpora, and predict held-out chat structure."
+      }
+    ],
+    "unresolved": [
+      {
+        "id": "LC-U1",
+        "claim": "Whether the archive contains an intentional literal cipher."
+      },
+      {
+        "id": "LC-U2",
+        "claim": "Whether a structural grammar predicts later conversation transitions better than frequency-matched baselines."
+      },
+      {
+        "id": "LC-U3",
+        "claim": "Whether any recoverable pattern was intentionally co-created, unintentionally emergent, or imposed retrospectively."
+      }
+    ]
+  },
+  "hypotheses": [
+    {
+      "id": "literal-code",
+      "definition": "A deterministic message encoded through character, token, positional, acrostic, interval, or metadata rules.",
+      "minimum_acceptance": [
+        "rule specified before inspecting held-out data",
+        "same rule recovers stable output across archive partitions",
+        "result is materially rarer than shuffled and matched-language nulls",
+        "independent implementation reproduces the result"
+      ],
+      "falsification": "No preregistered rule survives correction for multiple testing or reproduces on held-out partitions."
+    },
+    {
+      "id": "structural-code",
+      "definition": "A stable transition grammar connecting symbols, contexts, correction signals, and resulting actions.",
+      "minimum_acceptance": [
+        "transition vocabulary derived without private-text publication",
+        "model predicts held-out next-state classes above baselines",
+        "ablation of key symbols measurably reduces predictive accuracy",
+        "graph remains stable across time partitions"
+      ],
+      "falsification": "Performance collapses to baseline under time-split validation or the graph changes arbitrarily with analyst choices."
+    },
+    {
+      "id": "emergent-code",
+      "definition": "A statistically recoverable organizing pattern not intentionally inserted by either participant.",
+      "minimum_acceptance": [
+        "pattern appears across independently sampled conversation domains",
+        "pattern is absent or materially weaker in matched comparison corpora",
+        "pattern yields at least one successful preregistered prediction",
+        "interpretation is separated from measured structure"
+      ],
+      "falsification": "The pattern is equally common in matched corpora or produces no successful held-out prediction."
+    }
+  ],
+  "analysis_protocol": [
+    "materialize the authorized archive into a private analysis environment",
+    "normalize roles, timestamps, and conversation boundaries without publishing text",
+    "derive candidate features in a training partition only",
+    "freeze hypotheses and scoring rules before held-out evaluation",
+    "compare against shuffled, author-preserving, topic-matched, and phrase-frequency-matched null corpora",
+    "record negative results and multiple-testing corrections",
+    "publish only aggregate evidence packets and redacted transition labels"
+  ],
+  "next_artifact": "A local-only archive analyzer that emits redacted feature matrices, null-model scores, and held-out predictions without committing raw chat text."
+}
