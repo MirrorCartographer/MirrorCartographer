@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T14:56:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added and locally tested a deterministic secret-free preflight evidence builder that binds repository environment requirements to workflow declarations without overstating deployment readiness.",
+  "files": [
+    "cloudflare-static/build-environment-preflight-evidence.mjs",
+    "cloudflare-static/build-environment-preflight-evidence.test.mjs",
+    "operations/evidence/cloudflare-environment-preflight-2026-07-12T1456-0400.json"
+  ],
+  "commits": [
+    "aca6a1f5825e54c58e4491d8e734daca78bc5c7d",
+    "d082aa671f56f422093254a7f5cdf0a272c53088",
+    "a3ce8d360603de121da20be70499120e8bc38e85"
+  ],
+  "verification": {
+    "local_tests": "4 of 4 passed",
+    "repository_writes": "accepted by GitHub",
+    "deployment": "not attempted",
+    "served_surface": "not verified"
+  },
+  "remaining_blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN secrets, followed by an exact-commit workflow dispatch and retained deployment proof.",
+  "next_action": "Wire the preflight builder into the deployment workflow before readiness probing, upload its packet with the existing evidence bundle, then dispatch after environment configuration is present."
+}
