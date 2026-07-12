@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "recorded_at": "2026-07-12T08:48:00-04:00",
+  "creative_premise": "The Weather Inside a Bell is a full-screen browser instrument where held pressure becomes a visible and optional audible weather release.",
+  "completed_slice": "Added a bounded barometric hold-and-release law: pointer or Space-key holds accumulate visible pressure, compress the instrument, and release a force-scaled shockwave and bell strike.",
+  "source": {
+    "page": "independent-web/index.html",
+    "identity": "independent-web/IDENTITY.md",
+    "test": "independent-web/mobile-contract.test.mjs",
+    "commits": [
+      "3b78e8ad21e4f58efee87a30a2f23724ffeb703c",
+      "166335772d9f0d0f01facbcb51fb6db470f31e70",
+      "3f3578e495f6e50682231bf24288c59188797789"
+    ]
+  },
+  "verification": {
+    "source_contract": "observed in committed source",
+    "bounded_pressure": "Math.min(1, elapsed/1800)",
+    "release_threshold": 0.12,
+    "pointer_path": "pointerdown to pointerup or pointercancel",
+    "keyboard_path": "Space keydown to keyup",
+    "reduced_motion": "ambient time freezes while direct shockwave state remains visible",
+    "workflow_run": "not observed for final commit at evidence time",
+    "public_url": "unresolved",
+    "physical_mobile_proof": "unresolved"
+  },
+  "independence_boundary": [
+    "no Mirror Cartographer vocabulary or workflow",
+    "no dashboard, research portal, worker console, or product funnel",
+    "no account, analytics, payment, persistence, or data collection",
+    "sound remains optional and gesture-gated"
+  ],
+  "rollback": "Revert commits 3f3578e495f6e50682231bf24288c59188797789, 166335772d9f0d0f01facbcb51fb6db470f31e70, and 3b78e8ad21e4f58efee87a30a2f23724ffeb703c; no persistent state or migration exists.",
+  "limits": [
+    "No successful GitHub Pages workflow run was visible for the final commit during this run.",
+    "No physical mobile interaction was observed.",
+    "Committed contract tests were not executed by the connector runtime; CI remains the authoritative execution route."
+  ]
+}
