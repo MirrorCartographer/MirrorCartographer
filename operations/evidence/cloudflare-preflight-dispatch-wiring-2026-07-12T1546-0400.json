@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T15:46:00-04:00",
+  "improvement": "Wire the fail-closed exact-commit dispatch decision builder into the Cloudflare environment preflight workflow and retain its output in the uploaded evidence artifact.",
+  "source": {
+    "repository": "MirrorCartographer/MirrorCartographer",
+    "commit_sha": "f219d1176db24850e468d7d0379caae6e8856fca",
+    "workflow": ".github/workflows/cloudflare-environment-preflight.yml",
+    "workflow_blob_sha": "5f54a656db33c32cc5fc1eeba0bb7a6b55ed06ad",
+    "builder": "cloudflare-static/build-cloudflare-dispatch-decision.mjs",
+    "builder_test": "cloudflare-static/build-cloudflare-dispatch-decision.test.mjs"
+  },
+  "behavior_added": [
+    "The preflight path filter now includes the dispatch builder and its tests.",
+    "The workflow test gate now executes the dispatch-decision test suite.",
+    "The independently verified preflight verdict is converted into a dispatch decision bound to the exact repository and 40-character commit SHA.",
+    "The workflow fails unless classification is dispatch_ready and the target workflow/ref remain exact and immutable.",
+    "The dispatch decision is hashed and retained in the exact-commit preflight artifact."
+  ],
+  "verification": {
+    "strongest_completed_route": "Fetched the workflow by exact commit after mutation and confirmed the committed blob contains the new trigger paths, test invocation, fail-closed builder invocation, exact binding assertions, digest entry, and artifact retention.",
+    "workflow_run": "not_yet_observed",
+    "combined_status_observation": "Only unrelated Vercel build-rate-limit statuses were returned for the commit; no Cloudflare Actions conclusion was available at evidence-record time.",
+    "evidence_strength": "committed_source_verified"
+  },
+  "privacy_boundary": "No credential values, account identifiers, private chat, health material, diagnosis, treatment recommendation, or payment logic are included.",
+  "claim_boundary": "This proves committed source wiring only. It does not prove GitHub Actions execution, credential installation, Cloudflare authorization, deployment, hostname resolution, served identity, or scientific truth.",
+  "falsification_route": [
+    "A workflow run does not execute the dispatch-decision tests.",
+    "The generated decision is absent from the uploaded artifact.",
+    "A repository or commit mismatch does not fail the workflow.",
+    "The decision permits a mutable ref instead of the exact commit.",
+    "The artifact digest file omits the dispatch decision."
+  ]
+}
