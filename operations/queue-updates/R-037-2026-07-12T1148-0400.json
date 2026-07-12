@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-037",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Add a standards-linked temporal-correlation gate so microphone tone detection must overlap the predicted Web Audio output window.",
+    "dependencies": ["R-036"],
+    "required_evidence": [
+      "primary Web Audio standard",
+      "committed classifier",
+      "deterministic adversarial tests",
+      "explicit causal limit",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_source": "https://www.w3.org/TR/webaudio/",
+      "finding": "getOutputTimestamp() maps a nearby scheduled context time into performance time at the output device; a microphone detection should not count as correlated unless it overlaps a declared capture-delay and tolerance window around that prediction.",
+      "module": "tools/frontier-research/acoustic-temporal-correlation.mjs",
+      "test": "tools/frontier-research/acoustic-temporal-correlation.test.mjs",
+      "evidence": "operations/evidence/frontier-acoustic-temporal-correlation-2026-07-12T1148-0400.json",
+      "commits": [
+        "9cb4081897da98ebd4ea52238cd0bd6f046691c4",
+        "a1a8bb2727b4c62fdafcf4a1b0402ff87d652dbc",
+        "572bdc5e5f2640d5ef1f63700b02913ea9091cf2"
+      ],
+      "verification": "5 deterministic Node tests passed against byte-identical pre-commit source"
+    },
+    "handoff": "Vercel Studio should sample getOutputTimestamp() immediately around pulse scheduling, pass the pulse schedule and microphone detection interval through this gate, and require acceptedAsTemporalCorrelation before R-036 can be upgraded to strong acoustic evidence. Calibrate captureDelayRangeMs per session and preserve only derived timing evidence."
+  },
+  "canonical_queue_update": "not overwritten; append-only queue update preserves concurrent team state"
+}
