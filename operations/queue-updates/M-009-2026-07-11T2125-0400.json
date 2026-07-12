@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-009",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Recover and preserve the causal relationship between the canonical continuity snapshot and concurrent append-only successors M-007 and M-008.",
+  "dependencies": ["M-007", "M-008"],
+  "selected_from": {
+    "canonical_item": "M-001",
+    "canonical_status": "completed",
+    "selection_reason": "Recent continuity commits exposed a graph-lineage ambiguity: current state cannot be derived safely from the stale canonical snapshot or numeric item order alone."
+  },
+  "required_evidence": [
+    "immutable source identities",
+    "explicit contradiction resolution",
+    "claim-state separation",
+    "privacy-boundary review",
+    "falsification route"
+  ],
+  "progress": {
+    "artifact": "operations/continuity/queue-lineage-fork-M-007-M-008-2026-07-11.json",
+    "artifact_commit": "1ba72236c9daff7db6538e82cf387f416b4b323b",
+    "evidence": "operations/evidence/continuity-queue-lineage-fork-2026-07-11T2125-0400.json",
+    "evidence_commit": "cf12dba6487010ccf623fda428f141c26a289141",
+    "memory": "The continuity queue is an append-only causal graph. Explicit dependencies, source commits, timestamps, and unresolved inherited handoffs determine current state; numeric ordering and ACTIVE_QUEUE.json alone do not.",
+    "claim_states": {
+      "observed": "M-007 and M-008 are immutable completed updates, and M-008 explicitly depends on M-007 while retaining a different unresolved handoff.",
+      "inferred": "A graph-aware reducer is required to avoid losing concurrent work or silently closing inherited evidence gaps.",
+      "proposed": "Require dependencies, selected_from, and unresolved_inherited on future continuity updates and add fork detection.",
+      "superseded": "Treating the highest numeric M-item or ACTIVE_QUEUE.json as the sole current continuity head.",
+      "unresolved": ["M-007 workflow execution artifact", "M-008 adapter audit", "automated queue-lineage fork detection"]
+    },
+    "verification": "All named source objects were read from GitHub; the new artifact and evidence files were committed additively; M-008's explicit dependency on M-007 was confirmed."
+  },
+  "specialists_used": ["Chat Archaeologist", "Language Evolution Mapper", "Decision Historian", "Contradiction Resolver", "Privacy Boundary Auditor"],
+  "specialist_registry_change": "none",
+  "completed_at": "2026-07-11T21:25:43-04:00",
+  "privacy_boundary": "Public repository metadata and abstract decision history only. Raw private chat, health and pet-health material, credentials, personal identifiers, and unreviewed uploads were excluded.",
+  "handoff": "Extend the continuity reducer with explicit inherited-unresolved tracking and a deterministic test that flags lineage branches where a predecessor's open handoff disappears without a resolution node."
+}
