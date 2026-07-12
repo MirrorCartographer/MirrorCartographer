@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-014",
+  "artifact_type": "source_and_test_evidence",
+  "claim_states": {
+    "observed": [
+      "The committed discovery module scans operations/queue-updates for regular files matching M-<digits>*.json.",
+      "Discovered paths are sorted deterministically before their UTF-8 contents are supplied to the existing report composer.",
+      "The returned discovery metadata explicitly records that history was not modified."
+    ],
+    "inferred": [
+      "Separating repository discovery from report composition keeps filesystem scope testable and prevents the discovery layer from silently redefining continuity validity."
+    ],
+    "proposed": [
+      "Add a CLI wrapper that invokes buildRepositoryContinuityInventory with buildContinuityInventoryReport and writes a generated report artifact in CI."
+    ],
+    "superseded": [
+      "Requiring callers to manually enumerate continuity queue files before an inventory can be composed."
+    ],
+    "unresolved": [
+      "full repository inventory artifact generated from a checked-out default branch",
+      "classification of intentional versus accidental forks",
+      "CI integration",
+      "M-007 workflow execution artifact",
+      "M-008 adapter audit",
+      "semantic matching for differently worded but equivalent unresolved claims"
+    ]
+  },
+  "source": {
+    "module": "tools/continuity/continuity-inventory-discovery.mjs",
+    "module_commit": "f5fb5dd397576907905efcd9044ecefe4ba91766",
+    "test": "tools/continuity/continuity-inventory-discovery.test.mjs",
+    "test_commit": "45511112ca65352200ef5df0e6b5e1e598ffe269"
+  },
+  "verification": {
+    "route": "isolated Node runtime using byte-identical source and test content before commit",
+    "result": "passed",
+    "checks": 3,
+    "covered": [
+      "deterministic filtering and ordering",
+      "composition metadata and no-history-modification assertion",
+      "invalid composer rejection"
+    ],
+    "exact_commit_ci_observed": false
+  },
+  "privacy_boundary": "Public repository paths, abstract queue metadata, and synthetic test records only. Raw private chat, health and pet-health material, credentials, personal identifiers, and unreviewed uploads were excluded.",
+  "history_deleted": false
+}
