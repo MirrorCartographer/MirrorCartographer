@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-005",
+  "generated_at": "2026-07-12T14:49:23Z",
+  "claim_state": "implemented_and_locally_verified",
+  "primary_sources": [
+    {
+      "uri": "https://slsa.dev/spec/v1.2/verification_summary",
+      "status": "approved_specification",
+      "finding": "A Verification Summary Attestation records the verifier, exact policy, input attestations, result, and verified levels for an artifact; consumers must independently bind signer, verifier, subject, resource URI, result, and expected level."
+    },
+    {
+      "uri": "https://in-toto.io/Statement/v1",
+      "status": "primary_specification",
+      "finding": "The verification summary is represented as an in-toto Statement v1 with a subject digest and typed predicate."
+    }
+  ],
+  "finding": "Provenance and trusted-builder checks identify origin and permitted producers, but they do not preserve the exact policy decision made over an evidence artifact. A VSA-style summary closes that gap while remaining explicitly separate from the truth of the underlying scientific or runtime claim.",
+  "design_implication": "After structural validation, cryptographic verification, trusted-builder evaluation, and freshness checks, teams should emit a verification summary bound to the exact evidence bytes, policy digest, verifier identity, resource URI, and input attestations.",
+  "artifacts": {
+    "module": "tools/frontier-research/verification-summary.mjs",
+    "test": "tools/frontier-research/verification-summary.test.mjs",
+    "module_commit": "55ac03f14f719053725e239c4f530ca6c93d9734",
+    "test_commit": "20936981eba29cacfca29d325ac1d81706e96493"
+  },
+  "verification": {
+    "command": "node --test verification-summary.test.mjs",
+    "environment": "isolated Node runtime using byte-identical source and test files before commit",
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "construct exact policy and input digest bindings",
+      "accept expected artifact/verifier/resource/policy/level",
+      "reject policy digest substitution",
+      "reject FAILED result disguised with passing level",
+      "detect changed verification decision through digest change"
+    ]
+  },
+  "evidence_strength": "deterministic_unit_test_plus_primary_specification",
+  "limits": [
+    "The module does not sign the VSA envelope.",
+    "A valid VSA is not proof that the verifier is uncompromised.",
+    "A passing verification result is not proof that the underlying scientific, medical, deployment, audio, or perceptual claim is true.",
+    "JSON.stringify is deterministic only for the constructed insertion order; cross-implementation canonicalization requires a separate canonical JSON standard before signature interoperability."
+  ],
+  "falsification_route": "Substitute the subject, verifier, resource URI, policy URI, policy digest, result, or required level and require evaluation to reject; independently recompute the subject and policy digests from source bytes."
+}
