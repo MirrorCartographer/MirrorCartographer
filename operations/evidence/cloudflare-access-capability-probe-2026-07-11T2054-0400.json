@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T20:54:56-04:00",
+  "artifact": {
+    "module": "cloudflare-static/probe-cloudflare-access.mjs",
+    "test": "cloudflare-static/probe-cloudflare-access.test.mjs",
+    "module_commit": "198da87c04aa5df6171cae579514a68a04c04af1",
+    "test_commit": "77585744dad167d17fd0ace8edeb94d2f723cf94"
+  },
+  "finding": "Credential presence is not deployment readiness. Readiness requires an active token and account-scoped authorization to enumerate Cloudflare Pages projects.",
+  "primary_sources": [
+    {
+      "url": "https://developers.cloudflare.com/api/resources/user/subresources/tokens/methods/verify/",
+      "status": "current_official_api_reference",
+      "use": "verify API token activity"
+    },
+    {
+      "url": "https://developers.cloudflare.com/api/resources/pages/subresources/projects/methods/list/",
+      "status": "current_official_api_reference",
+      "use": "verify account-scoped Pages project-list capability"
+    }
+  ],
+  "verification": {
+    "method": "isolated Node test run using byte-identical pre-commit source",
+    "result": "4 passed, 0 failed",
+    "cases": [
+      "active token and Pages enumeration accepted",
+      "rejected token stops before account request",
+      "active token without Pages permission classified separately",
+      "malformed account configuration rejected before network access"
+    ]
+  },
+  "privacy": {
+    "secret_values_emitted": false,
+    "account_id_emitted": false,
+    "bounded_outputs": ["HTTP status", "Cloudflare error code", "redacted bounded message", "public Pages project names"]
+  },
+  "claim_state": "implemented_and_deterministically_tested_not_live_executed",
+  "evidence_strength": "official-api-linked deterministic test",
+  "limits": [
+    "No Cloudflare credentials were available to execute the live probe.",
+    "A successful capability probe does not prove a deployment occurred.",
+    "Project enumeration does not prove the expected project or hostname exists.",
+    "Served commit identity still requires post-deployment verification."
+  ],
+  "falsification_route": "Run the probe in the protected cloudflare-research GitHub Environment. Any token rejection, permission denial, account mismatch, or inability to list Pages projects falsifies credential readiness."
+}
