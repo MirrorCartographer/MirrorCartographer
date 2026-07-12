@@ -43,6 +43,7 @@ jobs:
           node --test cloudflare-static/build-deployment-decision.test.mjs
           node --test cloudflare-static/build-deployment-proof.test.mjs
           node --test cloudflare-static/validate-deployment-proof.test.mjs
+          node --test cloudflare-static/validate-deployment-proof-freshness.test.mjs
           node --test cloudflare-static/attest-deployment-proof.test.mjs
           node --test cloudflare-static/normalize-github-attestation-verification.test.mjs
           node --test cloudflare-static/evaluate-signer-authorization.test.mjs
@@ -168,6 +169,13 @@ jobs:
         if: always()
         run: node cloudflare-static/validate-deployment-proof-context.mjs cloudflare-deployment-proof.json
 
+      - name: Validate deployment proof freshness
+        if: always()
+        run: >-
+          node cloudflare-static/validate-deployment-proof-freshness.mjs
+          cloudflare-deployment-proof.json
+          cloudflare-deployment-proof.freshness.json
+
       - name: Build local in-toto evidence envelope
         if: always()
         run: node cloudflare-static/attest-deployment-proof.mjs cloudflare-deployment-proof.json cloudflare-deployment-proof.intoto.json
@@ -204,6 +212,7 @@ jobs:
           cloudflare-deployment-proof.json
           cloudflare-deployment-proof.intoto.json
           cloudflare-deployment-proof.signature-verification.json
+          cloudflare-deployment-proof.freshness.json
           cloudflare-evidence-verification-input.json
 
       - name: Evaluate deployment evidence acceptance
@@ -227,9 +236,10 @@ jobs:
             && input.trustedBuilderPolicy?.source === 'trusted'
             && input.trustedBuilderPolicy?.buildType === 'match'
             && input.trustedBuilderPolicy?.externalParameters === 'recognized'
+            && input.freshnessEvidence?.status === 'fresh'
             && input.claimEvidence?.status === 'valid';
           if (decision.accepted !== allRequired) throw new Error('acceptance-must-equal-all-required-checks');
-          process.stdout.write(`${JSON.stringify({ accepted: decision.accepted, signature: input.signatureVerification?.status, signatureSubject: input.signatureSubjectVerification?.status, claim: input.claimEvidence?.status })}\n`);
+          process.stdout.write(`${JSON.stringify({ accepted: decision.accepted, signature: input.signatureVerification?.status, signatureSubject: input.signatureSubjectVerification?.status, freshness: input.freshnessEvidence?.status, claim: input.claimEvidence?.status })}\n`);
           NODE
 
       - name: Upload proof artifacts
@@ -245,6 +255,7 @@ jobs:
             cloudflare-deployment-decision.json
             cloudflare-deployment-metadata.json
             cloudflare-deployment-proof.json
+            cloudflare-deployment-proof.freshness.json
             cloudflare-deployment-proof.intoto.json
             cloudflare-deployment-proof.signature-verification.raw.json
             cloudflare-deployment-proof.signature-verification.json
@@ -276,11 +287,12 @@ jobs:
             echo "- Identity verifier: \`cloudflare-static/verify-deployment.mjs\`"
             echo "- Proof builder: \`cloudflare-static/build-deployment-proof.mjs\` (schema 1.1.0 with URL authority)"
             echo "- Run-context validator: \`cloudflare-static/validate-deployment-proof-context.mjs\`"
+            echo "- Freshness verdict: \`cloudflare-deployment-proof.freshness.json\` must report \`fresh\` inside the configured age and clock-skew bounds"
             echo "- Local provenance envelope: \`cloudflare-deployment-proof.intoto.json\`"
             echo "- GitHub cryptographic verification: \`cloudflare-deployment-proof.signature-verification.json\`"
             echo "- Signed-subject binding: \`signatureSubjectVerification.status\` must equal \`match\`"
             echo "- Verification input: \`cloudflare-evidence-verification-input.json\`"
             echo "- Acceptance decision: \`cloudflare-deployment-acceptance.json\`"
             echo "- Trust policy: exact workflow builder and repository, deny by default"
-            echo "- Epistemic limit: signature verification and hostname authority authenticate provenance and control-plane relationships, not scientific truth"
+            echo "- Epistemic limit: signature verification, freshness, and hostname authority authenticate bounded provenance and control-plane relationships, not scientific truth"
           } >> "$GITHUB_STEP_SUMMARY"
