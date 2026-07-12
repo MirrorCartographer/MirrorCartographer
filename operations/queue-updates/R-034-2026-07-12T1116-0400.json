@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-034",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "completed",
+  "action": "Create a falsifiable acoustic loopback detector that distinguishes browser processing evidence from microphone-observed physical output evidence.",
+  "dependencies": ["R-033", "V-001"],
+  "required_evidence": [
+    "current primary standards",
+    "committed detector",
+    "deterministic synthetic tests",
+    "explicit claim boundary",
+    "falsification route"
+  ],
+  "progress": {
+    "primary_sources": [
+      "https://www.w3.org/TR/mediacapture-streams/",
+      "https://www.w3.org/TR/webaudio/"
+    ],
+    "finding": "Permission-gated microphone capture can raise V-001 evidence above browser render-state observation by testing whether the diagnostic frequency entered the acoustic environment, while still not proving listener perception or emitter identity.",
+    "module": "tools/frontier-research/acoustic-loopback-detector.mjs",
+    "test": "tools/frontier-research/acoustic-loopback-detector.test.mjs",
+    "evidence": "operations/evidence/frontier-acoustic-loopback-2026-07-12T1116-0400.json",
+    "commits": [
+      "7050610ed764573aba26835538a3112eda96a8d9",
+      "649504cf656f1cec76c3239b2b60d0009544eee4",
+      "ad2ca85241a2aac2043ae99a6e91ebdbac0ce115"
+    ],
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+  },
+  "handoff": "Vercel Studio should acquire a short microphone window only after explicit user permission, detect the existing 523.25 Hz diagnostic pulse, discard raw samples after analysis, and bind the result to the R-033 session packet. Run a muted-output control trial to establish falsifiability."
+}
