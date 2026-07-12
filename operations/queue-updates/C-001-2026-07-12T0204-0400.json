@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-12T02:04:00-04:00",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added and wired a fail-closed Cloudflare Pages deployment-branch validator before readiness probing and Wrangler invocation.",
+  "specialists_used": [
+    "Evidence Auditor",
+    "Provenance Engineer",
+    "Cloudflare Deployment Engineer"
+  ],
+  "files": [
+    "cloudflare-static/validate-deployment-branch.mjs",
+    "cloudflare-static/validate-deployment-branch.test.mjs",
+    ".github/workflows/cloudflare-pages-research.yml",
+    "operations/evidence/cloudflare-deployment-branch-validation-2026-07-12T0204-0400.json"
+  ],
+  "commits": [
+    "dff6c1bfc7c927f7e6364a627b596759552e2ba5",
+    "87d91a517fe6fbbf255874c069bcbd3c62d5afec",
+    "42a709d08871ae6c71f8247b561f3d078093695e",
+    "0940db18f870090e92d12a2552a6f3269a3eb0f5"
+  ],
+  "verification": "Three deterministic tests passed in an isolated Node.js runtime; workflow source inspection confirms validation runs before readiness and deployment.",
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch the workflow and capture a resolving immutable Pages URL bound to the exact commit.",
+  "next_action": "Run the integrated workflow with main after credentials are available, then verify served identity, exact commit, signature subject, trusted builder policy, and final acceptance artifact."
+}
