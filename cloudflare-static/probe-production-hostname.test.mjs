@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { probeProductionHostname } from './probe-production-hostname.mjs';
 
-const verifiedHtml = '<!doctype html><html><head><title>Mirror Cartographer Research</title></head><body><main data-research-surface="mirror-cartographer-research"><h1>Mirror Cartographer Research</h1></main></body></html>';
+const verifiedHtml = '<!doctype html><html><head><title>Mirror Cartographer Research Field</title></head><body><h1>Build theories that can survive contact with evidence.</h1><section>Theory instrument</section></body></html>';
 
 function response({ body = verifiedHtml, status = 200, url = 'https://mirror-cartographer-research.pages.dev/' } = {}) {
   return {
