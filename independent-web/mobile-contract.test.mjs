@@ -33,5 +33,16 @@ test('accessibility fallbacks remain present', () => {
   assert.match(html, /aria-pressed="false"/);
   assert.match(html, /prefers-reduced-motion:reduce/);
   assert.match(html, /keydown/);
+  assert.match(html, /keyup/);
   assert.match(html, /e\.code==='Space'/);
+});
+
+test('pressure release is observable, bounded, and available without sound', () => {
+  assert.match(html, /pressure: \$\{Math\.round\(pressure\*100\)\}%/);
+  assert.match(html, /function releasePressure\(\)/);
+  assert.match(html, /shockwaves\.push/);
+  assert.match(html, /Math\.min\(1,\(now-holdStarted\)\/1800\)/);
+  assert.match(html, /if\(force>\.12\)/);
+  assert.match(html, /if\(!audio\)return/);
+  assert.match(identity, /Release: convert accumulated pressure into a bounded shockwave/);
 });
