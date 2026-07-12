@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-005",
+  "claim_state": "observed",
+  "evidence_state": "test-verified",
+  "summary": "The prior evidence acceptance gate trusted caller-supplied booleans. Version 2 derives acceptance from the actual artifact bytes, envelope declaration, in-toto/SLSA subject digest, trusted-builder policy, expected source identity, and an explicit external signature-verifier report.",
+  "primary_sources": [
+    {
+      "url": "https://slsa.dev/spec/v1.2/verifying-artifacts",
+      "status": "approved specification",
+      "relevant_requirements": [
+        "verify the provenance envelope signature",
+        "verify the statement subject matches the artifact digest",
+        "compare builder identity, canonical source, buildType, and externalParameters against expectations",
+        "reject unrecognized externalParameters"
+      ]
+    },
+    {
+      "url": "https://in-toto.io/Statement/v1",
+      "status": "primary attestation specification",
+      "relevant_requirement": "the Statement subject identifies the attested artifact by name and digest"
+    }
+  ],
+  "finding": "A fail-closed gate must compute and compare bindings itself. Boolean fields such as subjectDigestMatches or builderTrusted are assertions, not verification evidence.",
+  "design_implication": "Cross-team workflows should pass artifact bytes, envelope, attestation, policy, expected source identity, and the result of an external cryptographic verifier into the acceptance gate. They should not pass pre-decided trust booleans.",
+  "artifacts": [
+    "tools/frontier-research/evidence-acceptance-gate.mjs",
+    "tools/frontier-research/evidence-acceptance-gate.test.mjs"
+  ],
+  "commits": [
+    "cbc181ea529416d0e445ca6c44a3ecd2d43da6e2",
+    "1643c7a02b1e61ff0f04fe30f5b5682e43ea3e79"
+  ],
+  "verification": {
+    "method": "isolated Node.js test run using byte-identical module and test logic",
+    "result": "5 passed, 0 failed",
+    "cases": [
+      "mutually bound evidence accepted",
+      "artifact byte mutation rejected",
+      "unverified signature rejected",
+      "undeclared envelope artifact rejected",
+      "unexpected source commit rejected"
+    ]
+  },
+  "limits": [
+    "The module does not perform cryptographic signature verification; it requires an external verifier result and records that boundary.",
+    "A passing provenance gate does not establish that a scientific, runtime, or deployment claim is true.",
+    "No GitHub Actions run was used for this isolated verification."
+  ],
+  "falsification_routes": [
+    "Alter one byte in the artifact while preserving the original attestation and confirm rejection.",
+    "Substitute a lookalike builder or repository and confirm policy rejection.",
+    "Provide a false signature-verifier result in an integration environment and demonstrate why authenticated verifier output is still required."
+  ]
+}
