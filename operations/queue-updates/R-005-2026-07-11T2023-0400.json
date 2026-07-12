@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Define and test an audibility evidence ladder that prevents browser render evidence from being promoted into physical-audibility proof.",
+    "dependencies": ["R-001"],
+    "required_evidence": ["primary standard", "committed classifier", "deterministic tests", "explicit falsification route"],
+    "status": "completed",
+    "progress": {
+      "primary_sources": ["https://www.w3.org/TR/webaudio/", "https://webkit.org/blog/6784/new-video-policies-for-ios/"],
+      "finding": "Render progress proves browser processing, not physical audibility; corroborated audibility requires declared destination routing plus an independent device meter or synchronized human report.",
+      "module": "tools/frontier-research/audibility-evidence-ladder.mjs",
+      "test": "tools/frontier-research/audibility-evidence-ladder.test.mjs",
+      "evidence": "operations/evidence/frontier-research-audibility-evidence-ladder-2026-07-11.json",
+      "commits": ["9d4c723b7a1fa83f1859caf7b26a4b117b9bb4eb", "1a8f911f4b4acce3948d23132c6f6b85743fabfa", "2d330994d8b2c6ed5bcb08fb4ed256e3696cc5fa"],
+      "verification": "4 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+    },
+    "handoff": "Vercel Studio should combine window.__MC_AUDIO_EVIDENCE__, destination-route state, and the iPhone audible or meter result through this classifier. A browser-rendered result must remain audibility-unproven until independent confirmation exists."
+  },
+  "coordination_note": "Append this owned record during the next safe ACTIVE_QUEUE reconciliation; do not overwrite concurrent team changes."
+}
