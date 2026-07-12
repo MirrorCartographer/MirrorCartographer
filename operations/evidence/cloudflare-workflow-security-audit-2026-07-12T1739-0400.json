@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T17:39:30-04:00",
+  "claim_state": "observed_and_locally_verified",
+  "evidence_strength": "implementation_ready_static_audit",
+  "sources": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    ".github/workflows/cloudflare-pages-research.yml",
+    "cloudflare-static/audit-cloudflare-workflow-contract.mjs",
+    "recent repository commits through 686478e51920a33b96a88f447bd2b1be3367f977"
+  ],
+  "finding": "The Cloudflare deployment workflow had a contract-alignment audit but no reusable fail-closed audit for trigger scope, exact permissions, production serialization, protected environment binding, or direct secret interpolation in shell commands.",
+  "implementation": {
+    "module": "cloudflare-static/audit-cloudflare-workflow-security.mjs",
+    "test": "cloudflare-static/audit-cloudflare-workflow-security.test.mjs",
+    "module_commit": "67d38b604f58f045b041a86f1bbb4eb3a6256f22",
+    "test_commit": "6e727e3a962c8f484a819ab910235fb1ec6e2de3"
+  },
+  "workflow_source_observations": {
+    "manual_dispatch_present": true,
+    "permissions": {
+      "contents": "read",
+      "deployments": "write",
+      "id-token": "write",
+      "attestations": "write"
+    },
+    "concurrency_group": "cloudflare-research-production",
+    "cancel_in_progress": false,
+    "github_environment": "cloudflare-research",
+    "secret_values_read": false,
+    "secret_values_emitted": false
+  },
+  "verification": {
+    "command": "node --test audit-cloudflare-workflow-security.test.mjs",
+    "runtime": "isolated local Node runtime using byte-identical committed source and test content",
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "safe intended posture",
+      "automatic pull request trigger rejection",
+      "expanded permission rejection",
+      "direct secret interpolation rejection",
+      "exact action commit pin recognition"
+    ]
+  },
+  "advisory": {
+    "code": "floating_action_refs",
+    "status": "open",
+    "implication": "Major-version action tags are mutable references. Exact commit pins would improve supply-chain reproducibility, but pinning was not performed without current verified upstream commit identities."
+  },
+  "privacy_boundary": "Static public repository workflow source and contract metadata only. No credentials, private chat, health information, or secret values were read or recorded.",
+  "limits": [
+    "No live Cloudflare deployment occurred.",
+    "No GitHub environment protection rules or secret existence were observable.",
+    "Credential validity and Cloudflare authorization remain unproved.",
+    "The new audit is not yet wired into the deployment workflow gate.",
+    "Static source checks cannot establish action integrity or deployment success."
+  ],
+  "falsification_route": "Wire the audit into CI, then alter one protected property at a time. Any automatic trigger, expanded permission, missing concurrency serialization, wrong environment, or shell-level secret interpolation that still returns security_contract_satisfied falsifies the audit."
+}
