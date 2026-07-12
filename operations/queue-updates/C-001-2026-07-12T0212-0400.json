@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T02:12:19-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added a credential-free production-hostname probe and fail-closed GitHub Actions monitor for https://mirror-cartographer-research.pages.dev/.",
+  "progress": {
+    "hostname_probe": "cloudflare-static/probe-production-hostname.mjs",
+    "hostname_probe_test": "cloudflare-static/probe-production-hostname.test.mjs",
+    "hostname_monitor_workflow": ".github/workflows/cloudflare-production-hostname-monitor.yml",
+    "evidence": "operations/evidence/cloudflare-production-hostname-monitor-2026-07-12T0212-0400.json",
+    "commits": [
+      "b3db975a1cd84936cf956ad47e98bcc5d7819a3e",
+      "f25ca983e8c22b7c603fdee59dd4e56bb7e0629b",
+      "6258fc0695274d9656a4df51a8ad730621eeb89f",
+      "3722c3b92465be6e40ed2263e16cc7beb0ecbdc6",
+      "afbec29cb6b3979c13f99eaa0b7a040f246f0825"
+    ],
+    "verification": "4 isolated deterministic Node tests passed; no workflow run or live hostname acceptance is claimed."
+  },
+  "remaining": [
+    "Observe a successful hostname-monitor workflow artifact classifying the stable URL as research_surface_verified.",
+    "Configure and verify CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research environment.",
+    "Run the deployment workflow and bind the resolving stable hostname to the exact deployed source commit and accepted provenance packet."
+  ],
+  "non_overwrite_note": "This append-only queue update does not replace operations/ACTIVE_QUEUE.json or another team's records."
+}
