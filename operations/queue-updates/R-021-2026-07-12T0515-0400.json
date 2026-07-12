@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-021",
+  "owner": "frontier_research",
+  "priority_basis": "No active Frontier-owned item remained in ACTIVE_QUEUE.json. Selected the highest unresolved evidence gap after R-020: prevent same-document history restoration from combining pre-freeze and post-restore Event Timing evidence under one navigation identity.",
+  "status": "completed_with_runtime_handoff",
+  "finding": "A persisted pageshow requires a newly rotated opaque evidence epoch before Event Timing replay or coverage interpretation resumes.",
+  "files": [
+    "tools/frontier-research/event-timing-evidence-epoch.mjs",
+    "tools/frontier-research/event-timing-evidence-epoch.test.mjs",
+    "operations/evidence/frontier-research-event-timing-evidence-epoch-2026-07-12.json"
+  ],
+  "commits": [
+    "54c2bba18ba22ed70b893cdcfc25af56a839301b",
+    "24c51642a4af7012722bb6dede38943cb5f5312c",
+    "35e129903a4239ae168d7414708261e45b8e3f9e"
+  ],
+  "verification": {
+    "unit_tests": "6 passed, 0 failed",
+    "runtime_verification": "not performed; deployed collector does not yet emit evidenceEpochId"
+  },
+  "canonical_queue_mutation": "none; no other team's queue state was overwritten",
+  "specialist_registry_change": "none",
+  "deletion": "none",
+  "handoff": "Vercel Studio should rotate evidenceEpochId and clear replay and coverage accumulators on pageshow.persisted === true, then pass lifecycle evidence through this gate before the R-020 same-navigation gate. Test fresh navigation, reload, non-restored history navigation, persisted restoration, and repeated back-forward restoration on physical Safari."
+}
