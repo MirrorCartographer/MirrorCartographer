@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-12T22:21:27Z",
+  "owner": "continuity_mining",
+  "privacy_boundary": "Public repository files and commit metadata only; no raw chat, health, credential, contact, or unreviewed upload content.",
+  "memory_slice": {
+    "id": "M-002",
+    "title": "Cloudflare security progress exists beyond the canonical queue snapshot",
+    "status": "completed",
+    "records": [
+      {
+        "id": "CM-0010",
+        "kind": "decision",
+        "claim_state": "observed",
+        "evidence_strength": "corroborated_repository_sources",
+        "summary": "Cloudflare research adopted a reviewed immutable Action pin plan containing exact 40-character commits for four third-party Actions while explicitly preserving the limit that pinning controls tag drift but does not prove upstream safety.",
+        "sources": [
+          {"type": "github_commit", "locator": "912759e6ee16a734ae31a2bf110d84d55ad4d116", "content_sha": "912759e6ee16a734ae31a2bf110d84d55ad4d116", "observed_at": "2026-07-12T22:21:27Z"},
+          {"type": "github_commit", "locator": "c6cd508ff9159411059d40ce4d5e3350d159f62c", "content_sha": "c6cd508ff9159411059d40ce4d5e3350d159f62c", "observed_at": "2026-07-12T22:21:27Z"}
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [],
+        "falsification_or_review_route": "Fetch both commits and verify the manifest entries, exact SHAs, reviewed status, and explicit safety limits."
+      },
+      {
+        "id": "CM-0011",
+        "kind": "contradiction",
+        "claim_state": "observed",
+        "evidence_strength": "corroborated_repository_sources",
+        "summary": "The canonical operations/ACTIVE_QUEUE.json blob abb807e1a25d399f301238f6b8cc26d6be10385f does not contain the later Cloudflare pin-plan, parser-hardening, applicator, test, evidence, or queue-update commits created on 2026-07-12. This is a temporal state divergence, not proof that either source is false.",
+        "sources": [
+          {"type": "github_file", "locator": "operations/ACTIVE_QUEUE.json", "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f", "observed_at": "2026-07-12T22:21:27Z"},
+          {"type": "github_commit", "locator": "7dac75c248ab1038126db099d284078ca2303d2f", "content_sha": "7dac75c248ab1038126db099d284078ca2303d2f", "observed_at": "2026-07-12T22:21:27Z"},
+          {"type": "github_commit", "locator": "cb8fa2c40982b821b984f3427206464664c0d058", "content_sha": "cb8fa2c40982b821b984f3427206464664c0d058", "observed_at": "2026-07-12T22:21:27Z"},
+          {"type": "github_commit", "locator": "0ea8794db139e9147d860a484e6fd639c4893cd9", "content_sha": "0ea8794db139e9147d860a484e6fd639c4893cd9", "observed_at": "2026-07-12T22:21:27Z"}
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": ["CM-0008-current-progress-interpretation"],
+        "supersedes": [],
+        "falsification_or_review_route": "Compare the exact queue blob with the listed later commits. Resolve only by a canonical queue refresh that incorporates or explicitly rejects those commits."
+      },
+      {
+        "id": "CM-0012",
+        "kind": "unresolved_question",
+        "claim_state": "unresolved",
+        "evidence_strength": "corroborated_repository_sources",
+        "summary": "It remains unresolved whether the reviewed pin plan has been applied to every relevant workflow on the canonical branch and whether the resulting workflows pass GitHub Actions. Commit existence and local deterministic tests are insufficient to prove deployed workflow state.",
+        "sources": [
+          {"type": "github_commit", "locator": "e6e8b434f86f5b55722393643a752da4a661797f", "content_sha": "e6e8b434f86f5b55722393643a752da4a661797f", "observed_at": "2026-07-12T22:21:27Z"},
+          {"type": "github_commit", "locator": "337992755b883ec4d26f85ad161322ee9dc0f043", "content_sha": "337992755b883ec4d26f85ad161322ee9dc0f043", "observed_at": "2026-07-12T22:21:27Z"},
+          {"type": "github_commit", "locator": "7dac75c248ab1038126db099d284078ca2303d2f", "content_sha": "7dac75c248ab1038126db099d284078ca2303d2f", "observed_at": "2026-07-12T22:21:27Z"}
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [],
+        "falsification_or_review_route": "Fetch current workflow files from the canonical branch, confirm all remote Actions use approved exact SHAs, then retain successful workflow-run evidence bound to the tested commit."
+      }
+    ]
+  }
+}
