@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-005",
+  "status": "implemented_and_locally_verified",
+  "primary_sources": [
+    {
+      "url": "https://cli.github.com/manual/gh_attestation_verify",
+      "status": "official_current_manual",
+      "finding": "Successful --format=json output separates signature.certificate and verifiedTimestamps from statement.predicate; only the certificate and verified timestamps are identified as non-manipulable by the originating workflow."
+    },
+    {
+      "url": "https://docs.sigstore.dev/about/bundle/",
+      "status": "official_specification_documentation",
+      "finding": "A verification bundle carries signed material and transparency evidence, but application trust policy and claim interpretation remain separate verifier responsibilities."
+    }
+  ],
+  "design_implication": "Evidence pipelines must preserve a hard data boundary between cryptographically established facts and workflow-controlled statement content. A verified signature must not upgrade deployment, scientific, medical, or peer-execution claims to true.",
+  "artifact": {
+    "module": "tools/frontier-research/cryptographic-boundary-receipt.mjs",
+    "test": "tools/frontier-research/cryptographic-boundary-receipt.test.mjs",
+    "commits": [
+      "5f0befa95d3cd7d275c870a6970feea2e3c22cc4",
+      "48b3762ff6ff4643579096dc2ff211b8a63cf7d3"
+    ]
+  },
+  "verification": {
+    "route": "node --test cryptographic-boundary-receipt.test.mjs in isolated local runtime using byte-identical source before commit",
+    "result": "4 passed, 0 failed",
+    "cases": [
+      "cryptographic facts separated from workflow-controlled claims",
+      "ambiguous verification cardinality rejected",
+      "missing verified timestamps rejected",
+      "subject digest mismatch rejected"
+    ]
+  },
+  "evidence_strength": "deterministic_contract_test",
+  "uncertainty": "The fixture models the documented gh JSON shape but has not yet been exercised against a live repository attestation output in GitHub Actions.",
+  "falsification_route": "Run gh attestation verify --format=json on a real evidence artifact, feed the exact output to the builder, and reject or revise the contract if documented certificate, timestamp, or subject fields are not preserved as expected.",
+  "privacy_boundary": "No private chat, health data, credentials, or identifying personal material included."
+}
