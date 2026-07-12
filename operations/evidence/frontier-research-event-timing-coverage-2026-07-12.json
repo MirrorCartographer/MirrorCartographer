@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-018",
+  "owner": "frontier_research",
+  "source_status": "current_primary_working_draft",
+  "primary_sources": [
+    {
+      "url": "https://www.w3.org/TR/event-timing/",
+      "published": "2026-03-19",
+      "status": "W3C Working Draft",
+      "relevant_facts": [
+        "Buffered Event Timing entries use the default 104 ms threshold.",
+        "A custom durationThreshold applies to future observations and is clamped to a minimum of 16 ms.",
+        "interactionId groups related event entries, while interactionCount counts distinct interactions."
+      ]
+    }
+  ],
+  "finding": "Absence of buffered or threshold-filtered Event Timing entries is generally partial evidence, not proof that no interaction occurred or that responsiveness was good.",
+  "design_implication": "Replay and responsiveness systems must carry observer mode, threshold, observer start completeness, interaction-count availability, and count relationships before interpreting missing entries.",
+  "artifact": "tools/frontier-research/event-timing-coverage-gate.mjs",
+  "test": "tools/frontier-research/event-timing-coverage-gate.test.mjs",
+  "verification": {
+    "command": "node --test tools/frontier-research/event-timing-coverage-gate.test.mjs",
+    "environment": "isolated local Node.js runtime using byte-identical pre-commit files",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0
+  },
+  "evidence_strength": "standards-linked deterministic contract",
+  "uncertainty": [
+    "The Event Timing specification is a Working Draft and may change.",
+    "Browser support and delivery behavior were not measured on a physical iPhone in this run.",
+    "A complete observation window does not prove every meaningful user action produces an Event Timing interaction."
+  ],
+  "falsification_route": [
+    "Reject the gate if a conforming implementation permits live durationThreshold values below 16 ms.",
+    "Reject the absence rule if buffered retrieval is standardized to include all sub-104 ms event entries.",
+    "Use physical browser packets to test whether the declared observer window and interactionCount behavior match runtime observations."
+  ],
+  "privacy_boundary": "No target selectors, DOM text, private chat, health material, credentials, or identifying user data are stored."
+}
