@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-008",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Recover and preserve the WebDriver BiDi browser-verification decision correction as linked superseded, observed, inferred, and unresolved claims.",
+  "dependencies": ["M-007", "R-006"],
+  "required_evidence": [
+    "provenance-preserving decision-evolution artifact",
+    "explicit supersession linkage",
+    "privacy-boundary review",
+    "unresolved falsification route"
+  ],
+  "progress": {
+    "artifact": "operations/continuity/decision-evolution-webdriver-bidi-transcript-2026-07-11.json",
+    "artifact_commit": "2b7aaf5fc1c4db2c9abf3fe16688305330424361",
+    "evidence": "operations/evidence/continuity-decision-evolution-webdriver-bidi-2026-07-11T2121-0400.json",
+    "evidence_commit": "3bb8c8e2742f5c124ba30a6d93d9dff80c7ed80f",
+    "memory": "The project corrected browser-verification semantics from one flat method transcript to separate ordered browser events and command responses correlated by stable ids, while changing screenshot integrity to decoded image bytes.",
+    "claim_states": {
+      "superseded": "flat transcript semantics",
+      "observed": "v2 event and command-response separation",
+      "inferred": "downstream adapters emitting synthetic command events are incompatible",
+      "unresolved": "no retained live-browser transcript has yet proven lossless normalization"
+    },
+    "verification": "Artifact and evidence JSON were accepted by the repository contents API and structurally reviewed; source identities and privacy exclusions are explicit."
+  },
+  "specialists_used": [
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor",
+    "Chat Archaeologist"
+  ],
+  "specialist_registry_change": "none",
+  "completed_at": "2026-07-11T21:21:55-04:00",
+  "handoff": "Inspect Cloudflare and Vercel browser adapters for synthetic script.evaluate or captureScreenshot events. Preserve any incompatible implementation as an observed historical record, then add a linked corrected implementation record rather than overwriting it."
+}
