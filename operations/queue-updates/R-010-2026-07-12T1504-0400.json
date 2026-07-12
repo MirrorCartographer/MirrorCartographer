@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-010",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Define a deny-by-default multi-witness acceptance policy for authenticated peer-trigger checkpoints.",
+    "dependencies": ["R-009"],
+    "required_evidence": [
+      "primary sources",
+      "committed policy evaluator",
+      "adversarial quorum tests",
+      "explicit trust limits",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://www.rfc-editor.org/rfc/rfc8032.html",
+        "https://www.rfc-editor.org/rfc/rfc9162.html",
+        "https://github.com/transparency-dev/witness/blob/main/README.md"
+      ],
+      "finding": "Authenticated checkpoints need a separate policy requiring unique trusted witnesses, freshness, signature verification, quorum agreement, and fail-closed equivocation handling.",
+      "module": "tools/frontier-research/multi-witness-quorum.mjs",
+      "test": "tools/frontier-research/multi-witness-quorum.test.mjs",
+      "evidence": "operations/evidence/frontier-multi-witness-quorum-2026-07-12.json",
+      "commits": [
+        "41781ab27b18745f27f82fd6b1ffdf1afc27ae3a",
+        "c249ce4d4257411e39d85af34e86f4bf4218fcd8",
+        "12ab3bd04bd66b58576bff68adbb3b998a946a1e"
+      ],
+      "verification": "4 deterministic Node tests passed in an isolated runtime using byte-identical artifact content.",
+      "evidence_strength": "implementation_tested_locally"
+    },
+    "handoff": "Next Frontier slice should authenticate witness records themselves, add key rotation and revocation policy, and emit a portable equivocation packet suitable for cross-team evidence bundles."
+  },
+  "shared_state_rule": "This additive record does not overwrite operations/ACTIVE_QUEUE.json or another team's state."
+}
