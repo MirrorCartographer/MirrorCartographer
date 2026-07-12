@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "observed": [
+    "The Cloudflare deployment workflow now runs cloudflare-static/evaluate-signer-authorization.test.mjs inside the deployment evidence contract gate.",
+    "The source update committed successfully as 4a724d4746cc48139b5d75e548657778dc08e003.",
+    "No exact-commit GitHub Actions run or resolving Cloudflare deployment was observed in this cycle."
+  ],
+  "inferred": [
+    "Future workflow changes that break the exact-scope signer authorization adapter can now fail before deployment evidence is accepted, once the workflow is dispatched."
+  ],
+  "proposed": [
+    "Extend normalized GitHub attestation output with authenticated signer fingerprints and certificate-derived workflow identity.",
+    "Generate a deny-by-default signer policy input and require authorization before build-evidence-acceptance.",
+    "Dispatch the workflow after the cloudflare-research environment contains valid Cloudflare credentials."
+  ],
+  "unresolved": [
+    "Cloudflare environment credentials and resolving production hostname.",
+    "Authenticated signer fingerprint extraction.",
+    "Runtime authorization integration and exact-commit CI evidence."
+  ],
+  "artifacts": [
+    ".github/workflows/cloudflare-pages-research.yml",
+    "operations/evidence/cloudflare-workflow-signer-gate-2026-07-12T0350Z.json"
+  ],
+  "commits": [
+    "4a724d4746cc48139b5d75e548657778dc08e003",
+    "e3dbdce2141f61be35a73d3d40c0ee717605b1f1"
+  ],
+  "next_action": "Build a deterministic adapter from gh attestation verification output to the signer-authorization input schema, with certificate-identity and fingerprint tests, then wire its authorized result into the acceptance invariant.",
+  "updated_at": "2026-07-12T03:50:00Z"
+}
