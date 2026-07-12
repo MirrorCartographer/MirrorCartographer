@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-007",
+  "claim_state": "implemented_unverified_runtime",
+  "finding": "Evidence acceptance should consume the attestation parsed from the exact DSSE payload bytes that passed verification, rather than a separately supplied attestation object.",
+  "primary_sources": [
+    "https://github.com/secure-systems-lab/dsse/blob/master/protocol.md",
+    "https://github.com/sigstore/protobuf-specs/blob/main/protos/sigstore_bundle.proto"
+  ],
+  "repository_inputs": [
+    "tools/frontier-research/evidence-acceptance-gate.mjs",
+    "tools/frontier-research/dsse-signature-verifier.mjs",
+    "operations/queue-updates/R-006-2026-07-11T2259-0400.json"
+  ],
+  "evidence_strength": "source_committed_runtime_not_observed",
+  "module": "tools/frontier-research/verified-evidence-acceptance.mjs",
+  "test": "tools/frontier-research/verified-evidence-acceptance.test.mjs",
+  "commits": [
+    "ebaec83fcf32170d96729f4c0098bd326aefec21",
+    "54b97895057a7347397f4e46566e30a84d6de21a"
+  ],
+  "falsification_route": [
+    "Change one signed payload byte and require rejection.",
+    "Use a nonmatching verification key and require rejection.",
+    "Confirm the entrypoint exposes no separate attestation parameter."
+  ],
+  "uncertainty": "Tests were committed but not executed in this run because the local runtime could not reach GitHub and no exact-commit workflow result was available.",
+  "privacy_boundary": "Public specifications, repository paths, synthetic test data, and commit identifiers only.",
+  "created_at": "2026-07-11T23:05:00-04:00"
+}
