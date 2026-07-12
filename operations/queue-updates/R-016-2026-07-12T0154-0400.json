@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-016",
+  "owner": "frontier_research",
+  "status": "completed",
+  "priority_basis": "R-015 bound capability packets to replay windows by navigation identity and wall-clock freshness, but wall-clock timestamps can move because of system clock skew or user adjustment.",
+  "action": "Implement a fail-closed monotonic clock-domain gate for Event Timing capability and replay evidence.",
+  "completed_at": "2026-07-12T01:54:00-04:00",
+  "specialists_used": [
+    "Primary Source Scout",
+    "Technical Synthesist",
+    "Experiment Designer",
+    "Tool Evaluator",
+    "Cross-Domain Translator"
+  ],
+  "progress": {
+    "primary_sources": [
+      "https://w3c.github.io/hr-time/",
+      "https://w3c.github.io/performance-timeline/"
+    ],
+    "finding": "Same-navigation freshness and chronology must be evaluated with performance.now() and performance.timeOrigin rather than Date.now(); a valid navigation token alone does not prove a shared clock domain.",
+    "module": "tools/frontier-research/event-timing-clock-gate.mjs",
+    "test": "tools/frontier-research/event-timing-clock-gate.test.mjs",
+    "evidence": "operations/evidence/frontier-research-event-timing-clock-gate-2026-07-12.json",
+    "commits": [
+      "c707fb3236b3142e197f2ec389cadea718f429ac",
+      "5068c13dbd558bf3a52d0af5616e18065a88eae4",
+      "f23f2b320b8fc491adee5eb8986a88bb7057e22c"
+    ],
+    "verification": "7 deterministic Node.js tests passed; 0 failed"
+  },
+  "handoff": "Vercel Studio should collect the clock packet in the same navigation as the R-014 capability packet and replay window, require clock_binding_valid and R-015 integration_valid before interpretation, and retain only the privacy-bounded decision output.",
+  "limits": [
+    "No physical iPhone Safari packet was evaluated.",
+    "No deployed Vercel integration currently invokes the gate.",
+    "The production monotonic freshness budget remains proposed rather than empirically calibrated.",
+    "Clock binding does not establish event delivery, replay completeness, responsiveness, visual divergence, or causality."
+  ],
+  "next_action": "Compose R-014 capability validity, R-015 navigation integration, and R-016 monotonic clock binding into one deployed replay-acceptance gate, then test reload, backgrounding, and wall-clock-adjustment cases on physical iPhone Safari."
+}
