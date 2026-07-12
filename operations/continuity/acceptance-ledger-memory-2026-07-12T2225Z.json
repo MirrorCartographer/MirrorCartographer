@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-12T22:25:55Z",
+  "owner": "continuity_mining",
+  "privacy_boundary": "Public repository files and commit metadata only; no raw chat, health, pet-health, credentials, contact data, account identifiers, or unreviewed uploads.",
+  "memory_slice": {
+    "id": "M-003",
+    "title": "One-time acceptance requires persistent atomic consumption, not validation alone",
+    "status": "completed",
+    "records": [
+      {
+        "id": "CM-0013",
+        "kind": "decision",
+        "claim_state": "observed",
+        "evidence_strength": "corroborated_repository_sources",
+        "summary": "Frontier Research introduced a filesystem-backed acceptance ledger that consumes opaque acceptance identifiers under an exclusive lock, writes through atomic rename, retains entries for a bounded interval, and rejects a repeated identifier while it remains retained.",
+        "sources": [
+          {"type": "github_commit", "locator": "373ded43541e90d015264253a6e8ab2fe064544d", "content_sha": "373ded43541e90d015264253a6e8ab2fe064544d", "observed_at": "2026-07-12T22:25:55Z"},
+          {"type": "github_commit", "locator": "f8bd8b030877b7f04e6e03189e84d77b219a2daf", "content_sha": "f8bd8b030877b7f04e6e03189e84d77b219a2daf", "observed_at": "2026-07-12T22:25:55Z"}
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [],
+        "falsification_or_review_route": "Fetch both commits and verify exclusive-create locking, atomic rename, replay rejection, expiry behavior, deterministic bounds, malformed-state fail-closed behavior, and the eight-consumer race test."
+      },
+      {
+        "id": "CM-0014",
+        "kind": "language_evolution",
+        "claim_state": "inferred",
+        "evidence_strength": "corroborated_repository_sources",
+        "summary": "Within the project evidence vocabulary, 'accepted' has evolved from a validator result into a state transition that must be durably consumed. This narrows the permissible meaning of acceptance: structural validity can authorize an attempt, but only persistent one-time consumption can support a replay-resistance claim.",
+        "sources": [
+          {"type": "github_commit", "locator": "373ded43541e90d015264253a6e8ab2fe064544d", "content_sha": "373ded43541e90d015264253a6e8ab2fe064544d", "observed_at": "2026-07-12T22:25:55Z"},
+          {"type": "github_commit", "locator": "0d5be790080251b8e071dd78027f064b0e06fe18", "content_sha": "0d5be790080251b8e071dd78027f064b0e06fe18", "observed_at": "2026-07-12T22:25:55Z"}
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [],
+        "falsification_or_review_route": "Review the implementation and handoff commit. Reject this inference if later project artifacts continue to treat stateless validation alone as replay-resistant acceptance."
+      },
+      {
+        "id": "CM-0015",
+        "kind": "unresolved_question",
+        "claim_state": "unresolved",
+        "evidence_strength": "corroborated_repository_sources",
+        "summary": "Repository evidence does not yet establish that every production acceptance path invokes the persistent ledger before reporting success, that the ledger path is durable across the target hosting lifecycle, or that stale lock recovery is handled after process termination. Local tests prove module behavior under the tested filesystem model, not production integration or crash recovery.",
+        "sources": [
+          {"type": "github_commit", "locator": "373ded43541e90d015264253a6e8ab2fe064544d", "content_sha": "373ded43541e90d015264253a6e8ab2fe064544d", "observed_at": "2026-07-12T22:25:55Z"},
+          {"type": "github_commit", "locator": "f8bd8b030877b7f04e6e03189e84d77b219a2daf", "content_sha": "f8bd8b030877b7f04e6e03189e84d77b219a2daf", "observed_at": "2026-07-12T22:25:55Z"}
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [],
+        "falsification_or_review_route": "Trace all acceptance-success call sites, verify ledger invocation precedes success, run restart and abrupt-termination tests on the actual hosting filesystem, and retain evidence for stale-lock recovery or an explicit bounded-lock lease design."
+      }
+    ]
+  }
+}
