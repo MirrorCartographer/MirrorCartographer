@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T13:21:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": {
+    "name": "exact triggering-commit evidence gate",
+    "merge_commit": "8833300c22cde3e72d21d406599cd1ca09de15a0",
+    "evidence": "operations/evidence/cloudflare-exact-checkout-contract-2026-07-12T1321-0400.json",
+    "verification": "GitHub Actions job 86674350763 reported success for checkout binding and both evidence contract suites"
+  },
+  "remaining_blocker": "Configure valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research environment and dispatch the deployment workflow.",
+  "next_action": "Observe the post-merge contract workflow, then dispatch the Cloudflare Pages workflow only when environment access is available; retain either a complete unavailable-evidence bundle or a resolving URL bound to the served commit."
+}
