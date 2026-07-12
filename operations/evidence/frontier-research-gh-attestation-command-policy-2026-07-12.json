@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-006",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-12T00:23:25-04:00",
+  "claim_state": "observed",
+  "evidence_strength": "deterministic_unit_test_plus_primary_documentation",
+  "primary_sources": [
+    {
+      "url": "https://cli.github.com/manual/gh_attestation_verify",
+      "status": "current_official_documentation",
+      "finding": "Verification security depends on precise actor identity constraints; GitHub recommends repository plus signer workflow identity, supports exact source digest and predicate type constraints, emits machine-readable JSON, and can deny self-hosted runners."
+    },
+    {
+      "url": "https://slsa.dev/spec/v1.2/verifying-artifacts",
+      "status": "primary_specification",
+      "finding": "Artifact verification requires policy evaluation over provenance and expected build identity rather than accepting provenance structure alone."
+    }
+  ],
+  "finding": "A cryptographic receipt must not merely record a free-form verifier command. The command itself should be constructed and assessed under a deny-by-default policy requiring exact repository, signer workflow, immutable source commit, predicate type, JSON output, and rejection of self-hosted runners for this trust profile.",
+  "design_implication": "Cloudflare and Vercel evidence workflows should generate gh attestation verify arguments through this module before invoking the CLI, then pass only accepted verification output into the R-005 cryptographic boundary receipt.",
+  "artifacts": {
+    "module": "tools/frontier-research/gh-attestation-command-policy.mjs",
+    "test": "tools/frontier-research/gh-attestation-command-policy.test.mjs",
+    "commits": [
+      "74052ca365df7f679cfc1513c6542ae39f37245a",
+      "cc469b0c47e592c6893ccb26da31d3753b5266e9"
+    ]
+  },
+  "verification": {
+    "runtime": "Node.js built-in test runner",
+    "result": "4 passed, 0 failed",
+    "cases": [
+      "exact deny-by-default verifier arguments accepted",
+      "owner-only under-scoped policy rejected",
+      "mutable or malformed source identity rejected",
+      "signer workflow outside repository path rejected"
+    ]
+  },
+  "falsification_route": "Demonstrate that the builder accepts an invocation lacking any required identity constraint, accepts a mutable source ref instead of a 40-character commit SHA, or accepts a signer workflow outside the expected repository workflow path.",
+  "trust_limit": "This policy constrains verifier invocation inputs. It does not prove workflow-controlled predicate content, deployment success, scientific validity, medical truth, or peer execution.",
+  "privacy": "public_repository_metadata_and_public_standards_only"
+}
