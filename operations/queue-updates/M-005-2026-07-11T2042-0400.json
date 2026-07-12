@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-005",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Model canonical-snapshot versus append-only current-state divergence without overwriting historical sources.",
+  "selected_from": {
+    "canonical_item": "M-001",
+    "canonical_status": "completed",
+    "handoff_chain": [
+      "Add commit and decision-history records",
+      "Model contradictions as linked records rather than overwriting earlier observations",
+      "Materialize a deterministic continuity-owned current view",
+      "Prove completeness through repository-wide enumeration"
+    ],
+    "selection_reason": "No active continuity-owned item remained in the canonical queue; the highest-priority unresolved continuity handoff was the unmodeled divergence between the stale canonical snapshot and newer append-only updates."
+  },
+  "completed_at": "2026-07-12T00:42:12Z",
+  "artifact": "operations/continuity/state-divergence-ledger-2026-07-11.json",
+  "artifact_commit": "0fb916ced4d06acf441a0db543cd777626a29599",
+  "memory_recovered": "The repository uses two state layers: a historical canonical snapshot and newer append-only team updates. Their differing views are representational divergence, not automatically a logical contradiction.",
+  "contradictions_resolved": [
+    {
+      "apparent_conflict": "ACTIVE_QUEUE.json appears to omit completed continuity items M-002 through M-004.",
+      "resolution": "The canonical file is an older snapshot; append-only records and the derived current-view manifest extend present-state interpretation without invalidating the older historical record.",
+      "remaining_unresolved": "Completeness of the replay set is not yet proven by a full repository-tree enumeration."
+    }
+  ],
+  "claim_states": {
+    "observed": ["canonical snapshot identity and timestamp", "later continuity current-view manifest"],
+    "inferred": ["single-source consumers can report stale state"],
+    "proposed": ["repository-tree enumerator and deterministic reducer"],
+    "superseded": [],
+    "unresolved": ["complete enumeration of all continuity-owned queue updates"]
+  },
+  "verification": {
+    "method": "Cross-read ACTIVE_QUEUE.json, continuity-index.json, current-view manifest commit, and recent repository commits.",
+    "result": "The divergence is directly observable and is represented without mutating either source layer.",
+    "falsification_route": "Show that ACTIVE_QUEUE.json already incorporates every later continuity update, or show that the cited current-view manifest does not contain M-002 through M-004."
+  },
+  "privacy_boundary": "Only public repository metadata and abstract queue-state claims were retained. Raw chat, health material, credentials, personal identifiers, and unreviewed uploads remain excluded.",
+  "specialists_used": ["Decision Historian", "Contradiction Resolver", "Privacy Boundary Auditor"],
+  "registry_change": "none",
+  "next_action": "Implement and test a complete repository-tree enumerator that discovers continuity-owned queue updates and reduces them into a deterministic current view."
+}
