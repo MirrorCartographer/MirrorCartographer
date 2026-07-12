@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T12:05:57-04:00",
+  "improvement": "Independent fail-closed verification of the Cloudflare deployment evidence manifest.",
+  "artifacts": {
+    "validator": "cloudflare-static/verify-deployment-evidence-manifest.mjs",
+    "test": "cloudflare-static/verify-deployment-evidence-manifest.test.mjs",
+    "commits": [
+      "54b494b4c264c76453b2e40b1ef448b9b0933599",
+      "72136f7e7a15ba4dcb05cacfeaffd116258abb6a"
+    ]
+  },
+  "verified_behavior": {
+    "route": "isolated Node runtime using byte-identical source",
+    "command": "node --test verify-deployment-evidence-manifest.test.mjs",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      "accept exact complete byte-bound manifest",
+      "detect artifact byte tampering",
+      "detect source commit and workflow run substitution",
+      "reject missing, extra, reordered, or manifest-digest-altered evidence entries"
+    ]
+  },
+  "claim_state": "observed",
+  "evidence_strength": "deterministic source behavior; not deployment evidence",
+  "privacy_boundary": "Contains repository paths, commit identifiers, abstract verification results, and no credentials, private chat, health material, or secret values.",
+  "limits": [
+    "The verifier is not yet wired into the authoritative deployment workflow.",
+    "No Cloudflare Pages deployment or resolving URL was produced.",
+    "Digest integrity proves byte identity, not scientific truth or trusted authorship."
+  ],
+  "falsification_route": "Alter one packet byte, source commit, run identifier, evidence set, ordering, or manifest digest and confirm the verifier exits non-zero."
+}
