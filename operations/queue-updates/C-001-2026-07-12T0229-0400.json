@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T02:29:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_progress": {
+    "workflow": ".github/workflows/cloudflare-pages-project-discovery.yml",
+    "workflow_commit": "84ced1d6ef75fc0d34ac7b1d524ae23cf7968880",
+    "evidence": "operations/evidence/cloudflare-project-surface-binding-2026-07-12T0229-0400.json",
+    "behavior": "Cloudflare-returned canonical project URL is now the sole hostname input to the research-surface probe, and project plus served identity are bound into one fail-closed evidence artifact."
+  },
+  "remaining": [
+    "configure or verify CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research environment",
+    "dispatch the discovery workflow and obtain project_and_served_surface_verified evidence",
+    "run the deployment workflow and bind the exact deployed commit through provenance and trusted-builder validation"
+  ],
+  "non_claims": [
+    "No successful Cloudflare workflow run is claimed.",
+    "No resolving public hostname is claimed.",
+    "No deployment or exact served commit is claimed.",
+    "No diagnosis or treatment claim was published."
+  ]
+}
