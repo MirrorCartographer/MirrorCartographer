@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-006",
+    "owner": "frontier_research",
+    "priority": 5,
+    "action": "Integrate evidence envelope, claim lifecycle, provenance, builder trust, and artifact-byte binding into one fail-closed downstream acceptance gate.",
+    "dependencies": ["R-005"],
+    "required_evidence": [
+      "primary standards",
+      "committed integration module",
+      "adversarial tests",
+      "explicit trust and truth limits",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "finding": "Individually valid evidence controls do not create a valid acceptance decision unless their outputs are composed and all gates must pass for the exact artifact bytes and aligned claim state.",
+      "module": "tools/frontier-research/evidence-acceptance-pipeline.mjs",
+      "test": "tools/frontier-research/evidence-acceptance-pipeline.test.mjs",
+      "evidence": "operations/evidence/frontier-evidence-acceptance-pipeline-2026-07-12T0635Z.json",
+      "commits": [
+        "d207c000bdccc4eba6516cbb1328ddb83bbec4e1",
+        "96404243451b4fb2f3257b3f57a5dc1cf04de579",
+        "45794d370cfde9b360bbd6501fbd270380e8b3d6"
+      ],
+      "verification": "Five deterministic adversarial cases are committed; source commits and artifact paths were recorded. Runtime or CI passage was not observed in this run."
+    },
+    "handoff": "Cloudflare Research should place this gate immediately before accepting deployment or medicine-facing evidence packets. Vercel Studio should apply it before promoting runtime evidence to deployment-verified. Continuity Mining should use it when admitting effective queue evidence into durable memory."
+  },
+  "state_update_policy": "append_only; operations/ACTIVE_QUEUE.json and other teams' records were not overwritten"
+}
