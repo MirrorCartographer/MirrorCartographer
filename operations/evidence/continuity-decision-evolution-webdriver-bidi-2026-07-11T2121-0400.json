@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-008",
+  "created_at": "2026-07-11T21:21:55-04:00",
+  "artifact": "operations/continuity/decision-evolution-webdriver-bidi-transcript-2026-07-11.json",
+  "artifact_commit": "2b7aaf5fc1c4db2c9abf3fe16688305330424361",
+  "memory_recovered": "The browser-verification evidence model was corrected from a flat method transcript to separate ordered browser events and command responses correlated by stable command ids; decoded screenshot bytes, not Base64 text, are the integrity subject.",
+  "contradiction_resolution": {
+    "method": "preserve both claims with explicit state and supersession linkage",
+    "superseded": "flat method-list transcript semantics",
+    "current": "mc.webdriver-bidi-verification.v2 event/response separation",
+    "unresolved": "lossless normalization of a retained live-browser transcript"
+  },
+  "sources": [
+    {
+      "path": "operations/CURRENT_STATE.json",
+      "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc"
+    },
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+    },
+    {
+      "path": "operations/SPECIALIST_REGISTRY.json",
+      "content_sha": "88451b05101bcd8a259f98de5d9290e15357366b"
+    },
+    {
+      "path": "operations/TRIGGER_REQUESTS.json",
+      "content_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4"
+    },
+    {
+      "path": "operations/continuity/continuity-index.json",
+      "content_sha": "3dc3b2cd659616dfe665f5dade3d2b9a4daa3be3"
+    },
+    {
+      "path": "operations/queue-updates/R-006-2026-07-11T2116-0400.json",
+      "content_sha": "ad1c7e9a718472bb804b44201838080a9d7445d3"
+    },
+    {
+      "path": "operations/evidence/frontier-research-webdriver-bidi-command-response-correction-2026-07-11.json",
+      "content_sha": "a7bdb37dfe094bcae828889301410b43c5e9d749"
+    }
+  ],
+  "claim_states": ["observed", "inferred", "superseded", "unresolved"],
+  "verification": {
+    "type": "structural review",
+    "checks": [
+      "all claims have explicit state",
+      "supersession is directional and non-destructive",
+      "all repository sources retain path or commit identity",
+      "privacy boundary excludes private material",
+      "unresolved live-browser gap remains explicit"
+    ],
+    "result": "passed by source-level inspection"
+  },
+  "privacy": "public_repository_safe",
+  "limits": [
+    "no live browser transcript inspected",
+    "no independent rerun of the seven frontier tests in this continuity run",
+    "the inferred downstream incompatibility requires adapter inspection"
+  ]
+}
