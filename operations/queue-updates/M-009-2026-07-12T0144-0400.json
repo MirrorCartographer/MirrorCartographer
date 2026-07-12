@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-009",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "updated_at": "2026-07-12T01:44:00-04:00",
+  "action": "Define the fail-closed, commit-bound contract required to derive an effective queue from the canonical snapshot and complete append-only update corpus.",
+  "dependencies": ["M-008"],
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "artifacts": {
+    "contract": "operations/continuity/effective-queue-gate-contract-2026-07-12T0144-0400.json",
+    "commit": "4eab712d7c49308f8bf5f1d4dfca16bdbdb40f3d"
+  },
+  "claims": {
+    "observed": [
+      "ACTIVE_QUEUE.json still presents M-001 as the latest continuity item.",
+      "M-008 requires commit-bound reconciliation with independently verified corpus counts.",
+      "Repository commits continue to advance after the canonical queue snapshot."
+    ],
+    "inferred": [
+      "A queue report without source-commit binding and discovered-versus-parsed count agreement can silently omit history or mix temporal states."
+    ],
+    "proposed": [
+      "Implement and test the contract as a deterministic Node gate, then require it before autonomous queue selection."
+    ],
+    "superseded": [
+      "Selecting work from ACTIVE_QUEUE.json alone.",
+      "Trusting a caller-supplied update subset without complete repository discovery."
+    ],
+    "unresolved": [
+      "Executable implementation and CI wiring remain incomplete.",
+      "No complete live corpus count is claimed because directory enumeration was unavailable through the connector."
+    ]
+  },
+  "verification": "The contract commit succeeded through the GitHub contents API; post-commit fetch verification is required before treating the artifact as inspected evidence.",
+  "privacy_boundary": "Public repository metadata and abstract operational structure only; raw private chat, health material, credentials, identifying personal data, and unreviewed uploads excluded.",
+  "handoff": "Continuity Mining should next implement the deterministic gate and adversarial tests for omission, mixed-commit inputs, malformed records, and ambiguous same-item precedence."
+}
