@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T00:37:00-04:00",
+  "claim_state": "implemented_unwired",
+  "evidence_strength": "committed_source_and_tests_not_runtime_executed",
+  "finding": "A resolvable hostname alone does not prove which repository commit is served. A well-known manifest stamped from GITHUB_SHA and GITHUB_REPOSITORY creates a deploy-time identity binding that can be fetched over HTTPS and compared with the workflow source commit.",
+  "artifacts": {
+    "module": "cloudflare-static/stamp-deployment-manifest.mjs",
+    "test": "cloudflare-static/stamp-deployment-manifest.test.mjs",
+    "public_path": "/.well-known/mirror-cartographer-research.json",
+    "commits": [
+      "3b11aa5700d7136174a888f459cfeebbc402c8f2",
+      "4a37192b77189be8e78c396b77fce4030308a1ef"
+    ]
+  },
+  "privacy": {
+    "secret_values_emitted": false,
+    "private_user_data_emitted": false,
+    "manifest_fields": ["schema_version", "surface", "repository", "source_commit", "claim", "privacy"]
+  },
+  "verification": {
+    "source_review": "complete",
+    "tests_committed": 3,
+    "tests_executed_in_this_run": false,
+    "deployment_verified": false
+  },
+  "implementation_handoff": [
+    "Run node cloudflare-static/stamp-deployment-manifest.mjs cloudflare-static after checkout and before wrangler pages deploy.",
+    "Add node --test cloudflare-static/stamp-deployment-manifest.test.mjs to the workflow contract suite.",
+    "After deployment, fetch the returned deployment URL plus /.well-known/mirror-cartographer-research.json and require source_commit to equal GITHUB_SHA."
+  ],
+  "falsification_route": "Deploy a commit with the stamper wired into the workflow, fetch the well-known manifest from the returned Cloudflare URL, and compare its source_commit to the workflow GITHUB_SHA. Reject the proof if the file is absent, malformed, cached from another commit, or mismatched.",
+  "limits": [
+    "The module is committed but not yet wired into the deployment workflow.",
+    "The deterministic tests were committed but could not be executed through the connector in this run.",
+    "Cloudflare credentials and a successful deployment remain externally required.",
+    "A matching manifest proves served build identity, not scientific truth or medical validity."
+  ]
+}
