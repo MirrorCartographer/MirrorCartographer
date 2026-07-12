@@ -15,6 +15,10 @@ const checks = [
   ['audio starts only from an explicit control gesture', /querySelector\('#sound'\)\.onclick=async/i],
   ['device pixel ratio is capped', /Math\.min\(devicePixelRatio\|\|1,2\)/i],
   ['runtime has no external script, stylesheet, font, image, or fetch dependency', !/(?:<script[^>]+src=|<link[^>]+rel=["']stylesheet|https?:\/\/|fetch\s*\()/i.test(source)],
+  ['new organisms alter nearby organisms through a bounded radius', /function disturb\(px,py,hue\)/i.test(source) && /dist<180/i.test(source)],
+  ['alteration changes direction, hue, and lifetime', /s\.lean\+=/i.test(source) && /s\.hue=/i.test(source) && /s\.life\+=/i.test(source)],
+  ['reciprocal changes are exposed through the polite status text', /changed direction/i.test(source) && /altered/i.test(source)],
+  ['visual echoes are temporary and cleared with the field', /const echoes=\[\]/i.test(source) && /echoes\.splice/i.test(source) && /echoes\.length=0/i.test(source)],
 ];
 
 for (const [name, result] of checks) {
@@ -22,4 +26,4 @@ for (const [name, result] of checks) {
   console.log(`PASS ${name}`);
 }
 
-console.log(`PASS ${checks.length} mobile, accessibility, performance, and dependency contracts`);
+console.log(`PASS ${checks.length} mobile, accessibility, performance, dependency, and reciprocal-world contracts`);
