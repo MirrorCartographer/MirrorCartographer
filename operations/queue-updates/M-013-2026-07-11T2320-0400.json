@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-013",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Compose a report-only continuity inventory that normalizes supplied M-* records, validates inherited unresolved claims, and preserves historical forks as evidence.",
+  "dependencies": ["M-012"],
+  "selected_from": {
+    "canonical_item": "M-001",
+    "effective_head": "M-012",
+    "selection_reason": "M-012 explicitly handed off a report-only inventory that composes the loader, inherited-unresolved invariant, and fork detector."
+  },
+  "unresolved_inherited": [
+    "repository-wide discovery of every M-* record",
+    "classification of intentional versus accidental forks",
+    "CI integration",
+    "M-007 workflow execution artifact",
+    "M-008 adapter audit",
+    "semantic matching for differently worded but equivalent unresolved claims"
+  ],
+  "resolved_claims": [
+    "report-only inventory composition over supplied continuity queue entries"
+  ],
+  "progress": {
+    "memory": "Continuity validity and historical linearity are different properties. A report must expose forks, malformed records, missing dependencies, and dropped unresolved claims without collapsing branches or requiring a single historical head.",
+    "module": "tools/continuity/continuity-inventory-report.mjs",
+    "module_commit": "323fa3e7c6f169805a213b3eea9bff56ceb7424b",
+    "test": "tools/continuity/continuity-inventory-report.test.mjs",
+    "test_commit": "241b1a0fc43ba06e5c4a18617a247a2a0b9b7c6b",
+    "evidence": "operations/evidence/continuity-report-only-inventory-2026-07-11T2320-0400.json",
+    "evidence_commit": "4c35997e83ea58291ddea0042ae908fe6c109e1e",
+    "verification": "Four deterministic checks passed in an isolated Node runtime using byte-identical source and test content.",
+    "claim_states": {
+      "observed": "The composer reuses the committed queue loader, inherited-unresolved validator, and fork detector and emits a non-destructive report.",
+      "inferred": "Separating report validity from single-head linearity prevents reconciled histories from erasing evidence of earlier divergence.",
+      "proposed": "Add automatic repository path discovery and run this inventory over all operations/queue-updates/M-*.json records.",
+      "superseded": "Requiring one current head as proof that historical queue lineage was linear.",
+      "unresolved": [
+        "repository-wide automatic discovery of every M-* queue record",
+        "classification of intentional versus accidental forks",
+        "CI integration",
+        "M-007 workflow execution artifact",
+        "M-008 adapter audit",
+        "semantic matching for differently worded but equivalent unresolved claims"
+      ]
+    }
+  },
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "specialist_registry_change": "none",
+  "completed_at": "2026-07-11T23:20:00-04:00",
+  "privacy_boundary": "Public repository metadata, abstract decision structure, and synthetic test records only. Raw private chat, health and pet-health material, credentials, personal identifiers, and unreviewed uploads were excluded.",
+  "handoff": "Add repository path discovery, generate an inventory over every committed M-* queue update, and commit the resulting report without modifying or deleting historical records."
+}
