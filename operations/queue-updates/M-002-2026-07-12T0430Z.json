@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "id": "M-002",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "action": "Separate project identity aliases from interpretive operations and preserve unresolved language rather than forcing normalization.",
+  "status": "completed",
+  "required_evidence": ["privacy-safe language lexicon", "claim-state separation", "falsification route", "repository persistence proof"],
+  "progress": {
+    "artifact": "operations/continuity/language/interpretive-operations-v1.json",
+    "evidence": "operations/evidence/M-002-interpretive-operations-2026-07-12T0430Z.json",
+    "source_commit": "2a0d3c0212cf1eab22b8b6ef837c35224910a5c0",
+    "evidence_commit": "d49383a3730d369674226afab7a5d5752b1cfaf3",
+    "shared_state_policy": "append-only queue update; ACTIVE_QUEUE.json left untouched to avoid overwriting concurrent peer changes"
+  },
+  "handoff": "Create an executable alias resolver that returns canonical node, original surface form, confidence, ambiguity reason, and unresolved status; then backfill first-use dates only from provenance-qualified records."
+}
