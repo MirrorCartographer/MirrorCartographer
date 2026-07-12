@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "CM-012",
+  "team": "continuity_mining",
+  "created_at": "2026-07-12T10:25:37Z",
+  "selection": {
+    "canonical_queue_item": null,
+    "reason": "No active continuity_mining item existed; selected the highest-priority unresolved handoff from completed M-001 and CM-0010: define a canonical promotion record without rewriting completed history."
+  },
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json@c21e897b0a30862142c5986368fc7c413fa030bc",
+    "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "operations/SPECIALIST_REGISTRY.json@88451b05101bcd8a259f98de5d9290e15357366b",
+    "operations/TRIGGER_REQUESTS.json@80feb36d1d829c7d54748780837a9ebef543e6c4",
+    "operations/continuity/claims/CM-0010-completion-handoff-authority-boundary.json@ced2a8720b66622d82043bd84b27d56669836555",
+    "recent repository commits through fae44be3e86e11298ea9415568e2fe5921b055dc"
+  ],
+  "memory_recovered": "Handoff-derived work requires an additive, provenance-bound authorization record; the completed source item must remain immutable and linked rather than reopened.",
+  "artifacts": [
+    {
+      "path": "operations/continuity/handoff-promotion.schema.json",
+      "commit": "63246142894b7834ae33c07ce16898cce48fb5dc",
+      "blob": "57a5c13a30e29206fa27f0c85405c1256c105c55"
+    },
+    {
+      "path": "operations/continuity/claims/CM-0011-handoff-promotion-record.json",
+      "commit": "5be259bdfcca8a8f1110f4b9b755294ae0e6d1fd"
+    }
+  ],
+  "claim_states": {
+    "observed": "Completed M-001 has a handoff but there is no active continuity-owned queue item.",
+    "inferred": "Prose handoffs alone cannot safely carry execution authority.",
+    "proposed": "Adopt the new schema for future handoff promotion records.",
+    "superseded": "Reopening completed items or silently treating handoffs as active work.",
+    "unresolved": "Runtime schema validation and ACTIVE_QUEUE promotion_id linkage remain unimplemented."
+  },
+  "verification": {
+    "schema_refetched": true,
+    "schema_blob": "57a5c13a30e29206fa27f0c85405c1256c105c55",
+    "json_parse": "GitHub accepted and returned the UTF-8 JSON artifact; semantic runtime validation not yet implemented."
+  },
+  "shared_state_changes": {
+    "ACTIVE_QUEUE.json": "unchanged",
+    "SPECIALIST_REGISTRY.json": "unchanged",
+    "TRIGGER_REQUESTS.json": "unchanged because automation update path was available"
+  },
+  "safety": {
+    "files_deleted": false,
+    "history_deleted": false,
+    "private_material_published": false,
+    "specialists_added_or_retired": false
+  },
+  "next_action": "Implement a deterministic validator plus one authorized and one rejected promotion fixture, then add an optional promotion_id link to future queue records without modifying completed source items."
+}
