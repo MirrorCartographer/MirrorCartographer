@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "generated_at": "2026-07-12T01:21:00-04:00",
+  "finding": "A resolving HTTPS URL is insufficient deployment proof unless its authority is bound to the expected Cloudflare Pages project and the deployment URL is an immutable hash-labeled preview origin rather than only a mutable branch or production alias.",
+  "artifact": "cloudflare-static/cloudflare-pages-url-policy.mjs",
+  "test": "cloudflare-static/cloudflare-pages-url-policy.test.mjs",
+  "verification": {
+    "runtime": "node --test cloudflare-pages-url-policy.test.mjs",
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "immutable deployment plus production alias accepted",
+      "branch alias accepted only as alias",
+      "lookalike hostname rejected",
+      "mutable branch alias rejected as deployment identity",
+      "credentials, port, path, query, and fragment rejected"
+    ]
+  },
+  "claim_states": {
+    "observed": [
+      "The existing deployment proof validator required HTTPS but did not constrain the Cloudflare Pages project hostname or require an immutable deployment origin.",
+      "Five deterministic tests passed against byte-identical module and test content before commit."
+    ],
+    "inferred": [
+      "Without an authority policy, a valid HTTPS URL or mutable alias could be mistaken for immutable Cloudflare deployment identity."
+    ],
+    "proposed": [
+      "Wire the policy into the deployment workflow immediately after Wrangler output capture and before served-identity verification."
+    ],
+    "unresolved": [
+      "No successful Cloudflare deployment URL is available yet because repository environment credentials remain externally unconfigured.",
+      "The policy has not yet been exercised against a real Wrangler deployment response."
+    ]
+  },
+  "privacy_boundary": "Stores only project hostname classes, normalized origins, reason codes, and commit metadata; never token values, account identifiers, headers, page content, health material, or private chat.",
+  "falsification_route": [
+    "Run the policy against the next real Wrangler deployment-url and pages-deployment-alias-url outputs.",
+    "Reject the claim if a legitimate immutable deployment uses a hostname shape outside the declared hash.project.pages.dev contract.",
+    "Verify the accepted deployment origin serves the committed research-surface identity and source commit."
+  ]
+}
