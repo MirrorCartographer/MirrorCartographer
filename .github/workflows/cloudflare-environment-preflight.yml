@@ -1,0 +1,120 @@
+name: Verify Cloudflare environment contract
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/cloudflare-pages-research.yml'
+      - '.github/workflows/cloudflare-environment-preflight.yml'
+      - 'cloudflare-static/cloudflare-environment-requirements.json'
+      - 'cloudflare-static/validate-workflow-environment-contract.mjs'
+      - 'cloudflare-static/build-environment-preflight-evidence.mjs'
+      - 'cloudflare-static/run-environment-preflight.mjs'
+      - 'cloudflare-static/run-environment-preflight.test.mjs'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-environment-preflight-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact committed source
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Prove exact clean checkout
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test -z "$(git status --porcelain)"
+          printf '%s\n' "$GITHUB_SHA" > cloudflare-preflight-checkout-sha.txt
+
+      - name: Test preflight contracts
+        run: |
+          node --test cloudflare-static/validate-workflow-environment-contract.test.mjs
+          node --test cloudflare-static/build-environment-preflight-evidence.test.mjs
+          node --test cloudflare-static/run-environment-preflight.test.mjs
+
+      - name: Build bounded preflight evidence
+        run: >-
+          node cloudflare-static/run-environment-preflight.mjs
+          .github/workflows/cloudflare-pages-research.yml
+          cloudflare-static/cloudflare-environment-requirements.json
+          cloudflare-workflow-environment-contract.json
+          cloudflare-environment-preflight.json
+
+      - name: Assert privacy and provenance boundaries
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const evidence = JSON.parse(fs.readFileSync('cloudflare-environment-preflight.json', 'utf8'));
+          const contract = JSON.parse(fs.readFileSync('cloudflare-workflow-environment-contract.json', 'utf8'));
+          if (evidence.source?.repository !== process.env.GITHUB_REPOSITORY) throw new Error('repository-provenance-mismatch');
+          if (evidence.source?.commit_sha !== process.env.GITHUB_SHA) throw new Error('commit-provenance-mismatch');
+          if (evidence.ready_for_dispatch !== true) throw new Error('workflow-environment-contract-not-ready');
+          if (contract.ok !== true) throw new Error('workflow-contract-invalid');
+          const serialized = JSON.stringify({ evidence, contract });
+          for (const forbidden of ['api_token_value', 'account_id_value', 'secret_value']) {
+            if (serialized.includes(forbidden)) throw new Error(`forbidden-secret-field:${forbidden}`);
+          }
+          process.stdout.write(`${JSON.stringify({ ready_for_dispatch: true, packet_sha256: evidence.packet_sha256 })}\n`);
+          NODE
+
+      - name: Build immutable run manifest
+        run: |
+          sha256sum \
+            cloudflare-preflight-checkout-sha.txt \
+            cloudflare-workflow-environment-contract.json \
+            cloudflare-environment-preflight.json \
+            > cloudflare-environment-preflight.sha256
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const manifest = {
+            schema_version: '1.0.0',
+            repository: process.env.GITHUB_REPOSITORY,
+            commit_sha: process.env.GITHUB_SHA,
+            workflow: process.env.GITHUB_WORKFLOW,
+            workflow_ref: process.env.GITHUB_WORKFLOW_REF,
+            run_id: process.env.GITHUB_RUN_ID,
+            run_attempt: process.env.GITHUB_RUN_ATTEMPT,
+            claim_boundary: 'Verifies committed environment declarations and bounded evidence generation only; does not verify secret installation, Cloudflare authorization, deployment, hostname resolution, served content, or scientific truth.',
+            artifacts: [
+              'cloudflare-preflight-checkout-sha.txt',
+              'cloudflare-workflow-environment-contract.json',
+              'cloudflare-environment-preflight.json',
+              'cloudflare-environment-preflight.sha256'
+            ]
+          };
+          fs.writeFileSync('cloudflare-environment-preflight-run.json', `${JSON.stringify(manifest, null, 2)}\n`);
+          NODE
+
+      - name: Upload exact-commit preflight evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-environment-preflight-${{ github.sha }}
+          path: |
+            cloudflare-preflight-checkout-sha.txt
+            cloudflare-workflow-environment-contract.json
+            cloudflare-environment-preflight.json
+            cloudflare-environment-preflight.sha256
+            cloudflare-environment-preflight-run.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish bounded run summary
+        run: |
+          {
+            echo '## Cloudflare environment preflight'
+            echo "- Exact source commit: \`${GITHUB_SHA}\`"
+            echo '- Workflow contract: passed'
+            echo '- Secret values inspected: no'
+            echo '- Cloudflare deployment attempted: no'
+            echo '- Evidence artifact: `cloudflare-environment-preflight-${{ github.sha }}`'
+            echo '- Claim boundary: repository declarations are dispatch-ready; credential installation, authorization, deployment, hostname resolution, served identity, and scientific truth remain unverified.'
+          } >> "$GITHUB_STEP_SUMMARY"
