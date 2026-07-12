@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-0010",
+  "recorded_at": "2026-07-12T13:04:01-04:00",
+  "kind": "unresolved_question",
+  "title": "Continuity mining has no active owned queue item after M-001 completion",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observation": "The only item owned by continuity_mining is M-001 and its status is completed."
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/CURRENT_STATE.json",
+      "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+      "observation": "Continuity mining remains active with a priority to recover project history and update the knowledge substrate."
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/continuity-index.json",
+      "content_sha": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a",
+      "observation": "CM-0009 already records that M-001 completion superseded the earlier active-state interpretation."
+    }
+  ],
+  "observed": "The team is active, but ACTIVE_QUEUE.json contains no active or queued item owned by continuity_mining.",
+  "inferred": "Recurring continuity runs currently lack canonical ownership authority for selecting new implementation work.",
+  "proposed": "A coordinating owner should add an additive M-002 queue item for decision-history and contradiction-link expansion, preserving M-001 as completed history.",
+  "superseded": "The earlier interpretation that M-001 is an available highest-priority task is superseded by its completed status.",
+  "unresolved": "Whether an automation run may self-authorize a new canonical queue item is not defined by the current coordination rule.",
+  "privacy": {
+    "classification": "public_repository_safe",
+    "included": [
+      "repository paths",
+      "blob SHAs",
+      "abstract queue and coordination state"
+    ],
+    "excluded": [
+      "raw private chat",
+      "health or pet-health material",
+      "credentials and account identifiers",
+      "unreviewed uploads"
+    ]
+  },
+  "contradicts": [],
+  "supersedes": ["CM-0003"],
+  "falsification_or_review_route": "Re-read the cited ACTIVE_QUEUE.json blob. Falsify this record if it contains any active or queued continuity_mining-owned item besides completed M-001. Resolve the gap only with a later canonical queue blob that adds an owned item under the shared coordination rule.",
+  "implementation_boundary": "This record does not modify ACTIVE_QUEUE.json and does not claim authority to create M-002."
+}
