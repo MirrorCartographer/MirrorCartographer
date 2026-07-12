@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-013",
+  "owner": "frontier_research",
+  "created_at": "2026-07-12T15:31:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://theupdateframework.github.io/specification/latest/",
+      "status": "current_primary_specification",
+      "relevance": "TUF requires clients to resist rollback, freeze, fast-forward, and mix-and-match attacks by retaining trusted metadata state and enforcing monotonic version relationships."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9162.html",
+      "status": "primary_standard",
+      "relevance": "Certificate Transparency v2 formalizes append-only consistency as a distinct property from signature validity; this supports keeping a retained state anchor separate from packet authenticity."
+    }
+  ],
+  "finding": "A valid signed witness-policy update is still replayable after restart unless the client retains a monotonic state anchor. Recovery must bind policy bytes, accepted sequence, predecessor state digest, and a caller-supplied minimum sequence or expected state digest.",
+  "design_implication": "Persist the accepted policy sequence and state digest outside the fetched recovery packet. Reject equal, lower, skipped, predecessor-mismatched, tampered, or externally unanchored recovery states.",
+  "module": "tools/frontier-research/monotonic-witness-state.mjs",
+  "test": "tools/frontier-research/monotonic-witness-state.test.mjs",
+  "verification": {
+    "method": "dependency-free Node test run using the committed source content",
+    "tests_passed": 5,
+    "tests_failed": 0,
+    "covered_cases": [
+      "linked monotonic transition accepted",
+      "older valid state replay rejected",
+      "sequence gap and predecessor mismatch rejected",
+      "anchored recovery packet accepted",
+      "stale and tampered recovery packets rejected"
+    ]
+  },
+  "evidence_strength": "implementation_tested_locally",
+  "falsification_route": "Demonstrate acceptance of a packet with sequence below the retained minimum, a broken predecessor digest, altered policy bytes, or a packet digest mismatch; any such acceptance falsifies the contract.",
+  "limits": [
+    "The module does not provide durable storage or atomic filesystem writes.",
+    "Deleting or corrupting the external minimum-sequence or expected-digest anchor reopens rollback risk.",
+    "Digest continuity does not prove witness honesty, key custody, clock correctness, or policy truth.",
+    "No production witness network or recovery service was exercised."
+  ]
+}
