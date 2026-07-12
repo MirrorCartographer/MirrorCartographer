@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-12T08:48:00-04:00",
+  "status": "active",
+  "completed_slice": "Implemented a pressure-release interaction law in The Weather Inside a Bell with pointer, keyboard, reduced-motion, optional-audio, and bounded-force behavior.",
+  "evidence": [
+    "operations/evidence/independent-weather-bell-pressure-release-2026-07-12T0848-0400.json"
+  ],
+  "source_commits": [
+    "3b78e8ad21e4f58efee87a30a2f23724ffeb703c",
+    "166335772d9f0d0f01facbcb51fb6db470f31e70",
+    "3f3578e495f6e50682231bf24288c59188797789",
+    "f07c2742e2b8798295a1f69a8ec47a325c6eca51"
+  ],
+  "required_evidence_state": {
+    "site_source": "observed",
+    "distinct_identity_statement": "observed",
+    "public_url": "unresolved",
+    "mobile_proof": "unresolved"
+  },
+  "next_action": "Observe or repair the Independent Web Pages workflow for commit 3f3578e495f6e50682231bf24288c59188797789 or a descendant, capture the returned Pages URL and deployment identity, then test hold-and-release on a physical mobile viewport."
+}
