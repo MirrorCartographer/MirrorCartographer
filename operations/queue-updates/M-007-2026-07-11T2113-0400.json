@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-007",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Add a GitHub Actions adapter that materializes a tree-SHA-bound continuity current-view manifest from the complete immutable repository snapshot.",
+  "selected_from": {
+    "canonical_item": "M-001",
+    "canonical_status": "completed",
+    "handoff_from": "M-006",
+    "selection_reason": "M-006 identified live recursive-tree execution and immutable manifest retention as the highest-priority unresolved continuity handoff."
+  },
+  "completed_at": "2026-07-12T01:13:33Z",
+  "artifacts": [
+    {"path": "tools/continuity/github-tree-current-view.mjs", "commit": "1390dc2aac530fc463c803b2d93f62e154c6a662"},
+    {"path": "tools/continuity/github-tree-current-view.test.mjs", "commit": "e6a27fe5e6b863161d286dfd70ddadd8db8444cf"},
+    {"path": ".github/workflows/continuity-current-view.yml", "commit": "fc540414c01821cf852e24e644509718fbf10826"},
+    {"path": "operations/evidence/continuity-tree-bound-current-view-ci-2026-07-11T2113-0400.json", "commit": "8c6d18c3c50d5780d81e8e54f203470415ffba39"}
+  ],
+  "memory_recovered": "The continuity current view now has a committed execution path that binds canonical queue state and every enumerated append-only update to one immutable commit and recursive tree, with completeness denied when the tree is truncated or any enumerated document fails retrieval or parsing.",
+  "contradictions_resolved": [
+    {
+      "apparent_conflict": "ACTIVE_QUEUE.json remains a historical canonical snapshot while newer continuity items exist only as append-only queue updates.",
+      "resolution": "The adapter explicitly preserves canonical_snapshot and append_only_update as separate source layers and derives a current view without rewriting either source.",
+      "remaining_unresolved": "A successful workflow artifact has not yet been observed."
+    }
+  ],
+  "claim_states": {
+    "observed": ["committed adapter", "committed four-case contract test", "committed GitHub Actions workflow", "append-only evidence record"],
+    "inferred": ["a successful artifact establishes discovery completeness for its named immutable tree snapshot"],
+    "proposed": ["use the retained manifest as the continuity input for later cross-team state synthesis"],
+    "superseded": ["curated update lists and deterministic reduction alone as sufficient completeness evidence"],
+    "unresolved": ["successful CI execution", "uploaded tree-bound manifest"]
+  },
+  "verification": {
+    "source_contract_review": "passed",
+    "test_cases_committed": 4,
+    "runtime_execution": "blocked in the local automation container by DNS resolution failure for github.com",
+    "github_actions_execution": "not observed",
+    "visible_commit_statuses": "unrelated Vercel build-rate-limit failures only"
+  },
+  "privacy_boundary": "Public repository metadata and abstract decision history only. No raw private chat, health or pet-health information, credentials, identifying personal material, or unreviewed uploaded content was copied into the repository.",
+  "specialists_used": ["Chat Archaeologist", "Decision Historian", "Contradiction Resolver", "Privacy Boundary Auditor"],
+  "registry_change": "none",
+  "next_action": "Observe or dispatch the Continuity Current View workflow, retain the generated artifact, and index its commit SHA, recursive tree SHA, enumerated path count, and completeness result as a new observed continuity record."
+}
