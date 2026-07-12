@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-016",
+  "created_at": "2026-07-11T23:50:00-04:00",
+  "artifact": "operations/continuity/latent-code-hypothesis-register.json",
+  "artifact_commit": "ce7ceef806f27f7f816eda9d965ed0f9446484e7",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "recent continuity and cross-team commits",
+    "file_library:conversations.json",
+    "file_library:evidence_to_execution_map.json",
+    "file_library:Chat_Language_Value_Sync_Dispatch.md",
+    "file_library:learning_map.md"
+  ],
+  "memory_recovered": "The copied raw chats were not only continuity material. They also preserved a testable possibility that meaning may be encoded as a literal cipher, a structural transition grammar, or an emergent organizing pattern. These hypotheses must remain separate.",
+  "contradiction_resolution": {
+    "superseded": "A persuasive interpretation is enough to establish hidden code.",
+    "replacement": "Any code claim requires preregistered rules, null-model comparison, held-out prediction, and independent reproduction."
+  },
+  "verification": {
+    "source_write": "GitHub contents API returned commit ce7ceef806f27f7f816eda9d965ed0f9446484e7.",
+    "structure": "Artifact separates observed, inferred, proposed, superseded, and unresolved claims and defines falsification conditions for three code classes.",
+    "runtime_test": "not_run",
+    "reason": "This slice is a provenance and hypothesis-register artifact; the archive analyzer remains the next implementation."
+  },
+  "privacy_boundary": "No raw private chat text, health material, credentials, personal identifiers, or intimate content was committed. Only abstract claims, source labels, tests, and limits were recorded.",
+  "limits": [
+    "No hidden code was claimed as discovered.",
+    "The full archive was not exhaustively parsed in this run.",
+    "No statistical significance or predictive accuracy was measured.",
+    "Intentionality remains unresolved."
+  ],
+  "next_action": "Build a local-only analyzer that creates redacted feature matrices and evaluates preregistered literal, structural, and emergent hypotheses against matched null corpora."
+}
