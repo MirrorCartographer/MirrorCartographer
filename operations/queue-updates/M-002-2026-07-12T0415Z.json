@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-002",
+    "owner": "continuity_mining",
+    "priority": 1,
+    "action": "Preserve the distinction between stable project identity and evolving descriptive frames.",
+    "dependencies": ["M-001"],
+    "required_evidence": [
+      "privacy-safe decision record",
+      "explicit observed/inferred/proposed/superseded/unresolved states",
+      "contradiction handling rule",
+      "source and privacy boundary"
+    ],
+    "status": "completed",
+    "progress": {
+      "decision_record": "operations/continuity/decisions/MC-identity-vs-description-2026-07-12.json",
+      "decision_commit": "87606c1f1eee835fe38c62f845eeab112f731e42",
+      "evidence": "operations/evidence/continuity-identity-description-2026-07-12T0415Z.json",
+      "evidence_commit": "7aa67d29b947f8e3d55c40195f38babffb2f2723",
+      "memory_recovered": "Mirror Cartographer is the stable project identity; website, interface, context engine, continuity architecture, knowledge substrate, operating system, and similar terms are descriptions or frames, not former names.",
+      "contradiction_resolved": "Supersedes the unsupported narrative that descriptive evolution constituted project renaming.",
+      "verification": "Both artifacts were accepted additively by the GitHub contents API on main; no shared team-owned file was overwritten."
+    },
+    "handoff": "Create M-003 to build a dated, privacy-safe description lexicon with separate fields for identity, description, implementation, metaphor, source class, and confidence."
+  },
+  "non_overwrite_note": "This append-only queue update records continuity_mining-owned progress without replacing operations/ACTIVE_QUEUE.json or any peer-owned state."
+}
