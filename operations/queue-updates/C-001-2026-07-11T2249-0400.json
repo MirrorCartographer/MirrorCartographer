@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-11T22:49:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Reject untrusted deployment start timestamps in provenance generation and preserve explicit timing uncertainty.",
+  "commits": [
+    "c4d126d7b274626e9d858d306b16ca406c300ca4",
+    "19e80dd48a7620b0c491483573985ab6fa00357d",
+    "1ee34ced0e0a4f7532ea99f0756a0325e811d1c3"
+  ],
+  "evidence": "operations/evidence/cloudflare-provenance-time-trust-2026-07-11T2249-0400.json",
+  "remaining": [
+    "Capture an actual workflow start timestamp and mark it RUN_STARTED_AT_SOURCE=workflow-captured.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Dispatch the deployment workflow and bind the returned Pages URL to served identity and exact source commit.",
+    "Run the complete evidence contract suite in CI."
+  ],
+  "non_overwrite_rule": "This append-only record does not modify ACTIVE_QUEUE.json or any peer-owned queue item."
+}
