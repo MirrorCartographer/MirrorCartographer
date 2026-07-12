@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { validatePagesProjectIdentity } from './validate-pages-project-identity.mjs';
+import { validateVerifierProofBinding } from './validate-verifier-proof-binding.mjs';
 
 const EXPECTED = Object.freeze({
   builderId: 'https://github.com/MirrorCartographer/MirrorCartographer/.github/workflows/cloudflare-pages-research.yml@refs/heads/main',
@@ -52,9 +53,9 @@ export function buildEvidenceVerificationInput({ proofText, proof, attestationBu
   const details = statement.predicate?.runDetails;
   const invocationId = details?.metadata?.invocationId ?? null;
   const verifierRows = Array.isArray(proof.verifier_output) ? proof.verifier_output : [];
+  const verifierProofBinding = validateVerifierProofBinding(proof);
   const claimVerified = proof.deployment_decision?.status === 'deployment_returned_url'
-    && typeof proof.deployment_url === 'string' && proof.deployment_url.length > 0
-    && verifierRows.some((row) => row?.ok === true);
+    && verifierProofBinding.valid === true;
 
   const reportedSignatureDigest = normalizeDigest(signatureVerification?.subject_digest);
   const signatureDigestMatches = reportedSignatureDigest === digest;
@@ -98,29 +99,31 @@ export function buildEvidenceVerificationInput({ proofText, proof, attestationBu
     externalParameters: status(Boolean(invocationId), 'recognized', 'unrecognized')
   };
   const claimEvidence = {
-    status: status(claimVerified, 'valid', 'invalid'), deployment_url: proof.deployment_url ?? null,
-    verified_candidates: verifierRows.filter((row) => row?.ok === true).map((row) => row.resolvedUrl || row.candidate || null).filter(Boolean)
+    status: status(claimVerified, 'valid', 'invalid'),
+    deployment_url: verifierProofBinding.deployment_url,
+    verifier_proof_binding: verifierProofBinding,
+    verified_candidates: verifierProofBinding.verified_urls
   };
 
   const envelope = {
     schema_version: '1.0.0', traceparent: traceparentFor(invocationId, digest), created_at: proof.generated_at ?? new Date(0).toISOString(),
     team: EXPECTED.team, queue_item: EXPECTED.queueItem,
     claim_state: claimVerified ? 'observed' : 'unresolved', evidence_state: claimVerified ? 'deployment-verified' : 'unverified',
-    summary: claimVerified ? 'Cloudflare returned a deployment URL and the served identity verifier reported success.' : 'Cloudflare deployment evidence is incomplete or the served identity verifier did not report success.',
+    summary: claimVerified ? 'Cloudflare returned a deployment URL and the served identity verifier reported success for that exact URL.' : 'Cloudflare deployment evidence is incomplete, unbound, or the served identity verifier did not report success for the exact deployment URL.',
     sources: [{ repository: EXPECTED.sourceRepository, commit: proof.source_commit ?? null }],
     artifacts: [{ name: EXPECTED.artifactName, sha256: digest }], verification: verifierRows,
-    falsification_routes: ['Recompute the proof SHA-256 and compare it with the attestation subject.', 'Re-run gh attestation verify against the exact proof bytes and repository.', 'Recompute freshness from generated_at using the recorded maximum age and clock-skew bounds.', 'Re-run the Pages project identity validator against the exact proof and expected project.', 'Fetch the recorded deployment URL and rerun the served identity verifier.'],
-    limits: ['Artifact and provenance acceptance does not prove scientific truth.', 'A deployment URL without successful served-identity verification is not deployment evidence.', 'Project identity validates hostname membership, not account ownership or commit identity.', 'Freshness proves only that a proof timestamp falls inside the configured acceptance window.'], peer_triggers: []
+    falsification_routes: ['Recompute the proof SHA-256 and compare it with the attestation subject.', 'Re-run gh attestation verify against the exact proof bytes and repository.', 'Recompute freshness from generated_at using the recorded maximum age and clock-skew bounds.', 'Re-run the Pages project identity validator against the exact proof and expected project.', 'Confirm a successful verifier row is canonically bound to the exact deployment_url.', 'Fetch the recorded deployment URL and rerun the served identity verifier.'],
+    limits: ['Artifact and provenance acceptance does not prove scientific truth.', 'A deployment URL without successful served-identity verification bound to that exact URL is not deployment evidence.', 'Project identity validates hostname membership, not account ownership or commit identity.', 'Freshness proves only that a proof timestamp falls inside the configured acceptance window.'], peer_triggers: []
   };
-  const policy = { schema_version: '1.1.0', enabled: true, allowed_builder_ids: [EXPECTED.builderId], allowed_source_repositories: [EXPECTED.sourceRepository], allowed_build_types: [EXPECTED.buildType], require_invocation_id: true, require_freshness: true, require_project_identity: true };
+  const policy = { schema_version: '1.1.0', enabled: true, allowed_builder_ids: [EXPECTED.builderId], allowed_source_repositories: [EXPECTED.sourceRepository], allowed_build_types: [EXPECTED.buildType], require_invocation_id: true, require_freshness: true, require_project_identity: true, require_verifier_proof_binding: true };
 
   return {
-    schema_version: '2.4.0', artifactName: EXPECTED.artifactName, artifactText: proofText, envelope, attestation: statement, policy,
+    schema_version: '2.5.0', artifactName: EXPECTED.artifactName, artifactText: proofText, envelope, attestation: statement, policy,
     signatureVerification: normalizedSignature, freshnessEvidence, projectIdentityEvidence,
     expected: { sourceRepository: EXPECTED.sourceRepository, sourceCommit: proof.source_commit ?? null, team: EXPECTED.team, queueItem: EXPECTED.queueItem },
     subjectVerification, signatureSubjectVerification, trustedBuilderPolicy, claimEvidence,
     diagnostics: { signatureVerification: normalizedSignature, subjectVerification, signatureSubjectVerification, trustedBuilderPolicy, freshnessEvidence, projectIdentityEvidence, claimEvidence },
-    limits: ['Subject digest matching is not signature verification.', 'Project identity is recomputed from the exact proof; a supplied report is consistency evidence only.', 'Project hostname identity is required but does not prove Cloudflare account ownership.', 'A cryptographic verification report is accepted only when its reported subject digest matches the exact proof bytes.', 'Trusted workflow identity is a policy check, not proof that the deployment claim is true.', 'Freshness is a bounded timestamp check, not proof that the deployment remains available.', 'A verified signature authenticates provenance identity and artifact binding, not scientific truth or deployment availability.']
+    limits: ['Subject digest matching is not signature verification.', 'Project identity is recomputed from the exact proof; a supplied report is consistency evidence only.', 'Project hostname identity is required but does not prove Cloudflare account ownership.', 'Verifier success is accepted only when canonically bound to the exact deployment URL in the proof.', 'A cryptographic verification report is accepted only when its reported subject digest matches the exact proof bytes.', 'Trusted workflow identity is a policy check, not proof that the deployment claim is true.', 'Freshness is a bounded timestamp check, not proof that the deployment remains available.', 'A verified signature authenticates provenance identity and artifact binding, not scientific truth or deployment availability.']
   };
 }
 
