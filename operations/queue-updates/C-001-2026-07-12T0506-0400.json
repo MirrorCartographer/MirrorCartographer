@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "status": "blocked_external_configuration",
+  "updated_at": "2026-07-12T05:06:00-04:00",
+  "completed_slice": "Added a fail-closed static contract and path-scoped CI gate for the exact GitHub environment name and Cloudflare secret references used by the deployment workflow.",
+  "artifacts": [
+    "cloudflare-static/validate-workflow-environment-contract.mjs",
+    "cloudflare-static/validate-workflow-environment-contract.test.mjs",
+    ".github/workflows/cloudflare-environment-contract.yml",
+    "operations/evidence/cloudflare-environment-contract-2026-07-12T0506-0400.json"
+  ],
+  "commits": [
+    "c2d5f04e6267ff8e3bd72376075d3afd5d0e8616",
+    "dd97c803a4fec9b78466c7da2b699393c3f31240",
+    "6f9cf3ed5bb118b65ca8c1636696e6b1e4e4d736",
+    "5d9e2d89b1c9b7fb076912fc4b08fb7a5590462f"
+  ],
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, dispatch the deployment workflow, and retain the returned deployment URL plus signed proof artifacts.",
+  "next_action": "Observe the new contract workflow result, then dispatch cloudflare-pages-research.yml only after the environment contract passes and credentials are configured.",
+  "claim_limit": "This slice validates repository references only; it does not prove secret presence, secret validity, Cloudflare authorization, deployment, or served identity."
+}
