@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-12T00:28:00-04:00",
+  "status": "active",
+  "progress": {
+    "site_source": "independent-web/afterimage-orchard/index.html",
+    "identity_statement": "independent-web/afterimage-orchard/IDENTITY.md",
+    "mobile_contract": "independent-web/afterimage-orchard/verify-mobile-contract.mjs",
+    "deployment_workflow": ".github/workflows/independent-afterimage-orchard-pages.yml",
+    "commits": [
+      "98d27f0ba8316010595ab0583cfc45d87aefaa91",
+      "7684c394b2c4a81cdfbf31c121ce13fd2fda2627",
+      "717c9adbd52c5d03db137bc631debe614588e38a"
+    ],
+    "evidence": "operations/evidence/independent-web-afterimage-orchard-deployability-2026-07-12T0028-0400.json"
+  },
+  "required_evidence_state": {
+    "site_source": "observed",
+    "distinct_identity_statement": "observed",
+    "public_url": "unresolved",
+    "mobile_proof": "proposed_contract_not_executed"
+  },
+  "blocker": "No workflow run was associated with the Pages workflow commit at inspection time. GitHub Pages may require repository-level enablement for GitHub Actions before deployment can succeed.",
+  "next_action": "Obtain the first Pages workflow run, inspect its jobs, and record the returned page_url only after the deployed source identity is verified."
+}
