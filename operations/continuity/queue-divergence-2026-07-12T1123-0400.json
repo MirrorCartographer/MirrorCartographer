@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-0010",
+  "kind": "contradiction_resolution",
+  "title": "Canonical queue lags additive Frontier completion records",
+  "recorded_at": "2026-07-12T11:23:29-04:00",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "observations": [
+    {
+      "claim": "The canonical ACTIVE_QUEUE.json contains completed Frontier items R-001 through R-004 but does not contain R-033 or R-034.",
+      "source": {
+        "type": "github_file",
+        "locator": "operations/ACTIVE_QUEUE.json",
+        "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+      }
+    },
+    {
+      "claim": "R-033 is recorded as completed in an additive queue-update artifact with committed module, test, evidence, and verification references.",
+      "source": {
+        "type": "github_file",
+        "locator": "operations/queue-updates/R-033-2026-07-12T1107-0400.json",
+        "content_sha": "4f7876b3a70dd7051033ae6726bde029a71ac28b"
+      }
+    },
+    {
+      "claim": "R-034 is recorded as completed in an additive queue-update artifact with committed detector, test, evidence, and verification references.",
+      "source": {
+        "type": "github_file",
+        "locator": "operations/queue-updates/R-034-2026-07-12T1116-0400.json",
+        "content_sha": "f75ad4ed9020c54fce9071c5931ba04580fc3ee9"
+      }
+    },
+    {
+      "claim": "Recent repository commits corroborate the R-033 and R-034 implementation sequence.",
+      "source": {
+        "type": "github_commit_set",
+        "locators": [
+          "c339a31194ad399c025e7fb29b6c8cb466872ba4",
+          "25014a1b6652548cdfc1e9e03f0c935929625442",
+          "80d75c26f2d25e2de492aa17ec75a53f6f3fc5bb",
+          "7050610ed764573aba26835538a3112eda96a8d9",
+          "649504cf656f1cec76c3239b2b60d0009544eee4",
+          "ad2ca85241a2aac2043ae99a6e91ebdbac0ce115",
+          "20f1e3f14aa6ca9de2f1783b91e5b0945adbd6ab"
+        ]
+      }
+    }
+  ],
+  "resolution": {
+    "classification": "temporal_state_divergence",
+    "summary": "The canonical queue is an older consolidated snapshot, while additive queue-update artifacts preserve later completed work. The later records supersede the canonical queue only for the current Frontier-work inventory; they do not invalidate the canonical file as a historical snapshot.",
+    "do_not_infer": [
+      "Do not infer that R-033 or R-034 are absent merely because they are missing from the canonical queue.",
+      "Do not infer that the canonical queue was corrupted or intentionally falsified.",
+      "Do not infer live browser or iPhone verification from deterministic synthetic tests."
+    ],
+    "recommended_reconciliation": "Build a deterministic queue materializer that merges the canonical snapshot with additive queue-update artifacts by item identifier, preserves source timestamps and blob SHAs, and emits conflicts instead of silently overwriting records."
+  },
+  "privacy": {
+    "classification": "public_repository_safe",
+    "excluded": [
+      "raw private chat",
+      "health and pet-health material",
+      "credentials and account identifiers",
+      "unreviewed uploaded-file contents"
+    ]
+  },
+  "falsification_or_review_route": "Fetch the three indexed files at the recorded blob SHAs and the listed commits. Falsify this record if ACTIVE_QUEUE.json already contains R-033 and R-034 at its recorded blob, or if either additive artifact does not record the stated completed work. Resolve the divergence only after a consolidated queue artifact explicitly incorporates or rejects the additive records with provenance."
+}
