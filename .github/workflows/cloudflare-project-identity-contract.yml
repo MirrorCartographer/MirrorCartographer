@@ -1,0 +1,64 @@
+name: Validate Cloudflare project identity contract
+
+on:
+  pull_request:
+    paths:
+      - "cloudflare-static/wrangler.jsonc"
+      - "cloudflare-static/validate-project-identity-contract.mjs"
+      - "cloudflare-static/validate-project-identity-contract.test.mjs"
+      - ".github/workflows/cloudflare-pages-research.yml"
+      - ".github/workflows/cloudflare-project-identity-contract.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "cloudflare-static/wrangler.jsonc"
+      - "cloudflare-static/validate-project-identity-contract.mjs"
+      - "cloudflare-static/validate-project-identity-contract.test.mjs"
+      - ".github/workflows/cloudflare-pages-research.yml"
+      - ".github/workflows/cloudflare-project-identity-contract.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-project-identity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-project-identity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@v6
+
+      - name: Test identity contract validator
+        run: node --test cloudflare-static/validate-project-identity-contract.test.mjs
+
+      - name: Validate committed project identity
+        run: >-
+          node cloudflare-static/validate-project-identity-contract.mjs
+          cloudflare-static/wrangler.jsonc
+          .github/workflows/cloudflare-pages-research.yml
+          cloudflare-project-identity-contract.json
+
+      - name: Upload identity evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-project-identity-${{ github.sha }}
+          path: cloudflare-project-identity-contract.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish identity summary
+        if: always()
+        run: |
+          {
+            echo "## Cloudflare project identity contract"
+            echo "- Source commit: \`${GITHUB_SHA}\`"
+            echo "- Canonical project: \`mirror-cartographer-research\`"
+            echo "- Wrangler and deployment workflow must agree before deployment evidence is trusted."
+            echo "- This source-level check does not prove credentials, project existence, deployment success, DNS resolution, or scientific truth."
+          } >> "$GITHUB_STEP_SUMMARY"
