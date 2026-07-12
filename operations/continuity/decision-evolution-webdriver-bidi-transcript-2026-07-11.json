@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-DE-0001",
+  "created_at": "2026-07-11T21:21:55-04:00",
+  "team": "continuity_mining",
+  "kind": "decision_evolution",
+  "title": "Browser verification transcript semantics evolved from a flat method list to separated events and command responses",
+  "privacy": "public_repository_safe",
+  "claims": [
+    {
+      "id": "CM-DE-0001-A",
+      "state": "superseded",
+      "summary": "The earlier browser-verification prototype treated navigationStarted, responseCompleted, load, script.evaluate, and captureScreenshot as one flat ordered method transcript.",
+      "evidence_strength": "corroborated_repository_source",
+      "sources": [
+        {
+          "type": "github_commit",
+          "locator": "edec5a1a11ae084e7670008c89061891088c7ce3",
+          "role": "correction commit preserving the prior modeling error in its change history"
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/evidence/frontier-research-webdriver-bidi-command-response-correction-2026-07-11.json",
+          "content_sha": "a7bdb37dfe094bcae828889301410b43c5e9d749"
+        }
+      ],
+      "superseded_by": ["CM-DE-0001-B"],
+      "contradicts": [],
+      "review_route": "Inspect the parent and corrected forms of tools/frontier-research/browser-verification-transcript.mjs at commit edec5a1a11ae084e7670008c89061891088c7ce3."
+    },
+    {
+      "id": "CM-DE-0001-B",
+      "state": "observed",
+      "summary": "The corrected contract preserves ordered browser events separately from command success or error responses correlated by command id, and hashes decoded screenshot bytes rather than the Base64 transport text.",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/queue-updates/R-006-2026-07-11T2116-0400.json",
+          "content_sha": "ad1c7e9a718472bb804b44201838080a9d7445d3"
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/evidence/frontier-research-webdriver-bidi-command-response-correction-2026-07-11.json",
+          "content_sha": "a7bdb37dfe094bcae828889301410b43c5e9d749"
+        },
+        {
+          "type": "github_commit",
+          "locator": "eb5ebdb37e876c7b39cd252ae4de4f4820305204",
+          "role": "adversarial test commit"
+        }
+      ],
+      "supersedes": ["CM-DE-0001-A"],
+      "contradicts": [],
+      "review_route": "Run the seven deterministic contract cases and compare the implementation against current WebDriver BiDi message semantics."
+    },
+    {
+      "id": "CM-DE-0001-C",
+      "state": "inferred",
+      "summary": "Any Cloudflare or Vercel adapter still emitting script.evaluate or captureScreenshot as synthetic events is incompatible with the corrected v2 evidence contract.",
+      "evidence_strength": "strong_inference_from_corrected_contract",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/queue-updates/R-006-2026-07-11T2116-0400.json",
+          "content_sha": "ad1c7e9a718472bb804b44201838080a9d7445d3"
+        }
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "review_route": "Inspect downstream adapters and falsify this inference if they already preserve raw event and command-response records with stable command ids."
+    },
+    {
+      "id": "CM-DE-0001-D",
+      "state": "unresolved",
+      "summary": "No retained live-browser transcript yet proves that a current browser implementation normalizes losslessly into the corrected v2 model.",
+      "evidence_strength": "explicit_gap",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/evidence/frontier-research-webdriver-bidi-command-response-correction-2026-07-11.json",
+          "content_sha": "a7bdb37dfe094bcae828889301410b43c5e9d749"
+        }
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "review_route": "Resolve only with retained raw messages from a current BiDi-capable browser and a successful v2 normalization result."
+    }
+  ],
+  "privacy_boundary": {
+    "included": ["public repository paths", "public commit identifiers", "abstract technical decisions", "verification limits"],
+    "excluded": ["raw private chat", "health or pet-health details", "credentials", "personal identifiers", "unreviewed uploaded-file content"]
+  }
+}
