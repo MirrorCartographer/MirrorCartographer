@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "claim_state": "observed",
+  "completed_slice": "Converted the external Cloudflare configuration blocker into a machine-checkable, privacy-safe environment contract.",
+  "artifacts": {
+    "contract": "cloudflare-static/cloudflare-environment-contract.mjs",
+    "test": "cloudflare-static/cloudflare-environment-contract.test.mjs",
+    "contract_commit": "2c3aee626a3953d119b1b2f1aa88eebe1e91e587",
+    "test_commit": "aa1affebfc09d3b0a2ac737296258472d7da9f18"
+  },
+  "verification": {
+    "route": "isolated Node.js runtime using byte-identical pre-commit files",
+    "command": "node --test cloudflare-environment-contract.test.mjs",
+    "tests_passed": 4,
+    "tests_failed": 0,
+    "cases": [
+      "committed contract is valid",
+      "renamed GitHub environment is rejected",
+      "missing required secret names are rejected without inspecting values",
+      "unsafe secret-recording policy is rejected"
+    ]
+  },
+  "privacy": {
+    "secret_values_recorded": false,
+    "allowed": ["secret names", "configured state", "reason codes", "environment name", "project name"],
+    "forbidden": ["secret values", "token prefixes", "account identifier values", "authorization headers"]
+  },
+  "deployment_proof": {
+    "resolving_url": false,
+    "served_identity": false,
+    "deployed_commit": false,
+    "reason": "GitHub Environment credentials remain externally unconfigured; this artifact improves configuration correctness but is not deployment evidence."
+  },
+  "generated_at": "2026-07-12T00:26:30Z"
+}
