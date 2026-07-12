@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "generated_at": "2026-07-12T02:33:00-04:00",
+  "claim_state": {
+    "observed": [
+      "The repository deployment workflow passes the exact GitHub commit SHA to Wrangler.",
+      "A pure deployment-metadata evaluator and six adversarial contract tests are committed.",
+      "A CI workflow is committed to run the contract tests on changes to the verifier, tests, or workflow."
+    ],
+    "inferred": [
+      "When invoked after deployment with valid Cloudflare credentials, the verifier can reject metadata that does not bind the expected project, exact commit, returned URL, and successful deploy stage."
+    ],
+    "proposed": [
+      "Wire the verifier into cloudflare-pages-research.yml immediately after Wrangler returns DEPLOYMENT_URL and before final evidence acceptance."
+    ],
+    "unresolved": [
+      "No credentialed Cloudflare API response was available in this run.",
+      "No successful Pages deployment or resolving production hostname is claimed.",
+      "No GitHub Actions run result for the new contract workflow was observed."
+    ]
+  },
+  "artifacts": {
+    "verifier": "cloudflare-static/verify-cloudflare-deployment-metadata.mjs",
+    "tests": "cloudflare-static/verify-cloudflare-deployment-metadata.test.mjs",
+    "workflow": ".github/workflows/cloudflare-deployment-metadata-contract.yml",
+    "commits": [
+      "cc2a64fb75189a581563df107cf67709f1e2c390",
+      "bb2a1e0cc6a21074ddf0dabb757c38ecacbcffd1",
+      "76f9caa42f4c9e5dee211e577a0a1239aa868d17"
+    ]
+  },
+  "acceptance_contract": {
+    "project_name": "mirror-cartographer-research",
+    "commit": "exact 40-character GITHUB_SHA",
+    "url": "exact normalized Wrangler deployment URL",
+    "latest_stage": {"name": "deploy", "status": "success"},
+    "cardinality": "exactly one matching deployment"
+  },
+  "privacy_boundary": {
+    "included": ["deployment identifier", "project name", "environment", "normalized URL", "commit hash", "branch", "stage status", "created timestamp"],
+    "excluded": ["Cloudflare API token", "account ID", "authorization headers", "response bodies unrelated to the exact match", "private chat", "health information"]
+  },
+  "epistemic_limit": "Cloudflare control-plane metadata can support deployment provenance. It does not establish served content identity, scientific truth, diagnosis, treatment efficacy, or availability to a particular device or network.",
+  "falsification_route": "The improvement fails if a wrong commit, wrong URL, failed stage, duplicate exact match, malformed URL, or abbreviated commit is accepted as valid."
+}
