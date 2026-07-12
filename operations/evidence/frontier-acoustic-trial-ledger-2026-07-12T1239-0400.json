@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-041",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-12T12:39:00-04:00",
+  "primary_sources": [
+    {
+      "title": "RFC 8785: JSON Canonicalization Scheme",
+      "url": "https://www.rfc-editor.org/rfc/rfc8785.html",
+      "status": "primary_specification",
+      "relevance": "Defines invariant JSON representation suitable for repeatable hashing; the prototype implements the required recursive property ordering and preserves array order for the constrained ledger data model."
+    },
+    {
+      "title": "R-040 repeated acoustic trial gate",
+      "repository_path": "tools/frontier-research/acoustic-repeated-trial-gate.mjs",
+      "status": "prior_committed_artifact",
+      "relevance": "The prior gate assumes independently randomized, non-selectively omitted trials but did not enforce a frozen stopping rule or immutable trial history."
+    }
+  ],
+  "finding": "Repeated-trial inference needs an integrity layer that freezes the protocol before observation, binds every record to that protocol, prevents challenge replay, detects mutation or deletion, and blocks evaluation until the declared fixed sample size is complete.",
+  "design_implication": "Place a preregistered hash-chained ledger before evaluateRepeatedAcousticTrials. The statistical evaluator may consume a trial set only when verifyTrialLedger returns evaluationAllowed=true.",
+  "artifact": {
+    "module": "tools/frontier-research/acoustic-trial-ledger.mjs",
+    "test": "tools/frontier-research/acoustic-trial-ledger.test.mjs",
+    "commits": [
+      "6e53168ca8fc75b7ffc9d832b32b283bd72f9c3e",
+      "a59e40644500b12a26a2ebf71096c493df2a37d9"
+    ]
+  },
+  "verification": {
+    "route": "isolated Node test run using byte-identical pre-commit source",
+    "result": "6 tests passed; 0 failed",
+    "covered": [
+      "complete ledger bound to frozen protocol",
+      "early evaluation blocked",
+      "prior-outcome mutation detected",
+      "challenge replay rejected",
+      "deleted or reordered records detected",
+      "post-registration protocol mutation rejected"
+    ]
+  },
+  "claim_state": "implemented_and_deterministically_tested_not_runtime_integrated",
+  "evidence_strength": "isolated_deterministic_test",
+  "uncertainty": [
+    "The compact canonicalizer is designed for this constrained I-JSON-like data model and is not claimed as a complete general-purpose RFC 8785 implementation.",
+    "A SHA-256 hash chain detects changes when an earlier trusted digest is retained; it does not prevent a party controlling the entire ledger from rewriting all records and recomputing the chain.",
+    "Fixed-sample integrity does not prove trial independence, correct null probability, physical audibility, or exclusive causation."
+  ],
+  "falsification_route": [
+    "Demonstrate a mutation, deletion, reorder, duplicate trial, replayed challenge, protocol change, or early evaluation that passes verification.",
+    "Demonstrate two semantically identical constrained ledger objects that produce different canonical bytes or digests.",
+    "Demonstrate that a complete valid ledger is rejected under its unchanged registered protocol."
+  ]
+}
