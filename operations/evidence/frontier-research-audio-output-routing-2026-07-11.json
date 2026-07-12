@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-005",
+  "owner": "frontier_research",
+  "generated_at": "2026-07-11T20:48:41-04:00",
+  "claim_state": "observed_and_tested",
+  "primary_sources": [
+    {
+      "title": "Web Audio API 1.1",
+      "url": "https://www.w3.org/TR/webaudio/",
+      "status": "W3C First Public Working Draft",
+      "relevant_sections": ["AudioContext sinkId", "setSinkId", "sinkchange", "speaker-selection validation"]
+    }
+  ],
+  "finding": "Audio rendering progress does not establish that audible output reached the intended hardware route. Web Audio 1.1 exposes browser-visible output-selection evidence through AudioContext.sinkId, setSinkId(), sinkchange, and speaker-selection policy checks, but even successful selection remains weaker than physical speaker or listener evidence.",
+  "design_implication": "Pair render-position evidence with an output-routing classification. Treat unsupported, policy-blocked, default-only, selected-but-unverified, and browser-confirmed selection as distinct states. Never convert browser-visible route selection into a claim that sound was physically emitted or perceived.",
+  "artifact": "tools/frontier-research/audio-output-routing.mjs",
+  "test": "tools/frontier-research/audio-output-routing.test.mjs",
+  "verification": {
+    "command": "node --test tools/frontier-research/audio-output-routing.test.mjs",
+    "result": "5 passed, 0 failed",
+    "environment": "isolated Node runtime using byte-identical pre-commit files"
+  },
+  "evidence_strength": "standards-linked deterministic classifier",
+  "uncertainty": [
+    "The W3C document is a draft and browser implementations may differ.",
+    "Feature presence does not prove permission, successful routing, hardware emission, or perception.",
+    "A sinkchange event confirms completion of the browser algorithm, not the physical acoustic path."
+  ],
+  "falsification_route": [
+    "Run the classifier in target browsers and compare against actual API surfaces.",
+    "Select a non-default output and compare sink identity plus sinkchange with operating-system routing.",
+    "Pair browser-visible routing evidence with an external microphone, device-level meter, or listener report."
+  ],
+  "privacy": "No private chat, health data, credentials, device identifiers, or personal information included."
+}
