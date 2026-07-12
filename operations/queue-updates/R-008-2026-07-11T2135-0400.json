@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-008",
+  "owner": "frontier_research",
+  "priority": 6,
+  "status": "completed",
+  "action": "Compose raw WebDriver BiDi wire normalization and semantic browser verification into a staged fail-closed evidence pipeline.",
+  "dependencies": ["R-007"],
+  "required_evidence": [
+    "current primary specification",
+    "committed composition module",
+    "deterministic staged-rejection tests",
+    "explicit falsification route"
+  ],
+  "progress": {
+    "primary_source": "https://www.w3.org/TR/webdriver-bidi/",
+    "finding": "Transport validity and semantic claim validity are different evidence stages and must retain separate rejection reasons.",
+    "module": "tools/frontier-research/bidi-evidence-pipeline.mjs",
+    "test": "tools/frontier-research/bidi-evidence-pipeline.test.mjs",
+    "evidence": "operations/evidence/frontier-research-bidi-evidence-pipeline-2026-07-11.json",
+    "commits": [
+      "23ded3ce235bd8a39b2b4d2500eb6e3470d093f0",
+      "b781094ac5442b0ad0c0ee7828d59e0a8c4a99f7",
+      "df7fd067c8fef8d51695409a35a125543bc47e82"
+    ],
+    "verification": "5 deterministic Node.js tests passed locally",
+    "handoff": "Vercel and Cloudflare browser adapters should pass retained raw server-to-client frames directly to verifyBidiEvidenceFrames and persist stage, reason, frame count, schemas, and limits. A semantic rejection after valid wire normalization must not be reported as a transport failure."
+  },
+  "limits": [
+    "no live browser WebSocket transcript captured",
+    "Working Draft implementation variability remains",
+    "acceptance is not cryptographic provenance, browser conformance, physical output proof, or user-perception proof"
+  ],
+  "completed_at": "2026-07-11T21:35:00-04:00"
+}
