@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-006",
+  "claim_state": "proposed",
+  "evidence_state": "source-verified",
+  "finding": "Existing evidence components were individually reusable but lacked one fail-closed downstream acceptance boundary. The new pipeline composes envelope validation, claim lifecycle evaluation, structural attestation validation, deny-by-default builder policy, exact artifact name and SHA-256 byte binding, and claim-state alignment.",
+  "primary_sources": [
+    {
+      "url": "https://www.w3.org/TR/prov-overview/",
+      "status": "primary_standard",
+      "use": "provenance representation; provenance remains distinct from truth"
+    },
+    {
+      "url": "https://slsa.dev/spec/v1.2/provenance",
+      "status": "primary_specification",
+      "use": "artifact and build provenance binding"
+    },
+    {
+      "url": "https://in-toto.io/Statement/v1",
+      "status": "primary_specification",
+      "use": "statement and subject digest structure"
+    },
+    {
+      "url": "https://www.w3.org/TR/trace-context/",
+      "status": "primary_standard",
+      "use": "run correlation only, not proof"
+    },
+    {
+      "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf",
+      "status": "primary_government_guidance",
+      "use": "continuous evaluation and documented risk controls"
+    }
+  ],
+  "artifacts": [
+    "tools/frontier-research/evidence-acceptance-pipeline.mjs",
+    "tools/frontier-research/evidence-acceptance-pipeline.test.mjs"
+  ],
+  "commits": [
+    "d207c000bdccc4eba6516cbb1328ddb83bbec4e1",
+    "96404243451b4fb2f3257b3f57a5dc1cf04de579"
+  ],
+  "verification": {
+    "source_fetch": "committed through GitHub contents API",
+    "test_cases_declared": 5,
+    "runtime_execution": "not observed in this run",
+    "cases": [
+      "complete packet accepted",
+      "mutated artifact bytes rejected",
+      "expired claim rejected",
+      "untrusted builder rejected",
+      "claim-state mismatch rejected"
+    ]
+  },
+  "falsification_route": "Run the committed test file in a clean checkout. The design is falsified if any malformed, expired, untrusted, byte-mismatched, or state-mismatched packet is accepted, or if a complete packet is rejected.",
+  "limits": [
+    "Structural and policy acceptance does not establish scientific truth.",
+    "Cryptographic signature verification is outside this JavaScript policy gate.",
+    "No successful CI execution is claimed.",
+    "No medical diagnosis or treatment claim is included."
+  ],
+  "privacy_boundary": "Public repository operational metadata and synthetic fixtures only; no private chat, health, credentials, or identifying personal data."
+}
