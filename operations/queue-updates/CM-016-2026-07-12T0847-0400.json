@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "update_id": "CM-016",
+  "team": "continuity_mining",
+  "recorded_at": "2026-07-12T08:47:56-04:00",
+  "queue_observation": {
+    "canonical_queue_blob": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "highest_priority_owned_item": null,
+    "reason": "M-001 is completed and no later continuity-owned item exists in the observed canonical queue."
+  },
+  "work_completed": {
+    "artifact": "operations/continuity/records/CM-0010-queue-freshness-boundary.json",
+    "artifact_commit": "0d1cd7c71976a5e80151ef4b8e194434bb3e0174",
+    "classification": "committed_unpromoted",
+    "memory_recovered": "Committed artifact existence and canonical queue authorization are separate temporal layers; both must be preserved until an explicit queue transition reconciles them."
+  },
+  "proposed_successor": {
+    "id": "M-002",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Integrate recent continuity commits into the canonical index and queue using an atomic, provenance-preserving promotion path.",
+    "required_evidence": [
+      "exact prior queue blob",
+      "exact promoted commit set",
+      "updated continuity index record",
+      "canonical ACTIVE_QUEUE.json transition",
+      "falsification route"
+    ],
+    "status": "proposed_not_canonical"
+  },
+  "shared_state_effect": "Adds a durable queue-update record without overwriting ACTIVE_QUEUE.json or claiming authorization that is not present in the canonical queue.",
+  "privacy_boundary": "Public repository metadata and abstract governance only; no private chat, health, credentials, personal identifiers, or unreviewed uploads.",
+  "next_action": "Promote M-002 through the repository's authorized queue mechanism, then update continuity-index.json to reference CM-0010 and the resulting canonical queue blob."
+}
