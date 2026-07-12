@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "team": "cloudflare_research",
+  "recorded_at": "2026-07-12T02:12:19-04:00",
+  "improvement": "Added a credential-free, privacy-safe probe and GitHub Actions monitor for the stable Cloudflare Pages production hostname.",
+  "production_url": "https://mirror-cartographer-research.pages.dev/",
+  "source_files": [
+    "cloudflare-static/probe-production-hostname.mjs",
+    "cloudflare-static/probe-production-hostname.test.mjs",
+    ".github/workflows/cloudflare-production-hostname-monitor.yml"
+  ],
+  "commits": [
+    "b3db975a1cd84936cf956ad47e98bcc5d7819a3e",
+    "f25ca983e8c22b7c603fdee59dd4e56bb7e0629b",
+    "6258fc0695274d9656a4df51a8ad730621eeb89f",
+    "3722c3b92465be6e40ed2263e16cc7beb0ecbdc6"
+  ],
+  "verification": {
+    "isolated_node_tests": {
+      "passed": 4,
+      "failed": 0,
+      "coverage": [
+        "verified research surface",
+        "unexpected resolving surface",
+        "DNS failure",
+        "non-HTTPS rejection"
+      ]
+    },
+    "github_actions_run": "not_observed_for_workflow_commit",
+    "live_hostname_result": "not_claimed"
+  },
+  "claim_states": {
+    "observed": [
+      "The repository now contains a stable-hostname probe that classifies resolution and research-surface identity without persisting response bodies or credentials.",
+      "The repository now contains a workflow that tests, probes, uploads evidence, summarizes the result, and fails closed unless the production surface is verified."
+    ],
+    "inferred": [
+      "This separates DNS or HTTP availability from Cloudflare credential readiness and post-deployment provenance."
+    ],
+    "proposed": [
+      "Use the monitor artifact as one required input to C-001 closure alongside exact deployed-commit proof."
+    ],
+    "superseded": [
+      "Treating credential failure as sufficient evidence that the public hostname is unavailable."
+    ],
+    "unresolved": [
+      "No successful GitHub Actions run or live verified production response was observed during this run.",
+      "Cloudflare environment credentials remain externally configured and unverified."
+    ]
+  },
+  "privacy_boundary": "No credentials, response bodies, cookies, private chat, health material, or personal identifiers are persisted.",
+  "epistemic_limit": "Hostname and surface identity verification do not establish scientific, diagnostic, or treatment truth."
+}
