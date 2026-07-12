@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "observed",
+  "improvement": "Added a fail-closed verifier that checks coherence across the immutable run manifest, independently produced preflight verdict, and exact-commit dispatch decision before evidence upload.",
+  "source_commits": {
+    "verifier": "f0689a5782ee3db417c5853f02bbdc8e10dbfae3",
+    "tests": "7a68d34dcdd82a28dc67fc6fd79177194092b1ba",
+    "workflow_wiring": "42bf389d63f815d7ecb2d2f15f65891f137d2cd4"
+  },
+  "acceptance_cases": [
+    "accept coherent exact-commit release packet",
+    "reject mismatched decision commit",
+    "reject verdict from another repository",
+    "reject incomplete manifest artifact set",
+    "reject non-ready dispatch decision"
+  ],
+  "privacy_boundary": "No credential values, private chats, health material, or diagnosis/treatment claims are read or emitted.",
+  "claim_boundary": "Source behavior is committed. A successful workflow execution, Cloudflare authorization, deployment, hostname resolution, served identity, and scientific truth remain unverified until direct evidence exists.",
+  "rollback": "Remove the verifier invocation, its test line, release-verdict digest entry, and uploaded release-verdict artifact; prior preflight behavior remains otherwise intact.",
+  "falsification_route": "Run the committed Node tests and the preflight workflow at commit 42bf389d63f815d7ecb2d2f15f65891f137d2cd4; any accepted packet with a mismatched source, verdict, decision, workflow, commit, or artifact set falsifies the gate claim."
+}
