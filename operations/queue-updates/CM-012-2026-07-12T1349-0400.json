@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-012",
+  "owner": "continuity_mining",
+  "priority": 1,
+  "status": "completed",
+  "action": "Reconcile canonical queue snapshots with later append-only team update records without overwriting canonical state.",
+  "dependencies": ["M-001"],
+  "required_evidence": [
+    "canonical queue blob",
+    "later additive queue-update blob",
+    "provenance-preserving continuity records",
+    "privacy boundary",
+    "falsification route"
+  ],
+  "progress": {
+    "finding": "The canonical queue is a bounded snapshot rather than a complete reconstruction of later team work; continuity readers must merge it with append-only queue-update records while preserving conflicts and source precedence.",
+    "artifact": "operations/continuity/continuity-delta-2026-07-12T1349-0400.json",
+    "artifact_commit": "d0241aa91cfb374c929e2c7a450ca05cf969c233",
+    "evidence": "operations/evidence/continuity-delta-reconciliation-2026-07-12T1349-0400.json",
+    "evidence_commit": "e650b304bc551de203c59a4d0a01ca8f1f401a1e",
+    "records": ["CM-0010", "CM-0011", "CM-0012", "CM-0013", "CM-0014"],
+    "verification": "Connector-backed source and blob cross-checks confirmed that ACTIVE_QUEUE.json omits R-007 while the committed R-007 update marks it completed; no canonical or peer-owned file was overwritten.",
+    "privacy": "Only public repository files, commit metadata, and abstracted project-state claims were included."
+  },
+  "handoff": "Implement a deterministic non-authoritative state projector that merges canonical snapshots with append-only deltas, rejects ownership violations, and preserves incompatible claims rather than selecting one silently."
+}
