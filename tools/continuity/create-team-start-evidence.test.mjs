@@ -15,7 +15,7 @@ const acceptedSelection = {
     dependencies: ['M-014'],
     action: 'Bind verified startup selection to evidence.'
   },
-  verification: { observed: { source_commit: 'abc123' } },
+  verification: { commit: 'abc123', artifact_source_commit: 'abc123', accepted: true, errors: [] },
   errors: []
 };
 
@@ -27,6 +27,7 @@ test('accepts exactly one verified item owned by the registered team', () => {
   });
   assert.equal(result.accepted, true);
   assert.equal(result.owner, 'continuity_mining');
+  assert.equal(result.source_commit, 'abc123');
   assert.equal(result.selected_item.id, 'M-015');
   assert.match(result.selection_digest_sha256, /^[a-f0-9]{64}$/);
 });
@@ -57,6 +58,14 @@ test('rejects a selector refusal or empty item', () => {
   assert.equal(result.selected_item, null);
 });
 
+test('rejects an accepted-looking selection without an immutable commit', () => {
+  const selection = structuredClone(acceptedSelection);
+  selection.verification = { accepted: true, errors: [] };
+  const result = buildTeamStartEvidence({ teamName: 'Continuity Mining Team', selection, generatedAt });
+  assert.equal(result.accepted, false);
+  assert.equal(result.errors[0].code, 'TSE-004');
+});
+
 test('selection digest is stable across object key ordering', () => {
   const reordered = {
     item: {
@@ -68,7 +77,7 @@ test('selection digest is stable across object key ordering', () => {
       id: 'M-015'
     },
     owner: 'continuity_mining',
-    verification: { observed: { source_commit: 'abc123' } },
+    verification: { accepted: true, errors: [], artifact_source_commit: 'abc123', commit: 'abc123' },
     selected: true,
     accepted: true
   };
