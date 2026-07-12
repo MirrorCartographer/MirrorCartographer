@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-017",
+  "owner": "frontier_research",
+  "created_at": "2026-07-12T16:06:00-04:00",
+  "source_status": "primary_current",
+  "primary_sources": [
+    {
+      "title": "The Update Framework Specification",
+      "version": "1.0.34",
+      "last_modified": "2026-01-22",
+      "url": "https://theupdateframework.github.io/specification/latest/",
+      "relevant_sections": ["2.1.1 Root role", "5.3 Update the root role"]
+    },
+    {
+      "title": "Node.js Crypto API",
+      "url": "https://nodejs.org/api/crypto.html",
+      "relevant_functions": ["createPublicKey", "verify", "createHash"]
+    }
+  ],
+  "finding": "Normal root-key rotation requires a sequential N+1 root authorized by threshold signatures from both the currently trusted root and the incoming root, with each key counted once. Threshold root compromise requires a separately authenticated out-of-band recovery anchor.",
+  "design_implication": "A state-authority resolver needs an explicit root-policy transition gate before accepting a new authority set. The gate must reject rollback, skipped versions, missing old or new threshold, duplicate signer inflation, expired roots, and unanchored emergency recovery.",
+  "artifact": {
+    "module": "tools/frontier-research/root-policy-rotation.mjs",
+    "test": "tools/frontier-research/root-policy-rotation.test.mjs",
+    "source_commit": "f91d8cc931433efdc682f157defa1813ed9962d2",
+    "test_commit": "37e319a3a3ac7943946f2cd78de800599b4f5ce2"
+  },
+  "verification": {
+    "runtime": "isolated Node.js runtime",
+    "tests_passed": 7,
+    "tests_failed": 0,
+    "covered": [
+      "dual-threshold sequential rotation",
+      "rollback or replay rejection",
+      "skipped-version rejection",
+      "missing old threshold rejection",
+      "missing new threshold rejection",
+      "exact out-of-band emergency digest plus new threshold",
+      "expired proposed root rejection"
+    ]
+  },
+  "evidence_strength": "implemented_and_locally_tested",
+  "uncertainty": [
+    "Generated test keys do not model independent authority administration or hardware-backed custody.",
+    "The emergency digest channel is represented as trusted input; its real-world authentication is outside this module.",
+    "The implementation is TUF-inspired and is not represented as a complete TUF client implementation."
+  ],
+  "falsification_route": [
+    "Produce a root transition accepted without the configured old threshold and without an exact emergency digest.",
+    "Produce a root transition accepted with a non-sequential or decreasing root version.",
+    "Produce threshold acceptance by repeating one key signature.",
+    "Produce emergency acceptance when the supplied digest does not match the canonical proposed root."
+  ],
+  "claim_boundary": "Cryptographic acceptance establishes authorization under configured keys and anchors only; it does not establish honest administration, uncompromised custody, or factual correctness of downstream state."
+}
