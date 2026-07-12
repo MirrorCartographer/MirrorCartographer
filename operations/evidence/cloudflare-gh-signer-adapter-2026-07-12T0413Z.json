@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "claim_state": "source-implemented-test-committed-runtime-unverified",
+  "evidence_strength": "repository-source-and-deterministic-test-definition",
+  "observed": [
+    "A deterministic adapter now maps exactly one gh attestation verification result into the Cloudflare signer-authorization input schema.",
+    "The adapter extracts repository, workflow path, git ref, and a normalized SHA-256 certificate fingerprint from verifier-authenticated certificate fields.",
+    "The adapter fails closed when attestation cardinality, verified timestamps, certificate identity, fingerprint, or policy are absent.",
+    "Four deterministic Node tests were committed for success, missing fingerprint, missing workflow identity, and ambiguous cardinality."
+  ],
+  "inferred": [
+    "Once wired into the deployment workflow, signer authorization can be based on exact authenticated certificate identity rather than workflow-controlled statement fields alone."
+  ],
+  "limits": [
+    "No GitHub Actions run exists yet for commit c488b7c0f2ab21f48d5c43167802b8ab94567a08.",
+    "The local execution environment could not resolve github.com, so the committed test was not independently executed in this cycle.",
+    "The exact certificate field names emitted by the installed gh version must be confirmed from a real workflow artifact before acceptance is enabled.",
+    "Signer authorization authenticates provenance scope; it does not prove deployment success or scientific truth."
+  ],
+  "files": [
+    "cloudflare-static/build-gh-signer-authorization-input.mjs",
+    "cloudflare-static/build-gh-signer-authorization-input.test.mjs"
+  ],
+  "commits": [
+    "28eede971f1f9be82511f09ec232c827db93abb7",
+    "c488b7c0f2ab21f48d5c43167802b8ab94567a08"
+  ],
+  "falsification_route": "Run the committed test under Node in CI, capture real gh attestation verify --format=json output, and reject the adapter if authenticated repository, workflow, ref, and fingerprint cannot be recovered without consulting workflow-controlled statement fields.",
+  "next_action": "Wire the adapter test and runtime invocation into cloudflare-pages-research.yml, generate a deny-by-default signer policy file, and require an authorized result in the acceptance invariant.",
+  "generated_at": "2026-07-12T04:13:00Z"
+}
