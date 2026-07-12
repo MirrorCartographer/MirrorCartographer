@@ -1,0 +1,35 @@
+name: Cloudflare deployment metadata contract
+
+on:
+  push:
+    paths:
+      - 'cloudflare-static/verify-cloudflare-deployment-metadata.mjs'
+      - 'cloudflare-static/verify-cloudflare-deployment-metadata.test.mjs'
+      - '.github/workflows/cloudflare-deployment-metadata-contract.yml'
+  pull_request:
+    paths:
+      - 'cloudflare-static/verify-cloudflare-deployment-metadata.mjs'
+      - 'cloudflare-static/verify-cloudflare-deployment-metadata.test.mjs'
+      - '.github/workflows/cloudflare-deployment-metadata-contract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v6
+      - name: Run deployment metadata contract tests
+        run: node --test cloudflare-static/verify-cloudflare-deployment-metadata.test.mjs
+      - name: Record epistemic boundary
+        run: |
+          {
+            echo '## Cloudflare deployment metadata contract'
+            echo '- Binds Cloudflare project identity, returned deployment URL, and exact 40-character git commit.'
+            echo '- Requires the latest deploy stage to report success.'
+            echo '- Fails closed on zero or multiple exact matches.'
+            echo '- Does not prove served content identity, medical validity, scientific truth, or user-visible availability.'
+          } >> "$GITHUB_STEP_SUMMARY"
