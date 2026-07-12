@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-11T20:35:02-04:00",
+  "team": "frontier_research",
+  "queue_item": "R-007",
+  "title": "Acoustic detector clock alignment and quality gate",
+  "primary_sources": [
+    {
+      "url": "https://www.w3.org/TR/webaudio/",
+      "status": "W3C working draft",
+      "relevance": "AudioContext.getOutputTimestamp maps audio context time to the browser performance timeline; the specification warns that currentTime minus contextTime is not a reliable latency estimate."
+    },
+    {
+      "url": "https://www.w3.org/TR/hr-time-3/",
+      "status": "W3C candidate recommendation draft",
+      "relevance": "Performance timing uses a stable monotonic clock within a browser execution, while cross-device or cross-execution timestamps require explicit alignment and remain subject to resolution and jitter."
+    }
+  ],
+  "finding": "A detector trace cannot be scored against browser-scheduled pulse times until the detector clock is mapped into the browser performance timeline. Bracketing synchronization anchors support an affine offset-and-drift estimate; residual and detector resolution must be retained as uncertainty and gated before attribution scoring.",
+  "artifact": {
+    "module": "tools/frontier-research/acoustic-clock-alignment.mjs",
+    "test": "tools/frontier-research/acoustic-clock-alignment.test.mjs",
+    "method": "median pairwise affine clock estimate with residual and drift quality gate"
+  },
+  "verification": {
+    "command": "node --test tools/frontier-research/acoustic-clock-alignment.test.mjs",
+    "result": "4 passed, 0 failed",
+    "cases": [
+      "recovers offset and small drift from bracketing anchors",
+      "limits one noisy anchor with a robust median estimator",
+      "retains original detector time and alignment uncertainty",
+      "rejects excessive drift or residual"
+    ]
+  },
+  "evidence_strength": "tested-source-behavior",
+  "uncertainty": [
+    "The estimator assumes approximately affine clock drift during a short challenge window.",
+    "Synchronization anchors must themselves be observed on both timelines; poor anchors can create false confidence.",
+    "Clock calibration does not establish speaker emission, microphone placement, or human perception."
+  ],
+  "falsification_route": "Generate fresh anchors before and after each acoustic challenge. Reject synchronized attribution if residual or drift thresholds fail, or if aligned detections no longer match the randomized challenge under uncertainty-expanded timing bounds.",
+  "privacy_boundary": "No microphone recording, private conversation, health information, credential, or identifying device data is stored in this evidence packet."
+}
