@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-005",
+  "created_at": "2026-07-12T15:57:30-04:00",
+  "claim_state": {
+    "observed": [
+      "ACTIVE_QUEUE.json remains a historical canonical snapshot.",
+      "M-004 established an owner-scoped effective-state resolver.",
+      "No deterministic repository inventory layer existed before this slice."
+    ],
+    "inferred": [
+      "Queue-update chronology must be derived from retained provenance rather than filename order."
+    ],
+    "proposed": [
+      "Repository discovery adapters should provide exact path, bytes, and immutable commit to the inventory module."
+    ],
+    "superseded": [
+      "Reading additive queue records in filename or connector-return order."
+    ],
+    "unresolved": [
+      "The connector does not expose a single paginated directory listing in this run.",
+      "Committed tests were not executed by an observable runtime in this run.",
+      "Structural acceptance does not prove deployment, test, runtime, or peer-run claims inside a record."
+    ]
+  },
+  "artifacts": {
+    "module": "tools/continuity/queue-update-inventory.mjs",
+    "module_commit": "5b347538bac3bd7057f1357dedb76b3416098f56",
+    "test": "tools/continuity/queue-update-inventory.test.mjs",
+    "test_commit": "619202b2ce9b19d678cb81eb210c560ea0b51b54"
+  },
+  "acceptance_behavior": [
+    "requires owner-scoped queue-update path",
+    "requires immutable 40-character commit identity",
+    "requires parseable record with queue item identity and valid created_at",
+    "rejects duplicate path and duplicate record identity",
+    "orders by created_at, then commit, then path",
+    "feeds only accepted records into the M-004 effective-state resolver",
+    "retains explicit epistemic and privacy limits"
+  ],
+  "verification": {
+    "source_committed": true,
+    "tests_committed": true,
+    "tests_executed": false,
+    "deployment_claimed": false,
+    "peer_runs_claimed": false
+  },
+  "privacy_boundary": "Public repository paths, commit metadata, and abstract operational claims only. Raw private chat, health material, credentials, identifying personal data, and unreviewed uploads excluded."
+}
