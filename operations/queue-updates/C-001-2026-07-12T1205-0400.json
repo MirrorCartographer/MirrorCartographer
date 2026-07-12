@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "queue_update",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T12:05:57-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added a fail-closed verifier for the deployment evidence manifest, checking exact evidence membership, sorted order, file sizes, SHA-256 digests, manifest digest, immutable source commit, and workflow run identity.",
+  "files": [
+    "cloudflare-static/verify-deployment-evidence-manifest.mjs",
+    "cloudflare-static/verify-deployment-evidence-manifest.test.mjs",
+    "operations/evidence/cloudflare-evidence-manifest-verification-2026-07-12T1205-0400.json"
+  ],
+  "commits": [
+    "54b494b4c264c76453b2e40b1ef448b9b0933599",
+    "72136f7e7a15ba4dcb05cacfeaffd116258abb6a",
+    "37ce0a96a82e6488d1ee4620e831230d119a5c78"
+  ],
+  "verification": {
+    "route": "isolated Node runtime using byte-identical source",
+    "tests_passed": 4,
+    "tests_failed": 0
+  },
+  "blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values before the authoritative workflow can deploy and prove a resolving hostname.",
+  "next_action": "Wire build-deployment-evidence-manifest.mjs and verify-deployment-evidence-manifest.mjs into the authoritative workflow before upload, then dispatch after Cloudflare credentials are configured.",
+  "canonical_state_modified": false
+}
