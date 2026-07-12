@@ -1,0 +1,79 @@
+name: Preserve Cloudflare blocked-deployment evidence
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'cloudflare-static/build-blocked-deployment-evidence.mjs'
+      - 'cloudflare-static/build-blocked-deployment-evidence.test.mjs'
+      - '.github/workflows/cloudflare-blocked-evidence.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  preserve-blocker:
+    runs-on: ubuntu-latest
+    environment: cloudflare-research
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@v6
+
+      - name: Test blocked-evidence contract
+        run: node --test cloudflare-static/build-blocked-deployment-evidence.test.mjs
+
+      - name: Classify readiness without exposing values
+        id: readiness
+        continue-on-error: true
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node cloudflare-static/check-deployment-readiness.mjs cloudflare-deployment-readiness.json
+
+      - name: Summarize blocker
+        if: steps.readiness.outcome != 'success'
+        run: node cloudflare-static/summarize-deployment-blocker.mjs cloudflare-deployment-readiness.json cloudflare-deployment-blocker.json
+
+      - name: Build explicit blocked evidence
+        if: steps.readiness.outcome != 'success'
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+        run: >-
+          node cloudflare-static/build-blocked-deployment-evidence.mjs
+          cloudflare-deployment-readiness.json
+          cloudflare-deployment-blocker.json
+          cloudflare-blocked-deployment-evidence.json
+
+      - name: Assert no deployment claim
+        if: steps.readiness.outcome != 'success'
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const packet = JSON.parse(fs.readFileSync('cloudflare-blocked-deployment-evidence.json', 'utf8'));
+          if (packet.deployment_proven !== false) throw new Error('blocked-evidence-must-not-claim-deployment');
+          if (packet.deployment_url !== null) throw new Error('blocked-evidence-must-not-contain-deployment-url');
+          if (packet.privacy?.secret_values_emitted !== false) throw new Error('secret-values-must-not-be-emitted');
+          NODE
+
+      - name: Upload blocker evidence
+        if: steps.readiness.outcome != 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-blocked-deployment-${{ github.sha }}
+          path: |
+            cloudflare-deployment-readiness.json
+            cloudflare-deployment-blocker.json
+            cloudflare-blocked-deployment-evidence.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Report readiness transition
+        if: steps.readiness.outcome == 'success'
+        run: |
+          echo 'Cloudflare credentials are configured. This workflow does not deploy; dispatch cloudflare-pages-research.yml for deployment proof.' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Report blocked state
+        if: steps.readiness.outcome != 'success'
+        run: |
+          echo 'Cloudflare deployment remains blocked by external configuration. A privacy-safe evidence packet was preserved.' >> "$GITHUB_STEP_SUMMARY"
