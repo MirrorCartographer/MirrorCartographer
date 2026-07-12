@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-011",
+  "created_at": "2026-07-11T22:59:05-04:00",
+  "finding": "Historical continuity queue records store unresolved claims in multiple shapes. A lineage gate must normalize those shapes before checking whether successors preserve or explicitly resolve inherited work.",
+  "implementation": {
+    "module": "tools/continuity/queue-lineage-loader.mjs",
+    "module_commit": "71392f29a6432ea248a4c7a5bd8ccb52176a33df",
+    "test": "tools/continuity/queue-lineage-loader.test.mjs",
+    "test_commit": "340733fdca00d360d24a369687e4db2aa44f71fc"
+  },
+  "contract": [
+    "normalize top-level unresolved arrays and progress.claim_states.unresolved arrays",
+    "filter to continuity-owned or M-numbered records",
+    "reject malformed JSON and malformed records",
+    "reject duplicate record identifiers",
+    "apply the inherited-unresolved invariant after normalization"
+  ],
+  "verification": {
+    "source_creation": "verified by GitHub commit responses",
+    "test_execution": "not observed in this run",
+    "ci_execution": "not observed in this run"
+  },
+  "claim_states": {
+    "observed": "M-010 names a historical-schema normalization loader as its next handoff; the module and deterministic test source are committed.",
+    "inferred": "Normalization before validation prevents schema drift from silently bypassing lineage checks.",
+    "proposed": "Add repository file discovery and wire this loader into a CI report-only gate before making it blocking.",
+    "superseded": "Applying lineage validation only to manually pre-normalized records.",
+    "unresolved": [
+      "execute the five deterministic checks on the exact commit",
+      "inventory every historical M-* queue update",
+      "define handling for semantic duplicates whose wording differs"
+    ]
+  },
+  "privacy_boundary": "Public repository metadata, abstract queue claims, and synthetic test records only. No private chat, health, pet-health, credentials, personal identifiers, or unreviewed uploads were included."
+}
