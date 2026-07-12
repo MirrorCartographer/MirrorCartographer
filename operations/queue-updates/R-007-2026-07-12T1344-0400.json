@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-007",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed",
+  "action": "Add append-only Merkle checkpoints to the peer-trigger lifecycle ledger.",
+  "dependencies": ["R-006"],
+  "required_evidence": ["primary standard", "committed implementation", "adversarial tests", "explicit trust limits", "falsification route"],
+  "progress": {
+    "primary_source": "https://www.rfc-editor.org/rfc/rfc9162.html",
+    "finding": "Ordered receipt histories require a separate append-only commitment; lifecycle validation alone cannot reveal omitted, reordered, mutated, truncated, or forked prior history.",
+    "module": "tools/frontier-research/peer-trigger-merkle-checkpoint.mjs",
+    "test": "tools/frontier-research/peer-trigger-merkle-checkpoint.test.mjs",
+    "evidence": "operations/evidence/frontier-peer-trigger-merkle-checkpoint-2026-07-12.json",
+    "commits": ["580cdf500bd65ebf94d858a349276968618c4a0e", "926f2a4d5881457140d65ed5eb7d5cb2b687d58b", "860299da46b5a4eeb0bb670d2a22b581de9f3c43"],
+    "verification": "5 deterministic Node tests passed in an isolated runtime using connector-fetched committed logic",
+    "limits": "Unsigned roots, no witness gossip, full-prefix verification rather than compact consistency proofs, and no proof that event claims are truthful."
+  },
+  "handoff": "Coordination writers should checkpoint validated ledgers and peers should compare witnessed checkpoints. A future frontier slice should add compact RFC 9162 consistency proofs plus signed or independently witnessed checkpoint exchange."
+}
