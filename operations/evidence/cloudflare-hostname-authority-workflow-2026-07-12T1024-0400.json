@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "created_at": "2026-07-12T10:24:40-04:00",
+  "source_commit": "00056ceee133ef8d2b9ad29cc6b7c0df496e80d4",
+  "finding": "The sanitized direct Pages project probe can now produce a canonical hostname-authority artifact before deployment and can be deterministically rebound to Wrangler's returned deployment URL after a successful deployment.",
+  "implementation": {
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "builder": "cloudflare-static/build-pages-hostname-authority.mjs",
+    "test": "cloudflare-static/build-pages-hostname-authority.test.mjs",
+    "pre_deploy_step": "Build canonical Pages hostname authority",
+    "post_deploy_step": "Bind deployment URL to Pages hostname authority",
+    "uploaded_artifact": "cloudflare-pages-hostname-authority.json"
+  },
+  "verification": {
+    "method": "commit-bound source inspection through GitHub connector",
+    "checks": [
+      "hostname-authority unit test added to the workflow contract suite",
+      "pre-deploy builder invocation is gated on successful sanitized access probe",
+      "post-deploy invocation receives Wrangler's returned deployment URL",
+      "hostname-authority artifact is included in the uploaded proof bundle",
+      "run summary documents the authority artifact and its epistemic limit"
+    ],
+    "workflow_executed": false,
+    "deployment_verified": false
+  },
+  "evidence_strength": "implementation-verified-source-only",
+  "privacy_boundary": {
+    "secret_values_emitted": false,
+    "account_id_emitted": false,
+    "unrelated_project_names_emitted": false
+  },
+  "epistemic_limit": "Workflow wiring and control-plane hostname authority do not prove that DNS resolves, HTTP is reachable, the intended research surface is served, or the deployed commit matches until the externally configured workflow runs successfully.",
+  "falsification_route": [
+    "configure the cloudflare-research GitHub environment secrets",
+    "dispatch the workflow at commit 00056ceee133ef8d2b9ad29cc6b7c0df496e80d4 or a descendant",
+    "inspect the uploaded cloudflare-pages-hostname-authority.json",
+    "reject the claim if deployment.bound is false or the hostname relation is unbound",
+    "independently test DNS, HTTP, served identity, and exact deployed commit"
+  ]
+}
