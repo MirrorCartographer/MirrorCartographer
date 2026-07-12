@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "created_at": "2026-07-12T16:23:00-04:00",
+  "creative_premise": "Afterbell is not a page to consume but a room a visitor composes. Three or more echoes can now be folded into the URL itself, turning the address into a compact score that reopens the same visual constellation without an account, database, analytics layer, or server state.",
+  "identity_boundary": {
+    "independent_from_mirror_cartographer": true,
+    "not_a_research_portal": true,
+    "not_a_worker_dashboard": true,
+    "not_a_product_funnel": true,
+    "storage_model": "URL fragment only; no network submission or personal identity"
+  },
+  "specialists_used": [
+    "Creative Director",
+    "Worldbuilder",
+    "Experimental Interface Designer",
+    "Generative Media Engineer",
+    "Independent Hosting Architect"
+  ],
+  "implementation": {
+    "score_module": "independent-web/afterbell-score.mjs",
+    "score_commit": "45bdff3889b82a981833fb544c634e307782c0f0",
+    "test": "independent-web/afterbell-score.test.mjs",
+    "test_commit": "b2423289f69c4ba96e8ab474ae26e264e7d42c95",
+    "surface": "independent-web/afterbell.html",
+    "surface_commit": "cc3510740435dc515552fb87437cc870c1a15cfc",
+    "behavior": [
+      "marks are normalized and capped before serialization",
+      "room interval geometry and signature are deterministic",
+      "three marks reveal a Fold this room control",
+      "folding writes a versioned base64url seed into the URL fragment",
+      "opening the seeded URL reconstructs the same room",
+      "invalid or oversized seeds fail closed and are removed",
+      "the room can be emptied without touching any server",
+      "keyboard controls remain available for placing, folding, and clearing echoes",
+      "reduced-motion preference suppresses pulse animation"
+    ]
+  },
+  "verification": {
+    "runtime": "Node.js test runner executed against byte-identical module and test content before commit",
+    "result": "4 passed, 0 failed",
+    "cases": [
+      "fold/unfold round trip",
+      "coordinate and strength clamping",
+      "bounded newest-mark retention",
+      "malformed and oversized seed rejection"
+    ],
+    "browser_runtime": "not observed",
+    "mobile_runtime": "not observed",
+    "public_url": "not established"
+  },
+  "rollback": [
+    "revert cc3510740435dc515552fb87437cc870c1a15cfc",
+    "revert b2423289f69c4ba96e8ab474ae26e264e7d42c95",
+    "revert 45bdff3889b82a981833fb544c634e307782c0f0"
+  ],
+  "claim_limits": [
+    "Deterministic module tests do not prove browser rendering, clipboard access, audio output, or mobile behavior.",
+    "Repository source does not establish public deployment.",
+    "URL fragments may be copied or exposed by the visitor; the seed intentionally contains only normalized abstract coordinates and strengths."
+  ]
+}
