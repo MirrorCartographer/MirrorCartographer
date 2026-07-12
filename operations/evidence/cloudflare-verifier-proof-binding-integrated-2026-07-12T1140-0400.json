@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "created_at": "2026-07-12T11:40:00-04:00",
+  "claim_state": "implemented_source_behavior",
+  "evidence_strength": "deterministic_local_execution_of_reconstructed_committed_logic",
+  "finding": "A successful served-identity verifier row must be canonically bound to the exact deployment_url in the proof before deployment evidence can be marked observed.",
+  "implementation": {
+    "builder": "cloudflare-static/build-evidence-verification-input.mjs",
+    "validator": "cloudflare-static/validate-verifier-proof-binding.mjs",
+    "integration_test": "cloudflare-static/build-evidence-verifier-binding.integration.test.mjs",
+    "builder_commit": "5862efc068c01690dba91cc2a5c7c5b14f0a8a73",
+    "test_commit": "01b7c049df3d5bde73a6f48703abd80a529ae05c"
+  },
+  "verification": {
+    "command": "node --test integration.test.mjs",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      "exact deployment URL accepted",
+      "unrelated successful URL rejected",
+      "failed exact URL plus unrelated success rejected",
+      "failed deployment decision rejected despite exact verifier success"
+    ],
+    "runtime_limit": "The execution environment could not resolve github.com for a fresh clone. Tests ran against locally reconstructed source logic from the committed GitHub contents, so this is source-behavior evidence rather than CI or deployment evidence."
+  },
+  "privacy_boundary": "No credentials, private chat, personal health material, diagnosis, or treatment claim was stored.",
+  "falsification_routes": [
+    "Run the committed integration test in GitHub Actions or a fresh checkout.",
+    "Construct a proof whose successful verifier row names a different canonical URL and confirm claim_state remains unresolved.",
+    "Fetch the exact deployment URL after a real Pages deployment and rerun the served identity verifier."
+  ],
+  "limits": [
+    "Exact URL binding does not prove Cloudflare account ownership.",
+    "Exact URL binding does not prove the deployed commit.",
+    "No live Cloudflare deployment occurred in this run.",
+    "A valid deployment evidence packet does not establish scientific truth."
+  ]
+}
