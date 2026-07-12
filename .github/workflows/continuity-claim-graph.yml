@@ -1,0 +1,42 @@
+name: Continuity claim graph integrity
+
+on:
+  pull_request:
+    paths:
+      - 'operations/continuity/continuity-index.json'
+      - 'tools/continuity/claim-graph.mjs'
+      - 'tools/continuity/claim-graph.test.mjs'
+      - 'tools/continuity/validate-current-claim-graph.mjs'
+      - '.github/workflows/continuity-claim-graph.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'operations/continuity/continuity-index.json'
+      - 'tools/continuity/claim-graph.mjs'
+      - 'tools/continuity/claim-graph.test.mjs'
+      - 'tools/continuity/validate-current-claim-graph.mjs'
+      - '.github/workflows/continuity-claim-graph.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run claim graph contract tests
+        run: node --test tools/continuity/claim-graph.test.mjs
+      - name: Validate committed continuity index
+        run: node tools/continuity/validate-current-claim-graph.mjs operations/continuity/continuity-index.json | tee continuity-claim-graph-report.json
+      - name: Retain validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: continuity-claim-graph-report
+          path: continuity-claim-graph-report.json
+          if-no-files-found: error
