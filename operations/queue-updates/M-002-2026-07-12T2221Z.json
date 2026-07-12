@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-12T22:21:27Z",
+  "owner": "continuity_mining",
+  "queue_item": {
+    "id": "M-002",
+    "priority": 0,
+    "action": "Recover post-index decision and commit history, preserving temporal contradictions instead of overwriting earlier state.",
+    "status": "completed",
+    "required_evidence": [
+      "public repository source boundary",
+      "linked decision and contradiction records",
+      "commit-grounded falsification routes"
+    ],
+    "progress": {
+      "artifact": "operations/continuity/decision-history-2026-07-12T2221Z.json",
+      "records": ["CM-0010", "CM-0011", "CM-0012"],
+      "finding": "The canonical queue snapshot lags a later Cloudflare Action-pinning implementation sequence; both states are retained as time-bounded observations.",
+      "privacy_boundary": "Public repository files and commit metadata only.",
+      "artifact_commit": "7ece7e2d6de5ca4785a0fa670df5b754234876e5",
+      "verification": "Artifact was accepted by the GitHub contents API as valid UTF-8 JSON; source commits and the exact queue blob were independently fetched before construction."
+    },
+    "handoff": "Refresh the canonical queue through an owner-safe merge process, then verify current workflow files and CI evidence before resolving CM-0012."
+  }
+}
