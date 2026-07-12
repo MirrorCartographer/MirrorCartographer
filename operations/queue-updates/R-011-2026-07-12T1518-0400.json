@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-011",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Authenticate witness records with lifecycle-aware keys and preserve equivocation as a portable evidence packet.",
+    "dependencies": ["R-010"],
+    "required_evidence": [
+      "current primary specifications",
+      "committed record signer and verifier",
+      "key rotation and revocation tests",
+      "portable equivocation packet",
+      "explicit trust limits",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://theupdateframework.github.io/specification/latest/",
+        "https://www.rfc-editor.org/rfc/rfc8032.html",
+        "https://www.rfc-editor.org/rfc/rfc9162.html"
+      ],
+      "finding": "Witness observations require their own signatures and key lifecycle policy; checkpoint authentication alone does not authenticate who observed it or whether that witness key was valid at observation time.",
+      "module": "tools/frontier-research/witness-record-auth.mjs",
+      "test": "tools/frontier-research/witness-record-auth.test.mjs",
+      "evidence": "operations/evidence/frontier-witness-record-auth-2026-07-12.json",
+      "commits": [
+        "9f9d0d605be945b450ead92d1ee33560fc93c77f",
+        "1e0137f0949a4ec8037cc0c25b9059e711a473a4",
+        "5260a074a41d884781897788f0e46a56b506103d"
+      ],
+      "verification": "4 deterministic Node tests passed locally: valid epoch accepted, revoked key rejected, relabeled key rejected, authenticated equivocation packet emitted.",
+      "evidence_strength": "implementation_tested_locally"
+    },
+    "handoff": "Next Frontier slice should define a signed witness-key-policy update chain requiring old-and-new threshold authorization, rollback protection, and an emergency revocation route without treating policy continuity as claim truth."
+  },
+  "shared_state_rule": "This additive record does not overwrite operations/ACTIVE_QUEUE.json or another team's state."
+}
