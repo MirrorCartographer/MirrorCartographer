@@ -12,6 +12,11 @@ function decodeBase64(value, label) {
   return Buffer.from(padded, 'base64');
 }
 
+function publicKeyFingerprint(key) {
+  const der = key.export({ type: 'spki', format: 'der' });
+  return createHash('sha256').update(der).digest('hex');
+}
+
 export function dssePAE(payloadType, payload) {
   if (typeof payloadType !== 'string' || payloadType.length === 0) throw new TypeError('payloadType-required');
   const typeBytes = Buffer.from(payloadType, 'utf8');
@@ -33,40 +38,45 @@ export function verifyDsseEnvelope({ envelope, trustedKeys, supportedPayloadType
   const payloadType = envelope?.payloadType;
   if (typeof payloadType !== 'string' || !supportedPayloadTypes.includes(payloadType)) reasons.push('payloadType.unsupported');
   if (!Array.isArray(envelope?.signatures) || envelope.signatures.length === 0) reasons.push('signatures.empty');
-  if (reasons.length) return Object.freeze({ verified: false, reasons: Object.freeze([...new Set(reasons)]), acceptedKeyIds: Object.freeze([]) });
+  if (reasons.length) return Object.freeze({ verified: false, reasons: Object.freeze([...new Set(reasons)]), acceptedKeyIds: Object.freeze([]), acceptedKeyFingerprints: Object.freeze([]) });
 
   let payload;
   try { payload = decodeBase64(envelope.payload, 'payload'); }
   catch (error) { reasons.push(error.message); }
-  if (!payload) return Object.freeze({ verified: false, reasons: Object.freeze(reasons), acceptedKeyIds: Object.freeze([]) });
+  if (!payload) return Object.freeze({ verified: false, reasons: Object.freeze(reasons), acceptedKeyIds: Object.freeze([]), acceptedKeyFingerprints: Object.freeze([]) });
 
   const pae = dssePAE(payloadType, payload);
-  const accepted = new Set();
+  const acceptedKeyIds = new Set();
+  const acceptedKeyFingerprints = new Set();
   for (const signature of envelope.signatures) {
     const keyid = signature?.keyid;
-    if (typeof keyid !== 'string' || !keyid || accepted.has(keyid)) continue;
+    if (typeof keyid !== 'string' || !keyid || acceptedKeyIds.has(keyid)) continue;
     const publicKey = trustedKeys[keyid];
     if (!publicKey) continue;
     try {
       const signatureBytes = decodeBase64(signature.sig, 'signature');
       const key = createPublicKey(publicKey);
-      if (cryptoVerify(null, pae, key, signatureBytes)) accepted.add(keyid);
+      if (cryptoVerify(null, pae, key, signatureBytes)) {
+        acceptedKeyIds.add(keyid);
+        acceptedKeyFingerprints.add(publicKeyFingerprint(key));
+      }
     } catch {
       // Fail closed. Malformed keys and signatures are not accepted.
     }
   }
 
-  if (accepted.size < threshold) reasons.push('signature.threshold');
+  if (acceptedKeyFingerprints.size < threshold) reasons.push('signature.threshold');
   return Object.freeze({
-    schemaVersion: '1.0.0',
+    schemaVersion: '1.1.0',
     verified: reasons.length === 0,
     reasons: Object.freeze([...new Set(reasons)]),
-    acceptedKeyIds: Object.freeze([...accepted].sort()),
+    acceptedKeyIds: Object.freeze([...acceptedKeyIds].sort()),
+    acceptedKeyFingerprints: Object.freeze([...acceptedKeyFingerprints].sort()),
     payloadType,
     payloadText: payload.toString('utf8'),
     payloadDigest: createHash('sha256').update(payload).digest('hex'),
     verifier: 'node:crypto/dsse-v1',
-    trustLimit: 'This verifies DSSE signatures against caller-supplied trusted public keys and returns the exact verified payload bytes. It does not validate certificate chains, transparency logs, timestamps, signer authorization, provenance policy, or the truth of claims inside the payload.'
+    trustLimit: 'This verifies DSSE signatures against caller-supplied trusted public keys and counts cryptographically distinct SPKI key fingerprints for threshold decisions. It does not validate certificate chains, transparency logs, timestamps, signer authorization, provenance policy, or the truth of claims inside the payload.'
   });
 }
 
