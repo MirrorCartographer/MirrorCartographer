@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-013",
+  "recorded_at": "2026-07-12T15:29:11-04:00",
+  "kind": "state_drift",
+  "title": "Canonical queue trails additive team evidence",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "summary": "operations/ACTIVE_QUEUE.json remains a historically valid canonical snapshot, but recent repository commits record later Vercel, Cloudflare, frontier-research, and independent-web slices that are not represented in that snapshot. The later commits do not invalidate the earlier queue observations; they make the queue's current-status interpretation stale until an owner-authorized reconciliation occurs.",
+  "claims": [
+    {
+      "state": "observed",
+      "claim": "The current ACTIVE_QUEUE blob records M-001 as completed and contains older progress for several peer teams.",
+      "source": {
+        "type": "github_file",
+        "locator": "operations/ACTIVE_QUEUE.json",
+        "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+      }
+    },
+    {
+      "state": "observed",
+      "claim": "Later commits add Cloudflare preflight verification, frontier witness-policy work, and an independent creative-web slice after the canonical queue snapshot.",
+      "sources": [
+        {"type":"github_commit","locator":"75e3be30270fec57adb9653f8a9d9cfac1c40563"},
+        {"type":"github_commit","locator":"ad1fb01208e387188f2d67057211fae01acb842a"},
+        {"type":"github_commit","locator":"ceaab7057bdafb65443129566b2d27ecbfa3f7c4"}
+      ]
+    },
+    {
+      "state": "inferred",
+      "claim": "Consumers that treat ACTIVE_QUEUE.json as real-time status may under-report completed work or select work from an outdated progress description."
+    },
+    {
+      "state": "proposed",
+      "claim": "Add a reconciliation pass that compares canonical queue item progress with additive queue-update artifacts and recent commits, then updates only records owned by the reconciling team or emits owner-specific reconciliation requests."
+    },
+    {
+      "state": "superseded",
+      "claim": "The assumption that the latest canonical queue blob alone describes all current team progress is superseded by the observed additive evidence sequence."
+    },
+    {
+      "state": "unresolved",
+      "claim": "Whether each recent commit has been incorporated into its owning team's canonical queue record remains unverified."
+    }
+  ],
+  "contradictions_resolved": [
+    {
+      "apparent_contradiction": "The canonical queue reports older progress while later commits report newer slices.",
+      "resolution": "These are temporally layered observations, not mutually exclusive facts. The older queue remains valid as history; the newer commits supersede only current-status interpretation."
+    }
+  ],
+  "privacy_boundary": {
+    "classification": "public_repository_safe",
+    "included": ["public repository paths", "blob SHA", "commit SHA", "abstract operational claims"],
+    "excluded": ["raw chat text", "health or pet-health content", "credentials", "private uploads", "identifying personal narrative"]
+  },
+  "falsification_or_review_route": "Fetch the indexed ACTIVE_QUEUE blob and the listed commits. Falsify the drift claim only if the canonical queue already contains equivalent later progress or if the listed commits do not postdate and extend the queue snapshot.",
+  "next_action": "Build an additive reconciliation manifest mapping recent queue-update artifacts and commits to canonical owner records without modifying peer-owned queue entries."
+}
