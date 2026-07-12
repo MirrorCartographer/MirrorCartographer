@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T01:47:00-04:00",
+  "claim_state": {
+    "observed": [
+      "The Cloudflare deployment workflow previously constructed deployment proof schema 1.0.0 inline.",
+      "The committed build-deployment-proof.mjs emits schema 1.1.0 and evaluates Cloudflare Pages URL authority.",
+      "The workflow now invokes build-deployment-proof.mjs directly and runs both builder and validator tests before deployment."
+    ],
+    "inferred": [
+      "Using one committed builder removes schema drift between workflow-generated proof packets and the validator contract."
+    ],
+    "proposed": [
+      "Dispatch the workflow after Cloudflare environment credentials are configured and retain the generated proof and acceptance artifacts."
+    ],
+    "unresolved": [
+      "No workflow run exists for commit 1056ae9ef2bb52ce45e70bb51972fe045e8082b7.",
+      "No resolving Cloudflare Pages hostname or served deployment identity is claimed."
+    ]
+  },
+  "source": {
+    "repository": "MirrorCartographer/MirrorCartographer",
+    "workflow_path": ".github/workflows/cloudflare-pages-research.yml",
+    "workflow_commit": "1056ae9ef2bb52ce45e70bb51972fe045e8082b7",
+    "workflow_blob": "d6439b6c202c381ad0a5ff1221abb1b57cdf11e9",
+    "proof_builder": "cloudflare-static/build-deployment-proof.mjs",
+    "proof_schema": "1.1.0"
+  },
+  "verification": {
+    "source_fetch": "verified committed workflow contains builder invocation and both test commands",
+    "workflow_runs_for_commit": 0,
+    "deployment_verified": false
+  },
+  "privacy_boundary": {
+    "included": ["public repository paths", "commit and blob identifiers", "workflow contract facts"],
+    "excluded": ["credentials", "private chat", "health material", "diagnosis or treatment claims"]
+  },
+  "limits": [
+    "Source-level verification does not establish that GitHub Actions parsed or executed the workflow.",
+    "URL authority validation does not prove scientific truth or served-byte identity by itself."
+  ]
+}
