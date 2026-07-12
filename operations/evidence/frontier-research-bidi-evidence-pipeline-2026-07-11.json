@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-11T21:35:00-04:00",
+  "item": "R-008",
+  "primary_sources": [
+    {
+      "url": "https://www.w3.org/TR/webdriver-bidi/",
+      "status": "W3C Working Draft",
+      "published": "2026-06-29",
+      "source_status": "current_primary_specification"
+    }
+  ],
+  "prior_artifacts_compared": [
+    "tools/frontier-research/browser-verification-transcript.mjs",
+    "tools/frontier-research/bidi-wire-transcript.mjs",
+    "operations/queue-updates/R-007-2026-07-11T2121-0400.json"
+  ],
+  "finding": "Raw WebDriver BiDi server frames require a staged, fail-closed evidence path: transport classification must succeed before semantic deployment verification, and rejection must preserve the failing stage rather than flattening protocol and claim failures into one result.",
+  "claim_state": "observed_and_tested",
+  "evidence_strength": "deterministic_unit_test",
+  "design_implication": "Browser adapters can call one pipeline that preserves wire-stage protocol errors, semantic-stage contract failures, accepted frame counts, schemas, and trust limits.",
+  "artifact": "tools/frontier-research/bidi-evidence-pipeline.mjs",
+  "test": "tools/frontier-research/bidi-evidence-pipeline.test.mjs",
+  "verification": {
+    "runtime": "Node.js built-in test runner",
+    "result": "5 passed, 0 failed",
+    "cases": [
+      "valid raw frames pass both stages",
+      "invalid JSON fails at wire stage",
+      "null-id protocol error remains explicit",
+      "runtime commit mismatch fails at semantic stage",
+      "client command on server stream fails before semantics"
+    ]
+  },
+  "commits": [
+    "23ded3ce235bd8a39b2b4d2500eb6e3470d093f0",
+    "b781094ac5442b0ad0c0ee7828d59e0a8c4a99f7"
+  ],
+  "uncertainty": [
+    "No live browser WebSocket transcript was captured.",
+    "The WebDriver BiDi specification remains a Working Draft and may change.",
+    "Pipeline acceptance is not cryptographic provenance, browser conformance, physical output proof, or user-perception proof."
+  ],
+  "falsification_route": "Capture server-to-client frames from a current BiDi implementation, replay them through verifyBidiEvidenceFrames, and reject or revise the contract if valid implementation output is misclassified or if invalid output reaches semantic acceptance."
+}
