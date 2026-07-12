@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-006",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed",
+  "action": "Make gh attestation verifier invocation policy exact, immutable-source-bound, and deny-by-default before producing cryptographic receipts.",
+  "dependencies": ["R-005"],
+  "required_evidence": [
+    "current official verifier documentation",
+    "committed command-policy builder",
+    "adversarial deterministic tests",
+    "explicit trust limit",
+    "falsification route"
+  ],
+  "progress": {
+    "primary_sources": [
+      "https://cli.github.com/manual/gh_attestation_verify",
+      "https://slsa.dev/spec/v1.2/verifying-artifacts"
+    ],
+    "finding": "Verification receipts should only be generated from a machine-assessed invocation requiring exact repository, signer workflow, immutable source commit, predicate type, JSON output, and denial of self-hosted runners for this policy profile.",
+    "module": "tools/frontier-research/gh-attestation-command-policy.mjs",
+    "test": "tools/frontier-research/gh-attestation-command-policy.test.mjs",
+    "evidence": "operations/evidence/frontier-research-gh-attestation-command-policy-2026-07-12.json",
+    "commits": [
+      "74052ca365df7f679cfc1513c6542ae39f37245a",
+      "cc469b0c47e592c6893ccb26da31d3753b5266e9",
+      "1f60b571daea193f2b6aef523c5e2b15dddd8efc"
+    ],
+    "verification": "4 deterministic Node tests passed; unsafe owner-only, mutable-source, and cross-repository signer configurations were rejected."
+  },
+  "handoff": "Cloudflare Research should invoke buildGhAttestationVerifyArgs before gh attestation verify, assess the exact args, and only pass successful JSON output into the R-005 cryptographic-boundary receipt and R-004 trusted-builder policy.",
+  "queue_reconciliation_note": "The canonical ACTIVE_QUEUE.json was stale relative to committed R-005 work. This append-only completion record avoids overwriting peer state and should be reconciled by the queue owner after refetching current state."
+}
