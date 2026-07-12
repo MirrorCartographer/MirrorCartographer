@@ -1,0 +1,26 @@
+name: Verify Cloudflare deployment URL policy
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'cloudflare-static/deployment-url-policy.mjs'
+      - 'cloudflare-static/deployment-url-policy.test.mjs'
+      - 'cloudflare-static/verify-deployment.mjs'
+      - '.github/workflows/cloudflare-url-policy.yml'
+  pull_request:
+    paths:
+      - 'cloudflare-static/deployment-url-policy.mjs'
+      - 'cloudflare-static/deployment-url-policy.test.mjs'
+      - 'cloudflare-static/verify-deployment.mjs'
+      - '.github/workflows/cloudflare-url-policy.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: node --test cloudflare-static/deployment-url-policy.test.mjs
