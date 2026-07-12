@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "priority": 0,
+  "completed_slice": "Define and test the exact Cloudflare GitHub Environment, project, required secret names, least-privilege expectations, acceptance artifacts, and privacy prohibitions.",
+  "progress": {
+    "environment_contract": "cloudflare-static/cloudflare-environment-contract.mjs",
+    "test": "cloudflare-static/cloudflare-environment-contract.test.mjs",
+    "commits": [
+      "2c3aee626a3953d119b1b2f1aa88eebe1e91e587",
+      "aa1affebfc09d3b0a2ac737296258472d7da9f18",
+      "250673e0bf7a080b0ef0cf4a8e17e0d77ad3e602"
+    ],
+    "verification": "4 deterministic tests passed in an isolated Node.js runtime using byte-identical pre-commit files.",
+    "evidence": "operations/evidence/cloudflare-environment-contract-2026-07-11T2026-0400.json"
+  },
+  "required_evidence_remaining": [
+    "resolving Cloudflare URL",
+    "served research surface identity",
+    "deployed immutable commit",
+    "accepted signed deployment evidence"
+  ],
+  "blocker": "The cloudflare-research GitHub Environment still requires CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN. No secret value is stored or requested by the committed contract.",
+  "next_action": "Configure the two named GitHub Environment secrets, dispatch .github/workflows/cloudflare-pages-research.yml, and retain the returned deployment URL plus accepted proof artifacts.",
+  "updated_at": "2026-07-12T00:26:30Z"
+}
