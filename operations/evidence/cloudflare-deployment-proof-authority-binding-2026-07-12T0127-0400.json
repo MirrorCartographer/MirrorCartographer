@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "event_id": "C-001-2026-07-12T0127-0400",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T01:27:00-04:00",
+  "queue_item": "C-001",
+  "claim_state": {
+    "observed": [
+      "The existing deployment workflow constructed cloudflare-deployment-proof.json inline without embedding the Cloudflare Pages URL authority classification.",
+      "The committed cloudflare-pages-url-policy.mjs already classifies immutable deployment origins, mutable aliases, and project-host mismatches.",
+      "A new deployment-proof builder now embeds the complete URL authority result into schema version 1.1.0 of the proof packet."
+    ],
+    "inferred": [
+      "Embedding the authority result before attestation prevents later acceptance stages from silently treating a mutable or unrelated HTTPS origin as the immutable deployment identity."
+    ],
+    "proposed": [
+      "Replace the workflow's inline proof-construction block with cloudflare-static/build-deployment-proof.mjs and add its test to the deployment evidence contract step."
+    ],
+    "unresolved": [
+      "The workflow file has not yet been changed to invoke the new builder.",
+      "No successful Wrangler deployment output was available to exercise the builder against a real deployment.",
+      "Cloudflare environment credentials remain externally unconfigured."
+    ]
+  },
+  "artifacts": [
+    "cloudflare-static/build-deployment-proof.mjs",
+    "cloudflare-static/build-deployment-proof.test.mjs"
+  ],
+  "commits": [
+    "f37d9dee36bcfd6517c9559c07ca34f420cfb9f5",
+    "10cd97465e4dfdc89f5a9f9c3b015ba1c1080ddf"
+  ],
+  "verification": {
+    "command": "node --test build-deployment-proof.test.mjs",
+    "runtime": "isolated Node.js runtime using byte-identical source and test content before commit",
+    "tests_passed": 3,
+    "tests_failed": 0,
+    "cases": [
+      "immutable deployment plus production alias is bound as valid authority",
+      "mutable deployment label and unrelated alias remain explicit blocking evidence",
+      "missing deployment URL cannot be confused with successful proof"
+    ]
+  },
+  "privacy_boundary": "Contains only repository paths, synthetic URLs, reason codes, commit identities, and aggregate test results. No credentials, account IDs, private chat, personal data, or medical claims are stored.",
+  "epistemic_limit": "A valid URL authority classification establishes project-scoped origin structure; it does not establish that the deployment served correct content or that scientific claims are true."
+}
