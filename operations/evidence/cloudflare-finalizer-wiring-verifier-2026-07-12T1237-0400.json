@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-12T12:37:27-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "source_status": "repository_default_branch_inspected",
+  "finding": "The tested finalizer and deterministic workflow rewriter are committed, but the authoritative Cloudflare deployment workflow does not yet contain the finalizer test, finalization step, manifest upload, or manifest summary wiring.",
+  "artifact": {
+    "module": "cloudflare-static/verify-finalizer-workflow-wiring.mjs",
+    "test": "cloudflare-static/verify-finalizer-workflow-wiring.test.mjs",
+    "commits": [
+      "292921ba6b3b7aecae7b1c4bb2b746d0ddc16ad2",
+      "aeb61f746478bad9ef3cc822d1c7bc78f4dc593e"
+    ]
+  },
+  "authoritative_workflow": {
+    "path": ".github/workflows/cloudflare-pages-research.yml",
+    "blob_sha": "827636409ec0a439161b9126393a6551df47e248",
+    "classification": "not_wired",
+    "missing": [
+      "finalizer-test",
+      "finalizer-step",
+      "manifest-upload",
+      "manifest-summary"
+    ]
+  },
+  "verification": {
+    "command": "node --test verify-finalizer-workflow-wiring.test.mjs",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "environment": "isolated Node runtime using byte-identical committed source and test logic"
+  },
+  "evidence_strength": "deterministic contract verification plus direct inspection of the authoritative workflow blob",
+  "uncertainty": "No trusted GitHub Actions run executed the new verifier in this run.",
+  "privacy_boundary": "Only public repository workflow structure, blob identities, result classifications, and commit identifiers were processed. No secret values or private research records were read.",
+  "falsification_route": "Run the verifier against a future authoritative workflow. This finding is falsified when all four required wiring checks are present and the verifier exits successfully.",
+  "limits": [
+    "No Cloudflare deployment was attempted.",
+    "No resolving Pages hostname was proven.",
+    "No claim about scientific truth or medical efficacy is made."
+  ]
+}
