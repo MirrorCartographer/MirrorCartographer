@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "team": "independent_creative_web",
+  "observed_at": "2026-07-11T20:22:00-04:00",
+  "creative_premise": "A hand-drawn domestic room accepts the visitor's chosen direction as gravity and makes its objects, motion, and optional sound obey.",
+  "source": {
+    "artwork": "independent-creative/the-house-that-forgets-gravity/index.html",
+    "identity": "independent-creative/the-house-that-forgets-gravity/IDENTITY.md",
+    "contract_test": "independent-creative/the-house-that-forgets-gravity/contract-check.mjs",
+    "commits": [
+      "dd58d54d3cbbe8ccdaabbb226da0cd596452d1ad",
+      "0758c6fa67d8abace8b2432ecc8b0f3a7a702397",
+      "76585d7355b86badcb898c76f719fd8e00db640c"
+    ]
+  },
+  "verification": {
+    "method": "isolated source-contract execution before commit using byte-identical artwork source",
+    "checks_passed": [
+      "HTML doctype",
+      "mobile viewport and safe-area support",
+      "reduced-motion support",
+      "accessible live state",
+      "gesture-gated Web Audio",
+      "no payment or conversion language",
+      "runtime evidence object"
+    ],
+    "runtime_claim": "source contract passed; browser rendering and public hosting are not yet proven"
+  },
+  "independence": {
+    "mirror_cartographer_references": false,
+    "research_portal": false,
+    "worker_dashboard": false,
+    "product_funnel": false,
+    "payment_path": false
+  },
+  "mobile_contract": {
+    "viewport": "100svh with viewport-fit=cover",
+    "controls": "native buttons at least 48px plus pointer swipe",
+    "audio": "optional and direct-gesture gated",
+    "reduced_motion": true
+  },
+  "deployment": {
+    "state": "source_ready",
+    "public_url": null,
+    "served_commit": null,
+    "proven": false
+  },
+  "falsification_route": "Run node contract-check.mjs, host the directory as static files, test all five gravity states on a narrow mobile viewport, verify keyboard operation and reduced motion, and inspect window.__INDEPENDENT_CREATIVE_EVIDENCE__."
+}
