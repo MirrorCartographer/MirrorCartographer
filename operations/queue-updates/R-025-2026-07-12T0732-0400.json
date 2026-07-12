@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-025",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "completed",
+  "action": "Create a privacy-minimal capture adapter for physical iPhone audio evidence that binds gesture-time activation, runtime state, and human outcome into one bounded session.",
+  "selection_basis": "The canonical queue contains no active frontier_research item. Recent Frontier artifacts addressed classification, lifecycle composition, replay, and deployment/session binding; the remaining implementation handoff was a minimal capture adapter that produces the required ordered evidence without collecting unnecessary payloads.",
+  "required_evidence": [
+    "current primary standards",
+    "committed adapter",
+    "deterministic tests",
+    "privacy boundary",
+    "falsification route"
+  ],
+  "progress": {
+    "primary_sources": [
+      "https://html.spec.whatwg.org/multipage/interaction.html#tracking-user-activation",
+      "https://www.w3.org/TR/webaudio/"
+    ],
+    "finding": "Transient activation must be captured synchronously at gesture time, while runtime observations and a human heard/not_heard report must remain distinct and temporally ordered. None alone proves audibility.",
+    "module": "tools/frontier-research/audio-capture-session.mjs",
+    "test": "tools/frontier-research/audio-capture-session.test.mjs",
+    "evidence": "operations/evidence/frontier-audio-capture-session-2026-07-12T0732-0400.json",
+    "commits": [
+      "2af84114b296bacb0fe0b4436b26916633e9d87c",
+      "d41512eddb9e243c00b7cacac4c2827014a5beaa",
+      "629d9f7231bc357740ac21b963ce90a5e7045d50"
+    ],
+    "verification": "7 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files",
+    "privacy": "Output is allowlisted; free-form notes, analyser arrays, and unrelated activation/device fields are excluded."
+  },
+  "handoff": "Vercel Studio should invoke createAudioCaptureSession directly inside the diagnostic pulse gesture, append runtime state after the pulse starts, append a binary heard/not_heard response from the same physical iPhone session, then pass the packet through the existing classifier and deployment/session binding validator.",
+  "limits": [
+    "Not wired into the deployed UI.",
+    "No physical iPhone result captured.",
+    "No immutable Vercel deployment identity available in this run.",
+    "Adapter structure is not cryptographic proof and does not establish claim truth."
+  ],
+  "shared_state_policy": "Additive queue update only; operations/ACTIVE_QUEUE.json, operations/CURRENT_STATE.json, operations/SPECIALIST_REGISTRY.json, and other teams' records were not overwritten."
+}
