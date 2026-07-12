@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-006",
+  "observed_at": "2026-07-12T00:05:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://cli.github.com/manual/gh_attestation_verify",
+      "status": "current official manual",
+      "finding": "Successful --format=json output is a JSON array with one object per verified attestation; each object contains attestation and verificationResult, and verificationResult exposes signature.certificate, verifiedTimestamps, and statement."
+    }
+  ],
+  "finding": "The policy boundary needs a strict fail-closed adapter before downstream evaluation. Non-array output, ambiguous cardinality, absent attestation or verificationResult objects, absent certificate, absent verified timestamps, or incomplete statement structure must be rejected before identity policy is applied.",
+  "artifact": {
+    "module": "tools/frontier-research/gh-attestation-output-adapter.mjs",
+    "test": "tools/frontier-research/gh-attestation-output-adapter.test.mjs",
+    "source_commit": "ef3e3e63726db9b3c78cda5744725db8b7da0b07",
+    "test_commit": "defe22db64c5883a658ff07bc6d491c9dbb99655"
+  },
+  "verification": {
+    "method": "isolated Node test run using byte-identical source and test contents before commit",
+    "tests_passed": 5,
+    "tests_failed": 0,
+    "cases": [
+      "documented one-entry JSON shape accepted",
+      "zero and multiple verified attestations rejected",
+      "missing certificate or verified timestamps rejected",
+      "only normalized validated entries passed downstream",
+      "missing downstream evaluator rejected"
+    ]
+  },
+  "evidence_strength": "implementation-tested",
+  "limits": [
+    "The fixture is synthetic and follows the documented structure; no real repository attestation payload was available in this run.",
+    "The adapter validates shape and cardinality, not cryptographic truth; cryptographic verification remains the responsibility of gh attestation verify.",
+    "A valid adapted payload does not prove the statement predicate is true."
+  ],
+  "falsification_route": "Capture a real successful gh attestation verify --format=json payload from the repository, redact no structural fields, and run it through the adapter and verification-trust-boundary evaluator. Any documented field-shape mismatch falsifies the current normalization assumptions."
+}
