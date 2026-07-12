@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "observed": [
+    "Cloudflare deployment remains blocked pending valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "The repository now contains a Cloudflare-specific exact-scope signer-authorization adapter and deterministic tests.",
+    "Four isolated Node tests passed with zero failures."
+  ],
+  "inferred": [
+    "Exact-scope signer authorization closes a trust gap between cryptographic verification and evidence acceptance, but only after verified fingerprints and authenticated workflow identity are supplied."
+  ],
+  "proposed": [
+    "Normalize verified signer fingerprints from GitHub attestation output.",
+    "Derive repository, workflow, and ref from authenticated certificate or OIDC identity.",
+    "Run evaluate-signer-authorization before build-evidence-acceptance and require status=authorized."
+  ],
+  "superseded": [],
+  "unresolved": [
+    "Cloudflare environment credentials and resolving production hostname.",
+    "Authenticated signer identity derivation.",
+    "Workflow integration and exact-commit CI evidence."
+  ],
+  "artifacts": [
+    "cloudflare-static/evaluate-signer-authorization.mjs",
+    "cloudflare-static/evaluate-signer-authorization.test.mjs",
+    "operations/evidence/cloudflare-signer-authorization-2026-07-11T2330-0400.json"
+  ],
+  "commits": [
+    "480f75845bc7e10326f09d45662fa9662456f785",
+    "d6cf79ae02d7df8b7fede0f39cac485a04489e70",
+    "46bbf9488a47afe32ba33b2348f06a63ff9473b3"
+  ],
+  "next_action": "Wire authenticated signer fingerprints and exact workflow identity into the Cloudflare deployment workflow, require authorization in the acceptance invariant, then dispatch after environment configuration exists.",
+  "updated_at": "2026-07-12T03:30:00Z"
+}
