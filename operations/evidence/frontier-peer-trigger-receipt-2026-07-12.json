@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-005",
+  "team": "frontier_research",
+  "created_at": "2026-07-12T17:32:44Z",
+  "primary_sources": [
+    {
+      "title": "CloudEvents Specification",
+      "url": "https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md",
+      "status": "primary_standard",
+      "observed_version": "1.0.3-wip",
+      "relevant_rules": [
+        "Every event has required id, source, specversion, and type context attributes.",
+        "The pair source plus id identifies duplicates.",
+        "An event is a record expressing an occurrence and context; it is not proof that later work completed."
+      ]
+    },
+    {
+      "title": "CloudEvents JSON Event Format",
+      "url": "https://github.com/cloudevents/spec/blob/main/cloudevents/formats/json-format.md",
+      "status": "primary_standard"
+    }
+  ],
+  "finding": "Peer coordination needs an event identity envelope plus a project-specific state contract. A trigger request, delivery attempt, acceptance, completion, and failure are distinct occurrences and must not be represented as one success claim.",
+  "design_implication": "Use CloudEvents-compatible identity fields for interoperability, while requiring state-specific evidence. Completion is accepted only when a peer-produced output reference and full peer commit SHA are present.",
+  "artifact": {
+    "module": "tools/frontier-research/peer-trigger-receipt.mjs",
+    "test": "tools/frontier-research/peer-trigger-receipt.test.mjs",
+    "module_commit": "176947f37a96ac0113078724ae1cd1e7ae1c168a",
+    "test_commit": "eb8876f92d08cdb8586934440922b47176ef2b2e"
+  },
+  "evidence_strength": "source_and_static_test_contract",
+  "verification": {
+    "performed": [
+      "GitHub accepted both source files on the default branch.",
+      "The committed test defines five deterministic cases covering valid attempt, state mismatch, unsupported completion, evidence-backed completion, and failed-without-reason rejection."
+    ],
+    "not_performed": [
+      "No GitHub Actions or local Node execution result was available in this run.",
+      "No peer completion receipt exists yet."
+    ]
+  },
+  "falsification_route": [
+    "Run node --test tools/frontier-research/peer-trigger-receipt.test.mjs in a clean checkout.",
+    "Attempt to validate a completed receipt lacking peer_output_ref or a 40-character peer_commit; acceptance falsifies the contract.",
+    "Attempt to reuse the same source plus id for a distinct occurrence; downstream deduplication must flag it."
+  ],
+  "limits": [
+    "A structurally valid receipt does not prove the referenced evidence is truthful.",
+    "CloudEvents identity does not provide authentication or cryptographic integrity.",
+    "Peer completion must still be independently checked against repository and runtime evidence."
+  ]
+}
