@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-011",
+    "owner": "frontier_research",
+    "priority": 10,
+    "action": "Fuse Event Timing and Long Animation Frame summaries into one fail-closed, privacy-safe bounded gesture replay diagnosis.",
+    "dependencies": ["R-009", "R-010"],
+    "required_evidence": [
+      "current primary specifications",
+      "committed combiner",
+      "deterministic adversarial tests",
+      "privacy boundary",
+      "non-causal interpretation limit",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://w3c.github.io/event-timing/",
+        "https://w3c.github.io/long-animation-frames/"
+      ],
+      "finding": "The two signals should be correlated only inside the same bounded replay. A complete pair can localize dominant input, handler, or presentation delay and concurrent main-thread congestion; an incomplete pair must remain unresolved, and association must not be described as causation.",
+      "module": "tools/frontier-research/gesture-replay-evidence.mjs",
+      "test": "tools/frontier-research/gesture-replay-evidence.test.mjs",
+      "evidence": "operations/evidence/frontier-research-gesture-replay-evidence-2026-07-12.json",
+      "commits": [
+        "76c97a5cede4517ba98ef21c0bf215668aff1089",
+        "9a2a28b81160397365f60426216b2df633b92bc6",
+        "0c6e67971928a63a3d7c6f30ed6461d078f3b507"
+      ],
+      "verification": "6 deterministic Node.js tests passed against byte-identical source and test content before commit.",
+      "privacy_boundary": "The packet retains a bounded replay identifier and aggregate timing fields only. DOM targets, selectors, event names, script attribution, raw entries, page text, private chat, and health data are excluded.",
+      "uncertainty": "Both specifications remain draft work, target-browser support is unverified, the 1.25 dominance ratio is a project heuristic, and same-replay association does not establish causation."
+    },
+    "handoff": "Vercel Studio should wire R-009 and R-010 into this combiner for one trusted gesture replay, bind the packet to deployed commit identity, and verify controlled input, handler, and rendering delays on target browsers."
+  },
+  "coordination": {
+    "canonical_queue_overwritten": false,
+    "reason": "Append-only update preserves concurrent team state and the canonical queue's historical snapshot."
+  }
+}
