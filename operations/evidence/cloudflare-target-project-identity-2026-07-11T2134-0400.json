@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-11T21:34:00-04:00",
+  "claim_state": "implemented_unexecuted",
+  "improvement": {
+    "summary": "Bind Cloudflare access readiness to the exact mirror-cartographer-research Pages project and its canonical public hostname.",
+    "problem": "The previous probe treated generic permission to enumerate Pages projects as deployment readiness, even when the intended project was absent or had no canonical hostname.",
+    "behavior": [
+      "Require exact target project name match.",
+      "Normalize and emit only public canonical and custom hostnames.",
+      "Reject generic Pages access as target readiness.",
+      "Reject a found project that lacks a canonical hostname as unresolved identity.",
+      "Never emit API tokens or account identifiers."
+    ]
+  },
+  "source": {
+    "module": "cloudflare-static/probe-cloudflare-access.mjs",
+    "module_commits": [
+      "1a676843e734e9edebc0e0c90a16e0040f02bcbb",
+      "b0f04cc7453e692fb80344e145e4c811c8fc8839"
+    ],
+    "test": "cloudflare-static/probe-cloudflare-access.test.mjs",
+    "test_commits": [
+      "2096f92fdf110f02442eae2a64c5a8846157f3e7",
+      "aac1a5d9ff167c3ac2a2a339a2eb959ffb310aa3"
+    ]
+  },
+  "verification": {
+    "contract_cases": 6,
+    "covered_cases": [
+      "exact target project and canonical hostname accepted",
+      "generic Pages access without target rejected",
+      "target project without canonical hostname rejected",
+      "rejected token stops before project lookup",
+      "insufficient Pages permission classified",
+      "malformed configuration rejected before network access"
+    ],
+    "execution_status": "not_run_in_this_automation",
+    "workflow_runs_for_head_commit": 0,
+    "strongest_observed_evidence": "Committed source and deterministic Node test contract; GitHub reported no workflow runs for aac1a5d9ff167c3ac2a2a339a2eb959ffb310aa3."
+  },
+  "deployment": {
+    "status": "still_blocked_external_configuration",
+    "required_configuration": [
+      "CLOUDFLARE_ACCOUNT_ID",
+      "CLOUDFLARE_API_TOKEN"
+    ],
+    "expected_runtime_output": "cloudflare-access-probe.json target_project.canonical_hostname",
+    "public_url_claimed": false
+  },
+  "privacy": {
+    "secret_values_emitted": false,
+    "account_id_emitted": false,
+    "health_or_private_chat_published": false,
+    "public_metadata_only": true
+  },
+  "limits": [
+    "A canonical hostname returned by the Cloudflare API does not by itself prove that the current source commit is served there.",
+    "Deployment proof still requires a successful workflow run, returned deployment URL, served identity verification, and commit-bound attestation.",
+    "The tests were committed but not executed in this run."
+  ],
+  "rollback": {
+    "method": "revert commits in reverse order",
+    "commits": [
+      "aac1a5d9ff167c3ac2a2a339a2eb959ffb310aa3",
+      "b0f04cc7453e692fb80344e145e4c811c8fc8839",
+      "2096f92fdf110f02442eae2a64c5a8846157f3e7",
+      "1a676843e734e9edebc0e0c90a16e0040f02bcbb"
+    ]
+  }
+}
