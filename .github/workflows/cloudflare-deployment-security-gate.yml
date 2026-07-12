@@ -11,6 +11,8 @@ on:
       - cloudflare-static/audit-cloudflare-workflow-security.test.mjs
       - cloudflare-static/cloudflare-security-gate-workflow-contract.mjs
       - cloudflare-static/cloudflare-security-gate-workflow-contract.test.mjs
+      - cloudflare-static/audit-action-references.mjs
+      - cloudflare-static/audit-action-references.test.mjs
   pull_request:
     paths:
       - .github/workflows/cloudflare-pages-research.yml
@@ -19,6 +21,8 @@ on:
       - cloudflare-static/audit-cloudflare-workflow-security.test.mjs
       - cloudflare-static/cloudflare-security-gate-workflow-contract.mjs
       - cloudflare-static/cloudflare-security-gate-workflow-contract.test.mjs
+      - cloudflare-static/audit-action-references.mjs
+      - cloudflare-static/audit-action-references.test.mjs
 
 permissions:
   contents: read
@@ -34,6 +38,7 @@ jobs:
         run: |
           node --test cloudflare-static/audit-cloudflare-workflow-security.test.mjs
           node --test cloudflare-static/cloudflare-security-gate-workflow-contract.test.mjs
+          node --test cloudflare-static/audit-action-references.test.mjs
 
       - name: Audit deployment workflow
         run: >-
@@ -41,10 +46,19 @@ jobs:
           .github/workflows/cloudflare-pages-research.yml
           cloudflare-workflow-security-audit.json
 
+      - name: Audit third-party action references
+        run: >-
+          node cloudflare-static/audit-action-references.mjs
+          .github/workflows/cloudflare-pages-research.yml
+          .github/workflows/cloudflare-deployment-security-gate.yml
+          --output cloudflare-action-reference-audit.json
+
       - name: Upload security audit
         uses: actions/upload-artifact@v4
         with:
           name: cloudflare-workflow-security-audit-${{ github.sha }}
-          path: cloudflare-workflow-security-audit.json
+          path: |
+            cloudflare-workflow-security-audit.json
+            cloudflare-action-reference-audit.json
           if-no-files-found: error
           retention-days: 30
