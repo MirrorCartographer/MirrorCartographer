@@ -18,11 +18,15 @@ function stable(value) {
   return value;
 }
 
+function verifiedCommit(selection) {
+  return selection?.verification?.commit ?? selection?.verification?.artifact_source_commit ?? null;
+}
+
 export function digestSelection(selection) {
   const canonical = JSON.stringify(stable({
     owner: selection.owner,
     item: selection.item,
-    source_commit: selection.verification?.observed?.source_commit ?? selection.verification?.source_commit ?? null
+    source_commit: verifiedCommit(selection)
   }));
   return createHash('sha256').update(canonical).digest('hex');
 }
@@ -57,6 +61,21 @@ export function buildTeamStartEvidence({ teamName, selection, generatedAt = new 
     };
   }
 
+  const sourceCommit = verifiedCommit(selection);
+  if (!sourceCommit) {
+    return {
+      schema_version: '1.0.0',
+      artifact_type: 'team_start_evidence',
+      accepted: false,
+      team_name: teamName,
+      owner,
+      generated_at: generatedAt,
+      selection_digest_sha256: null,
+      selected_item: null,
+      errors: [{ code: 'TSE-004', message: 'verified selection does not expose an immutable source commit' }]
+    };
+  }
+
   return {
     schema_version: '1.0.0',
     artifact_type: 'team_start_evidence',
@@ -64,7 +83,7 @@ export function buildTeamStartEvidence({ teamName, selection, generatedAt = new 
     team_name: teamName,
     owner,
     generated_at: generatedAt,
-    source_commit: selection.verification?.observed?.source_commit ?? selection.verification?.source_commit ?? null,
+    source_commit: sourceCommit,
     selection_digest_sha256: digestSelection(selection),
     selected_item: {
       id: selection.item.id,
