@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "queue_update",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T12:12:09-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added an atomic fail-closed deployment evidence finalizer that builds the exact manifest, immediately verifies it against source/run identity and artifact bytes, refuses overwrite, and removes invalid output.",
+  "files": [
+    "cloudflare-static/finalize-deployment-evidence.mjs",
+    "cloudflare-static/finalize-deployment-evidence.test.mjs",
+    "operations/evidence/cloudflare-atomic-evidence-finalization-2026-07-12T1212-0400.json"
+  ],
+  "commits": [
+    "52f7333dff6a5c7f2d806181f6a9c8286d685225",
+    "e25249e423aa45f3998b613bf24bbb933472ac97",
+    "ac40fa2889d1042c59ad83c0e511ee572e93f271"
+  ],
+  "verification": {
+    "route": "local Node syntax validation before commit",
+    "node_check_passed": 2,
+    "runtime_tests_run": 0
+  },
+  "blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values before the authoritative workflow can deploy and prove a resolving hostname.",
+  "next_action": "Wire finalize-deployment-evidence.mjs and its test into .github/workflows/cloudflare-pages-research.yml immediately before artifact upload, include the generated manifest in the upload set, then dispatch after Cloudflare credentials are configured.",
+  "canonical_state_modified": false
+}
