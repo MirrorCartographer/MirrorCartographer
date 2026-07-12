@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-12T23:34:09Z",
+  "owner": "continuity_mining",
+  "queue_item": {
+    "id": "M-004",
+    "priority": 0,
+    "action": "Preserve the semantic boundary between immutable dependency references and broader security or execution claims.",
+    "status": "completed",
+    "required_evidence": [
+      "reviewed immutable pin manifest",
+      "workflow diff replacing mutable tags",
+      "explicit unresolved limits",
+      "provenance-preserving memory artifact"
+    ],
+    "progress": {
+      "artifact": "operations/continuity/action-pin-language-boundary-2026-07-12T2334Z.json",
+      "artifact_commit": "b203d0edad29766e0c8568460850a0f43a9a03e6",
+      "source_commits": [
+        "912759e6ee16a734ae31a2bf110d84d55ad4d116",
+        "7ca7222ecda83b44fda140d38e2500dc4e80e936"
+      ],
+      "claim_states": ["observed", "inferred", "proposed", "unresolved"],
+      "privacy_boundary": "public repository files and commit metadata only"
+    },
+    "handoff": "Enumerate every GitHub Actions uses reference at a canonical commit, compare each against the reviewed manifest, and bind the result to commit-specific workflow execution evidence."
+  },
+  "coordination_note": "This append-only queue update avoids replacing concurrent team-owned records in operations/ACTIVE_QUEUE.json."
+}
