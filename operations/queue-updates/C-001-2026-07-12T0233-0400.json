@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T02:33:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added a fail-closed Cloudflare Pages control-plane metadata verifier that requires exactly one deployment matching the expected project, exact full source commit, exact Wrangler-returned deployment URL, and successful deploy stage.",
+  "artifacts": [
+    "cloudflare-static/verify-cloudflare-deployment-metadata.mjs",
+    "cloudflare-static/verify-cloudflare-deployment-metadata.test.mjs",
+    ".github/workflows/cloudflare-deployment-metadata-contract.yml",
+    "operations/evidence/cloudflare-deployment-metadata-binding-2026-07-12T0233-0400.json"
+  ],
+  "commits": [
+    "cc2a64fb75189a581563df107cf67709f1e2c390",
+    "bb2a1e0cc6a21074ddf0dabb757c38ecacbcffd1",
+    "76f9caa42f4c9e5dee211e577a0a1239aa868d17",
+    "070aa233f73dfb58b72c5dcec6fd02d56ae959e2"
+  ],
+  "verification": {
+    "source_inspection": "committed module, six adversarial tests, and path-scoped CI workflow inspected through GitHub contents API",
+    "runtime": "not observed",
+    "deployment": "not observed"
+  },
+  "remaining_blocker": "Configure the cloudflare-research environment credentials and dispatch the production workflow. Then wire this verifier after Wrangler deployment and include its privacy-safe output in final evidence acceptance.",
+  "next_action": "Update cloudflare-pages-research.yml so the credentialed run queries Cloudflare deployment metadata using DEPLOYMENT_URL and GITHUB_SHA, uploads cloudflare-deployment-metadata.json, and requires valid=true before accepting deployment evidence."
+}
