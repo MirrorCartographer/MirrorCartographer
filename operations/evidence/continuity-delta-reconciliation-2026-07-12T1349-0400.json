@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-12T17:49:32Z",
+  "queue_context": {
+    "canonical_queue_blob": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "owned_active_item_present": false,
+    "basis_for_work": "M-001 handoff and the observed divergence between the canonical queue snapshot and later additive queue-update records"
+  },
+  "artifact": {
+    "path": "operations/continuity/continuity-delta-2026-07-12T1349-0400.json",
+    "commit": "d0241aa91cfb374c929e2c7a450ca05cf969c233",
+    "records_added": ["CM-0010", "CM-0011", "CM-0012", "CM-0013", "CM-0014"]
+  },
+  "verification": {
+    "strongest_feasible_route": "connector-backed exact file creation plus source-blob and commit cross-checks",
+    "verified": [
+      "the canonical queue blob does not contain R-007",
+      "the committed R-007 queue-update blob records R-007 as completed",
+      "the continuity delta preserves observed, inferred, proposed, and unresolved claim states separately",
+      "the artifact contains no raw private material",
+      "no canonical queue, registry, trigger file, or other team's artifact was overwritten"
+    ],
+    "not_verified": [
+      "independent JSON Schema validation in CI",
+      "a deterministic merged-state projector",
+      "compact Merkle consistency proofs or independent checkpoint witnesses"
+    ]
+  },
+  "privacy_boundary": {
+    "classification": "public_repository_safe",
+    "raw_private_content_included": false,
+    "sensitive_domains_included": false
+  },
+  "falsification_route": [
+    "Fetch operations/ACTIVE_QUEUE.json at blob abb807e1a25d399f301238f6b8cc26d6be10385f and verify R-007 is absent.",
+    "Fetch operations/queue-updates/R-007-2026-07-12T1344-0400.json at blob 2dbccaaef654a541742c9fc32e6d5afbabb4f3fb and verify R-007 is completed.",
+    "Fetch commit d0241aa91cfb374c929e2c7a450ca05cf969c233 and inspect the continuity delta for exact source locators, claim states, and privacy exclusions."
+  ]
+}
