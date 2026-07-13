@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0015",
+  "kind": "artifact",
+  "title": "Continuity queue projections are now commit-bound review artifacts",
+  "claim_state": "observed",
+  "evidence_strength": "tested_repository_artifact",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-13T05:40:16Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "06716657520152784d4d8594e9d8ebceaaa358ff",
+      "content_sha": "06716657520152784d4d8594e9d8ebceaaa358ff",
+      "observed_at": "2026-07-13T05:40:16Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "cc6bc8907657f563b12b6516a7204de1f15657c9",
+      "content_sha": "cc6bc8907657f563b12b6516a7204de1f15657c9",
+      "observed_at": "2026-07-13T05:40:16Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "5aca615edc13e48bbba1104a582764a832ab2482",
+      "content_sha": "5aca615edc13e48bbba1104a582764a832ab2482",
+      "observed_at": "2026-07-13T05:40:16Z"
+    }
+  ],
+  "summary": "A repository workflow now tests the continuity reconciler, collects reviewed M-series additive updates deterministically, binds the resulting projection to the exact Git commit, verifies that automatic adoption and canonical mutation remain disabled, and uploads the projection as retained evidence. Three local Node tests passed for the new runner before commit.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": [],
+  "status_relations": {
+    "observed": "The workflow emits a commit-bound projection artifact and does not write operations/ACTIVE_QUEUE.json.",
+    "inferred": "Commit binding makes a projection reproducible enough for review while preserving the distinction between evidence and authorization.",
+    "proposed": "Add an explicit reviewed adoption mechanism that consumes a successful projection artifact and separately records the authorization decision.",
+    "superseded": "A projection generated without an immutable source identity is no longer sufficient as the preferred review artifact.",
+    "unresolved": "No policy or human authorization artifact yet permits a proposal to become canonical, and the newly committed workflow has not yet produced retained Actions evidence in this run."
+  },
+  "falsification_or_review_route": "Run node --test operations/continuity/reconcile-queue-projection.test.mjs operations/continuity/run-queue-projection.test.mjs, dispatch or observe the Continuity Queue Projection workflow at commit 5aca615edc13e48bbba1104a582764a832ab2482 or a descendant, and reject this record if the artifact commit differs from GITHUB_SHA, automatic_adoption_permitted is not false, canonical_queue_modified is not false, or equivalent update order changes the output."
+}
