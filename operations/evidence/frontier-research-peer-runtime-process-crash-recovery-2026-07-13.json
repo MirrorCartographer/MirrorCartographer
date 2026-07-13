@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-014",
+  "recorded_at": "2026-07-13T07:02:24-04:00",
+  "source_status": "repository-local-runtime-contract",
+  "finding": "The filesystem peer-terminal journal could leave an unrecoverable lock directory when its process died after acquiring the lock. A successor now reads a PID-bound owner record, confirms the owner process is dead, atomically quarantines the stale lock directory, removes it, and retries acquisition.",
+  "design_implication": "Durable terminal recording requires recovery semantics for process death, not only exception handling inside one process. The stored journal remains authoritative after rename; a successor must preserve an already-renamed terminal and only replace a terminal when the crash occurred before rename.",
+  "implementation": {
+    "store": "tools/frontier-research/filesystem-peer-terminal-store.mjs",
+    "worker": "tools/frontier-research/filesystem-peer-terminal-worker.mjs",
+    "test": "tools/frontier-research/filesystem-peer-terminal-store.test.mjs",
+    "boundaries": [
+      "before-rename",
+      "after-rename-before-directory-sync",
+      "before-lock-release"
+    ],
+    "commits": [
+      "3f28d6e866a8c35cc7f7ddb9bab029a1a049ecf3",
+      "14219f9a6013cbc1d7f77e68c65be303b6be0786",
+      "4400329c0e9321fa303ac3fc0af88a20888caf7b",
+      "759e8f57ee9f88ab4e88e6133df3e677d9646a86"
+    ]
+  },
+  "verification": {
+    "method": "source inspection plus committed child-process SIGKILL tests",
+    "workflow_runs_for_test_commit": 0,
+    "state": "source-contract-implemented-runtime-pending",
+    "expected_command": "node --test tools/frontier-research/filesystem-peer-terminal-store.test.mjs"
+  },
+  "evidence_strength": "implemented-source-with-executable-test-unrun",
+  "uncertainty": [
+    "No clean-runner result was available for the new commits.",
+    "PID reuse between owner death and recovery is theoretically possible; a future lease should include a process-start identity where the target platform exposes one portably.",
+    "Filesystem and directory-sync guarantees vary by operating system and filesystem."
+  ],
+  "falsification_route": [
+    "Run the committed Node test on Linux and macOS; any lock timeout after the injected SIGKILL falsifies recovery.",
+    "Verify that before-rename crashes permit the successor terminal and post-rename crashes preserve the first terminal.",
+    "Stress repeated crash/restart cycles and assert no .lock or .stale directories remain."
+  ],
+  "privacy": "No private chat, health material, credentials, or user-identifying data included."
+}
