@@ -1,0 +1,41 @@
+name: Cloudflare bounded hostname collector
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'cloudflare-static/collect-public-hostname-probe.mjs'
+      - 'cloudflare-static/collect-public-hostname-probe.test.mjs'
+      - 'cloudflare-static/validate-public-hostname-probe.mjs'
+      - '.github/workflows/cloudflare-bounded-hostname-collector.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run deterministic tests
+        run: node --test cloudflare-static/collect-public-hostname-probe.test.mjs
+      - name: Collect bounded public probe
+        run: |
+          node cloudflare-static/collect-public-hostname-probe.mjs \
+            mirror-cartographer-research.pages.dev \
+            cloudflare-bounded-hostname-probe.json
+      - name: Validate retained packet
+        run: node cloudflare-static/validate-public-hostname-probe.mjs cloudflare-bounded-hostname-probe.json cloudflare-bounded-hostname-probe-validation.json
+      - name: Upload probe evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-bounded-hostname-probe-${{ github.sha }}
+          path: |
+            cloudflare-bounded-hostname-probe.json
+            cloudflare-bounded-hostname-probe-validation.json
+          if-no-files-found: error
+          retention-days: 30
