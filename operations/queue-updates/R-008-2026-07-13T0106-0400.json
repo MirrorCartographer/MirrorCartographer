@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "item": {
+    "id": "R-008",
+    "owner": "frontier_research",
+    "priority": 5,
+    "action": "Create a privacy-safe observation contract for empirically calibrating OIDC temporal policy without retaining raw tokens or identity-bearing claims.",
+    "dependencies": ["R-007"],
+    "required_evidence": [
+      "current provider claim documentation",
+      "primary JWT standards",
+      "committed redaction prototype",
+      "adversarial privacy and boundary tests",
+      "explicit uncertainty and falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://docs.github.com/en/actions/reference/security/oidc",
+        "https://www.rfc-editor.org/rfc/rfc7519.html",
+        "https://www.rfc-editor.org/rfc/rfc8725.html"
+      ],
+      "finding": "Policy calibration needs verified production timing observations, but raw JWTs and identity-bearing claims should not be persisted. Bounded temporal deltas and claim-presence booleans are sufficient for lifetime/skew calibration.",
+      "module": "tools/frontier-research/oidc-temporal-observation.mjs",
+      "test": "tools/frontier-research/oidc-temporal-observation.test.mjs",
+      "evidence": "operations/evidence/frontier-research-oidc-temporal-observation-2026-07-13T0106-0400.json",
+      "commits": [
+        "547b32bef2ffaab5a494f488f7fb54d2d31915f2",
+        "640f22643e33f0d6cceaa2792b5bfc8125015e29",
+        "942eaaac55e43260064f8a710a8a4ab27bb76e94"
+      ],
+      "verification": "5 deterministic Node tests passed before commit from byte-identical files; output redaction was tested against issuer, audience, subject, jti, workflow SHA, repository ID, and run ID fixture values.",
+      "uncertainty": "No live GitHub token was sampled. The artifact enables safe sampling but does not justify changing R-007 policy defaults yet."
+    },
+    "handoff": "Cloudflare Research should call this builder only after independent signature, issuer, and audience validation, retain the redacted result as a workflow artifact, and aggregate multiple observations before adjusting temporal bounds."
+  },
+  "canonical_queue_mutated": false,
+  "reason": "Shared queue state is maintained through additive projections to avoid overwriting concurrent team work."
+}
