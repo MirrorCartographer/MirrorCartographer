@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "observed_at": "2026-07-13T14:33:00-04:00",
+  "queue_item": "R-007",
+  "sources": [
+    {
+      "url": "https://docs.sigstore.dev/cosign/verifying/verify/",
+      "status": "current_official_documentation",
+      "observed_claim": "Keyless identity verification requires both certificate identity and certificate OIDC issuer constraints; custom trust chains still require identity parameters."
+    },
+    {
+      "url": "https://docs.sigstore.dev/about/security/",
+      "status": "current_official_security_model",
+      "observed_claim": "Sigstore verification depends on explicit trust assumptions and verifier policy rather than signature presence alone."
+    }
+  ],
+  "finding": "Cryptographic certificate verification, transparency verification, trusted signing time, and trusted builder provenance still do not authorize the signer unless the verified certificate identity, OIDC issuer, source repository, and workflow reference satisfy an explicit deny-by-default policy.",
+  "design_implication": "Evidence promotion must apply exact authorized-principal matching after external certificate verification. Substring, suffix, wildcard-by-default, or issuer-only matching can admit lookalike principals.",
+  "artifact": {
+    "module": "tools/frontier-research/signer-identity-policy.mjs",
+    "test": "tools/frontier-research/signer-identity-policy.test.mjs",
+    "commits": [
+      "4c0a614a73fa244edd1665530688560f8feca28c",
+      "c5290309d2af62d7551302fb9960fc7fb762cc50"
+    ]
+  },
+  "verification": {
+    "method": "isolated Node test execution using behaviorally identical source and test inputs",
+    "result": "passed",
+    "tests": 6,
+    "covered": [
+      "exact authorized principal accepted",
+      "unverified certificate rejected",
+      "lookalike identity rejected",
+      "lookalike OIDC issuer rejected",
+      "unauthorized repository rejected",
+      "unexpected workflow ref rejected"
+    ]
+  },
+  "uncertainty": "The policy consumes externally extracted certificate claims and does not independently parse X.509 extensions or authenticate OIDC tokens.",
+  "evidence_strength": "source_verified_isolated_tests_passed",
+  "trust_limit": "Authorization success proves only that externally verified identity fields exactly match configured policy. It does not verify the certificate chain, timestamp, transparency proof, artifact digest, builder behavior, or underlying evidence claim.",
+  "falsification_route": "Supply a cryptographically verified certificate whose identity, issuer, repository, or workflow reference differs by one character or points to another ref; the classifier must reject it."
+}
