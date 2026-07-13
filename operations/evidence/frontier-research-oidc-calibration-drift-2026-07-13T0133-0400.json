@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-010",
+  "recorded_at": "2026-07-13T01:33:00-04:00",
+  "sources": [
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.4",
+      "status": "primary_standard",
+      "finding": "Expired JWTs must not be accepted; only small clock-skew leeway is contemplated."
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.5",
+      "status": "primary_standard",
+      "finding": "Not-before processing is time-bound and may use only small clock-skew leeway."
+    },
+    {
+      "url": "https://docs.github.com/en/actions/concepts/security/openid-connect",
+      "status": "current_provider_documentation",
+      "finding": "GitHub Actions OIDC credentials are short-lived and unique to workflow jobs."
+    }
+  ],
+  "finding": "A privacy-safe temporal calibration summary can become stale. Before reuse, independently aggregated cohorts should be compared for skew growth, lifetime contraction, and not-before claim-shape changes; any material drift must fail closed to review rather than widening verifier policy.",
+  "design_implication": "Insert an aggregate-only drift detector between R-009 cohort construction and any human policy review. Preserve policy_change_permitted=false in every outcome.",
+  "artifact": "tools/frontier-research/oidc-calibration-drift.mjs",
+  "test": "tools/frontier-research/oidc-calibration-drift.test.mjs",
+  "commits": [
+    "54f83cf904669b047171cfce524011b3aa6805dd",
+    "23a6c6f32736fa98546c58fa112f0c68cbbbcaee"
+  ],
+  "verification": {
+    "command": "node --test oidc-calibration-drift.test.mjs",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "runtime": "local Node runtime using byte-identical pre-commit files"
+  },
+  "evidence_strength": "prototype_verified_against_deterministic_adversarial_cases",
+  "uncertainty": "The default 30-second drift thresholds and five-observation minimum are engineering safeguards, not provider guarantees or statistically universal limits.",
+  "privacy_boundary": "Consumes aggregate cohort summaries only; no raw token, JWT ID, repository identity, workflow identity, actor identity, or credential material is retained.",
+  "falsification_route": "Collect a new independently verified cohort and reject the comparison if source review reveals dependent samples, clock-measurement error, aggregate reconstruction mismatch, or threshold sensitivity that changes the classification.",
+  "policy_change_permitted": false,
+  "deployment_claim_permitted": false
+}
