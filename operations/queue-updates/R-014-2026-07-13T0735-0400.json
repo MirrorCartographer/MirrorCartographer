@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T07:35:00-04:00",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "implemented_runtime_pending",
+  "action": "Classify retained Linux and macOS crash-stress outputs before accepting R-014 runtime evidence.",
+  "finding": "The prior workflow can produce evidence, but queue advancement lacked a deny-by-default acceptance gate over platform completeness, exact commit binding, cycle totals, residual artifacts, and retained log digests.",
+  "implementation": "tools/frontier-research/classify-crash-stress-evidence.mjs",
+  "implementation_commit": "dfacc5f3a167e1f6cfe8ccd1c9196a6e938c11ca",
+  "test": "tools/frontier-research/classify-crash-stress-evidence.test.mjs",
+  "test_commit": "4edbf45cd0abcce7a00dadf82f725160a2ef959a",
+  "evidence": "operations/evidence/frontier-crash-stress-evidence-classifier-2026-07-13.json",
+  "evidence_commit": "6aba1cf0c855b27259ad9e3c0f2dde78bf50702d",
+  "verification": "Source and tests committed; no runtime pass claimed.",
+  "required_next_evidence": [
+    "retained Linux runner identity and raw test log",
+    "retained macOS runner identity and raw test log",
+    "SHA-256 digest for each retained artifact",
+    "classifier accepted=true for the exact workflow commit"
+  ],
+  "handoff": "After a workflow run, construct the two-platform packet from retained artifacts and run the classifier. Preserve any rejection reasons as the smallest available counterexample."
+}
