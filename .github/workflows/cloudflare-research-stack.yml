@@ -28,6 +28,7 @@ jobs:
         run: |
           node --test cloudflare-static/validate-replay-reservation-deployment.test.mjs
           node --test cloudflare-static/verify-replay-reservation-worker.test.mjs
+          node --test cloudflare-static/verify-replay-reservation-concurrency.test.mjs
           node --test cloudflare-static/research-surface-identity.test.mjs
 
       - name: Classify deployment readiness
@@ -65,6 +66,14 @@ jobs:
           node cloudflare-static/verify-replay-reservation-worker.mjs \
             "$REPLAY_RESERVATION_WORKER_URL" \
             cloudflare-replay-reservation-worker-proof.json
+
+      - name: Verify live replay reservation atomicity
+        env:
+          REPLAY_RESERVATION_WORKER_URL: ${{ steps.worker_deploy.outputs.deployment-url }}
+        run: |
+          node cloudflare-static/verify-replay-reservation-concurrency.mjs \
+            "$REPLAY_RESERVATION_WORKER_URL" \
+            cloudflare-replay-reservation-concurrency-proof.json
 
       - name: Deploy Pages research surface after Worker verification
         id: pages_deploy
@@ -105,19 +114,21 @@ jobs:
             catch { return null }
           }
           const evidence = {
-            schema_version: '1.0.0',
+            schema_version: '1.1.0',
             source_commit: process.env.GITHUB_SHA,
             worker: {
               url: process.env.WORKER_URL || null,
-              verification: read('cloudflare-replay-reservation-worker-proof.json')
+              verification: read('cloudflare-replay-reservation-worker-proof.json'),
+              concurrency_proof: read('cloudflare-replay-reservation-concurrency-proof.json')
             },
             pages: {
               url: process.env.PAGES_URL || null,
               proof_recorded: fs.existsSync('cloudflare-stack-pages-proof.ndjson')
             },
-            ordering_invariant: 'worker-deployed-and-health-verified-before-pages-deploy',
+            ordering_invariant: 'worker-deployed-health-verified-and-live-atomicity-verified-before-pages-deploy',
             limits: [
               'A successful health response proves bounded service identity and readiness only.',
+              'One concurrency probe proves one live routed namespace, not universal availability or indefinite durability.',
               'Deployment evidence does not establish scientific or medical truth.'
             ]
           }
@@ -133,6 +144,7 @@ jobs:
             cloudflare-stack-readiness.json
             cloudflare-stack-access-probe.json
             cloudflare-replay-reservation-worker-proof.json
+            cloudflare-replay-reservation-concurrency-proof.json
             cloudflare-stack-pages-proof.ndjson
             cloudflare-stack-deployment-evidence.json
           if-no-files-found: warn
@@ -149,8 +161,9 @@ jobs:
             echo "- Source commit: \`${GITHUB_SHA}\`"
             echo "- Durable Object Worker URL: ${WORKER_URL:-not returned}"
             echo "- Pages URL: ${PAGES_URL:-not returned}"
-            echo "- Ordering invariant: Worker deploy and exact health identity verification precede Pages deployment"
+            echo "- Ordering invariant: Worker deploy, exact health verification, and live atomicity proof precede Pages deployment"
             echo "- Worker proof: \`cloudflare-replay-reservation-worker-proof.json\`"
+            echo "- Concurrency proof: \`cloudflare-replay-reservation-concurrency-proof.json\`"
             echo "- Stack evidence: \`cloudflare-stack-deployment-evidence.json\`"
-            echo "- Limit: deployment identity is infrastructure evidence, not scientific or medical proof"
+            echo "- Limit: deployment identity and one atomicity probe are infrastructure evidence, not scientific or medical proof"
           } >> "$GITHUB_STEP_SUMMARY"
