@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-1002",
+  "kind": "decision",
+  "title": "Repository-wide continuity validation enforces every relation guarantee",
+  "claim_state": "superseded",
+  "evidence_strength": "primary_repository_source",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/records/CM-1000.json",
+      "content_sha": "131fa02930e7fd2314aaea6f1e649e1f7022af0a",
+      "observed_at": "2026-07-13T17:54:42Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/records/CM-1001.json",
+      "content_sha": "0a0cf83b9b233c07311378f8035778efc997b74b",
+      "observed_at": "2026-07-13T17:54:42Z"
+    }
+  ],
+  "summary": "This record materializes the natural-language claim previously stored directly inside CM-1000.contradicts: that one repository-wide continuity validator demonstrably enforces every relation guarantee implemented by both validator modules. The claim is retained as historical project memory rather than deleted. CM-1001 and the composed aggregate gate supersede the earlier validator-fragmentation state, while runtime CI verification remains separate and unresolved.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": ["CM-1000"],
+  "status_relations": {
+    "observed": "CM-1000 stored this claim as prose in a machine-relation array instead of as a linked continuity record.",
+    "inferred": "Leaving prose in relation arrays prevents stable graph traversal and causes strict target-existence validation to fail.",
+    "proposed": "Represent machine relations only as CM record IDs and preserve explanatory wording in summaries or narrative relation notes.",
+    "superseded": "The unqualified claim that validator existence alone demonstrated repository-wide enforcement of all relation invariants.",
+    "unresolved": "A completed CI run at the migration commit has not yet been observed."
+  },
+  "falsification_or_review_route": "Fetch CM-1000 at blob 131fa02930e7fd2314aaea6f1e649e1f7022af0a and verify the original prose value. Falsify this migration record by showing that the quoted claim was not present, that CM-1000 did not use it as a contradiction target, or that the composed validator did not later replace the fragmented enforcement state. This record preserves claim history; it does not prove CI execution."
+}
