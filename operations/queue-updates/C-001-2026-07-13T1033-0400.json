@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "updated_at": "2026-07-13T10:33:32-04:00",
+  "status": "blocked_external_configuration",
+  "priority": 0,
+  "completed_slice": {
+    "action": "Add a fail-closed cross-artifact consistency gate for Cloudflare Pages hostname authority.",
+    "validator": "cloudflare-static/validate-hostname-authority-consistency.mjs",
+    "test": "cloudflare-static/validate-hostname-authority-consistency.test.mjs",
+    "evidence": "operations/evidence/cloudflare-hostname-authority-consistency-2026-07-13T1033-0400.json",
+    "commits": [
+      "2752257c7c40986996f7fcc8ad2e92c8f3c564bc",
+      "aaf3f86aa9669469bd100dd594c5c7f74db883d7",
+      "bba64e33abbbda69ee8fb402bbad0ca8ea54dd02"
+    ],
+    "verification": "Four deterministic isolated tests passed using byte-equivalent validator logic: exact agreement accepted; lookalike hostname, commit mismatch, and unadmitted custom-domain authority rejected."
+  },
+  "remaining_blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN followed by an authenticated workflow dispatch.",
+  "required_next_evidence": [
+    "clean-checkout execution of validate-hostname-authority-consistency.test.mjs",
+    "workflow integration after metadata and hostname evidence generation",
+    "successful workflow run identity",
+    "accepted hostname-authority consistency artifact",
+    "resolving HTTPS Pages hostname",
+    "served research surface bound to the deployed source commit"
+  ],
+  "next_action": "Wire validate-hostname-authority-consistency.mjs into .github/workflows/cloudflare-pages-research.yml after the metadata and hostname gate steps, include its JSON output in the final manifest and uploaded artifact, then dispatch with valid Cloudflare environment credentials."
+}
