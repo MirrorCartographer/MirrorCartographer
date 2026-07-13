@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-009",
+  "created_at": "2026-07-13T09:50:00Z",
+  "source_status": {
+    "primary": [
+      "https://www.rfc-editor.org/rfc/rfc9110.html#section-13.1.1",
+      "https://www.rfc-editor.org/rfc/rfc8785.html"
+    ],
+    "repository": [
+      "tools/frontier-research/peer-execution-runtime.mjs",
+      "tools/frontier-research/durable-peer-terminal-journal.mjs",
+      "operations/queue-updates/R-008-2026-07-13T0540-0400.json"
+    ]
+  },
+  "finding": "The peer execution runtime must acquire durable terminal ownership before appending a terminal event. A process-local map cannot prevent two independent runtimes from emitting conflicting terminals for the same trigger.",
+  "design_implication": "Require a terminalJournal dependency, record the packet digest through its compare-and-set append contract, append the event only when the journal reports a fresh durable record, and fail closed on terminal conflict or invalid journal state.",
+  "implemented": {
+    "runtime": "tools/frontier-research/peer-execution-runtime.mjs",
+    "test": "tools/frontier-research/peer-execution-runtime-journal.test.mjs"
+  },
+  "verification": {
+    "command": "node --test peer-execution-runtime-journal.test.mjs",
+    "tests": 2,
+    "passed": 2,
+    "failed": 0,
+    "scope": "isolated Node runtime using byte-identical candidate source before commit"
+  },
+  "evidence_strength": "test-verified integration behavior",
+  "uncertainty": "The test backend implements the compare-and-set contract in memory; no production distributed backend has yet been exercised.",
+  "falsification_route": "Run two independent OS processes against one production compare-and-set backend using the same trigger ID and different terminal events. More than one persisted terminal or more than one downstream append falsifies the guarantee.",
+  "privacy": "No private chat, health, credential, or personal data included.",
+  "peer_execution_claimed": false
+}
