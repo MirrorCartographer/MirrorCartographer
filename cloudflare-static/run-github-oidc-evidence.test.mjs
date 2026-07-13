@@ -35,6 +35,7 @@ const env = {
 
 const claims = {
   iss: 'https://token.actions.githubusercontent.com',
+  jti: 'oidc-token-identifier-001',
   aud: DEFAULT_AUDIENCE,
   sub: 'repo:MirrorCartographer/MirrorCartographer:environment:cloudflare-research',
   repository: env.GITHUB_REPOSITORY,
@@ -54,44 +55,57 @@ const claims = {
   exp: now + 300
 }
 
-function response(body, url) {
+function response(body) {
   return new Response(JSON.stringify(body), {
     status: 200,
     headers: { 'content-type': 'application/json', 'cache-control': 'max-age=60', date: new Date(now * 1000).toUTCString() }
   })
 }
 
-test('accepts a signed token matching the exact invocation without persisting secrets', async () => {
-  const fetchImpl = async (url, options) => {
+function fetchFor(tokenClaims) {
+  return async (url, options) => {
     const href = String(url)
     if (href.startsWith('https://actions.example.test/token')) {
       assert.equal(options.headers.authorization, 'Bearer request-secret')
       assert.equal(new URL(href).searchParams.get('audience'), DEFAULT_AUDIENCE)
-      return response({ value: jwt(claims) }, href)
+      return response({ value: jwt(tokenClaims) })
     }
     if (href.endsWith('/.well-known/openid-configuration')) {
-      return response({ issuer: 'https://token.actions.githubusercontent.com', jwks_uri: 'https://token.actions.githubusercontent.com/.well-known/jwks', id_token_signing_alg_values_supported: ['RS256'] }, href)
+      return response({ issuer: 'https://token.actions.githubusercontent.com', jwks_uri: 'https://token.actions.githubusercontent.com/.well-known/jwks', id_token_signing_alg_values_supported: ['RS256'] })
     }
-    if (href.endsWith('/.well-known/jwks')) return response({ keys: [jwk] }, href)
+    if (href.endsWith('/.well-known/jwks')) return response({ keys: [jwk] })
     throw new Error(`unexpected fetch ${href}`)
   }
-  const result = await runGitHubOidcEvidence({ env, fetchImpl, nowEpochSeconds: now })
+}
+
+test('accepts exact signed identity with a fresh JWT ID and emits only a replay digest', async () => {
+  const result = await runGitHubOidcEvidence({ env, fetchImpl: fetchFor(claims), nowEpochSeconds: now })
   assert.equal(result.accepted, true)
   assert.equal(result.decision.reason, 'oidc_signature_and_claims_authorized')
-  assert.deepEqual(result.secret_handling, { token_persisted: false, request_token_persisted: false })
+  assert.equal(result.replay.reason, 'fresh_token_identifier')
+  assert.equal(result.replay.ledger.entries.length, 1)
+  assert.equal(JSON.stringify(result).includes(claims.jti), false)
+  assert.deepEqual(result.secret_handling, { token_persisted: false, request_token_persisted: false, raw_jti_persisted: false })
   assert.equal(JSON.stringify(result).includes('request-secret'), false)
 })
 
-test('rejects a signed token when source identity differs', async () => {
-  const badClaims = { ...claims, sha: 'c'.repeat(40) }
-  const fetchImpl = async (url) => {
-    const href = String(url)
-    if (href.startsWith('https://actions.example.test/token')) return response({ value: jwt(badClaims) }, href)
-    if (href.endsWith('/.well-known/openid-configuration')) return response({ issuer: 'https://token.actions.githubusercontent.com', jwks_uri: 'https://token.actions.githubusercontent.com/.well-known/jwks', id_token_signing_alg_values_supported: ['RS256'] }, href)
-    if (href.endsWith('/.well-known/jwks')) return response({ keys: [jwk] }, href)
-    throw new Error(`unexpected fetch ${href}`)
-  }
-  const result = await runGitHubOidcEvidence({ env, fetchImpl, nowEpochSeconds: now })
+test('rejects the same issuer and JWT ID when it is already live in the supplied ledger', async () => {
+  const first = await runGitHubOidcEvidence({ env, fetchImpl: fetchFor(claims), nowEpochSeconds: now })
+  const replayed = await runGitHubOidcEvidence({
+    env,
+    fetchImpl: fetchFor(claims),
+    nowEpochSeconds: now + 1,
+    priorReplayLedger: first.replay.ledger
+  })
+  assert.equal(replayed.accepted, false)
+  assert.equal(replayed.decision.accepted, true)
+  assert.equal(replayed.replay.reason, 'token_replay_detected')
+})
+
+test('rejects a signed token when source identity differs before replay acceptance', async () => {
+  const badClaims = { ...claims, jti: 'oidc-token-identifier-002', sha: 'c'.repeat(40) }
+  const result = await runGitHubOidcEvidence({ env, fetchImpl: fetchFor(badClaims), nowEpochSeconds: now })
   assert.equal(result.accepted, false)
   assert.equal(result.decision.reason, 'oidc_claim_authorization_rejected')
+  assert.equal(result.replay.reason, 'identity_not_accepted')
 })
