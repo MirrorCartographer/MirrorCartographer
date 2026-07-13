@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "append-only-owner-update",
+  "queue_item": "R-008",
+  "owner": "frontier_research",
+  "priority": 5,
+  "status": "completed",
+  "action": "Replace the process-local peer terminal index with a durable compare-and-set journal contract.",
+  "dependencies": ["R-007"],
+  "required_evidence": [
+    "current primary specifications",
+    "durable compare-and-set contract",
+    "idempotent same-write handling",
+    "conflicting-terminal rejection",
+    "bounded contention failure",
+    "deterministic tests",
+    "falsification route"
+  ],
+  "completed_at": "2026-07-13T09:40:57Z",
+  "progress": {
+    "primary_sources": [
+      "https://www.rfc-editor.org/rfc/rfc9110.html#section-13.1.1",
+      "https://www.rfc-editor.org/rfc/rfc8785.html"
+    ],
+    "finding": "Cross-run terminal uniqueness requires an atomic strong-validator precondition over durable state; process-local maps cannot supply that guarantee.",
+    "module": "tools/frontier-research/durable-peer-terminal-journal.mjs",
+    "test": "tools/frontier-research/durable-peer-terminal-journal.test.mjs",
+    "evidence": "operations/evidence/frontier-research-durable-peer-terminal-journal-2026-07-13.json",
+    "commits": [
+      "1fd108f7ec46ed740d3b9c1d3e7a6ac9dce2f9ad",
+      "ba8e6c7fe65506049814b9aeda58186a5e2ad7be",
+      "0d5b596122778f175fcd4cb04b2f80d731cb3e38"
+    ],
+    "verification": "6 deterministic Node tests passed in an isolated runtime using byte-identical candidate source before commit"
+  },
+  "handoff": "Wire the journal into peer-execution-runtime through appendEvent, implement one production backend with atomic compareAndSet semantics, and run a two-process collision test against the real backend.",
+  "canonical_queue_mutated": false,
+  "peer_execution_claimed": false
+}
