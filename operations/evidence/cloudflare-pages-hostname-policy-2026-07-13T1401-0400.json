@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "created_at": "2026-07-13T14:01:00-04:00",
+  "finding": "Public and control-plane deployment packets can agree on an arbitrary origin unless the hostname is independently constrained to the configured Cloudflare Pages project or an explicit exact custom-domain allowlist.",
+  "implementation": {
+    "module": "cloudflare-static/classify-pages-hostname.mjs",
+    "test": "cloudflare-static/classify-pages-hostname.test.mjs",
+    "commits": [
+      "7b1db3ae50ec12b6fc8bacba8402f935181cb20e",
+      "2b52ed183d573561e0a72e3ea9c92f71b1dae6d5"
+    ]
+  },
+  "policy": {
+    "accepted": [
+      "exact <project>.pages.dev production hostname",
+      "exact project-bound preview hostname ending .<project>.pages.dev",
+      "explicit exact custom hostname allowlist entry"
+    ],
+    "rejected": [
+      "non-HTTPS URLs",
+      "URLs with credentials or non-default ports",
+      "lookalike suffixes",
+      "wildcard custom-domain trust",
+      "paths, queries, or fragments used as deployment identity"
+    ]
+  },
+  "verification": {
+    "status": "committed_not_executed",
+    "coverage": "six deterministic Node tests committed",
+    "claim_limit": "No test passage, DNS resolution, HTTP reachability, Cloudflare account ownership, or deployment success is claimed."
+  },
+  "falsification_route": "Execute the test file in observed CI, then classify the deployment URL returned by Cloudflare control-plane metadata and reject reconciliation unless the classification is accepted and its normalized origin equals both retained proof packets.",
+  "privacy_boundary": "Public repository configuration and abstract deployment evidence only; no credentials, health information, private chat, diagnosis, treatment, payment, or conversion data included."
+}
