@@ -60,10 +60,31 @@ export function verifyHostnameAuthorityConsistencyArtifact({ artifact, expectedC
   };
 }
 
+export function verifyHostnameAuthorityConsistencyFile({ directory='.', filename='cloudflare-hostname-authority-consistency.json', expectedCommit, expectedProject='mirror-cartographer-research' } = {}) {
+  const artifactPath = path.join(directory, filename);
+  let artifact;
+  try {
+    artifact = JSON.parse(fs.readFileSync(artifactPath, 'utf8'));
+  } catch (error) {
+    return {
+      ok: false,
+      verified: false,
+      accepted: false,
+      deployment_claim_permitted: false,
+      errors: [error?.code === 'ENOENT' ? 'artifact-file.missing' : 'artifact-file.unreadable'],
+      claim_ceiling: 'no-deployment-claim',
+      artifact_path: artifactPath
+    };
+  }
+  return {
+    ...verifyHostnameAuthorityConsistencyArtifact({ artifact, expectedCommit, expectedProject }),
+    artifact_path: artifactPath
+  };
+}
+
 function main() {
   const [artifactPath='cloudflare-hostname-authority-consistency.json', expectedCommit=process.env.GITHUB_SHA, expectedProject=process.env.CLOUDFLARE_PAGES_PROJECT || 'mirror-cartographer-research'] = process.argv.slice(2);
-  const artifact = JSON.parse(fs.readFileSync(path.resolve(artifactPath), 'utf8'));
-  const result = verifyHostnameAuthorityConsistencyArtifact({ artifact, expectedCommit, expectedProject });
+  const result = verifyHostnameAuthorityConsistencyFile({ directory: path.dirname(path.resolve(artifactPath)), filename: path.basename(artifactPath), expectedCommit, expectedProject });
   process.stdout.write(`${JSON.stringify(result)}\n`);
   if (!result.verified) process.exitCode = 1;
 }
