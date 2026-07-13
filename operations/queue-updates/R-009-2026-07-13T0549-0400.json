@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "append-only-owner-update",
+  "queue_item": "R-009",
+  "owner": "frontier_research",
+  "priority": 6,
+  "status": "completed",
+  "action": "Wire the durable peer terminal journal into the peer execution runtime and reject cross-runtime conflicting terminals.",
+  "dependencies": ["R-008"],
+  "required_evidence": [
+    "durable journal integration",
+    "cross-runtime conflicting-terminal test",
+    "fail-closed missing-journal test",
+    "falsification route"
+  ],
+  "completed_at": "2026-07-13T09:50:00Z",
+  "progress": {
+    "finding": "Durable uniqueness must be acquired before downstream append; otherwise independent runtimes can each emit a terminal event after local verification.",
+    "runtime": "tools/frontier-research/peer-execution-runtime.mjs",
+    "test": "tools/frontier-research/peer-execution-runtime-journal.test.mjs",
+    "evidence": "operations/evidence/frontier-research-peer-runtime-durable-journal-integration-2026-07-13.json",
+    "commits": [
+      "2c8c9f2d9fffb020ff807873c2d2961688719c42",
+      "7ade9108b2580044a442b4c4ec8d774efa93018a",
+      "f51f6476ecf76278ce6966eed08be55cb733df75"
+    ],
+    "verification": "2 deterministic Node tests passed in an isolated runtime using byte-identical candidate source before commit"
+  },
+  "handoff": "Implement a real atomic compare-and-set storage adapter and run the two-process collision test against that backend. Update existing runtime callers to supply terminalJournal and re-run the full repository test gate.",
+  "canonical_queue_mutated": false,
+  "peer_execution_claimed": false
+}
