@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-002",
+    "owner": "continuity_mining",
+    "priority": 1,
+    "action": "Enforce graph integrity for contradiction and supersession links in the continuity index without rewriting historical records.",
+    "dependencies": ["M-001"],
+    "required_evidence": [
+      "relation validator",
+      "adversarial tests",
+      "privacy boundary",
+      "claim-truth limit"
+    ],
+    "status": "completed",
+    "progress": {
+      "validator": "operations/continuity/validate-continuity-relations.mjs",
+      "test": "operations/continuity/validate-continuity-relations.test.mjs",
+      "evidence": "operations/evidence/continuity-relation-integrity-2026-07-13T1314-0400.json",
+      "commits": [
+        "bcc33d05ca8a9e90b69a211424e68e8fdbb0fe3b",
+        "41ce47b9ffa123a1da0cc2d595daab53134095cc",
+        "2e2239986cf23af63d62cff57eedee0bbec53435"
+      ],
+      "verification": "Five isolated Node tests passed, including dangling target, self-link, duplicate ID, and supersession-cycle rejection.",
+      "canonical_mutation_performed": false
+    },
+    "handoff": "Add this validator to a reviewed continuity-index CI gate, then index decision-history records with explicit links and immutable source locators."
+  },
+  "preservation_rule": "This additive update does not modify operations/ACTIVE_QUEUE.json or any other team's queue records."
+}
