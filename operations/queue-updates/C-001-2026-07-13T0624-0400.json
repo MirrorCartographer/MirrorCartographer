@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T06:24:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Strengthened the composite Cloudflare deployment evidence validator so HTTPS lookalike domains cannot satisfy Worker or Pages deployment proof.",
+  "artifacts": [
+    "cloudflare-static/validate-stack-deployment-evidence.mjs",
+    "cloudflare-static/validate-stack-deployment-evidence.test.mjs",
+    "operations/evidence/cloudflare-provider-hostname-boundary-2026-07-13T0624-0400.json"
+  ],
+  "commits": [
+    "c3e327250125f86c27e6743b09f026e99ad216c2",
+    "440556a7485cd46c90f882028184ddf453b5c683",
+    "2d24ca40fe925cb7f475175811dc548c35eb7ea3"
+  ],
+  "verification": "Three isolated Node 22 cases passed for valid provider hosts, lookalike rejection, and malformed/non-HTTPS rejection. No Cloudflare deployment run was available.",
+  "canonical_queue_mutated": false,
+  "blocker_unchanged": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch the committed workflow and retain its returned deployment URL and proof artifacts.",
+  "next_action": "Run the Cloudflare stack workflow after credentials are configured; verify that returned Worker and Pages URLs satisfy provider-bound hostname, identity, commit, atomicity, redeployment-persistence, and ordering gates."
+}
