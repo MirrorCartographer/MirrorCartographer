@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T01:20:00-04:00",
+  "canonical_status": "blocked_external_configuration",
+  "durable_slice": {
+    "status": "completed",
+    "summary": "Implemented the fail-closed boundary between accepted retained-ledger state and replay comparison.",
+    "module": "cloudflare-static/build-replay-comparison-input.mjs",
+    "test": "cloudflare-static/build-replay-comparison-input.test.mjs",
+    "evidence": "operations/evidence/cloudflare-replay-comparison-adapter-2026-07-13T0120-0400.json",
+    "commits": [
+      "3a5ecfc543a872f4304132eff6e083da777c8cdc",
+      "a6ea614311fc23b4244f0e6852988b1d4188ba59",
+      "eeecaa6546e7fd18fa66404b363a071b21ef19d7"
+    ],
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-equivalent committed logic."
+  },
+  "external_blocker": "The cloudflare-research GitHub environment still requires CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN before the deployment workflow can return and verify a public Cloudflare Pages hostname.",
+  "next_action": "Add workflow retrieval and cryptographic authentication of the prior replay-ledger artifact, then invoke build-replay-ledger-consumption-decision.mjs and build-replay-comparison-input.mjs before any replay-dependent acceptance decision.",
+  "canonical_queue_modified": false
+}
