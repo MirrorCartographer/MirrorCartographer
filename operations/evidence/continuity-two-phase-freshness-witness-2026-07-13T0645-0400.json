@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-QUEUE-FRESHNESS-002",
+  "created_at": "2026-07-13T06:45:29-04:00",
+  "finding": "Canonical queue reconciliation requires independently captured proposal, review, application, and post-application witnesses. Proposal-time integrity alone does not establish freshness at mutation time.",
+  "sources": [
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "status": "observed"
+    },
+    {
+      "path": "operations/continuity/records/CM-0022.json",
+      "commit": "cb16929aaa384528e2d72e1357237a843ed90dea",
+      "status": "observed"
+    },
+    {
+      "path": "operations/queue-updates/M-QUEUE-FRESHNESS-001-2026-07-13T0612-0400.json",
+      "commit": "9e935d12ffa66b05feed3fdb2877d6bdc3a628f7",
+      "status": "observed"
+    },
+    {
+      "repository_head_observation": "31a394f7e8663cadaa0c98f7cc1195a9d58d8d79",
+      "status": "observed_at_run_start"
+    }
+  ],
+  "artifact": {
+    "path": "operations/continuity/records/CM-0023.json",
+    "commit": "d3f7bbe9ad88e7219921d7d1ba69e61cad10776c",
+    "type": "implementation-ready contract"
+  },
+  "verification": {
+    "method": "GitHub contents API commit acknowledgement followed by immutable commit reference retention",
+    "result": "committed",
+    "limits": [
+      "No recursive queue-update tree digest was generated.",
+      "No canonical queue file was changed.",
+      "No reviewer authorization was inferred."
+    ]
+  },
+  "claim_states_preserved": ["observed", "inferred", "proposed", "superseded", "unresolved"],
+  "privacy_boundary": "Public repository metadata and operational artifacts only; private chat, health, pet-health, credentials, contact data, and unreviewed uploads excluded.",
+  "proves_peer_execution": false
+}
