@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-13T11:14:15Z",
+  "privacy_boundary": {
+    "allowed": [
+      "Public repository source, commit metadata, workflow configuration, and abstracted technical claims"
+    ],
+    "forbidden": [
+      "Raw private chat text",
+      "Health or pet-health details",
+      "Credentials, account identifiers, or private contact data",
+      "Unreviewed uploaded-file contents"
+    ]
+  },
+  "records": [
+    {
+      "id": "CM-0013",
+      "kind": "commit",
+      "title": "Afterbell Safari audio gesture path was hardened in source",
+      "claim_state": "observed",
+      "evidence_strength": "primary_repository_source",
+      "sources": [
+        {
+          "type": "github_commit",
+          "locator": "8a910c27eb17762733124f8812df70e23a7588cb",
+          "content_sha": "8a910c27eb17762733124f8812df70e23a7588cb",
+          "observed_at": "2026-07-13T11:14:15Z"
+        }
+      ],
+      "summary": "The independent Afterbell page changed AudioContext setup and tone generation to await resume inside direct pointer and keyboard gesture handlers, and added a no-stereo-panner fallback. This establishes source-level Safari compatibility intent, not proof of audible output on a physical Safari device.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Fetch commit 8a910c27eb17762733124f8812df70e23a7588cb and verify the async wake, awaited resume, gesture-bound call chain, and stereo-panner fallback are present. Reject any stronger claim of audibility without device evidence."
+    },
+    {
+      "id": "CM-0014",
+      "kind": "decision",
+      "title": "Safari audio source compatibility became a deployment gate",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_commit",
+          "locator": "8a910c27eb17762733124f8812df70e23a7588cb",
+          "content_sha": "8a910c27eb17762733124f8812df70e23a7588cb",
+          "observed_at": "2026-07-13T11:14:15Z"
+        },
+        {
+          "type": "github_commit",
+          "locator": "764cfdac5fb8adce263c4657aa149bc2f7441eff",
+          "content_sha": "764cfdac5fb8adce263c4657aa149bc2f7441eff",
+          "observed_at": "2026-07-13T11:14:15Z"
+        }
+      ],
+      "summary": "A later workflow commit added the Afterbell Safari audio contract test to the independent-web Pages job. This changes the project rule from an isolated source patch to a required pre-deployment contract, while remaining distinct from proof that the workflow ran or that a deployment served the commit.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Fetch commit 764cfdac5fb8adce263c4657aa149bc2f7441eff and verify independent-web/afterbell-safari-audio.test.mjs is invoked by the Pages workflow. Check workflow runs separately; wiring alone is not execution evidence."
+    },
+    {
+      "id": "CM-0015",
+      "kind": "unresolved_question",
+      "title": "Afterbell physical Safari audibility remains unresolved",
+      "claim_state": "unresolved",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_commit",
+          "locator": "8a910c27eb17762733124f8812df70e23a7588cb",
+          "content_sha": "8a910c27eb17762733124f8812df70e23a7588cb",
+          "observed_at": "2026-07-13T11:14:15Z"
+        },
+        {
+          "type": "github_commit",
+          "locator": "764cfdac5fb8adce263c4657aa149bc2f7441eff",
+          "content_sha": "764cfdac5fb8adce263c4657aa149bc2f7441eff",
+          "observed_at": "2026-07-13T11:14:15Z"
+        },
+        {
+          "type": "github_commit",
+          "locator": "3565fc892a06db69f8a1ef65dda3d9eaeac292ea",
+          "content_sha": "3565fc892a06db69f8a1ef65dda3d9eaeac292ea",
+          "observed_at": "2026-07-13T11:14:15Z"
+        }
+      ],
+      "summary": "Repository source, a contract test, workflow wiring, and an evidence packet exist, but no retained physical iPhone or Safari audible result was observed in this run. The durable state must therefore separate implemented compatibility, enforced contract, deployment evidence, and actual device audibility.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Resolve only with a retained test result tied to a specific deployed commit and physical Safari device, including an audible outcome or device-level meter. A passing source contract or workflow alone is insufficient."
+    }
+  ]
+}
