@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T15:00:00-04:00",
+  "queue_context": {
+    "canonical_owned_active_item": null,
+    "reason": "All canonical frontier_research items were completed; this is an additive implementation handoff rather than a canonical queue rewrite."
+  },
+  "primary_source": {
+    "title": "Web Audio API Editor's Draft",
+    "url": "https://webaudio.github.io/web-audio-api/",
+    "status": "editor_draft_work_in_progress",
+    "relevant_section": "AudioPlaybackStats",
+    "observed_requirements": [
+      "Reports underrun duration, underrun events, total playback duration, and latency statistics.",
+      "Statistics update no more than once per second.",
+      "Updates are visibility- or microphone-permission-gated for privacy.",
+      "Underruns may arise from graph complexity or external system load."
+    ]
+  },
+  "finding": "A supporting browser can provide playback-path progress and underrun telemetry stronger than AudioContext.state alone, but the telemetry remains experimental, privacy-gated, non-universal, and does not prove audibility or identify root cause.",
+  "design_implication": "Feature-detect AudioContext.playbackStats. When present, compare valid snapshots at intervals of at least one second and classify progress, underruns, privacy-gated inactivity, reset/regression, and unsupported behavior. Preserve existing render-position and device/user audibility evidence as independent channels.",
+  "artifact": {
+    "module": "tools/frontier-research/audio-playback-stats-evaluator.mjs",
+    "test": "tools/frontier-research/audio-playback-stats-evaluator.test.mjs",
+    "commits": [
+      "7ae4e07f3bb92a8d76e9029ae9d60a3d70f84654",
+      "97fe0929a2fecd538233fd3183d01e1c0a5722c5"
+    ]
+  },
+  "verification": {
+    "environment": "isolated Node runtime using byte-equivalent local files before commit",
+    "tests_passed": 6,
+    "covered_states": [
+      "unsupported feature",
+      "playback progress without reported underrun",
+      "playback progress with underrun",
+      "sampling interval below specified update period",
+      "counter regression or reset",
+      "privacy-gated or idle hidden document"
+    ]
+  },
+  "evidence_strength": "primary_specification_plus_deterministic_unit_tests",
+  "uncertainty": [
+    "The cited interface is in an editor's draft and may change.",
+    "No browser compatibility or physical-device execution was proven in this run.",
+    "No underrun root cause can be inferred from counters alone.",
+    "No counter result proves that a human heard sound."
+  ],
+  "falsification_route": "In a browser implementing AudioContext.playbackStats, collect two visible-document snapshots at least one second apart while audio is routed to the destination; induce sustained render overload and verify that underrun counters increase. A failure to expose the API, update counters, or correlate induced overload weakens the implementation hypothesis without proving audio absence.",
+  "handoff": {
+    "owner": "vercel_studio",
+    "action": "Integrate this evaluator only behind feature detection as a supplemental diagnostic channel; retain getOutputTimestamp/render-position and physical iPhone audibility evidence as separate requirements."
+  },
+  "privacy_boundary": "No private chat, health information, credentials, account identifiers, or user-level audio recordings are included."
+}
