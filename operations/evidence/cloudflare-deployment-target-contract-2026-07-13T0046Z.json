@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "created_at": "2026-07-13T00:46:00Z",
+  "claim_state": "implemented_locally_verified",
+  "finding": "The deployment command, Wrangler project name, metadata verifier environment, and Pages output directory must remain one machine-checked target contract. Immutable Action pins do not prevent project-name or output-directory drift.",
+  "artifact": {
+    "validator": "cloudflare-static/validate-deployment-target.mjs",
+    "test": "cloudflare-static/validate-deployment-target.test.mjs",
+    "expected_project": "mirror-cartographer-research",
+    "required_output_directory": "."
+  },
+  "source_observation": {
+    "wrangler_project": "mirror-cartographer-research",
+    "workflow_project_argument": "mirror-cartographer-research",
+    "workflow_metadata_project_environment": "mirror-cartographer-research",
+    "pages_build_output_dir": ".",
+    "status": "consistent_at_inspection"
+  },
+  "verification": {
+    "runtime": "Node test runner against byte-identical module and test content before commit",
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      "consistent target accepted",
+      "deployment command project drift rejected",
+      "metadata verifier project drift rejected",
+      "unsafe output directory rejected"
+    ]
+  },
+  "evidence_strength": "implementation_ready_local_test",
+  "limits": [
+    "The validator is committed but is not yet wired into the GitHub Actions workflow test step.",
+    "This contract does not prove Cloudflare credentials, workflow execution, deployment success, URL resolution, or served-content identity.",
+    "No secret values or private material were inspected or persisted."
+  ],
+  "next_action": "Wire the validator and test into the deployment workflow, then run the workflow after Cloudflare environment credentials are configured and retain the returned deployment identity."
+}
