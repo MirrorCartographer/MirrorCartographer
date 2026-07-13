@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T07:35:00-04:00",
+  "team": "frontier_research",
+  "queue_item": "R-014",
+  "runtime_state": "unresolved",
+  "finding": "A matrix label or workflow status is insufficient by itself. Acceptance must bind Linux and macOS observations to one exact commit, require the complete 12-cycle contract on each platform, require zero residual coordination artifacts, and retain digests for runner identity and raw logs.",
+  "design_implication": "Queue state may advance from implemented_runtime_pending only after the classifier accepts a complete two-platform packet. Missing, duplicate, cross-commit, failed, or dirty observations remain unresolved or falsifying evidence.",
+  "module": "tools/frontier-research/classify-crash-stress-evidence.mjs",
+  "module_commit": "dfacc5f3a167e1f6cfe8ccd1c9196a6e938c11ca",
+  "test": "tools/frontier-research/classify-crash-stress-evidence.test.mjs",
+  "test_commit": "4edbf45cd0abcce7a00dadf82f725160a2ef959a",
+  "adversarial_cases": [
+    "missing macOS observation",
+    "observation from a different commit",
+    "nonzero residual artifact count",
+    "duplicate Linux evidence presented as a two-platform matrix"
+  ],
+  "verification": "Committed deterministic test contract; runtime tests were not executed in this connector-only run.",
+  "evidence_strength": "implementation_ready_unexecuted",
+  "falsification_route": "Reject if either platform is absent, duplicated, points to another commit, has a nonzero exit code, completes other than 12 cycles, records other than 12 terminal outcomes, leaves a residual coordination artifact, or lacks artifact names and SHA-256 digests.",
+  "epistemic_limit": "Acceptance proves only the bounded contract on retained runner observations for the exact commit."
+}
