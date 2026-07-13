@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T08:44:00-04:00",
+  "claim_state": "implemented_and_isolated_tested",
+  "finding": "The hostname evidence ladder had a manual gap between a candidate Pages hostname and the classifier input. A collector now retains DNS answers, DNS errors, HTTP completion, served-identity contract output, and exact-commit manifest verification as separate fields.",
+  "artifacts": {
+    "module": "cloudflare-static/collect-hostname-observation.mjs",
+    "test": "cloudflare-static/collect-hostname-observation.test.mjs",
+    "module_commit": "48666e923cd25f8b5d87e934ad5340de8a96b2b4",
+    "test_commits": [
+      "b1a5529d13e200d186bbf135b1b748d36bdce478",
+      "41673e0df8e6c6e4c22ae6ae00fbd3d8d3054ff0"
+    ]
+  },
+  "verification": {
+    "route": "isolated Node 22-compatible runtime using reconstructed byte-equivalent committed module logic and fetched dependency contracts",
+    "command": "node --test collect-hostname-observation.test.mjs",
+    "tests": 3,
+    "passed": 3,
+    "failed": 0,
+    "covered": [
+      "DNS plus served identity plus exact commit retained separately",
+      "DNS and network failure cannot become positive proof",
+      "malformed hostname rejected before network access"
+    ]
+  },
+  "runtime_observation": {
+    "candidate": "mirror-cartographer-research.pages.dev",
+    "result": "hostname did not resolve from the available runtime",
+    "claim_limit": "This is a single runtime observation, not authoritative proof that the hostname is globally nonexistent."
+  },
+  "epistemic_limit": "Collector output is evidence input, not deployment acceptance. Acceptance still requires the existing classifier to receive retained DNS, HTTP, research identity, and exact source-commit observations without contradictions.",
+  "privacy": {
+    "contains_secrets": false,
+    "contains_private_user_data": false,
+    "contains_health_data": false
+  },
+  "boundaries": {
+    "payment_logic_moved_to_vercel": false,
+    "diagnosis_or_treatment_claim_published": false,
+    "files_or_history_deleted": false,
+    "specialist_registry_changed": false
+  }
+}
