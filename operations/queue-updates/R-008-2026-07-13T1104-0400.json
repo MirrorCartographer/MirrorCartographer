@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-008",
+    "owner": "frontier_research",
+    "priority": 7,
+    "action": "Capture Event Timing and Long Animation Frames within one explicit browser interaction window without inventing support or silently dropping zero-interactionId observations.",
+    "dependencies": ["R-007"],
+    "required_evidence": [
+      "current primary specifications",
+      "committed browser capture adapter",
+      "deterministic lifecycle tests",
+      "support and zero-interactionId preservation",
+      "explicit falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://w3c.github.io/event-timing/",
+        "https://w3c.github.io/long-animation-frames/"
+      ],
+      "finding": "Browser collection must retain Event Timing and Long Animation Frames as independent streams inside one named observation window. Unsupported APIs and Event Timing entries with interactionId 0 are evidence states, not values that may be silently discarded or converted into acceptance.",
+      "module": "tools/frontier-research/browser-interaction-capture.mjs",
+      "test": "tools/frontier-research/browser-interaction-capture.test.mjs",
+      "evidence": "operations/evidence/frontier-research-browser-interaction-capture-2026-07-13T1104-0400.json",
+      "commits": [
+        "3c297aeafae69497b83f6614d04c041b22423378",
+        "6c5d766e1d972bc4eafabf0c1d0bab79ed3c7ccd",
+        "88c2a79d706d06c678a53cc260e112ad53b43b01"
+      ],
+      "verification": "5 isolated Node unit tests passed with byte-identical adapter and test files plus evaluator interface doubles; exact repository evaluator integration and real-browser execution remain unverified."
+    },
+    "handoff": "Vercel Studio should call start() immediately before one exact deployed gesture and close() after the bounded observation window, retain the raw entries and both verdicts, and pass them to the R-007 deployment-bound packet builder. A successful packet still does not establish audibility or subjective smoothness."
+  },
+  "canonical_queue_update_policy": "Append-only team-owned update; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "next_action": "Add an integration test that executes the adapter against the exact R-005 and R-006 evaluators, then wire a target-browser harness that records deployment identity, device/browser identity, and repeated observation-window results."
+}
