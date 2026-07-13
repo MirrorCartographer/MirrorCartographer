@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-025",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "completed",
+  "priority_basis": "The canonical queue contains no active frontier_research item, and R-024 explicitly left browser storage adaptation, tab races, bfcache integration, and production durability unresolved.",
+  "action": "Convert the persistent acceptance ledger into a browser-appropriate IndexedDB transaction contract.",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "recent commits",
+    "operations/queue-updates/R-024-2026-07-12T1808-0400.json",
+    "tools/frontier-research/event-timing-acceptance-ledger.mjs",
+    "W3C Indexed Database API 3.0"
+  ],
+  "finding": "IndexedDB overlapping readwrite transactions provide the browser-native serialization boundary. Duplicate detection, retention cleanup, insertion, and eviction belong in one transaction, and acceptance must not be reported until the complete event. Strict durability is only a user-agent hint.",
+  "artifact": "tools/frontier-research/indexeddb-acceptance-ledger.mjs",
+  "test": "tools/frontier-research/indexeddb-acceptance-ledger.test.mjs",
+  "evidence": "operations/evidence/frontier-research-indexeddb-acceptance-ledger-2026-07-12.json",
+  "commits": [
+    "161fff6ff83e75a272776ad9809dd2acf3a9d583",
+    "1c01b2327e64c437e98f30712b9b42bba11a36ad",
+    "141c19839e55fcebb4be43879b89ecc5391bfd9e"
+  ],
+  "verification": "5 deterministic Node tests passed; committed source and evidence require real-browser verification before production acceptance.",
+  "specialists_used": [
+    "Primary Source Scout",
+    "Technical Synthesist",
+    "Experiment Designer",
+    "Tool Evaluator",
+    "Cross-Domain Translator"
+  ],
+  "registry_change": "none",
+  "canonical_queue_modified": false,
+  "handoff": "Vercel Studio should integrate R-023 validation with this IndexedDB consumer and add a Playwright or Web Platform Test using two same-origin pages. Verify exactly one complete event, bfcache behavior, upgrade blocking, quota failure, and private-browsing behavior.",
+  "files_deleted": false,
+  "history_deleted": false
+}
