@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T07:41:00-04:00",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "implemented_runtime_pending",
+  "action": "Produce and retain classifier-ready Linux and macOS crash-stress observations, then apply the existing deny-by-default acceptance gate.",
+  "finding": "The runtime workflow previously stopped at identity and log retention. It now emits a deterministic summary and a digest-bound observation per platform while preserving failing exit status.",
+  "implementation": "tools/frontier-research/build-crash-stress-observation.mjs",
+  "implementation_commit": "3ddd8fb5d38a289fd5cd33b850c8c11195e4955e",
+  "test": "tools/frontier-research/build-crash-stress-observation.test.mjs",
+  "test_commit": "b5d00204b77eefa143a4af4bc8378ee8c234a92e",
+  "workflow": ".github/workflows/frontier-peer-terminal-crash-stress.yml",
+  "workflow_commit": "fa867ce75dbb75aa657e5fa16894d6b3fc3b7601",
+  "evidence": "operations/evidence/frontier-crash-stress-observation-builder-2026-07-13.json",
+  "evidence_commit": "0421682f5d9d162757cf19f67d4f63780f8244d8",
+  "verification": "All implementation artifacts committed. Connector lookup returned no pull-request-triggered run for the workflow commit; no runtime pass claimed.",
+  "required_next_evidence": [
+    "successful or falsifying Linux observation artifact for the exact workflow commit",
+    "successful or falsifying macOS observation artifact for the exact workflow commit",
+    "independent SHA-256 recomputation over retained identity, summary, and log bytes",
+    "combined packet accepted by tools/frontier-research/classify-crash-stress-evidence.mjs"
+  ],
+  "handoff": "Inspect the workflow run for fa867ce75dbb75aa657e5fa16894d6b3fc3b7601 or its first descendant. Download both artifacts, recompute digests, combine observation-Linux.json and observation-macOS.json under expected_commit, and run the classifier. Preserve any rejection as the smallest counterexample."
+}
