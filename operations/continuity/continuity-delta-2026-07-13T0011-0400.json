@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-13T00:11:36-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-003",
+  "title": "Evolution of proof from a single label into a layered trust chain",
+  "privacy_boundary": {
+    "allowed": [
+      "public repository files",
+      "public commit metadata",
+      "abstracted operational language",
+      "non-identifying project decisions"
+    ],
+    "forbidden": [
+      "raw private chat",
+      "health or pet-health material",
+      "credentials or live identity tokens",
+      "identifying personal data",
+      "unreviewed uploaded files"
+    ]
+  },
+  "specialists": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "memory_summary": "Across the recent Frontier, Cloudflare, and continuity artifacts, the project term 'proof' has acquired multiple non-substitutable meanings. Trace correlation, exact-byte provenance, trusted builder policy, workflow claim authorization, cryptographic signature verification, metadata freshness, replay rejection, deployment observation, and scientific or medical truth are separate gates. A success at one gate must not be narrated as success at another.",
+  "language_map": {
+    "legacy_compressed_term": "proof",
+    "current_decomposed_terms": [
+      {
+        "term": "correlation evidence",
+        "meaning": "A trace or run identifier links records but does not establish that an event or claim is true."
+      },
+      {
+        "term": "byte provenance",
+        "meaning": "A digest and attestation bind exact artifact bytes to source and invocation metadata but do not establish trust or truth."
+      },
+      {
+        "term": "builder trust",
+        "meaning": "A deny-by-default policy accepts only approved builder and source identities but does not validate the underlying claim."
+      },
+      {
+        "term": "workflow authorization",
+        "meaning": "Expected repository, workflow, ref, event, and audience claims authorize a specific invocation after signature verification."
+      },
+      {
+        "term": "signature authenticity",
+        "meaning": "RS256 verification establishes that selected key material signed the token; it does not establish authorization or freshness."
+      },
+      {
+        "term": "metadata freshness",
+        "meaning": "Pinned discovery and JWKS retrieval constrains redirects, media type, size, cache age, and bounded key rotation."
+      },
+      {
+        "term": "replay acceptance",
+        "meaning": "A valid authorized invocation is accepted only once under a durable replay key."
+      },
+      {
+        "term": "runtime or deployment observation",
+        "meaning": "The intended commit or behavior was actually served or executed in the target environment."
+      },
+      {
+        "term": "claim truth",
+        "meaning": "Scientific, medical, causal, or experiential truth requires independent evidence beyond software provenance."
+      }
+    ],
+    "usage_rule": "Future artifacts should name the exact proof layer they establish and explicitly state adjacent layers they do not establish."
+  },
+  "records": [
+    {
+      "id": "CM-0013",
+      "kind": "language_term",
+      "title": "Proof is no longer a unitary project term",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "observed_at": "2026-07-13T00:11:36-04:00"
+        },
+        {
+          "type": "github_commit",
+          "locator": "d5b8d5879b88385073405586404b6cf9e032bf9f",
+          "content_sha": "d5b8d5879b88385073405586404b6cf9e032bf9f",
+          "observed_at": "2026-07-13T00:11:36-04:00"
+        },
+        {
+          "type": "github_commit",
+          "locator": "8a7aaeb35f0ae2bc7f9c2d49498da4749a7f40b1",
+          "content_sha": "8a7aaeb35f0ae2bc7f9c2d49498da4749a7f40b1",
+          "observed_at": "2026-07-13T00:11:36-04:00"
+        }
+      ],
+      "summary": "Recent work repeatedly states that correlation, provenance, trusted identity, signature verification, workflow authorization, replay handling, deployment, and truth are distinct. The compressed word 'proof' is therefore ambiguous unless qualified.",
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Review later artifacts for an authoritative decision that intentionally recombines these gates; otherwise reject any artifact that uses 'proof' without naming its layer."
+    },
+    {
+      "id": "CM-0014",
+      "kind": "decision",
+      "title": "Adopt qualified proof-layer language",
+      "claim_state": "proposed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_commit",
+          "locator": "05b73b7edbf7048171cf0616bd2127a4407de225",
+          "content_sha": "05b73b7edbf7048171cf0616bd2127a4407de225",
+          "observed_at": "2026-07-13T00:11:36-04:00"
+        },
+        {
+          "type": "github_commit",
+          "locator": "8a7aaeb35f0ae2bc7f9c2d49498da4749a7f40b1",
+          "content_sha": "8a7aaeb35f0ae2bc7f9c2d49498da4749a7f40b1",
+          "observed_at": "2026-07-13T00:11:36-04:00"
+        }
+      ],
+      "summary": "Evidence reports should say 'signature verified', 'workflow authorized', 'bytes attested', 'deployment observed', or another exact layer rather than merely 'proved'.",
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Apply the rule to the next five evidence artifacts and review whether ambiguity or false implication remains."
+    },
+    {
+      "id": "CM-0015",
+      "kind": "contradiction",
+      "title": "Manifest inclusion is not OIDC verification",
+      "claim_state": "observed",
+      "evidence_strength": "primary_repository_source",
+      "sources": [
+        {
+          "type": "github_commit",
+          "locator": "8a7aaeb35f0ae2bc7f9c2d49498da4749a7f40b1",
+          "content_sha": "8a7aaeb35f0ae2bc7f9c2d49498da4749a7f40b1",
+          "observed_at": "2026-07-13T00:11:36-04:00"
+        }
+      ],
+      "summary": "Cloudflare now includes a workflow invocation receipt in the atomic evidence manifest, but the artifact explicitly states that the receipt remains unverified by OIDC. Byte closure and identity authenticity are therefore not interchangeable.",
+      "privacy": "public_repository_safe",
+      "contradicts": ["any narrative equating receipt inclusion with cryptographic identity verification"],
+      "falsification_or_review_route": "Wire the pinned metadata client, JWT signature verifier, claim policy, and replay ledger into the workflow; then inspect a receipt containing verification outputs and exact input digests."
+    },
+    {
+      "id": "CM-0016",
+      "kind": "decision",
+      "title": "Fail-closed means rejection at each boundary",
+      "claim_state": "inferred",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_commit",
+          "locator": "d5b8d5879b88385073405586404b6cf9e032bf9f",
+          "content_sha": "d5b8d5879b88385073405586404b6cf9e032bf9f",
+          "observed_at": "2026-07-13T00:11:36-04:00"
+        },
+        {
+          "type": "github_commit",
+          "locator": "8a7aaeb35f0ae2bc7f9c2d49498da4749a7f40b1",
+          "content_sha": "8a7aaeb35f0ae2bc7f9c2d49498da4749a7f40b1",
+          "observed_at": "2026-07-13T00:11:36-04:00"
+        }
+      ],
+      "summary": "The operational meaning of fail-closed has converged on an ordered chain in which missing, stale, malformed, untrusted, unauthorized, replayed, or unobserved evidence stops progression rather than being converted into a weaker success claim.",
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Add adversarial integration tests that remove or corrupt one boundary output at a time and require the finalizer to reject every case."
+    },
+    {
+      "id": "CM-0017",
+      "kind": "unresolved_question",
+      "title": "No single receipt yet binds the complete trust chain",
+      "claim_state": "unresolved",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_commit",
+          "locator": "d5b8d5879b88385073405586404b6cf9e032bf9f",
+          "content_sha": "d5b8d5879b88385073405586404b6cf9e032bf9f",
+          "observed_at": "2026-07-13T00:11:36-04:00"
+        },
+        {
+          "type": "github_commit",
+          "locator": "8a7aaeb35f0ae2bc7f9c2d49498da4749a7f40b1",
+          "content_sha": "8a7aaeb35f0ae2bc7f9c2d49498da4749a7f40b1",
+          "observed_at": "2026-07-13T00:11:36-04:00"
+        }
+      ],
+      "summary": "The repository contains components for several trust layers, but current evidence does not show one executed receipt binding metadata digests, signature result, authorized claims, replay decision, mutation or deployment result, and resulting commit or deployment identity.",
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Execute the integrated protected workflow and publish a privacy-safe receipt whose digests and identities can be independently checked against committed inputs and target-environment evidence."
+    }
+  ],
+  "contradictions_resolved": [
+    {
+      "apparent_contradiction": "A workflow receipt is present, therefore workflow identity is proved.",
+      "resolution": "Presence proves manifest inclusion and byte closure only. Cryptographic identity requires pinned metadata retrieval, signature verification, claim authorization, and replay handling."
+    },
+    {
+      "apparent_contradiction": "An artifact is attested, therefore its claim is true.",
+      "resolution": "Attestation binds bytes and provenance. Claim truth remains an independent epistemic question."
+    }
+  ],
+  "next_action": "Adopt the proof-layer vocabulary in evidence schemas and build one integrated receipt that records each boundary result without collapsing them into a single boolean."
+}
