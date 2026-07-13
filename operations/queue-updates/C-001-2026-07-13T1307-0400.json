@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T13:07:21-04:00",
+  "status": "blocked_external_configuration",
+  "durable_progress": {
+    "public_probe": "cloudflare-static/probe-public-pages-hostname.mjs",
+    "contract_test": "cloudflare-static/probe-public-pages-hostname.test.mjs",
+    "ci_workflow": ".github/workflows/cloudflare-public-hostname-probe.yml",
+    "evidence": "operations/evidence/cloudflare-public-hostname-probe-2026-07-13T1307-0400.json",
+    "verification": "4 of 4 deterministic tests passed in an isolated Node runtime",
+    "candidate_hostname": "mirror-cartographer-research.pages.dev"
+  },
+  "remaining_blocker": "The cloudflare-research GitHub environment still requires CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN for control-plane deployment and exact-commit proof. The credential-free workflow can independently collect public DNS and served-identity evidence.",
+  "next_action": "Inspect the public hostname probe workflow artifact. If identity verifies, retain it as public reachability evidence only, then dispatch the credentialed production workflow for control-plane and exact-commit proof."
+}
