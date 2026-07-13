@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "append-only-owner-update",
+  "queue_item": "R-007",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed",
+  "action": "Create a fail-closed runtime adapter that permits only the target team to terminalize a peer trigger and appends only after composite proof verification.",
+  "dependencies": ["R-006"],
+  "required_evidence": [
+    "current primary specifications",
+    "target-authority enforcement",
+    "proof-gated append",
+    "duplicate-terminal rejection",
+    "deterministic tests",
+    "falsification route"
+  ],
+  "completed_at": "2026-07-13T09:24:23Z",
+  "progress": {
+    "primary_sources": [
+      "https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md",
+      "https://www.rfc-editor.org/rfc/rfc8785"
+    ],
+    "finding": "Terminal execution evidence is an occurrence authored by the target team, not by the scheduler or requester. The terminal record must be proof-gated and idempotent.",
+    "module": "tools/frontier-research/peer-execution-runtime.mjs",
+    "test": "tools/frontier-research/peer-execution-runtime.test.mjs",
+    "evidence": "operations/evidence/frontier-research-peer-execution-runtime-2026-07-13.json",
+    "commits": [
+      "ee1c4ae97460a673fdc356ad706f68731d681277",
+      "73b111dba3e66287840bdee5002aaa763985c219",
+      "775f849ae3caa55cc24d7977d9b654fc932d0eb3"
+    ],
+    "verification": "7 deterministic Node tests passed in an isolated runtime using byte-identical candidate source before commit"
+  },
+  "handoff": "Replace the process-local terminal index with a durable compare-and-set journal, wire verifyPeerExecutionProof as verifyPacket, and require the target automation to emit terminal records after its own evidence packet is complete.",
+  "canonical_queue_mutated": false
+}
