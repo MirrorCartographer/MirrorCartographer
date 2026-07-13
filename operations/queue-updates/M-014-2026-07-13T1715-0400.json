@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "event_order": 202607131715,
+  "observed_at": "2026-07-13T21:15:00Z",
+  "queue_item": {
+    "id": "M-014",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Integrate the digest-bound queue-update manifest with queue materialization so exact update bytes and event orders are verified before state reconstruction.",
+    "dependencies": ["M-013"],
+    "required_evidence": [
+      "manifest self-digest verification",
+      "exact update-byte digest verification",
+      "one-to-one manifested path enforcement",
+      "event-order agreement",
+      "fail-closed authority gate",
+      "privacy-safe evidence record"
+    ],
+    "status": "completed",
+    "progress": {
+      "module": "operations/tools/materialize-manifest-bound-queue-state.mjs",
+      "test": "operations/tools/materialize-manifest-bound-queue-state.test.mjs",
+      "evidence": "operations/evidence/continuity-manifest-bound-materialization-2026-07-13T1715-0400.json",
+      "commits": [
+        "e07bfb528df29650d09ce6d96e4d22c0317532ee",
+        "9d85a0007b9c72f96b7b19d8c6d246b9269ff5ce",
+        "ba2f8e48272cd76ec08b1e0aaacdd748aff22234"
+      ],
+      "verification": "5 deterministic Node tests passed against byte-equivalent committed source and dependency behavior.",
+      "authority_boundary": "authoritative=true is emitted only when the manifest is self-consistent, exact supplied bytes and event orders match, and the manifest carries a structurally complete tree-bound enumeration whose count agrees.",
+      "privacy_boundary": "Public repository paths, hashes, commit identifiers, queue metadata, and operational claim states only."
+    },
+    "handoff": "Add an independently produced Git tree enumeration attestation, bind its exact tree SHA and queue-update entry count into the manifest, then execute the manifest-bound materializer in repository CI against the exact commit."
+  }
+}
