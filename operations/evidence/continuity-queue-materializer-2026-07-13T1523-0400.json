@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "observed_at": "2026-07-13T19:23:22Z",
+  "queue_item": "M-012",
+  "claim_states": {
+    "observed": [
+      "operations/ACTIVE_QUEUE.json is a canonical snapshot updated before later additive queue-update commits",
+      "M-011 hands off a deterministic materializer requirement"
+    ],
+    "inferred": [
+      "snapshot-only selection can omit later durable queue history"
+    ],
+    "proposed": [
+      "materialize state only from an explicit update set and keep authoritative=false until complete enumeration is attested"
+    ],
+    "superseded": [
+      "treating ACTIVE_QUEUE.json alone as exhaustive current queue state"
+    ],
+    "unresolved": [
+      "complete repository enumeration of operations/queue-updates was not proven in this run",
+      "cryptographic binding of the explicit input manifest is not yet implemented"
+    ]
+  },
+  "artifact": {
+    "module": "operations/tools/materialize-queue-state.mjs",
+    "test": "operations/tools/materialize-queue-state.test.mjs",
+    "module_commit": "286bac44f94a9eee6fd1661d088eeb2cc5c79d73",
+    "test_commit": "b2d84a09a57a4ccb43e33734a347d6c047ff42fa"
+  },
+  "verification": {
+    "runtime": "Node.js test runner against byte-equivalent committed source",
+    "tests": 5,
+    "passed": 5,
+    "covered": [
+      "event ordering",
+      "explicit same-id replacement",
+      "event-order collision rejection",
+      "duplicate item update rejection",
+      "non-authoritative default and explicit authority flag"
+    ]
+  },
+  "privacy_boundary": "Only public repository metadata, queue structure, commit identifiers, and operational claim states are retained. No raw chat, health, credentials, contacts, account identifiers, or unreviewed uploads are included.",
+  "trust_limits": [
+    "A caller-provided enumerationComplete flag is an attestation, not independent proof of exhaustive repository enumeration.",
+    "Passing deterministic tests does not prove the supplied update set is complete or authentic."
+  ],
+  "falsification_route": "Enumerate the repository tree independently, compare every operations/queue-updates path with the explicit manifest, and demonstrate either an omitted event or an event-order collision."
+}
