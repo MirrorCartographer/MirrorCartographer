@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Model peer-trigger lifecycle so request, scheduler acceptance, and verified peer execution cannot be conflated.",
+    "dependencies": ["R-002", "R-004"],
+    "required_evidence": ["current primary specifications", "committed lifecycle validator", "deterministic adversarial tests", "explicit non-proof states", "falsification route"],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md",
+        "https://opentelemetry.io/docs/specs/semconv/messaging/messaging-spans/",
+        "https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/"
+      ],
+      "finding": "Peer-trigger request, scheduler acceptance, and peer execution are separate occurrences. Only a causally linked executed event carrying concrete execution evidence may prove execution.",
+      "module": "tools/frontier-research/peer-trigger-lifecycle.mjs",
+      "test": "tools/frontier-research/peer-trigger-lifecycle.test.mjs",
+      "evidence": "operations/evidence/frontier-research-peer-trigger-lifecycle-2026-07-13.json",
+      "commits": [
+        "14b9098a38d822cb9439c92927c07a6df5bf941b",
+        "f89e7a687ec66b4d47c251e2df8623438ca180a0",
+        "bfdc5744013662c36dcf7bad164798b1962afcbb"
+      ],
+      "verification": "6 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+    },
+    "handoff": "All teams should emit requested and accepted events when trigger tooling acknowledges scheduling, but report peer execution only after receiving a causally linked executed event containing the peer queue item and concrete commit, test, runtime, or deployment evidence."
+  },
+  "canonical_queue_mutated": false,
+  "reason": "Shared queue state is updated through an append-only owned queue-update record to avoid overwriting other teams."
+}
