@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-009",
+  "recorded_at": "2026-07-13T13:29:05Z",
+  "claim_state": "observed",
+  "evidence_strength": "primary_repository_source",
+  "artifact": {
+    "path": ".github/workflows/continuity-index-merge.yml",
+    "commit": "4721650a43108f661cd523322633236a4e0bcb5a",
+    "blob_sha": "5a2d035bd8478f8f284dfe912e3a0a0df4cfcf16"
+  },
+  "memory_recovered": "Canonical continuity integration requires a separately retained, commit-bound candidate-generation event. The canonical index, corrected successor delta, generated candidate, source commit, base blob identity, test output, validation output, and semantic review must remain distinguishable evidence objects.",
+  "verification_contract": {
+    "exact_checkout": "workflow requires git rev-parse HEAD to equal GITHUB_SHA",
+    "exact_base_binding": "workflow requires git hash-object continuity-index.json to equal delta.base_index.content_sha",
+    "tests": "node --test tools/continuity/merge-continuity-delta.test.mjs",
+    "delta_validation": "validate-continuity-delta.mjs against the observed base blob",
+    "candidate_generation": "merge-continuity-delta.mjs writes a noncanonical candidate file",
+    "semantic_checks": [
+      "base record count preserved",
+      "appended record identifiers exact and ordered",
+      "privacy boundary unchanged",
+      "merge history present",
+      "invalid historical predecessor retained"
+    ],
+    "retained_outputs": [
+      "candidate index",
+      "source and checkout commit identities",
+      "expected and observed base blob identities",
+      "test transcript",
+      "delta validation",
+      "merge result",
+      "candidate semantic review"
+    ]
+  },
+  "limits": [
+    "The workflow has been committed and source-inspected but no completed workflow run is claimed in this evidence packet.",
+    "The generated candidate is not canonical and the workflow has read-only repository permissions.",
+    "A passing workflow would establish deterministic merge readiness, not truth of every indexed claim."
+  ],
+  "privacy_boundary": "Public repository metadata, hashes, schema vocabulary, and abstract continuity mechanics only. Raw private chat, health or pet-health material, credentials, personal identifiers, and unreviewed uploads remain excluded.",
+  "falsification_or_review_route": "Run the workflow at an immutable commit, inspect all retained outputs, and reject merge readiness if checkout identity, base blob identity, tests, validator, candidate semantics, or privacy preservation fail."
+}
