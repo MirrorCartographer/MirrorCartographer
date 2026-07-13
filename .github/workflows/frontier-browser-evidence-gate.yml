@@ -1,0 +1,76 @@
+name: Verify frontier browser evidence gate
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/frontier-browser-evidence-gate.yml'
+      - 'tools/frontier-research/browser-interaction-capture.mjs'
+      - 'tools/frontier-research/browser-interaction-capture.integration.test.mjs'
+      - 'tools/frontier-research/target-browser-evidence-packet.mjs'
+      - 'tools/frontier-research/target-browser-evidence-packet.test.mjs'
+      - 'tools/frontier-research/run-browser-evidence-gate.mjs'
+      - 'tools/frontier-research/run-browser-evidence-gate.test.mjs'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/frontier-browser-evidence-gate.yml'
+      - 'tools/frontier-research/browser-interaction-capture.mjs'
+      - 'tools/frontier-research/browser-interaction-capture.integration.test.mjs'
+      - 'tools/frontier-research/target-browser-evidence-packet.mjs'
+      - 'tools/frontier-research/target-browser-evidence-packet.test.mjs'
+      - 'tools/frontier-research/run-browser-evidence-gate.mjs'
+      - 'tools/frontier-research/run-browser-evidence-gate.test.mjs'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: frontier-browser-evidence-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Verify gate runner contract
+        run: node --test tools/frontier-research/run-browser-evidence-gate.test.mjs
+
+      - name: Execute exact browser evidence gate
+        run: node tools/frontier-research/run-browser-evidence-gate.mjs > frontier-browser-evidence-gate.json
+
+      - name: Assert machine-readable pass boundary
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const report = JSON.parse(fs.readFileSync('frontier-browser-evidence-gate.json', 'utf8'));
+          if (report.schemaVersion !== '1.0.0') throw new Error('unexpected-schema-version');
+          if (report.gate !== 'frontier-browser-evidence') throw new Error('unexpected-gate-id');
+          if (report.status !== 0 || report.passed !== true) throw new Error('browser-evidence-gate-failed');
+          if (!Array.isArray(report.testFiles) || report.testFiles.length !== 2) throw new Error('exact-test-set-required');
+          if (!report.claimLimit || !report.falsificationRoute) throw new Error('claim-boundary-required');
+          NODE
+
+      - name: Retain exact gate report
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: frontier-browser-evidence-${{ github.sha }}
+          path: frontier-browser-evidence-gate.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish claim boundary
+        if: always()
+        run: |
+          {
+            echo '## Frontier browser evidence gate'
+            echo "- Source commit: \`${GITHUB_SHA}\`"
+            echo '- Runs the exact Event Timing / Long Animation Frames integration suite and repeated-trial evidence-packet suite.'
+            echo '- Retains the machine-readable gate report for 30 days.'
+            echo '- Claim limit: a passing CI gate proves only deterministic contract execution in this runner; it does not prove deployment identity, physical-device execution, audibility, subjective smoothness, or production behavior.'
+          } >> "$GITHUB_STEP_SUMMARY"
