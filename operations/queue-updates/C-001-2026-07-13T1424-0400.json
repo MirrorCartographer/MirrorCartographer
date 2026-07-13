@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T14:24:38-04:00",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "completed_slice": {
+    "name": "deterministic research publication boundary",
+    "implementation_commit": "b0ad75e261a2a39504f033da8487264733236532",
+    "test_commit": "497b8db4230ba27a34003a8558b3be3d6dd5da63",
+    "evidence_commit": "76bc89363155beabb285dd4449baf3dc4887a268",
+    "behavior": "The research surface can now be checked fail-closed for direct diagnosis claims, treatment instructions, payment or conversion logic, and missing epistemic markers before publication.",
+    "verification": "Six deterministic tests are committed. No workflow run exists for the test commit, and exact-tree local execution was blocked by DNS, so test passage is not claimed."
+  },
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, wire the publication-boundary test into the deployment workflow, dispatch it, and retain a successful resolving Pages URL, served research identity, exact deployed commit, control-plane proof, and accepted signed evidence manifest.",
+  "non_claims": [
+    "No Cloudflare deployment was attempted or observed.",
+    "No resolving hostname or served commit is claimed.",
+    "No diagnosis, treatment, scientific truth, payment, or Vercel conversion claim is made."
+  ],
+  "next_action": "Add the new boundary test and validator invocation to the Cloudflare workflow, then execute the complete source and deployment gate after environment credentials are configured."
+}
