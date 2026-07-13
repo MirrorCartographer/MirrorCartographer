@@ -1,0 +1,50 @@
+name: Verify Cloudflare production redirect contract
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/cloudflare-production-redirect-contract.yml'
+      - '.github/workflows/cloudflare-pages-research.yml'
+      - 'cloudflare-static/deployment-redirect-continuity.mjs'
+      - 'cloudflare-static/deployment-redirect-continuity.test.mjs'
+      - 'cloudflare-static/deployment-redirect-workflow-contract.test.mjs'
+      - 'cloudflare-static/verify-deployment.mjs'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/cloudflare-production-redirect-contract.yml'
+      - '.github/workflows/cloudflare-pages-research.yml'
+      - 'cloudflare-static/deployment-redirect-continuity.mjs'
+      - 'cloudflare-static/deployment-redirect-continuity.test.mjs'
+      - 'cloudflare-static/deployment-redirect-workflow-contract.test.mjs'
+      - 'cloudflare-static/verify-deployment.mjs'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-production-redirect-contract-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Run redirect-continuity adversarial tests
+        run: node --test cloudflare-static/deployment-redirect-continuity.test.mjs
+
+      - name: Verify production workflow contract
+        run: node --test cloudflare-static/deployment-redirect-workflow-contract.test.mjs
+
+      - name: Publish claim boundary
+        run: |
+          {
+            echo '## Cloudflare production redirect contract'
+            echo '- Verifies that served-deployment checks preserve redirect continuity from the Wrangler-returned URL.'
+            echo '- Claim limit: passing this gate does not prove credentials, provider ownership, DNS authority, deployment success, or served commit identity.'
+          } >> "$GITHUB_STEP_SUMMARY"
