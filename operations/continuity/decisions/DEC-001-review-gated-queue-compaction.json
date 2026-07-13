@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "id": "DEC-001",
+  "recorded_at": "2026-07-13T12:37:00-04:00",
+  "title": "Canonical queue compaction is review-gated",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "decision": "Append-only queue updates are candidate state. They must not be treated as canonical until an explicit reviewed compaction updates operations/ACTIVE_QUEUE.json.",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/contradiction-ledger.json",
+      "content_sha": "cf0c0f56fabc9f50ed13bbf85738fc5dd77982a8"
+    },
+    {
+      "type": "github_commit",
+      "locator": "8317bc74efcdd32b63b12bcafc6ef0c899cf44b7",
+      "content_sha": "8317bc74efcdd32b63b12bcafc6ef0c899cf44b7"
+    }
+  ],
+  "observed": "The canonical queue remains unchanged while append-only continuity update records exist.",
+  "inferred": "Readers need an explicit state-layer rule to avoid treating candidate updates as already compacted canonical state.",
+  "proposed": "All future queue compaction should verify the baseline digest, enumerate accepted candidate updates, preserve rejected updates, and commit one reviewed canonical result.",
+  "superseded": [],
+  "unresolved": "No reviewed compaction has yet promoted M-002 into operations/ACTIVE_QUEUE.json.",
+  "preservation_rule": "Never delete or rewrite candidate updates during compaction; preserve them as historical evidence and record which were accepted, rejected, or deferred.",
+  "privacy_boundary": "Public repository files and commit metadata only. Raw private chat, health information, credentials, identifying personal data, and unreviewed uploads are excluded.",
+  "falsification_or_review_route": "Falsify this record only with an explicit reviewed repository decision that changes the compaction rule and preserves the prior rule as superseded history."
+}
