@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "updated_at": "2026-07-13T00:27:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added a fail-closed composite evaluator that accepts GitHub OIDC evidence only when prior RSA signature verification succeeded and exact fresh workflow claims match the accepted invocation receipt.",
+  "files": [
+    "cloudflare-static/evaluate-github-oidc-evidence.mjs",
+    "cloudflare-static/evaluate-github-oidc-evidence.test.mjs",
+    "operations/evidence/cloudflare-oidc-evidence-chain-2026-07-13T0027-0400.json"
+  ],
+  "commits": [
+    "3cab16db59032888c16c7cdd0f62d9acb916dd30",
+    "e2de3daad2a1fbdd36a92e2dd3989128466cecef",
+    "d8897882c876a2de6a7f4f5f7b7be33d971fbf61"
+  ],
+  "verification": "Four deterministic tests passed in an isolated Node runtime using byte-equivalent logic.",
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the protected cloudflare-research environment and dispatch the workflow.",
+  "next_action": "Wire live GitHub OIDC token retrieval, pinned metadata/JWKS verification, this composite evaluator, and replay rejection into cloudflare-pages-research.yml before final evidence acceptance."
+}
