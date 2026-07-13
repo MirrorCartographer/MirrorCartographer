@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T06:35:00-04:00",
+  "finding": "A provider-bound pages.dev URL is insufficient deployment evidence because it can identify a different Cloudflare Pages project. The composite validator must bind the served URL to the declared research project while accepting legitimate branch-preview subdomains.",
+  "implementation": {
+    "validator": "cloudflare-static/validate-stack-deployment-evidence.mjs",
+    "test": "cloudflare-static/validate-stack-deployment-evidence.test.mjs",
+    "source_commit": "9db7503edac3204789d10b6d5332c4262d618af9",
+    "test_commit": "0672bb9307e90e9ba21d78990007025f3277b6c1",
+    "expected_project": "mirror-cartographer-research",
+    "policy_reused": "cloudflare-static/deployment-url-policy.mjs"
+  },
+  "verification": {
+    "runtime": "Node test runner",
+    "result": "7 passed, 0 failed",
+    "cases": [
+      "canonical project hostname accepted",
+      "branch-preview hostname for expected project accepted",
+      "different valid pages.dev project rejected",
+      "provider lookalike rejected",
+      "malformed and non-HTTPS URLs rejected",
+      "commit substitution rejected",
+      "missing proof rejected"
+    ]
+  },
+  "evidence_strength": "source-and-local-runtime-verified",
+  "limits": [
+    "No Cloudflare deployment occurred in this run.",
+    "No resolving public URL or served commit was obtained.",
+    "CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN remain required for deployment.",
+    "Project-bound hostname validation does not prove account control or claim truth."
+  ],
+  "falsification_route": "The improvement fails if CI accepts an unrelated-project.pages.dev URL for C-001, rejects a valid branch-preview subdomain of mirror-cartographer-research.pages.dev, or the live workflow emits a Pages URL that cannot satisfy the declared project policy."
+}
