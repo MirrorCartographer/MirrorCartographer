@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T06:00:18-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added and test-verified a fail-closed validator for the final composite Cloudflare stack deployment evidence packet.",
+  "specialists_used": [
+    "Cloudflare Deployment Engineer",
+    "Provenance Engineer",
+    "Evidence Auditor"
+  ],
+  "progress": {
+    "module": "cloudflare-static/validate-stack-deployment-evidence.mjs",
+    "test": "cloudflare-static/validate-stack-deployment-evidence.test.mjs",
+    "evidence": "operations/evidence/cloudflare-stack-evidence-validation-2026-07-13T0600-0400.json",
+    "commits": [
+      "9238ca87095f3b6f15bb074ed38bea927e8dd993",
+      "6f41a96894e100f1493aadc20f6db8522d67eb90",
+      "0aafe5f35c4b7da2aa5e32479dac00fecbb95a1f"
+    ],
+    "verification": "3 isolated Node tests passed with 0 failures against byte-equivalent validator logic.",
+    "gate_scope": "source commit, Worker identity, live atomicity, redeployment persistence, HTTPS Worker and Pages URLs, Pages proof presence, and exact ordering invariant"
+  },
+  "remaining": [
+    "Wire validate-stack-deployment-evidence.mjs into cloudflare-research-stack.yml after the evidence-recording step and before artifact acceptance.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Dispatch the stack workflow and retain the validator output alongside the deployment evidence.",
+    "Resolve and publish the actual Pages hostname only after the full live gate passes."
+  ],
+  "canonical_mutation": false
+}
