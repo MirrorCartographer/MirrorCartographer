@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-002",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-13T02:54:03-04:00",
+  "status": "completed_slice",
+  "action": "Add a deterministic canonical queue change proposal stage that consumes an approved review authorization but cannot mutate ACTIVE_QUEUE.json.",
+  "result": {
+    "module": "operations/continuity/canonical-change-proposal.mjs",
+    "test": "operations/continuity/canonical-change-proposal.test.mjs",
+    "continuity_record": "operations/continuity/records/CM-0017.json",
+    "commits": [
+      "45a986f3f8fbe44c286aa3f1b90716e39ec33abe",
+      "92e8795f1e177a904712bda7a99e308e1e9ef8f4",
+      "5820042b5a1fec3c38853b95bfb5990f289db4ad"
+    ],
+    "verification": "Six deterministic Node tests passed locally against byte-identical files before commit.",
+    "canonical_queue_modified": false,
+    "privacy_boundary": "Public repository state and abstract queue metadata only; raw private chat, health information, credentials, identifying personal data, and unreviewed uploads excluded."
+  },
+  "claim_states": {
+    "observed": "A digest-bound append proposal can be generated from an approved bounded authorization without modifying canonical queue input.",
+    "inferred": "Proposal generation and application must remain separate authority domains.",
+    "proposed": "Bind an authenticated human reviewer identity and create a post-manual-application verification record.",
+    "superseded": "The lack of a canonical queue proposal format after review approval.",
+    "unresolved": "Authenticated reviewer evidence and a real manual adoption commit remain absent."
+  },
+  "next_action": "Create a reviewer-identity evidence contract, then verify any human-applied queue commit against the authorized proposal digest and prior canonical queue blob."
+}
