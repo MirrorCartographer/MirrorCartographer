@@ -1,0 +1,62 @@
+name: Cloudflare research OIDC preflight
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: cloudflare-research-oidc-preflight
+  cancel-in-progress: false
+
+jobs:
+  verify-workflow-identity:
+    runs-on: ubuntu-latest
+    environment: cloudflare-research
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Test signed OIDC evidence runner
+        run: node --test cloudflare-static/run-github-oidc-evidence.test.mjs
+
+      - name: Verify this exact workflow invocation
+        env:
+          GITHUB_ENVIRONMENT: cloudflare-research
+        run: >-
+          node cloudflare-static/run-github-oidc-evidence.mjs
+          cloudflare-github-oidc-evidence.json
+          mirror-cartographer-cloudflare-research
+
+      - name: Assert accepted signed identity
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const evidence = JSON.parse(fs.readFileSync('cloudflare-github-oidc-evidence.json', 'utf8'));
+          if (evidence.accepted !== true) throw new Error('signed-workflow-identity-not-accepted');
+          if (evidence.secret_handling?.token_persisted !== false) throw new Error('oidc-token-persistence-contract-violated');
+          if (evidence.secret_handling?.request_token_persisted !== false) throw new Error('request-token-persistence-contract-violated');
+          if (evidence.receipt?.invocation?.source_sha !== process.env.GITHUB_SHA) throw new Error('source-sha-binding-mismatch');
+          process.stdout.write(`${JSON.stringify({ accepted: true, source_sha: process.env.GITHUB_SHA, run_id: process.env.GITHUB_RUN_ID })}\n`);
+          NODE
+
+      - name: Upload sanitized OIDC evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: cloudflare-oidc-preflight-${{ github.sha }}
+          path: cloudflare-github-oidc-evidence.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish bounded trust summary
+        run: |
+          {
+            echo "## Cloudflare research OIDC preflight"
+            echo "- Source commit: \`${GITHUB_SHA}\`"
+            echo "- Workflow identity: signed GitHub OIDC token verified against pinned discovery metadata and JWKS"
+            echo "- Invocation binding: repository, workflow ref and SHA, git ref, environment, event, run identity, actor, and source SHA"
+            echo "- Secret handling: neither OIDC token nor token-request credential is persisted"
+            echo "- Trust limit: this authenticates the workflow invocation only; it does not prove Cloudflare deployment success, evidence truth, or scientific or medical truth"
+          } >> "$GITHUB_STEP_SUMMARY"
