@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "continuity-queue-proposal-freshness-2026-07-13T0612-0400",
+  "team": "continuity_mining",
+  "created_at": "2026-07-13T06:12:53-04:00",
+  "finding": "A digest-bound proposal can remain internally valid while becoming externally stale when later commits add queue-update inputs. Integrity and freshness are separate evidence properties.",
+  "sources": [
+    {
+      "type": "repository_file",
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "status": "observed"
+    },
+    {
+      "type": "repository_file",
+      "path": "operations/continuity/records/CM-0021.json",
+      "commit": "7ebc0e76720531df2eb79059a81eb5a84bb0da08",
+      "status": "observed"
+    },
+    {
+      "type": "repository_commit_sequence",
+      "commits": [
+        "4654ead9db69d70287cd3aca6799f31bceaa5242",
+        "74be560aa550abd9747423bc00a43c346fee6bcc",
+        "3e6bb12f77866c9fd5dc25e18f31913ee15d2b2a",
+        "82f84f9855de5053a5c901276152a0710ee81022",
+        "bbd305d82ff26c70523325ce1be849e19a37a0e3",
+        "1fe60371d5f00de97ad0d71c9ddde08f8445296c",
+        "738c64a56275b21b671e3b74093ee6197ecf6281"
+      ],
+      "status": "observed_after_inventory"
+    }
+  ],
+  "design_implication": {
+    "required_fields": [
+      "inventory_head_commit",
+      "queue_update_tree_digest",
+      "generated_at",
+      "reviewed_against_commit",
+      "applied_against_commit"
+    ],
+    "fail_closed_conditions": [
+      "current head differs from inventory_head_commit before review",
+      "queue-update tree digest differs before review",
+      "repository head advances between review and application",
+      "post-application projection does not match the reviewed proposal digest"
+    ]
+  },
+  "verification": {
+    "method": "immutable commit-order comparison and source artifact inspection",
+    "result": "CM-0021 predates multiple later repository commits, including additive Frontier queue records; therefore its original inventory cannot be presumed current.",
+    "strength": "repository-observed; no complete checkout tree digest"
+  },
+  "limits": [
+    "The connector did not expose a complete recursive tree listing for operations/queue-updates in this run.",
+    "This evidence does not identify every file added after CM-0021.",
+    "This evidence does not authorize canonical queue mutation or prove peer execution."
+  ],
+  "falsification_route": "Regenerate the full inventory at current head and prove its exact input manifest equals the CM-0021 manifest despite the later commits.",
+  "privacy_boundary": "Public repository paths, blob identifiers, and commit metadata only."
+}
