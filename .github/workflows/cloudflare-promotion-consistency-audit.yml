@@ -1,0 +1,47 @@
+name: Audit Cloudflare promotion consistency
+
+on:
+  workflow_run:
+    workflows: ["Deploy Cloudflare research surface"]
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  promotion-consistency-audit:
+    if: github.event.workflow_run.event == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout audited source commit
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Download exact deployment evidence artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: >-
+          gh run download "$RUN_ID"
+          --repo "$GITHUB_REPOSITORY"
+          --name "cloudflare-deployment-proof-$SOURCE_SHA"
+          --dir audited-evidence
+
+      - name: Validate promotion consistency against exact proof bytes
+        run: >-
+          node cloudflare-static/validate-promotion-consistency.mjs
+          audited-evidence/cloudflare-deployment-proof.json
+          audited-evidence/cloudflare-deployment-acceptance.json
+          audited-evidence/cloudflare-evidence-promotion-decision.json
+          cloudflare-promotion-consistency.json
+
+      - name: Retain independent audit verdict
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: cloudflare-promotion-consistency-audit-${{ github.event.workflow_run.head_sha }}
+          path: cloudflare-promotion-consistency.json
+          if-no-files-found: error
+          retention-days: 30
