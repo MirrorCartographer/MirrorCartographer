@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "continuity-immutable-queue-snapshot-2026-07-13T0220Z",
+  "recorded_at": "2026-07-13T02:20:00Z",
+  "owner": "continuity_mining",
+  "queue_item": "M-009",
+  "claim_state": "observed",
+  "improvement": "Bind the canonical queue, append-only queue projections, and their referenced evidence paths to one immutable Git commit and deterministic source digest before materialization review.",
+  "source_commits": [
+    "ede89680d41b5da707f2f461d2a9ee162fc24a83",
+    "7c95b5e284bfe4142514990e48c205430129617f"
+  ],
+  "artifacts": [
+    "tools/continuity/queue-snapshot-binding.mjs",
+    "tools/continuity/queue-snapshot-binding.test.mjs"
+  ],
+  "verification": {
+    "source_review": "completed",
+    "committed_tests": 5,
+    "ci_workflow_runs_for_test_commit": 0,
+    "executed_test_result": "not_observed"
+  },
+  "observed": [
+    "The implementation resolves a full commit SHA before reading queue state.",
+    "All canonical queue, projection, and evidence bytes are read through git object access at that exact commit.",
+    "The generated digest excludes generated_at, so repeated reads of the same commit produce the same source digest.",
+    "Snapshot consistency never authorizes canonical materialization by itself."
+  ],
+  "inferred": [
+    "Commit-bound reads remove the prior mixed-time working-tree ambiguity from continuity review inputs."
+  ],
+  "proposed": [
+    "Feed the snapshot-bound source set into the existing queue reconciler, then sign or policy-bind the resulting candidate under a separately defined authority contract."
+  ],
+  "superseded": [
+    "Treating a collection of current working-tree reads as one coherent repository moment."
+  ],
+  "unresolved": [
+    "No materialization-authority contract exists.",
+    "The committed tests have not been observed executing in CI or a fresh checkout.",
+    "The snapshot binder inventories and hashes source inputs but does not yet invoke queue reconciliation from those exact blob bytes."
+  ],
+  "privacy_boundary": {
+    "included": ["public repository queue records", "public commit metadata", "public evidence artifact paths and hashes"],
+    "excluded": ["raw private chat", "health material", "credentials", "personal identifiers", "unreviewed uploads"]
+  },
+  "falsification_route": "Run the committed tests in a fresh checkout, mutate the working tree after committing, and verify the source digest and queue count remain bound to the selected commit; then alter a committed projection or evidence blob and verify a new commit produces a different digest."
+}
