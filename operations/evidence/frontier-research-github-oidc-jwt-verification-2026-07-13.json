@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-006",
+  "recorded_at": "2026-07-13T00:00:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://token.actions.githubusercontent.com/.well-known/openid-configuration",
+      "status": "live_primary_metadata",
+      "observed": "issuer is https://token.actions.githubusercontent.com, jwks_uri is the GitHub Actions JWKS endpoint, and RS256 is advertised"
+    },
+    {
+      "url": "https://token.actions.githubusercontent.com/.well-known/jwks",
+      "status": "live_primary_key_set",
+      "observed": "multiple rotating RSA signing keys are exposed with kid identifiers"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc7515",
+      "status": "normative_standard",
+      "observed": "JWS compact serialization, protected-header processing, signature validation, algorithm validation, key-origin authentication, and replay considerations"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc7517",
+      "status": "normative_standard",
+      "observed": "JWK and JWKS key representation and key-selection fields"
+    },
+    {
+      "url": "https://nodejs.org/api/crypto.html",
+      "status": "official_runtime_documentation",
+      "observed": "Node can import public JWK values and verify RSA-SHA256 signatures"
+    }
+  ],
+  "finding": "The existing claim-policy evaluator must not receive decoded claims until compact-JWT structure, pinned discovery metadata, protected-header algorithm, unambiguous JWKS key selection, and RS256 signature integrity have all passed independently.",
+  "artifact": {
+    "module": "tools/frontier-research/github-oidc-jwt-verifier.mjs",
+    "module_commit": "7c895b2ed75698ff04b3b8e4ff13de7f90e3255e",
+    "test": "tools/frontier-research/github-oidc-jwt-verifier.test.mjs",
+    "test_commit": "a07c4091e815d276fbbe6f4d46ae954732be633c"
+  },
+  "verification": {
+    "local_runtime": "8 deterministic Node tests passed before commit",
+    "cases": [
+      "valid synthetic RS256 JWT accepted",
+      "tampered payload rejected",
+      "algorithm substitution rejected",
+      "unknown kid rejected",
+      "duplicate matching kid rejected",
+      "unpinned discovery JWKS URI rejected",
+      "encryption-use key rejected",
+      "header-supplied remote JWK URL rejected"
+    ],
+    "ci_status": "not yet observed"
+  },
+  "evidence_strength": "implemented_and_locally_executed_synthetic_cryptographic_tests",
+  "uncertainty": "No live GitHub-issued token was captured or verified, and network retrieval/TLS/cache semantics are intentionally outside this pure verifier.",
+  "falsification_route": "Fail the artifact with a correctly signed GitHub-issued RS256 token and contemporaneous pinned JWKS, or demonstrate acceptance of a tampered token, algorithm-confusion token, ambiguous key set, unpinned issuer metadata, or attacker-directed key URL.",
+  "trust_limit": "A valid signature proves integrity under one selected public key only. It does not establish claim authorization, freshness, audience, workflow policy, replay resistance, mutation correctness, deployment success, evidence quality, or scientific truth.",
+  "privacy_boundary": "Public standards, public issuer metadata, public JWKS structure, and synthetic keys and claims only. No private token or credential is stored."
+}
