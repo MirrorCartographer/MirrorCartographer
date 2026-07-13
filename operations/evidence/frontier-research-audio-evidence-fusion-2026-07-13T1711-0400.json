@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T17:11:00-04:00",
+  "artifact": "tools/frontier-research/audio-evidence-fusion.mjs",
+  "test": "tools/frontier-research/audio-evidence-fusion.test.mjs",
+  "primary_sources": [
+    {
+      "url": "https://webaudio.github.io/web-audio-api/",
+      "status": "W3C editor's draft",
+      "observed_date": "2026-07-13",
+      "relevant_sections": ["AudioPlaybackStats", "rendering an audio graph", "handling an interruption", "system audio resource errors"]
+    },
+    {
+      "url": "https://w3c.github.io/mediacapture-output/",
+      "status": "W3C editor's draft",
+      "observed_date": "2026-07-13",
+      "relevant_sections": ["audio output device selection", "device availability", "privacy"]
+    }
+  ],
+  "finding": "No single browser-visible signal proves audibility. Render-position advance, playback counters, route availability, and physical observation are independent evidence channels whose agreement or contradiction should drive the next diagnostic action.",
+  "design_implication": "Fuse channels without averaging them into a false confidence score. A physical audible observation is direct audibility evidence; browser progress plus physical inaudibility is a contradiction that shifts investigation downstream from graph scheduling; route loss plus inaudibility is convergent route evidence.",
+  "verification": {
+    "runtime": "Node.js isolated local execution",
+    "result": "passed",
+    "tests": 6,
+    "covered": [
+      "direct audible observation",
+      "inaudible despite browser render progress",
+      "inaudible with route loss",
+      "stalled browser path without gesture control",
+      "optional API absence",
+      "invalid enum rejection"
+    ]
+  },
+  "evidence_strength": "specification-linked deterministic prototype",
+  "uncertainty": [
+    "No physical iPhone observation was produced in this run.",
+    "No deployed application integration was exercised.",
+    "Editor drafts may change and implementation support varies."
+  ],
+  "privacy_boundary": "The evaluator retains categorical route state only and never retains output device identifiers or labels.",
+  "claim_boundary": "The evaluator classifies evidence relationships; it does not prove a browser bug, operating-system fault, hardware fault, or human audibility unless physical is explicitly observed as audible.",
+  "falsification_route": "Integrate all four channels into one exact deployed probe, then show a case where the evaluator's prescribed next action is contradicted by independently captured device-level evidence."
+}
