@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "updated_at": "2026-07-13T14:41:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added a fail-closed Cloudflare adapter that computes the exact deployment-proof digest once, maps existing verification outputs into four normalized trust decisions, requires same-subject composition through the Frontier Research promotion gate, and refuses promotion unless the existing deployment acceptance decision also accepts.",
+  "files": [
+    "cloudflare-static/build-evidence-promotion-decision.mjs",
+    "cloudflare-static/build-evidence-promotion-decision.test.mjs",
+    "operations/evidence/cloudflare-evidence-promotion-composition-2026-07-13T1441-0400.json"
+  ],
+  "commits": [
+    "ef1921f6e8d70a08342371d1c7340d815175b729",
+    "d2f164bfd964c0144ca809c5e7eba66ad2f81e59",
+    "c8567c78995c1f793e73bd6e9352bc9712c061b0"
+  ],
+  "verification": "Five deterministic tests passed in an isolated Node runtime using byte-equivalent committed logic.",
+  "remaining": [
+    "Wire build-evidence-promotion-decision.mjs into .github/workflows/cloudflare-pages-research.yml after deployment acceptance and before consistency/finalization.",
+    "Add cloudflare-evidence-promotion-decision.json to the atomic deployment manifest and uploaded artifact set.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Dispatch the workflow and retain resolving URL, served identity, exact commit, control-plane metadata, and promotion decision evidence."
+  ],
+  "boundaries": [
+    "No payment functionality moved to Vercel.",
+    "No diagnosis or treatment claims published.",
+    "No files or Git history deleted.",
+    "Canonical queue and other team records were not overwritten."
+  ]
+}
