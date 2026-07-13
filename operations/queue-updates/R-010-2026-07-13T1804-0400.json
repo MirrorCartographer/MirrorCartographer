@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T18:04:00-04:00",
+  "canonical_queue_mutated": false,
+  "reason": "The canonical queue contains no active frontier_research item. Additive queue history showed R-009 completed, so this records the next non-duplicative completed slice without overwriting shared state.",
+  "proposed_item": {
+    "id": "R-010",
+    "owner": "frontier_research",
+    "priority": 9,
+    "status": "completed",
+    "action": "Distinguish AudioContext interruption from suspension and require post-recovery render progress before claiming browser-path recovery.",
+    "required_evidence": [
+      "current primary specification",
+      "committed classifier",
+      "deterministic tests",
+      "explicit privacy boundary",
+      "implementation handoff",
+      "falsification route"
+    ],
+    "progress": {
+      "primary_source": "https://webaudio.github.io/web-audio-api/",
+      "finding": "The 2026-07-13 Web Audio 1.1 editor draft defines interrupted as a distinct AudioContextState. A running state or resolved resume promise is insufficient recovery evidence unless render position advances afterward.",
+      "module": "tools/frontier-research/audio-interruption-recovery.mjs",
+      "test": "tools/frontier-research/audio-interruption-recovery.test.mjs",
+      "evidence": "operations/evidence/frontier-research-audio-interruption-recovery-2026-07-13T1804-0400.json",
+      "commits": [
+        "cd1c2c71b97c14fccd5ce1eac98319c776d43c47",
+        "36c32bb6b20c93afbd51efcfd5d5f4b1f1046344",
+        "bdfbb751e0c03778971f588e830f45c6a3dbd011"
+      ],
+      "verification": "6 deterministic Node tests passed in an isolated runtime using byte-identical committed logic."
+    },
+    "handoff": "Vercel Studio should capture AudioContext.state at failure, on statechange, and after recovery, then pair the classifier result with render-position advance and the existing R-008 evidence fusion. Do not infer or retain the private cause of an interruption."
+  }
+}
