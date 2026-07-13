@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-13T01:07:06Z",
+  "owner": "continuity_mining",
+  "queue_item": "M-007",
+  "privacy_boundary": "Public repository files and commit metadata only; no raw chat, health, pet-health, credentials, contact data, account identifiers, or unreviewed uploads.",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json@c21e897b0a30862142c5986368fc7c413fa030bc",
+    "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "operations/SPECIALIST_REGISTRY.json@88451b05101bcd8a259f98de5d9290e15357366b",
+    "operations/TRIGGER_REQUESTS.json@80feb36d1d829c7d54748780837a9ebef543e6c4",
+    "operations/continuity/queue-projection-canonical-drift-2026-07-13T0100Z.json@4c5b93da14a162092211f0ae577a671244d767be",
+    "tools/continuity/queue-reconciler.mjs@86b3e396698ac05abe33cd65406459bc7cc76547",
+    "tools/continuity/queue-reconciler.test.mjs@6734daeca5f7292e2a8e6362a8f0ebd36c8ddbe0"
+  ],
+  "memory_recovered": {
+    "claim_state": "observed",
+    "summary": "A deterministic queue-item reconciler already existed but did not reject duplicate record identifiers, reversed input timestamps, status regressions, or conflicting projections recorded at the same instant.",
+    "evidence_strength": "direct_repository_source"
+  },
+  "durable_improvement": {
+    "claim_state": "observed",
+    "module": "tools/continuity/queue-reconciler.mjs",
+    "module_commit": "1ba3e03a6dbbd33eba952ae964ff7557035eb755",
+    "test": "tools/continuity/queue-reconciler.test.mjs",
+    "test_commit": "4c5db43b43ade563119f475e97d180c4c367062d",
+    "new_rejections": [
+      "duplicate_record_id",
+      "timestamp_reversal",
+      "status_regression",
+      "conflicting_same_timestamp_projection"
+    ],
+    "materialization_rule": "materialization_allowed is false whenever any projection is rejected or a completion claim lacks required evidence. Source records remain immutable."
+  },
+  "verification": {
+    "committed_test_cases": 9,
+    "isolated_smoke_cases_executed": 5,
+    "isolated_smoke_result": "5 passed, 0 failed",
+    "covered_in_smoke": [
+      "valid active projection",
+      "duplicate record identifier",
+      "timestamp reversal",
+      "status regression",
+      "same-timestamp conflict"
+    ],
+    "ci_status": "not_observed"
+  },
+  "claim_states": {
+    "observed": [
+      "The canonical queue remains stale relative to append-only projections.",
+      "The reconciler and expanded tests are committed."
+    ],
+    "inferred": [
+      "Fail-closed materialization reduces the risk of silently converting contradictory owner projections into canonical state."
+    ],
+    "proposed": [
+      "Add repository-wide discovery of queue projections and artifact-commit resolution before canonical materialization."
+    ],
+    "superseded": [
+      "The prior reconciler behavior that accepted duplicate IDs and sorted away chronology concerns without explicit rejection."
+    ],
+    "unresolved": [
+      "No authoritative process is yet named to materialize reconciled state into operations/ACTIVE_QUEUE.json.",
+      "No CI run was observed for the new commits."
+    ]
+  },
+  "falsification_or_review_route": "Run the committed Node test in a fresh checkout, introduce each rejected condition independently, and reject this evidence if any invalid projection is accepted or materialization_allowed remains true."
+}
