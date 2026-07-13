@@ -11,6 +11,7 @@ export const REQUIRED_EVIDENCE_FILES = Object.freeze([
   'cloudflare-deployment-blocker.json',
   'cloudflare-deployment-decision.json',
   'cloudflare-deployment-metadata.json',
+  'cloudflare-hostname-authority-consistency.json',
   'cloudflare-deployment-proof.json',
   'cloudflare-deployment-proof.freshness.json',
   'cloudflare-deployment-proof.intoto.json',
