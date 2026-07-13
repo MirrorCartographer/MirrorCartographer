@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-014",
+  "recorded_at": "2026-07-13T09:19:00-04:00",
+  "source_status": "repository_source_inspected",
+  "finding": "The cross-platform workflow built retained crash-stress observations but did not execute the existing byte-binding verifier before artifact upload. A malformed or mismatched observation could therefore be retained without an adjacent verifier result.",
+  "design_implication": "Run verify-crash-stress-observation.mjs on each platform after observation construction and before artifact upload, bind the verification to GITHUB_SHA, retain verification-${RUNNER_OS}.json beside the source bytes, and execute both builder and verifier contract tests.",
+  "implementation": {
+    "workflow": ".github/workflows/frontier-peer-terminal-crash-stress.yml",
+    "commit": "ec19bcaa5fb74d661fdd47e8075344987e0419c3",
+    "verifier": "tools/frontier-research/verify-crash-stress-observation.mjs",
+    "verifier_test": "tools/frontier-research/verify-crash-stress-observation.test.mjs",
+    "retained_output": "operations/runtime-evidence/frontier-peer-terminal-crash-stress/verification-${RUNNER_OS}.json"
+  },
+  "evidence_strength": "source-level implementation evidence",
+  "verification": {
+    "performed": [
+      "Fetched and inspected the current workflow source.",
+      "Fetched and inspected verifier CLI arguments and fail-closed exit behavior.",
+      "Committed workflow wiring that invokes the verifier with observation, identity, summary, raw log, and exact GITHUB_SHA before upload."
+    ],
+    "not_performed": [
+      "No hosted GitHub Actions run was observed during this run.",
+      "No Linux or macOS artifact was downloaded.",
+      "No cross-platform packet or classifier result was produced."
+    ]
+  },
+  "falsification_route": [
+    "Dispatch or trigger the workflow on the committed descendant SHA.",
+    "Require both matrix jobs to upload verification files whose verified field is true and commit equals the workflow SHA.",
+    "Tamper with any retained identity, summary, log, or observation byte and confirm the verifier exits nonzero.",
+    "Reject the design if either platform uploads an artifact without a valid verification result."
+  ],
+  "epistemic_limit": "This record proves only committed workflow wiring and source compatibility. It does not prove workflow execution, GitHub-hosted runner authenticity, filesystem semantics, successful crash recovery, or universal safety."
+}
