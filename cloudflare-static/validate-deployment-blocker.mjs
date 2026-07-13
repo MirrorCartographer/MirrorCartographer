@@ -2,7 +2,20 @@
 import fs from 'node:fs';
 
 const STATUS = new Set(['ready', 'blocked_external_configuration']);
-const REASONS = new Set(['missing', 'placeholder', 'invalid_account_id_shape', 'implausibly_short', 'unknown']);
+const REASONS = new Set([
+  'missing',
+  'placeholder',
+  'invalid_account_id_shape',
+  'implausibly_short',
+  'token_rejected',
+  'permission_denied',
+  'account_or_resource_not_found',
+  'api_error',
+  'not_attempted',
+  'target_project_not_found',
+  'target_project_missing_canonical_hostname',
+  'unknown'
+]);
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
