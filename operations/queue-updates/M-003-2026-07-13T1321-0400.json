@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-003",
+    "owner": "continuity_mining",
+    "priority": 2,
+    "action": "Recover and formalize the divergence between aggregate continuity validation and stricter relation-integrity validation without rewriting historical records.",
+    "dependencies": ["M-001", "M-002"],
+    "required_evidence": [
+      "immutable source locators",
+      "capability matrix",
+      "explicit claim-state distinctions",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "memory_record": "operations/continuity/records/CM-1000.json",
+      "evidence": "operations/evidence/continuity-validator-divergence-2026-07-13T1321-0400.json",
+      "commits": [
+        "607cc8ec2236ee3605206db4548919789be2601f",
+        "504423cfa8f64054c4fae4873135a1381276a681"
+      ],
+      "verification": "Exact source readback established non-identical capability sets: aggregate loading and record-shape validation exist only in the older repository-wide validator, while duplicate relation-target and supersession-cycle rejection exist only in the newer relation validator.",
+      "canonical_mutation_performed": false,
+      "runtime_tests_executed": false
+    },
+    "handoff": "Compose operations/continuity/validate-continuity-relations.mjs into the aggregate tools/continuity validation path, add adversarial aggregate fixtures for duplicate edges and supersession cycles, and verify the dedicated continuity workflow at the exact integration commit."
+  },
+  "preservation_rule": "This additive update does not modify operations/ACTIVE_QUEUE.json, other teams' queue records, or Git history.",
+  "privacy_boundary": "Public repository metadata and implementation structure only; no private chat, health, pet-health, credential, contact, or unreviewed uploaded-file content."
+}
