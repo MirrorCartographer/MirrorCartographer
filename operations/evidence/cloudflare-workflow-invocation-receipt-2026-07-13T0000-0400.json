@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T00:00:00-04:00",
+  "improvement": "Added a deny-by-default GitHub Actions context receipt that binds repository, numeric repository and owner identities, workflow path and ref, workflow-file SHA, source SHA, event, environment, run identity, and actor identity, then derives a deterministic SHA-256 replay key.",
+  "artifacts": {
+    "module": "cloudflare-static/build-workflow-invocation-receipt.mjs",
+    "module_commit": "5d0e2d4f6bdf7aa4e2e44e2f6ce2d6efc3746806",
+    "test": "cloudflare-static/build-workflow-invocation-receipt.test.mjs",
+    "test_commit": "3484dabef4963aeeb72c122b23e4a4171ec907b5"
+  },
+  "verification": {
+    "source_fetch": "Both files were fetched from exact commit 3484dabef4963aeeb72c122b23e4a4171ec907b5 and inspected.",
+    "test_cases": 6,
+    "coverage": [
+      "exact context acceptance and deterministic replay key",
+      "lookalike repository rejection",
+      "workflow path or ref drift rejection",
+      "malformed workflow and source SHA rejection",
+      "run-attempt replay-key separation",
+      "missing actor identity and disabled-policy rejection"
+    ],
+    "runtime_execution": "not_observed",
+    "runtime_limit": "Fresh-checkout execution was attempted, but the available runtime could not resolve raw.githubusercontent.com. No passing test run is claimed."
+  },
+  "evidence_strength": "committed_source_and_tests_not_runtime_executed",
+  "source_status": "GitHub Actions context values are structurally bound but not cryptographically authenticated by this artifact.",
+  "trust_limit": "The receipt does not verify a GitHub OIDC JWT signature, does not prove that context originated from GitHub, does not prevent replay until its key is persisted in a protected ledger, does not prove Cloudflare deployment, and does not establish scientific or medical truth.",
+  "falsification_route": "Run the committed Node test in CI; then execute the builder under a workflow_dispatch run and reject the receipt if any exact field differs, if the replay key already exists in the protected ledger, or if independent OIDC verification rejects the invocation."
+}
