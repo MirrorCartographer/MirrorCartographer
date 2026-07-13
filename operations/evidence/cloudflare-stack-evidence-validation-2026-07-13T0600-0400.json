@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T06:00:18-04:00",
+  "finding": "The stack workflow generated a composite evidence file but had no independent fail-closed validator proving that the source commit, Worker identity proof, live atomicity proof, redeployment persistence proof, Pages URL, Pages proof file, and ordering invariant were all simultaneously present and accepted.",
+  "design_implication": "Validate the final composite evidence packet as a separate gate before it can be treated as deployment proof. Reject commit substitution, missing Worker proofs, false Pages proof claims, non-HTTPS deployment URLs, and ordering-invariant drift.",
+  "artifacts": {
+    "module": "cloudflare-static/validate-stack-deployment-evidence.mjs",
+    "test": "cloudflare-static/validate-stack-deployment-evidence.test.mjs",
+    "commits": [
+      "9238ca87095f3b6f15bb074ed38bea927e8dd993",
+      "6f41a96894e100f1493aadc20f6db8522d67eb90"
+    ]
+  },
+  "verification": {
+    "method": "isolated Node test against byte-equivalent implementation logic",
+    "result": "3 tests passed, 0 failed",
+    "cases": [
+      "complete commit-bound stack proof accepted",
+      "source commit substitution and failed redeployment proof rejected",
+      "Pages proof claim without URL or proof file rejected"
+    ]
+  },
+  "evidence_strength": "test-verified validator behavior; not live Cloudflare deployment proof",
+  "privacy_boundary": "No secrets, private chat, health material, credentials, account identifiers, or raw deployment tokens are stored.",
+  "limits": [
+    "The validator is committed but not yet wired into cloudflare-research-stack.yml.",
+    "No Cloudflare workflow run or live Pages hostname was available in this run.",
+    "Structural proof consistency does not establish scientific or medical truth."
+  ],
+  "falsification_route": "Supply a composite packet with any substituted commit, failed proof, missing HTTPS URL, absent Pages proof, or altered ordering invariant; acceptance must be false with a deterministic reason."
+}
