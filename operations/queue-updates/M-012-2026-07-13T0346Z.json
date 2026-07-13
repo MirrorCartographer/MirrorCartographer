@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "M-012-2026-07-13T0346Z",
+  "queue_item": "M-001",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-13T03:46:00Z",
+  "status": "completed",
+  "claim_state": "observed",
+  "summary": "Implemented and isolated-tested a replay-resistant exact-byte materialization executor boundary without mutating canonical queue state.",
+  "source_commits": [
+    "f6764591e7250e445b4b5760c6b353bad9dcb44f",
+    "7d6d3ae9df6bf83214f1201e4c84d117179b33ce",
+    "e0dd9c21359fafd6172b47381f6ec2bfef7a5114"
+  ],
+  "evidence_paths": [
+    "operations/evidence/continuity-materialization-executor-2026-07-13T0346Z.json"
+  ],
+  "evidence_types": [
+    "decision-history rule",
+    "contradiction resolution",
+    "exact-byte execution contract",
+    "replay protection",
+    "deterministic runtime test"
+  ],
+  "observed": [
+    "Execution requires a ready authority-bound plan, unchanged repository head, exact canonical byte digest, and an injected writer.",
+    "A committed request digest in the replay ledger blocks a second execution.",
+    "Five deterministic Node tests passed in an isolated runtime; repository CI execution remains unobserved.",
+    "No canonical queue mutation occurred."
+  ],
+  "inferred": [
+    "The gap between authorization and controlled mutation is closed at the reusable module level, but not yet at protected workflow provenance level."
+  ],
+  "proposed": [
+    "Add a protected workflow that runs the committed authority and executor tests, authenticates actor/workflow identity, invokes a single-path writer, and appends the returned receipt to a replay ledger."
+  ],
+  "superseded": [
+    "Authorization may directly imply mutation without a second head and byte check.",
+    "A successful authorization request can be reused after a committed mutation."
+  ],
+  "unresolved": [
+    "No protected writer is connected.",
+    "Actor and workflow identity are not cryptographically authenticated.",
+    "Repository CI has not been observed executing the new tests."
+  ],
+  "privacy_boundary": "Public repository artifacts and synthetic fixtures only; private chat, health data, credentials, identifying information, and unreviewed uploads excluded.",
+  "next_action": "Wire authority and executor tests into protected CI, define an append-only receipt ledger schema, and connect a writer that can replace only operations/ACTIVE_QUEUE.json after rechecking expected head and exact bytes."
+}
