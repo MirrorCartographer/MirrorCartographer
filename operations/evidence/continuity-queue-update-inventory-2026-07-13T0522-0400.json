@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-003",
+  "created_at": "2026-07-13T05:22:32-04:00",
+  "summary": "Added a filesystem inventory adapter that reads every JSON record in operations/queue-updates, validates it through the canonical lag detector, hashes exact source bytes, and emits a digest-bound proposal that remains manual-review-only.",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/continuity/canonical-queue-lag.mjs",
+    "operations/queue-updates/M-002-2026-07-13T0422-0400.json",
+    "recent repository commits through 84a4698c0df3fa7e7bb857e3ae3a9699d182d843"
+  ],
+  "artifacts": [
+    "operations/continuity/queue-update-inventory.mjs",
+    "operations/continuity/queue-update-inventory.test.mjs",
+    "operations/continuity/records/CM-0021.json"
+  ],
+  "verification": {
+    "command": "node --test operations/continuity/queue-update-inventory.test.mjs",
+    "environment": "isolated Node runtime using byte-identical candidate files before commit",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "missing additive records produce a digest-bound review-only proposal",
+      "single-byte source change changes proposal digest",
+      "conflicting records fail closed",
+      "claimed canonical mutation fails closed",
+      "malformed JSON never authorizes adoption"
+    ]
+  },
+  "evidence_strength": "test-verified-source-contract",
+  "limits": [
+    "The automation connector did not expose a repository directory-listing primitive, so the committed filesystem adapter was tested with adversarial fixtures rather than executed against a full local clone.",
+    "The proposal digest binds the proposal inputs and structure; it is not a cryptographic signature and does not establish reviewer identity.",
+    "No canonical queue mutation was performed."
+  ],
+  "privacy_boundary": "Public repository files, commit metadata, abstract state relations, and synthetic test fixtures only.",
+  "falsification_routes": [
+    "Run the adapter in a full checkout and compare its inventory against the complete operations/queue-updates directory.",
+    "Alter an update byte and confirm the proposal digest changes.",
+    "Attempt adoption without reviewer identity or post-application verification and confirm rejection by the downstream contract."
+  ],
+  "adoption_authorized": false,
+  "proves_peer_execution": false
+}
