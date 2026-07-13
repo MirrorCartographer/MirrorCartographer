@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T12:51:00-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "finding": "Canonical queue state and append-only candidate updates require an explicit digest-bound review manifest before any compaction commit.",
+  "artifact": "operations/continuity/build-queue-compaction-manifest.mjs",
+  "test": "operations/continuity/build-queue-compaction-manifest.test.mjs",
+  "verification": {
+    "runtime": "Node test runner in isolated local runtime using byte-identical source and test contents",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "deterministic non-mutating manifest generation",
+      "missing classification rejection",
+      "duplicate candidate rejection",
+      "invalid disposition rejection",
+      "candidate-byte digest binding"
+    ]
+  },
+  "claim_states": {
+    "observed": "ACTIVE_QUEUE.json remains canonical while queue-updates files are append-only candidate state.",
+    "inferred": "Without exact input and result digests, reviewers cannot prove which candidate bytes a compaction decision evaluated.",
+    "proposed": "Generate and review a manifest before a separate canonical queue mutation commit.",
+    "superseded": "Implicit or search-result-based queue merging is not an acceptable compaction route.",
+    "unresolved": "No reviewed manifest has yet classified every current candidate update or mutated ACTIVE_QUEUE.json."
+  },
+  "privacy_boundary": "Public repository files and commit metadata only; raw private chat, health information, credentials, identifying personal data, and unreviewed uploads excluded.",
+  "limits": [
+    "The builder does not decide whether a candidate deserves acceptance.",
+    "Digest coherence does not prove reviewer authority or claim truth.",
+    "No canonical queue mutation was performed."
+  ],
+  "commits": [
+    "e2aec71aef5e6683d133bba9e71c912787823142",
+    "97318a300ee5107a6b186fde900862bb40074e40"
+  ]
+}
