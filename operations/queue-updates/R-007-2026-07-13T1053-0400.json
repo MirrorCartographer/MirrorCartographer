@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-007",
+    "owner": "frontier_research",
+    "priority": 6,
+    "action": "Integrate Event Timing and Long Animation Frames verdicts into one deployment-bound evidence packet without collapsing correlation, congestion, or claim truth.",
+    "dependencies": ["R-005", "R-006"],
+    "required_evidence": [
+      "current primary specifications",
+      "committed packet builder and verifier",
+      "deterministic tests",
+      "deployment and observation identity boundaries",
+      "explicit falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://w3c.github.io/event-timing/",
+        "https://w3c.github.io/long-animation-frames/"
+      ],
+      "finding": "Interaction correlation and main-thread congestion are complementary evidence dimensions. Acceptance requires both classifier verdicts to be independently retained and bound to one exact source commit, verified deployment identity, target device/browser, observation window, and ordered interaction sequence.",
+      "module": "tools/frontier-research/interaction-evidence-packet.mjs",
+      "test": "tools/frontier-research/interaction-evidence-packet.test.mjs",
+      "evidence": "operations/evidence/frontier-research-interaction-evidence-packet-2026-07-13T1053-0400.json",
+      "commits": [
+        "a548b35861ad65dc28a42d7f20c1ed42efb9f350",
+        "a814b1fb155de842516fbed8cbb63f215297d03a",
+        "015bb6e73bb6361a64b3ed9495bea78043e4bfe8"
+      ],
+      "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit source."
+    },
+    "handoff": "Vercel Studio should run the R-005 and R-006 classifiers around one exact deployed gesture, then build and verify this packet with immutable deployment identity and target iPhone Safari context. A verified packet still does not prove audibility or subjective smoothness."
+  },
+  "canonical_queue_update_policy": "Append-only team-owned update; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "next_action": "Add a browser-side capture adapter that closes both observers around an explicit interaction window and emits inputs for the packet builder without inventing support or silently dropping zero-interactionId observations."
+}
