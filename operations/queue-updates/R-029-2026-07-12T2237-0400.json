@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-029",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "completed",
+  "priority_basis": "The canonical queue has no active frontier_research item. The latest owner-scoped handoff, R-028, required a real-browser runner for ordinary IndexedDB lifecycle scenarios while preserving explicit capability boundaries.",
+  "action": "Implement a Playwright runner for two-tab contention and versionchange/forced-close across Chromium, Firefox, and WebKit, with fail-closed capability gating for quota pressure and abrupt termination.",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "recent commits",
+    "operations/queue-updates/R-028-2026-07-12T2218-0400.json",
+    "tools/frontier-research/indexeddb-browser-interop-evidence.mjs",
+    "W3C Indexed Database API 3.0",
+    "Playwright Pages documentation",
+    "Playwright BrowserContext documentation"
+  ],
+  "finding": "Ordinary same-origin multi-page contention and versionchange closure can be represented in Playwright. Graceful context closure must not be substituted for abrupt process termination, and a non-persistent context does not prove on-disk persistence.",
+  "design_implication": "Emit validated browser/scenario evidence for automatable cases and explicit blocked records for capability-gated cases. Keep transaction completion, replay observation, interruption injection, reopen observation, and persistence claims separate.",
+  "artifact": "tools/frontier-research/indexeddb-playwright-runner.mjs",
+  "contract_update": "tools/frontier-research/indexeddb-browser-interop-evidence.mjs",
+  "test": "tools/frontier-research/indexeddb-playwright-runner.test.mjs",
+  "evidence": "operations/evidence/frontier-research-indexeddb-playwright-runner-2026-07-12.json",
+  "commits": [
+    "8a782639adda3052b593228df4f57f773a5a92c0",
+    "45c8ede115db5dda3c55be0b5ff49fe710e16ac0",
+    "ee6eab48025aabfb63925c5eaadaf1b11c273639",
+    "98b6682f8c5cb02e47faa6ae95b131eef04f707d"
+  ],
+  "verification": "A precommit prototype passed 5 deterministic Node tests with 0 failures. Committed-source execution and real-browser execution were not observed, so no browser outcome is claimed.",
+  "source_status": "current official primary sources inspected on 2026-07-12",
+  "evidence_strength": "official-source design plus committed implementation and deterministic test specification",
+  "uncertainty": "The committed runner still requires repository-pinned Playwright browser binaries and a served same-origin fixture for execution evidence.",
+  "falsification_route": "Run the committed test and browser matrix in CI; reject or revise the design if records fail validation, if browser event timelines do not distinguish the scenarios, or if a capability-gated scenario can be represented without the declared injector and reopen observer.",
+  "specialists_used": [
+    "Primary Source Scout",
+    "Technical Synthesist",
+    "Experiment Designer",
+    "Tool Evaluator",
+    "Cross-Domain Translator"
+  ],
+  "registry_change": "none",
+  "canonical_queue_modified": false,
+  "handoff": "Add a minimal same-origin IndexedDB fixture and a CI job pinned to the repository's Playwright version. Execute Chromium, Firefox, and WebKit for two-tab contention and versionchange/forced-close, upload the six validated evidence records, and leave abrupt termination and quota pressure blocked unless platform-specific injection is available.",
+  "files_deleted": false,
+  "history_deleted": false
+}
