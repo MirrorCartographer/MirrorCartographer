@@ -31,6 +31,7 @@ jobs:
           node --test cloudflare-static/verify-replay-reservation-concurrency.test.mjs
           node --test cloudflare-static/verify-replay-reservation-redeployment.test.mjs
           node --test cloudflare-static/research-surface-identity.test.mjs
+          node --test cloudflare-static/validate-stack-deployment-evidence.test.mjs
 
       - name: Classify deployment readiness
         env:
@@ -174,6 +175,13 @@ jobs:
           fs.writeFileSync('cloudflare-stack-deployment-evidence.json', `${JSON.stringify(evidence, null, 2)}\n`)
           NODE
 
+      - name: Validate composite stack deployment evidence
+        if: always()
+        run: |
+          node cloudflare-static/validate-stack-deployment-evidence.mjs \
+            cloudflare-stack-deployment-evidence.json \
+            cloudflare-stack-deployment-evidence-validation.json
+
       - name: Upload stack deployment evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -188,6 +196,7 @@ jobs:
             cloudflare-replay-reservation-redeployment-proof.json
             cloudflare-stack-pages-proof.ndjson
             cloudflare-stack-deployment-evidence.json
+            cloudflare-stack-deployment-evidence-validation.json
           if-no-files-found: warn
           retention-days: 30
 
@@ -209,5 +218,6 @@ jobs:
             echo "- Concurrency proof: \`cloudflare-replay-reservation-concurrency-proof.json\`"
             echo "- Redeployment persistence proof: \`cloudflare-replay-reservation-redeployment-proof.json\`"
             echo "- Stack evidence: \`cloudflare-stack-deployment-evidence.json\`"
+            echo "- Composite validation: \`cloudflare-stack-deployment-evidence-validation.json\`"
             echo "- Limit: deployment identity and bounded storage probes are infrastructure evidence, not scientific or medical proof"
           } >> "$GITHUB_STEP_SUMMARY"
