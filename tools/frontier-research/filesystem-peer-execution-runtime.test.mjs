@@ -63,7 +63,7 @@ test('real filesystem journal records a verified terminal and suppresses duplica
   }
 });
 
-test('post-rename directory-sync failure is reconciled before return and remains explicit', async () => {
+test('post-rename directory-sync failure is reconciled, appended once, and preserved as explicit evidence', async () => {
   const directory = await mkdtemp(join(tmpdir(), 'mc-peer-runtime-'));
   const journalPath = join(directory, 'terminals.json');
   const appended = [];
@@ -80,11 +80,10 @@ test('post-rename directory-sync failure is reconciled before return and remains
 
     const result = await runtime.execute(input());
     const document = JSON.parse(await readFile(journalPath, 'utf8'));
-    assert.equal(result.terminal_journal.state, 'recorded');
-    assert.equal(result.terminal_journal.durability_state, 'recorded-indeterminate-reconciled');
+    assert.equal(result.terminal_journal.state, 'recorded-indeterminate-reconciled');
     assert.equal(document.terminals['trigger-r13'].terminal_event.id, '44444444-4444-4444-8444-444444444444');
     assert.equal(appended.length, 1);
-    assert.equal(appended[0].receipt.terminal_journal.durability_state, 'recorded-indeterminate-reconciled');
+    assert.equal(appended[0].receipt.terminal_journal.state, 'recorded-indeterminate-reconciled');
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
