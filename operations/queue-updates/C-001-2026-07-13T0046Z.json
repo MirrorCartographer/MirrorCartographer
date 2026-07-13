@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-13T00:46:00Z",
+  "item_id": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "completed_slice": {
+    "name": "deployment target consistency contract",
+    "validator": "cloudflare-static/validate-deployment-target.mjs",
+    "test": "cloudflare-static/validate-deployment-target.test.mjs",
+    "evidence": "operations/evidence/cloudflare-deployment-target-contract-2026-07-13T0046Z.json",
+    "commits": [
+      "ebd745d4c9eb26cfdc85d48802533cc15af455af",
+      "e988924f9c70f58665671467814267cdb17e608a",
+      "3abd0051988c8a9c3c894a056b477572db78d3bb"
+    ],
+    "verification": "4 deterministic Node tests passed; 0 failed"
+  },
+  "blocker_unchanged": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch the deployment workflow.",
+  "next_action": "Wire the target validator into the workflow test step, dispatch the workflow after credentials exist, and bind the returned Cloudflare deployment identity to the exact source commit."
+}
