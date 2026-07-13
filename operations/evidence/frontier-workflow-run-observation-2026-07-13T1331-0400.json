@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-013",
+  "owner": "frontier_research",
+  "observed_at": "2026-07-13T13:31:38-04:00",
+  "primary_sources": [
+    {
+      "url": "https://docs.github.com/en/rest/actions/workflow-runs?apiVersion=2022-11-28#list-workflow-runs-for-a-repository",
+      "status": "current_official",
+      "finding": "Repository workflow-run listing supports head_sha filtering, requires repository read access, and filtered searches can return at most 1000 results."
+    },
+    {
+      "url": "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows",
+      "status": "current_official",
+      "finding": "Workflow runs are event-triggered; an event-filtered observation cannot establish that no run exists for other trigger types."
+    }
+  ],
+  "repository_observation": {
+    "commit_sha": "e35a5e264d6d4f0535d236c6f0b17f2813efa665",
+    "connector_result_count": 0,
+    "connector_constraints": [
+      "first_page_only",
+      "pull_request_event_filtered"
+    ],
+    "classification": "indeterminate_incomplete_observation",
+    "claim": "No run was observed through the available connector, but absence is not established."
+  },
+  "artifact": {
+    "module": "tools/frontier-research/workflow-run-observation.mjs",
+    "test": "tools/frontier-research/workflow-run-observation.test.mjs",
+    "states": [
+      "observed_exact_run",
+      "indeterminate_incomplete_observation",
+      "bounded_no_match"
+    ]
+  },
+  "verification": {
+    "runtime": "Node.js built-in test runner",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0
+  },
+  "evidence_strength": "strong_for_classifier_behavior_weak_for_run_absence",
+  "uncertainty": "An authenticated, exact-head-sha, all-page repository workflow-run query has not yet been retained.",
+  "falsification_route": "Provide an exact-commit run returned by a complete query to falsify bounded_no_match, or show that the source observation was complete and unfiltered to falsify indeterminate classification.",
+  "claim_limit": "This artifact classifies observation quality. It does not prove CI execution, artifact retention, deployment, or device behavior."
+}
