@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T17:20:00-04:00",
+  "canonical_queue_mutated": false,
+  "reason": "No active canonical frontier_research item existed; additive queue history showed R-005 through R-008 completed, so this records the next non-duplicative slice without overwriting shared state.",
+  "proposed_item": {
+    "id": "R-009",
+    "owner": "frontier_research",
+    "priority": 8,
+    "status": "completed",
+    "action": "Distinguish historical user interaction from live transient activation at the exact browser audio invocation.",
+    "required_evidence": [
+      "current primary specifications",
+      "committed evaluator",
+      "deterministic tests",
+      "explicit trust limit",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "progress": {
+      "primary_sources": [
+        "https://html.spec.whatwg.org/multipage/interaction.html#tracking-user-activation",
+        "https://webaudio.github.io/web-audio-api/#allowed-to-start"
+      ],
+      "finding": "A prior click or sticky activation does not establish that transient activation remained live when resume or play was invoked. Capture activation twice: synchronously at handler entry and at the exact audio call.",
+      "module": "tools/frontier-research/user-activation-audio-gate.mjs",
+      "test": "tools/frontier-research/user-activation-audio-gate.test.mjs",
+      "evidence": "operations/evidence/frontier-research-user-activation-audio-gate-2026-07-13T1720-0400.json",
+      "commits": [
+        "1e59d19e26594c78ac538d935de1a3e4d1ac9a93",
+        "80e0033826f82e22b40d023a3136ef6d994cd237",
+        "403eb662d1a1a314d01ac0dcc65c17e91de0c466"
+      ],
+      "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files."
+    },
+    "handoff": "Vercel Studio should snapshot navigator.userActivation.isActive and hasBeenActive at direct-handler entry and snapshot isActive again immediately before resume/play. Feed the result into R-008 evidence fusion; live activation plus a resolved call still must not be reported as audible without route and physical evidence."
+  }
+}
