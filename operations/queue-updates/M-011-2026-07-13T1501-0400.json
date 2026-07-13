@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "event_order": 11,
+  "observed_at": "2026-07-13T19:01:54Z",
+  "queue_item": {
+    "id": "M-011",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Preserve the distinction between the canonical ACTIVE_QUEUE snapshot and later additive queue-update history.",
+    "dependencies": ["M-010"],
+    "required_evidence": [
+      "canonical queue source digest",
+      "later additive queue-update source digest",
+      "recent queue commit evidence",
+      "explicit non-exhaustive boundary",
+      "privacy-safe continuity record"
+    ],
+    "status": "completed",
+    "progress": {
+      "continuity_record": "operations/continuity/records/CM-1007.json",
+      "record_commit": "14c67bac8de8b81100bfefd3230fe13236ab495f",
+      "observed_canonical_queue_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_additive_update_sha": "1ac6dba45113b3a8569eb35aba730f547079145e",
+      "claim_boundary": "ACTIVE_QUEUE.json remains canonical input but is not treated as exhaustive after later additive queue-update records and queue commits exist.",
+      "privacy_boundary": "Only public repository paths, digests, commit identifiers, queue metadata, and operational claim states are retained."
+    },
+    "handoff": "Create a deterministic queue-state materializer that reads ACTIVE_QUEUE.json plus an explicitly enumerated, event-ordered operations/queue-updates set; preserve historical inputs, reject event-order collisions, and emit authoritative=false until repository enumeration is proven complete."
+  }
+}
