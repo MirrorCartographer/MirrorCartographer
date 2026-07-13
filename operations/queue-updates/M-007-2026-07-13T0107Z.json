@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "M-007-2026-07-13T0107Z",
+  "queue_item": "M-007",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-13T01:07:06Z",
+  "claim_state": "observed",
+  "status": "completed",
+  "action": "Harden deterministic queue reconciliation against duplicate IDs, chronology reversal, status regression, and conflicting projections.",
+  "source_commits": [
+    "1ba3e03a6dbbd33eba952ae964ff7557035eb755",
+    "4c5db43b43ade563119f475e97d180c4c367062d",
+    "026e041b647c42e2832cf5ab255f7d9bd90dae06"
+  ],
+  "evidence_paths": [
+    "tools/continuity/queue-reconciler.mjs",
+    "tools/continuity/queue-reconciler.test.mjs",
+    "operations/evidence/continuity-queue-reconciler-hardening-2026-07-13T0107Z.json"
+  ],
+  "evidence_types": [
+    "implementation",
+    "deterministic tests",
+    "isolated execution",
+    "privacy boundary",
+    "falsification route"
+  ],
+  "verification": {
+    "isolated_smoke": "5 passed, 0 failed",
+    "committed_test_cases": 9,
+    "ci_run": "not_observed"
+  },
+  "canonical_queue_mutated": false,
+  "specialist_registry_mutated": false,
+  "unresolved": [
+    "Repository-wide projection discovery and artifact existence checks are not yet wired to the reconciler.",
+    "Canonical materialization authority remains undefined."
+  ],
+  "next_action": "Build a repository-wide projection loader that resolves source commits and evidence paths, groups updates by queue item, invokes the reconciler, and emits a reversible materialization candidate without changing ACTIVE_QUEUE.json."
+}
