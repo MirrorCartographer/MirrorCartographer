@@ -21,6 +21,19 @@ function normalizeBranch(value) {
   return branch;
 }
 
+export function resolveExpectedBranch({ explicitBranch, eventPath } = {}) {
+  const explicit = normalizeBranch(explicitBranch);
+  if (explicit) return { branch: explicit, source: 'environment' };
+  if (typeof eventPath !== 'string' || !eventPath.trim()) return { branch: null, source: null };
+  try {
+    const event = JSON.parse(fs.readFileSync(eventPath, 'utf8'));
+    const branch = normalizeBranch(event?.inputs?.branch);
+    return branch ? { branch, source: 'workflow-dispatch-event' } : { branch: null, source: null };
+  } catch {
+    return { branch: null, source: null };
+  }
+}
+
 export function evaluateDeploymentMetadata({ deployments, expectedCommit, expectedUrl, expectedBranch, project = PROJECT } = {}) {
   const normalizedExpectedUrl = normalizeUrl(expectedUrl);
   const normalizedExpectedBranch = normalizeBranch(expectedBranch);
@@ -95,7 +108,10 @@ async function main() {
   const token = process.env.CLOUDFLARE_API_TOKEN;
   const expectedCommit = process.env.GITHUB_SHA;
   const expectedUrl = process.env.DEPLOYMENT_URL;
-  const expectedBranch = process.env.CLOUDFLARE_PAGES_BRANCH;
+  const branchResolution = resolveExpectedBranch({
+    explicitBranch: process.env.CLOUDFLARE_PAGES_BRANCH,
+    eventPath: process.env.GITHUB_EVENT_PATH
+  });
   const project = process.env.CLOUDFLARE_PAGES_PROJECT || PROJECT;
 
   if (!accountId || !token) {
@@ -114,9 +130,16 @@ async function main() {
     return;
   }
 
-  const result = evaluateDeploymentMetadata({ deployments: payload.result, expectedCommit, expectedUrl, expectedBranch, project });
+  const result = evaluateDeploymentMetadata({
+    deployments: payload.result,
+    expectedCommit,
+    expectedUrl,
+    expectedBranch: branchResolution.branch,
+    project
+  });
+  result.expected_branch_source = branchResolution.source;
   fs.writeFileSync(outputPath, `${JSON.stringify(result, null, 2)}\n`);
-  process.stdout.write(`${JSON.stringify({ valid: result.valid, classification: result.classification })}\n`);
+  process.stdout.write(`${JSON.stringify({ valid: result.valid, classification: result.classification, expected_branch_source: branchResolution.source })}\n`);
   if (!result.valid) process.exitCode = 1;
 }
 
