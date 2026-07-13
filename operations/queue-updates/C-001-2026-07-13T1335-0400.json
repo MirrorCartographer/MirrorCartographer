@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T13:35:00-04:00",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a bounded DNS/HTTPS/research-identity collector that emits packets accepted by the existing public-hostname validator and retains them through GitHub Actions.",
+  "commits": [
+    "4919b3c02f11f28e24312a9704933479e0768123",
+    "c634e24580fe39f7ae368631dbb2e15bbbac8fdc",
+    "a7ea385e58f5d66752c805a4b26175f0c51270ea",
+    "427c7b10064fa3a3e694ed575f9869bc608656aa"
+  ],
+  "evidence": "operations/evidence/cloudflare-bounded-hostname-collector-2026-07-13T1335-0400.json",
+  "remaining": [
+    "Observe a completed cloudflare-bounded-hostname-collector workflow run and retain its artifact.",
+    "If identity_verified, verify the served deployment manifest and exact commit.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research environment for control-plane deployment proof."
+  ],
+  "claim_ceiling": "collector_committed_not_runtime_verified",
+  "shared_queue_policy": "Canonical ACTIVE_QUEUE.json was not overwritten."
+}
