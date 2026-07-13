@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-13T00:43:53Z",
+  "owner": "continuity_mining",
+  "queue_item": "M-005",
+  "status": "completed",
+  "priority_basis": "M-004 was the latest completed continuity slice; the immediately subsequent Cloudflare deployment-workflow pin commit created a new decision and language boundary not yet preserved by continuity mining.",
+  "artifact": "operations/continuity/deployment-workflow-pin-boundary-2026-07-13T0043Z.json",
+  "artifact_commit": "eef926ee5c524d8be6ea8c35065bb1c9b19be16e",
+  "source_commits": [
+    "b5f8017bc26aa494fd60edf94e6c5ce3bd913fbf",
+    "b203d0edad29766e0c8568460850a0f43a9a03e6"
+  ],
+  "claim_states": {
+    "observed": ["CM-0020"],
+    "inferred": ["CM-0021"],
+    "proposed": ["CM-0022"],
+    "superseded": [
+      "Mutable major-version references in the inspected deployment workflow",
+      "Any shorthand treating immutable deployment workflow references as proof of successful deployment"
+    ],
+    "unresolved": ["CM-0023"]
+  },
+  "verification": {
+    "artifact_fetch_required": true,
+    "deployment_claimed": false,
+    "peer_execution_claimed": false
+  },
+  "next_action": "Bind a successful workflow run and provider deployment identity to the exact pinned commit, then preserve served-content verification as a separate observed record."
+}
