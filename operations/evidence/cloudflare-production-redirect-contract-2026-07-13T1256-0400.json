@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T12:56:00-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "implemented_unverified_runtime",
+  "finding": "The production deployment workflow used the redirect-continuity evaluator during served verification, but no dedicated contract required the adversarial redirect tests and workflow linkage to remain jointly executable in CI.",
+  "design_implication": "A separate fail-closed GitHub Actions gate now runs the redirect-continuity adversarial suite and a workflow contract that verifies the production workflow passes Wrangler's returned deployment URL into the redirect-enforcing verifier.",
+  "files": [
+    "cloudflare-static/deployment-redirect-workflow-contract.test.mjs",
+    ".github/workflows/cloudflare-production-redirect-contract.yml"
+  ],
+  "commits": [
+    "2ec7ec30a75d1d37f2a7ad0395d09a396004e443",
+    "9408272c3f0a67b6b6508e78f4f06069ab4bb63d",
+    "fda31d3577d38b03d1a1383935525bdc4425c7d4"
+  ],
+  "verification": {
+    "source_behavior": "GitHub main branch returns the committed workflow with both exact Node test commands, push and pull-request path filters, read-only contents permission, and an explicit claim boundary.",
+    "local_runtime": "not_run",
+    "local_runtime_reason": "The isolated execution environment could not resolve github.com, so a fresh-checkout Node execution was not possible.",
+    "github_actions": "pending_or_unobservable",
+    "deployment": "not_attempted_missing_external_configuration"
+  },
+  "evidence_strength": "committed_source_inspection",
+  "privacy_boundary": "Contains only public repository paths, commit identifiers, workflow structure, and non-secret blocker status.",
+  "claim_limits": [
+    "Does not prove GitHub Actions completed successfully.",
+    "Does not prove Cloudflare credentials exist.",
+    "Does not prove deployment, DNS authority, provider ownership, or served commit identity."
+  ],
+  "falsification_route": "Change either workflow so the exact adversarial test, contract test, returned deployment URL, or redirect-enforcing verifier linkage is removed; the contract gate should fail on its next execution."
+}
