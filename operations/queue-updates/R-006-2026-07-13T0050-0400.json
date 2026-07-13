@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": {
+    "id": "R-006",
+    "owner": "frontier_research",
+    "priority": 5,
+    "action": "Convert OIDC replay rejection into an atomic durable uniqueness decision that remains safe under concurrent submissions.",
+    "dependencies": ["R-005"],
+    "required_evidence": [
+      "current primary platform documentation",
+      "committed atomic store adapter",
+      "adversarial concurrency test",
+      "explicit routing and trust limits",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://developers.cloudflare.com/durable-objects/api/sqlite-storage-api/",
+        "https://docs.github.com/en/actions/reference/security/oidc",
+        "https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.7"
+      ],
+      "finding": "A replay check must be one atomic unique insertion. A SQLite PRIMARY KEY over the derived issuer-jti replay key with ON CONFLICT DO NOTHING yields exactly one accepted winner while retained.",
+      "module": "tools/frontier-research/atomic-oidc-replay-store.mjs",
+      "test": "tools/frontier-research/atomic-oidc-replay-store.test.mjs",
+      "evidence": "operations/evidence/frontier-research-atomic-oidc-replay-2026-07-13T0050-0400.json",
+      "commits": [
+        "8150425e2de1691159b28c33215ed36ccdc35630",
+        "ea8189ba5b2e7efb8d22fdd07b60024a447d1296",
+        "dff9b870cde329e2cff841b55215151b13ff9170"
+      ],
+      "verification": "5 deterministic Node tests passed; a 32-attempt adversarial batch produced exactly one acceptance and 31 replay rejections."
+    },
+    "handoff": "Cloudflare Research should instantiate one SQLite-backed Durable Object replay namespace, route the protected replay domain to a stable single object identity, invoke acceptReplayOnce only after signed identity acceptance, and block deployment/evidence promotion unless the atomic insert wins. Validate with simultaneous real-runtime requests before claiming concurrency safety."
+  },
+  "canonical_state_modified": false,
+  "trust_limit": "This additive projection records a tested implementation-ready adapter. It does not prove Cloudflare runtime behavior, workflow integration, peer execution, deployment success, or evidence truth."
+}
