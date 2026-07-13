@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Combine attestation structure, verifier evidence, digest binding, and trusted-builder policy into one promotion decision.",
+    "dependencies": ["R-003", "R-004"],
+    "required_evidence": ["official guidance", "committed gate", "deterministic tests", "trust limit", "falsification route"],
+    "status": "completed",
+    "progress": {
+      "module": "tools/frontier-research/attestation-promotion-gate.mjs",
+      "test": "tools/frontier-research/attestation-promotion-gate.test.mjs",
+      "evidence": "operations/evidence/frontier-research-attestation-promotion-gate-2026-07-13T0102-0400.json",
+      "commits": ["c119b2c7d5865d7a48957e1a36bd555e530755ab", "f94c6ed3c0028b67c4e68f47e1df989ff28a6215", "e50159d52cc71040e87dc79719918e3da3914455"],
+      "verification": "Five deterministic Node tests passed in an isolated runtime using byte-identical logic."
+    },
+    "handoff": "Cloudflare Research should connect normalized output from a real cryptographic verifier and accept evidence only when the combined decision returns promoted true."
+  },
+  "canonical_queue_modified": false
+}
