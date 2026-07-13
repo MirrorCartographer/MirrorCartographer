@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-012",
+  "owner": "frontier_research",
+  "priority": 4,
+  "action": "Bind each OIDC temporal calibration measurement contract to exact collector and workflow invocation provenance before comparability analysis.",
+  "dependencies": ["R-011"],
+  "required_evidence": [
+    "current primary sources",
+    "committed provenance evaluator",
+    "deterministic adversarial tests",
+    "explicit cryptographic and epistemic limits",
+    "falsification route"
+  ],
+  "status": "completed",
+  "progress": {
+    "primary_sources": [
+      "https://slsa.dev/spec/v1.2/provenance",
+      "https://docs.github.com/en/actions/reference/security/oidc",
+      "https://www.nist.gov/pml/nist-technical-note-1297"
+    ],
+    "finding": "A calibration contract must be digest-bound to exact collector source, workflow source, and invocation identity before its aggregate cohort may enter the R-011 comparability gate.",
+    "module": "tools/frontier-research/oidc-calibration-contract-provenance.mjs",
+    "test": "tools/frontier-research/oidc-calibration-contract-provenance.test.mjs",
+    "evidence": "operations/evidence/frontier-research-oidc-calibration-contract-provenance-2026-07-13T0146-0400.json",
+    "commits": [
+      "cfce6490959ca4de2d6892ad1f712a987cad746b",
+      "baaf6eb34d296675cbd1f160a00a09a050651e01",
+      "555ea52e22c33d49f671d8e4ebaca569555762fb"
+    ],
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+  },
+  "handoff": "Cloudflare Research should require this provenance result before R-011 comparability, then run R-010 drift detection only for cohorts whose contract provenance and comparability both pass. Signature verification and authenticated source acquisition remain separate mandatory controls."
+}
