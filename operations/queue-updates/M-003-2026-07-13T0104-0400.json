@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-003",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Enforce continuity graph integrity at repository boundaries without rewriting historical records.",
+    "dependencies": ["M-002"],
+    "required_evidence": [
+      "package-level continuity verification command",
+      "path-scoped repository workflow",
+      "provenance-preserving continuity record",
+      "execution-status limit"
+    ],
+    "status": "implemented_pending_runtime_verification",
+    "progress": {
+      "package_commit": "46d57ac56e37a0de8444ce7ddae2fbddf0f79e2d",
+      "workflow": ".github/workflows/continuity-integrity.yml",
+      "workflow_commit": "34fb76635c8066b96b4606fa1cd5e2c60a63468b",
+      "continuity_record": "operations/continuity/records/CM-0012.json",
+      "continuity_record_commit": "bdea75ad5d5593b07df80956bf82ff574642113e",
+      "evidence": "operations/evidence/continuity-ci-gate-2026-07-13T0104-0400.json",
+      "evidence_commit": "9fdcce77bb61723eac4b11d017292a0096bca35c",
+      "verification": "GitHub accepted each additive source change. No successful workflow execution or required-check status is claimed."
+    },
+    "handoff": "Observe the first continuity-integrity workflow run, make it a required branch-protection check if appropriate, then add immutable source-locator verification as a separate control."
+  },
+  "canonical_queue_mutation": false,
+  "reason": "The canonical ACTIVE_QUEUE.json is shared and stale. This additive owner-scoped projection preserves other teams' records and avoids overwriting concurrent work."
+}
