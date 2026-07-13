@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T12:56:00-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a dedicated fail-closed CI workflow and contract tests binding redirect-continuity adversarial tests to the production deployment verification path.",
+  "evidence": [
+    "operations/evidence/cloudflare-production-redirect-contract-2026-07-13T1256-0400.json"
+  ],
+  "files": [
+    "cloudflare-static/deployment-redirect-workflow-contract.test.mjs",
+    ".github/workflows/cloudflare-production-redirect-contract.yml"
+  ],
+  "commits": [
+    "2ec7ec30a75d1d37f2a7ad0395d09a396004e443",
+    "9408272c3f0a67b6b6508e78f4f06069ab4bb63d",
+    "fda31d3577d38b03d1a1383935525bdc4425c7d4",
+    "e5674ebb718578dd00b7c95ccc26f6aafb8d504b"
+  ],
+  "verification": "Committed source inspection confirms both exact Node test commands and the production URL-to-verifier linkage. Fresh-checkout execution was blocked by DNS resolution, and no successful Actions run or Cloudflare deployment was observed.",
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, observe a green production redirect contract run, then dispatch the production workflow and retain its exact deployment acceptance packet.",
+  "next_action": "Inspect the GitHub Actions result for commit fda31d3577d38b03d1a1383935525bdc4425c7d4 or a descendant; if green and credentials are available, dispatch cloudflare-pages-research.yml and verify the returned deployment URL, control-plane metadata, served identity, and signed evidence manifest."
+}
