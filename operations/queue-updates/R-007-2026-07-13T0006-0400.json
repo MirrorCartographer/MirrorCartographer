@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-007",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed",
+  "action": "Add a pinned, freshness-aware network trust boundary for GitHub Actions OIDC discovery and JWKS retrieval.",
+  "dependencies": ["R-006"],
+  "required_evidence": [
+    "current official GitHub OIDC documentation",
+    "committed network client",
+    "deterministic adversarial tests",
+    "bounded key-rotation refresh",
+    "explicit trust limits and falsification route"
+  ],
+  "progress": {
+    "primary_sources": [
+      "https://docs.github.com/en/actions/concepts/security/openid-connect",
+      "https://docs.github.com/en/actions/reference/security/oidc",
+      "https://nodejs.org/api/globals.html#fetch",
+      "https://www.rfc-editor.org/rfc/rfc9111.html"
+    ],
+    "finding": "OIDC verification requires a deny-by-default metadata transport boundary: exact pinned endpoints, manual redirect rejection, final URL equality, JSON media type, bounded timeout and body size, HTTP freshness checks, and at most one JWKS refresh only after verification_key_not_found.",
+    "module": "tools/frontier-research/github-oidc-metadata-client.mjs",
+    "test": "tools/frontier-research/github-oidc-metadata-client.test.mjs",
+    "evidence": "operations/evidence/frontier-research-github-oidc-metadata-network-2026-07-13.json",
+    "commits": [
+      "3d1174ae41dd92f4644bf126d619ed80f3abd4e2",
+      "248192b7c7ff69f48fadbad5f8f46bcb7c286d73",
+      "d3f8fe8cac9bdd7ff6808a219845fd31cbc448d7"
+    ],
+    "verification": "Six deterministic Node tests passed locally with mocked HTTP responses and generated RSA/RS256 fixtures. No CI run or live GitHub token was observed."
+  },
+  "handoff": "Wire R-007 before R-006 in the protected workflow, then pass verified claims through R-005 authorization and the replay ledger. Add streaming byte-limit cancellation and record metadata digests in the invocation receipt.",
+  "updated_at": "2026-07-13T00:06:00-04:00"
+}
