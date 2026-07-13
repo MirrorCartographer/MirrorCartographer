@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-1000",
+  "kind": "contradiction",
+  "title": "Two continuity validators enforce different relation-integrity guarantees",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "tools/continuity/validate-continuity-records.mjs",
+      "content_sha": "d4f803a683ae988c54370856dc03108e4ec696bc",
+      "observed_at": "2026-07-13T17:21:37Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/validate-continuity-relations.mjs",
+      "content_sha": "3945dee7eb6b1745a0865def23f185b399e984ba",
+      "observed_at": "2026-07-13T17:21:37Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/queue-updates/M-002-2026-07-13T1314-0400.json",
+      "content_sha": "37007d811fe5fb70b6d7609fa7a702f966807cdd",
+      "observed_at": "2026-07-13T17:21:37Z"
+    }
+  ],
+  "summary": "The aggregate validator under tools/continuity validates required fields, enumerated values, unique IDs, relation target existence, self-reference, and the requirement that a superseded claim identify a target. The later relation validator under operations/continuity additionally rejects duplicate relation targets and supersession cycles, but accepts only an already-aggregated index object and is not shown as part of the aggregate repository gate. The durable state is therefore not simply 'continuity relations are validated': two partially overlapping contracts exist, and the repository-wide path may not enforce the stricter cycle and duplicate-edge guarantees until the implementations are composed or unified.",
+  "privacy": "public_repository_safe",
+  "contradicts": [
+    "Any current-state claim that one repository-wide continuity validator demonstrably enforces every relation guarantee implemented by both validator modules"
+  ],
+  "supersedes": [],
+  "status_relations": {
+    "observed": "The two modules have overlapping but non-identical acceptance rules and different input interfaces.",
+    "inferred": "A record set can satisfy the aggregate validator while still containing a duplicate relation target or a supersession cycle rejected by the newer relation validator.",
+    "proposed": "Compose the stricter relation validator into the aggregate repository gate, then retain one capability matrix and adversarial suite as the authoritative contract.",
+    "superseded": "Treating the existence of either validator alone as proof that all continuity relation invariants are enforced repository-wide.",
+    "unresolved": "No completed CI run or source integration observed in this run proves that the stricter relation validator executes against the aggregated monolithic and additive record set."
+  },
+  "falsification_or_review_route": "Fetch both modules at the recorded blob SHAs. Falsify this record by showing that the aggregate repository gate imports or equivalently implements duplicate-target and supersession-cycle rejection over the complete monolithic-plus-additive record set, or by demonstrating that the two validators have identical accepted and rejected input domains. Structural validation does not establish truth of any continuity claim."
+}
