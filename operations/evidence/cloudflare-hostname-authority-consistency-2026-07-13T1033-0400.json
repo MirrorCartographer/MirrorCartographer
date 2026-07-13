@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "observed_at": "2026-07-13T10:33:32-04:00",
+  "finding": "Served-hostname evidence must not be accepted independently of Cloudflare control-plane hostname authority and exact deployment metadata. A lookalike HTTPS host can serve matching identity content while remaining unbound to the intended Pages project.",
+  "design_implication": "Require one fail-closed cross-artifact verdict binding the authority record, hostname evidence gate, exact deployment metadata, project name, deployment URL, hostname, and full source commit before deployment evidence is eligible for acceptance.",
+  "artifacts": {
+    "validator": "cloudflare-static/validate-hostname-authority-consistency.mjs",
+    "tests": "cloudflare-static/validate-hostname-authority-consistency.test.mjs",
+    "validator_commit": "2752257c7c40986996f7fcc8ad2e92c8f3c564bc",
+    "test_commit": "aaf3f86aa9669469bd100dd594c5c7f74db883d7"
+  },
+  "verification": {
+    "status": "isolated-byte-equivalent-tests-passed",
+    "tests_passed": 4,
+    "cases": [
+      "exact authority, gate, metadata, project, URL, hostname, and source commit agreement accepted",
+      "lookalike served hostname rejected",
+      "different control-plane source commit rejected",
+      "custom-domain relation rejected until separately admitted by policy"
+    ],
+    "limit": "The isolated runtime used byte-equivalent validator logic. The committed repository test file has not yet run in GitHub Actions or a clean checkout."
+  },
+  "claim_state": "implemented",
+  "evidence_strength": "deterministic-isolated-test",
+  "privacy": {
+    "classification": "public-safe",
+    "secrets_included": false,
+    "account_id_included": false,
+    "private_chat_included": false,
+    "health_information_included": false
+  },
+  "falsification_route": "Run the committed tests in a clean checkout, then construct a deployment evidence set where the served page matches but the authority or metadata URL, hostname, project, or commit differs. Any accepted verdict falsifies the gate.",
+  "remaining_limit": "No Cloudflare deployment occurred because required environment credentials remain externally unconfigured. This artifact does not establish a resolving hostname or successful deployment."
+}
