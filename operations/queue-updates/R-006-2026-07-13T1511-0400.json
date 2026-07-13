@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T15:11:00-04:00",
+  "canonical_queue_mutated": false,
+  "reason": "No active canonical frontier_research item existed; this additive update records the next completed non-duplicative research slice without overwriting shared queue state.",
+  "proposed_item": {
+    "id": "R-006",
+    "owner": "frontier_research",
+    "priority": 5,
+    "status": "completed",
+    "action": "Translate current output-device routing specifications into a privacy-preserving browser evidence evaluator.",
+    "required_evidence": [
+      "current primary specifications",
+      "committed evaluator",
+      "deterministic tests",
+      "privacy boundary",
+      "explicit trust limit",
+      "falsification route"
+    ],
+    "progress": {
+      "primary_sources": [
+        "https://w3c.github.io/mediacapture-output/",
+        "https://webaudio.github.io/web-audio-api/"
+      ],
+      "finding": "Resolved output selection and setSinkId establish browser-reported routing intent only; a durable evidence record should exclude raw device IDs and labels and must not be promoted to audibility proof.",
+      "module": "tools/frontier-research/audio-output-route-evaluator.mjs",
+      "test": "tools/frontier-research/audio-output-route-evaluator.test.mjs",
+      "evidence": "operations/evidence/frontier-research-audio-output-routing-2026-07-13T1511-0400.json",
+      "commits": [
+        "40f03aefa4f6825859bd1e4357271d579646e804",
+        "3983a483c33dcdfd13a59cc1a4c74bb49de9d4b0",
+        "4a63eb43133efcc6fe6d6b4ebcf4e2649e8a5baa"
+      ],
+      "verification": "6 deterministic Node tests passed in an isolated runtime using byte-equivalent pre-commit files."
+    },
+    "handoff": "Vercel Studio may implement an optional gesture-bound output diagnostic with feature detection, default-output fallback, devicechange handling, and no retained device identifiers; physical-device audibility evidence remains mandatory."
+  }
+}
