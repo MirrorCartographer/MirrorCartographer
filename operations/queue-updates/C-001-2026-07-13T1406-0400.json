@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T14:06:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Project-bound Cloudflare Pages hostname policy is now enforced inside the exact-commit hostname evidence gate before network probing.",
+  "specialists_used": [
+    "Cloudflare Deployment Engineer",
+    "Provenance Engineer",
+    "Evidence Auditor"
+  ],
+  "files": [
+    "cloudflare-static/run-hostname-evidence-gate.mjs",
+    "cloudflare-static/run-hostname-evidence-gate.test.mjs",
+    "operations/evidence/cloudflare-hostname-gate-policy-binding-2026-07-13T1406-0400.json"
+  ],
+  "commits": [
+    "9e8c746c62f95977e708026fdb90717c9d876d9e",
+    "517c3c2af032d7bf83b21105c216fdabff3f4f21",
+    "e5f3a191004498f7d8181d215eab4c6b0aad7815"
+  ],
+  "verification": {
+    "source_readback": "verified",
+    "workflow_runs": 0,
+    "runtime_or_deployment": "not_observed"
+  },
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch the existing workflow and retain the returned deployment and hostname evidence artifacts.",
+  "next_action": "Execute the committed hostname-gate tests in CI, then dispatch the Cloudflare deployment workflow and require hostname-policy acceptance plus exact-commit evidence before promotion.",
+  "non_overwrite_statement": "Canonical ACTIVE_QUEUE.json and other teams' owned records were not modified."
+}
