@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-012",
+  "recorded_at": "2026-07-13T13:14:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://w3c.github.io/event-timing/",
+      "status": "current_editor_draft",
+      "use": "Defines browser interaction timing observations used by the exact evaluator integration suite."
+    },
+    {
+      "url": "https://w3c.github.io/long-animation-frames/",
+      "status": "current_editor_draft",
+      "use": "Defines long-animation-frame observations used as an independent responsiveness stream."
+    },
+    {
+      "url": "https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax",
+      "status": "current_official_documentation",
+      "use": "Defines workflow placement, event path filters, permissions, jobs, and steps."
+    }
+  ],
+  "finding": "The R-011 runner was source-tested but not repository-CI-bound. A dedicated read-only workflow now executes the runner contract, runs the exact two-suite gate, validates the machine-readable claim boundary, and retains the exact JSON report for 30 days.",
+  "implementation": {
+    "workflow": ".github/workflows/frontier-browser-evidence-gate.yml",
+    "commit": "e35a5e264d6d4f0535d236c6f0b17f2813efa665",
+    "permissions": ["contents: read"],
+    "pinned_actions": {
+      "actions/checkout": "8e8c483db84b4bee98b60c0593521ed34d9990e8",
+      "actions/upload-artifact": "ea165f8d65b6e75b540449e92b4886f43607fa02"
+    },
+    "retention_days": 30
+  },
+  "verification": {
+    "source_readback": "verified at commit e35a5e264d6d4f0535d236c6f0b17f2813efa665",
+    "workflow_runs_observed": 0,
+    "commit_status_observation": "Only Vercel build-rate-limit failures were visible; no GitHub Actions completion was available at observation time.",
+    "claim_state": "committed_source_verified_ci_pending"
+  },
+  "evidence_strength": "source-level strong; execution-level pending",
+  "claim_limit": "The committed workflow proves CI wiring and fail-closed intent. Until a workflow run and retained artifact are observed, it does not prove that the tests executed successfully. Even a passing run would not prove deployment identity, physical-device execution, audibility, subjective smoothness, or production behavior.",
+  "falsification_route": "Reject this slice if the workflow omits or substitutes either exact underlying suite, permits child failures, accepts a malformed report, uses broader write permissions, uses mutable action references, fails to retain the exact report, or if the eventual GitHub Actions run exits non-zero."
+}
