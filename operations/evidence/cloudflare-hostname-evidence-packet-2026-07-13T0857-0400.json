@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "created_at": "2026-07-13T08:57:00-04:00",
+  "improvement": "Added a fail-closed orchestration layer that collects DNS, HTTP, served-identity, and deployment-manifest observations, classifies them, binds them to an exact 40-character source commit, and emits one acceptance packet.",
+  "files": {
+    "module": "cloudflare-static/build-hostname-evidence-packet.mjs",
+    "test": "cloudflare-static/build-hostname-evidence-packet.test.mjs"
+  },
+  "commits": {
+    "module": "b09ebe5470f4f00488bbbd1690c3a3e16d2dd9c9",
+    "test": "2d908d04e7eb80746351ad7e847a93a1d74fecb9"
+  },
+  "verification": {
+    "route": "isolated Node test runtime using the exact source and test bytes submitted to GitHub",
+    "tests_passed": 4,
+    "tests_failed": 0,
+    "covered": [
+      "exact commit-bound deployment evidence accepted",
+      "served manifest commit mismatch rejected even when classifier accepts",
+      "partial served-identity evidence rejected",
+      "mutable or malformed source ref rejected before network collection"
+    ]
+  },
+  "acceptance_rule": "accepted only when retained DNS, HTTP reachability, served research identity, exact deployed commit, classifier acceptance, and packet binding all agree without contradictions",
+  "privacy_boundary": "Contains only public repository identifiers, synthetic host fixtures, synthetic documentation addresses, and abstract deployment evidence. No private chat, health data, credentials, diagnosis, or treatment claims.",
+  "limits": [
+    "No authenticated Cloudflare control-plane response was available.",
+    "No resolving production hostname or live served commit was proven in this run.",
+    "Isolated deterministic tests are weaker than a clean GitHub Actions checkout and live Cloudflare observation.",
+    "Deployment evidence does not establish scientific, medical, diagnostic, or treatment truth."
+  ],
+  "next_action": "Wire build-hostname-evidence-packet.mjs into the Cloudflare Pages workflow immediately after Cloudflare returns the deployment URL, retain the packet as an artifact, and require accepted=true before C-001 can advance."
+}
