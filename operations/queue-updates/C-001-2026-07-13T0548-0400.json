@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T05:48:06-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a fail-closed cross-redeployment persistence verifier and wired it into the Cloudflare stack workflow before Pages deployment.",
+  "specialists_used": [
+    "Cloudflare Deployment Engineer",
+    "Provenance Engineer",
+    "Evidence Auditor"
+  ],
+  "progress": {
+    "module": "cloudflare-static/verify-replay-reservation-redeployment.mjs",
+    "test": "cloudflare-static/verify-replay-reservation-redeployment.test.mjs",
+    "workflow": ".github/workflows/cloudflare-research-stack.yml",
+    "evidence": "operations/evidence/cloudflare-redeployment-persistence-gate-2026-07-13T0548-0400.json",
+    "commits": [
+      "8df4aaeba790640f9925d3459790dae7dfaad922",
+      "2fa974e552b87270d1e807b33f4cc49349211a18",
+      "25e4181d0cb243d702c5a7cd69d3860d46f5739b",
+      "8f7ab1eef82b49445421a8b546ec0ec43c9793fe"
+    ],
+    "verification": "Implementation and adversarial test source are committed. No workflow run existed for the workflow commit at inspection time; live Cloudflare proof remains blocked on environment credentials.",
+    "ordering_invariant": "Worker deploy -> exact health identity -> live one-winner atomicity -> create durable reservation -> identical-source Worker redeploy -> same-key replay with same reservation_id -> Pages deploy -> served Pages identity."
+  },
+  "remaining": [
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Dispatch cloudflare-research-stack.yml.",
+    "Retain and inspect cloudflare-replay-reservation-redeployment-proof.json and cloudflare-stack-deployment-evidence.json.",
+    "Resolve and publish the actual Pages hostname only after the full gate passes."
+  ],
+  "canonical_mutation": false
+}
