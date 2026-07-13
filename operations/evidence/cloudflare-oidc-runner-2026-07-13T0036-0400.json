@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T00:36:00-04:00",
+  "improvement": "Added an executable GitHub Actions OIDC evidence runner that requests a scoped token, retrieves pinned metadata, verifies the RSA signature, authorizes exact workflow claims against an invocation receipt, and emits a sanitized decision artifact without persisting either token.",
+  "files": [
+    "cloudflare-static/run-github-oidc-evidence.mjs",
+    "cloudflare-static/run-github-oidc-evidence.test.mjs"
+  ],
+  "commits": [
+    "42ab7e9d7fd85e0e7896518d04e8ebc3f4cddf92",
+    "4685bf8fc37656ac1439efd64c4ce3536916ecbb"
+  ],
+  "verification": {
+    "source_commit_evidence": "committed",
+    "test_contract": "committed",
+    "runtime_execution": "not_observed",
+    "runtime_limit": "Fresh checkout failed because github.com DNS resolution was unavailable in the execution runtime.",
+    "deployment": "not_attempted_missing_cloudflare_environment_credentials"
+  },
+  "security_properties": [
+    "fixed audience default",
+    "Bearer request credential used only for the GitHub token endpoint",
+    "OIDC JWT never included in returned or written artifact",
+    "request credential never included in returned or written artifact",
+    "exact repository, workflow, ref, environment, run, actor, and source SHA matching",
+    "pinned GitHub issuer, JWKS URL, and RS256 verification",
+    "fail-closed decision when signature or claim authorization fails"
+  ],
+  "trust_limits": [
+    "Replay rejection remains separate.",
+    "The runner is not yet wired into the deployment workflow.",
+    "No Cloudflare deployment success or served identity was proven.",
+    "No scientific, diagnostic, or treatment claim is established by OIDC acceptance."
+  ],
+  "privacy_boundary": "No private chat, health data, credentials, token values, or identifying user material was written to the repository."
+}
