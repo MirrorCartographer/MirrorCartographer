@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "observed_at": "2026-07-13T14:35:00-04:00",
+  "finding": "The publication-boundary validator existed as source and tests but was not independently enforced for every Cloudflare research-surface change.",
+  "improvement": {
+    "workflow": ".github/workflows/cloudflare-research-publication-gate.yml",
+    "contract_test": ".github/workflows/cloudflare-research-publication-gate.test.mjs",
+    "behavior": [
+      "runs the existing deterministic publication-policy tests",
+      "validates cloudflare-static/index.html",
+      "fails closed on diagnosis, treatment, payment, or missing epistemic-boundary markers",
+      "retains the exact JSON decision as a 30-day workflow artifact",
+      "uses read-only repository permissions and performs no deployment"
+    ]
+  },
+  "verification": {
+    "method": "isolated Node test against byte-identical workflow and contract-test contents before commit",
+    "result": "passed",
+    "tests": 4,
+    "assertions": [
+      "policy tests execute before source validation",
+      "Cloudflare research changes and main pushes trigger the gate",
+      "workflow has read-only permissions and no deployment or payment action",
+      "exact boundary result is retained as an artifact"
+    ]
+  },
+  "commits": {
+    "workflow": "88e032431ae57414dc48e95b05827b4c76cb73e0",
+    "contract_test": "fb7c0281a22ffcf6a7b7824f75f69c5ef57ab168"
+  },
+  "evidence_strength": "source-and-isolated-test",
+  "limits": [
+    "The gate is deterministic policy enforcement, not medical or scientific review.",
+    "This workflow does not prove a Cloudflare deployment or hostname.",
+    "Pattern-based checks may miss novel or indirect prohibited claims.",
+    "The separate deployment workflow still requires valid Cloudflare environment credentials."
+  ],
+  "privacy_boundary": "Only public repository source and workflow metadata were inspected; no private chat, health records, credentials, or identifying personal material were published."
+}
