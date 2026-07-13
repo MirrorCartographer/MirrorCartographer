@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-005",
+  "created_at": "2026-07-13T14:16:00-04:00",
+  "status": "implemented_source_verified_test_execution_unobserved",
+  "primary_sources": [
+    {
+      "url": "https://github.com/secure-systems-lab/dsse/blob/master/protocol.md",
+      "status": "primary_specification",
+      "use": "DSSE pre-authentication encoding and envelope verification boundary"
+    },
+    {
+      "url": "https://docs.sigstore.dev/cosign/verifying/verify/",
+      "status": "official_current_documentation",
+      "use": "identity-bound verification, payload-digest checks, and transparency-log verification"
+    }
+  ],
+  "finding": "The existing DSSE promotion classifier recorded transparency_log_verified but did not require it. A verifier result with a trusted identity, matching payload digest and type, and valid PAE could therefore be promoted while transparency evidence was false or absent.",
+  "design_implication": "Cryptographic evidence promotion now requires transparency-log verification by default. A separate trust model may disable that gate only through an explicit boolean false; string or implicit coercions fail closed.",
+  "implementation": {
+    "module": "tools/frontier-research/dsse-verification-contract.mjs",
+    "module_commit": "26382a795581cb0e5fe8442a080a04092b07cbe9",
+    "test": "tools/frontier-research/dsse-verification-contract.test.mjs",
+    "test_commit": "77d74574f709d67ccf82d943410c31549c6f152d"
+  },
+  "verification": {
+    "source_write": "accepted by GitHub contents API",
+    "test_cases_added": [
+      "default policy rejects transparency_log_verified false",
+      "default policy rejects missing transparency_log_verified",
+      "explicit false permits a separately declared non-transparency trust model",
+      "non-boolean policy values are rejected"
+    ],
+    "workflow_runs_for_test_commit": 0,
+    "test_execution_claimed": false
+  },
+  "claim_state": {
+    "observed": "The previous classifier did not gate trusted signer counting on transparency_log_verified.",
+    "implemented": "The default gate now requires transparency_log_verified === true before a signer contributes to threshold.",
+    "not_proven": [
+      "The Node test file has executed in CI.",
+      "Any real signature, certificate chain, Rekor inclusion proof, or signed-entry timestamp has been cryptographically verified by this module.",
+      "The underlying evidence claim is true."
+    ]
+  },
+  "evidence_strength": "source-level implementation with deterministic tests committed; runtime test execution unavailable",
+  "falsification_route": "Run the committed test file and additionally provide verifier results with false, missing, or string-valued transparency policy data. Any default-policy acceptance of such a result falsifies the implementation claim.",
+  "privacy_boundary": "Public specifications and public repository source only; no private chat, health material, credentials, or identifying personal data included."
+}
