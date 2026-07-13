@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-003",
+  "recorded_at": "2026-07-13T05:04:39Z",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "change": {
+    "package_script_commit": "46d57ac56e37a0de8444ce7ddae2fbddf0f79e2d",
+    "workflow_commit": "34fb76635c8066b96b4606fa1cd5e2c60a63468b",
+    "continuity_record_commit": "bdea75ad5d5593b07df80956bf82ff574642113e",
+    "scripts": {
+      "test:continuity": "node --test tools/continuity/*.test.mjs",
+      "verify:continuity": "npm run test:continuity && node tools/continuity/validate-continuity-records.mjs ."
+    },
+    "workflow": ".github/workflows/continuity-integrity.yml",
+    "workflow_properties": {
+      "permissions": "contents: read",
+      "timeout_minutes": 5,
+      "path_scoped": true,
+      "concurrency_cancel_in_progress": true,
+      "manual_dispatch": true
+    }
+  },
+  "verification": {
+    "source_observation": "GitHub accepted the package update and workflow creation and returned immutable commit SHAs.",
+    "runtime_status": "not_observed",
+    "reason": "No completed workflow run associated with the new workflow commit was available during the run.",
+    "strongest_claim": "implementation committed; execution pending"
+  },
+  "privacy_boundary": "Only public repository source, commit metadata, and synthetic validation behavior are represented. No private chat, health, credentials, contact data, or unreviewed uploads are included.",
+  "limits": [
+    "A committed workflow is not evidence that GitHub Actions executed successfully.",
+    "The check does not block merges unless repository branch protection requires it.",
+    "The validator checks graph structure and provenance fields, not whether each claim is substantively true.",
+    "Source locators are structurally checked but are not yet fetched and cryptographically verified by the continuity validator."
+  ],
+  "falsification_route": "Dispatch or trigger the continuity workflow, inspect its job and step results, then introduce an invalid continuity fixture on a test branch. The gate is falsified if the invalid record passes or if npm run verify:continuity omits either the test suite or aggregate validator."
+}
