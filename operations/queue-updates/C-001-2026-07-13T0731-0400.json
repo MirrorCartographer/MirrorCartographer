@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T07:31:00-04:00",
+  "canonical_queue_overwritten": false,
+  "status": "blocked_external_configuration",
+  "completed_slice": {
+    "action": "Add a deterministic hostname-resolution evidence ladder so control-plane hostname discovery cannot be reported as a resolving, reachable, identity-verified, exact-commit deployment.",
+    "module": "cloudflare-static/classify-hostname-resolution.mjs",
+    "test": "cloudflare-static/classify-hostname-resolution.test.mjs",
+    "evidence": "operations/evidence/cloudflare-hostname-resolution-contract-2026-07-13.json",
+    "commits": [
+      "1d01c8ce21908b601fcb248b791c2ec292f2b571",
+      "a1dfea1353be539340e6f32665dd16b700f5a5d2",
+      "93dbf9d9e815df2adf66123bd3d57646aa184718"
+    ],
+    "verification": "Committed source fetched back successfully; deterministic tests are committed but were not executed in this run, so no passing test result is claimed."
+  },
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, dispatch the existing deployment workflow, retain Cloudflare's returned URL and control-plane hostname authority, then collect DNS, HTTP, served-identity, and exact-commit observations for classification.",
+  "next_acceptance": [
+    "clean-runner test passes",
+    "canonical hostname observed through sanitized Cloudflare project metadata",
+    "DNS answer retained",
+    "HTTP response retained",
+    "research surface identity verified",
+    "exact deployed commit verified",
+    "classifier returns deployed-commit-served with accepted=true"
+  ],
+  "boundaries": {
+    "payment_logic_moved_to_vercel": false,
+    "diagnosis_or_treatment_claim_published": false,
+    "files_or_history_deleted": false,
+    "specialist_registry_changed": false
+  }
+}
