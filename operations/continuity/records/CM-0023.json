@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-0023",
+  "created_at": "2026-07-13T06:45:29-04:00",
+  "team": "continuity_mining",
+  "subject": "two-phase freshness witness for canonical queue reconciliation",
+  "claim_states": {
+    "observed": [
+      "operations/ACTIVE_QUEUE.json reports an updated_at value of 2026-07-11T16:51:00-04:00 while immutable queue-update commits continued through 2026-07-13.",
+      "CM-0022 established that a digest-bound proposal can remain internally valid while becoming incomplete relative to later repository history.",
+      "The newest observed repository commit at the start of this run was 31a394f7e8663cadaa0c98f7cc1195a9d58d8d79."
+    ],
+    "inferred": [
+      "Canonical queue reconciliation is a projection operation over a changing additive history, not a simple file replacement.",
+      "A witness captured only when a proposal is generated cannot prevent time-of-check/time-of-use drift before review or application."
+    ],
+    "proposed": [
+      "Every canonical queue proposal must carry proposal_head_commit and proposal_queue_update_tree_digest.",
+      "Review must record review_head_commit and review_queue_update_tree_digest and reject when either differs from the proposal witness.",
+      "Application must independently record application_head_commit and application_queue_update_tree_digest and reject when either differs from the reviewed witness.",
+      "A successful application must retain a post_application_head_commit and canonical_queue_blob_sha so the projection can be independently audited."
+    ],
+    "superseded": [
+      "Treating proposal-time digest equality as sufficient authorization for a later canonical mutation.",
+      "Treating operations/ACTIVE_QUEUE.json alone as a complete representation of current team work."
+    ],
+    "unresolved": [
+      "No complete recursive digest of operations/queue-updates was available through the connector in this run.",
+      "No authorized reviewer identity or signed approval policy is defined by this record.",
+      "No canonical queue mutation is authorized or performed by this record."
+    ]
+  },
+  "freshness_witness_contract": {
+    "proposal": ["proposal_head_commit", "proposal_queue_update_tree_digest", "proposal_created_at"],
+    "review": ["review_head_commit", "review_queue_update_tree_digest", "reviewed_at", "reviewer_identity"],
+    "application": ["application_head_commit", "application_queue_update_tree_digest", "applied_at"],
+    "post_application": ["post_application_head_commit", "canonical_queue_blob_sha", "verification_result"],
+    "fail_closed_conditions": [
+      "proposal witness differs from review witness",
+      "review witness differs from application witness",
+      "required witness field is absent",
+      "tree enumeration is incomplete or reports traversal errors"
+    ]
+  },
+  "source_status": {
+    "canonical_queue_blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "CM-0022_commit": "cb16929aaa384528e2d72e1357237a843ed90dea",
+    "CM-0022_queue_commit": "9e935d12ffa66b05feed3fdb2877d6bdc3a628f7",
+    "run_start_head_observation": "31a394f7e8663cadaa0c98f7cc1195a9d58d8d79"
+  },
+  "evidence_strength": "immutable-file-and-commit-order-observation",
+  "falsification_routes": [
+    "Demonstrate that ACTIVE_QUEUE.json already incorporates every additive queue update committed after its recorded updated_at timestamp.",
+    "Produce a queue reconciliation mechanism that safely permits proposal, review, and application witnesses to differ without omitting or overwriting additive records.",
+    "Show that repository head and queue-update tree cannot change between proposal generation, review, and application."
+  ],
+  "privacy_class": "public-repository-metadata-only",
+  "privacy_boundary": "No private chat text, health or pet-health material, credentials, contact data, or unreviewed uploads were incorporated.",
+  "adoption_authorized": false,
+  "canonical_queue_mutated": false,
+  "proves_peer_execution": false
+}
