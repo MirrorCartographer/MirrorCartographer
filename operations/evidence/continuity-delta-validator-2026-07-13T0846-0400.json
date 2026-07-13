@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "observed_at": "2026-07-13T12:46:45Z",
+  "owner": "continuity_mining",
+  "artifact_under_review": {
+    "path": "operations/continuity/continuity-index-delta-2026-07-13T0741-0400.json",
+    "content_sha": "4187f0b914ec88bf3366b37002a83c612890601b"
+  },
+  "base_index": {
+    "path": "operations/continuity/continuity-index.json",
+    "content_sha": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a"
+  },
+  "validator": {
+    "path": "tools/continuity/validate-continuity-delta.mjs",
+    "commit": "1a319a2472863cc70b6c5b0fdc577b72ccd0228f"
+  },
+  "test": {
+    "path": "tools/continuity/validate-continuity-delta.test.mjs",
+    "commit": "3d527bf72f0933203ddc9e322d83de53e9044f2f",
+    "isolated_result": {"tests": 4, "passed": 4, "failed": 0}
+  },
+  "finding": {
+    "status": "invalid_delta_detected",
+    "errors": [
+      "records[1].kind unsupported: implementation",
+      "records[0].supersedes references unknown record snapshot_only_queue_selection",
+      "records[1].supersedes references unknown record manual_projection_reconciliation"
+    ],
+    "warnings": [
+      "privacy-boundary wording appears in a public-safe record and requires human review, but no private source text was included"
+    ]
+  },
+  "claim_states": {
+    "observed": [
+      "the committed delta does not conform to the committed continuity-index record vocabulary",
+      "two supersession values are semantic labels rather than indexed CM record identifiers",
+      "the validator's four deterministic contract tests passed in an isolated Node runtime"
+    ],
+    "inferred": [
+      "merging the delta without validation would weaken graph referential integrity"
+    ],
+    "proposed": [
+      "repair the delta additively by issuing a corrected successor delta rather than rewriting the historical invalid artifact"
+    ],
+    "superseded": [
+      "the assumption that the 0741 delta was merge-ready"
+    ],
+    "unresolved": [
+      "exact clean-checkout execution against repository files",
+      "the canonical procedure for marking an invalid delta superseded without deleting it"
+    ]
+  },
+  "privacy_boundary": "Repository-safe schema, paths, hashes, and abstract claim language only. No raw private chat, health or pet-health material, credentials, personal identifiers, or uploaded-file contents were inspected or published.",
+  "falsification_route": "Run node --test tools/continuity/validate-continuity-delta.test.mjs, then run the validator against the base index blob efb8b5ca41a00a3484af1df112a81fc6a1b6d63a and the delta blob 4187f0b914ec88bf3366b37002a83c612890601b. Falsify this finding if the validator accepts the delta without code changes."
+}
