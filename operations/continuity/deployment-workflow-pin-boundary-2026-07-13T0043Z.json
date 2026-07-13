@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-13T00:43:53Z",
+  "owner": "continuity_mining",
+  "privacy_boundary": "Public repository files and commit metadata only; no raw chat, health, pet-health, credentials, contact data, account identifiers, or unreviewed uploads.",
+  "memory_slice": {
+    "id": "M-005",
+    "title": "Deployment workflow pinning narrows supply-chain drift but does not establish deployment success",
+    "status": "completed",
+    "records": [
+      {
+        "id": "CM-0020",
+        "kind": "decision",
+        "claim_state": "observed",
+        "evidence_strength": "direct_commit_diff",
+        "summary": "The Cloudflare deployment workflow replaced four mutable third-party Action tags with reviewed 40-character commit references: checkout, wrangler-action, attest-build-provenance, and upload-artifact.",
+        "sources": [
+          {
+            "type": "github_commit",
+            "locator": "b5f8017bc26aa494fd60edf94e6c5ce3bd913fbf",
+            "observed_at": "2026-07-13T00:43:53Z"
+          }
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [
+          "The prior deployment-workflow state in which the four dependencies were referenced by mutable major-version tags"
+        ],
+        "falsification_or_review_route": "Fetch commit b5f8017bc26aa494fd60edf94e6c5ce3bd913fbf and verify each changed uses entry is an exact 40-character commit reference."
+      },
+      {
+        "id": "CM-0021",
+        "kind": "language_evolution",
+        "claim_state": "inferred",
+        "evidence_strength": "direct_commit_plus_prior_project_rule",
+        "summary": "Within project reporting, 'deployment workflow pinned' means the named direct Action references are immutable at the inspected commit. It does not mean the workflow ran, passed, deployed a site, used valid credentials, or produced trustworthy runtime evidence.",
+        "sources": [
+          {
+            "type": "github_commit",
+            "locator": "b5f8017bc26aa494fd60edf94e6c5ce3bd913fbf",
+            "observed_at": "2026-07-13T00:43:53Z"
+          },
+          {
+            "type": "continuity_artifact",
+            "locator": "operations/continuity/action-pin-language-boundary-2026-07-12T2334Z.json",
+            "observed_at": "2026-07-13T00:43:53Z"
+          }
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [
+          "Any shorthand treating immutable deployment workflow references as proof of successful deployment"
+        ],
+        "falsification_or_review_route": "Reject only if later evidence supplies commit-bound workflow execution, successful checks, deployment identity, and served-content verification."
+      },
+      {
+        "id": "CM-0022",
+        "kind": "proposed_rule",
+        "claim_state": "proposed",
+        "evidence_strength": "reasoned_from_repository_sources",
+        "summary": "Deployment evidence should report dependency reference state, workflow execution state, workflow conclusion, provider deployment identity, and served-content verification as separate fields; no field may imply another.",
+        "sources": [
+          {
+            "type": "github_commit",
+            "locator": "b5f8017bc26aa494fd60edf94e6c5ce3bd913fbf",
+            "observed_at": "2026-07-13T00:43:53Z"
+          }
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [],
+        "falsification_or_review_route": "Test the field separation against the next deployment proof packet and revise only if an authoritative schema supplies stronger non-overlapping semantics."
+      },
+      {
+        "id": "CM-0023",
+        "kind": "unresolved_question",
+        "claim_state": "unresolved",
+        "evidence_strength": "repository_gap",
+        "summary": "The inspected commit does not establish that the pinned deployment workflow executed successfully, that Cloudflare credentials were configured, that a deployment URL resolved, or that served content matched the source commit.",
+        "sources": [
+          {
+            "type": "github_commit",
+            "locator": "b5f8017bc26aa494fd60edf94e6c5ce3bd913fbf",
+            "observed_at": "2026-07-13T00:43:53Z"
+          }
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [],
+        "falsification_or_review_route": "Retain a commit-bound successful workflow run, provider-returned deployment identity, resolving public URL, and served-source identity proof."
+      }
+    ]
+  }
+}
