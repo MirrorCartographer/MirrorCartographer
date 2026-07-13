@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import { buildHostnameEvidencePacket } from './build-hostname-evidence-packet.mjs';
+import { classifyPagesHostname } from './classify-pages-hostname.mjs';
 
 export function hostnameFromDeploymentUrl(value) {
   let parsed;
@@ -14,7 +15,20 @@ export function hostnameFromDeploymentUrl(value) {
 }
 
 export async function runHostnameEvidenceGate(options, deps = {}) {
-  const hostname = hostnameFromDeploymentUrl(options?.deploymentUrl);
+  const deploymentUrl = String(options?.deploymentUrl || '').trim();
+  const hostname = hostnameFromDeploymentUrl(deploymentUrl);
+  const projectName = options?.projectName || options?.surface || 'mirror-cartographer-research';
+  const hostnamePolicy = classifyPagesHostname({
+    deployment_url: deploymentUrl,
+    project_name: projectName,
+    allowed_custom_hosts: options?.allowedCustomHosts || []
+  });
+  if (!hostnamePolicy.ok) {
+    const error = new Error(`deployment-hostname-policy-rejected:${hostnamePolicy.reasons.join(',')}`);
+    error.hostnamePolicy = hostnamePolicy;
+    throw error;
+  }
+
   const builder = deps.builder || buildHostnameEvidencePacket;
   const packet = await builder({
     hostname,
@@ -27,13 +41,14 @@ export async function runHostnameEvidenceGate(options, deps = {}) {
   if (packet?.observation?.hostname !== hostname) throw new Error('packet-hostname-binding-mismatch');
   if (packet?.expected?.source_commit !== String(options?.expectedCommit || '').toLowerCase()) throw new Error('packet-commit-binding-mismatch');
   return {
-    schema_version: '1.0.0',
+    schema_version: '1.1.0',
     gate_type: 'cloudflare-hostname-evidence-gate',
-    deployment_url: String(options.deploymentUrl),
+    deployment_url: deploymentUrl,
     hostname,
-    accepted: packet.accepted === true,
+    hostname_policy: hostnamePolicy,
+    accepted: hostnamePolicy.ok && packet.accepted === true,
     packet,
-    acceptance_rule: 'The gate accepts only an HTTPS deployment URL whose canonical hostname is bound to an accepted exact-commit hostname evidence packet.'
+    acceptance_rule: 'The gate accepts only a canonical HTTPS origin bound to the configured Cloudflare Pages project policy and an accepted exact-commit hostname evidence packet.'
   };
 }
 
@@ -44,10 +59,15 @@ async function main() {
     deploymentUrl,
     expectedCommit,
     repository: process.env.GITHUB_REPOSITORY || 'MirrorCartographer/MirrorCartographer',
-    surface: process.env.CLOUDFLARE_RESEARCH_SURFACE || 'mirror-cartographer-research'
+    surface: process.env.CLOUDFLARE_RESEARCH_SURFACE || 'mirror-cartographer-research',
+    projectName: process.env.CLOUDFLARE_PAGES_PROJECT || process.env.CLOUDFLARE_RESEARCH_SURFACE || 'mirror-cartographer-research',
+    allowedCustomHosts: String(process.env.CLOUDFLARE_ALLOWED_CUSTOM_HOSTS || '')
+      .split(',')
+      .map(value => value.trim())
+      .filter(Boolean)
   });
   fs.writeFileSync(outputPath, `${JSON.stringify(result, null, 2)}\n`, { flag: 'wx', mode: 0o600 });
-  process.stdout.write(`${JSON.stringify({ hostname: result.hostname, accepted: result.accepted, claim: result.packet?.classification?.claim || null })}\n`);
+  process.stdout.write(`${JSON.stringify({ hostname: result.hostname, hostname_class: result.hostname_policy?.binding?.host_class || null, accepted: result.accepted, claim: result.packet?.classification?.claim || null })}\n`);
   process.exitCode = result.accepted ? 0 : 1;
 }
 
