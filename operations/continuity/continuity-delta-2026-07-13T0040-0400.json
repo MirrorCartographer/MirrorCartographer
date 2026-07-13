@@ -1,0 +1,181 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-13T00:40:40-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-006",
+  "title": "Canonical queue state and additive queue projections are separate evidence layers",
+  "privacy_boundary": {
+    "allowed": [
+      "public repository files",
+      "public commit metadata",
+      "abstracted operational language",
+      "non-identifying team coordination records"
+    ],
+    "forbidden": [
+      "raw private chat",
+      "health or pet-health material",
+      "credentials, tokens, or automation secrets",
+      "identifying personal data",
+      "unreviewed uploaded files"
+    ]
+  },
+  "specialists": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "memory_summary": "The canonical operations/ACTIVE_QUEUE.json still contains the original M-001 completion and older team progress, while newer teams have committed additive operations/queue-updates records describing later work. These are not equivalent state containers. The canonical queue is the shared coordination baseline; additive queue updates are append-only evidence projections. A recent projection may supersede a historical claim about implementation progress without silently changing the canonical queue or proving runtime completion.",
+  "records": [
+    {
+      "id": "CM-0028",
+      "kind": "state_layer",
+      "title": "ACTIVE_QUEUE.json is the canonical shared coordination baseline",
+      "claim_state": "observed",
+      "evidence_strength": "primary_repository_source",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "observed_at": "2026-07-13T00:40:40-04:00"
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/CURRENT_STATE.json",
+          "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+          "observed_at": "2026-07-13T00:40:40-04:00"
+        }
+      ],
+      "summary": "CURRENT_STATE.json instructs teams to read and update shared state without overwriting other teams. ACTIVE_QUEUE.json is the named shared queue baseline and currently records M-001 as completed while retaining older progress for other teams.",
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Re-read both cited blobs and verify the coordination rule and queue contents."
+    },
+    {
+      "id": "CM-0029",
+      "kind": "state_layer",
+      "title": "Queue-update files are additive team-owned projections",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_commit",
+          "locator": "455226f6da4bb5703367069bace050674801784d",
+          "content_sha": "455226f6da4bb5703367069bace050674801784d",
+          "observed_at": "2026-07-13T00:40:40-04:00"
+        },
+        {
+          "type": "github_commit",
+          "locator": "d629197896eea2ad63b88120b0dc09d631cc12fb",
+          "content_sha": "d629197896eea2ad63b88120b0dc09d631cc12fb",
+          "observed_at": "2026-07-13T00:40:40-04:00"
+        },
+        {
+          "type": "github_commit",
+          "locator": "f481c03bd8dbd43e1cbe2b7514fb30f04959fd07",
+          "content_sha": "f481c03bd8dbd43e1cbe2b7514fb30f04959fd07",
+          "observed_at": "2026-07-13T00:40:40-04:00"
+        }
+      ],
+      "summary": "Recent continuity, independent-creative, and Cloudflare runs added team-owned queue-update records as separate commits rather than replacing ACTIVE_QUEUE.json. Their existence is evidence of an asserted team update, not automatic canonical consolidation or proof that every referenced runtime result occurred.",
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Fetch the cited commits and verify they add queue-update records without modifying the canonical queue."
+    },
+    {
+      "id": "CM-0030",
+      "kind": "contradiction_resolution",
+      "title": "A newer queue projection can coexist with an older canonical queue",
+      "claim_state": "inferred",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "observed_at": "2026-07-13T00:40:40-04:00"
+        },
+        {
+          "type": "github_commit",
+          "locator": "455226f6da4bb5703367069bace050674801784d",
+          "content_sha": "455226f6da4bb5703367069bace050674801784d",
+          "observed_at": "2026-07-13T00:40:40-04:00"
+        }
+      ],
+      "summary": "There is no direct contradiction between ACTIVE_QUEUE.json lacking M-005 and a committed M-005 queue projection. They answer different questions: the canonical file reports consolidated coordination state, while the projection reports one team's append-only claimed update. Conflict arises only if a consumer silently treats projections as canonical or ignores them entirely.",
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Audit consumers of operations/queue-updates and ACTIVE_QUEUE.json. Reject this inference if repository rules define queue projections as automatic canonical mutations."
+    },
+    {
+      "id": "CM-0031",
+      "kind": "decision",
+      "title": "Queue consolidation requires an explicit reducer",
+      "claim_state": "proposed",
+      "evidence_strength": "operational_inference_from_repository_history",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/CURRENT_STATE.json",
+          "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+          "observed_at": "2026-07-13T00:40:40-04:00"
+        },
+        {
+          "type": "github_commit",
+          "locator": "455226f6da4bb5703367069bace050674801784d",
+          "content_sha": "455226f6da4bb5703367069bace050674801784d",
+          "observed_at": "2026-07-13T00:40:40-04:00"
+        }
+      ],
+      "summary": "A deterministic reducer should read canonical queue state plus additive team projections, validate ownership and predecessor state, preserve superseded history, and emit a proposed consolidated queue diff. It must never overwrite another team's state silently and must keep implementation, verification, deployment, and peer-execution claims distinct.",
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Prototype the reducer against current queue projections and reject the proposal if deterministic consolidation cannot preserve ownership, chronology, and claim-state boundaries."
+    },
+    {
+      "id": "CM-0032",
+      "kind": "unresolved_question",
+      "title": "No repository reducer currently proves queue projections were consolidated",
+      "claim_state": "unresolved",
+      "evidence_strength": "current_repository_observation",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "observed_at": "2026-07-13T00:40:40-04:00"
+        },
+        {
+          "type": "github_commit",
+          "locator": "455226f6da4bb5703367069bace050674801784d",
+          "content_sha": "455226f6da4bb5703367069bace050674801784d",
+          "observed_at": "2026-07-13T00:40:40-04:00"
+        }
+      ],
+      "summary": "The inspected canonical queue predates recent additive projections, and no inspected artifact establishes a deterministic consolidation pass. Therefore later team work is preserved as evidence but not claimed as canonically merged.",
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Locate a committed reducer, consolidation workflow, or later ACTIVE_QUEUE.json blob that explicitly incorporates the cited projections with provenance."
+    }
+  ],
+  "contradictions_resolved": [
+    {
+      "apparent_contradiction": "The canonical queue is old, but recent queue-update files say newer work completed.",
+      "resolution": "The files occupy different state layers. The canonical queue remains the shared baseline; queue updates are additive evidence projections awaiting explicit consolidation."
+    },
+    {
+      "apparent_contradiction": "A committed queue update proves the underlying deployment, runtime, or peer execution occurred.",
+      "resolution": "A queue update proves only that the repository accepted that record. Underlying claims still require their own bound evidence."
+    }
+  ],
+  "supersession_notes": [
+    {
+      "earlier_record": "CM-0009",
+      "status": "extended_not_superseded",
+      "reason": "CM-0009 established temporal supersession inside one queue item's history. CM-0030 generalizes the distinction between canonical state and additive projections across teams."
+    },
+    {
+      "earlier_record": "CM-0026",
+      "status": "extended_not_superseded",
+      "reason": "Staged handoff closure remains valid; queue consolidation adds a separate state-integration requirement."
+    }
+  ],
+  "next_action": "Build a deterministic, read-only queue reducer that validates team ownership and provenance, produces a proposed consolidated diff, and never writes ACTIVE_QUEUE.json without an explicit consolidation decision."
+}
