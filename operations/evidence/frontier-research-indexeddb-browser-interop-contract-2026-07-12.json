@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "item_id": "R-028",
+  "recorded_at": "2026-07-12T22:18:00-04:00",
+  "source_status": {
+    "indexeddb_specification": "W3C Working Draft, 13 August 2025; work in progress",
+    "playwright_documentation": "official current product documentation inspected 2026-07-12",
+    "mdn_close_reference": "secondary implementation-facing reference inspected 2026-07-12"
+  },
+  "primary_sources": [
+    "https://www.w3.org/TR/IndexedDB-3/",
+    "https://playwright.dev/docs/browsers",
+    "https://playwright.dev/docs/api/class-browsercontext"
+  ],
+  "supporting_source": "https://developer.mozilla.org/en-US/docs/Web/API/IDBDatabase/close",
+  "finding": "IndexedDB permits multiple simultaneous clients, defines versionchange and abnormal close behavior, and distinguishes committed transactions from recovery after interruption. A browser harness therefore needs separate fields for capability support, transaction completion, replay rejection, interruption injection, reopen observation, and persistence outcome rather than one pass flag.",
+  "design_implication": "Cross-browser results are accepted only through a fail-closed evidence contract covering Chromium, Firefox, and WebKit across contention, versionchange/forced close, bfcache restore, quota pressure, and abrupt termination recovery. A completed transaction remains persistence_not_proven unless an interruption is injected and the record is observed after reopen.",
+  "artifact": "tools/frontier-research/indexeddb-browser-interop-evidence.mjs",
+  "test": "tools/frontier-research/indexeddb-browser-interop-evidence.test.mjs",
+  "verification": {
+    "method": "isolated Node test execution using byte-identical pre-commit source",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0
+  },
+  "evidence_strength": "committed validator and deterministic unit tests; no real-browser observations yet",
+  "uncertainty": "Browser automation can exercise page and context lifecycle, but abrupt operating-system process termination and storage flush behavior may require platform-specific runners beyond normal graceful context closure.",
+  "falsification_route": [
+    "Reject the contract if a scenario can be marked pass while its defining observation is absent.",
+    "Revise browser or scenario enums when an official runner cannot represent the required engine or lifecycle event.",
+    "Treat persistence as disproven for a tested interruption when the committed acceptance record is absent after reopen.",
+    "Treat two-tab contention as failed if both clients accept the same opaque identifier."
+  ],
+  "privacy_boundary": "No private chat, health data, credentials, account identifiers, or user records are included.",
+  "files_deleted": false,
+  "history_deleted": false
+}
