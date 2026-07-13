@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-005",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Append a provenance-preserving continuity-index delta for the effective-queue precedence decision, reducer implementation, and unresolved runtime evidence.",
+  "completed_at": "2026-07-13T11:41:08Z",
+  "selection_basis": "M-004 completed the reducer but left the canonical continuity index ending at CM-0009, so the highest-priority continuity gap was durable indexing of that transition without rewriting prior records.",
+  "outputs": [
+    {
+      "path": "operations/continuity/continuity-index-delta-2026-07-13T0741-0400.json",
+      "commit": "c450598f818769a8c8f7e6bab46acbfaa51031de"
+    }
+  ],
+  "claim_states": {
+    "observed": [
+      "canonical queue snapshot can lag append-only projections",
+      "M-004 reducer source and test contract are committed",
+      "continuity index previously ended at CM-0009"
+    ],
+    "inferred": [
+      "append-only deltas preserve temporal history better than silently replacing canonical index records"
+    ],
+    "proposed": [
+      "merge validated deltas into a generated canonical index only after deterministic validation"
+    ],
+    "superseded": [
+      "snapshot-only queue interpretation",
+      "manual projection reconciliation"
+    ],
+    "unresolved": [
+      "clean-runtime reducer execution",
+      "authority and procedure for canonical index regeneration"
+    ]
+  },
+  "privacy_boundary": "Public repository metadata and abstract queue semantics only; no private chat, health or pet-health material, credentials, personal identifiers, or unreviewed uploads.",
+  "next_action": "Add a deterministic continuity-index delta validator, run both it and the effective-queue reducer in a clean checkout, and retain exact-commit outputs before regenerating the canonical index."
+}
