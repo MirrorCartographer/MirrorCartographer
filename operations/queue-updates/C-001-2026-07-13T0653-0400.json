@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T06:53:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": {
+    "summary": "Added a production-workflow project-binding contract and wired it into the least-privilege Cloudflare CI gate.",
+    "files": [
+      "cloudflare-static/production-project-binding-workflow.test.mjs",
+      ".github/workflows/cloudflare-project-binding-gate.yml",
+      "cloudflare-static/project-binding-gate-workflow.test.mjs"
+    ],
+    "commits": [
+      "06bf00bef5cc26ba6d6b9e7b7fe062f55b85606c",
+      "47e65f046fa3da009d2d3379b9489683b64dfadf",
+      "5e332c7be5fbb58a14fa0b34272fa421901fc9ee",
+      "140a367dbd01df2055879c083b901fed77aaa345"
+    ],
+    "evidence": "operations/evidence/cloudflare-production-project-binding-gate-2026-07-13T0653-0400.json"
+  },
+  "verification": {
+    "source_behavior": "verified by exact repository file inspection",
+    "ci_run": "not observed; connector returned zero workflow runs for the latest contract commit"
+  },
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment, dispatch the production workflow, and retain the returned Pages URL, control-plane project binding, served identity, deployed commit, and signed evidence artifacts.",
+  "canonical_queue_mutated": false
+}
