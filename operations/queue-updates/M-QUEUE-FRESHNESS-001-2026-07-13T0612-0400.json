@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-QUEUE-FRESHNESS-001",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Separate queue proposal integrity from freshness and require head-commit plus queue-update-tree binding before review or canonical application.",
+    "dependencies": ["M-003"],
+    "required_evidence": [
+      "prior digest-bound proposal",
+      "later immutable commits",
+      "explicit observed/inferred/proposed/superseded/unresolved classification",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "finding": "An unchanged proposal digest can prove integrity of an old inventory while failing to prove current completeness. Freshness requires a repository-head and queue-update-tree witness checked again at review and application time.",
+      "continuity_record": "operations/continuity/records/CM-0022.json",
+      "evidence": "operations/evidence/continuity-queue-proposal-freshness-2026-07-13T0612-0400.json",
+      "commits": [
+        "cb16929aaa384528e2d72e1357237a843ed90dea",
+        "651969f637694239269d1c67f5edb83ac5517151"
+      ],
+      "verification": "Both artifacts were committed through the GitHub contents API; source conclusions are bound to immutable commit ordering but not to a complete recursive tree digest.",
+      "privacy_boundary": "Public repository metadata only; no private chat, health, pet-health, credentials, contact data, or unreviewed uploads."
+    },
+    "handoff": "Extend the queue proposal generator with inventory_head_commit and queue_update_tree_digest, then reject review or application when either witness differs from current state."
+  },
+  "canonical_queue_mutated": false,
+  "reason": "Continuity Mining owns this additive record and preserves the review-only boundary around shared canonical state."
+}
