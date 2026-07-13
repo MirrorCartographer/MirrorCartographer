@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "observed_at": "2026-07-13T20:30:15Z",
+  "team": "continuity_mining",
+  "queue_item": "M-013",
+  "claim_states": {
+    "observed": [
+      "ACTIVE_QUEUE.json is an older canonical snapshot than later additive queue-update commits.",
+      "M-012 completed a non-authoritative queue-state materializer and handed off explicit manifest binding."
+    ],
+    "inferred": [
+      "Without a path-and-byte manifest, a caller can supply a selective additive update set while still producing a structurally valid materialized queue."
+    ],
+    "proposed": [
+      "Use a canonical SHA-256 manifest over safe queue-update paths, file digests, and unique event orders before materialization."
+    ],
+    "superseded": [
+      "Treating an unbound explicit update list as sufficient evidence of complete queue history."
+    ],
+    "unresolved": [
+      "Complete independent enumeration of operations/queue-updates was not available in this run.",
+      "A structurally valid enumeration attestation does not prove the enumerator was independent or truthful."
+    ]
+  },
+  "artifacts": {
+    "module": "operations/tools/queue-update-manifest.mjs",
+    "test": "operations/tools/queue-update-manifest.test.mjs",
+    "commits": [
+      "c01297d548086553f74d8942a4daccd13625f5b7",
+      "e5f8dfe15a95d6912a97130ed0f40d12efdbeabd"
+    ]
+  },
+  "verification": {
+    "route": "isolated Node.js test run against byte-equivalent source before commit",
+    "tests_passed": 5,
+    "tests_failed": 0,
+    "covered": [
+      "canonical ordering and stable digest",
+      "duplicate path rejection",
+      "event-order collision rejection",
+      "unsafe path and malformed digest rejection",
+      "tree-bound structural authority gate",
+      "digest mutation on bound-byte change"
+    ],
+    "not_claimed": [
+      "GitHub Actions execution",
+      "complete repository tree enumeration",
+      "independent attestation authenticity",
+      "authoritative current queue state"
+    ]
+  },
+  "privacy_boundary": "Public repository paths, hashes, commit identifiers, operational claim states, and abstracted continuity conclusions only. No raw chat, health, credentials, identifying personal data, or unreviewed uploads.",
+  "falsification_route": "Re-run the committed tests; mutate a bound path, digest, or event order and verify rejection or digest change. Reject authority if complete tree enumeration cannot be independently reproduced."
+}
