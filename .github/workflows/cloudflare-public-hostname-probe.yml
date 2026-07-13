@@ -1,0 +1,33 @@
+name: Probe Cloudflare public research hostname
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - cloudflare-static/probe-public-pages-hostname.mjs
+      - cloudflare-static/probe-public-pages-hostname.test.mjs
+      - cloudflare-static/research-surface-identity.mjs
+      - .github/workflows/cloudflare-public-hostname-probe.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Test probe contract
+        run: node --test cloudflare-static/probe-public-pages-hostname.test.mjs
+      - name: Probe public hostname
+        continue-on-error: true
+        run: node cloudflare-static/probe-public-pages-hostname.mjs cloudflare-public-hostname-probe.json
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-public-hostname-probe
+          path: cloudflare-public-hostname-probe.json
+          if-no-files-found: error
+          retention-days: 30
