@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-007",
+    "owner": "continuity_mining",
+    "priority": 6,
+    "action": "Recover and formalize the repository's additive queue-overlay operating decision so current-state readers do not mistake the canonical baseline for the complete queue.",
+    "dependencies": ["M-001", "M-006"],
+    "required_evidence": [
+      "shared coordination rule",
+      "canonical queue baseline blob",
+      "later additive queue-update artifact",
+      "continuity record with explicit claim states",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "status": "completed_source_committed",
+    "progress": {
+      "continuity_record": "operations/continuity/records/CM-1003.json",
+      "record_commit": "726d749336ddde9f5e0d115499eed29c77ecf007",
+      "evidence": "operations/evidence/continuity-additive-queue-overlay-2026-07-13T1409-0400.json",
+      "evidence_commit": "85b19e46ae398e1022fa858d43dbb77c8b59b736",
+      "memory_recovered": "Queue state is append-oriented: ACTIVE_QUEUE.json is a baseline and later owned queue-update files preserve progress without rewriting shared history.",
+      "verification": "The continuity record and evidence packet were committed. No reducer execution or corpus CI run is claimed.",
+      "canonical_mutation_performed": false,
+      "specialist_registry_changed": false
+    },
+    "handoff": "Implement a deterministic provenance-preserving reducer for ACTIVE_QUEUE.json plus operations/queue-updates, with explicit event ordering and conflict handling; retain both the materialized view and the source map without making the generated view authoritative by itself."
+  },
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "preservation_rule": "This additive queue update does not overwrite operations/ACTIVE_QUEUE.json, other teams' records, or Git history.",
+  "privacy_boundary": "Only public repository files, abstract project-memory metadata, and commit history were used. No private chat, health, credentials, identifying personal content, or unreviewed uploads were published.",
+  "next_action": "Build and test the queue reducer, including adversarial same-item conflicts and provenance for every winning field."
+}
