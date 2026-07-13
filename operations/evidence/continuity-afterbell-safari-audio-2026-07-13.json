@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "recorded_at": "2026-07-13T11:14:15Z",
+  "scope": "Independent Creative Web Afterbell Safari audio continuity",
+  "sources": [
+    "operations/CURRENT_STATE.json@c21e897b0a30862142c5986368fc7c413fa030bc",
+    "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "operations/SPECIALIST_REGISTRY.json@88451b05101bcd8a259f98de5d9290e15357366b",
+    "operations/TRIGGER_REQUESTS.json@80feb36d1d829c7d54748780837a9ebef543e6c4",
+    "commit:8a910c27eb17762733124f8812df70e23a7588cb",
+    "commit:764cfdac5fb8adce263c4657aa149bc2f7441eff",
+    "commit:3565fc892a06db69f8a1ef65dda3d9eaeac292ea"
+  ],
+  "memory_recovered": {
+    "observed": [
+      "Afterbell source awaits AudioContext resume inside direct pointer and keyboard gesture paths.",
+      "The independent-web Pages workflow invokes the Safari audio contract test."
+    ],
+    "inferred": [],
+    "proposed": [],
+    "superseded": [],
+    "unresolved": [
+      "No retained physical Safari audible result tied to the deployed commit was observed."
+    ]
+  },
+  "contradiction_resolution": "Source compatibility, test presence, workflow enforcement, deployment, and physical-device audibility are separate claims. Earlier implementation evidence must not be promoted into a device-audibility claim.",
+  "artifact": "operations/continuity/records/CM-0013-CM-0015-afterbell-safari-audio-sequence.json",
+  "artifact_commit": "6dbc81308f532fc8b2eda676549bc321e2658436",
+  "privacy_boundary": "Only public repository source, commit metadata, workflow configuration, and abstracted technical claims were used. Private chat, health, credentials, identifiers, and unreviewed uploads were excluded.",
+  "verification": {
+    "method": "GitHub connector fetches of exact files and commits followed by additive artifact creation",
+    "limits": "No workflow run or physical-device result was observed; none is claimed."
+  }
+}
