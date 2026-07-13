@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T08:44:00-04:00",
+  "canonical_queue_overwritten": false,
+  "status": "blocked_external_configuration",
+  "completed_slice": {
+    "action": "Add and test a deterministic observation collector that converts a candidate Cloudflare Pages hostname into retained DNS, HTTP, served-identity, and exact-commit manifest evidence for the existing classifier.",
+    "module": "cloudflare-static/collect-hostname-observation.mjs",
+    "test": "cloudflare-static/collect-hostname-observation.test.mjs",
+    "evidence": "operations/evidence/cloudflare-hostname-observation-collector-2026-07-13.json",
+    "commits": [
+      "48666e923cd25f8b5d87e934ad5340de8a96b2b4",
+      "b1a5529d13e200d186bbf135b1b748d36bdce478",
+      "41673e0df8e6c6e4c22ae6ae00fbd3d8d3054ff0",
+      "b4c0d4dbd9c66f088da88bf90aa715fca38a194b"
+    ],
+    "verification": "Three deterministic tests passed in an isolated Node runtime. A live probe from the available runtime could not resolve mirror-cartographer-research.pages.dev; this is retained as a limited observation, not global nonexistence proof."
+  },
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, dispatch the committed deployment workflow, use Cloudflare-returned project metadata or deployment URL as hostname authority, run the collector, then run classify-hostname-resolution.mjs over the retained observation.",
+  "next_acceptance": [
+    "Cloudflare control-plane returns the exact project or deployment hostname",
+    "collector retains DNS and HTTP observations",
+    "served research identity contract passes",
+    "served deployment manifest binds the exact repository commit",
+    "hostname classifier returns deployed-commit-served with accepted=true"
+  ],
+  "boundaries": {
+    "payment_logic_moved_to_vercel": false,
+    "diagnosis_or_treatment_claim_published": false,
+    "files_or_history_deleted": false,
+    "specialist_registry_changed": false
+  }
+}
