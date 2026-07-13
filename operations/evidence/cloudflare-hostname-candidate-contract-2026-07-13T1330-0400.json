@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T13:30:00-04:00",
+  "specialists_used": [
+    "Cloudflare Deployment Engineer",
+    "Evidence Auditor",
+    "Provenance Engineer"
+  ],
+  "observed": {
+    "configured_project_name": "mirror-cartographer-research",
+    "configured_source": "cloudflare-static/wrangler.jsonc",
+    "public_search_result": "no indexed result found for the exact conventional pages.dev hostname",
+    "workflow_runs_visible_for_prior_contract_commit": 0
+  },
+  "implemented": {
+    "module": "cloudflare-static/derive-hostname-candidates.mjs",
+    "test": "cloudflare-static/derive-hostname-candidates.test.mjs",
+    "workflow": ".github/workflows/cloudflare-hostname-candidate-contract.yml",
+    "commits": [
+      "d3eb7fbacb1a803d37bfb0a315fc6ab622e707a4",
+      "fba4fc4fc433e8f06d2c44cf49c7f8703a26ecbe",
+      "9247ac78ac10ff9e532cf185347f412a18317470"
+    ]
+  },
+  "claim_states": {
+    "observed": "The committed Wrangler configuration names the project mirror-cartographer-research.",
+    "inferred": "mirror-cartographer-research.pages.dev is a conventional probe candidate only.",
+    "proposed": "Run the candidate contract, retain its artifact, then probe each candidate through the existing public-hostname evidence validator.",
+    "superseded": "Project configuration name alone is sufficient evidence of the deployed hostname.",
+    "unresolved": "No successful Cloudflare deployment identity, resolving hostname, served exact commit, or credentialed control-plane proof is presently observed."
+  },
+  "verification": {
+    "source_readback": true,
+    "deterministic_tests_authored": 5,
+    "workflow_bound": true,
+    "workflow_execution_observed": false,
+    "deployment_observed": false,
+    "authorized_claim": "candidate_generation_only"
+  },
+  "privacy_boundary": "Contains only public repository configuration, abstract hostname candidates, commit identifiers, and evidence-state metadata. No private chat, health data, credentials, payment logic, diagnosis, or treatment claims are included.",
+  "limits": [
+    "A conventional hostname candidate is not deployment evidence.",
+    "Search-engine non-discovery is not proof of DNS failure or nonexistence.",
+    "Source readback is not runtime test execution.",
+    "No peer execution is claimed without separate evidence."
+  ],
+  "rollback": "Revert commits 9247ac78ac10ff9e532cf185347f412a18317470, fba4fc4fc433e8f06d2c44cf49c7f8703a26ecbe, and d3eb7fbacb1a803d37bfb0a315fc6ab622e707a4 in reverse order."
+}
