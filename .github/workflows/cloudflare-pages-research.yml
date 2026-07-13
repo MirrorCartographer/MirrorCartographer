@@ -56,6 +56,7 @@ jobs:
           node --test cloudflare-static/verify-cloudflare-deployment-metadata.test.mjs
           node --test cloudflare-static/validate-deployment-evidence-consistency.test.mjs
           node --test cloudflare-static/finalize-deployment-evidence.test.mjs
+          node --test cloudflare-static/run-hostname-evidence-gate.test.mjs
 
       - name: Validate deployment branch input
         env:
@@ -154,6 +155,17 @@ jobs:
         run: |
           test -n "$DEPLOYMENT_URL" || { echo "Wrangler returned no deployment URL"; exit 3; }
           node cloudflare-static/verify-deployment.mjs "$DEPLOYMENT_URL" | tee cloudflare-deployment-proof.ndjson
+
+      - name: Enforce exact-commit hostname evidence gate
+        if: steps.deploy.outcome == 'success'
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
+          CLOUDFLARE_RESEARCH_SURFACE: mirror-cartographer-research
+        run: >-
+          node cloudflare-static/run-hostname-evidence-gate.mjs
+          "$DEPLOYMENT_URL"
+          cloudflare-hostname-evidence-gate.json
+          "$GITHUB_SHA"
 
       - name: Record deployment proof
         if: always()
@@ -271,6 +283,7 @@ jobs:
             cloudflare-deployment-blocker.json
             cloudflare-deployment-decision.json
             cloudflare-deployment-metadata.json
+            cloudflare-hostname-evidence-gate.json
             cloudflare-deployment-proof.json
             cloudflare-deployment-proof.freshness.json
             cloudflare-deployment-proof.intoto.json
@@ -300,6 +313,7 @@ jobs:
             echo "- Access capability evidence: \`cloudflare-access-probe.json\` (token activity and account-scoped Pages authorization; no secret values)"
             echo "- Canonical hostname authority: \`cloudflare-pages-hostname-authority.json\` built from the sanitized direct project probe and rebound to Wrangler's returned URL after deployment"
             echo "- Deployment gate: deployment runs only after the access probe succeeds"
+            echo "- Exact-commit hostname gate: \`cloudflare-hostname-evidence-gate.json\` must accept Wrangler's returned HTTPS hostname and the immutable source commit"
             echo "- Actionable blocker: \`cloudflare-deployment-blocker.json\` (schema-validated names and reason codes only)"
             echo "- Deployment decision: \`cloudflare-deployment-decision.json\`"
             echo "- Cloudflare control-plane binding: \`cloudflare-deployment-metadata.json\` must match exact project, commit, URL, and successful deploy stage"
