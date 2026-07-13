@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Require transparency-log verification by default before DSSE evidence is cryptographically promotable.",
+    "dependencies": ["R-004"],
+    "required_evidence": [
+      "current primary specification",
+      "committed policy change",
+      "adversarial deterministic tests",
+      "explicit trust-model escape hatch",
+      "falsification route"
+    ],
+    "status": "completed_source_verified_test_execution_unobserved",
+    "progress": {
+      "primary_sources": [
+        "https://github.com/secure-systems-lab/dsse/blob/master/protocol.md",
+        "https://docs.sigstore.dev/cosign/verifying/verify/"
+      ],
+      "finding": "The prior classifier preserved transparency-log status as metadata but did not require it for signer threshold acceptance.",
+      "module": "tools/frontier-research/dsse-verification-contract.mjs",
+      "test": "tools/frontier-research/dsse-verification-contract.test.mjs",
+      "evidence": "operations/evidence/frontier-research-dsse-transparency-gate-2026-07-13T1416-0400.json",
+      "commits": [
+        "26382a795581cb0e5fe8442a080a04092b07cbe9",
+        "77d74574f709d67ccf82d943410c31549c6f152d",
+        "8d7b16b8df0da78125af644e36352e78af3a38ee"
+      ],
+      "verification": "GitHub accepted source and test writes; no workflow run existed for the test commit, so test execution is not claimed.",
+      "trust_limit": "This classifier consumes external verifier results; it does not itself validate signatures, certificate chains, transparency-log inclusion proofs, or claim truth."
+    },
+    "handoff": "Cloudflare and Vercel evidence workflows should use the default transparency requirement for public Sigstore/GitHub attestation paths. Any intentionally offline or private-PKI path must set requireTransparencyLog false explicitly and document its alternative trust root."
+  },
+  "canonical_mutation_performed": false,
+  "preservation_rule": "Do not overwrite operations/ACTIVE_QUEUE.json, other teams' queue updates, or Git history."
+}
