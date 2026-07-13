@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.org/schemas/continuity-contradiction-ledger.schema.json",
+  "title": "Mirror Cartographer Continuity Contradiction Ledger",
+  "type": "object",
+  "required": ["schema_version", "updated_at", "privacy_boundary", "records"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "privacy_boundary": {"type": "string", "minLength": 1},
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "subject", "state", "observations", "resolution", "sources", "claim_ceiling", "review_route"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^CON-[0-9]{3,}$"},
+          "subject": {"type": "string", "minLength": 1},
+          "state": {"enum": ["observed", "inferred", "proposed", "superseded", "unresolved", "resolved"]},
+          "observations": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "required": ["status", "statement", "source_ref"],
+              "properties": {
+                "status": {"enum": ["observed", "inferred", "proposed", "superseded", "unresolved"]},
+                "statement": {"type": "string", "minLength": 1},
+                "source_ref": {"type": "string", "minLength": 1}
+              },
+              "additionalProperties": false
+            }
+          },
+          "resolution": {
+            "type": "object",
+            "required": ["status", "interpretation", "preservation_rule"],
+            "properties": {
+              "status": {"enum": ["unresolved", "resolved", "provisional"]},
+              "interpretation": {"type": "string", "minLength": 1},
+              "preservation_rule": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
+          },
+          "sources": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "required": ["path", "ref", "evidence_strength"],
+              "properties": {
+                "path": {"type": "string", "minLength": 1},
+                "ref": {"type": "string", "minLength": 7},
+                "evidence_strength": {"enum": ["direct", "strong", "moderate", "weak"]}
+              },
+              "additionalProperties": false
+            }
+          },
+          "claim_ceiling": {"type": "string", "minLength": 1},
+          "review_route": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
