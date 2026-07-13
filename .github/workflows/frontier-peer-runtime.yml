@@ -1,0 +1,50 @@
+name: Frontier peer runtime durability
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/frontier-research/peer-execution-runtime.mjs'
+      - 'tools/frontier-research/filesystem-peer-execution-runtime.mjs'
+      - 'tools/frontier-research/filesystem-terminal-journal.mjs'
+      - 'tools/frontier-research/*peer-execution-runtime*.test.mjs'
+      - '.github/workflows/frontier-peer-runtime.yml'
+  pull_request:
+    paths:
+      - 'tools/frontier-research/peer-execution-runtime.mjs'
+      - 'tools/frontier-research/filesystem-peer-execution-runtime.mjs'
+      - 'tools/frontier-research/filesystem-terminal-journal.mjs'
+      - 'tools/frontier-research/*peer-execution-runtime*.test.mjs'
+      - '.github/workflows/frontier-peer-runtime.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: frontier-peer-runtime-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  durability-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Verify runtime syntax
+        run: |
+          node --check tools/frontier-research/peer-execution-runtime.mjs
+          node --check tools/frontier-research/filesystem-peer-execution-runtime.mjs
+          node --check tools/frontier-research/filesystem-terminal-journal.mjs
+
+      - name: Enforce peer execution durability contract
+        run: node --test tools/frontier-research/filesystem-peer-execution-runtime.test.mjs
