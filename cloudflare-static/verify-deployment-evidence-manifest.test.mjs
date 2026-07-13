@@ -18,12 +18,22 @@ function fixture() {
   return { directory, manifest };
 }
 
-test('accepts an exact complete byte-bound manifest', () => {
+test('accepts an exact complete schema 1.1.0 byte-bound manifest', () => {
   const { directory, manifest } = fixture();
+  assert.equal(manifest.schema_version, '1.1.0');
   const result = verifyDeploymentEvidenceManifest({ manifest, directory, requiredFiles: files, expectedSourceCommit: sourceCommit, expectedRunId: runId });
   assert.equal(result.ok, true);
   assert.equal(result.checked_files, 2);
   assert.deepEqual(result.errors, []);
+});
+
+test('rejects a schema downgrade even when evidence bytes are unchanged', () => {
+  const { directory, manifest } = fixture();
+  const downgraded = { ...manifest, schema_version: '1.0.0' };
+  const result = verifyDeploymentEvidenceManifest({ manifest: downgraded, directory, requiredFiles: files });
+  assert.equal(result.ok, false);
+  assert.ok(result.errors.includes('unsupported-schema-version'));
+  assert.ok(result.errors.includes('manifest-digest-mismatch'));
 });
 
 test('detects artifact byte tampering', () => {
