@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-009",
+  "recorded_at": "2026-07-13T12:17:00-04:00",
+  "source_status": {
+    "event_timing": {
+      "url": "https://w3c.github.io/event-timing/",
+      "status": "W3C Editor's Draft",
+      "dated": "2026-03-19",
+      "evidence_strength": "primary specification; work in progress"
+    },
+    "long_animation_frames": {
+      "url": "https://w3c.github.io/long-animation-frames/",
+      "status": "W3C Editor's Draft",
+      "evidence_strength": "primary specification; work in progress"
+    }
+  },
+  "finding": "A bounded browser capture may be accepted only when the exact Event Timing and Long Animation Frames evaluators independently accept the same named observation window under explicit budgets. Passing one evidence stream cannot compensate for failure or inconclusiveness in the other.",
+  "design_implication": "Lock the adapter-to-evaluator contract with integration tests covering budget propagation, independent rejection, retained zero-interactionId entries, and combined fail-closed acceptance before wiring a deployment-bound browser harness.",
+  "artifact": {
+    "path": "tools/frontier-research/browser-interaction-capture.integration.test.mjs",
+    "commit": "72d231511f03718952b5c73b3cdf7b7beae9b2a3",
+    "imports": [
+      "tools/frontier-research/browser-interaction-capture.mjs",
+      "tools/frontier-research/event-timing-interaction-evidence.mjs",
+      "tools/frontier-research/long-animation-frame-budget.mjs"
+    ],
+    "cases": 4
+  },
+  "verification": {
+    "static": "The committed integration test imports the production adapter, whose source imports the exact R-005 and R-006 evaluator modules. Assertions cover declared budget propagation and independent fail-closed outcomes.",
+    "remote_execution": "No GitHub Actions workflow run was observed for commit 72d231511f03718952b5c73b3cdf7b7beae9b2a3 at record time.",
+    "local_execution": "Unavailable because the isolated runtime could not resolve github.com; no test-pass claim is made."
+  },
+  "uncertainty": "Real PerformanceObserver delivery order, buffered-entry scope, target-browser support, and deployed-device repeatability remain unverified.",
+  "claim_limit": "This artifact proves a committed integration contract, not browser support, runtime performance, causality, audibility, subjective smoothness, or a passing CI execution.",
+  "falsification_route": "Run node --test on the integration test in a clean checkout, then execute repeated named windows on the exact deployed commit and reject acceptance if either evaluator fails, support changes, zero-interactionId counts change materially, or raw entries fall outside the intended window."
+}
