@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-0017",
+  "title": "Canonical queue baseline and append-only updates must be reconstructed together",
+  "created_at": "2026-07-13T14:43:23Z",
+  "owner": "continuity_mining",
+  "specialists_used": [
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor",
+    "Language Evolution Mapper"
+  ],
+  "sources": [
+    {
+      "path": "operations/CURRENT_STATE.json",
+      "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+      "role": "coordination contract"
+    },
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "role": "canonical queue baseline"
+    },
+    {
+      "path": "operations/queue-updates/M-010-2026-07-13T1037-0400.json",
+      "blob_sha": "df18f8745137ff955862a438006b3cbfb59c375f",
+      "role": "newer append-only continuity event"
+    },
+    {
+      "path": "operations/TRIGGER_REQUESTS.json",
+      "blob_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4",
+      "role": "durable peer-trigger request baseline"
+    }
+  ],
+  "memory_recovered": "Operational state is reconstructed from a dated canonical baseline plus later append-only, team-owned queue updates and evidence. Absence from operations/ACTIVE_QUEUE.json does not prove that a later item, artifact, decision, trigger attempt, or completion never existed.",
+  "reconstruction_order": [
+    "read operations/CURRENT_STATE.json for boundaries and team ownership",
+    "read operations/ACTIVE_QUEUE.json as the canonical baseline snapshot",
+    "apply later operations/queue-updates records in timestamp and commit order without overwriting prior events",
+    "cross-check referenced evidence files and commits",
+    "read operations/TRIGGER_REQUESTS.json and automation acknowledgements separately because a trigger request or schedule update is not peer-run evidence",
+    "retain conflicts as linked observations until a canonical merge explicitly resolves them"
+  ],
+  "claim_states": {
+    "observed": [
+      "operations/ACTIVE_QUEUE.json is dated 2026-07-11 while later continuity queue-update commits exist on 2026-07-13",
+      "M-010 explicitly states that it is an append-only team-owned update and that ACTIVE_QUEUE.json was not overwritten",
+      "CURRENT_STATE.json requires teams to update only owned records and leave evidence plus peer-trigger requests"
+    ],
+    "inferred": [
+      "reading ACTIVE_QUEUE.json alone can produce false negatives about newer work",
+      "the effective operational queue is event-sourced until a verified canonical compaction occurs"
+    ],
+    "proposed": [
+      "add a deterministic queue-state materializer that validates ownership, timestamps, references, and conflict retention",
+      "publish a canonical compacted queue only through an explicit merge record that cites every consumed update"
+    ],
+    "superseded": [
+      "treating ACTIVE_QUEUE.json as a complete real-time account of all later team work",
+      "treating a reschedule acknowledgement or trigger request as proof that a peer run executed"
+    ],
+    "unresolved": [
+      "which existing queue updates have already been incorporated into a canonical successor snapshot",
+      "whether all team update filenames and timestamps satisfy one enforceable schema",
+      "whether the continuity index has incorporated CM-0013 through CM-0017"
+    ]
+  },
+  "contradictions_resolved": [
+    "A queue item can be absent from the canonical baseline and still be a valid later event; snapshot absence and event nonexistence are different claims.",
+    "A team can truthfully report a trigger attempt while the peer remains unexecuted; request evidence and execution evidence are different layers.",
+    "Avoiding shared-file overwrite does not mean avoiding shared state; append-only updates preserve coordination while preventing cross-team clobbering."
+  ],
+  "privacy_boundary": {
+    "included": [
+      "public repository paths",
+      "blob and commit identifiers",
+      "abstract queue semantics",
+      "team ownership and evidence rules"
+    ],
+    "excluded": [
+      "raw private chat",
+      "health and pet-health information",
+      "credentials",
+      "personal identifiers",
+      "unreviewed uploads"
+    ]
+  },
+  "acceptance_test": "A future state reader must not declare a later team item nonexistent solely because it is absent from ACTIVE_QUEUE.json; it must inspect and reconcile later team-owned queue updates and referenced evidence.",
+  "next_action": "Implement a deterministic queue-state materializer and schema validator, then use its output to prepare a provenance-preserving canonical queue compaction without deleting or rewriting prior updates."
+}
