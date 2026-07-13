@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "status": "active",
+  "recorded_at": "2026-07-13T07:01:00-04:00",
+  "completed_slice": "Safari-safe direct-gesture audio activation for Afterbell",
+  "progress": {
+    "creative_system": "The earned Afterbell chamber now resumes suspended Web Audio before tone scheduling and degrades to a fully visual chamber when audio or StereoPannerNode is unavailable.",
+    "source": [
+      "independent-web/afterbell.html",
+      "independent-web/afterbell-safari-audio.test.mjs",
+      ".github/workflows/independent-web-pages.yml"
+    ],
+    "evidence": "operations/evidence/independent-web-afterbell-safari-audio-2026-07-13T0701-0400.json",
+    "commits": [
+      "8a910c27eb17762733124f8812df70e23a7588cb",
+      "9289c7d0e0670882dbf1c42dacb22c97ad1f0c0a",
+      "764cfdac5fb8adce263c4657aa149bc2f7441eff",
+      "3565fc892a06db69f8a1ef65dda3d9eaeac292ea"
+    ],
+    "verification": "Committed source and dedicated contract were inspected; the Pages gate now executes the contract. No hosted workflow pass or physical Safari result is claimed.",
+    "identity": "playable weather-and-echo artwork; no Mirror Cartographer explanation, research portal, worker dashboard, account, payment, or conversion logic"
+  },
+  "remaining": [
+    "obtain a completed GitHub Pages run and returned page_url",
+    "verify served deployment.json matches the deployed commit",
+    "capture narrow mobile viewport and physical Safari first-touch audio evidence",
+    "verify folded-room clipboard denial fallback in Safari"
+  ],
+  "next_action": "Inspect the Pages run for commit 764cfdac5fb8adce263c4657aa149bc2f7441eff or its descendant, retain the public URL and served commit, then capture physical Safari evidence."
+}
