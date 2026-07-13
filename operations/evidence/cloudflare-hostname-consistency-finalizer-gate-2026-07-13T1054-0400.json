@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "cloudflare-source-behavior-evidence",
+  "owner": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T14:54:49Z",
+  "improvement": "The deployment-evidence finalizer now independently rereads and verifies the retained hostname-authority consistency artifact before building the final evidence manifest.",
+  "specialists_used": [
+    "Evidence Auditor",
+    "Provenance Engineer",
+    "Cloudflare Deployment Engineer"
+  ],
+  "source_changes": [
+    {
+      "path": "cloudflare-static/verify-hostname-authority-consistency.mjs",
+      "commit": "a351de469e01a8487c69e239a7b8b637bba020fd",
+      "purpose": "Add a file-boundary verifier that fails closed on missing or unreadable retained evidence."
+    },
+    {
+      "path": "cloudflare-static/verify-hostname-authority-consistency.test.mjs",
+      "commit": "0f2e63a6bf54dec7bc6f4879af5fd47c58ead020",
+      "purpose": "Verify exact retained bytes and missing-file failure behavior."
+    },
+    {
+      "path": "cloudflare-static/finalize-deployment-evidence.mjs",
+      "commit": "766a7211ddb45e929f33a3cd7b9bac26bd045ee1",
+      "purpose": "Run independent verification after materialization and before manifest construction."
+    }
+  ],
+  "verification": {
+    "route": "isolated Node test using byte-identical proposed verifier and test source",
+    "command": "node --test verify-hostname-authority-consistency.test.mjs",
+    "tests": 7,
+    "passed": 7,
+    "failed": 0,
+    "covered": [
+      "valid retained artifact",
+      "elevated rejected claim",
+      "commit substitution",
+      "hostname and URL disagreement",
+      "secret-emission ambiguity",
+      "exact retained file boundary",
+      "missing retained file"
+    ]
+  },
+  "claim_state": {
+    "observed": "The three source commits exist and the isolated seven-test contract passed.",
+    "inferred": "Finalization can no longer silently proceed when the retained consistency artifact is absent, unreadable, or structurally invalid.",
+    "not_claimed": [
+      "Cloudflare deployment succeeded",
+      "a public hostname resolves",
+      "served bytes match the repository",
+      "scientific or medical claims are true"
+    ]
+  },
+  "privacy": {
+    "secret_values_emitted": false,
+    "private_health_material_included": false
+  },
+  "limits": [
+    "The Cloudflare account and token remain unavailable to this run.",
+    "The full repository workflow was not executed in GitHub Actions.",
+    "A structurally verified rejected artifact still permits only a no-deployment-claim outcome."
+  ],
+  "next_action": "Run the committed Cloudflare workflow after credentials are configured and retain provider deployment identity, resolving URL, served commit proof, and finalizer output."
+}
