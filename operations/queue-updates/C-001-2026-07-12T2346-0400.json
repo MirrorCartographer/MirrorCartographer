@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T23:46:00-04:00",
+  "status": "blocked_external_configuration",
+  "improvement": "Cloudflare control-plane deployment verification now requires exact requested-branch identity in addition to project, immutable commit, returned URL, and successful deploy stage.",
+  "files": [
+    "cloudflare-static/verify-cloudflare-deployment-metadata.mjs",
+    "cloudflare-static/verify-cloudflare-deployment-metadata.test.mjs",
+    "operations/evidence/cloudflare-branch-bound-deployment-metadata-2026-07-12T2346-0400.json"
+  ],
+  "commits": [
+    "5caa848c436f1d9537dc0cd219a9047b01061808",
+    "75d96c0c3f09ad1d87730aac2a13eeee7fcba74e",
+    "c1d420b724405764d068f5836235bb957ffc078e",
+    "2e8d2b9d0ea119634b91cdcda67fee8e668839b6",
+    "312e18fbbf7d9b1054036964d46f082804f8d9e9"
+  ],
+  "verification": {
+    "source_behavior": "GitHub accepted sequential source and test commits; exact branch match and fail-closed dispatch-event resolution are represented in committed tests.",
+    "runtime": "not observed",
+    "deployment": "not observed"
+  },
+  "blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, followed by an authenticated workflow dispatch.",
+  "next_action": "Run the workflow with configured credentials, inspect the uploaded metadata artifact, and require the exact requested branch, commit, deployment URL, project, and successful deploy stage before accepting C-001 deployment evidence.",
+  "canonical_queue_mutated": false
+}
