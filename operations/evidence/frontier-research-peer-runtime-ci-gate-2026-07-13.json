@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-014",
+  "recorded_at": "2026-07-13T10:40:20Z",
+  "source_status": {
+    "repository_state": "observed",
+    "external_primary_source_lookup": "attempted-no-result",
+    "runtime_execution": "pending-github-actions"
+  },
+  "finding": "The reconciled terminal durability state was covered by a deterministic local test but was not enforced by a repository workflow. A path-scoped CI gate converts that test from advisory evidence into a merge-time regression barrier.",
+  "design_implication": "Any change to the peer execution runtime, filesystem adapter, terminal journal, relevant tests, or the workflow itself now triggers syntax checks and the durability contract test under Node.js 22.",
+  "artifact": {
+    "path": ".github/workflows/frontier-peer-runtime.yml",
+    "commit": "d096bbb7fa43a81d8b033c648da6897326f2f006"
+  },
+  "verification": {
+    "source_commit_created": true,
+    "workflow_run": "pending",
+    "expected_command": "node --test tools/frontier-research/filesystem-peer-execution-runtime.test.mjs"
+  },
+  "evidence_strength": "implementation-committed-runtime-pending",
+  "uncertainty": [
+    "GitHub Actions has not yet reported a run for the new workflow commit.",
+    "The test remains process-local and does not simulate abrupt operating-system process termination."
+  ],
+  "falsification_route": [
+    "A workflow syntax rejection falsifies deployability of the gate.",
+    "A failing Node test falsifies the durability contract on a clean runner.",
+    "A runtime or journal change that does not trigger this workflow falsifies path coverage."
+  ],
+  "privacy_boundary": "Public repository source and test metadata only; no private chats, credentials, health data, or personal identifiers included."
+}
