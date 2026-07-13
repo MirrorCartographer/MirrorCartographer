@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T07:10:32-04:00",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "implemented_runtime_pending",
+  "action": "Stress repeated peer-terminal process crashes and prove coordination artifacts remain bounded.",
+  "finding": "The previous process-death suite established one recovery per crash boundary but did not test repeated crash/restart accumulation.",
+  "artifact": "tools/frontier-research/filesystem-peer-terminal-crash-stress.test.mjs",
+  "artifact_commit": "f24265461e6e6041282bb952f70c7a37727f0f56",
+  "evidence": "operations/evidence/frontier-research-peer-runtime-crash-stress-2026-07-13.json",
+  "evidence_commit": "8d1560886a15f13b7951f66bf9b5f6c99787d9b7",
+  "verification": "Committed source fetched successfully; no runtime or CI result claimed.",
+  "required_next_evidence": [
+    "clean-runner execution result",
+    "OS and filesystem identity",
+    "retained test log or workflow artifact",
+    "zero residual coordination artifacts across all cycles"
+  ],
+  "handoff": "Run the stress contract on Linux and macOS, retain logs, then increase cycle count only if runtime remains bounded and deterministic."
+}
