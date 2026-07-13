@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T07:29:00-04:00",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "claim_state": "implemented_runtime_pending",
+  "finding": "The repeated peer-terminal crash contract needs retained execution evidence across distinct operating-system environments; source-level test presence alone is insufficient.",
+  "design_implication": "Run the exact committed stress test on Linux and macOS, retain runner identity and raw test logs, and keep the workflow fail-open only for artifact upload, not for test success.",
+  "artifact": {
+    "path": ".github/workflows/frontier-peer-terminal-crash-stress.yml",
+    "commit": "17069d23d115b7c0b5ba2028f34d3ad538c633f8",
+    "source_test": "tools/frontier-research/filesystem-peer-terminal-crash-stress.test.mjs",
+    "environments": ["ubuntu-latest", "macos-latest"],
+    "retained_outputs": ["runner identity", "Node version", "filesystem type", "raw node:test log"]
+  },
+  "verification": {
+    "status": "source_verified",
+    "detail": "The workflow was fetched back from the exact commit and contains both matrix runners, exact test invocation, pipefail, always-on artifact upload, and a 30-day retention request.",
+    "runtime_result": "not yet observed"
+  },
+  "evidence_strength": "committed executable workflow; no passing workflow run claimed",
+  "uncertainty": [
+    "GitHub-hosted runner image versions may change over time.",
+    "Filesystem type metadata does not prove every durability semantic exercised by the operating system.",
+    "A passing run proves the bounded injected scenarios only, not all possible crash timings."
+  ],
+  "falsification_route": [
+    "A workflow run fails on either operating system.",
+    "Residual lock, stale, or temporary artifacts remain after any cycle.",
+    "The terminal journal contains more than one terminal for the shared trigger.",
+    "The retained artifact is missing runner identity or the raw test log."
+  ],
+  "source_status": {
+    "primary_sources": [
+      "https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs",
+      "https://docs.github.com/actions/using-workflows/storing-workflow-data-as-artifacts"
+    ],
+    "repository_sources": [
+      "operations/ACTIVE_QUEUE.json",
+      "tools/frontier-research/filesystem-peer-terminal-crash-stress.test.mjs",
+      "operations/queue-updates/R-014-2026-07-13T0710-0400.json"
+    ]
+  }
+}
