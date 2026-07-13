@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T06:12:00-04:00",
+  "claim_state": "observed",
+  "evidence_strength": "committed-source-inspected",
+  "finding": "The composite stack evidence validator existed but was not enforced by the deployment workflow, leaving artifact upload and summary publication disconnected from the final acceptance gate.",
+  "improvement": {
+    "workflow": ".github/workflows/cloudflare-research-stack.yml",
+    "regression_test": "cloudflare-static/cloudflare-research-stack-workflow.test.mjs",
+    "workflow_commit": "1ac8c539a131a1e2699254481f447cdd64c65202",
+    "test_commit": "42e290444e13ca2f42fc320694182d3075804ba8",
+    "behavior": [
+      "runs the composite validator unit tests before deployment",
+      "records the aggregate stack evidence packet",
+      "runs fail-closed composite validation after recording even when an earlier deployment step failed",
+      "retains the validation result in the uploaded artifact",
+      "publishes the validation artifact location in the run summary"
+    ]
+  },
+  "verification": {
+    "method": "Fetched the committed workflow at commit 1ac8c539a131a1e2699254481f447cdd64c65202 and inspected ordering and artifact paths.",
+    "observed_order": [
+      "Record stack deployment evidence",
+      "Validate composite stack deployment evidence",
+      "Upload stack deployment evidence"
+    ],
+    "validator_output": "cloudflare-stack-deployment-evidence-validation.json",
+    "test_execution": "not observed in this run; the workflow is dispatch-only and Cloudflare credentials remain externally unconfigured"
+  },
+  "limits": [
+    "No Cloudflare deployment occurred in this run.",
+    "No resolvable Pages hostname or Worker URL was established.",
+    "The committed regression test has not yet produced a CI result.",
+    "Infrastructure evidence does not establish scientific or medical truth."
+  ],
+  "falsification_route": "Remove, reorder, or bypass the composite validation step, omit its output from artifact retention, or dispatch the workflow with complete credentials and observe acceptance despite a malformed aggregate evidence packet. Any such result falsifies the claimed gate behavior.",
+  "privacy_boundary": "Repository paths, commit identifiers, workflow semantics, and infrastructure evidence only; no private chat, health, credential, or identifying personal material included."
+}
