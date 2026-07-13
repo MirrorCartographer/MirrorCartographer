@@ -78,10 +78,13 @@ test('post-rename directory-sync failure is reconciled before return and remains
       uuid: () => '44444444-4444-4444-8444-444444444444'
     });
 
-    await assert.rejects(runtime.execute(input()), /terminal-journal-rejected:recorded-indeterminate-reconciled/);
+    const result = await runtime.execute(input());
     const document = JSON.parse(await readFile(journalPath, 'utf8'));
+    assert.equal(result.terminal_journal.state, 'recorded');
+    assert.equal(result.terminal_journal.durability_state, 'recorded-indeterminate-reconciled');
     assert.equal(document.terminals['trigger-r13'].terminal_event.id, '44444444-4444-4444-8444-444444444444');
-    assert.equal(appended.length, 0);
+    assert.equal(appended.length, 1);
+    assert.equal(appended[0].receipt.terminal_journal.durability_state, 'recorded-indeterminate-reconciled');
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
