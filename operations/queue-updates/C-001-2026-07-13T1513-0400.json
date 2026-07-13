@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "event_id": "C-001-2026-07-13T1513-0400-promotion-consistency",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "event_order": 202607131513,
+  "status": "blocked_external_configuration",
+  "progress_update": {
+    "completed_slice": "Committed and tested a fail-closed promotion-consistency validator that requires deployment acceptance and promotion records to bind to the same exact proof bytes.",
+    "module": "cloudflare-static/validate-promotion-consistency.mjs",
+    "test": "cloudflare-static/validate-promotion-consistency.test.mjs",
+    "evidence": "operations/evidence/cloudflare-promotion-consistency-2026-07-13T1513-0400.json",
+    "commits": [
+      "3a4af6e3353cf00e349db9f4aaf3cd12b6eddbb3",
+      "a37955e621030ac515583266503d36dee6f61f26",
+      "7b5c8258824882539990302a8c30e0d4e4b4ee62"
+    ],
+    "verification": "4 deterministic Node tests passed in an isolated runtime using byte-identical source before commit.",
+    "remaining": [
+      "wire validate-promotion-consistency.mjs into .github/workflows/cloudflare-pages-research.yml before final evidence manifest creation",
+      "include cloudflare-promotion-consistency.json in the uploaded and finalized evidence set",
+      "configure the cloudflare-research environment credentials and dispatch the deployment workflow",
+      "prove resolving hostname, served surface identity, and exact deployed commit"
+    ]
+  },
+  "claim_boundary": "This update proves committed source and deterministic test behavior only. It does not prove deployment, hostname control, production serving, scientific truth, diagnosis, or treatment efficacy.",
+  "non_destructive": true
+}
