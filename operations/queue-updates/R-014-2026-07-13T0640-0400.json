@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "status": "completed_with_runtime_verification_pending",
+  "priority_basis": "Immediate continuation of the highest-risk frontier handoff: reconciled terminal durability semantics existed in source and deterministic tests but lacked an enforced clean-runner gate.",
+  "completed": [
+    "Added a path-scoped GitHub Actions workflow for peer runtime durability.",
+    "Added syntax checks for the core runtime, filesystem adapter, and terminal journal.",
+    "Enforced the reconciled terminal-state test with Node's built-in test runner.",
+    "Recorded uncertainty, evidence strength, privacy boundary, and falsification routes."
+  ],
+  "files": [
+    ".github/workflows/frontier-peer-runtime.yml",
+    "operations/evidence/frontier-research-peer-runtime-ci-gate-2026-07-13.json"
+  ],
+  "commits": [
+    "d096bbb7fa43a81d8b033c648da6897326f2f006",
+    "3148e84492957ce02df174c0c2566932a552aea5"
+  ],
+  "verification": "Workflow source committed; GitHub Actions result pending.",
+  "next_action": "Inspect the workflow run for commit d096bbb7fa43a81d8b033c648da6897326f2f006. If green, extend the gate with process-level crash injection around rename, directory fsync, and lock release."
+}
