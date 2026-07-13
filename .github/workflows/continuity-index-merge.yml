@@ -1,0 +1,118 @@
+name: Continuity index merge verification
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'operations/continuity/continuity-index.json'
+      - 'operations/continuity/continuity-index-delta-*.json'
+      - 'tools/continuity/validate-continuity-delta.mjs'
+      - 'tools/continuity/merge-continuity-delta.mjs'
+      - 'tools/continuity/merge-continuity-delta.test.mjs'
+      - '.github/workflows/continuity-index-merge.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-candidate-merge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BASE_INDEX: operations/continuity/continuity-index.json
+      DELTA: operations/continuity/continuity-index-delta-2026-07-13T0901-0400.json
+      CANDIDATE: operations/continuity/continuity-index.candidate.json
+    steps:
+      - name: Check out exact source commit
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Record immutable source identity
+        run: |
+          set -euo pipefail
+          printf '%s\n' "$GITHUB_SHA" > continuity-source-commit.txt
+          git rev-parse HEAD | tee continuity-checked-out-commit.txt
+          test "$(cat continuity-checked-out-commit.txt)" = "$GITHUB_SHA"
+
+      - name: Verify exact base blob binding
+        id: base
+        run: |
+          set -euo pipefail
+          EXPECTED="$(node -e "const d=require('./' + process.env.DELTA); process.stdout.write(d.base_index.content_sha)")"
+          OBSERVED="$(git hash-object "$BASE_INDEX")"
+          printf '%s\n' "$EXPECTED" > continuity-expected-base-blob.txt
+          printf '%s\n' "$OBSERVED" > continuity-observed-base-blob.txt
+          test "$OBSERVED" = "$EXPECTED"
+          echo "blob=$OBSERVED" >> "$GITHUB_OUTPUT"
+
+      - name: Run deterministic merge contract tests
+        run: node --test tools/continuity/merge-continuity-delta.test.mjs | tee continuity-merge-tests.tap
+
+      - name: Validate corrected successor delta
+        run: |
+          set -euo pipefail
+          node tools/continuity/validate-continuity-delta.mjs \
+            "$BASE_INDEX" \
+            "$DELTA" \
+            "${{ steps.base.outputs.blob }}" | tee continuity-delta-validation.json
+
+      - name: Generate candidate canonical index
+        run: |
+          set -euo pipefail
+          node tools/continuity/merge-continuity-delta.mjs \
+            "$BASE_INDEX" \
+            "$DELTA" \
+            "${{ steps.base.outputs.blob }}" \
+            "$CANDIDATE" | tee continuity-merge-result.json
+
+      - name: Verify candidate semantics without publishing
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE' | tee continuity-candidate-review.json
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          const base = JSON.parse(fs.readFileSync(process.env.BASE_INDEX, 'utf8'));
+          const delta = JSON.parse(fs.readFileSync(process.env.DELTA, 'utf8'));
+          const candidateBytes = fs.readFileSync(process.env.CANDIDATE);
+          const candidate = JSON.parse(candidateBytes);
+          const expectedIds = delta.records.map((record) => record.id);
+          const actualIds = candidate.records.slice(base.records.length).map((record) => record.id);
+          const checks = {
+            base_record_count_preserved: candidate.records.length === base.records.length + delta.records.length,
+            appended_ids_exact_and_ordered: JSON.stringify(actualIds) === JSON.stringify(expectedIds),
+            privacy_boundary_preserved: JSON.stringify(candidate.privacy_boundary) === JSON.stringify(base.privacy_boundary),
+            merge_history_present: Array.isArray(candidate.merge_history) && candidate.merge_history.length > 0,
+            historical_predecessor_retained: candidate.merge_history.at(-1)?.historical_artifact_retained?.path === delta.supersedes_artifact?.path
+          };
+          const accepted = Object.values(checks).every(Boolean);
+          const review = {
+            accepted,
+            source_commit: process.env.GITHUB_SHA,
+            candidate_sha256: crypto.createHash('sha256').update(candidateBytes).digest('hex'),
+            base_record_count: base.records.length,
+            candidate_record_count: candidate.records.length,
+            appended_record_ids: actualIds,
+            checks,
+            publication_claim: 'candidate-only; this workflow does not update the canonical index'
+          };
+          console.log(JSON.stringify(review, null, 2));
+          if (!accepted) process.exit(1);
+          NODE
+
+      - name: Upload reviewable candidate and retained evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: continuity-index-candidate-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            operations/continuity/continuity-index.candidate.json
+            continuity-source-commit.txt
+            continuity-checked-out-commit.txt
+            continuity-expected-base-blob.txt
+            continuity-observed-base-blob.txt
+            continuity-merge-tests.tap
+            continuity-delta-validation.json
+            continuity-merge-result.json
+            continuity-candidate-review.json
