@@ -4,6 +4,8 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { REQUIRED_EVIDENCE_FILES } from './build-deployment-evidence-manifest.mjs';
 
+const SUPPORTED_SCHEMA_VERSION = '1.1.0';
+
 function sha256(bytes) {
   return crypto.createHash('sha256').update(bytes).digest('hex');
 }
@@ -30,7 +32,7 @@ export function verifyDeploymentEvidenceManifest({
   if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
     return { ok: false, errors: ['invalid-manifest'], checked_files: 0 };
   }
-  if (manifest.schema_version !== '1.0.0') errors.push('unsupported-schema-version');
+  if (manifest.schema_version !== SUPPORTED_SCHEMA_VERSION) errors.push('unsupported-schema-version');
   if (manifest.artifact_type !== 'cloudflare-deployment-evidence-manifest') errors.push('invalid-artifact-type');
   if (!/^[0-9a-f]{40}$/.test(manifest.source_commit ?? '')) errors.push('invalid-source-commit');
   if (expectedSourceCommit && manifest.source_commit !== expectedSourceCommit.toLowerCase()) errors.push('source-commit-mismatch');
