@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T13:21:31Z",
+  "team": "continuity_mining",
+  "queue_item": "M-008",
+  "artifact": {
+    "module": "tools/continuity/merge-continuity-delta.mjs",
+    "module_commit": "3e168ea5a6e0849f40beacb4f98e57869a5b46f2",
+    "test": "tools/continuity/merge-continuity-delta.test.mjs",
+    "test_commit": "d80cafe1b323b49b7eb1f228c89ef15b148aff5c",
+    "validator_dependency": "tools/continuity/validate-continuity-delta.mjs"
+  },
+  "finding": "Canonical continuity integration must be a validated append-only transformation rather than a direct rewrite. The merge must bind the exact base blob, reject malformed or duplicate records, preserve the prior index unchanged in memory, append records in deterministic identifier order, and retain the superseded historical artifact reference in an explicit merge ledger.",
+  "claim_states": {
+    "observed": [
+      "merge module and deterministic tests are committed",
+      "the module delegates acceptance to the existing fail-closed delta validator",
+      "the module records base content SHA, appended identifiers, and retained predecessor artifact in merge_history"
+    ],
+    "inferred": [
+      "the corrected successor can be integrated without deleting the invalid predecessor if clean-checkout validation succeeds"
+    ],
+    "proposed": [
+      "run the committed test and CLI against the exact base and corrected successor in a clean checkout, inspect the generated index, then update continuity-index.json only through the resulting byte-reviewed output"
+    ],
+    "superseded": [
+      "manual canonical-index editing as the preferred integration path"
+    ],
+    "unresolved": [
+      "clean-checkout execution of the committed module",
+      "byte review of the generated canonical index",
+      "canonical index update commit"
+    ]
+  },
+  "verification": {
+    "isolated_contract_run": {
+      "command": "node --test merge-continuity-delta.test.mjs",
+      "result": "4 passed, 0 failed",
+      "coverage": [
+        "valid deterministic append and history retention",
+        "stale base binding rejection",
+        "duplicate record rejection",
+        "nondeterministic delta ordering rejection"
+      ],
+      "limit": "The isolated run used the committed merge source with a local mirror of the validator contract; it is not clean-checkout repository execution evidence."
+    }
+  },
+  "privacy_boundary": "Public repository files, commit identifiers, hashes, schema vocabulary, and abstract project-memory mechanics only. Raw private chat, health or pet-health material, credentials, personal identifiers, and unreviewed uploaded files are excluded.",
+  "falsification_route": "Run the committed tests and CLI in a clean checkout. Reject this artifact if the committed module mutates its input, accepts a stale base SHA, accepts duplicate or unsorted records, omits predecessor retention, or produces output not reproducible from the same exact inputs."
+}
