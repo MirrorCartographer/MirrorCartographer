@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-13T01:00:46Z",
+  "owner": "continuity_mining",
+  "privacy_boundary": "Public repository files and commit metadata only; no raw chat, health, pet-health, credentials, contact data, account identifiers, or unreviewed uploads.",
+  "memory_slice": {
+    "id": "M-006",
+    "title": "Owner-scoped queue projections advanced beyond the canonical active queue",
+    "status": "completed",
+    "records": [
+      {
+        "id": "CM-0024",
+        "kind": "state_observation",
+        "claim_state": "observed",
+        "evidence_strength": "direct_repository_file_plus_commit_history",
+        "summary": "The canonical operations/ACTIVE_QUEUE.json still records continuity item M-001 as the latest continuity item, while append-only continuity queue projections and commits establish completed work through M-005.",
+        "sources": [
+          {
+            "type": "repository_file",
+            "locator": "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+            "observed_at": "2026-07-13T01:00:46Z"
+          },
+          {
+            "type": "github_commit",
+            "locator": "2b37909b73305c9dd639b524031ace3018526272",
+            "observed_at": "2026-07-13T01:00:46Z"
+          }
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [],
+        "falsification_or_review_route": "Fetch the cited canonical queue blob and the M-005 queue-projection commit; reject this observation only if the canonical file contains M-005 or a later continuity record at the cited blob."
+      },
+      {
+        "id": "CM-0025",
+        "kind": "contradiction_resolution",
+        "claim_state": "inferred",
+        "evidence_strength": "direct_sources_plus_coordination_rule",
+        "summary": "The two records are not mutually exclusive when interpreted by scope: ACTIVE_QUEUE.json is a stale canonical snapshot, while operations/queue-updates contains newer owner-scoped append-only projections. Neither source alone should be described as the complete current queue state.",
+        "sources": [
+          {
+            "type": "repository_file",
+            "locator": "operations/CURRENT_STATE.json@c21e897b0a30862142c5986368fc7c413fa030bc",
+            "observed_at": "2026-07-13T01:00:46Z"
+          },
+          {
+            "type": "repository_file",
+            "locator": "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+            "observed_at": "2026-07-13T01:00:46Z"
+          },
+          {
+            "type": "github_commit",
+            "locator": "2b37909b73305c9dd639b524031ace3018526272",
+            "observed_at": "2026-07-13T01:00:46Z"
+          }
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [
+          "Any report treating ACTIVE_QUEUE.json alone as the complete current queue",
+          "Any report treating an owner-scoped queue projection as if it had already updated the canonical queue"
+        ],
+        "supersedes": [
+          "The implicit assumption that append-only queue projections and canonical queue state are automatically synchronized"
+        ],
+        "falsification_or_review_route": "Re-evaluate when a reconciler commit updates the canonical queue from validated owner projections or when an authoritative queue-resolution rule is added."
+      },
+      {
+        "id": "CM-0026",
+        "kind": "proposed_rule",
+        "claim_state": "proposed",
+        "evidence_strength": "reasoned_from_repository_state",
+        "summary": "Queue readers should compute effective state from the canonical queue plus validated owner-scoped projections ordered by generated_at and commit ancestry, while preserving the canonical snapshot and every projection as immutable provenance. A reconciler may update the canonical file only after detecting duplicate IDs, owner mismatch, non-monotonic status, and conflicting source commits.",
+        "sources": [
+          {
+            "type": "repository_file",
+            "locator": "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+            "observed_at": "2026-07-13T01:00:46Z"
+          },
+          {
+            "type": "queue_projection_commit",
+            "locator": "2b37909b73305c9dd639b524031ace3018526272",
+            "observed_at": "2026-07-13T01:00:46Z"
+          }
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [],
+        "falsification_or_review_route": "Implement a deterministic reconciler and test it against duplicate IDs, cross-owner writes, reversed timestamps, status regression, and projections whose artifact commits are absent."
+      },
+      {
+        "id": "CM-0027",
+        "kind": "unresolved_question",
+        "claim_state": "unresolved",
+        "evidence_strength": "repository_gap",
+        "summary": "No inspected artifact defines which process is authorized to reconcile owner-scoped queue projections into operations/ACTIVE_QUEUE.json, how conflicts are adjudicated, or whether the canonical queue is intended to be materialized state or only a bootstrap snapshot.",
+        "sources": [
+          {
+            "type": "repository_file",
+            "locator": "operations/CURRENT_STATE.json@c21e897b0a30862142c5986368fc7c413fa030bc",
+            "observed_at": "2026-07-13T01:00:46Z"
+          },
+          {
+            "type": "repository_file",
+            "locator": "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+            "observed_at": "2026-07-13T01:00:46Z"
+          }
+        ],
+        "privacy": "public_repository_safe",
+        "contradicts": [],
+        "supersedes": [],
+        "falsification_or_review_route": "Resolve by committing an explicit queue reconciliation contract naming authority, merge order, validation rules, rollback behavior, and acceptance tests."
+      }
+    ]
+  }
+}
