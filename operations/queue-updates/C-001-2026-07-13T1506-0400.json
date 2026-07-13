@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "updated_at": "2026-07-13T15:06:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Integrated the fail-closed evidence-promotion composition into the Cloudflare deployment workflow after acceptance and before consistency/finalization, retained its output in the artifact set, and added a source contract test for ordering and claim boundaries.",
+  "files": [
+    ".github/workflows/cloudflare-pages-research.yml",
+    "cloudflare-static/cloudflare-promotion-workflow-contract.test.mjs",
+    "operations/evidence/cloudflare-promotion-workflow-wiring-2026-07-13T1506-0400.json"
+  ],
+  "commits": [
+    "3ad37f8f18b4dff1f505039260be3614c81063d5",
+    "bfbf773e886a25834c1db6a0ee745a368386239f",
+    "d32da6867fbf5d0e93c4815f9a20667111208d47"
+  ],
+  "verification": "Four deterministic source-contract tests passed locally; GitHub accepted the source commits; no workflow run exists for the workflow commit.",
+  "remaining": [
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Dispatch the Cloudflare research workflow.",
+    "Retain the resolving deployment URL, served research-surface identity, exact source commit, control-plane metadata, promotion decision, atomic manifest, and uploaded artifact evidence.",
+    "Confirm the committed workflow contract and full deployment evidence test suite pass in GitHub Actions."
+  ],
+  "boundaries": [
+    "No payment functionality moved to Vercel.",
+    "No diagnosis or treatment claims published.",
+    "No files or Git history deleted.",
+    "Canonical queue and other team records were not overwritten."
+  ]
+}
