@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "generated_at": "2026-07-13T04:15:00Z",
+  "finding": "The Cloudflare evidence path had cryptographic JWT verification and an accepted workflow-context receipt, but no exact authorization step binding verified GitHub OIDC claims to that receipt. A deny-by-default claim authorizer now compares issuer, audience, environment subject, token time bounds, repository identity, workflow identity, ref, event, run identity, actor identity, and source SHA.",
+  "source_status": {
+    "repository_state": "observed",
+    "github_oidc_claim_model": "official-documentation-informed",
+    "implementation_result": "committed",
+    "deployment_result": "not_attempted_external_configuration_blocked"
+  },
+  "artifacts": {
+    "module": "cloudflare-static/authorize-github-oidc-claims.mjs",
+    "module_commit": "7b12b7707a6a5457a4cec4b5569756474fe03be1",
+    "test": "cloudflare-static/authorize-github-oidc-claims.test.mjs",
+    "test_commit": "adc9ee9a14f57ee71a0c89d874a180b834b60d49"
+  },
+  "verification": {
+    "runtime": "Node test runner",
+    "result": "passed",
+    "tests": 5,
+    "cases": [
+      "exact fresh claims accepted",
+      "audience mismatch rejected",
+      "expired claims rejected",
+      "lookalike workflow_ref rejected",
+      "unaccepted workflow-context receipt rejected"
+    ]
+  },
+  "evidence_strength": "deterministic local unit test of committed source interface; no live GitHub-issued token or Cloudflare deployment",
+  "falsification_route": "Present a cryptographically verified GitHub OIDC claim set with any mismatched bound identity or invalid temporal/audience/subject condition and show that the authorizer accepts it, or present an exact valid set and show rejection.",
+  "privacy_boundary": "Contains no token, secret, private chat, health information, or identifying personal data.",
+  "trust_limit": "This layer authorizes claim semantics only after signature verification. It does not itself verify signatures, retrieve metadata, reject replay, prove mutation, prove deployment, or establish scientific or medical truth."
+}
