@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T11:31:00Z",
+  "finding": "Control-plane hostname discovery, DNS resolution, HTTP reachability, served research identity, and exact deployed-commit verification are separate evidence layers and must not be collapsed into one deployment claim.",
+  "artifact": {
+    "module": "cloudflare-static/classify-hostname-resolution.mjs",
+    "test": "cloudflare-static/classify-hostname-resolution.test.mjs",
+    "module_commit": "1d01c8ce21908b601fcb248b791c2ec292f2b571",
+    "test_commit": "a1dfea1353be539340e6f32665dd16b700f5a5d2"
+  },
+  "claim_ladder": [
+    "hostname-unresolved",
+    "dns-resolved",
+    "origin-reachable",
+    "research-surface-served",
+    "deployed-commit-served"
+  ],
+  "acceptance_rule": "accepted=true only when retained evidence includes a DNS answer, completed HTTP response, verified research-surface identity, verified exact deployed commit, and no contradictions",
+  "verification": {
+    "source_fetch": "The committed module was fetched back successfully at test commit a1dfea1353be539340e6f32665dd16b700f5a5d2.",
+    "runtime_test": "not executed in this run",
+    "runtime_test_reason": "The automation runtime could not resolve github.com for a clean clone, and no GitHub Actions dispatch tool was available. No passing test result is claimed."
+  },
+  "privacy": {
+    "secret_values_emitted": false,
+    "account_id_emitted": false,
+    "private_chat_emitted": false,
+    "medical_claims_emitted": false
+  },
+  "limits": [
+    "The classifier evaluates retained observations; it does not itself perform DNS or HTTP requests.",
+    "A DNS answer can be stale or vantage-point-specific.",
+    "HTTP reachability does not identify content or source commit.",
+    "Served identity and commit verification do not establish scientific or medical truth."
+  ],
+  "falsification_route": [
+    "Run node --test cloudflare-static/classify-hostname-resolution.test.mjs in a clean checkout.",
+    "Reject the artifact if DNS-only evidence can produce a served or deployed-commit claim.",
+    "Reject the artifact if exact-commit acceptance is possible without retained DNS, HTTP, and identity evidence."
+  ],
+  "status": "committed_contract_unexecuted"
+}
