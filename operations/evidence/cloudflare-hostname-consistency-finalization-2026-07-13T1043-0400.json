@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "captured_at": "2026-07-13T10:43:00-04:00",
+  "improvement": "Materialize the hostname-authority consistency verdict during evidence finalization and bind its exact bytes into the retained deployment evidence manifest.",
+  "specialists": [
+    "Evidence Auditor",
+    "Provenance Engineer",
+    "Cloudflare Deployment Engineer"
+  ],
+  "files": [
+    "cloudflare-static/materialize-hostname-authority-consistency.mjs",
+    "cloudflare-static/materialize-hostname-authority-consistency.test.mjs",
+    "cloudflare-static/build-deployment-evidence-manifest.mjs",
+    "cloudflare-static/finalize-deployment-evidence.mjs"
+  ],
+  "commits": [
+    "1f9f85d97db0f1a33a6a5c2b4493f92060776712",
+    "14b115b853663836bb4544ad46423bec918dad88",
+    "c5d23dd7948b74ab3d6166f7ab4c3950216bf623",
+    "5c2c5b04c181f3397bb306e3704ab82b498e4031"
+  ],
+  "verification": {
+    "route": "isolated Node test using byte-identical module and test contents before commit",
+    "tests": 3,
+    "passed": 3,
+    "failed": 0,
+    "covered": [
+      "accepted exact project, URL, hostname, and commit binding",
+      "fail-closed unavailable deployment metadata",
+      "retained evidence overwrite refusal"
+    ]
+  },
+  "claim_state": {
+    "source_behavior": "observed",
+    "deployment": "unresolved",
+    "public_hostname": "unresolved"
+  },
+  "privacy": {
+    "secret_values_emitted": false,
+    "private_chat_emitted": false,
+    "medical_claims_emitted": false
+  },
+  "limits": [
+    "No Cloudflare credentials were available to this run.",
+    "No public deployment or resolving hostname is claimed.",
+    "A consistency verdict authenticates bounded cross-artifact agreement; it does not establish scientific or medical truth."
+  ],
+  "rollback": "Revert the four listed commits in reverse order; no deployment, migration, file deletion, or history rewrite occurred."
+}
