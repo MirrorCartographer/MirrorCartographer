@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T13:46:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a credential-free composed public deployment proof runner that collects bounded hostname evidence, conditionally fetches the served manifest, preserves transport and parse failures, and emits the exact-commit classifier packet.",
+  "artifacts": [
+    "cloudflare-static/collect-public-deployment-proof.mjs",
+    "cloudflare-static/collect-public-deployment-proof.test.mjs",
+    "operations/evidence/cloudflare-public-deployment-proof-runner-2026-07-13T1346-0400.json"
+  ],
+  "commits": [
+    "64c83d71ac6e3616956306a486bc9b8b621d5d03",
+    "c0aa40a474b11eefe8e0c26a5ccbc5b1922f74c7",
+    "ab4298fa6d6dcdc67c37716a9bbc1fefe99b1fc4",
+    "3187b685884b343ca8ea6f1af8f023af5f2b224e"
+  ],
+  "verification": "Source and fixture readback completed. Runtime passage is not claimed because no successful CI test run was observed and the local environment could not resolve github.com for checkout.",
+  "remaining_blocker": "The actual Cloudflare hostname and cloudflare-research environment credentials remain unavailable. Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, deploy, then execute the runner with the actual hostname and expected source commit.",
+  "next_action": "Wire the runner into the Cloudflare deployment workflow after deployment URL capture, execute its committed tests in CI, and retain the resulting proof packet as an artifact."
+}
