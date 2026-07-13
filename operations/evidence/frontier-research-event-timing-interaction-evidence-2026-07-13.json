@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-006",
+  "created_at": "2026-07-13T10:33:00-04:00",
+  "claim_state": "observed-and-implemented",
+  "evidence_strength": "primary-specification-plus-deterministic-local-tests",
+  "primary_source": {
+    "title": "Event Timing API",
+    "url": "https://w3c.github.io/event-timing/",
+    "status": "W3C Editor's Draft",
+    "dated": "2026-03-19",
+    "source_limits": "Work in progress; browser support and implementation behavior must be verified independently."
+  },
+  "finding": "PerformanceEventTiming can group event entries by non-zero interactionId and decompose latency into input delay, processing duration, and presentation delay. An interactionId is correlation within a page lifecycle, not a stable global identifier or proof of causal source code.",
+  "prior_work_comparison": {
+    "existing_artifact": "tools/frontier-research/long-animation-frame-budget.mjs",
+    "existing_scope": "main-thread congestion and long-frame budgets",
+    "new_scope": "interaction-level grouping and separate latency-component verdicts",
+    "non_duplication": "The new artifact does not replace long-animation-frame evidence; it supplies the missing user-interaction identity and latency decomposition layer."
+  },
+  "implementation": {
+    "module": "tools/frontier-research/event-timing-interaction-evidence.mjs",
+    "test": "tools/frontier-research/event-timing-interaction-evidence.test.mjs",
+    "module_commit": "e4f365e5257f657ad9b179fe02b6a2d8d9be65c4",
+    "test_commit": "20f2c36b795cb48e266f169af2cb4003c3e97559",
+    "verdicts": ["within-budget", "budget-violation", "unsupported", "inconclusive"]
+  },
+  "verification": {
+    "command": "node --test event-timing-interaction-evidence.test.mjs",
+    "result": "4 passed, 0 failed",
+    "environment": "isolated Node runtime using byte-identical pre-commit source and tests",
+    "cases": [
+      "unsupported instrumentation fails closed",
+      "interactionId zero remains inconclusive",
+      "related events are grouped and bounded interaction accepted",
+      "duration, input, processing, and presentation violations remain distinct"
+    ]
+  },
+  "trust_limits": [
+    "Passing applies only to retained entries for the exact page lifecycle and tested sequence.",
+    "Buffered Event Timing entries default to a higher duration threshold; the observer requests 16ms for future entries.",
+    "No grouped interaction is inconclusive rather than passing.",
+    "Event Timing does not independently prove perceived harm or identify definitive source-code causality."
+  ],
+  "falsification_route": "Run the exact gesture on the target device, retain buffered and live PerformanceEventTiming entries, and reject acceptance if instrumentation is unsupported, no non-zero interactionId is observed, or any declared latency component budget is exceeded.",
+  "privacy_boundary": "No private chat, health data, credentials, identifying personal data, or unreviewed uploaded content included."
+}
