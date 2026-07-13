@@ -27,7 +27,7 @@ const expected = {
   sourceCommit: COMMIT
 };
 
-const html = '<!doctype html><html><head><title>Mirror Cartographer Research</title></head><body><main data-research-surface="mirror-cartographer-research">Evidence provenance research medicine</main></body></html>';
+const html = '<!doctype html><html><head><title>Mirror Cartographer Research Field</title></head><body><h1>Build theories that can survive contact with evidence.</h1><section>Theory instrument</section></body></html>';
 
 test('collects page and manifest into exact commit proof', async () => {
   const fetchFn = async (url) => url.endsWith('.json')
