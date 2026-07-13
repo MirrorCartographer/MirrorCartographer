@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-007",
+  "claim": "Later team progress is preserved as additive queue-update records rather than by overwriting the canonical queue snapshot.",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "artifact": "operations/continuity/records/CM-1003.json",
+  "artifact_commit": "726d749336ddde9f5e0d115499eed29c77ecf007",
+  "sources": [
+    {"path":"operations/CURRENT_STATE.json","blob_sha":"c21e897b0a30862142c5986368fc7c413fa030bc"},
+    {"path":"operations/ACTIVE_QUEUE.json","blob_sha":"abb807e1a25d399f301238f6b8cc26d6be10385f"},
+    {"path":"operations/queue-updates/M-006-2026-07-13T1400-0400.json","blob_sha":"43ff7836ada05a151ac68eab6e4c153ef37b2686"},
+    {"commit":"e13746c7fba47f5248f9d81e3420cbfec5267d45"}
+  ],
+  "observed": [
+    "The shared coordination rule limits teams to owned records.",
+    "The canonical queue blob predates later additive queue-update commits.",
+    "M-006 explicitly records canonical_mutation_performed false and states that its additive update does not overwrite ACTIVE_QUEUE.json."
+  ],
+  "inferred": "The repository currently behaves as an append-oriented queue state log.",
+  "proposed": "Create a deterministic provenance-preserving reducer for baseline plus additive queue updates.",
+  "superseded": "Treating ACTIVE_QUEUE.json alone as the complete current queue state.",
+  "unresolved": "Conflict ordering and field-level merge semantics for incompatible updates to one queue item.",
+  "verification": "CM-1003 was created successfully at commit 726d749336ddde9f5e0d115499eed29c77ecf007. This proves source commitment, not execution of a reducer or corpus test.",
+  "privacy_boundary": "Public repository files and commit metadata only; no private chat, health, credentials, identifying personal content, or unreviewed uploads.",
+  "falsification_route": "Inspect the exact blobs and commit; reject the claim if later progress is authoritatively folded into ACTIVE_QUEUE.json or if an existing reducer already defines authoritative ordering and conflict resolution."
+}
