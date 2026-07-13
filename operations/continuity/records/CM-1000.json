@@ -3,7 +3,7 @@
   "id": "CM-1000",
   "kind": "contradiction",
   "title": "Two continuity validators enforce different relation-integrity guarantees",
-  "claim_state": "observed",
+  "claim_state": "superseded",
   "evidence_strength": "corroborated_repository_sources",
   "sources": [
     {
@@ -23,20 +23,31 @@
       "locator": "operations/queue-updates/M-002-2026-07-13T1314-0400.json",
       "content_sha": "37007d811fe5fb70b6d7609fa7a702f966807cdd",
       "observed_at": "2026-07-13T17:21:37Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/records/CM-1000.json",
+      "content_sha": "131fa02930e7fd2314aaea6f1e649e1f7022af0a",
+      "observed_at": "2026-07-13T17:54:42Z"
     }
   ],
-  "summary": "The aggregate validator under tools/continuity validates required fields, enumerated values, unique IDs, relation target existence, self-reference, and the requirement that a superseded claim identify a target. The later relation validator under operations/continuity additionally rejects duplicate relation targets and supersession cycles, but accepts only an already-aggregated index object and is not shown as part of the aggregate repository gate. The durable state is therefore not simply 'continuity relations are validated': two partially overlapping contracts exist, and the repository-wide path may not enforce the stricter cycle and duplicate-edge guarantees until the implementations are composed or unified.",
+  "summary": "At the original observation, the aggregate validator and the separate relation validator enforced partially overlapping contracts. The repository-wide validator was later composed with strict relation integrity, so this fragmentation finding is now superseded by CM-1001. The original contradiction wording remains preserved through the prior blob SHA and the linked target record CM-1002 rather than being left as prose inside a machine-relation array.",
   "privacy": "public_repository_safe",
-  "contradicts": [
-    "Any current-state claim that one repository-wide continuity validator demonstrably enforces every relation guarantee implemented by both validator modules"
-  ],
-  "supersedes": [],
-  "status_relations": {
-    "observed": "The two modules have overlapping but non-identical acceptance rules and different input interfaces.",
-    "inferred": "A record set can satisfy the aggregate validator while still containing a duplicate relation target or a supersession cycle rejected by the newer relation validator.",
-    "proposed": "Compose the stricter relation validator into the aggregate repository gate, then retain one capability matrix and adversarial suite as the authoritative contract.",
-    "superseded": "Treating the existence of either validator alone as proof that all continuity relation invariants are enforced repository-wide.",
-    "unresolved": "No completed CI run or source integration observed in this run proves that the stricter relation validator executes against the aggregated monolithic and additive record set."
+  "contradicts": ["CM-1002"],
+  "supersedes": ["CM-1002"],
+  "legacy_relation_narrative": {
+    "field": "contradicts",
+    "original_value": "Any current-state claim that one repository-wide continuity validator demonstrably enforces every relation guarantee implemented by both validator modules",
+    "original_blob_sha": "131fa02930e7fd2314aaea6f1e649e1f7022af0a",
+    "migrated_target": "CM-1002",
+    "preservation_status": "retained_in_git_history_and_linked_record"
   },
-  "falsification_or_review_route": "Fetch both modules at the recorded blob SHAs. Falsify this record by showing that the aggregate repository gate imports or equivalently implements duplicate-target and supersession-cycle rejection over the complete monolithic-plus-additive record set, or by demonstrating that the two validators have identical accepted and rejected input domains. Structural validation does not establish truth of any continuity claim."
+  "status_relations": {
+    "observed": "The two modules originally had overlapping but non-identical acceptance rules and different input interfaces.",
+    "inferred": "Before composition, a record set could satisfy the aggregate validator while still containing a duplicate relation target or supersession cycle rejected by the separate relation validator.",
+    "proposed": "Keep one aggregate validator, one adversarial suite, and ID-only machine relations as the authoritative continuity contract.",
+    "superseded": "The prior fragmented-validator state and the prose-only contradiction edge have both been replaced by composed validation and a linked record.",
+    "unresolved": "No completed CI run at the exact migration commit has yet been observed."
+  },
+  "falsification_or_review_route": "Fetch the original CM-1000 blob 131fa02930e7fd2314aaea6f1e649e1f7022af0a, the current aggregate validator, CM-1001, and CM-1002. Falsify the historical claim by showing the two original validators had identical accepted domains or were already composed. Falsify the migration claim by showing the original prose is not preserved or the current relation target does not resolve. Structural validity does not establish truth of indexed claims."
 }
