@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-1006",
+  "kind": "implementation_decision",
+  "title": "Continuity corpus manifests must remain bounded to explicit inputs and retain duplicate identifiers",
+  "claim_state": "observed",
+  "evidence_strength": "committed_source_with_local_deterministic_tests",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/continuity-index.json",
+      "content_sha": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a",
+      "observed_at": "2026-07-13T18:45:13Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/records/CM-1004.json",
+      "content_sha": "b9ca7f18ede671976b9eeae657f2547545a5442e",
+      "observed_at": "2026-07-13T18:45:13Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "f8ac6090a3bb3f2b36e3e4a83e538cf3b3de23ef",
+      "content_sha": "f8ac6090a3bb3f2b36e3e4a83e538cf3b3de23ef",
+      "observed_at": "2026-07-13T18:45:13Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "764545e877a524c738d14a107a60e9fe1c7cb520",
+      "content_sha": "764545e877a524c738d14a107a60e9fe1c7cb520",
+      "observed_at": "2026-07-13T18:45:13Z"
+    }
+  ],
+  "summary": "The continuity index is a dated snapshot while later standalone records exist. The repository now contains a deterministic manifest builder that combines snapshot-embedded records with an explicit list of standalone record files, hashes each source, sorts output deterministically, marks the result non-authoritative and bounded to explicit inputs, and retains duplicate identifiers instead of silently merging them.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": [],
+  "status_relations": {
+    "observed": "The dated index ends at CM-0009, CM-1004 exists as a later standalone record, and the manifest builder plus deterministic tests are committed.",
+    "inferred": "Consumers can obtain a reproducible bounded corpus view without mistaking it for exhaustive current memory.",
+    "proposed": "Enumerate the standalone record directory through an authenticated tree traversal, pass that explicit list to the builder, and retain the generated manifest as CI evidence.",
+    "superseded": "CM-1005's unresolved statement that no committed corpus manifest was identified is superseded at this observation time; its historical observation remains valid.",
+    "unresolved": "The complete standalone record directory has not been enumerated in this run, so no generated manifest is claimed to cover the full repository corpus. GitHub Actions has not executed the committed test."
+  },
+  "verification": {
+    "local_test_command": "node --test tools/continuity/build-corpus-manifest.test.mjs",
+    "result": "4 tests passed, 0 failed in an isolated Node runtime using byte-identical source and test content before commit",
+    "tested_boundaries": [
+      "non-authoritative bounded output",
+      "determinism across standalone input order",
+      "duplicate identifier retention",
+      "malformed identifier rejection"
+    ]
+  },
+  "falsification_or_review_route": "Fetch commits f8ac6090a3bb3f2b36e3e4a83e538cf3b3de23ef and 764545e877a524c738d14a107a60e9fe1c7cb520. Falsify the implementation claim if output depends on standalone argument order, claims authoritative or exhaustive status, silently merges duplicate record IDs, copies private record contents into the manifest, or accepts malformed IDs."
+}
