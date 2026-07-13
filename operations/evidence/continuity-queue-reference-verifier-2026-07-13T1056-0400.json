@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "item_id": "M-013",
+  "recorded_at": "2026-07-13T14:56:47Z",
+  "artifact": "operations/continuity/queue-reference-verifier.mjs",
+  "artifact_commit": "e4766380518b6bf05a9789d0d627f79a8013a0cd",
+  "test": "operations/continuity/queue-reference-verifier.test.mjs",
+  "test_commit": "8446e847e4f404842cd733b7949fa44ac5184312",
+  "verification": {
+    "command": "node --test /tmp/queue-reference-verifier.test.mjs",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "exact commit/path bindings accepted with bounded claim",
+      "missing commit rejected",
+      "path-to-commit mismatch rejected",
+      "absolute and traversal paths rejected",
+      "non-append-only queue policy rejected"
+    ]
+  },
+  "claim_ceiling": "repository-reference-existence-and-binding-only",
+  "observed": [
+    "The verifier and five deterministic tests are committed.",
+    "All five tests passed in an isolated Node runtime using byte-identical source before commit.",
+    "No canonical shared-state file was overwritten."
+  ],
+  "inferred": [
+    "When supplied an authenticated immutable inventory, the verifier can prevent queue compaction from accepting missing or misbound output references."
+  ],
+  "proposed": [
+    "Integrate the verifier after complete queue-update enumeration and before candidate compaction emission."
+  ],
+  "superseded": [
+    "Treating a syntactically valid queue update as sufficient evidence that every referenced path and commit exists."
+  ],
+  "unresolved": [
+    "Complete authenticated enumeration of all queue updates and repository paths.",
+    "Cryptographic or provider-backed trust for the inventory constructor.",
+    "Reviewed canonical compaction."
+  ],
+  "privacy_boundary": "Public repository metadata and abstract queue semantics only; excludes raw private chat, health or pet-health material, credentials, personal identifiers, and unreviewed uploads.",
+  "limits": [
+    "Reference existence does not prove artifact semantics, runtime behavior, deployment, peer execution, or human outcome.",
+    "Inventory trust remains external and must come from an authenticated immutable repository view."
+  ]
+}
