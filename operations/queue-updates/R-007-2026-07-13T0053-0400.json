@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "item": {
+    "id": "R-007",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Bound signed OIDC temporal claims before durable replay insertion so malformed expiry cannot create long-lived replay state.",
+    "dependencies": ["R-006"],
+    "required_evidence": [
+      "primary JWT standards",
+      "official GitHub claim documentation",
+      "committed temporal-policy evaluator",
+      "adversarial time-boundary tests",
+      "explicit uncertainty and falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://www.rfc-editor.org/rfc/rfc7519.html",
+        "https://www.rfc-editor.org/rfc/rfc8725.html",
+        "https://docs.github.com/en/actions/reference/security/oidc"
+      ],
+      "finding": "Atomic uniqueness is insufficient when retention derives from unchecked exp. Validate exp, iat, and nbf under a bounded application profile before replay insertion and derive replay expiry only from validated claims.",
+      "module": "tools/frontier-research/oidc-temporal-policy.mjs",
+      "test": "tools/frontier-research/oidc-temporal-policy.test.mjs",
+      "evidence": "operations/evidence/frontier-research-oidc-temporal-policy-2026-07-13T0053-0400.json",
+      "commits": [
+        "99840e831c73ec97f999b065d21942d2b3fc5365",
+        "04cf1c765ba5bb563e02c7cc3ce6c3afefe9cf88",
+        "0ca84044ba776f3016ce8af96ce55e7d23e1aad7"
+      ],
+      "verification": "6 deterministic Node tests passed in an isolated runtime using byte-identical source and test content before commit.",
+      "uncertainty": "Default 600-second lifetime and 60-second skew are policy choices requiring validation against observed GitHub-issued tokens."
+    },
+    "handoff": "Cloudflare Research should insert temporal-profile evaluation after cryptographic, issuer, audience, and workflow checks and before atomic replay insertion. Use evaluator-derived accepted_at and replay_expires_at; fail closed on policy or storage errors."
+  },
+  "canonical_queue_mutated": false,
+  "reason": "Shared queue state is maintained through additive projections to avoid overwriting concurrent team work."
+}
