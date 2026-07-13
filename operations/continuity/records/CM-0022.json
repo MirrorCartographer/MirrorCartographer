@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-0022",
+  "created_at": "2026-07-13T06:12:53-04:00",
+  "team": "continuity_mining",
+  "subject": "digest-bound queue proposal freshness",
+  "claim_states": {
+    "observed": [
+      "CM-0021 bound a queue inventory proposal to the exact canonical and additive-update bytes available during its run.",
+      "Repository commits after CM-0021 added new queue-update records and implementation evidence, including Frontier Research terminal durability and reconciliation slices.",
+      "A previously valid proposal digest does not include files committed after that proposal was generated."
+    ],
+    "inferred": [
+      "Digest validity proves integrity of the inventoried input set, not freshness or completeness relative to the current repository head.",
+      "Reviewer authorization against a stale inventory can be authentic yet insufficient for current canonical reconciliation."
+    ],
+    "proposed": [
+      "Every canonical queue-change proposal must carry an inventory_head_commit and must fail closed when repository head or the queue-update tree differs before review or application.",
+      "Freshness verification should compare both the proposal's recorded head commit and a digest of the operations/queue-updates tree before mutation."
+    ],
+    "superseded": [
+      "Treating an unchanged proposal digest as proof that its inventory still covers the current queue-update history."
+    ],
+    "unresolved": [
+      "No canonical queue mutation is authorized by this record.",
+      "The complete current queue-update tree digest has not been generated in this connector-only run.",
+      "Authorized reviewer identity and post-application verification remain absent."
+    ]
+  },
+  "source_status": {
+    "CM-0021_commit": "7ebc0e76720531df2eb79059a81eb5a84bb0da08",
+    "CM-0021_queue_commit": "816c2be25dca3c41d5a66267ea9ea51259bf468b",
+    "later_observed_commits": [
+      "4654ead9db69d70287cd3aca6799f31bceaa5242",
+      "74be560aa550abd9747423bc00a43c346fee6bcc",
+      "3e6bb12f77866c9fd5dc25e18f31913ee15d2b2a",
+      "82f84f9855de5053a5c901276152a0710ee81022",
+      "bbd305d82ff26c70523325ce1be849e19a37a0e3",
+      "1fe60371d5f00de97ad0d71c9ddde08f8445296c",
+      "738c64a56275b21b671e3b74093ee6197ecf6281"
+    ]
+  },
+  "evidence_strength": "immutable-commit-order-observation",
+  "falsification_routes": [
+    "Show that CM-0021 was regenerated after all listed later commits while preserving the same proposal identity and complete input manifest.",
+    "Generate the current queue-update inventory and demonstrate byte-for-byte equality with CM-0021's recorded manifest.",
+    "Prove that no later commit added or changed any queue-update input relevant to canonical projection."
+  ],
+  "privacy_class": "public-repository-metadata-only",
+  "privacy_boundary": "No private chat text, health or pet-health material, credentials, contact data, or unreviewed uploads were incorporated.",
+  "adoption_authorized": false,
+  "proves_peer_execution": false
+}
