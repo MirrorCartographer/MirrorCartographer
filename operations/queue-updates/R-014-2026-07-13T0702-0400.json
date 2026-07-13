@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "status": "active",
+  "completed_slice": "PID-bound stale-lock recovery with real child-process SIGKILL tests at pre-rename, post-rename/pre-directory-sync, and pre-lock-release boundaries.",
+  "source_status": "repository-local-runtime-contract",
+  "evidence": "operations/evidence/frontier-research-peer-runtime-process-crash-recovery-2026-07-13.json",
+  "files": [
+    "tools/frontier-research/filesystem-peer-terminal-store.mjs",
+    "tools/frontier-research/filesystem-peer-terminal-worker.mjs",
+    "tools/frontier-research/filesystem-peer-terminal-store.test.mjs"
+  ],
+  "commits": [
+    "3f28d6e866a8c35cc7f7ddb9bab029a1a049ecf3",
+    "14219f9a6013cbc1d7f77e68c65be303b6be0786",
+    "4400329c0e9321fa303ac3fc0af88a20888caf7b",
+    "759e8f57ee9f88ab4e88e6133df3e677d9646a86",
+    "22a3577f1da640e88c24c6325eb99559c8fb91ad"
+  ],
+  "verification": {
+    "state": "source-contract-implemented-runtime-pending",
+    "workflow_runs_found": 0,
+    "command": "node --test tools/frontier-research/filesystem-peer-terminal-store.test.mjs"
+  },
+  "limits": [
+    "No hosted clean-runner pass is claimed.",
+    "PID reuse remains a theoretical stale-owner ambiguity.",
+    "Cross-filesystem behavior is not yet benchmarked."
+  ],
+  "next_action": "Capture the first clean-runner result, then add a repeated crash/restart stress benchmark that verifies no lock, quarantine, or temporary artifacts remain and records operating-system/filesystem identity."
+}
