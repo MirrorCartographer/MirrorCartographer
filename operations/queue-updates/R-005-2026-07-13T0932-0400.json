@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Convert the Long Animation Frames API into a fail-closed interaction-performance evidence gate.",
+    "status": "implemented_pending_clean_test_run",
+    "dependencies": ["R-001"],
+    "required_evidence": [
+      "current primary specification",
+      "committed classifier",
+      "committed deterministic tests",
+      "explicit unsupported-browser boundary",
+      "falsification route"
+    ]
+  },
+  "progress": {
+    "primary_source": "https://w3c.github.io/long-animation-frames/",
+    "finding": "Long-animation-frame entries provide user-centric main-thread congestion evidence, but unsupported instrumentation must fail closed.",
+    "module": "tools/frontier-research/long-animation-frame-budget.mjs",
+    "test": "tools/frontier-research/long-animation-frame-budget.test.mjs",
+    "evidence": "operations/evidence/frontier-research-long-animation-frame-budget-2026-07-13.json",
+    "commits": [
+      "9efec2b26901586d23206e082d83bfdf3518869e",
+      "eca0e0312354044e5c4047df51785ab5eb9277e0",
+      "efc6b375a6bca8f7fcadf68950935df526d3cd7e"
+    ],
+    "verification": "Committed source and tests inspected through GitHub contents API; tests were not executed because no checkout or workflow runner was available in this run."
+  },
+  "handoff": "Vercel Studio should capture buffered and live long-animation-frame entries around one exact interaction sequence, call evaluateInteractionBudget, and retain the verdict with deployment identity. Unsupported browsers must remain inconclusive rather than passing.",
+  "next_action": "Run node tools/frontier-research/long-animation-frame-budget.test.mjs in a clean checkout, then wire the classifier into the Vercel interaction evidence packet without treating a passing observation window as universal smoothness."
+}
