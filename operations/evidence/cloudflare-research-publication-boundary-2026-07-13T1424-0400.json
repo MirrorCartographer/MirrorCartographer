@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T14:24:38-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "slice": "deterministic research publication boundary",
+  "source": {
+    "validator": "cloudflare-static/validate-research-publication-boundary.mjs",
+    "implementation_commit": "b0ad75e261a2a39504f033da8487264733236532",
+    "test": "cloudflare-static/validate-research-publication-boundary.test.mjs",
+    "test_commit": "497b8db4230ba27a34003a8558b3be3d6dd5da63"
+  },
+  "behavior": {
+    "fails_closed_on": [
+      "direct diagnosis claims",
+      "direct treatment instructions",
+      "payment or conversion language and providers",
+      "missing falsification, uncertainty, evidence, or non-diagnosis markers"
+    ],
+    "explicit_limits": [
+      "not medical review",
+      "not proof of scientific truth",
+      "not proof of clinical safety or regulatory compliance",
+      "pattern checks can miss novel phrasing"
+    ]
+  },
+  "verification": {
+    "source_inspection": "The committed index contains all four required epistemic markers and no detected direct diagnosis, treatment, or payment language by manual contract inspection.",
+    "tests_committed": 6,
+    "workflow_runs_for_test_commit": 0,
+    "local_execution": "blocked because the runtime could not resolve github.com while cloning the exact committed tree",
+    "claim": "implementation and deterministic tests are committed; test passage is not claimed"
+  },
+  "privacy_boundary": "Only public repository source was inspected. No private chat, health records, credentials, or identifying personal material was used or published.",
+  "deployment": {
+    "attempted": false,
+    "reason": "C-001 remains blocked on Cloudflare environment credentials and no deployment identity is available"
+  },
+  "non_claims": [
+    "No Cloudflare deployment or resolving Pages hostname is claimed.",
+    "No diagnosis or treatment recommendation is published.",
+    "No payment or conversion logic was added to Vercel or the research surface.",
+    "No peer team execution is claimed."
+  ]
+}
