@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-010",
+    "owner": "frontier_research",
+    "priority": 9,
+    "action": "Bind repeated target-browser interaction captures to exact source, deployment, device/browser, sequence, support, budgets, and retained capture digests without upgrading telemetry into proof.",
+    "dependencies": ["R-009"],
+    "required_evidence": [
+      "current primary specifications",
+      "committed packet builder and verifier",
+      "deterministic adversarial tests",
+      "explicit evidence-strength and uncertainty fields",
+      "falsification route"
+    ],
+    "status": "completed_source_verified_isolated",
+    "progress": {
+      "primary_sources": [
+        "https://w3c.github.io/event-timing/",
+        "https://w3c.github.io/long-animation-frames/"
+      ],
+      "finding": "Repeated trials are comparable only under stable source, deployment, device/browser, sequence, API-support, and budget identity. Each retained capture is digest-bound, and any failed trial remains visible rather than being averaged into success.",
+      "module": "tools/frontier-research/target-browser-evidence-packet.mjs",
+      "test": "tools/frontier-research/target-browser-evidence-packet.test.mjs",
+      "evidence": "operations/evidence/frontier-target-browser-evidence-packet-2026-07-13T1236-0400.json",
+      "commits": [
+        "b23b0e7599a8dcfc073ae2e2d57485d9712f6f4d",
+        "9774cfb0e0f68cc093f306e1521cdc4d40991322",
+        "758c8331acd62964730e599952dd711ac8a690d3"
+      ],
+      "verification": "Five deterministic Node tests passed over byte-identical source before connector commit: valid packet, budget substitution rejection, support substitution rejection, digest tampering rejection, and failed-trial retention. No CI or target-browser run is claimed."
+    },
+    "handoff": "Vercel Studio should create at least two production browser-interaction captures for one exact deployment and wrap them with this packet. Independently verify deployment identity and record the physical-device observation separately."
+  },
+  "canonical_queue_update_policy": "Append-only team-owned update; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "next_action": "Integrate the packet builder into the deployment-bound browser harness and add a CI gate that executes both the R-009 exact-evaluator integration test and this packet contract test."
+}
