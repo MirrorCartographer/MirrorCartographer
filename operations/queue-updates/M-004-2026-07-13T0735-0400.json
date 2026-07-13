@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-004",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Implement a deterministic effective-queue reducer over the canonical snapshot and append-only queue projections.",
+  "completed_at": "2026-07-13T11:35:58Z",
+  "selection_basis": "M-003 identified the missing reducer as the highest-priority unresolved continuity gap.",
+  "outputs": [
+    {"path":"tools/continuity/effective-queue.mjs","commit":"52cca6f6f9a4adec189f9de3c108118b5b857263"},
+    {"path":"tools/continuity/effective-queue.test.mjs","commit":"ee73a9cece12187253e117fc7902e31dd8946721"},
+    {"path":"operations/evidence/continuity-effective-queue-reducer-2026-07-13.json","commit":"981fefd4c7eedfd77b0a659665f92bb4f73c323e"}
+  ],
+  "claim_states": {
+    "observed": ["source reducer committed", "deterministic test contract committed"],
+    "inferred": ["field-level provenance and conflict refusal prevent silent queue-state collapse"],
+    "proposed": ["make reducer execution a pre-selection gate after clean-runtime verification"],
+    "superseded": ["manual snapshot-only queue selection"],
+    "unresolved": ["clean-runtime test result", "canonical refresh authority"]
+  },
+  "privacy_boundary": "Public repository metadata and abstract queue semantics only; no private chat, health, credentials, identifiers, or unreviewed uploads.",
+  "next_action": "Run the committed tests in a clean checkout, retain the result, then integrate reducer output as a required pre-selection gate without rewriting source records."
+}
