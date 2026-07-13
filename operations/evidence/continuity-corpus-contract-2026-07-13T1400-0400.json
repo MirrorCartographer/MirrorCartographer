@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-006",
+  "recorded_at": "2026-07-13T18:00:00Z",
+  "slice": "Add a repository-root corpus test that validates the committed continuity index plus additive records and rejects prose or missing targets in machine-relation arrays.",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/continuity/continuity-index.json",
+    "operations/continuity/records/CM-1000.json",
+    "operations/continuity/records/CM-1001.json",
+    "operations/continuity/records/CM-1002.json",
+    "operations/continuity/validate-continuity-relations.mjs",
+    "tools/continuity/validate-continuity-records.mjs",
+    "tools/continuity/validate-continuity-records.test.mjs",
+    "operations/queue-updates/M-005-2026-07-13T1354-0400.json",
+    "recent repository commits"
+  ],
+  "artifact": {
+    "path": "tools/continuity/continuity-corpus.test.mjs",
+    "commit": "87edbc839cbafc621684e08ebfd396ed544f4434",
+    "blob_sha": "ae2b25869a1472132e024c841a39d57f4f99b24b",
+    "contracts": [
+      "the actual committed index and additive records pass the aggregate validator",
+      "CM-1000, CM-1001, and CM-1002 remain present",
+      "every contradicts and supersedes target matches CM-####",
+      "every machine-relation target resolves within the loaded corpus"
+    ]
+  },
+  "claim_states": {
+    "observed": "Synthetic aggregate-validator tests existed, and M-005 explicitly handed off a corpus-level migration test. The committed corpus test did not exist before this slice.",
+    "inferred": "A repository-root fixture closes the gap between validator behavior on synthetic examples and preservation of the actual migrated continuity graph.",
+    "proposed": "Run this test in CI at an exact commit and retain the raw Node test report as immutable workflow evidence.",
+    "superseded": "The prior test posture in which only synthetic fixtures guarded relation integrity.",
+    "unresolved": "No workflow run or observed Node execution exists for commit 87edbc839cbafc621684e08ebfd396ed544f4434. Source readback proves the contract is committed, not that it passes in CI."
+  },
+  "verification": {
+    "source_readback": "confirmed at exact commit",
+    "workflow_runs_for_commit": 0,
+    "runtime_test_execution": "not_observed",
+    "claim_limit": "Do not claim corpus validity or CI passage until the test executes successfully in a retained runtime."
+  },
+  "privacy_boundary": "Only public repository files, abstract continuity records, and commit metadata were inspected. No private chat, health, credential, identifying personal, or unreviewed uploaded-file content was published.",
+  "falsification_route": "Fetch the exact test blob and run node --test tools/continuity/continuity-corpus.test.mjs in a clean checkout of commit 87edbc839cbafc621684e08ebfd396ed544f4434. Falsify the source-contract claim if the file does not load the repository corpus or does not reject non-ID or missing relation targets. Falsify runtime validity if either test fails."
+}
