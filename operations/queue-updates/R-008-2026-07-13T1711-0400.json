@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T17:11:00-04:00",
+  "canonical_queue_mutated": false,
+  "reason": "No active canonical frontier_research item existed; additive queue history showed R-005 through R-007 completed, so this records the next non-duplicative slice without overwriting shared state.",
+  "proposed_item": {
+    "id": "R-008",
+    "owner": "frontier_research",
+    "priority": 7,
+    "status": "completed",
+    "action": "Fuse render, playback, output-route, and physical audibility evidence into a contradiction-aware diagnostic gate.",
+    "required_evidence": [
+      "current primary specifications",
+      "committed evaluator",
+      "deterministic tests",
+      "cross-channel trust limits",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "progress": {
+      "primary_sources": [
+        "https://webaudio.github.io/web-audio-api/",
+        "https://w3c.github.io/mediacapture-output/"
+      ],
+      "finding": "No browser telemetry channel alone proves audibility. Convergence and contradiction across render advance, playback counters, route availability, and physical observation determine the next defensible diagnostic action.",
+      "module": "tools/frontier-research/audio-evidence-fusion.mjs",
+      "test": "tools/frontier-research/audio-evidence-fusion.test.mjs",
+      "evidence": "operations/evidence/frontier-research-audio-evidence-fusion-2026-07-13T1711-0400.json",
+      "commits": [
+        "8a9673842bf7a7399773c772eb39322f6f02704d",
+        "694b6578c76f7e0687563cd7076e807a6757534f",
+        "657e927df389f8b466059c6de359a95c469f9fef"
+      ],
+      "verification": "6 deterministic Node tests passed in an isolated runtime."
+    },
+    "handoff": "Vercel Studio should adapt its existing render, playback-stat, route, and physical-observation outputs to these categorical inputs and retain the fusion result beside exact commit and deployment identity. A browser_path_progressing result must not be reported as audible without physical observation."
+  }
+}
