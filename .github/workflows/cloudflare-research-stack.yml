@@ -29,6 +29,7 @@ jobs:
           node --test cloudflare-static/validate-replay-reservation-deployment.test.mjs
           node --test cloudflare-static/verify-replay-reservation-worker.test.mjs
           node --test cloudflare-static/verify-replay-reservation-concurrency.test.mjs
+          node --test cloudflare-static/verify-replay-reservation-redeployment.test.mjs
           node --test cloudflare-static/research-surface-identity.test.mjs
 
       - name: Classify deployment readiness
@@ -75,6 +76,40 @@ jobs:
             "$REPLAY_RESERVATION_WORKER_URL" \
             cloudflare-replay-reservation-concurrency-proof.json
 
+      - name: Create reservation before Worker redeployment
+        env:
+          REPLAY_RESERVATION_WORKER_URL: ${{ steps.worker_deploy.outputs.deployment-url }}
+        run: |
+          node cloudflare-static/verify-replay-reservation-redeployment.mjs \
+            before \
+            "$REPLAY_RESERVATION_WORKER_URL" \
+            cloudflare-replay-reservation-before-redeployment.json
+
+      - name: Redeploy identical Worker source
+        id: worker_redeploy
+        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3.14.1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4"
+          workingDirectory: cloudflare-static
+          command: deploy --config replay-reservation-worker.wrangler.jsonc
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify reservation persistence after Worker redeployment
+        env:
+          REPLAY_RESERVATION_WORKER_URL: ${{ steps.worker_redeploy.outputs.deployment-url }}
+        run: |
+          test -n "$REPLAY_RESERVATION_WORKER_URL" || {
+            echo "Wrangler returned no redeployed Worker URL"
+            exit 3
+          }
+          node cloudflare-static/verify-replay-reservation-redeployment.mjs \
+            after \
+            "$REPLAY_RESERVATION_WORKER_URL" \
+            cloudflare-replay-reservation-before-redeployment.json \
+            cloudflare-replay-reservation-redeployment-proof.json
+
       - name: Deploy Pages research surface after Worker verification
         id: pages_deploy
         uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3.14.1
@@ -105,6 +140,7 @@ jobs:
         if: always()
         env:
           WORKER_URL: ${{ steps.worker_deploy.outputs.deployment-url }}
+          REDEPLOYED_WORKER_URL: ${{ steps.worker_redeploy.outputs.deployment-url }}
           PAGES_URL: ${{ steps.pages_deploy.outputs.deployment-url }}
         run: |
           node --input-type=module - <<'NODE'
@@ -114,21 +150,24 @@ jobs:
             catch { return null }
           }
           const evidence = {
-            schema_version: '1.1.0',
+            schema_version: '1.2.0',
             source_commit: process.env.GITHUB_SHA,
             worker: {
               url: process.env.WORKER_URL || null,
+              redeployed_url: process.env.REDEPLOYED_WORKER_URL || null,
               verification: read('cloudflare-replay-reservation-worker-proof.json'),
-              concurrency_proof: read('cloudflare-replay-reservation-concurrency-proof.json')
+              concurrency_proof: read('cloudflare-replay-reservation-concurrency-proof.json'),
+              redeployment_persistence_proof: read('cloudflare-replay-reservation-redeployment-proof.json')
             },
             pages: {
               url: process.env.PAGES_URL || null,
               proof_recorded: fs.existsSync('cloudflare-stack-pages-proof.ndjson')
             },
-            ordering_invariant: 'worker-deployed-health-verified-and-live-atomicity-verified-before-pages-deploy',
+            ordering_invariant: 'worker-deployed-health-verified-live-atomicity-verified-reservation-created-worker-redeployed-persistence-verified-before-pages-deploy',
             limits: [
               'A successful health response proves bounded service identity and readiness only.',
               'One concurrency probe proves one live routed namespace, not universal availability or indefinite durability.',
+              'One redeployment probe proves one reservation remained observable across one identical-source redeployment path.',
               'Deployment evidence does not establish scientific or medical truth.'
             ]
           }
@@ -145,6 +184,8 @@ jobs:
             cloudflare-stack-access-probe.json
             cloudflare-replay-reservation-worker-proof.json
             cloudflare-replay-reservation-concurrency-proof.json
+            cloudflare-replay-reservation-before-redeployment.json
+            cloudflare-replay-reservation-redeployment-proof.json
             cloudflare-stack-pages-proof.ndjson
             cloudflare-stack-deployment-evidence.json
           if-no-files-found: warn
@@ -154,16 +195,19 @@ jobs:
         if: always()
         env:
           WORKER_URL: ${{ steps.worker_deploy.outputs.deployment-url }}
+          REDEPLOYED_WORKER_URL: ${{ steps.worker_redeploy.outputs.deployment-url }}
           PAGES_URL: ${{ steps.pages_deploy.outputs.deployment-url }}
         run: |
           {
             echo "## Cloudflare research stack deployment"
             echo "- Source commit: \`${GITHUB_SHA}\`"
             echo "- Durable Object Worker URL: ${WORKER_URL:-not returned}"
+            echo "- Redeployed Worker URL: ${REDEPLOYED_WORKER_URL:-not returned}"
             echo "- Pages URL: ${PAGES_URL:-not returned}"
-            echo "- Ordering invariant: Worker deploy, exact health verification, and live atomicity proof precede Pages deployment"
+            echo "- Ordering invariant: identity, live atomicity, and cross-redeployment persistence verification precede Pages deployment"
             echo "- Worker proof: \`cloudflare-replay-reservation-worker-proof.json\`"
             echo "- Concurrency proof: \`cloudflare-replay-reservation-concurrency-proof.json\`"
+            echo "- Redeployment persistence proof: \`cloudflare-replay-reservation-redeployment-proof.json\`"
             echo "- Stack evidence: \`cloudflare-stack-deployment-evidence.json\`"
-            echo "- Limit: deployment identity and one atomicity probe are infrastructure evidence, not scientific or medical proof"
+            echo "- Limit: deployment identity and bounded storage probes are infrastructure evidence, not scientific or medical proof"
           } >> "$GITHUB_STEP_SUMMARY"
