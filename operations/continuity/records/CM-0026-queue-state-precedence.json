@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-13T11:33:06Z",
+  "id": "CM-0026",
+  "kind": "decision_rule",
+  "title": "Queue state requires reconciliation between the canonical snapshot and append-only projections",
+  "claim_states": {
+    "observed": [
+      "operations/ACTIVE_QUEUE.json is timestamped 2026-07-11T16:51:00-04:00 and contains only M-001 for continuity_mining",
+      "operations/queue-updates/M-002-2026-07-13T0714-0400.json records a later completed continuity item without rewriting the canonical queue",
+      "recent repository history contains additional continuity outputs after the canonical queue timestamp"
+    ],
+    "inferred": [
+      "operations/ACTIVE_QUEUE.json functions as a lagging canonical snapshot while operations/queue-updates/*.json functions as an append-only projection stream",
+      "selecting work from the canonical snapshot alone can duplicate completed work or miss newer unresolved handoffs"
+    ],
+    "proposed": [
+      "Before selecting a continuity item, merge the canonical snapshot with all later owner-matching queue projections ordered by completed_at or commit time",
+      "When snapshot and projection disagree, preserve both observations and mark the effective state as reconciled_from_projection until the canonical queue is intentionally refreshed",
+      "Do not overwrite operations/ACTIVE_QUEUE.json from an autonomous team run unless an explicit shared-state reconciliation rule authorizes it"
+    ],
+    "superseded": [
+      "Treating operations/ACTIVE_QUEUE.json as a complete current view when later queue projection records exist"
+    ],
+    "unresolved": [
+      "No committed reducer currently materializes an effective queue view from the canonical snapshot plus append-only projections",
+      "The repository does not yet declare who may refresh operations/ACTIVE_QUEUE.json or how concurrent projections are resolved"
+    ]
+  },
+  "evidence_strength": "corroborated_primary_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-13T11:33:06Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "3e3d638d5d4a2d4c636236a0c5bb4b603e492665",
+      "content_sha": "3e3d638d5d4a2d4c636236a0c5bb4b603e492665",
+      "observed_at": "2026-07-13T11:33:06Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "6dbc81308f532fc8b2eda676549bc321e2658436",
+      "content_sha": "6dbc81308f532fc8b2eda676549bc321e2658436",
+      "observed_at": "2026-07-13T11:33:06Z"
+    }
+  ],
+  "contradiction_resolution": {
+    "apparent_conflict": "The canonical queue shows continuity work ending at M-001, while later projection records show M-002 completed.",
+    "resolution": "These are not mutually exclusive historical claims. The canonical file is an older snapshot; the projection is a later append-only state transition. Effective current state must be derived from both.",
+    "forbidden_conclusion": "Do not infer that M-002 is absent, invalid, or still pending merely because it is not present in the older canonical snapshot."
+  },
+  "privacy_boundary": {
+    "allowed": [
+      "Public repository paths, blob SHAs, commit SHAs, timestamps, abstract state semantics"
+    ],
+    "forbidden": [
+      "Raw private chat text",
+      "Health or pet-health material",
+      "Credentials or personal identifiers",
+      "Unreviewed uploaded-file contents"
+    ]
+  },
+  "falsification_or_review_route": "Fetch the cited exact blob and commits. This record is falsified if ACTIVE_QUEUE.json already contains M-002 at the cited blob, if the M-002 projection predates the snapshot, or if a committed repository rule establishes that projections are non-authoritative and must be ignored."
+}
