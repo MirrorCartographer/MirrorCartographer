@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T01:10:00-04:00",
+  "finding": "An authenticated retained replay ledger must still fail closed when stale, future-dated, structurally unsupported, or internally malformed before it can influence a deployment evidence run.",
+  "implementation": {
+    "module": "cloudflare-static/build-replay-ledger-consumption-decision.mjs",
+    "test": "cloudflare-static/build-replay-ledger-consumption-decision.test.mjs",
+    "module_commit": "f0402418fb5d58828049bd6ca1c59802ff8c1495",
+    "test_commit": "108cc84bc403be11929d337a91289775d0665aab"
+  },
+  "verification": {
+    "runtime": "isolated Node test runner using byte-equivalent logic",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "fresh authenticated ledger acceptance",
+      "authentication failure rejection",
+      "stale and future ledger rejection",
+      "malformed entry rejection without raw-value disclosure",
+      "unsupported schema and missing generation time rejection"
+    ]
+  },
+  "evidence_strength": "tested implementation-ready gate",
+  "privacy_boundary": "The decision emits counts, age, reason codes, and no replay-key values.",
+  "trust_limit": "Acceptance authorizes replay comparison only. It does not prove ledger completeness, atomic insertion, deployment success, scientific truth, or medical truth.",
+  "deployment_status": "not attempted; C-001 remains blocked on protected Cloudflare credentials and workflow dispatch"
+}
