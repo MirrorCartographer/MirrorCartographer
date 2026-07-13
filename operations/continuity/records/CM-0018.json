@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0018",
+  "kind": "decision",
+  "title": "Reviewer identity must be independently bound before adoption",
+  "claim_state": "observed",
+  "evidence_strength": "primary_repository_source",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-13T07:09:11Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/records/CM-0017.json",
+      "content_sha": "44f95005940890ea2134c095429d798e9188cba0",
+      "observed_at": "2026-07-13T07:09:11Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "22c7a89f73308bbf86b02e5e89f5b5b7fadfcad3",
+      "content_sha": "22c7a89f73308bbf86b02e5e89f5b5b7fadfcad3",
+      "observed_at": "2026-07-13T07:09:11Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "689ac666e5917ab1c546c21e5279332b4b245fbb",
+      "content_sha": "689ac666e5917ab1c546c21e5279332b4b245fbb",
+      "observed_at": "2026-07-13T07:09:11Z"
+    }
+  ],
+  "summary": "A review approval and canonical-change proposal are insufficient for adoption unless reviewer identity evidence is independently verified, time-bounded, bound to the exact authorization and proposal digests, bound to the prior canonical queue blob, and accepted by a deny-by-default policy over provider, reviewer, verifier identity, and verifier artifact. Even valid identity evidence does not permit adoption; manual application and post-application verification remain mandatory. Six deterministic Node tests passed against byte-identical pre-commit files.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": ["CM-0017:proposed"],
+  "status_relations": {
+    "observed": "The committed evaluator creates a digest-bound reviewer identity binding only when provider signature verification is recorded, the authentication event is interactive human review, evidence is current, all authorization and proposal digests match, and a deny-by-default allowlist accepts the reviewer, provider, verifier, and verifier artifact.",
+    "inferred": "Reviewer identity is a separate authority domain from review content; binding both prevents an approved payload from being adopted under a substituted, stale, or self-asserted identity.",
+    "proposed": "Add a post-application verifier that compares the approved proposal, authenticated reviewer binding, prior canonical queue blob, manually applied commit, and resulting canonical queue blob.",
+    "superseded": "The absence of an executable reviewer-identity binding contract is superseded by the committed evaluator and adversarial tests.",
+    "unresolved": "No real identity-provider assertion, cryptographic verification artifact, authenticated reviewer event, manually applied queue commit, or post-application verification record currently exists."
+  },
+  "falsification_or_review_route": "Run node --test operations/continuity/reviewer-identity-evidence.test.mjs and reject this record if self-asserted identity, an unlisted reviewer, expired evidence, digest substitution, an untrusted verifier artifact, or automatic adoption is accepted. Structural validation alone must not be interpreted as cryptographic verification of a real provider assertion."
+}
