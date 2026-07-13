@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "continuity_gap_record",
+  "generated_at": "2026-07-13T05:09:48Z",
+  "claim_state": "observed",
+  "evidence_strength": "primary_repository_source",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/CURRENT_STATE.json",
+      "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc"
+    }
+  ],
+  "finding": {
+    "team": "continuity_mining",
+    "current_owned_item": "M-001",
+    "current_owned_status": "completed",
+    "active_owned_items": 0,
+    "handoff": "Add commit and decision-history records, then model contradictions as linked records rather than overwriting earlier observations.",
+    "coordination_gap": "The team remains active in CURRENT_STATE.json but ACTIVE_QUEUE.json contains no active or queued continuity-owned successor item."
+  },
+  "interpretation": {
+    "claim_state": "inferred",
+    "statement": "A successor item is required to make the recorded handoff executable without silently reopening M-001.",
+    "scope_limit": "This record does not modify the canonical queue and does not claim that any successor work has already run."
+  },
+  "privacy_boundary": {
+    "classification": "public_repository_safe",
+    "included": [
+      "public repository paths",
+      "public blob identifiers",
+      "abstract queue state"
+    ],
+    "excluded": [
+      "private chat",
+      "health or pet-health material",
+      "credentials",
+      "identifying personal data"
+    ]
+  },
+  "falsification_or_review_route": "Re-read ACTIVE_QUEUE.json at the recorded blob and count continuity_mining items whose status is active or queued. Re-read CURRENT_STATE.json and verify the team remains active."
+}
