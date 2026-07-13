@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "observed_at": "2026-07-13T14:37:00-04:00",
+  "team": "frontier_research",
+  "finding": "Independent verification predicates must be composed with logical AND and bound to the same artifact digest. A collection of individually accepted decisions is unsafe if one is missing, rejected, or belongs to a different subject.",
+  "primary_sources": [
+    {
+      "url": "https://slsa.dev/spec/v1.2/verifying-artifacts",
+      "status": "official_current_specification",
+      "support": "Verification includes signature, trusted builder identity, artifact subject digest, predicate type, canonical source, build type, and expected external parameters; unrecognized parameters should fail verification."
+    },
+    {
+      "url": "https://docs.sigstore.dev/cosign/verifying/verify/",
+      "status": "official_current_documentation",
+      "support": "Keyless verification constrains certificate identity and OIDC issuer and consumes transparency-backed verification evidence."
+    }
+  ],
+  "prior_artifacts_compared": [
+    "tools/frontier-research/trusted-builder-policy.mjs",
+    "tools/frontier-research/dsse-verification-contract.mjs",
+    "tools/frontier-research/signing-time-policy.mjs",
+    "tools/frontier-research/signer-identity-policy.mjs"
+  ],
+  "artifact": "tools/frontier-research/evidence-promotion-gate.mjs",
+  "test": "tools/frontier-research/evidence-promotion-gate.test.mjs",
+  "verification": {
+    "method": "node --test in isolated runtime",
+    "result": "passed",
+    "tests": 5,
+    "covered": [
+      "all gates accepted for one subject",
+      "missing gate rejection",
+      "explicit failed gate rejection",
+      "cross-subject decision splicing rejection",
+      "malformed digest rejection"
+    ]
+  },
+  "evidence_strength": "source_verified_and_deterministic_local_test",
+  "uncertainty": "The composer does not verify cryptography and assumes upstream decisions expose a normalized subject_sha256 field.",
+  "trust_limit": "Promotion eligibility means all configured trust predicates passed for one digest; it does not prove the underlying runtime, deployment, scientific, or medical claim.",
+  "falsification_route": "Omit one decision, set one pass field false, or substitute an accepted decision carrying another subject digest; the composer must reject fail-closed."
+}
