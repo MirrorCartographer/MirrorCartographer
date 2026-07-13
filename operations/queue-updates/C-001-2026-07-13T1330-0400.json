@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T13:30:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_progress": {
+    "module": "cloudflare-static/derive-hostname-candidates.mjs",
+    "test": "cloudflare-static/derive-hostname-candidates.test.mjs",
+    "workflow": ".github/workflows/cloudflare-hostname-candidate-contract.yml",
+    "evidence": "operations/evidence/cloudflare-hostname-candidate-contract-2026-07-13T1330-0400.json",
+    "commits": [
+      "d3eb7fbacb1a803d37bfb0a315fc6ab622e707a4",
+      "fba4fc4fc433e8f06d2c44cf49c7f8703a26ecbe",
+      "9247ac78ac10ff9e532cf185347f412a18317470",
+      "029de82c085518cb3ac116ae3491746355181905"
+    ],
+    "authorized_claim": "candidate_generation_only",
+    "verification": "Source and workflow definitions committed; five deterministic tests authored; no workflow execution or deployment observed."
+  },
+  "remaining_blocker": "The cloudflare-research GitHub environment still requires CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN. A successful credentialed workflow must return the deployment URL and bind the served research identity to the exact commit.",
+  "next_action": "Observe the hostname-candidate workflow artifact, probe mirror-cartographer-research.pages.dev through the retained public-hostname validator, and dispatch the credentialed deployment workflow when environment secrets are configured."
+}
