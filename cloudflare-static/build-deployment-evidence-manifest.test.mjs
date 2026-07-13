@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { buildDeploymentEvidenceManifest } from './build-deployment-evidence-manifest.mjs';
+import { buildDeploymentEvidenceManifest, REQUIRED_EVIDENCE_FILES } from './build-deployment-evidence-manifest.mjs';
 
 function fixture(names=['a.json','b.json']) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'cf-manifest-'));
@@ -20,6 +20,13 @@ test('binds exact bytes in deterministic path order', () => {
   assert.deepEqual(first, second);
   assert.deepEqual(first.evidence_files.map(x => x.path), ['a.json','b.json']);
   assert.match(first.manifest_sha256, /^[0-9a-f]{64}$/);
+});
+
+test('default closure binds promotion and consistency decisions', () => {
+  assert.ok(REQUIRED_EVIDENCE_FILES.includes('cloudflare-evidence-promotion-decision.json'));
+  assert.ok(REQUIRED_EVIDENCE_FILES.includes('cloudflare-deployment-consistency.json'));
+  assert.ok(REQUIRED_EVIDENCE_FILES.includes('cloudflare-promotion-consistency.json'));
+  assert.equal(new Set(REQUIRED_EVIDENCE_FILES).size, REQUIRED_EVIDENCE_FILES.length);
 });
 
 test('changes digest when evidence bytes change', () => {
