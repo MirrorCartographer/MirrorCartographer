@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-012",
+  "recorded_at": "2026-07-13T01:46:00-04:00",
+  "sources": [
+    {
+      "url": "https://slsa.dev/spec/v1.2/provenance",
+      "status": "primary_official",
+      "finding": "Provenance records where, when, and how an artifact was produced and can bind outputs to source and build process."
+    },
+    {
+      "url": "https://docs.github.com/en/actions/reference/security/oidc",
+      "status": "primary_official",
+      "finding": "GitHub OIDC exposes workflow_sha, workflow_ref, run_id, run_attempt, repository identity, and temporal claims suitable for invocation binding, but those claims do not prove measurement correctness."
+    },
+    {
+      "url": "https://www.nist.gov/pml/nist-technical-note-1297",
+      "status": "primary_official",
+      "finding": "Measurement interpretation depends on the declared measurement method and uncertainty context."
+    }
+  ],
+  "finding": "Calibration-cohort comparability must not rely solely on self-declared contract labels. The contract bytes, collector identity, exact source commit, workflow identity, and invocation identifiers must be bound before a cohort can enter the comparability gate.",
+  "artifact": {
+    "module": "tools/frontier-research/oidc-calibration-contract-provenance.mjs",
+    "test": "tools/frontier-research/oidc-calibration-contract-provenance.test.mjs",
+    "module_commit": "cfce6490959ca4de2d6892ad1f712a987cad746b",
+    "test_commit": "baaf6eb34d296675cbd1f160a00a09a050651e01"
+  },
+  "verification": {
+    "command": "node --test oidc-calibration-contract-provenance.test.mjs",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "environment": "isolated Node runtime using byte-identical pre-commit files"
+  },
+  "evidence_strength": "implemented_and_locally_tested",
+  "uncertainty": [
+    "The evaluator validates supplied provenance fields but does not cryptographically verify GitHub OIDC signatures.",
+    "A matching digest proves byte identity of the declared contract, not scientific validity of the measurement method.",
+    "Collector source digest verification remains an external acquisition responsibility."
+  ],
+  "falsification_route": [
+    "Change one contract field without updating its digest and require rejection.",
+    "Use a workflow SHA different from the collector commit and require rejection.",
+    "Remove a privacy boundary or invocation identifier and require rejection.",
+    "Provide a correctly signed but semantically false provenance record and confirm this layer alone cannot detect the falsehood."
+  ],
+  "boundaries": {
+    "contains_raw_tokens": false,
+    "contains_identity_claims": false,
+    "policy_change_permitted": false,
+    "token_acceptance_permitted": false,
+    "deployment_permitted": false
+  }
+}
