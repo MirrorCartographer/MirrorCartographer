@@ -1,6 +1,15 @@
 import { createHash, randomUUID } from 'node:crypto';
 
 const TERMINAL_PHASES = new Set(['executed', 'failed']);
+const ACCEPTED_JOURNAL_STATES = new Set([
+  'recorded',
+  'already-recorded',
+  'recorded-indeterminate-reconciled'
+]);
+const APPENDABLE_JOURNAL_STATES = new Set([
+  'recorded',
+  'recorded-indeterminate-reconciled'
+]);
 
 function requiredString(value, name) {
   if (typeof value !== 'string' || value.trim() === '') {
@@ -130,11 +139,11 @@ export function createPeerExecutionRuntime({
 
     const packetDigest = sha256CanonicalJson(packet);
     const journalReceipt = await terminalJournal.append({ triggerId, terminalEvent, packetDigest });
-    if (!['recorded', 'already-recorded'].includes(journalReceipt?.state)) {
+    if (!ACCEPTED_JOURNAL_STATES.has(journalReceipt?.state)) {
       throw new Error(`terminal-journal-rejected:${journalReceipt?.state ?? 'unknown'}`);
     }
 
-    if (journalReceipt.state === 'recorded') {
+    if (APPENDABLE_JOURNAL_STATES.has(journalReceipt.state)) {
       await appendEvent(terminalEvent, {
         packet_digest: packetDigest,
         verification: result,
