@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T01:25:00-04:00",
+  "slice": "Require a confirmed atomic reservation before a negative replay comparison can authorize admission.",
+  "source": {
+    "module": "cloudflare-static/evaluate-replay-admission.mjs",
+    "module_commit": "6bec211acf306cdd2e519e684290190fa9cf36ca",
+    "test": "cloudflare-static/evaluate-replay-admission.test.mjs",
+    "test_commit": "079b98d0062212704d2299579ed9f46bf0067870",
+    "predecessor": "cloudflare-static/build-replay-comparison-input.mjs"
+  },
+  "verification": {
+    "runtime": "Node.js isolated local execution",
+    "command": "node --test evaluate-replay-admission.test.mjs",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "accepted negative comparison plus confirmed atomic reservation is admitted",
+      "detected replay is rejected",
+      "non-atomic reservation is rejected",
+      "unaccepted or unperformed comparison is rejected",
+      "malformed reservation identity is rejected without value disclosure"
+    ]
+  },
+  "claim_state": {
+    "observed": "The prior replay-comparison adapter explicitly states that a non-match does not prove atomic insertion or global uniqueness.",
+    "inferred": "Treating a non-match alone as admission would leave a time-of-check/time-of-use replay race.",
+    "implemented": "A fail-closed gate now requires both an accepted negative comparison and a confirmed atomic reservation.",
+    "unresolved": "No durable atomic reservation provider is yet wired into the Cloudflare workflow, and deployment credentials remain unavailable."
+  },
+  "privacy_boundary": "No candidates, replay digests, reservation identifiers, credentials, private chat, health information, or treatment claims are persisted in this evidence record.",
+  "trust_limit": "Passing the gate proves only that supplied comparison and reservation artifacts satisfy the local contract. It does not prove ledger completeness, reservation durability, deployment success, identity truth, diagnosis, treatment efficacy, or scientific truth."
+}
