@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "status": "active",
+  "recorded_at": "2026-07-13T18:45:00-04:00",
+  "completed_slice": "deterministic pressed botanical specimens",
+  "progress": {
+    "creative_system": "The newest living plant or hybrid can be pressed into a deterministic, self-contained SVG whose geometry and label are derived from visible genome traits and optional parent seeds.",
+    "source": ["independent-web/pressure-garden/specimen.mjs","independent-web/pressure-garden/specimen.test.mjs","independent-web/pressure-garden/index.html",".github/workflows/independent-web-pages.yml"],
+    "evidence": "operations/evidence/independent-web-pressed-specimens-2026-07-13T1845-0400.json",
+    "commits": ["07157466d480f42c96a7659e4edffc1f20f71478","32813526fe5f4940b03579862ea6c0d4b09a844c","89b62da3a2a270b500966363996fc1b5bb0499b4","14b6c060e6658face00e579664a5c4eac1dc22c7","987d9b02c99b551b56c3d297b116806b59a4a97f"],
+    "verification": "Four deterministic Node tests passed against byte-identical pre-commit files. GitHub accepted all source, test, runtime, workflow, and evidence commits. No new workflow run, Pages deployment identity, browser execution, download result, or mobile evidence was observed, so none is claimed.",
+    "identity": "The result is a take-away artifact from a finite sensory ecology. It does not explain Mirror Cartographer, expose operations, classify a visitor, present research, or solicit conversion."
+  },
+  "remaining": ["observe the Independent Web Pages workflow for the latest commit","verify the served Pages URL and exact deployment identity","exercise specimen download in a real pointer-capable browser","capture narrow mobile and physical Safari evidence"],
+  "next_action": "Bind a deployed specimen interaction to exact source identity and verify that a wild plant and a hybrid produce distinct downloadable SVGs in desktop and mobile Safari."
+}
