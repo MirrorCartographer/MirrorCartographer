@@ -17,7 +17,7 @@ function response(body, { status = 200, url = 'https://mirror-cartographer-resea
 
 test('retains DNS, served identity, and exact commit evidence separately', async () => {
   const commit = 'a'.repeat(40);
-  const html = '<!doctype html><title>Mirror Cartographer Research Field</title><main>Build theories that can survive contact with evidence.</main><p>Research Field · Cloudflare</p>';
+  const html = '<!doctype html><title>Mirror Cartographer Research Field</title><main>Build theories that can survive contact with evidence.</main><h2>Theory instrument</h2>';
   const manifest = JSON.stringify({
     schema_version: '1.0.0',
     surface: 'mirror-cartographer-research',
