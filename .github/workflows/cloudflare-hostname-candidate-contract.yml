@@ -1,0 +1,35 @@
+name: Cloudflare hostname candidate contract
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'cloudflare-static/derive-hostname-candidates.mjs'
+      - 'cloudflare-static/derive-hostname-candidates.test.mjs'
+      - 'cloudflare-static/wrangler.jsonc'
+      - '.github/workflows/cloudflare-hostname-candidate-contract.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run deterministic contract tests
+        run: node --test cloudflare-static/derive-hostname-candidates.test.mjs
+      - name: Derive current bounded candidates
+        run: node cloudflare-static/derive-hostname-candidates.mjs cloudflare-static/wrangler.jsonc /tmp/cloudflare-hostname-candidates.json
+      - name: Verify candidate-only claim ceiling
+        run: |
+          node -e "const fs=require('fs');const p=JSON.parse(fs.readFileSync('/tmp/cloudflare-hostname-candidates.json'));if(p.authorizedClaim!=='candidate_generation_only')process.exit(2);if(p.candidates.some(c=>c.claimState!=='candidate_only'))process.exit(3);"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-hostname-candidates-${{ github.sha }}
+          path: /tmp/cloudflare-hostname-candidates.json
+          if-no-files-found: error
+          retention-days: 30
