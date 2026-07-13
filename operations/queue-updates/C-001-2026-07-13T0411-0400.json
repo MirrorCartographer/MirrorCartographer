@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T04:11:00-04:00",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "canonical_queue_mutated": false,
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added an ordered stack deployment workflow that requires the replay-reservation Durable Object Worker to deploy and pass exact HTTPS health identity verification before the Pages research surface can deploy.",
+  "source_commits": [
+    "d7aa16c2ad5082145a82f60806e383463aa63cf4",
+    "9047b06c54d7851e4c7785ddd0232bcf548327ca",
+    "c9f0da42aba9e66b51509036c90767ad511feb6a",
+    "ea04dc69fb69bb353ed61f2af12236e4f0da9c2d"
+  ],
+  "evidence": [
+    "operations/evidence/cloudflare-stack-ordering-2026-07-13T0411-0400.json"
+  ],
+  "verification": "Five deterministic Worker identity tests passed locally against byte-identical source before commit.",
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment, dispatch .github/workflows/cloudflare-research-stack.yml, and retain the returned Worker URL, Pages URL, deployment identities, served commit, and uploaded evidence artifact.",
+  "next_action": "Dispatch the ordered stack workflow, then test simultaneous replay reservations against the deployed Pages endpoint and prove exactly one winner plus persistence across redeployment."
+}
