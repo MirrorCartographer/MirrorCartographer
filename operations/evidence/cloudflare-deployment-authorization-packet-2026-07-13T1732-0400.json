@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "captured_at": "2026-07-13T17:32:04-04:00",
+  "claim_state": "observed_and_tested_source_behavior",
+  "durable_improvement": "A deterministic builder now converts the sanitized Cloudflare deployment blocker into a secret-free authorization request containing the exact GitHub environment, allowed secret names, workflow dispatch template, acceptance criteria, privacy policy, and claim limits.",
+  "source": {
+    "module": "cloudflare-static/build-deployment-authorization-request.mjs",
+    "test": "cloudflare-static/build-deployment-authorization-request.test.mjs",
+    "commits": [
+      "136ab652412469f4386dbd179a0711b0b69c0ad1",
+      "e699d99199d001cc0d9d8a407a00995cf7cc7c5a"
+    ]
+  },
+  "verification": {
+    "runtime": "Node test runner",
+    "result": "4 tests passed, 0 failed",
+    "covered": [
+      "deterministic allowlisted secret-name extraction",
+      "unknown blocker names never become requested secrets",
+      "blocker-free ready state becomes dispatchable",
+      "malformed blocker input fails closed"
+    ],
+    "deployment_observed": false,
+    "workflow_run_observed": false
+  },
+  "privacy": {
+    "secret_values_emitted": false,
+    "private_chat_emitted": false,
+    "health_material_emitted": false,
+    "diagnosis_or_treatment_claims": false
+  },
+  "limits": [
+    "The packet does not configure GitHub environment secrets.",
+    "The packet does not prove Cloudflare access, workflow execution, hostname resolution, or deployment success.",
+    "Authorization and provenance do not establish scientific or medical claim truth."
+  ],
+  "falsification_route": "Run the committed test file, then generate a packet from cloudflare-deployment-blocker.json and verify that no output field contains credential values and that dispatch remains blocked until the blocker list is empty."
+}
