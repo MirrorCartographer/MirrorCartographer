@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T12:37:00-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "slice": "Review-gated queue-compaction decision plus fail-closed contradiction-ledger validator",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json@c21e897b0a30862142c5986368fc7c413fa030bc",
+    "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "operations/SPECIALIST_REGISTRY.json@88451b05101bcd8a259f98de5d9290e15357366b",
+    "operations/TRIGGER_REQUESTS.json@80feb36d1d829c7d54748780837a9ebef543e6c4",
+    "operations/continuity/continuity-index.json@efb8b5ca41a00a3484af1df112a81fc6a1b6d63a",
+    "operations/continuity/contradiction-ledger.schema.json@92983b07287ec8e0497afa9cf178e4bd0a43331b",
+    "operations/continuity/contradiction-ledger.json@cf0c0f56fabc9f50ed13bbf85738fc5dd77982a8",
+    "commit:8317bc74efcdd32b63b12bcafc6ef0c899cf44b7"
+  ],
+  "memory_recovered": {
+    "observed": "Canonical ACTIVE_QUEUE.json is a reviewed baseline while later queue-update files are append-only candidate state.",
+    "inferred": "Without a validator and explicit compaction decision, a reader can collapse two state layers and report unsupported canonical status.",
+    "proposed": "Require two distinct observation references, two distinct source identities, and a non-empty preservation rule for every contradiction record.",
+    "superseded": "No prior record was deleted or rewritten.",
+    "unresolved": "M-002 remains append-only candidate state until reviewed canonical compaction."
+  },
+  "artifacts": {
+    "validator": "operations/continuity/validate-contradiction-ledger.mjs",
+    "test": "operations/continuity/validate-contradiction-ledger.test.mjs",
+    "decision": "operations/continuity/decisions/DEC-001-review-gated-queue-compaction.json"
+  },
+  "commits": [
+    "35d4be080048387adb7de02c17583df1c458e4d8",
+    "dcd3aff9f699cb80381a78f130f218b7759f6d35",
+    "678a1c899c02240ec95983c687d57140fa4b451c"
+  ],
+  "verification": {
+    "command": "node --test validate-contradiction-ledger.test.mjs",
+    "runtime": "isolated Node runtime using byte-identical committed source and test contents",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "valid independently referenced record accepted",
+      "fewer than two observations rejected",
+      "duplicate observation references rejected",
+      "missing preservation rule rejected",
+      "duplicate source identities rejected"
+    ]
+  },
+  "privacy_boundary": "Public repository files and commit metadata only. Raw private chat, health information, credentials, identifying personal data, and unreviewed uploads were not inspected or published.",
+  "claim_ceiling": "This proves deterministic validation behavior for the committed contract and records a repository-state decision. It does not prove private-history completeness, semantic truth of every source statement, reviewed queue compaction, deployment status, or peer execution."
+}
