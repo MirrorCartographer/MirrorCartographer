@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-023",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T00:24:20-04:00",
+  "claim_state": "implemented_unexecuted",
+  "evidence_strength": "committed_source_and_deterministic_test_design",
+  "primary_sources": [
+    {
+      "url": "https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md",
+      "status": "primary_specification",
+      "finding": "CloudEvents separates an occurrence from its event record, requires source-plus-id uniqueness, and permits extension attributes for correlation metadata. A received event is a record of an occurrence, not proof of later downstream occurrences."
+    },
+    {
+      "url": "https://www.w3.org/TR/trace-context/",
+      "status": "primary_standard",
+      "finding": "Trace context supplies interoperable correlation identifiers; correlation identity does not establish epistemic truth or completion."
+    }
+  ],
+  "finding": "Peer coordination needs a contiguous, evidence-bearing receipt chain. Trigger intent, control-plane acceptance, observed execution, committed output, and verified completion are distinct occurrences and must not be collapsed.",
+  "design_implication": "Use one correlation identifier across append-only receipts, require exact next-state transitions, bind each receipt to its predecessor by SHA-256, and require state-specific evidence before advancing. Completion is true only at peer_completion_verified.",
+  "artifact": {
+    "module": "tools/frontier-research/trigger-receipt-chain.mjs",
+    "module_commit": "6c1d5efda87110a8ca5f8c5e1413978fb8f4892b",
+    "test": "tools/frontier-research/trigger-receipt-chain.test.mjs",
+    "test_commit": "b23bda8dfc48f8d2b4ee8d78d4f28c65df7d6383"
+  },
+  "verification": {
+    "status": "not_runtime_executed",
+    "static_checks": [
+      "validator requires the chain to begin at trigger_intent_recorded",
+      "only contiguous state transitions are accepted",
+      "every receipt shares the chain correlation_id",
+      "every noninitial receipt binds the canonical predecessor bytes by SHA-256",
+      "state-specific evidence fields are mandatory",
+      "complete is true only for peer_completion_verified"
+    ],
+    "designed_tests": 6,
+    "runtime_limit": "No repository execution shell or completed CI run was available in this run; test passage is not claimed."
+  },
+  "uncertainty": [
+    "Canonical JSON serialization is implementation-local rather than an external canonicalization standard.",
+    "Digest linkage detects mutation only when a trusted copy of the terminal digest is retained.",
+    "The module validates evidence presence, not the truth or authority of evidence values.",
+    "Replay, signatures, scheduler observation, and commit ancestry remain separate verification layers."
+  ],
+  "falsification_route": [
+    "Run node --test tools/frontier-research/trigger-receipt-chain.test.mjs in a clean checkout.",
+    "Attempt skipped-state, correlation-substitution, duplicate-receipt, broken-link, and missing-evidence inputs.",
+    "Integrate a real peer trigger and show that scheduler acceptance alone leaves complete=false.",
+    "Require independent verification of run identity, commit existence, output paths, and acceptance criteria before the terminal receipt."
+  ],
+  "privacy_boundary": "Contains public standards, public repository paths, synthetic identifiers, and abstract team coordination only; no private chat, health, credentials, or identifying personal data."
+}
