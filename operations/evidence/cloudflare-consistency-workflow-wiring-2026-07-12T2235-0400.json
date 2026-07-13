@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-12T22:35:00-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "change": {
+    "type": "deployment_evidence_gate_wiring",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "workflow_commit": "a65937694d3d3477fedb65b2c670b036b3328d17",
+    "validator": "cloudflare-static/validate-deployment-evidence-consistency.mjs",
+    "validator_test": "cloudflare-static/validate-deployment-evidence-consistency.test.mjs",
+    "output_artifact": "cloudflare-deployment-consistency.json"
+  },
+  "observed": [
+    "The workflow contract-test stage now executes the deployment evidence consistency regression suite.",
+    "The workflow now generates cloudflare-deployment-consistency.json after evidence acceptance and before final manifest creation.",
+    "The consistency command exits nonzero when contradictory decision and acceptance records are detected, preventing successful finalization.",
+    "The consistency artifact is included in the uploaded proof packet and named in the run summary."
+  ],
+  "verification": {
+    "method": "committed-source inspection",
+    "source_commit": "a65937694d3d3477fedb65b2c670b036b3328d17",
+    "inspected_ranges": [
+      "contract test invocation",
+      "post-acceptance consistency step",
+      "pre-finalization ordering",
+      "artifact upload list"
+    ],
+    "runtime_or_ci_execution_observed": false
+  },
+  "limits": [
+    "No Cloudflare deployment was executed in this run.",
+    "No resolving Pages hostname or served deployment identity was observed.",
+    "Workflow source inspection does not prove GitHub Actions execution or Cloudflare availability.",
+    "Consistency validation rejects contradictory records but does not prove scientific truth, diagnosis, treatment efficacy, hostname ownership, or exact served bytes."
+  ],
+  "privacy_boundary": {
+    "included": ["public repository workflow source", "public validator source", "public commit identifiers"],
+    "excluded": ["credentials", "secret values", "private chat", "health material", "personal identifiers"]
+  }
+}
