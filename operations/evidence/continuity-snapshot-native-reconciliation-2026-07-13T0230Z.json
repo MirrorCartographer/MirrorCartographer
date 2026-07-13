@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T02:30:00Z",
+  "team": "continuity_mining",
+  "queue_item": "M-010",
+  "claim_state": "observed",
+  "finding": "Queue reconciliation previously validated commit-bound source inventory but still reconciled from mutable working-tree reads. The new adapter reads canonical queue, projections, and referenced evidence from one resolved commit, then computes separate source-inventory and candidate-state digests.",
+  "memory_states": {
+    "observed": [
+      "The canonical queue, projections, and evidence are read through git object storage at one resolved commit.",
+      "Source and candidate digests are distinct.",
+      "The adapter never mutates canonical state and never derives authority from snapshot consistency."
+    ],
+    "inferred": [
+      "Mixed-time working-tree reads are removed from the reconciliation path when this adapter is used."
+    ],
+    "proposed": [
+      "Add an explicit signed or policy-bound canonical materialization authority contract."
+    ],
+    "superseded": [
+      "Sequential working-tree reads can be treated as one coherent reconciliation snapshot."
+    ],
+    "unresolved": [
+      "The tests are committed but no CI or local execution result is observed in this run.",
+      "Canonical materialization authority remains undefined."
+    ]
+  },
+  "files": [
+    "tools/continuity/snapshot-native-queue-reconciler.mjs",
+    "tools/continuity/snapshot-native-queue-reconciler.test.mjs"
+  ],
+  "source_commits": [
+    "267c2b050e39f912ae0030098207168b357c097b",
+    "ae09064cffe798905fe8fab1572e1fe1be89ebd1"
+  ],
+  "verification": {
+    "source_committed": true,
+    "tests_committed": true,
+    "runtime_execution_observed": false,
+    "test_cases": [
+      "single-commit queue/projection/evidence binding",
+      "working-tree mutation cannot alter a commit-bound candidate",
+      "snapshot consistency cannot grant mutation authority"
+    ]
+  },
+  "privacy_boundary": {
+    "included": ["public repository state", "commit metadata", "public evidence paths"],
+    "excluded": ["raw private chat", "health material", "credentials", "personal identifiers", "unreviewed uploads"]
+  },
+  "review_route": "Execute the committed Node test, inspect both digests against the selected commit, then define materialization authority separately before any canonical queue mutation."
+}
