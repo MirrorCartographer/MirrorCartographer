@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "generated_at": "2026-07-13T00:27:00-04:00",
+  "claim_state": "implemented_locally_verified_not_live_exercised",
+  "finding": "Cryptographic JWT verification and exact GitHub Actions claim authorization must be composed into one fail-closed decision; neither layer may upgrade failure in the other.",
+  "artifact": "cloudflare-static/evaluate-github-oidc-evidence.mjs",
+  "test": "cloudflare-static/evaluate-github-oidc-evidence.test.mjs",
+  "commits": [
+    "3cab16db59032888c16c7cdd0f62d9acb916dd30",
+    "e2de3daad2a1fbdd36a92e2dd3989128466cecef"
+  ],
+  "verification": {
+    "method": "isolated Node runtime using byte-equivalent module logic",
+    "tests_passed": 4,
+    "boundaries": [
+      "verified signature plus exact fresh claims accepted",
+      "rejected signature cannot be upgraded by matching claims",
+      "verified signature cannot bypass exact workflow identity",
+      "verified signature cannot bypass token freshness"
+    ]
+  },
+  "evidence_strength": "moderate",
+  "source_status": "repository modules and deterministic local execution",
+  "privacy_boundary": "No tokens, credentials, private chat, health material, or identifying user data were read or committed.",
+  "deployment_status": "not_attempted_external_configuration_missing",
+  "uncertainty": "The composite evaluator has not yet processed a live GitHub-issued OIDC token inside Actions and is not yet wired into the deployment workflow.",
+  "falsification_route": "Wire the evaluator after pinned discovery/JWKS signature verification in the protected workflow; reject the run if either signature or claim authorization fails; inspect the uploaded decision artifact against the exact run identity.",
+  "trust_limit": "This artifact does not prove Cloudflare deployment, replay rejection, evidence truth, diagnosis, treatment, or scientific truth."
+}
