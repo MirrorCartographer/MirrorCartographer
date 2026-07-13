@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T08:57:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": {
+    "module": "cloudflare-static/build-hostname-evidence-packet.mjs",
+    "test": "cloudflare-static/build-hostname-evidence-packet.test.mjs",
+    "evidence": "operations/evidence/cloudflare-hostname-evidence-packet-2026-07-13T0857-0400.json",
+    "commits": [
+      "b09ebe5470f4f00488bbbd1690c3a3e16d2dd9c9",
+      "2d908d04e7eb80746351ad7e847a93a1d74fecb9",
+      "612825bcc3e2ecb3d6599d6f580ac8e63315a617"
+    ],
+    "verification": "4 deterministic Node tests passed; no failures",
+    "effect": "Observation collection and hostname classification now have one fail-closed, exact-commit-bound packet boundary. Partial DNS, HTTP, or served-identity evidence cannot become accepted deployment proof."
+  },
+  "blocker_unchanged": "Cloudflare environment credentials and a provider-returned deployment URL are still required for live acceptance evidence.",
+  "next_action": "Integrate the packet builder into .github/workflows/cloudflare-pages-research.yml after the deploy step and upload its JSON output; only accepted=true may advance C-001."
+}
