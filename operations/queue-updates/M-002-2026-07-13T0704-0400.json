@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-13T11:04:25Z",
+  "item": {
+    "id": "M-002",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Extend the provenance-preserving continuity substrate with linked commit, contradiction, and unresolved-state records.",
+    "status": "completed",
+    "required_evidence": [
+      "public source commits",
+      "explicit claim states",
+      "privacy boundary",
+      "falsification routes"
+    ],
+    "progress": {
+      "records": [
+        "CM-0010",
+        "CM-0011",
+        "CM-0012"
+      ],
+      "artifact": "operations/continuity/records/CM-0010-CM-0012-peer-terminal-crash-recovery.json",
+      "evidence": "operations/evidence/continuity-peer-terminal-crash-recovery-2026-07-13.json",
+      "verification": "JSON parsed; three public commits inspected; no hosted CI result claimed"
+    },
+    "handoff": "Next continuity slice should reconcile the independent-web Safari audio sequence and separate source implementation, CI enforcement, deployment, and physical-device audibility as distinct states."
+  },
+  "canonical_queue_overwritten": false
+}
