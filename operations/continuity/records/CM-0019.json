@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0019",
+  "kind": "decision",
+  "title": "Canonical adoption requires exact post-application verification",
+  "claim_state": "observed",
+  "evidence_strength": "primary_repository_source",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-13T08:04:37Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/records/CM-0018.json",
+      "content_sha": "217137e9baae7eb58d995e1a7a8e9c8db84dea49",
+      "observed_at": "2026-07-13T08:04:37Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "fc90bf99f70cf769aa7bb6d41a19942934331e98",
+      "content_sha": "fc90bf99f70cf769aa7bb6d41a19942934331e98",
+      "observed_at": "2026-07-13T08:04:37Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "cc836963b8cc0d202dd8e686145ae9f2e07dd8b3",
+      "content_sha": "cc836963b8cc0d202dd8e686145ae9f2e07dd8b3",
+      "observed_at": "2026-07-13T08:04:37Z"
+    }
+  ],
+  "summary": "Canonical queue adoption is valid only when a deny-by-default verifier binds the approved proposal, authenticated reviewer binding, prior queue bytes, exact resulting queue bytes, manually signed application commit, and trusted verifier artifact. The verifier rejects result drift, proposal or reviewer substitution, automated application, untrusted committers, and unverified signatures. Six deterministic Node tests passed against byte-identical pre-commit files.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": ["CM-0018:proposed"],
+  "status_relations": {
+    "observed": "The committed post-application verifier emits adopted_exactly_as_authorized only when the resulting queue digest exactly matches the proposal, all prior-state bindings agree, application mode is manual, the commit signature is recorded as verified, and deny-by-default committer and verifier allowlists accept the evidence.",
+    "inferred": "Adoption is not a property of approval alone; it is a closed evidence chain from prior state through authorized intent to the exact resulting state.",
+    "proposed": "Integrate this verifier into a manual review workflow that retains prior and resulting queue bytes, Git blob identities, commit verification evidence, and the reviewer identity binding as one immutable packet.",
+    "superseded": "The absence of an executable post-application verification contract is superseded by the committed verifier and adversarial tests.",
+    "unresolved": "No real manually applied canonical queue commit, trusted reviewer identity assertion, verified commit-signature artifact, or resulting queue verification packet currently exists."
+  },
+  "falsification_or_review_route": "Run node --test operations/continuity/post-application-verifier.test.mjs and reject this record if result drift, proposal substitution, reviewer-binding substitution, automated application, an untrusted committer, or an unverified signature is accepted. Structural fields do not independently prove that GitHub verified a real commit signature or that the retained queue blob SHAs correspond to the supplied bytes."
+}
