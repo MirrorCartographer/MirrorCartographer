@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T15:25:00-04:00",
+  "canonical_queue_mutated": false,
+  "reason": "No active canonical frontier_research item existed; this additive update records the next completed non-duplicative research slice without overwriting shared queue state.",
+  "proposed_item": {
+    "id": "R-007",
+    "owner": "frontier_research",
+    "priority": 6,
+    "status": "completed",
+    "action": "Translate current sink-loss behavior into a privacy-preserving transition evaluator for silent-but-logically-playing audio states.",
+    "required_evidence": [
+      "current primary specifications",
+      "committed evaluator",
+      "deterministic tests",
+      "privacy boundary",
+      "explicit trust limit",
+      "falsification route"
+    ],
+    "progress": {
+      "primary_sources": [
+        "https://w3c.github.io/mediacapture-output/",
+        "https://webaudio.github.io/web-audio-api/"
+      ],
+      "finding": "A selected sink can become unavailable without media pausing or automatic fallback, so logical playback can continue while audio is not rendered. Detect devicechange, re-enumerate permitted outputs, and retain only transition booleans and error classes.",
+      "module": "tools/frontier-research/audio-sink-transition-evaluator.mjs",
+      "test": "tools/frontier-research/audio-sink-transition-evaluator.test.mjs",
+      "evidence": "operations/evidence/frontier-research-audio-sink-transition-2026-07-13T1525-0400.json",
+      "commits": [
+        "4b5394026a092d6bf2740ae03ae1a602add49618",
+        "5dcc3315fb7e9f8e2b629074956b793dc2c99840",
+        "637019bab01b05e767a81284727b9ebf9201a9fc"
+      ],
+      "verification": "6 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files."
+    },
+    "handoff": "Vercel Studio should connect this evaluator to devicechange and permitted output re-enumeration, then pair the classification with render-position evidence and a physical iPhone audibility observation. Never retain raw device identifiers or labels."
+  }
+}
