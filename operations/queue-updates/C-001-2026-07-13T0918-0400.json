@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "updated_at": "2026-07-13T09:18:00-04:00",
+  "status": "blocked_external_configuration",
+  "priority": 0,
+  "completed_slice": {
+    "action": "Wire the exact-commit hostname evidence gate into the Cloudflare deployment workflow.",
+    "workflow_commit": "bbc334ef01150f8d08fc8538420e205b5f2f458d",
+    "evidence_commit": "70b907a170125d6b53dbd9d182923d994103f0ba",
+    "artifact": "operations/evidence/cloudflare-hostname-gate-workflow-wiring-2026-07-13T0918-0400.json",
+    "verification": "Committed workflow source was fetched after the update and inspected for test inclusion, post-deploy gate execution, exact deployment URL and GITHUB_SHA bindings, and proof-bundle retention."
+  },
+  "remaining_blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN followed by an authenticated workflow dispatch.",
+  "required_next_evidence": [
+    "successful workflow run identity",
+    "cloudflare-hostname-evidence-gate.json with accepted=true",
+    "resolving HTTPS hostname",
+    "served research surface bound to the workflow source commit",
+    "uploaded final evidence manifest"
+  ],
+  "next_action": "Dispatch .github/workflows/cloudflare-pages-research.yml with valid Cloudflare environment credentials, retain the run and artifact identities, and evaluate the hostname gate plus final evidence manifest before changing C-001 status."
+}
