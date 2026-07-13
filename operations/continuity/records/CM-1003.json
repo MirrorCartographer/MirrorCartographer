@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-1003",
+  "kind": "decision",
+  "title": "Team queue progress is preserved as additive overlays instead of rewriting the canonical queue",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/CURRENT_STATE.json",
+      "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+      "observed_at": "2026-07-13T18:09:06Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-13T18:09:06Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/queue-updates/M-006-2026-07-13T1400-0400.json",
+      "content_sha": "43ff7836ada05a151ac68eab6e4c153ef37b2686",
+      "observed_at": "2026-07-13T18:09:06Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "e13746c7fba47f5248f9d81e3420cbfec5267d45",
+      "content_sha": "e13746c7fba47f5248f9d81e3420cbfec5267d45",
+      "observed_at": "2026-07-13T18:09:06Z"
+    }
+  ],
+  "summary": "The shared state declares that teams update only owned records, while later continuity work records completed slices under operations/queue-updates and explicitly marks canonical_mutation_performed false. The durable operating pattern is therefore an event-like additive overlay: ACTIVE_QUEUE.json remains a baseline snapshot, and subsequent owned queue-update records preserve later progress without erasing prior states or risking cross-team overwrite. Consumers must reconcile the baseline with later additive records before describing current queue status.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": [],
+  "status_relations": {
+    "observed": "CURRENT_STATE defines shared-state coordination; ACTIVE_QUEUE remains an older canonical snapshot; M-006 records later completion as an additive owned file and states that the canonical queue was not mutated.",
+    "inferred": "The repository is functioning as an append-oriented state log even though no formal reducer or materialized-current-state builder is yet identified.",
+    "proposed": "Add a deterministic queue reducer that loads ACTIVE_QUEUE.json plus operations/queue-updates in commit or declared-event order and emits a non-authoritative materialized view with provenance for every field.",
+    "superseded": "Reading ACTIVE_QUEUE.json alone as the complete current queue state is no longer a reliable interpretation once additive updates exist.",
+    "unresolved": "No committed conflict-resolution rule was observed for two additive updates that target the same queue item with incompatible status or progress fields."
+  },
+  "falsification_or_review_route": "Fetch the three indexed file blobs and the queue-update commit. Falsify the observed claim by showing that later team progress is routinely written back into ACTIVE_QUEUE.json rather than retained additively, or that the M-006 queue-update file does not explicitly preserve the canonical queue. Review the inferred architectural claim separately by locating a committed reducer or authoritative ordering rule that already materializes additive updates."
+}
