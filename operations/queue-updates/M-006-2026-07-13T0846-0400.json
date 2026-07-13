@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-006",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed_with_followup",
+  "action": "Add a deterministic continuity-index delta validator and use it to classify the pending 0741 delta without rewriting history.",
+  "completed_at": "2026-07-13T12:46:45Z",
+  "selection_basis": "M-005 explicitly named delta validation as the next action. The pending delta was the highest-priority continuity artifact because canonical regeneration would otherwise import malformed graph semantics.",
+  "outputs": [
+    {"path":"tools/continuity/validate-continuity-delta.mjs","commit":"1a319a2472863cc70b6c5b0fdc577b72ccd0228f"},
+    {"path":"tools/continuity/validate-continuity-delta.test.mjs","commit":"3d527bf72f0933203ddc9e322d83de53e9044f2f"},
+    {"path":"operations/evidence/continuity-delta-validator-2026-07-13T0846-0400.json","commit":"02451383275aea9e42eb812130d659a999fc4270"}
+  ],
+  "result": {
+    "classification": "invalid_delta_detected",
+    "errors": [
+      "unsupported kind implementation",
+      "unknown supersedes reference snapshot_only_queue_selection",
+      "unknown supersedes reference manual_projection_reconciliation"
+    ],
+    "test_evidence": "4 deterministic isolated Node tests passed; clean-checkout repository execution remains unresolved"
+  },
+  "claim_states": {
+    "observed": ["the pending delta fails the committed schema vocabulary and graph-reference contract"],
+    "inferred": ["canonical merge must remain blocked until a corrected successor delta exists"],
+    "proposed": ["append a corrected successor delta that marks the malformed delta superseded by artifact reference"],
+    "superseded": ["the 0741 delta's merge-ready interpretation"],
+    "unresolved": ["clean-checkout execution and canonical invalid-delta retirement semantics"]
+  },
+  "privacy_boundary": "Public repository files, hashes, schema terms, and abstract project-memory claims only; private chat, health, pet-health, credentials, identifying data, and unreviewed uploads excluded.",
+  "next_action": "Create a corrected additive successor delta using only schema-valid kinds and CM record references, validate it in a clean checkout, then define deterministic canonical merge ordering without modifying or deleting the invalid historical delta."
+}
