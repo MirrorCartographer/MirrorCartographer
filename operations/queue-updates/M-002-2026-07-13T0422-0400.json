@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-002",
+    "owner": "continuity_mining",
+    "priority": 1,
+    "action": "Detect and preserve contradictions between canonical shared state and newer append-only queue history without mutating other teams' records.",
+    "dependencies": ["M-001"],
+    "required_evidence": [
+      "exact canonical queue blob",
+      "exact append-only queue-update blobs",
+      "committed lag detector",
+      "deterministic contradiction tests",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "finding": "ACTIVE_QUEUE.json records Frontier work only through R-004, while additive records establish completed R-005 and R-006. This is canonical state lag, not adoption authority or peer execution proof.",
+      "module": "operations/continuity/canonical-queue-lag.mjs",
+      "test": "operations/continuity/canonical-queue-lag.test.mjs",
+      "continuity_record": "operations/continuity/records/CM-0020.json",
+      "evidence": "operations/evidence/continuity-canonical-queue-lag-2026-07-13T0422-0400.json",
+      "commits": [
+        "90de30369c9236af8f3decd210a6e99cafc3f00e",
+        "8b81f7243e02025763ef80707d937a3a79e8c1c5",
+        "25385588ca0d9f98823033b08b63922d6009d9c8",
+        "76d32e69f3dc5cbf62848bb06ae6dac48992a805"
+      ],
+      "verification": "6 deterministic Node tests passed in an isolated runtime using byte-identical candidate files before commit",
+      "privacy_boundary": "public repository metadata and abstracted state relations only; private chat, health, pet-health, credentials, identifying personal data, and unreviewed uploads excluded"
+    },
+    "handoff": "Build an inventory adapter that discovers all operations/queue-updates records, feeds them to the lag detector, and produces a digest-bound canonical-change proposal for manual review. Use the existing reviewer identity and post-application verification contracts; do not rewrite ACTIVE_QUEUE.json automatically."
+  },
+  "canonical_queue_mutated": false,
+  "reason": "Continuity Mining owns this additive queue-update record but does not overwrite shared canonical state or another team's records."
+}
