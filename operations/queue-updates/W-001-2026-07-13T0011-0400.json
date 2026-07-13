@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "status": "active",
+  "completed_slice": "Rain Organ standalone browser instrument",
+  "creative_premise": "A print-like weather instrument where direct manipulation creates drawn rain, ripples, and optional local Web Audio voices.",
+  "specialists_used": [
+    "Creative Director",
+    "Worldbuilder",
+    "Experimental Interface Designer",
+    "Independent Hosting Architect",
+    "Generative Media Engineer"
+  ],
+  "files": [
+    "independent-web/rain-organ/index.html",
+    "independent-web/rain-organ/contract.test.mjs",
+    "independent-web/verify.mjs",
+    "operations/evidence/independent-creative-web-rain-organ-2026-07-13T0011-0400.json"
+  ],
+  "commits": [
+    "a0ba1821c1badefad71b3101af625047974f6a0d",
+    "c24e5654412bb84bc4d1e05859d6642ccdaa3408",
+    "22450d95cf92cb5c5340d373cb3ed78ae4a21d72",
+    "c9e2def6b785bbcaf8098fb244a21ed88a2aa8d3"
+  ],
+  "verification": {
+    "local": "8 independent creative web contract checks passed",
+    "pages_gate": "root verify.mjs now runs the Rain Organ contract before artifact upload",
+    "deployment": "pending workflow evidence",
+    "mobile_proof": "source-level contract only; physical-device proof pending"
+  },
+  "independence": "No Mirror Cartographer vocabulary, dashboard, research surface, product funnel, payments, network assets, or personal data.",
+  "rollback": "Revert the four listed commits; the pre-existing Weather Inside a Bell artifact is not replaced.",
+  "next_action": "Observe the GitHub Pages run for the final queue commit, verify the served rain-organ path and deployment.json source identity, then add a discoverable anthology doorway without converting the root into navigation UI."
+}
