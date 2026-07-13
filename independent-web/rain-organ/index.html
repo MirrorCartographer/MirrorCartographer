@@ -13,7 +13,7 @@ header,footer{display:flex;align-items:center;justify-content:space-between;gap:
 button,.return{appearance:none;border:2px solid var(--ink);background:transparent;color:var(--ink);padding:10px 14px;min-height:44px;font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;box-shadow:3px 3px 0 var(--ink);text-decoration:none;display:inline-flex;align-items:center}button:active,.return:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}button:focus-visible,.return:focus-visible{outline:4px solid var(--gold);outline-offset:3px}button:disabled{cursor:not-allowed;opacity:.55;box-shadow:none}
 #stage{position:relative;border:2px solid var(--ink);overflow:hidden;touch-action:none;background:linear-gradient(180deg,#d9e0df 0 55%,#d2c8ac 55% 100%);box-shadow:8px 8px 0 rgba(23,21,15,.16)}
 canvas{width:100%;height:100%;display:block}.legend{position:absolute;left:12px;bottom:10px;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;background:rgba(239,231,208,.82);padding:6px 8px;border:1px solid var(--ink)}
-.footer-left{display:flex;align-items:center;gap:10px}.meter{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;width:min(220px,40vw)}.meter i{height:7px;border:1px solid var(--ink);background:transparent}.meter i.on{background:var(--rust)}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.meter{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;width:min(220px,40vw)}.meter i{height:7px;border:1px solid var(--ink);background:transparent}.meter i.on{background:var(--rust)}
 @media (max-width:620px){header{align-items:flex-start}.footer-left{align-items:flex-start;flex-direction:column}.return{padding:8px 10px;min-height:40px}}
 @media (prefers-reduced-motion:reduce){.legend::after{content:' · reduced motion';}}
 </style>
@@ -22,7 +22,7 @@ canvas{width:100%;height:100%;display:block}.legend{position:absolute;left:12px;
 <main>
 <header><div><div class="title">Rain Organ</div><div class="note">Drag through the weather. Each landing place has a different voice.</div></div><button id="sound" aria-pressed="false">Start sound</button></header>
 <section id="stage" aria-label="Interactive rain instrument. Drag or use arrow keys to move the storm. Press space to drop rain."><canvas id="canvas"></canvas><div class="legend">drag · tap · arrows + space</div></section>
-<footer><div class="footer-left"><a class="return" href="../">Return to the bell</a><div class="note" id="status" aria-live="polite">Sound asleep. The drawing still works.</div></div><div class="meter" aria-hidden="true"></div></footer>
+<footer><div class="footer-left"><a class="return" href="../">Return to the bell</a><a class="return" href="../cloud-press/">Enter Cloud Press</a><div class="note" id="status" aria-live="polite">Sound asleep. The drawing still works.</div></div><div class="meter" aria-hidden="true"></div></footer>
 </main>
 <script>
 (()=>{
