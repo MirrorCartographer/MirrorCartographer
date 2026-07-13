@@ -2,7 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 
-const workflow = fs.readFileSync(
+const gateWorkflow = fs.readFileSync(
+  new URL('../.github/workflows/cloudflare-production-redirect-contract.yml', import.meta.url),
+  'utf8'
+);
+const productionWorkflow = fs.readFileSync(
   new URL('../.github/workflows/cloudflare-pages-research.yml', import.meta.url),
   'utf8'
 );
@@ -11,16 +15,16 @@ const verifier = fs.readFileSync(
   'utf8'
 );
 
-test('production workflow executes redirect-continuity adversarial tests before deployment', () => {
+test('dedicated CI gate executes redirect-continuity adversarial tests', () => {
   assert.match(
-    workflow,
+    gateWorkflow,
     /node --test cloudflare-static\/deployment-redirect-continuity\.test\.mjs/
   );
 });
 
-test('production workflow executes this workflow contract test', () => {
+test('dedicated CI gate executes this workflow contract test', () => {
   assert.match(
-    workflow,
+    gateWorkflow,
     /node --test cloudflare-static\/deployment-redirect-workflow-contract\.test\.mjs/
   );
 });
@@ -30,7 +34,7 @@ test('served deployment verifier enforces redirect continuity', () => {
   assert.match(verifier, /redirect-continuity-rejected/);
 });
 
-test('workflow retains the returned deployment URL as the verification input', () => {
-  assert.match(workflow, /DEPLOYMENT_URL: \$\{\{ steps\.deploy\.outputs\.deployment-url \}\}/);
-  assert.match(workflow, /node cloudflare-static\/verify-deployment\.mjs "\$DEPLOYMENT_URL"/);
+test('production workflow retains returned deployment URL as verification input', () => {
+  assert.match(productionWorkflow, /DEPLOYMENT_URL: \$\{\{ steps\.deploy\.outputs\.deployment-url \}\}/);
+  assert.match(productionWorkflow, /node cloudflare-static\/verify-deployment\.mjs "\$DEPLOYMENT_URL"/);
 });
