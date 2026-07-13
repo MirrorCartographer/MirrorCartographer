@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-004",
+  "generated_at": "2026-07-13T17:36:40Z",
+  "subject": "aggregate continuity relation gate convergence",
+  "sources_inspected": [
+    {"path":"operations/CURRENT_STATE.json","blob_sha":"c21e897b0a30862142c5986368fc7c413fa030bc"},
+    {"path":"operations/ACTIVE_QUEUE.json","blob_sha":"abb807e1a25d399f301238f6b8cc26d6be10385f"},
+    {"path":"operations/SPECIALIST_REGISTRY.json","blob_sha":"88451b05101bcd8a259f98de5d9290e15357366b"},
+    {"path":"operations/TRIGGER_REQUESTS.json","blob_sha":"80feb36d1d829c7d54748780837a9ebef543e6c4"},
+    {"path":"tools/continuity/validate-continuity-records.mjs","blob_sha":"4d13e5e18442e96dbad96f69f33ed25536f0ce54"},
+    {"path":"operations/continuity/validate-continuity-relations.mjs","blob_sha":"3945dee7eb6b1745a0865def23f185b399e984ba"},
+    {"path":"tools/continuity/validate-continuity-records.test.mjs","blob_sha":"1d9b7c16ffa607a089a8209cb928981be4582248"},
+    {"path":"operations/continuity/records/CM-1000.json","blob_sha":"131fa02930e7fd2314aaea6f1e649e1f7022af0a"}
+  ],
+  "memory_recovered": "The prior continuity handoff correctly identified split validator coverage. The aggregate validator now composes the strict relation validator across the full loaded record set, preserving record-shape checks while adding duplicate-target and supersession-cycle rejection.",
+  "contradiction_resolution": {
+    "observed": "The aggregate source imports and invokes validateContinuityRelations only after preliminary validation succeeds, and the test suite contains explicit duplicate-target and cycle fixtures.",
+    "inferred": "The repository now has one authoritative validation path for both aggregate loading and relation integrity.",
+    "proposed": "Migrate legacy prose stored in machine relation arrays into provenance-preserving narrative fields while retaining immutable historical blob references.",
+    "superseded": "The claim that strict relation integrity exists only as a disconnected optional validator.",
+    "unresolved": "CM-1000 contains a natural-language contradicts target rather than a CM record ID, so the current corpus is expected to fail the stricter gate until a preservation-safe migration is completed. No exact-commit CI run was observed in this run."
+  },
+  "implementation": {
+    "source_commit":"73d8c614379d64e14accb305c94a0bb962cd84b7",
+    "test_commit":"b4197caf4e2410673962dc0e7567b75080d466fa",
+    "memory_record_commit":"58f1d8e0d9ac3366514cebb2343134c04bbdd1a6",
+    "memory_record":"operations/continuity/records/CM-1001.json"
+  },
+  "verification": {
+    "method":"exact committed-source readback plus adversarial fixture inspection",
+    "runtime_tests_executed":false,
+    "reason":"The connected repository interface exposed commit and source operations but no repository checkout or GitHub Actions execution evidence during this run.",
+    "expected_test_count":6,
+    "claim_ceiling":"Committed source and test coverage are verified; runtime pass, CI execution, deployment, and peer execution are not claimed."
+  },
+  "privacy_boundary":"Public repository metadata, abstract implementation structure, blob SHAs, and non-personal project memory only. Raw private chat, health, pet-health, credentials, contact data, and unreviewed uploads were excluded.",
+  "falsification_route":"Run node --test tools/continuity/validate-continuity-records.test.mjs at commit b4197caf4e2410673962dc0e7567b75080d466fa, then run the aggregate validator against the repository corpus. The convergence claim fails if duplicate targets or supersession cycles pass; the corpus-drift claim fails if every relation target resolves to an existing CM record ID."
+}
