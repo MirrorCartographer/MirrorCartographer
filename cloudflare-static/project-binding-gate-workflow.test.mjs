@@ -7,18 +7,23 @@ const workflow = fs.readFileSync(
   'utf8'
 );
 
-test('project-binding gate runs the exact stack evidence test', () => {
+test('project-binding gate runs both stack and production workflow contracts', () => {
   assert.match(
     workflow,
     /node --test cloudflare-static\/validate-stack-deployment-evidence\.test\.mjs/
   );
+  assert.match(
+    workflow,
+    /node --test cloudflare-static\/production-project-binding-workflow\.test\.mjs/
+  );
 });
 
-test('project-binding gate protects changes to validator, test, and deployment workflow', () => {
+test('project-binding gate protects validator, production contract, and deployment workflow changes', () => {
   for (const protectedPath of [
     '.github/workflows/cloudflare-pages-research.yml',
     'cloudflare-static/validate-stack-deployment-evidence.mjs',
-    'cloudflare-static/validate-stack-deployment-evidence.test.mjs'
+    'cloudflare-static/validate-stack-deployment-evidence.test.mjs',
+    'cloudflare-static/production-project-binding-workflow.test.mjs'
   ]) {
     assert.ok(workflow.includes(`- '${protectedPath}'`), `missing path trigger: ${protectedPath}`);
   }
