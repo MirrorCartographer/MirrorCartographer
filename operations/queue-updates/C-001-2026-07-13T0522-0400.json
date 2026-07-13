@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T05:22:41-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added and test-verified a live Durable Object replay atomicity gate that runs after Worker identity verification and before Pages deployment.",
+  "progress": {
+    "module": "cloudflare-static/verify-replay-reservation-concurrency.mjs",
+    "test": "cloudflare-static/verify-replay-reservation-concurrency.test.mjs",
+    "workflow": ".github/workflows/cloudflare-research-stack.yml",
+    "evidence": "operations/evidence/cloudflare-live-atomicity-gate-2026-07-13T0522-0400.json",
+    "commits": [
+      "9b8250bad95a7a37c2a8b5c17ee88da5cd4148ca",
+      "1f7c8225e8bf5c1663fb4e5be3f5c94a05ea0ff0",
+      "2de24148b9e1c013250856db00ad17c2f273b9c7",
+      "d7368c4ad3713faf9f3c455904a834ca0b83a217"
+    ],
+    "verification": "5 deterministic Node tests passed; live Cloudflare execution remains unavailable until credentials are configured.",
+    "ordering_invariant": "Worker deploy -> exact health identity -> live one-winner atomicity proof -> Pages deploy -> served Pages identity."
+  },
+  "remaining": [
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Dispatch cloudflare-research-stack.yml and retain the Worker URL, concurrency proof, Pages URL, source commit, and deployment evidence artifact.",
+    "Run a separate cross-redeployment persistence proof using the same reservation key."
+  ],
+  "canonical_mutation": false
+}
