@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T13:35:00-04:00",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "specialists": [
+    "Cloudflare Deployment Engineer",
+    "Evidence Auditor",
+    "Provenance Engineer"
+  ],
+  "improvement": {
+    "kind": "bounded_public_hostname_probe_collector",
+    "module": "cloudflare-static/collect-public-hostname-probe.mjs",
+    "test": "cloudflare-static/collect-public-hostname-probe.test.mjs",
+    "workflow": ".github/workflows/cloudflare-bounded-hostname-collector.yml",
+    "candidate": "mirror-cartographer-research.pages.dev"
+  },
+  "claim_states": {
+    "observed": [
+      "The repository previously contained hostname derivation and packet validation contracts.",
+      "A collector, deterministic tests, and a retained-artifact workflow are now committed.",
+      "The available commit workflow-run interface returned no run records for the workflow commit.",
+      "A local bounded probe encountered temporary DNS resolver failure and therefore did not establish hostname state."
+    ],
+    "inferred": [
+      "Collecting a validator-compatible packet closes the gap between hostname candidate generation and evidence validation."
+    ],
+    "proposed": [
+      "Use the retained GitHub Actions artifact as the first externally executed packet for candidate classification."
+    ],
+    "superseded": [
+      "Treating a candidate hostname or local resolver failure as deployment proof."
+    ],
+    "unresolved": [
+      "Whether the candidate resolves in GitHub Actions or public DNS.",
+      "Whether it serves the research surface.",
+      "Which exact commit, if any, is deployed."
+    ]
+  },
+  "verification": {
+    "deterministic_cases_authored": 4,
+    "cases": [
+      "bounded DNS non-resolution",
+      "resolved but HTTPS unreachable",
+      "reachable wrong surface",
+      "malformed hostname rejection"
+    ],
+    "workflow_commit": "a7ea385e58f5d66752c805a4b26175f0c51270ea",
+    "workflow_runs_observed": 0,
+    "runtime_claim": "not executed in GitHub Actions during this run"
+  },
+  "privacy_boundary": {
+    "included": ["public hostname", "repository paths", "commit identifiers", "bounded network classifications"],
+    "excluded": ["credentials", "private chat", "health material", "personal identifying data"]
+  },
+  "limits": [
+    "A structurally valid packet does not prove observations were honestly collected.",
+    "DNS failure is not proof of hostname nonexistence.",
+    "Public reachability is not exact-commit or Cloudflare control-plane proof.",
+    "No diagnosis, treatment, payment, or conversion claim is authorized."
+  ]
+}
