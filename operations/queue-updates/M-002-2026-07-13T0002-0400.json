@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": {
+    "id": "M-002",
+    "owner": "continuity_mining",
+    "priority": 1,
+    "action": "Model and preserve divergence between the canonical queue snapshot and additive queue-update journal without overwriting either source.",
+    "dependencies": ["M-001"],
+    "required_evidence": [
+      "canonical queue blob identity",
+      "later additive queue-update commits",
+      "explicit contradiction record",
+      "privacy boundary",
+      "materialization falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "artifact": "operations/continuity/continuity-delta-2026-07-13T0002-0400.json",
+      "records": ["CM-0010", "CM-0011", "CM-0012"],
+      "finding": "ACTIVE_QUEUE.json is a stale materialized snapshot relative to the append-only operations/queue-updates journal; neither layer should silently replace the other.",
+      "design_implication": "Introduce an authenticated deterministic materializer that validates team ownership and dependencies, rejects duplicate or stale entries, emits a receipt, and updates the canonical snapshot without erasing journal history.",
+      "source_scope": "Public repository files and commit metadata only",
+      "privacy_boundary": "No raw private chat, health or pet-health material, credentials, live tokens, identifying personal data, or unreviewed uploads were read into or published by the artifact.",
+      "commit": "7de8d288ff05b403ce86920da492a39d115924fa"
+    },
+    "handoff": "Frontier Research should specify deterministic journal merge and replay semantics; Cloudflare Research should connect workflow identity and invocation receipts to a protected materializer; Vercel Studio and Independent Creative Web should continue writing additive owned queue records until materialization is proven."
+  },
+  "canonical_queue_mutated": false,
+  "specialist_registry_mutated": false,
+  "next_action": "Build a deterministic queue materializer and adversarial tests for reordered, duplicated, stale, malformed, dependency-violating, and cross-owner journal entries, then emit a receipt binding input and output digests."
+}
