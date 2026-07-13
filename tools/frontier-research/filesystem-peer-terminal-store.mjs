@@ -69,9 +69,12 @@ export function createFilesystemPeerTerminalStore({
 
     await acquireLock();
     const temporaryPath = `${path}.${process.pid}.${randomUUID()}.tmp`;
+    let renamed = false;
     try {
       const current = await readDocument();
-      if (journalEtag(current) !== expectedEtag) return Object.freeze({ applied: false, reason: 'precondition-failed' });
+      if (journalEtag(current) !== expectedEtag) {
+        return Object.freeze({ state: 'not-applied', applied: false, reason: 'precondition-failed' });
+      }
       const handle = await open(temporaryPath, 'wx', 0o600);
       try {
         await handle.writeFile(`${JSON.stringify(document)}\n`, 'utf8');
@@ -80,10 +83,21 @@ export function createFilesystemPeerTerminalStore({
         await handle.close();
       }
       await rename(temporaryPath, path);
-      await syncDirectory(dirname(path));
-      return Object.freeze({ applied: true, etag: nextEtag });
+      renamed = true;
+      try {
+        await syncDirectory(dirname(path));
+      } catch (error) {
+        return Object.freeze({
+          state: 'indeterminate',
+          applied: false,
+          reason: 'directory-sync-failed',
+          etag: nextEtag,
+          error_code: error?.code ?? error?.message ?? 'unknown'
+        });
+      }
+      return Object.freeze({ state: 'applied', applied: true, etag: nextEtag });
     } finally {
-      await rm(temporaryPath, { force: true }).catch(() => {});
+      if (!renamed) await rm(temporaryPath, { force: true }).catch(() => {});
       await rm(lockPath, { recursive: true, force: true });
     }
   }
