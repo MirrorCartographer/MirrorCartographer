@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-008",
+  "owner": "frontier_research",
+  "finding": "Temporal-policy calibration should use redacted metrics derived only from independently verified OIDC claims. Persisting raw JWTs or identity-bearing claim values is unnecessary and expands disclosure risk.",
+  "primary_sources": [
+    {
+      "url": "https://docs.github.com/en/actions/reference/security/oidc",
+      "status": "current_official_provider_documentation",
+      "supports": "GitHub Actions OIDC tokens expose exp, iat, jti, nbf and workflow/repository/run identity claims."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc7519.html",
+      "status": "IETF_standards_track",
+      "supports": "exp, nbf, and iat are NumericDate claims; JWTs may contain privacy-sensitive information and omission minimizes privacy risk."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8725.html",
+      "status": "IETF_best_current_practice",
+      "supports": "All cryptographic operations must validate and issuer, subject, and audience require application validation."
+    }
+  ],
+  "prior_work_compared": [
+    "tools/frontier-research/oidc-temporal-policy.mjs",
+    "tools/frontier-research/attestation-promotion-gate.mjs",
+    "operations/queue-updates/R-007-2026-07-13T0053-0400.json"
+  ],
+  "design_implication": "Insert a privacy-safe observation step after cryptographic, issuer, and audience validation. Retain only bounded timing deltas and claim-presence booleans; never retain the JWT, signature, or identity-bearing values in calibration evidence.",
+  "artifact": "tools/frontier-research/oidc-temporal-observation.mjs",
+  "test": "tools/frontier-research/oidc-temporal-observation.test.mjs",
+  "commits": [
+    "547b32bef2ffaab5a494f488f7fb54d2d31915f2",
+    "640f22643e33f0d6cceaa2792b5bfc8125015e29"
+  ],
+  "verification": {
+    "runtime": "Node test runner",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "method": "Executed before commit from byte-identical source and test files.",
+    "covered": [
+      "redacted output excludes issuer, audience, subject, jti, workflow SHA, repository ID, and run ID",
+      "unverified claims rejected",
+      "issuer or audience validation absence rejected",
+      "malformed or excessive temporal profiles rejected",
+      "observations too distant from issuance rejected"
+    ]
+  },
+  "evidence_strength": "tested_implementation_ready_prototype",
+  "uncertainty": "Synthetic tests establish the redaction and boundary contract. They do not establish GitHub's observed token lifetime distribution; production observations are still required before changing the R-007 defaults.",
+  "falsification_route": [
+    "Show that any raw identity-bearing claim value appears in serialized output.",
+    "Show that unverified, issuer-unvalidated, or audience-unvalidated claims can produce an observation.",
+    "Show that out-of-bound temporal values can enter calibration evidence.",
+    "Collect verified production observations demonstrating that the current bounds do not cover legitimate GitHub-issued tokens."
+  ],
+  "privacy_boundary": "No live token, signature, credential, repository identity, workflow identity, user identity, private chat, health data, or arbitrary claim value was stored. Test fixtures are synthetic.",
+  "trust_limit": "A valid observation is calibration evidence only. It does not authorize deployment, prove replay uniqueness, establish token authenticity beyond its upstream verification assertion, or prove scientific or deployment claims."
+}
