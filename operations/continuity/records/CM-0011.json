@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0011",
+  "kind": "decision",
+  "title": "Continuity history is additive and requires cross-record integrity validation",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/continuity-index.json",
+      "content_sha": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a",
+      "observed_at": "2026-07-13T05:00:07Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/records/CM-0010.json",
+      "content_sha": "e61bc25c04571c0d15afca570090a31d82174f7b",
+      "observed_at": "2026-07-13T05:00:07Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "75201179ff8c15659b584476deedc2fdeef74350",
+      "content_sha": "75201179ff8c15659b584476deedc2fdeef74350",
+      "observed_at": "2026-07-13T05:00:07Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "a9daa7a6c9331d5769e20f9e25416eb8857ecb50",
+      "content_sha": "a9daa7a6c9331d5769e20f9e25416eb8857ecb50",
+      "observed_at": "2026-07-13T05:00:07Z"
+    }
+  ],
+  "summary": "The continuity substrate now consists of an original indexed record set plus additive record files. That architecture preserves history without rewriting earlier records, but it creates a new integrity requirement: IDs must remain unique across both locations, contradiction and supersession links must resolve, and a superseded claim must identify the record it supersedes. A committed validator and adversarial tests now enforce those rules without modifying historical records.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": [],
+  "status_relations": {
+    "observed": "The monolithic index contains CM-0001 through CM-0009, while later continuity work is stored under operations/continuity/records/.",
+    "inferred": "Without aggregation-time validation, future additive records could silently duplicate IDs or create broken historical links.",
+    "implemented": "tools/continuity/validate-continuity-records.mjs checks structural fields, ID uniqueness, relation targets, self-reference, and superseded-state linkage.",
+    "unresolved": "The validator is not yet wired into repository CI, so invalid future records are not automatically blocked before merge."
+  },
+  "falsification_or_review_route": "Fetch the cited index, additive record, validator, and tests. Reject this record if continuity no longer uses both storage locations, if the validator fails to reject duplicate IDs or missing relation targets, or if CI already enforces an equivalent or stronger gate."
+}
