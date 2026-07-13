@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "generated_at": "2026-07-13T00:06:29-04:00",
+  "finding": "The workflow invocation receipt existed as a standalone artifact but was not part of the atomic deployment evidence manifest. The finalizer now materializes a deny-by-default receipt from GitHub Actions context immediately before final evidence closure, rejects an unaccepted receipt, and requires the exact receipt bytes in manifest schema 1.1.0.",
+  "specialists": [
+    "Provenance Engineer",
+    "Evidence Auditor",
+    "Cloudflare Deployment Engineer",
+    "Theory Architect"
+  ],
+  "changes": [
+    {
+      "path": "cloudflare-static/build-workflow-invocation-receipt.mjs",
+      "commit": "120372b88f6aac502263c654b10b4f01f478e317",
+      "purpose": "Export environment-to-context and environment-to-policy transforms for reuse by the evidence finalizer."
+    },
+    {
+      "path": "cloudflare-static/build-deployment-evidence-manifest.mjs",
+      "commit": "5b92f6a625fe154ddf50f46044a15b47a8e3cd01",
+      "purpose": "Require cloudflare-workflow-invocation-receipt.json and advance the manifest schema to 1.1.0."
+    },
+    {
+      "path": "cloudflare-static/finalize-deployment-evidence.mjs",
+      "commit": "bfc51a693e17075f4b3122646a873f1a28266b89",
+      "purpose": "Create and fail closed on the invocation receipt before manifest construction."
+    },
+    {
+      "path": "cloudflare-static/workflow-invocation-evidence-integration.test.mjs",
+      "commit": "10c143fefa8904dea58e7f054d3f27e368d4ad30",
+      "purpose": "Verify accepted identity inclusion and lookalike workflow rejection."
+    }
+  ],
+  "verification": {
+    "local_node_test": {
+      "status": "passed",
+      "tests": 2,
+      "command": "node --test cloudflare-static/workflow-invocation-evidence-integration.test.mjs",
+      "scope": "byte-equivalent local copies of the committed receipt builder, manifest builder, and integration test"
+    },
+    "committed_source_inspection": {
+      "status": "passed",
+      "ref": "10c143fefa8904dea58e7f054d3f27e368d4ad30",
+      "observed": "The finalizer writes cloudflare-workflow-invocation-receipt.json with exclusive creation, rejects an unaccepted receipt, and then builds the manifest."
+    },
+    "deployment": {
+      "status": "not_run",
+      "reason": "CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN remain external protected-environment prerequisites."
+    }
+  },
+  "claim_state": "implemented_source_verified_locally_deployment_unverified",
+  "evidence_strength": "moderate",
+  "falsification_route": [
+    "Run the committed integration test in GitHub Actions.",
+    "Dispatch the Cloudflare deployment workflow with configured protected credentials.",
+    "Inspect the uploaded manifest and verify that the receipt path, SHA-256, run identity, and replay key correspond to the exact workflow invocation.",
+    "Reject this finding if the finalizer succeeds without the receipt or if a lookalike workflow identity is accepted."
+  ],
+  "privacy_boundary": "No credentials, private chat, personal health material, diagnosis, or treatment claims are present.",
+  "trust_limit": "The receipt binds GitHub Actions context but remains explicitly unverified by OIDC. Inclusion in the manifest proves byte closure, not deployment success, scientific truth, or medical truth."
+}
