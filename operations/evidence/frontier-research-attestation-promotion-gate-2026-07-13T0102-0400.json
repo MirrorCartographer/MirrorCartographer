@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-005",
+  "created_at": "2026-07-13T01:02:00-04:00",
+  "claim_state": "tested_prototype",
+  "finding": "Structural validation and trusted-builder policy evaluation must not promote an attestation unless an independent cryptographic verifier also confirms signature validity, certificate identity, and the exact statement digest.",
+  "primary_sources": [
+    {
+      "url": "https://docs.github.com/en/actions/how-tos/secure-your-work/use-artifact-attestations/enforce-artifact-attestations",
+      "status": "official_current_guidance",
+      "use": "Artifact attestation enforcement requires verification against expected repository or owner identity; attestation presence alone is insufficient."
+    },
+    {
+      "url": "https://slsa.dev/spec/v1.2/verifying-artifacts",
+      "status": "official_specification",
+      "use": "Verification separates authenticity and policy checks from claims about artifact correctness."
+    },
+    {
+      "url": "https://in-toto.io/Statement/v1",
+      "status": "official_specification",
+      "use": "Defines the statement envelope whose subject digest must remain bound to the verified object."
+    }
+  ],
+  "prior_artifacts_compared": [
+    "tools/frontier-research/evidence-attestation.mjs",
+    "tools/frontier-research/trusted-builder-policy.mjs"
+  ],
+  "artifact": "tools/frontier-research/attestation-promotion-gate.mjs",
+  "test": "tools/frontier-research/attestation-promotion-gate.test.mjs",
+  "verification": {
+    "command": "node --test attestation-promotion-gate.test.mjs",
+    "environment": "isolated Node runtime with byte-identical module logic and repository dependencies copied locally",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "covered_cases": [
+      "all four gates pass",
+      "missing cryptographic verification",
+      "verified digest mismatch",
+      "untrusted builder",
+      "partial verifier output without certificate identity verification"
+    ]
+  },
+  "evidence_strength": "tested_implementation_ready_prototype",
+  "uncertainty": [
+    "The prototype consumes normalized verifier output but does not invoke GitHub CLI or Sigstore verification itself.",
+    "The verifier identity and timestamp are syntactically checked, not independently authenticated by this module.",
+    "A successful gate proves provenance acceptance criteria, not semantic truth of the evidence claim."
+  ],
+  "falsification_route": [
+    "Supply a valid-looking statement with no signature verification and observe rejection.",
+    "Verify one digest while submitting a statement containing another digest and observe rejection.",
+    "Use a cryptographically valid attestation from a builder outside the allowlist and observe rejection.",
+    "Integrate real gh attestation verify output; the design fails if normalization can mark an invalid signature or identity as verified."
+  ],
+  "privacy_boundary": "No credentials, tokens, private chat, health information, or personal records are stored."
+}
