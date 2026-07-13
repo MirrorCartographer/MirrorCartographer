@@ -1,0 +1,64 @@
+name: Verify Cloudflare deployment configuration parity
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/cloudflare-pages-research.yml'
+      - '.github/workflows/cloudflare-config-parity.yml'
+      - 'cloudflare-static/wrangler.jsonc'
+      - 'cloudflare-static/validate-cloudflare-config-parity.mjs'
+      - 'cloudflare-static/validate-cloudflare-config-parity.test.mjs'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/cloudflare-pages-research.yml'
+      - '.github/workflows/cloudflare-config-parity.yml'
+      - 'cloudflare-static/wrangler.jsonc'
+      - 'cloudflare-static/validate-cloudflare-config-parity.mjs'
+      - 'cloudflare-static/validate-cloudflare-config-parity.test.mjs'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-config-parity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-parity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Test parity evaluator
+        run: node --test cloudflare-static/validate-cloudflare-config-parity.test.mjs
+
+      - name: Verify deployment target parity
+        run: >-
+          node cloudflare-static/validate-cloudflare-config-parity.mjs
+          cloudflare-static/wrangler.jsonc
+          .github/workflows/cloudflare-pages-research.yml
+          cloudflare-config-parity.json
+
+      - name: Upload parity evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: cloudflare-config-parity-${{ github.sha }}
+          path: cloudflare-config-parity.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish parity summary
+        if: always()
+        run: |
+          {
+            echo '## Cloudflare deployment configuration parity'
+            echo "- Source commit: \`${GITHUB_SHA}\`"
+            echo '- Project, output directory, branch input, and exact source-commit binding are checked against the production deployment workflow.'
+            echo '- Evidence artifact: `cloudflare-config-parity.json`'
+            echo '- Claim limit: parity prevents configuration drift; it does not prove credentials, provider deployment, hostname resolution, or served identity.'
+          } >> "$GITHUB_STEP_SUMMARY"
