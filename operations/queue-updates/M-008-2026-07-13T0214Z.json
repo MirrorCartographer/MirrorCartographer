@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "M-008-2026-07-13T0214Z",
+  "queue_item": "M-008",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-13T02:14:00Z",
+  "claim_state": "observed",
+  "status": "completed",
+  "action": "Build a repository-wide projection loader that resolves source commits and evidence paths, groups updates by queue item, invokes the reconciler, and emits a reversible materialization candidate without changing ACTIVE_QUEUE.json.",
+  "source_commits": [
+    "858ed33f79b56834bd8fd6bbe73c67cfa33f9deb",
+    "79e4f49a69b9ac6059acd8cd95888ff118b40e24",
+    "dcb57039581afc224054de4d0b373231c440baec"
+  ],
+  "evidence_paths": [
+    "tools/continuity/queue-projection-loader.mjs",
+    "tools/continuity/queue-projection-loader.test.mjs",
+    "operations/evidence/continuity-queue-projection-loader-2026-07-13T0214Z.json"
+  ],
+  "evidence_types": [
+    "implementation",
+    "deterministic tests",
+    "source tracking",
+    "privacy boundary",
+    "falsification route"
+  ],
+  "verification": {
+    "committed_test_cases": 5,
+    "fresh_checkout": "blocked_dns",
+    "ci_run": "not_observed",
+    "source_review": "completed"
+  },
+  "canonical_queue_mutated": false,
+  "specialist_registry_mutated": false,
+  "observed": [
+    "Projection files can be discovered and preserved with source paths.",
+    "Referenced commits and evidence files are checked before reconciliation.",
+    "The generated candidate never mutates canonical state."
+  ],
+  "inferred": [
+    "A materialization candidate is safer than direct queue mutation because authority and conflict review remain explicit."
+  ],
+  "proposed": [
+    "Define a signed or policy-bound canonical materialization authority after repository snapshot consistency is implemented."
+  ],
+  "superseded": [
+    "Manual one-item projection inspection as the only reconciliation path."
+  ],
+  "unresolved": [
+    "Canonical materialization authority remains undefined.",
+    "Fresh-checkout or CI execution of the committed test suite is not observed.",
+    "Concurrent repository writes can still create a mixed-time snapshot."
+  ],
+  "next_action": "Add snapshot binding: resolve one repository HEAD, read ACTIVE_QUEUE and all projection/evidence blobs from that immutable tree, then bind the candidate digest to the source commit before any authority review."
+}
