@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T18:31:00-04:00",
+  "canonical_queue_mutated": false,
+  "reason": "The canonical queue contains no active frontier_research item. Additive history showed R-010 completed, so this records the next non-duplicative completed slice without overwriting shared state.",
+  "proposed_item": {
+    "id": "R-011",
+    "owner": "frontier_research",
+    "priority": 10,
+    "status": "completed",
+    "action": "Classify Web Audio AudioPlaybackStats underrun and latency evidence without conflating playback-path quality with audibility.",
+    "required_evidence": [
+      "current primary specification",
+      "committed classifier",
+      "deterministic tests",
+      "privacy boundary",
+      "implementation handoff",
+      "falsification route"
+    ],
+    "progress": {
+      "primary_source": "https://webaudio.github.io/web-audio-api/",
+      "finding": "The 2026-07-13 Web Audio 1.1 editor draft defines AudioPlaybackStats for underrun and latency evidence, with at-most-once-per-second updates restricted to a running context plus visibility or microphone-permission conditions.",
+      "module": "tools/frontier-research/audio-playback-stats-evidence.mjs",
+      "test": "tools/frontier-research/audio-playback-stats-evidence.test.mjs",
+      "evidence": "operations/evidence/frontier-audio-playback-stats-2026-07-13T1831-0400.json",
+      "commits": [
+        "7c4c2a71e5107ca823da6010a57e106a0d6a65ab",
+        "6c62f2182ac2d6f89cac788cd3369f48f525edb6",
+        "95d0f0d3e1438f3fe49198ebf6b9e5882c38b3ee"
+      ],
+      "verification": "6 deterministic Node tests passed in an isolated Node v22.16.0 runtime using byte-identical pre-commit files."
+    },
+    "handoff": "Vercel Studio should feature-detect AudioContext.playbackStats, sample it only during a bounded visible diagnostic session, wait at least one specification update interval, and fuse the classification with render-position, route, pulse, and human/device-level evidence. Do not request microphone permission solely for statistics access."
+  }
+}
