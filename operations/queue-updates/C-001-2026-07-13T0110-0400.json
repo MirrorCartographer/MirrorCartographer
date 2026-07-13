@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "update_type": "additive_progress_projection",
+  "completed_slice": "Added a fail-closed consumption decision for retained OIDC replay ledgers after authentication.",
+  "artifacts": [
+    "cloudflare-static/build-replay-ledger-consumption-decision.mjs",
+    "cloudflare-static/build-replay-ledger-consumption-decision.test.mjs",
+    "operations/evidence/cloudflare-replay-ledger-consumption-2026-07-13T0110-0400.json"
+  ],
+  "commits": [
+    "f0402418fb5d58828049bd6ca1c59802ff8c1495",
+    "108cc84bc403be11929d337a91289775d0665aab",
+    "489fc6885ca07e4f80e709382aeb8c283b25fb13"
+  ],
+  "verification": "Five deterministic Node tests passed in an isolated runtime using byte-equivalent logic.",
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment and dispatch the committed workflow.",
+  "next_action": "Wire authenticated artifact retrieval, authentication, and this freshness/structure decision into the workflow before any retained ledger is supplied to replay evaluation.",
+  "canonical_queue_modified": false
+}
