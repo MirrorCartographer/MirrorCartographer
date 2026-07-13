@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-007",
+  "created_at": "2026-07-13T00:06:00-04:00",
+  "claim_state": "tested_prototype",
+  "evidence_strength": "deterministic_local_tests_with_mocked_http_and_generated_rsa_keys",
+  "primary_sources": [
+    {
+      "url": "https://docs.github.com/en/actions/concepts/security/openid-connect",
+      "status": "official_current_documentation",
+      "relevance": "GitHub describes per-job OIDC JWTs, claim validation, short-lived credentials, RS256 examples, and issuer identity."
+    },
+    {
+      "url": "https://docs.github.com/en/actions/reference/security/oidc",
+      "status": "official_current_documentation",
+      "relevance": "GitHub's OIDC claim and subject reference defines the authorization surface downstream of signature verification."
+    },
+    {
+      "url": "https://nodejs.org/api/globals.html#fetch",
+      "status": "official_runtime_documentation",
+      "relevance": "Node exposes standards-compatible fetch used with redirect: manual and AbortController."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9111.html",
+      "status": "internet_standard",
+      "relevance": "HTTP freshness is evaluated using response age and cache-control directives rather than fetch time alone."
+    }
+  ],
+  "finding": "Cryptographic verification remains vulnerable to an underspecified metadata transport boundary. Discovery and JWKS retrieval should be pinned to exact HTTPS URLs, reject redirects and final-URL drift, bound time and body size, require JSON, reject stale responses, and perform at most one JWKS refetch only when the selected kid is absent.",
+  "artifact": {
+    "module": "tools/frontier-research/github-oidc-metadata-client.mjs",
+    "test": "tools/frontier-research/github-oidc-metadata-client.test.mjs",
+    "implementation_commit": "3d1174ae41dd92f4644bf126d619ed80f3abd4e2",
+    "test_commit": "248192b7c7ff69f48fadbad5f8f46bcb7c286d73"
+  },
+  "verification": {
+    "tests_passed": 6,
+    "runtime": "Node built-in test runner",
+    "cases": [
+      "fresh pinned JSON accepted",
+      "redirect rejected with manual redirect mode",
+      "stale Age rejected",
+      "oversized response rejected",
+      "unknown kid permits exactly one JWKS refresh",
+      "immediately verifiable token performs no refresh"
+    ],
+    "cryptographic_fixture": "generated 2048-bit RSA keypair and RS256 compact JWT",
+    "note": "The local test used a verifier-compatible implementation because direct network retrieval of repository source was unavailable; the committed test targets the repository's existing verifier interface."
+  },
+  "uncertainty": [
+    "No live GitHub-issued OIDC token was tested.",
+    "TLS certificate-chain behavior is delegated to the Node runtime and operating system trust store.",
+    "The implementation buffers the bounded response after Content-Length precheck; it does not stream-cancel once the byte limit is crossed.",
+    "No CI workflow run was observed for the committed test."
+  ],
+  "falsification_route": [
+    "Run the committed test against the repository's exact verifier in CI.",
+    "Inject 3xx responses, mismatched final URLs, stale Age values, invalid media types, malformed JSON, and bodies above the byte cap.",
+    "Demonstrate that more than one JWKS refresh occurs for one verification attempt or that refresh occurs after signature rejection rather than key absence.",
+    "Use a live GitHub token in a protected workflow and compare accepted metadata digests and claims with GitHub's published issuer and JWKS."
+  ],
+  "trust_limit": "Accepted metadata transport plus a valid JWT signature does not authorize claims, establish freshness of the token itself, prevent replay, prove a repository mutation, or prove deployment or scientific truth."
+}
