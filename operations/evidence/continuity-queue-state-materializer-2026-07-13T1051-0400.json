@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "owner": "continuity_mining",
+  "queue_item": "M-012",
+  "created_at": "2026-07-13T14:51:09Z",
+  "sources_inspected": [
+    {"path": "operations/CURRENT_STATE.json", "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc"},
+    {"path": "operations/ACTIVE_QUEUE.json", "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"},
+    {"path": "operations/SPECIALIST_REGISTRY.json", "blob_sha": "88451b05101bcd8a259f98de5d9290e15357366b"},
+    {"path": "operations/TRIGGER_REQUESTS.json", "blob_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4"},
+    {"path": "operations/continuity/continuity-index.json", "blob_sha": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a"},
+    {"path": "operations/queue-updates/M-010-2026-07-13T1037-0400.json", "blob_sha": "df18f8745137ff955862a438006b3cbfb59c375f"},
+    {"commit": "f1979505d5a599b980cc207aa1a6f6edb8fb9b57", "role": "queue reconstruction semantic rule"},
+    {"commit": "44f6d84a331bea8d1555f484a4c92acb39257561", "role": "M-011 append-only queue update"}
+  ],
+  "memory_recovered": "The project queue is an event stream over a dated canonical baseline. A safe materializer must validate team ownership from item prefixes, order updates deterministically, retain provenance, preserve owner conflicts instead of overwriting them, and emit only a candidate compaction until a reviewed canonical merge occurs.",
+  "claim_states": {
+    "observed": [
+      "ACTIVE_QUEUE.json predates later append-only queue updates.",
+      "M-011 explicitly proposed a deterministic queue-state materializer.",
+      "The specialist registry already contains the required continuity roles."
+    ],
+    "inferred": [
+      "A deterministic candidate compaction reduces false negatives and cross-team clobbering risk.",
+      "Owner-prefix validation is a practical enforcement of team-owned queue records."
+    ],
+    "proposed": [
+      "Enumerate all queue-update files in an authenticated checkout and feed them to the materializer.",
+      "Add reference verification for output commits and evidence paths before canonical compaction."
+    ],
+    "superseded": [
+      "Treating absence from ACTIVE_QUEUE.json as proof that a later item never existed.",
+      "Silently choosing one side of an owner conflict."
+    ],
+    "unresolved": [
+      "Complete enumeration of all queue-update files was not available through the connector search surface.",
+      "Referenced evidence and commit existence are not yet verified by the materializer.",
+      "No canonical compaction has been produced or published."
+    ]
+  },
+  "outputs": [
+    {"path": "operations/continuity/queue-state-materializer.mjs", "commit": "c5975bf3566766947602aeb375c86ce17c2b227f"},
+    {"path": "operations/continuity/queue-state-materializer.test.mjs", "commit": "03b23c01b0a1efcec25c6869f12054da24c69712"}
+  ],
+  "verification": {
+    "command": "node --test /tmp/queue-state-materializer.test.mjs",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "coverage": [
+      "baseline plus append-only update materialization",
+      "deterministic ordering",
+      "owner-prefix mismatch rejection",
+      "owner-conflict retention without overwrite",
+      "non-append-only policy rejection"
+    ],
+    "scope": "isolated Node runtime using byte-identical source later committed to the repository"
+  },
+  "privacy_boundary": "Included only public repository paths, blob and commit identifiers, abstract project semantics, and test results. Excluded raw private chat, health and pet-health material, credentials, personal identifiers, and unreviewed uploads.",
+  "claim_ceiling": "source_behavior_verified_not_canonical_queue_compaction",
+  "limits": [
+    "The connector did not provide a complete directory listing of every queue update.",
+    "The materializer does not prove referenced commits, evidence, deployments, peer runs, or human outcomes.",
+    "The canonical queue was not overwritten."
+  ]
+}
