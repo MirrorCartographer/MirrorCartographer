@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-005",
+  "created_at": "2026-07-13T09:32:52-04:00",
+  "primary_sources": [
+    {
+      "url": "https://w3c.github.io/long-animation-frames/",
+      "status": "W3C Editor's Draft",
+      "dated": "2026-04-16",
+      "evidence_strength": "primary-work-in-progress"
+    },
+    {
+      "url": "https://wpt.fyi/results/long-animation-frames",
+      "status": "Web Platform Tests result surface",
+      "evidence_strength": "primary-interoperability-test-surface"
+    }
+  ],
+  "finding": "Long animation frame entries expose duration, blockingDuration, firstUIEventTimestamp, and script attribution for main-thread congestion. Browser support must be checked explicitly, and unsupported instrumentation cannot be interpreted as a clean performance result.",
+  "design_implication": "Mirror Cartographer interaction evidence should use a fail-closed budget verdict over retained long-animation-frame entries, with an explicit unsupported classification, rather than relying on visual smoothness or average frame rate alone.",
+  "implementation": {
+    "module": "tools/frontier-research/long-animation-frame-budget.mjs",
+    "test": "tools/frontier-research/long-animation-frame-budget.test.mjs",
+    "module_commit": "9efec2b26901586d23206e082d83bfdf3518869e",
+    "test_commit": "eca0e0312354044e5c4047df51785ab5eb9277e0",
+    "new_interface": "evaluateInteractionBudget",
+    "budgets": ["long frame count", "total blocking duration", "maximum interaction delay"]
+  },
+  "verification": {
+    "source_inspection": "committed module and test were re-read through the GitHub contents API",
+    "test_execution": "not executed in this run because no repository checkout or workflow runner was available",
+    "claim_state": "implemented-with-unexecuted-committed-tests"
+  },
+  "uncertainty": "The specification is an editor's draft and may change. Browser implementation coverage is not assumed.",
+  "trust_limit": "A passing verdict applies only to the exact retained observation window and interaction sequence. It does not prove universal smoothness, device-wide responsiveness, or causal attribution.",
+  "falsification_route": "Run the committed tests in a clean checkout, then retain buffered and live long-animation-frame entries during the same exact target interaction. Reject the performance claim when support is absent or any declared budget is exceeded."
+}
