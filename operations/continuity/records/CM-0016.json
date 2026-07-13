@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0016",
+  "kind": "decision",
+  "title": "Projection review and canonical adoption are separate authorization states",
+  "claim_state": "observed",
+  "evidence_strength": "primary_repository_source",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-13T05:55:15Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "3bb0071c30d67f0084c9c8ef94ee263a6e24d77d",
+      "content_sha": "3bb0071c30d67f0084c9c8ef94ee263a6e24d77d",
+      "observed_at": "2026-07-13T05:55:15Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "d87bb5a61ad5a15c9c57ab94f115fa56f3f6e079",
+      "content_sha": "d87bb5a61ad5a15c9c57ab94f115fa56f3f6e079",
+      "observed_at": "2026-07-13T05:55:15Z"
+    }
+  ],
+  "summary": "A reviewed projection now has a separate fail-closed authorization packet that binds exact projection bytes, canonical queue blob identity, source commit, reviewer identity, decision, and bounded M-series scope. A valid packet records approval or rejection only; it cannot permit automatic adoption or canonical queue mutation. Five deterministic Node tests passed before commit.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": ["CM-0015:proposed"],
+  "status_relations": {
+    "observed": "The validator records a bounded review decision while always returning canonical_queue_modified=false and automatic_adoption_permitted=false.",
+    "inferred": "Separating review authorization from mutation prevents evidence review from silently becoming operational authority.",
+    "proposed": "Add a separately reviewed canonical-change proposal that emits a patch for human application but still cannot write ACTIVE_QUEUE.json.",
+    "superseded": "The absence of an explicit projection-review authorization format is superseded by this validator and packet contract.",
+    "unresolved": "No authenticated reviewer-signature mechanism or successful workflow artifact currently binds a real human review to this packet."
+  },
+  "falsification_or_review_route": "Run node --test operations/continuity/reviewed-adoption-authorization.test.mjs and reject this record if changed projection bytes, widened queue scope, automatic adoption permission, or canonical mutation permission are accepted; additionally reject any claim of human authorization until reviewer identity is independently authenticated."
+}
