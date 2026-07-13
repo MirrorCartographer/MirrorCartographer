@@ -6,15 +6,19 @@ on:
     paths:
       - 'tools/frontier-research/peer-execution-runtime.mjs'
       - 'tools/frontier-research/filesystem-peer-execution-runtime.mjs'
-      - 'tools/frontier-research/filesystem-terminal-journal.mjs'
+      - 'tools/frontier-research/durable-peer-terminal-journal.mjs'
+      - 'tools/frontier-research/filesystem-peer-terminal-store.mjs'
       - 'tools/frontier-research/*peer-execution-runtime*.test.mjs'
+      - 'tools/frontier-research/frontier-peer-runtime-workflow.test.mjs'
       - '.github/workflows/frontier-peer-runtime.yml'
   pull_request:
     paths:
       - 'tools/frontier-research/peer-execution-runtime.mjs'
       - 'tools/frontier-research/filesystem-peer-execution-runtime.mjs'
-      - 'tools/frontier-research/filesystem-terminal-journal.mjs'
+      - 'tools/frontier-research/durable-peer-terminal-journal.mjs'
+      - 'tools/frontier-research/filesystem-peer-terminal-store.mjs'
       - 'tools/frontier-research/*peer-execution-runtime*.test.mjs'
+      - 'tools/frontier-research/frontier-peer-runtime-workflow.test.mjs'
       - '.github/workflows/frontier-peer-runtime.yml'
   workflow_dispatch:
 
@@ -44,7 +48,11 @@ jobs:
         run: |
           node --check tools/frontier-research/peer-execution-runtime.mjs
           node --check tools/frontier-research/filesystem-peer-execution-runtime.mjs
-          node --check tools/frontier-research/filesystem-terminal-journal.mjs
+          node --check tools/frontier-research/durable-peer-terminal-journal.mjs
+          node --check tools/frontier-research/filesystem-peer-terminal-store.mjs
+
+      - name: Enforce workflow source-binding contract
+        run: node --test tools/frontier-research/frontier-peer-runtime-workflow.test.mjs
 
       - name: Enforce peer execution durability contract
         run: node --test tools/frontier-research/filesystem-peer-execution-runtime.test.mjs
