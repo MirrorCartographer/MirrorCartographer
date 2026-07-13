@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-009",
+  "created_at": "2026-07-13T14:44:00-04:00",
+  "primary_sources": [
+    {
+      "title": "The Update Framework Specification 1.0.34",
+      "url": "https://theupdateframework.github.io/specification/latest/",
+      "source_status": "primary_specification",
+      "relevant_claim": "Clients must resist rollback, indefinite freeze, and mix-and-match attacks; timestamp metadata exists to prevent replay of outdated signed metadata."
+    },
+    {
+      "title": "SLSA Provenance v1.2",
+      "url": "https://slsa.dev/spec/v1.2/provenance",
+      "source_status": "primary_specification",
+      "relevant_claim": "Provenance binds artifacts and build invocation details but does not by itself provide a monotonic promotion history for a relying system."
+    }
+  ],
+  "finding": "Same-digest trust composition is insufficient to prevent reuse of an older, once-valid promotion decision. A relying system needs trusted monotonic state that rejects lower sequence numbers, sequence gaps, and same-sequence different-subject equivocation while permitting idempotent same-subject replay.",
+  "design_implication": "Place a monotonic sequence gate after cryptographic and policy verification and before durable promotion. Persist the returned next_trusted_state atomically with the promoted artifact reference.",
+  "artifact": {
+    "module": "tools/frontier-research/evidence-promotion-monotonicity.mjs",
+    "test": "tools/frontier-research/evidence-promotion-monotonicity.test.mjs",
+    "module_commit": "b58174b357dd33d45d4397f042fdc0d191cbe4e8",
+    "test_commit": "b2f0d116908528062c7cc8182be5b92bdb6bb0e1"
+  },
+  "verification": {
+    "method": "isolated Node test run against byte-identical pre-commit files",
+    "result": "passed",
+    "tests": 5,
+    "cases": [
+      "accept exactly next sequence",
+      "accept idempotent same-subject replay",
+      "reject rollback",
+      "reject sequence gap",
+      "reject same-sequence different-subject replay"
+    ]
+  },
+  "evidence_strength": "implemented_and_locally_tested",
+  "uncertainty": [
+    "The gate assumes trusted state integrity and atomic persistence supplied by the caller.",
+    "The gate does not establish globally unique ordering across multiple independent writers.",
+    "The gate performs no signature, certificate, transparency, timestamp, or digest verification."
+  ],
+  "falsification_route": "Submit a lower sequence, skip a sequence, or reuse a known sequence with a different subject digest and observe fail-closed rejection. Corrupt or roll back the caller-managed trusted state to demonstrate the external state-integrity dependency.",
+  "claim_boundary": "Acceptance means only that the candidate is monotonic relative to caller-supplied trusted state; it does not prove the underlying evidence claim true."
+}
