@@ -5,6 +5,8 @@ on:
   push:
     paths:
       - 'tools/frontier-research/filesystem-peer-terminal*.mjs'
+      - 'tools/frontier-research/build-crash-stress-observation*.mjs'
+      - 'tools/frontier-research/classify-crash-stress-evidence*.mjs'
       - '.github/workflows/frontier-peer-terminal-crash-stress.yml'
 
 permissions:
@@ -35,12 +37,25 @@ jobs:
             echo "filesystem=$(node -e \"const fs=require('node:fs'); console.log(fs.statfsSync('.').type.toString(16))\")"
           } | tee operations/runtime-evidence/frontier-peer-terminal-crash-stress/runner-${RUNNER_OS}.txt
 
-      - name: Run repeated crash-recovery contract
+      - name: Run repeated crash-recovery contract and build observation
         shell: bash
         run: |
-          set -o pipefail
+          set +e
+          export EVIDENCE_SUMMARY_PATH="operations/runtime-evidence/frontier-peer-terminal-crash-stress/summary-${RUNNER_OS}.json"
           node --test tools/frontier-research/filesystem-peer-terminal-crash-stress.test.mjs \
-            2>&1 | tee operations/runtime-evidence/frontier-peer-terminal-crash-stress/test-${RUNNER_OS}.log
+            2>&1 | tee "operations/runtime-evidence/frontier-peer-terminal-crash-stress/test-${RUNNER_OS}.log"
+          test_exit_code=${PIPESTATUS[0]}
+          node tools/frontier-research/build-crash-stress-observation.mjs \
+            "operations/runtime-evidence/frontier-peer-terminal-crash-stress/runner-${RUNNER_OS}.txt" \
+            "operations/runtime-evidence/frontier-peer-terminal-crash-stress/summary-${RUNNER_OS}.json" \
+            "operations/runtime-evidence/frontier-peer-terminal-crash-stress/test-${RUNNER_OS}.log" \
+            "operations/runtime-evidence/frontier-peer-terminal-crash-stress/observation-${RUNNER_OS}.json" \
+            "${test_exit_code}"
+          exit "${test_exit_code}"
+
+      - name: Verify observation builder contract
+        shell: bash
+        run: node --test tools/frontier-research/build-crash-stress-observation.test.mjs
 
       - name: Upload retained evidence
         if: always()
