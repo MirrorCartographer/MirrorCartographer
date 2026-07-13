@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "event_order": "2026-07-13T15:19:43-04:00#cloudflare_research#C-001#promotion-audit",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "status": "blocked_external_configuration",
+  "durable_slice": "Add an independent post-run promotion-consistency audit bound to the exact deployment workflow head commit and retained artifact name.",
+  "specialists_used": [
+    "Provenance Engineer",
+    "Evidence Auditor",
+    "Cloudflare Deployment Engineer"
+  ],
+  "files": [
+    ".github/workflows/cloudflare-promotion-consistency-audit.yml",
+    "cloudflare-static/cloudflare-promotion-consistency-audit.test.mjs",
+    "operations/evidence/cloudflare-promotion-audit-2026-07-13T1519-0400.json"
+  ],
+  "commits": [
+    "e067813d589a64b3e33ca3676f2c13e9870f2a7b",
+    "2955898110b7c08ce90f30643a441ed42e800b75",
+    "33eefeadf0350d37cc1529e50a32ffcd9f838f79"
+  ],
+  "verification": {
+    "isolated_contract_tests": {
+      "passed": 3,
+      "failed": 0
+    },
+    "deployment_evidence": "No Cloudflare deployment or audit workflow execution is claimed."
+  },
+  "limits": [
+    "The audit runs after the primary workflow and therefore does not yet fail closed before primary evidence finalization.",
+    "The Cloudflare environment still requires valid account and token configuration before C-001 can produce resolving-hostname evidence.",
+    "A consistency verdict authenticates bounded record agreement only; it does not establish scientific truth, diagnosis, or treatment efficacy."
+  ],
+  "rollback": "Revert e067813d589a64b3e33ca3676f2c13e9870f2a7b to remove the audit workflow without deleting history.",
+  "next_action": "Move the same promotion-consistency command into the primary deployment workflow before finalization and add cloudflare-promotion-consistency.json to the atomic evidence manifest and upload set."
+}
