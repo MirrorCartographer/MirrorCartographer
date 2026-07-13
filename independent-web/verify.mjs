@@ -38,14 +38,15 @@ if ((html.match(/<canvas/g) || []).length !== 1) throw new Error('artifact must 
 
 execFileSync(process.execPath, [new URL('./rain-organ/contract.test.mjs', import.meta.url)], { stdio: 'inherit' });
 execFileSync(process.execPath, ['--test', new URL('./anthology-contract.test.mjs', import.meta.url)], { stdio: 'inherit' });
+execFileSync(process.execPath, ['--test', new URL('./cloud-press/contract.test.mjs', import.meta.url)], { stdio: 'inherit' });
 
 console.log(JSON.stringify({
   valid: true,
-  anthology: ['The Weather Inside a Bell', 'Afterbell', 'Rain Organ'],
-  progression: ['pressure score', 'echo room', 'rain instrument'],
+  anthology: ['The Weather Inside a Bell', 'Afterbell', 'Rain Organ', 'Cloud Press'],
+  progression: ['pressure score', 'echo room', 'rain instrument', 'pressure printing'],
   bytes: Buffer.byteLength(html),
   externalAssets: false,
   networkCalls: false,
   accessibility: ['keyboard', 'aria-live', 'reduced-motion', 'safe-area', 'reversible room navigation'],
-  interactions: ['tap', 'drag', 'multi-pointer rain', 'keyboard strike', 'gesture-gated sound']
+  interactions: ['tap', 'drag', 'multi-pointer rain', 'keyboard strike', 'gesture-gated sound', 'hold-and-release printing']
 }, null, 2));
