@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-011",
+  "created_at": "2026-07-13T12:48:00-04:00",
+  "sources": [
+    {
+      "url": "https://w3c.github.io/event-timing/",
+      "status": "W3C Editor's Draft",
+      "checked_at": "2026-07-13",
+      "relevance": "Defines user-interaction event latency observations and interaction grouping; the draft explicitly remains work in progress."
+    },
+    {
+      "url": "https://w3c.github.io/long-animation-frames/",
+      "status": "W3C Editor's Draft",
+      "checked_at": "2026-07-13",
+      "relevance": "Defines long-animation-frame observations used as an independent rendering-blocking evidence stream."
+    }
+  ],
+  "finding": "The repeated-trial evidence packet is not operationally protected unless CI invokes both the exact Event Timing/Long Animation Frames evaluator integration test and the packet integrity test in one fail-closed command. The gate must preserve child-process failure and must not upgrade deterministic contract success into deployment or physical-device proof.",
+  "design_implication": "Use one explicit runner with an immutable default pair of test paths, machine-readable output, non-zero status propagation, a claim limit, and a falsification route. Keep target-browser and deployment verification as separate evidence layers.",
+  "artifact": {
+    "module": "tools/frontier-research/run-browser-evidence-gate.mjs",
+    "test": "tools/frontier-research/run-browser-evidence-gate.test.mjs",
+    "commits": [
+      "fd9999ee4f7bd2bd1f9d7d66e7865ccb1b4f95fa",
+      "55fb80a99f32052af00281f9ec97166ec8a33c1a"
+    ]
+  },
+  "verification": {
+    "route": "isolated Node test runner over byte-identical gate logic and tests",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "coverage": [
+      "exact two-file invocation",
+      "non-zero child status retention",
+      "omission and duplicate-path rejection",
+      "spawn error propagation"
+    ],
+    "not_claimed": [
+      "full repository gate execution",
+      "GitHub Actions execution",
+      "deployment verification",
+      "target-browser execution",
+      "physical-device identity",
+      "audibility or subjective smoothness"
+    ]
+  },
+  "evidence_strength": "source-verified plus isolated deterministic contract test",
+  "uncertainty": "The specifications are editor drafts and browser implementation behavior can change. The gate has not yet been executed in repository CI against both underlying test suites.",
+  "falsification_route": "Reject this implementation if the runner omits or substitutes either exact test file, masks a child failure, returns success after an execution error, or is used as evidence of deployment or target-device behavior without independent proof."
+}
