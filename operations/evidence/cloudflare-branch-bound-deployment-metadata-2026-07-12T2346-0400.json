@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T23:46:00-04:00",
+  "claim_state": "implemented_source_unexecuted",
+  "evidence_strength": "committed_source_and_contract_tests",
+  "finding": "Cloudflare Pages deployment metadata must bind the returned deployment URL and immutable commit to the exact requested Pages branch; project, URL, commit, and successful stage alone permit a branch-confusion false acceptance.",
+  "primary_sources": [
+    {
+      "url": "https://developers.cloudflare.com/api/resources/pages/subresources/projects/subresources/deployments/methods/list/",
+      "status": "current_official_api_reference",
+      "relevance": "Cloudflare Pages deployments expose deployment records used by the control-plane verifier."
+    },
+    {
+      "url": "https://developers.cloudflare.com/pages/configuration/branch-build-controls/",
+      "status": "current_official_documentation",
+      "relevance": "Cloudflare Pages distinguishes production and preview behavior by branch, making branch identity part of deployment meaning."
+    }
+  ],
+  "durable_improvement": {
+    "module": "cloudflare-static/verify-cloudflare-deployment-metadata.mjs",
+    "module_commits": [
+      "5caa848c436f1d9537dc0cd219a9047b01061808",
+      "c1d420b724405764d068f5836235bb957ffc078e"
+    ],
+    "test": "cloudflare-static/verify-cloudflare-deployment-metadata.test.mjs",
+    "test_commits": [
+      "75d96c0c3f09ad1d87730aac2a13eeee7fcba74e",
+      "2e8d2b9d0ea119634b91cdcda67fee8e668839b6"
+    ],
+    "behavior": [
+      "requires an explicit valid expected branch",
+      "matches Cloudflare deployment_trigger.metadata.branch exactly",
+      "resolves the requested branch from the workflow-dispatch event when no explicit environment value exists",
+      "records the branch-resolution source without recording credentials",
+      "fails closed on missing, malformed, or mismatched branch identity"
+    ]
+  },
+  "verification": {
+    "source_inspection": "committed module and tests were read back through the GitHub contents interface",
+    "test_cases_committed": 11,
+    "observed_ci_run": false,
+    "workflow_runs_for_test_commit": 0,
+    "local_runtime": "unavailable because the isolated runtime had no network path to fetch exact committed bytes"
+  },
+  "falsification_route": [
+    "run node --test cloudflare-static/verify-cloudflare-deployment-metadata.test.mjs in a fresh checkout",
+    "dispatch the Cloudflare workflow with a non-main preview branch",
+    "confirm the verifier accepts only a deployment record whose project, commit, URL, branch, and successful deploy stage all match",
+    "substitute a deployment record from another branch and confirm classification no-exact-match"
+  ],
+  "limits": [
+    "No Cloudflare deployment occurred in this run.",
+    "No resolving Pages hostname or served research surface was observed.",
+    "No CI or local execution of the exact committed test bytes was observed.",
+    "Branch-bound control-plane metadata does not prove served-byte identity or scientific truth.",
+    "No diagnosis or treatment claim is made."
+  ],
+  "privacy_boundary": "Contains public repository paths, commit identifiers, official public documentation, and non-secret verification state only."
+}
