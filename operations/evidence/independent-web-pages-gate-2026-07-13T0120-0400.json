@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-13T01:20:00-04:00",
+  "creative_premise": "A room of echoes can be folded into its own address, reopened without a server, and published as a self-contained instrument.",
+  "completed_slice": "Commit-bound GitHub Pages gate for Afterbell folded rooms",
+  "source": {
+    "smoke_test": "independent-web/hosting-smoke.test.mjs",
+    "smoke_test_commit": "85b7af722cec01654d5414f68458f70d73ecac54",
+    "deployment_workflow": ".github/workflows/independent-web-pages.yml",
+    "workflow_commit": "e02c9a4975d2b4c10c7fb2ca8e1fbd6322fe4a71"
+  },
+  "contracts": [
+    "folded ab1 seed reconstructs exact echo count, marks, and signature",
+    "mobile viewport and reduced-motion behavior remain present",
+    "served artifact carries the exact workflow commit in deployment.json",
+    "source and served HTML reject Mirror Cartographer, research portal, dashboard, payment, checkout, and conversion language",
+    "static artifact is uploaded from independent-web only"
+  ],
+  "verification": {
+    "source_inspection": "passed",
+    "workflow_trigger": "push event created by workflow commit",
+    "workflow_run_evidence": "not yet available through the connector",
+    "public_url": "unresolved until GitHub Pages deploy job returns page_url",
+    "claim_boundary": "No deployment success or public availability is claimed without a completed workflow run and served-identity verification."
+  },
+  "independence": "The Weather Inside a Bell and Afterbell are playable weather-and-echo instruments with no Mirror Cartographer explanation, research surface, worker dashboard, account system, or conversion funnel.",
+  "rollback": {
+    "route": "Revert workflow commit e02c9a4975d2b4c10c7fb2ca8e1fbd6322fe4a71 and smoke-test commit 85b7af722cec01654d5414f68458f70d73ecac54.",
+    "destructive_actions": false
+  },
+  "limits": [
+    "No browser screenshot was captured in this run.",
+    "No Safari Web Audio or clipboard behavior was proven.",
+    "GitHub Pages repository configuration may still block deployment.",
+    "The smoke gate proves deterministic source behavior, not audible output or public hosting by itself."
+  ]
+}
