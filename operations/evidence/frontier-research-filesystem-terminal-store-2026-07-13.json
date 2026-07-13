@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-010",
+  "recorded_at": "2026-07-13T09:56:00Z",
+  "claim_state": "test-verified",
+  "evidence_strength": "isolated multi-process runtime",
+  "primary_sources": [
+    {
+      "title": "Node.js File system documentation",
+      "url": "https://nodejs.org/api/fs.html",
+      "status": "current official documentation inspected 2026-07-13",
+      "design_use": "Uses exclusive directory creation for process coordination, exclusive temporary-file creation, file synchronization, and same-filesystem rename before lock release."
+    }
+  ],
+  "finding": "A filesystem-backed compare-and-set adapter can enforce one terminal per trigger across independent OS processes when all contenders share one filesystem and acquire the same atomic lock directory before validating the expected digest and replacing the journal.",
+  "design_implication": "Inject the adapter's read and compareAndSet methods into durable-peer-terminal-journal.mjs. Terminal ownership is acquired under an exclusive lock, the expected ETag is revalidated inside the critical section, bytes are written to an exclusive temporary file and synchronized, then the journal path is replaced before the lock is released.",
+  "artifacts": {
+    "adapter": "tools/frontier-research/filesystem-peer-terminal-store.mjs",
+    "worker": "tools/frontier-research/filesystem-peer-terminal-worker.mjs",
+    "test": "tools/frontier-research/filesystem-peer-terminal-store.test.mjs"
+  },
+  "verification": {
+    "command": "node --test filesystem-peer-terminal-store.test.mjs",
+    "tests": 1,
+    "passed": 1,
+    "failed": 0,
+    "observed_behavior": "Two independent Node processes used one trigger ID with different terminal events; exactly one recorded a terminal, exactly one received terminal-conflict, and a fresh read contained one terminal."
+  },
+  "uncertainty": [
+    "The test proves same-host shared-filesystem behavior, not distributed object storage or network filesystem semantics.",
+    "A crashed process may leave the lock directory behind; the adapter fails closed with journal-lock-timeout and requires operator recovery rather than unsafe lock stealing.",
+    "Directory durability after rename is platform-dependent because the adapter does not fsync the parent directory.",
+    "The full repository test gate was not available in the isolated runtime."
+  ],
+  "falsification_route": "Run many independent processes against the same journal path with conflicting terminals, kill a writer at each persistence boundary, and verify that no run produces two terminals, malformed JSON, silent lock stealing, or a successful write after an ETag mismatch.",
+  "privacy_boundary": "No private chat, health, credential, or identifying personal material is present.",
+  "peer_execution_claimed": false
+}
