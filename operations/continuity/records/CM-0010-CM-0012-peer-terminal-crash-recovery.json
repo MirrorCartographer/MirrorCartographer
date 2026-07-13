@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-13T11:04:25Z",
+  "slice_id": "M-002",
+  "title": "Peer-trigger terminal durability advanced from source-binding repair to process-death recovery",
+  "privacy_boundary": {
+    "included": [
+      "public repository commit metadata",
+      "public repository source paths",
+      "abstracted technical claims"
+    ],
+    "excluded": [
+      "private chat text",
+      "health or pet-health material",
+      "credentials",
+      "personal identifiers",
+      "unreviewed uploads"
+    ]
+  },
+  "claims": [
+    {
+      "id": "CM-0010",
+      "kind": "commit",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "title": "Peer runtime durability now includes stale-lock recovery after process death",
+      "sources": [
+        {
+          "type": "github_commit",
+          "locator": "3f28d6e866a8c35cc7f7ddb9bab029a1a049ecf3",
+          "content_sha": "3f28d6e866a8c35cc7f7ddb9bab029a1a049ecf3",
+          "observed_at": "2026-07-13T11:04:25Z"
+        },
+        {
+          "type": "github_commit",
+          "locator": "4400329c0e9321fa303ac3fc0af88a20888caf7b",
+          "content_sha": "4400329c0e9321fa303ac3fc0af88a20888caf7b",
+          "observed_at": "2026-07-13T11:04:25Z"
+        }
+      ],
+      "summary": "The filesystem terminal store records lock ownership by PID, quarantines locks whose owner process is no longer alive, and tests successor recovery after SIGKILL at three persistence boundaries.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Fetch both commits and verify the store adds owner.json-based stale-lock recovery and the test kills a worker at before-rename, after-rename-before-directory-sync, and before-lock-release."
+    },
+    {
+      "id": "CM-0011",
+      "kind": "contradiction",
+      "claim_state": "superseded",
+      "evidence_strength": "corroborated_repository_sources",
+      "title": "The earlier statement that crash-boundary testing was only a next action is no longer current",
+      "sources": [
+        {
+          "type": "github_commit",
+          "locator": "e7daec1aa1815d6e16573ce5d9d4953ec4c08bb4",
+          "content_sha": "e7daec1aa1815d6e16573ce5d9d4953ec4c08bb4",
+          "observed_at": "2026-07-13T11:04:25Z"
+        },
+        {
+          "type": "github_commit",
+          "locator": "4400329c0e9321fa303ac3fc0af88a20888caf7b",
+          "content_sha": "4400329c0e9321fa303ac3fc0af88a20888caf7b",
+          "observed_at": "2026-07-13T11:04:25Z"
+        }
+      ],
+      "summary": "A prior queue update correctly left process-death crash injection as future work. Later commits implemented that work. The earlier statement remains historically valid but is superseded as a description of current implementation state.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [
+        "R-014-next-action-process-crash-injection"
+      ],
+      "falsification_or_review_route": "Inspect the prior queue update and later crash-recovery test commit. Reject supersession if the later test does not actually terminate an OS process or cover the named boundaries."
+    },
+    {
+      "id": "CM-0012",
+      "kind": "unresolved_question",
+      "claim_state": "unresolved",
+      "evidence_strength": "primary_repository_source",
+      "title": "Hosted clean-runner verification remains distinct from committed crash-recovery tests",
+      "sources": [
+        {
+          "type": "github_commit",
+          "locator": "4400329c0e9321fa303ac3fc0af88a20888caf7b",
+          "content_sha": "4400329c0e9321fa303ac3fc0af88a20888caf7b",
+          "observed_at": "2026-07-13T11:04:25Z"
+        }
+      ],
+      "summary": "The repository contains process-death recovery tests, but this continuity slice did not observe a GitHub Actions run proving those tests pass on a clean hosted runner.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Resolve only with a retained workflow run tied to the exact tested commit or descendant, including job conclusion and test output."
+    }
+  ],
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "registry_change": "none"
+}
