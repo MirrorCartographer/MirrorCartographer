@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_projection": "R-007",
+  "created_at": "2026-07-13T00:53:00-04:00",
+  "claim_state": "tested_prototype",
+  "evidence_strength": "deterministic_unit_tests_plus_primary_standards",
+  "sources": [
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc7519.html",
+      "status": "primary_standard",
+      "finding": "exp, nbf, and iat are NumericDate claims; expiration and not-before processing may allow only small clock-skew leeway, and jti can support replay prevention."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8725.html",
+      "status": "primary_best_current_practice",
+      "finding": "Applications must validate issuer, audience, cryptographic operations, and application-specific JWT profiles rather than blindly trusting received claims."
+    },
+    {
+      "url": "https://docs.github.com/en/actions/reference/security/oidc",
+      "status": "official_provider_documentation",
+      "finding": "GitHub Actions OIDC tokens expose exp, iat, jti, and nbf as standard claims."
+    }
+  ],
+  "prior_work_compared": [
+    "tools/frontier-research/oidc-replay-ledger.mjs",
+    "tools/frontier-research/atomic-oidc-replay-store.mjs",
+    "operations/queue-updates/R-005-2026-07-13T0046-0400.json",
+    "operations/queue-updates/R-006-2026-07-13T0050-0400.json"
+  ],
+  "finding": "Atomic replay insertion prevents duplicate use but does not bound how long a record can persist. A signed token with inconsistent or arbitrarily distant temporal claims can poison retention unless exp, iat, and nbf are checked against an explicit application policy before storage.",
+  "design_implication": "Run temporal-profile validation after signature, issuer, audience, and workflow authorization but before replay insertion. Require integer exp, iat, and nbf claims; enforce ordering, a configurable maximum token lifetime, explicit clock skew, and derive replay expiry from validated exp plus skew rather than caller-supplied retention.",
+  "artifacts": {
+    "module": "tools/frontier-research/oidc-temporal-policy.mjs",
+    "test": "tools/frontier-research/oidc-temporal-policy.test.mjs",
+    "commits": [
+      "99840e831c73ec97f999b065d21942d2b3fc5365",
+      "04cf1c765ba5bb563e02c7cc3ce6c3afefe9cf88"
+    ]
+  },
+  "verification": {
+    "runtime": "Node.js test runner",
+    "result": "6 tests passed, 0 failed",
+    "cases": [
+      "valid bounded token accepted with derived replay expiry",
+      "arbitrarily long lifetime rejected",
+      "future iat outside skew rejected",
+      "future nbf outside skew rejected",
+      "expired token rejected at skew boundary",
+      "malformed ordering and missing temporal claims rejected"
+    ]
+  },
+  "uncertainty": "The 600-second maximum lifetime and 60-second skew are conservative application defaults, not values mandated by GitHub or the JWT standards. Production values must be validated against observed GitHub token issuance behavior before enforcement.",
+  "falsification_route": "Collect signed GitHub Actions OIDC tokens across workflow types and verify that legitimate exp-iat durations and clock offsets remain inside the configured policy. The design is falsified if valid provider tokens are rejected, if an overlong or future-dated token reaches replay storage, or if replay expiry is derived from unvalidated caller input.",
+  "trust_limit": "Temporal-profile acceptance does not prove signature validity, issuer-key binding, audience, subject, workflow authorization, atomic replay insertion, deployment success, artifact correctness, or scientific truth."
+}
