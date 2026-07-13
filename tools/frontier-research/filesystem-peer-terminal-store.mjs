@@ -6,10 +6,26 @@ import { journalEtag } from './durable-peer-terminal-journal.mjs';
 const EMPTY = Object.freeze({ schema_version: '1.0.0', terminals: {} });
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-export function createFilesystemPeerTerminalStore({ path, lockTimeoutMs = 5000, retryDelayMs = 10 }) {
+export async function syncParentDirectory(directoryPath) {
+  if (typeof directoryPath !== 'string' || directoryPath.trim() === '') throw new TypeError('directory-path-required');
+  const handle = await open(directoryPath, 'r');
+  try {
+    await handle.sync();
+  } finally {
+    await handle.close();
+  }
+}
+
+export function createFilesystemPeerTerminalStore({
+  path,
+  lockTimeoutMs = 5000,
+  retryDelayMs = 10,
+  syncDirectory = syncParentDirectory
+}) {
   if (typeof path !== 'string' || path.trim() === '') throw new TypeError('path-required');
   if (!Number.isInteger(lockTimeoutMs) || lockTimeoutMs < 1) throw new TypeError('lock-timeout-positive-integer');
   if (!Number.isInteger(retryDelayMs) || retryDelayMs < 1) throw new TypeError('retry-delay-positive-integer');
+  if (typeof syncDirectory !== 'function') throw new TypeError('sync-directory-required');
   const lockPath = `${path}.lock`;
 
   async function readDocument() {
@@ -64,6 +80,7 @@ export function createFilesystemPeerTerminalStore({ path, lockTimeoutMs = 5000, 
         await handle.close();
       }
       await rename(temporaryPath, path);
+      await syncDirectory(dirname(path));
       return Object.freeze({ applied: true, etag: nextEtag });
     } finally {
       await rm(temporaryPath, { force: true }).catch(() => {});
