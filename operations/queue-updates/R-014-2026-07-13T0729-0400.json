@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T07:29:00-04:00",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "implemented_runtime_pending",
+  "action": "Execute the repeated peer-terminal crash-recovery contract on Linux and macOS with retained evidence.",
+  "finding": "The prior artifact established a reusable stress contract but lacked clean-runner, cross-platform execution evidence.",
+  "implementation": ".github/workflows/frontier-peer-terminal-crash-stress.yml",
+  "implementation_commit": "17069d23d115b7c0b5ba2028f34d3ad538c633f8",
+  "evidence": "operations/evidence/frontier-peer-terminal-crash-stress-ci-2026-07-13.json",
+  "evidence_commit": "3101bf21f50de7abd21303831fa28c53e9ba696d",
+  "verification": "Workflow source fetched from its exact commit; runtime execution not yet observed.",
+  "required_next_evidence": [
+    "successful ubuntu-latest job",
+    "successful macos-latest job",
+    "retained runner identity files",
+    "retained raw node:test logs",
+    "zero residual coordination artifacts in all injected cycles"
+  ],
+  "handoff": "Inspect the push-triggered workflow run. If both matrix jobs pass, bind the artifact IDs and run URL into a follow-up evidence record; otherwise preserve failing logs and narrow the platform-specific fault."
+}
