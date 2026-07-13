@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "event_order": 20260713143500,
+  "observed_at": "2026-07-13T14:35:00-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "status": "blocked_external_configuration",
+  "progress": {
+    "durable_slice": "Independent publication-boundary enforcement now runs for Cloudflare research-surface pull requests, main-branch pushes, and manual dispatches.",
+    "workflow": ".github/workflows/cloudflare-research-publication-gate.yml",
+    "workflow_commit": "88e032431ae57414dc48e95b05827b4c76cb73e0",
+    "contract_test": ".github/workflows/cloudflare-research-publication-gate.test.mjs",
+    "contract_test_commit": "fb7c0281a22ffcf6a7b7824f75f69c5ef57ab168",
+    "evidence": "operations/evidence/cloudflare-research-publication-gate-2026-07-13T1435-0400.json",
+    "verification": "4 deterministic workflow-contract tests passed in an isolated Node runtime before commit",
+    "deployment_claim": "none"
+  },
+  "blocker": "Configure the cloudflare-research GitHub environment with valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch .github/workflows/cloudflare-pages-research.yml and retain the returned deployment URL, served commit, control-plane metadata, and signed evidence bundle.",
+  "next_action": "Include the publication-boundary JSON result in the final deployment evidence manifest, then run the credentialed deployment workflow."
+}
