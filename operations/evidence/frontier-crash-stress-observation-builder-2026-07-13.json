@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T07:41:00-04:00",
+  "team": "frontier_research",
+  "queue_item": "R-014",
+  "source_status": {
+    "workflow": "repository source inspected",
+    "runtime": "not yet observed",
+    "primary_source_need": "none; this slice implements repository evidence plumbing rather than a changed external fact"
+  },
+  "finding": "The crash-stress workflow retained runner identity and raw logs, but did not emit the structured per-platform observation required by the deny-by-default classifier. This left manual transcription between runtime output and acceptance.",
+  "design_implication": "Each matrix runner must emit a classifier-ready observation containing exact commit, platform, exit code, cycle and terminal totals, residual count, artifact paths, and SHA-256 digests. Failed tests must still retain evidence and preserve the nonzero exit status.",
+  "implementation": {
+    "summary_emitter": "tools/frontier-research/filesystem-peer-terminal-crash-stress.test.mjs",
+    "summary_emitter_commit": "824621d06410282a5c3905df593b33609f327499",
+    "observation_builder": "tools/frontier-research/build-crash-stress-observation.mjs",
+    "observation_builder_commit": "3ddd8fb5d38a289fd5cd33b850c8c11195e4955e",
+    "builder_test": "tools/frontier-research/build-crash-stress-observation.test.mjs",
+    "builder_test_commit": "b5d00204b77eefa143a4af4bc8378ee8c234a92e",
+    "workflow": ".github/workflows/frontier-peer-terminal-crash-stress.yml",
+    "workflow_commit": "fa867ce75dbb75aa657e5fa16894d6b3fc3b7601"
+  },
+  "evidence_strength": "committed implementation and deterministic test contract; runtime pending",
+  "uncertainty": [
+    "No successful Linux or macOS job was available through the connector at recording time.",
+    "The builder test is committed but no passing execution is claimed.",
+    "A test failure before summary emission may prevent observation construction, though raw identity and logs remain upload candidates."
+  ],
+  "falsification_route": [
+    "Run the workflow on the exact commit.",
+    "Confirm each artifact contains runner, summary, log, and observation files.",
+    "Recompute all recorded SHA-256 digests from retained bytes.",
+    "Combine Linux and macOS observations and require classifyCrashStressEvidence(...).accepted === true.",
+    "Treat any missing summary, digest mismatch, nonzero exit, wrong commit, duplicate platform, incomplete cycle count, or residual artifact as falsifying evidence."
+  ],
+  "trust_limit": "A generated observation is a structured report over retained bytes. Acceptance still requires independent digest recomputation and the existing cross-platform classifier; it does not prove universal crash safety."
+}
