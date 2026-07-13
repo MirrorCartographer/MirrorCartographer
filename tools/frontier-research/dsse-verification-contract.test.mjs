@@ -38,6 +38,7 @@ test('accepts one trusted verifier result bound to exact payload bytes and type'
   });
   assert.equal(result.accepted, true);
   assert.equal(result.trusted_unique_signers, 1);
+  assert.equal(result.require_transparency_log, true);
 });
 
 test('rejects a signature result for a different payload digest', () => {
@@ -63,10 +64,12 @@ test('does not count duplicate signer identity toward a threshold', () => {
   assert.equal(result.details.trusted_unique_signers, 1);
 });
 
-test('rejects untrusted identity and missing PAE verification', () => {
+test('rejects untrusted identity, missing PAE verification, and absent transparency evidence', () => {
   for (const verifierResult of [
     { ...baseResult, trusted_identity: false },
-    { ...baseResult, pae_verified: false }
+    { ...baseResult, pae_verified: false },
+    { ...baseResult, transparency_log_verified: false },
+    { ...baseResult, transparency_log_verified: undefined }
   ]) {
     const result = classifyDsseVerification({
       payloadType,
@@ -75,7 +78,33 @@ test('rejects untrusted identity and missing PAE verification', () => {
       verifierResults: [verifierResult]
     });
     assert.equal(result.accepted, false);
+    assert.equal(result.reason, 'trusted_signature_threshold_not_met');
   }
+});
+
+test('allows an explicit non-transparency trust model without weakening the default', () => {
+  const result = classifyDsseVerification({
+    payloadType,
+    payloadSha256,
+    supportedPayloadTypes: [payloadType],
+    requireTransparencyLog: false,
+    verifierResults: [{ ...baseResult, transparency_log_verified: false }]
+  });
+  assert.equal(result.accepted, true);
+  assert.equal(result.require_transparency_log, false);
+  assert.equal(result.signers[0].transparency_log_verified, false);
+});
+
+test('rejects a malformed transparency policy instead of coercing it', () => {
+  const result = classifyDsseVerification({
+    payloadType,
+    payloadSha256,
+    supportedPayloadTypes: [payloadType],
+    requireTransparencyLog: 'false',
+    verifierResults: [baseResult]
+  });
+  assert.equal(result.accepted, false);
+  assert.equal(result.reason, 'invalid_transparency_log_policy');
 });
 
 test('rejects unsupported payload type before considering signatures', () => {
