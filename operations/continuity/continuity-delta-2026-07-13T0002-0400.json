@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-13T04:02:26Z",
+  "team": "continuity_mining",
+  "privacy_boundary": {
+    "allowed": [
+      "Public repository files",
+      "Public commit metadata and diffs",
+      "Abstracted operational conclusions"
+    ],
+    "forbidden": [
+      "Raw private chat text",
+      "Health or pet-health details",
+      "Credentials or live identity tokens",
+      "Unreviewed uploaded-file contents"
+    ]
+  },
+  "records": [
+    {
+      "id": "CM-0010",
+      "kind": "contradiction",
+      "title": "Canonical queue lags additive queue-update journal",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "observed_at": "2026-07-13T04:02:26Z"
+        },
+        {
+          "type": "github_commit",
+          "locator": "cb47648a5e54d34fd8ea4593e92d490240199d29",
+          "content_sha": "cb47648a5e54d34fd8ea4593e92d490240199d29",
+          "observed_at": "2026-07-13T04:02:51Z"
+        },
+        {
+          "type": "github_commit",
+          "locator": "69c8470f9c98898f30307f682c000bebd9af2357",
+          "content_sha": "69c8470f9c98898f30307f682c000bebd9af2357",
+          "observed_at": "2026-07-13T04:02:33Z"
+        }
+      ],
+      "summary": "ACTIVE_QUEUE.json still ends Frontier Research at R-004 and does not contain the latest Cloudflare invocation-receipt improvement, while additive queue-update commits record R-006 and a newer C-001 state. The repository therefore currently has two state layers: a stale canonical snapshot and a newer append-only operational journal. Treating the canonical file alone as current would silently discard completed work; treating additive records alone as canonical would bypass shared-state materialization rules.",
+      "privacy": "public_repository_safe",
+      "contradicts": [
+        "Any interpretation that operations/ACTIVE_QUEUE.json alone is the complete current state"
+      ],
+      "supersedes": [],
+      "falsification_or_review_route": "Materialize all additive operations/queue-updates records into a new canonical queue through an authenticated, replay-protected writer; then compare item IDs, dependencies, status, commit references, and timestamps. Resolve this contradiction only when the canonical snapshot provably includes or explicitly rejects every later journal entry."
+    },
+    {
+      "id": "CM-0011",
+      "kind": "decision",
+      "title": "Operational state requires snapshot plus append-only journal semantics",
+      "claim_state": "inferred",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/CURRENT_STATE.json",
+          "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+          "observed_at": "2026-07-13T04:02:26Z"
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "observed_at": "2026-07-13T04:02:26Z"
+        },
+        {
+          "type": "github_commit",
+          "locator": "cb47648a5e54d34fd8ea4593e92d490240199d29",
+          "content_sha": "cb47648a5e54d34fd8ea4593e92d490240199d29",
+          "observed_at": "2026-07-13T04:02:51Z"
+        }
+      ],
+      "summary": "The safest continuity model is not last-write-wins. ACTIVE_QUEUE.json should be treated as a materialized snapshot, while operations/queue-updates provides an append-only journal whose entries retain team ownership, evidence, and historical order. A protected materializer should merge only validated entries and emit a receipt linking the prior snapshot, accepted journal entries, resulting snapshot digest, workflow identity, and replay key.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Reject this inferred design if repository rules explicitly define additive queue-update files as non-authoritative notes, or if a protected materializer already exists and proves a different merge model. Otherwise test it by replaying the journal from the indexed canonical blob and checking deterministic output under reordered, duplicated, malformed, cross-owner, and stale entries."
+    },
+    {
+      "id": "CM-0012",
+      "kind": "unresolved_question",
+      "title": "No protected queue materialization receipt has been observed",
+      "claim_state": "unresolved",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_commit",
+          "locator": "69c8470f9c98898f30307f682c000bebd9af2357",
+          "content_sha": "69c8470f9c98898f30307f682c000bebd9af2357",
+          "observed_at": "2026-07-13T04:02:33Z"
+        },
+        {
+          "type": "github_commit",
+          "locator": "cb47648a5e54d34fd8ea4593e92d490240199d29",
+          "content_sha": "cb47648a5e54d34fd8ea4593e92d490240199d29",
+          "observed_at": "2026-07-13T04:02:51Z"
+        }
+      ],
+      "summary": "Cloudflare and Frontier artifacts define workflow identity, signature verification, invocation receipts, and replay-key boundaries, but this run found no evidence that those controls have materialized the additive queue journal into ACTIVE_QUEUE.json. The implementation path exists; the authoritative state transition remains unproven.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Resolve only with a retained materialization receipt containing the exact prior ACTIVE_QUEUE blob SHA, accepted queue-update blob digests, deterministic resulting queue digest, authenticated workflow identity, replay-key disposition, and resulting commit SHA."
+    }
+  ],
+  "specialist_registry_change": null,
+  "registry_reason": "Chat Archaeologist, Decision Historian, Contradiction Resolver, Language Evolution Mapper, and Privacy Boundary Auditor already cover the distinct responsibilities used in this slice."
+}
