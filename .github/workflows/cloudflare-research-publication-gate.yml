@@ -1,0 +1,41 @@
+name: Validate Cloudflare research publication boundary
+
+on:
+  pull_request:
+    paths:
+      - "cloudflare-static/**"
+      - ".github/workflows/cloudflare-research-publication-gate.yml"
+  push:
+    branches: [main]
+    paths:
+      - "cloudflare-static/**"
+      - ".github/workflows/cloudflare-research-publication-gate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publication-boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Test publication-boundary policy
+        run: node --test cloudflare-static/validate-research-publication-boundary.test.mjs
+
+      - name: Validate committed public research surface
+        run: >-
+          node cloudflare-static/validate-research-publication-boundary.mjs
+          cloudflare-static/index.html
+          cloudflare-research-publication-boundary.json
+
+      - name: Upload publication-boundary evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: cloudflare-research-publication-boundary-${{ github.sha }}
+          path: cloudflare-research-publication-boundary.json
+          if-no-files-found: error
+          retention-days: 30
