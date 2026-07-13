@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0012",
+  "kind": "artifact",
+  "title": "Continuity integrity validation is enforced by a dedicated repository workflow",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "tools/continuity/validate-continuity-records.mjs",
+      "content_sha": "d4f803a683ae988c54370856dc03108e4ec696bc",
+      "observed_at": "2026-07-13T05:04:39Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "package.json",
+      "content_sha": "deaf78bf4263ae232e3df77b7826d294838f968f",
+      "observed_at": "2026-07-13T05:04:39Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "34fb76635c8066b96b4606fa1cd5e2c60a63468b",
+      "content_sha": "34fb76635c8066b96b4606fa1cd5e2c60a63468b",
+      "observed_at": "2026-07-13T05:04:39Z"
+    }
+  ],
+  "summary": "A dedicated GitHub Actions workflow now runs the continuity test suite and the aggregate continuity-record validator whenever continuity records, continuity tooling, package scripts, or the workflow itself changes. The gate is read-only, bounded to five minutes, and uses concurrency cancellation to prevent redundant stale runs. This closes the previously recorded gap between having a validator and enforcing it at repository boundaries.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": [],
+  "status_relations": {
+    "observed": "The repository contains continuity validation code, adversarial tests, package-level test and verification commands, and a path-scoped GitHub Actions workflow.",
+    "inferred": "A pull request that introduces duplicate IDs, dangling relations, invalid state values, or malformed continuity JSON should fail the dedicated job before merge when branch protection requires the check.",
+    "proposed": "Make the continuity-integrity job a required branch-protection check after its first successful run is observed.",
+    "superseded": "The unresolved CI-wiring statement inside CM-0011 is historically preserved but no longer describes current repository source state.",
+    "unresolved": "No completed GitHub Actions run for commit 34fb76635c8066b96b4606fa1cd5e2c60a63468b was observable during this run, and branch protection enforcement was not verified."
+  },
+  "falsification_or_review_route": "Fetch package.json and .github/workflows/continuity-integrity.yml at or after commit 34fb76635c8066b96b4606fa1cd5e2c60a63468b. Reject this record if npm run verify:continuity does not execute both tests and aggregate validation, if the workflow is absent or not path-scoped to continuity changes, or if an invalid fixture can pass the workflow."
+}
