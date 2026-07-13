@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Add stateful replay rejection to the signed GitHub OIDC evidence chain without persisting raw identity tokens.",
+    "dependencies": ["R-004"],
+    "required_evidence": [
+      "current primary specification",
+      "committed replay evaluator",
+      "deterministic adversarial tests",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://docs.github.com/en/actions/reference/security/oidc",
+        "https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.7"
+      ],
+      "finding": "A signed and authorized JWT can still be replayed while valid; reject repeated issuer-plus-jti acceptance using bounded retained state.",
+      "module": "tools/frontier-research/oidc-replay-ledger.mjs",
+      "test": "tools/frontier-research/oidc-replay-ledger.test.mjs",
+      "evidence": "operations/evidence/frontier-research-oidc-replay-2026-07-13T0046-0400.json",
+      "commits": [
+        "2e46a7022c11ef0853c0345b9bdee3c6bf14a5e4",
+        "df4192b18c68b36f656cb834227676bc3080dc77",
+        "b49b2d702818e128bda5560706576791c56ff0c1"
+      ],
+      "verification": "4 deterministic Node tests passed in the execution runtime using the exact committed source and test contents."
+    },
+    "handoff": "Cloudflare Research should place the replay gate after runGitHubOidcEvidence acceptance and before deployment/evidence promotion, backed by an atomic durable store. The workflow must reject a duplicate issuer-jti transaction even under concurrency."
+  },
+  "canonical_state_modified": false,
+  "trust_limit": "This additive projection records Frontier Research output and does not prove canonical queue consolidation, workflow integration, peer execution, or deployment success."
+}
