@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T14:11:54-04:00",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "completed_slice": {
+    "name": "exact GitHub attestation signer identity gate",
+    "implementation_commit": "a15413d68d81c82411fc61202c4850f5f765b61b",
+    "test_commit": "412868ca3d9ba09d52337b7162f8d2e9cfc3d4ba",
+    "evidence_commit": "41f76f7e0877c85d681e6c39bd0d52db403247d2",
+    "behavior": "Evidence normalization now fails closed unless repository, signer workflow identity, certificate identity, transparency-log verification, and SHA-256 subject digest all match exactly.",
+    "verification": "Seven deterministic Node tests passed using byte-identical committed module behavior."
+  },
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, dispatch the deployment workflow, and retain a successful resolving Pages URL, served research identity, exact deployed commit, control-plane proof, and accepted signed evidence manifest.",
+  "non_claims": [
+    "No Cloudflare deployment was attempted or observed.",
+    "No resolving hostname or served commit is claimed.",
+    "No diagnosis, treatment, scientific truth, payment, or Vercel conversion claim is made."
+  ],
+  "next_action": "Run the workflow after credentials are configured and require the hardened exact-identity normalizer to accept the GitHub attestation before deployment evidence promotion."
+}
