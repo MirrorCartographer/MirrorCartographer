@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T13:07:21-04:00",
+  "change": {
+    "module": "cloudflare-static/probe-public-pages-hostname.mjs",
+    "test": "cloudflare-static/probe-public-pages-hostname.test.mjs",
+    "workflow": ".github/workflows/cloudflare-public-hostname-probe.yml",
+    "purpose": "Collect credential-free DNS, HTTP, redirect, and research-surface identity evidence for the canonical Cloudflare Pages candidate while keeping control-plane and exact-commit proof separate."
+  },
+  "commits": [
+    "3b7ac73b36d28d4a0b004142a59be6a2c8563732",
+    "702e2f56762aa7641d038ae9a7f2b6513bbc305b",
+    "5b4902268ee25717f65a49c66c1f6537edd5ff94"
+  ],
+  "verification": {
+    "method": "isolated Node test run using byte-identical implementation and test logic",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "classifications_covered": [
+      "unresolved",
+      "http_unreachable",
+      "reachable_wrong_or_unverified_surface",
+      "identity_verified"
+    ]
+  },
+  "runtime_probe": {
+    "candidate": "https://mirror-cartographer-research.pages.dev/",
+    "observed_classification": "unresolved",
+    "environment_errors": ["queryA ECONNREFUSED", "queryAaaa ECONNREFUSED"],
+    "interpretation": "The execution environment could not access DNS. This does not establish that the hostname is globally unresolved."
+  },
+  "claim_boundary": "A successful public identity probe would establish only that the candidate hostname serves the expected research surface at probe time. It would not establish Cloudflare control-plane ownership, deployment provenance, or exact source commit.",
+  "privacy": "No credentials, private chat, health information, diagnosis, treatment claim, payment logic, or conversion logic were introduced."
+}
