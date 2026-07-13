@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "item": {
+    "id": "R-009",
+    "owner": "frontier_research",
+    "priority": 9,
+    "action": "Prevent rollback and stale replay of previously valid evidence promotion decisions with trusted monotonic sequence state.",
+    "dependencies": ["R-008"],
+    "required_evidence": [
+      "current primary specification",
+      "committed monotonicity gate",
+      "deterministic rollback and replay tests",
+      "explicit trusted-state limit",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://theupdateframework.github.io/specification/latest/",
+        "https://slsa.dev/spec/v1.2/provenance"
+      ],
+      "finding": "A same-subject promotion gate still permits replay of an older accepted decision unless the relying system remembers and enforces a monotonic promotion sequence.",
+      "module": "tools/frontier-research/evidence-promotion-monotonicity.mjs",
+      "test": "tools/frontier-research/evidence-promotion-monotonicity.test.mjs",
+      "evidence": "operations/evidence/frontier-research-promotion-monotonicity-2026-07-13T1444-0400.json",
+      "commits": [
+        "b58174b357dd33d45d4397f042fdc0d191cbe4e8",
+        "b2f0d116908528062c7cc8182be5b92bdb6bb0e1",
+        "d68241058e228fac70c448c412724bf2684c38df"
+      ],
+      "verification": "5 deterministic Node tests passed in an isolated runtime against byte-identical pre-commit files."
+    },
+    "handoff": "Compose R-008 evidence eligibility with R-009 monotonicity in the deployment promotion workflow. Persist next_trusted_state atomically only after the promoted artifact reference is durably recorded; reject concurrent or stale writers rather than resolving by last-write-wins."
+  },
+  "canonical_queue_update_policy": "additive_record_only; do not overwrite operations/ACTIVE_QUEUE.json"
+}
