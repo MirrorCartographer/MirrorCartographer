@@ -22,10 +22,13 @@ function fixture(indexRecords, additive={}) {
   return { indexFile:index, recordsDir:dir };
 }
 
-test('accepts unique linked records', () => {
+test('accepts unique linked records and returns relation summary', () => {
   const f = fixture([record('CM-0001')], {'CM-0002.json':record('CM-0002',{supersedes:['CM-0001']})});
   const out = validateContinuity(f);
-  assert.equal(out.ok, true); assert.equal(out.records_checked, 2);
+  assert.equal(out.ok, true);
+  assert.equal(out.records_checked, 2);
+  assert.equal(out.relation_integrity.relation_integrity, 'verified');
+  assert.equal(out.relation_integrity.supersession_edges, 1);
 });
 
 test('rejects duplicate IDs across index and additive records', () => {
@@ -41,4 +44,22 @@ test('rejects broken contradiction and supersession references', () => {
 test('requires superseded claims to identify what they supersede', () => {
   const out = validateContinuity(fixture([record('CM-0001',{claim_state:'superseded'})]));
   assert.equal(out.ok, false); assert.match(out.errors.join('\n'), /requires at least one supersedes target/);
+});
+
+test('rejects duplicate relation targets in the aggregate gate', () => {
+  const out = validateContinuity(fixture([
+    record('CM-0001'),
+    record('CM-0002',{contradicts:['CM-0001','CM-0001']})
+  ]));
+  assert.equal(out.ok, false);
+  assert.match(out.errors.join('\n'), /duplicate target: CM-0001/);
+});
+
+test('rejects supersession cycles in the aggregate gate', () => {
+  const out = validateContinuity(fixture([
+    record('CM-0001',{supersedes:['CM-0002']}),
+    record('CM-0002',{supersedes:['CM-0001']})
+  ]));
+  assert.equal(out.ok, false);
+  assert.match(out.errors.join('\n'), /supersedes cycle/);
 });
