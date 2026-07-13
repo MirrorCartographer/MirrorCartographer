@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T02:11:36Z",
+  "finding": "Deployment acceptance must fail closed when the recorded deployment decision says the run was skipped, failed, cancelled, unresolved, or returned no URL. Cryptographic and claim-level acceptance cannot override a contradictory provider-deployment record.",
+  "implementation": {
+    "module": "cloudflare-static/validate-deployment-evidence-consistency.mjs",
+    "test": "cloudflare-static/validate-deployment-evidence-consistency.test.mjs",
+    "source_commit": "6dcbe57eeef91d6cdd00c9ca516177b5f0bf138e",
+    "test_commit": "7a5d769dd13a985a3d7e9de2a232e32981f3df94"
+  },
+  "verification": {
+    "isolated_node_tests": {
+      "passed": 5,
+      "failed": 0
+    },
+    "covered": [
+      "consistent successful deployment and acceptance",
+      "acceptance after external-configuration skip",
+      "acceptance without returned URL",
+      "explicit rejection after successful deployment",
+      "contradictory accepted flag, decision, and reasons"
+    ]
+  },
+  "evidence_strength": "committed source plus isolated deterministic tests",
+  "deployment_proof": {
+    "state": "not_proven",
+    "reason": "No authenticated Cloudflare workflow run with valid environment credentials was available."
+  },
+  "privacy_boundary": "No credentials, account identifiers, private chat, health material, or secret values were read or emitted.",
+  "claim_limit": "The consistency gate detects contradictory evidence artifacts. It does not prove a Cloudflare deployment, hostname ownership, exact served bytes, continuing availability, diagnosis, treatment, or scientific truth.",
+  "next_integration": "Wire the validator after cloudflare-deployment-acceptance.json is built and before the final evidence manifest is finalized; include cloudflare-deployment-consistency.json in the retained artifact set."
+}
