@@ -37,13 +37,15 @@ if ((html.match(/<script/g) || []).length !== 1) throw new Error('artifact must 
 if ((html.match(/<canvas/g) || []).length !== 1) throw new Error('artifact must expose exactly one primary canvas');
 
 execFileSync(process.execPath, [new URL('./rain-organ/contract.test.mjs', import.meta.url)], { stdio: 'inherit' });
+execFileSync(process.execPath, ['--test', new URL('./anthology-contract.test.mjs', import.meta.url)], { stdio: 'inherit' });
 
 console.log(JSON.stringify({
   valid: true,
-  anthology: ['The Weather Inside a Bell', 'Rain Organ'],
+  anthology: ['The Weather Inside a Bell', 'Afterbell', 'Rain Organ'],
+  progression: ['pressure score', 'echo room', 'rain instrument'],
   bytes: Buffer.byteLength(html),
   externalAssets: false,
   networkCalls: false,
-  accessibility: ['keyboard', 'aria-live', 'reduced-motion', 'safe-area'],
+  accessibility: ['keyboard', 'aria-live', 'reduced-motion', 'safe-area', 'reversible room navigation'],
   interactions: ['tap', 'drag', 'multi-pointer rain', 'keyboard strike', 'gesture-gated sound']
 }, null, 2));
