@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0017",
+  "kind": "decision",
+  "title": "Review approval authorizes a proposal, not canonical mutation",
+  "claim_state": "observed",
+  "evidence_strength": "primary_repository_source",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-13T06:54:03Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "45a986f3f8fbe44c286aa3f1b90716e39ec33abe",
+      "content_sha": "45a986f3f8fbe44c286aa3f1b90716e39ec33abe",
+      "observed_at": "2026-07-13T06:54:03Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "92e8795f1e177a904712bda7a99e308e1e9ef8f4",
+      "content_sha": "92e8795f1e177a904712bda7a99e308e1e9ef8f4",
+      "observed_at": "2026-07-13T06:54:03Z"
+    }
+  ],
+  "summary": "A reviewed approval can now be transformed into a deterministic, digest-bound canonical queue change proposal while preserving the canonical queue byte-for-byte. The proposal is limited to authorized M-series items, rejects duplicate identifiers and widened scope, and always requires separate human review and manual application. Six deterministic Node tests passed before commit.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": ["CM-0016:proposed"],
+  "status_relations": {
+    "observed": "The proposal builder emits append-only queue operations and a proposal digest while returning canonical_queue_modified=false and application_permitted=false.",
+    "inferred": "Separating proposal generation from application preserves a legible authorization chain and prevents reviewed evidence from silently becoming operational state.",
+    "proposed": "Add an independently authenticated reviewer identity record and a post-application verification record before any canonical queue change is treated as adopted.",
+    "superseded": "The absence of a safe canonical-change proposal format is superseded by the committed builder and test contract.",
+    "unresolved": "No authenticated human reviewer identity, manually applied queue commit, or post-change verification artifact currently exists."
+  },
+  "falsification_or_review_route": "Run node --test operations/continuity/canonical-change-proposal.test.mjs and reject this record if a rejected authorization, stale projection digest, widened scope, duplicate queue identifier, automatic application permission, direct mutation permission, or mutation of the input canonical queue is accepted."
+}
