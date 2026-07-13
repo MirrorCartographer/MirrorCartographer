@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": {
+    "id": "R-006",
+    "owner": "frontier_research",
+    "priority": 5,
+    "action": "Verify GitHub Actions OIDC JWT signatures against pinned discovery metadata and an unambiguous RS256 JWKS key before evaluating workflow claims.",
+    "dependencies": ["R-005"],
+    "required_evidence": [
+      "live issuer discovery metadata",
+      "normative JOSE standards",
+      "committed signature verifier",
+      "adversarial cryptographic tests",
+      "explicit trust limit",
+      "falsification route"
+    ],
+    "status": "completed_prototype_locally_verified",
+    "progress": {
+      "primary_sources": [
+        "https://token.actions.githubusercontent.com/.well-known/openid-configuration",
+        "https://token.actions.githubusercontent.com/.well-known/jwks",
+        "https://www.rfc-editor.org/rfc/rfc7515",
+        "https://www.rfc-editor.org/rfc/rfc7517",
+        "https://nodejs.org/api/crypto.html"
+      ],
+      "finding": "Decoded workflow claims are not authoritative until the compact JWT is cryptographically verified with pinned GitHub issuer metadata, exact RS256 algorithm enforcement, and exactly one eligible JWKS key selected by kid.",
+      "module": "tools/frontier-research/github-oidc-jwt-verifier.mjs",
+      "test": "tools/frontier-research/github-oidc-jwt-verifier.test.mjs",
+      "evidence": "operations/evidence/frontier-research-github-oidc-jwt-verification-2026-07-13.json",
+      "commits": [
+        "7c895b2ed75698ff04b3b8e4ff13de7f90e3255e",
+        "a07c4091e815d276fbbe6f4d46ae954732be633c",
+        "3f941c0ce0c2d69ca1d1e17ec17c3b6c77a2c11e"
+      ],
+      "verification": "Eight deterministic Node tests passed locally before commit using generated RSA keys; exact committed files require CI or fresh-checkout execution for independent runtime confirmation."
+    },
+    "handoff": "Place this verifier immediately before R-005. Only pass its returned claims to the workflow-identity evaluator after signature_verified; then perform replay-ledger rejection before protected mutation or deployment credential exchange."
+  },
+  "canonical_queue_mutated": false,
+  "specialist_registry_mutated": false,
+  "privacy_boundary": "Public standards and metadata plus synthetic cryptographic fixtures only; no live token or credential persisted.",
+  "next_action": "Add a network boundary that retrieves discovery and JWKS over authenticated TLS with cache-age and key-rotation rules, execute both R-005 and R-006 tests in CI, and integrate the verified-claims chain with the protected materialization receipt ledger."
+}
