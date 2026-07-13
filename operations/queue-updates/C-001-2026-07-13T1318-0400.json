@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T13:18:35-04:00",
+  "status": "blocked_external_configuration",
+  "durable_progress": {
+    "validator": "cloudflare-static/validate-public-hostname-probe.mjs",
+    "contract_test": "cloudflare-static/validate-public-hostname-probe.test.mjs",
+    "ci_workflow": ".github/workflows/cloudflare-public-hostname-proof-contract.yml",
+    "evidence": "operations/evidence/cloudflare-public-hostname-proof-contract-2026-07-13T1318-0400.json",
+    "verification": "6 of 6 deterministic tests passed in an isolated Node runtime",
+    "authorized_claim": "public reachability and expected research-surface identity only when a coherent identity_verified packet is retained"
+  },
+  "remaining_blocker": "The cloudflare-research GitHub environment still requires CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN for deployment and exact-commit control-plane proof. The new credential-free workflow execution and artifact are not yet observed.",
+  "next_action": "Inspect the workflow run and retained artifact for commit f0b57c28e9541bd294736099c7adf189b68713c9 or a descendant. If the packet validates as identity_verified, preserve it as reachability evidence only; then dispatch the credentialed deployment workflow for exact-commit proof."
+}
