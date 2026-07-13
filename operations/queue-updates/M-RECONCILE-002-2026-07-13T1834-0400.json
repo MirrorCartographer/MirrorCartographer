@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-13T18:34:01-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "status": "active",
+  "priority": 0,
+  "completed_slice": "Recorded the distinction between the canonical queue snapshot and later additive operational records.",
+  "artifact": "operations/continuity/records/CM-1015.json",
+  "artifact_commit": "8ecfbc2f86b9edb366854a4c8959fd1c1cded780",
+  "canonical_state_mutated": false,
+  "next_action": "Enumerate queue updates after the canonical base, validate receipts, and materialize a reconciled queue projection."
+}
