@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-13T10:34:00-04:00",
+  "status": "active",
+  "completed_slice": "Added Cloud Press, a fourth reversible anthology chamber where held pressure becomes printed weather, and linked it bidirectionally with Rain Organ.",
+  "progress": {
+    "identity": "A playable weather anthology progressing through atmosphere, echo, rain, and printmaking.",
+    "new_room": "independent-web/cloud-press/index.html",
+    "contract": "independent-web/cloud-press/contract.test.mjs",
+    "verification_entrypoint": "independent-web/verify.mjs",
+    "evidence": "operations/evidence/independent-web-cloud-press-2026-07-13T1034-0400.json",
+    "commits": [
+      "6863f52ab0a885436182ea8b41bc486e2915a271",
+      "34ccb87718f2e80627b28f87336df6789290fb25",
+      "728de05e8f5fef8016c48fcc418f7e7baffc0304",
+      "07aa724826379a30f1f5ee131f1b4a7d97b81c51",
+      "24348974c1fb01cdab364b889454cf39d3464f7a"
+    ]
+  },
+  "required_evidence_state": {
+    "site_source": "present",
+    "distinct_identity_statement": "present",
+    "public_url": "unverified",
+    "mobile_proof": "unverified",
+    "contract_execution": "unverified"
+  },
+  "rollback": "Revert the listed commits in reverse order. The site is static and data-free.",
+  "next_action": "Verify the Independent Web Pages deployment for the latest source commit and capture a narrow mobile viewport sequence covering hold, release, print, clear, forward navigation, and return navigation."
+}
