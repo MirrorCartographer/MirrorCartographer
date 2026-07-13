@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-12T22:17:00-04:00",
+  "claim_state": "implemented_and_isolated_tested",
+  "change": {
+    "module": "cloudflare-static/validate-deployment-evidence-consistency.mjs",
+    "test": "cloudflare-static/validate-deployment-evidence-consistency.test.mjs",
+    "module_commit": "00770d94488801f73884efcc2a7b15105c59dbef",
+    "test_commit": "7419fa6f4ca9231f8fbe89a9d282df8caf7d3314"
+  },
+  "finding": "Cross-artifact consistency must validate both acceptance logic and the deployment decision's own status/URL invariants. A success status, URL-returned flag, URL syntax, terminal failure status, and rejection reasons are separate fields that can contradict one another unless checked explicitly.",
+  "new_checks": [
+    "deny unknown deployment statuses",
+    "require HTTPS deployment URLs without embedded credentials",
+    "require success status to carry a returned valid URL",
+    "forbid terminal non-success states from carrying a URL or returned-URL flag",
+    "require explicit rejection reasons"
+  ],
+  "verification": {
+    "route": "isolated Node test using source-equivalent committed logic",
+    "tests": 10,
+    "passed": 10,
+    "failed": 0
+  },
+  "evidence_strength": "committed source plus isolated deterministic runtime test",
+  "deployment_status": "not_attempted",
+  "deployment_blocker": "Cloudflare environment credentials and an authenticated workflow dispatch are still required to prove a resolving hostname, served identity, and deployed commit.",
+  "privacy_boundary": "No secrets, account identifiers, private chat, or health material were read or emitted.",
+  "claim_limit": "The gate detects contradictory records. It does not prove hostname ownership, deployment availability, exact served bytes, scientific truth, diagnosis, or treatment efficacy.",
+  "falsification_route": [
+    "run the committed test suite in repository CI",
+    "wire the validator after acceptance generation and before manifest finalization",
+    "show a valid workflow state rejected by the new status/URL contract, or a contradictory state accepted by it"
+  ]
+}
