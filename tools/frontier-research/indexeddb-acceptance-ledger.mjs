@@ -1,3 +1,5 @@
+import { describeTransactionDurability, openCapabilityNegotiatedTransaction } from './indexeddb-transaction-capability.mjs';
+
 const OPAQUE_ID = /^[A-Za-z0-9_-]{16,128}$/;
 const DB_VERSION = 1;
 const STORE = 'acceptance_ids';
@@ -82,16 +84,15 @@ export async function consumeAcceptanceIdIndexedDB({
   validateAcceptanceInput({ acceptanceId, nowMs, retentionMs, maxEntries });
   const db = await openAcceptanceDatabase({ indexedDB, databaseName });
   try {
-    let tx;
-    try {
-      tx = db.transaction(STORE, 'readwrite', { durability });
-    } catch (error) {
-      if (durability !== 'default') throw error;
-      tx = db.transaction(STORE, 'readwrite');
-    }
+    const negotiated = openCapabilityNegotiatedTransaction(db, {
+      storeNames: STORE,
+      mode: 'readwrite',
+      durability
+    });
+    const tx = negotiated.transaction;
     const result = await consumeInTransaction({ store: tx.objectStore(STORE), acceptanceId, nowMs, retentionMs, maxEntries });
     await transactionDone(tx);
-    return { ...result, requested_durability: durability, observed_durability: tx.durability ?? 'unknown' };
+    return { ...result, ...describeTransactionDurability(negotiated) };
   } finally {
     db.close();
   }
