@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T00:48:00-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "implemented_source_unverified_runtime",
+  "improvement": "Cloudflare's signed GitHub OIDC evidence runner now evaluates the verified token against the Frontier Research replay ledger and requires both exact invocation authorization and a fresh issuer/JWT-ID pair.",
+  "source": {
+    "runner": "cloudflare-static/run-github-oidc-evidence.mjs",
+    "runner_commit": "8b3ec2dc571c9f3f4caf3c9bbed6ffed711eb9ca",
+    "test": "cloudflare-static/run-github-oidc-evidence.test.mjs",
+    "test_commit": "5799f9b1f22e3f25a3eb2fc246c9ef95c511526b",
+    "replay_module": "tools/frontier-research/oidc-replay-ledger.mjs",
+    "replay_module_commit": "2e46a7022c11ef0853c0345b9bdee3c6bf14a5e4"
+  },
+  "acceptance_contract": [
+    "signature and exact invocation claims must be accepted first",
+    "issuer and raw JWT ID must be present",
+    "only a SHA-256 replay key is retained; raw JWT ID is not persisted",
+    "a live matching replay key rejects the evidence result",
+    "identity rejection cannot be bypassed by replay evaluation"
+  ],
+  "verification": {
+    "source_write": "accepted_by_github",
+    "deterministic_tests": "committed_not_executed",
+    "runtime_attempt": "fresh checkout attempted",
+    "runtime_result": "blocked because the execution environment could not resolve github.com"
+  },
+  "privacy_boundary": "No OIDC token, token-request credential, raw JWT ID, private chat, health material, diagnosis, or treatment claim is persisted.",
+  "trust_limit": "This integration can reject replay only against the prior ledger supplied to the runner. The current workflow does not yet provide authenticated cross-run ledger retention, so cross-run replay rejection is not claimed. It does not prove Cloudflare deployment success or scientific truth.",
+  "deployment": {
+    "performed": false,
+    "reason": "Cloudflare protected credentials remain unavailable and C-001 is blocked_external_configuration."
+  }
+}
