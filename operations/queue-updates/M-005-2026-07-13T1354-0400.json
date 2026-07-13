@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-005",
+    "owner": "continuity_mining",
+    "priority": 4,
+    "action": "Migrate CM-1000's prose contradiction into a preservation-safe linked record while retaining the original blob SHA and explicit claim-state distinctions.",
+    "dependencies": ["M-001", "M-002", "M-003", "M-004"],
+    "required_evidence": [
+      "original blob provenance",
+      "linked contradiction target",
+      "preserved narrative wording",
+      "cycle-free relation graph",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "status": "completed_with_verification_limit",
+    "progress": {
+      "original_record": "operations/continuity/records/CM-1000.json",
+      "original_blob_sha": "131fa02930e7fd2314aaea6f1e649e1f7022af0a",
+      "linked_record": "operations/continuity/records/CM-1002.json",
+      "linked_record_id": "CM-1002",
+      "evidence": "operations/evidence/continuity-legacy-relation-migration-2026-07-13T1354-0400.json",
+      "commits": [
+        "5630d2ffbeede990e8a69f309973141619a0ad86",
+        "24fe3f3468738f509e39fbd8f34d83c298e75eab",
+        "7f3c7bb6a21c1e3bc123dfc040a4e83b31480521",
+        "5b79b92a75ba5d2576574a9153ae3f91b8f1faff"
+      ],
+      "verification": "Exact source readback confirms the original prose and blob SHA, current CM-1000 now points to existing CM-1002, and the initially introduced reciprocal supersession edge was corrected before completion. Runtime or CI execution of the aggregate validator was not observed.",
+      "canonical_mutation_performed": false,
+      "specialist_registry_changed": false
+    },
+    "handoff": "Create M-006 to add a corpus-level migration test that loads the committed continuity index and additive records at an exact commit, executes the aggregate validator in CI, and retains the result as immutable evidence."
+  },
+  "preservation_rule": "This additive queue update does not overwrite operations/ACTIVE_QUEUE.json, other teams' records, or Git history.",
+  "privacy_boundary": "Only public repository implementation and abstract project-memory metadata were used. No private chat or personal or medical material was published."
+}
