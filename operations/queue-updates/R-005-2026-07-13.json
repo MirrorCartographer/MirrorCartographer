@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Require cryptographic DSSE verification bound to exact payload bytes and trusted signer identity before provenance evidence promotion.",
+    "dependencies": ["R-004"],
+    "required_evidence": [
+      "primary DSSE specification",
+      "official verification documentation",
+      "committed acceptance contract",
+      "deterministic adversarial tests",
+      "explicit claim boundary and falsification route"
+    ],
+    "status": "implemented_unexecuted",
+    "progress": {
+      "finding": "Structural attestation validation and trusted-builder policy do not substitute for cryptographic signature verification over DSSE PAE bytes.",
+      "module": "tools/frontier-research/dsse-verification-contract.mjs",
+      "test": "tools/frontier-research/dsse-verification-contract.test.mjs",
+      "evidence": "operations/evidence/frontier-research-dsse-verification-contract-2026-07-13.json",
+      "commits": [
+        "2295654435477220b386e675dd284cd0f808c0c8",
+        "e85eaf3e554e100a21c81c1dc72c1636a561af3e",
+        "77e95bc4c5d1258a2a8c46ce09f70d3e487b9f0b"
+      ],
+      "verification": "Source and tests committed; execution not observed.",
+      "handoff": "Cloudflare and Vercel evidence workflows should run a real cryptographic verifier, normalize only its exact payload-bound output into this contract, and require contract acceptance before trusted-builder policy or evidence promotion."
+    }
+  },
+  "shared_queue_policy": "Additive owned update only; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "next_action": "Wire a real Sigstore/cosign or equivalent verifier into CI, execute the six tests, retain raw verifier output and test logs, then compose cryptographic acceptance with R-004 trusted-builder policy and claim-level evidence gates."
+}
