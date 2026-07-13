@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-010",
+  "recorded_at": "2026-07-13T12:36:00-04:00",
+  "sources": [
+    {
+      "status": "primary_specification",
+      "url": "https://w3c.github.io/event-timing/",
+      "use": "interaction identity and browser-observed event timing"
+    },
+    {
+      "status": "primary_specification",
+      "url": "https://w3c.github.io/long-animation-frames/",
+      "use": "long-frame and blocking observations"
+    },
+    {
+      "status": "repository_source",
+      "path": "tools/frontier-research/browser-interaction-capture.mjs",
+      "blob_sha": "8dfe7df20d12e707cc7ae54965c1ed826cd7bed7"
+    },
+    {
+      "status": "repository_test",
+      "path": "tools/frontier-research/browser-interaction-capture.integration.test.mjs",
+      "blob_sha": "b7446043d46fdd2cd38a2edf751608355201f7c8"
+    }
+  ],
+  "finding": "Repeated browser trials are comparable only when source commit, deployment identity, device/browser identity, ordered interaction sequence, API support, and both independent budget sets remain invariant. Per-trial capture digests detect retained-observation substitution, while a failed trial must remain visible rather than being averaged into success.",
+  "design_implication": "Vercel Studio should wrap at least two production capture results in the target-browser packet before making a repeatability statement. Deployment authenticity and physical-device identity remain separate verification obligations.",
+  "artifacts": {
+    "module": "tools/frontier-research/target-browser-evidence-packet.mjs",
+    "module_commit": "b23b0e7599a8dcfc073ae2e2d57485d9712f6f4d",
+    "test": "tools/frontier-research/target-browser-evidence-packet.test.mjs",
+    "test_commit": "9774cfb0e0f68cc093f306e1521cdc4d40991322"
+  },
+  "verification": {
+    "route": "isolated Node.js test runner over byte-identical source later committed through GitHub",
+    "command": "node --test target-browser-evidence-packet.test.mjs",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "valid repeated-trial packet",
+      "cross-trial budget substitution rejection",
+      "cross-trial API-support substitution rejection",
+      "post-construction capture tampering rejection",
+      "failed repeated trial retained without success upgrade"
+    ]
+  },
+  "evidence_strength": "source_and_isolated_deterministic_test",
+  "uncertainty": "No target-browser execution, deployment identity verification, CI run, or physical iPhone observation was performed in this slice.",
+  "claim_limit": "The artifact validates declared packet coherence and capture-byte integrity only; it does not prove browser support, deployment authenticity, causality, audibility, smoothness, or device identity.",
+  "falsification_route": "Run two or more trials against one independently verified deployment and exact commit. Reject repeatability if support, budgets, sequence, retained capture digest, or either independent verdict differs materially."
+}
