@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T01:04:57Z",
+  "improvement": "Deployment blocker summaries now incorporate the sanitized Cloudflare access probe automatically when cloudflare-access-probe.json exists, preventing configured-but-rejected credentials or unresolved project identity from being misreported as ready.",
+  "source_status": {
+    "current_state": "read",
+    "active_queue": "read",
+    "specialist_registry": "read",
+    "trigger_requests": "read",
+    "recent_commits": "read",
+    "workflow": "read",
+    "access_probe": "read",
+    "blocker_contract": "read"
+  },
+  "files": [
+    "cloudflare-static/summarize-deployment-blocker.mjs",
+    "cloudflare-static/summarize-deployment-blocker.test.mjs",
+    "cloudflare-static/validate-deployment-blocker.mjs"
+  ],
+  "commits": [
+    "d8175bcf3c23ae05f70ce400d7cf15bc8c5ef89a",
+    "af289daaffffed1abea457f020c24e9951d7ac8a",
+    "596dbca3a1df8810419ab53df75979f810d6606f"
+  ],
+  "verification": {
+    "method": "isolated deterministic Node execution of byte-equivalent classification logic",
+    "result": {"passed": 4, "failed": 0},
+    "covered": [
+      "accepted token and resolved project remain ready",
+      "rejected token produces token_rejected and not_attempted blockers",
+      "accepted token with wrong account or missing project produces account_or_resource_not_found",
+      "resolved project without canonical hostname remains blocked"
+    ],
+    "source_fetch": "updated summarizer fetched from main after commit"
+  },
+  "evidence_strength": "source-verified and deterministic-test-verified; workflow-run and Cloudflare control-plane verification pending",
+  "privacy": {
+    "secret_values_emitted": false,
+    "account_id_emitted": false,
+    "policy": "Only secret names, access stages, bounded reason codes, and remediation text are retained."
+  },
+  "limits": [
+    "No GitHub Actions run executed for these commits.",
+    "No Cloudflare credential or control-plane call was available in this run.",
+    "No deployment URL, served identity, or deployed commit was proven.",
+    "The canonical ACTIVE_QUEUE.json was not overwritten."
+  ],
+  "falsification_route": "Run the committed workflow with shaped credentials that are rejected, unauthorized, bound to the wrong account, and fully valid; inspect cloudflare-deployment-blocker.json and require status/reason alignment without secret leakage."
+}
