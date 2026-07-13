@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T02:14:00Z",
+  "team": "continuity_mining",
+  "queue_item": "M-008",
+  "claim_state": "observed",
+  "finding": "Append-only queue projections can be discovered repository-wide, grouped against canonical queue items, checked for resolvable source commits and regular-file evidence paths, and reconciled into a non-mutating materialization candidate.",
+  "implementation": {
+    "module": "tools/continuity/queue-projection-loader.mjs",
+    "test": "tools/continuity/queue-projection-loader.test.mjs",
+    "implementation_commit": "858ed33f79b56834bd8fd6bbe73c67cfa33f9deb",
+    "test_commit": "79e4f49a69b9ac6059acd8cd95888ff118b40e24"
+  },
+  "preserved_claim_states": [
+    "observed",
+    "inferred",
+    "proposed",
+    "superseded",
+    "unresolved"
+  ],
+  "fail_closed_conditions": [
+    "malformed projection JSON",
+    "projection references a queue item absent from the canonical queue",
+    "source commit does not resolve to a commit object",
+    "evidence path escapes the repository root",
+    "evidence path is missing or is not a regular file",
+    "underlying reconciler rejects chronology, identity, ownership, status, or evidence"
+  ],
+  "privacy_boundary": {
+    "included": [
+      "public repository queue records",
+      "public repository commit object existence",
+      "public repository evidence-file existence"
+    ],
+    "excluded": [
+      "raw chat content",
+      "health or pet-health material",
+      "credentials",
+      "contact information",
+      "unreviewed uploads"
+    ]
+  },
+  "verification": {
+    "committed_test_cases": 5,
+    "fresh_checkout_execution": "blocked by runtime DNS resolution failure for github.com",
+    "github_actions_runs_for_test_commit": 0,
+    "runtime_claim": "not_observed",
+    "source_review": "completed"
+  },
+  "mutation_guards": [
+    "candidate reports mutation_performed=false",
+    "CLI output uses exclusive create and refuses overwrite",
+    "ACTIVE_QUEUE.json is read only",
+    "orphan projections are preserved for review rather than discarded"
+  ],
+  "falsification_route": [
+    "Run node --test tools/continuity/queue-projection-loader.test.mjs in a fresh authenticated checkout.",
+    "Add adversarial fixtures for symlink evidence, git replacement objects, duplicate queue IDs, and concurrent projection writes.",
+    "Reject the design if it mutates ACTIVE_QUEUE.json, silently drops malformed or orphan records, accepts unresolved commits or evidence paths, or treats a candidate as authorized canonical state."
+  ],
+  "unresolved": [
+    "Canonical materialization authority remains undefined.",
+    "The committed test suite has not been observed executing in CI or a fresh checkout.",
+    "Repository snapshot consistency across concurrent writes is not yet proven."
+  ]
+}
