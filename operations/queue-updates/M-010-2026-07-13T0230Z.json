@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "M-010-2026-07-13T0230Z",
+  "queue_item": "M-001",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-13T02:30:00Z",
+  "status": "completed",
+  "claim_state": "observed",
+  "summary": "Added a snapshot-native reconciliation adapter that reads canonical queue, append-only projections, and referenced evidence from one immutable commit and emits separate source and candidate digests without authorizing mutation.",
+  "source_commits": [
+    "267c2b050e39f912ae0030098207168b357c097b",
+    "ae09064cffe798905fe8fab1572e1fe1be89ebd1",
+    "75802fcea2de629ef8d1a8198d003952d99a6cf6"
+  ],
+  "evidence_paths": [
+    "operations/evidence/continuity-snapshot-native-reconciliation-2026-07-13T0230Z.json"
+  ],
+  "evidence_types": [
+    "index schema",
+    "source boundaries",
+    "first indexed records"
+  ],
+  "observed": [
+    "The adapter resolves one full commit and reads source blobs from that tree.",
+    "Source-inventory and reconciliation-candidate digests are independent.",
+    "Mutation remains prohibited."
+  ],
+  "inferred": [
+    "This closes the mixed-time working-tree read gap identified by the prior continuity handoff."
+  ],
+  "proposed": [
+    "Define a signed or policy-bound materialization-authority contract."
+  ],
+  "superseded": [
+    "Working-tree reconciliation can represent an immutable historical snapshot."
+  ],
+  "unresolved": [
+    "No runtime test execution was observed in this run.",
+    "Canonical materialization authority remains undefined."
+  ],
+  "privacy_boundary": "Public repository artifacts only; no raw private chat, health data, credentials, identifying personal information, or unreviewed uploads.",
+  "next_action": "Execute the committed tests in CI, then specify and test a deny-by-default authority contract that remains separate from snapshot consistency and reconciliation validity."
+}
