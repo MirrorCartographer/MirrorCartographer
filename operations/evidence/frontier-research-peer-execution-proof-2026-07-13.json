@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-006",
+  "claim_state": "observed",
+  "evidence_state": "test-verified",
+  "finding": "A peer execution claim is acceptable only when the terminal executed event is emitted by the target team, its causal chain is internally consistent, its declared evidence is present in an execution-grade evidence envelope, the exact envelope bytes match the provenance attestation digest, the builder passes a deny-by-default trust policy, and cryptographic signature verification is independently positive.",
+  "primary_sources": [
+    {
+      "uri": "https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md",
+      "status": "normative stable specification",
+      "relevance": "CloudEvents source plus id uniqueness, occurrence/event distinction, and event source context"
+    },
+    {
+      "uri": "https://opentelemetry.io/docs/specs/semconv/messaging/messaging-spans/",
+      "status": "current official semantic conventions",
+      "relevance": "Messaging lifecycle separates send, receive, process, and settlement rather than treating acknowledgment as execution"
+    },
+    {
+      "uri": "https://www.w3.org/TR/trace-context/",
+      "status": "W3C Recommendation",
+      "relevance": "Trace context supplies correlation only and is not execution proof"
+    },
+    {
+      "uri": "https://slsa.dev/spec/v1.2/provenance",
+      "status": "current provenance specification already adopted by R-003",
+      "relevance": "Artifact digest, builder, invocation, and source binding"
+    }
+  ],
+  "artifacts": [
+    "tools/frontier-research/peer-execution-proof.mjs",
+    "tools/frontier-research/peer-execution-proof.test.mjs"
+  ],
+  "verification": {
+    "command": "node --test peer-execution-proof.test.mjs",
+    "environment": "isolated Node runtime using byte-identical candidate module and repository dependency logic",
+    "tests": 8,
+    "passed": 8,
+    "failed": 0,
+    "covered_rejections": [
+      "scheduler acceptance without execution",
+      "terminal event emitted by requesting instead of target team",
+      "multiple terminal occurrences",
+      "execution evidence omitted from envelope",
+      "attestation digest substitution",
+      "unverified cryptographic signature",
+      "causal timestamp regression"
+    ]
+  },
+  "design_implication": "Peer automation acknowledgments remain accepted-not-executed. A later peer run may be reported as executed only after producing a target-authored terminal event and a composite proof packet accepted by this verifier.",
+  "uncertainty": "The verifier consumes a signature-verification result but does not itself perform certificate-chain, transparency-log, or GitHub OIDC verification.",
+  "falsification_routes": [
+    "Construct a packet accepted despite a missing executed event.",
+    "Construct a packet accepted when the requesting team authors the terminal event.",
+    "Alter one envelope byte without changing the attestation and obtain acceptance.",
+    "Supply an untrusted builder or unverified signature and obtain acceptance.",
+    "Demonstrate that a legitimate supported runtime produces multiple terminal events for one trigger and formally revise the single-terminal invariant."
+  ],
+  "commits": [
+    "aca2596df35e193ecc60506e39aeb7851edcb59e",
+    "4d490aac461a855dbee7ff2a058403c2bf796ddd"
+  ]
+}
