@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T09:18:00-04:00",
+  "claim_state": "observed_source",
+  "improvement": "The Cloudflare deployment workflow now executes the exact-commit hostname evidence gate after Wrangler deployment and served-identity verification, includes its deterministic test in the pre-deployment contract suite, retains its JSON output in the proof artifact bundle, and documents the gate in the run summary.",
+  "source_commit": "bbc334ef01150f8d08fc8538420e205b5f2f458d",
+  "files": [
+    ".github/workflows/cloudflare-pages-research.yml",
+    "cloudflare-static/run-hostname-evidence-gate.mjs",
+    "cloudflare-static/run-hostname-evidence-gate.test.mjs"
+  ],
+  "bindings": {
+    "deployment_url": "steps.deploy.outputs.deployment-url",
+    "expected_commit": "GITHUB_SHA",
+    "output": "cloudflare-hostname-evidence-gate.json",
+    "execution_condition": "steps.deploy.outcome == 'success'"
+  },
+  "verification": {
+    "method": "post-commit GitHub source fetch and line inspection",
+    "observed": [
+      "run-hostname-evidence-gate.test.mjs is included in the deployment evidence contract suite",
+      "the gate runs after served-identity verification",
+      "Wrangler's returned deployment URL and GITHUB_SHA are passed directly to the gate",
+      "the gate artifact is included in the uploaded proof bundle"
+    ],
+    "not_observed": [
+      "GitHub Actions execution",
+      "authenticated Cloudflare deployment",
+      "live DNS or HTTP response",
+      "accepted hostname evidence packet"
+    ]
+  },
+  "privacy_boundary": "Contains repository paths, commit identifiers, workflow bindings, and abstract evidence status only. No credentials, secret values, health material, private chat, or personal identifiers are included.",
+  "epistemic_limit": "Workflow wiring proves that the gate is committed and positioned in the source graph. It does not prove that the workflow executed, Cloudflare accepted credentials, the hostname resolved, or the deployed surface served the target commit.",
+  "falsification_route": "Dispatch the workflow with valid Cloudflare environment credentials. Reject this claim if the test suite omits the gate, the gate step does not execute after a successful deploy, its output is absent, its accepted field is not true, its packet hostname differs from Wrangler's returned hostname, or its expected source commit differs from GITHUB_SHA."
+}
