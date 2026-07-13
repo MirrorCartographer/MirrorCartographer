@@ -54,6 +54,7 @@ jobs:
           node --test cloudflare-static/validate-deployment-proof-context.test.mjs
           node --test cloudflare-static/validate-deployment-branch.test.mjs
           node --test cloudflare-static/verify-cloudflare-deployment-metadata.test.mjs
+          node --test cloudflare-static/validate-deployment-evidence-consistency.test.mjs
           node --test cloudflare-static/finalize-deployment-evidence.test.mjs
 
       - name: Validate deployment branch input
@@ -243,6 +244,14 @@ jobs:
           process.stdout.write(`${JSON.stringify({ accepted: decision.accepted, signature: input.signatureVerification?.status, signatureSubject: input.signatureSubjectVerification?.status, freshness: input.freshnessEvidence?.status, claim: input.claimEvidence?.status })}\n`);
           NODE
 
+      - name: Validate cross-artifact deployment consistency
+        if: always()
+        run: >-
+          node cloudflare-static/validate-deployment-evidence-consistency.mjs
+          cloudflare-deployment-decision.json
+          cloudflare-deployment-acceptance.json
+          cloudflare-deployment-consistency.json
+
       - name: Finalize and verify exact deployment evidence manifest
         if: always()
         run: >-
@@ -269,6 +278,7 @@ jobs:
             cloudflare-deployment-proof.signature-verification.json
             cloudflare-evidence-verification-input.json
             cloudflare-deployment-acceptance.json
+            cloudflare-deployment-consistency.json
             cloudflare-deployment-evidence-manifest.json
           if-no-files-found: error
           retention-days: 30
@@ -302,7 +312,8 @@ jobs:
             echo "- Signed-subject binding: \`signatureSubjectVerification.status\` must equal \`match\`"
             echo "- Verification input: \`cloudflare-evidence-verification-input.json\`"
             echo "- Acceptance decision: \`cloudflare-deployment-acceptance.json\`"
+            echo "- Cross-artifact consistency: \`cloudflare-deployment-consistency.json\` must pass before evidence finalization"
             echo "- Atomic evidence manifest: \`cloudflare-deployment-evidence-manifest.json\` is created only after byte-level verification against this run and source commit"
             echo "- Trust policy: exact workflow builder and repository, deny by default"
-            echo "- Epistemic limit: signature verification, freshness, and hostname authority authenticate bounded provenance and control-plane relationships, not scientific truth"
+            echo "- Epistemic limit: signature verification, freshness, hostname authority, and consistency checks authenticate bounded provenance and reject contradictions; they do not establish scientific truth"
           } >> "$GITHUB_STEP_SUMMARY"
