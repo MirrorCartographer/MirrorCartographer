@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T14:06:00-04:00",
+  "claim_state": "observed_source_change_unverified_runtime",
+  "improvement": "Bound the exact-commit hostname evidence gate to the project-specific Cloudflare Pages hostname classifier before any DNS or HTTP evidence collection can run.",
+  "source": {
+    "repository": "MirrorCartographer/MirrorCartographer",
+    "implementation_commit": "9e8c746c62f95977e708026fdb90717c9d876d9e",
+    "test_commit": "517c3c2af032d7bf83b21105c216fdabff3f4f21",
+    "implementation_path": "cloudflare-static/run-hostname-evidence-gate.mjs",
+    "test_path": "cloudflare-static/run-hostname-evidence-gate.test.mjs",
+    "policy_path": "cloudflare-static/classify-pages-hostname.mjs"
+  },
+  "acceptance_contract": [
+    "Deployment URL must be canonical HTTPS origin syntax.",
+    "Hostname must be the exact project production hostname, a project-bound preview hostname, or an explicitly allowlisted exact custom host.",
+    "Rejected hostname policy must stop before network evidence construction.",
+    "Accepted hostname policy must still pass exact hostname and source-commit packet bindings."
+  ],
+  "verification": {
+    "source_readback": "verified at test commit",
+    "workflow_runs_for_test_commit": 0,
+    "test_execution": "not_observed",
+    "deployment": "not_attempted"
+  },
+  "limits": [
+    "Committed tests are not claimed passing because no workflow run was returned for the test commit.",
+    "No DNS resolution, HTTP reachability, Cloudflare account ownership, deployment ID, or served commit was established.",
+    "This evidence does not establish scientific truth, diagnosis, treatment, payment, or conversion authorization."
+  ],
+  "rollback": {
+    "test_commit": "517c3c2af032d7bf83b21105c216fdabff3f4f21",
+    "implementation_commit": "9e8c746c62f95977e708026fdb90717c9d876d9e",
+    "method": "revert in reverse order without deleting history"
+  }
+}
