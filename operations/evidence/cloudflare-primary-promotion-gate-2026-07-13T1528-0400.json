@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T15:28:01-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "implemented_source_verified",
+  "durable_improvement": "The primary Cloudflare deployment workflow now runs promotion-consistency validation before final evidence manifest creation and retains the verdict in the atomic artifact upload set.",
+  "source": {
+    "repository": "MirrorCartographer/MirrorCartographer",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "commit": "94a02608dd6576ae69e5e33b53d108297779754e",
+    "content_sha": "056e609a29ce76392ac7c4477d729d2182b9852a"
+  },
+  "verified_source_behavior": {
+    "test_contract_added": "node --test cloudflare-static/validate-promotion-consistency.test.mjs",
+    "gate_order": [
+      "compose promotion decision",
+      "validate deployment consistency",
+      "validate promotion consistency",
+      "finalize evidence manifest"
+    ],
+    "promotion_output": "cloudflare-promotion-consistency.json",
+    "uploaded_with_primary_artifact": true
+  },
+  "deployment_evidence": {
+    "cloudflare_workflow_run": "not observed",
+    "resolving_hostname": "not observed",
+    "served_surface": "not observed",
+    "deployed_commit": "not observed"
+  },
+  "status_checks": {
+    "cloudflare": "no Cloudflare status observed",
+    "unrelated_vercel_checks": "five build-rate-limit failures observed; not evidence about Cloudflare behavior"
+  },
+  "privacy_boundary": "Contains repository paths, commit identifiers, workflow control flow, and bounded verification statements only. No secrets, private chat, health material, diagnosis, or treatment claims.",
+  "claim_limit": "Source inspection proves workflow ordering and artifact inclusion only. It does not prove execution, Cloudflare authorization, hostname resolution, deployment success, scientific truth, diagnosis, or treatment efficacy.",
+  "falsification_route": "Fetch commit 94a02608dd6576ae69e5e33b53d108297779754e and verify that validate-promotion-consistency.mjs executes before finalize-deployment-evidence.mjs, that nonzero validator exit prevents finalization, and that cloudflare-promotion-consistency.json is included in the primary artifact path."
+}
