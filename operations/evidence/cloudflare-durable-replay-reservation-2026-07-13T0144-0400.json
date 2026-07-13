@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T01:44:00-04:00",
+  "claim_state": "source_behavior_verified",
+  "evidence_strength": "deterministic_unit_test",
+  "finding": "Replay admission requires a durable single-winner reservation. A Cloudflare Durable Object storage transaction can provide an atomic check-and-put boundary when all equivalent replay keys are routed to the same object namespace.",
+  "implementation": {
+    "module": "cloudflare-static/replay-reservation-do.mjs",
+    "test": "cloudflare-static/replay-reservation-do.test.mjs",
+    "provider": "cloudflare_durable_object_storage_transaction",
+    "source_commit": "2987e1b905bad28e92f8976e39f3882d79c03aa1",
+    "test_commit": "310b424716d0d46f62bb05f08d463a0ec54af223"
+  },
+  "verification": {
+    "command": "node --test cloudflare-static/replay-reservation-do.test.mjs",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "runtime": "isolated Node runtime using byte-identical pre-commit source and test files"
+  },
+  "privacy_boundary": {
+    "retained": ["SHA-256 replay key", "request identifier", "reservation identifier", "timestamp"],
+    "excluded": ["raw JWT", "credentials", "repository identity", "workflow identity", "actor identity", "private chat", "health information"]
+  },
+  "falsification_route": [
+    "Deploy the Durable Object binding and route identical replay keys to one object namespace.",
+    "Send concurrent identical reservations and confirm exactly one 201 response and all others 409.",
+    "Restart or redeploy the Worker and confirm the prior reservation remains observable.",
+    "Attempt intentionally divergent routing; the test must demonstrate why routing correctness is a separate required control."
+  ],
+  "limits": [
+    "No Cloudflare Durable Object was deployed in this run.",
+    "The unit test uses an in-memory transactional mock and does not prove Cloudflare runtime behavior.",
+    "Atomicity is scoped to one correctly routed Durable Object namespace.",
+    "The receipt does not prove deployment success, ledger completeness, identity truth, or scientific claim truth."
+  ],
+  "boundaries": {
+    "payment_on_vercel": false,
+    "diagnosis_or_treatment_claim": false,
+    "git_history_deleted": false
+  }
+}
