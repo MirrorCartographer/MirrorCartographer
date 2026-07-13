@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T11:12:00-04:00",
+  "finding": "The deployment workflow and wrangler configuration lacked a dedicated fail-closed parity check for project name, Pages output directory, branch input, and exact source commit binding.",
+  "improvement": {
+    "module": "cloudflare-static/validate-cloudflare-config-parity.mjs",
+    "test": "cloudflare-static/validate-cloudflare-config-parity.test.mjs",
+    "checks": [
+      "wrangler project name is present",
+      "Pages output directory is present",
+      "workflow project name matches wrangler name",
+      "workflow deployment directory matches wrangler output directory",
+      "workflow binds Cloudflare deployment to github.sha",
+      "workflow uses the declared branch input"
+    ]
+  },
+  "verification": {
+    "route": "isolated Node test using byte-identical pre-commit files",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "current_repository_contract_inspected": true
+  },
+  "evidence_strength": "source-and-deterministic-test",
+  "claim_limit": "This gate reduces configuration drift. It does not prove credentials, Cloudflare control-plane access, deployment success, hostname resolution, served identity, or exact deployed commit.",
+  "privacy": {
+    "secrets_recorded": false,
+    "private_health_or_chat_material_recorded": false
+  },
+  "falsification_route": "Change the project name, deployment directory, branch binding, or commit binding in either configuration surface and require the validator to reject the mismatch."
+}
