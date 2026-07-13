@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-014",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed_with_followup",
+  "action": "Integrate exact repository-reference verification with deterministic queue candidate materialization and preserve invalid updates in a separate report.",
+  "completed_at": "2026-07-13T15:01:52Z",
+  "selection_basis": "M-013 identified integration of queue-reference-verifier.mjs with queue-state-materializer.mjs as the next highest-value continuity action.",
+  "specialists_used": [
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "outputs": [
+    {"path": "operations/continuity/build-verified-queue-candidate.mjs", "commit": "6c3b7614d066bee8f31c7d1ca0f003f70084f9da"},
+    {"path": "operations/continuity/build-verified-queue-candidate.test.mjs", "commit": "f5c565ccb0c6a7709165a8dd6a0d1d0b81f028e6"},
+    {"path": "operations/evidence/continuity-verified-queue-candidate-2026-07-13T1101-0400.json", "commit": "66db6488fd46af7d60e1ee29ca5cd8f91ec2a678"}
+  ],
+  "memory_recovered": "Queue reconstruction is a gated pipeline, not two independent utilities: verify each update against an authenticated immutable inventory, exclude invalid references without erasing their evidence, materialize only accepted updates, and require review before canonical replacement.",
+  "contradictions_resolved": [
+    "A deterministic materializer can still produce an ungrounded candidate when reference verification is not part of the same pipeline.",
+    "Excluding an invalid update from candidate state must not delete or hide the rejected event; it belongs in a retained invalid-reference report.",
+    "Repository-reference verification raises provenance confidence but does not establish semantic truth, deployment, test execution, peer execution, or human outcome."
+  ],
+  "claim_states": {
+    "observed": [
+      "The integrated candidate builder and five-test contract are committed.",
+      "Five deterministic tests passed in an isolated Node runtime.",
+      "No canonical queue, registry, trigger ledger, prior team output, file, or Git history was overwritten or deleted."
+    ],
+    "inferred": [
+      "With a trustworthy immutable inventory, invalid output bindings cannot enter the generated candidate queue through this builder."
+    ],
+    "proposed": [
+      "Enumerate all append-only queue updates and immutable commit/path bindings, then generate and retain the first repository-wide candidate package."
+    ],
+    "superseded": [
+      "Materializing queue updates before or separately from exact reference verification."
+    ],
+    "unresolved": [
+      "Complete authenticated queue-update enumeration.",
+      "Trusted repository inventory construction.",
+      "Repository-wide candidate generation and explicit human review.",
+      "Reviewed policy for replacing operations/ACTIVE_QUEUE.json."
+    ]
+  },
+  "verification": "5 Node tests passed: accepted update materialization, missing-commit exclusion, mixed validity separation, inventory cardinality fail-closed behavior, and claim-ceiling enforcement.",
+  "privacy_boundary": "Public repository metadata and abstract queue semantics only; no raw private chat, health or pet-health material, credentials, personal identifiers, or unreviewed uploads.",
+  "canonical_queue_update_policy": "Append-only team-owned update; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "next_action": "In an authenticated checkout, enumerate every operations/queue-updates record and exact commit/path binding, run build-verified-queue-candidate.mjs, and retain candidate-effective-queue.json, verification report, invalid-reference report, conflict report, and review record."
+}
