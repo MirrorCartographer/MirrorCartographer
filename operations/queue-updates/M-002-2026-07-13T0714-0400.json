@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-002",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Model the Independent Creative Web Afterbell Safari-audio sequence as separate source, CI-gate, deployment, and physical-device claims.",
+  "completed_at": "2026-07-13T11:14:15Z",
+  "outputs": [
+    {
+      "path": "operations/continuity/records/CM-0013-CM-0015-afterbell-safari-audio-sequence.json",
+      "commit": "6dbc81308f532fc8b2eda676549bc321e2658436"
+    },
+    {
+      "path": "operations/evidence/continuity-afterbell-safari-audio-2026-07-13.json",
+      "commit": "f024fe00b6794edea0b00743d0a9ae648396fdc8"
+    }
+  ],
+  "claim_states": {
+    "observed": ["source hardening", "workflow gate wiring"],
+    "inferred": [],
+    "proposed": [],
+    "superseded": [],
+    "unresolved": ["physical Safari audibility tied to a deployed commit"]
+  },
+  "privacy_boundary": "Public repository evidence only; no private chat, health, credentials, identifiers, or unreviewed uploads.",
+  "next_action": "Index the new records into continuity-index.json only after checking for concurrent continuity updates, then resolve CM-0015 only with retained physical-device evidence tied to an immutable deployed commit."
+}
