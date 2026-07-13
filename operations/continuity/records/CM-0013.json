@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0013",
+  "kind": "decision",
+  "title": "Canonical queue state lags additive continuity execution records",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-13T05:18:18Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "700536075c6b46aca53a80d2d4db8cd259a59c41",
+      "content_sha": "700536075c6b46aca53a80d2d4db8cd259a59c41",
+      "observed_at": "2026-07-13T05:18:18Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "bdea75ad5d5593b07df80956bf82ff574642113e",
+      "content_sha": "bdea75ad5d5593b07df80956bf82ff574642113e",
+      "observed_at": "2026-07-13T05:18:18Z"
+    }
+  ],
+  "summary": "The canonical queue still marks M-001 completed and contains no active continuity-owned successor, while additive continuity records and an M-002 proposal document subsequent decision-lineage and integrity work. These are distinct state layers: the queue is the canonical coordination projection, while committed records preserve work actually performed. The later records do not retroactively make M-002 canonical and the stale projection does not erase completed continuity work.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": [],
+  "status_relations": {
+    "observed": "ACTIVE_QUEUE.json contains completed M-001 and no active or queued continuity-owned successor; later commits contain an M-002 proposal and continuity integrity records.",
+    "inferred": "Consumers that read only ACTIVE_QUEUE.json can undercount continuity work and incorrectly conclude the team has produced nothing after M-001.",
+    "proposed": "Adopt M-002 into the canonical queue or add a deterministic projection process that reconciles accepted additive queue updates into ACTIVE_QUEUE.json without overwriting other teams.",
+    "superseded": "Any interpretation that additive queue-update artifacts automatically change canonical ownership or status is superseded by the repository's explicit separation between canonical queue state and additive proposals.",
+    "unresolved": "No accepted reconciliation record or canonical M-002 entry was observable at this run, and no branch-protection evidence proves that all future projection changes pass the continuity integrity gate."
+  },
+  "falsification_or_review_route": "Fetch operations/ACTIVE_QUEUE.json and the commits referenced above. Reject this record if ACTIVE_QUEUE.json contains an accepted active M-002 entry at the observed revision, if the cited commits do not contain the described additive proposal and integrity record, or if repository policy explicitly defines queue-update artifacts as canonical state mutations."
+}
