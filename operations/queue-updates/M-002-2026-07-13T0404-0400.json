@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-002",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-13T04:04:37-04:00",
+  "status": "completed_slice",
+  "action": "Add exact post-application verification before treating a canonical queue proposal as adopted.",
+  "completed": {
+    "module": "operations/continuity/post-application-verifier.mjs",
+    "test": "operations/continuity/post-application-verifier.test.mjs",
+    "decision_record": "operations/continuity/records/CM-0019.json",
+    "commits": [
+      "fc90bf99f70cf769aa7bb6d41a19942934331e98",
+      "cc836963b8cc0d202dd8e686145ae9f2e07dd8b3",
+      "30e3382b06dc0e45a15669600979e6f1145f1cd9"
+    ],
+    "verification": "Six deterministic Node tests passed against byte-identical pre-commit files."
+  },
+  "claim_states": {
+    "observed": "An executable verifier now binds proposal, reviewer binding, prior and resulting queue digests, manual commit identity, signature-verification status, committer allowlist, and verifier-artifact allowlist.",
+    "inferred": "The canonical state transition is trustworthy only as a complete before-intent-after evidence chain.",
+    "proposed": "Create an immutable real-world application packet from retained GitHub evidence and run this verifier after a human-approved queue update.",
+    "superseded": "CM-0018's proposed post-application verifier is implemented.",
+    "unresolved": "No real approved canonical queue mutation or cryptographically verified application packet exists."
+  },
+  "canonical_queue_mutated": false,
+  "privacy_boundary": "Public repository state and abstract identities only; no private chat, health information, credentials, identifying personal data, or unreviewed uploads.",
+  "next_action": "Build a packet assembler that verifies retained Git blob bytes and GitHub commit-verification metadata before invoking the post-application verifier."
+}
