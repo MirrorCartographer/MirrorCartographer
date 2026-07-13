@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-013",
+    "owner": "frontier_research",
+    "priority": 12,
+    "action": "Classify workflow-run observations so incomplete connector results cannot be mistaken for proof that CI did not run.",
+    "dependencies": ["R-012"],
+    "required_evidence": [
+      "current official workflow-run API contract",
+      "committed observation classifier",
+      "deterministic adversarial tests",
+      "explicit absence-claim limit and falsification route"
+    ],
+    "status": "completed_source_and_runtime_verified",
+    "progress": {
+      "primary_sources": [
+        "https://docs.github.com/en/rest/actions/workflow-runs?apiVersion=2022-11-28#list-workflow-runs-for-a-repository",
+        "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows"
+      ],
+      "finding": "An empty first-page, event-filtered workflow-run response is an incomplete observation, not evidence that no workflow run exists for the commit.",
+      "module": "tools/frontier-research/workflow-run-observation.mjs",
+      "test": "tools/frontier-research/workflow-run-observation.test.mjs",
+      "evidence": "operations/evidence/frontier-workflow-run-observation-2026-07-13T1331-0400.json",
+      "commits": [
+        "92356ab12c3cff3d73511fbed3ed2b90238e52e3",
+        "e7014213ad37cce9286218533ea9e09dc47a9e28",
+        "d785b749f6d32077c463169f24563141bebe5221"
+      ],
+      "verification": "Four deterministic Node tests passed: exact run observed, incomplete empty observation, complete bounded no-match, and malformed commit rejection."
+    },
+    "handoff": "Use this classifier before interpreting any workflow-run query. For R-012, obtain an authenticated exact-head-sha all-page response and retain the raw pages before claiming bounded no-match or observed execution."
+  },
+  "canonical_queue_update_policy": "Append-only team-owned update; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "next_action": "Build or execute the complete authenticated all-page workflow-run enumerator for commit e35a5e264d6d4f0535d236c6f0b17f2813efa665, then validate any retained browser-evidence artifact against that exact run and commit."
+}
