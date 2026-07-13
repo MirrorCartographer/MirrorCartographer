@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-008",
+  "captured_at": "2026-07-13T11:04:56-04:00",
+  "primary_sources": [
+    {
+      "url": "https://w3c.github.io/event-timing/",
+      "status": "W3C Editor's Draft",
+      "observed_date": "2026-07-13",
+      "finding": "Event Timing exposes event latency components and groups eligible trusted interactions with non-zero interactionId values; zero remains a meaningful non-grouped observation."
+    },
+    {
+      "url": "https://w3c.github.io/long-animation-frames/",
+      "status": "W3C Editor's Draft",
+      "observed_date": "2026-07-13",
+      "finding": "Long Animation Frames provides a separate main-thread congestion observation stream and must not be collapsed into Event Timing correlation."
+    }
+  ],
+  "finding": "A useful browser evidence adapter must open one explicit observation window, retain both streams independently, preserve support detection and zero-interactionId counts, and fail closed unless both independent verdicts accept.",
+  "design_implication": "Vercel Studio can wrap one exact deployed gesture with start() and close(), then feed the retained entries and verdicts into the existing deployment-bound interaction evidence packet.",
+  "files": {
+    "module": "tools/frontier-research/browser-interaction-capture.mjs",
+    "test": "tools/frontier-research/browser-interaction-capture.test.mjs"
+  },
+  "commits": {
+    "module": "3c297aeafae69497b83f6614d04c041b22423378",
+    "test": "6c5d766e1d972bc4eafabf0c1d0bab79ed3c7ccd"
+  },
+  "verification": {
+    "method": "Node 22 isolated unit execution of byte-identical adapter and test files with evaluator test doubles matching the imported verdict interface",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "dual observer capture and explicit window identity",
+      "unsupported APIs remain non-accepting",
+      "zero interactionId observations are counted and remain inconclusive",
+      "invalid lifecycle transitions fail closed",
+      "abort disconnects and discards observations"
+    ],
+    "integration_limit": "The isolated runtime did not execute against the repository's exact imported evaluator modules or a real browser PerformanceObserver implementation."
+  },
+  "evidence_strength": "committed prototype plus deterministic unit evidence; browser integration unverified",
+  "claim_limit": "This artifact does not prove target-browser support, deployed behavior, audibility, subjective smoothness, or causal attribution.",
+  "falsification_route": "Run the committed test with the exact repository modules, then wrap the same ordered gesture on the exact deployed commit in target iPhone Safari and compare support flags, raw counts, zero-interactionId counts, and both verdicts across repeated trials.",
+  "privacy_boundary": "No private chat, health material, credentials, user identifiers, or device telemetry were committed."
+}
