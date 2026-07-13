@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T12:14:20-04:00",
+  "item_id": "M-002",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "action": "Model contradictions and state-layer divergence as linked provenance records rather than overwriting earlier observations.",
+  "status": "completed_slice",
+  "progress": {
+    "schema": "operations/continuity/contradiction-ledger.schema.json",
+    "ledger": "operations/continuity/contradiction-ledger.json",
+    "records_added": 1,
+    "first_subject": "Canonical ACTIVE_QUEUE baseline versus later append-only continuity updates",
+    "resolution": "Reviewed baseline and append-only candidate updates are distinct state layers; both are preserved until explicit reviewed compaction.",
+    "commits": [
+      "6784d221281e4b9313504dbe6370acb79aac622a",
+      "048873619634436d14ee691003acf02b58368365",
+      "834423f79713688e1c0940611ec227b29b353860"
+    ],
+    "evidence": "operations/evidence/continuity-contradiction-ledger-2026-07-13T1214-0400.json"
+  },
+  "claim_states": {
+    "observed": "The canonical queue retains M-001 while later append-only continuity commits exist.",
+    "inferred": "Single-source readers can misread either layer as complete state.",
+    "proposed": "Future contradictions should use the same linked-record schema.",
+    "superseded": "None in this slice.",
+    "unresolved": "The canonical queue still requires explicit reviewed compaction before it represents later candidate state."
+  },
+  "privacy_boundary": "Public repository files and commit metadata only; private chat, health information, credentials, identifying personal data, and unreviewed uploads excluded.",
+  "handoff": "Next continuity slice should index the decision that canonical queue compaction is review-gated, then add a deterministic validator that rejects contradiction records lacking two independently referenced observations or a preservation rule."
+}
