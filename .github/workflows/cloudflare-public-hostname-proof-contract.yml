@@ -1,0 +1,61 @@
+name: Cloudflare public hostname proof contract
+
+on:
+  push:
+    paths:
+      - 'cloudflare-static/probe-public-pages-hostname.mjs'
+      - 'cloudflare-static/probe-public-pages-hostname.test.mjs'
+      - 'cloudflare-static/validate-public-hostname-probe.mjs'
+      - 'cloudflare-static/validate-public-hostname-probe.test.mjs'
+      - '.github/workflows/cloudflare-public-hostname-proof-contract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-hostname-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify exact checkout
+        run: test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+      - name: Run deterministic contracts
+        run: |
+          node --test cloudflare-static/probe-public-pages-hostname.test.mjs
+          node --test cloudflare-static/validate-public-hostname-probe.test.mjs
+      - name: Probe public hostname
+        id: probe
+        continue-on-error: true
+        run: node cloudflare-static/probe-public-pages-hostname.mjs cloudflare-public-hostname-probe.json
+      - name: Validate retained packet
+        if: always()
+        run: node cloudflare-static/validate-public-hostname-probe.mjs cloudflare-public-hostname-probe.json cloudflare-public-hostname-validation.json
+      - name: Record immutable source identity
+        if: always()
+        run: |
+          git rev-parse HEAD > cloudflare-public-hostname-source-commit.txt
+          sha256sum \
+            cloudflare-static/probe-public-pages-hostname.mjs \
+            cloudflare-static/validate-public-hostname-probe.mjs \
+            cloudflare-public-hostname-probe.json \
+            cloudflare-public-hostname-validation.json \
+            > cloudflare-public-hostname-sha256.txt
+      - name: Upload retained evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-public-hostname-proof-${{ github.sha }}
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            cloudflare-public-hostname-probe.json
+            cloudflare-public-hostname-validation.json
+            cloudflare-public-hostname-source-commit.txt
+            cloudflare-public-hostname-sha256.txt
