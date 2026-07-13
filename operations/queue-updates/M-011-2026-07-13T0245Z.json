@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "M-011-2026-07-13T0245Z",
+  "queue_item": "M-001",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-13T02:45:00Z",
+  "status": "completed",
+  "claim_state": "observed",
+  "summary": "Defined and tested a deny-by-default canonical queue materialization authority contract that binds exact source and candidate digests, actor, workflow, path, operation, and expiry while remaining non-mutating.",
+  "source_commits": [
+    "ad0d5ea31d0f754e366482444c44fbce3061df61",
+    "7b4099b99f1af84807bb8e624c060f57ccb275e1",
+    "42eb49fd91b19636531df004f2708d877543fb81"
+  ],
+  "evidence_paths": [
+    "operations/evidence/continuity-materialization-authority-2026-07-13T0245Z.json"
+  ],
+  "evidence_types": [
+    "decision-history rule",
+    "contradiction resolution",
+    "privacy boundary",
+    "deterministic test specification"
+  ],
+  "observed": [
+    "Authority is denied unless every explicit identity, binding, freshness, path, and candidate-state condition passes.",
+    "The evaluator never mutates canonical state.",
+    "Five deterministic Node tests were committed but not observed executing."
+  ],
+  "inferred": [
+    "Snapshot consistency, reconciliation validity, and mutation authority are now represented as three separate layers."
+  ],
+  "proposed": [
+    "Bind the actor and workflow identities to protected GitHub execution or a signed attestation before adding a mutation executor."
+  ],
+  "superseded": [
+    "A reconciled candidate may authorize its own canonical materialization."
+  ],
+  "unresolved": [
+    "Runtime test execution remains unobserved.",
+    "Actor and workflow strings are policy identifiers, not yet cryptographically authenticated.",
+    "No canonical mutation executor exists."
+  ],
+  "privacy_boundary": "Public repository artifacts only; no raw private chat, health data, credentials, identifying personal information, or unreviewed uploads.",
+  "next_action": "Run the committed authority tests in CI, bind policy identities to protected execution provenance, then implement a minimal exact-byte mutation executor with post-commit evidence."
+}
