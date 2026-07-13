@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-014",
+  "recorded_at": "2026-07-13T13:39:00-04:00",
+  "source_status": {
+    "primary": [
+      {
+        "url": "https://docs.github.com/en/rest/actions/workflow-runs?apiVersion=2022-11-28#list-workflow-runs-for-a-repository",
+        "observed_contract": [
+          "head_sha filters runs associated with an exact commit",
+          "per_page maximum is 100",
+          "page is explicit",
+          "filtered searches return at most 1000 results",
+          "Actions repository read permission is required for private resources"
+        ]
+      },
+      {
+        "url": "https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api",
+        "observed_contract": [
+          "Link response headers identify next and terminal pages when pagination applies"
+        ]
+      }
+    ]
+  },
+  "finding": "An exact-head-sha query is still incomplete unless every linked page is retained. Enumeration must reject page gaps and missing linked successors before the prior observation classifier may emit bounded_no_match.",
+  "design_implication": "Insert workflow-run-enumerator.mjs before workflow-run-observation.mjs. Feed the aggregated query, source, and runs fields into the classifier only after pagination completeness is computed.",
+  "artifact": {
+    "module": "tools/frontier-research/workflow-run-enumerator.mjs",
+    "test": "tools/frontier-research/workflow-run-enumerator.test.mjs",
+    "commits": [
+      "81187741db3d49e7d87145d86e0e120b16c5ab25",
+      "6e6847371b4103deb297f3a772bc74c8f1f372c8"
+    ]
+  },
+  "verification": {
+    "runtime": "local Node test runner",
+    "result": {"tests": 5, "passed": 5, "failed": 0},
+    "cases": [
+      "exact commit and maximal page request without event filter",
+      "Link header parsing",
+      "contiguous terminal page acceptance",
+      "missing next page rejection",
+      "page-gap rejection"
+    ]
+  },
+  "claim_state": "source_and_local_runtime_verified",
+  "evidence_strength": "strong_for_deterministic_contract_bounded_for_external_execution",
+  "uncertainty": [
+    "No authenticated network enumeration was executed in this run.",
+    "No workflow run existence or absence is claimed for the target commit.",
+    "GitHub's filtered-search ceiling remains even after complete pagination."
+  ],
+  "falsification_route": "Run an authenticated exact-head-sha query, retain every raw response page and Link header, and demonstrate either a skipped linked page, an accepted page gap, an event filter, or a mismatch between retained runs and the aggregate output."
+}
