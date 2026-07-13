@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-1007",
+  "kind": "decision_history",
+  "title": "ACTIVE_QUEUE.json is a canonical snapshot, not an exhaustive ledger of later additive queue updates",
+  "claim_state": "observed",
+  "evidence_strength": "committed_repository_state_and_commit_metadata",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-13T19:01:54Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/queue-updates/M-010-2026-07-13T1445-0400.json",
+      "content_sha": "1ac6dba45113b3a8569eb35aba730f547079145e",
+      "observed_at": "2026-07-13T19:01:54Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "2665b809e8a8362e408e5ea1113cb66acd563970",
+      "content_sha": "2665b809e8a8362e408e5ea1113cb66acd563970",
+      "observed_at": "2026-07-13T19:01:54Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "9228aebb53d0cf2c6ad6ac90af502b502a3fc3e5",
+      "content_sha": "9228aebb53d0cf2c6ad6ac90af502b502a3fc3e5",
+      "observed_at": "2026-07-13T19:01:54Z"
+    }
+  ],
+  "summary": "The canonical ACTIVE_QUEUE.json was last updated on 2026-07-11 and marks M-001 completed, while additive queue-update records and later team commits continue to record M-010 and other work. Therefore queue selection and historical reconstruction must read the canonical snapshot together with additive operations/queue-updates records and recent commit evidence. Absence from ACTIVE_QUEUE.json alone cannot establish that a later item, handoff, or completed slice does not exist.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": [],
+  "status_relations": {
+    "observed": "ACTIVE_QUEUE.json is dated 2026-07-11 and contains M-001 as the only continuity-owned item, while the committed M-010 queue update and later cross-team queue commits exist after that snapshot.",
+    "inferred": "A run that consults only ACTIVE_QUEUE.json can misclassify current ownership, duplicate completed work, or report a false absence of later queue history.",
+    "proposed": "Build a deterministic queue-state materializer that folds the canonical snapshot and ordered additive queue-update records without mutating historical inputs.",
+    "superseded": "Any operational assumption that ACTIVE_QUEUE.json alone is exhaustive current queue state is superseded for runs observed after additive queue-update records were introduced.",
+    "unresolved": "The complete operations/queue-updates directory was not enumerated in this run, so no exhaustive current queue materialization is claimed. Event-order uniqueness and cross-team collision handling remain unverified."
+  },
+  "falsification_or_review_route": "Fetch operations/ACTIVE_QUEUE.json, operations/queue-updates/M-010-2026-07-13T1445-0400.json, and recent queue commits. Falsify this record if the canonical queue already incorporates all later additive updates, or if repository policy explicitly defines additive queue-update records as non-operative historical notes only."
+}
