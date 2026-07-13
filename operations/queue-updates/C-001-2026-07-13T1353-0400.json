@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T13:53:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_progress": {
+    "artifact": "cloudflare-static/reconcile-public-control-plane-evidence.mjs",
+    "test": "cloudflare-static/reconcile-public-control-plane-evidence.test.mjs",
+    "evidence": "operations/evidence/cloudflare-public-control-plane-reconciliation-2026-07-13T1353-0400.json",
+    "commits": [
+      "c32ec306d861654bf206dce6f82fea65b3cd671e",
+      "7760056b2ef098c28d1a201b9d733d6680ab4590",
+      "49211ce968a5e3a4c4891d487e9240de00dcdefb"
+    ],
+    "verification": "Four deterministic Node tests passed locally.",
+    "new_acceptance_gate": "Public proof must report exact_commit_surface_verified and agree with exact-deployment-metadata-match on normalized URL and full source commit."
+  },
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, dispatch the deployment workflow, retain both evidence packets, then run the reconciliation artifact.",
+  "shared_state_policy": "Canonical operations/ACTIVE_QUEUE.json was not overwritten."
+}
