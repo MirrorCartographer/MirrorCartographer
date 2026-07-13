@@ -17,7 +17,10 @@ export const REQUIRED_EVIDENCE_FILES = Object.freeze([
   'cloudflare-deployment-proof.intoto.json',
   'cloudflare-deployment-proof.signature-verification.json',
   'cloudflare-evidence-verification-input.json',
-  'cloudflare-deployment-acceptance.json'
+  'cloudflare-deployment-acceptance.json',
+  'cloudflare-evidence-promotion-decision.json',
+  'cloudflare-deployment-consistency.json',
+  'cloudflare-promotion-consistency.json'
 ]);
 function sha256(buffer){return crypto.createHash('sha256').update(buffer).digest('hex');}
 function assertSafeRelativeFile(value){if(typeof value!=='string'||value.length===0)throw new Error('invalid-evidence-path');if(path.isAbsolute(value)||value.includes('..')||value.includes('\\'))throw new Error(`unsafe-evidence-path:${value}`);if(path.basename(value)!==value)throw new Error(`nested-evidence-path:${value}`);}
