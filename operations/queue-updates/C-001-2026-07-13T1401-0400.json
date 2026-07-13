@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T14:01:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a fail-closed Cloudflare Pages hostname classifier that permits only the configured pages.dev production host, project-bound preview hosts, or exact custom-domain allowlist entries before deployment evidence may be promoted.",
+  "files": [
+    "cloudflare-static/classify-pages-hostname.mjs",
+    "cloudflare-static/classify-pages-hostname.test.mjs",
+    "operations/evidence/cloudflare-pages-hostname-policy-2026-07-13T1401-0400.json"
+  ],
+  "commits": [
+    "7b1db3ae50ec12b6fc8bacba8402f935181cb20e",
+    "2b52ed183d573561e0a72e3ea9c92f71b1dae6d5",
+    "d9c72e31485c69e55deeba27c97eb79754acc33f"
+  ],
+  "verification": "Six deterministic tests committed but not observed executing.",
+  "remaining": [
+    "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN.",
+    "Wire hostname classification into the public/control-plane reconciliation workflow.",
+    "Dispatch deployment, retain returned deployment metadata, resolve and probe the accepted origin, and bind the served manifest to the exact deployed commit.",
+    "Execute all relevant tests in observed CI."
+  ],
+  "non_overwrite_note": "Canonical ACTIVE_QUEUE.json and other teams' records were not modified."
+}
