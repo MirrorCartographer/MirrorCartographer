@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "recorded_at": "2026-07-13T00:27:00-04:00",
+  "creative_premise": "A three-room weather anthology discovered through play: pressure writes a score, the score opens an echo chamber, and three echoes open a mechanical rain instrument.",
+  "specialists_used": [
+    "Creative Director",
+    "Worldbuilder",
+    "Experimental Interface Designer",
+    "Independent Hosting Architect",
+    "Generative Media Engineer"
+  ],
+  "source_commits": {
+    "anthology_contract": "fde43fef26f9ac4106dd6415cce0e5b94bdb6f8b",
+    "afterbell_rain_door": "b1a5232af08792ed14d0d1417660b2782ddfe3a8",
+    "rain_organ_return_path": "e4eebf3cbe2c04ae7c3a4c5e5de10b6fe200c6d7",
+    "verification_wiring": "aab6de5bb5af42fe096266bd7656cb19caa75d5e"
+  },
+  "files": [
+    "independent-web/anthology-contract.test.mjs",
+    "independent-web/afterbell.html",
+    "independent-web/rain-organ/index.html",
+    "independent-web/verify.mjs"
+  ],
+  "behavioral_proof": {
+    "discovery_gate": "Rain Organ link remains hidden until Afterbell contains at least three marks.",
+    "keyboard_route": "R enters Rain Organ after the gate opens.",
+    "rollback_route": "Every change is static and reversible by restoring an earlier commit; no storage, database, migration, secrets, or external assets are involved.",
+    "contract_checks": [
+      "three sensory rooms remain present",
+      "no payment, checkout, analytics, or fetch dependency",
+      "Rain Organ is gated by score state",
+      "return navigation exists",
+      "keyboard focus routes remain explicit"
+    ]
+  },
+  "hosting_evidence": {
+    "workflow": ".github/workflows/independent-web-pages.yml",
+    "expected_surface": "GitHub Pages artifact publishing independent-web/ only",
+    "public_url": null,
+    "deployment_state": "unverified",
+    "reason": "No Pages run identity or served deployment response was available in this run. Repository commit status showed one unrelated Vercel context success and four Vercel rate-limit failures; none proves GitHub Pages publication."
+  },
+  "independence_boundary": "The anthology contains no Mirror Cartographer explanation, research interface, worker dashboard, personal model, conversion funnel, payment path, diagnosis, treatment claim, account, tracker, or network-dependent media.",
+  "verification_strength": "committed source and deterministic contract design; live execution and public deployment remain unverified",
+  "limits": [
+    "The runtime environment could not resolve github.com for a fresh clone, so Node tests were not executed locally.",
+    "The connector did not expose an exhaustive GitHub Pages workflow-run result.",
+    "Mobile behavior is source-constrained but not device-captured in this run."
+  ],
+  "next_action": "Obtain the GitHub Pages run and page_url for commit aab6de5bb5af42fe096266bd7656cb19caa75d5e or a descendant, then capture desktop and mobile proof of the three-room progression."
+}
