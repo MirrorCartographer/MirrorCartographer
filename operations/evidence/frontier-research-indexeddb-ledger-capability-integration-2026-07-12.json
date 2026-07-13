@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-027",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-12T21:10:00-04:00",
+  "claim_state": "implemented_and_deterministically_tested",
+  "evidence_strength": "source_and_focused_node_tests",
+  "primary_sources": [
+    {
+      "title": "Indexed Database API 3.0",
+      "publisher": "W3C",
+      "url": "https://www.w3.org/TR/IndexedDB-3/",
+      "status": "working_draft",
+      "published": "2025-08-13"
+    },
+    {
+      "title": "IDBDatabase.transaction()",
+      "publisher": "MDN Web Docs",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/IDBDatabase/transaction",
+      "status": "secondary_implementation_reference"
+    }
+  ],
+  "finding": "The acceptance ledger should use one capability-negotiated transaction path: retry the two-argument transaction form only after a TypeError from the options form, preserve all lifecycle and state errors, and report requested durability, observed durability, options support, and persistence_claim separately.",
+  "design_implication": "Cross-browser replay protection no longer fails merely because an engine rejects transaction options, while compatibility fallback cannot silently convert InvalidStateError or another lifecycle failure into apparent success. Durability metadata remains observational and is explicitly not persistence proof.",
+  "artifacts": [
+    "tools/frontier-research/indexeddb-acceptance-ledger.mjs",
+    "tools/frontier-research/indexeddb-acceptance-ledger-capability.test.mjs"
+  ],
+  "commits": [
+    "1b06182f2cafeb00b3be3676d4ce7608bd10dc2f",
+    "c4d0ec0eac06ac2026328c84fcc137759bfb7857"
+  ],
+  "verification": {
+    "focused_tests": {"passed": 3, "failed": 0},
+    "prototype_runtime": "Node test runner with deterministic IndexedDB doubles",
+    "covered": [
+      "TypeError-only options fallback",
+      "supported options metadata",
+      "InvalidStateError propagation",
+      "persistence_claim remains not_proven"
+    ]
+  },
+  "falsification_route": [
+    "Run the committed test in repository CI.",
+    "Run real-browser tests in Safari, Chromium, and Firefox using engines that both support and reject transaction options.",
+    "Exercise two-tab contention, page freeze/resume, bfcache restore, forced close, quota pressure, and abrupt process termination.",
+    "Reject the finding if a non-TypeError capability-shape failure is demonstrated by a conforming engine or if fallback changes atomic replay behavior."
+  ],
+  "limits": [
+    "No real browser engine was exercised in this run.",
+    "Transaction completion does not prove durable persistence across device or process failure.",
+    "The W3C source is a Working Draft and may change."
+  ],
+  "privacy_boundary": "Public standards, public repository source, and synthetic test identifiers only.",
+  "files_deleted": false,
+  "history_deleted": false
+}
