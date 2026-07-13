@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "implemented_runtime_pending",
+  "updated_at": "2026-07-13T09:19:00-04:00",
+  "action": "Produce independently digest-verified Linux and macOS crash-stress observations for one exact commit, assemble them through a fail-closed binding gate, then require classifier acceptance.",
+  "completed_slice": {
+    "finding": "Each platform observation must be verified against its retained identity, summary, raw log, and exact workflow commit before the artifact is uploaded.",
+    "workflow": ".github/workflows/frontier-peer-terminal-crash-stress.yml",
+    "workflow_commit": "ec19bcaa5fb74d661fdd47e8075344987e0419c3",
+    "evidence": "operations/evidence/frontier-preupload-observation-verification-2026-07-13T0919-0400.json",
+    "evidence_commit": "6b49f0310ae24f77f30aae4a3d599cd19b58333a",
+    "verification": "Source inspection confirms the workflow now invokes verify-crash-stress-observation.mjs with exact retained inputs and GITHUB_SHA, retains the JSON verifier output, and runs both observation contract test suites before artifact upload."
+  },
+  "remaining": [
+    "Obtain one completed Linux and macOS workflow run for the same exact descendant commit.",
+    "Download each platform artifact and independently confirm verification-${RUNNER_OS}.json has verified=true and the expected commit.",
+    "Run build-verified-crash-stress-packet.mjs on the two accepted verifier outputs.",
+    "Pass only the accepted packet to classify-crash-stress-evidence.mjs and retain classifier output plus workflow and artifact identities."
+  ],
+  "epistemic_limit": "Committed workflow wiring does not prove hosted execution, runner authenticity, cross-platform filesystem behavior, or successful crash recovery."
+}
