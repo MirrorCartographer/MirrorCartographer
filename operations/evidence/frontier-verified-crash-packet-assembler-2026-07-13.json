@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-014",
+  "created_at": "2026-07-13T08:55:00-04:00",
+  "primary_sources": [
+    {
+      "title": "in-toto Statement v1",
+      "url": "https://in-toto.io/Statement/v1",
+      "status": "previously established primary specification"
+    },
+    {
+      "title": "SLSA Provenance v1.2",
+      "url": "https://slsa.dev/spec/v1.2/provenance",
+      "status": "previously established primary specification"
+    }
+  ],
+  "finding": "A cross-platform evidence packet must be assembled only from independently verified retained observation bytes. A verifier's boolean alone is insufficient unless its exact observation digest, commit, platform, and classification agree with the supplied artifact.",
+  "design_implication": "Insert a fail-closed packet assembler between per-platform byte verification and the existing cross-platform classifier. Emit no observations when any binding fails.",
+  "artifact": {
+    "module": "tools/frontier-research/build-verified-crash-stress-packet.mjs",
+    "test": "tools/frontier-research/build-verified-crash-stress-packet.test.mjs",
+    "commits": [
+      "de08d1115ddc3ae3dd99cd66df646922587e21c6",
+      "689e493606df4a3c55acf8e2bd25dc17cd1668ad"
+    ]
+  },
+  "verification": {
+    "runtime": "isolated Node test execution against byte-identical pre-commit files",
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      "accept exact Linux and macOS bindings",
+      "reject mismatched observation digest",
+      "reject duplicate normalized platform",
+      "reject verifier result bound to another commit"
+    ]
+  },
+  "evidence_strength": "contract_tested_source",
+  "falsification_route": "Supply a verifier result whose observation_sha256 does not equal the downloaded observation bytes, whose commit differs, whose runner_os differs, or whose classification is not retained_bytes_match_observation; the assembler must reject and emit an empty observations array.",
+  "limits": [
+    "No hosted GitHub Actions run was observed in this slice.",
+    "No Linux or macOS retained workflow artifact was downloaded.",
+    "Packet acceptance does not prove runner identity, workflow authenticity, classifier correctness, or universal crash safety.",
+    "Fresh web search did not surface the intended official GitHub documentation; this slice therefore relies on the already established in-toto and SLSA primary specifications and repository-local evidence contracts."
+  ]
+}
