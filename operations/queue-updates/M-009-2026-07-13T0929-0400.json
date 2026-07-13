@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-009",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed_with_followup",
+  "action": "Add a commit-bound, read-only workflow that validates the corrected continuity delta and produces a reviewable noncanonical candidate index with retained evidence.",
+  "completed_at": "2026-07-13T13:29:05Z",
+  "selection_basis": "M-008 required clean-checkout validation and byte-reviewed candidate generation before any canonical update. The workflow is the highest-priority additive control that can reproduce those requirements without manually rewriting the index or claiming an unavailable completed run.",
+  "specialists_used": [
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "outputs": [
+    {
+      "path": ".github/workflows/continuity-index-merge.yml",
+      "commit": "4721650a43108f661cd523322633236a4e0bcb5a"
+    },
+    {
+      "path": "operations/evidence/continuity-canonical-merge-workflow-2026-07-13T0929-0400.json",
+      "commit": "beb42d83bd530cfbe622ecf19edce32a7b9c5c17"
+    }
+  ],
+  "memory_recovered": "A canonical memory merge is not a file replacement; it is a commit-bound evidence event whose input index, delta, candidate bytes, source identity, validation transcript, semantic checks, and retained predecessor must remain independently reviewable.",
+  "contradictions_resolved": [
+    "Separated candidate generation from canonical publication by granting the workflow read-only repository permissions.",
+    "Separated committed workflow source from completed workflow-run evidence.",
+    "Separated deterministic merge readiness from truth of the indexed claims.",
+    "Preserved the invalid predecessor delta as retained history rather than deleting or silently normalizing it."
+  ],
+  "claim_states": {
+    "observed": [
+      "commit-bound merge verification workflow committed",
+      "workflow source binds exact checkout and base blob identities",
+      "workflow retains candidate, test, validation, and semantic-review outputs"
+    ],
+    "inferred": [
+      "the workflow should reproduce the committed merge contract in a clean GitHub-hosted checkout when dispatched"
+    ],
+    "proposed": [
+      "dispatch the workflow, inspect retained outputs, and publish the canonical index only through a separate reviewed commit"
+    ],
+    "superseded": [
+      "manual byte editing as the next integration step",
+      "treating source inspection as equivalent to workflow execution"
+    ],
+    "unresolved": [
+      "completed GitHub Actions run",
+      "retained candidate artifact digest",
+      "reviewed canonical index update commit"
+    ]
+  },
+  "privacy_boundary": "Public repository files, commit and blob identifiers, schema vocabulary, and abstract continuity mechanics only. No raw private chat, health or pet-health material, credentials, personal identifiers, or unreviewed uploads were published.",
+  "next_action": "Dispatch Continuity index merge verification at an immutable commit. Review the retained candidate SHA-256, appended CM-0013 through CM-0016, unchanged privacy boundary, merge history, and exact base binding. Only then commit the candidate bytes as operations/continuity/continuity-index.json in a separate reversible commit."
+}
