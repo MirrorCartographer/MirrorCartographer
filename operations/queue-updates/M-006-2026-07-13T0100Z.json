@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-13T01:00:46Z",
+  "owner": "continuity_mining",
+  "queue_item": "M-006",
+  "status": "completed",
+  "priority_basis": "M-005 was the latest completed continuity slice; subsequent repository state exposed a higher-order coordination gap because owner-scoped queue projections had advanced while the canonical ACTIVE_QUEUE.json remained stale.",
+  "artifact": "operations/continuity/queue-projection-canonical-drift-2026-07-13T0100Z.json",
+  "artifact_commit": "78ddff62b52492ae0f2b55820ce53602aac19723",
+  "source_commits": [
+    "2b37909b73305c9dd639b524031ace3018526272",
+    "a7a20b73d969559c6536299fb82459fbb286179d",
+    "35b2c6321b82f38e2889b1a02b29d38fe31721b5"
+  ],
+  "claim_states": {
+    "observed": ["CM-0024"],
+    "inferred": ["CM-0025"],
+    "proposed": ["CM-0026"],
+    "superseded": [
+      "The implicit assumption that append-only queue projections and canonical queue state are automatically synchronized"
+    ],
+    "unresolved": ["CM-0027"]
+  },
+  "verification": {
+    "artifact_commit_recorded": true,
+    "canonical_queue_overwritten": false,
+    "deployment_claimed": false,
+    "peer_execution_claimed": false
+  },
+  "next_action": "Specify and test a deterministic queue reconciler that validates ownership, ancestry, timestamps, status monotonicity, artifact existence, conflict handling, and reversible canonical materialization."
+}
