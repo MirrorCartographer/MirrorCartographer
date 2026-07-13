@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T13:46:00-04:00",
+  "claim_state": "implemented_source_unverified_runtime",
+  "finding": "The public deployment proof path required one credential-free runner that collects bounded DNS and HTTPS page identity, conditionally retrieves the served manifest, preserves manifest transport failures, and emits the composed exact-commit classification without overstating absence.",
+  "artifacts": {
+    "runner": "cloudflare-static/collect-public-deployment-proof.mjs",
+    "test": "cloudflare-static/collect-public-deployment-proof.test.mjs",
+    "runner_commit": "64c83d71ac6e3616956306a486bc9b8b621d5d03",
+    "test_commits": ["c0aa40a474b11eefe8e0c26a5ccbc5b1922f74c7", "ab4298fa6d6dcdc67c37716a9bbc1fefe99b1fc4"]
+  },
+  "behavior": [
+    "Collects the existing bounded public hostname probe.",
+    "Requests the well-known deployment manifest only after page identity is verified.",
+    "Preserves manifest HTTP, parse, and transport failures as explicit reasons.",
+    "Requires repository, surface, privacy flags, and exact source commit for successful classification.",
+    "Keeps public observation separate from Cloudflare account ownership and control-plane proof."
+  ],
+  "tests_committed": ["exact page and manifest identity", "manifest timeout", "wrong public surface without manifest request", "malformed manifest"],
+  "verification": {
+    "source_readback": "committed module and fixtures were read through the GitHub connector",
+    "runtime": "not observed",
+    "ci": "combined status exposed only unrelated Vercel build-rate-limit failures; no successful runner test status was observed"
+  },
+  "privacy_boundary": {
+    "contains_secrets": false,
+    "contains_private_user_data": false,
+    "medical_claims": false,
+    "payment_or_conversion_logic": false
+  },
+  "limits": [
+    "No actual Cloudflare hostname was available to execute the runner against.",
+    "No authenticated Cloudflare deployment or control-plane observation was performed.",
+    "Committed tests are not claimed passing without runtime evidence.",
+    "A successful public packet remains time-bounded and is not a diagnosis, treatment, payment, or conversion claim."
+  ],
+  "falsification_route": "Run the committed Node test file in CI, then execute the runner against the actual Cloudflare hostname and expected deployed commit. Reject exact-commit proof if page identity, manifest transport, repository, surface, privacy flags, or source commit differ."
+}
