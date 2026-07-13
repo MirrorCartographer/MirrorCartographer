@@ -18,7 +18,6 @@ function deepFreeze(value) {
 
 export function canonicalizeJson(value) {
   const seen = new Set();
-
   function encode(node) {
     if (node === null) return 'null';
     if (typeof node === 'string' || typeof node === 'boolean') return JSON.stringify(node);
@@ -42,7 +41,6 @@ export function canonicalizeJson(value) {
     seen.delete(node);
     return encoded;
   }
-
   return encode(value);
 }
 
@@ -54,14 +52,16 @@ export function createPeerExecutionRuntime({
   localTeam,
   appendEvent,
   verifyPacket,
+  terminalJournal,
   now = () => new Date().toISOString(),
   uuid = randomUUID
 }) {
   requiredString(localTeam, 'local-team');
   if (typeof appendEvent !== 'function') throw new TypeError('append-event-required');
   if (typeof verifyPacket !== 'function') throw new TypeError('verify-packet-required');
-
-  const terminalByTrigger = new Map();
+  if (!terminalJournal || typeof terminalJournal.append !== 'function') {
+    throw new TypeError('terminal-journal-required');
+  }
 
   async function finalize({
     phase,
@@ -82,7 +82,6 @@ export function createPeerExecutionRuntime({
     const triggerId = requiredString(acceptedEvent.data.trigger_id, 'trigger-id');
     const targetTeam = requiredString(acceptedEvent.data.target_team, 'target-team');
     if (targetTeam !== localTeam) throw new Error('target-team-authority-denied');
-    if (terminalByTrigger.has(triggerId)) throw new Error('terminal-already-recorded');
 
     const data = {
       phase,
@@ -129,24 +128,32 @@ export function createPeerExecutionRuntime({
       throw new Error(`peer-execution-proof-rejected:${reasons}`);
     }
 
-    await appendEvent(terminalEvent, {
-      packet_digest: sha256CanonicalJson(packet),
-      verification: result
-    });
-    terminalByTrigger.set(triggerId, terminalEvent.id);
+    const packetDigest = sha256CanonicalJson(packet);
+    const journalReceipt = await terminalJournal.append({ triggerId, terminalEvent, packetDigest });
+    if (!['recorded', 'already-recorded'].includes(journalReceipt?.state)) {
+      throw new Error(`terminal-journal-rejected:${journalReceipt?.state ?? 'unknown'}`);
+    }
+
+    if (journalReceipt.state === 'recorded') {
+      await appendEvent(terminalEvent, {
+        packet_digest: packetDigest,
+        verification: result,
+        terminal_journal: journalReceipt
+      });
+    }
 
     return deepFreeze({
       state: phase,
       trigger_id: triggerId,
       terminal_event_id: terminalEvent.id,
-      packet_digest: sha256CanonicalJson(packet),
-      verification: result
+      packet_digest: packetDigest,
+      verification: result,
+      terminal_journal: journalReceipt
     });
   }
 
   return Object.freeze({
     execute: input => finalize({ ...input, phase: 'executed' }),
-    fail: input => finalize({ ...input, phase: 'failed' }),
-    hasTerminal: triggerId => terminalByTrigger.has(triggerId)
+    fail: input => finalize({ ...input, phase: 'failed' })
   });
 }
