@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-026",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-12T20:57:18-04:00",
+  "primary_sources": [
+    {
+      "title": "Indexed Database API 3.0 Editor's Draft",
+      "url": "https://w3c.github.io/IndexedDB/",
+      "source_status": "primary_standard_editor_draft",
+      "source_date": "2025-08-13",
+      "relevant_sections": ["IDBDatabase.transaction", "transaction durability", "multiple clients and versionchange"]
+    },
+    {
+      "title": "MDN IDBDatabase.transaction()",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/IDBDatabase/transaction",
+      "source_status": "secondary_implementation_reference"
+    }
+  ],
+  "prior_artifacts_compared": [
+    "tools/frontier-research/indexeddb-acceptance-ledger.mjs",
+    "tools/frontier-research/indexeddb-acceptance-ledger.test.mjs",
+    "operations/queue-updates/R-025-2026-07-12T2046-0400.json"
+  ],
+  "finding": "The existing R-025 ledger requests a three-argument transaction with strict durability but only retries the legacy two-argument form when the requested durability equals default. A browser that rejects transaction options with TypeError would therefore fail closed even though an atomic two-argument readwrite transaction remains available. Capability fallback must be limited to TypeError so lifecycle and state failures are never masked.",
+  "design_implication": "Open the transaction through a capability-negotiation helper, record whether transaction options were supported, preserve requested and observed durability separately, and never upgrade either value into a persistence claim.",
+  "artifact": "tools/frontier-research/indexeddb-transaction-capability.mjs",
+  "test": "tools/frontier-research/indexeddb-transaction-capability.test.mjs",
+  "commits": [
+    "90c59232abe72003a8b0bb6459b244a3eabbbd9c",
+    "50523a3b91f87761d80195353b937733dd8b56c1"
+  ],
+  "verification": {
+    "runtime": "Node.js local deterministic test execution",
+    "result": "5 passed, 0 failed",
+    "covered": [
+      "options form supported",
+      "TypeError capability fallback for strict durability",
+      "non-capability errors remain visible",
+      "invalid scope mode and durability rejected",
+      "observed durability never treated as persistence proof"
+    ]
+  },
+  "evidence_strength": "implementation_ready_locally_tested_browser_runtime_pending",
+  "uncertainty": [
+    "No Safari, Chromium, or Firefox runtime was exercised in this run.",
+    "A TypeError fallback demonstrates compatibility behavior but does not prove persistence after crash, eviction, or private browsing.",
+    "The helper is not yet wired into indexeddb-acceptance-ledger.mjs."
+  ],
+  "falsification_route": [
+    "Run the helper in current Safari, Chromium, and Firefox and record whether the options form is accepted.",
+    "Inject InvalidStateError, NotFoundError, and TransactionInactiveError and verify none trigger fallback.",
+    "Integrate the helper into R-025 and repeat the two-tab replay race.",
+    "Force quota, storage eviction, private browsing, and abrupt termination; any claim of durable persistence fails unless independently demonstrated."
+  ],
+  "privacy_boundary": "Public standards and repository source only; no private chat, health data, credentials, or identifying user material inspected or persisted."
+}
