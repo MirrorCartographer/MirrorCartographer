@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-009",
+  "recorded_at": "2026-07-13T01:15:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://docs.github.com/en/actions/reference/security/oidc",
+      "status": "current official provider documentation inspected 2026-07-13",
+      "relevance": "GitHub documents exp, iat, jti, nbf and identity-bearing workflow claims; temporal calibration must not persist the latter."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc7519.html",
+      "status": "primary JWT standard",
+      "relevance": "Defines NumericDate temporal claims and JWT claim semantics."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8725.html",
+      "status": "primary JWT security best-current-practice",
+      "relevance": "Supports explicit validation and restrictive processing rather than deriving trust from token structure alone."
+    },
+    {
+      "url": "https://www.nist.gov/itl/applied-cybersecurity/privacy-engineering",
+      "status": "current official privacy-engineering program page inspected 2026-07-13",
+      "relevance": "Supports minimizing retained data and separating operational measurement from identity-bearing records."
+    }
+  ],
+  "finding": "R-008 safely emits redacted temporal observations, but policy calibration still needs a second boundary: aggregate only after a minimum cohort, reject raw-token and identity-bearing fields, retain aggregate temporal statistics only, and never authorize a verifier policy change automatically.",
+  "design_implication": "Cloudflare workflows can collect independently verified R-008 observations and pass them to the R-009 aggregator. The result is descriptive evidence for human policy review, not an automatic widening of token lifetime or clock-skew acceptance.",
+  "artifact": {
+    "module": "tools/frontier-research/oidc-temporal-calibration.mjs",
+    "test": "tools/frontier-research/oidc-temporal-calibration.test.mjs",
+    "module_commit": "9a436c693278363e823847cfe8c1b4b0f9e57430",
+    "test_commit": "fa84ff6af729d8684a2070455b083e3824fea3e8"
+  },
+  "verification": {
+    "runtime": "Node test runner",
+    "result": {"tests": 5, "passed": 5, "failed": 0},
+    "cases": [
+      "insufficient cohort refuses policy inference",
+      "sufficient cohort emits aggregate-only statistics",
+      "identity-bearing and raw-token fields are rejected",
+      "unsafe temporal values are rejected",
+      "nbf presence/value inconsistency is rejected"
+    ],
+    "method": "Tests ran before commit against byte-identical files in an isolated Node runtime."
+  },
+  "evidence_strength": "implemented_and_deterministically_tested",
+  "uncertainty": "No live GitHub OIDC observations were sampled. The default cohort threshold of five is a conservative engineering minimum, not a statistically universal guarantee.",
+  "falsification_route": "Collect a larger independently verified cohort across workflow runs. Reject the calibration if later observations exceed the reported envelope, if samples are dependent, or if provider documentation changes claim semantics.",
+  "privacy_boundary": {
+    "persisted": ["aggregate temporal statistics", "cohort size", "claim-presence-derived count"],
+    "excluded": ["raw JWT", "issuer", "audience", "subject", "jti", "repository identity", "workflow identity", "run identity", "actor identity", "private chat", "health material", "credentials"]
+  }
+}
