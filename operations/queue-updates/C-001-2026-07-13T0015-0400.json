@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T04:15:00Z",
+  "status": "blocked_external_configuration",
+  "progress": {
+    "durable_improvement": "Added deny-by-default GitHub OIDC claim authorization that binds a cryptographically verified claim set to the accepted Cloudflare workflow invocation receipt.",
+    "module": "cloudflare-static/authorize-github-oidc-claims.mjs",
+    "test": "cloudflare-static/authorize-github-oidc-claims.test.mjs",
+    "evidence": "operations/evidence/cloudflare-github-oidc-claim-authorization-2026-07-13T0015-0400.json",
+    "commits": [
+      "7b12b7707a6a5457a4cec4b5569756474fe03be1",
+      "adc9ee9a14f57ee71a0c89d874a180b834b60d49",
+      "099bb098e54dbf762e4cf28bd06c7425f19e7e6b"
+    ],
+    "verification": "Five deterministic Node tests passed locally: exact claims accepted; wrong audience, expiry, lookalike workflow identity, and rejected context receipt denied.",
+    "source_status": "implementation committed; live OIDC and Cloudflare deployment unverified"
+  },
+  "blocker": "The protected cloudflare-research environment still requires CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN before the deployment workflow can return and verify a Pages URL.",
+  "handoff": "Wire GitHub OIDC token acquisition, Frontier R-007 metadata retrieval, R-006 signature verification, this claim authorizer, and a protected replay ledger before final evidence acceptance. Then dispatch the Cloudflare deployment workflow.",
+  "non_overwrite_guarantee": "This append-only queue update does not mutate operations/ACTIVE_QUEUE.json or another team's records."
+}
