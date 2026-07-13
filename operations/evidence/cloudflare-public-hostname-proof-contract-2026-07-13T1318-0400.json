@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T13:18:35-04:00",
+  "slice": "Fail-closed validation and retention contract for credential-free public hostname probe evidence.",
+  "inputs_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "cloudflare-static/probe-public-pages-hostname.mjs",
+    "recent cloudflare commits and queue updates"
+  ],
+  "artifacts": {
+    "validator": "cloudflare-static/validate-public-hostname-probe.mjs",
+    "tests": "cloudflare-static/validate-public-hostname-probe.test.mjs",
+    "workflow": ".github/workflows/cloudflare-public-hostname-proof-contract.yml"
+  },
+  "verification": {
+    "route": "isolated Node 22-compatible runtime using byte-equivalent validator logic",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "workflow_execution": "unverified"
+  },
+  "claim_states": {
+    "observed": "The public hostname probe emitted classified JSON but no independent packet-coherence validator was present.",
+    "inferred": "Without a validator, malformed or internally contradictory packets could be retained as evidence.",
+    "implemented": "A deny-by-default validator now checks schema, canonical hostname/URL binding, DNS/HTTP coherence, classification-specific requirements, and identity.ok consistency.",
+    "unresolved": "The candidate hostname has not been proven reachable in this run, the workflow has not been observed executing, and Cloudflare control-plane credentials remain externally unconfigured."
+  },
+  "authorized_scope": "A structurally valid identity_verified packet may support public reachability and expected surface identity only.",
+  "limits": [
+    "Structural validity does not prove observations were honestly collected.",
+    "Public reachability does not prove exact deployed commit or Cloudflare control-plane ownership.",
+    "No diagnosis or treatment claim is authorized.",
+    "No payment or conversion logic was moved to Vercel."
+  ],
+  "rollback": [
+    "Revert the queue update commit.",
+    "Revert this evidence commit.",
+    "Revert workflow commit f0b57c28e9541bd294736099c7adf189b68713c9.",
+    "Revert test commit 576a0c9ddd6d1c4ad8a2ba7c86c06749e7022362.",
+    "Revert validator commit 0e7ab00264593c7c5822258b01e23485a331efd3."
+  ]
+}
