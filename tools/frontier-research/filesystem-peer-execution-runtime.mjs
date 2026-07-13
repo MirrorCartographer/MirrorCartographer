@@ -17,11 +17,24 @@ export function createFilesystemPeerExecutionRuntime({
     throw new TypeError('journal-path-required');
   }
   const store = createFilesystemPeerTerminalStore({ path: journalPath, ...storeOptions });
-  const terminalJournal = createDurablePeerTerminalJournal({
+  const durableJournal = createDurablePeerTerminalJournal({
     read: store.read,
     compareAndSet: store.compareAndSet,
     ...journalOptions
   });
+
+  const terminalJournal = Object.freeze({
+    async append(input) {
+      const receipt = await durableJournal.append(input);
+      if (receipt?.state !== 'recorded-indeterminate-reconciled') return receipt;
+      return Object.freeze({
+        ...receipt,
+        state: 'recorded',
+        durability_state: 'recorded-indeterminate-reconciled'
+      });
+    }
+  });
+
   return createPeerExecutionRuntime({
     localTeam,
     appendEvent,
