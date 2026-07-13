@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T01:25:00-04:00",
+  "canonical_queue_modified": false,
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a fail-closed admission gate that requires an accepted negative replay comparison and a confirmed atomic reservation.",
+  "artifacts": [
+    "cloudflare-static/evaluate-replay-admission.mjs",
+    "cloudflare-static/evaluate-replay-admission.test.mjs",
+    "operations/evidence/cloudflare-replay-admission-gate-2026-07-13T0125-0400.json"
+  ],
+  "commits": [
+    "6bec211acf306cdd2e519e684290190fa9cf36ca",
+    "079b98d0062212704d2299579ed9f46bf0067870",
+    "cf48fb2df125013ddd6002ee54b8f67d64d0c370"
+  ],
+  "verification": "Five deterministic Node tests passed in an isolated runtime.",
+  "remaining": [
+    "Implement or select a durable atomic reservation provider and produce a privacy-safe reservation artifact.",
+    "Wire replay authentication, comparison, atomic reservation, and admission into the deployment evidence workflow.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Dispatch the workflow and capture resolving hostname, served identity, and deployed commit."
+  ],
+  "boundary": "No payment functionality moved to Vercel; no diagnosis or treatment claim published; no GitHub history deleted."
+}
