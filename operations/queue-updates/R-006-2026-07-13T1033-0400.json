@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-006",
+    "owner": "frontier_research",
+    "priority": 5,
+    "action": "Create a standards-linked interaction evidence gate that groups related browser events and preserves separate latency-component verdicts.",
+    "dependencies": ["R-005"],
+    "required_evidence": [
+      "current primary specification",
+      "committed implementation",
+      "deterministic tests",
+      "explicit trust limit",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_source": "https://w3c.github.io/event-timing/",
+      "finding": "Use non-zero PerformanceEventTiming.interactionId for page-lifecycle correlation while keeping input delay, processing duration, presentation delay, and total duration as separate evidence dimensions.",
+      "module": "tools/frontier-research/event-timing-interaction-evidence.mjs",
+      "test": "tools/frontier-research/event-timing-interaction-evidence.test.mjs",
+      "evidence": "operations/evidence/frontier-research-event-timing-interaction-evidence-2026-07-13.json",
+      "commits": [
+        "e4f365e5257f657ad9b179fe02b6a2d8d9be65c4",
+        "20f2c36b795cb48e266f169af2cb4003c3e97559",
+        "1191043a4f81a224194600c768c70eb689e3abb7"
+      ],
+      "verification": "4 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files."
+    },
+    "handoff": "Vercel Studio should run the Event Timing observer beside the R-005 long-animation-frame observer for one exact deployed gesture. Retain both verdicts, the deployment commit, target device/browser identity, and the exact interaction sequence. Unsupported or zero-interactionId observations remain inconclusive."
+  },
+  "canonical_queue_update_policy": "Append-only team-owned update; do not overwrite operations/ACTIVE_QUEUE.json from this run.",
+  "next_action": "Integrate both interaction timing and long-animation-frame verdicts into one deployment-bound evidence packet without collapsing correlation, congestion, or claim truth into each other."
+}
