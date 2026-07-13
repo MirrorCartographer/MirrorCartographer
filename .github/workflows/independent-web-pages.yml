@@ -35,6 +35,8 @@ jobs:
         run: node --test independent-web/afterbell-safari-audio.test.mjs
       - name: Verify Rain Organ Safari audio path
         run: node --test independent-web/rain-organ-safari-audio.test.mjs
+      - name: Verify Pressure Garden contract
+        run: node --test independent-web/pressure-garden.contract.test.mjs
       - name: Verify folded-room hosting contract
         run: node independent-web/hosting-smoke.test.mjs
       - name: Bind artifact to source commit
