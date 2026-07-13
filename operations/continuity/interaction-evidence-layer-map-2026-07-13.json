@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-13T14:37:06Z",
+  "owner": "continuity_mining",
+  "title": "Interaction evidence layers are complementary and non-substitutable",
+  "privacy_boundary": "Public repository files, commit identifiers, standards-linked abstract metrics, and queue semantics only. Raw private chat, health or pet-health material, credentials, personal identifiers, and unreviewed uploads are excluded.",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/queue-updates/R-005-2026-07-13T0932-0400.json",
+      "content_sha": "4573102bfe05448bda0f926fbd8e983bfcf0db69"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/queue-updates/R-006-2026-07-13T1033-0400.json",
+      "content_sha": "4906979c69e6c7602377b53510a2a57a6cc186bd"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+    }
+  ],
+  "durable_memory": {
+    "observed": [
+      "R-005 defines a fail-closed verdict over retained long-animation-frame evidence, including long-frame count, blocking duration, and interaction-associated delay.",
+      "R-006 defines interaction grouping through non-zero PerformanceEventTiming.interactionId while preserving input delay, processing duration, presentation delay, and total duration as separate dimensions.",
+      "V-001 still requires deployment identity and device-level or runtime evidence before an audible iPhone result can be claimed."
+    ],
+    "inferred": [
+      "A single gesture may pass one evidence layer and fail another because correlation, latency decomposition, main-thread congestion, deployment identity, and human-observed outcome answer different questions.",
+      "A composite packet should retain every layer's independent status rather than reduce them to an unqualified boolean."
+    ],
+    "proposed": [
+      "Vercel Studio should emit one deployment-bound interaction packet containing exact source commit, deployed commit, device/browser identity, interaction sequence, Event Timing verdict, Long Animation Frame verdict, runtime/audio evidence, and human or device-level observation where applicable.",
+      "Composite status should be fail-closed: unsupported, missing, or unbound layers remain inconclusive and must not be converted to pass."
+    ],
+    "superseded": [
+      "Treating smooth appearance, one timing metric, AudioContext state, trace identity, or workflow source existence as sufficient proof of end-to-end interaction success."
+    ],
+    "unresolved": [
+      "No retained deployment-bound packet currently demonstrates both Event Timing and Long Animation Frame verdicts for the same exact interaction.",
+      "No evidence currently establishes how the two browser APIs behave together on the target iPhone Safari environment.",
+      "No canonical continuity-index merge has yet incorporated this layered evidence rule."
+    ]
+  },
+  "contradiction_resolution": [
+    {
+      "apparent_contradiction": "An interaction can be responsive by Event Timing while still producing long congested frames.",
+      "resolution": "The measurements concern different scopes: event latency components versus frame-level main-thread congestion. Both observations can be true simultaneously."
+    },
+    {
+      "apparent_contradiction": "A browser observer can report no violations while the user still reports failure.",
+      "resolution": "Browser timing evidence is bounded to its supported metrics and observation window; it does not substitute for deployment identity, audio output evidence, or human/device-level outcome."
+    }
+  ],
+  "falsification_or_review_route": "Fetch the cited queue-update commits and implementations, run their committed tests in one immutable checkout, then capture both observers around the same deployed gesture. Reject or revise this memory if either implementation collapses the dimensions described here or if the retained packet cannot bind them to one deployment and interaction sequence."
+}
