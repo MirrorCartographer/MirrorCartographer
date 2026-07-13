@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-13T00:27:00-04:00",
+  "status": "active",
+  "completed_slice": "Connected The Weather Inside a Bell, Afterbell, and Rain Organ into a reversible three-room anthology discovered through interaction rather than an information menu.",
+  "progress": {
+    "identity": "A playable weather anthology governed by pressure, echo, rain, sparse editorial typography, generated sound, and state-revealed doors.",
+    "entry_surface": "independent-web/index.html",
+    "second_room": "independent-web/afterbell.html",
+    "third_room": "independent-web/rain-organ/index.html",
+    "contract": "independent-web/anthology-contract.test.mjs",
+    "verification_entrypoint": "independent-web/verify.mjs",
+    "evidence": "operations/evidence/independent-web-anthology-2026-07-13T0027-0400.json",
+    "commits": [
+      "fde43fef26f9ac4106dd6415cce0e5b94bdb6f8b",
+      "b1a5232af08792ed14d0d1417660b2782ddfe3a8",
+      "e4eebf3cbe2c04ae7c3a4c5e5de10b6fe200c6d7",
+      "aab6de5bb5af42fe096266bd7656cb19caa75d5e",
+      "41550fda5e42982728fc3f7c87b3878980c9a245"
+    ]
+  },
+  "required_evidence_state": {
+    "site_source": "present",
+    "distinct_identity_statement": "present",
+    "public_url": "unverified",
+    "mobile_proof": "unverified"
+  },
+  "rollback": "Restore any earlier source commit. The site is static, data-free, and has no irreversible state.",
+  "next_action": "Verify the GitHub Pages deployment URL and deployed commit, then capture the progression on a narrow mobile viewport or physical phone."
+}
