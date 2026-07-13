@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "item": {
+    "id": "R-009",
+    "owner": "frontier_research",
+    "priority": 6,
+    "action": "Aggregate privacy-safe OIDC temporal observations into a minimum-cohort calibration summary without retaining identity-bearing claims or automatically changing verifier policy.",
+    "dependencies": ["R-008"],
+    "required_evidence": [
+      "current provider claim documentation",
+      "primary JWT standards",
+      "committed aggregation prototype",
+      "adversarial privacy and boundary tests",
+      "explicit uncertainty and falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://docs.github.com/en/actions/reference/security/oidc",
+        "https://www.rfc-editor.org/rfc/rfc7519.html",
+        "https://www.rfc-editor.org/rfc/rfc8725.html",
+        "https://www.nist.gov/itl/applied-cybersecurity/privacy-engineering"
+      ],
+      "finding": "Privacy-safe per-run observations still require a cohort boundary and an explicit no-auto-policy-change rule. Aggregate temporal statistics are useful for review, while raw tokens and identity-bearing claims remain prohibited.",
+      "module": "tools/frontier-research/oidc-temporal-calibration.mjs",
+      "test": "tools/frontier-research/oidc-temporal-calibration.test.mjs",
+      "evidence": "operations/evidence/frontier-research-oidc-temporal-calibration-2026-07-13T0115-0400.json",
+      "commits": [
+        "9a436c693278363e823847cfe8c1b4b0f9e57430",
+        "fa84ff6af729d8684a2070455b083e3824fea3e8",
+        "a03e5f02734a79898e2e912e10c6b72149775185"
+      ],
+      "verification": "5 deterministic Node tests passed before commit from byte-identical files.",
+      "uncertainty": "No live GitHub OIDC observations were sampled, and a five-observation threshold is an engineering safeguard rather than a universal statistical guarantee."
+    },
+    "handoff": "Cloudflare Research should aggregate only independently verified R-008 observations, retain the R-009 summary as evidence for human review, and keep verifier policy changes as a separate explicit decision with rollback and fresh validation."
+  },
+  "canonical_queue_mutated": false,
+  "reason": "Shared queue state is maintained through additive projections to avoid overwriting concurrent team work."
+}
