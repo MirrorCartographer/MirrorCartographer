@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-001-handoff",
+  "created_at": "2026-07-13T06:52:00-04:00",
+  "subject": "fail-closed queue freshness witness validator",
+  "claim_states": {
+    "observed": [
+      "CM-0023 defined proposal, review, application, and post-application freshness witnesses but no executable validator existed.",
+      "operations/ACTIVE_QUEUE.json remains an older canonical projection while additive queue-update commits continue afterward."
+    ],
+    "inferred": [
+      "A reusable validator reduces the risk that a later canonical queue reconciliation accepts stale, incomplete, or internally inconsistent witness data."
+    ],
+    "proposed": [
+      "Use operations/continuity/queue-freshness-witness.mjs before any authorized canonical queue reconciliation."
+    ],
+    "superseded": [
+      "Treating narrative agreement with CM-0023 as equivalent to machine-enforced witness validation."
+    ],
+    "unresolved": [
+      "The repository still lacks a recursive queue-update tree enumerator and authorized reviewer policy.",
+      "This artifact does not authorize or perform a canonical queue mutation."
+    ]
+  },
+  "implementation": {
+    "module": "operations/continuity/queue-freshness-witness.mjs",
+    "module_commit": "107a2ddb549f4a4e38bc907be3d82538a6a883d1",
+    "test": "operations/continuity/queue-freshness-witness.test.mjs",
+    "test_commit": "f25cca84e8ade79096a8428d2c9c5a7a4c203d2a",
+    "contract": [
+      "proposal, review, and application head commits must match",
+      "proposal, review, and application queue-update tree digests must match",
+      "each traversal must declare complete enumeration and no traversal errors",
+      "reviewer identity is mandatory",
+      "timestamps must be parseable UTC ISO-8601 values",
+      "post-application verification must pass and retain canonical blob identity"
+    ]
+  },
+  "verification": {
+    "route": "isolated Node.js runtime using byte-identical pre-commit files",
+    "command": "node --test operations/continuity/queue-freshness-witness.test.mjs",
+    "tests_passed": 8,
+    "tests_failed": 0,
+    "coverage": [
+      "valid stable witness",
+      "review-time head drift",
+      "application-time tree drift",
+      "incomplete traversal",
+      "traversal errors",
+      "missing reviewer",
+      "non-UTC timestamp",
+      "failed post-application verification"
+    ],
+    "evidence_strength": "source-and-isolated-runtime-verified"
+  },
+  "privacy_class": "public-repository-metadata-only",
+  "privacy_boundary": "No private chat text, health or pet-health material, credentials, contact data, or unreviewed uploads were incorporated.",
+  "canonical_queue_mutated": false,
+  "proves_peer_execution": false,
+  "limits": [
+    "The validator checks supplied witnesses but does not compute the queue-update tree digest.",
+    "Reviewer authorization is asserted as a non-empty identity string; no signature or allowlist policy is enforced.",
+    "No GitHub Actions execution is claimed."
+  ]
+}
