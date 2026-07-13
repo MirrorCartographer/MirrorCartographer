@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "event_order": 202607131523,
+  "observed_at": "2026-07-13T19:23:22Z",
+  "queue_item": {
+    "id": "M-012",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Materialize queue state from the canonical snapshot plus an explicit event-ordered additive update set without claiming completeness by default.",
+    "dependencies": ["M-011"],
+    "required_evidence": [
+      "deterministic materializer",
+      "event-order collision rejection",
+      "non-authoritative default",
+      "tests",
+      "privacy-safe evidence record"
+    ],
+    "status": "completed",
+    "progress": {
+      "module": "operations/tools/materialize-queue-state.mjs",
+      "test": "operations/tools/materialize-queue-state.test.mjs",
+      "evidence": "operations/evidence/continuity-queue-materializer-2026-07-13T1523-0400.json",
+      "commits": [
+        "286bac44f94a9eee6fd1661d088eeb2cc5c79d73",
+        "b2d84a09a57a4ccb43e33734a347d6c047ff42fa",
+        "2e418fce66bf917d992589b8c34d64478849313e"
+      ],
+      "verification": "5 deterministic Node tests passed against byte-equivalent committed source.",
+      "authority_boundary": "Output remains authoritative=false unless complete repository enumeration is explicitly attested; that attestation is not independently verified.",
+      "privacy_boundary": "Public repository metadata and operational claim states only."
+    },
+    "handoff": "Add an explicit manifest of every queue-update path and SHA, bind that manifest cryptographically, and verify it against an independently enumerated repository tree before permitting authoritative=true."
+  }
+}
