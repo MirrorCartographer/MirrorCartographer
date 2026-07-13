@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T01:20:00-04:00",
+  "claim_state": "observed",
+  "improvement": "Added a fail-closed adapter that permits replay comparison only after the retained ledger passes authentication, freshness, schema, and entry-structure checks.",
+  "files": {
+    "module": "cloudflare-static/build-replay-comparison-input.mjs",
+    "test": "cloudflare-static/build-replay-comparison-input.test.mjs"
+  },
+  "commits": {
+    "module": "3a5ecfc543a872f4304132eff6e083da777c8cdc",
+    "test": "a6ea614311fc23b4244f0e6852988b1d4188ba59"
+  },
+  "verification": {
+    "method": "isolated Node test run using byte-equivalent committed logic",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "matching active digest detected without emitting candidate or digest",
+      "non-match reported only after ledger acceptance",
+      "unauthenticated ledger cannot influence comparison",
+      "expired entries excluded from comparison",
+      "empty and oversized candidates rejected before comparison"
+    ]
+  },
+  "privacy_boundary": {
+    "persisted": ["counts", "boolean replay result", "reason codes", "file paths", "commit identities"],
+    "excluded": ["raw replay candidate", "replay digest", "JWT", "credentials", "private chat", "health material"]
+  },
+  "trust_limit": "A replay match shows only that the candidate digest occurs in the accepted active ledger. A non-match does not prove global uniqueness, ledger completeness, atomic insertion, deployment success, diagnosis, treatment efficacy, or claim truth.",
+  "falsification_route": "Provide an authenticated fresh ledger containing a valid active digest for the candidate and show the adapter returns replay_detected=false, or provide a rejected ledger and show comparison_performed=true."
+}
