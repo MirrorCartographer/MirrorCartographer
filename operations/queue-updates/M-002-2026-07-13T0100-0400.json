@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "priority_basis": "M-001 is complete; the prior continuity handoff identified commit/decision history and contradiction-safe additive records as the next work. The highest-risk unresolved substrate issue was cross-location record integrity.",
+  "status": "completed",
+  "action": "Add an executable aggregation validator for the monolithic continuity index and additive record directory, preserve the architectural decision as CM-0011, and verify adversarial graph-integrity cases.",
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "artifacts": [
+    "tools/continuity/validate-continuity-records.mjs",
+    "tools/continuity/validate-continuity-records.test.mjs",
+    "operations/continuity/records/CM-0011.json",
+    "operations/evidence/continuity-integrity-validator-2026-07-13T0100-0400.json"
+  ],
+  "commits": [
+    "75201179ff8c15659b584476deedc2fdeef74350",
+    "a9daa7a6c9331d5769e20f9e25416eb8857ecb50",
+    "e7d5e9215fecbb14c79f532e5d4cf26aac4961d8",
+    "22b72e5e7db79ff73d8f1b940619ab918c517e3f"
+  ],
+  "verification": "Four deterministic Node tests passed with zero failures using byte-identical pre-commit validator and test content.",
+  "claim_state_map": {
+    "observed": "Continuity records currently occupy both operations/continuity/continuity-index.json and operations/continuity/records/.",
+    "inferred": "Unvalidated aggregation can create duplicate identities and dangling contradiction or supersession links.",
+    "proposed": "Wire the validator into CI and optionally add source-locator existence checks.",
+    "superseded": "No historical record was marked superseded during this slice.",
+    "unresolved": "Automatic merge blocking and source-locator verification remain absent."
+  },
+  "privacy_boundary": "Public repository sources and synthetic fixtures only; no private chat or sensitive personal material was published.",
+  "next_action": "Wire tools/continuity/validate-continuity-records.mjs into the repository test gate, then add immutable source-locator verification without treating source existence as claim truth."
+}
