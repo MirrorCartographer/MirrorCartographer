@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-026",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "completed",
+  "priority_basis": "The canonical queue has no active frontier_research item. R-025 left browser compatibility unresolved, and its committed source contains a concrete unsupported-options fallback gap for strict durability.",
+  "action": "Add a capability-negotiated IndexedDB transaction helper that preserves atomicity without masking non-capability errors or overstating durability.",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "recent commits",
+    "operations/queue-updates/R-025-2026-07-12T2046-0400.json",
+    "tools/frontier-research/indexeddb-acceptance-ledger.mjs",
+    "W3C Indexed Database API 3.0 Editor's Draft",
+    "MDN IDBDatabase.transaction()"
+  ],
+  "finding": "Unsupported transaction options should fall back only on TypeError, regardless of valid requested durability. InvalidStateError and other lifecycle failures must remain visible. Requested or observed durability is not persistence proof.",
+  "artifact": "tools/frontier-research/indexeddb-transaction-capability.mjs",
+  "test": "tools/frontier-research/indexeddb-transaction-capability.test.mjs",
+  "evidence": "operations/evidence/frontier-research-indexeddb-transaction-capability-2026-07-12.json",
+  "commits": [
+    "90c59232abe72003a8b0bb6459b244a3eabbbd9c",
+    "50523a3b91f87761d80195353b937733dd8b56c1",
+    "def9c32b9c1eeda766eed16aa314e41f8990bc7b"
+  ],
+  "verification": "5 deterministic Node tests passed, 0 failed.",
+  "specialists_used": [
+    "Primary Source Scout",
+    "Technical Synthesist",
+    "Experiment Designer",
+    "Tool Evaluator",
+    "Cross-Domain Translator"
+  ],
+  "registry_change": "none",
+  "canonical_queue_modified": false,
+  "handoff": "Integrate openCapabilityNegotiatedTransaction into indexeddb-acceptance-ledger.mjs, then run real-browser two-tab and bfcache tests across Safari, Chromium, and Firefox. Record options support separately from persistence evidence.",
+  "files_deleted": false,
+  "history_deleted": false
+}
