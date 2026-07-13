@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-1001",
+  "kind": "artifact",
+  "title": "Aggregate continuity validation now composes strict relation integrity",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "tools/continuity/validate-continuity-records.mjs",
+      "content_sha": "4d13e5e18442e96dbad96f69f33ed25536f0ce54",
+      "observed_at": "2026-07-13T17:36:40Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "tools/continuity/validate-continuity-records.test.mjs",
+      "content_sha": "1d9b7c16ffa607a089a8209cb928981be4582248",
+      "observed_at": "2026-07-13T17:36:40Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/records/CM-1000.json",
+      "content_sha": "131fa02930e7fd2314aaea6f1e649e1f7022af0a",
+      "observed_at": "2026-07-13T17:36:40Z"
+    }
+  ],
+  "summary": "The repository-wide validator now sends the complete monolithic-plus-additive record set through the strict relation validator after record-shape and reference checks pass. The composed gate therefore includes duplicate relation-target rejection and supersession-cycle rejection. Exact source inspection also exposed a pre-existing schema drift: CM-1000 stores natural-language prose inside its contradicts array rather than record IDs, so the current corpus is expected to remain invalid until that legacy relation is migrated through an explicit preservation-safe correction.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": ["CM-1000"],
+  "status_relations": {
+    "observed": "The aggregate validator imports validateContinuityRelations and returns its relation summary only when preliminary validation succeeds; adversarial tests now cover duplicate targets and supersession cycles.",
+    "inferred": "The authoritative gate will expose relation-shape drift that was previously latent in additive continuity records.",
+    "proposed": "Create a preservation-safe migration record for CM-1000's prose relation, retain its original blob SHA as historical provenance, and make all machine relations resolve only to CM record IDs.",
+    "superseded": "The prior state in which strict relation integrity existed as a separate optional validator rather than part of the aggregate gate.",
+    "unresolved": "No completed CI execution at the integration commit has been observed, and the current corpus has not yet been migrated to satisfy the stricter relation contract."
+  },
+  "falsification_or_review_route": "Fetch the three source blobs. Falsify the convergence claim by showing that the aggregate validator does not invoke the strict relation validator over every loaded record, or that duplicate-target and cycle fixtures pass. Falsify the schema-drift claim by showing that CM-1000.contradicts contains only valid existing CM record IDs. Structural validity does not establish truth of indexed claims."
+}
