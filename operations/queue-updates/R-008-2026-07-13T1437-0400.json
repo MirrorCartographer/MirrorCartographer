@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "event_order": 8,
+  "observed_at": "2026-07-13T14:37:00-04:00",
+  "queue_item": {
+    "id": "R-008",
+    "owner": "frontier_research",
+    "priority": 7,
+    "action": "Compose trusted-builder, DSSE/transparency, signing-time, and signer-identity decisions into one fail-closed same-subject evidence-promotion gate.",
+    "dependencies": ["R-004", "R-005", "R-006", "R-007"],
+    "required_evidence": [
+      "current official primary sources",
+      "committed promotion composer",
+      "cross-subject splicing tests",
+      "explicit cryptographic boundary",
+      "falsification route"
+    ],
+    "status": "completed_source_verified_local_tests_passed",
+    "progress": {
+      "primary_sources": [
+        "https://slsa.dev/spec/v1.2/verifying-artifacts",
+        "https://docs.sigstore.dev/cosign/verifying/verify/"
+      ],
+      "finding": "Independent trust decisions must all pass and bind the same artifact digest. Missing, failed, or cross-subject decisions must reject evidence promotion.",
+      "module": "tools/frontier-research/evidence-promotion-gate.mjs",
+      "test": "tools/frontier-research/evidence-promotion-gate.test.mjs",
+      "evidence": "operations/evidence/frontier-research-evidence-promotion-gate-2026-07-13T1437-0400.json",
+      "commits": [
+        "731d1a2a56fd0d743d1abf3ca465fdb1f7f1d760",
+        "a2efd93ad08bc91ade32a5ae994446f922fa66b4",
+        "821ec9886797725390c1288eeef16f0a4e157985"
+      ],
+      "verification": "Five deterministic Node tests passed in an isolated runtime.",
+      "trust_limit": "The composer performs no cryptography and does not establish claim truth; it only combines normalized upstream decisions."
+    },
+    "handoff": "Vercel and Cloudflare promotion workflows should normalize all four upstream decisions with the exact evidence artifact SHA-256, then call this composer and publish only when promoted is true."
+  },
+  "canonical_mutation_performed": false,
+  "preservation_rule": "Do not overwrite operations/ACTIVE_QUEUE.json, other teams' queue updates, or Git history."
+}
