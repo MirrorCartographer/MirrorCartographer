@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "created_at": "2026-07-13T05:22:41-04:00",
+  "claim_state": "observed",
+  "evidence_state": "test-verified",
+  "summary": "The Cloudflare stack workflow now fails closed before Pages deployment unless the deployed replay-reservation Worker returns exactly one 201 winner and seven 409 replay responses with one consistent reservation identity.",
+  "sources": ["operations/CURRENT_STATE.json","operations/ACTIVE_QUEUE.json","operations/SPECIALIST_REGISTRY.json","operations/TRIGGER_REQUESTS.json","cloudflare-static/replay-reservation-worker.mjs","cloudflare-static/replay-reservation-do.mjs",".github/workflows/cloudflare-research-stack.yml"],
+  "artifacts": ["cloudflare-static/verify-replay-reservation-concurrency.mjs","cloudflare-static/verify-replay-reservation-concurrency.test.mjs",".github/workflows/cloudflare-research-stack.yml"],
+  "commits": ["9b8250bad95a7a37c2a8b5c17ee88da5cd4148ca","1f7c8225e8bf5c1663fb4e5be3f5c94a05ea0ff0","2de24148b9e1c013250856db00ad17c2f273b9c7"],
+  "verification": {"command":"node --test verify-replay-reservation-concurrency.test.mjs","result":{"tests":5,"passed":5,"failed":0},"verified_behaviors":["accepts exactly one winner with consistent replay receipts","rejects multiple winners","rejects divergent reservation identities","executes bounded concurrent requests through an injected transport","rejects non-HTTPS Worker endpoints"]},
+  "design_implication": "Pages deployment is now ordered after Worker health and one live atomicity proof, reducing the chance of publishing a research surface backed by a non-atomic or misrouted replay reservation service.",
+  "uncertainty": ["The live probe has not run because Cloudflare credentials and a deployment identity are not available in this run.","One successful probe covers one generated reservation key and does not establish universal availability or indefinite storage durability.","Wrangler deployment-url output remains unobserved in a real run."],
+  "falsification_routes": ["Dispatch the stack workflow with configured Cloudflare credentials and inspect cloudflare-replay-reservation-concurrency-proof.json.","Cause two simultaneous requests to receive 201 or return divergent reservation IDs; the verifier must reject and prevent Pages deployment.","Redeploy the Worker and repeat the same reservation key to test persistence across deployment separately."],
+  "privacy_boundary": "Contains repository paths, commit identities, infrastructure contract details, and synthetic probe behavior only. No private chat, health, credentials, contact data, or diagnosis/treatment claims are included."
+}
