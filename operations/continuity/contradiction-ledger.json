@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-13T12:14:20-04:00",
+  "privacy_boundary": "Public repository state and commit metadata only. Raw private chat, health information, credentials, identifying personal data, and unreviewed uploads are excluded.",
+  "records": [
+    {
+      "id": "CON-001",
+      "subject": "Canonical ACTIVE_QUEUE baseline versus later append-only continuity updates",
+      "state": "resolved",
+      "observations": [
+        {
+          "status": "observed",
+          "statement": "operations/ACTIVE_QUEUE.json still records M-001 as completed and names the next continuity action as adding commit and decision-history records plus linked contradiction modeling.",
+          "source_ref": "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f"
+        },
+        {
+          "status": "observed",
+          "statement": "Later continuity commits added verified queue-candidate materialization and recorded its queue and evidence outputs without rewriting the canonical queue.",
+          "source_ref": "commit:6c3b7614d066bee8f31c7d1ca0f003f70084f9da; commit:66db6488fd46af7d60e1ee29ca5cd8f91ec2a678; commit:a772e023824b80e14cf4b85c7124e39d67fed228"
+        },
+        {
+          "status": "inferred",
+          "statement": "A reader consulting only ACTIVE_QUEUE.json could incorrectly infer that no continuity work occurred after M-001, while a reader consulting only recent commits could incorrectly infer that the canonical queue was formally compacted.",
+          "source_ref": "comparison:ACTIVE_QUEUE baseline versus continuity commits"
+        }
+      ],
+      "resolution": {
+        "status": "resolved",
+        "interpretation": "The sources describe different state layers rather than mutually exclusive facts: ACTIVE_QUEUE.json is the reviewed baseline, while later queue-update and evidence commits are append-only candidate state pending explicit compaction.",
+        "preservation_rule": "Retain both sources unchanged, link them through this ledger, and prohibit treating append-only candidate state as canonical until a reviewed compaction commit explicitly updates ACTIVE_QUEUE.json."
+      },
+      "sources": [
+        {
+          "path": "operations/ACTIVE_QUEUE.json",
+          "ref": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "evidence_strength": "direct"
+        },
+        {
+          "path": "operations/continuity/build-verified-queue-candidate.mjs",
+          "ref": "6c3b7614d066bee8f31c7d1ca0f003f70084f9da",
+          "evidence_strength": "direct"
+        },
+        {
+          "path": "operations/evidence/continuity verified queue candidate output",
+          "ref": "66db6488fd46af7d60e1ee29ca5cd8f91ec2a678",
+          "evidence_strength": "strong"
+        },
+        {
+          "path": "operations/queue-updates/continuity verified queue candidate output",
+          "ref": "a772e023824b80e14cf4b85c7124e39d67fed228",
+          "evidence_strength": "strong"
+        }
+      ],
+      "claim_ceiling": "Repository-state reconciliation only; does not prove private-history content, semantic correctness of every queue update, deployment success, tests outside recorded evidence, or peer execution.",
+      "review_route": "During the next reviewed queue compaction, compare the baseline digest and all accepted append-only updates, then mark this record superseded only after ACTIVE_QUEUE.json contains the reviewed materialized state."
+    }
+  ]
+}
