@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "continuity-materialization-authority-2026-07-13T0245Z",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-13T02:45:00Z",
+  "queue_item": "M-001",
+  "claim_state": "observed",
+  "summary": "Added a deny-by-default evaluator that separates snapshot consistency and reconciliation validity from canonical queue mutation authority.",
+  "source_commits": [
+    "ad0d5ea31d0f754e366482444c44fbce3061df61",
+    "7b4099b99f1af84807bb8e624c060f57ccb275e1"
+  ],
+  "artifacts": [
+    "tools/continuity/materialization-authority.mjs",
+    "tools/continuity/materialization-authority.test.mjs"
+  ],
+  "observed": [
+    "Authority is disabled unless an explicit enabled policy allows the exact actor, workflow, canonical path, operation, source commit, source digest, and candidate digest.",
+    "Requests expire and carry a digest over their stable contents.",
+    "Rejected files, orphan projections, unresolved queue items, prior mutation, and candidate self-authorization all deny materialization.",
+    "The evaluator returns a decision but never performs mutation."
+  ],
+  "inferred": [
+    "This closes the previously recorded semantic gap between a consistent reconciliation candidate and authorization to replace canonical queue state."
+  ],
+  "proposed": [
+    "Add a separately reviewed mutation executor that consumes only an authorized decision and exact candidate bytes, then records the resulting commit."
+  ],
+  "superseded": [
+    "A valid snapshot-native reconciliation candidate is sufficient authority to update operations/ACTIVE_QUEUE.json."
+  ],
+  "unresolved": [
+    "The committed tests were not executed by an observed runtime in this run.",
+    "No cryptographic signer or GitHub environment protection is yet bound to the actor and workflow strings.",
+    "No mutation executor exists, by design."
+  ],
+  "privacy_boundary": "Public repository state and non-personal operational metadata only. Raw chat, health data, credentials, identifying personal information, and unreviewed file-library material were excluded.",
+  "verification_route": "Run node --test tools/continuity/materialization-authority.test.mjs in CI, then bind policy identity to a protected GitHub environment or signed attestation before implementing a mutation executor."
+}
