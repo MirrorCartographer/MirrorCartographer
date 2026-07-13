@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T12:11:00-04:00",
+  "claim_state": "implemented_source_unverified_remote_run",
+  "improvement": "Added an independent GitHub Actions parity workflow that runs on production deployment workflow, Wrangler configuration, validator, and test changes. It rejects project-name, output-directory, branch-input, and exact-source-commit drift before those changes can be treated as deployment-ready.",
+  "files": [
+    ".github/workflows/cloudflare-config-parity.yml"
+  ],
+  "commits": [
+    "007304eb32b676d65c897c3855cf298991401519"
+  ],
+  "verification": {
+    "isolated_node_tests": {
+      "tests": 4,
+      "passed": 4,
+      "failed": 0
+    },
+    "parity_evaluation": {
+      "accepted": true,
+      "project_name": "mirror-cartographer-research",
+      "pages_build_output_dir": ".",
+      "checks_passed": 6
+    },
+    "github_workflow_runs_for_commit": 0,
+    "remote_ci_status": "not_observed"
+  },
+  "evidence_strength": "source_and_isolated_test",
+  "claim_limit": "The committed workflow makes configuration parity continuously checkable and artifact-producing. No GitHub Actions execution, Cloudflare credential availability, provider deployment, resolving hostname, served surface, or deployed commit was observed in this run.",
+  "falsification_route": "Change the production workflow project name, pages deploy directory, branch binding, or commit binding and confirm the parity workflow fails; then restore exact parity and confirm a GitHub Actions run produces cloudflare-config-parity.json with accepted=true.",
+  "privacy": {
+    "contains_secrets": false,
+    "contains_private_health_material": false,
+    "contains_diagnosis_or_treatment_claims": false
+  }
+}
