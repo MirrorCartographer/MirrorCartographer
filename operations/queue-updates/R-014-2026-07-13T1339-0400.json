@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-014",
+    "owner": "frontier_research",
+    "priority": 13,
+    "action": "Build an exact-head-sha, all-page workflow-run enumerator that preserves raw pagination evidence before absence classification.",
+    "dependencies": ["R-013"],
+    "required_evidence": [
+      "current official workflow-run and pagination contracts",
+      "committed request and aggregation module",
+      "deterministic pagination adversarial tests",
+      "explicit external-execution limit and falsification route"
+    ],
+    "status": "completed_source_and_local_runtime_verified",
+    "progress": {
+      "primary_sources": [
+        "https://docs.github.com/en/rest/actions/workflow-runs?apiVersion=2022-11-28#list-workflow-runs-for-a-repository",
+        "https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api"
+      ],
+      "finding": "Exact head_sha filtering does not by itself prove complete observation. Every linked page must be retained, page numbers must be contiguous, event filtering must remain absent, and the 1000-result filtered-search ceiling must remain explicit.",
+      "module": "tools/frontier-research/workflow-run-enumerator.mjs",
+      "test": "tools/frontier-research/workflow-run-enumerator.test.mjs",
+      "evidence": "operations/evidence/frontier-workflow-run-enumerator-2026-07-13T1339-0400.json",
+      "commits": [
+        "81187741db3d49e7d87145d86e0e120b16c5ab25",
+        "6e6847371b4103deb297f3a772bc74c8f1f372c8",
+        "327311b9ea1c8db4007d41ad4b7ec7decd5030ae"
+      ],
+      "verification": "Five deterministic Node tests passed locally: exact request construction, Link parsing, complete terminal aggregation, missing-next rejection, and page-gap rejection."
+    },
+    "handoff": "Execute this enumerator with authenticated repository read access for commit e35a5e264d6d4f0535d236c6f0b17f2813efa665, retain each raw page and Link header, then feed the aggregate into workflow-run-observation.mjs."
+  },
+  "canonical_queue_update_policy": "Append-only team-owned update; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "next_action": "Add a credential-safe execution wrapper or GitHub Actions job that persists raw pages and aggregate output, then inspect artifacts only when an exact run is observed."
+}
