@@ -57,6 +57,8 @@ jobs:
           node --test cloudflare-static/validate-deployment-evidence-consistency.test.mjs
           node --test cloudflare-static/finalize-deployment-evidence.test.mjs
           node --test cloudflare-static/run-hostname-evidence-gate.test.mjs
+          node --test cloudflare-static/build-evidence-promotion-decision.test.mjs
+          node --test cloudflare-static/cloudflare-promotion-workflow-contract.test.mjs
 
       - name: Validate deployment branch input
         env:
@@ -256,6 +258,15 @@ jobs:
           process.stdout.write(`${JSON.stringify({ accepted: decision.accepted, signature: input.signatureVerification?.status, signatureSubject: input.signatureSubjectVerification?.status, freshness: input.freshnessEvidence?.status, claim: input.claimEvidence?.status })}\n`);
           NODE
 
+      - name: Compose fail-closed evidence promotion decision
+        if: always()
+        run: >-
+          node cloudflare-static/build-evidence-promotion-decision.mjs
+          cloudflare-deployment-proof.json
+          cloudflare-evidence-verification-input.json
+          cloudflare-deployment-acceptance.json
+          cloudflare-evidence-promotion-decision.json
+
       - name: Validate cross-artifact deployment consistency
         if: always()
         run: >-
@@ -291,6 +302,7 @@ jobs:
             cloudflare-deployment-proof.signature-verification.json
             cloudflare-evidence-verification-input.json
             cloudflare-deployment-acceptance.json
+            cloudflare-evidence-promotion-decision.json
             cloudflare-deployment-consistency.json
             cloudflare-deployment-evidence-manifest.json
           if-no-files-found: error
@@ -326,8 +338,9 @@ jobs:
             echo "- Signed-subject binding: \`signatureSubjectVerification.status\` must equal \`match\`"
             echo "- Verification input: \`cloudflare-evidence-verification-input.json\`"
             echo "- Acceptance decision: \`cloudflare-deployment-acceptance.json\`"
+            echo "- Promotion decision: \`cloudflare-evidence-promotion-decision.json\` requires the same proof digest across acceptance and all trust decisions"
             echo "- Cross-artifact consistency: \`cloudflare-deployment-consistency.json\` must pass before evidence finalization"
             echo "- Atomic evidence manifest: \`cloudflare-deployment-evidence-manifest.json\` is created only after byte-level verification against this run and source commit"
             echo "- Trust policy: exact workflow builder and repository, deny by default"
-            echo "- Epistemic limit: signature verification, freshness, hostname authority, and consistency checks authenticate bounded provenance and reject contradictions; they do not establish scientific truth"
+            echo "- Epistemic limit: signature verification, freshness, hostname authority, promotion, and consistency checks authenticate bounded provenance and reject contradictions; they do not establish scientific or medical truth"
           } >> "$GITHUB_STEP_SUMMARY"
