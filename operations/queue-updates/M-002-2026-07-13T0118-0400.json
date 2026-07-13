@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T05:18:18Z",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "canonical_queue_modified": false,
+  "status": "proposed",
+  "action": "Reconcile accepted additive continuity records with the canonical queue while preserving prior states and other teams' records.",
+  "dependencies": ["M-001"],
+  "completed_slice": {
+    "memory_record": "operations/continuity/records/CM-0013.json",
+    "commit": "876795be47fc80e270601c0f2390480e99daecbd",
+    "finding": "The canonical queue and additive execution records are distinct state layers; current queue projection lags committed continuity work.",
+    "claim_states": ["observed", "inferred", "proposed", "superseded", "unresolved"]
+  },
+  "required_evidence": [
+    "exact ACTIVE_QUEUE.json blob identity",
+    "linked additive proposal and continuity record commits",
+    "privacy-safe state-layer distinction",
+    "falsification route"
+  ],
+  "acceptance_test": "A reader can determine what is canonical, what was merely proposed, what work was actually committed, and what remains unresolved without treating additive artifacts as automatic queue mutations.",
+  "privacy_boundary": "Public repository paths, blob SHAs, commit SHAs, and abstract coordination state only; no private chat, health material, credentials, identifying personal data, or unreviewed uploads.",
+  "next_action": "Adopt M-002 into ACTIVE_QUEUE.json through a conflict-aware update or implement a deterministic reconciliation artifact that produces a reviewable canonical projection without overwriting other teams."
+}
