@@ -1,6 +1,9 @@
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluateDeploymentMetadata } from './verify-cloudflare-deployment-metadata.mjs';
+import { evaluateDeploymentMetadata, resolveExpectedBranch } from './verify-cloudflare-deployment-metadata.mjs';
 
 const sha = 'a'.repeat(40);
 const url = 'https://abc123.mirror-cartographer-research.pages.dev';
@@ -84,4 +87,31 @@ test('requires an explicit valid expected branch', () => {
   assert.equal(result.valid, false);
   assert.equal(result.classification, 'invalid-input');
   assert.ok(result.errors.includes('expected-branch-invalid'));
+});
+
+test('prefers an explicit environment branch over event payload input', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'cloudflare-branch-'));
+  const eventPath = path.join(dir, 'event.json');
+  fs.writeFileSync(eventPath, JSON.stringify({ inputs: { branch: 'preview' } }));
+  assert.deepEqual(resolveExpectedBranch({ explicitBranch: 'main', eventPath }), {
+    branch: 'main',
+    source: 'environment'
+  });
+});
+
+test('resolves the requested branch from the workflow dispatch event', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'cloudflare-branch-'));
+  const eventPath = path.join(dir, 'event.json');
+  fs.writeFileSync(eventPath, JSON.stringify({ inputs: { branch: 'preview/research' } }));
+  assert.deepEqual(resolveExpectedBranch({ eventPath }), {
+    branch: 'preview/research',
+    source: 'workflow-dispatch-event'
+  });
+});
+
+test('fails closed when the event payload cannot establish a branch', () => {
+  assert.deepEqual(resolveExpectedBranch({ eventPath: '/missing/event.json' }), {
+    branch: null,
+    source: null
+  });
 });
