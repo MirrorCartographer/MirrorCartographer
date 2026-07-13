@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T12:28:00-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "verified_locally_not_deployed",
+  "finding": "Independent allowlisting of a requested URL and its final redirect target does not prove deployment identity continuity. Exact deployment proof must reject host, path, or query substitution during fetch.",
+  "implementation": {
+    "evaluator": "cloudflare-static/deployment-redirect-continuity.mjs",
+    "test": "cloudflare-static/deployment-redirect-continuity.test.mjs",
+    "integration": "cloudflare-static/verify-deployment.mjs",
+    "ci": ".github/workflows/cloudflare-redirect-continuity.yml",
+    "commits": [
+      "8366170808c3f220b0528fb9345faf9ad6ecf13f",
+      "88b49c2a502d4788b56c94be5cf47d15323f9110",
+      "1911ccdc5ada554c5254298bda09a50cbc230971",
+      "3e0785226383d4ae0a0fb2e693743a2f1d68b476"
+    ]
+  },
+  "verification": {
+    "method": "isolated Node test run using byte-equivalent evaluator, policy, and test logic",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "unchanged exact deployment URL accepted",
+      "preview-to-production hostname substitution rejected",
+      "same-host path substitution rejected",
+      "same-host query substitution rejected",
+      "underlying URL policy rejection reasons retained"
+    ]
+  },
+  "evidence_strength": "implementation_and_isolated_test",
+  "privacy_class": "public_operational_metadata",
+  "claim_limit": "This does not prove Cloudflare credentials, DNS authority, control-plane deployment identity, hostname resolution, source commit, or served content. Those remain blocked until the production workflow executes successfully.",
+  "falsification_route": "A test or real fetch showing that an allowed redirect can change host, path, or query while the evaluator returns ok=true falsifies this contract. A legitimate Cloudflare deployment flow that necessarily redirects across hosts would require a separately authenticated alias-binding rule rather than weakening continuity silently."
+}
