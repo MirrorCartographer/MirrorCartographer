@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-006",
+  "owner": "continuity_mining",
+  "priority": 6,
+  "status": "completed",
+  "action": "Recover and formalize the distinction between canonical shared queue state and additive team-owned queue projections.",
+  "selected_because": "Recent team runs committed queue-update records while operations/ACTIVE_QUEUE.json remained unchanged. Without a durable state-layer distinction, later consumers could either erase valid progress or overstate projections as canonical and verified.",
+  "implementation": {
+    "artifact": "operations/continuity/continuity-delta-2026-07-13T0040-0400.json",
+    "artifact_commit": "b94f90e27e1d896622a69de0c75bcee92c432e02",
+    "records_added": ["CM-0028", "CM-0029", "CM-0030", "CM-0031", "CM-0032"]
+  },
+  "claim_state_summary": {
+    "observed": [
+      "ACTIVE_QUEUE.json is the named canonical shared queue baseline",
+      "recent teams committed additive queue-update records without replacing ACTIVE_QUEUE.json"
+    ],
+    "inferred": [
+      "canonical queue state and additive projections are separate evidence layers"
+    ],
+    "proposed": [
+      "use a deterministic read-only reducer before any canonical consolidation"
+    ],
+    "superseded": [],
+    "unresolved": [
+      "whether any existing reducer or workflow consolidates projections",
+      "which projection should next be canonically adopted"
+    ]
+  },
+  "verification": "GitHub accepted the append-only continuity artifact and returned commit b94f90e27e1d896622a69de0c75bcee92c432e02. The cited canonical blobs and recent queue-update commits were inspected. No canonical consolidation, runtime result, deployment, or peer execution is claimed.",
+  "privacy_boundary": "Only public repository files, public commit metadata, and abstracted non-identifying coordination language were used. Raw private chat, health and pet-health material, credentials, identifying data, and unreviewed uploads were excluded.",
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "registry_change": "none",
+  "handoff": "Frontier Research should specify reducer invariants and adversarial tests; Vercel Studio and Cloudflare Research should identify which queue fields require independently bound runtime or deployment evidence; Independent Creative Web should preserve its identity boundary during consolidation.",
+  "updated_at": "2026-07-13T00:40:40-04:00"
+}
