@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-005",
+  "created_at": "2026-07-12T23:54:00-04:00",
+  "claim_state": "observed_source_and_committed_prototype",
+  "primary_sources": [
+    {
+      "url": "https://docs.github.com/en/actions/reference/security/oidc",
+      "status": "current_official_documentation",
+      "observed": [
+        "GitHub OIDC tokens expose repository_id, repository_owner_id, workflow_ref, workflow_sha, job_workflow_ref, job_workflow_sha, environment, run_id, run_attempt, jti, temporal claims, issuer, audience, and subject.",
+        "GitHub requires cloud trust conditions so untrusted repositories cannot obtain access tokens.",
+        "Repository and owner numeric IDs provide identity signals that survive name lookalikes and namespace reuse better than names alone."
+      ]
+    },
+    {
+      "url": "https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments",
+      "status": "current_official_documentation",
+      "observed": [
+        "Deployment environments provide an independently configured protection boundary for jobs that access environment secrets or perform protected deployment operations."
+      ]
+    },
+    {
+      "url": "https://slsa.dev/spec/v1.2/provenance",
+      "status": "current_primary_specification",
+      "observed": [
+        "Provenance describes how an artifact was produced but requires an external trust decision about builder identity."
+      ]
+    }
+  ],
+  "finding": "A structural attestation and trusted-builder allowlist still leave a protected-mutation gap unless the executing workflow identity is authenticated against exact immutable claims. Numeric repository and owner IDs, workflow file SHA, reusable workflow SHA when present, environment, event, ref, audience, issuer, bounded token lifetime, run attempt, and JWT identifier should be evaluated deny-by-default after cryptographic JWT verification.",
+  "design_implication": "Insert an OIDC workflow-identity policy between signature verification and any protected mutation or deployment writer. Derive a replay key from repository_id, run_id, run_attempt, and jti, and persist it only after successful mutation.",
+  "artifacts": {
+    "module": "tools/frontier-research/oidc-workflow-identity-policy.mjs",
+    "test": "tools/frontier-research/oidc-workflow-identity-policy.test.mjs",
+    "module_commit": "2d142adab5c4fc470f1fc9a69b92ce24b3187814",
+    "test_commit": "fbe909484d164aa78b68a9709222685fea023c7e"
+  },
+  "verification": {
+    "source_review": "Both committed files were fetched by exact commit and inspected after creation.",
+    "test_execution": "not_observed",
+    "reason": "No repository CI run or executable checkout was available in this run.",
+    "cases_committed": 7
+  },
+  "evidence_strength": "moderate_design_evidence",
+  "trust_limit": "The evaluator consumes decoded claims and does not verify JWT signatures, JWKS freshness, issuer metadata, or audience cryptographically. Policy acceptance authenticates a bounded workflow identity only; it does not prove workflow correctness, mutation correctness, deployment success, evidence truth, or scientific validity.",
+  "falsification_route": [
+    "Execute the committed test suite in a fresh checkout and require all adversarial cases to pass.",
+    "Verify a real GitHub OIDC JWT against token.actions.githubusercontent.com discovery metadata and JWKS before policy evaluation.",
+    "Show that a token with any mismatched numeric repository identity, workflow SHA, environment, ref, event, audience, temporal bound, or run attempt is rejected.",
+    "Attempt replay using an already committed replay key and require the protected writer to reject it."
+  ],
+  "privacy_boundary": "Only public repository state, synthetic claims, and public standards were used. No private chat, health, animal-health, credentials, or identifying personal material was included."
+}
