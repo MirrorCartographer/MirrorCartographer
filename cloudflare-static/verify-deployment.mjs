@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { evaluateDeploymentUrl } from './deployment-url-policy.mjs';
+import { evaluateDeploymentRedirectContinuity } from './deployment-redirect-continuity.mjs';
 import { DEFAULT_MAX_BODY_BYTES, evaluateDeploymentResponse } from './deployment-response-contract.mjs';
 import { verifyServedDeploymentManifest } from './verify-served-deployment-manifest.mjs';
 
@@ -35,6 +36,19 @@ for (const candidate of candidates) {
       continue;
     }
 
+    const redirectContinuity = evaluateDeploymentRedirectContinuity(candidate, response.url);
+    if (!redirectContinuity.ok) {
+      console.log(JSON.stringify({
+        candidate,
+        resolvedUrl: response.url,
+        ok: false,
+        urlPolicy: resolvedPolicy,
+        redirectContinuity,
+        error: 'redirect-continuity-failed'
+      }));
+      continue;
+    }
+
     const declaredLength = response.headers.get('content-length');
     if (declaredLength != null && Number(declaredLength) > DEFAULT_MAX_BODY_BYTES) {
       console.log(JSON.stringify({
@@ -44,7 +58,8 @@ for (const candidate of candidates) {
         reasons: ['declared-body-too-large-or-invalid'],
         declaredContentLength: Number(declaredLength),
         maxBodyBytes: DEFAULT_MAX_BODY_BYTES,
-        urlPolicy: resolvedPolicy
+        urlPolicy: resolvedPolicy,
+        redirectContinuity
       }));
       continue;
     }
@@ -75,6 +90,7 @@ for (const candidate of candidates) {
       bodyBytes: contract.body_bytes,
       maxBodyBytes: contract.max_body_bytes,
       urlPolicy: resolvedPolicy,
+      redirectContinuity,
       deploymentManifest: manifest
     };
     console.log(JSON.stringify(result));
