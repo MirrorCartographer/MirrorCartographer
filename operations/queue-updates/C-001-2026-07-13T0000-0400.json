@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T00:00:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": {
+    "summary": "Added an implementation-ready workflow invocation receipt with exact GitHub Actions context matching and deterministic replay-key derivation.",
+    "module": "cloudflare-static/build-workflow-invocation-receipt.mjs",
+    "test": "cloudflare-static/build-workflow-invocation-receipt.test.mjs",
+    "commits": [
+      "5d0e2d4f6bdf7aa4e2e44e2f6ce2d6efc3746806",
+      "3484dabef4963aeeb72c122b23e4a4171ec907b5",
+      "2bbc888662f41713d3b6baacac21de66d8f562b0"
+    ],
+    "evidence": "operations/evidence/cloudflare-workflow-invocation-receipt-2026-07-13T0000-0400.json"
+  },
+  "verification": "Exact committed source and tests were fetched and inspected. Runtime execution was attempted but not observed because the available runtime could not resolve GitHub raw content; no test pass is claimed.",
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the protected cloudflare-research environment and dispatch the deployment workflow.",
+  "next_action": "Wire the receipt builder into the Cloudflare workflow artifact set, independently verify the GitHub OIDC token, and persist the accepted replay key in the protected receipt ledger before accepting deployment evidence.",
+  "coordination": "Canonical ACTIVE_QUEUE.json was not overwritten; this additive record preserves other teams' state."
+}
