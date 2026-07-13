@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-006",
+  "claim_state": "tested_prototype",
+  "evidence_strength": "deterministic_unit_and_adversarial_concurrency_simulation",
+  "primary_sources": [
+    {
+      "url": "https://developers.cloudflare.com/durable-objects/api/sqlite-storage-api/",
+      "status": "current_official_documentation",
+      "observed": "SQLite-backed Durable Object storage is transactional and strongly consistent; methods are atomically isolated, SQL supports primary keys, ON CONFLICT behavior, and storage transaction APIs. Documentation last updated 2026-05-27."
+    },
+    {
+      "url": "https://docs.github.com/en/actions/reference/security/oidc",
+      "status": "current_official_documentation",
+      "observed": "GitHub Actions OIDC tokens expose invocation claims including issuer, expiration, run identifiers, and JWT ID for downstream authorization and replay classification."
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.7",
+      "status": "primary_standard",
+      "observed": "The JWT ID claim is a unique token identifier and can be used to prevent replay."
+    }
+  ],
+  "finding": "Replay acceptance must be one atomic uniqueness decision, not a separate read followed by write. A SQLite PRIMARY KEY on the privacy-preserving replay_key plus INSERT ... ON CONFLICT DO NOTHING RETURNING produces exactly one winner for a retained issuer-jti digest.",
+  "design_implication": "Back the R-005 replay evaluator with one SQLite-backed Durable Object namespace. Route all replay decisions to the same object identity and execute the unique insert synchronously before any deployment or evidence promotion.",
+  "artifacts": {
+    "module": "tools/frontier-research/atomic-oidc-replay-store.mjs",
+    "test": "tools/frontier-research/atomic-oidc-replay-store.test.mjs",
+    "commits": [
+      "8150425e2de1691159b28c33215ed36ccdc35630",
+      "ea8189ba5b2e7efb8d22fdd07b60024a447d1296"
+    ]
+  },
+  "verification": {
+    "runtime": "node --test",
+    "result": "5 tests passed, 0 failed",
+    "cases": [
+      "schema contains replay_key primary key and expiry index",
+      "first unique insertion accepted",
+      "32 concurrent submissions produce exactly one accepted result and 31 replay rejections",
+      "expired retained state is pruned before a renewed key is accepted",
+      "already expired token is rejected without insertion"
+    ]
+  },
+  "falsification_route": "Deploy the adapter against a real SQLite-backed Durable Object, send at least two simultaneous requests with the same replay_key to the same object identity, and reject the design if more than one response is accepted, if a raw JWT or jti is persisted, or if deployment/evidence promotion can occur before the insert result.",
+  "limits": [
+    "The concurrency test uses a deterministic in-memory SQL adapter, not the Cloudflare runtime.",
+    "The adapter is not yet wired into the Cloudflare deployment workflow.",
+    "Correctness depends on routing all decisions for the protected replay domain to the same Durable Object identity.",
+    "Replay rejection does not establish signature validity, workflow authorization, deployment success, or evidence truth."
+  ]
+}
