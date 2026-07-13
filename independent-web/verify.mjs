@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 
 const html = readFileSync(new URL('./index.html', import.meta.url), 'utf8');
 const identity = readFileSync(new URL('./IDENTITY.md', import.meta.url), 'utf8');
@@ -35,9 +36,11 @@ if (!identity.includes('zero-build static artifact')) throw new Error('hosting c
 if ((html.match(/<script/g) || []).length !== 1) throw new Error('artifact must remain a single-script static instrument');
 if ((html.match(/<canvas/g) || []).length !== 1) throw new Error('artifact must expose exactly one primary canvas');
 
+execFileSync(process.execPath, [new URL('./rain-organ/contract.test.mjs', import.meta.url)], { stdio: 'inherit' });
+
 console.log(JSON.stringify({
   valid: true,
-  artifact: 'The Weather Inside a Bell',
+  anthology: ['The Weather Inside a Bell', 'Rain Organ'],
   bytes: Buffer.byteLength(html),
   externalAssets: false,
   networkCalls: false,
