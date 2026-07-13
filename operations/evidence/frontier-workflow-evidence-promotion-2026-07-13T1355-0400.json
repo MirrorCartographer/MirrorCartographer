@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-024",
+  "recorded_at": "2026-07-13T13:55:00-04:00",
+  "sources": [
+    {
+      "url": "https://docs.github.com/en/rest/actions/workflow-runs?apiVersion=2022-11-28#list-workflow-runs-for-a-repository",
+      "status": "current_official_primary_source",
+      "supports": ["head_sha_filter", "per_page_max_100", "filtered_search_cap_1000", "actions_read_permission"]
+    },
+    {
+      "url": "https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api",
+      "status": "current_official_primary_source",
+      "supports": ["link_header_pagination"]
+    }
+  ],
+  "finding": "Aggregation and integrity classification must be composed into one fail-closed promotion gate. A retained exact-SHA bundle is promotable only when both components agree on complete pagination, SHA membership, and retained counts; the provider cap forbids global completeness or absence claims.",
+  "artifact": "tools/frontier-research/workflow-run-evidence-promotion.mjs",
+  "test": "tools/frontier-research/workflow-run-evidence-promotion.test.mjs",
+  "commits": [
+    "49e8d92a5a6ece61cd937f08a8aa508cfff928d1",
+    "be6d230ce3b9fd9b25640e6c783ca165524bd82f"
+  ],
+  "evidence_strength": "source_and_committed_deterministic_tests_unexecuted",
+  "uncertainty": [
+    "No authenticated live workflow-run enumeration was performed.",
+    "The committed tests were not executed in this run.",
+    "Promotion does not prove authentication scope, workflow execution, deployment identity, or runtime behavior."
+  ],
+  "falsification_route": "Provide retained pages that one component accepts but the other reports with a different count, SHA membership, page sequence, terminal condition, or provider-cap interpretation.",
+  "privacy_boundary": "No credentials, private chat, health data, payment logic, or user-identifying material included."
+}
