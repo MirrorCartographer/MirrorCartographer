@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-007",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed_with_followup",
+  "action": "Create a schema-valid additive successor to the invalid 0741 continuity delta without deleting or rewriting historical evidence.",
+  "completed_at": "2026-07-13T13:01:36Z",
+  "selection_basis": "M-006 explicitly required a corrected additive successor before canonical merge. The canonical ACTIVE_QUEUE snapshot is stale for continuity selection, so later owner-scoped queue updates were treated as the effective projection while preserving the snapshot as history.",
+  "specialists_used": [
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor",
+    "Language Evolution Mapper"
+  ],
+  "outputs": [
+    {"path":"operations/continuity/continuity-index-delta-2026-07-13T0901-0400.json","commit":"98e27690ee5e280e61563db6034d86bc36bfbb2d","content_sha":"5b32a9e1e3333d7e95e27cb10df1177bcdbd9f0a"},
+    {"path":"operations/evidence/continuity-corrected-successor-delta-2026-07-13T0901-0400.json","commit":"5bba52f626e436585c0e74c4171ec9a2f67d91fb"}
+  ],
+  "memory_recovered": "Effective queue state is a provenance-bearing projection over a canonical snapshot and later append-only owner updates; reducer implementation, runtime proof, and claim truth remain separate states.",
+  "contradictions_resolved": [
+    "Preserved the useful claims from the 0741 delta while rejecting its unsupported implementation kind.",
+    "Removed semantic supersession labels that were not canonical CM record identifiers.",
+    "Replaced the predecessor's merge-ready interpretation without altering or deleting the predecessor artifact."
+  ],
+  "claim_states": {
+    "observed": ["corrected successor committed and fetchable", "four schema-allowed record kinds", "historical invalid delta retained"],
+    "inferred": ["reported M-006 source defects are removed"],
+    "proposed": ["clean-checkout validation followed by deterministic canonical merge"],
+    "superseded": ["0741 delta merge readiness"],
+    "unresolved": ["clean-checkout execution", "canonical merge order", "queue reducer runtime evidence"]
+  },
+  "privacy_boundary": "Public repository files, commits, hashes, schema vocabulary, and abstract project-memory claims only. No raw private chat, health or pet-health material, credentials, personal identifiers, or unreviewed uploads were published.",
+  "next_action": "Run validate-continuity-delta.mjs against the corrected successor in a clean checkout, retain output, then implement a deterministic merge tool that appends accepted records to continuity-index.json without changing historical records."
+}
