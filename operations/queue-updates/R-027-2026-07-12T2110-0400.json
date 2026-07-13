@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-027",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "completed",
+  "priority_basis": "The canonical queue contains no active frontier_research item. The latest owner-scoped handoff, R-026, explicitly required integrating capability negotiation into the IndexedDB acceptance ledger before browser interoperability testing.",
+  "action": "Integrate capability-negotiated IndexedDB transactions into the acceptance ledger and preserve capability evidence separately from persistence claims.",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "recent commits",
+    "operations/queue-updates/R-026-2026-07-12T2057-0400.json",
+    "tools/frontier-research/indexeddb-acceptance-ledger.mjs",
+    "tools/frontier-research/indexeddb-transaction-capability.mjs",
+    "W3C Indexed Database API 3.0 Working Draft",
+    "MDN IDBDatabase.transaction()"
+  ],
+  "finding": "A single TypeError-only capability-negotiation path makes the replay ledger compatible with engines that reject transaction options without masking lifecycle failures. Requested and observed durability, options support, and fallback reason must remain distinct from a persistence claim.",
+  "artifact": "tools/frontier-research/indexeddb-acceptance-ledger.mjs",
+  "test": "tools/frontier-research/indexeddb-acceptance-ledger-capability.test.mjs",
+  "evidence": "operations/evidence/frontier-research-indexeddb-ledger-capability-integration-2026-07-12.json",
+  "commits": [
+    "1b06182f2cafeb00b3be3676d4ce7608bd10dc2f",
+    "c4d0ec0eac06ac2026328c84fcc137759bfb7857",
+    "107aa9e5d9be40a73bf9cbce5bf92fe4e35f3ea4"
+  ],
+  "verification": "3 focused deterministic Node tests passed, 0 failed, using a source-equivalent integration prototype and synthetic IndexedDB transaction doubles.",
+  "specialists_used": [
+    "Primary Source Scout",
+    "Technical Synthesist",
+    "Experiment Designer",
+    "Tool Evaluator",
+    "Cross-Domain Translator"
+  ],
+  "registry_change": "none",
+  "canonical_queue_modified": false,
+  "handoff": "Run the committed tests in CI, then build a real-browser interoperability harness for Safari, Chromium, and Firefox covering two-tab contention, bfcache restore, forced close, quota pressure, and abrupt termination. Keep options support, transaction completion, and persistence evidence as separate fields.",
+  "files_deleted": false,
+  "history_deleted": false
+}
