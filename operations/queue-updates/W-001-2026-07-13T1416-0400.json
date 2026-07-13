@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "status": "active",
+  "recorded_at": "2026-07-13T14:16:00-04:00",
+  "completed_slice": "earned Pressure Garden threshold entry",
+  "progress": {
+    "creative_system": "The eighth and final weather note now reveals Pressure Garden as a consequence of completing the bounded score; erase closes the route again.",
+    "source": [
+      "independent-web/index.html",
+      "independent-web/pressure-garden-entry.contract.test.mjs",
+      ".github/workflows/independent-web-pages.yml"
+    ],
+    "evidence": "operations/evidence/independent-web-earned-pressure-garden-2026-07-13T1416-0400.json",
+    "commits": [
+      "a14c0eda6b4317f5a48ba4c795c7695469296b1d",
+      "aa9128a8398884e94b65ef055705d2f11303acec",
+      "c71694f9360543e95705f3337ae6827df6e24188",
+      "3840790321c7a71b3e1fc1e803261a72d5f24547"
+    ],
+    "verification": "GitHub accepted implementation, contract-test, workflow-gate, and evidence commits. No associated workflow run, browser execution, public deployment, or physical mobile result was observed, so none is claimed.",
+    "identity": "The Weather Inside a Bell remains a self-contained instrumental world. Pressure Garden appears through earned play-state transformation, not explanation, navigation hierarchy, research presentation, or conversion design."
+  },
+  "remaining": [
+    "observe the Independent Web Pages workflow and returned page_url",
+    "verify the served deployment identity against its exact source commit",
+    "exercise the eight-note reveal and erase reset in a real browser",
+    "capture narrow mobile and physical Safari evidence"
+  ],
+  "next_action": "Obtain runtime evidence that eight valid pressure releases reveal the garden, that seven do not, and that erase removes focusability; then bind those observations to the served Pages commit."
+}
