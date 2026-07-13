@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T12:51:00-04:00",
+  "item_id": "M-002",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "action": "Model contradictions and state-layer divergence as linked provenance records rather than overwriting earlier observations.",
+  "status": "completed_slice",
+  "progress": {
+    "artifact": "operations/continuity/build-queue-compaction-manifest.mjs",
+    "test": "operations/continuity/build-queue-compaction-manifest.test.mjs",
+    "evidence": "operations/evidence/continuity-queue-compaction-manifest-2026-07-13T1251-0400.json",
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical source and test contents",
+    "commits": [
+      "e2aec71aef5e6683d133bba9e71c912787823142",
+      "97318a300ee5107a6b186fde900862bb40074e40",
+      "4c2faec092c22d5c9aaf3d1d19580a7e56ebd6ad"
+    ]
+  },
+  "claim_states": {
+    "observed": "The canonical queue and append-only candidate updates remain distinct repository layers.",
+    "inferred": "A compaction review is not reproducible unless it binds the exact baseline, candidate, and proposed-result bytes.",
+    "proposed": "Use the manifest builder to classify each candidate as accepted, rejected, or deferred before a separate reviewed mutation.",
+    "superseded": "No repository history or prior continuity record was removed; implicit candidate merging is superseded as a valid review route.",
+    "unresolved": "A full manifest over every current queue-update artifact has not yet been generated or approved."
+  },
+  "privacy_boundary": "Public repository files and commit metadata only; private chat, health information, credentials, identifying personal data, and unreviewed uploads excluded.",
+  "handoff": "Enumerate every current operations/queue-updates artifact, assign a reviewed disposition, generate the digest-bound manifest, and only then prepare a separate ACTIVE_QUEUE.json compaction commit."
+}
