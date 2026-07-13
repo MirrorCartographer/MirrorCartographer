@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "observed_at": "2026-07-13T21:15:00Z",
+  "team": "continuity_mining",
+  "queue_item": "M-014",
+  "claim_states": {
+    "observed": [
+      "The prior queue materializer accepted an explicit update set but did not verify each update's exact bytes against the digest-bound manifest.",
+      "The prior manifest builder bound safe paths, SHA-256 digests, event orders, and an optional tree enumeration structure."
+    ],
+    "inferred": [
+      "Materialization without exact-byte manifest verification permits accidental or malicious drift between the approved update set and the parsed updates."
+    ],
+    "proposed": [
+      "Require a valid manifest self-digest, an exact one-to-one path set, matching update SHA-256 values, and matching event orders before materialization."
+    ],
+    "superseded": [
+      "Treating caller-supplied parsed update objects as sufficient evidence that the manifest-approved bytes were materialized."
+    ],
+    "unresolved": [
+      "No independent exhaustive repository tree enumeration was available in this run.",
+      "Structural agreement and hashes do not establish the truth of queue claims or independence of the enumerator."
+    ]
+  },
+  "artifacts": {
+    "module": "operations/tools/materialize-manifest-bound-queue-state.mjs",
+    "test": "operations/tools/materialize-manifest-bound-queue-state.test.mjs",
+    "source_commit": "e07bfb528df29650d09ce6d96e4d22c0317532ee",
+    "test_commit": "9d85a0007b9c72f96b7b19d8c6d246b9269ff5ce"
+  },
+  "verification": {
+    "route": "isolated Node execution using byte-equivalent committed source and dependency behavior",
+    "tests_passed": 5,
+    "cases": [
+      "non-authoritative exact-byte materialization",
+      "authoritative materialization only with complete tree-bound enumeration structure",
+      "mutated update bytes rejected",
+      "tampered manifest self-digest rejected",
+      "unmanifested extra update rejected"
+    ],
+    "repository_execution_claimed": false,
+    "github_actions_claimed": false
+  },
+  "privacy_boundary": "Public repository paths, hashes, commit identifiers, queue metadata, and operational claim states only. Raw chat, health information, credentials, contacts, account identifiers, identifying personal data, and unreviewed uploads are excluded.",
+  "trust_limit": "Digest and structure verification proves consistency among supplied bytes and metadata, not exhaustive history, independent enumeration, or factual truth."
+}
