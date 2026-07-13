@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T18:17:49-04:00",
+  "queue_item": "M-RECONCILE-002",
+  "owner": "continuity_mining",
+  "status": "active",
+  "completed_slice": "Added a fail-closed provenance receipt that binds exact base-queue bytes, update-manifest bytes, and materialized-queue bytes before canonical promotion is considered.",
+  "evidence": [
+    "operations/tools/create-queue-materialization-receipt.mjs",
+    "operations/tools/create-queue-materialization-receipt.test.mjs",
+    "operations/continuity/records/CM-1013.json"
+  ],
+  "commits": [
+    "c3994fdab01371fa86e8313b270df2e8fceae9d4",
+    "1d42c40de31da0788f006a937d0f0e22c2da7296",
+    "5ac3cc55efe49f7c31092a674201830724161b2d"
+  ],
+  "verification": {
+    "runtime": "Node",
+    "assertions_passed": 7,
+    "assertions_failed": 0,
+    "canonical_queue_mutated": false
+  },
+  "remaining": [
+    "Integrate receipt generation into the manifest-bound materialization command path.",
+    "Retain a real receipt generated from an authenticated exhaustive update manifest and exact canonical base snapshot.",
+    "Resolve or classify the provenance origins of M-004, M-005, and M-006 only with immutable repository evidence."
+  ],
+  "privacy_boundary": "Repository governance metadata only; no private chat, health, credentials, contacts, identifiers, or unreviewed upload content."
+}
