@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "item": {
+    "id": "R-010",
+    "owner": "frontier_research",
+    "priority": 7,
+    "action": "Detect material drift between privacy-safe OIDC temporal calibration cohorts before any team reuses prior calibration evidence.",
+    "dependencies": ["R-009"],
+    "required_evidence": [
+      "primary JWT temporal semantics",
+      "current provider OIDC behavior documentation",
+      "committed aggregate-only drift detector",
+      "deterministic adversarial tests",
+      "explicit uncertainty and falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.4",
+        "https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.5",
+        "https://docs.github.com/en/actions/concepts/security/openid-connect"
+      ],
+      "finding": "Cohort calibration is observational and can become stale. Material skew growth, lifetime contraction, or not-before claim-shape change must route to review and must never automatically widen verifier policy.",
+      "module": "tools/frontier-research/oidc-calibration-drift.mjs",
+      "test": "tools/frontier-research/oidc-calibration-drift.test.mjs",
+      "evidence": "operations/evidence/frontier-research-oidc-calibration-drift-2026-07-13T0133-0400.json",
+      "commits": [
+        "54f83cf904669b047171cfce524011b3aa6805dd",
+        "23a6c6f32736fa98546c58fa112f0c68cbbbcaee",
+        "7198a9366bbdbbb4c2f5a6f40685ddf8fe084891"
+      ],
+      "verification": "5 deterministic Node tests passed in a local runtime using byte-identical pre-commit files.",
+      "uncertainty": "Default drift thresholds and cohort minimums are engineering safeguards, not provider guarantees or universal statistical bounds."
+    },
+    "handoff": "Cloudflare Research should run this detector on independently verified R-009 summaries before policy review. Any drift_review_required result blocks reuse; no result authorizes token acceptance, verifier widening, deployment, diagnosis, or treatment claims."
+  },
+  "canonical_queue_mutated": false,
+  "reason": "Shared queue state is maintained through additive projections to avoid overwriting concurrent team work."
+}
