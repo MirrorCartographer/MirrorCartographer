@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-029",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-12T22:37:00-04:00",
+  "primary_sources": [
+    {
+      "title": "Indexed Database API 3.0",
+      "url": "https://www.w3.org/TR/IndexedDB-3/",
+      "status": "current W3C specification inspected during run"
+    },
+    {
+      "title": "Playwright Pages",
+      "url": "https://playwright.dev/docs/pages",
+      "status": "current official documentation inspected during run"
+    },
+    {
+      "title": "Playwright BrowserContext",
+      "url": "https://playwright.dev/docs/api/class-browsercontext",
+      "status": "current official documentation inspected during run"
+    }
+  ],
+  "finding": "Two-tab contention and versionchange/forced-close are representable with multiple pages in one browser context. Graceful page or context closure is not valid evidence of abrupt process termination, and non-persistent BrowserContext closure cannot establish storage-device persistence.",
+  "design_implication": "Automate ordinary multi-page lifecycle scenarios across Chromium, Firefox, and WebKit, but emit blocked capability records for abrupt termination and quota pressure unless a platform-specific injector and reopen observer are supplied.",
+  "artifacts": [
+    "tools/frontier-research/indexeddb-browser-interop-evidence.mjs",
+    "tools/frontier-research/indexeddb-playwright-runner.mjs",
+    "tools/frontier-research/indexeddb-playwright-runner.test.mjs"
+  ],
+  "commits": [
+    "8a782639adda3052b593228df4f57f773a5a92c0",
+    "45c8ede115db5dda3c55be0b5ff49fe710e16ac0",
+    "ee6eab48025aabfb63925c5eaadaf1b11c273639"
+  ],
+  "verification": {
+    "precommit_prototype": "5 deterministic Node tests passed, 0 failed",
+    "committed_source_execution": "not observed",
+    "browser_execution": "not observed",
+    "claim_limit": "No Chromium, Firefox, WebKit, persistence, quota, or abrupt-termination outcome is claimed from this run."
+  },
+  "evidence_strength": "official-primary-source design plus committed implementation and deterministic test specification",
+  "uncertainty": "The runner has not yet executed with installed Playwright browser binaries against a served origin. Transaction completion remains API-visible evidence, not proof of physical storage durability.",
+  "falsification_route": "Install the repository-pinned Playwright version and browser binaries, serve a same-origin test fixture, execute the committed runner on Chromium, Firefox, and WebKit, and reject the finding if emitted records do not validate or the event timelines fail to distinguish blocked, completed, and replay-observed states.",
+  "privacy_boundary": "Public standards, public repository source, synthetic database names, and synthetic test records only. No private chat, health data, credentials, or personal identifiers included."
+}
