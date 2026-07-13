@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T10:50:00-04:00",
+  "improvement": "Added an independent fail-closed verifier for retained Cloudflare hostname-authority consistency artifacts.",
+  "finding": "A materialized consistency verdict must be independently checked before later workflow stages may inherit its deployment-claim permission.",
+  "source_files": [
+    "cloudflare-static/verify-hostname-authority-consistency.mjs",
+    "cloudflare-static/verify-hostname-authority-consistency.test.mjs"
+  ],
+  "commits": [
+    "2c5c2ed859e752fd6cd63df3d28491a3c08b65ad",
+    "8d60cbcbf38b0e6efdb278b30433b06249281a16"
+  ],
+  "verification": {
+    "command": "node --test verify-hostname-authority-consistency.test.mjs",
+    "environment": "isolated Node runtime using byte-identical committed source content",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "valid retained artifact accepted with deployment-identity-only claim ceiling",
+      "rejected verdict cannot retain deployment claim permission",
+      "source commit substitution rejected",
+      "hostname and deployment URL disagreement rejected",
+      "privacy secret-emission ambiguity rejected"
+    ]
+  },
+  "deployment": {
+    "attempted": false,
+    "verified": false,
+    "reason": "C-001 remains blocked on Cloudflare credentials and no provider-returned deployment identity was available."
+  },
+  "claim_ceiling": "Committed source behavior and deterministic verifier tests only; no deployment, DNS availability, served-byte, medical, or scientific claim.",
+  "privacy": {
+    "private_health_material_published": false,
+    "diagnosis_or_treatment_claims_published": false,
+    "secret_values_emitted": false
+  },
+  "rollback": "Revert commits 8d60cbcbf38b0e6efdb278b30433b06249281a16 and 2c5c2ed859e752fd6cd63df3d28491a3c08b65ad; no deployment or schema migration occurred."
+}
