@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-011",
+  "created_at": "2026-07-13T01:39:00-04:00",
+  "claim_state": "observed_and_tested",
+  "evidence_strength": "deterministic_unit_test_plus_primary_source_synthesis",
+  "sources": [
+    {
+      "type": "primary_standard",
+      "url": "https://datatracker.ietf.org/doc/html/rfc7519",
+      "use": "Defines JWT NumericDate temporal claims whose aggregate behavior is being measured."
+    },
+    {
+      "type": "primary_guidance",
+      "url": "https://www.nist.gov/pml/nist-technical-note-1297",
+      "use": "Supports declaring the measurement method and uncertainty context before interpreting or comparing measurement results."
+    },
+    {
+      "type": "provider_documentation",
+      "url": "https://docs.github.com/en/actions/reference/security/oidc",
+      "use": "Documents the provider-specific OIDC context that must remain stable or be explicitly separated across cohorts."
+    }
+  ],
+  "finding": "Aggregate temporal cohorts are not valid drift inputs merely because they share field names. A comparison requires a declared and matching measurement contract covering schema, metric definitions, collector version, provider class, clock basis, collection method, quantile method, and privacy profile.",
+  "design_implication": "Run a fail-closed comparability gate before R-010 drift detection. Mismatched or incomplete cohorts must route to review rather than producing a drift conclusion.",
+  "artifact": {
+    "module": "tools/frontier-research/oidc-calibration-comparability.mjs",
+    "test": "tools/frontier-research/oidc-calibration-comparability.test.mjs",
+    "module_commit": "20dde97a94e048b67ca390f1854b07613c60550b",
+    "test_commit": "991169bb08a6a6cff14a633f8becb32416bb69e8"
+  },
+  "verification": {
+    "command": "node --test tools/frontier-research/oidc-calibration-comparability.test.mjs",
+    "runtime": "local Node test runner against byte-identical pre-commit files",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "compatible non-overlapping cohorts",
+      "metric and collector mismatch",
+      "clock, quantile, and privacy mismatch",
+      "reused cohort identity and overlapping windows",
+      "missing privacy and policy boundaries"
+    ]
+  },
+  "privacy_boundary": {
+    "raw_tokens_retained": false,
+    "identity_claims_retained": false,
+    "credentials_retained": false,
+    "aggregate_contract_metadata_only": true
+  },
+  "trust_limits": [
+    "Comparability does not prove that either cohort is accurate.",
+    "Comparability does not authorize token acceptance, policy widening, or deployment.",
+    "Declared metadata can be false unless independently attested.",
+    "Non-overlapping declared windows do not prove independent sampling."
+  ],
+  "falsification_route": "Construct two cohorts that the gate accepts but that were collected under materially different hidden methods, or show that a required contract field can vary without changing interpretation. Either result requires revising the contract or adding attested collection provenance."
+}
