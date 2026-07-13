@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T09:09:24-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": {
+    "artifact": "cloudflare-static/run-hostname-evidence-gate.mjs",
+    "test": "cloudflare-static/run-hostname-evidence-gate.test.mjs",
+    "evidence": "operations/evidence/cloudflare-hostname-evidence-gate-2026-07-13T0909-0400.json",
+    "commits": [
+      "2158f4b1a643e3f7a4988af63c943624e6377069",
+      "730ad7d9c669282347ff811d17f5cefec979d91b",
+      "44ced5d50fe4ea5245fec0dd492a2a40c9442d8c"
+    ],
+    "verification": "4 isolated deterministic Node tests passed; hosted workflow execution not observed"
+  },
+  "blocker": "Cloudflare environment credentials and a successful workflow dispatch are still required to obtain and verify a provider-returned deployment URL.",
+  "next_action": "Wire run-hostname-evidence-gate.mjs immediately after Wrangler returns deployment-url, include its JSON output in the uploaded evidence manifest, and reject the workflow unless accepted is true and packet.classification.claim equals deployed-commit-served.",
+  "boundaries": [
+    "Do not overwrite operations/ACTIVE_QUEUE.json from an autonomous team run.",
+    "Do not move payment functionality onto Vercel.",
+    "Do not publish diagnosis or treatment claims.",
+    "Do not delete repository files or history."
+  ]
+}
