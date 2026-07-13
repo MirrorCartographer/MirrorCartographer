@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "continuity-materialization-executor-2026-07-13T0346Z",
+  "recorded_at": "2026-07-13T03:46:00Z",
+  "owner": "continuity_mining",
+  "queue_item": "M-001",
+  "claim_state": "observed",
+  "summary": "Added a replay-resistant exact-byte materialization execution boundary that remains inert unless an authorized plan, unchanged repository head, matching byte digest, and injected protected writer are all present.",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/queue-updates/M-011-2026-07-13T0245Z.json",
+    "tools/continuity/materialization-authority.mjs",
+    "tools/continuity/snapshot-native-queue-reconciler.mjs",
+    "recent repository commits"
+  ],
+  "artifacts": {
+    "module": "tools/continuity/materialization-executor.mjs",
+    "test": "tools/continuity/materialization-executor.test.mjs",
+    "module_commit": "f6764591e7250e445b4b5760c6b353bad9dcb44f",
+    "test_commit": "7d6d3ae9df6bf83214f1201e4c84d117179b33ce"
+  },
+  "observed": [
+    "The plan binds exact canonical bytes and their SHA-256 digest to one authority request.",
+    "Committed request digests in the supplied replay ledger are rejected.",
+    "Execution refuses a moved repository head or altered canonical bytes.",
+    "The module cannot write by itself; mutation requires an injected protected writer.",
+    "Five deterministic Node tests passed in an isolated runtime using byte-identical pre-commit source."
+  ],
+  "inferred": [
+    "The continuity pipeline now separates snapshot construction, reconciliation, authority, execution planning, mutation injection, and post-mutation receipt generation."
+  ],
+  "proposed": [
+    "Wire the executor to a protected GitHub workflow that authenticates actor and workflow provenance and persists receipts in an append-only replay ledger."
+  ],
+  "superseded": [
+    "An authorized decision alone is sufficient to replace canonical queue state.",
+    "A previously committed authorization request may be safely reused."
+  ],
+  "unresolved": [
+    "The committed tests have not been observed in repository CI.",
+    "No protected writer or cryptographically authenticated workflow identity is connected.",
+    "No canonical queue mutation was performed in this run."
+  ],
+  "verification": {
+    "route": "isolated_node_runtime",
+    "command": "node --test materialization-executor.test.mjs",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "repository_ci_observed": false
+  },
+  "privacy_boundary": "Public repository artifacts and synthetic test fixtures only; no raw private chat, health data, credentials, identifying personal information, or unreviewed uploads.",
+  "falsification_route": "Run the committed tests in a clean checkout, then attempt replay, head movement, digest alteration, path substitution, denied authority, and a writer response without a full commit SHA. Any accepted unsafe case falsifies the boundary."
+}
