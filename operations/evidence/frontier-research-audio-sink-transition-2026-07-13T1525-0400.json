@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T15:25:00-04:00",
+  "claim_state": "observed_and_tested_locally",
+  "primary_sources": [
+    {
+      "url": "https://w3c.github.io/mediacapture-output/",
+      "status": "W3C editor draft / wide-review document",
+      "observed": "When a selected sink becomes unavailable, the user agent takes no action; playback may continue logically while audio is not rendered. Applications may observe devicechange and re-enumerate outputs."
+    },
+    {
+      "url": "https://webaudio.github.io/web-audio-api/",
+      "status": "W3C Web Audio API 1.1 editor draft dated 2026-06-12",
+      "observed": "AudioContext routing state is browser-reported state and must remain separate from physical audibility evidence."
+    }
+  ],
+  "finding": "A selected output can disappear without pausing media or producing an automatic fallback, creating a silent-but-logically-playing state. A privacy-preserving evaluator can classify this transition without retaining device IDs or labels.",
+  "artifact": "tools/frontier-research/audio-sink-transition-evaluator.mjs",
+  "test": "tools/frontier-research/audio-sink-transition-evaluator.test.mjs",
+  "verification": {
+    "route": "isolated Node runtime",
+    "result": "6 deterministic tests passed",
+    "scope": [
+      "selected sink lost while playing",
+      "selected sink reappeared",
+      "selection denied",
+      "default route",
+      "insufficient observation",
+      "invalid input rejection"
+    ]
+  },
+  "privacy_boundary": "No deviceId, groupId, label, permission payload, or raw enumerateDevices result is retained.",
+  "trust_limit": "The evaluator classifies browser-observed routing transitions only. It does not prove that sound was audible, that a device physically existed, or that a user heard output.",
+  "falsification_route": "Run on a physical browser with a permitted non-default sink, unplug or disconnect it during playback, capture devicechange plus permitted output-presence booleans, and compare the classification with independent physical audibility evidence.",
+  "commits": [
+    "4b5394026a092d6bf2740ae03ae1a602add49618",
+    "5dcc3315fb7e9f8e2b629074956b793dc2c99840"
+  ]
+}
