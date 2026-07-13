@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-013",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed_with_followup",
+  "action": "Add fail-closed verification that queue-update output paths exist and are bound to the exact referenced commits before candidate compaction.",
+  "completed_at": "2026-07-13T14:56:47Z",
+  "selection_basis": "M-012 explicitly left reference existence verification as the highest-value unresolved continuity gap; no newer continuity-owned queue item superseded it.",
+  "specialists_used": [
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "outputs": [
+    {"path": "operations/continuity/queue-reference-verifier.mjs", "commit": "e4766380518b6bf05a9789d0d627f79a8013a0cd"},
+    {"path": "operations/continuity/queue-reference-verifier.test.mjs", "commit": "8446e847e4f404842cd733b7949fa44ac5184312"},
+    {"path": "operations/evidence/continuity-queue-reference-verifier-2026-07-13T1056-0400.json", "commit": "7671b8c7baa2c73a8784010594ca37cef74ea045"}
+  ],
+  "memory_recovered": "A queue event is not fully grounded merely because it parses and orders deterministically. Every claimed output must be checked against an authenticated immutable inventory for both commit existence and exact path-to-commit binding before compaction.",
+  "contradictions_resolved": [
+    "Syntactic validity and deterministic ordering do not imply reference existence.",
+    "A path that exists at some commit is not equivalent to the path being bound to the specifically claimed commit.",
+    "Reference verification establishes repository binding only, not semantic truth, deployment, peer execution, or user-visible outcome."
+  ],
+  "claim_states": {
+    "observed": [
+      "The verifier and five-test contract are committed.",
+      "Five deterministic tests passed in an isolated Node runtime using byte-identical source.",
+      "No canonical queue, registry, trigger ledger, prior team output, file, or Git history was overwritten or deleted."
+    ],
+    "inferred": [
+      "The verifier can block missing and misbound references when supplied a trustworthy immutable inventory."
+    ],
+    "proposed": [
+      "Enumerate every queue update in an authenticated checkout, build the immutable inventory, run reference verification, then materialize candidate effective state."
+    ],
+    "superseded": [
+      "Accepting queue update outputs solely from their declared path and commit fields."
+    ],
+    "unresolved": [
+      "Complete queue-update and path enumeration.",
+      "Trusted inventory construction.",
+      "Candidate compaction and explicit human review."
+    ]
+  },
+  "verification": "5 Node tests passed: valid binding, missing commit rejection, path/commit mismatch rejection, unsafe path rejection, and append-only policy enforcement.",
+  "privacy_boundary": "Public repository metadata and abstract queue semantics only; no raw private chat, health or pet-health material, credentials, personal identifiers, or unreviewed uploads.",
+  "canonical_queue_update_policy": "Append-only team-owned update; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "next_action": "Integrate queue-reference-verifier.mjs with queue-state-materializer.mjs in an authenticated checkout and emit candidate-effective-queue.json plus a retained conflict and invalid-reference report."
+}
