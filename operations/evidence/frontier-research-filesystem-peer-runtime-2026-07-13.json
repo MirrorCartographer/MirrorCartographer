@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-013",
+  "owner": "frontier_research",
+  "finding": "The durable terminal journal can classify a post-rename directory-sync failure as recorded-indeterminate-reconciled, but the peer execution runtime previously accepted only recorded and already-recorded. A real filesystem-backed runtime adapter must translate that reconciled durable outcome into an append-safe recorded receipt while preserving the distinct durability state for evidence consumers.",
+  "primary_sources": [
+    "https://pubs.opengroup.org/onlinepubs/9799919799/functions/fsync.html",
+    "https://man7.org/linux/man-pages/man2/rename.2.html"
+  ],
+  "source_status": "primary operating-system interface specifications plus committed repository behavior",
+  "design_implication": "Construct peer execution runtimes through a filesystem adapter that binds the existing proof verifier, compare-and-set journal, and atomic filesystem store. Preserve recorded-indeterminate-reconciled as durability_state while returning recorded to the caller only after reread reconciliation proves the exact terminal is durable.",
+  "artifacts": [
+    "tools/frontier-research/filesystem-peer-execution-runtime.mjs",
+    "tools/frontier-research/filesystem-peer-execution-runtime.test.mjs"
+  ],
+  "verification": {
+    "status": "committed-static-verification",
+    "checks": [
+      "adapter imports and wires the existing runtime, verifier, durable journal, and filesystem store",
+      "normal writes retain recorded/already-recorded idempotency semantics",
+      "injected directory-sync failure must preserve recorded-indeterminate-reconciled in durability_state",
+      "terminal event append occurs once after exact reread reconciliation"
+    ],
+    "runtime_limit": "The automation container could not resolve github.com, so the committed Node test was not executed in a fresh checkout during this run."
+  },
+  "evidence_strength": "implementation committed; deterministic test committed; runtime execution pending",
+  "uncertainty": "Cross-process crash injection and a CI execution remain unverified.",
+  "falsification_route": "Run node --test tools/frontier-research/filesystem-peer-execution-runtime.test.mjs in CI. Fail the slice if a reconciled terminal is rejected, if durability_state is lost, if the event is appended more than once, or if a conflicting terminal is accepted.",
+  "privacy_boundary": "Public repository code and generic runtime metadata only; no private chat, health, credentials, or identifying personal material.",
+  "commits": [
+    "fffa4ee79b0fa670c22cc61b19506afbc8b3d48d",
+    "364e3dfd8fff579656fcc88c41312f7b47a133ac",
+    "bd15bff2c89b30c75c8244eb3708313020fc0f69",
+    "5995767dcb402a2abfac95e31e2aec4d37cb903a"
+  ]
+}
