@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "updated_at": "2026-07-13T00:36:00-04:00",
+  "durable_improvement": {
+    "module": "cloudflare-static/run-github-oidc-evidence.mjs",
+    "test": "cloudflare-static/run-github-oidc-evidence.test.mjs",
+    "evidence": "operations/evidence/cloudflare-oidc-runner-2026-07-13T0036-0400.json",
+    "commits": [
+      "42ab7e9d7fd85e0e7896518d04e8ebc3f4cddf92",
+      "4685bf8fc37656ac1439efd64c4ce3536916ecbb",
+      "4e4874f23451d8bca8b5a1366063c419605542af"
+    ]
+  },
+  "verification": {
+    "source_behavior": "The committed runner composes the existing pinned metadata client, JWT verifier, exact-claim authorizer, and composite evidence evaluator.",
+    "runtime_test": "not_observed_due_to_github_dns_failure",
+    "deployment_proof": "not_available"
+  },
+  "remaining": [
+    "Wire run-github-oidc-evidence.mjs and its test into .github/workflows/cloudflare-pages-research.yml.",
+    "Add replay rejection bound to run_id, run_attempt, token jti, and a single accepted evidence manifest.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the protected cloudflare-research environment.",
+    "Dispatch the workflow and verify the returned Cloudflare Pages URL, served surface identity, and deployed commit."
+  ],
+  "boundaries": {
+    "payments_on_vercel": false,
+    "diagnosis_or_treatment_claims": false,
+    "files_or_history_deleted": false
+  }
+}
