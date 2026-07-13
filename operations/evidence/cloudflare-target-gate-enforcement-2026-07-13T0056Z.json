@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T00:56:00Z",
+  "claim_state": "implemented_source_behavior",
+  "evidence_strength": "source-enforced_with_isolated_deterministic_check",
+  "finding": "The deployment-target consistency validator is now imported by cloudflare-access-workflow-contract.test.mjs, which is already executed by the Cloudflare deployment workflow before readiness probing and deployment.",
+  "changed_file": "cloudflare-static/cloudflare-access-workflow-contract.test.mjs",
+  "source_commit": "b7f982e9b7b719b0bffc8a5176db8e2eafef5e80",
+  "enforced_invariants": [
+    "Wrangler project name equals mirror-cartographer-research",
+    "Pages build output directory equals dot",
+    "Wrangler deploy command project equals mirror-cartographer-research",
+    "Every CLOUDFLARE_PAGES_PROJECT workflow value equals mirror-cartographer-research"
+  ],
+  "verification": {
+    "method": "isolated Node execution of the committed validator logic against exact current project identifiers extracted from the fetched Wrangler and workflow source",
+    "result": "valid",
+    "errors": []
+  },
+  "limits": [
+    "No GitHub Actions run was available during this run.",
+    "No Cloudflare deployment was attempted because required environment credentials remain externally unverified.",
+    "The isolated check verifies deterministic contract behavior, not hosted deployment identity or URL resolution."
+  ],
+  "falsification_route": "Change any Wrangler, deploy-command, or metadata-verifier project identifier and run node --test cloudflare-static/cloudflare-access-workflow-contract.test.mjs; the gate must fail before deployment.",
+  "privacy_boundary": "Contains repository configuration identities and test results only; no secret values, private chat, health data, diagnosis, or treatment claims."
+}
