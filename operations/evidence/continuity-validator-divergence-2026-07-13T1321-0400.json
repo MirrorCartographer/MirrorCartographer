@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-003",
+  "generated_at": "2026-07-13T17:21:37Z",
+  "subject": "continuity validator capability divergence",
+  "sources": [
+    {
+      "path": "tools/continuity/validate-continuity-records.mjs",
+      "blob_sha": "d4f803a683ae988c54370856dc03108e4ec696bc"
+    },
+    {
+      "path": "operations/continuity/validate-continuity-relations.mjs",
+      "blob_sha": "3945dee7eb6b1745a0865def23f185b399e984ba"
+    },
+    {
+      "path": "operations/queue-updates/M-002-2026-07-13T1314-0400.json",
+      "blob_sha": "37007d811fe5fb70b6d7609fa7a702f966807cdd"
+    }
+  ],
+  "capability_matrix": {
+    "required_record_fields": {"aggregate_validator": true, "relation_validator": false},
+    "enumerated_claim_state_kind_evidence_privacy": {"aggregate_validator": true, "relation_validator": false},
+    "aggregate_monolithic_and_additive_records": {"aggregate_validator": true, "relation_validator": false},
+    "duplicate_record_ids": {"aggregate_validator": true, "relation_validator": true},
+    "missing_relation_targets": {"aggregate_validator": true, "relation_validator": true},
+    "self_relations": {"aggregate_validator": true, "relation_validator": true},
+    "superseded_state_requires_target": {"aggregate_validator": true, "relation_validator": false},
+    "duplicate_relation_targets": {"aggregate_validator": false, "relation_validator": true},
+    "supersession_cycle_rejection": {"aggregate_validator": false, "relation_validator": true}
+  },
+  "claim_states": {
+    "observed": "The validators have different input contracts and non-identical invariant coverage.",
+    "inferred": "Repository-wide validation can miss duplicate relation targets and supersession cycles unless the stricter validator is composed with aggregate loading.",
+    "proposed": "Create one aggregate authoritative gate that preserves both validators' non-overlapping guarantees.",
+    "superseded": "A single undifferentiated statement that continuity relation integrity is fully enforced.",
+    "unresolved": "CI execution of a composed authoritative gate has not been observed."
+  },
+  "verification": {
+    "method": "exact source readback and line-by-line capability comparison",
+    "source_commit_for_record": "607cc8ec2236ee3605206db4548919789be2601f",
+    "runtime_tests_executed": false,
+    "reason_runtime_tests_not_executed": "The connected repository interface exposed source and commit operations but no checkout runtime in this run."
+  },
+  "privacy_boundary": "Public repository source, file paths, blob SHAs, and abstract implementation analysis only. No private chat, health, pet-health, credentials, contact data, or unreviewed uploads.",
+  "claim_boundary": "Capability comparison does not prove CI execution, deployment, peer execution, or truth of indexed claims."
+}
