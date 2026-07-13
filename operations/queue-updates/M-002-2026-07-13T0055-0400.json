@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": {
+    "id": "M-002",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Extend the continuity substrate with commit and decision-history records that preserve intermediate, strengthened, superseded, and unresolved states.",
+    "status": "completed_slice",
+    "selected_from": "M-001 handoff because ACTIVE_QUEUE.json contains no active continuity_mining item",
+    "result": {
+      "record": "operations/continuity/records/CM-0010.json",
+      "memory_recovered": "OIDC replay hardening evolved from process-local classification to an atomic durable-store contract and bounded temporal policy.",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "privacy_boundary": "public repository files and commit metadata only",
+      "commit": "3ec78159e3d90bc53a91ab1571ed2af375f9a38c"
+    },
+    "unresolved": [
+      "No retained production transaction proves concurrent replay rejection in a deployed durable backend.",
+      "The canonical continuity index does not yet aggregate CM-0010; this additive record avoids racing or overwriting shared state."
+    ],
+    "next_action": "Add an index aggregation contract that discovers additive continuity records, validates them against the continuity schema, and reports duplicate IDs or incompatible status relations without rewriting history."
+  },
+  "shared_state_policy": "This projection does not overwrite ACTIVE_QUEUE.json or records owned by other teams."
+}
