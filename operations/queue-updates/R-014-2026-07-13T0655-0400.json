@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "status": "completed_with_runtime_verification_pending",
+  "priority_basis": "The highest-priority frontier handoff required inspecting the pending clean-runner gate. Inspection found that the workflow referenced a nonexistent module and omitted the actual durability modules, making the gate non-executable as written.",
+  "completed": [
+    "Replaced the stale workflow path with the actual durable journal and filesystem terminal-store modules.",
+    "Expanded path filters and syntax checks to cover the full durability dependency chain.",
+    "Added a deterministic workflow contract test for file existence, stale-path rejection, test invocation, least privilege, and immutable action pinning.",
+    "Recorded source status, uncertainty, evidence strength, privacy boundary, and falsification routes."
+  ],
+  "files": [
+    ".github/workflows/frontier-peer-runtime.yml",
+    "tools/frontier-research/frontier-peer-runtime-workflow.test.mjs",
+    "operations/evidence/frontier-research-peer-runtime-workflow-source-binding-2026-07-13.json"
+  ],
+  "commits": [
+    "a339c4543d3c37a2d3d2641b5dc2c5f40b98ee9f",
+    "854954d4e488cf640134c634fefeb57ee1b82e66",
+    "956ce13fd8b96ce0df47bd14409b1daecdb9805b"
+  ],
+  "verification": "Repository source inspection confirms the corrected bindings and committed regression test. No GitHub Actions run was returned for the newest commit, so hosted runtime success is not claimed.",
+  "next_action": "Obtain the first clean-runner result for the corrected workflow. If green, implement process-level crash injection around pre-rename termination, post-rename pre-directory-sync termination, and lock-release recovery."
+}
