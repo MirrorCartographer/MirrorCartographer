@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T11:04:42-04:00",
+  "slice": "Align the deployment evidence manifest verifier with the builder's active schema version.",
+  "observed": {
+    "builder_schema_version": "1.1.0",
+    "verifier_schema_version_before": "1.0.0",
+    "failure_mode": "Every manifest produced by the current builder was rejected by the current verifier as unsupported, preventing finalization even when evidence bytes and provenance were otherwise valid."
+  },
+  "implemented": {
+    "verifier": "cloudflare-static/verify-deployment-evidence-manifest.mjs",
+    "test": "cloudflare-static/verify-deployment-evidence-manifest.test.mjs",
+    "supported_schema_version": "1.1.0",
+    "downgrade_policy": "fail closed"
+  },
+  "commits": [
+    "d6a31449c807c8c4863abfd59a8d1853d3bb348b",
+    "5114c1c533a4111461dd701b009692299968949c"
+  ],
+  "verification": {
+    "route": "isolated Node test using byte-identical verifier logic and manifest-builder behavior",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "schema 1.1.0 acceptance",
+      "schema downgrade rejection",
+      "artifact-byte tampering",
+      "source and workflow-run substitution",
+      "reordered evidence entries"
+    ]
+  },
+  "claim_ceiling": "source-contract-and-isolated-test-only",
+  "deployment": {
+    "attempted": false,
+    "reason": "Cloudflare credentials and provider deployment identity remain unavailable."
+  },
+  "privacy_boundary": {
+    "included": ["public repository paths", "commit identifiers", "schema contract", "test outcomes"],
+    "excluded": ["credentials", "private chat", "health material", "personal identifiers"]
+  },
+  "limits": [
+    "The full GitHub Actions workflow was not executed.",
+    "This change removes an internal false rejection but does not prove a Cloudflare deployment or resolving hostname.",
+    "Manifest validity authenticates bounded repository evidence and does not establish scientific truth."
+  ],
+  "rollback": [
+    "Revert 5114c1c533a4111461dd701b009692299968949c",
+    "Revert d6a31449c807c8c4863abfd59a8d1853d3bb348b"
+  ]
+}
