@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "recorded_at": "2026-07-13T14:16:00-04:00",
+  "creative_premise": "A completed weather score germinates a hidden garden; the new room is earned by finishing the instrument rather than exposed as ordinary navigation.",
+  "implementation": {
+    "entry_source": "independent-web/index.html",
+    "room_source": "independent-web/pressure-garden/index.html",
+    "contract_test": "independent-web/pressure-garden-entry.contract.test.mjs",
+    "workflow": ".github/workflows/independent-web-pages.yml",
+    "threshold": 8,
+    "entry_path": "./pressure-garden/",
+    "reset_behavior": "Erase score closes both earned chambers and restores non-focusable hidden state.",
+    "keyboard_behavior": "The G key enters only while the garden-open state is true."
+  },
+  "commits": {
+    "implementation": "a14c0eda6b4317f5a48ba4c795c7695469296b1d",
+    "test": "aa9128a8398884e94b65ef055705d2f11303acec",
+    "workflow_gate": "c71694f9360543e95705f3337ae6827df6e24188"
+  },
+  "verification": {
+    "source_write": "GitHub accepted all three commits on the default branch.",
+    "workflow_lookup": "No pull-request-triggered workflow run was returned for c71694f9360543e95705f3337ae6827df6e24188.",
+    "test_execution_claimed": false,
+    "browser_execution_claimed": false,
+    "deployment_claimed": false,
+    "mobile_proof_claimed": false
+  },
+  "identity_boundary": [
+    "No Mirror Cartographer explanation or research content.",
+    "No dashboard, account, analytics, form, payment, subscription, or conversion mechanism.",
+    "Interaction remains local and data-free.",
+    "The route is disclosed through play-state consequence rather than product navigation."
+  ],
+  "rollback": [
+    "Revert c71694f9360543e95705f3337ae6827df6e24188 to remove the workflow gate.",
+    "Revert aa9128a8398884e94b65ef055705d2f11303acec to remove the contract test.",
+    "Revert a14c0eda6b4317f5a48ba4c795c7695469296b1d to restore the prior single-chamber home screen."
+  ],
+  "limits": [
+    "The new contract test was committed but not executed by an observed workflow in this run.",
+    "No public Pages URL or served commit was observed.",
+    "No physical mobile or Safari interaction was observed."
+  ]
+}
