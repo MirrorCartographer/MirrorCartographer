@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T06:24:00-04:00",
+  "improvement": "Composite deployment evidence now rejects HTTPS lookalike domains and requires Worker URLs under .workers.dev and Pages URLs under .pages.dev.",
+  "source_commits": {
+    "validator": "c3e327250125f86c27e6743b09f026e99ad216c2",
+    "tests": "440556a7485cd46c90f882028184ddf453b5c683"
+  },
+  "verification": {
+    "route": "isolated Node 22 execution of logic-equivalent validator cases",
+    "result": "3 passed, 0 failed",
+    "cases": [
+      "valid Cloudflare worker and pages hostnames accepted",
+      "HTTPS lookalike domains rejected",
+      "malformed and non-HTTPS URLs rejected"
+    ],
+    "repository_status": "No Cloudflare deployment workflow status was available on the test commit. Existing Vercel checks failed because of Vercel build-rate limits and are unrelated to this Cloudflare validation slice."
+  },
+  "claim_state": {
+    "observed": [
+      "The prior composite validator required HTTPS URLs but did not bind them to Cloudflare deployment domains.",
+      "The committed validator now parses URLs and enforces provider-specific hostname suffixes."
+    ],
+    "inferred": [
+      "Provider-bound hostname validation reduces acceptance of fabricated or misrouted deployment evidence."
+    ],
+    "proposed": [
+      "Add custom-domain allowlists only when they are explicitly configured and cryptographically or operationally bound to the deployment."
+    ],
+    "unresolved": [
+      "The actual Cloudflare Pages hostname and deployed commit remain unverified because external Cloudflare credentials and environment configuration are still absent."
+    ]
+  },
+  "privacy_boundary": "Contains repository paths, commit identifiers, test outcomes, and infrastructure semantics only. No private chat, health, credential, or personal data is included.",
+  "limits": [
+    "Hostname suffix validation is infrastructure evidence, not scientific or medical proof.",
+    "A .workers.dev or .pages.dev hostname alone does not prove control, content identity, or deployment freshness; the existing identity and commit-bound proof checks remain required."
+  ]
+}
