@@ -38,6 +38,19 @@ export function createDurablePeerTerminalJournal({ read, compareAndSet, maxRetri
   if (typeof compareAndSet !== 'function') throw new TypeError('compare-and-set-required');
   if (!Number.isInteger(maxRetries) || maxRetries < 1) throw new TypeError('max-retries-positive-integer');
 
+  function classifyExisting({ existing, packetDigest, terminalEvent, triggerId, etag, attempts, reconciled = false }) {
+    if (!existing) return null;
+    if (existing.packet_digest === packetDigest && existing.terminal_event?.id === terminalEvent.id) {
+      return Object.freeze({
+        state: reconciled ? 'recorded-indeterminate-reconciled' : 'already-recorded',
+        trigger_id: triggerId,
+        etag,
+        attempts
+      });
+    }
+    throw new Error('terminal-conflict');
+  }
+
   async function append({ triggerId, terminalEvent, packetDigest }) {
     requiredString(triggerId, 'trigger-id');
     requiredString(packetDigest, 'packet-digest');
@@ -51,14 +64,15 @@ export function createDurablePeerTerminalJournal({ read, compareAndSet, maxRetri
       const current = snapshot.document ?? { schema_version: '1.0.0', terminals: {} };
       const etag = requiredString(snapshot.etag, 'journal-etag');
       const terminals = current.terminals && typeof current.terminals === 'object' ? current.terminals : {};
-      const existing = terminals[triggerId];
-
-      if (existing) {
-        if (existing.packet_digest === packetDigest && existing.terminal_event?.id === terminalEvent.id) {
-          return Object.freeze({ state: 'already-recorded', trigger_id: triggerId, etag, attempts: attempt - 1 });
-        }
-        throw new Error('terminal-conflict');
-      }
+      const existingResult = classifyExisting({
+        existing: terminals[triggerId],
+        packetDigest,
+        terminalEvent,
+        triggerId,
+        etag,
+        attempts: attempt - 1
+      });
+      if (existingResult) return existingResult;
 
       const next = {
         ...current,
@@ -72,8 +86,25 @@ export function createDurablePeerTerminalJournal({ read, compareAndSet, maxRetri
       };
       const nextEtag = journalEtag(next);
       const result = await compareAndSet({ expectedEtag: etag, nextEtag, document: next });
-      if (result?.applied === true) {
+      if (result?.state === 'applied' || result?.applied === true) {
         return Object.freeze({ state: 'recorded', trigger_id: triggerId, etag: nextEtag, attempts: attempt });
+      }
+      if (result?.state === 'indeterminate') {
+        const reconciliation = await read();
+        if (!reconciliation || typeof reconciliation !== 'object') throw new Error('journal-read-invalid');
+        const reconciliationDocument = reconciliation.document ?? { schema_version: '1.0.0', terminals: {} };
+        const reconciliationEtag = requiredString(reconciliation.etag, 'journal-etag');
+        const reconciled = classifyExisting({
+          existing: reconciliationDocument.terminals?.[triggerId],
+          packetDigest,
+          terminalEvent,
+          triggerId,
+          etag: reconciliationEtag,
+          attempts: attempt,
+          reconciled: true
+        });
+        if (reconciled) return reconciled;
+        throw new Error(`journal-write-indeterminate:${result?.reason ?? 'unknown'}`);
       }
       if (result?.reason !== 'precondition-failed') throw new Error(`journal-write-failed:${result?.reason ?? 'unknown'}`);
     }
