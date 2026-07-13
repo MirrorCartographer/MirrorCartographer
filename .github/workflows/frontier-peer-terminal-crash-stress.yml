@@ -6,6 +6,7 @@ on:
     paths:
       - 'tools/frontier-research/filesystem-peer-terminal*.mjs'
       - 'tools/frontier-research/build-crash-stress-observation*.mjs'
+      - 'tools/frontier-research/verify-crash-stress-observation*.mjs'
       - 'tools/frontier-research/classify-crash-stress-evidence*.mjs'
       - '.github/workflows/frontier-peer-terminal-crash-stress.yml'
 
@@ -53,9 +54,23 @@ jobs:
             "${test_exit_code}"
           exit "${test_exit_code}"
 
-      - name: Verify observation builder contract
+      - name: Verify retained observation bytes and exact commit
+        if: always()
         shell: bash
-        run: node --test tools/frontier-research/build-crash-stress-observation.test.mjs
+        run: |
+          node tools/frontier-research/verify-crash-stress-observation.mjs \
+            "operations/runtime-evidence/frontier-peer-terminal-crash-stress/observation-${RUNNER_OS}.json" \
+            "operations/runtime-evidence/frontier-peer-terminal-crash-stress/runner-${RUNNER_OS}.txt" \
+            "operations/runtime-evidence/frontier-peer-terminal-crash-stress/summary-${RUNNER_OS}.json" \
+            "operations/runtime-evidence/frontier-peer-terminal-crash-stress/test-${RUNNER_OS}.log" \
+            "${GITHUB_SHA}" \
+            | tee "operations/runtime-evidence/frontier-peer-terminal-crash-stress/verification-${RUNNER_OS}.json"
+
+      - name: Verify observation contracts
+        shell: bash
+        run: |
+          node --test tools/frontier-research/build-crash-stress-observation.test.mjs
+          node --test tools/frontier-research/verify-crash-stress-observation.test.mjs
 
       - name: Upload retained evidence
         if: always()
