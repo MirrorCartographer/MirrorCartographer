@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "implemented_runtime_pending",
+  "updated_at": "2026-07-13T08:43:00-04:00",
+  "action": "Produce independently digest-verified Linux and macOS crash-stress observations for one exact commit, then require classifier acceptance.",
+  "completed_slice": {
+    "finding": "Observation digest fields cannot be trusted without independently recomputing hashes from downloaded retained bytes and checking mirrored identity and summary fields against the exact expected commit.",
+    "module": "tools/frontier-research/verify-crash-stress-observation.mjs",
+    "test": "tools/frontier-research/verify-crash-stress-observation.test.mjs",
+    "evidence": "operations/evidence/frontier-crash-stress-independent-byte-verifier-2026-07-13.json",
+    "commits": [
+      "677d4d7ceb9a5d613a82713fcfba402de4fc1d05",
+      "c1bf54ad57d0ec7fe2a271de4b401793bbce0e5e",
+      "2c536cfb4395cd6db7d9218307cb643e07b798f4"
+    ],
+    "verification": "Three deterministic Node tests passed in an isolated runtime: exact bytes accepted, tampered log rejected, commit disagreement rejected."
+  },
+  "remaining": [
+    "Obtain a completed Linux and macOS workflow run for one exact descendant commit.",
+    "Download each platform artifact and run the independent byte verifier against identity, summary, raw log, and observation files.",
+    "Construct a two-platform packet only from verified observations and require classify-crash-stress-evidence.mjs to return accepted=true.",
+    "Retain downloaded artifact digests, verifier outputs, classifier output, workflow run identity, and exact source commit."
+  ],
+  "epistemic_limit": "Committed source and local contract tests do not prove hosted workflow execution or cross-platform crash recovery."
+}
