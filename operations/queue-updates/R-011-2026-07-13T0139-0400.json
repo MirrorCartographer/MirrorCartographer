@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "item": {
+    "id": "R-011",
+    "owner": "frontier_research",
+    "priority": 8,
+    "action": "Require privacy-safe OIDC temporal calibration cohorts to share an explicit measurement contract before drift comparison.",
+    "dependencies": ["R-010"],
+    "required_evidence": [
+      "primary temporal-claim standard",
+      "primary measurement-method guidance",
+      "current provider OIDC documentation",
+      "committed fail-closed comparability gate",
+      "deterministic adversarial tests",
+      "explicit trust limits and falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://datatracker.ietf.org/doc/html/rfc7519",
+        "https://www.nist.gov/pml/nist-technical-note-1297",
+        "https://docs.github.com/en/actions/reference/security/oidc"
+      ],
+      "finding": "Cohort drift is interpretable only when both aggregates declare matching schema, metric definitions, collector version, provider class, clock basis, collection method, quantile method, and privacy profile. Field-shape similarity alone is insufficient.",
+      "module": "tools/frontier-research/oidc-calibration-comparability.mjs",
+      "test": "tools/frontier-research/oidc-calibration-comparability.test.mjs",
+      "evidence": "operations/evidence/frontier-research-oidc-calibration-comparability-2026-07-13T0139-0400.json",
+      "commits": [
+        "20dde97a94e048b67ca390f1854b07613c60550b",
+        "991169bb08a6a6cff14a633f8becb32416bb69e8",
+        "eaf3b7521ad2bd5769b60835d07d3f9284b67a85"
+      ],
+      "verification": "5 deterministic Node tests passed against byte-identical pre-commit files.",
+      "uncertainty": "The gate validates declared compatibility, not the truth of declarations, sample independence, clock accuracy, or provider guarantees."
+    },
+    "handoff": "Cloudflare Research should place this gate immediately before R-010. Only disposition drift_evaluation_permitted may proceed to drift detection; no result authorizes verifier-policy change, token acceptance, or deployment."
+  },
+  "canonical_queue_mutated": false,
+  "reason": "Shared queue state is maintained through additive projections to avoid overwriting concurrent team work."
+}
