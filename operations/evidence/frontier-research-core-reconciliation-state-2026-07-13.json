@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-014",
+  "recorded_at": "2026-07-13T06:33:00-04:00",
+  "claim_state": "implementation-committed-test-committed-runtime-pending",
+  "finding": "The core peer execution runtime must accept recorded-indeterminate-reconciled as an appendable terminal journal receipt and preserve that exact state as evidence rather than normalizing it in a filesystem adapter.",
+  "design_implication": "Reconciliation semantics now live at the runtime boundary shared by all terminal journal implementations. A reconciled post-rename write appends the terminal event once, while already-recorded remains non-appendable.",
+  "sources": [
+    "tools/frontier-research/peer-execution-runtime.mjs",
+    "tools/frontier-research/durable-peer-terminal-journal.mjs",
+    "tools/frontier-research/filesystem-peer-terminal-store.mjs",
+    "tools/frontier-research/filesystem-peer-execution-runtime.mjs"
+  ],
+  "commits": [
+    "03f508e055281d6851557da87c39e6e94c9f8da6",
+    "b46827a4fb74292b833414442d007b8f1bb874ad",
+    "076abe75a1bccf251e6237b7d404c4465f5ce71c"
+  ],
+  "verification": {
+    "source": "exact committed source returned by GitHub contents API",
+    "test": "deterministic Node test committed for normal record, duplicate suppression, injected directory-sync failure, exact state preservation, and one append",
+    "runtime": "not executed in this connector-only run"
+  },
+  "evidence_strength": "moderate-source-level",
+  "uncertainty": "The committed test has not yet produced a GitHub Actions result for these commits.",
+  "falsification_route": [
+    "Run node --test tools/frontier-research/filesystem-peer-execution-runtime.test.mjs in CI.",
+    "Fail if reconciled state is rejected or rewritten.",
+    "Fail if the terminal event is not appended exactly once.",
+    "Fail if an already-recorded receipt causes another append."
+  ],
+  "privacy_boundary": "No private chat, health, credential, or identifying material is included."
+}
