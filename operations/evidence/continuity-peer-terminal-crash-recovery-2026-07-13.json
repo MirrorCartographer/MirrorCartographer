@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T11:04:25Z",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "artifact": "operations/continuity/records/CM-0010-CM-0012-peer-terminal-crash-recovery.json",
+  "verification": {
+    "json_parse": "passed",
+    "source_commits_inspected": [
+      "3f28d6e866a8c35cc7f7ddb9bab029a1a049ecf3",
+      "4400329c0e9321fa303ac3fc0af88a20888caf7b",
+      "e7daec1aa1815d6e16573ce5d9d4953ec4c08bb4"
+    ],
+    "claim_states": [
+      "observed",
+      "superseded",
+      "unresolved"
+    ],
+    "hosted_ci": "not_observed"
+  },
+  "privacy": "public repository technical metadata only"
+}
