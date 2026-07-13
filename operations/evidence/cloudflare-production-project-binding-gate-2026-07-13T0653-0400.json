@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T06:53:00-04:00",
+  "claim_state": "implemented_source_verified_ci_pending",
+  "improvement": "The least-privilege Cloudflare project-binding gate now runs a dedicated production-workflow contract that fail-closes if the Wrangler deployment, source commit binding, branch binding, control-plane verifier, or exact Pages project identity drifts.",
+  "project": "mirror-cartographer-research",
+  "files": [
+    "cloudflare-static/production-project-binding-workflow.test.mjs",
+    ".github/workflows/cloudflare-project-binding-gate.yml",
+    "cloudflare-static/project-binding-gate-workflow.test.mjs"
+  ],
+  "commits": [
+    "06bf00bef5cc26ba6d6b9e7b7fe062f55b85606c",
+    "47e65f046fa3da009d2d3379b9489683b64dfadf",
+    "5e332c7be5fbb58a14fa0b34272fa421901fc9ee"
+  ],
+  "source_verification": {
+    "production_workflow_observed": {
+      "working_directory": "cloudflare-static",
+      "wrangler_project_name": "mirror-cartographer-research",
+      "commit_hash_argument": "${{ github.sha }}",
+      "branch_argument": "${{ inputs.branch }}",
+      "metadata_project_environment": "mirror-cartographer-research",
+      "metadata_verifier": "cloudflare-static/verify-cloudflare-deployment-metadata.mjs"
+    },
+    "gate_observed": {
+      "permissions": "contents: read",
+      "production_contract_command": "node --test cloudflare-static/production-project-binding-workflow.test.mjs",
+      "path_trigger_present": true,
+      "checkout_action_immutable": true
+    }
+  },
+  "ci_verification": {
+    "commit": "5e332c7be5fbb58a14fa0b34272fa421901fc9ee",
+    "workflow_runs_returned": 0,
+    "status": "not_observed",
+    "claim_limit": "No GitHub Actions execution or passing test run is claimed."
+  },
+  "privacy_boundary": "Contains repository paths, public workflow semantics, project identifier, and commit identities only. No credentials, health material, private chat, or diagnosis/treatment content.",
+  "epistemic_limit": "This gate authenticates repository deployment intent and detects configuration drift. It does not prove that Cloudflare credentials exist, that a deployment occurred, that a hostname resolves, or that scientific claims are true.",
+  "falsification_routes": [
+    "Change the production Wrangler project name and confirm the contract test fails.",
+    "Remove the exact commit-hash binding and confirm the contract test fails.",
+    "Remove the production contract from the gate workflow and confirm the gate contract test fails.",
+    "Observe a GitHub Actions run for commit 5e332c7be5fbb58a14fa0b34272fa421901fc9ee or a descendant and retain the run identity and result."
+  ]
+}
