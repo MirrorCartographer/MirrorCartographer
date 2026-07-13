@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T12:37:00-04:00",
+  "item_id": "M-002",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "action": "Model contradictions and state-layer divergence as linked provenance records rather than overwriting earlier observations.",
+  "status": "completed_slice",
+  "progress": {
+    "decision_record": "operations/continuity/decisions/DEC-001-review-gated-queue-compaction.json",
+    "validator": "operations/continuity/validate-contradiction-ledger.mjs",
+    "test": "operations/continuity/validate-contradiction-ledger.test.mjs",
+    "evidence": "operations/evidence/continuity-contradiction-validator-2026-07-13T1237-0400.json",
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical committed source and test contents",
+    "commits": [
+      "35d4be080048387adb7de02c17583df1c458e4d8",
+      "dcd3aff9f699cb80381a78f130f218b7759f6d35",
+      "678a1c899c02240ec95983c687d57140fa4b451c",
+      "1afb8a228d27e5240eaa513fedf9eeafeb666869"
+    ]
+  },
+  "claim_states": {
+    "observed": "Canonical queue state and append-only candidate updates are separate repository layers.",
+    "inferred": "Contradiction records without independent references or preservation rules can conceal unsupported reconciliation.",
+    "proposed": "Run the validator before accepting contradiction-ledger changes and during reviewed queue compaction.",
+    "superseded": "No repository history or prior continuity record was removed.",
+    "unresolved": "M-002 has not yet been promoted into the canonical ACTIVE_QUEUE.json through reviewed compaction."
+  },
+  "privacy_boundary": "Public repository files and commit metadata only; private chat, health information, credentials, identifying personal data, and unreviewed uploads excluded.",
+  "handoff": "Next continuity slice should build a deterministic compaction manifest that enumerates baseline digest, accepted candidate updates, rejected or deferred updates, and resulting canonical digest without mutating the queue during validation."
+}
