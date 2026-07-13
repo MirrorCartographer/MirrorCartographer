@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "observed_at": "2026-07-13T13:01:36Z",
+  "owner": "continuity_mining",
+  "queue_item": "M-007",
+  "artifact": {
+    "path": "operations/continuity/continuity-index-delta-2026-07-13T0901-0400.json",
+    "content_sha": "5b32a9e1e3333d7e95e27cb10df1177bcdbd9f0a",
+    "commit": "98e27690ee5e280e61563db6034d86bc36bfbb2d"
+  },
+  "predecessor": {
+    "path": "operations/continuity/continuity-index-delta-2026-07-13T0741-0400.json",
+    "content_sha": "4187f0b914ec88bf3366b37002a83c612890601b",
+    "status": "retained_historical_invalid_delta"
+  },
+  "source_level_verification": {
+    "json_fetch_succeeded": true,
+    "record_count": 4,
+    "record_ids": ["CM-0013", "CM-0014", "CM-0015", "CM-0016"],
+    "allowed_kinds_only": true,
+    "kinds": ["decision", "artifact", "unresolved_question", "contradiction"],
+    "graph_links": {"contradicts": [], "supersedes": []},
+    "base_index_sha_matches": true,
+    "predecessor_sha_matches": true
+  },
+  "claim_states": {
+    "observed": [
+      "the corrected successor is committed and fetchable as valid JSON",
+      "all four record kinds are allowed by continuity-index.schema.json",
+      "the malformed predecessor remains retained and is referenced by exact path and blob SHA",
+      "no semantic labels are presented as CM graph references"
+    ],
+    "inferred": [
+      "the corrected successor removes the three defects reported by the M-006 validator at source-inspection level"
+    ],
+    "proposed": [
+      "run the committed validator in a clean checkout and merge records deterministically into the canonical index only after acceptance"
+    ],
+    "superseded": [
+      "the predecessor delta's merge-ready interpretation"
+    ],
+    "unresolved": [
+      "clean-checkout validator execution",
+      "deterministic canonical merge ordering",
+      "retained runtime output for the queue reducer"
+    ]
+  },
+  "privacy_boundary": "Only public repository paths, hashes, commits, abstract queue semantics, and schema terms were used. Raw private chat, health or pet-health material, credentials, identifying personal data, and unreviewed uploads were excluded.",
+  "falsification_route": "Fetch both deltas and the committed validator. Run the validator against base index efb8b5ca41a00a3484af1df112a81fc6a1b6d63a. Falsify source-level acceptance if the corrected successor reports unsupported kinds, duplicate IDs, or unknown CM references."
+}
