@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-009",
+    "owner": "frontier_research",
+    "priority": 8,
+    "action": "Lock the bounded browser capture adapter to the exact Event Timing and Long Animation Frames evaluators with explicit budget propagation and independent fail-closed integration tests.",
+    "dependencies": ["R-008"],
+    "required_evidence": [
+      "current primary specifications",
+      "committed exact-module integration test",
+      "budget propagation assertions",
+      "independent fail-closed assertions",
+      "explicit execution limit and falsification route"
+    ],
+    "status": "completed_source_unexecuted",
+    "progress": {
+      "primary_sources": [
+        "https://w3c.github.io/event-timing/",
+        "https://w3c.github.io/long-animation-frames/"
+      ],
+      "finding": "Combined acceptance is a logical conjunction over two independent production evaluators. Event Timing failure or inconclusiveness cannot be masked by a passing long-frame stream, and a long-frame violation cannot be masked by passing Event Timing evidence.",
+      "test": "tools/frontier-research/browser-interaction-capture.integration.test.mjs",
+      "evidence": "operations/evidence/frontier-research-browser-capture-integration-2026-07-13T1217-0400.json",
+      "commits": [
+        "72d231511f03718952b5c73b3cdf7b7beae9b2a3",
+        "ab8a2f7ff05e6bb321fe5c072b313d07d763d6dd"
+      ],
+      "verification": "The committed test statically imports the production adapter and covers four cross-module contracts. No remote workflow run was observed and local network resolution prevented a clean-checkout execution, so no passing-test claim is made."
+    },
+    "handoff": "Vercel Studio should add this integration test to its relevant gate, then use the adapter in a deployment-bound target-browser harness. Preserve both raw streams, support flags, zero-interactionId counts, declared budgets, independent verdicts, deployment identity, and repeated-trial identity."
+  },
+  "canonical_queue_update_policy": "Append-only team-owned update; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "next_action": "Wire the integration test into a repository CI gate and create the target-browser evidence packet schema binding source commit, deployment identity, device/browser identity, interaction window, raw observations, budgets, and repeated-trial comparison."
+}
