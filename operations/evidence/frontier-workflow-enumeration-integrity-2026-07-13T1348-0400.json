@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-023",
+  "recorded_at": "2026-07-13T13:48:00-04:00",
+  "source_status": "current_primary_documentation",
+  "primary_sources": [
+    {
+      "url": "https://docs.github.com/en/rest/actions/workflow-runs?apiVersion=2022-11-28#list-workflow-runs-for-a-repository",
+      "observations": [
+        "head_sha narrows results to workflow runs associated with the specified commit",
+        "per_page has a maximum of 100",
+        "filtered workflow-run searches return at most 1000 results"
+      ]
+    },
+    {
+      "url": "https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api",
+      "observations": [
+        "Link response headers are the pagination control surface"
+      ]
+    }
+  ],
+  "finding": "Pagination continuity alone is insufficient evidence integrity. Retained pages must also agree on total_count, contain only the requested head_sha, contain unique run ids, expose exactly one terminal page, and reconcile retained count when the declared total is within GitHub's 1000-result filtered-search cap.",
+  "artifact": {
+    "module": "tools/frontier-research/workflow-run-enumeration-integrity.mjs",
+    "test": "tools/frontier-research/workflow-run-enumeration-integrity.test.mjs",
+    "module_commit": "56be20019c2e4e14d13eac8a08caf6ecef5f4a9f",
+    "test_commit": "f0b1e1615125ae3da21af8b3d65cbf7abccb721c"
+  },
+  "evidence_strength": "implemented_and_source_reviewed_not_runtime_executed",
+  "verification": {
+    "source_write": "GitHub contents API accepted both files",
+    "tests_committed": 6,
+    "tests_executed": false
+  },
+  "uncertainty": [
+    "No authenticated live enumeration was performed",
+    "The 1000-result filtered-search ceiling prevents global completeness claims above the cap",
+    "A structurally coherent retained bundle does not prove authentication scope or deployment behavior"
+  ],
+  "falsification_route": "Provide a retained bundle with a foreign head_sha, duplicate run id, page gap, total_count drift, multiple terminal pages, or a retained-count mismatch; the classifier must reject it.",
+  "privacy_boundary": "No credentials, private chat, health material, or identifying personal data are included."
+}
