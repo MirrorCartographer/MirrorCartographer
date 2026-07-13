@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "status": "active",
+  "recorded_at": "2026-07-13T14:31:00-04:00",
+  "completed_slice": "deterministic Pressure Garden heredity and hybridization",
+  "progress": {
+    "creative_system": "Each planted organism now receives deterministic visible traits from touch position and pressure. Once two plants exist, the newest pair can generate a bounded hybrid that visibly recombines hue, height, branching, bloom, curl, and root depth.",
+    "source": ["independent-web/pressure-garden/ecology.mjs","independent-web/pressure-garden/ecology.test.mjs","independent-web/pressure-garden/index.html",".github/workflows/independent-web-pages.yml"],
+    "evidence": "operations/evidence/independent-web-pressure-garden-genetics-2026-07-13T1431-0400.json",
+    "commits": ["6bd3f76ae5a886568fbe9074bd04603b022c6dd7","cabea1d3da95c3ed628a77496b8b62beeaa472a4","f0c958cb48d61192b9ef4717c22d683b195700bc","3d36ba2142e1edfb1c240e17245df50e5511f87c","81806a65cbe3efd9904ee112b5a1d8a690afa630"],
+    "verification": "Four deterministic Node tests passed against byte-identical reconstructed source. GitHub accepted source, test, runtime, workflow, and evidence commits. No workflow run, browser execution, Pages deployment, or mobile result was observed, so none is claimed.",
+    "identity": "The work remains a playable finite ecology and sensory fiction. It does not explain Mirror Cartographer, classify the visitor, present research, expose operations, or solicit conversion."
+  },
+  "remaining": ["observe the Independent Web Pages workflow for the latest commit","verify the served Pages URL and exact deployment identity","exercise planting and crossing in a real pointer-capable browser","capture narrow mobile and physical Safari evidence"],
+  "next_action": "Add runtime evidence that two parent genomes produce a visible bounded hybrid, crossing is disabled before two plants exist, compost resets eligibility, and the served page is bound to the exact source commit."
+}
