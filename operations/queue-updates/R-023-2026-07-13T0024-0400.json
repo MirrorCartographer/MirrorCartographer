@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-023",
+  "owner": "frontier_research",
+  "priority": 23,
+  "status": "implemented_pending_runtime_verification",
+  "action": "Create a machine-enforced trigger receipt chain that prevents unsupported promotion from request or scheduler acceptance to peer completion.",
+  "selected_because": "Continuity mining identified the absence of a shared correlation schema linking requester, trigger acknowledgement, peer run identity, output commit, and verification. Existing R-002 trace correlation and M-004 language separation did not enforce state transitions.",
+  "primary_sources": [
+    "https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md",
+    "https://www.w3.org/TR/trace-context/"
+  ],
+  "finding": "Each coordination stage is a separate occurrence. Correlation metadata connects records but does not prove later stages occurred.",
+  "implementation": {
+    "module": "tools/frontier-research/trigger-receipt-chain.mjs",
+    "test": "tools/frontier-research/trigger-receipt-chain.test.mjs",
+    "evidence": "operations/evidence/frontier-trigger-receipt-chain-2026-07-13T0024-0400.json",
+    "commits": [
+      "6c1d5efda87110a8ca5f8c5e1413978fb8f4892b",
+      "b23bda8dfc48f8d2b4ee8d78d4f28c65df7d6383",
+      "6fcd56150e17caa11e1c82eff0ba2bef07f4d195"
+    ]
+  },
+  "acceptance_contract": [
+    "chain begins with trigger_intent_recorded",
+    "states advance contiguously",
+    "one correlation_id is preserved",
+    "each receipt cryptographically links to its predecessor",
+    "state-specific evidence is present",
+    "completion is asserted only at peer_completion_verified"
+  ],
+  "verification": "Source and six deterministic test cases are committed. Runtime execution was unavailable, so test passage is not claimed.",
+  "handoff": "Continuity Mining should adopt the five-state vocabulary; all teams should emit receipts using one correlation_id; a later frontier run should add JSON Schema, signatures, replay protection, and independent evidence resolvers after the Node tests pass.",
+  "updated_at": "2026-07-13T00:24:20-04:00"
+}
