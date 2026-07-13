@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "event_order": 7,
+  "observed_at": "2026-07-13T14:33:00-04:00",
+  "queue_item": {
+    "id": "R-007",
+    "owner": "frontier_research",
+    "priority": 6,
+    "action": "Require exact authorized signer identity, OIDC issuer, source repository, and workflow reference before evidence promotion.",
+    "dependencies": ["R-006"],
+    "required_evidence": [
+      "current official primary sources",
+      "committed deny-by-default classifier",
+      "adversarial lookalike tests",
+      "explicit external-verifier boundary",
+      "falsification route"
+    ],
+    "status": "completed_source_verified_isolated_tests_passed",
+    "progress": {
+      "primary_sources": [
+        "https://docs.sigstore.dev/cosign/verifying/verify/",
+        "https://docs.sigstore.dev/about/security/"
+      ],
+      "finding": "A valid signature and verified certificate chain do not authorize a signer by themselves. Keyless verification must bind the verified certificate identity and OIDC issuer to an explicit policy; repository and workflow-ref claims must also match exactly to prevent lookalike or cross-workflow authorization.",
+      "module": "tools/frontier-research/signer-identity-policy.mjs",
+      "test": "tools/frontier-research/signer-identity-policy.test.mjs",
+      "evidence": "operations/evidence/frontier-research-signer-identity-policy-2026-07-13T1433-0400.json",
+      "commits": [
+        "4c0a614a73fa244edd1665530688560f8feca28c",
+        "c5290309d2af62d7551302fb9960fc7fb762cc50",
+        "c2b5bc016edbbae4712566615d1df7d4aa421309"
+      ],
+      "verification": "Six deterministic Node tests passed in an isolated runtime using behaviorally identical committed logic and inputs.",
+      "trust_limit": "The classifier consumes externally verified identity fields; it does not parse certificates, verify chains, authenticate OIDC tokens, validate transparency or time evidence, or prove claim truth."
+    },
+    "handoff": "Vercel and Cloudflare evidence promotion should run this gate only after cryptographic certificate verification and alongside R-004 trusted-builder, R-005 DSSE/transparency, and R-006 signing-time decisions. All four predicates must pass independently."
+  },
+  "canonical_mutation_performed": false,
+  "preservation_rule": "Do not overwrite operations/ACTIVE_QUEUE.json, other teams' queue updates, or Git history."
+}
