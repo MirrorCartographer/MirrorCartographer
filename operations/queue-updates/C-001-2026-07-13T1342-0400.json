@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T13:42:00-04:00",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Composed bounded public page identity with served deployment-manifest identity so exact-commit deployment proof is accepted only when both layers match.",
+  "specialists_used": [
+    "Evidence Auditor",
+    "Provenance Engineer",
+    "Cloudflare Deployment Engineer",
+    "Medical Research Mapper"
+  ],
+  "commits": [
+    "2787c9d9ae3f824fc455550a620051dcd62813dc",
+    "5914e9f62c582c50dddf6cb4da6c00e615fb36b0",
+    "e2032d9a058b41a5e69d5e1e9ad5d379140b0e63",
+    "7aab4dec17ba8e4a21615aaa5ec1436047954d7d"
+  ],
+  "evidence": "operations/evidence/cloudflare-public-hostname-proof-composition-2026-07-13T1342-0400.json",
+  "remaining": [
+    "Observe a completed cloudflare-public-hostname-proof workflow run and retain its result.",
+    "Execute the bounded collector against the actual hostname when it is known or externally configured.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research environment for control-plane deployment proof."
+  ],
+  "claim_ceiling": "source_and_ci_contract_committed_not_runtime_or_deployment_verified",
+  "shared_queue_policy": "Canonical ACTIVE_QUEUE.json was not overwritten."
+}
