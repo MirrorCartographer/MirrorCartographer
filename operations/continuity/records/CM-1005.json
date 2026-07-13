@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-1005",
+  "kind": "continuity_model_decision",
+  "title": "The continuity index is a dated snapshot; standalone continuity records are the additive current corpus",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/continuity-index.json",
+      "content_sha": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a",
+      "observed_at": "2026-07-13T18:33:12Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/records/CM-1004.json",
+      "content_sha": "b9ca7f18ede671976b9eeae657f2547545a5442e",
+      "observed_at": "2026-07-13T18:33:12Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "2f210070449b8d2d25d716d8bc4207a4de32b45e",
+      "content_sha": "2f210070449b8d2d25d716d8bc4207a4de32b45e",
+      "observed_at": "2026-07-13T18:33:12Z"
+    }
+  ],
+  "summary": "The file named continuity-index.json was generated on 2026-07-12 and contains records CM-0001 through CM-0009. Later continuity work is retained as standalone files under operations/continuity/records, including CM-1004 committed on 2026-07-13. Therefore absence from the dated index is not evidence that a later memory record does not exist. Consumers must treat the index as a historical snapshot unless a materialized corpus manifest explicitly includes the standalone record set.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": [],
+  "status_relations": {
+    "observed": "The dated index ends at CM-0009 while a later committed standalone record CM-1004 exists.",
+    "inferred": "Repository consumers that inspect only continuity-index.json can produce false absence conclusions about later project memory.",
+    "proposed": "Add a deterministic non-authoritative continuity corpus manifest that enumerates the snapshot index plus standalone record files with source blob SHAs and duplicate-ID detection.",
+    "superseded": "Any operational assumption that continuity-index.json is an exhaustive live registry is superseded; its historical contents remain valid for its generated_at time.",
+    "unresolved": "No committed corpus manifest was identified during this run, and the complete standalone-record directory was not enumerated through a tree-listing API. Exhaustive corpus membership therefore remains unproven."
+  },
+  "falsification_or_review_route": "Fetch continuity-index.json at blob efb8b5ca41a00a3484af1df112a81fc6a1b6d63a and verify generated_at plus its final record ID. Fetch CM-1004.json at blob b9ca7f18ede671976b9eeae657f2547545a5442e and its creation commit. Falsify this record if the index already references CM-1004 or if a newer authoritative manifest explicitly declares and proves exhaustive corpus membership."
+}
