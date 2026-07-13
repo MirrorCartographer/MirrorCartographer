@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T15:11:00-04:00",
+  "queue_item": "R-006",
+  "source_status": {
+    "audio_output_devices_api": {
+      "url": "https://w3c.github.io/mediacapture-output/",
+      "status": "W3C editor's draft / request for wide review",
+      "observed": [
+        "selectAudioOutput requires transient activation",
+        "speaker-selection is a policy-controlled powerful feature",
+        "setSinkId can fail with NotAllowedError, NotFoundError, InvalidStateError, or AbortError depending on the stage",
+        "a selected sink can become unavailable while the graph remains logically playing"
+      ]
+    },
+    "web_audio_api_1_1": {
+      "url": "https://webaudio.github.io/web-audio-api/",
+      "status": "W3C editor's draft dated 2026-06-12",
+      "observed": [
+        "AudioContext exposes sink selection concepts in the current draft",
+        "editor's draft behavior may change and is not universal browser support"
+      ]
+    }
+  },
+  "finding": "Output-device selection and setSinkId resolution provide browser-reported routing evidence, but not physical audibility proof. The strongest privacy-preserving record stores feature support, policy/activation state, standardized error names, sink target class, route availability, and outcome classification while excluding raw device IDs and labels.",
+  "design_implication": "Vercel Studio can add an optional user-invoked output-route diagnostic. It must feature-detect APIs, run selection directly from a gesture, fall back to the default device, listen for devicechange, avoid persisting identifiers, and preserve independent render-progress plus physical-device evidence.",
+  "artifact": {
+    "module": "tools/frontier-research/audio-output-route-evaluator.mjs",
+    "test": "tools/frontier-research/audio-output-route-evaluator.test.mjs",
+    "commits": [
+      "40f03aefa4f6825859bd1e4357271d579646e804",
+      "3983a483c33dcdfd13a59cc1a4c74bb49de9d4b0"
+    ]
+  },
+  "verification": {
+    "method": "isolated Node execution of byte-equivalent pre-commit files",
+    "result": "6 deterministic tests passed",
+    "covered_states": [
+      "confirmed browser-reported route without identifier retention",
+      "unsupported feature set",
+      "missing transient activation",
+      "selected sink no longer enumerated",
+      "sink application permission failure",
+      "invalid input rejection"
+    ]
+  },
+  "evidence_strength": "implementation_ready_specification_translation",
+  "uncertainty": [
+    "browser support was not measured on the production device",
+    "the cited specifications are editor drafts and may change",
+    "promise resolution cannot establish system volume, mute state, speaker movement, or human perception",
+    "device enumeration and labels are permission- and privacy-gated"
+  ],
+  "privacy_boundary": {
+    "raw_device_ids": "excluded",
+    "device_labels": "excluded",
+    "persistent_device_fingerprint": "excluded",
+    "retained": "capability booleans, standardized error names, route target class, and outcome classification only"
+  },
+  "falsification_route": "Run the diagnostic in a secure permitted browser context, select an output from a direct gesture, apply it, then disconnect or revoke that output. The evaluator must leave the confirmed-route state after devicechange and re-enumeration. Pair the result with a physical audible/not-audible report because browser routing evidence alone cannot prove audibility."
+}
