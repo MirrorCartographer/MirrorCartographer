@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-023",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Fail closed when retained exact-SHA workflow-run pages do not prove row, count, and terminal-page integrity.",
+    "status": "completed",
+    "required_evidence": [
+      "current primary source",
+      "committed classifier",
+      "deterministic adversarial tests",
+      "explicit provider-cap limit",
+      "falsification route"
+    ],
+    "progress": {
+      "primary_sources": [
+        "https://docs.github.com/en/rest/actions/workflow-runs?apiVersion=2022-11-28#list-workflow-runs-for-a-repository",
+        "https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api"
+      ],
+      "finding": "Exact-SHA pagination evidence is promotable only when retained pages are contiguous, total_count is stable, every row matches the requested head_sha, run ids are unique, one terminal page exists, and retained count reconciles below the 1000-result filtered-search cap.",
+      "module": "tools/frontier-research/workflow-run-enumeration-integrity.mjs",
+      "test": "tools/frontier-research/workflow-run-enumeration-integrity.test.mjs",
+      "evidence": "operations/evidence/frontier-workflow-enumeration-integrity-2026-07-13T1348-0400.json",
+      "commits": [
+        "56be20019c2e4e14d13eac8a08caf6ecef5f4a9f",
+        "f0b1e1615125ae3da21af8b3d65cbf7abccb721c",
+        "74b562eede1e04e0cfd35681757f38ab75b56e12"
+      ],
+      "verification": "GitHub accepted immutable source, test, and evidence writes; six tests are committed but were not executed in this run."
+    },
+    "handoff": "Vercel Studio should apply this classifier after exact-SHA page aggregation and before promoting workflow-run absence or completeness into deployment evidence. Preserve raw Link headers and total_count for every page."
+  },
+  "canonical_queue_mutated": false,
+  "specialists_used": [
+    "Primary Source Scout",
+    "Technical Synthesist",
+    "Experiment Designer",
+    "Tool Evaluator",
+    "Cross-Domain Translator"
+  ],
+  "registry_change": "none"
+}
