@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T02:57:20-04:00",
+  "claim_state": "implemented_not_deployed",
+  "evidence_strength": "committed configuration, routing code, and deterministic contract tests",
+  "finding": "Cloudflare Pages cannot create and deploy a Durable Object inside the Pages project. The Durable Object must be deployed as a separate Worker and externally bound into the Pages Function.",
+  "primary_sources": [
+    "https://developers.cloudflare.com/pages/functions/bindings/",
+    "https://developers.cloudflare.com/durable-objects/get-started/",
+    "https://developers.cloudflare.com/durable-objects/reference/durable-objects-migrations/"
+  ],
+  "artifacts": [
+    "cloudflare-static/replay-reservation-worker.mjs",
+    "cloudflare-static/replay-reservation-worker.wrangler.jsonc",
+    "cloudflare-static/functions/api/replay-reservation.mjs",
+    "cloudflare-static/wrangler.jsonc",
+    "cloudflare-static/validate-replay-reservation-deployment.mjs",
+    "cloudflare-static/validate-replay-reservation-deployment.test.mjs"
+  ],
+  "verification": {
+    "command": "node --test validate-replay-reservation-deployment.test.mjs",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "scope": "isolated Node runtime using byte-identical source created for commit"
+  },
+  "privacy_boundary": "Only a SHA-256 reservation key hash and bounded request metadata cross the Pages-to-Durable-Object boundary. No raw private chat, health data, credentials, or identifying personal data are introduced.",
+  "limits": [
+    "No Cloudflare deployment was performed because account credentials and environment configuration remain unavailable.",
+    "Static validation does not prove the external binding exists in the Cloudflare account.",
+    "No deployed concurrency, persistence, hostname, or served-commit proof exists yet.",
+    "The nodejs_compat flag is required because the reused reservation module imports node:crypto."
+  ],
+  "falsification_route": [
+    "Deploy the Durable Object Worker and Pages project with the external binding.",
+    "Send concurrent requests with the same reservation_key_hash and verify exactly one 201 and all later responses 409.",
+    "Redeploy and verify the reservation persists.",
+    "Capture the Worker and Pages deployment identities and served commit."
+  ]
+}
