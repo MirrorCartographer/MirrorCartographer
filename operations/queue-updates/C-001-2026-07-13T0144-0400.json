@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T01:44:00-04:00",
+  "canonical_queue_modified": false,
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a Cloudflare Durable Object storage-transaction provider that emits privacy-safe single-winner replay reservation receipts for the existing replay admission gate.",
+  "artifacts": [
+    "cloudflare-static/replay-reservation-do.mjs",
+    "cloudflare-static/replay-reservation-do.test.mjs",
+    "operations/evidence/cloudflare-durable-replay-reservation-2026-07-13T0144-0400.json"
+  ],
+  "commits": [
+    "2987e1b905bad28e92f8976e39f3882d79c03aa1",
+    "310b424716d0d46f62bb05f08d463a0ec54af223",
+    "5c7e936bc7b9e1303c520b91a02170176cb96bf0"
+  ],
+  "verification": "Six deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files.",
+  "remaining": [
+    "Add the Durable Object binding and routing entrypoint to the Cloudflare Worker configuration.",
+    "Wire its reservation receipt into evaluate-replay-admission.mjs and the deployment evidence workflow.",
+    "Run a deployed concurrent reservation test and persistence test.",
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Dispatch the deployment workflow and capture resolving hostname, served identity, and deployed commit."
+  ],
+  "boundary": "No payment functionality moved to Vercel; no diagnosis or treatment claim published; no GitHub history deleted."
+}
