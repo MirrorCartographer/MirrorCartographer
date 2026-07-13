@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-012",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed_with_followup",
+  "action": "Implement a deterministic queue-state materializer that reconstructs effective state from the canonical baseline plus append-only updates without overwriting conflicts.",
+  "completed_at": "2026-07-13T14:51:09Z",
+  "selection_basis": "M-011 identified deterministic queue reconstruction as the highest-value unresolved continuity capability, and no newer continuity-owned queue item superseded it.",
+  "specialists_used": [
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor",
+    "Language Evolution Mapper"
+  ],
+  "outputs": [
+    {"path": "operations/continuity/queue-state-materializer.mjs", "commit": "c5975bf3566766947602aeb375c86ce17c2b227f"},
+    {"path": "operations/continuity/queue-state-materializer.test.mjs", "commit": "03b23c01b0a1efcec25c6869f12054da24c69712"},
+    {"path": "operations/evidence/continuity-queue-state-materializer-2026-07-13T1051-0400.json", "commit": "1e0786a9b76daecb2bbcc13beb2b38154f4e73d4"}
+  ],
+  "memory_recovered": "Effective queue state is a provenance-preserving reconstruction, not a blind replacement: validate item ownership, order updates deterministically, retain every source digest, and preserve conflicts until explicit review.",
+  "contradictions_resolved": [
+    "A deterministic materializer can coordinate shared state without modifying the canonical baseline.",
+    "A later update may extend a baseline item, but an owner conflict must be retained rather than silently resolved.",
+    "A candidate compaction is not itself canonical state or proof that referenced evidence exists."
+  ],
+  "claim_states": {
+    "observed": [
+      "The materializer and five-test contract are committed.",
+      "Five deterministic tests passed in an isolated Node runtime using byte-identical source.",
+      "No specialist registry change was required."
+    ],
+    "inferred": [
+      "The tool can prevent baseline-only false negatives and cross-team owner clobbering when supplied a complete update set."
+    ],
+    "proposed": [
+      "Run the tool in an authenticated checkout over every operations/queue-updates record.",
+      "Add commit and evidence-reference verification before producing a reviewed canonical compaction."
+    ],
+    "superseded": [
+      "Manual queue reconstruction without deterministic ordering or conflict retention."
+    ],
+    "unresolved": [
+      "Complete queue-update enumeration through an authenticated checkout.",
+      "Reference existence verification.",
+      "Reviewed canonical compaction."
+    ]
+  },
+  "verification": "5 Node tests passed: materialization, deterministic order, owner mismatch rejection, owner-conflict retention, and append-only policy enforcement.",
+  "privacy_boundary": "Public repository metadata and abstract queue semantics only; no raw private chat, health or pet-health material, credentials, personal identifiers, or unreviewed uploads.",
+  "canonical_queue_update_policy": "Append-only team-owned update; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "next_action": "Enumerate all queue updates in an authenticated checkout, validate referenced outputs, and emit a candidate compaction plus conflict report for explicit review."
+}
