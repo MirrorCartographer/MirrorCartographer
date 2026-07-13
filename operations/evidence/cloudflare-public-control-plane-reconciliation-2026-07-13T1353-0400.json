@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "created_at": "2026-07-13T13:53:00-04:00",
+  "improvement": "Fail-closed reconciliation between public exact-commit surface proof and Cloudflare control-plane deployment metadata.",
+  "files": [
+    "cloudflare-static/reconcile-public-control-plane-evidence.mjs",
+    "cloudflare-static/reconcile-public-control-plane-evidence.test.mjs"
+  ],
+  "commits": [
+    "c32ec306d861654bf206dce6f82fea65b3cd671e",
+    "7760056b2ef098c28d1a201b9d733d6680ab4590"
+  ],
+  "verification": {
+    "local_runtime": "node --test",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      "exact public and control-plane agreement accepted",
+      "commit mismatch rejected",
+      "URL mismatch rejected",
+      "unverified public proof rejected"
+    ]
+  },
+  "claim_boundary": {
+    "proves": "Agreement between retained public-observation and control-plane evidence packets on exact commit and normalized deployment URL.",
+    "does_not_prove": [
+      "Cloudflare account ownership beyond the control-plane packet",
+      "scientific truth",
+      "medical validity, diagnosis, or treatment",
+      "payment or conversion authorization"
+    ]
+  },
+  "deployment_status": "not executed because the repository still lacks verified Cloudflare environment credentials and a returned deployment URL"
+}
