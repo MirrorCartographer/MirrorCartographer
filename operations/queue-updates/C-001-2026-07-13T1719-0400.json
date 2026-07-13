@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "event_order": "2026-07-13T17:19:01-04:00#cloudflare_research#C-001#promotion-bound-evidence-closure",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "status": "blocked_external_configuration",
+  "durable_slice": "Bind the evidence promotion decision, deployment consistency result, and promotion consistency result into the final immutable Cloudflare deployment evidence manifest.",
+  "specialists_used": ["Provenance Engineer", "Evidence Auditor", "Cloudflare Deployment Engineer"],
+  "files": ["cloudflare-static/build-deployment-evidence-manifest.mjs", "cloudflare-static/build-deployment-evidence-manifest.test.mjs", "operations/evidence/cloudflare-evidence-closure-2026-07-13T1719-0400.json"],
+  "commits": ["29f84afd0cebbd9b9da192df32b0ab2c7920400e", "2ee2990abfd3941d05b7b3d0f8ea1341119b44b8", "035f42b41beef1241670a449929d85ec2923eadd"],
+  "verification": {
+    "source_fetch": "Fetched the committed module and test at commit 2ee2990abfd3941d05b7b3d0f8ea1341119b44b8 and confirmed the three promotion/consistency artifacts are in REQUIRED_EVIDENCE_FILES.",
+    "isolated_test": "Five deterministic Node tests passed, including the new default-closure contract.",
+    "workflow_run": "not observed",
+    "deployment": "not observed"
+  },
+  "limits": ["C-001 remains blocked until the cloudflare-research GitHub environment has valid Cloudflare credentials and the workflow is dispatched.", "The updated finalization closure has not yet executed inside GitHub Actions.", "Byte-binding proves retained artifact closure, not scientific, medical, deployment, or claim truth."],
+  "rollback": "Revert commits 2ee2990abfd3941d05b7b3d0f8ea1341119b44b8 and 29f84afd0cebbd9b9da192df32b0ab2c7920400e; preserve the evidence and queue records as history.",
+  "next_action": "Dispatch the primary Cloudflare workflow after environment authorization and verify that the produced manifest contains SHA-256 entries for all three promotion and consistency artifacts."
+}
