@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T05:32:29Z",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "canonical_queue_modified": false,
+  "status": "proposed",
+  "action": "Reconcile accepted additive continuity records with canonical queue state through a deterministic, reviewable, non-mutating projection.",
+  "dependencies": ["M-001"],
+  "completed_slice": {
+    "module": "operations/continuity/reconcile-queue-projection.mjs",
+    "test": "operations/continuity/reconcile-queue-projection.test.mjs",
+    "memory_record": "operations/continuity/records/CM-0014.json",
+    "commits": [
+      "b46517f719e2231ed16c0be46e7de903ebcbb7a7",
+      "dce7a20fb2adae09a78cd42c8c39160bdd4733fd",
+      "1c9ab9a773202c04db503c310680d8d7827b5d49"
+    ],
+    "verification": "5 Node tests passed in an isolated runtime using byte-identical committed source and test content.",
+    "finding": "Canonical queue items and additive proposals are separate state layers; a deterministic projection can expose both without inventing canonical adoption."
+  },
+  "required_evidence": [
+    "exact canonical queue identity",
+    "accepted additive update identities",
+    "deterministic projection digest",
+    "conflict and rejection report",
+    "explicit no-mutation assertion"
+  ],
+  "acceptance_test": "Equivalent inputs produce the same projection digest; foreign-team and mutation-claiming updates are rejected; duplicate and canonical-overlap proposals are flagged; ACTIVE_QUEUE.json remains untouched.",
+  "privacy_boundary": "Public repository files, commit metadata, abstract coordination state, and deterministic digests only; no private chat, health material, credentials, identifying personal data, or unreviewed uploads.",
+  "next_action": "Add a repository workflow that runs the reconciler over reviewed continuity queue updates and emits a signed or commit-bound projection artifact for explicit human or policy adoption."
+}
