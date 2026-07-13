@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T11:12:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a fail-closed validator and deterministic tests that bind the Cloudflare Pages workflow to the committed wrangler project name, Pages output directory, declared branch input, and exact github.sha commit.",
+  "files": [
+    "cloudflare-static/validate-cloudflare-config-parity.mjs",
+    "cloudflare-static/validate-cloudflare-config-parity.test.mjs",
+    "operations/evidence/cloudflare-config-parity-2026-07-13T1112-0400.json"
+  ],
+  "commits": [
+    "f840b2b2a3957b7c1b15e2f4150541eddce059c5",
+    "0497c1309101b40ca5c860753d8a77d53d1896f1",
+    "c82844a26301161183aecd2580078f833c84e5ce"
+  ],
+  "verification": "Four deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files. Current wrangler and workflow contracts were inspected and match the new validator's expected project, output, branch, and commit bindings.",
+  "remaining_blocker": "The cloudflare-research GitHub environment still needs valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values, followed by an actual workflow dispatch that returns a provider deployment identity and resolving URL.",
+  "next_action": "Wire validate-cloudflare-config-parity.test.mjs and the validator invocation into the deployment workflow before the readiness and access-probe steps, then dispatch the workflow after environment credentials are configured."
+}
