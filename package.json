@@ -16,7 +16,9 @@
     "fixture-parity:smoke": "node tools/agency-validation/run-fixture-parity.mjs --report-out artifacts/agency-validation/fixture-parity-report.json",
     "verify:agency": "npm run test:agency && npm run fixture-parity:smoke",
     "test:governance": "node --test tools/governance-validation/*.test.mjs tools/lib/*.test.mjs",
-    "verify:governance": "npm run test:governance"
+    "verify:governance": "npm run test:governance",
+    "test:continuity": "node --test tools/continuity/*.test.mjs",
+    "verify:continuity": "npm run test:continuity && node tools/continuity/validate-continuity-records.mjs ."
   },
   "dependencies": {
     "react": "^19.0.0",
