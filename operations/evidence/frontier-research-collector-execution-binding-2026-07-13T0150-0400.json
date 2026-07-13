@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-013",
+  "claim_state": "observed",
+  "finding": "Matching collector and workflow provenance is insufficient unless execution evidence is byte-bound to the exact collector, workflow, invocation path, run identity, exit status, and immutable receipt digest.",
+  "primary_sources": [
+    {
+      "url": "https://docs.github.com/en/actions/reference/security/oidc",
+      "status": "current_official",
+      "relevance": "Documents workflow_ref, workflow_sha, run_id, and run_attempt claims available from GitHub Actions OIDC."
+    },
+    {
+      "url": "https://slsa.dev/spec/v1.2/provenance",
+      "status": "current_primary_specification",
+      "relevance": "Defines provenance as verifiable information about where, when, and how an artifact was produced."
+    }
+  ],
+  "artifact": "tools/frontier-research/collector-execution-receipt.mjs",
+  "test": "tools/frontier-research/collector-execution-receipt.test.mjs",
+  "verification": {
+    "command": "node --test collector-execution-receipt.test.mjs",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "environment": "isolated Node runtime using byte-identical pre-commit files"
+  },
+  "evidence_strength": "prototype_with_deterministic_adversarial_tests",
+  "privacy_boundary": {
+    "contains_raw_tokens": false,
+    "contains_private_payloads": false,
+    "contains_health_material": false
+  },
+  "limits": [
+    "The evaluator validates supplied bytes and receipt fields but does not verify GitHub OIDC signatures.",
+    "A self-produced receipt is not independent proof that GitHub executed the collector.",
+    "Matching hashes prove byte identity, not scientific validity or correctness.",
+    "Independent repository-object and workflow-run acquisition remain required."
+  ],
+  "falsification_route": "Substitute collector bytes, alter argv, change run_attempt after digest creation, or mark the workflow step failed; the evaluator must reject each case.",
+  "policy_change_permitted": false,
+  "token_acceptance_permitted": false,
+  "deployment_permitted": false
+}
