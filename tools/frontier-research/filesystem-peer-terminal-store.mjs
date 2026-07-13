@@ -108,10 +108,10 @@ export function createFilesystemPeerTerminalStore({
     if (journalEtag(document) !== nextEtag) throw new Error('next-etag-mismatch');
 
     await acquireLock();
-    await faultInjector('after-lock-acquired');
     const temporaryPath = `${path}.${process.pid}.${randomUUID()}.tmp`;
     let renamed = false;
     try {
+      await faultInjector('after-lock-acquired');
       const current = await readDocument();
       if (journalEtag(current) !== expectedEtag) {
         return Object.freeze({ state: 'not-applied', applied: false, reason: 'precondition-failed' });
