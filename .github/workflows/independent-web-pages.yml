@@ -37,6 +37,8 @@ jobs:
         run: node --test independent-web/rain-organ-safari-audio.test.mjs
       - name: Verify Pressure Garden contract
         run: node --test independent-web/pressure-garden.contract.test.mjs
+      - name: Verify Pressure Garden genetics
+        run: node --test independent-web/pressure-garden/ecology.test.mjs
       - name: Verify earned Pressure Garden entry
         run: node --test independent-web/pressure-garden-entry.contract.test.mjs
       - name: Verify folded-room hosting contract
