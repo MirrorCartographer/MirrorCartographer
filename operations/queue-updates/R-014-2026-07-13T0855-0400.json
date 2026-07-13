@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-014",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "implemented_runtime_pending",
+  "updated_at": "2026-07-13T08:55:00-04:00",
+  "action": "Produce independently digest-verified Linux and macOS crash-stress observations for one exact commit, assemble them through a fail-closed binding gate, then require classifier acceptance.",
+  "completed_slice": {
+    "finding": "Per-platform verifier outputs must be cryptographically bound back to the exact supplied observation bytes before they can be assembled into a cross-platform packet.",
+    "module": "tools/frontier-research/build-verified-crash-stress-packet.mjs",
+    "test": "tools/frontier-research/build-verified-crash-stress-packet.test.mjs",
+    "evidence": "operations/evidence/frontier-verified-crash-packet-assembler-2026-07-13.json",
+    "commits": [
+      "de08d1115ddc3ae3dd99cd66df646922587e21c6",
+      "689e493606df4a3c55acf8e2bd25dc17cd1668ad",
+      "6bce2f6a46a09d447f539d72c3baa5889988a084"
+    ],
+    "verification": "Four deterministic Node tests passed in an isolated runtime: exact two-platform bindings accepted; digest tampering, duplicate platform, and commit disagreement rejected."
+  },
+  "remaining": [
+    "Obtain one completed Linux and macOS workflow run for the same exact descendant commit.",
+    "Download each platform artifact and run verify-crash-stress-observation.mjs against retained identity, summary, raw log, and observation bytes.",
+    "Run build-verified-crash-stress-packet.mjs on the two accepted verifier outputs.",
+    "Pass only the accepted packet to classify-crash-stress-evidence.mjs and retain classifier output plus workflow and artifact identities."
+  ],
+  "epistemic_limit": "Committed source and isolated contract tests do not prove hosted workflow execution, runner authenticity, or cross-platform crash recovery."
+}
