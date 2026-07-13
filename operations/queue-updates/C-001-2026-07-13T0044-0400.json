@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T00:44:00-04:00",
+  "canonical_queue_update": false,
+  "status": "blocked_external_configuration",
+  "completed_slice": {
+    "name": "signed GitHub OIDC invocation preflight",
+    "workflow": ".github/workflows/cloudflare-oidc-preflight.yml",
+    "commit": "e308db0fbeef6e6d3e0db25e965a3375f9f8d635",
+    "evidence": "operations/evidence/cloudflare-oidc-preflight-2026-07-13T0044-0400.json",
+    "behavior": "Fail closed unless a signed GitHub OIDC identity exactly matches the workflow invocation and source commit; upload only sanitized evidence."
+  },
+  "verification": {
+    "source_behavior": "workflow fetched back and inspected",
+    "runtime": "not observed",
+    "deployment": "not attempted"
+  },
+  "remaining_blocker": "Configure the protected cloudflare-research environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then execute the deployment workflow and bind the accepted OIDC preflight artifact to the deployment evidence manifest.",
+  "next_action": "Add replay rejection keyed by repository, workflow, run_id, run_attempt, audience, and source_sha; then require a successful accepted preflight before the Cloudflare deployment job can proceed.",
+  "non_claims": [
+    "This record does not claim that the preflight workflow ran.",
+    "This record does not claim a Cloudflare deployment, resolving hostname, served identity, or scientific or medical truth.",
+    "This record does not modify canonical ACTIVE_QUEUE.json."
+  ]
+}
