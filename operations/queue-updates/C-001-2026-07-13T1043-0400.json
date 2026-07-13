@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "updated_at": "2026-07-13T10:43:00-04:00",
+  "completed_slice": "Hostname-authority consistency is now materialized during deployment evidence finalization and included as a required byte-bound manifest artifact.",
+  "progress": {
+    "materializer": "cloudflare-static/materialize-hostname-authority-consistency.mjs",
+    "test": "cloudflare-static/materialize-hostname-authority-consistency.test.mjs",
+    "manifest_requirement": "cloudflare-hostname-authority-consistency.json",
+    "finalizer": "cloudflare-static/finalize-deployment-evidence.mjs",
+    "evidence": "operations/evidence/cloudflare-hostname-consistency-finalization-2026-07-13T1043-0400.json",
+    "commits": [
+      "1f9f85d97db0f1a33a6a5c2b4493f92060776712",
+      "14b115b853663836bb4544ad46423bec918dad88",
+      "c5d23dd7948b74ab3d6166f7ab4c3950216bf623",
+      "5c2c5b04c181f3397bb306e3704ab82b498e4031",
+      "be303a0a9b667de2050b3af11dfe019d7b221b80"
+    ],
+    "verification": "3 isolated deterministic Node tests passed using byte-identical committed logic"
+  },
+  "blocker": "The cloudflare-research GitHub environment still requires a valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN before the workflow can deploy, return a Pages URL, and prove the resolving hostname.",
+  "next_action": "Configure the Cloudflare environment secrets, dispatch the committed workflow, and retain the produced cloudflare-hostname-authority-consistency.json plus the exact deployment evidence manifest."
+}
