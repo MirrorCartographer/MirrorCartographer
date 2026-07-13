@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0014",
+  "kind": "artifact",
+  "title": "Continuity queue reconciliation is deterministic and non-mutating",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-13T05:32:29Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "876795be47fc80e270601c0f2390480e99daecbd",
+      "content_sha": "876795be47fc80e270601c0f2390480e99daecbd",
+      "observed_at": "2026-07-13T05:32:29Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "8a792917f2693ccef11c7b3584185f8785ce42a8",
+      "content_sha": "8a792917f2693ccef11c7b3584185f8785ce42a8",
+      "observed_at": "2026-07-13T05:32:29Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "b46517f719e2231ed16c0be46e7de903ebcbb7a7",
+      "content_sha": "b46517f719e2231ed16c0be46e7de903ebcbb7a7",
+      "observed_at": "2026-07-13T05:32:29Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "dce7a20fb2adae09a78cd42c8c39160bdd4733fd",
+      "content_sha": "dce7a20fb2adae09a78cd42c8c39160bdd4733fd",
+      "observed_at": "2026-07-13T05:32:29Z"
+    }
+  ],
+  "summary": "A committed reconciler now reads canonical continuity queue items and additive continuity updates as separate state layers, rejects foreign-team or mutation-claiming updates, flags duplicate or overlapping proposals, computes deterministic SHA-256 identities, and never writes the canonical queue. Five Node tests passed against byte-identical pre-commit source and test files.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": [],
+  "status_relations": {
+    "observed": "The canonical queue still contains completed M-001 while M-002 exists only as an additive proposal; the reconciler preserves that distinction.",
+    "inferred": "A deterministic projection can make continuity work visible without silently converting proposals into canonical assignments.",
+    "proposed": "Use the projection output as a review artifact before any conflict-aware canonical queue update.",
+    "superseded": "The assumption that additive queue-update files either have no durable value or automatically mutate canonical state is superseded by an explicit two-layer projection.",
+    "unresolved": "No repository-level adoption process yet authorizes a conflict-free proposal to modify ACTIVE_QUEUE.json."
+  },
+  "falsification_or_review_route": "Fetch the reconciler and tests at their cited commits, run node --test operations/continuity/reconcile-queue-projection.test.mjs, and reject this record if canonical items are mutated, foreign-team updates are admitted, duplicate or overlapping proposals are silently resolved, or deterministic digests differ across equivalent key orderings."
+}
