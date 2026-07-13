@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-007",
+  "created_at": "2026-07-13T09:24:23Z",
+  "claim_state": "observed",
+  "evidence_state": "test-verified",
+  "summary": "A peer execution runtime must allow only the target team to create a terminal event, verify the complete proof packet before append, and reject duplicate terminalization.",
+  "primary_sources": [
+    {
+      "uri": "https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md",
+      "status": "normative specification",
+      "finding": "CloudEvents defines source as the context in which the occurrence happened and requires source plus id uniqueness for each distinct event."
+    },
+    {
+      "uri": "https://www.rfc-editor.org/rfc/rfc8785",
+      "status": "standards-track canonicalization specification",
+      "finding": "Deterministic JSON serialization supports stable digests across equivalent object insertion orders."
+    }
+  ],
+  "design_implication": "The requesting team may record requested and accepted lifecycle observations, but only the target team may emit executed or failed. The terminal event is appended only after the R-006 proof verifier accepts the packet.",
+  "artifacts": [
+    "tools/frontier-research/peer-execution-runtime.mjs",
+    "tools/frontier-research/peer-execution-runtime.test.mjs"
+  ],
+  "commits": [
+    "ee1c4ae97460a673fdc356ad706f68731d681277",
+    "73b111dba3e66287840bdee5002aaa763985c219"
+  ],
+  "verification": {
+    "command": "node --test peer-execution-runtime.test.mjs",
+    "tests": 7,
+    "passed": 7,
+    "failed": 0,
+    "environment": "isolated Node runtime using byte-identical candidate source before commit"
+  },
+  "falsification_routes": [
+    "Show that a requesting team can append a target-authored terminal event through the adapter.",
+    "Show that a rejected proof packet still reaches appendEvent.",
+    "Show that the same trigger can produce two terminal events in one runtime instance.",
+    "Show that semantically identical JSON objects produce different canonical digests."
+  ],
+  "limits": [
+    "The in-memory terminal index is process-local and must be backed by durable conditional storage in production.",
+    "The adapter consumes signature verification and proof-verifier results; it does not perform certificate-chain or transparency-log verification itself.",
+    "Canonicalization covers JSON-compatible values and rejects undefined values, cycles, and non-finite numbers."
+  ],
+  "privacy_boundary": "Only public repository state, public technical specifications, and synthetic test fixtures were used."
+}
