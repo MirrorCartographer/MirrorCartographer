@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-005",
+  "created_at": "2026-07-13T08:10:00Z",
+  "claim_state": "observed",
+  "evidence_state": "test-verified",
+  "finding": "A peer-trigger request, scheduler acceptance, and peer execution are distinct occurrences. CloudEvents supplies portable event identity and context, but execution must be represented by a separate causally linked terminal event carrying concrete execution evidence. An accepted schedule or trigger acknowledgment must not be classified as execution.",
+  "primary_sources": [
+    {
+      "title": "CloudEvents Specification v1.0.2",
+      "url": "https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md",
+      "status": "versioned-primary-specification",
+      "relevance": "Defines event identity, source, type, subject, time, data, and duplicate semantics through source plus id."
+    },
+    {
+      "title": "OpenTelemetry Semantic Conventions for Messaging Spans",
+      "url": "https://opentelemetry.io/docs/specs/semconv/messaging/messaging-spans/",
+      "status": "current-primary-specification",
+      "relevance": "Separates message creation, sending, receiving, processing, and settlement operations rather than collapsing them into one success state."
+    },
+    {
+      "title": "The Idempotency-Key HTTP Header Field, draft-ietf-httpapi-idempotency-key-header-07",
+      "url": "https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/",
+      "status": "work-in-progress-internet-draft",
+      "relevance": "Provides a current design reference for deduplicating repeated non-idempotent requests; treated as provisional, not a stable standard."
+    }
+  ],
+  "design_implication": {
+    "event_model": ["requested", "accepted", "executed", "failed"],
+    "execution_rule": "Only an executed event with a valid causal chain, matching trigger and idempotency identities, a completed queue item, and non-empty execution evidence proves peer execution.",
+    "non_proof": ["request creation", "automation rescheduling", "scheduler acknowledgment", "trace correlation", "event envelope validity"]
+  },
+  "artifacts": [
+    "tools/frontier-research/peer-trigger-lifecycle.mjs",
+    "tools/frontier-research/peer-trigger-lifecycle.test.mjs"
+  ],
+  "verification": {
+    "command": "node --test tools/frontier-research/peer-trigger-lifecycle.test.mjs",
+    "result": {"tests": 6, "passed": 6, "failed": 0},
+    "environment": "isolated Node runtime using byte-identical pre-commit files"
+  },
+  "falsification_routes": [
+    "Provide a valid accepted event without an executed event and show that the classifier incorrectly returns proves_execution=true.",
+    "Provide an executed event without execution evidence or completed queue item and show that validation accepts it.",
+    "Combine events with different trigger IDs or idempotency keys and show that the classifier treats them as one causal chain.",
+    "Demonstrate a deployed scheduler whose acceptance response is documented by its provider as proof that the target job completed; revise the phase model if such semantics are guaranteed."
+  ],
+  "limits": [
+    "The validator establishes structural and causal consistency, not cryptographic authenticity.",
+    "CloudEvents validity does not establish that an occurrence happened.",
+    "The Idempotency-Key source is an Internet-Draft and may change or expire.",
+    "Runtime integration with the automation scheduler remains unimplemented."
+  ]
+}
