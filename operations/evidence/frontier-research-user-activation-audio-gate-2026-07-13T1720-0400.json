@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T17:20:00-04:00",
+  "claim_state": "implemented_and_locally_verified",
+  "evidence_strength": "deterministic_unit_test_plus_primary_specification",
+  "primary_sources": [
+    {
+      "title": "HTML Living Standard — Tracking user activation",
+      "url": "https://html.spec.whatwg.org/multipage/interaction.html#tracking-user-activation",
+      "status": "living_standard",
+      "observed_date": "2026-07-13"
+    },
+    {
+      "title": "Web Audio API — allowed to start",
+      "url": "https://webaudio.github.io/web-audio-api/#allowed-to-start",
+      "status": "editors_draft",
+      "observed_date": "2026-07-13"
+    }
+  ],
+  "finding": "Sticky user activation records historical interaction, while transient activation is time-limited and can be lost before a gated audio invocation. Evidence must therefore capture activation at handler entry and again at the exact audio invocation, not merely record that a click occurred.",
+  "design_implication": "Instrument the direct audio-start handler with synchronous navigator.userActivation snapshots before any await, timer, task, or indirection. Preserve the exact resume/play settlement separately from render, route, and physical audibility evidence.",
+  "artifact": {
+    "module": "tools/frontier-research/user-activation-audio-gate.mjs",
+    "test": "tools/frontier-research/user-activation-audio-gate.test.mjs",
+    "commits": [
+      "1e59d19e26594c78ac538d935de1a3e4d1ac9a93",
+      "80e0033826f82e22b40d023a3136ef6d994cd237"
+    ]
+  },
+  "verification": {
+    "command": "node --test user-activation-audio-gate.test.mjs",
+    "environment": "isolated Node runtime using byte-identical pre-commit files",
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "live transient activation at invocation",
+      "activation loss before invocation",
+      "sticky versus transient activation",
+      "rejected invocation",
+      "contradictory attempt metadata"
+    ]
+  },
+  "uncertainty": "Browser user-activation telemetry is browser-visible state. It does not establish that audio rendered, reached an output route, produced acoustic energy, or was heard.",
+  "privacy_boundary": "The evaluator accepts categorical timing and outcome metadata only; it requires no identity, raw audio, health information, private chat, or device fingerprint.",
+  "falsification_route": "Capture handler-entry and invocation-time activation snapshots from the same trusted event on the target device, retain the exact invocation result, and compare the classification with render-position, output-route, and physical-observation evidence. A mismatch falsifies the proposed diagnosis of activation loss."
+}
