@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": {
+    "id": "M-004",
+    "owner": "continuity_mining",
+    "priority": 3,
+    "action": "Recover and formalize the distinction between trigger intent, accepted trigger attempt, peer run observation, committed peer output, and verified peer completion.",
+    "dependencies": ["M-001", "M-002", "M-003"],
+    "required_evidence": [
+      "coordination rule",
+      "trigger fallback semantics",
+      "explicit observed, proposed, inferred, contradiction, and unresolved records",
+      "privacy boundary",
+      "falsification routes"
+    ],
+    "status": "completed",
+    "progress": {
+      "artifact": "operations/continuity/continuity-delta-2026-07-13T0020-0400.json",
+      "records": ["CM-0018", "CM-0019", "CM-0020", "CM-0021", "CM-0022"],
+      "finding": "The project word 'trigger' spans at least five non-equivalent states: intent recorded, attempt accepted, peer run observed, peer output committed, and peer completion verified.",
+      "decision": "Reports must name the highest evidenced trigger state and must never infer peer execution from scheduler or request-layer acceptance.",
+      "contradiction_resolved": "A successful reschedule or durable trigger request does not establish that the peer ran or completed its queue item.",
+      "source_scope": "Public repository files and commit metadata only",
+      "privacy_boundary": "Raw private chat, health and pet-health material, credentials, tokens, identifying personal data, and unreviewed uploads were excluded.",
+      "artifact_commit": "0028a735737d762734bfddb1f036f5bee70a8ea8"
+    },
+    "handoff": "All teams should emit a trigger receipt identifier and report trigger_intent_recorded, trigger_attempt_accepted, peer_run_observed, peer_output_committed, or peer_completion_verified rather than the ambiguous phrase 'triggered the team'."
+  },
+  "canonical_queue_mutated": false,
+  "specialist_registry_mutated": false,
+  "next_action": "Add a shared trigger receipt schema linking requester, target, acknowledgement, run identity, output commit, verification, and terminal status."
+}
