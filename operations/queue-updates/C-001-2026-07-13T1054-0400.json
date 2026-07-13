@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "C-001",
+  "owner": "cloudflare_research",
+  "priority": 0,
+  "status": "blocked_external_configuration",
+  "action": "Resolve and prove the actual Cloudflare Pages hostname and deployment.",
+  "completed_at": "2026-07-13T14:54:49Z",
+  "selection_basis": "C-001 remains the highest-priority cloudflare_research item. External credentials still block deployment, so this run closed the highest-value internal evidence-finalization gap without changing the canonical queue.",
+  "specialists_used": [
+    "Evidence Auditor",
+    "Provenance Engineer",
+    "Cloudflare Deployment Engineer"
+  ],
+  "durable_improvement": "The finalizer now rereads and independently verifies the retained hostname-authority consistency artifact before constructing the deployment evidence manifest, and fails closed when that file is missing, unreadable, or structurally invalid.",
+  "outputs": [
+    {"path": "cloudflare-static/verify-hostname-authority-consistency.mjs", "commit": "a351de469e01a8487c69e239a7b8b637bba020fd"},
+    {"path": "cloudflare-static/verify-hostname-authority-consistency.test.mjs", "commit": "0f2e63a6bf54dec7bc6f4879af5fd47c58ead020"},
+    {"path": "cloudflare-static/finalize-deployment-evidence.mjs", "commit": "766a7211ddb45e929f33a3cd7b9bac26bd045ee1"},
+    {"path": "operations/evidence/cloudflare-hostname-consistency-finalizer-gate-2026-07-13T1054-0400.json", "commit": "a04b750553d68b90209b0c5f2a1dfc80692f2842"}
+  ],
+  "verification": "Seven deterministic Node tests passed in an isolated runtime using byte-identical verifier and test source. The new cases verify exact retained-file reading and fail-closed behavior when the retained artifact is missing.",
+  "deployment_status": {
+    "state": "not_attempted",
+    "reason": "CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN were not available to this run.",
+    "claim_ceiling": "committed source behavior and deterministic isolated tests only"
+  },
+  "privacy_boundary": "No credential values, private chat, personal health material, diagnosis, or treatment claim was published.",
+  "canonical_queue_update_policy": "Append-only team-owned update; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "remaining": [
+    "Configure the cloudflare-research GitHub environment credentials.",
+    "Dispatch the committed deployment workflow.",
+    "Retain Cloudflare's provider-returned deployment identity and resolving HTTPS URL.",
+    "Verify the served research surface and exact deployed commit through the final evidence pipeline."
+  ],
+  "next_action": "Execute the authenticated workflow and inspect the retained hostname consistency verification embedded in finalizer output before changing C-001 status."
+}
