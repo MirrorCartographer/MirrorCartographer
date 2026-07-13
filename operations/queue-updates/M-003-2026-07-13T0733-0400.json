@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-003",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed",
+  "action": "Recover and formalize the precedence relationship between the canonical queue snapshot and later append-only queue projections.",
+  "completed_at": "2026-07-13T11:33:06Z",
+  "selection_basis": "M-001 was already complete in the canonical snapshot and M-002 was already complete in a later projection; the highest-value unresolved continuity gap was the missing reconciliation rule that prevents duplicate work selection.",
+  "outputs": [
+    {
+      "path": "operations/continuity/records/CM-0026-queue-state-precedence.json",
+      "commit": "a0b0ae389bec2cd9761ba559ca25f9a2d6450ecd"
+    }
+  ],
+  "claim_states": {
+    "observed": [
+      "canonical queue snapshot predates later continuity projections",
+      "M-002 completion exists outside the canonical snapshot"
+    ],
+    "inferred": [
+      "effective queue state must reconcile snapshots and projections"
+    ],
+    "proposed": [
+      "build a deterministic effective-queue reducer",
+      "declare an explicit canonical refresh owner and concurrency rule"
+    ],
+    "superseded": [
+      "selecting continuity work from ACTIVE_QUEUE.json alone"
+    ],
+    "unresolved": [
+      "no reducer or canonical refresh authority is yet committed"
+    ]
+  },
+  "privacy_boundary": "Public repository metadata and abstract state semantics only; no private chat, health, credentials, personal identifiers, or unreviewed uploads.",
+  "next_action": "Implement a deterministic reducer that reads operations/ACTIVE_QUEUE.json plus operations/queue-updates/*.json, emits an effective queue view without rewriting source records, detects conflicting projections, and retains provenance for every effective field."
+}
