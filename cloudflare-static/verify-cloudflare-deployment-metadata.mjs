@@ -14,20 +14,32 @@ function normalizeUrl(value) {
   }
 }
 
-export function evaluateDeploymentMetadata({ deployments, expectedCommit, expectedUrl, project = PROJECT } = {}) {
+function normalizeBranch(value) {
+  if (typeof value !== 'string') return null;
+  const branch = value.trim();
+  if (!branch || branch.length > 255 || /[\u0000-\u001f\u007f]/.test(branch)) return null;
+  return branch;
+}
+
+export function evaluateDeploymentMetadata({ deployments, expectedCommit, expectedUrl, expectedBranch, project = PROJECT } = {}) {
   const normalizedExpectedUrl = normalizeUrl(expectedUrl);
+  const normalizedExpectedBranch = normalizeBranch(expectedBranch);
   const errors = [];
   if (!Array.isArray(deployments)) errors.push('deployments-must-be-array');
   if (!/^[0-9a-f]{40}$/i.test(expectedCommit || '')) errors.push('expected-commit-must-be-full-sha');
   if (!normalizedExpectedUrl) errors.push('expected-url-invalid');
+  if (!normalizedExpectedBranch) errors.push('expected-branch-invalid');
   if (typeof project !== 'string' || !project) errors.push('project-required');
   if (errors.length) return { valid: false, classification: 'invalid-input', errors, match: null };
 
   const candidates = deployments.filter((deployment) => {
-    const commit = deployment?.deployment_trigger?.metadata?.commit_hash;
+    const metadata = deployment?.deployment_trigger?.metadata;
+    const commit = metadata?.commit_hash;
+    const branch = normalizeBranch(metadata?.branch);
     const url = normalizeUrl(deployment?.url);
     return deployment?.project_name === project
       && commit === expectedCommit
+      && branch === normalizedExpectedBranch
       && url === normalizedExpectedUrl;
   });
 
@@ -54,6 +66,7 @@ export function evaluateDeploymentMetadata({ deployments, expectedCommit, expect
         environment: deployment.environment || null,
         url: normalizeUrl(deployment.url),
         commit_hash: deployment.deployment_trigger?.metadata?.commit_hash || null,
+        branch: normalizeBranch(deployment.deployment_trigger?.metadata?.branch),
         stage: stage ? { name: stage.name || null, status: stage.status || null } : null
       }
     };
@@ -69,7 +82,7 @@ export function evaluateDeploymentMetadata({ deployments, expectedCommit, expect
       environment: deployment.environment || null,
       url: normalizeUrl(deployment.url),
       commit_hash: deployment.deployment_trigger.metadata.commit_hash,
-      branch: deployment.deployment_trigger?.metadata?.branch || null,
+      branch: normalizeBranch(deployment.deployment_trigger?.metadata?.branch),
       stage: { name: stage.name, status: stage.status },
       created_on: deployment.created_on || null
     }
@@ -82,6 +95,7 @@ async function main() {
   const token = process.env.CLOUDFLARE_API_TOKEN;
   const expectedCommit = process.env.GITHUB_SHA;
   const expectedUrl = process.env.DEPLOYMENT_URL;
+  const expectedBranch = process.env.CLOUDFLARE_PAGES_BRANCH;
   const project = process.env.CLOUDFLARE_PAGES_PROJECT || PROJECT;
 
   if (!accountId || !token) {
@@ -100,7 +114,7 @@ async function main() {
     return;
   }
 
-  const result = evaluateDeploymentMetadata({ deployments: payload.result, expectedCommit, expectedUrl, project });
+  const result = evaluateDeploymentMetadata({ deployments: payload.result, expectedCommit, expectedUrl, expectedBranch, project });
   fs.writeFileSync(outputPath, `${JSON.stringify(result, null, 2)}\n`);
   process.stdout.write(`${JSON.stringify({ valid: result.valid, classification: result.classification })}\n`);
   if (!result.valid) process.exitCode = 1;
