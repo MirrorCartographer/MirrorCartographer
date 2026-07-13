@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "claim_state": "observed",
+  "evidence_strength": "tested_implementation",
+  "finding": "The continuity substrate spans a monolithic index and additive record files, so integrity must be checked across both locations without rewriting history.",
+  "artifacts": {
+    "validator": "tools/continuity/validate-continuity-records.mjs",
+    "validator_commit": "75201179ff8c15659b584476deedc2fdeef74350",
+    "test": "tools/continuity/validate-continuity-records.test.mjs",
+    "test_commit": "a9daa7a6c9331d5769e20f9e25416eb8857ecb50",
+    "memory_record": "operations/continuity/records/CM-0011.json",
+    "memory_commit": "e7d5e9215fecbb14c79f532e5d4cf26aac4961d8"
+  },
+  "verification": {
+    "runtime": "Node.js built-in test runner",
+    "tests_passed": 4,
+    "tests_failed": 0,
+    "cases": [
+      "accept unique linked records",
+      "reject duplicate IDs across index and additive records",
+      "reject broken contradiction and supersession references",
+      "require superseded claims to name at least one superseded record"
+    ]
+  },
+  "privacy_boundary": "Only public repository files, commit identities, and synthetic fixtures were used. No raw private chat, health, pet-health, credentials, account identifiers, private contacts, or unreviewed uploads were included.",
+  "limits": [
+    "The validator performs explicit structural and graph-integrity checks but is not a complete JSON Schema implementation.",
+    "The validator is not yet wired into CI.",
+    "Source locators are checked for presence, not fetched and cryptographically revalidated during this gate."
+  ],
+  "falsification_route": "Run the committed tests and then run the validator against a checkout containing the continuity index and additive records. The finding fails if duplicates or broken links are accepted, valid linked records are rejected, or an existing stronger CI gate already enforces the same invariants."
+}
