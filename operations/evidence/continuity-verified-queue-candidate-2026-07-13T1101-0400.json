@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "item_id": "M-014",
+  "recorded_at": "2026-07-13T15:01:52Z",
+  "slice": "Integrate queue reference verification with deterministic candidate materialization.",
+  "source_commits": {
+    "implementation": "6c3b7614d066bee8f31c7d1ca0f003f70084f9da",
+    "test": "f5c565ccb0c6a7709165a8dd6a0d1d0b81f028e6"
+  },
+  "verification": {
+    "route": "isolated Node test harness using the committed integration logic and its two committed dependency contracts",
+    "command": "node --test build-verified-queue-candidate.test.mjs",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "verified updates are materialized",
+      "missing commits are excluded and reported",
+      "mixed valid and invalid updates remain separable",
+      "inventory cardinality mismatch fails closed",
+      "claim ceiling remains candidate-compaction-only"
+    ],
+    "constraint": "The runtime could not clone GitHub because outbound DNS resolution was unavailable; no GitHub Actions execution is claimed."
+  },
+  "memory_recovered": "Candidate queue reconstruction must be a gated pipeline: authenticate inventory, verify each update's exact output bindings, exclude invalid updates without erasing them, materialize only accepted updates, and preserve a separate invalid-reference report plus mandatory review boundary.",
+  "claim_states": {
+    "observed": [
+      "The integration module and test contract are committed.",
+      "Five deterministic isolated Node tests passed.",
+      "The canonical queue and prior team outputs were not overwritten."
+    ],
+    "inferred": [
+      "Given a trustworthy immutable inventory, the integrated builder prevents invalid output references from entering a candidate queue."
+    ],
+    "proposed": [
+      "Run the builder against a complete authenticated repository inventory and retain candidate, conflict, verification, and invalid-reference outputs."
+    ],
+    "superseded": [
+      "Running queue materialization independently of reference verification."
+    ],
+    "unresolved": [
+      "Complete authenticated enumeration of all queue updates and exact path bindings.",
+      "Human review of the first repository-wide candidate compaction.",
+      "Canonical queue replacement policy after review."
+    ]
+  },
+  "privacy_boundary": "Public repository metadata and abstract operational semantics only; no raw private chat, health or pet-health material, credentials, personal identifiers, or unreviewed uploads.",
+  "claim_ceiling": "verified-reference-candidate-compaction-only"
+}
