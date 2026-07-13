@@ -41,6 +41,7 @@ export function classifyDsseVerification({
   payloadSha256,
   supportedPayloadTypes,
   threshold = 1,
+  requireTransparencyLog = true,
   verifierResults
 }) {
   if (typeof payloadType !== 'string' || payloadType.length === 0) return reject('invalid_payload_type');
@@ -49,6 +50,7 @@ export function classifyDsseVerification({
     return reject('unsupported_payload_type');
   }
   if (!Number.isInteger(threshold) || threshold < 1) return reject('invalid_threshold');
+  if (typeof requireTransparencyLog !== 'boolean') return reject('invalid_transparency_log_policy');
   if (!Array.isArray(verifierResults) || verifierResults.length === 0) return reject('missing_verifier_results');
 
   const trusted = new Map();
@@ -60,6 +62,7 @@ export function classifyDsseVerification({
     if (typeof result.identity !== 'string' || result.identity.length === 0) continue;
     if (typeof result.issuer !== 'string' || result.issuer.length === 0) continue;
     if (result.pae_verified !== true) continue;
+    if (requireTransparencyLog && result.transparency_log_verified !== true) continue;
     trusted.set(`${result.issuer}\n${result.identity}`, {
       issuer: result.issuer,
       identity: result.identity,
@@ -70,7 +73,8 @@ export function classifyDsseVerification({
   if (trusted.size < threshold) {
     return reject('trusted_signature_threshold_not_met', {
       threshold,
-      trusted_unique_signers: trusted.size
+      trusted_unique_signers: trusted.size,
+      require_transparency_log: requireTransparencyLog
     });
   }
 
@@ -80,13 +84,15 @@ export function classifyDsseVerification({
     payload_type: payloadType,
     payload_sha256: payloadSha256.toLowerCase(),
     threshold,
+    require_transparency_log: requireTransparencyLog,
     trusted_unique_signers: trusted.size,
     signers: [...trusted.values()],
     claim_boundary: [
       'accepts_only_external_verifier_results_bound_to_exact_payload_type_and_digest',
       'keyid_is_not_used_as_a_trust_decision',
+      'transparency_log_verification_is_required_by_default_but_may_be_explicitly_disabled_for_a_separate_trust_model',
       'cryptographic_acceptance_does_not_prove_the_underlying_evidence_claim'
     ],
-    falsification_route: 'Provide a verifier result set that reaches the threshold using duplicate identities, a mismatched payload digest or type, an untrusted identity, or a signature that did not verify the DSSE PAE bytes.'
+    falsification_route: 'Provide a verifier result set that reaches the threshold using duplicate identities, a mismatched payload digest or type, an untrusted identity, missing PAE verification, or absent transparency-log verification while the default policy is enabled.'
   };
 }
