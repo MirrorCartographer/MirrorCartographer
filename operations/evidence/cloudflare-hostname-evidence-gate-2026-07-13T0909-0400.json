@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T09:09:24-04:00",
+  "finding": "Wrangler's returned deployment URL needed a dedicated fail-closed gate that canonicalizes the hostname and rejects hostname or commit substitution before accepting the existing hostname evidence packet.",
+  "artifact": "cloudflare-static/run-hostname-evidence-gate.mjs",
+  "test": "cloudflare-static/run-hostname-evidence-gate.test.mjs",
+  "commits": [
+    "2158f4b1a643e3f7a4988af63c943624e6377069",
+    "730ad7d9c669282347ff811d17f5cefec979d91b"
+  ],
+  "verification": {
+    "route": "isolated Node test using byte-identical source and a stubbed packet builder dependency",
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      "canonical HTTPS URL accepted with exact bindings",
+      "non-HTTPS URL rejected",
+      "packet hostname substitution rejected",
+      "packet commit substitution rejected"
+    ]
+  },
+  "evidence_strength": "contract-tested implementation; not yet wired into or executed by the hosted deployment workflow",
+  "privacy_boundary": "No credentials, private chat, health material, payment data, or secret values are read or emitted.",
+  "epistemic_limit": "The gate can prove only bounded deployment URL, hostname, and exact-commit identity when live observations succeed; it does not establish scientific, medical, diagnostic, or treatment truth.",
+  "falsification_route": "Wire the gate after the Wrangler deploy step, execute the workflow for an immutable commit, retain its JSON output, and attempt hostname, scheme, and commit substitutions. Any accepted substitution falsifies the gate contract."
+}
