@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T06:40:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a dedicated least-privilege GitHub Actions gate that runs the project-bound Cloudflare stack evidence tests whenever the deployment workflow, validator, adversarial test, or gate contract changes.",
+  "evidence": "operations/evidence/cloudflare-project-binding-ci-gate-2026-07-13T0640-0400.json",
+  "files": [
+    ".github/workflows/cloudflare-project-binding-gate.yml",
+    "cloudflare-static/project-binding-gate-workflow.test.mjs"
+  ],
+  "commits": [
+    "02280da352b87865913f9cc46ce22a3be458f7bf",
+    "b9d88c005f2a84e152f1d6dda9d762690d4b62f0",
+    "3679faad38834b836d9b2422f5703db39657d2fe"
+  ],
+  "verification": "Three deterministic workflow-contract tests passed locally; no GitHub Actions run was observed yet.",
+  "remaining_blocker": "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment, dispatch the production deployment workflow, and retain resolving URL, served identity, deployed commit, and workflow evidence.",
+  "canonical_queue_overwritten": false,
+  "next_action": "Observe and retain the first project-binding gate workflow run, then complete the externally blocked deployment proof."
+}
