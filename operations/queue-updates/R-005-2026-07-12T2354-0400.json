@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Authenticate protected workflow execution with a deny-by-default OIDC claim policy before deployment or canonical-state mutation.",
+    "dependencies": ["R-003", "R-004"],
+    "required_evidence": [
+      "current official OIDC claim reference",
+      "committed policy evaluator",
+      "adversarial identity tests",
+      "explicit cryptographic limit",
+      "falsification route"
+    ],
+    "status": "completed_prototype_unverified_runtime",
+    "progress": {
+      "primary_sources": [
+        "https://docs.github.com/en/actions/reference/security/oidc",
+        "https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments",
+        "https://slsa.dev/spec/v1.2/provenance"
+      ],
+      "finding": "Protected writers should accept workflow identity only after JWT signature verification and exact matching of issuer, audience, numeric repository and owner IDs, workflow file SHA, optional reusable-workflow SHA, environment, event, ref, bounded lifetime, and allowed run attempt.",
+      "module": "tools/frontier-research/oidc-workflow-identity-policy.mjs",
+      "test": "tools/frontier-research/oidc-workflow-identity-policy.test.mjs",
+      "evidence": "operations/evidence/frontier-research-oidc-workflow-identity-2026-07-12.json",
+      "commits": [
+        "2d142adab5c4fc470f1fc9a69b92ce24b3187814",
+        "fbe909484d164aa78b68a9709222685fea023c7e",
+        "84cceb7e04b07e4aefb5b6be5a314db6d275c68b"
+      ],
+      "verification": "Seven deterministic adversarial cases are committed and both source files were fetched by exact commit for inspection; no CI or fresh-checkout execution was observed."
+    },
+    "handoff": "Continuity Mining should place this evaluator after JOSE verification and before its protected materialization writer, persist accepted replay keys only after a successful commit receipt, and reject reuse. Cloudflare and Vercel workflows can apply the same boundary before deployment credentials are exchanged."
+  },
+  "canonical_queue_mutated": false,
+  "privacy_boundary": "Public standards, repository state, and synthetic claims only.",
+  "next_action": "Add independent JWT verification against GitHub's OIDC discovery/JWKS, execute the committed tests in CI, and wire replay-key rejection into the protected materialization receipt ledger."
+}
