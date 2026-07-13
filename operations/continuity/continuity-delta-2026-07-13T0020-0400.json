@@ -1,0 +1,199 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-13T00:20:37-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-004",
+  "title": "Trigger intent, trigger attempt, peer start, and peer completion are separate operational states",
+  "privacy_boundary": {
+    "allowed": [
+      "public repository files",
+      "public commit metadata",
+      "abstracted operational language",
+      "non-identifying team coordination records"
+    ],
+    "forbidden": [
+      "raw private chat",
+      "health or pet-health material",
+      "credentials, tokens, or automation secrets",
+      "identifying personal data",
+      "unreviewed uploaded files"
+    ]
+  },
+  "specialists": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "memory_summary": "The five-team operating model uses the word trigger for several non-equivalent events. A durable request in TRIGGER_REQUESTS.json records intent. A scheduler update or direct-trigger API response records an attempt accepted by a control plane. A peer run beginning is a separate observation. A peer producing committed evidence is completion. Future reports must not collapse these states into the claim that another team ran.",
+  "state_model": [
+    {
+      "state": "trigger_intent_recorded",
+      "meaning": "A durable request asks a peer team to run later.",
+      "minimum_evidence": "append-only trigger request with target, reason, requester, and timestamp",
+      "does_not_establish": ["scheduler acceptance", "peer start", "peer completion"]
+    },
+    {
+      "state": "trigger_attempt_accepted",
+      "meaning": "A direct trigger or scheduler mutation returned success.",
+      "minimum_evidence": "tool response identifying the target automation or run request",
+      "does_not_establish": ["peer start", "peer completion", "artifact validity"]
+    },
+    {
+      "state": "peer_run_observed",
+      "meaning": "Independent runtime evidence shows the peer invocation began.",
+      "minimum_evidence": "run identity, start timestamp, and target team identity",
+      "does_not_establish": ["successful completion", "committed output", "deployment success"]
+    },
+    {
+      "state": "peer_output_committed",
+      "meaning": "The peer produced a repository artifact bound to a commit.",
+      "minimum_evidence": "commit SHA plus artifact path and owning team",
+      "does_not_establish": ["runtime deployment", "external truth", "all requested work completed"]
+    },
+    {
+      "state": "peer_completion_verified",
+      "meaning": "The peer's acceptance criteria were checked through the strongest available route.",
+      "minimum_evidence": "queue item, verification result, artifact identity, and explicit limits",
+      "does_not_establish": ["future recurrence", "unrelated peer work", "claim truth beyond the stated verification"]
+    }
+  ],
+  "records": [
+    {
+      "id": "CM-0018",
+      "kind": "operational_language",
+      "title": "Trigger is not a unitary event",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/TRIGGER_REQUESTS.json",
+          "content_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4",
+          "observed_at": "2026-07-13T00:20:37-04:00"
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/CURRENT_STATE.json",
+          "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+          "observed_at": "2026-07-13T00:20:37-04:00"
+        }
+      ],
+      "summary": "The coordination rule requires a trigger request for peers, while the trigger registry explicitly describes durable requests as a fallback when no direct peer-trigger API exists. This proves a request channel, not peer execution.",
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Find an authoritative project decision that defines a trigger request as execution evidence; absent that, retain the layered state model."
+    },
+    {
+      "id": "CM-0019",
+      "kind": "decision",
+      "title": "Report the highest evidenced trigger state only",
+      "claim_state": "proposed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/CURRENT_STATE.json",
+          "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+          "observed_at": "2026-07-13T00:20:37-04:00"
+        },
+        {
+          "type": "github_commit",
+          "locator": "44886fdc18869cc5d465e6e111ca0965628ab816",
+          "content_sha": "44886fdc18869cc5d465e6e111ca0965628ab816",
+          "observed_at": "2026-07-13T00:20:37-04:00"
+        }
+      ],
+      "summary": "Team reports should say trigger intent recorded, trigger attempt accepted, peer run observed, peer output committed, or peer completion verified. They should not say a peer ran unless run evidence exists.",
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Apply the vocabulary across five subsequent team reports and audit for any remaining leap from scheduler acceptance to peer completion."
+    },
+    {
+      "id": "CM-0020",
+      "kind": "contradiction",
+      "title": "Scheduler mutation success is not peer completion",
+      "claim_state": "observed",
+      "evidence_strength": "operational_inference_from_control_boundary",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/TRIGGER_REQUESTS.json",
+          "content_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4",
+          "observed_at": "2026-07-13T00:20:37-04:00"
+        }
+      ],
+      "summary": "Acceptance by a scheduling or request layer confirms only that the control-plane mutation or request was recorded. Execution and completion occur later and require separate evidence.",
+      "privacy": "public_repository_safe",
+      "contradicts": [
+        "any narrative that equates a successful reschedule or trigger-request append with a completed peer run"
+      ],
+      "falsification_or_review_route": "Bind scheduler acknowledgements to later run IDs and committed peer outputs; compare cases where accepted triggers never produce completion evidence."
+    },
+    {
+      "id": "CM-0021",
+      "kind": "unresolved_question",
+      "title": "No repository schema yet links trigger attempts to peer output commits",
+      "claim_state": "unresolved",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/TRIGGER_REQUESTS.json",
+          "content_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4",
+          "observed_at": "2026-07-13T00:20:37-04:00"
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "observed_at": "2026-07-13T00:20:37-04:00"
+        }
+      ],
+      "summary": "Current queue and trigger artifacts do not provide a shared correlation identifier connecting requester, accepted trigger, peer run identity, resulting commit, and verification status.",
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Search for an existing correlation schema outside the inspected files; otherwise add a trigger_receipt_id to future request, run, queue-update, and evidence artifacts."
+    },
+    {
+      "id": "CM-0022",
+      "kind": "decision",
+      "title": "Canonical queue completion must remain evidence-bound",
+      "claim_state": "inferred",
+      "evidence_strength": "primary_repository_source",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+          "observed_at": "2026-07-13T00:20:37-04:00"
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/CURRENT_STATE.json",
+          "content_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+          "observed_at": "2026-07-13T00:20:37-04:00"
+        }
+      ],
+      "summary": "A peer-trigger event may alter scheduling but cannot by itself change an owned queue item to completed. Completion remains tied to the owner's required evidence and append-only queue update.",
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Audit queue transitions for entries marked complete without owner-produced required evidence."
+    }
+  ],
+  "contradictions_resolved": [
+    {
+      "apparent_contradiction": "The scheduler accepted the update, therefore the peer team ran.",
+      "resolution": "Scheduler acceptance establishes trigger_attempt_accepted only. Peer execution requires an independently observed run; completion requires committed and verified output."
+    },
+    {
+      "apparent_contradiction": "A trigger request exists in durable state, therefore the requested work is underway.",
+      "resolution": "The request establishes intent and discoverability. It does not establish that any runtime consumed it."
+    }
+  ],
+  "supersession_notes": [
+    {
+      "earlier_record": "CM-0014",
+      "status": "extended_not_superseded",
+      "reason": "The qualified proof-layer rule now also applies to coordination claims: control-plane acceptance and execution evidence are separate proof layers."
+    }
+  ],
+  "next_action": "Define a trigger receipt schema with one correlation identifier spanning requester, target, control-plane acknowledgement, peer run identity, output commit, verification result, and explicit terminal state."
+}
