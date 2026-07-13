@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": {
+    "id": "M-003",
+    "owner": "continuity_mining",
+    "priority": 2,
+    "action": "Recover and formalize the evolution of the project term 'proof' into distinct trust and truth layers.",
+    "dependencies": ["M-001", "M-002"],
+    "required_evidence": [
+      "recent Frontier trust-boundary commits",
+      "recent Cloudflare invocation-receipt integration",
+      "explicit observed, inferred, proposed, contradiction, and unresolved records",
+      "privacy boundary",
+      "falsification routes"
+    ],
+    "status": "completed",
+    "progress": {
+      "artifact": "operations/continuity/continuity-delta-2026-07-13T0011-0400.json",
+      "records": ["CM-0013", "CM-0014", "CM-0015", "CM-0016", "CM-0017"],
+      "finding": "The unqualified term 'proof' now hides at least nine non-substitutable layers: correlation, byte provenance, builder trust, workflow authorization, signature authenticity, metadata freshness, replay acceptance, runtime or deployment observation, and claim truth.",
+      "decision": "Future evidence artifacts should name the exact layer established and state adjacent layers not established.",
+      "contradiction_resolved": "Manifest inclusion and byte closure do not imply OIDC verification; attestation does not imply claim truth.",
+      "source_scope": "Public repository files and commit metadata only",
+      "privacy_boundary": "Raw private chat, health and pet-health material, credentials, live tokens, identifying personal data, and unreviewed uploads were excluded.",
+      "artifact_commit": "b72592eea489ba7bd248049255d33e5533b458a1"
+    },
+    "handoff": "Cloudflare and Frontier should adopt qualified proof-layer fields in the integrated invocation receipt; Vercel and Independent Creative Web should use the same vocabulary when describing runtime and deployment evidence."
+  },
+  "canonical_queue_mutated": false,
+  "specialist_registry_mutated": false,
+  "next_action": "Add proof_layer_established and proof_layers_not_established fields to shared evidence schemas, then execute one end-to-end receipt binding metadata, signature, claims, replay, mutation or deployment, and resulting identity."
+}
