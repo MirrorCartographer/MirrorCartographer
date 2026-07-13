@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-005",
+  "date": "2026-07-13",
+  "claim_state": "implemented_unexecuted",
+  "primary_sources": [
+    {
+      "title": "DSSE Protocol v1.0.2",
+      "url": "https://github.com/secure-systems-lab/dsse/blob/master/protocol.md",
+      "source_status": "primary_specification",
+      "observed": [
+        "signatures cover PAE(payload type, serialized body)",
+        "keyid is an unauthenticated hint and must not drive security decisions",
+        "verification must reject unsupported payload types",
+        "multi-signature thresholds count unique trusted public keys"
+      ]
+    },
+    {
+      "title": "Sigstore: Verifying Signatures",
+      "url": "https://docs.sigstore.dev/cosign/verifying/verify/",
+      "source_status": "official_tool_documentation",
+      "observed": [
+        "verification is a distinct operation from signing and artifact retrieval",
+        "identity and issuer constraints belong in the verification path"
+      ]
+    }
+  ],
+  "finding": "Structural provenance and trusted-builder policy are insufficient unless acceptance also requires cryptographic verification bound to the exact DSSE PAE bytes, payload type, payload digest, and trusted signer identity.",
+  "design_implication": "Insert a fail-closed cryptographic promotion contract between structural attestation validation and claim-level evidence acceptance. Treat external verifier output as input; never infer cryptographic validity from envelope shape or keyid.",
+  "artifacts": {
+    "module": "tools/frontier-research/dsse-verification-contract.mjs",
+    "test": "tools/frontier-research/dsse-verification-contract.test.mjs",
+    "module_commit": "2295654435477220b386e675dd284cd0f808c0c8",
+    "test_commit": "e85eaf3e554e100a21c81c1dc72c1636a561af3e"
+  },
+  "verification": {
+    "source_commitment": "verified_by_github_contents_write",
+    "test_execution": "not_observed",
+    "tests_defined": 6,
+    "coverage": [
+      "official DSSE PAE vector",
+      "exact digest and payload type binding",
+      "unique signer threshold",
+      "trusted identity requirement",
+      "PAE verification requirement",
+      "supported payload type allowlist"
+    ]
+  },
+  "evidence_strength": "source_committed_test_unexecuted",
+  "uncertainty": [
+    "The module does not itself perform public-key or Sigstore bundle verification.",
+    "External verifier-result authenticity remains an integration responsibility.",
+    "Cryptographic acceptance does not establish that the evidence claim is scientifically or operationally true."
+  ],
+  "falsification_route": "Execute the committed tests and provide a verifier-result fixture that is accepted despite duplicate signer identity, digest or payload-type mismatch, untrusted identity, or absent PAE verification.",
+  "privacy_boundary": "Public specifications and repository-safe implementation metadata only; no private chat, health data, credentials, or personal identifiers included."
+}
