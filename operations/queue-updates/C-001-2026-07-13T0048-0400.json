@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T00:48:00-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "canonical_queue_sha_observed": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+  "canonical_status_observed": "blocked_external_configuration",
+  "projection": {
+    "status": "blocked_external_configuration",
+    "durable_improvement": "Integrated Frontier Research's issuer/JWT-ID replay ledger into the Cloudflare signed OIDC evidence runner.",
+    "commits": [
+      "8b3ec2dc571c9f3f4caf3c9bbed6ffed711eb9ca",
+      "5799f9b1f22e3f25a3eb2fc246c9ef95c511526b",
+      "97c1cf7f99eec05b253e32756f5e3b8a07906a68"
+    ],
+    "evidence": "operations/evidence/cloudflare-oidc-replay-integration-2026-07-13T0048-0400.json",
+    "verification_state": "source_committed_runtime_unverified",
+    "deployment_state": "not_run",
+    "remaining": [
+      "provide authenticated cross-run replay-ledger retention and retrieval",
+      "execute the committed deterministic test in GitHub Actions or a fresh checkout",
+      "configure protected CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN",
+      "dispatch deployment and prove resolving URL, served research surface, and deployed commit"
+    ]
+  },
+  "non_overwrite_statement": "This additive projection does not replace operations/ACTIVE_QUEUE.json or any other team's state.",
+  "epistemic_limit": "GitHub acceptance of these source commits does not prove test passage, workflow execution, peer execution, or Cloudflare deployment."
+}
