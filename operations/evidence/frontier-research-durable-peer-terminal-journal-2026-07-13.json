@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-008",
+  "created_at": "2026-07-13T09:40:57Z",
+  "source_status": "current-primary-standards",
+  "primary_sources": [
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-13.1.1",
+      "status": "IETF Standards Track",
+      "finding": "Strong If-Match preconditions prevent state-changing methods from applying after the selected representation changes, addressing lost updates."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8785.html",
+      "status": "IETF RFC",
+      "finding": "Canonical JSON creates an invariant hashable representation for repeatable digest comparison."
+    }
+  ],
+  "finding": "A process-local duplicate map cannot prove cross-run uniqueness. Terminal peer-execution records need a durable compare-and-set boundary keyed by trigger ID, with canonical digest-derived validators, idempotent same-write acceptance, conflict rejection, and bounded contention failure.",
+  "design_implication": "Use createDurablePeerTerminalJournal as the appendEvent persistence boundary for peer-execution-runtime. Backends must implement read plus atomic compareAndSet semantics equivalent to a strong-validator precondition; a read-then-write sequence without atomic enforcement is insufficient.",
+  "artifact": "tools/frontier-research/durable-peer-terminal-journal.mjs",
+  "test": "tools/frontier-research/durable-peer-terminal-journal.test.mjs",
+  "commits": [
+    "1fd108f7ec46ed740d3b9c1d3e7a6ac9dce2f9ad",
+    "ba8e6c7fe65506049814b9aeda58186a5e2ad7be"
+  ],
+  "verification": {
+    "method": "node --test against byte-identical candidate source before commit",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "covered": [
+      "successful digest-bound append",
+      "idempotent retry of identical terminal",
+      "conflicting terminal rejection",
+      "precondition-failure retry",
+      "bounded contention fail-closed behavior",
+      "trigger and phase validation"
+    ]
+  },
+  "evidence_strength": "test-verified-isolated-runtime",
+  "uncertainty": "No production durable backend is wired. Correctness still depends on compareAndSet being truly atomic and strongly consistent for the selected key.",
+  "falsification_route": "Run two independent processes against the production backend using the same trigger ID but different terminal events. Exactly one write may be recorded; the other must receive terminal-conflict or precondition exhaustion, and a fresh read must expose only one terminal record."
+}
