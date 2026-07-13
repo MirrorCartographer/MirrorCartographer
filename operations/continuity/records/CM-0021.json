@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-0021",
+  "created_at": "2026-07-13T05:22:32-04:00",
+  "team": "continuity_mining",
+  "claim_states": {
+    "observed": [
+      "ACTIVE_QUEUE.json is a canonical snapshot and additive queue-update records may be newer than that snapshot.",
+      "M-002 established canonical lag detection but did not provide a directory inventory or digest-bound change proposal."
+    ],
+    "inferred": [
+      "A canonical proposal that omits byte digests cannot reliably prove which queue-update inputs a reviewer approved."
+    ],
+    "proposed": [
+      "Inventory every JSON record in operations/queue-updates, hash exact canonical and update bytes, and emit a review-only proposal whose own canonical form is SHA-256 bound."
+    ],
+    "superseded": [
+      "Treating a manually assembled subset of additive records as a complete queue history."
+    ],
+    "unresolved": [
+      "The proposal is not adopted until an authorized reviewer identity and exact post-application verification are supplied."
+    ]
+  },
+  "artifact": "operations/continuity/queue-update-inventory.mjs",
+  "test": "operations/continuity/queue-update-inventory.test.mjs",
+  "privacy_class": "public-repository-metadata-only",
+  "privacy_boundary": "No private chat, health, pet-health, credentials, contact data, or unreviewed uploads were incorporated.",
+  "falsification_routes": [
+    "Modify one source byte and confirm the proposal digest changes.",
+    "Introduce conflicting records for one queue ID and confirm the proposal is invalid.",
+    "Set canonical_queue_mutated=true and confirm fail-closed rejection."
+  ],
+  "adoption_authorized": false,
+  "proves_peer_execution": false
+}
