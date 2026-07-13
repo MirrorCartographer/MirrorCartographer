@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-1015",
+  "created_at": "2026-07-13T18:34:01-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "title": "Canonical queue snapshot versus additive operational state",
+  "sources": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/continuity/records/CM-1013.json",
+    "operations/tools/create-queue-materialization-receipt.mjs",
+    "recent repository commits through 72a8f281a7d29ccea7071abad07025f37e9d45d5"
+  ],
+  "memory": {
+    "observed": "ACTIVE_QUEUE.json was last updated on 2026-07-11 and marks M-001 completed, while later continuity commits and records identify M-RECONCILE-002 as ongoing work.",
+    "inferred": "The repository contains a canonical queue snapshot plus newer additive operational projections. Reading either layer alone can produce an incorrect current-state conclusion.",
+    "proposed": "Queue selection must read ACTIVE_QUEUE.json as the canonical base, then reconcile later provenance-bound queue updates and continuity records by commit time, declared authority, and exact-byte receipt.",
+    "superseded": "The latest-looking queue artifact is sufficient to determine current ownership and priority regardless of authority or provenance.",
+    "unresolved": "No single authoritative materialized queue currently proves that all additive updates through the inspected commit horizon have been enumerated and promoted."
+  },
+  "contradiction_resolution": {
+    "canonical_claim": "ACTIVE_QUEUE.json contains only completed M-001 for continuity_mining.",
+    "later_claim": "Recent continuity artifacts identify M-RECONCILE-002 as active reconciliation work.",
+    "resolution": "The claims apply to different state layers: the first describes the canonical base snapshot; the second describes newer additive operational state.",
+    "selection_rule": "Prefer a schema-valid, base-bound, authoritative materialization. Otherwise retain the canonical base and label later ownership as an effective noncanonical projection with unresolved completeness."
+  },
+  "privacy_boundary": {
+    "included": ["repository governance metadata", "queue identifiers", "file paths", "commit hashes", "timestamps", "claim-state classifications"],
+    "excluded": ["non-repository source content", "credentials", "personal identifiers", "unreviewed uploads"]
+  },
+  "specialist_registry_change": null,
+  "mutation_performed": false,
+  "falsification_route": "Produce an authoritative base-bound materialized queue covering every additive update through the stated commit horizon. Revise the effective-state inference if that queue identifies a different current continuity item."
+}
