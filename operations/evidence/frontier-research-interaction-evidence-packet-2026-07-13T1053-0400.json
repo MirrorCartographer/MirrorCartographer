@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-007",
+  "observed_at": "2026-07-13T10:53:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://w3c.github.io/event-timing/",
+      "status": "W3C editor's draft dated 2026-03-19",
+      "relevance": "PerformanceEventTiming groups related trusted input events through non-zero interactionId and exposes separable input, processing, and presentation latency components."
+    },
+    {
+      "url": "https://w3c.github.io/long-animation-frames/",
+      "status": "W3C editor's draft",
+      "relevance": "Long Animation Frames entries provide retained main-thread congestion evidence that remains distinct from interaction correlation and end-user claim truth."
+    }
+  ],
+  "finding": "A combined interaction evidence packet must bind both classifier verdicts to one immutable deployment, exact source commit, target device/browser, observation window, and ordered interaction sequence while preserving each verdict and its digest independently.",
+  "design_implication": "Vercel Studio can now assemble and verify one fail-closed packet after running the existing Event Timing and Long Animation Frames classifiers. Unsupported instrumentation, non-accepting verdicts, deployment mismatch, missing device context, or post-build tampering prevent acceptance.",
+  "artifacts": {
+    "module": "tools/frontier-research/interaction-evidence-packet.mjs",
+    "test": "tools/frontier-research/interaction-evidence-packet.test.mjs",
+    "commits": [
+      "a548b35861ad65dc28a42d7f20c1ed42efb9f350",
+      "a814b1fb155de842516fbed8cbb63f215297d03a"
+    ]
+  },
+  "verification": {
+    "command": "node --test interaction-evidence-packet.test.mjs",
+    "environment": "isolated Node runtime using byte-identical source before commit",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "successful exact deployment-bound packet verification",
+      "deployment commit mismatch rejection",
+      "unsupported or non-accepting instrument rejection",
+      "post-build evidence tamper detection",
+      "deterministic canonical packet digest"
+    ]
+  },
+  "evidence_strength": "committed implementation plus deterministic local tests; no browser, device, or deployment execution in this run",
+  "claim_limits": [
+    "interactionId correlation is page-lifecycle local and does not prove causality",
+    "Long Animation Frames evidence does not prove universal smoothness",
+    "packet acceptance is scoped to the exact retained deployment and observation context",
+    "SHA-256 integrity is not producer authentication or proof that a human-visible outcome occurred"
+  ],
+  "falsification_route": "Repeat the exact ordered interaction sequence against the same immutable deployment on the target device; reject the packet if deployment identity changes, either classifier is unsupported or non-accepting, observation context is incomplete, or any retained digest changes."
+}
