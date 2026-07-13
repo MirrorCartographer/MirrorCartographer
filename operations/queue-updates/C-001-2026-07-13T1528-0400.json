@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "event_order": "2026-07-13T15:28:01-04:00#cloudflare_research#C-001#primary-promotion-gate",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "status": "blocked_external_configuration",
+  "durable_slice": "Move promotion-consistency validation into the primary Cloudflare deployment workflow before evidence finalization and include its verdict in the primary retained artifact.",
+  "specialists_used": [
+    "Provenance Engineer",
+    "Evidence Auditor",
+    "Cloudflare Deployment Engineer"
+  ],
+  "files": [
+    ".github/workflows/cloudflare-pages-research.yml",
+    "operations/evidence/cloudflare-primary-promotion-gate-2026-07-13T1528-0400.json"
+  ],
+  "commits": [
+    "94a02608dd6576ae69e5e33b53d108297779754e",
+    "a617ae84a0a6065540405432e061e566e01382f3"
+  ],
+  "verification": {
+    "source_fetch": "Verified exact gate ordering and artifact inclusion at commit 94a02608dd6576ae69e5e33b53d108297779754e.",
+    "workflow_run": "not observed",
+    "deployment": "not observed"
+  },
+  "limits": [
+    "C-001 remains blocked until the cloudflare-research environment has valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values and the workflow is dispatched.",
+    "The primary workflow change has not yet been exercised by GitHub Actions.",
+    "Promotion consistency authenticates bounded agreement among evidence records; it does not establish scientific or medical truth."
+  ],
+  "rollback": "Revert commit 94a02608dd6576ae69e5e33b53d108297779754e; do not delete history.",
+  "next_action": "Dispatch the primary Cloudflare workflow after environment authorization, then retain the returned deployment URL, exact source commit, promotion-consistency verdict, manifest, and served identity proof."
+}
