@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T05:55:15Z",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "canonical_queue_modified": false,
+  "status": "active",
+  "action": "Reconcile accepted additive continuity records with canonical queue state through deterministic, reviewed, non-mutating artifacts.",
+  "dependencies": ["M-001"],
+  "completed_slice": {
+    "module": "operations/continuity/reviewed-adoption-authorization.mjs",
+    "test": "operations/continuity/reviewed-adoption-authorization.test.mjs",
+    "memory_record": "operations/continuity/records/CM-0016.json",
+    "commits": [
+      "3bb0071c30d67f0084c9c8ef94ee263a6e24d77d",
+      "d87bb5a61ad5a15c9c57ab94f115fa56f3f6e079",
+      "3957e0178b9dbba657eb06f1602f34d5a28fd8da"
+    ],
+    "verification": "5 deterministic Node tests passed locally before commit.",
+    "finding": "Projection review, authorization recording, and canonical mutation must remain separate states. The new gate binds projection bytes and review scope while explicitly denying automatic adoption and canonical mutation."
+  },
+  "required_evidence": [
+    "successful commit-bound projection artifact",
+    "exact projection SHA-256",
+    "canonical queue blob SHA",
+    "authenticated reviewer identity",
+    "bounded queue-item scope",
+    "separate canonical-change proposal"
+  ],
+  "acceptance_test": "The validator rejects changed projection bytes, widened scope, stale source identities, automatic adoption permission, and canonical mutation permission; approval and rejection remain durable review outcomes only.",
+  "privacy_boundary": "Public repository paths, commit and blob identities, abstract queue state, reviewer handle, bounded decision rationale, and deterministic digests only; raw private chat, health material, credentials, identifying personal data, and unreviewed uploads remain excluded.",
+  "next_action": "Bind a real successful projection artifact and authenticated reviewer identity to the authorization packet, then generate a separate human-applied canonical-change proposal without allowing automation to write ACTIVE_QUEUE.json."
+}
