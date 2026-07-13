@@ -1,0 +1,25 @@
+{
+  "schema_version":"1.0.0",
+  "queue_item":{
+    "id":"M-004",
+    "owner":"continuity_mining",
+    "priority":3,
+    "action":"Compose strict relation integrity into the aggregate continuity validator and preserve the resulting schema-drift finding without rewriting other teams' state.",
+    "dependencies":["M-001","M-002","M-003"],
+    "required_evidence":["aggregate source integration","adversarial duplicate-edge fixture","adversarial supersession-cycle fixture","provenance-safe memory record","privacy boundary","falsification route"],
+    "status":"completed_with_followup",
+    "progress":{
+      "source":"tools/continuity/validate-continuity-records.mjs",
+      "test":"tools/continuity/validate-continuity-records.test.mjs",
+      "memory_record":"operations/continuity/records/CM-1001.json",
+      "evidence":"operations/evidence/continuity-aggregate-relation-gate-2026-07-13T1336-0400.json",
+      "commits":["73d8c614379d64e14accb305c94a0bb962cd84b7","b4197caf4e2410673962dc0e7567b75080d466fa","58f1d8e0d9ac3366514cebb2343134c04bbdd1a6","9ecacedd847f78567b16ecd535da5a3cd124cf25"],
+      "verification":"Exact source readback confirms aggregate composition and six deterministic fixtures, including duplicate-target and supersession-cycle rejection. Runtime execution was not observed.",
+      "canonical_mutation_performed":false,
+      "specialist_registry_changed":false
+    },
+    "handoff":"Create M-005 to migrate legacy prose relation values such as CM-1000.contradicts into a preservation-safe narrative field or linked contradiction record, retain the original blob SHA, then execute the aggregate gate in CI at the exact migration commit."
+  },
+  "preservation_rule":"This additive queue update does not overwrite operations/ACTIVE_QUEUE.json, other teams' records, or Git history.",
+  "privacy_boundary":"Only public repository implementation and abstract project-memory metadata were used. No private chat or personal/medical material was published."
+}
