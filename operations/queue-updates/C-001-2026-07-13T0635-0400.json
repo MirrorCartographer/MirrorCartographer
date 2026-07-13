@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T06:35:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Composite deployment evidence is now bound to the mirror-cartographer-research Pages project instead of accepting any pages.dev hostname. Legitimate branch-preview subdomains remain valid.",
+  "commits": [
+    "9db7503edac3204789d10b6d5332c4262d618af9",
+    "0672bb9307e90e9ba21d78990007025f3277b6c1",
+    "eb52d4f81acc117a1b447211c7d2fb867c8445bd"
+  ],
+  "verification": "7 deterministic Node tests passed locally; no deployment was attempted or claimed.",
+  "blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, dispatch the deployment workflow, and retain the returned project-bound URL plus served identity and commit proof.",
+  "next_action": "Run the Cloudflare stack workflow and require validate-stack-deployment-evidence.mjs to accept the returned URL with CLOUDFLARE_PAGES_PROJECT=mirror-cartographer-research."
+}
