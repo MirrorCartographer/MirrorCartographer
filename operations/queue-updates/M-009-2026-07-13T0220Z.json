@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "M-009-2026-07-13T0220Z",
+  "queue_item": "M-009",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-13T02:20:00Z",
+  "claim_state": "observed",
+  "status": "completed",
+  "action": "Bind canonical queue state, append-only projections, and referenced evidence to one immutable repository commit and deterministic source digest without mutating ACTIVE_QUEUE.json.",
+  "source_commits": [
+    "ede89680d41b5da707f2f461d2a9ee162fc24a83",
+    "7c95b5e284bfe4142514990e48c205430129617f",
+    "ff6e96d6036f6493aceb8fc1e87618881db5d929"
+  ],
+  "evidence_paths": [
+    "tools/continuity/queue-snapshot-binding.mjs",
+    "tools/continuity/queue-snapshot-binding.test.mjs",
+    "operations/evidence/continuity-immutable-queue-snapshot-2026-07-13T0220Z.json"
+  ],
+  "evidence_types": [
+    "implementation",
+    "deterministic test specification",
+    "immutable source binding",
+    "privacy boundary",
+    "falsification route"
+  ],
+  "verification": {
+    "committed_test_cases": 5,
+    "ci_run": "not_observed",
+    "source_review": "completed"
+  },
+  "canonical_queue_mutated": false,
+  "specialist_registry_mutated": false,
+  "observed": [
+    "A full source commit is resolved before queue, projection, or evidence bytes are read.",
+    "Source inputs are read from Git objects at the resolved commit rather than from a mutable working tree.",
+    "A deterministic digest binds the source commit and exact source inventory.",
+    "Materialization remains denied because snapshot consistency is not authorization."
+  ],
+  "inferred": [
+    "This removes mixed-time repository reads from the continuity materialization review path."
+  ],
+  "proposed": [
+    "Reconcile directly from the snapshot-bound blob contents and define a separate signed or policy-bound materialization authority."
+  ],
+  "superseded": [
+    "Assuming sequential working-tree reads represent one immutable repository state."
+  ],
+  "unresolved": [
+    "Canonical materialization authority remains undefined.",
+    "Test execution is not observed.",
+    "The reconciler is not yet fed directly from snapshot-bound blob contents."
+  ],
+  "next_action": "Add a snapshot-native reconciliation adapter that parses the bound canonical queue and projections from the selected commit, invokes queue reconciliation without working-tree reads, and hashes the resulting candidate separately from its source inventory."
+}
