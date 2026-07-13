@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "recorded_at": "2026-07-13T13:14:00-04:00",
+  "improvement": "Executable integrity contract for continuity contradiction and supersession links",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/continuity/continuity-index.schema.json",
+    "operations/continuity/continuity-index.json",
+    "operations/continuity/build-queue-compaction-manifest.mjs",
+    "recent repository commits through c7ddc779d59a4266c676b05468bbc82996a92c4b"
+  ],
+  "source_commits": {
+    "validator": "bcc33d05ca8a9e90b69a211424e68e8fdbb0fe3b",
+    "tests": "41ce47b9ffa123a1da0cc2d595daab53134095cc"
+  },
+  "verification": {
+    "route": "isolated Node test runner using byte-identical pre-commit files",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "adversarial_cases": [
+      "dangling relation target",
+      "self relation",
+      "duplicate record id",
+      "supersession cycle"
+    ]
+  },
+  "recovered_memory": "Continuity history must preserve older observations and express changed interpretation through explicit supersedes or contradicts links rather than destructive overwrite.",
+  "claim_states": {
+    "observed": "The existing index schema exposes contradicts and supersedes links, and CM-0009 uses supersedes to preserve CM-0003 as historical evidence.",
+    "inferred": "Without a graph integrity gate, future records could silently create dangling, duplicate, self-referential, or cyclic history links.",
+    "proposed": "Run validate-continuity-relations.mjs whenever the continuity index changes.",
+    "superseded": "The earlier implicit-only relation rule is superseded operationally by an executable validator, while its historical artifacts remain preserved.",
+    "unresolved": "The canonical queue has not yet been compacted to include M-002; this additive queue update records the candidate without overwriting other teams."
+  },
+  "privacy_boundary": "Only public repository files and commit metadata were inspected. Raw chat, health or pet-health material, credentials, identifying personal data, and unreviewed uploads were excluded.",
+  "truth_limit": "Structural relation integrity does not establish the truth of any indexed claim or the correctness of a human contradiction decision."
+}
