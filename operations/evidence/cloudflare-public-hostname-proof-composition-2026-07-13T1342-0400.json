@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T13:42:00-04:00",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "finding": "Public page identity and served deployment-manifest identity must be composed before exact-commit deployment proof is accepted.",
+  "implemented": {
+    "classifier": "cloudflare-static/classify-public-hostname-proof.mjs",
+    "test": "cloudflare-static/classify-public-hostname-proof.test.mjs",
+    "workflow": ".github/workflows/cloudflare-public-hostname-proof.yml"
+  },
+  "commits": [
+    "2787c9d9ae3f824fc455550a620051dcd62813dc",
+    "5914e9f62c582c50dddf6cb4da6c00e615fb36b0",
+    "e2032d9a058b41a5e69d5e1e9ad5d379140b0e63"
+  ],
+  "claim_states": {
+    "observed": [
+      "The repository already contained a bounded public hostname collector.",
+      "The repository already contained a served deployment-manifest verifier.",
+      "The two proof layers were not composed in the bounded public-hostname path."
+    ],
+    "implemented": [
+      "A deterministic classifier now requires both research-surface page identity and exact expected repository, surface, and source commit in the served manifest.",
+      "Four adversarial tests cover exact match, commit mismatch, failed page identity, and bounded non-resolution.",
+      "A GitHub Actions workflow is committed to execute the contract test."
+    ],
+    "unresolved": [
+      "No authenticated Cloudflare control-plane deployment was executed in this run.",
+      "No completed workflow run was observed at record time.",
+      "The actual public hostname remains externally blocked until configuration or runtime evidence becomes available."
+    ]
+  },
+  "privacy_boundary": "No credentials, private chat, health data, or user-identifying material were read or published.",
+  "limits": [
+    "A valid public manifest does not prove Cloudflare account ownership or control-plane state.",
+    "A bounded probe can become stale after its observation time.",
+    "No diagnosis, treatment, payment, or conversion claim is authorized."
+  ],
+  "falsification_route": "Serve a page satisfying the research identity markers with a missing, malformed, repository-mismatched, surface-mismatched, or commit-mismatched manifest; the classifier must reject exact_commit_surface_verified."
+}
