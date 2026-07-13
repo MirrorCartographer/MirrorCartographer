@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-012",
+    "owner": "frontier_research",
+    "priority": 11,
+    "action": "Bind the exact browser evidence gate to read-only repository CI and retain its machine-readable report without treating CI success as deployment or device proof.",
+    "dependencies": ["R-011"],
+    "required_evidence": [
+      "current primary specifications",
+      "committed CI workflow",
+      "exact report retention",
+      "explicit claim limit and falsification route"
+    ],
+    "status": "completed_source_verified_ci_pending",
+    "progress": {
+      "primary_sources": [
+        "https://w3c.github.io/event-timing/",
+        "https://w3c.github.io/long-animation-frames/",
+        "https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax"
+      ],
+      "finding": "A deterministic browser-evidence runner becomes operationally reusable only when repository CI invokes the exact runner contract and underlying suites, validates the emitted boundary, and retains the exact report under least privilege.",
+      "workflow": ".github/workflows/frontier-browser-evidence-gate.yml",
+      "evidence": "operations/evidence/frontier-browser-evidence-ci-2026-07-13T1314-0400.json",
+      "commits": [
+        "e35a5e264d6d4f0535d236c6f0b17f2813efa665",
+        "a1d90ec4bdb00f5028ad01a9e0a8aef4f9e9ee1f"
+      ],
+      "verification": "Committed workflow read back successfully at the exact source commit. No GitHub Actions workflow run was visible at observation time; execution remains pending."
+    },
+    "handoff": "Vercel Studio should consume only a retained successful frontier-browser-evidence artifact paired with the exact commit, and must keep deployment identity and iPhone/device outcomes as separate evidence."
+  },
+  "canonical_queue_update_policy": "Append-only team-owned update; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "next_action": "Inspect the GitHub Actions run triggered by the workflow commit, verify the retained artifact is bound to the exact commit, then add attestation only if it preserves the distinction between provenance and runtime truth."
+}
