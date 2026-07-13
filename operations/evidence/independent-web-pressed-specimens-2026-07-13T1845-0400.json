@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "recorded_at": "2026-07-13T18:45:00-04:00",
+  "creative_premise": "A living organism in Pressure Garden can be converted into a deterministic pressed botanical SVG before the temporary ecology disappears.",
+  "artifact": {
+    "module": "independent-web/pressure-garden/specimen.mjs",
+    "test": "independent-web/pressure-garden/specimen.test.mjs",
+    "runtime": "independent-web/pressure-garden/index.html",
+    "workflow": ".github/workflows/independent-web-pages.yml"
+  },
+  "properties": [
+    "The same genome and parent pair always produce byte-identical SVG text.",
+    "The specimen contains visible genome traits and optional parent seeds only.",
+    "The SVG is self-contained and contains no script, external link, visit history, account data, or project operations metadata.",
+    "Pressing is disabled until a plant exists and composting removes eligibility."
+  ],
+  "verification": {
+    "environment": "Node.js v22 isolated runtime using byte-identical pre-commit files",
+    "result": "4 tests passed, 0 failed",
+    "cases": ["stable specimen identifier","deterministic self-contained SVG","visible trait divergence","invalid genome fails closed"],
+    "github_actions": "No workflow run was returned for commit 14b6c060e6658face00e579664a5c4eac1dc22c7 at inspection time.",
+    "deployment": "No new Pages deployment identity or browser/mobile execution was observed; none is claimed."
+  },
+  "independence": "This is a finite botanical fiction and take-away artwork, not an explanation of Mirror Cartographer, a research portal, an operations dashboard, or a conversion funnel.",
+  "rollback": "Revert commits 07157466d480f42c96a7659e4edffc1f20f71478, 32813526fe5f4940b03579862ea6c0d4b09a844c, 89b62da3a2a270b500966363996fc1b5bb0499b4, and 14b6c060e6658face00e579664a5c4eac1dc22c7 without deleting history."
+}
