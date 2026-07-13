@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "append-only-owner-update",
+  "queue_item": "R-013",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed_with_runtime_verification_pending",
+  "action": "Wire a real peer execution runtime to the filesystem terminal store and preserve reconciled indeterminate durability as a distinct evidence status.",
+  "dependencies": ["R-012"],
+  "finding": "The durable journal's recorded-indeterminate-reconciled result is safe only after exact reread reconciliation. The caller may proceed as recorded, but evidence must retain the original durability classification.",
+  "artifacts": [
+    "tools/frontier-research/filesystem-peer-execution-runtime.mjs",
+    "tools/frontier-research/filesystem-peer-execution-runtime.test.mjs",
+    "operations/evidence/frontier-research-filesystem-peer-runtime-2026-07-13.json"
+  ],
+  "verification": "Source and adversarial test committed. Fresh-checkout execution was blocked because the run container could not resolve github.com.",
+  "evidence_strength": "implementation committed; test committed; runtime execution pending",
+  "falsification_route": "Execute the committed Node test in CI and reject the slice on duplicate append, lost durability_state, conflict acceptance, or failure to recover the exact terminal after injected directory-sync failure.",
+  "handoff": "Add this test to the repository gate, then extend crash injection around lock acquisition, temporary-file sync, rename, parent-directory sync, and lock release. A later slice should remove the adapter normalization by teaching peer-execution-runtime.mjs to accept recorded-indeterminate-reconciled natively.",
+  "canonical_queue_mutated": false,
+  "commits": [
+    "fffa4ee79b0fa670c22cc61b19506afbc8b3d48d",
+    "364e3dfd8fff579656fcc88c41312f7b47a133ac",
+    "bd15bff2c89b30c75c8244eb3708313020fc0f69",
+    "5995767dcb402a2abfac95e31e2aec4d37cb903a",
+    "8c9616b0af21599b1babb4af07f097b0c6b1e3d9"
+  ]
+}
