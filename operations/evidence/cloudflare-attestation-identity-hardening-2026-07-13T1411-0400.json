@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T14:11:54-04:00",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "improvement": "Harden GitHub artifact-attestation normalization from workflow substring matching to exact repository, workflow ref, certificate identity, transparency-log, and SHA-256 subject requirements.",
+  "source_files": [
+    "cloudflare-static/normalize-github-attestation-verification.mjs",
+    "cloudflare-static/normalize-github-attestation-verification.test.mjs",
+    ".github/workflows/cloudflare-pages-research.yml"
+  ],
+  "commits": {
+    "implementation": "a15413d68d81c82411fc61202c4850f5f765b61b",
+    "tests": "412868ca3d9ba09d52337b7162f8d2e9cfc3d4ba"
+  },
+  "verification": {
+    "route": "Node built-in test runner using byte-identical committed module and equivalent committed test cases",
+    "tests": 7,
+    "passed": 7,
+    "failed": 0,
+    "covered": [
+      "exact trusted workflow identity construction",
+      "exact verified row acceptance",
+      "lookalike repository rejection",
+      "workflow substring/suffix lookalike rejection",
+      "certificate identity mismatch rejection",
+      "missing transparency-log verification rejection",
+      "malformed subject digest rejection"
+    ]
+  },
+  "claim_state": "verified_source_behavior",
+  "evidence_strength": "deterministic_local_execution_plus_committed_source",
+  "deployment_state": "not_deployed",
+  "limits": [
+    "No Cloudflare deployment occurred because required external credentials remain unavailable.",
+    "The normalizer relies on gh attestation verify output and does not independently perform public-key or certificate-chain verification.",
+    "Cryptographic provenance does not establish scientific truth or successful deployment by itself."
+  ],
+  "privacy_boundary": "No credentials, private chat, health material, or personal identifying information are included.",
+  "falsification_route": "Provide a gh verification row with an untrusted repository, signer suffix, different certificate identity, absent transparency-log verification, or malformed digest and observe that normalization returns not_verified."
+}
