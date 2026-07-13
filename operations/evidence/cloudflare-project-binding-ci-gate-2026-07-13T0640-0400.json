@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T06:40:00-04:00",
+  "claim_state": "implemented_local-runtime-verified",
+  "finding": "The project-bound Cloudflare stack evidence validator and its adversarial tests existed, but the production deployment workflow did not execute that test file. A separate least-privilege CI gate now runs the exact project-binding test on relevant pull requests, pushes to main, and manual dispatches.",
+  "design_implication": "A deployment-proof rule is not durable merely because its test exists. Repository changes affecting the Pages deployment workflow, validator, or test must automatically execute the project-binding contract before acceptance.",
+  "files": [
+    ".github/workflows/cloudflare-project-binding-gate.yml",
+    "cloudflare-static/project-binding-gate-workflow.test.mjs"
+  ],
+  "commits": [
+    "02280da352b87865913f9cc46ce22a3be458f7bf",
+    "b9d88c005f2a84e152f1d6dda9d762690d4b62f0"
+  ],
+  "verification": {
+    "local_node_test": {
+      "command": "node --test cloudflare-static/project-binding-gate-workflow.test.mjs",
+      "passed": 3,
+      "failed": 0
+    },
+    "workflow_run_observed": false,
+    "workflow_run_reason": "No workflow run was returned for the latest commit at verification time."
+  },
+  "security_properties": [
+    "contents read permission only",
+    "immutable checkout action SHA",
+    "path triggers cover production deployment workflow, validator, adversarial test, and gate contract",
+    "no Cloudflare credentials or deployment permissions required"
+  ],
+  "privacy_boundary": "No credentials, private chat, health data, or identifying personal data are included.",
+  "epistemic_limit": "The CI gate verifies the repository contract and project-hostname rejection logic. It does not prove a Cloudflare deployment occurred, that credentials are configured, or that scientific claims are true.",
+  "falsification_route": [
+    "A relevant file changes without triggering the gate.",
+    "The gate no longer invokes validate-stack-deployment-evidence.test.mjs.",
+    "The gate gains write, deployment, or identity-token permissions.",
+    "An unrelated Pages project hostname passes the stack evidence tests."
+  ],
+  "next_action": "Observe the first GitHub Actions execution of the new gate and retain its run identity; separately configure the cloudflare-research environment credentials and dispatch the deployment workflow."
+}
