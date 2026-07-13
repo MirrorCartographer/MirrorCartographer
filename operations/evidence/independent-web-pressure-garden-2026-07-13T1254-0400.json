@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "recorded_at": "2026-07-13T12:54:00-04:00",
+  "creative_premise": "Pressure Garden is a finite, touch-grown ecology where hold duration becomes plant maturity and pointer position bends every stem as local weather.",
+  "source": [
+    "independent-web/pressure-garden/index.html",
+    "independent-web/pressure-garden.contract.test.mjs",
+    ".github/workflows/independent-web-pages.yml"
+  ],
+  "commits": [
+    "45452cfbbb4202a2888bfde8f2ed732edaafaeff",
+    "78e6bdab67611505798660d2fe83b109c1a1fe4d",
+    "312f8a63211c15945476a0e55abddc631e7cdd59"
+  ],
+  "verification": {
+    "source_fetch": "committed contract test was fetched back from the default branch",
+    "ci_wiring": "Independent Web Pages now runs the exact Pressure Garden contract test before artifact upload",
+    "runtime_status": "not executed in a browser during this run",
+    "deployment_status": "workflow completion and served page URL not yet observed"
+  },
+  "independence": {
+    "network": "none",
+    "storage": "none",
+    "accounts": "none",
+    "payments": "none",
+    "analytics": "none",
+    "mirror_cartographer_vocabulary": "excluded by contract"
+  },
+  "accessibility": [
+    "keyboard Space plants a specimen",
+    "visible focus styles",
+    "aria-live status",
+    "reduced-motion handling",
+    "safe-area-aware controls"
+  ],
+  "performance_boundary": "Plant population is capped at 34 and oldest specimens are retired first.",
+  "rollback": "Revert commits in reverse order or redeploy any earlier independent-web source commit; no persistent state or migration exists.",
+  "limits": [
+    "No public URL was proven in this run.",
+    "No physical mobile or Safari interaction was observed.",
+    "A committed test and CI wiring are not proof of a passing workflow until a run completes."
+  ]
+}
