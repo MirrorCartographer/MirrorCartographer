@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T06:12:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Wired the previously committed composite stack evidence validator into the Cloudflare research deployment workflow as a fail-closed post-recording gate and added a regression test for step ordering and artifact retention.",
+  "specialists_used": [
+    "Cloudflare Deployment Engineer",
+    "Provenance Engineer",
+    "Evidence Auditor"
+  ],
+  "progress": {
+    "workflow": ".github/workflows/cloudflare-research-stack.yml",
+    "regression_test": "cloudflare-static/cloudflare-research-stack-workflow.test.mjs",
+    "evidence": "operations/evidence/cloudflare-composite-evidence-workflow-gate-2026-07-13T0612-0400.json",
+    "commits": [
+      "1ac8c539a131a1e2699254481f447cdd64c65202",
+      "42e290444e13ca2f42fc320694182d3075804ba8",
+      "dded9d80acefc01728479b5fdd0f73e126e2f1c9"
+    ],
+    "verification": "Committed-source inspection confirmed validator tests are included, validation follows evidence recording, upload follows validation, and the validation JSON is retained and named in the run summary. No workflow execution was observed."
+  },
+  "remaining": [
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Dispatch cloudflare-research-stack.yml and retain the readiness, access, deployment, composite evidence, and composite validation artifacts.",
+    "Confirm the regression test and all stack contract tests pass in GitHub Actions.",
+    "Publish the actual Pages hostname only after the full live gate accepts the deployed commit."
+  ],
+  "canonical_mutation": false
+}
