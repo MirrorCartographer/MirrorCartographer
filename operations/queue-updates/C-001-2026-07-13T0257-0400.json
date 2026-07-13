@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T02:57:20-04:00",
+  "canonical_queue_modified": false,
+  "status": "blocked_external_configuration",
+  "completed_slice": "Split replay reservation into a deployable Durable Object Worker plus an externally bound Pages Function, added the SQLite migration, hash-stable routing, and a fail-closed deployment-topology validator.",
+  "artifacts": [
+    "cloudflare-static/replay-reservation-worker.mjs",
+    "cloudflare-static/replay-reservation-worker.wrangler.jsonc",
+    "cloudflare-static/functions/api/replay-reservation.mjs",
+    "cloudflare-static/wrangler.jsonc",
+    "cloudflare-static/validate-replay-reservation-deployment.mjs",
+    "cloudflare-static/validate-replay-reservation-deployment.test.mjs",
+    "operations/evidence/cloudflare-replay-reservation-topology-2026-07-13T0257-0400.json"
+  ],
+  "commits": [
+    "49827733c04d3f8643e2d9cf825b6c859c8bd709",
+    "5d466b033a421260cc585e633c57f9acbd06623e",
+    "27019a5c82568e1460312edfb2612fc017eb3f31",
+    "0efce2b478b8c27840c159d18f6a27f6a7562d41",
+    "7f35bd20ab5255f981f1da18169317a32a8a413c",
+    "902b7cf801bafa78bfe74816d479ae2c72ab4e42",
+    "0c88a7aa76ccd7e5cde80a42d40c29c552831998"
+  ],
+  "verification": "Five deterministic deployment-topology tests passed in an isolated Node runtime.",
+  "remaining": [
+    "Configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment.",
+    "Deploy mirror-cartographer-replay-reservation before the Pages project.",
+    "Verify the external REPLAY_RESERVATION binding resolves in Pages.",
+    "Run deployed concurrent single-winner and post-redeploy persistence tests.",
+    "Capture resolving Pages hostname, Worker URL, served identity, and deployed commits."
+  ],
+  "boundary": "No payment functionality moved to Vercel; no diagnosis or treatment claim was published; no private material or Git history was deleted."
+}
