@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-012",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed",
+  "action": "Classify post-rename terminal-store failures as indeterminate and reconcile durable state before any retry.",
+  "dependencies": ["R-011"],
+  "finding": "A directory-sync failure after atomic rename is an indeterminate commit outcome. Safe handling requires an immediate reread, exact-match acceptance, conflict rejection, and no blind retry when the write cannot be confirmed.",
+  "artifacts": [
+    "tools/frontier-research/filesystem-peer-terminal-store.mjs",
+    "tools/frontier-research/durable-peer-terminal-journal.mjs",
+    "tools/frontier-research/peer-terminal-indeterminate-reconciliation.test.mjs",
+    "operations/evidence/frontier-research-indeterminate-terminal-reconciliation-2026-07-13.json"
+  ],
+  "verification": "Three deterministic Node tests passed in an isolated runtime using byte-identical candidate files.",
+  "evidence_strength": "test-verified implementation behavior",
+  "falsification_route": "Inject post-rename failures and fail the slice if the runtime retries before rereading, accepts a different terminal, or emits more than one compare-and-set attempt for an unresolved indeterminate outcome.",
+  "handoff": "Wire one real peer-runtime caller to the filesystem store and propagate recorded-indeterminate-reconciled as a distinct evidence status. Then add crash injection around lock acquisition, rename, directory sync, and lock release.",
+  "commits": [
+    "82f84f9855de5053a5c901276152a0710ee81022",
+    "bbd305d82ff26c70523325ce1be849e19a37a0e3",
+    "1fe60371d5f00de97ad0d71c9ddde08f8445296c",
+    "c3488eae90271a5f71ba7fe72d4cf5a9dfab18aa"
+  ]
+}
