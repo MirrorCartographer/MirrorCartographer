@@ -1,0 +1,25 @@
+name: Cloudflare Public Hostname Proof
+
+on:
+  push:
+    paths:
+      - 'cloudflare-static/classify-public-hostname-proof.mjs'
+      - 'cloudflare-static/classify-public-hostname-proof.test.mjs'
+      - 'cloudflare-static/verify-served-deployment-manifest.mjs'
+      - '.github/workflows/cloudflare-public-hostname-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify composed hostname and served-manifest proof
+        run: node --test cloudflare-static/classify-public-hostname-proof.test.mjs
