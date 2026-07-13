@@ -7,6 +7,7 @@ on:
       - '.github/workflows/cloudflare-project-binding-gate.yml'
       - 'cloudflare-static/validate-stack-deployment-evidence.mjs'
       - 'cloudflare-static/validate-stack-deployment-evidence.test.mjs'
+      - 'cloudflare-static/production-project-binding-workflow.test.mjs'
       - 'cloudflare-static/project-binding-gate-workflow.test.mjs'
   push:
     branches:
@@ -16,6 +17,7 @@ on:
       - '.github/workflows/cloudflare-project-binding-gate.yml'
       - 'cloudflare-static/validate-stack-deployment-evidence.mjs'
       - 'cloudflare-static/validate-stack-deployment-evidence.test.mjs'
+      - 'cloudflare-static/production-project-binding-workflow.test.mjs'
       - 'cloudflare-static/project-binding-gate-workflow.test.mjs'
   workflow_dispatch:
 
@@ -30,5 +32,7 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Verify project-bound Cloudflare stack evidence
         run: node --test cloudflare-static/validate-stack-deployment-evidence.test.mjs
+      - name: Verify production workflow project binding
+        run: node --test cloudflare-static/production-project-binding-workflow.test.mjs
       - name: Verify gate workflow contract
         run: node --test cloudflare-static/project-binding-gate-workflow.test.mjs
