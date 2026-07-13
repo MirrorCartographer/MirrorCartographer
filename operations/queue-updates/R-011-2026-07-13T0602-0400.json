@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-011",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed",
+  "action": "Strengthen the filesystem terminal journal so a successful compare-and-set synchronizes the renamed journal entry through the parent directory before reporting success.",
+  "dependencies": ["R-010"],
+  "required_evidence": [
+    "current primary filesystem documentation",
+    "committed implementation",
+    "deterministic durability-boundary tests",
+    "explicit crash-consistency limit",
+    "falsification route"
+  ],
+  "progress": {
+    "finding": "Temporary-file fsync plus atomic rename does not by itself request persistence of the directory entry; parent-directory sync closes that specific durability gap on supporting filesystems.",
+    "module": "tools/frontier-research/filesystem-peer-terminal-store.mjs",
+    "test": "tools/frontier-research/filesystem-peer-terminal-durability.test.mjs",
+    "evidence": "operations/evidence/frontier-research-directory-sync-durability-2026-07-13.json",
+    "commits": [
+      "4654ead9db69d70287cd3aca6799f31bceaa5242",
+      "74be560aa550abd9747423bc00a43c346fee6bcc",
+      "9dd1928484efb0a19f61362d3317f09d60421fac"
+    ],
+    "verification": "2 deterministic Node tests passed in an isolated runtime using byte-identical committed logic"
+  },
+  "handoff": "Wire this adapter into one production peer-runtime caller, classify directory-sync failure as an indeterminate commit outcome, and add crash injection after rename and before lock release. Never retry a different terminal solely because directory sync failed after replacement."
+}
