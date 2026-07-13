@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-005",
+  "observed_at": "2026-07-13T17:54:42Z",
+  "finding": "CM-1000 contained natural-language prose inside its contradicts relation array. The prose was not a stable graph target and failed the aggregate target-existence contract.",
+  "durable_recovery": {
+    "original_record": "operations/continuity/records/CM-1000.json",
+    "original_blob_sha": "131fa02930e7fd2314aaea6f1e649e1f7022af0a",
+    "materialized_target": "operations/continuity/records/CM-1002.json",
+    "materialized_target_id": "CM-1002",
+    "migrated_relation": "CM-1000.contradicts -> CM-1002",
+    "preserved_narrative_field": "CM-1000.legacy_relation_narrative",
+    "history_deleted": false
+  },
+  "claim_states": {
+    "observed": "The original blob stores prose rather than a CM record ID in contradicts.",
+    "inferred": "Prose-only relations prevent deterministic traversal and target validation.",
+    "proposed": "Keep machine relations ID-only and explanatory language in summaries or narrative metadata.",
+    "superseded": "The overbroad validator-completeness claim is now represented as CM-1002 and superseded by linked records rather than silently erased.",
+    "unresolved": "No completed CI execution at the exact migration commit has been observed."
+  },
+  "verification": {
+    "source_readback": true,
+    "target_id_shape": "CM-1002",
+    "target_exists": true,
+    "self_reference": false,
+    "supersession_cycle_after_correction": false,
+    "runtime_test_observed": false
+  },
+  "privacy_boundary": "Only public repository implementation and abstract project-memory metadata were used. No private chat, health information, credentials, identifying personal data, or unreviewed uploads were published.",
+  "falsification_route": "Fetch the original CM-1000 blob and current CM-1000/CM-1002 records. Falsify the migration by showing the original prose was not present, the current target does not resolve, the preserved wording differs materially, or the current graph contains a self-reference or supersession cycle."
+}
