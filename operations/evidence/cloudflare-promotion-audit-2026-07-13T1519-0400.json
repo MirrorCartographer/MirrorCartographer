@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T15:19:43-04:00",
+  "change": {
+    "workflow": ".github/workflows/cloudflare-promotion-consistency-audit.yml",
+    "contract_test": "cloudflare-static/cloudflare-promotion-consistency-audit.test.mjs",
+    "purpose": "Independently audit retained Cloudflare deployment evidence after the deployment workflow completes by binding the downloaded artifact name and checked-out source to the exact workflow_run head SHA, then validating promotion consistency against exact proof bytes."
+  },
+  "verification": {
+    "method": "isolated Node test using byte-identical workflow and contract-test source before commit",
+    "command": "node --test cloudflare-static/cloudflare-promotion-consistency-audit.test.mjs",
+    "tests_passed": 3,
+    "tests_failed": 0,
+    "assertions": [
+      "workflow_run is bound to the named deployment workflow",
+      "checkout and artifact selection use the exact completed run head SHA",
+      "artifact download precedes promotion-consistency validation",
+      "audit permissions are read-only for actions and contents",
+      "audit contains no deployment command and retains only its bounded verdict"
+    ]
+  },
+  "claim_state": {
+    "observed": "The primary deployment workflow retains proof, acceptance, and promotion-decision artifacts but does not currently execute validate-promotion-consistency.mjs before finalization.",
+    "implemented": "A separate workflow_run audit now checks retained evidence from the exact completed run and uploads a bounded consistency verdict.",
+    "not_claimed": [
+      "Cloudflare deployment succeeded",
+      "the hostname resolves",
+      "the audit workflow has executed",
+      "promotion consistency proves scientific or medical truth",
+      "the audit blocks finalization inside the primary deployment workflow"
+    ]
+  },
+  "privacy_boundary": "No credentials, secret values, private chat, health records, personal identifiers, diagnosis, or treatment claims are stored.",
+  "rollback": "Revert commit e067813d589a64b3e33ca3676f2c13e9870f2a7b; the additive test and evidence records may remain as history."
+}
