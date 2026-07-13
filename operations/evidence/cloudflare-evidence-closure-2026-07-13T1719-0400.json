@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "cloudflare-research-evidence-record",
+  "queue_item": "C-001",
+  "generated_at": "2026-07-13T17:19:00-04:00",
+  "claim_state": "verified_source_behavior",
+  "improvement": {
+    "summary": "The final Cloudflare deployment evidence manifest now binds the evidence promotion decision, deployment consistency result, and promotion consistency result by exact file bytes.",
+    "reason": "The workflow enforced these records before finalization but the manifest's default required-file closure did not previously hash them, allowing a retained manifest to omit the decisions governing promotion.",
+    "files": [
+      "cloudflare-static/build-deployment-evidence-manifest.mjs",
+      "cloudflare-static/build-deployment-evidence-manifest.test.mjs"
+    ],
+    "commits": [
+      "29f84afd0cebbd9b9da192df32b0ab2c7920400e",
+      "2ee2990abfd3941d05b7b3d0f8ea1341119b44b8"
+    ]
+  },
+  "verification": {
+    "route": "isolated Node test using source and test logic byte-matched to committed files fetched at commit 2ee2990abfd3941d05b7b3d0f8ea1341119b44b8",
+    "command": "node --test build-deployment-evidence-manifest.test.mjs",
+    "tests_total": 5,
+    "tests_passed": 5,
+    "tests_failed": 0,
+    "new_contract": [
+      "cloudflare-evidence-promotion-decision.json is required",
+      "cloudflare-deployment-consistency.json is required",
+      "cloudflare-promotion-consistency.json is required",
+      "required evidence paths remain unique"
+    ]
+  },
+  "deployment": {
+    "attempted": false,
+    "state": "still_blocked_external_configuration",
+    "reason": "No authenticated workflow dispatch or Cloudflare environment-secret configuration was available in this run."
+  },
+  "epistemic_limits": [
+    "Passing deterministic source tests does not prove a Cloudflare deployment occurred.",
+    "A byte-bound manifest proves artifact closure, not scientific or medical truth.",
+    "No diagnosis, treatment, or payment functionality was added."
+  ],
+  "privacy_boundary": "Repository paths, commit identifiers, test outcomes, and deployment-state metadata only; no private chat, health material, credentials, or identifying personal data."
+}
