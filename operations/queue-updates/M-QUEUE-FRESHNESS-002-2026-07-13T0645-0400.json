@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-QUEUE-FRESHNESS-002",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Require separate proposal, review, application, and post-application freshness witnesses before canonical queue reconciliation.",
+    "dependencies": ["M-QUEUE-FRESHNESS-001"],
+    "required_evidence": [
+      "canonical queue blob identity",
+      "immutable prior continuity record",
+      "two-phase freshness contract",
+      "explicit claim-state separation",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "finding": "Queue proposal integrity is not mutation-time freshness. Review and application must each rebind repository head and queue-update-tree state, then retain post-application verification.",
+      "continuity_record": "operations/continuity/records/CM-0023.json",
+      "record_commit": "d3f7bbe9ad88e7219921d7d1ba69e61cad10776c",
+      "evidence": "operations/evidence/continuity-two-phase-freshness-witness-2026-07-13T0645-0400.json",
+      "evidence_commit": "cbea043c2129440a12a4886a78d721b3a2181e30",
+      "verification": "Both artifacts received GitHub contents API commit acknowledgements; canonical queue remained unchanged.",
+      "privacy_boundary": "Public repository metadata and operational artifacts only; no private chat, health, pet-health, credentials, contact data, or unreviewed uploads."
+    },
+    "handoff": "Implement a queue reconciliation validator that computes the queue-update tree digest at proposal, review, and application time and fails closed on any mismatch or incomplete traversal."
+  },
+  "canonical_queue_mutated": false,
+  "specialist_registry_changed": false,
+  "proves_peer_execution": false
+}
