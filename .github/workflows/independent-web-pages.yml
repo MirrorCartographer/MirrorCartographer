@@ -31,6 +31,8 @@ jobs:
         run: node independent-web/verify.mjs
       - name: Verify mobile and independence behavior
         run: node --test independent-web/mobile-contract.test.mjs
+      - name: Verify Afterbell Safari audio path
+        run: node --test independent-web/afterbell-safari-audio.test.mjs
       - name: Verify folded-room hosting contract
         run: node independent-web/hosting-smoke.test.mjs
       - name: Bind artifact to source commit
