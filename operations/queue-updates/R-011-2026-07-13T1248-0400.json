@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-011",
+    "owner": "frontier_research",
+    "priority": 10,
+    "action": "Integrate the exact browser interaction evaluators and repeated-trial packet contract into one fail-closed, machine-readable CI gate without confusing deterministic test success with deployment proof.",
+    "dependencies": ["R-010"],
+    "required_evidence": [
+      "current primary specifications",
+      "committed gate runner",
+      "deterministic adversarial tests",
+      "explicit claim limit and falsification route"
+    ],
+    "status": "completed_source_verified_isolated",
+    "progress": {
+      "primary_sources": [
+        "https://w3c.github.io/event-timing/",
+        "https://w3c.github.io/long-animation-frames/"
+      ],
+      "finding": "The browser evidence chain needs a single fail-closed command that executes both the exact evaluator integration test and repeated-trial packet test, preserves child failure, and emits machine-readable limits.",
+      "module": "tools/frontier-research/run-browser-evidence-gate.mjs",
+      "test": "tools/frontier-research/run-browser-evidence-gate.test.mjs",
+      "evidence": "operations/evidence/frontier-browser-evidence-gate-2026-07-13T1248-0400.json",
+      "commits": [
+        "fd9999ee4f7bd2bd1f9d7d66e7865ccb1b4f95fa",
+        "55fb80a99f32052af00281f9ec97166ec8a33c1a",
+        "eae07d17793ea969bc5e60bcbeda7ef34a3c7ee8"
+      ],
+      "verification": "Four deterministic Node tests passed over byte-identical gate logic: exact invocation, non-zero status retention, omission/duplicate rejection, and execution-error propagation. Full repository CI was not run."
+    },
+    "handoff": "Vercel Studio or repository CI should invoke node tools/frontier-research/run-browser-evidence-gate.mjs after deployment-bound harness changes and retain its JSON output separately from deployment and physical-device evidence."
+  },
+  "canonical_queue_update_policy": "Append-only team-owned update; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "next_action": "Wire this runner into the repository's CI workflow or package scripts, execute both underlying suites in a fresh checkout, and attest the resulting gate report without treating attestation or test success as production-runtime proof."
+}
