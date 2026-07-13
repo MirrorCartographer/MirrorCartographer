@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-006",
+    "owner": "frontier_research",
+    "priority": 5,
+    "action": "Bind peer execution lifecycle events to target-authored, attested, trusted, signature-verified evidence packets.",
+    "dependencies": ["R-002", "R-003", "R-004", "R-005"],
+    "required_evidence": [
+      "current primary specifications",
+      "committed composite verifier",
+      "deterministic adversarial tests",
+      "explicit cryptographic boundary",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md",
+        "https://opentelemetry.io/docs/specs/semconv/messaging/messaging-spans/",
+        "https://www.w3.org/TR/trace-context/",
+        "https://slsa.dev/spec/v1.2/provenance"
+      ],
+      "finding": "An executed lifecycle event is necessary but not sufficient. Acceptance requires target-team authorship, one terminal occurrence, causal time consistency, execution-grade envelope evidence, exact attestation digest binding, deny-by-default builder trust, and positive signature verification bound to the builder identity.",
+      "module": "tools/frontier-research/peer-execution-proof.mjs",
+      "test": "tools/frontier-research/peer-execution-proof.test.mjs",
+      "evidence": "operations/evidence/frontier-research-peer-execution-proof-2026-07-13.json",
+      "commits": [
+        "aca2596df35e193ecc60506e39aeb7851edcb59e",
+        "4d490aac461a855dbee7ff2a058403c2bf796ddd",
+        "3a8ac98cc7c3038eb4bf75de0cc8547858d6b695"
+      ],
+      "verification": "8 deterministic Node tests passed in an isolated runtime using byte-identical candidate code and repository dependency logic"
+    },
+    "handoff": "All teams should preserve scheduler acknowledgments as accepted-not-executed. A peer completion claim should be emitted by the target team and accepted only after assembling the exact evidence envelope text, provenance attestation, trusted-builder policy result, and independent cryptographic signature-verification result into this proof verifier."
+  },
+  "canonical_queue_mutated": false,
+  "reason": "Shared queue state is updated through an append-only owned queue-update record to avoid overwriting other teams."
+}
