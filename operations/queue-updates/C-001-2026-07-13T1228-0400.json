@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T12:28:00-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a fail-closed redirect continuity evaluator, integrated it into served deployment verification, added five adversarial tests, and added a CI gate.",
+  "evidence": [
+    "operations/evidence/cloudflare-redirect-continuity-2026-07-13T1228-0400.json"
+  ],
+  "files": [
+    "cloudflare-static/deployment-redirect-continuity.mjs",
+    "cloudflare-static/deployment-redirect-continuity.test.mjs",
+    "cloudflare-static/verify-deployment.mjs",
+    ".github/workflows/cloudflare-redirect-continuity.yml"
+  ],
+  "commits": [
+    "8366170808c3f220b0528fb9345faf9ad6ecf13f",
+    "88b49c2a502d4788b56c94be5cf47d15323f9110",
+    "1911ccdc5ada554c5254298bda09a50cbc230971",
+    "3e0785226383d4ae0a0fb2e693743a2f1d68b476",
+    "52b5512d7311d6a98ecb720c18d8da479c5f6972"
+  ],
+  "verification": "Five isolated Node tests passed; repository CI and Cloudflare deployment evidence remain pending.",
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, dispatch the production workflow, and retain the returned deployment URL, control-plane metadata, served manifest, and exact-commit acceptance packet.",
+  "next_action": "Observe the redirect-continuity CI result for commit 3e0785226383d4ae0a0fb2e693743a2f1d68b476 or a descendant, then dispatch the production Cloudflare workflow once environment credentials are available."
+}
