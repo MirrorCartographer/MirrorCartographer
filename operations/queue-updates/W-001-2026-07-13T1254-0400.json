@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "status": "active",
+  "recorded_at": "2026-07-13T12:54:00-04:00",
+  "completed_slice": "Pressure Garden finite ecology room",
+  "progress": {
+    "creative_system": "A new zero-build room turns press duration into plant maturity, drag position into shared wind, and a bounded population into a visibly finite ecology.",
+    "source": [
+      "independent-web/pressure-garden/index.html",
+      "independent-web/pressure-garden.contract.test.mjs",
+      ".github/workflows/independent-web-pages.yml"
+    ],
+    "evidence": "operations/evidence/independent-web-pressure-garden-2026-07-13T1254-0400.json",
+    "commits": [
+      "45452cfbbb4202a2888bfde8f2ed732edaafaeff",
+      "78e6bdab67611505798660d2fe83b109c1a1fe4d",
+      "312f8a63211c15945476a0e55abddc631e7cdd59",
+      "632f1c1f3e8c3709c2d4e8b7d3b2b7ca1e043e1a"
+    ],
+    "verification": "Committed contract source was fetched back and the exact test was wired into the Pages pre-deploy gate. Browser execution, workflow completion, public URL, and mobile behavior remain unverified.",
+    "identity": "A sensory garden room inside the Weather Inside a Bell world; no explanation portal, project dashboard, research surface, account, payment, analytics, or conversion mechanism."
+  },
+  "remaining": [
+    "link Pressure Garden from an earned in-world threshold rather than ordinary navigation",
+    "observe a completed Independent Web Pages run and returned page_url",
+    "verify the served deployment identity",
+    "capture narrow mobile and physical Safari evidence"
+  ],
+  "next_action": "Make entry to Pressure Garden an earned consequence of the visitor's finite weather score, then prove the deployed route and mobile interaction without weakening the room's local, data-free boundary."
+}
