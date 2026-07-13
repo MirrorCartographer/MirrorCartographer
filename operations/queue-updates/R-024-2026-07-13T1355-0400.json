@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-024",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Compose exact-SHA aggregation and enumeration integrity into one fail-closed evidence promotion gate.",
+    "dependencies": ["R-014", "R-023"],
+    "required_evidence": [
+      "current official primary sources",
+      "committed promotion gate",
+      "deterministic adversarial tests",
+      "explicit provider-cap claim boundary",
+      "falsification route"
+    ],
+    "status": "completed_source_committed_tests_unexecuted",
+    "progress": {
+      "primary_sources": [
+        "https://docs.github.com/en/rest/actions/workflow-runs?apiVersion=2022-11-28#list-workflow-runs-for-a-repository",
+        "https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api"
+      ],
+      "finding": "Exact-SHA workflow evidence must not be promoted from either aggregation or integrity classification alone. The composed gate requires both to agree and forbids absence or global completeness claims when GitHub's 1000-result filtered-search cap applies.",
+      "module": "tools/frontier-research/workflow-run-evidence-promotion.mjs",
+      "test": "tools/frontier-research/workflow-run-evidence-promotion.test.mjs",
+      "evidence": "operations/evidence/frontier-workflow-evidence-promotion-2026-07-13T1355-0400.json",
+      "commits": [
+        "49e8d92a5a6ece61cd937f08a8aa508cfff928d1",
+        "be6d230ce3b9fd9b25640e6c783ca165524bd82f",
+        "f133d3c232d8e95f1cf94196ebd5d1d9cb4cbd17"
+      ],
+      "verification": "GitHub accepted immutable module, test, and evidence writes. Six deterministic tests are committed but were not executed in this run."
+    },
+    "handoff": "Vercel Studio should invoke promoteWorkflowRunEvidence immediately after retaining raw exact-SHA pages and before asserting workflow-run absence, completeness, deployment evidence, or CI state."
+  },
+  "canonical_queue_mutated": false,
+  "specialists_used": [
+    "Primary Source Scout",
+    "Technical Synthesist",
+    "Experiment Designer",
+    "Tool Evaluator",
+    "Cross-Domain Translator"
+  ],
+  "registry_change": "none",
+  "next_action": "Execute the six tests in observed CI, then run one authenticated exact-SHA enumeration and retain raw pages, Link headers, totals, promotion classification, and downstream deployment reconciliation in one evidence packet."
+}
