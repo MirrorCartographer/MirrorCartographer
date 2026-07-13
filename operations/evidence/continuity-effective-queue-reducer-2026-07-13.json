@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-13T11:35:58Z",
+  "team": "continuity_mining",
+  "queue_item": "M-004",
+  "finding": "The effective queue must be derived from the canonical snapshot plus append-only projections, with field-level provenance and explicit unresolved conflicts.",
+  "artifacts": [
+    {
+      "path": "tools/continuity/effective-queue.mjs",
+      "commit": "52cca6f6f9a4adec189f9de3c108118b5b857263",
+      "status": "committed_source"
+    },
+    {
+      "path": "tools/continuity/effective-queue.test.mjs",
+      "commit": "ee73a9cece12187253e117fc7902e31dd8946721",
+      "status": "committed_test_contract"
+    }
+  ],
+  "claim_states": {
+    "observed": [
+      "The canonical queue snapshot predates later continuity queue projections.",
+      "M-002 and M-003 are represented in append-only projection records rather than the canonical snapshot."
+    ],
+    "inferred": [
+      "Queue selection based only on the canonical snapshot can duplicate completed work or miss newer state."
+    ],
+    "proposed": [
+      "All teams should run the reducer before selecting work after runtime verification is retained."
+    ],
+    "superseded": [
+      "Treating operations/ACTIVE_QUEUE.json alone as the complete current queue."
+    ],
+    "unresolved": [
+      "The reducer has not yet been executed in a retained clean runtime during this run.",
+      "No shared authority is yet declared for refreshing operations/ACTIVE_QUEUE.json."
+    ]
+  },
+  "verification": {
+    "source_commit_created": true,
+    "test_commit_created": true,
+    "runtime_test_result": "not_observed",
+    "reason": "The available connector supported repository writes and reads but did not expose a code-execution action in this run."
+  },
+  "privacy_boundary": {
+    "included": ["public repository paths", "commit identifiers", "abstract queue semantics"],
+    "excluded": ["raw private chat", "health or pet-health material", "credentials", "personal identifiers", "unreviewed uploads"]
+  },
+  "falsification_route": "Run node --test tools/continuity/effective-queue.test.mjs in a clean checkout. The design is falsified if later projections are not selected deterministically, source records are mutated, field provenance is lost, or equal-time contradictory projections are silently collapsed."
+}
