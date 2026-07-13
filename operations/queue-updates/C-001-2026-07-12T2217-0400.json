@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-12T22:17:00-04:00",
+  "status": "blocked_external_configuration",
+  "durable_progress": {
+    "summary": "Hardened the deployment evidence consistency gate so deployment status, URL-returned flag, HTTPS URL validity, terminal failure states, acceptance decision, and rejection reasons cannot contradict one another.",
+    "module": "cloudflare-static/validate-deployment-evidence-consistency.mjs",
+    "test": "cloudflare-static/validate-deployment-evidence-consistency.test.mjs",
+    "commits": [
+      "00770d94488801f73884efcc2a7b15105c59dbef",
+      "7419fa6f4ca9231f8fbe89a9d282df8caf7d3314",
+      "0d11be7551a053a47c7351844e5608bad9c18673"
+    ],
+    "verification": "10/10 isolated deterministic Node tests passed using source-equivalent committed logic."
+  },
+  "remaining": [
+    "wire validate-deployment-evidence-consistency.mjs into .github/workflows/cloudflare-pages-research.yml after acceptance generation and before manifest finalization",
+    "retain cloudflare-deployment-consistency.json in the workflow artifact set",
+    "configure valid Cloudflare environment credentials and dispatch the authenticated deployment workflow",
+    "prove resolving hostname, served research identity, and exact deployed commit"
+  ],
+  "non_claims": [
+    "No Cloudflare deployment was executed.",
+    "No hostname resolution or served identity was verified.",
+    "No diagnosis or treatment claim was produced."
+  ]
+}
