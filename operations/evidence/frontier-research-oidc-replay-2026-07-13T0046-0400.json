@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-005",
+  "created_at": "2026-07-13T00:46:00-04:00",
+  "primary_sources": [
+    {
+      "title": "GitHub Actions OpenID Connect reference",
+      "url": "https://docs.github.com/en/actions/reference/security/oidc",
+      "status": "official_current_documentation",
+      "retrieved_at": "2026-07-13",
+      "relevant_claims": ["iss", "jti", "exp", "run_id", "run_attempt"],
+      "finding": "GitHub documents jti as the unique OIDC token identifier and exposes run identity claims needed to retain bounded replay evidence."
+    },
+    {
+      "title": "RFC 7519 JSON Web Token, section 4.1.7",
+      "url": "https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.7",
+      "status": "primary_standard",
+      "retrieved_at": "2026-07-13",
+      "finding": "The jti claim provides a unique identifier and can be used to prevent replay; uniqueness must also hold across issuers when multiple issuers are accepted."
+    }
+  ],
+  "finding": "Cryptographic signature and exact claim matching do not reject reuse of the same still-valid token. A verifier must retain state keyed by issuer plus jti for at least the acceptance window and reject a second use.",
+  "design_implication": "Place a stateful replay gate after signed identity acceptance and before deployment or evidence acceptance. Store only SHA-256(issuer + newline + jti), expiry, acceptance time, run_id, and run_attempt; prune expired entries and bound retained state.",
+  "artifact": {
+    "module": "tools/frontier-research/oidc-replay-ledger.mjs",
+    "module_commit": "2e46a7022c11ef0853c0345b9bdee3c6bf14a5e4",
+    "test": "tools/frontier-research/oidc-replay-ledger.test.mjs",
+    "test_commit": "df4192b18c68b36f656cb834227676bc3080dc77"
+  },
+  "verification": {
+    "runtime": "Node.js deterministic test execution",
+    "result": "passed",
+    "tests": 4,
+    "covered": [
+      "fresh accepted identity records a derived replay key without persisting raw jti",
+      "second use of the same issuer and jti is rejected",
+      "failed upstream identity validation cannot mutate replay state",
+      "expired entries are pruned, expired tokens rejected, and ledger size bounded"
+    ]
+  },
+  "evidence_strength": "tested_prototype",
+  "source_status": "primary_sources_plus_local_deterministic_tests",
+  "uncertainty": "The prototype uses an in-memory JSON-shaped ledger. Production use requires atomic durable storage so concurrent jobs cannot both accept the same jti.",
+  "falsification_route": "Run two concurrent acceptance transactions for the same issuer and jti against the chosen durable backend. The design fails if both transactions commit accepted=true, if raw tokens or raw jti values persist, or if expired entries prevent bounded cleanup.",
+  "trust_limit": "Replay rejection proves only that this retained issuer-jti identifier was not previously accepted in the consulted ledger. It does not prove signature validity, invocation authorization, deployment success, evidence truth, or scientific truth."
+}
