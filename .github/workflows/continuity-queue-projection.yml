@@ -1,0 +1,63 @@
+name: Continuity Queue Projection
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "operations/ACTIVE_QUEUE.json"
+      - "operations/queue-updates/M-*.json"
+      - "operations/continuity/reconcile-queue-projection.mjs"
+      - "operations/continuity/run-queue-projection.mjs"
+      - "operations/continuity/*.test.mjs"
+      - ".github/workflows/continuity-queue-projection.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Verify continuity projection contracts
+        run: node --test operations/continuity/reconcile-queue-projection.test.mjs operations/continuity/run-queue-projection.test.mjs
+
+      - name: Build commit-bound projection
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          update_args=()
+          for update in operations/queue-updates/M-*.json; do
+            update_args+=(--update "$update")
+          done
+          node operations/continuity/run-queue-projection.mjs \
+            --canonical operations/ACTIVE_QUEUE.json \
+            "${update_args[@]}" \
+            --commit "${GITHUB_SHA}" \
+            --output operations/generated/continuity-queue-projection.json
+
+      - name: Verify fail-closed adoption boundary
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from "node:fs";
+          const artifact = JSON.parse(fs.readFileSync("operations/generated/continuity-queue-projection.json", "utf8"));
+          if (artifact.generated_from_commit !== process.env.GITHUB_SHA) throw new Error("projection commit mismatch");
+          if (artifact.adoption?.automatic_adoption_permitted !== false) throw new Error("automatic adoption must remain disabled");
+          if (artifact.adoption?.canonical_queue_modified !== false) throw new Error("canonical queue mutation claim rejected");
+          NODE
+
+      - name: Upload projection evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: continuity-queue-projection-${{ github.sha }}
+          path: operations/generated/continuity-queue-projection.json
+          if-no-files-found: error
+          retention-days: 30
