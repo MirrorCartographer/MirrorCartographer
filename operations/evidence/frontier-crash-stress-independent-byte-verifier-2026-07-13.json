@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-014",
+  "created_at": "2026-07-13T08:43:00-04:00",
+  "claim_state": "implemented_and_locally_verified",
+  "primary_sources": [
+    {
+      "url": "https://docs.github.com/en/actions/tutorials/store-and-share-data",
+      "status": "current_official_documentation",
+      "finding": "Workflow artifacts are retained outputs used for debugging, testing, and cross-job data transfer; retained bytes should be validated before acceptance."
+    },
+    {
+      "url": "https://nodejs.org/api/crypto.html#cryptocreatehashalgorithm-options",
+      "status": "current_official_documentation",
+      "finding": "Node's crypto.createHash supports deterministic SHA-256 calculation over exact artifact bytes."
+    }
+  ],
+  "finding": "Classifier-ready observation files remain self-asserted until their referenced identity, summary, and raw-log bytes are independently rehashed and compared against the exact expected commit.",
+  "artifact": {
+    "module": "tools/frontier-research/verify-crash-stress-observation.mjs",
+    "test": "tools/frontier-research/verify-crash-stress-observation.test.mjs",
+    "module_commit": "677d4d7ceb9a5d613a82713fcfba402de4fc1d05",
+    "test_commit": "c1bf54ad57d0ec7fe2a271de4b401793bbce0e5e"
+  },
+  "verification": {
+    "route": "node --test tools/frontier-research/verify-crash-stress-observation.test.mjs",
+    "environment": "isolated local Node runtime using byte-identical pre-commit files",
+    "tests": 3,
+    "passed": 3,
+    "failed": 0,
+    "covered": [
+      "exact retained bytes accepted",
+      "tampered raw log rejected",
+      "observation and identity commit disagreement rejected"
+    ]
+  },
+  "evidence_strength": "bounded_deterministic_contract",
+  "falsification_route": "Change any retained identity, summary, or raw-log byte; supply a mismatched expected commit; or alter mirrored observation fields. The verifier must return verified=false with a specific reason.",
+  "limits": [
+    "Does not authenticate GitHub's runner or workflow identity.",
+    "Does not prove that the stress test itself is correct.",
+    "Does not prove universal filesystem, scheduler, or crash safety.",
+    "Cross-platform workflow artifacts for the target commit remain unavailable through the current connector evidence route."
+  ]
+}
