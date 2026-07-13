@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { verifyHostnameAuthorityConsistencyArtifact } from './verify-hostname-authority-consistency.mjs';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { verifyHostnameAuthorityConsistencyArtifact, verifyHostnameAuthorityConsistencyFile } from './verify-hostname-authority-consistency.mjs';
 
 const commit = 'a'.repeat(40);
 const base = {
@@ -69,4 +72,21 @@ test('rejects secret-emission ambiguity', () => {
   const result = verifyHostnameAuthorityConsistencyArtifact({ artifact, expectedCommit: commit });
   assert.equal(result.verified, false);
   assert.ok(result.errors.includes('privacy.secret-emission-not-denied'));
+});
+
+test('verifies the exact retained file bytes through the file boundary', () => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'cf-consistency-'));
+  fs.writeFileSync(path.join(directory, 'cloudflare-hostname-authority-consistency.json'), `${JSON.stringify(base, null, 2)}\n`);
+  const result = verifyHostnameAuthorityConsistencyFile({ directory, expectedCommit: commit });
+  assert.equal(result.verified, true);
+  assert.equal(result.accepted, true);
+  assert.equal(result.artifact_path, path.join(directory, 'cloudflare-hostname-authority-consistency.json'));
+});
+
+test('fails closed when the retained artifact file is missing', () => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'cf-consistency-missing-'));
+  const result = verifyHostnameAuthorityConsistencyFile({ directory, expectedCommit: commit });
+  assert.equal(result.verified, false);
+  assert.deepEqual(result.errors, ['artifact-file.missing']);
+  assert.equal(result.deployment_claim_permitted, false);
 });
