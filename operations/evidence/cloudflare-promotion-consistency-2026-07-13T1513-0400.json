@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T15:13:00-04:00",
+  "improvement": "Added a fail-closed validator that binds deployment acceptance and evidence-promotion decisions to the exact same deployment-proof bytes and rejects contradictory promotion state.",
+  "files": [
+    "cloudflare-static/validate-promotion-consistency.mjs",
+    "cloudflare-static/validate-promotion-consistency.test.mjs"
+  ],
+  "commits": [
+    "3a4af6e3353cf00e349db9f4aaf3cd12b6eddbb3",
+    "a37955e621030ac515583266503d36dee6f61f26"
+  ],
+  "verification": {
+    "route": "isolated Node.js test execution using byte-identical source before commit",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      "accept coherent accepted promotion for one proof digest",
+      "reject promotion bound to another proof digest",
+      "reject promotion when deployment acceptance is false",
+      "accept coherent rejection without claiming deployment proof"
+    ]
+  },
+  "claim_state": {
+    "observed": "The promotion builder existed and was wired before finalization, while the existing cross-artifact consistency validator checked deployment decision and acceptance only.",
+    "implemented": "A separate promotion-consistency validator now checks exact proof digest binding, acceptance/promotion agreement, nested promotion agreement, and fail-closed rejection semantics.",
+    "unresolved": "The validator is committed and tested but is not yet wired into the deployment workflow or final evidence manifest in this slice.",
+    "not_claimed": [
+      "Cloudflare deployment succeeded",
+      "a hostname resolves",
+      "the production surface serves this commit",
+      "signature verification succeeded",
+      "scientific or medical truth was established"
+    ]
+  },
+  "privacy_boundary": "Contains repository paths, commit identifiers, test outcomes, and bounded infrastructure claims only. No private chat, health data, diagnosis, treatment recommendation, credentials, or identifying personal material.",
+  "falsification_route": "Run the committed tests; alter proof bytes, acceptance state, top-level promotion digest, or nested promotion digest. Any contradiction must return ok=false."
+}
