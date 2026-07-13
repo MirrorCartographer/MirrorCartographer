@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-1004",
+  "kind": "implementation_decision",
+  "title": "Additive queue overlays require deterministic materialization with field-level provenance and retained conflicts",
+  "claim_state": "observed",
+  "evidence_strength": "committed_source_with_unexecuted_tests",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/records/CM-1003.json",
+      "content_sha": "2f50c9d93c5a3343ec6c6bc79b6f3c6ae67364ab",
+      "observed_at": "2026-07-13T18:18:52Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "411cd34450b6026402b6a95e13edf3a4f9345770",
+      "content_sha": "411cd34450b6026402b6a95e13edf3a4f9345770",
+      "observed_at": "2026-07-13T18:18:52Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "5b2169fc900a9d4729fb46dc56b4e75dd57fe516",
+      "content_sha": "5b2169fc900a9d4729fb46dc56b4e75dd57fe516",
+      "observed_at": "2026-07-13T18:18:52Z"
+    }
+  ],
+  "summary": "The repository now contains a non-authoritative reducer for ACTIVE_QUEUE.json plus additive queue-update documents. It orders overlays by explicit event_order, then observed_at, then lexical source path; preserves provenance for every materialized field; refuses cross-owner mutation; and retains incompatible same-order writes as conflicts instead of silently selecting a winner.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": [],
+  "status_relations": {
+    "observed": "Reducer and deterministic test source are committed on main.",
+    "inferred": "A generated queue view can now be reproducible without becoming a new authoritative store.",
+    "proposed": "Add event_order and observed_at to future queue-update records and run the reducer in CI to retain a generated view plus source map.",
+    "superseded": "The unresolved portion of CM-1003 stating that no committed reducer was identified is superseded by this implementation; CM-1003's historical observation remains valid at its observation time.",
+    "unresolved": "No GitHub Actions run exists for the reducer test commit, so test execution and corpus-wide compatibility are not yet proven. Older queue-update files may also lack explicit event_order and observed_at fields."
+  },
+  "falsification_or_review_route": "Fetch commits 411cd34450b6026402b6a95e13edf3a4f9345770 and 5b2169fc900a9d4729fb46dc56b4e75dd57fe516. Falsify the implementation claim if the reducer does not preserve field-level source metadata, allows owner changes, silently overwrites incompatible same-order fields, or emits authoritative=true. Execute the committed Node tests and a repository-wide corpus run before promoting the generated view into CI evidence."
+}
