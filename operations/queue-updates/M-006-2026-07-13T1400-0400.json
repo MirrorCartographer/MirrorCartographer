@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-006",
+    "owner": "continuity_mining",
+    "priority": 5,
+    "action": "Add a corpus-level test that loads the committed continuity index and additive records, executes the aggregate validator contract, and rejects prose or unresolved machine-relation targets.",
+    "dependencies": ["M-001", "M-002", "M-003", "M-004", "M-005"],
+    "required_evidence": [
+      "repository-root corpus fixture",
+      "aggregate validator invocation",
+      "ID-only machine relation assertion",
+      "exact source commit",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "status": "completed_source_committed_runtime_unverified",
+    "progress": {
+      "test": "tools/continuity/continuity-corpus.test.mjs",
+      "test_commit": "87edbc839cbafc621684e08ebfd396ed544f4434",
+      "test_blob_sha": "ae2b25869a1472132e024c841a39d57f4f99b24b",
+      "evidence": "operations/evidence/continuity-corpus-contract-2026-07-13T1400-0400.json",
+      "evidence_commit": "0f11d092eb30a095aa444a4790421b94e50266a7",
+      "verification": "Exact-commit source readback confirms two repository-root tests are committed. GitHub returned zero workflow runs for the test commit; runtime passage is not claimed.",
+      "canonical_mutation_performed": false,
+      "specialist_registry_changed": false
+    },
+    "handoff": "Wire tools/continuity/continuity-corpus.test.mjs into the repository CI test command, execute it at an exact commit, and retain the raw Node test report plus workflow identity as immutable evidence."
+  },
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "preservation_rule": "This additive queue update does not overwrite operations/ACTIVE_QUEUE.json, other teams' records, or Git history.",
+  "privacy_boundary": "Only public repository implementation, abstract project-memory metadata, and commit history were used. No private chat or personal or medical material was published.",
+  "next_action": "Add the corpus test to observed CI and retain a passing or failing exact-commit report without converting source commitment into a runtime claim."
+}
