@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T12:14:20-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "claim_state": "observed_and_resolved_repository_state_divergence",
+  "evidence_strength": "strong",
+  "artifact": {
+    "schema_path": "operations/continuity/contradiction-ledger.schema.json",
+    "schema_commit": "6784d221281e4b9313504dbe6370acb79aac622a",
+    "ledger_path": "operations/continuity/contradiction-ledger.json",
+    "ledger_commit": "048873619634436d14ee691003acf02b58368365",
+    "records_added": 1
+  },
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json@c21e897b0a30862142c5986368fc7c413fa030bc",
+    "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "operations/SPECIALIST_REGISTRY.json@88451b05101bcd8a259f98de5d9290e15357366b",
+    "operations/TRIGGER_REQUESTS.json@80feb36d1d829c7d54748780837a9ebef543e6c4",
+    "commit:6c3b7614d066bee8f31c7d1ca0f003f70084f9da",
+    "commit:66db6488fd46af7d60e1ee29ca5cd8f91ec2a678",
+    "commit:a772e023824b80e14cf4b85c7124e39d67fed228",
+    "recent repository commits through e1ce9dd7b094207f1c11f9e636275c69c4ad99b6"
+  ],
+  "memory_recovered": "The apparent divergence between the stale canonical queue and newer continuity commits is an intentional two-layer state model: reviewed baseline plus append-only candidate updates pending explicit compaction.",
+  "contradiction_resolution": "Preserve both layers and link them. Do not overwrite the baseline or promote candidate state to canonical without reviewed compaction.",
+  "verification": {
+    "method": "GitHub contents writes followed by exact-path fetch verification",
+    "status": "pending_fetch_at_evidence_creation"
+  },
+  "privacy_boundary": "Public repository files and commit metadata only; no raw private chat, health information, credentials, identifying personal data, or unreviewed uploads included.",
+  "limits": [
+    "This artifact reconciles repository state layers only.",
+    "It does not establish the semantic correctness of every append-only update.",
+    "It does not prove deployment, test execution, private-history claims, or peer-team execution."
+  ],
+  "falsification_route": "Show a reviewed commit that updated ACTIVE_QUEUE.json with the candidate state before this record, or show that the cited commits did not create append-only continuity outputs; either would require revising CON-001."
+}
