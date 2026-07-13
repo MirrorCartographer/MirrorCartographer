@@ -1,0 +1,156 @@
+name: Deploy Cloudflare research stack
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Cloudflare Pages deployment branch
+        required: false
+        default: main
+
+permissions:
+  contents: read
+  deployments: write
+
+concurrency:
+  group: cloudflare-research-stack-production
+  cancel-in-progress: false
+
+jobs:
+  deploy-worker-then-pages:
+    runs-on: ubuntu-latest
+    environment: cloudflare-research
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Test stack deployment contracts
+        run: |
+          node --test cloudflare-static/validate-replay-reservation-deployment.test.mjs
+          node --test cloudflare-static/verify-replay-reservation-worker.test.mjs
+          node --test cloudflare-static/research-surface-identity.test.mjs
+
+      - name: Classify deployment readiness
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node cloudflare-static/check-deployment-readiness.mjs cloudflare-stack-readiness.json
+
+      - name: Probe Cloudflare account and Pages access
+        id: access_probe
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node cloudflare-static/probe-cloudflare-access.mjs cloudflare-stack-access-probe.json
+
+      - name: Deploy replay reservation Durable Object Worker
+        id: worker_deploy
+        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3.14.1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4"
+          workingDirectory: cloudflare-static
+          command: deploy --config replay-reservation-worker.wrangler.jsonc
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify replay reservation Worker identity and readiness
+        env:
+          REPLAY_RESERVATION_WORKER_URL: ${{ steps.worker_deploy.outputs.deployment-url }}
+        run: |
+          test -n "$REPLAY_RESERVATION_WORKER_URL" || {
+            echo "Wrangler returned no replay reservation Worker URL"
+            exit 3
+          }
+          node cloudflare-static/verify-replay-reservation-worker.mjs \
+            "$REPLAY_RESERVATION_WORKER_URL" \
+            cloudflare-replay-reservation-worker-proof.json
+
+      - name: Deploy Pages research surface after Worker verification
+        id: pages_deploy
+        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3.14.1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4"
+          workingDirectory: cloudflare-static
+          command: >-
+            pages deploy .
+            --project-name=mirror-cartographer-research
+            --branch=${{ inputs.branch }}
+            --commit-hash=${{ github.sha }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify served Pages identity
+        env:
+          DEPLOYMENT_URL: ${{ steps.pages_deploy.outputs.deployment-url }}
+        run: |
+          test -n "$DEPLOYMENT_URL" || {
+            echo "Wrangler returned no Pages deployment URL"
+            exit 3
+          }
+          node cloudflare-static/verify-deployment.mjs "$DEPLOYMENT_URL" \
+            | tee cloudflare-stack-pages-proof.ndjson
+
+      - name: Record stack deployment evidence
+        if: always()
+        env:
+          WORKER_URL: ${{ steps.worker_deploy.outputs.deployment-url }}
+          PAGES_URL: ${{ steps.pages_deploy.outputs.deployment-url }}
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs'
+          const read = (path) => {
+            try { return JSON.parse(fs.readFileSync(path, 'utf8')) }
+            catch { return null }
+          }
+          const evidence = {
+            schema_version: '1.0.0',
+            source_commit: process.env.GITHUB_SHA,
+            worker: {
+              url: process.env.WORKER_URL || null,
+              verification: read('cloudflare-replay-reservation-worker-proof.json')
+            },
+            pages: {
+              url: process.env.PAGES_URL || null,
+              proof_recorded: fs.existsSync('cloudflare-stack-pages-proof.ndjson')
+            },
+            ordering_invariant: 'worker-deployed-and-health-verified-before-pages-deploy',
+            limits: [
+              'A successful health response proves bounded service identity and readiness only.',
+              'Deployment evidence does not establish scientific or medical truth.'
+            ]
+          }
+          fs.writeFileSync('cloudflare-stack-deployment-evidence.json', `${JSON.stringify(evidence, null, 2)}\n`)
+          NODE
+
+      - name: Upload stack deployment evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: cloudflare-stack-deployment-${{ github.sha }}
+          path: |
+            cloudflare-stack-readiness.json
+            cloudflare-stack-access-probe.json
+            cloudflare-replay-reservation-worker-proof.json
+            cloudflare-stack-pages-proof.ndjson
+            cloudflare-stack-deployment-evidence.json
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Publish stack run summary
+        if: always()
+        env:
+          WORKER_URL: ${{ steps.worker_deploy.outputs.deployment-url }}
+          PAGES_URL: ${{ steps.pages_deploy.outputs.deployment-url }}
+        run: |
+          {
+            echo "## Cloudflare research stack deployment"
+            echo "- Source commit: \`${GITHUB_SHA}\`"
+            echo "- Durable Object Worker URL: ${WORKER_URL:-not returned}"
+            echo "- Pages URL: ${PAGES_URL:-not returned}"
+            echo "- Ordering invariant: Worker deploy and exact health identity verification precede Pages deployment"
+            echo "- Worker proof: \`cloudflare-replay-reservation-worker-proof.json\`"
+            echo "- Stack evidence: \`cloudflare-stack-deployment-evidence.json\`"
+            echo "- Limit: deployment identity is infrastructure evidence, not scientific or medical proof"
+          } >> "$GITHUB_STEP_SUMMARY"
