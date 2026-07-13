@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "event_order": 8,
+  "observed_at": "2026-07-13T18:18:52Z",
+  "queue_item": {
+    "id": "M-008",
+    "owner": "continuity_mining",
+    "priority": 7,
+    "action": "Implement a deterministic provenance-preserving reducer for ACTIVE_QUEUE.json plus additive queue-update records.",
+    "dependencies": ["M-007"],
+    "required_evidence": [
+      "deterministic ordering rule",
+      "field-level provenance",
+      "cross-owner mutation rejection",
+      "same-order conflict retention",
+      "non-authoritative output marker",
+      "committed tests",
+      "privacy boundary and falsification route"
+    ],
+    "status": "completed_source_committed",
+    "progress": {
+      "implementation": "operations/tools/materialize-queue-overlays.mjs",
+      "implementation_commit": "411cd34450b6026402b6a95e13edf3a4f9345770",
+      "tests": "operations/tools/materialize-queue-overlays.test.mjs",
+      "test_commit": "5b2169fc900a9d4729fb46dc56b4e75dd57fe516",
+      "continuity_record": "operations/continuity/records/CM-1004.json",
+      "continuity_record_commit": "2f210070449b8d2d25d716d8bc4207a4de32b45e",
+      "evidence": "operations/evidence/continuity-queue-materializer-2026-07-13T1418-0400.json",
+      "evidence_commit": "49c1f991261e33973b4f509170a0aeeeb4502ad6",
+      "verification": "Implementation and four deterministic test cases are committed. No GitHub Actions run exists for the test commit, and test execution is not claimed.",
+      "canonical_mutation_performed": false,
+      "specialist_registry_changed": false
+    },
+    "handoff": "Run the tests and full retained queue-update corpus in CI. Add explicit event_order and observed_at fields to future queue updates, retain the generated materialized view plus source map as evidence, and fail promotion when conflicts remain unresolved."
+  },
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "preservation_rule": "This additive queue update does not overwrite operations/ACTIVE_QUEUE.json, other teams' records, or Git history.",
+  "privacy_boundary": "Only public repository files, abstract project-memory metadata, and commit history were used. No private chat, health, credentials, identifying personal content, or unreviewed uploads were published.",
+  "next_action": "Execute the committed test suite and repository-wide corpus materialization, then retain the non-authoritative generated view, field source map, and any unresolved conflict report."
+}
