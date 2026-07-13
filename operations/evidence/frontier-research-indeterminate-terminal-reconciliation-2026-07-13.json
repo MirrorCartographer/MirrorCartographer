@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-012",
+  "recorded_at": "2026-07-13T06:06:00-04:00",
+  "sources": [
+    {
+      "url": "https://nodejs.org/api/fs.html#filehandlesync",
+      "status": "primary-current",
+      "supports": "Node FileHandle.sync and promise-based filesystem primitives used by the adapter"
+    },
+    {
+      "url": "https://man7.org/linux/man-pages/man2/fsync.2.html",
+      "status": "primary-operating-system-manual",
+      "supports": "file synchronization does not by itself guarantee persistence of the containing directory entry"
+    }
+  ],
+  "finding": "A failure after atomic rename but during parent-directory synchronization is not safely classifiable as applied or not-applied. The caller must classify it as indeterminate, reread durable state, accept only an exact terminal match, reject a conflicting terminal, and avoid a blind retry when no terminal can be confirmed.",
+  "design": {
+    "store_outcomes": ["applied", "not-applied", "indeterminate"],
+    "journal_reconciliation": {
+      "exact_terminal_match": "recorded-indeterminate-reconciled",
+      "different_terminal": "terminal-conflict",
+      "no_terminal_visible": "journal-write-indeterminate and no retry"
+    }
+  },
+  "artifacts": [
+    "tools/frontier-research/filesystem-peer-terminal-store.mjs",
+    "tools/frontier-research/durable-peer-terminal-journal.mjs",
+    "tools/frontier-research/peer-terminal-indeterminate-reconciliation.test.mjs"
+  ],
+  "verification": {
+    "command": "node --test peer-terminal-indeterminate-reconciliation.test.mjs",
+    "environment": "isolated Node runtime using byte-identical candidate files before commit",
+    "tests": 3,
+    "passed": 3,
+    "failed": 0,
+    "assertions": [
+      "post-rename sync failure reconciles an exact persisted terminal",
+      "a conflicting persisted terminal is rejected without a second write",
+      "an unresolved indeterminate result fails closed without a second write"
+    ]
+  },
+  "evidence_strength": "test-verified implementation behavior",
+  "uncertainty": [
+    "No physical power-loss or kernel crash was injected.",
+    "Directory fsync behavior varies by operating system and filesystem.",
+    "The adapter remains a same-host coordination mechanism.",
+    "A successful reconciliation confirms journal state, not peer work execution."
+  ],
+  "falsification_route": "Inject failures after rename and before or during directory sync. Falsify the design if any path performs a second compare-and-set before rereading, accepts a nonidentical terminal, produces malformed journal JSON, or reports not-applied when the exact terminal is already readable."
+}
