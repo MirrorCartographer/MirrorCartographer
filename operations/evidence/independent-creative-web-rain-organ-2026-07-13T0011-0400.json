@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "artifact": "Rain Organ",
+  "creative_premise": "A tactile browser instrument where pointer, touch, or keyboard input moves a storm; raindrops become ripples and optional locally generated tones.",
+  "source": {
+    "path": "independent-web/rain-organ/index.html",
+    "source_commit": "a0ba1821c1badefad71b3101af625047974f6a0d",
+    "test_path": "independent-web/rain-organ/contract.test.mjs",
+    "test_commit": "c24e5654412bb84bc4d1e05859d6642ccdaa3408",
+    "workflow_gate_commit": "22450d95cf92cb5c5340d373cb3ed78ae4a21d72"
+  },
+  "verification": {
+    "local_runtime": "8 independent creative web contract checks passed",
+    "workflow_integration": "independent-web/verify.mjs executes the Rain Organ contract before Pages upload",
+    "public_deployment": "not yet observed",
+    "mobile_contract": ["viewport-fit=cover", "touch-action:none", "44px minimum sound control", "pointer events", "devicePixelRatio capped at 2"],
+    "accessibility": ["keyboard storm movement", "space-triggered rain", "aria-live sound state", "reduced-motion equivalent", "visible focus"]
+  },
+  "independence_boundary": {
+    "mirror_cartographer_terms": false,
+    "research_or_worker_dashboard": false,
+    "product_funnel": false,
+    "payments_or_checkout": false,
+    "network_assets": false,
+    "personal_data": false
+  },
+  "rollback": "Revert commits a0ba1821c1badefad71b3101af625047974f6a0d, c24e5654412bb84bc4d1e05859d6642ccdaa3408, and 22450d95cf92cb5c5340d373cb3ed78ae4a21d72; the existing independent-web root artifact remains intact.",
+  "limits": [
+    "The artifact is deployed only after the existing GitHub Pages workflow succeeds.",
+    "No public URL or mobile-device screenshot was observed during this run.",
+    "Audio behavior was contract-tested structurally, not heard on a physical device."
+  ]
+}
