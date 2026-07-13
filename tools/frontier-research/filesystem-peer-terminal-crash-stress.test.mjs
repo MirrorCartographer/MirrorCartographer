@@ -100,6 +100,18 @@ test('repeated process crashes recover without residual coordination artifacts',
     }
 
     assert.equal(observations.length, crashPoints.length * cyclesPerPoint);
+
+    if (process.env.EVIDENCE_SUMMARY_PATH) {
+      const summary = {
+        schema_version: '1.0.0',
+        cycles_completed: observations.length,
+        terminal_records: observations.length,
+        residual_artifact_count: observations.reduce((total, item) => total + item.residuals.length, 0),
+        crash_points: crashPoints,
+        cycles_per_point: cyclesPerPoint
+      };
+      await writeFile(process.env.EVIDENCE_SUMMARY_PATH, `${JSON.stringify(summary, null, 2)}\n`, 'utf8');
+    }
   } finally {
     await rm(root, { recursive: true, force: true });
   }
