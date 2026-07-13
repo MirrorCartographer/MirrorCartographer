@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T05:40:16Z",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "canonical_queue_modified": false,
+  "status": "active",
+  "action": "Reconcile accepted additive continuity records with canonical queue state through a deterministic, reviewable, non-mutating projection.",
+  "dependencies": ["M-001"],
+  "completed_slice": {
+    "runner": "operations/continuity/run-queue-projection.mjs",
+    "test": "operations/continuity/run-queue-projection.test.mjs",
+    "workflow": ".github/workflows/continuity-queue-projection.yml",
+    "memory_record": "operations/continuity/records/CM-0015.json",
+    "commits": [
+      "06716657520152784d4d8594e9d8ebceaaa358ff",
+      "cc6bc8907657f563b12b6516a7204de1f15657c9",
+      "5aca615edc13e48bbba1104a582764a832ab2482",
+      "0f5b0426bdd784e1bb043b321b95df721487cf84"
+    ],
+    "verification": "3 Node tests passed locally for the new runner; the workflow also runs the original reconciler tests and enforces fail-closed adoption assertions before artifact upload.",
+    "finding": "A continuity projection is reviewable only when its canonical input, additive update paths, exact source commit, and no-adoption boundary are preserved together."
+  },
+  "required_evidence": [
+    "successful workflow run identity",
+    "retained projection artifact",
+    "exact source commit match",
+    "deterministic projection digest",
+    "explicit no-mutation and no-automatic-adoption assertions"
+  ],
+  "acceptance_test": "The workflow tests both continuity modules, emits one projection bound to GITHUB_SHA, uploads it under a commit-specific artifact name, and fails if automatic adoption or canonical mutation is permitted.",
+  "privacy_boundary": "Public repository files, commit metadata, abstract coordination state, paths, and deterministic digests only; raw private chat, health material, credentials, identifying personal data, and unreviewed uploads remain excluded.",
+  "next_action": "Obtain and retain a successful workflow artifact, verify its commit and projection digest, then design a separate explicit authorization record for canonical adoption without allowing the workflow itself to mutate ACTIVE_QUEUE.json."
+}
