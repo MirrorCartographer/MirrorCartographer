@@ -2,7 +2,7 @@ import { access } from 'node:fs/promises';
 import { createDurablePeerTerminalJournal } from './durable-peer-terminal-journal.mjs';
 import { createFilesystemPeerTerminalStore } from './filesystem-peer-terminal-store.mjs';
 
-const [journalPath, barrierPath, eventId, phase, digest] = process.argv.slice(2);
+const [journalPath, barrierPath, eventId, phase, digest, crashPoint = ''] = process.argv.slice(2);
 
 while (true) {
   try {
@@ -13,7 +13,16 @@ while (true) {
   }
 }
 
-const store = createFilesystemPeerTerminalStore({ path: journalPath, retryDelayMs: 2 });
+const faultInjector = async point => {
+  if (point === crashPoint) process.kill(process.pid, 'SIGKILL');
+};
+
+const store = createFilesystemPeerTerminalStore({
+  path: journalPath,
+  retryDelayMs: 2,
+  lockTimeoutMs: 500,
+  faultInjector
+});
 const journal = createDurablePeerTerminalJournal({ ...store, maxRetries: 8 });
 
 try {
