@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "recorded_at": "2026-07-13T07:34:00-04:00",
+  "creative_premise": "Rain Organ is an earned playable weather instrument inside Afterbell: motion remains expressive without sound, while a direct gesture may wake a spatial chord layer.",
+  "finding": "The Rain Organ path lagged behind the parent chamber: it required unprefixed AudioContext and StereoPannerNode, so the earned room could fail on Safari even after Afterbell itself was hardened.",
+  "implementation": {
+    "source": "independent-web/rain-organ/index.html",
+    "source_commit": "b6d50ba4daf2fb2f443059e35288301a2d1a6a7b",
+    "test": "independent-web/rain-organ-safari-audio.test.mjs",
+    "test_commit": "625b614ee3dec45d58ea724a3a121b3d2d82f7e5",
+    "workflow": ".github/workflows/independent-web-pages.yml",
+    "workflow_commit": "c5668cdf585cf3a5264268dae3849226947909f1"
+  },
+  "behavioral_contract": [
+    "Use AudioContext or webkitAudioContext.",
+    "Create and resume audio only from the explicit Start sound button gesture.",
+    "Treat StereoPannerNode as optional and preserve a mono route.",
+    "Keep the complete drawing instrument available when Web Audio is absent or wake fails.",
+    "Expose visible and live-region feedback rather than silently failing."
+  ],
+  "verification": {
+    "status": "committed_contract_runtime_pending",
+    "completed": [
+      "Exact committed test source was fetched back and inspected.",
+      "The Pages workflow was updated to execute the dedicated contract before deployment."
+    ],
+    "not_claimed": [
+      "No GitHub Actions pass is claimed.",
+      "No public Pages deployment identity is claimed for these commits.",
+      "No physical iPhone Safari audible result is claimed."
+    ]
+  },
+  "independence": "This remains a self-contained playable weather-and-sound artwork. It contains no Mirror Cartographer explanation, research interface, worker dashboard, account system, payment path, or conversion funnel.",
+  "rollback": "Revert commits c5668cdf585cf3a5264268dae3849226947909f1, 625b614ee3dec45d58ea724a3a121b3d2d82f7e5, and b6d50ba4daf2fb2f443059e35288301a2d1a6a7b in that order; no file deletion is required.",
+  "limits": [
+    "Static source-contract tests do not emulate Safari's audio stack.",
+    "AudioContext resume success does not prove audible device output.",
+    "The mono fallback preserves sound but not horizontal spatialization."
+  ]
+}
