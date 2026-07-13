@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T04:11:00-04:00",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "improvement": "Add an explicit Cloudflare stack deployment path that deploys and verifies the replay-reservation Durable Object Worker before deploying the Pages research surface.",
+  "specialists": [
+    "Cloudflare Deployment Engineer",
+    "Provenance Engineer",
+    "Evidence Auditor",
+    "Conversion Architect"
+  ],
+  "artifacts": {
+    "worker_identity_verifier": "cloudflare-static/verify-replay-reservation-worker.mjs",
+    "worker_identity_tests": "cloudflare-static/verify-replay-reservation-worker.test.mjs",
+    "ordered_stack_workflow": ".github/workflows/cloudflare-research-stack.yml"
+  },
+  "commits": [
+    "d7aa16c2ad5082145a82f60806e383463aa63cf4",
+    "9047b06c54d7851e4c7785ddd0232bcf548327ca",
+    "c9f0da42aba9e66b51509036c90767ad511feb6a"
+  ],
+  "ordering_invariant": [
+    "validate local deployment contracts",
+    "classify credential readiness",
+    "probe Cloudflare account and Pages access",
+    "deploy replay reservation Durable Object Worker",
+    "verify exact HTTPS /health service identity and ready state",
+    "deploy Pages research surface",
+    "verify served Pages identity",
+    "retain bounded deployment evidence"
+  ],
+  "verification": {
+    "command": "node --test cloudflare-static/verify-replay-reservation-worker.test.mjs",
+    "result": {
+      "tests": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    "adversarial_cases": [
+      "lookalike service identity",
+      "lookalike Durable Object class",
+      "non-HTTPS endpoint",
+      "incorrect health path",
+      "non-200 or non-ready response"
+    ]
+  },
+  "claim_state": "implemented_source_unverified_deployment",
+  "deployment_limit": "No Worker URL, Pages URL, Cloudflare deployment ID, or served commit was available during this run because the workflow requires the cloudflare-research environment credentials and manual dispatch.",
+  "epistemic_limit": "Health and deployment identity evidence establish bounded infrastructure state only; they do not establish scientific, diagnostic, or treatment claims.",
+  "privacy_boundary": "Contains public repository paths, hashes, workflow structure, and synthetic test results only. No credentials, private chat, health material, or identifying personal data are included."
+}
