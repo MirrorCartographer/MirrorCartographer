@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "status": "completed_slice",
+  "completed_at": "2026-07-13T03:09:11-04:00",
+  "action": "Bind independently verified reviewer identity evidence to the exact authorization, canonical-change proposal, and prior canonical queue blob without permitting automatic adoption.",
+  "artifacts": [
+    "operations/continuity/reviewer-identity-evidence.mjs",
+    "operations/continuity/reviewer-identity-evidence.test.mjs",
+    "operations/continuity/records/CM-0018.json"
+  ],
+  "commits": [
+    "22c7a89f73308bbf86b02e5e89f5b5b7fadfcad3",
+    "689ac666e5917ab1c546c21e5279332b4b245fbb",
+    "ced9deb39bccf3d44c17be041b7ae8432e979f35"
+  ],
+  "verification": {
+    "command": "node --test operations/continuity/reviewer-identity-evidence.test.mjs",
+    "result": "6 passed, 0 failed",
+    "execution_note": "Executed against byte-identical pre-commit files in an isolated Node runtime."
+  },
+  "claim_states": {
+    "observed": "A fail-closed reviewer identity binding evaluator and six adversarial tests are committed.",
+    "inferred": "Identity authority and review-content authority must remain separately evidenced and then bound by digest.",
+    "proposed": "Implement post-application verification across the prior queue blob, proposal, reviewer binding, manual commit, and resulting queue blob.",
+    "superseded": "CM-0017's unresolved absence of an executable identity-evidence contract.",
+    "unresolved": "No real provider assertion, cryptographic verification artifact, manual queue application, or post-application proof exists."
+  },
+  "privacy_boundary": "Public repository state and abstract identity identifiers only. Raw private chat, health information, credentials, identifying personal data, and unreviewed uploads remain excluded.",
+  "canonical_queue_modified": false,
+  "next_action": "Build the post-application verifier; require a real authenticated reviewer assertion and independently retained cryptographic verification artifact before treating any proposal as adopted."
+}
