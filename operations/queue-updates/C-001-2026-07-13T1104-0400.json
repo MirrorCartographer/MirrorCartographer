@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T11:04:42-04:00",
+  "status": "blocked_external_configuration",
+  "action_completed": "Aligned the evidence manifest verifier with builder schema 1.1.0 and added downgrade rejection coverage.",
+  "claim_states": {
+    "observed": [
+      "The manifest builder emits schema 1.1.0.",
+      "The verifier previously accepted only schema 1.0.0.",
+      "The mismatch made final evidence verification fail closed for every newly built manifest."
+    ],
+    "inferred": [
+      "A credentialed deployment run could not complete evidence finalization until the schema contract was aligned."
+    ],
+    "proposed": [
+      "Run the full workflow after Cloudflare environment credentials are configured and retain the provider-returned deployment identity."
+    ],
+    "superseded": [
+      "The verifier's schema 1.0.0 acceptance rule."
+    ],
+    "unresolved": [
+      "Cloudflare account authorization",
+      "resolving production hostname",
+      "served research-surface identity",
+      "exact deployed commit"
+    ]
+  },
+  "outputs": [
+    {
+      "path": "cloudflare-static/verify-deployment-evidence-manifest.mjs",
+      "commit": "d6a31449c807c8c4863abfd59a8d1853d3bb348b"
+    },
+    {
+      "path": "cloudflare-static/verify-deployment-evidence-manifest.test.mjs",
+      "commit": "5114c1c533a4111461dd701b009692299968949c"
+    },
+    {
+      "path": "operations/evidence/cloudflare-manifest-schema-alignment-2026-07-13T1104-0400.json",
+      "commit": "3901fff1cd3d4f62ee8d379672de0901f7be4d13"
+    }
+  ],
+  "verification": {
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "route": "isolated Node execution with byte-identical implementation logic"
+  },
+  "privacy_boundary": "Public repository evidence only; no credentials, private chat, health material, or personal identifiers.",
+  "canonical_queue_overwritten": false,
+  "next_action": "Configure the cloudflare-research GitHub environment, dispatch the workflow, and verify that finalization now accepts the schema 1.1.0 manifest before requiring resolving URL, served identity, and deployed-commit proof."
+}
