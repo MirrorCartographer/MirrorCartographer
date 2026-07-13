@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-13T05:48:06-04:00",
+  "finding": "A one-deployment concurrency proof establishes bounded atomicity but does not establish that Durable Object reservation state remains observable after Worker code redeployment. Pages publication should therefore be gated on a same-key replay proof across an identical-source redeployment.",
+  "implementation": {
+    "module": "cloudflare-static/verify-replay-reservation-redeployment.mjs",
+    "test": "cloudflare-static/verify-replay-reservation-redeployment.test.mjs",
+    "workflow": ".github/workflows/cloudflare-research-stack.yml",
+    "ordering_invariant": "worker identity -> live atomicity -> create reservation -> redeploy identical Worker source -> verify same reservation is replayed -> deploy Pages -> verify served Pages identity",
+    "commits": [
+      "8df4aaeba790640f9925d3459790dae7dfaad922",
+      "2fa974e552b87270d1e807b33f4cc49349211a18",
+      "25e4181d0cb243d702c5a7cd69d3860d46f5739b"
+    ]
+  },
+  "verification": {
+    "source_review": "The committed test covers valid persistence, second-winner rejection, changed reservation identity, end-to-end before/after proof construction, and fail-closed behavior when the initial reservation is not created.",
+    "workflow_run": "No GitHub Actions workflow run was associated with commit 25e4181d0cb243d702c5a7cd69d3860d46f5739b at inspection time.",
+    "local_execution": "Unavailable in this run because the execution container could not resolve github.com to clone the public repository.",
+    "live_cloudflare_execution": "Unavailable until the cloudflare-research environment has valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN secrets and the workflow is dispatched."
+  },
+  "evidence_strength": "committed implementation and adversarial test source; live deployment unverified",
+  "limits": [
+    "The proof covers one reservation key and one identical-source redeployment path.",
+    "It does not prove indefinite durability, disaster recovery, every namespace, or global availability.",
+    "Infrastructure evidence does not establish scientific or medical truth."
+  ],
+  "falsification_route": "Dispatch cloudflare-research-stack.yml. The run must create one reservation before the second Worker deployment and receive a 409 replay response with the same reservation_id afterward. Any second 201, changed reservation_id, missing atomic flag, provider mismatch, or absent proof artifact falsifies acceptance."
+}
