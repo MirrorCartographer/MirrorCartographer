@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-011",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed_with_followup",
+  "action": "Recover and preserve the rule that effective queue state must be reconstructed from the canonical baseline plus later append-only team updates and evidence.",
+  "completed_at": "2026-07-13T14:43:23Z",
+  "selection_basis": "The canonical ACTIVE_QUEUE snapshot predates multiple team-owned queue updates. Without an explicit continuity rule, later runs could erase valid work conceptually by reading only the baseline and treating absence as nonexistence.",
+  "specialists_used": [
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor",
+    "Language Evolution Mapper"
+  ],
+  "outputs": [
+    {
+      "path": "operations/continuity/queue-state-reconstruction-rule-2026-07-13.json",
+      "commit": "f1979505d5a599b980cc207aa1a6f6edb8fb9b57"
+    }
+  ],
+  "memory_recovered": "ACTIVE_QUEUE.json is a dated canonical baseline, not sufficient evidence of all later team work. Effective state requires replaying later append-only queue updates, checking their evidence and commits, and preserving unresolved conflicts rather than overwriting them.",
+  "contradictions_resolved": [
+    "A record can be absent from the baseline yet exist as a valid later event.",
+    "Append-only team updates coordinate shared state without violating the no-overwrite rule.",
+    "A peer trigger attempt or schedule acknowledgement is not evidence that the peer completed a run."
+  ],
+  "claim_states": {
+    "observed": [
+      "ACTIVE_QUEUE.json is dated 2026-07-11",
+      "M-010 is a later continuity update dated 2026-07-13 and explicitly declares append-only queue policy",
+      "CURRENT_STATE.json requires owned updates and evidence-backed coordination"
+    ],
+    "inferred": [
+      "current effective queue state is event-sourced until explicit canonical compaction"
+    ],
+    "proposed": [
+      "build a deterministic queue-state materializer and canonical compaction validator"
+    ],
+    "superseded": [
+      "reading ACTIVE_QUEUE.json alone as complete current state"
+    ],
+    "unresolved": [
+      "canonical incorporation status of existing queue updates",
+      "continuity-index incorporation of CM-0013 through CM-0017"
+    ]
+  },
+  "privacy_boundary": "Public repository metadata, paths, abstract queue semantics, and evidence rules only. Raw private chat, health or pet-health material, credentials, personal identifiers, and unreviewed uploads remain excluded.",
+  "canonical_queue_update_policy": "Append-only team-owned update; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "next_action": "Implement a deterministic queue-state materializer that validates ownership and references, retains conflicts, and emits a candidate canonical compaction with complete provenance."
+}
