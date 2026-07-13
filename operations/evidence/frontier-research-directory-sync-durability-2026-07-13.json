@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T06:02:26-04:00",
+  "finding": "A file sync followed by rename is not the strongest available crash-durability boundary; the containing directory must also be synchronized so the renamed directory entry is requested for persistence.",
+  "source_status": {
+    "node_fs": "official current Node.js filesystem documentation",
+    "linux_fsync": "Linux manual page describing fsync durability and directory-entry limits"
+  },
+  "primary_sources": [
+    "https://nodejs.org/api/fs.html#filehandlesync",
+    "https://man7.org/linux/man-pages/man2/fsync.2.html"
+  ],
+  "implementation": {
+    "module": "tools/frontier-research/filesystem-peer-terminal-store.mjs",
+    "test": "tools/frontier-research/filesystem-peer-terminal-durability.test.mjs",
+    "module_commit": "4654ead9db69d70287cd3aca6799f31bceaa5242",
+    "test_commit": "74be560aa550abd9747423bc00a43c346fee6bcc"
+  },
+  "verification": {
+    "command": "node --test filesystem-peer-terminal-durability.test.mjs",
+    "tests": 2,
+    "passed": 2,
+    "failed": 0,
+    "scope": "byte-identical isolated source and deterministic injected directory-sync behavior"
+  },
+  "evidence_strength": "test-verified implementation behavior",
+  "uncertainty": [
+    "No power-loss or kernel crash was induced.",
+    "Directory fsync support and semantics vary by operating system and filesystem.",
+    "A sync failure occurs after a valid rename, so callers must treat the result as indeterminate rather than retrying a conflicting terminal blindly."
+  ],
+  "falsification_route": "Run crash-injection and power-loss tests on the production filesystem; reject the design if a successful return can lose the renamed journal entry or if a failed return permits a second conflicting terminal.",
+  "specialist_registry_change": "none; existing Primary Source Scout, Technical Synthesist, Experiment Designer, and Tool Evaluator responsibilities cover this artifact"
+}
