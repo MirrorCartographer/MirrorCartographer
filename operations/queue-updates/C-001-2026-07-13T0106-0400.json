@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T01:06:00-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "canonical_queue_sha_observed": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+  "canonical_status_observed": "blocked_external_configuration",
+  "projection": {
+    "status": "blocked_external_configuration",
+    "durable_improvement": "Added fail-closed authentication for retained cross-run OIDC replay ledgers using exact SHA-256 byte binding plus verified GitHub repository, workflow, and SLSA predicate identity.",
+    "commits": [
+      "0e91d28d658726a7052264b8815c53ae0a9e2272",
+      "cfe94c8da1d59e40cc9693bebdf2dd6861e88463",
+      "28cf98d4940c783ba477ce22400f6e96e53a8d3f"
+    ],
+    "evidence": "operations/evidence/cloudflare-replay-ledger-authentication-2026-07-13T0106-0400.json",
+    "verification_state": "4 deterministic Node tests passed in an isolated runtime against byte-identical pre-commit files",
+    "deployment_state": "not_run",
+    "remaining": [
+      "retrieve the prior replay-ledger artifact from a previous trusted workflow run",
+      "execute independent GitHub attestation verification and normalize its output",
+      "wire authentication before supplying the ledger to run-github-oidc-evidence.mjs",
+      "configure protected CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN",
+      "dispatch deployment and prove resolving URL, served surface, and deployed commit"
+    ]
+  },
+  "non_overwrite_statement": "This additive projection does not replace operations/ACTIVE_QUEUE.json or any other team's state.",
+  "epistemic_limit": "GitHub acceptance and isolated test passage do not prove workflow execution, artifact retrieval, Cloudflare deployment, or scientific claim truth."
+}
