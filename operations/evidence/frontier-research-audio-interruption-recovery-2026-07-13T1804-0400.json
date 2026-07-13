@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T18:04:00-04:00",
+  "source_status": {
+    "web_audio_editor_draft": "current primary working draft dated 2026-07-13",
+    "stability": "work in progress; implementation support may vary"
+  },
+  "primary_sources": [
+    {
+      "url": "https://webaudio.github.io/web-audio-api/#dom-audiocontextstate-interrupted",
+      "finding": "AudioContextState includes interrupted, meaning the context cannot process audio until the interruption ends."
+    },
+    {
+      "url": "https://webaudio.github.io/web-audio-api/#handling-an-interruption-on-the-audiocontext",
+      "finding": "The user agent can transition a running context to interrupted, release system resources, and later restore the pre-interruption state; suspended contexts may suppress interruption statechange events for privacy."
+    }
+  ],
+  "finding": "Treat interruption as a distinct browser state rather than collapsing it into suspension or generic silence. Recovery requires a transition out of interrupted plus independent render-position advance; resume resolution or a running state alone is insufficient.",
+  "design_implication": "Capture AudioContext.state at failure, on statechange, and after recovery. Feed interruption classification and post-recovery render progress into the existing cross-channel audio evidence fusion. Never retain or infer the private cause of an interruption.",
+  "artifact": {
+    "module": "tools/frontier-research/audio-interruption-recovery.mjs",
+    "test": "tools/frontier-research/audio-interruption-recovery.test.mjs",
+    "commits": [
+      "cd1c2c71b97c14fccd5ce1eac98319c776d43c47",
+      "36c32bb6b20c93afbd51efcfd5d5f4b1f1046344"
+    ]
+  },
+  "verification": {
+    "method": "isolated Node test run using byte-identical committed logic",
+    "passed": 6,
+    "failed": 0,
+    "covered": [
+      "active interruption",
+      "interrupted-to-running with render progress",
+      "running state without render progress",
+      "resolved resume with non-running state",
+      "closed terminal context",
+      "unsupported interruption state fallback"
+    ]
+  },
+  "evidence_strength": "primary-specification-derived deterministic classifier",
+  "uncertainty": [
+    "The cited document is an editor draft and may change.",
+    "Browser support for interrupted may vary; unsupported is not evidence that no interruption occurred.",
+    "Browser state and render progress do not prove physical audibility."
+  ],
+  "privacy_boundary": "Do not retain or infer whether an interruption was caused by a call, screen lock, another application, device identity, or other private user activity.",
+  "falsification_route": "Run the classifier against retained statechange traces from target Safari builds. Reject or revise the model if interrupted is emitted with contradictory lifecycle behavior, or if running plus independently measured render advance fails systematically after interruption recovery."
+}
