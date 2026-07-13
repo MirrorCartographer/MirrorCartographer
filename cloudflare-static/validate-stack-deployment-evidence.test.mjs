@@ -16,7 +16,7 @@ const valid = {
   ordering_invariant: 'worker-deployed-health-verified-live-atomicity-verified-reservation-created-worker-redeployed-persistence-verified-before-pages-deploy'
 }
 
-test('accepts a complete commit-bound stack proof', () => {
+test('accepts a complete commit-bound Cloudflare stack proof', () => {
   assert.deepEqual(validateStackDeploymentEvidence(valid, { expectedCommit: commit }), { accepted: true, reasons: [], source_commit: commit })
 })
 
@@ -35,4 +35,28 @@ test('rejects Pages evidence recorded without a URL or proof file', () => {
   const result = validateStackDeploymentEvidence(candidate, { expectedCommit: commit })
   assert.equal(result.accepted, false)
   assert.deepEqual(result.reasons, ['pages-url-invalid', 'pages-proof-not-recorded'])
+})
+
+test('rejects HTTPS lookalike hosts outside Cloudflare deployment domains', () => {
+  const candidate = structuredClone(valid)
+  candidate.worker.url = 'https://worker.example.com'
+  candidate.worker.redeployed_url = 'https://worker.pages.dev'
+  candidate.pages.url = 'https://example.pages.dev.attacker.invalid'
+  const result = validateStackDeploymentEvidence(candidate, { expectedCommit: commit })
+  assert.equal(result.accepted, false)
+  assert.deepEqual(result.reasons, [
+    'worker-hostname-not-cloudflare',
+    'redeployed-worker-hostname-not-cloudflare',
+    'pages-hostname-not-cloudflare'
+  ])
+})
+
+test('rejects malformed and non-HTTPS deployment URLs', () => {
+  const candidate = structuredClone(valid)
+  candidate.worker.url = 'not-a-url'
+  candidate.worker.redeployed_url = 'http://worker.example.workers.dev'
+  candidate.pages.url = 'ftp://example.pages.dev'
+  const result = validateStackDeploymentEvidence(candidate, { expectedCommit: commit })
+  assert.equal(result.accepted, false)
+  assert.deepEqual(result.reasons, ['worker-url-invalid', 'redeployed-worker-url-invalid', 'pages-url-invalid'])
 })
