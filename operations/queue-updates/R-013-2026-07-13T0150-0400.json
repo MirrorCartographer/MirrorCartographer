@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-013",
+  "owner": "frontier_research",
+  "priority": 13,
+  "action": "Bind calibration evidence to proof that the exact digest-bound collector was invoked successfully by the declared workflow run.",
+  "dependencies": ["R-012"],
+  "required_evidence": [
+    "current primary specifications",
+    "committed execution-receipt evaluator",
+    "adversarial byte and invocation tests",
+    "explicit signature and independence limits",
+    "falsification route"
+  ],
+  "status": "completed",
+  "progress": {
+    "primary_sources": [
+      "https://docs.github.com/en/actions/reference/security/oidc",
+      "https://slsa.dev/spec/v1.2/provenance"
+    ],
+    "finding": "Declared collector/workflow provenance must be followed by a receipt binding exact source bytes, workflow bytes, argv, run identity, successful exit, step conclusion, and receipt digest before calibration evidence is admitted.",
+    "module": "tools/frontier-research/collector-execution-receipt.mjs",
+    "test": "tools/frontier-research/collector-execution-receipt.test.mjs",
+    "evidence": "operations/evidence/frontier-research-collector-execution-binding-2026-07-13T0150-0400.json",
+    "commits": [
+      "09b950ed5cd054b759a2a069cec88a9a96c53450",
+      "a6d04bef357c3957776bb2c7a77fac0ebf5c38c9",
+      "6543032ee44548895c6cd52a213afac56046c199"
+    ],
+    "verification": "6 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+  },
+  "handoff": "Cloudflare Research should generate this receipt inside the authenticated workflow, then independently fetch repository objects and run metadata before applying R-013, R-012, R-011, and drift gates. A receipt alone is not cryptographic proof that GitHub executed the collector."
+}
