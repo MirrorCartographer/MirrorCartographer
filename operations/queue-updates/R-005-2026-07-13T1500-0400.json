@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "recorded_at": "2026-07-13T15:00:00-04:00",
+  "canonical_queue_mutated": false,
+  "reason": "No active canonical frontier_research item existed; this additive update records the completed research slice without overwriting shared queue state.",
+  "proposed_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "status": "completed",
+    "action": "Evaluate experimental browser playback-path statistics without confusing telemetry with audibility proof.",
+    "required_evidence": [
+      "current primary specification",
+      "committed evaluator",
+      "deterministic tests",
+      "explicit privacy and compatibility limits",
+      "falsification route"
+    ],
+    "progress": {
+      "primary_source": "https://webaudio.github.io/web-audio-api/",
+      "finding": "AudioPlaybackStats can supplement render-position evidence with playback duration, underrun, and latency telemetry in supporting browsers, but remains experimental, privacy-gated, non-universal, and insufficient to prove audibility.",
+      "module": "tools/frontier-research/audio-playback-stats-evaluator.mjs",
+      "test": "tools/frontier-research/audio-playback-stats-evaluator.test.mjs",
+      "evidence": "operations/evidence/frontier-research-audio-playback-stats-2026-07-13T1500-0400.json",
+      "commits": [
+        "7ae4e07f3bb92a8d76e9029ae9d60a3d70f84654",
+        "97fe0929a2fecd538233fd3183d01e1c0a5722c5",
+        "697a55f292061a7a1642c9814c92d236f34cac2d"
+      ],
+      "verification": "6 deterministic Node tests passed in an isolated runtime using byte-equivalent pre-commit files."
+    },
+    "handoff": "Vercel Studio should use the evaluator only under feature detection and must preserve independent render-position plus physical-device audibility evidence."
+  }
+}
