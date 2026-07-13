@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-13T13:01:36Z",
+  "base_index": {
+    "path": "operations/continuity/continuity-index.json",
+    "content_sha": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a"
+  },
+  "supersedes_artifact": {
+    "path": "operations/continuity/continuity-index-delta-2026-07-13T0741-0400.json",
+    "content_sha": "4187f0b914ec88bf3366b37002a83c612890601b",
+    "scope": "merge-readiness only; historical artifact retained"
+  },
+  "privacy_boundary": "Public repository metadata, hashes, and abstract queue semantics only; raw private chat, health or pet-health material, credentials, personal identifiers, and unreviewed uploads are excluded.",
+  "records": [
+    {
+      "id": "CM-0013",
+      "kind": "decision",
+      "title": "Effective queue state requires canonical snapshot plus append-only projections",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {"type":"github_file","locator":"operations/ACTIVE_QUEUE.json","content_sha":"abb807e1a25d399f301238f6b8cc26d6be10385f","observed_at":"2026-07-13T13:01:36Z"},
+        {"type":"github_commit","locator":"a0b0ae389bec2cd9761ba559ca25f9a2d6450ecd","content_sha":"a0b0ae389bec2cd9761ba559ca25f9a2d6450ecd","observed_at":"2026-07-13T13:01:36Z"},
+        {"type":"github_commit","locator":"94af365e88d8d7555675f0a7c4a775c292b6a41f","content_sha":"94af365e88d8d7555675f0a7c4a775c292b6a41f","observed_at":"2026-07-13T13:01:36Z"}
+      ],
+      "summary": "The canonical queue snapshot can lag later append-only queue updates. Current selection must preserve the snapshot as historical evidence while deriving effective state from later projections under an explicit precedence rule.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Compare the canonical queue blob with later queue-update commits. Falsify this record if no later projection changes an item's effective state or if the committed reducer does not consume both source classes."
+    },
+    {
+      "id": "CM-0014",
+      "kind": "artifact",
+      "title": "Deterministic queue reducer preserves field-level projection provenance",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {"type":"github_commit","locator":"52cca6f6f9a4adec189f9de3c108118b5b857263","content_sha":"52cca6f6f9a4adec189f9de3c108118b5b857263","observed_at":"2026-07-13T13:01:36Z"},
+        {"type":"github_commit","locator":"ee73a9cece12187253e117fc7902e31dd8946721","content_sha":"ee73a9cece12187253e117fc7902e31dd8946721","observed_at":"2026-07-13T13:01:36Z"},
+        {"type":"github_file","locator":"operations/queue-updates/M-004-2026-07-13T0735-0400.json","content_sha":"bda74f809c8941872035ec7f5a3ae2824340aad7","observed_at":"2026-07-13T13:01:36Z"}
+      ],
+      "summary": "M-004 converted queue precedence into executable reducer logic with deterministic ordering, field-level provenance, explicit conflict recording, and refusal to select through unresolved equal-time conflicts.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Fetch the reducer and test commits, inspect the conflict path, and run the committed tests in a clean checkout. Reject this record if field provenance or conflict refusal is absent."
+    },
+    {
+      "id": "CM-0015",
+      "kind": "unresolved_question",
+      "title": "Queue reducer lacks retained clean-checkout execution evidence",
+      "claim_state": "unresolved",
+      "evidence_strength": "primary_repository_source",
+      "sources": [
+        {"type":"github_file","locator":"operations/queue-updates/M-004-2026-07-13T0735-0400.json","content_sha":"bda74f809c8941872035ec7f5a3ae2824340aad7","observed_at":"2026-07-13T13:01:36Z"}
+      ],
+      "summary": "The reducer source and deterministic test contract are committed, but no retained clean-checkout output currently establishes successful repository-context execution.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Resolve only with retained output from node --test tools/continuity/effective-queue.test.mjs and node tools/continuity/effective-queue.mjs against the same immutable source commit."
+    },
+    {
+      "id": "CM-0016",
+      "kind": "contradiction",
+      "title": "The 0741 continuity delta was historically useful but not merge-valid",
+      "claim_state": "observed",
+      "evidence_strength": "corroborated_repository_sources",
+      "sources": [
+        {"type":"github_file","locator":"operations/continuity/continuity-index-delta-2026-07-13T0741-0400.json","content_sha":"4187f0b914ec88bf3366b37002a83c612890601b","observed_at":"2026-07-13T13:01:36Z"},
+        {"type":"github_file","locator":"operations/evidence/continuity-delta-validator-2026-07-13T0846-0400.json","content_sha":"ba77768adfb9b38f70013b08b17ad1dcde5118f6","observed_at":"2026-07-13T13:01:36Z"}
+      ],
+      "summary": "The earlier delta preserved useful queue-projection claims, but it used an unsupported record kind and non-record semantic labels in supersedes. This successor retains the earlier artifact as history while replacing only its merge-ready interpretation with schema-valid records and empty graph links where no canonical CM target exists.",
+      "privacy": "public_repository_safe",
+      "contradicts": [],
+      "supersedes": [],
+      "falsification_or_review_route": "Run the committed delta validator against both artifacts. Falsify this record if the 0741 delta validates unchanged or if this successor fails the same vocabulary and graph-reference checks."
+    }
+  ],
+  "integration_status": "append_only_corrected_successor_pending_clean_checkout_validation_and_canonical_merge"
+}
