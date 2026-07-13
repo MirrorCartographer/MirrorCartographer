@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-009",
+  "observed_at": "2026-07-13T18:33:12Z",
+  "finding": "operations/continuity/continuity-index.json is a dated snapshot rather than an exhaustive live registry; later memory records are retained additively under operations/continuity/records.",
+  "sources": [
+    {
+      "path": "operations/continuity/continuity-index.json",
+      "blob_sha": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a",
+      "facts": [
+        "generated_at is 2026-07-12T08:04:41Z",
+        "the final embedded record is CM-0009"
+      ]
+    },
+    {
+      "path": "operations/continuity/records/CM-1004.json",
+      "blob_sha": "b9ca7f18ede671976b9eeae657f2547545a5442e",
+      "facts": [
+        "CM-1004 is a later standalone continuity record",
+        "its implementation record commit is 2f210070449b8d2d25d716d8bc4207a4de32b45e"
+      ]
+    }
+  ],
+  "claim_states": {
+    "observed": "A later standalone record exists but is absent from the older index snapshot.",
+    "inferred": "Index-only readers can incorrectly infer absence of later memory.",
+    "proposed": "Build a deterministic non-authoritative manifest over the snapshot and standalone record corpus.",
+    "superseded": "The assumption that the dated index is exhaustive current state.",
+    "unresolved": "The full standalone directory was not enumerated and no exhaustive manifest was identified."
+  },
+  "privacy_boundary": "Only public repository files and commit metadata were inspected. Raw chat, health or pet-health data, credentials, account identifiers, private contact data, and unreviewed uploads were excluded.",
+  "verification": {
+    "source_fetches": "Both referenced files were fetched from the repository default branch with their blob SHAs.",
+    "implementation_commit": "5cc6c7230114f9e9b9f7c1e5ec1b84a41eba5185",
+    "limits": "No tree-listing result or CI execution proves exhaustive corpus membership."
+  },
+  "falsification_route": "Reject the finding if a newer authoritative manifest proves complete corpus membership and includes CM-1004, or if the cited index blob already contains CM-1004."
+}
