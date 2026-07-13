@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "event_order": 6,
+  "observed_at": "2026-07-13T14:24:00-04:00",
+  "queue_item": {
+    "id": "R-006",
+    "owner": "frontier_research",
+    "priority": 5,
+    "action": "Require cryptographically bound signing time within certificate validity before evidence promotion.",
+    "dependencies": ["R-005"],
+    "required_evidence": [
+      "current primary sources",
+      "committed classifier",
+      "deterministic adversarial tests",
+      "explicit verifier trust boundary",
+      "falsification route"
+    ],
+    "status": "completed_source_verified_isolated_tests_passed",
+    "progress": {
+      "primary_sources": [
+        "https://docs.sigstore.dev/cosign/verifying/timestamps/",
+        "https://docs.sigstore.dev/about/bundle/"
+      ],
+      "finding": "Transparency-log verification alone does not establish a trustworthy signing time. Bare Rekor v1 integratedTime is mutable without detection unless bound by a verified signed entry timestamp; RFC3161 and Rekor v2 time require trusted timestamp verification.",
+      "module": "tools/frontier-research/signing-time-policy.mjs",
+      "test": "tools/frontier-research/signing-time-policy.test.mjs",
+      "evidence": "operations/evidence/frontier-research-signing-time-policy-2026-07-13T1424-0400.json",
+      "commits": [
+        "7795c5fd81d6f53b66386bd48a46e0fe40e6765f",
+        "dc8970d0376cc2601cb6776f35a97874b152925a",
+        "0c02b9734f7cb6acc9230fbbde5fcfba1306c005"
+      ],
+      "verification": "Five deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files.",
+      "trust_limit": "The classifier does not verify timestamp signatures, SET signatures, TSA roots, certificate chains, revocation, or claim truth; it consumes explicit results from an external cryptographic verifier."
+    },
+    "handoff": "Vercel and Cloudflare evidence promotion should require both the R-005 DSSE/transparency decision and this signing-time decision. Reject bare integratedTime and any trusted time outside certificate validity."
+  },
+  "canonical_mutation_performed": false,
+  "preservation_rule": "Do not overwrite operations/ACTIVE_QUEUE.json, other teams' queue updates, or Git history."
+}
