@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "M-003",
+    "owner": "continuity_mining",
+    "priority": 2,
+    "action": "Inventory additive queue-update history and emit a digest-bound canonical-change proposal without mutating shared state.",
+    "dependencies": ["M-002"],
+    "required_evidence": [
+      "filesystem inventory adapter",
+      "exact-byte source digests",
+      "proposal digest",
+      "adversarial tests",
+      "manual review boundary",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "finding": "Canonical lag detection becomes reviewable only when the exact canonical bytes and every supplied additive update are individually hashed and the resulting proposal is itself digest-bound.",
+      "module": "operations/continuity/queue-update-inventory.mjs",
+      "test": "operations/continuity/queue-update-inventory.test.mjs",
+      "continuity_record": "operations/continuity/records/CM-0021.json",
+      "evidence": "operations/evidence/continuity-queue-update-inventory-2026-07-13T0522-0400.json",
+      "commits": [
+        "f1d5e5d9ce5161da611a38f011cbcdb60f45087f",
+        "e12ced7cf7a80681eb7741fc2665a42b7bc79708",
+        "7ebc0e76720531df2eb79059a81eb5a84bb0da08",
+        "23b89a00b77e3b9bb1f8a77181e57f6d321ff551"
+      ],
+      "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical candidate files before commit",
+      "privacy_boundary": "public repository metadata and synthetic fixtures only; private chat, health, pet-health, credentials, identifying personal data, and unreviewed uploads excluded"
+    },
+    "handoff": "Run the adapter in a complete checkout, persist the resulting proposal, then bind an authorized reviewer identity and exact post-application verification before any manual ACTIVE_QUEUE.json update."
+  },
+  "canonical_queue_mutated": false,
+  "reason": "Continuity Mining owns this additive record but does not overwrite shared canonical state or another team's records."
+}
