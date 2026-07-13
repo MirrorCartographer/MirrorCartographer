@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const html=fs.readFileSync(new URL('./index.html',import.meta.url),'utf8');
+assert.match(html,/<title>Rain Organ<\/title>/);
+assert.match(html,/prefers-reduced-motion/);
+assert.match(html,/aria-live="polite"/);
+assert.match(html,/min-height:44px/);
+assert.match(html,/touch-action:none/);
+assert.match(html,/AudioContext/);
+assert.match(html,/stage\.addEventListener\('keydown'/);
+assert.doesNotMatch(html,/Mirror Cartographer|research portal|dashboard|pricing|checkout/i);
+console.log('8 independent creative web contract checks passed');
