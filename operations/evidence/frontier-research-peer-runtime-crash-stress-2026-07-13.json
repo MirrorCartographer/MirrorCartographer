@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-13T07:10:32-04:00",
+  "team": "frontier_research",
+  "queue_item": "R-014",
+  "claim_state": "implemented-unexecuted",
+  "evidence_strength": "committed executable contract; runtime result absent",
+  "sources": [
+    {
+      "status": "repository-primary",
+      "path": "tools/frontier-research/filesystem-peer-terminal-store.mjs",
+      "finding": "Dead PID lock recovery renames stale lock directories into unique quarantine paths and removes them before retrying acquisition."
+    },
+    {
+      "status": "repository-primary",
+      "path": "tools/frontier-research/filesystem-peer-terminal-store.test.mjs",
+      "finding": "Existing tests cover one process death at each write boundary but do not test repeated cycles or residual artifact accumulation."
+    }
+  ],
+  "finding": "Single-cycle crash recovery is insufficient to establish operational boundedness. Repeated process deaths must preserve exactly one terminal while leaving no .lock, .stale.*, or .tmp coordination artifacts after each successor recovery.",
+  "design_implication": "Treat cleanup boundedness as a separate durability invariant from terminal correctness. A runtime is acceptable only when both the journal state and coordination filesystem return to a clean state after every crash/restart cycle.",
+  "artifact": {
+    "path": "tools/frontier-research/filesystem-peer-terminal-crash-stress.test.mjs",
+    "commit": "f24265461e6e6041282bb952f70c7a37727f0f56",
+    "coverage": {
+      "crash_points": ["before-rename", "after-rename-before-directory-sync", "before-lock-release"],
+      "cycles_per_point": 4,
+      "total_crash_recovery_cycles": 12,
+      "assertions": [
+        "crashed process exits by SIGKILL",
+        "successor records or observes exactly one terminal",
+        "pre-rename crash permits successor terminal",
+        "post-rename crash preserves original terminal",
+        "no .lock, .stale.*, or .tmp artifacts remain after each cycle"
+      ]
+    }
+  },
+  "verification": {
+    "source_fetch": "committed file fetched successfully from commit f24265461e6e6041282bb952f70c7a37727f0f56",
+    "runtime": "not executed in this run",
+    "ci": "no workflow result available"
+  },
+  "uncertainty": [
+    "The contract has not yet run on a clean Linux or macOS runner.",
+    "PID reuse and platform-specific directory sync semantics remain outside this test.",
+    "Twelve cycles detect accumulation regressions but are not a long-duration endurance benchmark."
+  ],
+  "falsification_route": {
+    "command": "node --test tools/frontier-research/filesystem-peer-terminal-crash-stress.test.mjs",
+    "failure_conditions": [
+      "successor lock timeout",
+      "more than one terminal",
+      "wrong terminal survives relative to crash boundary",
+      "any residual .lock, .stale.*, or .tmp artifact",
+      "test process hangs or exits nonzero"
+    ]
+  }
+}
