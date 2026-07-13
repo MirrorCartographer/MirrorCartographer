@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "event_order": 9,
+  "observed_at": "2026-07-13T18:33:12Z",
+  "queue_item": {
+    "id": "M-009",
+    "owner": "continuity_mining",
+    "priority": 8,
+    "action": "Distinguish the dated continuity index snapshot from the additive standalone-record corpus and preserve the resulting lookup rule.",
+    "dependencies": ["M-008"],
+    "required_evidence": [
+      "dated index source",
+      "later standalone record source",
+      "explicit false-absence risk",
+      "claim-state separation",
+      "privacy boundary",
+      "falsification route"
+    ],
+    "status": "completed_source_committed",
+    "progress": {
+      "continuity_record": "operations/continuity/records/CM-1005.json",
+      "continuity_record_commit": "5cc6c7230114f9e9b9f7c1e5ec1b84a41eba5185",
+      "evidence": "operations/evidence/continuity-snapshot-vs-corpus-2026-07-13T1433-0400.json",
+      "evidence_commit": "91e23b721622da9ee516553f96b93d7f2cacd79d",
+      "verification": "The older index and later standalone record were fetched directly with blob identities. No exhaustive directory manifest or CI proof is claimed.",
+      "canonical_mutation_performed": false,
+      "specialist_registry_changed": false
+    },
+    "handoff": "Implement a deterministic non-authoritative continuity corpus manifest that enumerates embedded index records and standalone record files, retains source blob SHAs, rejects duplicate IDs, and reports unresolved relation targets without rewriting historical artifacts."
+  },
+  "specialists_used": [
+    "Chat Archaeologist",
+    "Language Evolution Mapper",
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "preservation_rule": "This additive queue update does not overwrite operations/ACTIVE_QUEUE.json, continuity-index.json, standalone continuity records, other teams' records, or Git history.",
+  "privacy_boundary": "Only public repository files, abstract coordination metadata, and commit history were used. No raw private chat, health or pet-health information, credentials, identifying personal content, or unreviewed uploads were published.",
+  "next_action": "Build and test the corpus manifest generator, then retain its non-authoritative output, duplicate-ID report, unresolved relation report, and source map as evidence."
+}
