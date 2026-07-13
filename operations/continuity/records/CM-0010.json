@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0010",
+  "kind": "decision",
+  "title": "OIDC replay protection evolved from process-local evaluation to an atomic durable-store contract",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_commit",
+      "locator": "8b3ec2dc571c9f3f4caf3c9bbed6ffed711eb9ca",
+      "content_sha": "8b3ec2dc571c9f3f4caf3c9bbed6ffed711eb9ca",
+      "observed_at": "2026-07-13T04:55:47Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "8150425e2de1691159b28c33215ed36ccdc35630",
+      "content_sha": "8150425e2de1691159b28c33215ed36ccdc35630",
+      "observed_at": "2026-07-13T04:55:47Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "ea8189ba5b2e7efb8d22fdd07b60024a447d1296",
+      "content_sha": "ea8189ba5b2e7efb8d22fdd07b60024a447d1296",
+      "observed_at": "2026-07-13T04:55:47Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "99840e831c73ec97f999b065d21942d2b3fc5365",
+      "content_sha": "99840e831c73ec97f999b065d21942d2b3fc5365",
+      "observed_at": "2026-07-13T04:55:47Z"
+    }
+  ],
+  "summary": "The first Cloudflare integration evaluated replay state supplied to one process and explicitly retained a durability limitation. Frontier Research then introduced a uniqueness-constrained SQL contract and adversarial concurrency tests, followed by a bounded temporal policy. The durable project memory is therefore not 'replay protection was added' as one undifferentiated event: process-local classification was an intermediate implementation, atomic cross-run acceptance is the stronger design, and deployment/runtime proof remains separate.",
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": [],
+  "status_relations": {
+    "intermediate": "8b3ec2dc571c9f3f4caf3c9bbed6ffed711eb9ca",
+    "strengthened_by": [
+      "8150425e2de1691159b28c33215ed36ccdc35630",
+      "ea8189ba5b2e7efb8d22fdd07b60024a447d1296",
+      "99840e831c73ec97f999b065d21942d2b3fc5365"
+    ],
+    "unresolved": "No retained production transaction proves that two concurrent workflow invocations were serialized by a deployed durable backend."
+  },
+  "falsification_or_review_route": "Fetch the four cited commits. Reject this record if the first integration already performs an atomic durable transaction, if the later store lacks a uniqueness constraint or concurrency test, or if retained production evidence demonstrates a different implementation sequence."
+}
