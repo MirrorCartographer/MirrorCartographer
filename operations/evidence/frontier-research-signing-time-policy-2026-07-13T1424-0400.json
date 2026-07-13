@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-006",
+  "observed_at": "2026-07-13T14:24:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://docs.sigstore.dev/cosign/verifying/timestamps/",
+      "status": "official_current_documentation",
+      "finding": "Sigstore uses trusted time to determine whether a short-lived signing certificate was valid when signing occurred; Rekor v1 integratedTime is covered by the signed entry timestamp but its clock is not externally verifiable, while RFC3161 timestamps are signed and independently verifiable."
+    },
+    {
+      "url": "https://docs.sigstore.dev/about/bundle/",
+      "status": "official_bundle_specification_summary",
+      "finding": "Bundles using expired short-lived certificates must include at least one signed entry timestamp or RFC3161 timestamp that proves signing occurred inside the certificate validity window."
+    }
+  ],
+  "finding": "The prior DSSE promotion gate required transparency verification but did not separately classify whether the asserted signing time was cryptographically bound and inside the certificate validity window.",
+  "design_implication": "Cryptographic promotion should consume an explicit signing-time decision. Bare Rekor integratedTime must fail closed; verified RFC3161, verified Rekor v1 SET-bound time, or trusted Rekor v2 TSA time may pass only when the time is within certificate validity.",
+  "artifact": "tools/frontier-research/signing-time-policy.mjs",
+  "test": "tools/frontier-research/signing-time-policy.test.mjs",
+  "commits": [
+    "7795c5fd81d6f53b66386bd48a46e0fe40e6765f",
+    "dc8970d0376cc2601cb6776f35a97874b152925a"
+  ],
+  "verification": {
+    "route": "isolated Node test run using byte-identical pre-commit files",
+    "result": "5 tests passed, 0 failed",
+    "cases": [
+      "verified RFC3161 time accepted inside validity",
+      "bare Rekor v1 integratedTime rejected",
+      "SET-verified Rekor v1 time accepted",
+      "verified time outside validity rejected",
+      "Rekor v2 time without trusted TSA rejected"
+    ]
+  },
+  "uncertainty": "The classifier relies on external verifiers for timestamp signatures, TSA trust, certificate chains, and SET verification.",
+  "evidence_strength": "source-backed deterministic prototype",
+  "falsification_route": "Pass a bare integratedTime, untrusted TSA result, invalid timestamp, or time outside certificate validity and observe rejection; any acceptance falsifies the intended contract.",
+  "privacy_boundary": "Public standards and public repository code only; no private chat, health, credential, or identifying material used."
+}
