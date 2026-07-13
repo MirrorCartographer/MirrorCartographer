@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T15:06:00-04:00",
+  "claim_state": "implemented_source_behavior",
+  "durable_improvement": "Wired the existing fail-closed deployment-evidence promotion decision into the Cloudflare Pages workflow after evidence acceptance and before consistency/finalization, added the promotion output to uploaded artifacts and the atomic manifest input set, and added a workflow contract test that enforces ordering, retention, and epistemic boundaries.",
+  "source": {
+    "repository": "MirrorCartographer/MirrorCartographer",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "workflow_commit": "bfbf773e886a25834c1db6a0ee745a368386239f",
+    "contract_test": "cloudflare-static/cloudflare-promotion-workflow-contract.test.mjs",
+    "contract_test_commit": "3ad37f8f18b4dff1f505039260be3614c81063d5",
+    "promotion_builder": "cloudflare-static/build-evidence-promotion-decision.mjs"
+  },
+  "verification": {
+    "local_contract_tests": {
+      "passed": 4,
+      "failed": 0,
+      "scope": [
+        "promotion tests included in workflow gate",
+        "promotion executes after acceptance and before consistency/finalization",
+        "promotion artifact is retained after finalization input creation",
+        "summary preserves scientific and medical truth boundary"
+      ]
+    },
+    "repository_readback": "GitHub accepted both additive test creation and workflow replacement commits.",
+    "workflow_runs_for_commit": 0
+  },
+  "deployment_proof": {
+    "status": "not_produced",
+    "reason": "No workflow run was associated with the workflow commit, and Cloudflare credentials/environment configuration remain external blockers."
+  },
+  "limits": [
+    "A source-level workflow contract is not proof that GitHub Actions executed.",
+    "No resolving Cloudflare URL, served identity, deployment metadata, or exact-commit runtime proof was produced.",
+    "Promotion authenticates bounded evidence composition only; it does not establish scientific or medical truth.",
+    "No diagnosis or treatment claim was created or published."
+  ],
+  "privacy_boundary": "Contains repository paths, commit identifiers, test outcomes, and infrastructure claim boundaries only; no private chat, health material, credentials, secret values, or identifying personal data.",
+  "falsification_route": "Remove or reorder the promotion step, omit its artifact, weaken the same-digest requirement, or remove the epistemic boundary; the committed workflow contract test must fail."
+}
