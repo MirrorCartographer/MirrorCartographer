@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-014",
+  "recorded_at": "2026-07-13T10:55:00Z",
+  "claim_state": "implemented-source-verified-ci-pending",
+  "finding": "The peer runtime durability workflow referenced a nonexistent filesystem-terminal-journal.mjs path and omitted the actual durable journal and filesystem store modules, so a future run would fail before exercising the intended durability contract.",
+  "design_implication": "CI source bindings must be treated as an executable dependency graph and regression-tested against repository paths, not trusted as static workflow text.",
+  "changes": [
+    ".github/workflows/frontier-peer-runtime.yml now watches and syntax-checks durable-peer-terminal-journal.mjs and filesystem-peer-terminal-store.mjs",
+    "The stale filesystem-terminal-journal.mjs reference was removed",
+    "tools/frontier-research/frontier-peer-runtime-workflow.test.mjs verifies required paths exist, stale paths are absent, both tests execute, permissions remain read-only, and action references remain immutable-SHA pinned"
+  ],
+  "source_status": {
+    "repository_files": "observed",
+    "workflow_execution": "unobserved",
+    "external_primary_source_required": false
+  },
+  "evidence_strength": "source-contract-verified",
+  "verification": {
+    "workflow_commit": "a339c4543d3c37a2d3d2641b5dc2c5f40b98ee9f",
+    "test_commit": "854954d4e488cf640134c634fefeb57ee1b82e66",
+    "github_actions_runs_returned_for_test_commit": 0
+  },
+  "uncertainty": [
+    "The connector did not return a GitHub Actions run for the test commit.",
+    "The new regression test was not executed in a local or hosted Node runtime during this run.",
+    "Process-level crash injection around rename, directory fsync, and lock release remains unimplemented."
+  ],
+  "falsification_routes": [
+    "Run node --test tools/frontier-research/frontier-peer-runtime-workflow.test.mjs in a clean checkout; any failure falsifies the source-contract claim.",
+    "Run the Frontier peer runtime durability GitHub Actions workflow; a missing-file or test failure falsifies clean-runner readiness.",
+    "Rename or remove one required runtime module and confirm the regression test fails closed."
+  ],
+  "privacy_boundary": "Public repository source and workflow metadata only; no private chat, health, credentials, or personal data included."
+}
