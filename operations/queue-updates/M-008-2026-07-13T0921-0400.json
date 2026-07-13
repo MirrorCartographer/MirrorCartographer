@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-008",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed_with_followup",
+  "action": "Implement a deterministic fail-closed merge boundary for schema-valid continuity deltas without directly rewriting the canonical index or deleting historical artifacts.",
+  "completed_at": "2026-07-13T13:21:31Z",
+  "selection_basis": "M-007 explicitly required clean-checkout validation followed by a deterministic canonical merge tool. The merge boundary was the highest-priority additive step that could be completed without claiming unavailable clean-checkout or canonical-index evidence.",
+  "specialists_used": [
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor"
+  ],
+  "outputs": [
+    {"path":"tools/continuity/merge-continuity-delta.mjs","commit":"3e168ea5a6e0849f40beacb4f98e57869a5b46f2"},
+    {"path":"tools/continuity/merge-continuity-delta.test.mjs","commit":"d80cafe1b323b49b7eb1f228c89ef15b148aff5c"},
+    {"path":"operations/evidence/continuity-delta-merge-2026-07-13T0921-0400.json","commit":"7de3055a553dbece0b66912e63f9fb093bec43c4"}
+  ],
+  "memory_recovered": "Canonical memory integration is itself a provenance event: accepted records are appended only after exact-base validation, while the prior index, corrected delta, and invalid historical predecessor remain separately addressable evidence.",
+  "contradictions_resolved": [
+    "Separated append-only canonical integration from manual index replacement.",
+    "Separated successful isolated contract tests from unresolved clean-checkout execution.",
+    "Preserved the invalid 0741 artifact as historical evidence while allowing its corrected successor to become the only merge candidate."
+  ],
+  "claim_states": {
+    "observed": ["merge module, tests, and evidence packet committed", "four isolated contract tests passed"],
+    "inferred": ["the corrected successor is mechanically mergeable if exact repository execution reproduces acceptance"],
+    "proposed": ["run exact clean-checkout validation and produce a byte-reviewed generated canonical index"],
+    "superseded": ["manual canonical-index editing as the preferred integration route"],
+    "unresolved": ["clean-checkout test execution", "CLI merge against exact base and delta", "canonical index update commit"]
+  },
+  "privacy_boundary": "Public repository files, commits, hashes, schema vocabulary, and abstract continuity mechanics only. No raw private chat, health or pet-health material, credentials, identifying personal data, or unreviewed uploads were published.",
+  "next_action": "In a clean checkout, run node --test tools/continuity/merge-continuity-delta.test.mjs, validate the corrected successor against base blob efb8b5ca41a00a3484af1df112a81fc6a1b6d63a, generate a candidate index with merge-continuity-delta.mjs, byte-review it, and only then commit the canonical index update."
+}
