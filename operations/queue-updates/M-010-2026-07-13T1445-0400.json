@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "event_order": 10,
+  "observed_at": "2026-07-13T18:45:13Z",
+  "queue_item": {
+    "id": "M-010",
+    "owner": "continuity_mining",
+    "priority": 0,
+    "action": "Build a deterministic non-authoritative manifest over the dated continuity index and explicitly supplied standalone continuity records.",
+    "dependencies": ["M-009"],
+    "required_evidence": [
+      "manifest builder source",
+      "deterministic tests",
+      "privacy boundary",
+      "duplicate-ID retention",
+      "explicit completeness limit"
+    ],
+    "status": "completed",
+    "progress": {
+      "module": "tools/continuity/build-corpus-manifest.mjs",
+      "test": "tools/continuity/build-corpus-manifest.test.mjs",
+      "continuity_record": "operations/continuity/records/CM-1006.json",
+      "commits": [
+        "f8ac6090a3bb3f2b36e3e4a83e538cf3b3de23ef",
+        "764545e877a524c738d14a107a60e9fe1c7cb520",
+        "98a3a172b5736ca327cef6abfd75f7af1cf04e34"
+      ],
+      "verification": "4 deterministic Node tests passed locally using byte-identical source and test content before commit.",
+      "claim_boundary": "The builder is bounded to explicit inputs, emits authoritative=false, and does not claim complete repository enumeration."
+    },
+    "handoff": "Use an authenticated repository tree traversal to enumerate operations/continuity/records, invoke the builder with the explicit sorted file list, retain the resulting manifest and source map as CI evidence, and reject any duplicate IDs until reviewed."
+  }
+}
