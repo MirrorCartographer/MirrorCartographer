@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
+import { validateContinuityRelations } from '../../operations/continuity/validate-continuity-relations.mjs';
 
 const CLAIM_STATES = new Set(['observed','inferred','proposed','superseded','unresolved']);
 const KINDS = new Set(['operating_rule','queue_item','decision','artifact','commit','language_term','contradiction','unresolved_question']);
@@ -69,10 +70,20 @@ export function validateContinuity({ indexFile, recordsDir }) {
     }
   }
 
+  let relation_integrity = null;
+  if (errors.length === 0) {
+    try {
+      relation_integrity = validateContinuityRelations({ records: entries.map(({ record }) => record) });
+    } catch (error) {
+      errors.push(`relation integrity: ${error.message}`);
+    }
+  }
+
   return {
     ok: errors.length === 0,
     records_checked: entries.length,
     ids: [...byId.keys()].sort(),
+    relation_integrity,
     errors
   };
 }
