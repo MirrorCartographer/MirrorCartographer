@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-002",
+  "created_at": "2026-07-13T08:22:07Z",
+  "claim_state": "observed",
+  "evidence_state": "test-verified",
+  "summary": "The canonical queue is behind append-only queue history: R-005 and R-006 are completed additive records but absent from ACTIVE_QUEUE.json. Detection does not authorize canonical mutation or prove peer execution.",
+  "sources": [
+    "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "operations/queue-updates/R-005-2026-07-13T0410-0400.json@952ab0916074940048c8cf34e98ecf93bc5f3ab7",
+    "operations/queue-updates/R-006-2026-07-13T0415-0400.json@6c7fb4ffd4298ada65ffbb7e1d311703e9514f38"
+  ],
+  "artifacts": [
+    "operations/continuity/canonical-queue-lag.mjs",
+    "operations/continuity/canonical-queue-lag.test.mjs",
+    "operations/continuity/records/CM-0020.json"
+  ],
+  "verification": {
+    "command": "node --test operations/continuity/canonical-queue-lag.test.mjs",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "environment": "isolated Node runtime using byte-identical candidate source and test content before commit"
+  },
+  "privacy_boundary": "Only public repository files, blob identities, commit identities, abstract state relations, and test outcomes were used. No raw private chat, health, pet-health, credential, contact, or uploaded-file content was published.",
+  "limits": [
+    "The detector evaluates only supplied queue-update records; it does not enumerate the repository automatically.",
+    "Lag detection is not canonical adoption authorization.",
+    "A completed queue-update record is not evidence that a peer automation executed unless separate target-authored execution proof exists."
+  ],
+  "falsification_routes": [
+    "Re-run the six deterministic tests.",
+    "Fetch the exact cited blobs and compare queue item identities and status.",
+    "Reject the finding if canonical state already contains byte-equivalent R-005 and R-006 records."
+  ]
+}
