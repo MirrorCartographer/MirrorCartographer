@@ -47,7 +47,7 @@ export function validateInteropEvidence(record) {
     throw new Error('recovered_record_invalid');
   }
 
-  if (record.scenario === 'abrupt_termination_recovery') {
+  if (record.scenario === 'abrupt_termination_recovery' && record.outcome !== 'blocked') {
     if (!recovery.interruption_injected) throw new Error('abrupt_termination_requires_interruption');
     if (!recovery.reopen_attempted) throw new Error('abrupt_termination_requires_reopen');
     if (!['recovered_after_interruption', 'lost_after_interruption'].includes(recovery.persistence_claim)) {
