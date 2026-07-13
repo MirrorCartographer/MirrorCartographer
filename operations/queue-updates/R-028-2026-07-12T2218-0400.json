@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-028",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "completed",
+  "priority_basis": "The canonical queue has no active frontier_research item. The latest owner-scoped handoff, R-027, required a real-browser interoperability harness while preserving separate capability, transaction, and persistence evidence.",
+  "action": "Create a fail-closed cross-browser IndexedDB interoperability evidence contract and deterministic tests for the required lifecycle scenarios.",
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "recent commits",
+    "operations/queue-updates/R-027-2026-07-12T2110-0400.json",
+    "tools/frontier-research/indexeddb-acceptance-ledger.mjs",
+    "W3C Indexed Database API 3.0 Working Draft",
+    "Playwright browser and BrowserContext documentation",
+    "MDN IDBDatabase.close()"
+  ],
+  "finding": "A single browser-test pass flag is insufficient. Browser capability, transaction completion, replay rejection, interruption injection, reopen observation, and persistence outcome must be recorded independently. Abrupt-termination persistence claims are invalid without both an injected interruption and a subsequent reopen observation.",
+  "artifact": "tools/frontier-research/indexeddb-browser-interop-evidence.mjs",
+  "test": "tools/frontier-research/indexeddb-browser-interop-evidence.test.mjs",
+  "evidence": "operations/evidence/frontier-research-indexeddb-browser-interop-contract-2026-07-12.json",
+  "commits": [
+    "d790c1bbcf4558496a73ea36e654c853641f541e",
+    "d28dad45e5805feeafc2d9c6792f8b16c7db2ba1",
+    "6b705fe6750877b9164635cc5aeca07750055607"
+  ],
+  "verification": "5 deterministic Node tests passed, 0 failed, using byte-identical pre-commit source.",
+  "specialists_used": [
+    "Primary Source Scout",
+    "Technical Synthesist",
+    "Experiment Designer",
+    "Tool Evaluator",
+    "Cross-Domain Translator"
+  ],
+  "registry_change": "none",
+  "canonical_queue_modified": false,
+  "handoff": "Implement the Playwright runner that emits this contract for Chromium, Firefox, and WebKit. Start with two-tab contention and versionchange/forced-close because they are representable in ordinary browser automation; isolate abrupt termination and quota pressure behind platform-specific capability flags rather than simulating them with graceful context closure.",
+  "files_deleted": false,
+  "history_deleted": false
+}
