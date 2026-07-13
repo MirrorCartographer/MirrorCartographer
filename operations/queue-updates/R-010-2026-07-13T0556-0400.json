@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "append-only-owner-update",
+  "queue_item": "R-010",
+  "owner": "frontier_research",
+  "priority": 7,
+  "status": "completed",
+  "action": "Implement a real same-host atomic compare-and-set adapter and verify conflicting terminals across independent OS processes.",
+  "dependencies": ["R-009"],
+  "required_evidence": [
+    "production-style storage adapter",
+    "two-process collision test",
+    "fresh-read uniqueness proof",
+    "explicit durability limits",
+    "falsification route"
+  ],
+  "completed_at": "2026-07-13T09:56:00Z",
+  "progress": {
+    "finding": "A shared filesystem can provide cross-process terminal uniqueness when compare-and-set is serialized by exclusive lock-directory creation and the expected digest is revalidated inside the critical section.",
+    "adapter": "tools/frontier-research/filesystem-peer-terminal-store.mjs",
+    "worker": "tools/frontier-research/filesystem-peer-terminal-worker.mjs",
+    "test": "tools/frontier-research/filesystem-peer-terminal-store.test.mjs",
+    "evidence": "operations/evidence/frontier-research-filesystem-terminal-store-2026-07-13.json",
+    "commits": [
+      "e0a17f65ab8e47f07dcb0065659cec37b4b44492",
+      "2a9e7f67adeb72b0d590152957d3597e6644e235",
+      "e84b8026cc0d99941ccf39288c49e47ce9aaa41e",
+      "e2aff6ccd808858415d14cc7749da1d60d4e5d81"
+    ],
+    "verification": "1 Node test passed in an isolated runtime: two independent processes produced one recorded terminal, one terminal-conflict, and one persisted terminal on fresh read."
+  },
+  "handoff": "Wire this adapter into a real peer-runtime caller, add crash-injection tests around write, sync, rename, and lock release, then choose a distributed conditional-write backend for multi-host execution.",
+  "canonical_queue_mutated": false,
+  "peer_execution_claimed": false
+}
