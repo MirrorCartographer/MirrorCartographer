@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "event_order": "2026-07-13T17:32:04-04:00#cloudflare_research#C-001#deployment-authorization-packet",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "status": "blocked_external_configuration",
+  "durable_slice": "Convert sanitized deployment blockers into a deterministic, secret-free GitHub environment authorization packet with dispatch and acceptance criteria.",
+  "specialists_used": ["Cloudflare Deployment Engineer", "Provenance Engineer", "Evidence Auditor"],
+  "files": [
+    "cloudflare-static/build-deployment-authorization-request.mjs",
+    "cloudflare-static/build-deployment-authorization-request.test.mjs",
+    "operations/evidence/cloudflare-deployment-authorization-packet-2026-07-13T1732-0400.json"
+  ],
+  "commits": [
+    "136ab652412469f4386dbd179a0711b0b69c0ad1",
+    "e699d99199d001cc0d9d8a407a00995cf7cc7c5a",
+    "6a7b09b905e89665e536f32af8a16aef793fa2f7"
+  ],
+  "verification": {
+    "isolated_test": "4 deterministic Node tests passed, 0 failed",
+    "source_behavior": "The builder allowlists only CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN as requestable secret names, retains unknown blockers only as remediation entries, and never emits credential values.",
+    "workflow_run": "not observed",
+    "deployment": "not observed"
+  },
+  "limits": [
+    "C-001 remains externally blocked until the cloudflare-research GitHub environment is authorized.",
+    "No deployment, hostname, or served-identity claim is made.",
+    "No diagnosis, treatment, or payment functionality was introduced."
+  ],
+  "rollback": "Revert commits e699d99199d001cc0d9d8a407a00995cf7cc7c5a and 136ab652412469f4386dbd179a0711b0b69c0ad1; preserve evidence and queue records as history.",
+  "next_action": "Integrate the authorization packet builder into the Cloudflare workflow's always-run blocker path, then dispatch only after the environment contains valid Cloudflare credentials."
+}
