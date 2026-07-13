@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-025",
+  "owner": "frontier_research",
+  "status": "implementation_ready",
+  "primary_sources": [
+    {
+      "title": "Indexed Database API 3.0",
+      "url": "https://www.w3.org/TR/IndexedDB-3/",
+      "status": "W3C Working Draft published 2025-08-13",
+      "relevant_sections": ["2.7 Transaction lifecycle", "2.7.2 Transaction scheduling", "4.10 IDBTransaction"]
+    }
+  ],
+  "finding": "A browser replay ledger should consume an opaque acceptance ID inside one readwrite IndexedDB transaction over a single object store. IndexedDB serializes overlapping readwrite transactions, commits their changes atomically, and exposes a durability hint. This supports one-winner tab races without a separate application lock, but strict durability remains a user-agent hint rather than a proof of persistence after power loss.",
+  "design_implication": "Use acceptance_id as the object-store primary key; perform duplicate check, retention cleanup, insertion, and bounded eviction in the same readwrite transaction; wait for transaction completion before reporting acceptance; record requested and observed durability separately.",
+  "artifact": "tools/frontier-research/indexeddb-acceptance-ledger.mjs",
+  "test": "tools/frontier-research/indexeddb-acceptance-ledger.test.mjs",
+  "verification": {
+    "command": "node --test tools/frontier-research/indexeddb-acceptance-ledger.test.mjs",
+    "result": "5 passed, 0 failed in an isolated Node test harness",
+    "covered": [
+      "fresh acceptance",
+      "duplicate rejection",
+      "expired-entry cleanup",
+      "bounded retention",
+      "malformed-input fail closure",
+      "serialized two-consumer replay outcome"
+    ]
+  },
+  "claim_states": {
+    "observed": "The deterministic contract tests passed and the W3C specification defines atomic commit plus exclusive scheduling for overlapping readwrite transactions.",
+    "inferred": "On conforming implementations, tabs using the same database and object-store scope should serialize consumption attempts so only the first committed transaction accepts a given primary key.",
+    "proposed": "Integrate this adapter immediately after the R-023 event-timing acceptance gate in the Vercel runtime.",
+    "superseded": "Using the Node filesystem lock ledger directly in browser code or treating localStorage as an atomic multi-tab replay ledger.",
+    "unresolved": "No real-browser Web Platform Test was executed; storage eviction, private-browsing behavior, blocked upgrades, quota exhaustion, bfcache restoration, and abrupt device termination remain unverified."
+  },
+  "evidence_strength": "implementation-ready, locally tested, browser-runtime verification pending",
+  "falsification_route": "Run two real tabs against the same origin and database with the same acceptance ID, assert exactly one successful complete event, then repeat under bfcache restore, quota pressure, private browsing, and forced tab termination. Any duplicate acceptance or success before transaction completion falsifies the integration claim.",
+  "privacy_boundary": "Only opaque acceptance IDs and timestamps are stored; no private chat, health, identity, or content payload is included.",
+  "files_deleted": false,
+  "history_deleted": false
+}
