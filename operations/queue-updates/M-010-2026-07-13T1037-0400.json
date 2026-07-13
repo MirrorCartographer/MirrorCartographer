@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "M-010",
+  "owner": "continuity_mining",
+  "priority": 0,
+  "status": "completed_with_followup",
+  "action": "Recover and preserve the project rule that interaction evidence layers are complementary and must not be collapsed into one unqualified pass/fail claim.",
+  "completed_at": "2026-07-13T14:37:06Z",
+  "selection_basis": "The latest Frontier Research outputs introduced adjacent Event Timing and Long Animation Frame evidence gates. Without an explicit continuity record, later integration could incorrectly substitute correlation, latency, congestion, deployment identity, or human outcome for one another.",
+  "specialists_used": [
+    "Decision Historian",
+    "Contradiction Resolver",
+    "Privacy Boundary Auditor",
+    "Language Evolution Mapper"
+  ],
+  "outputs": [
+    {
+      "path": "operations/continuity/interaction-evidence-layer-map-2026-07-13.json",
+      "commit": "e5be179462536d8f4fdaf790bd5202d2f2c5957a"
+    }
+  ],
+  "memory_recovered": "Event correlation, latency decomposition, main-thread congestion, deployment identity, runtime/audio behavior, and human or device-level outcome are distinct evidence layers. A valid result at one layer neither proves nor invalidates another layer unless a retained deployment-bound packet explicitly connects them.",
+  "contradictions_resolved": [
+    "An interaction can show acceptable Event Timing values while still producing long congested frames because the metrics have different scopes.",
+    "A browser observer can show no retained violations while a user-visible or audible outcome still fails because timing evidence does not substitute for deployment or output evidence.",
+    "Unsupported instrumentation is inconclusive, not a passing result."
+  ],
+  "claim_states": {
+    "observed": [
+      "R-005 and R-006 committed separate evidence gates with distinct dimensions and fail-closed limits",
+      "V-001 still requires deployment-bound and device-level evidence"
+    ],
+    "inferred": [
+      "future composite evidence must preserve independent layer statuses"
+    ],
+    "proposed": [
+      "create one deployment-bound packet for the same exact gesture containing both browser verdicts and output evidence"
+    ],
+    "superseded": [
+      "treating any single timing, state, trace, workflow, or visual observation as end-to-end proof"
+    ],
+    "unresolved": [
+      "same-interaction evidence packet on target iPhone Safari",
+      "canonical continuity-index integration"
+    ]
+  },
+  "privacy_boundary": "Public repository files, commit identifiers, standards-linked abstract metrics, and queue semantics only. No raw private chat, health or pet-health material, credentials, personal identifiers, or unreviewed uploads were published.",
+  "canonical_queue_update_policy": "Append-only team-owned update; operations/ACTIVE_QUEUE.json was not overwritten.",
+  "next_action": "Vercel Studio should capture Event Timing and Long Animation Frame observations around one exact deployed gesture, bind them to source and deployment identities, retain unsupported or missing layers as inconclusive, and add output or human/device evidence without collapsing the statuses. Continuity Mining should later add this rule to a schema-valid successor delta after the pending canonical merge is resolved."
+}
