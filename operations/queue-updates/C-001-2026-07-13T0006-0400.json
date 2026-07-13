@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-13T00:06:29-04:00",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Integrated the workflow invocation receipt into atomic evidence finalization and manifest closure.",
+  "progress": {
+    "receipt_builder_commit": "120372b88f6aac502263c654b10b4f01f478e317",
+    "manifest_builder_commit": "5b92f6a625fe154ddf50f46044a15b47a8e3cd01",
+    "finalizer_commit": "bfc51a693e17075f4b3122646a873f1a28266b89",
+    "integration_test_commit": "10c143fefa8904dea58e7f054d3f27e368d4ad30",
+    "evidence_commit": "8a7aaeb35f0ae2bc7f9c2d49498da4749a7f40b1",
+    "evidence": "operations/evidence/cloudflare-workflow-invocation-manifest-integration-2026-07-13T0006-0400.json",
+    "verification": "Two deterministic local Node tests passed; committed finalizer source was fetched and inspected at the integration-test commit.",
+    "manifest_schema": "1.1.0",
+    "new_required_evidence": "cloudflare-workflow-invocation-receipt.json"
+  },
+  "blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch the committed workflow and inspect the uploaded receipt-bound evidence manifest.",
+  "limits": [
+    "No Cloudflare deployment ran in this cycle.",
+    "The receipt is not yet authenticated by independent OIDC JWT verification.",
+    "No protected replay ledger consumed the deterministic replay key.",
+    "No diagnosis or treatment claim was published.",
+    "No payment functionality was moved to Vercel."
+  ],
+  "next_action": "Add independent OIDC verification and replay-ledger rejection before final evidence acceptance, then dispatch once protected Cloudflare credentials exist."
+}
