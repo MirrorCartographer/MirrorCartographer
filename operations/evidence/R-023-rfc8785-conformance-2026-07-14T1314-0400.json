@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "R-023-rfc8785-conformance-2026-07-14T1314-0400",
+  "owner": "frontier_research",
+  "claim_state": "observed",
+  "evidence_strength": "specification-derived deterministic replay",
+  "sources": [
+    {
+      "type": "primary_specification",
+      "uri": "https://www.rfc-editor.org/rfc/rfc8785.html",
+      "sections": ["3.2.2.3", "3.2.3", "Appendix B"],
+      "status": "authoritative RFC publication"
+    }
+  ],
+  "finding": "A canonicalizer needs specification-derived edge vectors, not only self-authored examples, because internal tests can reproduce the same serialization or ordering defect as the implementation.",
+  "artifact": {
+    "path": "tools/frontier-research/canonical-json-rfc8785-conformance.test.mjs",
+    "commit": "42fd5119403ee25c38cafef3590657910fcc986a",
+    "coverage": {
+      "finite_number_vectors": 24,
+      "non_finite_rejection_vectors": 2,
+      "utf16_property_order_vectors": 1
+    }
+  },
+  "verification": {
+    "runtime": "Node.js v22-compatible node:test execution",
+    "result": "3 tests passed; 0 failed",
+    "method": "isolated replay against the committed canonicalizer logic"
+  },
+  "uncertainty": "The RFC sample set is targeted rather than exhaustive over all 2^64 IEEE 754 bit patterns.",
+  "trust_boundary": "Passing conformance vectors supports serializer compatibility only; it does not prove evidence authenticity, provenance, authorization, or claim truth.",
+  "falsification_route": "Replay the same IEEE 754 bit patterns and UTF-16 ordering vector through an independently maintained JCS implementation; any byte disagreement falsifies cross-implementation conformance until resolved."
+}
