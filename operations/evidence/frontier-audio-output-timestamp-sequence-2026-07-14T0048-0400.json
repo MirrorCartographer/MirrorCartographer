@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-14T00:48:00-04:00",
+  "team": "frontier_research",
+  "queue_item": "R-023",
+  "claim_state": "observed_and_tested",
+  "primary_sources": [
+    {
+      "url": "https://webaudio.github.io/web-audio-api/",
+      "status": "W3C editor's draft",
+      "relevant_sections": ["AudioContext.getOutputTimestamp", "AudioContext.outputLatency", "AudioTimestamp"]
+    },
+    {
+      "url": "https://www.w3.org/TR/webaudio-1.1/",
+      "status": "W3C First Public Working Draft, 5 November 2024"
+    }
+  ],
+  "finding": "A sequence of AudioTimestamp samples can establish bounded coherent render-position advance when both contextTime and performanceTime advance monotonically. Zero-zero samples mean no block has yet been demonstrated. Timestamp advance is not proof of physical speaker output, and currentTime minus contextTime must not be treated as output latency.",
+  "design_implication": "Retain at least two ordered getOutputTimestamp samples during direct-gesture playback and classify unsupported, malformed, zero-state, advancing, stalled, and regressing sequences separately. Pair advancing sequences with audible or device-level evidence before claiming user-heard output.",
+  "artifacts": {
+    "module": "tools/frontier-research/audio-output-timestamp-sequence.mjs",
+    "test": "tools/frontier-research/audio-output-timestamp-sequence.test.mjs",
+    "commits": [
+      "429b1e665934cd1e132fac9dd7eaf1bc85b1e541",
+      "3f19ee0f808bc637b1bc64fa72a441e258c076c8"
+    ]
+  },
+  "verification": {
+    "route": "isolated Node execution using byte-equivalent committed logic",
+    "result": "audio-output-timestamp-sequence: 9 assertions passed"
+  },
+  "uncertainty": [
+    "browser implementation behavior can differ from the editor's draft",
+    "no iPhone or physical-output sample was captured",
+    "bounded timestamp advance does not establish progress outside the retained window"
+  ],
+  "falsification_route": "Capture raw ordered samples from the target browser during a direct user-gesture pulse. Reject the finding for that runtime if clocks regress, remain zero, or fail to advance coherently; separately compare against audible report or device-level measurement."
+}
