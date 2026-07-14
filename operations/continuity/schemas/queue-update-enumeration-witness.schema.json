@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/queue-update-enumeration-witness.schema.json",
+  "title": "Queue update enumeration witness",
+  "description": "Records the complete path-discovery surface used to build a horizon-bound queue projection. This witness distinguishes discovery from semantic classification so an implementation cannot claim exhaustive reconciliation merely by listing the updates it chose to apply.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "repository",
+    "base_commit",
+    "inclusive_terminal_commit",
+    "path_pattern",
+    "discovered_entries",
+    "discovery_complete",
+    "claim_state",
+    "privacy_class",
+    "falsification_route"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "repository": {"const": "MirrorCartographer/MirrorCartographer"},
+    "base_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "inclusive_terminal_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "path_pattern": {"const": "operations/queue-updates/*.json"},
+    "discovered_entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "first_seen_commit", "blob_sha", "sha256", "classification", "classification_reason"],
+        "properties": {
+          "path": {"type": "string", "pattern": "^operations/queue-updates/.+\\.json$"},
+          "first_seen_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+          "blob_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "classification": {"enum": ["applied", "superseded", "invalid", "out_of_scope"]},
+          "classification_reason": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "discovery_complete": {"const": true},
+    "enumeration_method": {"type": "string", "minLength": 1},
+    "claim_state": {"enum": ["observed", "inferred", "proposed", "superseded", "unresolved"]},
+    "privacy_class": {"const": "public_repository_metadata"},
+    "falsification_route": {"type": "string", "minLength": 1}
+  },
+  "allOf": [
+    {
+      "description": "Runtime validation MUST prove both commits are reachable in the same history, enumerate every matching path whose first appearance is no later than the terminal commit, reject duplicate paths, verify each blob and digest, and require every discovered entry to receive an explicit classification. A zero-entry witness is valid only when independent tree/history enumeration also finds zero eligible paths."
+    }
+  ]
+}
