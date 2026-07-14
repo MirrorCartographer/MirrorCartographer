@@ -1,0 +1,36 @@
+{
+  "id": "CM-1020",
+  "created_at": "2026-07-14T09:38:00-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "memory": "Executable provenance gates have a distinct continuity state from declarative contracts. A committed but unexecuted gate becomes runtime-verified only after the recorded source blobs are executed and the command, result, limits, and falsification route are retained.",
+  "claims": {
+    "observed": [
+      "The committed validator and test blobs were retrieved.",
+      "Four deterministic Node tests passed with zero failures.",
+      "A runtime evidence packet was committed."
+    ],
+    "inferred": [
+      "The validator contract is runtime-verified, while exhaustive repository traversal remains unverified."
+    ],
+    "proposed": [
+      "Run an authenticated paginated history collector and feed its independently retrieved path set into the validator."
+    ],
+    "superseded": [
+      "Classifying the enumeration-witness artifact only as committed_static_unexecuted."
+    ],
+    "unresolved": [
+      "No authenticated exhaustive repository-history traversal was performed.",
+      "The originating sources for M-004, M-005, and M-006 remain unlocated."
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "operations/evidence/M-RECONCILE-002-enumeration-witness-runtime-2026-07-14T0937-0400.json",
+      "commit": "5991ec503de4a0a10531ecf380184deb580312f0"
+    }
+  ],
+  "evidence_strength": "committed_runtime_verified",
+  "privacy_boundary": "Public repository governance code and synthetic fixtures only.",
+  "falsification_route": "Rerun the recorded command against the recorded blob identities in a clean authenticated checkout. Any mismatch or failure reopens the runtime-status claim. Exhaustive-coverage claims remain unresolved until an independent authenticated traversal passes the validator."
+}
