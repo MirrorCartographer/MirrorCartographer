@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-14T09:37:00-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "claim_state": "observed",
+  "finding": "The committed queue-update enumeration-witness validator and its four deterministic tests execute successfully in Node. This upgrades the artifact from committed_static_unexecuted to committed_runtime_verified for the tested contract only.",
+  "source_artifacts": [
+    {
+      "path": "operations/continuity/validate-queue-update-enumeration-witness.mjs",
+      "blob_sha": "d81b3bbd1cde4bb06d9d8e3b8e7170041dd971d7",
+      "origin_commit": "90051480dbeda60f469cbec844d5fa894be65c4c"
+    },
+    {
+      "path": "operations/tests/queue-update-enumeration-witness.test.mjs",
+      "blob_sha": "a53b149af04c3e3091d44eae855396e43ee73022",
+      "origin_commit": "5e3c29f7e9559e703ed10e234bdf9ab969e58e82"
+    }
+  ],
+  "execution": {
+    "runtime": "Node.js built-in test runner",
+    "command": "node --test operations/tests/queue-update-enumeration-witness.test.mjs",
+    "result": {
+      "tests": 4,
+      "passed": 4,
+      "failed": 0,
+      "duration_ms": 115.044635
+    },
+    "verified_behaviors": [
+      "accepts a fully independently evidenced witness",
+      "rejects omission from the independently enumerated eligible-path set",
+      "rejects content digest drift",
+      "rejects an unproven base-to-terminal history horizon"
+    ]
+  },
+  "evidence_strength": "committed_runtime_verified",
+  "limits": [
+    "The execution used byte-for-byte reconstructed source from the fetched committed files, not an authenticated repository checkout.",
+    "No authenticated paginated branch or commit-history collector was executed.",
+    "No immutable originating source for M-004, M-005, or M-006 was located.",
+    "Passing unit tests verifies the validator contract, not exhaustive repository coverage."
+  ],
+  "privacy_boundary": "Public repository governance code and synthetic fixtures only; no private chat, health material, credentials, personal identifiers, or unreviewed uploads.",
+  "falsification_route": "Fetch the same blobs by their recorded SHAs in a clean authenticated checkout and rerun the exact command; any test failure, blob mismatch, or divergence in output invalidates this runtime claim. Then test the validator against a complete independently collected repository-history witness."
+}
