@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "captured_at": "2026-07-14T00:44:50-04:00",
+  "queue_item": "R-022",
+  "primary_source": {
+    "url": "https://www.w3.org/TR/webaudio/",
+    "title": "Web Audio API 1.1",
+    "status": "W3C First Public Working Draft",
+    "published": "2024-11-05"
+  },
+  "finding": "AudioRenderCapacity can expose render load and underrun evidence, but unsupported or unobserved telemetry must remain unresolved rather than being classified as healthy audio.",
+  "claim_state": "tested_prototype",
+  "evidence_strength": "standards_linked_deterministic_unit_test",
+  "artifacts": {
+    "module": "tools/frontier-research/audio-render-capacity-evidence.mjs",
+    "test": "tools/frontier-research/audio-render-capacity-evidence.test.mjs"
+  },
+  "verification": {
+    "command": "node tools/frontier-research/audio-render-capacity-evidence.test.mjs",
+    "result": "6 assertions passed in an isolated Node runtime using byte-identical committed source and test content"
+  },
+  "limits": [
+    "The cited API is a draft and implementation support may vary.",
+    "A healthy capacity sample does not prove sound reached the physical output device.",
+    "A single sample does not establish historical or future playback health.",
+    "The classifier does not diagnose the cause of render pressure."
+  ],
+  "falsification_route": "Run the classifier against retained browser samples from supported user agents and reject the design if unsupported, malformed, or pressure-bearing samples are ever promoted to healthy evidence."
+}
