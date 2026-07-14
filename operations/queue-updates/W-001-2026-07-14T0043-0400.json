@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-14T00:43:58-04:00",
+  "status": "active",
+  "completed_slice": "Created Moth Dial, a standalone fourth-room nocturnal instrument with deterministic procedural moth traits, touch-duration gravity, keyboard controls, reduced-motion behavior, and safe-area mobile layout.",
+  "source_commit": "8edfaab11d7d23bb994192564e6192d2d26905f2",
+  "evidence_commit": "1035ab74468992463dacff9e31452348f4c9eaad",
+  "evidence_path": "operations/evidence/independent-web-moth-dial-2026-07-14T0043-0400.json",
+  "required_evidence_state": {
+    "site_source": "satisfied_for_slice",
+    "distinct_identity_statement": "satisfied_for_slice",
+    "public_url": "unverified",
+    "mobile_proof": "contract_review_only"
+  },
+  "next_action": "Link Moth Dial into the existing chamber sequence without replacing prior work, then obtain live deployment identity and real mobile-browser proof.",
+  "non_overwrite": true
+}
