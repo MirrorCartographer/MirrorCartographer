@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/queue-projection-receipt.schema.json",
+  "title": "Horizon-bound queue projection receipt",
+  "description": "Binds a reconciled queue projection to one canonical queue blob, an inclusive terminal commit, the exact enumerated additive update set, and the resulting projection bytes. The receipt proves reproducibility within its declared horizon, not global currentness or semantic correctness.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "repository",
+    "base_queue",
+    "horizon",
+    "update_manifest",
+    "projection",
+    "claim_state",
+    "privacy_class",
+    "falsification_route"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["full_name", "default_branch"],
+      "properties": {
+        "full_name": {"const": "MirrorCartographer/MirrorCartographer"},
+        "default_branch": {"type": "string", "minLength": 1}
+      }
+    },
+    "base_queue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "blob_sha", "sha256"],
+      "properties": {
+        "path": {"const": "operations/ACTIVE_QUEUE.json"},
+        "blob_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "horizon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["inclusive_terminal_commit", "observed_head_at_generation", "later_commits_excluded"],
+      "properties": {
+        "inclusive_terminal_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "observed_head_at_generation": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "later_commits_excluded": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+          "uniqueItems": true
+        }
+      }
+    },
+    "update_manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "entries", "enumeration_complete_within_horizon"],
+      "properties": {
+        "path": {"type": "string", "pattern": "^operations/continuity/manifests/.+\\.json$"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "enumeration_complete_within_horizon": {"const": true},
+        "entries": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "blob_sha", "commit_sha", "sha256", "classification"],
+            "properties": {
+              "path": {"type": "string", "pattern": "^operations/queue-updates/.+\\.json$"},
+              "blob_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+              "commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+              "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "classification": {"enum": ["applied", "superseded", "invalid", "out_of_scope"]},
+              "reason": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    },
+    "projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "item_count"],
+      "properties": {
+        "path": {"type": "string", "pattern": "^operations/continuity/projections/.+\\.json$"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "item_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "claim_state": {
+      "enum": ["observed", "inferred", "proposed", "superseded", "unresolved"]
+    },
+    "privacy_class": {"const": "public_repository_metadata"},
+    "falsification_route": {"type": "string", "minLength": 1}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "horizon": {
+            "properties": {
+              "inclusive_terminal_commit": {"type": "string"},
+              "observed_head_at_generation": {"type": "string"}
+            }
+          }
+        }
+      },
+      "then": {
+        "description": "Runtime validation MUST additionally verify that the terminal commit is reachable from the observed head, every manifest entry first appears no later than the terminal commit, no eligible queue-update path within the horizon is omitted, later_commits_excluded exactly enumerates reachable commits after the terminal commit up to the observed head, and recomputation yields the declared projection digest."
+      }
+    }
+  ]
+}
