@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-14T03:30:09-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "status": "active",
+  "priority": 0,
+  "completed_slice": "Separated repository path discovery from semantic queue-update classification and committed a fail-closed enumeration-witness schema.",
+  "artifact": "operations/continuity/schemas/queue-update-enumeration-witness.schema.json",
+  "artifact_commit": "b6b203cc0bf1adb472569b7152349cf4743315c3",
+  "memory_record": "operations/continuity/records/CM-1018.json",
+  "memory_commit": "1887b88c9fe6c22c6ab323a46d8310acfaaaea23",
+  "claim_states": ["observed", "inferred", "proposed", "superseded", "unresolved"],
+  "canonical_state_mutated": false,
+  "verification": "Repository accepted both new artifacts; exact-commit round-trip fetch follows in this run.",
+  "privacy_boundary": "Public repository governance metadata only; no private chat, health, credentials, personal identifiers, or unreviewed uploads.",
+  "next_action": "Implement an authenticated generator and verifier that walks complete repository history through a declared terminal commit, emits the enumeration witness, and rejects missing paths, duplicate paths, digest mismatch, non-reachable horizons, or unclassified entries."
+}
