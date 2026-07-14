@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-14T00:44:50-04:00",
+  "item": {
+    "id": "R-022",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Classify Web Audio render-capacity telemetry without treating unsupported or absent telemetry as healthy playback.",
+    "status": "completed",
+    "required_evidence": [
+      "current primary specification",
+      "committed classifier",
+      "deterministic tests",
+      "explicit draft and physical-output limits"
+    ],
+    "progress": {
+      "primary_source": "https://www.w3.org/TR/webaudio/",
+      "finding": "AudioRenderCapacity is useful pressure evidence only when supported and sampled; capability absence remains unresolved.",
+      "module": "tools/frontier-research/audio-render-capacity-evidence.mjs",
+      "test": "tools/frontier-research/audio-render-capacity-evidence.test.mjs",
+      "evidence": "operations/evidence/frontier-audio-render-capacity-2026-07-14T0044-0400.json",
+      "commits": [
+        "2f92914eba51dd26afd6bdb8c325b980c3694c76",
+        "dffce35e7fa43cc254a38b352937f6e4875b00dc",
+        "46fd04eef181b89e0ac61200a995a2ef920cb7ae"
+      ],
+      "verification": "6 deterministic assertions passed in an isolated Node runtime using byte-identical committed content"
+    },
+    "handoff": "Vercel Studio may record render-capacity samples when the API exists, but must retain the existing direct gesture, render-position, and audible/device evidence paths because capacity telemetry does not prove physical sound output."
+  }
+}
