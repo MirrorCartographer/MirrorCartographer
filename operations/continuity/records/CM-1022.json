@@ -1,0 +1,69 @@
+{
+  "id": "CM-1022",
+  "created_at": "2026-07-14T13:11:55-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "memory": "Project state is not a single mutable snapshot. The durable continuity model is a source-ordered ledger: canonical governance establishes the baseline; append-only queue updates contribute later observations; explicit reconciliation records may promote, supersede, or close those observations. Recency alone is insufficient: every effective-state claim must retain source identity, claim state, ownership, and a falsification route.",
+  "claims": {
+    "observed": [
+      "operations/ACTIVE_QUEUE.json is older than committed continuity queue updates and lists only completed M-001 for continuity_mining.",
+      "operations/queue-updates/M-RECONCILE-002-2026-07-14T0938-0400.json records M-RECONCILE-002 as active with three remaining actions.",
+      "CM-1021 already establishes that a stale canonical snapshot must not silently override newer source-bound progress."
+    ],
+    "inferred": [
+      "The effective continuity queue currently includes M-RECONCILE-002 as active, while the canonical queue remains a governance baseline rather than a complete current-state representation.",
+      "A future reconciliation engine must order records by explicit semantic precedence, not file timestamp alone."
+    ],
+    "proposed": [
+      "Use the precedence order canonical_baseline < append_only_observation < explicit_reconciliation for queue-state computation.",
+      "Reject any reconciliation that omits the exact source paths and immutable identities it incorporates.",
+      "Preserve superseded records rather than rewriting or deleting them."
+    ],
+    "superseded": [
+      "Treating operations/ACTIVE_QUEUE.json as the sole current queue when later committed queue updates exist.",
+      "Treating newest timestamp as sufficient proof of semantic authority."
+    ],
+    "unresolved": [
+      "No executable reconciler currently computes effective queue state from all eligible queue-update records.",
+      "No authenticated exhaustive eligible-path enumeration has yet proved that every queue update was considered.",
+      "The originating sources for M-004, M-005, and M-006 remain unresolved."
+    ]
+  },
+  "precedence_model": [
+    {
+      "rank": 1,
+      "class": "canonical_baseline",
+      "meaning": "Governance and initial queue state; remains authoritative for rules unless explicitly superseded."
+    },
+    {
+      "rank": 2,
+      "class": "append_only_observation",
+      "meaning": "Later source-bound progress or unresolved work; cannot erase the baseline."
+    },
+    {
+      "rank": 3,
+      "class": "explicit_reconciliation",
+      "meaning": "A source-complete artifact that incorporates, supersedes, closes, or preserves earlier records with citations."
+    }
+  ],
+  "sources": [
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "role": "canonical_baseline"
+    },
+    {
+      "path": "operations/queue-updates/M-RECONCILE-002-2026-07-14T0938-0400.json",
+      "blob_sha": "671eaa6119bde97ff1e48c55ce184ef07628326b",
+      "role": "append_only_observation"
+    },
+    {
+      "path": "operations/continuity/records/CM-1021.json",
+      "commit": "6b9b97e638de3f8aeac29472b86b12038cf507b6",
+      "role": "prior_continuity_finding"
+    }
+  ],
+  "evidence_strength": "committed_source_comparison_and_semantic_model",
+  "privacy_boundary": "Public repository governance files and commit metadata only. Private chat, health information, credentials, identifying personal material, and unreviewed uploads are excluded.",
+  "falsification_route": "Produce a source-complete reconciliation artifact or executable reconciler showing a different precedence rule, together with all eligible queue-update paths and immutable source identities. Any omitted eligible record or unbound source reopens the effective-state conclusion."
+}
