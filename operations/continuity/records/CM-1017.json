@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-1017",
+  "created_at": "2026-07-13T23:42:20-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "title": "Queue reconciliation authority is receipt-bounded",
+  "sources": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/continuity/records/CM-1016.json",
+    "recent commits through b5c991fbd03d33856eff2915d7defbe41fbc078f"
+  ],
+  "memory": {
+    "observed": "The canonical queue is older than additive queue-update records, and CM-1016 established that a projection requires an explicit base and inclusive terminal commit horizon.",
+    "inferred": "A terminal commit alone is insufficient: a projection can still omit an eligible update path, substitute altered bytes, or silently include later evidence unless the exact manifest and output bytes are bound by a receipt.",
+    "proposed": "Treat a reconciled projection as authoritative only within a receipt that binds the canonical queue blob, terminal commit, observed head, exact update manifest, excluded later commits, and projection digest.",
+    "superseded": "A projection is reproducible merely because it names a terminal commit.",
+    "unresolved": "No authenticated exhaustive projection and receipt have yet been generated against a full repository checkout."
+  },
+  "contradiction_resolution": {
+    "apparent_conflict": "A generated projection may appear newer and more complete than ACTIVE_QUEUE.json while still having an unknown or selective update set.",
+    "resolution": "Newness is not authority. The canonical file remains the base authority; additive records gain bounded effective authority only when exhaustive inclusion and byte identity are receipt-verifiable.",
+    "selection_rule": "Use a projection for queue selection only when its receipt validates structurally and runtime checks prove reachability, exhaustive path enumeration within the declared horizon, exact later-commit exclusion, and deterministic output recomputation."
+  },
+  "artifact": {
+    "path": "operations/continuity/schemas/queue-projection-receipt.schema.json",
+    "commit": "0e43fa41b657986fb524af253935e3a632e50e8c",
+    "status": "committed_contract"
+  },
+  "privacy_boundary": {
+    "included": ["public repository governance metadata", "queue paths", "commit and blob identifiers", "digests", "abstract claim classifications"],
+    "excluded": ["private chat text", "health information", "credentials", "personal identifiers", "unreviewed file-library content"]
+  },
+  "specialist_registry_change": null,
+  "falsification_route": "Generate a receipt from a full authenticated checkout, deliberately omit one eligible queue-update path or alter one byte, and require runtime verification to reject the projection."
+}
