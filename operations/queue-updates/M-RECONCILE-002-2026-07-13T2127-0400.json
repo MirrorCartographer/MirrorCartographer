@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-13T21:27:37-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "status": "active",
+  "priority": 0,
+  "completed_slice": "Recovered and recorded the rule that effective queue projections require an explicit canonical base and inclusive terminal commit horizon.",
+  "artifact": "operations/continuity/records/CM-1016.json",
+  "artifact_commit": "cafaecf263284301c6530958d8ed363afdb71a7a",
+  "claim_states": ["observed", "inferred", "proposed", "superseded", "unresolved"],
+  "canonical_state_mutated": false,
+  "privacy_boundary": "Public repository governance metadata only; no private chat, health, credentials, personal identifiers, or unreviewed uploads.",
+  "next_action": "Extend the queue materialization receipt to bind an inclusive terminal commit and the exact enumerated update-path set, then generate an authenticated exhaustive projection."
+}
