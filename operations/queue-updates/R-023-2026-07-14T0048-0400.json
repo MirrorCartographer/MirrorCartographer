@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-14T00:48:00-04:00",
+  "item": {
+    "id": "R-023",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Classify ordered AudioContext output timestamp sequences without confusing render progress with audible output.",
+    "dependencies": ["R-001", "R-022"],
+    "required_evidence": ["current primary specification", "committed classifier", "deterministic tests", "explicit falsification route"],
+    "status": "completed",
+    "progress": {
+      "finding": "Coherent monotonic advance in both AudioTimestamp clocks is bounded render-position evidence; zero-zero, stalled, regressing, malformed, and unsupported states remain distinct.",
+      "module": "tools/frontier-research/audio-output-timestamp-sequence.mjs",
+      "test": "tools/frontier-research/audio-output-timestamp-sequence.test.mjs",
+      "evidence": "operations/evidence/frontier-audio-output-timestamp-sequence-2026-07-14T0048-0400.json",
+      "commits": [
+        "429b1e665934cd1e132fac9dd7eaf1bc85b1e541",
+        "3f19ee0f808bc637b1bc64fa72a441e258c076c8",
+        "2342c5ad7dda23f705461ee89318af645f1e607f"
+      ],
+      "verification": "9 deterministic assertions passed in isolated Node execution"
+    },
+    "handoff": "Vercel Studio should capture at least two ordered getOutputTimestamp samples inside the direct diagnostic-pulse observation window, preserve raw values, and require separate audible or device-level evidence before claiming speaker output."
+  },
+  "canonical_queue_mutated": false
+}
