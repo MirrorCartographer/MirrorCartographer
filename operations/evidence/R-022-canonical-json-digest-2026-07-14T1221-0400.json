@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-022",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-14T12:21:00-04:00",
+  "source_status": {
+    "rfc_8785": "primary specification; informational RFC",
+    "rfc_7493": "primary specification; I-JSON constraints"
+  },
+  "primary_sources": [
+    "https://www.rfc-editor.org/rfc/rfc8785.html",
+    "https://www.rfc-editor.org/rfc/rfc7493.html"
+  ],
+  "finding": "Exact-byte digests and semantic JSON identity solve different problems. RFC 8785 canonicalization provides an invariant UTF-8 representation for I-JSON values, allowing equivalent objects with different property insertion order to share a semantic digest while preserving array order and primitive values.",
+  "design_implication": "Evidence systems should retain both the original-byte digest and a separately labeled canonical semantic digest. Neither digest proves the truth of the evidence claim; each only binds a different representation boundary.",
+  "artifact": {
+    "module": "tools/frontier-research/canonical-json-digest.mjs",
+    "test": "tools/frontier-research/canonical-json-digest.test.mjs",
+    "module_commit": "9f6872dc7a206219f7a6cfc0004e586d10823820",
+    "test_commit": "3fb955f3af75533efe8a6604195c579f6b4c295d"
+  },
+  "verification": {
+    "command": "node --test tools/frontier-research/canonical-json-digest.test.mjs",
+    "environment": "isolated Node runtime using byte-identical pre-commit files",
+    "result": "4 passed, 0 failed",
+    "cases": [
+      "RFC 8785 sample canonical form",
+      "equivalent object property order produces identical digest",
+      "array order remains significant",
+      "non-finite numbers, bigint, lone surrogates, custom objects, and cycles fail closed"
+    ]
+  },
+  "evidence_strength": "committed deterministic implementation with primary-specification test vector and adversarial tests",
+  "uncertainty": [
+    "The implementation accepts already-parsed JavaScript values and therefore cannot detect duplicate object property names that a parser may already have collapsed.",
+    "Cross-language conformance has not been tested.",
+    "RFC 8785 is informational rather than Standards Track."
+  ],
+  "falsification_route": "Run the committed implementation against the RFC 8785 Appendix B number vectors and an independent conforming JCS implementation. Any canonical byte mismatch falsifies conformance for that input.",
+  "trust_limit": "Canonical equality is not evidence that two claims are true, authorized, fresh, or produced by a trusted builder."
+}
