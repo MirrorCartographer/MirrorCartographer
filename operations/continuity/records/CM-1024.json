@@ -1,0 +1,112 @@
+{
+  "id": "CM-1024",
+  "created_at": "2026-07-14T15:42:54-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "memory": "Continuity claims must be immutable source-bound nodes. Changes in interpretation are represented as typed transition edges, never by rewriting the prior claim. Observed, inferred, proposed, superseded, and unresolved describe epistemic roles, while accepted, challenged, narrowed, superseded, and resolved describe later transitions. This separation preserves language evolution, contradiction history, and the exact route by which effective state changed.",
+  "claims": {
+    "observed": [
+      "CM-1022 defines source-class precedence for effective queue state and requires superseded records to be preserved.",
+      "CM-1023 requires negative findings to remain qualified by the interface and scope actually inspected.",
+      "The current continuity artifacts classify claims by epistemic state but do not yet define a reusable transition model linking a later claim to the exact earlier claim it changes."
+    ],
+    "inferred": [
+      "Without explicit transition edges, a reconciler can report a current conclusion while losing whether the prior statement was contradicted, narrowed, merely challenged, or fully superseded.",
+      "Epistemic class and lifecycle transition are orthogonal and must not share one overloaded status field."
+    ],
+    "proposed": [
+      "Assign every durable claim a stable claim_id and immutable source locator.",
+      "Represent change with transition records containing from_claim_id, to_claim_id, transition_type, rationale, evidence, authority_class, and falsification_route.",
+      "Permit superseded only when a later source-bound claim states the replacement scope and the transition retains both claims.",
+      "Compute effective state from retained claims plus valid transitions rather than from last-write-wins file order."
+    ],
+    "superseded": [
+      "Using a single mutable status field to mean both what kind of claim something is and what later happened to it.",
+      "Replacing an earlier claim's text when later evidence changes its interpretation."
+    ],
+    "unresolved": [
+      "Existing continuity records before CM-1024 do not all have stable claim-level identifiers.",
+      "No executable reconciler currently validates transition graphs for dangling references, cycles, authority violations, or scope expansion.",
+      "The originating immutable sources for M-004, M-005, and M-006 remain unresolved."
+    ]
+  },
+  "claim_transition_contract": {
+    "claim_required_fields": [
+      "claim_id",
+      "epistemic_class",
+      "statement",
+      "source_locator",
+      "source_identity",
+      "scope",
+      "privacy_class",
+      "falsification_route"
+    ],
+    "epistemic_classes": [
+      "observed",
+      "inferred",
+      "proposed",
+      "superseded",
+      "unresolved"
+    ],
+    "transition_required_fields": [
+      "transition_id",
+      "from_claim_id",
+      "to_claim_id",
+      "transition_type",
+      "rationale",
+      "evidence",
+      "authority_class",
+      "created_at",
+      "falsification_route"
+    ],
+    "transition_types": {
+      "accepted": "A later authority adopts the claim without changing its scope.",
+      "challenged": "Contrary evidence exists, but the prior claim remains unresolved rather than replaced.",
+      "narrowed": "The prior statement remains valid only inside a smaller explicitly named scope.",
+      "superseded": "A later claim replaces the prior effective interpretation while preserving the prior node and transition rationale.",
+      "resolved": "An unresolved claim receives a supported outcome; the unresolved source node remains retained."
+    },
+    "validity_rules": [
+      "Claims are immutable after commitment.",
+      "Every transition references two existing immutable claim IDs.",
+      "A transition cannot increase scope without evidence and an authority class at least as strong as the source it changes.",
+      "Challenged does not imply superseded.",
+      "A negative finding may narrow a claim only to its inspected scope unless exhaustive eligible-source coverage is proven.",
+      "Transition graphs must be acyclic for effective-state derivation; historical cross-links may be retained separately.",
+      "No transition may delete, conceal, or rewrite its source claim."
+    ],
+    "effective_state_rule": "Select source-bound claims through semantic authority and valid transition edges. Recency breaks ties only after authority, scope, and evidence predicates agree.",
+    "minimum_falsification_tests": [
+      "Reject a transition with a missing source claim.",
+      "Reject a supersession that omits its replacement claim.",
+      "Reject a scope-expanding transition supported only by narrower negative evidence.",
+      "Reject a cycle in the effective-state transition graph.",
+      "Preserve both claims after a valid supersession."
+    ]
+  },
+  "sources": [
+    {
+      "path": "operations/CURRENT_STATE.json",
+      "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+      "role": "governance_and_privacy_boundary"
+    },
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "role": "canonical_queue_baseline"
+    },
+    {
+      "path": "operations/continuity/records/CM-1022.json",
+      "blob_sha": "38ff024ac70c4a927fec4bcba7c7c8b414552ae0",
+      "role": "effective_state_precedence_memory"
+    },
+    {
+      "path": "operations/continuity/records/CM-1023.json",
+      "commit": "2c729cc5179c3cd571e97352b97c3274ad5b14ea",
+      "role": "scope_qualified_negative_evidence_memory"
+    }
+  ],
+  "evidence_strength": "committed_source_comparison_and_reusable_transition_contract",
+  "privacy_boundary": "Only public repository governance, abstract claim semantics, immutable source metadata, and non-personal continuity rules are retained. Private chats, health material, credentials, identifying personal content, and unreviewed uploads are excluded.",
+  "falsification_route": "Construct an alternative reconciler that preserves every prior claim and produces deterministic effective state without explicit transition edges. A counterexample where this contract accepts a dangling reference, cycle, unauthorized scope expansion, or destructive supersession falsifies the contract."
+}
