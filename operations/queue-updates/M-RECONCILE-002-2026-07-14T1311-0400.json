@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-14T13:11:55-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "status": "active",
+  "claim_state": "observed_and_proposed",
+  "completed_slice": "Recovered and committed the semantic precedence model required to reconcile a stale canonical queue with later append-only continuity updates without erasing provenance.",
+  "progress": {
+    "memory_record": "operations/continuity/records/CM-1022.json",
+    "memory_commit": "8d3a4cfe128de6a6f96d203d177cd803c024d2c7",
+    "precedence_order": [
+      "canonical_baseline",
+      "append_only_observation",
+      "explicit_reconciliation"
+    ],
+    "source_bindings": [
+      "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "operations/queue-updates/M-RECONCILE-002-2026-07-14T0938-0400.json@671eaa6119bde97ff1e48c55ce184ef07628326b",
+      "operations/continuity/records/CM-1021.json@6b9b97e638de3f8aeac29472b86b12038cf507b6"
+    ],
+    "evidence_strength": "committed_source_comparison_and_semantic_model"
+  },
+  "resolved": [
+    "The effective-state interpretation now has an explicit semantic precedence model rather than relying on timestamp recency alone.",
+    "Canonical governance, append-only observations, and explicit reconciliation are preserved as distinct source classes."
+  ],
+  "remaining": [
+    "Implement an executable effective-queue reconciler using the committed precedence model.",
+    "Execute an authenticated exhaustive branch and per-branch commit-history collector.",
+    "Produce an independent eligible-path set for operations/queue-updates/*.json.",
+    "Locate or exhaustively classify the originating sources for M-004, M-005, and M-006."
+  ],
+  "privacy_boundary": "Public repository governance files and commit metadata only; no private chat, health, credentials, identifying personal data, or unreviewed uploads included.",
+  "next_action": "Implement a fail-closed reconciler that consumes the canonical baseline plus an independently enumerated queue-update set, emits source-complete effective state, and rejects omitted, duplicated, unbound, or semantically ambiguous updates."
+}
