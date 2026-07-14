@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-14T15:34:28-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "status": "active",
+  "completed_slice": {
+    "artifact": "operations/continuity/records/CM-1023.json",
+    "commit": "2c729cc5179c3cd571e97352b97c3274ad5b14ea",
+    "finding": "Negative continuity evidence must remain interface- and scope-qualified until exhaustive eligible-source coverage is proven.",
+    "verification": "The artifact was committed additively and binds the finding to canonical governance, the stale queue baseline, and the prior effective-state reconciliation record."
+  },
+  "claim_state": {
+    "observed": "Indexed search omitted a known committed queue identifier during this run.",
+    "inferred": "Empty indexed results cannot establish project-wide absence.",
+    "proposed": "Adopt the negative_evidence_contract in CM-1023 for future continuity findings.",
+    "superseded": "Empty search result equals repository-wide absence.",
+    "unresolved": "A source-complete effective-state reconciler and exhaustive eligible-path manifest remain outstanding."
+  },
+  "remaining_actions": [
+    "Implement an executable effective-state reconciler over canonical and append-only queue records.",
+    "Retain an independently reconciled eligible-path manifest.",
+    "Resolve or preserve unresolved origin state for M-004, M-005, and M-006."
+  ],
+  "privacy_boundary": "No private source contents or identifying material were committed.",
+  "falsification_route": "A retained exhaustive manifest and traversal proving complete coverage may promote a negative result beyond its current scope."
+}
