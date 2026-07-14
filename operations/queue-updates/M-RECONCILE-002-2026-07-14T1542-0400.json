@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-14T15:42:54-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "status": "active",
+  "completed_slice": {
+    "artifact": "operations/continuity/records/CM-1024.json",
+    "commit": "ce9d9cc13c77224e85fc4ff5fccb079109a8ebe9",
+    "finding": "Epistemic class and lifecycle transition must be represented separately. Durable claims remain immutable; accepted, challenged, narrowed, superseded, and resolved are typed edges that preserve both old and new claims.",
+    "verification": "Artifact committed through the GitHub contents API; fetch-back verification pending in this run."
+  },
+  "claims": {
+    "observed": [
+      "CM-1022 preserves source-class precedence and CM-1023 qualifies negative evidence by inspected scope.",
+      "Prior continuity artifacts lacked a reusable claim-level transition contract."
+    ],
+    "inferred": [
+      "Explicit transition edges are required to preserve contradiction and language-evolution history during effective-state reconciliation."
+    ],
+    "proposed": [
+      "Implement a validator and reconciler for claim and transition graphs using the CM-1024 contract."
+    ],
+    "superseded": [
+      "Last-write-wins mutation of claim text or one overloaded status field."
+    ],
+    "unresolved": [
+      "Legacy continuity claims need stable claim IDs before full graph reconciliation.",
+      "Exhaustive eligible-source enumeration remains incomplete.",
+      "Origins for M-004, M-005, and M-006 remain unresolved."
+    ]
+  },
+  "remaining": [
+    "Create a JSON Schema for claim nodes and transition edges.",
+    "Implement deterministic validation for dangling references, cycles, authority violations, and unsupported scope expansion.",
+    "Backfill stable claim IDs into a non-destructive mapping artifact rather than rewriting prior records.",
+    "Complete source-manifest enumeration before making exhaustive absence claims."
+  ],
+  "privacy_boundary": "Repository metadata and abstract continuity rules only; no private user material was retained."
+}
