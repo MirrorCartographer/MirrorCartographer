@@ -1,0 +1,44 @@
+{
+  "id": "CM-1021",
+  "created_at": "2026-07-14T12:17:31-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "memory": "When canonical state files lag behind append-only team evidence, continuity must not silently treat the stale canonical snapshot as current truth. The durable interpretation is layered: canonical files define baseline governance; later source-bound queue updates define observed progress and active unresolved work until an explicit reconciliation artifact promotes them into canonical state.",
+  "claims": {
+    "observed": [
+      "operations/ACTIVE_QUEUE.json identifies M-001 as the only continuity item and marks it completed.",
+      "A later committed queue update identifies M-RECONCILE-002 as active and records runtime-verified progress plus remaining work.",
+      "The canonical queue timestamp predates the later continuity commits."
+    ],
+    "inferred": [
+      "ACTIVE_QUEUE.json is a stale baseline for continuity ownership, not sufficient by itself to select the current highest-priority continuity item.",
+      "M-RECONCILE-002 is the current active continuity item represented by the newest source-bound queue-update evidence inspected in this run."
+    ],
+    "proposed": [
+      "Add a reconciliation process that computes effective queue state from canonical baseline plus append-only queue updates, while retaining both layers and their timestamps.",
+      "Require any future canonical queue refresh to cite the exact queue-update records it incorporates."
+    ],
+    "superseded": [
+      "Selecting continuity work solely from the latest contents of operations/ACTIVE_QUEUE.json when newer committed queue-update evidence exists."
+    ],
+    "unresolved": [
+      "No canonical reconciliation artifact currently proves that every append-only queue update has been incorporated.",
+      "Authenticated exhaustive repository traversal and origin classification for M-004, M-005, and M-006 remain incomplete."
+    ]
+  },
+  "sources": [
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "role": "canonical_baseline"
+    },
+    {
+      "path": "operations/queue-updates/M-RECONCILE-002-2026-07-14T0938-0400.json",
+      "commit": "a3ee5fc7b2d45861eda0f1fdd4f96eda2c9dc870",
+      "role": "later_append_only_progress"
+    }
+  ],
+  "evidence_strength": "committed_source_comparison",
+  "privacy_boundary": "Public repository governance files and commit metadata only; no private chat, health, credentials, or identifying personal material included.",
+  "falsification_route": "Produce a newer explicit canonical reconciliation artifact showing that M-RECONCILE-002 was incorporated, superseded, or closed, or show that the cited queue-update commit is not reachable from the authoritative repository history."
+}
