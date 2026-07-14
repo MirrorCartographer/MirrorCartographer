@@ -1,0 +1,53 @@
+{
+  "id": "CM-1023",
+  "created_at": "2026-07-14T15:34:28-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "memory": "A negative continuity result is durable only as a scope-qualified observation. Not found must name the interface, source scope, query, traversal boundary, immutable source identity where available, and source classes not inspected. It cannot become project-wide absence until an explicit reconciliation artifact proves complete eligible-source coverage.",
+  "claims": {
+    "observed": [
+      "operations/ACTIVE_QUEUE.json is a governance baseline dated 2026-07-11 and does not contain later continuity reconciliation work visible in commits.",
+      "Recent continuity records identify exhaustive eligible-path enumeration as unresolved.",
+      "Repository search returned no indexed matches for M-RECONCILE-002 during this run, while an immutable commit independently proves that M-RECONCILE-002 artifacts exist."
+    ],
+    "inferred": [
+      "An empty indexed-search response describes that search interface and declared scope, not the entire repository history or project substrate.",
+      "Negative evidence cannot override positive immutable evidence from commits or fetched files."
+    ],
+    "proposed": [
+      "Represent every negative finding with interface, query, inspected_scope, traversal_state, immutable_anchor, excluded_source_classes, result, confidence, and falsification_route.",
+      "Permit unlocated after exhaustive coverage only when a reconciliation artifact binds a complete eligible-source manifest and all traversal predicates pass.",
+      "Use not returned by interface within scope for partial searches."
+    ],
+    "superseded": [
+      "Treating an empty repository search response as repository-wide absence.",
+      "Allowing negative search output to override a fetched file or commit diff."
+    ],
+    "unresolved": [
+      "No source-complete effective-state reconciler has enumerated every eligible queue update and continuity record.",
+      "The originating immutable sources for M-004, M-005, and M-006 remain unresolved.",
+      "Connector search-index coverage and freshness are not independently proven."
+    ]
+  },
+  "negative_evidence_contract": {
+    "required_fields": ["interface", "query", "inspected_scope", "traversal_state", "immutable_anchor", "excluded_source_classes", "result", "confidence", "falsification_route"],
+    "allowed_partial_conclusion": "not_returned_within_declared_scope",
+    "exhaustive_conclusion": "unlocated_after_exhaustive_eligible_source_coverage",
+    "exhaustive_gate": [
+      "eligible source manifest is retained",
+      "every manifest entry has an immutable identity",
+      "all pagination or graph traversal is closed",
+      "independent enumeration agrees",
+      "positive evidence conflicts are resolved without deletion",
+      "excluded source classes are named"
+    ]
+  },
+  "sources": [
+    {"path": "operations/CURRENT_STATE.json", "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc", "role": "governance_boundary"},
+    {"path": "operations/ACTIVE_QUEUE.json", "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f", "role": "canonical_baseline"},
+    {"path": "operations/continuity/records/CM-1022.json", "commit": "8d3a4cfe128de6a6f96d203d177cd803c024d2c7", "role": "prior_effective_state_memory"}
+  ],
+  "evidence_strength": "committed_source_comparison_plus_search_counterexample",
+  "privacy_boundary": "Only repository governance, commit metadata, abstract search behavior, and epistemic rules are retained. Private source contents and identifying material are excluded.",
+  "falsification_route": "Produce a retained source-complete enumeration showing the queried interface covered every eligible source class and no positive source contains the target. Any immutable positive source falsifies project-wide absence but not the narrower interface-scoped observation."
+}
