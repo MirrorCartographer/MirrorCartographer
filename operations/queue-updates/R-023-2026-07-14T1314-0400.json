@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "item": {
+    "id": "R-023",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Add specification-derived RFC 8785 conformance vectors to the canonical JSON digest implementation.",
+    "dependencies": ["R-022"],
+    "required_evidence": [
+      "primary specification",
+      "committed external-oracle test",
+      "deterministic replay",
+      "explicit coverage limit",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_source": "https://www.rfc-editor.org/rfc/rfc8785.html",
+      "finding": "Self-authored unit tests are insufficient for canonicalization assurance; RFC number and UTF-16 ordering vectors provide an external specification oracle.",
+      "test": "tools/frontier-research/canonical-json-rfc8785-conformance.test.mjs",
+      "evidence": "operations/evidence/R-023-rfc8785-conformance-2026-07-14T1314-0400.json",
+      "commits": [
+        "42fd5119403ee25c38cafef3590657910fcc986a",
+        "5629d536be1b72ada657c8e732c8554275a35002"
+      ],
+      "verification": "3 deterministic Node tests passed: 24 finite IEEE 754 vectors, 2 non-finite rejection vectors, and the RFC UTF-16 property-order vector"
+    },
+    "handoff": "Add the conformance test to the repository-wide gate and replay the same vectors through an independent JCS implementation. Preserve raw-byte digests separately from canonical semantic digests."
+  },
+  "canonical_queue_sha_observed": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+  "canonical_queue_mutated": false
+}
