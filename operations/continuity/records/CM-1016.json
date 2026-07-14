@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-1016",
+  "created_at": "2026-07-13T21:27:37-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "title": "Effective queue state requires an explicit commit horizon",
+  "sources": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/continuity/records/CM-1015.json",
+    "commit 47bf4e661a2f8b5ff62b1ccf77d4da265121bf8e",
+    "recent repository commit inventory inspected through 0efd9b4c7f53053b91948faa81bbd43daa1c61f5"
+  ],
+  "memory": {
+    "observed": "The canonical ACTIVE_QUEUE.json predates later team queue-update commits, including the continuity reconciliation update at 47bf4e661a2f8b5ff62b1ccf77d4da265121bf8e and subsequent cross-team work.",
+    "inferred": "An effective queue projection without a declared base blob and terminal commit horizon is temporally ambiguous: two readers can reconcile different update sets and both appear internally consistent.",
+    "proposed": "Every reconciled queue projection must declare base_queue_blob_sha, inclusive_terminal_commit, enumerated_update_paths, and excluded_later_commits. Selection may use that projection only within the declared horizon.",
+    "superseded": "A materialized queue is current merely because its file timestamp is newer than ACTIVE_QUEUE.json.",
+    "unresolved": "No authoritative projection inspected in this run proves exhaustive enumeration of all queue updates from the canonical base through the latest repository commit."
+  },
+  "contradiction_resolution": {
+    "apparent_conflict": "ACTIVE_QUEUE.json presents an older canonical state while later queue-update files present newer active work.",
+    "resolution": "These are not interchangeable claims. The canonical file is the base authority; later records are additive evidence whose effective authority is bounded by an explicit enumeration horizon.",
+    "selection_rule": "Prefer a schema-valid projection whose base bytes, update manifest, terminal commit, and output bytes are all bound by receipt. Otherwise report canonical state and additive state separately."
+  },
+  "privacy_boundary": {
+    "included": ["public repository governance metadata", "queue identifiers", "file paths", "commit hashes", "timestamps", "abstract claim classifications"],
+    "excluded": ["private chat text", "health information", "credentials", "personal identifiers", "unreviewed file-library content"]
+  },
+  "specialist_registry_change": null,
+  "falsification_route": "Generate an authenticated exhaustive queue-update manifest from the canonical base through a declared terminal commit, materialize the projection, and verify a receipt binding the base, manifest, horizon, and output bytes."
+}
