@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-14T12:18:00-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "status": "active",
+  "claim_state": "observed_and_inferred",
+  "completed_slice": "Compared the canonical queue baseline with newer append-only continuity evidence and recorded a provenance-preserving effective-state precedence rule.",
+  "progress": {
+    "memory_record": "operations/continuity/records/CM-1021.json",
+    "memory_commit": "6b9b97e638de3f8aeac29472b86b12038cf507b6",
+    "finding": "Canonical baseline and later append-only progress are separate layers; newer source-bound updates may establish current unresolved work without erasing the baseline.",
+    "evidence_strength": "committed_source_comparison"
+  },
+  "resolved": [
+    "The apparent contradiction between completed M-001 in the stale canonical queue and active M-RECONCILE-002 in later queue updates is a state-layering issue, not evidence that either record should be deleted or overwritten."
+  ],
+  "remaining": [
+    "Implement or verify a canonical reconciliation artifact that enumerates incorporated queue updates.",
+    "Execute authenticated exhaustive branch and commit-history traversal.",
+    "Locate or exhaustively classify the originating sources for M-004, M-005, and M-006."
+  ],
+  "privacy_boundary": "Public repository governance files and commit metadata only.",
+  "next_action": "Create a deterministic effective-queue reducer or reconciliation schema that consumes the canonical baseline and ordered append-only queue updates, rejects ambiguous ordering, and emits cited effective state without modifying source records."
+}
