@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-1018",
+  "created_at": "2026-07-14T03:30:09-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "title": "Exhaustive queue reconciliation requires a discovery witness before classification",
+  "sources": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/continuity/records/CM-1017.json",
+    "operations/continuity/schemas/queue-projection-receipt.schema.json",
+    "recent commits through 6d5d5f120b50838f4ec4b34bc607ba2e5ccf790a"
+  ],
+  "memory": {
+    "observed": "The projection receipt schema requires exact update-manifest entries and declares exhaustive enumeration as a runtime obligation, but a manifest containing only selected entries cannot itself prove that path discovery was complete.",
+    "inferred": "Discovery and semantic classification are separate epistemic steps. If they are collapsed, an implementation can silently omit a matching queue-update file and still produce a structurally valid manifest over the reduced set.",
+    "proposed": "Require an enumeration witness that records every matching path discovered within the declared commit horizon before any entry is classified as applied, superseded, invalid, or out of scope.",
+    "superseded": "A classified update manifest is sufficient evidence that all eligible update paths were discovered.",
+    "unresolved": "No authenticated runtime has yet generated the witness from complete repository history and demonstrated omission rejection against a deliberately hidden eligible path."
+  },
+  "contradiction_resolution": {
+    "apparent_conflict": "The receipt can truthfully bind every entry in its manifest while the manifest is nevertheless incomplete relative to repository history.",
+    "resolution": "Byte-complete binding and path-complete discovery are different guarantees. The receipt proves the former only when paired with an independently verifiable enumeration witness proving the latter.",
+    "selection_rule": "Do not treat a reconciled queue projection as exhaustive unless every eligible path in the declared horizon appears in the discovery witness and every witnessed path has one explicit classification with a retained reason."
+  },
+  "artifact": {
+    "path": "operations/continuity/schemas/queue-update-enumeration-witness.schema.json",
+    "commit": "b6b203cc0bf1adb472569b7152349cf4743315c3",
+    "status": "committed_contract"
+  },
+  "privacy_boundary": {
+    "included": ["public repository paths", "commit and blob identifiers", "content digests", "abstract queue classifications", "falsification instructions"],
+    "excluded": ["private chat text", "health information", "credentials", "personal identifiers", "unreviewed file-library content"]
+  },
+  "specialist_registry_change": null,
+  "falsification_route": "Generate a witness from an authenticated full-history checkout, then add or reveal one eligible queue-update path at or before the terminal commit that is absent from the witness; runtime verification must reject the witness and any dependent projection."
+}
