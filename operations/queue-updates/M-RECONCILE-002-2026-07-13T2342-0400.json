@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-13T23:42:20-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "status": "active",
+  "priority": 0,
+  "completed_slice": "Converted the explicit reconciliation-horizon rule into a fail-closed receipt schema that binds canonical base bytes, inclusive terminal commit, exact additive update manifest, excluded later commits, and projection bytes.",
+  "artifact": "operations/continuity/schemas/queue-projection-receipt.schema.json",
+  "artifact_commit": "0e43fa41b657986fb524af253935e3a632e50e8c",
+  "memory_record": "operations/continuity/records/CM-1017.json",
+  "memory_commit": "596c028b2bc162761f6106672a4415a73e1b8537",
+  "claim_states": ["observed", "inferred", "proposed", "superseded", "unresolved"],
+  "canonical_state_mutated": false,
+  "verification": "Repository commits accepted; schema round-trip fetch pending in this run.",
+  "privacy_boundary": "Public repository governance metadata only; no private chat, health, credentials, personal identifiers, or unreviewed uploads.",
+  "next_action": "Implement a runtime generator and validator that enumerates every eligible queue-update path through a declared terminal commit, emits a receipt, and rejects omission, byte substitution, non-reachable horizons, or projection digest mismatch."
+}
