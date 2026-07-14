@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "created_at": "2026-07-14T00:43:58-04:00",
+  "creative_premise": "Moth Dial is a nocturnal instrument where visitors move a lantern, release procedural moths, and alter orbital gravity through touch duration.",
+  "specialists_used": ["creative_direction", "worldbuilding", "interaction_design", "generative_graphics", "typography", "accessibility", "mobile_web", "performance"],
+  "source": {
+    "path": "independent-web/moth-dial/index.html",
+    "commit": "8edfaab11d7d23bb994192564e6192d2d26905f2",
+    "blob_sha": "dee5dfcf15dec9b7b425a0624c80556bfd70cc6a"
+  },
+  "verification": {
+    "level": "repository commit plus connector round-trip",
+    "checks": [
+      "UTF-8 source fetched from immutable commit",
+      "viewport and safe-area handling present",
+      "keyboard controls present",
+      "ARIA live status and pressed state present",
+      "prefers-reduced-motion branch present",
+      "device-pixel-ratio capped at 2",
+      "no autoplay audio",
+      "no persistence, analytics, payments, or private data"
+    ],
+    "runtime_browser_test": "not available in this connector-only run",
+    "public_deployment": "unverified"
+  },
+  "identity_statement": "A self-contained digital night instrument about borrowed light and temporary orbits; not an explanation page, research portal, dashboard, AI workspace, or product funnel.",
+  "privacy_boundary": "Public source contains only fictional world language and procedural interaction logic. No private chat, health, credential, or personal material is included.",
+  "rollback": "Revert commit 8edfaab11d7d23bb994192564e6192d2d26905f2; the slice is additive and does not modify existing rooms.",
+  "next_action": "Add a discoverable, reversible entrance from the existing independent-web chamber sequence and obtain browser/mobile plus public-hosting proof."
+}
