@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "item": {
+    "id": "R-022",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Add RFC 8785 canonical semantic digests alongside exact-byte evidence digests.",
+    "dependencies": ["R-003"],
+    "required_evidence": [
+      "primary specification",
+      "committed canonicalizer",
+      "deterministic and adversarial tests",
+      "explicit trust boundary",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://www.rfc-editor.org/rfc/rfc8785.html",
+        "https://www.rfc-editor.org/rfc/rfc7493.html"
+      ],
+      "finding": "Canonical JSON gives semantically equivalent I-JSON values a stable representation independent of object property insertion order; it complements rather than replaces retained raw-byte digests.",
+      "module": "tools/frontier-research/canonical-json-digest.mjs",
+      "test": "tools/frontier-research/canonical-json-digest.test.mjs",
+      "evidence": "operations/evidence/R-022-canonical-json-digest-2026-07-14T1221-0400.json",
+      "commits": [
+        "9f6872dc7a206219f7a6cfc0004e586d10823820",
+        "3fb955f3af75533efe8a6604195c579f6b4c295d",
+        "fdf478bd212938e27a300752790c9800b72957d2"
+      ],
+      "verification": "4 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+    },
+    "handoff": "Evidence-envelope and attestation builders should record raw_digest and canonical_json_digest as distinct fields. Promotion logic must reject attempts to substitute canonical semantic identity for original-byte retention or claim truth."
+  },
+  "canonical_queue_sha_observed": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+  "canonical_queue_mutated": false
+}
