@@ -1,0 +1,21 @@
+{
+  "id": "CM-1019",
+  "created_at": "2026-07-14T09:25:39-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "memory": "Repository-history reconciliation requires two independent surfaces: a declared witness and independently retrieved path/blob/history evidence. Schema validity or a self-reported discovery_complete flag cannot establish exhaustive coverage.",
+  "claims": {
+    "observed": ["CM-1018 committed a schema separating path discovery from semantic classification.", "The new validator and deterministic tests are committed."],
+    "inferred": ["Without an independent eligible-path set, an internally consistent witness can omit files while appearing complete."],
+    "proposed": ["Run the committed Node tests, then connect an authenticated paginated history collector to the validator."],
+    "superseded": ["Treating discovery_complete=true as sufficient evidence of exhaustive reconciliation."],
+    "unresolved": ["No runtime execution was observed in this run.", "Immutable originating sources for M-004, M-005, and M-006 remain unlocated pending complete traversal."]
+  },
+  "artifacts": [
+    {"path":"operations/continuity/validate-queue-update-enumeration-witness.mjs","commit":"90051480dbeda60f469cbec844d5fa894be65c4c"},
+    {"path":"operations/tests/queue-update-enumeration-witness.test.mjs","commit":"5e3c29f7e9559e703ed10e234bdf9ab969e58e82"}
+  ],
+  "evidence_strength": "committed_static_unexecuted",
+  "privacy_boundary": "Public repository governance metadata only; excludes private chat, health data, credentials, personal identifiers, and unreviewed uploads.",
+  "falsification_route": "Execute the tests and feed the validator a complete authenticated traversal; any omitted path, duplicate, digest drift, unreachable horizon, or unclassified entry must fail closed."
+}
