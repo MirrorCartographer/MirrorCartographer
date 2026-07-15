@@ -1,0 +1,39 @@
+{
+  "queue_item": "M-RECONCILE-002",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-14T21:48:51-04:00",
+  "status": "active",
+  "completed_slice": "Converted the immutable claim-transition contract into an executable fail-closed graph validator with deterministic adversarial tests.",
+  "artifacts": [
+    "tools/continuity/claim-transition-validator.mjs",
+    "tools/continuity/claim-transition-validator.test.mjs",
+    "operations/continuity/records/CM-1025.json"
+  ],
+  "commits": [
+    "4f1c1ae95ddbff73189335e369fde6f6c6efad44",
+    "f715e77a2d7f9d616ac9388a6cd26e7c768eaff7",
+    "25b9c0ff585dce6140115b30fa23ed16b3f8201f"
+  ],
+  "verification": {
+    "command": "node --test claim-transition-validator.test.mjs",
+    "passed": 6,
+    "failed": 0,
+    "coverage": [
+      "immutable claim retention",
+      "dangling references",
+      "cycle rejection",
+      "scope-expansion evidence",
+      "authority ordering"
+    ]
+  },
+  "claim_states": {
+    "observed": "CM-1024's executable-reconciler gap is partially closed for graph semantics.",
+    "inferred": "Effective-state derivation should reject unvalidated transition graphs.",
+    "proposed": "Integrate the validator before continuity effective-state computation.",
+    "superseded": "Schema-valid transition packets are sufficient for acceptance.",
+    "unresolved": "Digest, locator, timestamp, privacy-policy, and legacy-record migration validation remain."
+  },
+  "privacy_boundary": "No private chat, health, credential, identifying, or unreviewed upload content was inspected or committed.",
+  "canonical_queue_overwritten": false,
+  "next_action": "Add immutable source digest and locator verification, then migrate one pre-CM-1024 record into stable claim nodes and transitions without rewriting the original record."
+}
