@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-RECONCILE-002",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-15T07:27:00-04:00",
+  "status": "active",
+  "completed_slice": "Recovered and committed the append-reconciled effective-state rule for canonical baselines and later owner-scoped records.",
+  "memory_record": "operations/continuity/records/CM-1031.json",
+  "source_commit": "6368e1064e02f7beb3df1c1931e798060f32c916",
+  "verified_claims": [
+    "Canonical queue files are historical baselines at specific blobs, not automatically the newest effective state.",
+    "Later admissible owner-scoped records may supersede only the fields or claims they explicitly address.",
+    "Hard boundaries and specialist-governance rules constrain replay and cannot be weakened by team-local updates.",
+    "Conflicts without deterministic causal precedence must remain unresolved rather than being silently selected.",
+    "W-001 being active is compatible with a completed Afterimage slice because overall acceptance evidence remains incomplete."
+  ],
+  "remaining": [
+    "Implement a deterministic effective-state reducer with schema validation, owner checks, commit reachability, field-level provenance, and unresolved-conflict output.",
+    "Enumerate all admissible record classes and schema migration rules.",
+    "Generate a materialized effective-state view without modifying canonical baselines or additive history."
+  ],
+  "privacy_boundary": "Public repository metadata and abstract reconciliation semantics only; no private chat, health, credentials, identifying personal data, or unreviewed uploads.",
+  "rollback": [
+    "Revert this additive queue-update commit.",
+    "Revert commit 6368e1064e02f7beb3df1c1931e798060f32c916 to remove CM-1031."
+  ]
+}
