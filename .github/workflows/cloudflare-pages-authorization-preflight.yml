@@ -1,0 +1,98 @@
+name: Cloudflare research authorization preflight
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-research-authorization-preflight
+  cancel-in-progress: false
+
+jobs:
+  classify-authorization:
+    runs-on: ubuntu-latest
+    environment: cloudflare-research
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Test authorization evidence contracts
+        run: |
+          node --test cloudflare-static/check-deployment-readiness.test.mjs
+          node --test cloudflare-static/summarize-deployment-blocker.test.mjs
+          node --test cloudflare-static/validate-deployment-blocker.test.mjs
+          node --test cloudflare-static/build-deployment-authorization-request.test.mjs
+
+      - name: Classify credential readiness without exposing values
+        id: readiness
+        continue-on-error: true
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_RESEARCH_SURFACE: mirror-cartographer-research
+        run: node cloudflare-static/check-deployment-readiness.mjs cloudflare-deployment-readiness.json
+
+      - name: Build redacted blocker summary
+        if: always()
+        run: node cloudflare-static/summarize-deployment-blocker.mjs cloudflare-deployment-readiness.json cloudflare-deployment-blocker.json
+
+      - name: Validate blocker summary
+        if: always()
+        run: node cloudflare-static/validate-deployment-blocker.mjs cloudflare-deployment-blocker.json
+
+      - name: Build redacted deployment authorization packet
+        if: always()
+        run: >-
+          node cloudflare-static/build-deployment-authorization-request.mjs
+          cloudflare-deployment-blocker.json
+          cloudflare-deployment-authorization-request.json
+
+      - name: Assert privacy and dispatch invariants
+        if: always()
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const readiness = JSON.parse(fs.readFileSync('cloudflare-deployment-readiness.json', 'utf8'));
+          const blocker = JSON.parse(fs.readFileSync('cloudflare-deployment-blocker.json', 'utf8'));
+          const request = JSON.parse(fs.readFileSync('cloudflare-deployment-authorization-request.json', 'utf8'));
+          if (readiness.privacy?.secret_values_emitted !== false) throw new Error('readiness-must-redact-secret-values');
+          if (blocker.privacy?.secret_values_emitted !== false) throw new Error('blocker-must-redact-secret-values');
+          if (request.privacy?.secret_values_emitted !== false) throw new Error('authorization-request-must-redact-secret-values');
+          if (request.dispatch?.secret_values_in_command !== false) throw new Error('dispatch-command-must-not-contain-secret-values');
+          if (request.target?.workflow !== '.github/workflows/cloudflare-pages-research.yml') throw new Error('authorization-target-workflow-mismatch');
+          const expected = blocker.status === 'ready' ? 'ready_to_dispatch' : 'authorization_required';
+          if (request.status !== expected) throw new Error('authorization-status-mismatch');
+          process.stdout.write(`${JSON.stringify({ readiness: readiness.ready, blocker_status: blocker.status, authorization_status: request.status })}\n`);
+          NODE
+
+      - name: Upload redacted authorization evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: cloudflare-authorization-preflight-${{ github.sha }}
+          path: |
+            cloudflare-deployment-readiness.json
+            cloudflare-deployment-blocker.json
+            cloudflare-deployment-authorization-request.json
+            cloudflare-static/deployment-manifest.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish authorization summary
+        if: always()
+        run: |
+          node --input-type=module - <<'NODE' >> "$GITHUB_STEP_SUMMARY"
+          import fs from 'node:fs';
+          const blocker = JSON.parse(fs.readFileSync('cloudflare-deployment-blocker.json', 'utf8'));
+          const request = JSON.parse(fs.readFileSync('cloudflare-deployment-authorization-request.json', 'utf8'));
+          console.log('## Cloudflare research authorization preflight');
+          console.log(`- Source commit: \`${process.env.GITHUB_SHA}\``);
+          console.log(`- Status: \`${request.status}\``);
+          console.log(`- Blocker count: \`${blocker.blocker_count}\``);
+          console.log(`- Requested secret names: ${request.requested_secret_names.length ? request.requested_secret_names.map((name) => `\`${name}\``).join(', ') : 'none'}`);
+          console.log('- Secret values emitted: `false`');
+          console.log('- Deployment performed: `false`');
+          console.log('- Next gate: dispatch the production deployment workflow only after this packet reports `ready_to_dispatch`.');
+          NODE
