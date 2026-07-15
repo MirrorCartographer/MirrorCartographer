@@ -1,0 +1,114 @@
+{
+  "id": "CM-1030",
+  "created_at": "2026-07-15T06:19:00-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "memory": "An exhaustive provenance search is valid only relative to a frozen, replayable repository snapshot. A statement such as unlocated_after_exhaustive_coverage must bind the exact repository identity, enumerated refs and their target object IDs, traversal roots, traversal method, eligible object classes, historical path query, deleted-path query, retrieval time, and known blind spots. Without that snapshot envelope, later ref movement can make an earlier exhaustive claim neither reproducible nor safely reusable. Coverage evidence is therefore monotonic only within its declared snapshot; new refs or newly accessible history do not falsify the earlier observation, but they reopen the current effective classification until the expanded snapshot is traversed.",
+  "claims": {
+    "observed": [
+      "CURRENT_STATE.json requires evidence-backed implementation claims and prohibits publishing private chat or health material.",
+      "The canonical ACTIVE_QUEUE.json is stale relative to additive continuity queue updates and recent commits, so effective queue state must preserve later evidence rather than overwrite the baseline.",
+      "CM-1027 requires repository identity, commit reachability, path-at-commit, and blob identity to agree before source authenticity is promoted.",
+      "The prior continuity run established that unlocated is a coverage-qualified terminal classification rather than a synonym for no candidate found.",
+      "Recent continuity commits define immutable locator identity, claim-transition validation, and layered trust boundaries, but no retained snapshot envelope yet fixes exhaustive-search scope against ref movement."
+    ],
+    "inferred": [
+      "An exhaustive result without a retained ref-to-object inventory cannot be independently replayed after branches or tags move.",
+      "Repository growth after an exhaustive search should not rewrite the historical observation, but it should invalidate reuse of that observation as the current effective classification until the new scope is examined.",
+      "Coverage completeness and result outcome are separate dimensions: a complete traversal can yield verified_origin, unlocated, or conflicting_candidates.",
+      "A provenance system that stores only commands and timestamps but not the enumerated snapshot permits false claims of completeness."
+    ],
+    "proposed": [
+      "Define a coverage_snapshot_id as the SHA-256 digest of a canonical manifest containing repository_full_name, default branch, all accessible refs with target object IDs, traversal roots, tool version, query contract, and blind spots.",
+      "Require terminal provenance classifications to cite exactly one retained coverage_snapshot_id and one result set digest.",
+      "Treat newly discovered refs, changed ref targets, expanded permissions, or changed query semantics as scope-expansion events that reopen effective classification without deleting prior records.",
+      "Retain raw machine-readable manifests and compact public summaries; never retain private source contents merely to prove enumeration."
+    ],
+    "superseded": [
+      "Calling a search exhaustive because the same bounded query was repeated many times.",
+      "Treating a timestamped search log as replayable without preserving the enumerated refs and object identities.",
+      "Overwriting an earlier unlocated classification when repository scope expands.",
+      "Allowing current default-branch state to stand in for the historical snapshot actually searched."
+    ],
+    "unresolved": [
+      "No executable snapshot-manifest builder is yet committed.",
+      "No authenticated all-accessible-refs inventory has been retained for the repository.",
+      "M-004, M-005, and M-006 still lack verified immutable origins or evidence-backed unlocated classifications.",
+      "Connector-visible ref enumeration may be incomplete relative to a full authenticated git transport or repository archive."
+    ]
+  },
+  "snapshot_contract": {
+    "required_manifest_fields": [
+      "repository_full_name",
+      "repository_id",
+      "default_branch",
+      "retrieved_at",
+      "enumeration_method",
+      "tool_identity_and_version",
+      "refs_with_target_object_ids",
+      "traversal_roots",
+      "eligible_object_classes",
+      "historical_path_query_contract",
+      "deleted_path_query_contract",
+      "known_blind_spots"
+    ],
+    "required_result_fields": [
+      "coverage_snapshot_id",
+      "result_set_digest",
+      "candidate_count",
+      "classification",
+      "classification_reason",
+      "falsification_route"
+    ],
+    "terminal_classifications": [
+      "verified_origin",
+      "unlocated_after_exhaustive_coverage",
+      "conflicting_candidates"
+    ],
+    "nonterminal_classification": "unresolved_incomplete_coverage",
+    "scope_expansion_events": [
+      "new_ref",
+      "changed_ref_target",
+      "newly_accessible_history",
+      "expanded_permissions",
+      "changed_query_semantics",
+      "new_object_class_in_scope"
+    ],
+    "transition_rule": "A scope-expansion event appends a new transition to unresolved_incomplete_coverage for current effective state while preserving the prior snapshot-qualified terminal record.",
+    "deletion_rule": "Prior observations, manifests, and transitions are immutable and must not be deleted or rewritten."
+  },
+  "sources": [
+    {
+      "path": "operations/CURRENT_STATE.json",
+      "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+      "role": "governance_and_privacy_boundary"
+    },
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "role": "canonical_queue_baseline"
+    },
+    {
+      "path": "operations/SPECIALIST_REGISTRY.json",
+      "blob_sha": "88451b05101bcd8a259f98de5d9290e15357366b",
+      "role": "specialist_registry_rule"
+    },
+    {
+      "path": "operations/TRIGGER_REQUESTS.json",
+      "blob_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4",
+      "role": "peer_trigger_ledger"
+    },
+    {
+      "commit": "b1b7d876de56ce6a39932bd2968db6028caf6c8b",
+      "role": "immutable_locator_identity_contract"
+    },
+    {
+      "commit": "53a04c7cb8d763c90a209615d2fa081722438a50",
+      "role": "latest_retrieved_continuity_queue_handoff"
+    }
+  ],
+  "evidence_strength": "committed repository-grounded synthesis with explicit execution and connector-coverage limits",
+  "privacy_boundary": "Only public repository governance, abstract provenance semantics, paths, blob identifiers, commit identifiers, and coverage rules are retained. No private chat excerpts, personal data, health material, credentials, or unreviewed File Library content is included.",
+  "contradiction_resolution": "A prior exhaustive result and a later reopened classification can both be valid because they refer to different coverage snapshots. Historical truth is preserved; current effective state follows the newest applicable scope.",
+  "falsification_route": "Demonstrate a reproducible exhaustive provenance classification that remains safe under ref movement, permission expansion, and query-semantic changes without binding the exact enumerated repository snapshot and result digest."
+}
