@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-041",
+  "owner": "frontier_research",
+  "finding": "Unicode 17.0.0 Scripts.txt uses long Script values while ScriptExtensions.txt uses four-letter aliases; PropertyValueAliases.txt is the canonical namespace bridge. Restriction-level and mixed-script logic should consume one normalized four-letter namespace and reject unknown or duplicate aliases fail-closed.",
+  "primary_sources": [
+    {
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/Scripts.txt",
+      "status": "official Unicode 17.0.0 data",
+      "observed_header": "Scripts-17.0.0.txt; dated 2025-07-24",
+      "locally_retrieved_bytes": 192460,
+      "sha256": "9f5e50d3abaee7d6ce09480f325c706f485ae3240912527e651954d2d6b035bf"
+    },
+    {
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/ScriptExtensions.txt",
+      "status": "official Unicode 17.0.0 data; inspected through primary-source endpoint"
+    },
+    {
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/PropertyValueAliases.txt",
+      "status": "official Unicode 17.0.0 alias data; inspected through primary-source endpoint"
+    },
+    {
+      "url": "https://www.unicode.org/reports/tr39/",
+      "status": "official Unicode Security Mechanisms specification"
+    }
+  ],
+  "artifact": "tools/frontier-research/unicode-script-aliases.mjs",
+  "test": "tools/frontier-research/unicode-script-aliases.test.mjs",
+  "verification": {
+    "command": "node --test unicode-script-aliases.test.mjs",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "environment": "isolated Node runtime using byte-identical pre-commit files"
+  },
+  "evidence_strength": "deterministic fixture-tested implementation with official-source format grounding",
+  "uncertainty": [
+    "The complete PropertyValueAliases.txt and ScriptExtensions.txt bytes were not retained or digest-pinned in this slice.",
+    "Full Unicode 17.0.0 conformance was not executed in repository CI.",
+    "Normalization does not establish identifier safety or restriction level."
+  ],
+  "falsification_route": [
+    "Provide a valid Unicode 17.0.0 Script alias record rejected by the parser.",
+    "Provide malformed, duplicate, or unknown aliases accepted by the parser.",
+    "Show that equivalent long and short Script names normalize to different four-letter aliases.",
+    "Run the parser against authenticated full Unicode 17.0.0 PropertyValueAliases.txt and demonstrate a mismatch."
+  ],
+  "privacy_boundary": "Contains only public standards metadata, code paths, test outcomes, and a digest of public Unicode data; no private chat, health, credentials, or identifying personal material.",
+  "specialists_used": [
+    "Primary Source Scout",
+    "Technical Synthesist",
+    "Experiment Designer",
+    "Tool Evaluator",
+    "Cross-Domain Translator"
+  ]
+}
