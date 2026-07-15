@@ -16,6 +16,32 @@ export function mulberry32(seed) {
   };
 }
 
+export function traceFor(forms = [], maxSegments = 28) {
+  if (!Array.isArray(forms)) throw new TypeError('forms must be an array');
+  if (!Number.isInteger(maxSegments) || maxSegments < 0) throw new TypeError('maxSegments must be a non-negative integer');
+  if (forms.length < 2 || maxSegments === 0) return [];
+  const ordered = [...forms].sort((a, b) => a.id.localeCompare(b.id));
+  const available = ordered.slice(1);
+  const segments = [];
+  let current = ordered[0];
+  while (available.length && segments.length < maxSegments) {
+    let nearestIndex = 0;
+    let nearestDistance = Number.POSITIVE_INFINITY;
+    for (let index = 0; index < available.length; index += 1) {
+      const candidate = available[index];
+      const distance = (candidate.x - current.x) ** 2 + (candidate.y - current.y) ** 2;
+      if (distance < nearestDistance || (distance === nearestDistance && candidate.id.localeCompare(available[nearestIndex].id) < 0)) {
+        nearestDistance = distance;
+        nearestIndex = index;
+      }
+    }
+    const next = available.splice(nearestIndex, 1)[0];
+    segments.push({ from: current.id, to: next.id });
+    current = next;
+  }
+  return segments;
+}
+
 export function sceneFor(seed = 1, width = 1280, height = 720) {
   if (!Number.isInteger(seed) || seed < 0) throw new TypeError('seed must be a non-negative integer');
   if (!(width > 0) || !(height > 0)) throw new TypeError('dimensions must be positive');
@@ -32,12 +58,13 @@ export function sceneFor(seed = 1, width = 1280, height = 720) {
     color: palette[1 + (index % (palette.length - 1))]
   }));
   return {
-    version: 'afterimage-scene/1',
+    version: 'afterimage-scene/2',
     seed,
     width,
     height,
     background: palette[0],
     forms,
+    trace: traceFor(forms),
     tone: {
       baseHz: 110 + (seed % 7) * 13.75,
       interval: [1, 1.25, 1.5, 2][seed % 4],
