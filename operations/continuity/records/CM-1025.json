@@ -1,0 +1,78 @@
+{
+  "id": "CM-1025",
+  "created_at": "2026-07-14T21:48:51-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "memory": "A continuity transition graph is trustworthy only when its structural and authority predicates are executable and fail closed. Immutable claim retention is necessary but insufficient: every transition must resolve two existing claims, remain acyclic for effective-state derivation, respect explicit scope boundaries, and require exhaustive evidence plus adequate authority before expanding scope.",
+  "claims": {
+    "observed": [
+      "CM-1024 defines immutable claims and typed transition edges, and explicitly lists the absence of an executable reconciler as unresolved.",
+      "The canonical queue remains an older baseline and does not contain M-RECONCILE-002; later no-overwrite continuity records carry the active reconciliation work.",
+      "A deterministic validator and adversarial test suite now exist under tools/continuity."
+    ],
+    "inferred": [
+      "A prose-only transition contract cannot prevent destructive supersession, dangling references, cycles, or authority-free scope expansion at ingestion time.",
+      "Scope expansion is materially different from narrowing and requires both exhaustive coverage evidence and authority at least as strong as the source claim."
+    ],
+    "proposed": [
+      "Run validateClaimTransitionGraph before deriving effective continuity state or accepting a transition packet.",
+      "Keep the authority order configurable, but require every source and transition authority class to resolve inside that order.",
+      "Add immutable-content digest checks and source-locator verification in a later slice; this validator deliberately addresses graph semantics rather than source authenticity."
+    ],
+    "superseded": [
+      "Treating successful JSON parsing or schema presence as sufficient validation of continuity transitions.",
+      "Allowing later timestamps or broader assertions to expand source scope without exhaustive evidence and adequate authority."
+    ],
+    "unresolved": [
+      "Existing pre-CM-1024 records still lack claim-level migration into this graph model.",
+      "The validator does not yet verify cryptographic digests, immutable locator reachability, transition timestamps, or privacy-policy compatibility.",
+      "The originating immutable sources for M-004, M-005, and M-006 remain unresolved."
+    ]
+  },
+  "implementation": {
+    "module": "tools/continuity/claim-transition-validator.mjs",
+    "module_commit": "4f1c1ae95ddbff73189335e369fde6f6c6efad44",
+    "test": "tools/continuity/claim-transition-validator.test.mjs",
+    "test_commit": "f715e77a2d7f9d616ac9388a6cd26e7c768eaff7",
+    "verified_behaviors": [
+      "preserves both immutable claims after valid supersession",
+      "rejects dangling claim references",
+      "rejects effective-state cycles",
+      "rejects scope expansion without exhaustive evidence",
+      "rejects scope expansion under weaker authority",
+      "accepts evidence-backed scope expansion at equal authority"
+    ],
+    "verification": "node --test claim-transition-validator.test.mjs: 6 passed, 0 failed in an isolated Node runtime using byte-identical source content"
+  },
+  "sources": [
+    {
+      "path": "operations/CURRENT_STATE.json",
+      "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+      "role": "governance_and_privacy_boundary"
+    },
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "role": "canonical_queue_baseline"
+    },
+    {
+      "path": "operations/SPECIALIST_REGISTRY.json",
+      "blob_sha": "88451b05101bcd8a259f98de5d9290e15357366b",
+      "role": "specialist_registry_rule"
+    },
+    {
+      "path": "operations/TRIGGER_REQUESTS.json",
+      "blob_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4",
+      "role": "peer_trigger_ledger"
+    },
+    {
+      "path": "operations/continuity/records/CM-1024.json",
+      "blob_sha": "0427076b7f839e6250e05d07e1e5ad03fc46c1a7",
+      "role": "claim_transition_contract"
+    }
+  ],
+  "evidence_strength": "committed_executable_validator_with_deterministic_adversarial_tests",
+  "privacy_boundary": "Only public repository governance, abstract continuity semantics, commit identities, test outcomes, and non-personal source metadata are retained. Private chat text, health material, credentials, identifying personal content, and unreviewed File Library material are excluded.",
+  "contradiction_resolution": "The canonical queue marks M-001 completed and contains no M-RECONCILE-002, while later continuity records explicitly identify M-RECONCILE-002 as active. This is not resolved by overwriting the queue. Under the repository's no-overwrite practice and CM-1022 precedence rule, the older canonical queue is preserved as a baseline and the later immutable continuity records represent subsequent work state, subject to future executable effective-state reconciliation.",
+  "falsification_route": "Provide a graph that the validator accepts despite a dangling reference, cycle, unauthorized scope expansion, destructive claim loss, or invalid epistemic or transition class; or provide a valid graph it rejects. Source-authenticity failures do not falsify this graph-semantic slice because they remain explicitly out of scope."
+}
