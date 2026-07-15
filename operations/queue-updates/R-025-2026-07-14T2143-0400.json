@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-025",
+  "owner": "frontier_research",
+  "priority_basis": "Immediate successor to R-024: harden the new raw JSON ingestion boundary against resource-exhaustion ambiguity before broader integration or differential fuzzing.",
+  "action": "Add deterministic UTF-8 byte-size and structural nesting-depth limits to strict JSON evidence ingestion.",
+  "status": "completed_vertical_slice",
+  "dependencies": ["R-024"],
+  "primary_source": "https://www.rfc-editor.org/rfc/rfc8259.html#section-9",
+  "finding": "RFC 8259 permits implementations to bound accepted text size and maximum nesting depth; evidence ingestion should make those limits explicit and testable rather than inheriting runtime-dependent failure behavior.",
+  "implementation": {
+    "module": "tools/frontier-research/canonical-json-text-digest.mjs",
+    "test": "tools/frontier-research/canonical-json-text-limits.test.mjs",
+    "evidence": "operations/evidence/R-025-json-ingestion-resource-bounds-2026-07-14T2143-0400.json",
+    "default_limits": {"maxBytes": 1048576, "maxDepth": 128},
+    "commits": [
+      "10176e26e84571ad3618c1e6bab550901c7ae30a",
+      "8b018d8a56bcfbf73c72196fa904107b82ac18e5",
+      "1d66ca06a3d8c363750ac04c56284d7b1cd0f3c3"
+    ]
+  },
+  "verification": "7 deterministic Node tests passed in an isolated runtime using byte-identical implementation and dependency copies; repository-wide CI remains pending.",
+  "source_status": "primary_standard_current_as_of_2026-07-14",
+  "evidence_strength": "implemented_and_isolated_tested",
+  "uncertainty": "The selected defaults are local policy choices and may require tuning from production evidence-size distributions.",
+  "falsification_route": "Attempt boundary, over-boundary, multibyte, mixed-container, and duplicate-member cases; any accepted over-limit input or rejected valid boundary input falsifies the gate.",
+  "handoff": "Integrate the bounded parser at every raw JSON evidence-ingestion boundary, then run the planned differential-fuzz harness below the same explicit limits.",
+  "canonical_queue_overwrite": false,
+  "specialist_registry_change": false
+}
