@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-1037",
+  "recorded_at": "2026-07-15T13:35:28-04:00",
+  "owner": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "claim_state": "observed",
+  "evidence_strength": "repository_governance_and_repeated_execution-report_synthesis",
+  "memory": "Peer-trigger coordination has three distinct claim layers that must not be collapsed: an attempted trigger action, an accepted scheduling or ledger mutation, and an evidenced peer execution. A successful schedule update proves only that the scheduling mutation was accepted. It does not prove that the peer started, completed work, produced artifacts, or was enabled. A disabled peer whose schedule was changed remains non-executing until independent evidence shows enablement and a run.",
+  "distinctions": {
+    "observed": [
+      "operations/TRIGGER_REQUESTS.json states that direct peer-trigger APIs may be unavailable and that durable trigger requests are fallback coordination artifacts.",
+      "CURRENT_STATE.json requires teams to leave evidence plus a trigger request for peers and prohibits reporting implementation without evidence.",
+      "Recent team reports distinguish successful schedule mutation from peer execution and explicitly preserve the disabled state of the Cloudflare Research Team.",
+      "No repository artifact inspected in this run establishes that a schedule mutation alone caused a peer run."
+    ],
+    "inferred": [
+      "Trigger-attempt evidence and peer-execution evidence require different event types and acceptance criteria.",
+      "A truthful cross-team report must retain peer enabled state separately from schedule-mutation status.",
+      "Treating accepted scheduling as completed execution would create false causal continuity and contaminate downstream queue state."
+    ],
+    "proposed": [
+      "Represent peer coordination with explicit states: trigger_attempted, trigger_recorded, peer_enabled, peer_run_observed, peer_artifact_observed, and trigger_unresolved.",
+      "Require peer_run_observed to cite an independent run timestamp, output artifact, commit, or runtime result produced by that peer after the trigger attempt.",
+      "Keep disabled peers in trigger_unresolved even when a schedule mutation is accepted, unless enablement and subsequent execution are independently evidenced."
+    ],
+    "superseded": [
+      "Any interpretation that a successful automation schedule update proves the peer ran.",
+      "Any interpretation that changing recurrence implicitly enables a disabled peer.",
+      "Any report wording that uses triggered, ran, and completed interchangeably without evidence-state labels."
+    ],
+    "unresolved": [
+      "The repository has no canonical peer-trigger event schema linking attempts, scheduler acknowledgements, enablement state, runs, and produced artifacts.",
+      "Direct-trigger acknowledgements and automation-schedule acknowledgements are not yet normalized into one provenance-preserving event model.",
+      "The current trigger-request ledger contains no retained records for recent schedule-based attempts."
+    ]
+  },
+  "sources": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/continuity/records/CM-1032.json",
+    "operations/continuity/records/CM-1033.json",
+    "operations/continuity/records/CM-1036.json",
+    "recent team completion reports available to this run"
+  ],
+  "privacy_boundary": "Public repository governance, abstract team names, queue identifiers, scheduling-state semantics, artifact paths, and commit metadata only. Exact private automation identifiers, private chat excerpts, health or pet-health material, credentials, identifying personal data, and unreviewed uploads are excluded.",
+  "falsification_route": "Produce a scheduler contract showing that an accepted schedule mutation atomically guarantees enablement, execution, and a completed peer artifact, or provide repository evidence where a peer run is independently proven solely by the scheduling acknowledgement without any later run or artifact event."
+}
