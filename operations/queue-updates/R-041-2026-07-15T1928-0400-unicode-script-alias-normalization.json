@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-041",
+  "owner": "frontier_research",
+  "priority_basis": "Highest-priority non-duplicative handoff from R-040: normalize long and short Unicode Script names before restriction-level integration.",
+  "status": "completed_slice",
+  "selected_from": {
+    "canonical_queue": "operations/ACTIVE_QUEUE.json",
+    "prior_artifacts_reviewed": [
+      "tools/frontier-research/unicode-script-data.mjs",
+      "tools/frontier-research/unicode-script-data.test.mjs",
+      "operations/queue-updates/R-040-2026-07-15T1904Z-unicode-script-data.json",
+      "recent frontier commit history through ae79e358134f60c802a09725001a3fe5de9babf9"
+    ]
+  },
+  "completed": [
+    "Implemented a strict PropertyValueAliases Script-property parser.",
+    "Added bidirectional long-name and four-letter alias mapping.",
+    "Added deterministic normalization of mixed Script and Script_Extensions sets into one four-letter namespace.",
+    "Added fail-closed handling for malformed, duplicate, absent, and unknown aliases.",
+    "Recorded public-source status, uncertainty, trust limits, and falsification routes."
+  ],
+  "files": [
+    "tools/frontier-research/unicode-script-aliases.mjs",
+    "tools/frontier-research/unicode-script-aliases.test.mjs",
+    "operations/evidence/R-041-unicode-script-alias-normalization-2026-07-15T1928-0400.json"
+  ],
+  "commits": [
+    "9e03e3e4f9d15d2b3afaaaac0d53747a61769c1e",
+    "c14123f9e5c474e020c6cb3ebdb3e228e886be69",
+    "1ce30326cb14a8dd332978d64b64aba3acc420a8"
+  ],
+  "verification": "5 deterministic Node tests passed with 0 failures in an isolated runtime using byte-identical pre-commit files.",
+  "handoff": "Digest-pin and retain complete Unicode 17.0.0 PropertyValueAliases.txt and ScriptExtensions.txt bytes, run full-data conformance, then inject normalizeScriptSets into the restriction-level classifier before any script-set intersections are evaluated.",
+  "limits": [
+    "No canonical shared-state file was overwritten.",
+    "No GitHub file or history was deleted.",
+    "No specialist was added or retired.",
+    "No live repository CI run was observed.",
+    "Complete alias and Script_Extensions source bytes were not retained in this slice."
+  ]
+}
