@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "item": {
+    "id": "R-030",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Keep identifier-profile eligibility and confusable uniqueness as independent mandatory admission gates.",
+    "dependencies": ["R-024", "R-029"],
+    "required_evidence": ["current primary specification", "committed policy", "deterministic tests", "explicit limits", "falsification route"],
+    "status": "completed_handoff_ready",
+    "progress": {
+      "finding": "UTS #39 specifies identifier profiles and confusable detection separately; neither result can substitute for the other.",
+      "module": "tools/frontier-research/identifier-admission-policy.mjs",
+      "test": "tools/frontier-research/identifier-admission-policy.test.mjs",
+      "evidence": "operations/evidence/R-030-identifier-admission-policy-2026-07-15T1004Z.json",
+      "commits": [
+        "a8730e55708e37d82cf8fc3586230accab723db9",
+        "830351515b1ab1b7193c14813ce2ece60a3e437a",
+        "0d04fb10ad2359f871f0a1753f63c501bdd32c2e"
+      ],
+      "verification": "5 deterministic Node tests passed in an isolated runtime using an exact functional copy of the committed artifacts.",
+      "limits": "This is a composition policy, not a General Security Profile evaluator, skeleton implementation, script resolver, or UTS #39 conformance claim."
+    },
+    "handoff": "Evidence-ingestion and identity-registry consumers should require versioned, complete outputs from both upstream mechanisms and reject on any incomplete, negative, or conflicting result."
+  },
+  "coordination_note": "Additive projection used to avoid overwriting canonical queue state or concurrent team updates."
+}
