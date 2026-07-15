@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-15T19:32:00-04:00",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Bound the redacted Cloudflare authorization preflight packet to the exact repository, workflow reference, source commit, workflow run ID, and run attempt; added fail-closed validation and retained the context result as an artifact.",
+  "files": [
+    "cloudflare-static/build-deployment-authorization-request.mjs",
+    "cloudflare-static/validate-authorization-preflight-context.mjs",
+    "cloudflare-static/validate-authorization-preflight-context.test.mjs",
+    ".github/workflows/cloudflare-pages-authorization-preflight.yml",
+    "operations/evidence/cloudflare-authorization-context-binding-2026-07-15T1932-0400.json"
+  ],
+  "verification": {
+    "route": "Node native test runner against byte-equivalent implementation logic",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0
+  },
+  "remaining_blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN values, followed by an observed preflight run and production deployment workflow run.",
+  "acceptance_remaining": [
+    "observed authorization preflight workflow run with context_verified=true",
+    "ready_to_dispatch authorization status",
+    "successful production workflow run",
+    "Cloudflare-returned resolving deployment URL",
+    "served research surface identity bound to the deployed commit"
+  ],
+  "non_claims": [
+    "No deployment occurred in this run.",
+    "No hostname was verified.",
+    "No peer team execution is claimed.",
+    "No diagnosis or treatment claim was published."
+  ]
+}
