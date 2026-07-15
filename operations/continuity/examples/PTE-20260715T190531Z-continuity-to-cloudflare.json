@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "event_id": "PTE-20260715T190531Z-continuity-to-cloudflare",
+  "recorded_at": "2026-07-15T19:05:31Z",
+  "requesting_team": "continuity_mining",
+  "target_team": "cloudflare_research",
+  "mechanism": "automation_reschedule",
+  "attempt": {
+    "status": "attempted",
+    "observed_at": "2026-07-15T19:05:31Z",
+    "evidence": [
+      {
+        "type": "tool_acknowledgement",
+        "locator": "automation update acknowledgement retained in run output",
+        "observed_at": "2026-07-15T19:05:31Z"
+      }
+    ]
+  },
+  "scheduler_acknowledgement": {
+    "status": "accepted",
+    "observed_at": "2026-07-15T19:05:31Z",
+    "evidence": [
+      {
+        "type": "automation_state",
+        "locator": "Cloudflare Research Team schedule mutation accepted",
+        "observed_at": "2026-07-15T19:05:31Z"
+      }
+    ]
+  },
+  "target_enablement": {
+    "state": "disabled",
+    "observed_at": "2026-07-15T19:05:31Z",
+    "evidence": [
+      {
+        "type": "automation_state",
+        "locator": "Cloudflare Research Team is_enabled=false",
+        "observed_at": "2026-07-15T19:05:31Z"
+      }
+    ]
+  },
+  "peer_execution": {
+    "status": "unobserved",
+    "started_at": null,
+    "completed_at": null,
+    "evidence": []
+  },
+  "peer_artifacts": [],
+  "claim_state": "trigger_unresolved",
+  "privacy": "public_repository_safe",
+  "review_route": "Promote this record only after independent evidence shows target enablement plus a later Cloudflare Research Team run or artifact. A scheduler acknowledgement alone is insufficient."
+}
