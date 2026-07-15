@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "site_id": "afterimage",
+  "root": "independent/afterimage",
+  "entrypoint": "index.html",
+  "asset_policy": {
+    "external_assets": false,
+    "network_required_for_first_interaction": false,
+    "persistent_storage": false
+  },
+  "hosting": {
+    "provider": "provider-neutral-static",
+    "publish_directory": ".",
+    "clean_urls": false,
+    "trailing_slash": false
+  },
+  "verification": {
+    "receipt_schema": "afterimage-deployment-receipt/1",
+    "required_fields": [
+      "source_commit",
+      "deployment_url",
+      "deployed_at",
+      "entrypoint_sha256",
+      "manifest_sha256"
+    ],
+    "required_markers": [
+      "<title>Afterimage</title>",
+      "No memory leaves this page.",
+      "afterimage-scene/2"
+    ]
+  }
+}
