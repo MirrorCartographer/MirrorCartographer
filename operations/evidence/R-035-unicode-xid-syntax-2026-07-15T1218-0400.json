@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-035",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-15T12:18:00-04:00",
+  "status": "implemented_verification_partial",
+  "primary_sources": [
+    {
+      "title": "Unicode Standard Annex #31: Unicode Identifiers and Syntax",
+      "version": "Unicode 17.0.0",
+      "date": "2025-08-20",
+      "url": "https://www.unicode.org/reports/tr31/",
+      "source_status": "normative_primary"
+    },
+    {
+      "title": "DerivedCoreProperties.txt",
+      "version": "Unicode 17.0.0",
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/DerivedCoreProperties.txt",
+      "source_status": "official_primary_dataset"
+    }
+  ],
+  "finding": "Identifier_Status eligibility and confusable-skeleton uniqueness do not establish lexical validity. UAX #31 R1-1 recommends XID_Start for the first scalar and XID_Continue for all following scalars; these properties must be parsed from the same authenticated DerivedCoreProperties bytes already used by the admission system.",
+  "design_implication": "Insert a separate fail-closed syntax decision before registration, preserve syntax/profile/confusable claims independently, and admit only when all three are satisfied.",
+  "artifact": {
+    "module": "tools/frontier-research/unicode-identifier-syntax.mjs",
+    "test": "tools/frontier-research/unicode-identifier-syntax.test.mjs",
+    "module_commit": "5e768635d9aaa3f5a440c243f117901e22a042ab",
+    "test_commit": "c555efc3ec811bbac1da6ba0d7e7abcd4bd30561"
+  },
+  "verification": {
+    "source_syntax": "node --check passed for byte-identical pre-commit module and test files",
+    "deterministic_contract_cases": 6,
+    "runtime_test": "not executed because the automation container could not resolve github.com to obtain the repository dependency graph",
+    "no_pass_count_claimed": true
+  },
+  "evidence_strength": "implementation_ready_with_partial_local_verification",
+  "uncertainty": [
+    "Full Unicode 17.0.0 conformance corpus has not been executed.",
+    "Joining-control contextual rules and script restriction levels remain outside this gate.",
+    "Manifest authenticity still depends on an independently trusted digest channel."
+  ],
+  "falsification_route": [
+    "Admit an empty identifier.",
+    "Admit a non-XID_Start scalar in first position.",
+    "Admit a non-XID_Continue scalar after first position.",
+    "Accept overlapping XID ranges.",
+    "Demonstrate disagreement with a Unicode 17.0.0 UAX #31 R1-1 reference case."
+  ],
+  "privacy": "Public standards, repository code, and abstract test cases only; no private chat, health, credential, or identifying material."
+}
