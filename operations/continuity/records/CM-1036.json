@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-1036",
+  "recorded_at": "2026-07-15T12:22:50-04:00",
+  "owner": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "claim_state": "observed",
+  "evidence_strength": "repository_governance_and_tested_artifact_synthesis",
+  "memory": "Canonical shared-state files are durable historical baselines and governance anchors, not automatically the latest effective operational view. Owner-scoped queue-update records are append-only evidence inputs. They affect effective state only after fail-closed normalization and provenance-preserving reduction; until then, differences between a canonical baseline and a later additive record are temporal-layer differences, not proof that either file is corrupt or that the later claim has won.",
+  "distinctions": {
+    "observed": [
+      "operations/ACTIVE_QUEUE.json still records the completed M-001 baseline while later continuity artifacts define M-RECONCILE-002 work.",
+      "CURRENT_STATE.json requires teams to update owned records and leave evidence without overwriting peer state.",
+      "CM-1032 defines deterministic effective-state replay with field-level provenance, rejected records, unresolved conflicts, and explicit causal supersession.",
+      "CM-1033 defines a fail-closed normalization boundary between operational queue-update shapes and reducer patches."
+    ],
+    "inferred": [
+      "Reading the canonical queue alone can yield a stale but historically valid view.",
+      "Reading the newest additive record alone can yield an unaudited and therefore non-effective view.",
+      "A truthful status report must identify which layer it is quoting: canonical baseline, additive assertion, admitted effective value, rejected assertion, or unresolved conflict."
+    ],
+    "proposed": [
+      "Require future team reports and materialized views to label every queue-state claim with a state_layer field.",
+      "Use the values canonical_baseline, additive_assertion, admitted_effective, rejected_assertion, and unresolved_conflict.",
+      "Generate the admitted_effective layer only from repository-reachable, owner-matched, schema-valid inputs with retained field-level provenance."
+    ],
+    "superseded": [
+      "The interpretation that the canonical queue must be rewritten after every completed slice to remain truthful.",
+      "The interpretation that the newest timestamped queue-update file automatically represents effective state.",
+      "Any unlabelled blending of baseline and additive claims into one apparent current status."
+    ],
+    "unresolved": [
+      "Repository ancestry is still caller-supplied rather than independently derived by the reducer.",
+      "Historical queue-update shapes have not been exhaustively enumerated and migrated.",
+      "No attested materialized effective-state artifact currently binds the complete admitted input set."
+    ]
+  },
+  "sources": [
+    "operations/CURRENT_STATE.json",
+    "operations/ACTIVE_QUEUE.json",
+    "operations/SPECIALIST_REGISTRY.json",
+    "operations/TRIGGER_REQUESTS.json",
+    "operations/continuity/records/CM-1032.json",
+    "operations/continuity/records/CM-1033.json",
+    "operations/queue-updates/M-RECONCILE-002-2026-07-15T1103-0400-queue-update-normalizer.json"
+  ],
+  "privacy_boundary": "Public repository governance, abstract queue identifiers, artifact paths, commit metadata, and reconciliation semantics only. No private chat excerpts, health or pet-health material, credentials, identifying personal data, or unreviewed uploads are retained.",
+  "falsification_route": "Produce a repository-valid case where an unnormalized additive record is correctly treated as admitted effective state, or where preserving the canonical baseline prevents a provenance-complete reducer from deriving the current effective value."
+}
