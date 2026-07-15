@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-033",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-15T07:36:00-04:00",
+  "claim_state": "observed_and_tested",
+  "finding": "Unicode identifier admission data must be treated as one authenticated, exact-version bundle. Exact URLs, same-version headers, SHA-256 verification, redirect rejection, and cross-file consistency are independent admission conditions; HTTPS or a mutable latest alias is insufficient.",
+  "primary_sources": [
+    {
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/DerivedCoreProperties.txt",
+      "status": "official_versioned_data",
+      "observed": "Header identifies DerivedCoreProperties-17.0.0 and a 2025-07-30 data date."
+    },
+    {
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/ReadMe.txt",
+      "status": "official_versioned_release_directory"
+    },
+    {
+      "url": "https://www.unicode.org/reports/tr39/",
+      "status": "official_technical_standard",
+      "use": "Defines the security-data context for confusables and identifier status."
+    }
+  ],
+  "artifact": {
+    "module": "tools/frontier-research/unicode-data-bundle.mjs",
+    "test": "tools/frontier-research/unicode-data-bundle.test.mjs",
+    "commits": [
+      "e81afa8c2a4ecbd71c2ebc5af0bb6b93dc3e5739",
+      "6ff1395d70c88f1892e8606b939a3128e287cb72"
+    ]
+  },
+  "verification": {
+    "runtime": "Node test runner",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "behaviors": [
+      "accept exact-version digest-matched bundle",
+      "reject mutable latest URL",
+      "reject digest mismatch",
+      "reject cross-file Unicode version mismatch",
+      "reject response URL changes"
+    ]
+  },
+  "evidence_strength": "deterministic_unit_test_plus_official_versioned_source",
+  "uncertainty": [
+    "The complete Unicode 17.0.0 files were not downloaded and exhaustively processed in this run.",
+    "Expected digests still require an independently authenticated distribution channel.",
+    "Bundle authentication does not establish that an identifier is safe or non-malicious."
+  ],
+  "falsification_route": "Supply a canonical exact-version file whose verified digest and version header pass independently but which this loader rejects, or demonstrate acceptance of a redirected, digest-mismatched, mutable-alias, or cross-version bundle."
+}
