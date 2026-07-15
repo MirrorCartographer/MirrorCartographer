@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-040",
+  "owner": "frontier_research",
+  "created_at": "2026-07-15T19:04:27Z",
+  "status": "implemented_and_isolated_verified",
+  "sources": [
+    {
+      "url": "https://www.unicode.org/reports/tr24/",
+      "status": "current_primary_standard",
+      "evidence_strength": "high",
+      "claim": "Scripts.txt contains semicolon-delimited code point ranges and Script values; unlisted code points default to Unknown. ScriptExtensions.txt contains short Script aliases, overrides the default, and otherwise defaults to the singleton Script value."
+    },
+    {
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/Scripts.txt",
+      "status": "official_unicode_17_data",
+      "evidence_strength": "high"
+    },
+    {
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/ScriptExtensions.txt",
+      "status": "official_unicode_17_data",
+      "evidence_strength": "high"
+    }
+  ],
+  "finding": "Restriction-level classification should consume exact-version Script_Extensions sets derived from authenticated Unicode data. Explicit ScriptExtensions.txt entries override the singleton Script fallback; absent Script records resolve to Unknown.",
+  "design_implication": "Insert a fail-closed parser and binary-search lookup layer between authenticated Unicode bundle verification and restriction-level classification. Preserve file authentication, alias normalization, profile eligibility, confusable checks, and bidi safety as separate responsibilities.",
+  "artifacts": {
+    "module": "tools/frontier-research/unicode-script-data.mjs",
+    "test": "tools/frontier-research/unicode-script-data.test.mjs",
+    "commits": [
+      "fc7669ac04571948c23a12859cea885815452589",
+      "309af611e4f6625de8058666c60f00815636658d"
+    ]
+  },
+  "verification": {
+    "commands": [
+      "node --check unicode-script-data.mjs",
+      "node --test unicode-script-data.test.mjs"
+    ],
+    "result": "7 passed, 0 failed",
+    "scope": "byte-identical pre-commit files in isolated Node runtime"
+  },
+  "uncertainty": [
+    "The parser has not yet been run against the complete Unicode 17.0.0 data files in repository CI.",
+    "Scripts.txt long names and ScriptExtensions.txt four-letter aliases require an authenticated alias-normalization layer before direct use by the existing restriction classifier.",
+    "Data byte authentication and exact-version digest verification remain upstream requirements."
+  ],
+  "falsification_route": [
+    "Provide a valid Unicode data record rejected by the parser.",
+    "Provide overlapping or surrogate-containing ranges accepted by the parser.",
+    "Provide an explicit ScriptExtensions.txt entry that fails to override the Script fallback.",
+    "Run the complete Unicode 17.0.0 files and compare sampled and boundary lookups with a trusted independent implementation."
+  ]
+}
