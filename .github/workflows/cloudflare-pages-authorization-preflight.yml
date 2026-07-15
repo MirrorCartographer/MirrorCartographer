@@ -24,6 +24,7 @@ jobs:
           node --test cloudflare-static/summarize-deployment-blocker.test.mjs
           node --test cloudflare-static/validate-deployment-blocker.test.mjs
           node --test cloudflare-static/build-deployment-authorization-request.test.mjs
+          node --test cloudflare-static/validate-authorization-preflight-context.test.mjs
 
       - name: Classify credential readiness without exposing values
         id: readiness
@@ -42,12 +43,19 @@ jobs:
         if: always()
         run: node cloudflare-static/validate-deployment-blocker.mjs cloudflare-deployment-blocker.json
 
-      - name: Build redacted deployment authorization packet
+      - name: Build run-bound deployment authorization packet
         if: always()
         run: >-
           node cloudflare-static/build-deployment-authorization-request.mjs
           cloudflare-deployment-blocker.json
           cloudflare-deployment-authorization-request.json
+
+      - name: Validate exact preflight run context
+        if: always()
+        run: >-
+          node cloudflare-static/validate-authorization-preflight-context.mjs
+          cloudflare-deployment-authorization-request.json
+          cloudflare-authorization-preflight-context.json
 
       - name: Assert privacy and dispatch invariants
         if: always()
@@ -57,14 +65,16 @@ jobs:
           const readiness = JSON.parse(fs.readFileSync('cloudflare-deployment-readiness.json', 'utf8'));
           const blocker = JSON.parse(fs.readFileSync('cloudflare-deployment-blocker.json', 'utf8'));
           const request = JSON.parse(fs.readFileSync('cloudflare-deployment-authorization-request.json', 'utf8'));
+          const context = JSON.parse(fs.readFileSync('cloudflare-authorization-preflight-context.json', 'utf8'));
           if (readiness.privacy?.secret_values_emitted !== false) throw new Error('readiness-must-redact-secret-values');
           if (blocker.privacy?.secret_values_emitted !== false) throw new Error('blocker-must-redact-secret-values');
           if (request.privacy?.secret_values_emitted !== false) throw new Error('authorization-request-must-redact-secret-values');
           if (request.dispatch?.secret_values_in_command !== false) throw new Error('dispatch-command-must-not-contain-secret-values');
           if (request.target?.workflow !== '.github/workflows/cloudflare-pages-research.yml') throw new Error('authorization-target-workflow-mismatch');
+          if (context.ok !== true) throw new Error('authorization-preflight-context-must-verify');
           const expected = blocker.status === 'ready' ? 'ready_to_dispatch' : 'authorization_required';
           if (request.status !== expected) throw new Error('authorization-status-mismatch');
-          process.stdout.write(`${JSON.stringify({ readiness: readiness.ready, blocker_status: blocker.status, authorization_status: request.status })}\n`);
+          process.stdout.write(`${JSON.stringify({ readiness: readiness.ready, blocker_status: blocker.status, authorization_status: request.status, context_verified: context.ok })}\n`);
           NODE
 
       - name: Upload redacted authorization evidence
@@ -76,6 +86,7 @@ jobs:
             cloudflare-deployment-readiness.json
             cloudflare-deployment-blocker.json
             cloudflare-deployment-authorization-request.json
+            cloudflare-authorization-preflight-context.json
             cloudflare-static/deployment-manifest.json
           if-no-files-found: error
           retention-days: 30
@@ -87,9 +98,12 @@ jobs:
           import fs from 'node:fs';
           const blocker = JSON.parse(fs.readFileSync('cloudflare-deployment-blocker.json', 'utf8'));
           const request = JSON.parse(fs.readFileSync('cloudflare-deployment-authorization-request.json', 'utf8'));
+          const context = JSON.parse(fs.readFileSync('cloudflare-authorization-preflight-context.json', 'utf8'));
           console.log('## Cloudflare research authorization preflight');
           console.log(`- Source commit: \`${process.env.GITHUB_SHA}\``);
+          console.log(`- Run identity: \`${process.env.GITHUB_RUN_ID}/${process.env.GITHUB_RUN_ATTEMPT}\``);
           console.log(`- Status: \`${request.status}\``);
+          console.log(`- Context verified: \`${context.ok}\``);
           console.log(`- Blocker count: \`${blocker.blocker_count}\``);
           console.log(`- Requested secret names: ${request.requested_secret_names.length ? request.requested_secret_names.map((name) => `\`${name}\``).join(', ') : 'none'}`);
           console.log('- Secret values emitted: `false`');
