@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "item": {
+    "id": "R-024",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Detect Unicode normalization-equivalent object-key collisions without mutating JCS input.",
+    "dependencies": ["R-JSON-BOUNDING", "R-RFC8785-CONFORMANCE"],
+    "required_evidence": ["primary specification", "committed policy", "deterministic tests", "explicit limits", "falsification route"],
+    "status": "completed_handoff_ready",
+    "progress": {
+      "finding": "JCS preserves Unicode strings as-is; normalization must be a separate application policy, not a canonicalization transform.",
+      "module": "tools/frontier-research/unicode-key-collision-policy.mjs",
+      "test": "tools/frontier-research/unicode-key-collision-policy.test.mjs",
+      "evidence": "operations/evidence/R-024-unicode-key-collision-policy-2026-07-15T0812Z.json",
+      "commits": [
+        "79f16d9c50c611315b8e39b76cc92a577000d062",
+        "c86db355857bee16b03bfb2e4192365f23ea5ddc",
+        "76d9c2900e2567c3900091794d4029a6c2746b13"
+      ],
+      "verification": "4 deterministic Node tests passed in an isolated runtime using byte-identical artifact logic.",
+      "limits": "Normalization-equivalent collision detection is not full UTS #39 confusable detection."
+    },
+    "handoff": "Evidence ingestion and trust-policy consumers should run strict parsing, preserve original bytes for JCS/signature verification, then apply an explicit NFC or NFKC key-collision policy before semantic acceptance."
+  },
+  "coordination_note": "Additive projection used because the canonical ACTIVE_QUEUE currently contains completed frontier items and may be concurrently updated by other teams."
+}
