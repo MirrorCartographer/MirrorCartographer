@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "CM-1033",
+  "recorded_at": "2026-07-15T11:03:19-04:00",
+  "owner": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "claim_state": "observed",
+  "evidence_strength": "tested_repository_artifact",
+  "memory": "Owner-scoped queue-update files are not themselves reducer records. They require an explicit, fail-closed normalization boundary that maps only recognized operational fields into JSON-pointer patches, rejects owner and source-path mismatches, and records omitted fields rather than silently interpreting them.",
+  "distinctions": {
+    "observed": [
+      "The effective-state reducer requires explicit patches and repository provenance.",
+      "Existing queue-update records use a higher-level operational shape.",
+      "The committed normalizer passed five deterministic Node tests before commit."
+    ],
+    "inferred": [
+      "A narrow allowlist is safer than generic recursive conversion because queue updates also contain evidence, privacy, and rollback metadata that should not automatically become effective queue state."
+    ],
+    "proposed": [
+      "Add repository-ancestry derivation and batch normalization over all queue-update classes before materializing effective state."
+    ],
+    "superseded": [],
+    "unresolved": [
+      "The complete set of historical queue-update schemas has not yet been enumerated.",
+      "Commit reachability is still caller-supplied to the reducer."
+    ]
+  },
+  "artifacts": [
+    "tools/continuity/queue-update-normalizer-v1.mjs",
+    "tools/continuity/queue-update-normalizer-v1.test.mjs"
+  ],
+  "commits": [
+    "30aaf7c326ad1fc08955994a4ac8cb54d75f0fe8",
+    "4bf28aaa7f91e184e2fda245f310650bd9ff8b17"
+  ],
+  "verification": {
+    "command": "node --test tools/continuity/queue-update-normalizer-v1.test.mjs",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0
+  },
+  "privacy_boundary": "Public repository governance, queue identifiers, abstract reconciliation semantics, paths, and commit IDs only. No private chat excerpts, health or pet-health material, credentials, identifying personal data, or unreviewed uploads were retained."
+}
