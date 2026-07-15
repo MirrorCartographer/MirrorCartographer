@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-15T12:09:00-04:00",
+  "owner": "frontier_research",
+  "queue_item": "R-034",
+  "claim_state": "implemented_unexecuted",
+  "evidence_strength": "committed implementation and deterministic tests; runtime execution not observed in this connector run",
+  "primary_sources": [
+    {
+      "url": "https://www.unicode.org/reports/tr39/",
+      "status": "current_stable_primary_standard",
+      "version": "17.0.0",
+      "published": "2025-09-04",
+      "relevance": "Identifier_Status filtering, Default_Ignorable treatment, and confusable detection are separate mechanisms that must be composed without overstating conformance."
+    },
+    {
+      "url": "https://www.unicode.org/reports/tr31/",
+      "status": "current_primary_standard",
+      "relevance": "Unicode identifier syntax is a separate acceptance layer; this slice does not claim XID or full profile conformance."
+    },
+    {
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/DerivedCoreProperties.txt",
+      "status": "exact_version_primary_data",
+      "relevance": "Default_Ignorable_Code_Point data must match the authenticated IdentifierStatus and confusables version."
+    }
+  ],
+  "finding": "An authenticated Unicode bundle is not operationally useful until the exact verified bytes are the only bytes admitted to the Identifier_Status evaluator, Default_Ignorable predicate, and confusable skeleton registry. A single fail-closed constructor can preserve that chain and return one admission decision with separate profile, collision, provenance, and trust-limit fields.",
+  "design_implication": "Identifier registration should be constructed from one exact-version digest-verified bundle and should reject when profile eligibility or skeleton uniqueness fails. Authentication, eligibility, uniqueness, and malicious intent remain distinct claims.",
+  "artifacts": {
+    "module": "tools/frontier-research/unicode-identifier-admission.mjs",
+    "test": "tools/frontier-research/unicode-identifier-admission.test.mjs",
+    "commits": [
+      "bbd3c15713628b0516bd7bb168ae5d80022dd6ec",
+      "66e94cb6310a587e3da74d0afe1bfd2131b3b4b1"
+    ]
+  },
+  "verification": {
+    "observed": [
+      "Both artifacts were committed to the default branch.",
+      "The test contract covers authenticated construction, Restricted rejection, confusable collision rejection, Default_Ignorable parsing, digest drift rejection, and overlapping-range rejection."
+    ],
+    "not_observed": [
+      "Node test execution",
+      "full Unicode 17.0.0 data execution",
+      "reference-conformance corpus comparison",
+      "performance or memory benchmark"
+    ]
+  },
+  "falsification_route": [
+    "Run node --test tools/frontier-research/unicode-identifier-admission.test.mjs and retain exact output.",
+    "Run the gate over the full pinned Unicode 17.0.0 files and compare skeleton/reference cases against UTS #39.",
+    "Demonstrate any digest-mismatched bundle, Restricted scalar, or duplicate skeleton that is accepted.",
+    "Demonstrate a Default_Ignorable_Code_Point that remains in the computed internal skeleton."
+  ],
+  "limits": [
+    "No XID_Start/XID_Continue syntax enforcement.",
+    "No joining-control context validation.",
+    "No mixed-script restriction-level analysis.",
+    "No cryptographic proof that manifest digests came from a trusted channel.",
+    "No inference of malicious intent from confusability."
+  ],
+  "privacy_boundary": "Public standards, repository paths, abstract test identifiers, and commit IDs only; no private chat, health, credentials, or identifying personal material."
+}
