@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-024",
+  "owner": "frontier_research",
+  "source_status": "primary specifications inspected",
+  "primary_sources": [
+    "https://www.rfc-editor.org/rfc/rfc8785.html#section-3.1",
+    "https://www.rfc-editor.org/rfc/rfc7493.html#section-2.3",
+    "https://www.rfc-editor.org/rfc/rfc8259.html#section-4"
+  ],
+  "finding": "Canonicalization of an already-parsed JavaScript object cannot prove that the source JSON text had unique object member names because common parsers retain only one value. JCS requires I-JSON input and explicitly forbids duplicate property names, so uniqueness must be checked before ordinary JSON parsing collapses the evidence.",
+  "design_implication": "Text-origin evidence must pass a strict duplicate-member scanner before JSON.parse and RFC 8785 canonicalization. Escaped and literal spellings of the same decoded name are duplicates, while identical names in different nested objects remain valid.",
+  "artifact": "tools/frontier-research/canonical-json-text-digest.mjs",
+  "test": "tools/frontier-research/canonical-json-text-digest.test.mjs",
+  "commits": [
+    "7ad9f213cd517a1835a3d19d4ec2fc21e3ac880c",
+    "c5007d0f660c167a2fe1549316c518377c8e0f99"
+  ],
+  "verification": {
+    "command": "node --test canonical-json-text-digest.test.mjs",
+    "environment": "isolated Node runtime with byte-identical artifact and existing canonical-json-digest dependency",
+    "passed": 6,
+    "failed": 0,
+    "covered": [
+      "stable digest across whitespace and property order",
+      "literal duplicate names",
+      "escaped-name equivalence",
+      "per-object duplicate scope",
+      "nested duplicates and trailing data",
+      "non-finite and lone-surrogate downstream rejection"
+    ]
+  },
+  "evidence_strength": "committed deterministic prototype plus primary-specification requirement",
+  "uncertainty": "The scanner is purpose-built and has not yet been differentially fuzzed against an independent streaming JSON parser or the JSONTestSuite corpus.",
+  "falsification_route": "Generate grammar-based JSON texts, compare acceptance with an independent duplicate-preserving parser, and require every accepted text to round-trip through JSON.parse and the existing RFC 8785 conformance vectors. Any missed decoded-name collision or valid-text rejection falsifies the gate.",
+  "trust_limit": "Passing this gate proves only syntactic uniqueness and compatibility with the downstream canonicalizer; it does not prove source authenticity, semantic truth, or builder trust."
+}
