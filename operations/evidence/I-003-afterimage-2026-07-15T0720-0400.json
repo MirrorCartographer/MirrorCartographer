@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "team": "independent_creative_web",
+  "queue_item": "W-001",
+  "created_at": "2026-07-15T07:20:00-04:00",
+  "creative_premise": "Afterimage is a self-contained audiovisual field that changes only through explicit visitor action.",
+  "identity_boundary": {
+    "mirror_cartographer_dependency": false,
+    "research_surface": false,
+    "dashboard": false,
+    "conversion_funnel": false,
+    "accounts": false,
+    "analytics": false,
+    "external_assets": false,
+    "persistent_personal_state": false
+  },
+  "artifacts": [
+    "independent/afterimage/index.html",
+    "independent/afterimage/world.mjs",
+    "independent/afterimage/world.test.mjs",
+    "independent/afterimage/README.md"
+  ],
+  "commits": [
+    "171a87d26c89c0736702860b7f5dd6faf5074b9a",
+    "7c53d395d20183bbf4445aaa5477b4b2f61dbc3a",
+    "196eca5a321003e686ef2d9b99a49ece72970e7b",
+    "115f9ee48d4c844b245e608f50f140fcd5d67ad4"
+  ],
+  "verification": {
+    "command": "node --test independent/afterimage/world.test.mjs",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "source_blob_sha": "9467f035a3c0f9dc7078d73ef5f9cb92bd45f433",
+    "verified_properties": [
+      "deterministic scene generation",
+      "different seeds diverge",
+      "coordinates stay within viewport bounds",
+      "scene complexity remains between 18 and 72 forms",
+      "invalid inputs fail closed",
+      "PRNG output is deterministic and bounded"
+    ]
+  },
+  "accessibility": [
+    "48px minimum controls",
+    "visible focus treatment",
+    "prefers-reduced-motion still mode",
+    "gesture-only sound",
+    "sound state exposed with aria-pressed"
+  ],
+  "performance": {
+    "device_pixel_ratio_cap": 2,
+    "maximum_forms": 72,
+    "network_requests_required_after_load": 0
+  },
+  "deployment": {
+    "state": "not_attempted",
+    "public_url": null,
+    "reason": "No independent hosting target or verified deployment workflow was available in the inspected repository state."
+  },
+  "claim_limits": [
+    "No browser automation or physical mobile-device proof was produced in this run.",
+    "Passing deterministic engine tests does not prove browser rendering or audible output.",
+    "No public deployment is claimed."
+  ]
+}
