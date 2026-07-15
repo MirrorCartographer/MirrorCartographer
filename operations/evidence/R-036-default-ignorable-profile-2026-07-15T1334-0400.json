@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-036",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-15T13:34:00-04:00",
+  "claim_state": "tested_prototype",
+  "primary_sources": [
+    {
+      "url": "https://www.unicode.org/reports/tr31/",
+      "status": "current_official",
+      "version": "Unicode 17.0.0 / Revision 43",
+      "relevance": "UAX #31 states that joining controls and variation selectors are in XID_Continue but recommends removing Default_Ignorable_Code_Point values for general-purpose identifiers and points to the UTS #39 General Security Profile."
+    },
+    {
+      "url": "https://www.unicode.org/reports/tr39/",
+      "status": "current_official",
+      "relevance": "Defines the General Security Profile and its identifier-security boundary."
+    }
+  ],
+  "finding": "Passing XID_Start/XID_Continue syntax is insufficient for general-security admission because invisible Default_Ignorable_Code_Point values, including joining controls and variation selectors, can remain syntactically eligible. A separate fail-closed exclusion gate is required before registry mutation.",
+  "artifact": {
+    "module": "tools/frontier-research/default-ignorable-profile.mjs",
+    "test": "tools/frontier-research/default-ignorable-profile.test.mjs",
+    "commits": [
+      "a0617afd8663cef87f7617f4f6136c444bd160df",
+      "9897de797a94b743cfc47ee52a59ece7b938beeb"
+    ]
+  },
+  "verification": {
+    "command": "node --check default-ignorable-profile.mjs && node --test default-ignorable-profile.test.mjs",
+    "environment": "isolated Node runtime using byte-identical pre-commit files",
+    "result": {"tests": 5, "passed": 5, "failed": 0},
+    "cases": [
+      "ordinary identifier accepted",
+      "U+200D rejected with scalar index",
+      "variation selector rejected",
+      "overlapping ranges rejected",
+      "base registry mutation blocked before rejection"
+    ]
+  },
+  "evidence_strength": "prototype_verified_against_targeted_cases",
+  "uncertainty": [
+    "The full authenticated Unicode 17.0.0 DerivedCoreProperties dataset was not processed in this run.",
+    "This does not implement script restriction, bidi safety, or contextual exceptions.",
+    "Digest metadata is meaningful only when supplied through the repository's authenticated bundle path."
+  ],
+  "falsification_route": [
+    "Show an authenticated Default_Ignorable_Code_Point admitted by the gate.",
+    "Show an ordinary non-default-ignorable identifier rejected solely by this gate.",
+    "Show malformed overlapping or descending ranges accepted by the parser.",
+    "Find a Unicode 17.0.0 General Security Profile reference case that disagrees with the evaluator."
+  ],
+  "privacy_boundary": "Public standards and repository implementation only; no private chat, health, credentials, identifying personal data, or unreviewed uploads included."
+}
