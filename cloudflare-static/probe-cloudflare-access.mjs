@@ -1,19 +1,17 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
+import {
+  sanitizeCloudflareApiErrors,
+  assertSanitizedCloudflareErrors
+} from './sanitize-cloudflare-api-errors.mjs';
 
 const API_BASE = 'https://api.cloudflare.com/client/v4';
 const DEFAULT_PROJECT_NAME = 'mirror-cartographer-research';
 
-function redactMessage(value) {
-  if (typeof value !== 'string') return null;
-  return value.replace(/[A-Za-z0-9_-]{20,}/g, '[redacted]').slice(0, 240);
-}
-
 function classifyResponse(stage, status, body) {
   const success = Boolean(body && body.success === true);
-  const errors = Array.isArray(body?.errors)
-    ? body.errors.map((error) => ({ code: error?.code ?? null, message: redactMessage(error?.message) }))
-    : [];
+  const errors = sanitizeCloudflareApiErrors(body?.errors);
+  assertSanitizedCloudflareErrors(errors);
 
   if (success) return { stage, ok: true, status, reason: 'accepted', errors: [] };
   if (status === 401) return { stage, ok: false, status, reason: 'token_rejected', errors };
@@ -90,7 +88,7 @@ export async function probeCloudflareAccess({
 
   const ready = token.ok && project.ok && targetProject.reason === 'target_project_resolved';
   return {
-    schema_version: '1.2.0',
+    schema_version: '1.3.0',
     checked_at: checkedAt,
     ready,
     checks: [token, project],
@@ -99,7 +97,8 @@ export async function probeCloudflareAccess({
       secret_values_emitted: false,
       account_id_emitted: false,
       unrelated_project_names_emitted: false,
-      policy: 'Emit only status, bounded Cloudflare error codes/messages, and the intended project public hostnames.'
+      provider_error_messages_emitted: false,
+      policy: 'Emit only status, allowlisted Cloudflare error codes, generic classifications, and the intended project public hostnames.'
     },
     interpretation: ready
       ? 'Credentials are active and the intended Pages project identity is directly resolved.'
