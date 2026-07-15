@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-15T19:22:43-04:00",
+  "finding": "The production deployment workflow had a redacted authorization packet builder and tests, but no independent non-deploying workflow that could emit that packet while external credentials remained absent.",
+  "implementation": {
+    "artifact": ".github/workflows/cloudflare-pages-authorization-preflight.yml",
+    "source_commit": "ba371c673afc9867aad37fa3541f0557e6db95c0",
+    "behavior": [
+      "runs the existing readiness, blocker, validation, and authorization packet tests",
+      "classifies Cloudflare credential readiness without emitting credential values",
+      "continues after an expected missing-credential readiness failure",
+      "builds and validates a redacted blocker summary",
+      "builds a redacted deployment authorization packet",
+      "asserts privacy, status, and target-workflow invariants",
+      "uploads a retained preflight artifact without deploying"
+    ]
+  },
+  "evidence_strength": "committed_implementation_structurally_inspected_not_executed",
+  "verification": {
+    "repository_write": "accepted_by_github_contents_api",
+    "referenced_test_confirmed": "cloudflare-static/build-deployment-authorization-request.test.mjs",
+    "workflow_execution": "not_observed",
+    "deployment_execution": "not_attempted"
+  },
+  "privacy_boundary": {
+    "secret_values_emitted": false,
+    "allowed_public_configuration_names": [
+      "CLOUDFLARE_ACCOUNT_ID",
+      "CLOUDFLARE_API_TOKEN"
+    ],
+    "private_chat_or_health_material_included": false
+  },
+  "claim_limits": [
+    "A committed workflow is not evidence that GitHub Actions executed it.",
+    "A ready authorization packet is not evidence that Cloudflare accepted the credentials.",
+    "A resolving deployment is not evidence for scientific, diagnostic, or treatment claims."
+  ],
+  "falsification_route": [
+    "Dispatch the preflight workflow and inspect its run conclusion.",
+    "Verify the artifact contains all four declared files.",
+    "Verify absent credentials produce authorization_required and named blockers without values.",
+    "Verify configured plausible credentials produce ready_to_dispatch without performing deployment.",
+    "Reject the slice if any artifact contains credential values or if the workflow invokes Wrangler deployment."
+  ],
+  "next_action": "Dispatch the authorization preflight, retain its artifact and run identity, then configure or repair only the named external blockers before dispatching the production deployment workflow."
+}
