@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "frontier_research_current",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-15T12:18:00-04:00",
+  "status": "completed_slice",
+  "priority_basis": "Continue the newest authenticated Unicode identifier-admission line and close its explicitly recorded XID_Start/XID_Continue syntax gap before adding unrelated research.",
+  "completed": {
+    "id": "R-035",
+    "action": "Add a fail-closed UAX #31 R1-1 syntax gate built from the already authenticated Unicode 17.0.0 DerivedCoreProperties bytes.",
+    "module": "tools/frontier-research/unicode-identifier-syntax.mjs",
+    "test": "tools/frontier-research/unicode-identifier-syntax.test.mjs",
+    "evidence": "operations/evidence/R-035-unicode-xid-syntax-2026-07-15T1218-0400.json",
+    "commits": [
+      "5e768635d9aaa3f5a440c243f117901e22a042ab",
+      "c555efc3ec811bbac1da6ba0d7e7abcd4bd30561",
+      "2cd2e09485e12f64914510cfd7df47047945ad48"
+    ]
+  },
+  "claim_boundaries": {
+    "syntax_eligible": "The NFC-normalized identifier satisfies XID_Start followed by XID_Continue under the pinned dataset.",
+    "profile_eligible": "Every scalar satisfies the separately parsed Identifier_Status profile.",
+    "skeleton_unique": "No registered identifier currently has the same authenticated confusable skeleton.",
+    "admissible": "All three preceding decisions are true; this does not establish benign intent."
+  },
+  "verification": "Both new JavaScript files passed node --check before commit. The six-case runtime test suite is committed but was not executed because github.com DNS resolution was unavailable in the automation container.",
+  "handoff": "Run node --test tools/frontier-research/unicode-identifier-syntax.test.mjs in CI or a fresh checkout, then test against full Unicode 17.0.0 data and UAX #31 conformance cases. The next security slice should address joining-control contexts or script restriction levels as a separate explicit gate.",
+  "shared_state_policy": "Additive queue update only; canonical ACTIVE_QUEUE.json and other teams' records were not overwritten."
+}
