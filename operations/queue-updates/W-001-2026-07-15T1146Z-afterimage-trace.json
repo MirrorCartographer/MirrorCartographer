@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-15T11:46:00Z",
+  "status": "active",
+  "completed_slice": "Added a deterministic, gesture-controlled constellation trace to Afterimage with bounded geometry, accessible state reporting, mobile-safe controls, and no persistence or network dependency.",
+  "evidence": "operations/evidence/W-001-afterimage-trace-2026-07-15T1146Z.json",
+  "source_commits": [
+    "5f40ff0b2358400e45d2e80775a16458c77f112f",
+    "a618ee1d53c9498c0380f7e9dd3f548953c90ae0",
+    "5820249448046827f1ba0963e3df3274c7fbae8d",
+    "0835c46fec977b289a89c219f1af875e93b240c2"
+  ],
+  "required_evidence_state": {
+    "site_source": "present",
+    "distinct_identity_statement": "present",
+    "public_url": "missing",
+    "mobile_proof": "partial_contract_only"
+  },
+  "remaining": [
+    "Deploy the independent/afterimage directory to a hosting target that is not a Mirror Cartographer surface.",
+    "Record the immutable deployed source identity and public URL.",
+    "Capture a physical or emulated narrow-mobile proof of controls, reduced-motion behavior, and bounded rendering cost."
+  ],
+  "next_action": "Add a deployment manifest and provider-neutral verification receipt for the standalone Afterimage directory, then obtain public and mobile evidence."
+}
