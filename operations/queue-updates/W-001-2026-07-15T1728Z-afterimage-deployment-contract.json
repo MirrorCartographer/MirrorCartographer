@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-15T17:28:00Z",
+  "status": "active",
+  "completed_slice": "Added a provider-neutral deployment manifest and deterministic fail-closed receipt verifier for the standalone Afterimage site.",
+  "evidence": "operations/evidence/W-001-afterimage-deployment-contract-2026-07-15T1728Z.json",
+  "source_commits": [
+    "4350606f865b65bc9ad2e814fd23b21cf2b2f977",
+    "4ec76a222d1fa2795a236744f994760c25c49366",
+    "fe47777781482426fe1620be171d43b57704267a",
+    "efe7a27881a360e1724f58ae76f7c468e1c80ee9"
+  ],
+  "required_evidence_state": {
+    "site_source": "present",
+    "distinct_identity_statement": "present",
+    "public_url": "missing",
+    "mobile_proof": "partial_contract_only",
+    "deployment_verification_contract": "present"
+  },
+  "remaining": [
+    "Deploy independent/afterimage to a hosting target that is not a Mirror Cartographer surface.",
+    "Generate a real afterimage-deployment-receipt/1 packet and verify it against served bytes.",
+    "Capture a narrow-mobile proof of controls, reduced-motion behavior, and bounded rendering cost."
+  ],
+  "next_action": "Add a minimal independent hosting workflow or provider configuration, deploy the exact source commit, and retain the verified receipt plus mobile evidence."
+}
