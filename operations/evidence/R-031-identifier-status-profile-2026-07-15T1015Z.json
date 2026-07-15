@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-031",
+  "owner": "frontier_research",
+  "created_at": "2026-07-15T10:15:00Z",
+  "claim_state": "observed_and_tested",
+  "finding": "Identifier_Status evaluation must be version-pinned, applied after NFC normalization, and fail closed when a scalar has no parsed status. Profile status is only one upstream input to the independent identifier-admission gate.",
+  "primary_sources": [
+    {
+      "url": "https://www.unicode.org/reports/tr39/",
+      "status": "current_stable_primary_standard",
+      "version": "17.0.0",
+      "revision": "32",
+      "date": "2025-09-04"
+    },
+    {
+      "url": "https://www.unicode.org/Public/security/latest/IdentifierStatus.txt",
+      "status": "current_primary_data_endpoint"
+    }
+  ],
+  "design_implication": "Keep Identifier_Status parsing and evaluation separate from confusable-skeleton generation. Reject malformed, overlapping, non-scalar, Restricted, and uncovered inputs; preserve version and source digest for downstream admission evidence.",
+  "artifacts": {
+    "module": "tools/frontier-research/identifier-status-profile.mjs",
+    "test": "tools/frontier-research/identifier-status-profile.test.mjs",
+    "commits": [
+      "54d64349456a0996d4398b35aaacf8e02e3f8c15",
+      "11ced79f9c0e57f932d7cb0afff7233284c201d6"
+    ]
+  },
+  "verification": {
+    "runtime": "Node test runner in isolated local runtime",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "cases": [
+      "covered Allowed scalars accepted",
+      "covered Restricted scalar rejected",
+      "missing status coverage rejected and marked incomplete",
+      "canonically equivalent NFC inputs agree",
+      "overlapping ranges rejected",
+      "surrogate source values rejected"
+    ]
+  },
+  "uncertainty": "The current Unicode data endpoint was inspected as a primary source, but the artifact does not download, authenticate, or digest that remote file. Tests use synthetic format-compatible data.",
+  "trust_limit": "This is not full UTS #39 conformance. It does not evaluate XID syntax, Identifier_Type exceptions, joining-control contexts, script restrictions, confusable skeletons, or dataset authenticity.",
+  "falsification_route": "Provide malformed or overlapping data that parses, an uncovered or Restricted scalar that becomes eligible, canonically equivalent inputs with divergent results, or evidence that NFC is not the required canonical-equivalence boundary for this application policy."
+}
