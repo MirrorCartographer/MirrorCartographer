@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-15T19:32:00-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "claim_state": "implemented_source_behavior",
+  "evidence_strength": "deterministic_unit_verified",
+  "finding": "A redacted authorization packet must be bound to the exact repository, workflow reference, source commit, workflow run ID, and run attempt that produced it before it can authorize production dispatch.",
+  "implementation": {
+    "builder": "cloudflare-static/build-deployment-authorization-request.mjs",
+    "validator": "cloudflare-static/validate-authorization-preflight-context.mjs",
+    "test": "cloudflare-static/validate-authorization-preflight-context.test.mjs",
+    "workflow": ".github/workflows/cloudflare-pages-authorization-preflight.yml"
+  },
+  "verified_behavior": {
+    "accepted": ["exact run-bound redacted packet"],
+    "rejected": ["different source commit", "different run attempt", "missing provenance", "unsafe secret-emission flags"],
+    "test_result": {"tests": 4, "passed": 4, "failed": 0},
+    "verification_route": "Node native test runner against byte-equivalent implementation logic"
+  },
+  "privacy_boundary": {
+    "secret_values_emitted": false,
+    "allowed_sensitive_metadata": ["secret names", "sanitized blocker codes"],
+    "excluded": ["credential values", "private chat", "health information", "diagnosis or treatment claims"]
+  },
+  "claim_limits": [
+    "This proves source-level context validation behavior, not that GitHub Actions executed the workflow.",
+    "This does not prove Cloudflare credentials are configured or authorized.",
+    "This does not prove a Cloudflare Pages deployment or resolving hostname exists.",
+    "Provenance binding does not prove scientific or medical claim truth."
+  ],
+  "falsification_route": "Reject this evidence if the committed validator accepts a packet whose repository, workflow reference, source commit, run ID, or run attempt differs from the trusted runtime context, or if any retained packet contains credential values."
+}
