@@ -1,0 +1,59 @@
+{
+  "id": "CM-1032",
+  "created_at": "2026-07-15T10:01:55-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "kind": "implementation_memory",
+  "memory": "Effective operational state is now represented as a deterministic replay result with field-level provenance, explicit rejected records, and unresolved conflicts. A team-local additive record is admissible only when its owner matches the queue item owner, its source commit is declared reachable, its timestamp and patch structure validate, and it does not modify protected governance paths. Later incompatible assertions do not silently win unless they explicitly name the earlier record as causally superseded.",
+  "claims": {
+    "observed": [
+      "CM-1031 defined append-reconciled effective-state precedence but listed the absence of an executable reducer as unresolved.",
+      "operations/ACTIVE_QUEUE.json is a historical baseline whose W-001 state predates later Afterimage progress records.",
+      "CURRENT_STATE.json and SPECIALIST_REGISTRY.json establish governance constraints that team-local updates cannot weaken.",
+      "The committed reducer retains the baseline, applies only explicit JSON-pointer fields, records the winning source for each resolved field, and emits unresolved_conflict for incompatible assertions without causal supersession.",
+      "Five deterministic Node tests passed against byte-identical pre-commit source and test content."
+    ],
+    "inferred": [
+      "A materialized state view can be generated without rewriting canonical baselines or deleting additive history.",
+      "Field-level provenance is necessary to explain why an effective value differs from the canonical baseline.",
+      "Timestamp order alone is insufficient for conflicting values; explicit causal supersession or unresolved conflict is safer."
+    ],
+    "proposed": [
+      "Add an adapter that converts existing owner-scoped queue-update records into the reducer's explicit patch contract.",
+      "Replace caller-supplied reachable commit sets with repository-derived ancestry verification before production use.",
+      "Generate a checked-in or CI-produced materialized effective-state view with a digest over all admitted inputs."
+    ],
+    "superseded": [
+      "The unresolved statement that no executable effective-state reducer exists.",
+      "Any last-write-wins interpretation based only on filename or timestamp.",
+      "Any implementation that silently discards conflicting admissible assertions."
+    ],
+    "unresolved": [
+      "Existing queue-update files are not yet normalized into the reducer patch schema.",
+      "Commit reachability is supplied as an input rather than independently verified by the module.",
+      "The reducer does not yet cryptographically bind a materialized output to the complete admitted input set.",
+      "Schema migration rules for future record versions remain undefined."
+    ]
+  },
+  "artifacts": [
+    {"path":"tools/continuity/effective-state-reducer-v1.mjs","commit":"5f7b5b69ed58c6365d342486fdfc4fa9656f7ce2","role":"reducer"},
+    {"path":"tools/continuity/effective-state-reducer-v1.test.mjs","commit":"18d32a818cb375e5bede816397eb011e4b8d40cb","role":"deterministic_contract_tests"}
+  ],
+  "verification": {
+    "runtime": "Node test runner",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "scope": [
+      "owner-scoped additive application",
+      "field-level provenance",
+      "owner mismatch rejection",
+      "protected governance rejection",
+      "unresolved conflict output",
+      "explicit causal supersession"
+    ]
+  },
+  "evidence_strength": "implemented and locally executed deterministic contract; repository-wide integration remains unverified",
+  "privacy_boundary": "Only public repository governance, abstract queue identifiers, artifact paths, commits, and reconciliation semantics are retained. No private chat excerpts, health or pet-health material, credentials, personal identifiers, or unreviewed uploads are included.",
+  "falsification_route": "Provide an admissible input where the reducer silently changes an unpatched field, accepts a mismatched owner or protected-governance mutation, loses the winning source locator, or selects between incompatible non-superseding assertions without emitting unresolved_conflict."
+}
