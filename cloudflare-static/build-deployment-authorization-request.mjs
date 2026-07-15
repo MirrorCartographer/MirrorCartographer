@@ -14,6 +14,13 @@ export function buildDeploymentAuthorizationRequest(blocker, options = {}) {
   const environment = assertString(options.environment || 'cloudflare-research', 'environment');
   const workflow = assertString(options.workflow || '.github/workflows/cloudflare-pages-research.yml', 'workflow');
   const branch = assertString(options.branch || 'main', 'branch');
+  const provenance = {
+    repository,
+    workflow: assertString(options.workflowRef || 'local:cloudflare-pages-authorization-preflight', 'workflowRef'),
+    source_commit: assertString(options.sourceCommit || 'local-uncommitted', 'sourceCommit'),
+    run_id: assertString(options.runId || 'local', 'runId'),
+    run_attempt: assertString(options.runAttempt || '1', 'runAttempt')
+  };
 
   const requestedSecrets = [...new Set(blocker.blockers
     .map((entry) => entry?.name)
@@ -28,9 +35,10 @@ export function buildDeploymentAuthorizationRequest(blocker, options = {}) {
 
   const ready = blocker.status === 'ready' && remediation.length === 0;
   return {
-    schema_version: '1.0.0',
+    schema_version: '1.1.0',
     request_type: 'cloudflare_pages_environment_authorization',
     status: ready ? 'ready_to_dispatch' : 'authorization_required',
+    provenance,
     target: { repository, environment, workflow, branch, project: 'mirror-cartographer-research' },
     requested_secret_names: requestedSecrets,
     remediation,
@@ -63,9 +71,15 @@ function main() {
   const inputPath = process.argv[2] || 'cloudflare-deployment-blocker.json';
   const outputPath = process.argv[3] || 'cloudflare-deployment-authorization-request.json';
   const blocker = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
-  const request = buildDeploymentAuthorizationRequest(blocker);
+  const request = buildDeploymentAuthorizationRequest(blocker, {
+    repository: process.env.GITHUB_REPOSITORY,
+    workflowRef: process.env.GITHUB_WORKFLOW_REF,
+    sourceCommit: process.env.GITHUB_SHA,
+    runId: process.env.GITHUB_RUN_ID,
+    runAttempt: process.env.GITHUB_RUN_ATTEMPT
+  });
   fs.writeFileSync(outputPath, `${JSON.stringify(request, null, 2)}\n`, { mode: 0o600 });
-  process.stdout.write(`${JSON.stringify({ status: request.status, requested_secret_names: request.requested_secret_names, output: outputPath })}\n`);
+  process.stdout.write(`${JSON.stringify({ status: request.status, requested_secret_names: request.requested_secret_names, provenance: request.provenance, output: outputPath })}\n`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) main();
