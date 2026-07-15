@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-15T18:00:00Z",
+  "status": "active",
+  "completed_slice": "Committed an isolated GitHub Pages deployment workflow for Afterimage with contract tests, identity-marker checks, a two-file artifact invariant, least-privilege permissions, and deployment identity capture.",
+  "evidence": "operations/evidence/W-001-afterimage-pages-workflow-2026-07-15T1800Z.json",
+  "source_commits": [
+    "4cbdfe8387a019f7450ae2b98141b8438b6b58dd",
+    "293a2d31e4bceab3e0224171d930ee26c0ed5ef6"
+  ],
+  "required_evidence_state": {
+    "site_source": "present",
+    "distinct_identity_statement": "present",
+    "public_url": "missing",
+    "mobile_proof": "partial_contract_only",
+    "deployment_workflow": "present",
+    "deployment_run": "not_observed"
+  },
+  "remaining": [
+    "Observe or dispatch a successful Deploy Afterimage workflow run.",
+    "Retain the returned Pages URL and deployment identity artifact.",
+    "Generate and verify a full afterimage-deployment-receipt/1 packet against served bytes.",
+    "Capture narrow-mobile proof for controls, reduced motion, and bounded rendering cost."
+  ],
+  "next_action": "Inspect the workflow run for commit 4cbdfe8387a019f7450ae2b98141b8438b6b58dd; if Pages configuration blocks it, record the exact external configuration gap without claiming deployment."
+}
