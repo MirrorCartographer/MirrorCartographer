@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-15T19:44:12-04:00",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "durable_progress": {
+    "summary": "Wired the provider-diagnostic redaction test into the production Cloudflare deployment contract gate.",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "workflow_commit": "6986ac9f730dcd0dca81e2109509f2b9569b667d",
+    "test": "cloudflare-static/sanitize-cloudflare-api-errors.test.mjs",
+    "evidence": "operations/evidence/cloudflare-diagnostic-redaction-production-gate-2026-07-15T1944-0400.json",
+    "verified_behavior": "Exact-commit source refetch shows the redaction test executes before readiness probing and deployment."
+  },
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, then dispatch the production workflow and retain the resulting exact-commit deployment evidence.",
+  "required_next_evidence": [
+    "GitHub Actions run showing the complete deployment evidence contract suite passed",
+    "Cloudflare-returned deployment URL",
+    "served research-surface identity",
+    "exact deployed commit",
+    "accepted proof and attestation artifacts"
+  ],
+  "claim_limits": [
+    "No workflow run was observed.",
+    "No Cloudflare deployment was observed.",
+    "C-001 is not complete."
+  ]
+}
