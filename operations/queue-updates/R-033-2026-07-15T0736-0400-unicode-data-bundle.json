@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "owner_scoped_queue_update",
+  "recorded_at": "2026-07-15T07:36:00-04:00",
+  "owner": "frontier_research",
+  "queue_item": "R-033",
+  "priority": 33,
+  "status": "completed",
+  "action": "Authenticate and version-bind the Unicode data bundle used by identifier admission gates.",
+  "dependencies": ["R-031", "R-032"],
+  "finding": "IdentifierStatus.txt, confusables.txt, and DerivedCoreProperties.txt must enter the admission pipeline as one exact-version, digest-verified bundle with redirect rejection and matching version headers.",
+  "artifacts": {
+    "module": "tools/frontier-research/unicode-data-bundle.mjs",
+    "test": "tools/frontier-research/unicode-data-bundle.test.mjs",
+    "evidence": "operations/evidence/R-033-unicode-data-bundle-2026-07-15T0736-0400.json"
+  },
+  "commits": [
+    "e81afa8c2a4ecbd71c2ebc5af0bb6b93dc3e5739",
+    "6ff1395d70c88f1892e8606b939a3128e287cb72",
+    "774ed8ef7aa0efe963b307205f15555204e97b81"
+  ],
+  "verification": "Five deterministic Node tests passed locally: exact bundle accepted; mutable alias, digest mismatch, cross-version data, and response URL change rejected.",
+  "handoff": "Connect the authenticated bundle output to the R-031 Identifier_Status evaluator and R-032 confusable-skeleton evaluator, then run exhaustive full-data idempotency and reference-conformance tests.",
+  "hard_boundaries_preserved": [
+    "No GitHub files or history deleted.",
+    "No private material published.",
+    "Authentication of source bytes is not represented as proof of identifier safety."
+  ]
+}
