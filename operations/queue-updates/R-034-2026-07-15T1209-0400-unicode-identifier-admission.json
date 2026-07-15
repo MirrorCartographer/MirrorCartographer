@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "owner_scoped_queue_update",
+  "recorded_at": "2026-07-15T12:09:00-04:00",
+  "owner": "frontier_research",
+  "queue_item": "R-034",
+  "priority": 34,
+  "status": "completed_vertical_slice",
+  "action": "Connect the authenticated Unicode bundle to Identifier_Status evaluation, Default_Ignorable handling, and confusable-skeleton registration through one fail-closed admission gate.",
+  "dependencies": ["R-031", "R-032", "R-033"],
+  "finding": "Exact-version digest authentication must remain in the same construction path as profile and collision evaluation; otherwise verified bytes can be silently replaced before admission decisions are made.",
+  "artifacts": {
+    "module": "tools/frontier-research/unicode-identifier-admission.mjs",
+    "test": "tools/frontier-research/unicode-identifier-admission.test.mjs",
+    "evidence": "operations/evidence/R-034-unicode-identifier-admission-2026-07-15T1209-0400.json"
+  },
+  "commits": [
+    "bbd3c15713628b0516bd7bb168ae5d80022dd6ec",
+    "66e94cb6310a587e3da74d0afe1bfd2131b3b4b1",
+    "2c50934f14b7f0189e242440909f59448daffd1e"
+  ],
+  "verification": "Committed deterministic tests cover six boundaries, but no Node execution was available through the connector, so no passing runtime count is claimed.",
+  "limits": "The gate does not yet enforce XID syntax, joining-control contexts, script restrictions, or full UTS #39 conformance; authenticated provenance is not claim truth.",
+  "handoff": "Execute the committed test, then run full Unicode 17.0.0 data with reference-conformance and idempotency checks. Add XID_Start/XID_Continue syntax as a separate explicit gate rather than folding it into Identifier_Status.",
+  "hard_boundaries_preserved": [
+    "No GitHub files or history deleted.",
+    "No private material published.",
+    "No specialist added or retired.",
+    "No authentication, eligibility, collision, or intent claim is conflated with another."
+  ]
+}
