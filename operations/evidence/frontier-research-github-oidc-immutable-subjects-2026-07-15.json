@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-005",
+  "recorded_at": "2026-07-15T19:43:00-04:00",
+  "primary_sources": [
+    {
+      "url": "https://docs.github.com/en/actions/reference/security/oidc",
+      "publisher": "GitHub",
+      "status": "current_official_documentation",
+      "finding": "Repositories created after July 15, 2026 use an immutable default OIDC subject format containing owner and repository IDs; older repositories retain the previous format unless opted in, and renames or transfers after that date move to the immutable format."
+    },
+    {
+      "url": "https://token.actions.githubusercontent.com/.well-known/openid-configuration",
+      "publisher": "GitHub Actions OIDC provider",
+      "status": "official_discovery_endpoint",
+      "finding": "The provider discovery document is the authoritative location for supported OIDC claims and signing metadata."
+    }
+  ],
+  "finding": "Name-only GitHub Actions OIDC subject allowlists can become stale or vulnerable to namespace reuse. Policies should bind both readable names and immutable numeric owner/repository IDs, while explicitly modeling the migration period for pre-existing repositories.",
+  "design_implication": "Parse both legacy and immutable subject forms, reject malformed or lookalike values, expose migrationRequired for accepted legacy subjects, and support a fail-closed requireImmutable policy after repository OIDC configuration is migrated.",
+  "artifacts": {
+    "module": "tools/frontier-research/github-oidc-subject-policy.mjs",
+    "test": "tools/frontier-research/github-oidc-subject-policy.test.mjs",
+    "module_commit": "e07214665eeba248bd408690df36ef83c91c13b8",
+    "test_commit": "82b41cfa21c708b842e96a0d97e601833eb6d96f"
+  },
+  "verification": {
+    "route": "node --test tools/frontier-research/github-oidc-subject-policy.test.mjs using byte-equivalent local files",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "coverage": [
+      "exact immutable subject accepted",
+      "stable-ID lookalike rejected",
+      "legacy compatibility explicitly flagged for migration",
+      "legacy subject rejected after immutable enforcement",
+      "malformed format and qualifier drift rejected"
+    ]
+  },
+  "evidence_strength": "official-current-primary-source plus deterministic isolated tests",
+  "uncertainty": [
+    "The repository's live OIDC subject configuration was not queried.",
+    "The actual owner_id and repository_id values were not embedded in tests or policy examples.",
+    "No live GitHub Actions token was requested or verified in this run."
+  ],
+  "falsification_route": [
+    "Request a live GitHub Actions OIDC token for the target workflow.",
+    "Verify its signature against the provider JWKS and inspect the exact sub, repository_id, and repository_owner_id claims.",
+    "Compare the observed subject with the policy evaluator in legacy-compatible and immutable-required modes.",
+    "Reject this finding if current official GitHub documentation or a signed live token contradicts the documented format."
+  ],
+  "trust_limit": "A matching OIDC subject establishes workflow identity attributes only. It does not prove that a deployment, test, peer trigger, or scientific claim succeeded."
+}
