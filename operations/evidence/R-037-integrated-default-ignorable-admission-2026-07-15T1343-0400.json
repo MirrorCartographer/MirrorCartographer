@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-037",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-15T13:43:22-04:00",
+  "status": "implemented_verification_limited",
+  "primary_sources": [
+    {
+      "title": "Unicode Standard Annex #31: Unicode Identifiers and Syntax",
+      "version": "Unicode 17.0.0, Revision 43",
+      "url": "https://www.unicode.org/reports/tr31/",
+      "source_status": "current_official_primary",
+      "relevant_requirements": ["UAX31-R1-1", "UAX31-R1-2", "Default Ignorable Exclusion Profile"]
+    },
+    {
+      "title": "Unicode Technical Standard #39: Unicode Security Mechanisms",
+      "url": "https://www.unicode.org/reports/tr39/",
+      "source_status": "current_official_primary",
+      "relevant_profile": "General Security Profile"
+    }
+  ],
+  "finding": "XID_Start/XID_Continue syntax eligibility and default-ignorable exclusion are independent predicates. The authenticated identifier gate must reject Default_Ignorable_Code_Point values after NFC normalization and before skeleton-registry mutation, even when those values are XID_Continue and Identifier_Status Allowed.",
+  "design_implication": {
+    "pipeline": [
+      "authenticate exact-version Unicode bundle",
+      "evaluate NFC XID syntax",
+      "evaluate Identifier_Status",
+      "evaluate confusable skeleton uniqueness",
+      "exclude Default_Ignorable_Code_Point",
+      "mutate registry only after all predicates pass"
+    ],
+    "decision_fields": ["syntaxEligible", "profileEligible", "skeletonUnique", "defaultIgnorableFree", "admissible"],
+    "fail_closed_rule": "A false or missing predicate prevents registry mutation."
+  },
+  "implementation": {
+    "module": "tools/frontier-research/unicode-identifier-syntax.mjs",
+    "module_commit": "6103cd8be8ae733c7aa2cfd7c2a1f63a47d2c61d",
+    "test": "tools/frontier-research/unicode-identifier-syntax.test.mjs",
+    "test_commit": "ce4103c8dad1923fa6df4f33c914f7075f1da8aa",
+    "change": "buildUnicodeIdentifierAdmissionWithSyntax now applies the authenticated default-ignorable profile before registration; tests cover XID-valid U+200D and U+FE0F rejection and verify a rejected registration does not occupy the base skeleton."
+  },
+  "verification": {
+    "method": "connector-backed exact-file inspection and dependency review",
+    "execution_status": "not_executed",
+    "reason": "The isolated container had no network path to clone GitHub, and no repository CI execution tool was available in this run.",
+    "claims_not_made": ["tests passed", "full Unicode 17.0.0 conformance", "production readiness"]
+  },
+  "evidence_strength": "moderate_implementation_low_runtime",
+  "uncertainty": [
+    "The updated test suite has not been executed against a fresh checkout.",
+    "The complete Unicode 17.0.0 DerivedCoreProperties payload has not been exercised in this run.",
+    "Contextual joining-control allowances are intentionally unsupported.",
+    "Script restriction, bidi display safety, and application display policy remain separate gates."
+  ],
+  "falsification_route": [
+    "Execute the committed test file and observe any failure.",
+    "Provide an authenticated XID-valid Default_Ignorable_Code_Point that is admitted.",
+    "Show that a rejected identifier mutates the skeleton registry.",
+    "Run the full Unicode 17.0.0 corpus and find disagreement with the declared UAX #31 plus UTS #39 profile."
+  ],
+  "privacy_boundary": "Public standards, repository source, commit metadata, and abstract security decisions only; no private chat, health, credentials, identifying personal data, or unreviewed uploads."
+}
