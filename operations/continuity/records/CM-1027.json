@@ -1,0 +1,90 @@
+{
+  "id": "CM-1027",
+  "created_at": "2026-07-15T05:00:46-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "memory": "An immutable source locator is not a single identifier. It is a conjunctive contract over repository identity, historical commit reachability, path-at-commit, and blob identity. Path existence on the default branch proves neither historical existence nor content identity; a matching blob SHA proves content identity but not authorized repository origin or reachability; a reachable commit proves ancestry but not that the declared path resolves to the declared blob. Continuity provenance may promote source_authenticity_and_reachability only when all required locator dimensions agree within one retained verification envelope.",
+  "claims": {
+    "observed": [
+      "CURRENT_STATE.json requires implementation claims to be evidence-backed and prohibits publishing private chat or health material.",
+      "CM-1026 defines source authenticity and reachability as a distinct third trust gate after structural and graph-semantic validity.",
+      "CM-1026 leaves repository path existence, blob identity, commit reachability, and locator consistency explicitly unresolved.",
+      "GitHub repository files expose path content and blob SHA, while commit objects separately expose commit identity, changed paths, and repository context."
+    ],
+    "inferred": [
+      "No one locator component can substitute for the others without creating a false-positive provenance route.",
+      "Default-branch path lookup is unsuitable as sole historical evidence because paths may move, disappear, or contain later bytes.",
+      "Content-address equality alone cannot establish repository authority because identical bytes may occur in multiple repositories or commits.",
+      "A fail-closed verifier must return dimension-specific outcomes so partial success cannot be summarized as authenticated provenance."
+    ],
+    "proposed": [
+      "Represent every repository source locator as repository_full_name, commit_sha, path, and expected_blob_sha.",
+      "Verify repository identity first, then commit resolution and reachability, then path resolution at that exact commit, then exact blob equality.",
+      "Return one result per dimension plus a conjunctive verified boolean that is true only when every mandatory dimension passes.",
+      "Retain verifier timestamp, method, unresolved blind spots, and falsification route without retaining private source contents."
+    ],
+    "superseded": [
+      "Treating current path existence as proof of historical source identity.",
+      "Treating a blob SHA match as proof of repository authority or commit reachability.",
+      "Treating commit reachability as proof that the declared path maps to the declared bytes.",
+      "Reporting a partially verified locator as source authenticated."
+    ],
+    "unresolved": [
+      "No executable repository-source verifier currently enforces the complete locator conjunction.",
+      "No authenticated exhaustive branch and ref inventory currently establishes the eligible historical source set.",
+      "Privacy-policy compatibility and semantic authority remain separate fourth-gate checks after locator verification.",
+      "The originating immutable sources for M-004, M-005, and M-006 remain unresolved."
+    ]
+  },
+  "locator_contract": {
+    "required_fields": [
+      "repository_full_name",
+      "commit_sha",
+      "path",
+      "expected_blob_sha"
+    ],
+    "verification_order": [
+      "repository_identity",
+      "commit_resolution_and_reachability",
+      "path_resolution_at_exact_commit",
+      "exact_blob_identity"
+    ],
+    "promotion_rule": "source_authenticity_and_reachability may be verified only when every required dimension is verified within the same evidence envelope",
+    "failure_rule": "missing, unverifiable, mismatched, or method-limited dimensions remain explicit and force the conjunctive result to false"
+  },
+  "sources": [
+    {
+      "path": "operations/CURRENT_STATE.json",
+      "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+      "role": "governance_and_privacy_boundary"
+    },
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "role": "canonical_queue_baseline"
+    },
+    {
+      "path": "operations/SPECIALIST_REGISTRY.json",
+      "blob_sha": "88451b05101bcd8a259f98de5d9290e15357366b",
+      "role": "specialist_registry_rule"
+    },
+    {
+      "path": "operations/TRIGGER_REQUESTS.json",
+      "blob_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4",
+      "role": "peer_trigger_ledger"
+    },
+    {
+      "path": "operations/continuity/records/CM-1026.json",
+      "blob_sha": "42de162e7ec72098b113913265056f753c46f2a0",
+      "role": "layered_trust_boundary"
+    },
+    {
+      "commit": "a8a21fbb3c74dd025489738843b0abbdab6cc385",
+      "role": "latest_continuity_queue_handoff"
+    }
+  ],
+  "evidence_strength": "committed repository-grounded synthesis with explicit non-execution boundary",
+  "privacy_boundary": "Only public repository governance, abstract provenance semantics, paths, blob identifiers, commit identifiers, and verification rules are retained. No private chat excerpts, personal data, health material, credentials, or unreviewed File Library content is included.",
+  "contradiction_resolution": "The apparent equivalence among path existence, blob equality, and commit reachability is rejected. Each proves a different property; source authenticity and reachability is the conjunction, not any individual result.",
+  "falsification_route": "Demonstrate a verifier that safely establishes repository-authorized historical source identity while omitting one of repository identity, exact commit, path-at-commit, or blob identity, without permitting substitution, ambiguity, or false-positive provenance."
+}
