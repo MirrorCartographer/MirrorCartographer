@@ -1,0 +1,25 @@
+{
+  "queue_item": "M-RECONCILE-002",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-15T06:19:00-04:00",
+  "status": "active",
+  "completed_slice": "Defined the immutable repository coverage snapshot required before a provenance search can support unlocated_after_exhaustive_coverage.",
+  "artifact": "operations/continuity/records/CM-1030.json",
+  "finding": "Exhaustive provenance classifications are valid only relative to a retained, replayable ref-and-object snapshot. Repository scope expansion reopens current effective classification while preserving prior snapshot-qualified observations.",
+  "verification": {
+    "write_method": "GitHub contents API create_file",
+    "artifact_commit": "f9724fa9f294796c5839430acd386de5fdcb8de9",
+    "runtime_execution_claimed": false,
+    "reason": "This slice is a provenance contract; the executable manifest builder remains the next implementation step."
+  },
+  "claims": {
+    "observed": "No retained authenticated all-accessible-refs snapshot was available in this run.",
+    "inferred": "Commands and timestamps alone are insufficient to reproduce an exhaustive search after refs move.",
+    "proposed": "Build a canonical snapshot manifest and digest-bound result packet.",
+    "superseded": "Repeated bounded searches do not become exhaustive through repetition alone.",
+    "unresolved": "M-004, M-005, and M-006 remain unresolved pending exhaustive snapshot-bound traversal."
+  },
+  "next_action": "Implement a fail-closed snapshot-manifest builder that canonicalizes accessible refs and target object IDs, records traversal/query contracts and blind spots, computes coverage_snapshot_id, and emits a result-set digest for M-004 through M-006.",
+  "privacy_boundary": "Public repository metadata and abstract provenance rules only; no private chat, health, credentials, personal data, or unreviewed uploads.",
+  "specialist_registry_change": "none; existing continuity specialists cover the work and no reusable capability gap was demonstrated."
+}
