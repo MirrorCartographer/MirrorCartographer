@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-15T19:44:12-04:00",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "change": {
+    "kind": "production_workflow_test_gate",
+    "workflow": ".github/workflows/cloudflare-pages-research.yml",
+    "workflow_commit": "6986ac9f730dcd0dca81e2109509f2b9569b667d",
+    "workflow_blob_sha": "92c13a23fae842497c6935b23c607f3f8aaf5d51",
+    "test": "cloudflare-static/sanitize-cloudflare-api-errors.test.mjs",
+    "test_blob_sha": "451997d066b667ba07764a0d63342b51b1bc80b4",
+    "module": "cloudflare-static/sanitize-cloudflare-api-errors.mjs",
+    "module_blob_sha": "20db95624887351fc5c884d218efc67fcd184499"
+  },
+  "claim": {
+    "state": "observed",
+    "evidence_strength": "exact_commit_source_verification",
+    "statement": "The production Cloudflare deployment workflow now executes the provider-diagnostic redaction test before readiness probing or deployment."
+  },
+  "verification": {
+    "route": "GitHub contents API refetch at exact commit",
+    "observed_command": "node --test cloudflare-static/sanitize-cloudflare-api-errors.test.mjs",
+    "ordering": "inside Test deployment evidence contracts, before Validate deployment branch input and before Cloudflare access or deployment steps",
+    "test_execution_observed": false,
+    "workflow_execution_observed": false,
+    "deployment_observed": false
+  },
+  "privacy_boundary": {
+    "provider_error_messages_retained": false,
+    "secret_values_retained": false,
+    "account_id_retained": false,
+    "private_chat_or_health_material_used": false
+  },
+  "limits": [
+    "Source verification does not prove the test passed in GitHub Actions.",
+    "No Cloudflare API request or deployment was executed in this run.",
+    "No resolving Pages hostname or served-source identity was observed.",
+    "The change authenticates a workflow gate only; it does not establish scientific or medical truth."
+  ],
+  "rollback": {
+    "route": "revert commit 6986ac9f730dcd0dca81e2109509f2b9569b667d",
+    "application_runtime_effect": "none",
+    "payment_or_vercel_effect": "none"
+  }
+}
