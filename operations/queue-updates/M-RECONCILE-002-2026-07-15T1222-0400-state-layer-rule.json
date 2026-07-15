@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-RECONCILE-002",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-15T12:22:50-04:00",
+  "status": "active",
+  "completed_slice": "Recovered and retained the rule that canonical baselines, additive assertions, admitted effective values, rejected assertions, and unresolved conflicts are distinct state layers and must not be blended.",
+  "memory_record": "operations/continuity/records/CM-1036.json",
+  "commit": "415131d9d4ef379cd5814c2c26f95f1e1f65ccd7",
+  "observed": [
+    "The canonical ACTIVE_QUEUE remains a historical baseline.",
+    "Later owner-scoped queue-update records require normalization and reduction before they can alter effective state.",
+    "Existing continuity tooling preserves rejected records, field provenance, and unresolved conflicts."
+  ],
+  "inferred": [
+    "Unlabelled status synthesis can create false contradictions by mixing temporal and adjudication layers."
+  ],
+  "proposed": [
+    "Add state_layer to future queue reports and materialized effective-state outputs."
+  ],
+  "superseded": [
+    "Newest-file-wins and rewrite-the-baseline interpretations."
+  ],
+  "unresolved": [
+    "Repository-derived ancestry verification.",
+    "Exhaustive historical queue-update schema enumeration.",
+    "Attested materialized effective-state output."
+  ],
+  "remaining": [
+    "Enumerate historical queue-update record shapes and classify their admissible operational fields.",
+    "Derive commit reachability from repository ancestry rather than caller input.",
+    "Batch-normalize admissible records and emit an attested materialized effective-state view."
+  ],
+  "privacy_boundary": "Public repository metadata and abstract reconciliation semantics only; no private chat, health, credentials, identifying personal data, or unreviewed uploads.",
+  "rollback": [
+    "Revert this additive queue-update commit.",
+    "Revert commit 415131d9d4ef379cd5814c2c26f95f1e1f65ccd7 to remove CM-1036."
+  ]
+}
