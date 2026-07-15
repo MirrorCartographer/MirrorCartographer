@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-15T13:35:28-04:00",
+  "owner": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "state_layer": "additive_assertion",
+  "status": "active",
+  "completed_slice": "Recovered and retained the distinction between peer-trigger attempts, accepted scheduling or ledger mutations, peer enablement, observed peer runs, and observed peer artifacts.",
+  "artifacts": [
+    {
+      "path": "operations/continuity/records/CM-1037.json",
+      "commit": "49bee436bcc76154fc5029a9d3e1ebecc5147424",
+      "role": "durable_memory_record"
+    }
+  ],
+  "claim_states": {
+    "observed": "Accepted scheduler mutation is not peer-execution evidence.",
+    "inferred": "Coordination events require separate provenance-preserving states.",
+    "proposed": "Adopt explicit trigger_attempted, trigger_recorded, peer_enabled, peer_run_observed, peer_artifact_observed, and trigger_unresolved states.",
+    "superseded": "Schedule update equals peer ran.",
+    "unresolved": "No canonical peer-trigger event schema currently binds attempts to later run and artifact evidence."
+  },
+  "privacy_boundary": "No private automation identifiers, private source material, health data, credentials, or identifying personal information retained.",
+  "next_action": "Implement a fail-closed peer-trigger event schema and reducer that accepts scheduler acknowledgements as attempt evidence only and promotes execution state solely from independent post-trigger run or artifact evidence."
+}
