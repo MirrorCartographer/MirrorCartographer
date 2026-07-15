@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-RECONCILE-002",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-15T10:01:55-04:00",
+  "status": "active",
+  "completed_slice": "Implemented and tested a deterministic provenance-preserving effective-state reducer with owner checks, protected-governance rejection, field-level source attribution, causal supersession, and unresolved-conflict output.",
+  "memory_record": "operations/continuity/records/CM-1032.json",
+  "artifacts": [
+    "tools/continuity/effective-state-reducer-v1.mjs",
+    "tools/continuity/effective-state-reducer-v1.test.mjs"
+  ],
+  "commits": [
+    "5f7b5b69ed58c6365d342486fdfc4fa9656f7ce2",
+    "18d32a818cb375e5bede816397eb011e4b8d40cb",
+    "e533db3fc8a87e9d753b8b67c3dd9362cefb3a51"
+  ],
+  "verification": "Five deterministic Node tests passed against byte-identical source and test content before commit.",
+  "verified_claims": [
+    "Explicit owner-scoped patches preserve untouched baseline fields.",
+    "Resolved fields retain the exact winning record, path, commit, and commit time.",
+    "Owner mismatches and protected-governance mutations are rejected.",
+    "Incompatible assertions without explicit causal supersession remain unresolved_conflict.",
+    "Explicit causal supersession can advance a field while retaining the new winning source."
+  ],
+  "remaining": [
+    "Normalize existing queue-update record classes into the explicit patch contract.",
+    "Derive commit reachability from repository ancestry instead of caller-supplied sets.",
+    "Generate and attest a repository-wide materialized effective-state view.",
+    "Define schema-version migration rules."
+  ],
+  "privacy_boundary": "Public repository metadata and abstract state-reconciliation semantics only; no private chat, health, credentials, identifying personal data, or unreviewed uploads.",
+  "rollback": [
+    "Revert this additive queue-update commit.",
+    "Revert commit e533db3fc8a87e9d753b8b67c3dd9362cefb3a51 to remove CM-1032.",
+    "Revert commits 18d32a818cb375e5bede816397eb011e4b8d40cb and 5f7b5b69ed58c6365d342486fdfc4fa9656f7ce2 to remove the test and reducer."
+  ]
+}
