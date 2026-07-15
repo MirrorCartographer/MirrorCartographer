@@ -1,4 +1,5 @@
 import { buildUnicodeIdentifierAdmission } from './unicode-identifier-admission.mjs';
+import { applyDefaultIgnorableExclusion, parseDefaultIgnorableProfile } from './default-ignorable-profile.mjs';
 
 function parseScalar(token, lineNumber) {
   if (!/^[0-9A-Fa-f]{4,6}$/.test(token)) throw new SyntaxError(`line ${lineNumber}: invalid code point ${token}`);
@@ -80,10 +81,16 @@ export function evaluateXidSyntax(identifier, dataset) {
 }
 
 export function buildUnicodeIdentifierAdmissionWithSyntax(manifest, files) {
-  const admission = buildUnicodeIdentifierAdmission(manifest, files);
+  const authenticatedAdmission = buildUnicodeIdentifierAdmission(manifest, files);
+  const sourceDigest = manifest.files.derivedCoreProperties.sha256;
+  const defaultIgnorables = parseDefaultIgnorableProfile(files.derivedCoreProperties, {
+    version: authenticatedAdmission.version,
+    sourceDigest,
+  });
+  const admission = applyDefaultIgnorableExclusion(authenticatedAdmission, defaultIgnorables);
   const syntax = parseXidSyntax(files.derivedCoreProperties, {
     version: admission.version,
-    sourceDigest: manifest.files.derivedCoreProperties.sha256,
+    sourceDigest,
   });
 
   function inspect(identifier) {
@@ -107,22 +114,30 @@ export function buildUnicodeIdentifierAdmissionWithSyntax(manifest, files) {
       const decision = inspect(identifier);
       if (!decision.admissible) return Object.freeze({ accepted: false, ...decision });
       const registered = admission.register(identifier);
-      return Object.freeze({ ...registered, syntaxEligible: true, syntax: decision.syntax, reasons: registered.reasons });
+      return Object.freeze({
+        ...registered,
+        syntaxEligible: true,
+        syntax: decision.syntax,
+        defaultIgnorableFree: true,
+        defaultIgnorableProfile: decision.defaultIgnorableProfile,
+        reasons: registered.reasons,
+      });
     },
   });
 }
 
 export const TRUST_LIMIT = Object.freeze({
-  profile: 'This gate implements unmodified UAX #31 R1-1 XID_Start/XID_Continue syntax only; application-specific additions, removals, and medial characters require a separately declared profile.',
-  context: 'Joining-control contextual rules and script-restriction levels remain separate security checks.',
-  authentication: 'The XID data shares the authenticated DerivedCoreProperties bytes, but manifest authenticity still depends on an independently trusted channel.',
-  normalization: 'Syntax is evaluated after NFC normalization; applications must explicitly declare any different comparison or display normalization policy.',
+  profile: 'This gate implements unmodified UAX #31 R1-1 XID_Start/XID_Continue syntax plus the UTS #39 General Security Profile exclusion of Default_Ignorable_Code_Point values.',
+  context: 'Joining-control contextual allowances are intentionally not provided; script-restriction levels remain a separate security check.',
+  authentication: 'The XID and default-ignorable data share authenticated DerivedCoreProperties bytes, but manifest authenticity still depends on an independently trusted channel.',
+  normalization: 'Syntax and exclusion are evaluated after NFC normalization; applications must explicitly declare any different comparison or display normalization policy.',
 });
 
 export const FALSIFICATION_ROUTE = Object.freeze([
   'Provide an empty identifier that is admitted.',
   'Provide a scalar outside XID_Start in first position that is admitted.',
   'Provide a scalar outside XID_Continue after the first position that is admitted.',
-  'Provide overlapping XID ranges that parse successfully.',
-  'Find a Unicode 17.0.0 UAX #31 R1-1 reference case where the evaluator disagrees.',
+  'Provide an authenticated Default_Ignorable_Code_Point that remains admissible or mutates the registry.',
+  'Provide overlapping XID or Default_Ignorable ranges that parse successfully.',
+  'Find a Unicode 17.0.0 UAX #31 or UTS #39 General Security Profile reference case where the evaluator disagrees.',
 ]);
