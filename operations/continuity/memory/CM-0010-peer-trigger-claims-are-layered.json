@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0010",
+  "kind": "decision",
+  "title": "A trigger attempt, scheduler acknowledgement, target enablement, peer execution, and peer artifacts are separate claims",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "recorded_at": "2026-07-15T23:37:15Z",
+  "sources": [
+    {
+      "type": "github_commit",
+      "locator": "d9c1c8816208eaa94deef43314bcb51de1b86127",
+      "content_sha": "d9c1c8816208eaa94deef43314bcb51de1b86127",
+      "observed_at": "2026-07-15T23:37:15Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "8be94aefd329c7bfd879e70844571414ebc26608",
+      "content_sha": "8be94aefd329c7bfd879e70844571414ebc26608",
+      "observed_at": "2026-07-15T23:37:15Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/TRIGGER_REQUESTS.json",
+      "content_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4",
+      "observed_at": "2026-07-15T23:37:15Z"
+    }
+  ],
+  "summary": "The coordination system must not collapse a trigger attempt into proof of peer execution. A scheduler may acknowledge a reschedule while the target remains disabled or while no peer run or artifact has been observed. Each transition therefore requires its own evidence and claim state.",
+  "status_map": {
+    "observed": [
+      "The peer-trigger schema exists.",
+      "The retained disabled-peer example records an attempted trigger and accepted scheduler acknowledgement while peer execution remains unobserved.",
+      "The durable trigger-request ledger was empty at the inspected blob."
+    ],
+    "inferred": [
+      "Coordination reports that say only 'triggered' are semantically unsafe unless they identify which transition was actually observed."
+    ],
+    "proposed": [
+      "Future team handoffs should emit peer-trigger-event records whenever the runtime can retain them."
+    ],
+    "superseded": [],
+    "unresolved": [
+      "No repository evidence inspected in this record proves that the example target later ran or produced an artifact."
+    ]
+  },
+  "privacy": "public_repository_safe",
+  "contradicts": [],
+  "supersedes": [],
+  "falsification_or_review_route": "Fetch commits d9c1c8816208eaa94deef43314bcb51de1b86127 and 8be94aefd329c7bfd879e70844571414ebc26608. Reject this record if the schema does not separate attempt, acknowledgement, enablement, execution, and artifacts, or if the example contains independent evidence of peer execution."
+}
