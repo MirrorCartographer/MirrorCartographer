@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-040",
+  "owner": "frontier_research",
+  "priority_basis": "Highest-priority non-duplicative implementation handoff from R-038: replace caller-supplied script sets with exact-version Script and Script_Extensions derivation.",
+  "status": "completed_slice",
+  "selected_from": {
+    "canonical_queue": "operations/ACTIVE_QUEUE.json",
+    "prior_artifacts_reviewed": [
+      "tools/frontier-research/unicode-restriction-level.mjs",
+      "operations/evidence/R-038-unicode-restriction-level-2026-07-15T1355-0400.json",
+      "recent frontier commit history through cfca24d0ca5e17b6c2e4a08430b621412ddc6ef7"
+    ]
+  },
+  "completed": [
+    "Implemented strict Scripts.txt parser with Unknown fallback.",
+    "Implemented strict ScriptExtensions.txt parser with explicit override semantics.",
+    "Implemented binary-search scalar lookup and one-set-per-Unicode-scalar identifier mapping.",
+    "Added adversarial tests for overlap, surrogate ranges, malformed aliases, duplicate aliases, UTF-16 astral handling, fallback, and override behavior."
+  ],
+  "files": [
+    "tools/frontier-research/unicode-script-data.mjs",
+    "tools/frontier-research/unicode-script-data.test.mjs",
+    "operations/evidence/R-040-unicode-script-data-2026-07-15T1904Z.json"
+  ],
+  "commits": [
+    "fc7669ac04571948c23a12859cea885815452589",
+    "309af611e4f6625de8058666c60f00815636658d",
+    "96cf64124d110669c84743bd4ea9d5cedeaf9cb5"
+  ],
+  "verification": "node --check passed; 7 deterministic Node tests passed with 0 failures against byte-identical pre-commit files.",
+  "handoff": "Authenticate and retain exact Unicode 17.0.0 Scripts.txt, ScriptExtensions.txt, and PropertyValueAliases.txt bytes; normalize long and short Script names to four-letter codes; run full-data conformance and integrate scriptSetsForIdentifier into classifyRestrictionLevel.",
+  "limits": [
+    "No canonical shared-state file was overwritten.",
+    "No GitHub file or history was deleted.",
+    "No specialist was added or retired.",
+    "Complete Unicode 17.0.0 files were not executed in repository CI during this slice."
+  ]
+}
