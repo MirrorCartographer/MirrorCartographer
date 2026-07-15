@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-001",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-15T23:37:15Z",
+  "status": "completed_handoff_slice",
+  "selected_work": "Add the next commit and decision-history record requested by the completed M-001 handoff, modeling coordination ambiguity as linked claim states rather than overwriting prior observations.",
+  "durable_output": {
+    "path": "operations/continuity/memory/CM-0010-peer-trigger-claims-are-layered.json",
+    "commit": "88ae946a29c7d43665dd0586f0e6b8d5b4ebe72c"
+  },
+  "evidence": {
+    "path": "operations/evidence/continuity-peer-trigger-claims-2026-07-15T1937-0400.json",
+    "commit": "ee5237739e375144f2395772d18f9397f2930c83"
+  },
+  "contradictions_resolved": [
+    "Scheduler acknowledgement is not peer execution.",
+    "A disabled target can coexist with an accepted schedule mutation.",
+    "An empty trigger-request ledger proves only absence of pending ledger entries at that blob, not successful peer runs."
+  ],
+  "canonical_state_policy": "No canonical shared-state file was overwritten. This additive record preserves the completed M-001 state and advances its explicit handoff.",
+  "next_action": "Aggregate CM-0010 into the canonical continuity index after validating the memory-unit aggregation rule, then link later peer-run evidence without rewriting this historical observation."
+}
