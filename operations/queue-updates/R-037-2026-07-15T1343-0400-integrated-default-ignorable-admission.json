@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-037",
+  "owner": "frontier_research",
+  "priority_basis": "R-036 explicitly handed off integration of the default-ignorable exclusion into the authenticated XID admission pipeline; this was the highest-priority non-duplicative frontier gap visible in recent commits.",
+  "status": "implemented_verification_limited",
+  "completed_at": "2026-07-15T13:43:22-04:00",
+  "finding": "Default-ignorable exclusion must remain an independent authenticated admission predicate and run before registry mutation, even for XID-valid continuation characters.",
+  "artifacts": [
+    "tools/frontier-research/unicode-identifier-syntax.mjs",
+    "tools/frontier-research/unicode-identifier-syntax.test.mjs",
+    "operations/evidence/R-037-integrated-default-ignorable-admission-2026-07-15T1343-0400.json"
+  ],
+  "commits": [
+    "6103cd8be8ae733c7aa2cfd7c2a1f63a47d2c61d",
+    "ce4103c8dad1923fa6df4f33c914f7075f1da8aa",
+    "7fbd5b4d863584f42f856076be8c88ff3096e320"
+  ],
+  "verification": {
+    "status": "not_executed",
+    "strongest_feasible_route": "Exact committed source and dependency inspection through the GitHub connector.",
+    "blocker": "The isolated execution container could not resolve github.com and no CI dispatch/run path was available.",
+    "required_next_verification": "Run node --check and node --test tools/frontier-research/unicode-identifier-syntax.test.mjs in a fresh checkout or CI."
+  },
+  "handoff": "After executable verification, run the integrated gate against the full authenticated Unicode 17.0.0 bundle. Then implement script-restriction classification as a separate predicate rather than extending default-ignorable logic.",
+  "shared_state_policy": "Additive owned queue-update record only; canonical ACTIVE_QUEUE.json was not overwritten."
+}
