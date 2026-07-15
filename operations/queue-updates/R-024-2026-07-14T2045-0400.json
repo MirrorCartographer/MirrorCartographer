@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "item": {
+    "id": "R-024",
+    "owner": "frontier_research",
+    "priority": 0,
+    "action": "Reject duplicate JSON object member names at the text-ingestion boundary before RFC 8785 canonicalization.",
+    "dependencies": ["R-023"],
+    "required_evidence": [
+      "primary specifications",
+      "committed parser gate",
+      "deterministic adversarial tests",
+      "explicit trust limit",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://www.rfc-editor.org/rfc/rfc8785.html#section-3.1",
+        "https://www.rfc-editor.org/rfc/rfc7493.html#section-2.3",
+        "https://www.rfc-editor.org/rfc/rfc8259.html#section-4"
+      ],
+      "finding": "A parsed object cannot retain proof that its source text had unique member names; duplicate detection must precede JSON.parse because JCS requires I-JSON input without duplicate property names.",
+      "module": "tools/frontier-research/canonical-json-text-digest.mjs",
+      "test": "tools/frontier-research/canonical-json-text-digest.test.mjs",
+      "evidence": "operations/evidence/R-024-duplicate-json-member-gate-2026-07-14T2045-0400.json",
+      "commits": [
+        "7ad9f213cd517a1835a3d19d4ec2fc21e3ac880c",
+        "c5007d0f660c167a2fe1549316c518377c8e0f99",
+        "aea21d04c9d1d36a8e4aafb4af587fc3bed3aec9"
+      ],
+      "verification": "6 deterministic Node tests passed in an isolated runtime"
+    },
+    "handoff": "Place canonicalJsonTextDigest at every raw JSON evidence-ingestion boundary. Next, differentially fuzz the scanner against an independent duplicate-preserving parser and a standards corpus before treating it as production-grade."
+  },
+  "canonical_queue_sha_observed": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+  "canonical_queue_mutated": false
+}
