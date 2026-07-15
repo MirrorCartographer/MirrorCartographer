@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.dev/schemas/peer-trigger-event.schema.json",
+  "title": "Peer Trigger Event",
+  "description": "Provenance-preserving coordination record that keeps trigger attempts, scheduler acknowledgements, enablement, peer execution, and produced artifacts as separate claims.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "recorded_at",
+    "requesting_team",
+    "target_team",
+    "mechanism",
+    "attempt",
+    "scheduler_acknowledgement",
+    "target_enablement",
+    "peer_execution",
+    "peer_artifacts",
+    "claim_state",
+    "privacy",
+    "review_route"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "event_id": {"type": "string", "pattern": "^PTE-[0-9]{8}T[0-9]{6}Z-[a-z0-9-]+$"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "requesting_team": {"$ref": "#/$defs/team"},
+    "target_team": {"$ref": "#/$defs/team"},
+    "mechanism": {"enum": ["direct_trigger", "automation_reschedule", "trigger_request_ledger"]},
+    "attempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "observed_at", "evidence"],
+      "properties": {
+        "status": {"enum": ["not_attempted", "attempted", "failed"]},
+        "observed_at": {"type": ["string", "null"], "format": "date-time"},
+        "evidence": {"$ref": "#/$defs/evidenceList"}
+      }
+    },
+    "scheduler_acknowledgement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "observed_at", "evidence"],
+      "properties": {
+        "status": {"enum": ["not_applicable", "unobserved", "accepted", "rejected"]},
+        "observed_at": {"type": ["string", "null"], "format": "date-time"},
+        "evidence": {"$ref": "#/$defs/evidenceList"}
+      }
+    },
+    "target_enablement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "observed_at", "evidence"],
+      "properties": {
+        "state": {"enum": ["enabled", "disabled", "unknown"]},
+        "observed_at": {"type": ["string", "null"], "format": "date-time"},
+        "evidence": {"$ref": "#/$defs/evidenceList"}
+      }
+    },
+    "peer_execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "started_at", "completed_at", "evidence"],
+      "properties": {
+        "status": {"enum": ["unobserved", "started", "completed", "failed"]},
+        "started_at": {"type": ["string", "null"], "format": "date-time"},
+        "completed_at": {"type": ["string", "null"], "format": "date-time"},
+        "evidence": {"$ref": "#/$defs/evidenceList"}
+      }
+    },
+    "peer_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "locator", "content_sha", "observed_at"],
+        "properties": {
+          "kind": {"enum": ["commit", "file", "deployment", "runtime_result", "completion_report"]},
+          "locator": {"type": "string", "minLength": 1},
+          "content_sha": {"type": ["string", "null"]},
+          "observed_at": {"type": "string", "format": "date-time"}
+        }
+      }
+    },
+    "claim_state": {"enum": ["trigger_attempted", "trigger_recorded", "trigger_unresolved", "peer_run_observed", "peer_artifact_observed"]},
+    "privacy": {"enum": ["public_repository_safe", "restricted_reference_only", "do_not_publish"]},
+    "review_route": {"type": "string", "minLength": 1}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"claim_state": {"const": "peer_run_observed"}}},
+      "then": {
+        "properties": {"peer_execution": {"properties": {"status": {"enum": ["started", "completed", "failed"]}}}}
+      }
+    },
+    {
+      "if": {"properties": {"claim_state": {"const": "peer_artifact_observed"}}},
+      "then": {"properties": {"peer_artifacts": {"minItems": 1}}}
+    },
+    {
+      "if": {"properties": {"target_enablement": {"properties": {"state": {"const": "disabled"}}}}},
+      "then": {"not": {"properties": {"claim_state": {"enum": ["peer_run_observed", "peer_artifact_observed"]}}}}
+    }
+  ],
+  "$defs": {
+    "team": {"enum": ["vercel_studio", "cloudflare_research", "independent_creative_web", "continuity_mining", "frontier_research"]},
+    "evidenceList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "locator", "observed_at"],
+        "properties": {
+          "type": {"enum": ["tool_acknowledgement", "repository_file", "repository_commit", "automation_state", "runtime_output"]},
+          "locator": {"type": "string", "minLength": 1},
+          "observed_at": {"type": "string", "format": "date-time"}
+        }
+      }
+    }
+  }
+}
