@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-15T05:00:46-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "status": "active",
+  "completed_slice": {
+    "record": "operations/continuity/records/CM-1027.json",
+    "commit": "b1b7d876de56ce6a39932bd2968db6028caf6c8b",
+    "finding": "Immutable source identity is conjunctive across repository identity, commit reachability, path-at-commit, and exact blob identity; partial locator success must remain fail-closed.",
+    "evidence_strength": "committed_repository_grounded_synthesis",
+    "verification": "GitHub contents API accepted the additive UTF-8 JSON record and returned commit b1b7d876de56ce6a39932bd2968db6028caf6c8b. No executable verifier or runtime JSON parser was run in this connector-only slice."
+  },
+  "remaining": [
+    "Implement and test the repository-source locator verifier defined by CM-1027.",
+    "Implement a privacy-policy compatibility gate for declared source classes and intended publication surfaces.",
+    "Retain authenticated exhaustive branch, ref, and eligible-source enumeration before claiming source-complete effective state.",
+    "Resolve the originating immutable sources for M-004, M-005, and M-006."
+  ],
+  "privacy_boundary": "No private source text or personal material was retained; only public repository metadata, immutable identifiers, and abstract continuity rules were recorded.",
+  "rollback": "Revert commit b1b7d876de56ce6a39932bd2968db6028caf6c8b and the commit that created this additive queue-update record. No canonical file was overwritten."
+}
