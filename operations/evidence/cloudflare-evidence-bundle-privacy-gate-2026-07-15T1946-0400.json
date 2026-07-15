@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-15T19:46:00-04:00",
+  "claim_state": "implemented_and_locally_tested",
+  "evidence_strength": "deterministic_unit_tests_plus_exact_commit_source",
+  "finding": "Sanitizing one provider response is insufficient if retained evidence artifacts are not independently scanned before upload. A fail-closed recursive privacy gate should reject secret-bearing keys, provider message fields, malformed JSON, and secret-shaped string values while permitting bounded provenance, deployment URLs, stable identifiers, and numeric diagnostic codes.",
+  "artifacts": {
+    "validator": "cloudflare-static/validate-evidence-bundle-privacy.mjs",
+    "validator_commit": "02b082cc507fb37b4c2e7efa9a9a0d061f1cd2ea",
+    "test": "cloudflare-static/validate-evidence-bundle-privacy.test.mjs",
+    "test_commit": "dfeab1d6106b66a4a510d1f88ce8a00c3d405f1a"
+  },
+  "verification": {
+    "command": "node --test validate-evidence-bundle-privacy.test.mjs",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "accept bounded provenance and HTTPS deployment URLs",
+      "reject provider message fields",
+      "reject secret-shaped bearer values",
+      "reject malformed or missing JSON",
+      "accept a complete sanitized bundle"
+    ]
+  },
+  "privacy_boundary": {
+    "forbidden_key_classes": ["authorization", "cookie", "secret", "token", "api-key", "client-secret", "private-key", "message", "stack"],
+    "secret_shape_classes": ["bearer credential", "Cloudflare token label", "GitHub token", "private key block"],
+    "output_contains_secret_values": false
+  },
+  "uncertainty": "The validator is not yet wired into the production workflow before artifact upload, and it has not been executed against a live workflow evidence bundle.",
+  "falsification_route": "Construct a retained JSON artifact containing a forbidden nested key or secret-shaped value and verify the command exits non-zero; then run the validator against every exact upload-path artifact in GitHub Actions before upload-artifact.",
+  "epistemic_limit": "Privacy-gate acceptance only establishes that the inspected JSON avoids the encoded disclosure patterns. It does not prove deployment success, source truth, scientific validity, or absence of every possible secret format."
+}
