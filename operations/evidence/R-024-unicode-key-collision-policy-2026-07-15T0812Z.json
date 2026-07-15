@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "item_id": "R-024",
+  "team": "frontier_research",
+  "created_at": "2026-07-15T08:12:00Z",
+  "claim_state": "observed_and_tested",
+  "finding": "RFC 8785 requires JCS participants to preserve Unicode strings as-is and not apply Unicode normalization. Therefore normalization-equivalent or compatibility-equivalent object keys require a separate, policy-driven collision gate; rewriting keys before canonicalization would change signed input semantics.",
+  "primary_sources": [
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8785.html",
+      "status": "primary_specification",
+      "relevant_sections": ["3.1", "3.2.2.2", "5"]
+    },
+    {
+      "url": "https://www.unicode.org/reports/tr15/",
+      "status": "primary_unicode_annex",
+      "relevant_topic": "Unicode normalization forms"
+    },
+    {
+      "url": "https://www.unicode.org/reports/tr39/",
+      "status": "primary_unicode_security_report",
+      "relevant_topic": "Unicode security mechanisms and confusables"
+    }
+  ],
+  "artifact": "tools/frontier-research/unicode-key-collision-policy.mjs",
+  "test": "tools/frontier-research/unicode-key-collision-policy.test.mjs",
+  "commits": [
+    "79f16d9c50c611315b8e39b76cc92a577000d062",
+    "c86db355857bee16b03bfb2e4192365f23ea5ddc"
+  ],
+  "verification": {
+    "runtime": "Node.js isolated local execution",
+    "command": "node --test unicode-key-collision-policy.test.mjs",
+    "result": "4 passed, 0 failed",
+    "cases": [
+      "NFC-equivalent key collision detected without mutating JCS input or digest",
+      "NFKC compatibility collision detected while NFC remains distinct",
+      "nested object path retained and separate objects not conflated",
+      "fail-closed enforcement rejects collisions and returns safe input by identity"
+    ]
+  },
+  "design_implication": "Run this semantic-key policy after strict JSON parsing and before application acceptance, while preserving original bytes for JCS digest and signature verification. Choose NFC or NFKC explicitly per ecosystem; do not silently normalize.",
+  "uncertainty": "Normalization collisions are not the full Unicode confusable problem. This artifact does not implement UTS #39 skeleton generation, script restriction levels, locale policy, or identifier allowlists.",
+  "falsification_route": "Provide two distinct keys that normalize to the same selected form but are not reported at the same object path, or show that the policy mutates input or changes its canonical digest. For broader spoofing claims, test against official UTS #39 confusables data; this artifact makes no claim of full confusable coverage.",
+  "privacy_boundary": "No private chat, health, credentials, or identifying material used or committed."
+}
