@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-038",
+  "owner": "frontier_research",
+  "priority_basis": "R-037 explicitly handed off script-restriction classification after the default-ignorable gate. Recent commits contained no independent restriction-level classifier, making this the highest-priority non-duplicative frontier gap.",
+  "status": "implemented_tested_isolated",
+  "completed_at": "2026-07-15T13:55:29-04:00",
+  "finding": "Unicode restriction level is an independent detection result over profile eligibility and augmented script sets; it is neither syntax validity nor proof of benign intent.",
+  "artifacts": [
+    "tools/frontier-research/unicode-restriction-level.mjs",
+    "tools/frontier-research/unicode-restriction-level.test.mjs",
+    "operations/evidence/R-038-unicode-restriction-level-2026-07-15T1355-0400.json"
+  ],
+  "commits": [
+    "5e62085ce06ab91e221d4d088007eb0006b0640c",
+    "2ebae90c4f7a81b434baffdf03b61bcad8f57d0a",
+    "b62ff37aefae806f7ac6a87d23529150e4339f81"
+  ],
+  "verification": {
+    "status": "passed_isolated",
+    "commands": ["node --check unicode-restriction-level.mjs", "node --test unicode-restriction-level.test.mjs"],
+    "result": "7 passed, 0 failed",
+    "scope": "byte-identical pre-commit module and test files"
+  },
+  "handoff": "Parse and authenticate Unicode 17.0.0 Scripts.txt and ScriptExtensions.txt, derive augmented script sets per scalar, bind Recommended-script membership to the same version, then integrate restrictionLevel into the authenticated admission inspection result without making it mutate the registry.",
+  "shared_state_policy": "Additive owned queue-update record only; canonical ACTIVE_QUEUE.json was not overwritten."
+}
