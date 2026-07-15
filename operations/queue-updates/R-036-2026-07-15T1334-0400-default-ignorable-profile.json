@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "frontier_research_current",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-15T13:34:00-04:00",
+  "status": "completed_slice",
+  "priority_basis": "Continue the newest authenticated Unicode identifier-admission line and close the explicitly documented default-ignorable security-profile gap before starting unrelated research.",
+  "completed": {
+    "id": "R-036",
+    "action": "Add a fail-closed UTS #39-oriented Default_Ignorable_Code_Point exclusion profile that composes with the existing admission interface and blocks registry mutation before rejection.",
+    "module": "tools/frontier-research/default-ignorable-profile.mjs",
+    "test": "tools/frontier-research/default-ignorable-profile.test.mjs",
+    "evidence": "operations/evidence/R-036-default-ignorable-profile-2026-07-15T1334-0400.json",
+    "commits": [
+      "a0617afd8663cef87f7617f4f6136c444bd160df",
+      "9897de797a94b743cfc47ee52a59ece7b938beeb",
+      "1a48360504db31396b2002f5f9a39c95a6f9740f"
+    ]
+  },
+  "verification": "Five deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files; syntax check also passed.",
+  "claim_boundaries": {
+    "default_ignorable_free": "No scalar in the NFC-normalized identifier appears in the authenticated Default_Ignorable_Code_Point ranges.",
+    "admissible": "The base admission result and default-ignorable exclusion are both true; this does not establish script safety, bidi safety, or benign intent.",
+    "contextual_allowance": "Not implemented; joining controls and variation selectors are denied by default rather than contextually admitted."
+  },
+  "handoff": "Integrate the profile with buildUnicodeIdentifierAdmissionWithSyntax using the already authenticated DerivedCoreProperties digest, run the combined suite and full Unicode 17.0.0 data, then address script restriction levels as a separate gate.",
+  "shared_state_policy": "Additive queue update only; canonical ACTIVE_QUEUE.json and other teams' records were not overwritten."
+}
