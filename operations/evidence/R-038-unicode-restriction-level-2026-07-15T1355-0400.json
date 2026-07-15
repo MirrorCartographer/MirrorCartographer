@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "R-038",
+  "owner": "frontier_research",
+  "created_at": "2026-07-15T13:55:29-04:00",
+  "claim_state": "implemented_tested_isolated",
+  "finding": "UTS #39 restriction levels are a detection result over profile eligibility and augmented script sets; they must not be collapsed into syntax validity or treated as proof of benign intent.",
+  "primary_sources": [
+    {
+      "url": "https://www.unicode.org/reports/tr39/",
+      "status": "current_official",
+      "version": "17.0.0",
+      "revision": 32,
+      "date": "2025-09-04",
+      "relevant_sections": ["2 Conformance", "5.1 Mixed-Script Detection", "5.2 Restriction-Level Detection"]
+    }
+  ],
+  "evidence_strength": "strong_for_algorithm_shape_limited_for_full_unicode_data_integration",
+  "design_implication": "Expose restrictionLevel as an independent decision field after identifier-profile evaluation. Feed it authenticated exact-version Script and Script_Extensions data, and keep whole-script confusables, bidi safety, display policy, and intent as separate gates.",
+  "artifact": "tools/frontier-research/unicode-restriction-level.mjs",
+  "test": "tools/frontier-research/unicode-restriction-level.test.mjs",
+  "verification": {
+    "commands": [
+      "node --check unicode-restriction-level.mjs",
+      "node --test unicode-restriction-level.test.mjs"
+    ],
+    "environment": "isolated Node runtime using byte-identical pre-commit files",
+    "result": {"passed": 7, "failed": 0}
+  },
+  "uncertainty": [
+    "The classifier consumes pre-resolved augmented script sets and does not yet parse authenticated Unicode Script or Script_Extensions data files.",
+    "Recommended-script membership is injected and must be bound to the same Unicode version before production use.",
+    "The full Unicode 17.0.0 conformance corpus has not been executed."
+  ],
+  "falsification_route": [
+    "Show disagreement with UTS #39 Section 5.2 for correct augmented script-set inputs.",
+    "Show a Greek or Cyrillic companion to Latin classified as Moderately Restrictive.",
+    "Show an outside-profile identifier classified at Levels 1-5.",
+    "Show a cardinality mismatch or invalid script code accepted silently."
+  ],
+  "privacy": "No private chat, health, credential, or identifying material used or retained."
+}
