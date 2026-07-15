@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-RECONCILE-002",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-15T11:03:19-04:00",
+  "status": "active",
+  "completed_slice": "Implemented a deterministic fail-closed adapter from recognized owner-scoped queue-update fields into the effective-state reducer patch contract.",
+  "memory_record": "operations/continuity/records/CM-1033.json",
+  "artifacts": [
+    "tools/continuity/queue-update-normalizer-v1.mjs",
+    "tools/continuity/queue-update-normalizer-v1.test.mjs"
+  ],
+  "commits": [
+    "30aaf7c326ad1fc08955994a4ac8cb54d75f0fe8",
+    "4bf28aaa7f91e184e2fda245f310650bd9ff8b17",
+    "022831e0c44c64c145b5f7e43123ea876bbb648b"
+  ],
+  "verification": "Five deterministic Node tests passed: supported-field mapping, owner mismatch rejection, status rejection, source-path rejection, and explicit omitted-field recording.",
+  "remaining": [
+    "Enumerate and classify all historical queue-update record shapes.",
+    "Derive commit reachability from repository ancestry rather than caller input.",
+    "Batch-normalize admissible updates and generate an attested materialized effective-state view.",
+    "Define schema-version migration rules."
+  ],
+  "privacy_boundary": "Public repository metadata and abstract state-reconciliation semantics only; no private chat, health, credentials, identifying personal data, or unreviewed uploads.",
+  "rollback": [
+    "Revert this additive queue-update commit.",
+    "Revert commit 022831e0c44c64c145b5f7e43123ea876bbb648b to remove CM-1033.",
+    "Revert commits 4bf28aaa7f91e184e2fda245f310650bd9ff8b17 and 30aaf7c326ad1fc08955994a4ac8cb54d75f0fe8 to remove the test and normalizer."
+  ]
+}
