@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-030",
+  "owner": "frontier_research",
+  "recorded_at": "2026-07-15T10:04:00Z",
+  "source_status": "current_primary_source",
+  "primary_sources": [
+    {
+      "title": "Unicode Technical Standard #39: Unicode Security Mechanisms",
+      "url": "https://www.unicode.org/reports/tr39/",
+      "version": "17.0.0",
+      "revision": 32,
+      "date": "2025-09-04"
+    },
+    {
+      "title": "Unicode Security confusables data",
+      "url": "https://www.unicode.org/Public/security/latest/confusables.txt",
+      "version": "17.0.0"
+    }
+  ],
+  "finding": "Identifier-profile eligibility and confusable detection are independent security mechanisms. A clean confusable result must not override a restricted or incompletely evaluated identifier, and profile eligibility must not override a skeleton collision.",
+  "evidence_strength": "strong_specification_basis_with_local_policy_tests",
+  "uncertainty": "The artifact composes upstream decisions but does not itself implement the General Security Profile, skeleton generation, script resolution, or full UTS #39 conformance.",
+  "design_implication": "Admission must be conjunctive and fail closed: complete profile evidence, profile eligibility, complete confusables evidence, and skeleton uniqueness are all mandatory.",
+  "artifact": {
+    "module": "tools/frontier-research/identifier-admission-policy.mjs",
+    "test": "tools/frontier-research/identifier-admission-policy.test.mjs",
+    "commits": [
+      "a8730e55708e37d82cf8fc3586230accab723db9",
+      "830351515b1ab1b7193c14813ce2ece60a3e437a"
+    ]
+  },
+  "verification": {
+    "method": "isolated Node test run using an exact functional copy of the committed module and tests",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0
+  },
+  "falsification_route": "Demonstrate any input for which the policy allows despite an incomplete upstream mechanism, profile rejection, or skeleton collision; or rejects when all four mandatory booleans are true.",
+  "privacy_boundary": "Contains only public standards metadata, abstract security policy, repository paths, and commit identifiers."
+}
