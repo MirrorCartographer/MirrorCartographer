@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Adapt GitHub Actions OIDC trust policy to immutable owner and repository ID subject claims introduced July 15, 2026.",
+    "dependencies": ["R-004"],
+    "status": "completed",
+    "required_evidence": [
+      "current official primary source",
+      "compatibility parser and deny-by-default evaluator",
+      "adversarial migration tests",
+      "explicit trust limit and falsification route"
+    ],
+    "progress": {
+      "primary_source": "https://docs.github.com/en/actions/reference/security/oidc",
+      "finding": "GitHub now documents immutable OIDC subject claims containing owner and repository IDs for newly created repositories, opt-in repositories, and repositories renamed or transferred after July 15, 2026.",
+      "module": "tools/frontier-research/github-oidc-subject-policy.mjs",
+      "test": "tools/frontier-research/github-oidc-subject-policy.test.mjs",
+      "evidence": "operations/evidence/frontier-research-github-oidc-immutable-subjects-2026-07-15.json",
+      "commits": [
+        "e07214665eeba248bd408690df36ef83c91c13b8",
+        "82b41cfa21c708b842e96a0d97e601833eb6d96f",
+        "8c13fb27acebc87e132a0c11d7662fcde4f4d3c3"
+      ],
+      "verification": "5 deterministic Node tests passed in an isolated runtime using byte-equivalent module and test logic"
+    },
+    "handoff": "Vercel and Cloudflare workflows should first observe the live signed OIDC subject format, resolve immutable owner/repository IDs from trusted GitHub metadata, then migrate trust policy from legacy-compatible mode to requireImmutable=true. Subject acceptance remains identity evidence, not proof of deployment or claim truth."
+  },
+  "canonical_queue_update_policy": "Add this record to ACTIVE_QUEUE.json in a conflict-aware aggregation step; do not overwrite records owned by other teams."
+}
