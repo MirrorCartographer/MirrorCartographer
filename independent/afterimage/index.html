@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08070d">
+<title>Afterimage</title>
+<style>
+:root{color-scheme:dark;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#08070d}body{color:#fff}canvas{position:fixed;inset:0;width:100%;height:100%;display:block}.veil{position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 45%,transparent 0 28%,rgba(0,0,0,.12) 65%,rgba(0,0,0,.55) 100%)}header{position:fixed;inset:max(18px,env(safe-area-inset-top)) 18px auto 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;z-index:2;mix-blend-mode:screen}h1{margin:0;font-size:clamp(1rem,3vw,1.35rem);font-weight:500;letter-spacing:.28em;text-transform:uppercase}.seed{opacity:.72;font-size:.72rem;letter-spacing:.08em;text-align:right}.controls{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;gap:10px;z-index:3}button{min-width:48px;min-height:48px;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:rgba(8,7,13,.54);color:#fff;backdrop-filter:blur(12px);padding:0 18px;font:inherit;letter-spacing:.08em;cursor:pointer}button:focus-visible{outline:3px solid #fff;outline-offset:3px}.caption{position:fixed;left:18px;bottom:max(88px,calc(env(safe-area-inset-bottom) + 88px));max-width:30ch;font-size:.75rem;line-height:1.45;opacity:.72;z-index:2}@media(prefers-reduced-motion:reduce){.caption::after{content:' · still mode'}}
+</style>
+</head>
+<body>
+<canvas id="field" aria-hidden="true"></canvas><div class="veil"></div>
+<header><h1>Afterimage</h1><div class="seed" id="seedLabel"></div></header>
+<p class="caption">A place that changes only when touched. No memory leaves this page.</p>
+<div class="controls" aria-label="Scene controls"><button id="shift" type="button">Shift</button><button id="sound" type="button" aria-pressed="false">Sound off</button></div>
+<script type="module">
+import{sceneFor}from'./world.mjs';
+const canvas=document.querySelector('#field'),context=canvas.getContext('2d',{alpha:false}),shift=document.querySelector('#shift'),sound=document.querySelector('#sound'),seedLabel=document.querySelector('#seedLabel'),reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');let seed=1,scene,soundEnabled=false,audioContext,animationId;
+function fit(){const ratio=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(innerWidth*ratio);canvas.height=Math.round(innerHeight*ratio);canvas.style.width=`${innerWidth}px`;canvas.style.height=`${innerHeight}px`;context.setTransform(ratio,0,0,ratio,0,0);scene=sceneFor(seed,innerWidth,innerHeight);seedLabel.textContent=`scene ${String(seed).padStart(2,'0')}`;draw(performance.now())}
+function draw(now){const t=reducedMotion.matches?0:now/1000;context.fillStyle=scene.background;context.fillRect(0,0,innerWidth,innerHeight);context.globalCompositeOperation='screen';for(const form of scene.forms){const x=form.x+Math.sin(t*form.drift+form.phase)*form.radius*.34,y=form.y+Math.cos(t*form.drift*.73+form.phase)*form.radius*.28,pulse=reducedMotion.matches?1:.82+Math.sin(t*.5+form.phase)*.18,gradient=context.createRadialGradient(x,y,0,x,y,form.radius*pulse);gradient.addColorStop(0,`${form.color}aa`);gradient.addColorStop(.42,`${form.color}42`);gradient.addColorStop(1,`${form.color}00`);context.fillStyle=gradient;context.beginPath();context.arc(x,y,form.radius*pulse,0,Math.PI*2);context.fill()}context.globalCompositeOperation='source-over';if(!reducedMotion.matches)animationId=requestAnimationFrame(draw)}
+async function playTone(){if(!soundEnabled)return;audioContext||=new AudioContext();if(audioContext.state==='suspended')await audioContext.resume();const now=audioContext.currentTime,gain=audioContext.createGain(),a=audioContext.createOscillator(),b=audioContext.createOscillator();a.type='sine';b.type='triangle';a.frequency.value=scene.tone.baseHz;b.frequency.value=scene.tone.baseHz*scene.tone.interval;gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.045,now+.04);gain.gain.exponentialRampToValueAtTime(.0001,now+scene.tone.durationMs/1000);a.connect(gain);b.connect(gain);gain.connect(audioContext.destination);a.start(now);b.start(now);a.stop(now+scene.tone.durationMs/1000+.02);b.stop(now+scene.tone.durationMs/1000+.02)}
+shift.addEventListener('click',async()=>{seed+=1;cancelAnimationFrame(animationId);fit();await playTone()});sound.addEventListener('click',async()=>{soundEnabled=!soundEnabled;sound.setAttribute('aria-pressed',String(soundEnabled));sound.textContent=soundEnabled?'Sound on':'Sound off';if(soundEnabled)await playTone()});addEventListener('resize',fit,{passive:true});reducedMotion.addEventListener('change',fit);fit();
+</script>
+</body>
+</html>
