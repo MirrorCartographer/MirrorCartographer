@@ -1,0 +1,81 @@
+{
+  "id": "CM-1031",
+  "created_at": "2026-07-15T07:27:00-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "kind": "operating_memory",
+  "memory": "Shared operational state is append-reconciled, not last-file-wins. Canonical files such as operations/ACTIVE_QUEUE.json establish a baseline at a specific blob. Later owner-scoped queue updates, evidence records, continuity records, and commits may supersede the current interpretation of one field or item while preserving the baseline as historical evidence. Effective state must therefore be derived by replaying admissible additive records in provenance order under ownership and boundary rules; canonical files must not be silently rewritten merely to make them look current.",
+  "claims": {
+    "observed": [
+      "CURRENT_STATE.json requires five teams to share durable state, update only owned records, retain evidence, and avoid unsupported implementation claims.",
+      "ACTIVE_QUEUE.json records W-001 as active but contains none of the later Afterimage source, test, evidence, or remaining-work details.",
+      "The later owner-scoped W-001 queue update records a completed Afterimage slice while retaining W-001 as active because public URL and mobile proof remain incomplete.",
+      "CM-1030 already records that the canonical queue is stale relative to additive continuity updates and recent commits.",
+      "The continuity index preserves earlier and later queue observations as linked records rather than erasing the older state."
+    ],
+    "inferred": [
+      "Reading only the canonical queue can understate completed work; reading only the newest additive record can omit baseline requirements and hard boundaries.",
+      "A deterministic effective-state view requires field-level provenance, ownership checks, commit reachability, and explicit supersession scope.",
+      "A later record should supersede only the claims it addresses, not unrelated fields or repository-wide governance."
+    ],
+    "proposed": [
+      "Define effective state as a replay over immutable records ordered by committed_at, with recorded_at used only as secondary metadata.",
+      "Admit a state transition only when the record owner matches the queue item owner, the source commit is reachable, required fields validate, and no hard boundary is weakened.",
+      "Represent supersession at field or claim scope; preserve all prior records and expose the winning source for each effective field.",
+      "When two admissible records conflict without a deterministic precedence relation, classify the field unresolved_conflict rather than selecting one silently.",
+      "Treat CURRENT_STATE hard boundaries and specialist-registry rules as constraints, not ordinary fields that team-local updates may override."
+    ],
+    "superseded": [
+      "Treating operations/ACTIVE_QUEUE.json as necessarily current merely because it is canonical.",
+      "Treating the newest timestamped file as authoritative without verifying commit provenance, ownership, or scope.",
+      "Overwriting the baseline queue to erase evidence of earlier project state.",
+      "Allowing one team update to modify another team's effective queue state by implication."
+    ],
+    "unresolved": [
+      "No executable effective-state reducer is yet committed.",
+      "The repository does not yet expose a single generated materialized view with field-level winning provenance.",
+      "Concurrent commits with equal logical scope need a documented tie-break or unresolved-conflict representation.",
+      "The complete admissible record classes and schema-version migration policy remain to be enumerated."
+    ]
+  },
+  "precedence_contract": {
+    "immutable_inputs": [
+      "canonical baseline blobs",
+      "owner-scoped queue updates",
+      "evidence records",
+      "continuity records",
+      "reachable commit metadata"
+    ],
+    "admission_checks": [
+      "schema_valid",
+      "commit_reachable",
+      "owner_matches_subject",
+      "record_scope_explicit",
+      "hard_boundaries_preserved",
+      "privacy_class_allowed"
+    ],
+    "ordering": [
+      "causal parentage when available",
+      "committed_at",
+      "recorded_at as non-authoritative secondary metadata"
+    ],
+    "merge_rule": "Apply only fields explicitly asserted by an admissible record. Preserve untouched fields from the prior effective state and retain the source locator for every resulting field.",
+    "conflict_rule": "If admissible records assert incompatible values for the same field and neither causally supersedes the other, emit unresolved_conflict with both source locators.",
+    "constraint_rule": "CURRENT_STATE hard boundaries and SPECIALIST_REGISTRY governance constrain replay and cannot be weakened by team-local records.",
+    "deletion_rule": "No baseline, additive record, evidence artifact, commit, or prior effective-state observation is deleted or rewritten."
+  },
+  "contradiction_resolution": "W-001 can simultaneously be active and have a completed vertical slice. 'Active' describes the queue item's overall acceptance state; 'completed_slice' describes additive progress. The later update refines the effective state without contradicting the baseline requirement for a public URL and mobile proof.",
+  "sources": [
+    {"path":"operations/CURRENT_STATE.json","blob_sha":"c21e897b0a30862142c5986368fc7c413fa030bc","role":"governance_and_hard_boundaries"},
+    {"path":"operations/ACTIVE_QUEUE.json","blob_sha":"abb807e1a25d399f301238f6b8cc26d6be10385f","role":"canonical_queue_baseline"},
+    {"path":"operations/SPECIALIST_REGISTRY.json","blob_sha":"88451b05101bcd8a259f98de5d9290e15357366b","role":"specialist_governance"},
+    {"path":"operations/TRIGGER_REQUESTS.json","blob_sha":"80feb36d1d829c7d54748780837a9ebef543e6c4","role":"coordination_fallback"},
+    {"path":"operations/continuity/continuity-index.json","blob_sha":"efb8b5ca41a00a3484af1df112a81fc6a1b6d63a","role":"prior_temporal_supersession_pattern"},
+    {"path":"operations/continuity/records/CM-1030.json","blob_sha":"6a0b2a4478da6e33e29fbf885cab20b3e12d4070","role":"stale_baseline_observation_and_snapshot_contract"},
+    {"path":"operations/queue-updates/W-001-2026-07-15T0720-0400-afterimage.json","blob_sha":"41f153b0ccf420f34604766249075b8f6688fdb6","role":"later_owner_scoped_progress_record"},
+    {"commit":"7375825d15f5296f8fb6d78fb32899ff15e11fc1","role":"commit_provenance_for_later_queue_update"}
+  ],
+  "evidence_strength": "corroborated public-repository synthesis with explicit unresolved implementation gaps",
+  "privacy_boundary": "Retains only public repository governance, queue semantics, paths, blob SHAs, commit IDs, and abstract state-reconciliation rules. No private chat excerpts, health or pet-health material, credentials, personal identifiers, or unreviewed File Library content are included.",
+  "falsification_route": "Produce a repository-wide state derivation in which a single mutable canonical file preserves complete historical evidence, owner isolation, field-level provenance, and concurrent-conflict handling without additive replay or equivalent immutable event semantics."
+}
