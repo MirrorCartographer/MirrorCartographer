@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "team": "independent_creative_web",
+  "created_at": "2026-07-15T17:28:00Z",
+  "creative_premise": "Afterimage remains an ephemeral audiovisual field; this slice adds a deployment truth boundary so a public copy can be identified without turning the piece into a dashboard or product surface.",
+  "completed_slice": "Added a provider-neutral static deployment manifest and a fail-closed receipt verifier binding HTTPS URL, immutable source commit, deployment time, manifest bytes, entrypoint bytes, served bytes, and identity markers.",
+  "identity_boundary": {
+    "independent_from_mirror_cartographer": true,
+    "not_a_research_interface": true,
+    "not_an_operations_dashboard": true,
+    "not_a_conversion_funnel": true,
+    "persistent_personal_state": false,
+    "external_assets": false
+  },
+  "implementation": {
+    "manifest": "independent/afterimage/deployment.json",
+    "verifier": "independent/afterimage/verify-deployment.mjs",
+    "test": "independent/afterimage/verify-deployment.test.mjs",
+    "receipt_schema": "afterimage-deployment-receipt/1",
+    "fail_closed_on": [
+      "invalid manifest identity",
+      "invalid or non-HTTPS deployment URL",
+      "invalid source commit identity",
+      "manifest digest drift",
+      "entrypoint digest drift",
+      "served-byte drift",
+      "missing Afterimage identity markers"
+    ]
+  },
+  "verification": {
+    "command": "node --test independent/afterimage/verify-deployment.test.mjs",
+    "environment": "isolated Node runtime using byte-identical proposed module and test content before commit",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0
+  },
+  "commits": [
+    "4350606f865b65bc9ad2e814fd23b21cf2b2f977",
+    "4ec76a222d1fa2795a236744f994760c25c49366",
+    "fe47777781482426fe1620be171d43b57704267a"
+  ],
+  "required_evidence_state": {
+    "site_source": "present",
+    "distinct_identity_statement": "present",
+    "public_url": "missing",
+    "mobile_proof": "partial_contract_only",
+    "deployment_verification_contract": "present"
+  },
+  "limits": [
+    "No public hosting deployment was performed in this run.",
+    "No receipt is accepted until real served bytes and an immutable source commit are supplied.",
+    "No physical or emulated mobile screenshot was captured."
+  ],
+  "rollback": [
+    "revert fe47777781482426fe1620be171d43b57704267a",
+    "revert 4ec76a222d1fa2795a236744f994760c25c49366",
+    "revert 4350606f865b65bc9ad2e814fd23b21cf2b2f977"
+  ]
+}
