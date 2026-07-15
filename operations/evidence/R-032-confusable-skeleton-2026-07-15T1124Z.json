@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "id": "R-032",
+  "recorded_at": "2026-07-15T11:24:34Z",
+  "owner": "frontier_research",
+  "source_status": "current_primary_standard_and_official_data_endpoint",
+  "primary_sources": [
+    {
+      "title": "Unicode Technical Standard #39: Unicode Security Mechanisms",
+      "version": "17.0.0",
+      "revision": 32,
+      "date": "2025-09-04",
+      "url": "https://www.unicode.org/reports/tr39/"
+    },
+    {
+      "title": "Unicode confusables.txt latest approved data",
+      "url": "https://www.unicode.org/Public/security/latest/confusables.txt"
+    }
+  ],
+  "finding": "Confusable uniqueness must be computed from a version-pinned skeleton. UTS #39 internalSkeleton applies NFD, removes Default_Ignorable_Code_Point characters, maps each scalar through confusables.txt with identity fallback, and reapplies NFD. Skeleton equality is collision evidence, not evidence of malicious intent.",
+  "design_implication": "Parse confusables.txt fail-closed, retain Unicode version and source digest, require an independently version-matched default-ignorable predicate, and keep the collision registry separate from Identifier_Status eligibility.",
+  "artifact": {
+    "module": "tools/frontier-research/confusable-skeleton.mjs",
+    "test": "tools/frontier-research/confusable-skeleton.test.mjs",
+    "commits": [
+      "a6baeebfcf0a1cc3d514cca2ccdf0288e0df99c6",
+      "80d2bf666dd5fecfd5443062893e7b1f01243065"
+    ],
+    "module_blob_sha": "164a339b3b3f2f8baf17d3b2dd19843f1d007727"
+  },
+  "verification": {
+    "route": "isolated Node 22 compatible runtime using byte-equivalent committed module logic",
+    "tests_passed": 7,
+    "tests_failed": 0,
+    "coverage": [
+      "Latin/Cyrillic skeleton equality",
+      "NFD equivalence",
+      "explicit default-ignorable removal",
+      "occupied-skeleton rejection",
+      "duplicate mapping rejection",
+      "surrogate rejection",
+      "missing default-ignorable predicate rejection"
+    ]
+  },
+  "evidence_strength": "implementation_ready_prototype_with_deterministic_tests",
+  "uncertainty": [
+    "The complete Unicode 17.0.0 confusables data file was not downloaded into the repository in this run.",
+    "The supplied source digest is retained but not cryptographically verified by the module.",
+    "This artifact implements internalSkeleton, not the complete bidiSkeleton algorithm.",
+    "Default_Ignorable_Code_Point data must be supplied from the same Unicode version."
+  ],
+  "falsification_route": "Run the committed parser against the complete authenticated Unicode 17.0.0 confusables.txt, compare skeleton outputs with a conformant reference implementation and Unicode examples, test idempotency over every mapping, and reject the artifact if any mapping, normalization, default-ignorable, or collision result diverges.",
+  "trust_limit": "Equal skeletons establish confusability under the supplied data version; they do not establish spoofing intent, identity, or claim truth."
+}
