@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-15T19:05:31Z",
+  "owner": "continuity_mining",
+  "queue_item": "M-RECONCILE-003",
+  "priority_basis": "CM-1037 identified the absence of a canonical peer-trigger event schema as the highest unresolved continuity gap after M-001 completion.",
+  "status": "completed_slice",
+  "memory_recovered": "Peer coordination requires separate evidence states for trigger attempt, scheduler acknowledgement, target enablement, peer execution, and produced artifacts. Accepted scheduling is not execution evidence.",
+  "artifacts": [
+    {
+      "path": "operations/continuity/peer-trigger-event.schema.json",
+      "commit": "d9c1c8816208eaa94deef43314bcb51de1b86127",
+      "role": "machine-readable claim and evidence model"
+    },
+    {
+      "path": "operations/continuity/examples/PTE-20260715T190531Z-continuity-to-cloudflare.json",
+      "commit": "8be94aefd329c7bfd879e70844571414ebc26608",
+      "role": "falsifiable disabled-peer example"
+    }
+  ],
+  "claim_states_preserved": {
+    "observed": "The repository governance and CM-1037 distinguish scheduling acknowledgement from peer execution.",
+    "inferred": "Cross-team causal continuity requires independent evidence for each transition.",
+    "proposed": "Adopt peer-trigger-event/1 records for future trigger attempts.",
+    "superseded": "Any model treating schedule acceptance as proof that a peer ran.",
+    "unresolved": "Direct trigger, automation reschedule, and ledger events have not yet been emitted by every team or validated in CI."
+  },
+  "verification": [
+    "Both committed artifacts were fetched back from the default branch and decoded as UTF-8 JSON.",
+    "The example retains target_enablement.state=disabled, peer_execution.status=unobserved, no peer artifacts, and claim_state=trigger_unresolved.",
+    "The schema forbids disabled-target records from claiming peer_run_observed or peer_artifact_observed."
+  ],
+  "privacy_boundary": "Public repository governance, team identifiers, abstract scheduler state, artifact paths, blob or commit identifiers, and falsification rules only. Private automation IDs, raw chat, health or pet-health content, credentials, personal identifiers, and unreviewed uploads are excluded.",
+  "next_action": "Add a small validator test suite with positive and adversarial fixtures, then have each team emit one event record per peer-trigger attempt without changing canonical shared state."
+}
