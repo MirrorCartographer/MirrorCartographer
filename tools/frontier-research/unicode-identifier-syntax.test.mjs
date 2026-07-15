@@ -6,9 +6,9 @@ import { buildUnicodeIdentifierAdmissionWithSyntax, evaluateXidSyntax, parseXidS
 
 const version = '17.0.0';
 const files = Object.freeze({
-  identifierStatus: '# IdentifierStatus-17.0.0.txt\n0030..0039 ; Allowed\n0041..005A ; Allowed\n005F ; Allowed\n0061..007A ; Allowed\n0301 ; Allowed\n0430 ; Allowed\n',
+  identifierStatus: '# IdentifierStatus-17.0.0.txt\n0030..0039 ; Allowed\n0041..005A ; Allowed\n005F ; Allowed\n0061..007A ; Allowed\n0301 ; Allowed\n0430 ; Allowed\n200D ; Allowed\nFE0F ; Allowed\n',
   confusables: '# confusables-17.0.0.txt\n0430 ; 0061 ; MA\n',
-  derivedCoreProperties: '# DerivedCoreProperties-17.0.0.txt\n0041..005A ; XID_Start\n0061..007A ; XID_Start\n0430 ; XID_Start\n0030..0039 ; XID_Continue\n0041..005A ; XID_Continue\n005F ; XID_Continue\n0061..007A ; XID_Continue\n0301 ; XID_Continue\n0430 ; XID_Continue\n200B ; Default_Ignorable_Code_Point\n',
+  derivedCoreProperties: '# DerivedCoreProperties-17.0.0.txt\n0041..005A ; XID_Start\n0061..007A ; XID_Start\n0430 ; XID_Start\n0030..0039 ; XID_Continue\n0041..005A ; XID_Continue\n005F ; XID_Continue\n0061..007A ; XID_Continue\n0301 ; XID_Continue\n0430 ; XID_Continue\n200D ; XID_Continue\nFE0F ; XID_Continue\n200D ; Default_Ignorable_Code_Point\nFE0F ; Default_Ignorable_Code_Point\n',
 });
 
 const digest = (text) => createHash('sha256').update(Buffer.from(text, 'utf8')).digest('hex');
@@ -23,6 +23,7 @@ test('accepts UAX #31 R1-1 syntax from the authenticated bundle', () => {
   const result = gate.register('alpha_2');
   assert.equal(result.accepted, true);
   assert.equal(result.syntaxEligible, true);
+  assert.equal(result.defaultIgnorableFree, true);
 });
 
 test('rejects a digit in first position even when Identifier_Status allows it', () => {
@@ -53,7 +54,27 @@ test('preserves confusable collision rejection after syntax admission', () => {
   assert.ok(collision.reasons.includes('confusable_skeleton_collision'));
 });
 
+test('rejects an XID-valid joining control before registry mutation', () => {
+  const gate = buildUnicodeIdentifierAdmissionWithSyntax(manifestFor(), files);
+  const rejected = gate.register('a\u200D');
+  assert.equal(rejected.syntaxEligible, true);
+  assert.equal(rejected.profileEligible, true);
+  assert.equal(rejected.defaultIgnorableFree, false);
+  assert.equal(rejected.accepted, false);
+  assert.ok(rejected.reasons.includes('default_ignorable_excluded:U+200D:index=1'));
+  assert.equal(gate.register('a').accepted, true);
+});
+
+test('rejects an XID-valid variation selector through the same authenticated profile', () => {
+  const gate = buildUnicodeIdentifierAdmissionWithSyntax(manifestFor(), files);
+  const rejected = gate.inspect('a\uFE0F');
+  assert.equal(rejected.syntaxEligible, true);
+  assert.equal(rejected.defaultIgnorableFree, false);
+  assert.equal(rejected.admissible, false);
+  assert.ok(rejected.reasons.includes('default_ignorable_excluded:U+FE0F:index=1'));
+});
+
 test('fails closed on overlapping XID ranges', () => {
-  const text = '# DerivedCoreProperties-17.0.0.txt\n0041..005A ; XID_Start\n0050..0060 ; XID_Start\n0041..005A ; XID_Continue\n';
+  const text = '# DerivedCoreProperties-17.0.0.txt\n0041..005A ; XID_Start\n0050..0060 ; XID_Start\n0041..005A ; XID_Continue\n200D ; Default_Ignorable_Code_Point\n';
   assert.throws(() => parseXidSyntax(text, { version, sourceDigest: digest(text) }), /overlapping XID_Start/);
 });
