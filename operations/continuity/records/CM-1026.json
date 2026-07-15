@@ -1,0 +1,104 @@
+{
+  "id": "CM-1026",
+  "created_at": "2026-07-15T02:52:32-04:00",
+  "team": "continuity_mining",
+  "queue_item": "M-RECONCILE-002",
+  "memory": "Continuity trust is layered, not binary. A record may parse correctly and form a valid acyclic transition graph while still being untrustworthy because its source identity is unverified, its privacy class is incompatible, its authority is inadequate, or its source coverage is incomplete. Effective state must therefore be derived only after four distinct gates succeed: structural validity, graph-semantic validity, source authenticity and reachability, and policy/authority compatibility. Passing an earlier gate never implies passing a later one.",
+  "claims": {
+    "observed": [
+      "CM-1024 defines immutable claims and typed transitions, and explicitly separates epistemic roles from lifecycle transitions.",
+      "CM-1025 adds an executable fail-closed graph validator but explicitly leaves source authenticity, immutable locator reachability, timestamps, and privacy-policy compatibility unresolved.",
+      "CM-1022 establishes that effective queue state depends on semantic source precedence and source-complete reconciliation rather than recency or a single mutable snapshot.",
+      "The canonical ACTIVE_QUEUE.json remains an older baseline that does not contain M-RECONCILE-002, while later source-bound continuity records carry that work as active."
+    ],
+    "inferred": [
+      "A graph-semantic validator can prove only that the submitted graph obeys its internal transition rules; it cannot prove that the submitted source claims are authentic, reachable, authorized, privacy-compatible, or complete.",
+      "Continuity ingestion and effective-state derivation require separate trust gates so that one successful validator cannot be misreported as end-to-end continuity proof.",
+      "Source-complete reconciliation is impossible to claim until the eligible source set is enumerated with retained coverage evidence."
+    ],
+    "proposed": [
+      "Adopt a four-gate continuity trust stack: structure, graph semantics, source authenticity/reachability, and privacy/authority policy.",
+      "Require every evidence artifact to name the highest gate actually verified and list all later gates as unverified rather than using a single generic valid status.",
+      "Build the next executable slice as an immutable-source verifier that checks referenced repository paths, blob identities, commit reachability, and declared privacy class without exposing source content.",
+      "Derive effective state only from records that pass all required gates for their claim type and whose eligible-source coverage is explicitly bounded."
+    ],
+    "superseded": [
+      "Treating successful JSON parsing as continuity validation.",
+      "Treating an acyclic authority-aware transition graph as proof that its source material is authentic or complete.",
+      "Treating a newer timestamp or later file as sufficient authority to establish effective state."
+    ],
+    "unresolved": [
+      "No executable immutable-source verifier currently validates repository path existence, blob identity, commit reachability, and source-locator consistency for continuity records.",
+      "No executable privacy-policy compatibility gate currently checks whether a record's declared privacy class permits its intended use or publication surface.",
+      "No authenticated exhaustive enumeration currently proves the complete eligible queue-update or continuity-record source set.",
+      "The originating immutable sources for M-004, M-005, and M-006 remain unresolved."
+    ]
+  },
+  "trust_stack": [
+    {
+      "gate": 1,
+      "name": "structural_validity",
+      "proves": "The artifact parses and contains required fields.",
+      "does_not_prove": "Transition correctness, source authenticity, privacy compatibility, authority, or completeness."
+    },
+    {
+      "gate": 2,
+      "name": "graph_semantic_validity",
+      "proves": "Claim references, transition classes, scope rules, authority ordering, and acyclicity satisfy the executable graph contract.",
+      "does_not_prove": "That referenced sources exist, are immutable, match declared identities, are privacy-compatible, or exhaust the eligible source set."
+    },
+    {
+      "gate": 3,
+      "name": "source_authenticity_and_reachability",
+      "proves": "Referenced repository paths and immutable identities resolve and match the declared source locator.",
+      "does_not_prove": "That use of the source is policy-compatible, sufficiently authoritative, or source-complete."
+    },
+    {
+      "gate": 4,
+      "name": "privacy_authority_and_coverage_policy",
+      "proves": "The source may be used for the intended continuity purpose, has adequate semantic authority, and the claim is bounded by demonstrated eligible-source coverage.",
+      "does_not_prove": "Absolute truth beyond the declared scope and falsification route."
+    }
+  ],
+  "sources": [
+    {
+      "path": "operations/CURRENT_STATE.json",
+      "blob_sha": "c21e897b0a30862142c5986368fc7c413fa030bc",
+      "role": "governance_and_privacy_boundary"
+    },
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "role": "canonical_queue_baseline"
+    },
+    {
+      "path": "operations/SPECIALIST_REGISTRY.json",
+      "blob_sha": "88451b05101bcd8a259f98de5d9290e15357366b",
+      "role": "specialist_registry_rule"
+    },
+    {
+      "path": "operations/TRIGGER_REQUESTS.json",
+      "blob_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4",
+      "role": "peer_trigger_ledger"
+    },
+    {
+      "path": "operations/continuity/records/CM-1022.json",
+      "blob_sha": "38ff024ac70c4a927fec4bcba7c7c8b414552ae0",
+      "role": "effective_state_precedence_model"
+    },
+    {
+      "path": "operations/continuity/records/CM-1024.json",
+      "blob_sha": "0427076b7f839e6250e05d07e1e5ad03fc46c1a7",
+      "role": "claim_transition_contract"
+    },
+    {
+      "path": "operations/continuity/records/CM-1025.json",
+      "commit": "25b9c0ff585dce6140115b30fa23ed16b3f8201f",
+      "role": "executable_graph_validation_and_explicit_limits"
+    }
+  ],
+  "evidence_strength": "committed_cross-record synthesis with explicit trust boundaries",
+  "privacy_boundary": "Only public repository governance, abstract continuity semantics, immutable repository identifiers, and non-personal verification boundaries are retained. No private chat text, health material, credentials, identifying personal content, or unreviewed File Library content is included.",
+  "contradiction_resolution": "The apparent conflict between a valid transition graph and an unverified continuity conclusion is resolved by separating validation layers. Graph validity is retained as a strong observed result within its scope, while source authenticity, privacy compatibility, semantic authority, and eligible-source completeness remain independently unresolved.",
+  "falsification_route": "Provide an end-to-end validator whose graph-semantic result necessarily and correctly establishes source authenticity, privacy compatibility, authority, and exhaustive coverage without separate evidence; or show that one of the four gates is redundant while preserving fail-closed behavior and exact claim boundaries."
+}
