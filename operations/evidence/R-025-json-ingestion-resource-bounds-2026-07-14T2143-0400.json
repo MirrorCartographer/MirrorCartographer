@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-025",
+  "owner": "frontier_research",
+  "created_at": "2026-07-14T21:43:57-04:00",
+  "status": "implemented_verified_isolated",
+  "primary_sources": [
+    {
+      "type": "standards_track_rfc",
+      "title": "RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format",
+      "url": "https://www.rfc-editor.org/rfc/rfc8259.html#section-9",
+      "finding": "JSON parsers may set limits on accepted text size and maximum nesting depth."
+    }
+  ],
+  "repository_context": {
+    "predecessor": "R-024 duplicate-member ingestion gate",
+    "module": "tools/frontier-research/canonical-json-text-digest.mjs",
+    "gap": "The recursive scanner rejected duplicate members but had no explicit byte-size or nesting-depth contract."
+  },
+  "finding": "A fail-closed evidence ingestion boundary needs deterministic resource limits as well as semantic validation. Otherwise adversarially large or deeply nested JSON can make availability and failure behavior runtime-dependent.",
+  "design_implication": {
+    "default_max_bytes": 1048576,
+    "default_max_depth": 128,
+    "measurement": "UTF-8 encoded bytes",
+    "depth_definition": "Each entered object or array increments depth by one.",
+    "configuration_policy": "Overrides must be positive safe integers.",
+    "compatibility": "Existing callers retain the same default function signatures; optional limits are additive."
+  },
+  "artifacts": [
+    "tools/frontier-research/canonical-json-text-digest.mjs",
+    "tools/frontier-research/canonical-json-text-limits.test.mjs"
+  ],
+  "commits": [
+    "10176e26e84571ad3618c1e6bab550901c7ae30a",
+    "8b018d8a56bcfbf73c72196fa904107b82ac18e5"
+  ],
+  "verification": {
+    "command": "node --test canonical-json-text-limits.test.mjs",
+    "environment": "isolated Node runtime using byte-identical implementation and dependency copies",
+    "passed": 7,
+    "failed": 0,
+    "coverage": [
+      "deterministic frozen defaults",
+      "boundary-depth acceptance",
+      "over-depth rejection",
+      "mixed object-array depth accounting",
+      "UTF-8 byte counting",
+      "invalid configuration rejection",
+      "duplicate-member rejection preserved"
+    ]
+  },
+  "evidence_strength": "implemented_and_isolated_tested",
+  "uncertainty": [
+    "Default limits are policy choices, not values mandated by RFC 8259.",
+    "Repository-wide CI has not yet executed the new tests.",
+    "JSON.parse and canonical serialization may have lower runtime-specific limits after the scanner accepts input."
+  ],
+  "falsification_route": [
+    "Produce an input deeper than maxDepth that reaches JSON.parse instead of being rejected by the scanner.",
+    "Produce a UTF-8 input larger than maxBytes that is accepted.",
+    "Show a valid input at the configured boundary being rejected.",
+    "Show an existing duplicate-member adversarial case becoming accepted under custom limits."
+  ],
+  "trust_limit": "Passing resource and syntax gates does not prove source authenticity, semantic truth, signature validity, or builder trust.",
+  "privacy_boundary": "No private chat, health data, credentials, or unreviewed user files were inspected or published."
+}
