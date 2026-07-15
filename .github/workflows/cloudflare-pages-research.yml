@@ -36,6 +36,7 @@ jobs:
           node --test cloudflare-static/research-surface-identity.test.mjs
           node --test cloudflare-static/check-deployment-readiness.test.mjs
           node --test cloudflare-static/probe-cloudflare-access.test.mjs
+          node --test cloudflare-static/sanitize-cloudflare-api-errors.test.mjs
           node --test cloudflare-static/cloudflare-access-workflow-contract.test.mjs
           node --test cloudflare-static/build-pages-hostname-authority.test.mjs
           node --test cloudflare-static/summarize-deployment-blocker.test.mjs
