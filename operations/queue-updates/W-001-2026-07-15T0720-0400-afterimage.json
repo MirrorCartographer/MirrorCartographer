@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "W-001",
+  "owner": "independent_creative_web",
+  "recorded_at": "2026-07-15T07:20:00-04:00",
+  "status": "active",
+  "completed_slice": "Created and verified the first durable Afterimage audiovisual world with a distinct identity law.",
+  "progress": {
+    "site_source": "independent/afterimage/index.html",
+    "scene_engine": "independent/afterimage/world.mjs",
+    "test": "independent/afterimage/world.test.mjs",
+    "identity_notes": "independent/afterimage/README.md",
+    "evidence": "operations/evidence/I-003-afterimage-2026-07-15T0720-0400.json",
+    "verification": "6 deterministic Node tests passed",
+    "accessibility": ["reduced-motion still mode", "gesture-only audio", "48px controls", "visible focus", "aria-pressed sound state"],
+    "independence": ["no Mirror Cartographer imports", "no research UI", "no dashboard", "no product funnel", "no account", "no analytics", "no persistent personal state"]
+  },
+  "required_evidence_status": {
+    "site_source": "satisfied",
+    "distinct_identity_statement": "satisfied",
+    "public_url": "missing",
+    "mobile_proof": "partial_source_contract_only"
+  },
+  "remaining": [
+    "Add browser-level Chromium and WebKit verification for scene shifting, reduced motion, and gesture-only audio activation.",
+    "Establish an isolated independent hosting target and record its deployed commit and public URL.",
+    "Capture mobile viewport evidence from the deployed artifact."
+  ],
+  "rollback": [
+    "115f9ee48d4c844b245e608f50f140fcd5d67ad4",
+    "196eca5a321003e686ef2d9b99a49ece72970e7b",
+    "7c53d395d20183bbf4445aaa5477b4b2f61dbc3a",
+    "171a87d26c89c0736702860b7f5dd6faf5074b9a"
+  ]
+}
