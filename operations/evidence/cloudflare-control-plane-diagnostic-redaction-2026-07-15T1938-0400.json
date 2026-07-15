@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-15T19:38:00-04:00",
+  "claim_state": "implemented_and_isolated_tested",
+  "evidence_strength": "deterministic_unit_tests_plus_committed_source",
+  "finding": "The Cloudflare control-plane probe previously retained bounded provider error messages. Even with token-shaped substring redaction, provider-controlled text remained an unnecessary privacy and provenance surface.",
+  "improvement": {
+    "module": "cloudflare-static/sanitize-cloudflare-api-errors.mjs",
+    "test": "cloudflare-static/sanitize-cloudflare-api-errors.test.mjs",
+    "integration": "cloudflare-static/probe-cloudflare-access.mjs",
+    "policy": "Retain at most eight diagnostics, discard all provider messages, preserve only allowlisted numeric Cloudflare codes, and classify every other error generically.",
+    "probe_schema_version": "1.3.0"
+  },
+  "verification": {
+    "route": "isolated Node 22 compatible runtime using byte-equivalent committed module and test content",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      "provider messages and token-like text are absent from sanitized output",
+      "unknown codes fail closed to null",
+      "diagnostic retention is capped at eight records",
+      "message-bearing diagnostic objects are rejected"
+    ]
+  },
+  "privacy_boundary": {
+    "secret_values_emitted": false,
+    "account_id_emitted": false,
+    "provider_error_messages_emitted": false,
+    "private_chat_or_health_material_used": false
+  },
+  "limits": [
+    "No live Cloudflare API request was performed.",
+    "No GitHub Actions workflow execution was observed.",
+    "No Cloudflare deployment or resolving hostname was proven.",
+    "The allowlist must be revised if Cloudflare changes documented error codes needed for operations."
+  ],
+  "falsification_route": "Reject this slice if a committed or live probe artifact contains any provider error message, non-allowlisted numeric code, more than eight diagnostics, a credential value, or an account identifier.",
+  "commits": [
+    "461f99411e4a7142c30f09c1b61b7590bb86cb7e",
+    "6caa5b7d3454180d675774f0e7733bf3e7e6e7d9",
+    "2d0f182722aa7ef4eb6eca109dde944aa15bd71c"
+  ]
+}
