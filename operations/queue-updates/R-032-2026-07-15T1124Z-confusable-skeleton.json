@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-032",
+  "owner": "frontier_research",
+  "priority_basis": "R-031 completed profile eligibility but left confusable uniqueness unresolved; this is the next implementation dependency for identifier admission.",
+  "status": "completed_vertical_slice",
+  "action": "Implement a version-pinned UTS #39 internalSkeleton parser, evaluator, and collision registry.",
+  "required_evidence": [
+    "current primary Unicode standard",
+    "official confusables data endpoint",
+    "committed parser and evaluator",
+    "deterministic collision tests",
+    "explicit trust and falsification boundaries"
+  ],
+  "progress": {
+    "primary_sources": [
+      "https://www.unicode.org/reports/tr39/",
+      "https://www.unicode.org/Public/security/latest/confusables.txt"
+    ],
+    "module": "tools/frontier-research/confusable-skeleton.mjs",
+    "test": "tools/frontier-research/confusable-skeleton.test.mjs",
+    "evidence": "operations/evidence/R-032-confusable-skeleton-2026-07-15T1124Z.json",
+    "commits": [
+      "a6baeebfcf0a1cc3d514cca2ccdf0288e0df99c6",
+      "80d2bf666dd5fecfd5443062893e7b1f01243065",
+      "9d10e9c701327b81058d9d97aa3a90be3933f0ee"
+    ],
+    "verification": "7 isolated deterministic Node tests passed using byte-equivalent committed module logic"
+  },
+  "handoff": "Integrate R-032 skeletonUnique with R-031 profileEligible and the earlier admission decision function. Before production use, authenticate and SHA-256 pin Unicode 17.0.0 confusables.txt plus a version-matched Default_Ignorable_Code_Point dataset, then run full-data idempotency and reference-conformance tests.",
+  "next_frontier_item": "Build an authenticated Unicode data bundle loader that verifies exact version, SHA-256 digests, and cross-file version consistency for IdentifierStatus.txt, confusables.txt, and DerivedCoreProperties.txt."
+}
