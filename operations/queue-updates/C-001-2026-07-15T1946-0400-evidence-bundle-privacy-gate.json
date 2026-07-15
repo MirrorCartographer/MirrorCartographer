@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "updated_at": "2026-07-15T19:46:00-04:00",
+  "status": "blocked_external_configuration",
+  "completed_slice": {
+    "name": "fail-closed evidence bundle privacy validator",
+    "validator": "cloudflare-static/validate-evidence-bundle-privacy.mjs",
+    "test": "cloudflare-static/validate-evidence-bundle-privacy.test.mjs",
+    "commits": [
+      "02b082cc507fb37b4c2e7efa9a9a0d061f1cd2ea",
+      "dfeab1d6106b66a4a510d1f88ce8a00c3d405f1a",
+      "a3e6ee035e91e26de8fcac996852baa1a36658ff"
+    ],
+    "verification": "5 deterministic Node tests passed locally; exact committed source remains to be executed in GitHub Actions",
+    "reversibility": "Revert the three additive commits; no deployment, DNS, payment, or public-route behavior changed."
+  },
+  "non_duplication": "Prior slices sanitized Cloudflare API diagnostics and added a production test gate for that sanitizer. This slice independently scans the complete retained JSON evidence boundary, including malformed artifacts and secret-shaped values outside provider error objects.",
+  "remaining": [
+    "wire the validator before upload-artifact with the exact retained JSON allowlist",
+    "exclude the raw GitHub attestation verification file from retained artifacts or prove it passes the privacy gate",
+    "configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the cloudflare-research environment",
+    "dispatch the deployment workflow",
+    "retain a resolving Cloudflare Pages URL, served surface identity, and exact deployed commit"
+  ],
+  "handoff": "Cloudflare Deployment Engineer should add the validator test to the contract suite, invoke the validator after evidence finalization and before upload-artifact, and upload its privacy verdict alongside the sanitized bundle."
+}
