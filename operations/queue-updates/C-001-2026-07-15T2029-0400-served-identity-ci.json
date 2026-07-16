@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a dedicated least-privilege GitHub Actions lane that executes the served-identity semantic validator and its deployment-proof feeder contracts on relevant repository changes.",
+  "files": [
+    ".github/workflows/cloudflare-research-contracts.yml",
+    "operations/evidence/cloudflare-served-identity-ci-2026-07-15T2029-0400.json"
+  ],
+  "commits": [
+    "c47aa6a4b7ea00e78f4ffbec721df0d5af217ced",
+    "c814994e0415445fdb67b41ab27e3faef9aa324b"
+  ],
+  "verification": "GitHub confirmed both repository writes. Workflow execution has not yet been observed, so runtime success is not claimed.",
+  "remaining": [
+    "observe and retain the Cloudflare research evidence contracts workflow result",
+    "wire validate-served-identity-evidence.mjs directly into the deployment workflow before attestation and promotion",
+    "configure the cloudflare-research environment credentials",
+    "dispatch the deployment workflow and retain a resolving immutable Pages URL bound to the exact source commit"
+  ],
+  "rollback": "Revert the additive workflow commit c47aa6a4b7ea00e78f4ffbec721df0d5af217ced and evidence commit c814994e0415445fdb67b41ab27e3faef9aa324b; no deployment, DNS, payment, conversion, or repository history deletion occurred."
+}
