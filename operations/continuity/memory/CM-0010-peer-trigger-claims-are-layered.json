@@ -1,11 +1,18 @@
 {
   "schema_version": "1.0.0",
-  "id": "CM-0010",
+  "id": "CM-0013",
+  "legacy_id": "CM-0010",
   "kind": "decision",
   "title": "A trigger attempt, scheduler acknowledgement, target enablement, peer execution, and peer artifacts are separate claims",
   "claim_state": "observed",
   "evidence_strength": "corroborated_repository_sources",
   "recorded_at": "2026-07-15T23:37:15Z",
+  "migration": {
+    "reason": "repository-wide continuity IDs are semantic keys; CM-0010 was already assigned to the replay-protection evolution record",
+    "migrated_at": "2026-07-16T00:17:36Z",
+    "preserves_history": true,
+    "canonical_predecessor_locator": "operations/continuity/memory/CM-0010-peer-trigger-claims-are-layered.json@466c95f43be95186c2f1b211f3118d03c1725ac0"
+  },
   "sources": [
     {
       "type": "github_commit",
@@ -24,14 +31,27 @@
       "locator": "operations/TRIGGER_REQUESTS.json",
       "content_sha": "80feb36d1d829c7d54748780837a9ebef543e6c4",
       "observed_at": "2026-07-15T23:37:15Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/records/CM-0010.json",
+      "content_sha": "e61bc25c04571c0d15afca570090a31d82174f7b",
+      "observed_at": "2026-07-16T00:17:36Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/records/CM-0999.json",
+      "content_sha": "2d73128fb1697c8d4d6ed604d20b07a604c0fb6b",
+      "observed_at": "2026-07-16T00:17:36Z"
     }
   ],
-  "summary": "The coordination system must not collapse a trigger attempt into proof of peer execution. A scheduler may acknowledge a reschedule while the target remains disabled or while no peer run or artifact has been observed. Each transition therefore requires its own evidence and claim state.",
+  "summary": "The coordination system must not collapse a trigger attempt into proof of peer execution. A scheduler may acknowledge a reschedule while the target remains disabled or while no peer run or artifact has been observed. Each transition therefore requires its own evidence and claim state. This claim was originally committed with the already-occupied identifier CM-0010; it is now canonically CM-0013 while the legacy identifier remains recorded for provenance.",
   "status_map": {
     "observed": [
       "The peer-trigger schema exists.",
       "The retained disabled-peer example records an attempted trigger and accepted scheduler acknowledgement while peer execution remains unobserved.",
-      "The durable trigger-request ledger was empty at the inspected blob."
+      "The durable trigger-request ledger was empty at the inspected blob.",
+      "CM-0010 was already assigned to the replay-protection evolution record before this peer-trigger memory was created."
     ],
     "inferred": [
       "Coordination reports that say only 'triggered' are semantically unsafe unless they identify which transition was actually observed."
@@ -39,7 +59,9 @@
     "proposed": [
       "Future team handoffs should emit peer-trigger-event records whenever the runtime can retain them."
     ],
-    "superseded": [],
+    "superseded": [
+      "The identifier CM-0010 for this claim is superseded by CM-0013; the claim content is not superseded."
+    ],
     "unresolved": [
       "No repository evidence inspected in this record proves that the example target later ran or produced an artifact."
     ]
@@ -47,5 +69,5 @@
   "privacy": "public_repository_safe",
   "contradicts": [],
   "supersedes": [],
-  "falsification_or_review_route": "Fetch commits d9c1c8816208eaa94deef43314bcb51de1b86127 and 8be94aefd329c7bfd879e70844571414ebc26608. Reject this record if the schema does not separate attempt, acknowledgement, enablement, execution, and artifacts, or if the example contains independent evidence of peer execution."
+  "falsification_or_review_route": "Fetch commits d9c1c8816208eaa94deef43314bcb51de1b86127 and 8be94aefd329c7bfd879e70844571414ebc26608. Reject the semantic claim if the schema does not separate attempt, acknowledgement, enablement, execution, and artifacts, or if the example contains independent evidence of peer execution. Reject the migration if CM-0010 was not already assigned to operations/continuity/records/CM-0010.json before the original peer-trigger memory commit."
 }
