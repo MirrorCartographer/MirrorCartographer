@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CF-004",
+  "team": "cloudflare_research",
+  "recorded_at": "2026-07-16T00:35:00Z",
+  "queue_item": "C-001",
+  "claim_state": "implemented_source_unexecuted",
+  "evidence_strength": "committed_source_and_static_inspection",
+  "finding": "The deployment evidence chain was present but lacked a dedicated executable guard against stage removal, ordering regression, or CI detachment.",
+  "improvement": {
+    "test": "cloudflare-static/cloudflare-deployment-workflow-contract.test.mjs",
+    "ci_workflow": ".github/workflows/cloudflare-research-contracts.yml",
+    "requirements": [
+      "deployment remains gated by a successful Cloudflare access probe",
+      "served identity and exact-commit hostname checks remain present",
+      "artifact signature verification precedes acceptance",
+      "acceptance precedes final evidence manifest construction",
+      "the contract workflow watches both Cloudflare workflows and executes the guard"
+    ]
+  },
+  "commits": [
+    "5d9ff2f8fc6f47ad4147af84ade62c3bd0936a4c",
+    "08011320c48dde477d4b2f93daff588d1cfb4237"
+  ],
+  "verification": {
+    "source_write_confirmed": true,
+    "workflow_run_observed": false,
+    "workflow_runs_for_binding_commit": [],
+    "runtime_claim": "not_run"
+  },
+  "privacy_boundary": "No private chat, health material, credentials, account identifiers, diagnosis, or treatment claims were included.",
+  "limits": [
+    "String-level workflow contracts detect required fragments and ordering, not full YAML semantics.",
+    "No live Cloudflare hostname or deployment identity was established.",
+    "No GitHub Actions execution was observed for the binding commit at inspection time.",
+    "The existing external secret and environment blocker remains unresolved."
+  ],
+  "falsification_route": "Remove, reorder, rename, or detach a required deployment evidence stage and run node --test cloudflare-static/cloudflare-deployment-workflow-contract.test.mjs; the guard should fail closed."
+}
