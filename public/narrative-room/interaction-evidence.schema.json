@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fia.reader.interaction-evidence/1",
+  "title": "Foundation Narrative Harmonic Room Evidence Export",
+  "type": "object",
+  "required": ["schema", "feature", "privacy", "events"],
+  "properties": {
+    "schema": { "const": "fia.reader.interaction-evidence/1" },
+    "feature": { "const": "narrative_harmonic_room" },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["local_only", "raw_text", "identity", "microphone"],
+      "properties": {
+        "local_only": { "const": true },
+        "raw_text": { "const": false },
+        "identity": { "const": false },
+        "microphone": { "const": false }
+      }
+    },
+    "events": {
+      "type": "array",
+      "maxItems": 180,
+      "items": {
+        "type": "object",
+        "required": ["schema", "feature", "type", "at_bucket"],
+        "additionalProperties": false,
+        "properties": {
+          "schema": { "const": "fia.interaction.delta/1" },
+          "feature": { "const": "narrative_harmonic_room" },
+          "type": { "enum": ["audio_consent", "doorway_chosen", "path_played", "path_undone", "room_reset", "evidence_exported", "evidence_erased", "error", "accessibility_mode"] },
+          "at_bucket": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}$" },
+          "room": { "type": "string" },
+          "from_room": { "type": "string" },
+          "to_room": { "type": "string" },
+          "door_index": { "type": "integer", "minimum": 0, "maximum": 2 },
+          "interval": { "type": "string" },
+          "path_length_band": { "enum": ["1", "2-3", "4-6", "7+"] },
+          "duration_bucket": { "enum": ["brief", "medium", "long"] },
+          "audio_state": { "enum": ["granted"] },
+          "mode": { "enum": ["reduced_motion"] },
+          "error_code": { "enum": ["audio_unavailable"] }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
