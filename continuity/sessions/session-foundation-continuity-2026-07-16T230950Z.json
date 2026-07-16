@@ -1,0 +1,29 @@
+{
+  "schema_version": "foundation.session-manifest.v1",
+  "session_id": "session:foundation-continuity:2026-07-16t230950z",
+  "timestamp": "2026-07-16T23:09:50Z",
+  "parent_session_id": "session:fia:2026-07-16:continuity-001",
+  "active_projects": ["project:foundation-intelligence", "project:mirror-cartographer"],
+  "referenced_artifacts": [{"id": "artifact:public-composition-field-v1", "provenance": "public/composition/index.html", "confidence": 1}],
+  "decisions_made": [{"id": "decision:cross-session-manifest-schema-v1", "provenance": "continuity/SESSION_MANIFEST.schema.json", "confidence": 1}],
+  "evidence_added": [{"id": "evidence:canonical-repository-write-d8e7de68", "provenance": "GitHub commit d8e7de68baf7eb873cd62a90c9698ec90e96eaea", "confidence": 1}],
+  "unresolved_questions": [{"id": "question:canonical-latest-handoff-pointer", "text": "Choose mutable pointer versus lineage-derived latest handoff.", "status": "open"}],
+  "privacy_classification": "internal",
+  "next_handoff": "Add schema validation and a canonical latest-session pointer, then reconcile lineage without label-based merging.",
+  "stores_inspected": [
+    {"store": "canonical-source", "boundary": "internal", "result": "Repository inspected; no existing continuity manifest found."},
+    {"store": "public-publication", "boundary": "public", "result": "Public composition field inspected; state remains local-first with explicit export."}
+  ],
+  "objects_connected": [
+    {"from": "session:foundation-continuity:2026-07-16t230950z", "relation": "continues", "to": "session:fia:2026-07-16:continuity-001", "provenance": "Explicit parent_session_id"},
+    {"from": "project:foundation-intelligence", "relation": "publishes", "to": "artifact:public-composition-field-v1", "provenance": "Canonical repository path"}
+  ],
+  "conflicts_or_duplicates": [],
+  "persistence_writes": [
+    {"store": "canonical-source", "path": "continuity/SESSION_MANIFEST.schema.json", "operation": "create", "commit_or_digest": "d8e7de68baf7eb873cd62a90c9698ec90e96eaea"},
+    {"store": "canonical-source", "path": "continuity/sessions/session-foundation-continuity-2026-07-16T230950Z.json", "operation": "create"}
+  ],
+  "privacy_boundary": "Only repository structure and non-sensitive continuity metadata were persisted.",
+  "rollback_route": "Revert the continuity commits or delete the two new paths.",
+  "peer_triggers": [{"trigger_id": "trigger:continuity-ci-schema-validation-v1", "target": "continuity-validator", "reason": "Validate immutable session manifests against the canonical schema.", "dedupe_key": "continuity-validator:session-manifest:v1", "status": "queued"}]
+}
