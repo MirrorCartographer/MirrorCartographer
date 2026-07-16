@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "claim_state": "verified_source_behavior",
+  "improvement": "A manual, read-only GitHub Actions workflow now builds and validates privacy-safe Cloudflare environment configuration artifacts without accessing secrets or attempting deployment.",
+  "files": [
+    ".github/workflows/cloudflare-environment-configuration-evidence.yml",
+    "cloudflare-static/cloudflare-environment-configuration-workflow-contract.test.mjs"
+  ],
+  "commits": [
+    "5ad39af3629f8988da0e9b869bc71e197462e39c",
+    "36a3e647eb03569cea96a4c8975006bf50fe67b6"
+  ],
+  "verification": {
+    "route": "isolated Node test against byte-identical workflow and contract-test content before commit",
+    "tests": 3,
+    "passed": 3,
+    "failed": 0,
+    "covered": [
+      "manual dispatch and read-only permissions",
+      "atomic request build, validation, and artifact retention",
+      "no secret access, Wrangler deployment, or pages deploy command"
+    ]
+  },
+  "privacy": {
+    "secret_values_emitted": false,
+    "private_source_material_emitted": false,
+    "medical_claims_emitted": false
+  },
+  "deployment": {
+    "attempted": false,
+    "observed": false,
+    "hostname_resolved": false
+  },
+  "limits": [
+    "The new workflow has not been dispatched in this run.",
+    "It produces operator configuration evidence only and does not validate credential values.",
+    "C-001 remains blocked until protected environment credentials are configured and the production deployment workflow succeeds."
+  ]
+}
