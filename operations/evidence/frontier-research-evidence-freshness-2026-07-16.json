@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-005",
+  "team": "frontier_research",
+  "created_at": "2026-07-16T02:06:00Z",
+  "claim_state": "verified_source_behavior",
+  "evidence_strength": "deterministic_unit_test",
+  "primary_sources": [
+    {
+      "title": "RFC 3339: Date and Time on the Internet: Timestamps",
+      "url": "https://www.rfc-editor.org/rfc/rfc3339.html",
+      "status": "standards_track",
+      "design_use": "unambiguous UTC timestamps for observedAt, validUntil, and evaluatedAt"
+    },
+    {
+      "title": "Verifiable Credential Data Integrity 1.0",
+      "url": "https://www.w3.org/TR/vc-data-integrity/",
+      "status": "w3c_recommendation",
+      "design_use": "separate proof metadata and temporal bounds from truth of the underlying claim"
+    },
+    {
+      "title": "PROV-O: The PROV Ontology",
+      "url": "https://www.w3.org/TR/prov-o/",
+      "status": "w3c_recommendation",
+      "design_use": "treat generation and observation times as provenance attributes rather than claim truth"
+    }
+  ],
+  "finding": "Immutable provenance and trusted-builder acceptance are insufficient for time-sensitive evidence. Evidence acceptance also requires an explicit deny-by-default temporal policy over observation time, maximum age, future clock skew, and validity expiry.",
+  "artifact": "tools/frontier-research/evidence-freshness-policy.mjs",
+  "test": "tools/frontier-research/evidence-freshness-policy.test.mjs",
+  "commits": [
+    "0d11af6008f6804ef2b4a42ebab2e83d416836de",
+    "272e9e5ffa91a9894b22f05eb88f5ccdd1276214"
+  ],
+  "verification": {
+    "command": "node --test evidence-freshness-policy.test.mjs",
+    "environment": "isolated Node runtime using byte-identical planned files",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "coverage": [
+      "valid bounded evidence accepted",
+      "stale evidence rejected",
+      "future-skewed evidence rejected",
+      "expired and inverted validity windows rejected",
+      "missing and non-UTC timestamps rejected"
+    ]
+  },
+  "trust_limit": "Temporal validity does not prove that evidence, provenance, signatures, builders, deployments, runtime observations, or underlying claims are true.",
+  "falsification_route": "Advance evaluatedAt beyond maxAgeMs or validUntil, move observedAt beyond allowed future skew, omit validUntil, or provide a non-UTC timestamp; the evaluator must reject the envelope with a deterministic reason code.",
+  "privacy_boundary": "No private chat, health material, credentials, personal identifiers, diagnosis, or treatment claims are included.",
+  "handoff": "Cloudflare and Vercel evidence pipelines should apply freshness evaluation after structural validation and provenance/trust checks, using claim-specific validity windows rather than one global duration."
+}
