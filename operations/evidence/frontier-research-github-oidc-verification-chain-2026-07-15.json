@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-007",
+  "recorded_at": "2026-07-15T20:29:20-04:00",
+  "finding": "Decoded GitHub OIDC claims must not reach authorization policy until the compact JWT signature has been verified against a pinned GitHub issuer discovery contract and one unambiguous RS256 JWKS key.",
+  "primary_sources": [
+    {
+      "url": "https://docs.github.com/en/actions/concepts/security/openid-connect",
+      "status": "current official GitHub documentation",
+      "supports": "GitHub issues a job-unique JWT with RS256 header and workflow identity claims for provider validation."
+    },
+    {
+      "url": "https://docs.github.com/en/actions/reference/security/oidc",
+      "status": "current official GitHub reference",
+      "supports": "GitHub Actions OIDC issuer and claim semantics."
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc7515",
+      "status": "IETF primary standard",
+      "supports": "JWS compact signing input and signature validation semantics."
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc7517",
+      "status": "IETF primary standard",
+      "supports": "JWK and JWKS key representation and key identifiers."
+    },
+    {
+      "url": "https://openid.net/specs/openid-connect-discovery-1_0.html",
+      "status": "OpenID Foundation primary specification",
+      "supports": "Issuer metadata and jwks_uri discovery semantics."
+    }
+  ],
+  "prior_work_compared": [
+    "R-005 immutable OIDC subject identity policy",
+    "R-006 decoded-claim run-binding policy",
+    "tools/frontier-research/github-oidc-jwt-verifier.mjs"
+  ],
+  "design_implication": "Expose one ordered entrypoint that returns claims only after signature verification succeeds, then applies R-006 authorization. Signature failure must prevent authorization evaluation; authorization failure must suppress claims from the accepted result.",
+  "artifact": "tools/frontier-research/github-oidc-verification-chain.mjs",
+  "test": "tools/frontier-research/github-oidc-verification-chain.test.mjs",
+  "verification": {
+    "committed_chain_tests": 3,
+    "executed_exact_committed_chain": false,
+    "local_equivalent_crypto_tests": {
+      "tests": 5,
+      "passed": 5,
+      "failed": 0,
+      "coverage": ["valid RS256", "payload tampering", "algorithm substitution", "remote key header", "unknown and duplicate kid"]
+    }
+  },
+  "evidence_strength": "committed implementation and adversarial tests; functionally equivalent cryptographic core executed locally, exact committed composed chain not yet executed",
+  "uncertainty": "Network retrieval, TLS validation, JWKS cache lifetime, key rotation, replay storage, and live GitHub token verification are outside this artifact.",
+  "falsification_route": "Run node --test tools/frontier-research/github-oidc-verification-chain.test.mjs; then test a real GitHub-issued token with retained discovery and JWKS bytes. Any acceptance of a tampered token, wrong workflow SHA, attacker-directed key URI, ambiguous kid, stale token, or mismatched audience falsifies the contract."
+}
