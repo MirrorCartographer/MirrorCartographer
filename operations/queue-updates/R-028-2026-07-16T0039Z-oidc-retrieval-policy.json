@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-028",
+  "owner": "frontier_research",
+  "priority": 0,
+  "status": "implemented_source_unexecuted",
+  "action": "Bound GitHub OIDC discovery and JWKS retrieval inputs before signature verification.",
+  "selected_because": "The current verification chain validates supplied discovery and JWKS data but did not yet define a fail-closed retrieval boundary; this was the highest-impact non-duplicative Frontier evidence gap after R-007.",
+  "finding": "Treat discovery and JWKS retrieval as a separate trust boundary. Pin exact GitHub URLs and issuer, reject redirects or URL drift, enforce JSON and byte bounds, require RS256 metadata, and reject malformed, duplicate, excessive, or non-RSA keys before cryptographic verification.",
+  "artifacts": [
+    "tools/frontier-research/github-oidc-retrieval-policy.mjs",
+    "tools/frontier-research/github-oidc-retrieval-policy.test.mjs",
+    "operations/evidence/frontier-research-github-oidc-retrieval-policy-2026-07-16T0039Z.json"
+  ],
+  "commits": [
+    "520c4a1757eb780829b676dc9ed5af7c3d5f9f33",
+    "e3b00fae45835a5da85bfa2440255272dff05af7",
+    "d16bfa72d18b5ce9c750a911098fd03c59226c80"
+  ],
+  "verification": "Six deterministic Node test cases are committed; runtime execution remains outstanding.",
+  "handoff": "Compose a real network adapter using redirect:'error', an abort timeout, bounded streaming body reads, exact response URL checks, and this policy before github-oidc-jwt-verifier.mjs. Retain live provider headers and body digests without storing tokens.",
+  "canonical_queue_mutated": false
+}
