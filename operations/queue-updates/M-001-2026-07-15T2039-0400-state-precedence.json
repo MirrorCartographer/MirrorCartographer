@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-001",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-16T00:39:37Z",
+  "status": "completed_follow_on_slice",
+  "priority_basis": "M-001 remains the only canonical continuity-owned item. Its handoff requires contradiction-safe history; recent follow-on commits exposed a durable ambiguity between the older canonical queue snapshot and newer additive queue updates.",
+  "completed": {
+    "action": "Defined a provenance-preserving state-precedence and temporal reconciliation contract for canonical snapshots, owner-scoped deltas, implementation evidence, and continuity records.",
+    "artifact": "operations/continuity/state-precedence-policy.v1.json",
+    "artifact_commit": "cc1ba83854b30beb962738578bc01a56ba3210be",
+    "evidence": "operations/evidence/continuity-state-precedence-2026-07-15T2039-0400.json",
+    "evidence_commit": "bc9689f1b46c7544b673fc9140e926fd12bc5bb5"
+  },
+  "claim_states": {
+    "observed": "The cited ACTIVE_QUEUE blob is older than a later continuity-owned queue-update and its implementation commit.",
+    "inferred": "Current queue state requires baseline-plus-delta reconciliation.",
+    "proposed": "Implement an executable validator that applies the policy across every owner-scoped queue update.",
+    "superseded": "Treating the canonical queue file as necessarily exhaustive of later work.",
+    "unresolved": "No atomic consolidation protocol or authenticated validator run exists yet."
+  },
+  "privacy": "public_repository_safe",
+  "files_changed": [
+    "operations/continuity/state-precedence-policy.v1.json",
+    "operations/evidence/continuity-state-precedence-2026-07-15T2039-0400.json",
+    "operations/queue-updates/M-001-2026-07-15T2039-0400-state-precedence.json"
+  ],
+  "next_action": "Build a fail-closed queue-delta validator that checks owner/item consistency, commit existence, ordering, duplicate deltas, and unresolved evidence claims before computing current state."
+}
