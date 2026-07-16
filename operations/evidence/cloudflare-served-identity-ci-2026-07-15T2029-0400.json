@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "team": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-15T20:29:00-04:00",
+  "claim_state": "implemented_unverified_runtime",
+  "evidence_strength": "committed_ci_configuration",
+  "finding": "The served-identity semantic validator existed with deterministic fixtures but was not guaranteed to execute in an independent CI lane. A dedicated least-privilege workflow now executes it and the deployment-proof feeder contracts on relevant pushes, pull requests, and manual dispatches.",
+  "artifact": ".github/workflows/cloudflare-research-contracts.yml",
+  "source_commit": "c47aa6a4b7ea00e78f4ffbec721df0d5af217ced",
+  "boundaries": [
+    "No Cloudflare credentials are read by this workflow.",
+    "No deployment is initiated.",
+    "No payment or conversion logic is introduced.",
+    "No diagnosis or treatment claim is published.",
+    "A passing contract workflow does not prove a live hostname or deployed commit."
+  ],
+  "verification": {
+    "repository_write": "confirmed by GitHub commit response",
+    "workflow_execution": "not yet observed",
+    "deployment": "not attempted"
+  },
+  "falsification_route": [
+    "Inspect the next GitHub Actions run for Cloudflare research evidence contracts.",
+    "Confirm validate-served-identity-evidence.test.mjs executes and exits zero.",
+    "Introduce an origin or commit substitution fixture and confirm the workflow fails.",
+    "Do not promote C-001 until a separate deployment workflow returns a resolving immutable URL bound to the exact source commit."
+  ]
+}
