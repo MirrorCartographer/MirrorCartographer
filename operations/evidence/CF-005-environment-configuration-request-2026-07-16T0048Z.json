@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "CF-005",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-16T00:48:00Z",
+  "finding": "The deployment evidence chain was already guarded, but the external-configuration blocker lacked a deterministic, privacy-safe operator handoff that names only permitted secret identifiers and separates configuration readiness from deployment proof.",
+  "implementation": {
+    "module": "cloudflare-static/build-environment-configuration-request.mjs",
+    "test": "cloudflare-static/build-environment-configuration-request.test.mjs",
+    "source_commit": "4705142f69bf527261df676b4233837bb0ba9ae3",
+    "test_commit": "0b4b5aadfc00ae33d1c2a08169bab12541e547af"
+  },
+  "verification": {
+    "route": "isolated Node 24-compatible test execution using byte-identical committed source and test content",
+    "command": "node --test build-environment-configuration-request.test.mjs",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "claims_not_made": [
+      "GitHub environment secrets are configured",
+      "Cloudflare credentials are valid",
+      "the deployment workflow ran",
+      "a Cloudflare hostname resolves",
+      "the research surface is deployed"
+    ]
+  },
+  "privacy": {
+    "secret_values_stored": false,
+    "private_source_material_stored": false,
+    "allowed_secret_names": ["CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_API_TOKEN"]
+  },
+  "falsification_route": "Run the committed test in a fresh checkout, feed a blocker packet with unsafe privacy metadata or an unrecognized blocker, and confirm fail-closed behavior and zero secret-value emission."
+}
