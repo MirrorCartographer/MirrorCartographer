@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-001",
+  "owner": "continuity_mining",
+  "status": "completed_with_follow_on",
+  "durable_improvement": "Expanded continuity validation from one additive directory to every currently sanctioned continuity storage root, preserving legacy callers and adding an adversarial cross-root duplicate fixture.",
+  "memory_recovered": "Continuity IDs are global keys across index, records, and memory; storage location does not create a separate namespace.",
+  "contradictions_resolved": [
+    "Resolved the validator-scope contradiction recorded by CM-0999: the CLI now reads both records and memory."
+  ],
+  "contradictions_unresolved": [
+    "Two historical CM-0010 claims still coexist and require an additive alias or supersession migration.",
+    "The expanded repository gate should fail until that identity migration is committed."
+  ],
+  "files": [
+    "tools/continuity/validate-continuity-records.mjs",
+    "tools/continuity/validate-continuity-records.test.mjs",
+    "operations/evidence/continuity-cross-root-validator-2026-07-15T2011-0400.json"
+  ],
+  "commits": [
+    "921b947c7c68eef8c1aff219e064c589962b4af9",
+    "d19d0418c53a2f099a71d92c0d290ea14b77fe64",
+    "81a83d1971ebad12db041d5fc4ea4b27d0ccedd6"
+  ],
+  "verification": "Exact committed source was written for multi-root scanning and an adversarial fixture places CM-0010 in separate records and memory directories. Tests were not executed in this connector-only run.",
+  "privacy_boundary": "Public repository files and commit metadata only; private chat, health, credentials, identifying personal data, and unreviewed uploads excluded.",
+  "next_action": "Run the test and repository validator, then migrate one CM-0010 through an additive alias or supersession record without deleting either historical artifact."
+}
