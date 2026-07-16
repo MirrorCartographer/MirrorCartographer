@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-001",
+  "recorded_at": "2026-07-16T00:39:37Z",
+  "finding": "The canonical queue is a historical baseline and can be older than additive owner-scoped queue updates; current state must be derived by validated temporal reconciliation without overwriting prior observations.",
+  "artifact": "operations/continuity/state-precedence-policy.v1.json",
+  "artifact_commit": "cc1ba83854b30beb962738578bc01a56ba3210be",
+  "source_evidence": [
+    {
+      "path": "operations/ACTIVE_QUEUE.json",
+      "blob_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "role": "canonical baseline"
+    },
+    {
+      "commit": "cd4db90a641625082d7099a01620d06f3c241a79",
+      "role": "newer continuity queue delta"
+    },
+    {
+      "commit": "181e4d3ffefdc11f3c414d796c0434a06babc008",
+      "role": "implementation corroboration"
+    }
+  ],
+  "claim_states": {
+    "observed": "ACTIVE_QUEUE at the cited blob records M-001 completed with a next handoff, while a later queue-update commit records an additional completed follow-on slice.",
+    "inferred": "Neither source is sufficient alone for current-state reconstruction.",
+    "proposed": "Use the committed precedence contract for all future queue reconciliation.",
+    "superseded": "Latest canonical file equals complete current state.",
+    "unresolved": "The policy is committed but has no executable repository-wide validator or authenticated test run."
+  },
+  "verification": {
+    "method": "GitHub source and commit inspection",
+    "result": "The cited baseline blob and both later commits were observable before artifact creation.",
+    "strength": "corroborated_repository_sources",
+    "not_proven": [
+      "runtime execution",
+      "deployment state",
+      "peer execution",
+      "atomic concurrent reconciliation"
+    ]
+  },
+  "privacy": "public_repository_safe",
+  "falsification_route": "Compare timestamps, commit ancestry, queue-item ownership, and referenced files; reject the finding if the delta predates the baseline or belongs to another owner/item."
+}
