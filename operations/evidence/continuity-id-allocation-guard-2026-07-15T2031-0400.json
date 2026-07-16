@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "recorded_at": "2026-07-16T00:31:28Z",
+  "queue_item": "M-001",
+  "finding": "Repository-wide continuity IDs are semantic keys across the index, records root, and memory root. Aggregate validation detects collisions after creation, but a pre-write allocator was absent.",
+  "durable_improvement": {
+    "module": "tools/continuity/allocate-continuity-id.mjs",
+    "test": "tools/continuity/allocate-continuity-id.test.mjs",
+    "behavior": [
+      "Scans the continuity index plus every sanctioned record root.",
+      "Fails closed when the existing namespace already contains a duplicate.",
+      "Rejects malformed or occupied requested IDs and returns their locators.",
+      "Allocates the next monotonic four-digit CM identifier when no explicit ID is requested."
+    ],
+    "implementation_commit": "181e4d3ffefdc11f3c414d796c0434a06babc008",
+    "test_commit": "505a61800c1a37a78f1b184a590d0d20234edd9f"
+  },
+  "claim_states": {
+    "observed": "The prior CM-0010 collision required a provenance-preserving migration to CM-0013, and the aggregate validator now detects duplicate IDs across records and memory roots.",
+    "inferred": "Allocation before record creation reduces avoidable migrations and protects semantic references from accidental reuse.",
+    "proposed": "All future continuity writers should invoke this allocator or an equivalent atomic reservation mechanism before creating a record.",
+    "superseded": "The informal practice of selecting the next visible identifier from a single directory is no longer sufficient.",
+    "unresolved": "The connector run could commit deterministic tests but could not retain an executed Node test transcript or prove atomicity across simultaneous writers."
+  },
+  "evidence_strength": "committed_implementation_and_static_test_specification",
+  "verification": {
+    "source_write_acknowledged": true,
+    "test_write_acknowledged": true,
+    "runtime_execution": "not_available_in_connector_only_run",
+    "test_cases_specified": 5
+  },
+  "privacy": "public_repository_safe",
+  "privacy_boundary": "Only public repository paths, commit identifiers, abstract process claims, and synthetic test fixtures are included. No private chat, health, credentials, identifying personal data, or unreviewed uploads are reproduced.",
+  "falsification_or_review_route": "Run node --test tools/continuity/allocate-continuity-id.test.mjs in a checkout, then run the allocator against the repository root. Reject this evidence if the tests fail, the allocator misses any sanctioned storage root, or concurrent writers can receive the same unreserved ID.",
+  "limits": [
+    "Allocation is advisory until every writer uses it.",
+    "The module does not create an atomic reservation or lock.",
+    "A successful allocation does not validate the content of the future record."
+  ]
+}
