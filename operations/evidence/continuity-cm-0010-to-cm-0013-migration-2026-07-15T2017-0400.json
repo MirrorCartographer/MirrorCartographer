@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-001",
+  "recorded_at": "2026-07-16T00:17:36Z",
+  "slice": "Resolve the repository-wide CM-0010 namespace collision without deleting either historical claim",
+  "sources_inspected": [
+    {"path":"operations/CURRENT_STATE.json","content_sha":"c21e897b0a30862142c5986368fc7c413fa030bc"},
+    {"path":"operations/ACTIVE_QUEUE.json","content_sha":"abb807e1a25d399f301238f6b8cc26d6be10385f"},
+    {"path":"operations/SPECIALIST_REGISTRY.json","content_sha":"88451b05101bcd8a259f98de5d9290e15357366b"},
+    {"path":"operations/TRIGGER_REQUESTS.json","content_sha":"80feb36d1d829c7d54748780837a9ebef543e6c4"},
+    {"path":"operations/continuity/continuity-index.json","content_sha":"efb8b5ca41a00a3484af1df112a81fc6a1b6d63a"},
+    {"path":"operations/continuity/records/CM-0010.json","content_sha":"e61bc25c04571c0d15afca570090a31d82174f7b"},
+    {"path":"operations/continuity/memory/CM-0010-peer-trigger-claims-are-layered.json","pre_migration_content_sha":"466c95f43be95186c2f1b211f3118d03c1725ac0","post_migration_content_sha":"2697229d4d16d010bd81b371de791aa65a22bf0e"},
+    {"path":"operations/continuity/records/CM-0999.json","creating_commit":"b74832033aab7171f29afaec07c9ceae46a7fbdb"},
+    {"path":"tools/continuity/validate-continuity-records.mjs","content_sha":"2f6d7040d3ad1eb792c45e3b793131908dca9721"}
+  ],
+  "memory_recovered": {
+    "canonical_rule": "Continuity IDs are repository-wide semantic keys across sanctioned storage roots, not directory-local labels.",
+    "observed": [
+      "operations/continuity/records/CM-0010.json predates and canonically identifies the replay-protection evolution claim.",
+      "the peer-trigger layering claim was later created with the same identifier in operations/continuity/memory.",
+      "the current validator scans both records and memory roots and rejects duplicate IDs."
+    ],
+    "inferred": [
+      "The least destructive repair is to retain the earlier canonical CM-0010 assignment and migrate the later peer-trigger claim to a fresh identifier."
+    ],
+    "proposed": [
+      "Future continuity writers should allocate IDs against the aggregate repository namespace before committing."
+    ],
+    "superseded": [
+      "CM-0010 as the identifier for the peer-trigger layering claim is superseded by CM-0013."
+    ],
+    "unresolved": [
+      "The repository validator was not executed in this connector-only run, so full-tree validation remains to be retained as runtime evidence."
+    ]
+  },
+  "change": {
+    "path": "operations/continuity/memory/CM-0010-peer-trigger-claims-are-layered.json",
+    "commit": "bcb03f1abb3930494e64fd241cd3d5f53aa5f663",
+    "old_id": "CM-0010",
+    "new_id": "CM-0013",
+    "history_preserved": true,
+    "claim_content_preserved": true,
+    "legacy_id_recorded": true
+  },
+  "verification": {
+    "static": "The post-migration file has canonical id CM-0013, retains legacy_id CM-0010, cites the pre-migration blob, and leaves operations/continuity/records/CM-0010.json unchanged.",
+    "runtime": "not executed",
+    "expected_validator_effect": "remove the known cross-root duplicate-id error for CM-0010 while preserving both claims"
+  },
+  "privacy_boundary": {
+    "classification": "public_repository_safe",
+    "included": ["public repository files","commit metadata","abstracted operational decisions"],
+    "excluded": ["raw private chat","health or pet-health content","credentials","identifying personal data","unreviewed uploads"]
+  },
+  "falsification_route": "Fetch the pre- and post-migration blobs, verify the replay-protection record predates the peer-trigger record, and run node tools/continuity/validate-continuity-records.mjs. Reject this evidence if both records still resolve to CM-0010, if claim content was lost, or if the validator reports a different unresolved namespace collision."
+}
