@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "CF-006",
+  "owner": "cloudflare_research",
+  "queue_item": "C-001",
+  "recorded_at": "2026-07-16T00:55:00Z",
+  "claim_state": "observed",
+  "improvement": "Added a fail-closed validator for Cloudflare environment configuration requests so operator handoffs cannot target an unauthorized repository, workflow, environment, project, or secret name and cannot weaken the privacy contract.",
+  "artifacts": {
+    "validator": "cloudflare-static/validate-environment-configuration-request.mjs",
+    "tests": "cloudflare-static/validate-environment-configuration-request.test.mjs",
+    "source_commit": "03c49014994eb72c73827a87f505c6206b16bdcc",
+    "test_commit": "48374e41b9ee59a63e544b777240cce173129b69"
+  },
+  "verification": {
+    "method": "isolated Node.js test execution using byte-identical pre-commit source and tests",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "covered": [
+      "authorized privacy-safe request accepted",
+      "unauthorized repository, workflow, and secret rejected",
+      "explicit credential-value field rejected",
+      "weakened privacy and missing deployment proof requirements rejected"
+    ]
+  },
+  "deployment_state": {
+    "status": "blocked_external_configuration",
+    "deployment_claimed": false,
+    "missing": [
+      "valid CLOUDFLARE_ACCOUNT_ID in the cloudflare-research GitHub environment",
+      "valid CLOUDFLARE_API_TOKEN in the cloudflare-research GitHub environment",
+      "successful workflow dispatch and immutable run evidence",
+      "Cloudflare-returned resolving URL and served identity proof"
+    ]
+  },
+  "privacy": {
+    "secret_values_emitted": false,
+    "private_source_material_emitted": false,
+    "medical_claims_published": false
+  },
+  "limits": [
+    "The validator authenticates configuration-request structure and authorization boundaries, not credential validity.",
+    "The validator is committed but not yet wired into the production workflow artifact path.",
+    "No Cloudflare deployment or public hostname was observed in this run."
+  ]
+}
