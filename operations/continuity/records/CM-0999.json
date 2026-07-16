@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "id": "CM-0999",
+  "kind": "contradiction",
+  "title": "Continuity ID uniqueness is enforced across the index and records directory but not the memory directory",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/continuity/records/CM-0010.json",
+      "content_sha": "e61bc25c04571c0d15afca570090a31d82174f7b",
+      "observed_at": "2026-07-15T23:58:35Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "88ae946a29c7d43665dd0586f0e6b8d5b4ebe72c",
+      "content_sha": "88ae946a29c7d43665dd0586f0e6b8d5b4ebe72c",
+      "observed_at": "2026-07-15T23:58:35Z"
+    },
+    {
+      "type": "github_file",
+      "locator": "tools/continuity/validate-continuity-records.mjs",
+      "content_sha": "4d13e5e18442e96dbad96f69f33ed25536f0ce54",
+      "observed_at": "2026-07-15T23:58:35Z"
+    }
+  ],
+  "summary": "Two distinct continuity memories currently use the identifier CM-0010: the durable replay-protection history under operations/continuity/records and the layered peer-trigger history added under operations/continuity/memory. The committed validator rejects duplicate IDs across the monolithic index and operations/continuity/records, but its executable scope does not read operations/continuity/memory. The project therefore has a namespace collision that its current integrity gate cannot observe. Neither memory is erased or declared false; the unresolved contradiction is identifier identity, not claim content.",
+  "privacy": "public_repository_safe",
+  "contradicts": ["CM-0011", "CM-0012"],
+  "supersedes": [],
+  "status_relations": {
+    "observed": [
+      "operations/continuity/records/CM-0010.json identifies replay-protection evolution as CM-0010.",
+      "commit 88ae946a created operations/continuity/memory/CM-0010-peer-trigger-claims-are-layered.json with a different claim using the same ID.",
+      "validate-continuity-records.mjs reads only continuity-index.json and operations/continuity/records."
+    ],
+    "inferred": ["Any aggregate consumer that includes both storage roots cannot treat CM-0010 as an unambiguous key."],
+    "proposed": ["Expand the validator and effective-state aggregation contract to every sanctioned continuity storage root, then migrate one duplicate through an explicit alias or supersession record rather than deleting history."],
+    "superseded": [],
+    "unresolved": ["No canonical migration rule currently identifies which CM-0010 retains the identifier or how external references are redirected."]
+  },
+  "falsification_or_review_route": "Fetch both CM-0010 artifacts and verify their claim bodies differ. Inspect validate-continuity-records.mjs and reject this record if its runtime includes operations/continuity/memory or another canonical aggregator already detects the collision. Resolve the contradiction only with a committed cross-root validator plus an additive migration or alias record that preserves both historical claims."
+}
