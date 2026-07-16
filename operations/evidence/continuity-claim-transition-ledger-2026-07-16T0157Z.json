@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "continuity-claim-transition-ledger-2026-07-16T0157Z",
+  "team": "continuity_mining",
+  "queue_item": "M-001-follow-on",
+  "recorded_at": "2026-07-16T01:57:46Z",
+  "artifact": "operations/continuity/claim-transition-ledger.v1.json",
+  "artifact_commit": "a6068bd6929dda16abe90fcbc1c6113f2e5b0b92",
+  "claim": "The repository now has an additive ledger that distinguishes observed, inferred, proposed, superseded, and unresolved claim transitions without deleting earlier continuity records.",
+  "claim_state": "observed",
+  "evidence_strength": "primary_repository_source",
+  "verification": {
+    "method": "GitHub contents write acknowledgement plus source review against cited continuity and queue blobs",
+    "json_structure": "manually constructed valid JSON object",
+    "records_added": 3,
+    "states_covered": ["observed","inferred","proposed","superseded","unresolved"],
+    "runtime_or_deployment_claimed": false,
+    "peer_execution_claimed": false
+  },
+  "sources_inspected": [
+    "operations/CURRENT_STATE.json@c21e897b0a30862142c5986368fc7c413fa030bc",
+    "operations/ACTIVE_QUEUE.json@abb807e1a25d399f301238f6b8cc26d6be10385f",
+    "operations/SPECIALIST_REGISTRY.json@88451b05101bcd8a259f98de5d9290e15357366b",
+    "operations/TRIGGER_REQUESTS.json@80feb36d1d829c7d54748780837a9ebef543e6c4",
+    "operations/continuity/continuity-index.json@efb8b5ca41a00a3484af1df112a81fc6a1b6d63a",
+    "operations/continuity/state-precedence-policy.v1.json via commit cc1ba83854b30beb962738578bc01a56ba3210be",
+    "recent commit history through aa30580d35ab32714ae1ce114db2498e5d613206"
+  ],
+  "privacy_boundary": "Only public repository metadata and abstract project-state claims were included. Raw private chat, health or pet-health material, credentials, personal identifiers, and unreviewed uploads were excluded.",
+  "limits": [
+    "The ledger has no automated schema validator yet.",
+    "Commit existence was observed for selected recent commits, but full ancestry was not independently reconstructed.",
+    "The Cloudflare deployment remains unresolved; implementation commits are not deployment proof."
+  ],
+  "falsification_or_review_route": "Fetch the artifact at its commit, parse it as JSON, verify every cited source exists, and reject any transition whose prior/current records or authority relationship do not match the cited blobs."
+}
