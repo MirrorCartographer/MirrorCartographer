@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "durable_improvement": "Added a read-only manual workflow that emits validated, privacy-safe environment configuration evidence without reading credentials or attempting deployment.",
+  "evidence": "operations/evidence/CF-008-configuration-evidence-workflow-2026-07-16T0203Z.json",
+  "source_commits": [
+    "5ad39af3629f8988da0e9b869bc71e197462e39c",
+    "36a3e647eb03569cea96a4c8975006bf50fe67b6",
+    "a5dbf67a4f7b2d8d359a35302e664b88b5bd5780"
+  ],
+  "next_action": "Dispatch the configuration evidence workflow, retain its artifact, configure the protected cloudflare-research environment secrets, then dispatch cloudflare-pages-research.yml and retain the immutable deployment proof.",
+  "canonical_queue_overwritten": false
+}
