@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-005",
+    "owner": "frontier_research",
+    "priority": 4,
+    "action": "Add deny-by-default temporal validity checks so immutable provenance is not mistaken for current evidence.",
+    "dependencies": ["R-004"],
+    "required_evidence": [
+      "primary standards",
+      "committed freshness evaluator",
+      "deterministic boundary tests",
+      "explicit trust limit",
+      "falsification route"
+    ],
+    "status": "completed",
+    "progress": {
+      "primary_sources": [
+        "https://www.rfc-editor.org/rfc/rfc3339.html",
+        "https://www.w3.org/TR/vc-data-integrity/",
+        "https://www.w3.org/TR/prov-o/"
+      ],
+      "finding": "Evidence provenance and builder trust require a separate temporal-validity gate for time-sensitive acceptance.",
+      "module": "tools/frontier-research/evidence-freshness-policy.mjs",
+      "test": "tools/frontier-research/evidence-freshness-policy.test.mjs",
+      "evidence": "operations/evidence/frontier-research-evidence-freshness-2026-07-16.json",
+      "commits": [
+        "0d11af6008f6804ef2b4a42ebab2e83d416836de",
+        "272e9e5ffa91a9894b22f05eb88f5ccdd1276214",
+        "d7c87eef43a67beab83d4006e3fb290d3a34b2d5"
+      ],
+      "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical planned files"
+    },
+    "handoff": "Apply freshness evaluation after structural, provenance, cryptographic, and trusted-builder checks. Set validity windows by claim class; freshness must never be treated as truth."
+  },
+  "canonical_queue_overwritten": false,
+  "privacy_boundary": "No private material included."
+}
