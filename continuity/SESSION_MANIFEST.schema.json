@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.github.io/foundation-intelligence/continuity/SESSION_MANIFEST.schema.json",
+  "title": "Foundation Intelligence Session Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "session_id",
+    "timestamp",
+    "parent_session_id",
+    "active_projects",
+    "referenced_artifacts",
+    "decisions_made",
+    "evidence_added",
+    "unresolved_questions",
+    "privacy_classification",
+    "next_handoff",
+    "stores_inspected",
+    "persistence_writes",
+    "rollback_route"
+  ],
+  "properties": {
+    "schema_version": {"const": "foundation.session-manifest.v1"},
+    "session_id": {"$ref": "#/$defs/stableId"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "parent_session_id": {"anyOf": [{"$ref": "#/$defs/stableId"}, {"type": "null"}]},
+    "active_projects": {"type": "array", "items": {"$ref": "#/$defs/stableId"}, "uniqueItems": true},
+    "referenced_artifacts": {"type": "array", "items": {"$ref": "#/$defs/stableRef"}},
+    "decisions_made": {"type": "array", "items": {"$ref": "#/$defs/stableRef"}},
+    "evidence_added": {"type": "array", "items": {"$ref": "#/$defs/stableRef"}},
+    "unresolved_questions": {"type": "array", "items": {"$ref": "#/$defs/question"}},
+    "privacy_classification": {
+      "type": "string",
+      "enum": ["public-safe", "internal", "private-user", "restricted-sensitive"]
+    },
+    "next_handoff": {"type": "string", "minLength": 1},
+    "stores_inspected": {"type": "array", "items": {"$ref": "#/$defs/storeInspection"}, "minItems": 1},
+    "objects_connected": {"type": "array", "items": {"$ref": "#/$defs/edge"}},
+    "conflicts_or_duplicates": {"type": "array", "items": {"$ref": "#/$defs/conflict"}},
+    "persistence_writes": {"type": "array", "items": {"$ref": "#/$defs/write"}, "minItems": 1},
+    "privacy_boundary": {"type": "string"},
+    "rollback_route": {"type": "string", "minLength": 1},
+    "peer_triggers": {"type": "array", "items": {"$ref": "#/$defs/trigger"}}
+  },
+  "$defs": {
+    "stableId": {
+      "type": "string",
+      "pattern": "^(session|project|component|artifact|decision|evidence|symbol|concept):[a-z0-9][a-z0-9._:-]*$"
+    },
+    "stableRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "provenance", "confidence"],
+      "properties": {
+        "id": {"$ref": "#/$defs/stableId"},
+        "provenance": {"type": "string", "minLength": 1},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "content_digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}
+      }
+    },
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text", "status"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^question:[a-z0-9][a-z0-9._:-]*$"},
+        "text": {"type": "string", "minLength": 1},
+        "status": {"enum": ["open", "blocked", "deferred"]}
+      }
+    },
+    "storeInspection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["store", "boundary", "result"],
+      "properties": {
+        "store": {"enum": ["canonical-source", "artifact-registry", "knowledge-store", "interaction-exports", "private-data-vault", "public-publication"]},
+        "boundary": {"enum": ["public", "internal", "private", "restricted"]},
+        "result": {"type": "string", "minLength": 1}
+      }
+    },
+    "edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "relation", "to", "provenance"],
+      "properties": {
+        "from": {"$ref": "#/$defs/stableId"},
+        "relation": {"type": "string", "minLength": 1},
+        "to": {"$ref": "#/$defs/stableId"},
+        "provenance": {"type": "string", "minLength": 1}
+      }
+    },
+    "conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_ids", "reason", "resolution"],
+      "properties": {
+        "candidate_ids": {"type": "array", "items": {"$ref": "#/$defs/stableId"}, "minItems": 2},
+        "reason": {"type": "string", "minLength": 1},
+        "resolution": {"enum": ["kept-separate", "merged-with-proof", "deferred"]}
+      }
+    },
+    "write": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["store", "path", "operation"],
+      "properties": {
+        "store": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "minLength": 1},
+        "operation": {"enum": ["create", "update", "verify", "migrate", "reconcile"]},
+        "commit_or_digest": {"type": "string"}
+      }
+    },
+    "trigger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["trigger_id", "target", "reason", "dedupe_key"],
+      "properties": {
+        "trigger_id": {"type": "string", "pattern": "^trigger:[a-z0-9][a-z0-9._:-]*$"},
+        "target": {"type": "string", "minLength": 1},
+        "reason": {"type": "string", "minLength": 1},
+        "dedupe_key": {"type": "string", "minLength": 1},
+        "status": {"enum": ["queued", "executed", "suppressed-duplicate"]}
+      }
+    }
+  }
+}
