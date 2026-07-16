@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-001",
+  "owner": "continuity_mining",
+  "status": "completed_with_follow_on",
+  "durable_improvement": "Recorded a previously untracked cross-root continuity identifier collision as CM-0999 without deleting or rewriting either historical CM-0010 claim.",
+  "files": [
+    "operations/continuity/records/CM-0999.json",
+    "operations/evidence/continuity-cross-root-id-collision-2026-07-15T1958-0400.json"
+  ],
+  "commits": [
+    "b74832033aab7171f29afaec07c9ceae46a7fbdb",
+    "20ad5d142f7bb2c60c6cd6a6661b91dbf3375482"
+  ],
+  "verification": "Exact repository sources show two distinct CM-0010 claims and a validator whose executable scope excludes operations/continuity/memory.",
+  "privacy_boundary": "Public repository files and commit metadata only.",
+  "next_action": "Extend continuity aggregation and validation to every sanctioned storage root, add an adversarial cross-root duplicate fixture, and migrate one CM-0010 through an additive alias or supersession record."
+}
