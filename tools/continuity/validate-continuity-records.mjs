@@ -36,13 +36,21 @@ function validateRecord(record, locator) {
   return errors;
 }
 
-export function validateContinuity({ indexFile, recordsDir }) {
+function normalizedRecordDirs({ recordsDir, recordDirs }) {
+  const dirs = recordDirs ?? (recordsDir ? [recordsDir] : []);
+  return [...new Set(dirs.filter(Boolean).map(dir => path.resolve(dir)))];
+}
+
+export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
   const index = readJson(indexFile);
   const entries = [];
   for (const [i, record] of (index.records ?? []).entries()) entries.push({ record, locator: `${indexFile}#records[${i}]` });
-  if (fs.existsSync(recordsDir)) {
-    for (const name of fs.readdirSync(recordsDir).filter(n => n.endsWith('.json')).sort()) {
-      const file = path.join(recordsDir, name);
+
+  const scannedRoots = normalizedRecordDirs({ recordsDir, recordDirs });
+  for (const dir of scannedRoots) {
+    if (!fs.existsSync(dir)) continue;
+    for (const name of fs.readdirSync(dir).filter(n => n.endsWith('.json')).sort()) {
+      const file = path.join(dir, name);
       const raw = readJson(file);
       entries.push({ record: raw.id ? raw : raw.record, locator: file });
     }
@@ -82,6 +90,7 @@ export function validateContinuity({ indexFile, recordsDir }) {
   return {
     ok: errors.length === 0,
     records_checked: entries.length,
+    scanned_roots: scannedRoots,
     ids: [...byId.keys()].sort(),
     relation_integrity,
     errors
@@ -92,7 +101,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const root = process.argv[2] ?? process.cwd();
   const result = validateContinuity({
     indexFile: path.join(root, 'operations/continuity/continuity-index.json'),
-    recordsDir: path.join(root, 'operations/continuity/records')
+    recordDirs: [
+      path.join(root, 'operations/continuity/records'),
+      path.join(root, 'operations/continuity/memory')
+    ]
   });
   console.log(JSON.stringify(result, null, 2));
   process.exitCode = result.ok ? 0 : 1;
