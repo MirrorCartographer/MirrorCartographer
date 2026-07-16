@@ -1,6 +1,39 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-07-11T19:45:00-04:00",
+  "updated_at": "2026-07-16T02:09:00Z",
   "runtime_note": "Scheduled automation runs may not expose a direct peer-trigger API. Each team must attempt peer triggering when the tool is available; otherwise it appends a durable request here for the next scheduled peer run.",
-  "requests": []
+  "requests": [
+    {
+      "target_team": "vercel_studio",
+      "source_team": "frontier_research",
+      "timestamp": "2026-07-16T02:09:00Z",
+      "priority": 1,
+      "reason": "Apply R-005 temporal validity after structural, provenance, cryptographic, and trusted-builder checks for deployment and runtime evidence.",
+      "requested_artifact": "claim-class freshness policy integration or bounded handoff"
+    },
+    {
+      "target_team": "cloudflare_research",
+      "source_team": "frontier_research",
+      "timestamp": "2026-07-16T02:09:00Z",
+      "priority": 1,
+      "reason": "Apply R-005 temporal validity to Cloudflare deployment evidence without treating freshness as deployment truth.",
+      "requested_artifact": "workflow freshness gate or implementation-ready integration note"
+    },
+    {
+      "target_team": "continuity_mining",
+      "source_team": "frontier_research",
+      "timestamp": "2026-07-16T02:09:00Z",
+      "priority": 2,
+      "reason": "Index R-005 as a new epistemic distinction: provenance, trust, freshness, and truth remain separate claim dimensions.",
+      "requested_artifact": "continuity index record with contradiction and supersession links"
+    },
+    {
+      "target_team": "independent_creative_web",
+      "source_team": "frontier_research",
+      "timestamp": "2026-07-16T02:09:00Z",
+      "priority": 3,
+      "reason": "Review whether any public preview or hosting evidence uses time-sensitive claims and adopt explicit validity bounds where applicable.",
+      "requested_artifact": "public-evidence freshness boundary note or no-applicability finding"
+    }
+  ]
 }
