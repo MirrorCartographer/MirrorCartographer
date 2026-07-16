@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "continuity-state-precedence-v1",
+  "recorded_at": "2026-07-16T00:39:37Z",
+  "scope": "Derive current operational state without erasing historical queue observations.",
+  "source_classes": [
+    {
+      "class": "canonical_snapshot",
+      "example": "operations/ACTIVE_QUEUE.json",
+      "authority": "baseline",
+      "rule": "Treat as the last consolidated queue snapshot at its own blob and timestamp, not as proof that no later additive work exists."
+    },
+    {
+      "class": "owned_delta",
+      "example": "operations/queue-updates/*.json",
+      "authority": "team-scoped_additive",
+      "rule": "Apply only to the named queue item and owner when the delta is newer than the canonical snapshot and its referenced commits exist."
+    },
+    {
+      "class": "implementation_evidence",
+      "example": "Git commits and operations/evidence/*.json",
+      "authority": "corroborating",
+      "rule": "Use to verify that a claimed delta has source-level support; never infer deployment, runtime success, or peer execution from a commit alone."
+    },
+    {
+      "class": "continuity_record",
+      "example": "operations/continuity/continuity-index.json",
+      "authority": "historical_memory",
+      "rule": "Preserve the state observed at the cited source blob. Later records may supersede current interpretation but must not delete the earlier observation."
+    }
+  ],
+  "reconciliation_algorithm": [
+    "Read the canonical snapshot and retain its blob SHA and updated_at value.",
+    "Collect owner-matching queue deltas recorded after that snapshot.",
+    "Reject a delta if its owner or queue_item does not match the record it claims to update.",
+    "Verify referenced implementation, test, and evidence commits when those identifiers are present.",
+    "Order valid deltas by recorded_at, then by commit ancestry when timestamps are equal or ambiguous.",
+    "Derive a computed current state without replacing the canonical snapshot or prior continuity records.",
+    "Label unexecuted tests, unverified deployments, and unobserved peer runs as unresolved regardless of source commits."
+  ],
+  "recovered_memory": {
+    "observed": "The canonical ACTIVE_QUEUE blob predates newer continuity follow-on commits and queue-update records.",
+    "inferred": "Reading ACTIVE_QUEUE alone can under-report completed follow-on work; reading only deltas can lose the authoritative baseline and historical context.",
+    "proposed": "All teams should compute state from canonical snapshot plus validated owner-scoped deltas until a future explicit consolidation commit is made.",
+    "superseded": "The assumption that the latest canonical queue file necessarily contains every later team result.",
+    "unresolved": "No atomic multi-writer consolidation protocol or repository-wide delta validator has yet been proven in an authenticated checkout."
+  },
+  "sources": [
+    {
+      "type": "github_file",
+      "locator": "operations/ACTIVE_QUEUE.json",
+      "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f",
+      "observed_at": "2026-07-16T00:39:37Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "cd4db90a641625082d7099a01620d06f3c241a79",
+      "content_sha": "cd4db90a641625082d7099a01620d06f3c241a79",
+      "observed_at": "2026-07-16T00:39:37Z"
+    },
+    {
+      "type": "github_commit",
+      "locator": "181e4d3ffefdc11f3c414d796c0434a06babc008",
+      "content_sha": "181e4d3ffefdc11f3c414d796c0434a06babc008",
+      "observed_at": "2026-07-16T00:39:37Z"
+    }
+  ],
+  "privacy": {
+    "classification": "public_repository_safe",
+    "included": "Public repository paths, blob SHAs, commit SHAs, timestamps, and abstract operational claims.",
+    "excluded": "Raw private chat, health or pet-health material, credentials, personal identifiers, and unreviewed uploads."
+  },
+  "falsification_or_review_route": "Falsify the recovered memory by producing a later explicit consolidation commit whose ACTIVE_QUEUE blob includes the cited follow-on delta, or by showing that the cited queue-update or implementation commit does not exist or does not concern M-001."
+}
