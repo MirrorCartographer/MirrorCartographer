@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "CF-007",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-16T01:55:46Z",
+  "claim_state": "verified_source_behavior",
+  "improvement": "Added one atomic orchestration module that builds the privacy-safe Cloudflare environment configuration request and validates it before either artifact is emitted.",
+  "source": {
+    "module": "cloudflare-static/build-environment-configuration-artifacts.mjs",
+    "module_commit": "e5ff2aecc79e8bcae80e47989e602d1add87035b",
+    "test": "cloudflare-static/build-environment-configuration-artifacts.test.mjs",
+    "test_commit": "aa30580d35ab32714ae1ce114db2498e5d613206"
+  },
+  "verification": {
+    "route": "isolated Node runtime using byte-identical module, test, builder, and validator logic",
+    "tests": 3,
+    "passed": 3,
+    "failed": 0,
+    "covered": [
+      "atomic privacy-safe operator handoff",
+      "ready-to-dispatch classification without deployment claim",
+      "fail-closed rejection when blocker privacy is weakened"
+    ]
+  },
+  "privacy": {
+    "secret_values_emitted": false,
+    "private_source_material_emitted": false,
+    "medical_claims_emitted": false
+  },
+  "deployment": {
+    "observed": false,
+    "hostname_resolved": false,
+    "reason": "Protected Cloudflare credentials and a successful workflow dispatch remain unavailable."
+  },
+  "limit": "The orchestration module is committed but is not yet invoked by the production workflow or included in its uploaded artifact set."
+}
