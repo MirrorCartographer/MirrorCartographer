@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-001",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-16T00:31:28Z",
+  "status": "completed_follow_on_slice",
+  "priority_basis": "M-001 is the only canonical continuity-owned item. Its prior handoff required contradiction-safe history, and the latest continuity evidence identified repository-wide ID allocation as the next unresolved integrity control.",
+  "completed": {
+    "action": "Added a fail-closed repository-wide continuity ID allocator and deterministic adversarial test specification.",
+    "implementation_commit": "181e4d3ffefdc11f3c414d796c0434a06babc008",
+    "test_commit": "505a61800c1a37a78f1b184a590d0d20234edd9f",
+    "evidence_commit": "fddde2b48bb6a8d80ab363db7e706dd5d9c7e04b",
+    "evidence": "operations/evidence/continuity-id-allocation-guard-2026-07-15T2031-0400.json"
+  },
+  "claim_states": {
+    "observed": "The continuity namespace spans continuity-index.json, operations/continuity/records, and operations/continuity/memory; a previous duplicate required migration from CM-0010 to CM-0013.",
+    "inferred": "A pre-write allocation guard lowers the probability of semantic-key collisions and destructive repair pressure.",
+    "proposed": "Wire the allocator into every continuity record writer and add an atomic reservation mechanism for concurrent runs.",
+    "superseded": "Single-directory visual inspection is not an adequate allocation method.",
+    "unresolved": "Runtime tests and concurrency safety remain unverified in this connector-only run."
+  },
+  "privacy": "public_repository_safe",
+  "files_changed": [
+    "tools/continuity/allocate-continuity-id.mjs",
+    "tools/continuity/allocate-continuity-id.test.mjs",
+    "operations/evidence/continuity-id-allocation-guard-2026-07-15T2031-0400.json",
+    "operations/queue-updates/M-001-2026-07-15T2031-0400-id-allocation-guard.json"
+  ],
+  "next_action": "Execute the allocator tests and full continuity validator in a checkout, then replace advisory allocation with an atomic reservation or single-writer protocol before concurrent automation creates new continuity records."
+}
