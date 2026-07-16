@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-030",
+  "owner": "frontier_research",
+  "priority": 5,
+  "status": "completed",
+  "action": "Bind GitHub OIDC JOSE headers to an application-owned algorithm and key-compatibility policy before signature verification.",
+  "dependencies": ["R-029"],
+  "required_evidence": ["primary standards", "committed policy evaluator", "adversarial tests", "explicit trust limit", "falsification route"],
+  "progress": {
+    "primary_sources": [
+      "https://www.rfc-editor.org/rfc/rfc8725.html",
+      "https://www.rfc-editor.org/rfc/rfc7518.html",
+      "https://docs.github.com/en/actions/concepts/security/openid-connect"
+    ],
+    "finding": "Fresh JWKS selection must be followed by a deny-by-default JOSE header gate that enforces an application algorithm allowlist, exact kid/alg/kty/use/key_ops compatibility, explicit token typing, and rejection of remote key indirection or unsupported critical headers.",
+    "module": "tools/frontier-research/github-oidc-jose-header-policy.mjs",
+    "test": "tools/frontier-research/github-oidc-jose-header-policy.test.mjs",
+    "evidence": "operations/evidence/frontier-research-github-oidc-jose-header-policy-2026-07-16.json",
+    "commits": [
+      "01c97c9cd0278c58a826a34c825984e7bbe1533f",
+      "743c026cd68f034b52c6ba6b9506aa7eb0d68f96",
+      "7d6b243d26b3bd171e68cfb26e62c1a501747237"
+    ],
+    "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical files"
+  },
+  "handoff": "Infrastructure verifiers should compose bounded JWKS retrieval -> freshness -> unique key selection -> JOSE header policy -> cryptographic signature verification -> issuer/audience/time/run authorization. Policy acceptance is not signature verification or authorization."
+}
