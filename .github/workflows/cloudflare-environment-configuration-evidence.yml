@@ -1,0 +1,57 @@
+name: Build Cloudflare environment configuration evidence
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-configuration-evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Test configuration evidence contracts
+        run: |
+          node --test cloudflare-static/build-environment-configuration-request.test.mjs
+          node --test cloudflare-static/validate-environment-configuration-request.test.mjs
+          node --test cloudflare-static/build-environment-configuration-artifacts.test.mjs
+          node --test cloudflare-static/cloudflare-environment-configuration-workflow-contract.test.mjs
+
+      - name: Build privacy-safe blocker input
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const blocker = {
+            schema_version: '1.0.0',
+            status: 'blocked_external_configuration',
+            blockers: [
+              { name: 'CLOUDFLARE_ACCOUNT_ID', actions: ['configure the protected GitHub environment secret'] },
+              { name: 'CLOUDFLARE_API_TOKEN', actions: ['configure a least-privilege token for the Pages project'] }
+            ],
+            privacy: { secret_values_emitted: false, private_source_material_emitted: false }
+          };
+          fs.writeFileSync('cloudflare-deployment-blocker.json', `${JSON.stringify(blocker, null, 2)}\n`, { mode: 0o600 });
+          NODE
+
+      - name: Build and validate atomic configuration artifacts
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: >-
+          node cloudflare-static/build-environment-configuration-artifacts.mjs
+          cloudflare-deployment-blocker.json
+          cloudflare-environment-configuration-request.json
+          cloudflare-environment-configuration-request.validation.json
+
+      - name: Upload privacy-safe configuration evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: cloudflare-environment-configuration-${{ github.sha }}
+          path: |
+            cloudflare-deployment-blocker.json
+            cloudflare-environment-configuration-request.json
+            cloudflare-environment-configuration-request.validation.json
+          if-no-files-found: error
+          retention-days: 30
