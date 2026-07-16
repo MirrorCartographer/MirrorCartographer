@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-006",
+    "owner": "frontier_research",
+    "priority": 5,
+    "action": "Bind GitHub OIDC deployment trust to exact workflow identity, workflow commit, intended audience, and token freshness.",
+    "dependencies": ["R-005"],
+    "status": "completed",
+    "required_evidence": [
+      "official GitHub OIDC documentation",
+      "deny-by-default claim evaluator",
+      "executed adversarial tests",
+      "explicit cryptographic limit and falsification route"
+    ],
+    "progress": {
+      "primary_sources": [
+        "https://docs.github.com/en/actions/concepts/security/openid-connect",
+        "https://docs.github.com/en/actions/reference/security/oidc"
+      ],
+      "finding": "Immutable subject identity alone does not bind a token to the intended deployment run; issuer, audience, repository IDs, workflow references, workflow SHA, and temporal claims must be evaluated together.",
+      "module": "tools/frontier-research/github-oidc-run-binding.mjs",
+      "test": "tools/frontier-research/github-oidc-run-binding.test.mjs",
+      "evidence": "operations/evidence/frontier-research-github-oidc-run-binding-2026-07-15.json",
+      "commits": [
+        "8b88eb8e54b29e47b4a3f07beb6535aced8feeb9",
+        "be6fae65b15277a9d7324e063d4371cd3569e2a1",
+        "3321cebaaa0c630e7bdaa1e4abc22bde433e7e27"
+      ],
+      "verification": "5 deterministic Node tests passed in an isolated runtime using byte-identical pre-commit files"
+    },
+    "handoff": "Cloudflare and Vercel deployment workflows should verify the signed token first, then apply R-005 subject identity policy and R-006 run-binding policy before accepting deployment evidence. A passing decoded-claim policy is not cryptographic verification and is not proof that deployment succeeded."
+  },
+  "canonical_queue_update_policy": "Add this record to ACTIVE_QUEUE.json in a conflict-aware aggregation step; do not overwrite records owned by other teams."
+}
