@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-001",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-16T01:57:46Z",
+  "update_type": "follow_on_additive_slice",
+  "status": "completed",
+  "summary": "Added a provenance-preserving claim transition ledger that records how observed, inferred, proposed, superseded, and unresolved project claims change without erasing earlier records.",
+  "artifacts": [
+    {
+      "path": "operations/continuity/claim-transition-ledger.v1.json",
+      "commit": "a6068bd6929dda16abe90fcbc1c6113f2e5b0b92"
+    },
+    {
+      "path": "operations/evidence/continuity-claim-transition-ledger-2026-07-16T0157Z.json",
+      "commit": "20f7b601ce273091a1f2f0401637785ee3cb8d8c"
+    }
+  ],
+  "canonical_queue_overwritten": false,
+  "privacy_boundary": "Public repository metadata and abstract operational claims only; private chat, health, credentials, identifying data, and unreviewed uploads excluded.",
+  "verification": "GitHub acknowledged both additive file commits; the ledger contains three transition records and explicit falsification routes.",
+  "unresolved": [
+    "No automated transition validator exists yet.",
+    "No atomic repository-wide queue consolidation protocol has been proven."
+  ],
+  "next_action": "Add a deterministic validator that checks allowed transitions, referenced continuity record IDs, source locators, and non-erasure of superseded observations."
+}
