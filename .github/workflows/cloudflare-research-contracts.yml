@@ -1,0 +1,52 @@
+name: Cloudflare research evidence contracts
+
+on:
+  pull_request:
+    paths:
+      - 'cloudflare-static/**'
+      - '.github/workflows/cloudflare-pages-research.yml'
+      - '.github/workflows/cloudflare-research-contracts.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'cloudflare-static/**'
+      - '.github/workflows/cloudflare-pages-research.yml'
+      - '.github/workflows/cloudflare-research-contracts.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-research-contracts-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  served-identity-evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Verify served identity evidence contract
+        run: node --test cloudflare-static/validate-served-identity-evidence.test.mjs
+
+      - name: Verify deployment proof contracts that feed served identity
+        run: |
+          node --test cloudflare-static/research-surface-identity.test.mjs
+          node --test cloudflare-static/build-deployment-proof.test.mjs
+          node --test cloudflare-static/validate-deployment-proof.test.mjs
+          node --test cloudflare-static/validate-deployment-proof-context.test.mjs
+          node --test cloudflare-static/validate-deployment-proof-freshness.test.mjs
+          node --test cloudflare-static/run-hostname-evidence-gate.test.mjs
+
+      - name: Record bounded verification statement
+        run: |
+          {
+            echo '## Cloudflare research evidence contracts'
+            echo '- Served-identity semantic validator: executed'
+            echo '- Exact deployment proof feeder contracts: executed'
+            echo '- This workflow verifies source contracts only.'
+            echo '- It does not establish a live Cloudflare deployment, resolving hostname, scientific truth, diagnosis, or treatment validity.'
+          } >> "$GITHUB_STEP_SUMMARY"
