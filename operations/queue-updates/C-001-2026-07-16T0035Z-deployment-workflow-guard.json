@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "recorded_at": "2026-07-16T00:35:00Z",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added and CI-bound an executable contract that fails when required Cloudflare deployment evidence stages are removed, reordered across trust boundaries, or detached from the source-contract workflow.",
+  "artifacts": [
+    "cloudflare-static/cloudflare-deployment-workflow-contract.test.mjs",
+    ".github/workflows/cloudflare-research-contracts.yml",
+    "operations/evidence/CF-004-deployment-workflow-contract-2026-07-16T0035Z.json"
+  ],
+  "commits": [
+    "5d9ff2f8fc6f47ad4147af84ade62c3bd0936a4c",
+    "08011320c48dde477d4b2f93daff588d1cfb4237",
+    "58742165ba4db8f868f790a8e7ad42eab18f12e8"
+  ],
+  "verification": "Repository writes confirmed; no workflow run was observed for the binding commit, so source-level verification only.",
+  "remaining_blocker": "Configure the cloudflare-research GitHub environment with CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, dispatch the deployment workflow, and retain the resolving hostname plus exact deployed commit evidence.",
+  "next_action": "Observe or dispatch the Cloudflare research contracts workflow, retain its test output, then dispatch the production deployment workflow after environment configuration."
+}
