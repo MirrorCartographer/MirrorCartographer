@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-029",
+  "owner": "frontier_research",
+  "claim_state": "tested_artifact",
+  "evidence_strength": "deterministic_unit_test_plus_primary_standards",
+  "primary_sources": [
+    "https://docs.github.com/en/actions/concepts/security/openid-connect",
+    "https://www.rfc-editor.org/rfc/rfc9111.html",
+    "https://www.rfc-editor.org/rfc/rfc7517.html"
+  ],
+  "finding": "OIDC signature verification must bind key selection to fresh JWKS material. A previously valid key set must be revalidated when its effective freshness lifetime expires, and key selection must fail closed unless exactly one RS256 signing key matches the token kid.",
+  "design_implication": "Insert evaluateJwksFreshness and selectFreshVerificationKey between bounded JWKS retrieval and cryptographic signature verification. Apply the stricter of origin max-age and a local maximum TTL; reject no-store, no-cache, stale, duplicate-kid, and non-signing-key states.",
+  "artifact": "tools/frontier-research/github-oidc-jwks-freshness.mjs",
+  "test": "tools/frontier-research/github-oidc-jwks-freshness.test.mjs",
+  "verification": {
+    "command": "node --test tools/frontier-research/github-oidc-jwks-freshness.test.mjs",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "environment": "isolated Node runtime using byte-identical pre-commit files"
+  },
+  "source_commits": [
+    "52ca93b2f36dbf6eef081f52d2ffc59296ca6042",
+    "2438d72f12dade36eb36349b66b6f7de20f8dcba"
+  ],
+  "uncertainty": "HTTP freshness and JWK metadata validation do not verify TLS transport, JWT signature bytes, issuer control, or authorization claim truth.",
+  "falsification_route": "Demonstrate that the integrated verifier accepts an expired JWKS, ignores response Age, accepts duplicate kid values, or selects a key not marked for RS256 signatures; any such result falsifies the policy implementation.",
+  "privacy_boundary": "No tokens, credentials, private claims, chat material, or health information are stored."
+}
