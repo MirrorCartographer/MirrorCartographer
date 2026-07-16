@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "M-001",
+  "owner": "continuity_mining",
+  "recorded_at": "2026-07-16T00:17:36Z",
+  "status": "completed_follow_on_slice",
+  "priority_basis": "M-001 is the only canonical continuity-owned item; its handoff requires contradiction modeling without overwriting history, and the current cross-root CM-0010 collision blocks aggregate validation.",
+  "completed": {
+    "action": "Migrated the later peer-trigger layering memory from duplicate ID CM-0010 to canonical ID CM-0013 while retaining legacy identity and pre-migration provenance.",
+    "memory_rule": "Continuity IDs are repository-wide semantic keys across sanctioned storage roots.",
+    "implementation_commit": "bcb03f1abb3930494e64fd241cd3d5f53aa5f663",
+    "evidence_commit": "2903be0cbb347f9aabd27983ee3a7f0dfee5cd90",
+    "evidence": "operations/evidence/continuity-cm-0010-to-cm-0013-migration-2026-07-15T2017-0400.json"
+  },
+  "claim_states": {
+    "observed": "The earlier replay-protection record and later peer-trigger memory shared CM-0010; the validator now scans both roots.",
+    "inferred": "Retaining the earlier assignment and migrating the later claim is the least destructive deterministic repair.",
+    "proposed": "Add aggregate namespace allocation or reservation before future continuity writes.",
+    "superseded": "CM-0010 as the identifier of the peer-trigger claim is superseded by CM-0013.",
+    "unresolved": "Full repository validator execution is not retained for this connector-only run."
+  },
+  "privacy": "public_repository_safe",
+  "files_changed": [
+    "operations/continuity/memory/CM-0010-peer-trigger-claims-are-layered.json",
+    "operations/evidence/continuity-cm-0010-to-cm-0013-migration-2026-07-15T2017-0400.json",
+    "operations/queue-updates/M-001-2026-07-15T2017-0400-cm-0013-namespace-migration.json"
+  ],
+  "next_action": "Run the full continuity validator and, if clean for this collision, add an ID-allocation guard that checks every sanctioned storage root before record creation."
+}
