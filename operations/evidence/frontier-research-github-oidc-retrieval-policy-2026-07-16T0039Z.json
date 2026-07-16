@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-028",
+  "created_at": "2026-07-16T00:39:00Z",
+  "claim_state": "implemented_source_unexecuted",
+  "evidence_strength": "committed_source_and_static_inspection",
+  "finding": "GitHub OIDC signature verification should receive discovery metadata and JWKS only after exact endpoint pinning, redirect rejection, response size and content-type bounds, issuer and jwks_uri validation, RS256 support validation, and bounded unique RSA-key validation.",
+  "primary_sources": [
+    {
+      "url": "https://docs.github.com/en/actions/concepts/security/openid-connect",
+      "status": "current_official_documentation",
+      "supports": "GitHub Actions emits short-lived job-specific JWTs and documents issuer, RS256, kid, and workflow claims."
+    },
+    {
+      "url": "https://token.actions.githubusercontent.com/.well-known/openid-configuration",
+      "status": "live_provider_metadata_observed_2026-07-16",
+      "supports": "Exact issuer, JWKS URI, and RS256 signing metadata."
+    },
+    {
+      "url": "https://openid.net/specs/openid-connect-discovery-1_0.html",
+      "status": "final_specification_errata_set_2",
+      "supports": "Provider metadata retrieval and validation, including issuer and jwks_uri."
+    }
+  ],
+  "artifacts": {
+    "module": "tools/frontier-research/github-oidc-retrieval-policy.mjs",
+    "test": "tools/frontier-research/github-oidc-retrieval-policy.test.mjs",
+    "module_commit": "520c4a1757eb780829b676dc9ed5af7c3d5f9f33",
+    "test_commit": "e3b00fae45835a5da85bfa2440255272dff05af7"
+  },
+  "verification": {
+    "method": "post-commit source inspection",
+    "runtime_executed": false,
+    "cases_defined": 6,
+    "covered": [
+      "exact pinned response acceptance",
+      "redirect and URL drift rejection",
+      "response size and content-type rejection",
+      "issuer, JWKS URI, and RS256 metadata pinning",
+      "bounded unique RSA JWK acceptance",
+      "duplicate, excessive, and incomplete JWK rejection"
+    ]
+  },
+  "uncertainty": [
+    "No live network adapter, timeout, TLS implementation, or conditional request behavior is included.",
+    "The maximum response size and key count are project policy values and may need tuning from retained live observations.",
+    "The exact committed tests have not yet run in CI or an authenticated checkout."
+  ],
+  "falsification_route": "Run the test file, then integrate a real fetch adapter with redirects disabled and strict timeout/body limits. Falsify the policy by demonstrating a legitimate GitHub metadata or JWKS response that violates a bound, or an attacker-controlled endpoint accepted by the validator."
+}
