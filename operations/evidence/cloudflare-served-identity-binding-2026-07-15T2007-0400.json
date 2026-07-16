@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "team": "cloudflare_research",
+  "observed_at": "2026-07-15T20:07:15-04:00",
+  "finding": "The deployment proof validator required verifier_output to be nonempty but did not itself require the accepted served-identity record to preserve the immutable deployment origin or bind the served manifest source_commit to the proof source_commit.",
+  "implementation": {
+    "module": "cloudflare-static/validate-served-identity-evidence.mjs",
+    "test": "cloudflare-static/validate-served-identity-evidence.test.mjs",
+    "requirements": [
+      "exactly one accepted served-identity record",
+      "candidate origin equals deployment_url origin",
+      "resolved origin equals deployment_url origin",
+      "HTTP status is 200",
+      "accepted record has no rejection reasons",
+      "served deployment manifest is valid",
+      "served deployment manifest source_commit equals proof source_commit"
+    ]
+  },
+  "evidence_strength": "committed source and deterministic adversarial test fixtures; not executed in this run",
+  "privacy": {
+    "classification": "public repository engineering evidence",
+    "secret_values_emitted": false,
+    "private_source_material_emitted": false
+  },
+  "limits": [
+    "No Cloudflare credentials were available to execute a provider deployment.",
+    "No public Pages URL or control-plane response was verified.",
+    "The validator is not yet wired into the deployment workflow test gate."
+  ],
+  "falsification_route": "Execute the test file, then run the validator against one retained successful deployment proof. Any legitimate Cloudflare immutable deployment whose accepted record cannot preserve the exact deployment origin and source commit requires a versioned contract revision."
+}
