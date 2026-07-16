@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-001",
+  "claim_state": "observed",
+  "evidence_strength": "corroborated_repository_sources",
+  "memory_recovered": "Continuity identifiers are a repository-wide namespace across the sanctioned index, records, and memory roots; directory-local uniqueness is insufficient.",
+  "contradiction": {
+    "id": "CM-0999",
+    "observed_condition": "operations/continuity/records and operations/continuity/memory contain distinct CM-0010 claims while the previous CLI validator scanned only records.",
+    "resolution_state": "detection_gap_resolved_identity_migration_unresolved",
+    "preservation_rule": "Neither historical CM-0010 file was deleted, renamed, or rewritten."
+  },
+  "implementation": {
+    "validator": "tools/continuity/validate-continuity-records.mjs",
+    "validator_commit": "921b947c7c68eef8c1aff219e064c589962b4af9",
+    "test": "tools/continuity/validate-continuity-records.test.mjs",
+    "test_commit": "d19d0418c53a2f099a71d92c0d290ea14b77fe64",
+    "behavior": [
+      "accepts multiple sanctioned record roots",
+      "deduplicates root paths before scanning",
+      "reports scanned roots",
+      "preserves the legacy recordsDir interface",
+      "rejects a duplicate continuity ID split across records and memory"
+    ]
+  },
+  "verification": {
+    "level": "exact_commit_source_and_static_adversarial_fixture_review",
+    "executed_tests": false,
+    "limitations": "No Node or GitHub Actions execution was available in this run."
+  },
+  "privacy_boundary": "Public repository files and commit metadata only. No private chat text, health material, credentials, identifying personal data, or unreviewed uploads were copied into the artifact.",
+  "status_relations": {
+    "observed": [
+      "The prior validator CLI supplied only operations/continuity/records.",
+      "Two distinct public repository artifacts use CM-0010 across records and memory.",
+      "The revised CLI supplies both sanctioned roots and the test suite contains a cross-root duplicate fixture."
+    ],
+    "inferred": [
+      "Future sanctioned roots must be added explicitly or generated from a canonical root registry to avoid another blind spot."
+    ],
+    "proposed": [
+      "Add an additive alias or supersession migration record for one CM-0010 and retain a redirect map for external references."
+    ],
+    "superseded": [],
+    "unresolved": [
+      "Which historical CM-0010 retains the canonical identifier remains undecided.",
+      "The repository currently fails the expanded validator until the collision is migrated."
+    ]
+  },
+  "falsification_or_review_route": "Run node --test tools/continuity/validate-continuity-records.test.mjs, then run node tools/continuity/validate-continuity-records.mjs at repository root. Reject this evidence if the fixture does not detect a duplicate split across records and memory or if the CLI omits either sanctioned root."
+}
