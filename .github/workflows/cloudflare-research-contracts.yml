@@ -29,6 +29,9 @@ jobs:
       - name: Checkout committed source
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
+      - name: Guard deployment evidence workflow stages
+        run: node --test cloudflare-static/cloudflare-deployment-workflow-contract.test.mjs
+
       - name: Verify served identity evidence contract
         run: node --test cloudflare-static/validate-served-identity-evidence.test.mjs
 
@@ -45,6 +48,7 @@ jobs:
         run: |
           {
             echo '## Cloudflare research evidence contracts'
+            echo '- Deployment workflow evidence-chain guard: executed'
             echo '- Served-identity semantic validator: executed'
             echo '- Exact deployment proof feeder contracts: executed'
             echo '- This workflow verifies source contracts only.'
