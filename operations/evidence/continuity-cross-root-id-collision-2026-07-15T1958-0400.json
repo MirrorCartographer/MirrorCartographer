@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "team": "continuity_mining",
+  "queue_item": "M-001-follow-on",
+  "record": "operations/continuity/records/CM-0999.json",
+  "finding": "CM-0010 is assigned to two different continuity claims in separate sanctioned storage roots, while the current validator scans only the monolithic index and operations/continuity/records.",
+  "sources": [
+    "operations/continuity/records/CM-0010.json@e61bc25c04571c0d15afca570090a31d82174f7b",
+    "operations/continuity/memory/CM-0010-peer-trigger-claims-are-layered.json@88ae946a29c7d43665dd0586f0e6b8d5b4ebe72c",
+    "tools/continuity/validate-continuity-records.mjs@4d13e5e18442e96dbad96f69f33ed25536f0ce54"
+  ],
+  "claim_states": {
+    "observed": "The duplicate identifier and validator scope are directly present in repository sources.",
+    "inferred": "Cross-root aggregation makes CM-0010 ambiguous.",
+    "proposed": "Expand validation to all sanctioned roots and migrate one identifier additively.",
+    "superseded": null,
+    "unresolved": "No canonical alias or migration rule exists yet."
+  },
+  "privacy_boundary": "Public repository metadata and source structure only; no private chat, health, credentials, personal identifiers, or uploaded-file content inspected or reproduced.",
+  "verification": {
+    "method": "exact-source fetch through GitHub connector",
+    "record_commit": "b74832033aab7171f29afaec07c9ceae46a7fbdb",
+    "runtime_test": "not executed",
+    "deployment_claim": "none"
+  },
+  "falsification_route": "A repository-wide validator that already includes operations/continuity/memory, or evidence that one CM-0010 artifact has a different canonical ID through an additive alias, would falsify or resolve the finding."
+}
