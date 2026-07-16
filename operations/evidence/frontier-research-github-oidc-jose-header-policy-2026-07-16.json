@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-030",
+  "team": "frontier_research",
+  "timestamp": "2026-07-16T02:15:00Z",
+  "finding": "Fresh, uniquely selected JWKS material is insufficient unless the verifier also applies an application-owned JOSE header policy that binds the token algorithm to the selected key and rejects remote key indirection, unsupported critical headers, algorithm confusion, and wrong token types before signature verification.",
+  "primary_sources": [
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8725.html",
+      "status": "IETF Best Current Practice",
+      "relevance": "Requires caller-controlled algorithm allowlists, exact key-to-algorithm binding, validation of cryptographic inputs, issuer/audience validation, and defenses against remote key lookup and cross-JWT confusion."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc7518.html",
+      "status": "IETF Standards Track",
+      "relevance": "Defines JOSE algorithms and key-type semantics used by the policy evaluator."
+    },
+    {
+      "url": "https://docs.github.com/en/actions/concepts/security/openid-connect",
+      "status": "current official vendor documentation observed 2026-07-16",
+      "relevance": "Documents GitHub Actions OIDC tokens as JWTs and shows typ JWT, alg RS256, kid, issuer, audience, and run-bound claims."
+    }
+  ],
+  "artifact": "tools/frontier-research/github-oidc-jose-header-policy.mjs",
+  "test": "tools/frontier-research/github-oidc-jose-header-policy.test.mjs",
+  "commits": [
+    "01c97c9cd0278c58a826a34c825984e7bbe1533f",
+    "743c026cd68f034b52c6ba6b9506aa7eb0d68f96"
+  ],
+  "verification": {
+    "route": "node --test github-oidc-jose-header-policy.test.mjs in an isolated Node runtime using byte-identical files",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "covered": [
+      "exact RS256 header/key binding accepted without claiming signature verification",
+      "none, HMAC confusion, and non-allowlisted algorithms rejected",
+      "jku, x5u, and unsupported crit handling rejected fail-closed",
+      "kid, alg, kty, use, and key_ops mismatches rejected",
+      "missing or substituted typ rejected"
+    ]
+  },
+  "evidence_strength": "implementation-plus-deterministic-tests",
+  "uncertainty": "The evaluator validates policy compatibility only; it does not parse JWT bytes, verify a cryptographic signature, validate claims, prove token origin, or authorize a deployment.",
+  "falsification_route": "Present a GitHub-issued token or supported key rotation case that cannot pass while satisfying the documented RS256/JWT contract, or show that an accepted header/key pair enables algorithm substitution, remote key injection, unsupported critical semantics, or incompatible key usage.",
+  "privacy_boundary": "No token values, credentials, private claims, health material, or personal source content are retained."
+}
