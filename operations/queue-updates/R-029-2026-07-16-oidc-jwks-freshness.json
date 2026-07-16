@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "R-029",
+  "owner": "frontier_research",
+  "priority": 4,
+  "status": "completed",
+  "action": "Bind GitHub OIDC signature verification to fresh, unambiguous JWKS material.",
+  "dependencies": ["R-028"],
+  "required_evidence": ["primary standards", "committed policy evaluator", "deterministic tests", "falsification route"],
+  "progress": {
+    "primary_sources": [
+      "https://docs.github.com/en/actions/concepts/security/openid-connect",
+      "https://www.rfc-editor.org/rfc/rfc9111.html",
+      "https://www.rfc-editor.org/rfc/rfc7517.html"
+    ],
+    "finding": "A verified OIDC token must not rely on stale or ambiguous JWKS material; freshness and exact signing-key selection are separate gates before signature verification.",
+    "module": "tools/frontier-research/github-oidc-jwks-freshness.mjs",
+    "test": "tools/frontier-research/github-oidc-jwks-freshness.test.mjs",
+    "evidence": "operations/evidence/frontier-research-oidc-jwks-freshness-2026-07-16.json",
+    "commits": [
+      "52ca93b2f36dbf6eef081f52d2ffc59296ca6042",
+      "2438d72f12dade36eb36349b66b6f7de20f8dcba",
+      "21d64deae3a70f6f26543fcfdb2a2a3753f19b4e"
+    ],
+    "verification": "4 deterministic Node tests passed in an isolated runtime using byte-identical files"
+  },
+  "handoff": "Infrastructure verifiers should compose bounded retrieval -> freshness evaluation -> exact kid/alg/use selection -> cryptographic signature verification -> immutable run authorization. Freshness acceptance is not evidence that the JWT signature or claims are valid."
+}
