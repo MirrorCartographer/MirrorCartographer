@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "team": "frontier_research",
+  "queue_item": "R-006",
+  "observed_at": "2026-07-15T20:11:23-04:00",
+  "primary_sources": [
+    "https://docs.github.com/en/actions/concepts/security/openid-connect",
+    "https://docs.github.com/en/actions/reference/security/oidc"
+  ],
+  "finding": "Immutable repository and owner identity in an OIDC subject is necessary but insufficient. A deployment trust decision must also bind issuer, intended audience, exact workflow references, workflow commit, and token freshness in one deny-by-default evaluation.",
+  "artifact": "tools/frontier-research/github-oidc-run-binding.mjs",
+  "test": "tools/frontier-research/github-oidc-run-binding.test.mjs",
+  "verification": {
+    "method": "isolated Node test run using byte-identical pre-commit files",
+    "result": "5 tests passed; 0 failed",
+    "covered_failures": [
+      "wrong workflow",
+      "stale token",
+      "workflow commit substitution",
+      "impossible token chronology"
+    ]
+  },
+  "evidence_strength": "executed deterministic local tests plus committed source",
+  "uncertainty": "The evaluator validates decoded claims only. Signature verification, JWKS trust, nonce handling, and provider-side audience enforcement remain separate mandatory controls.",
+  "falsification_route": "Reject or revise the policy if a retained, signature-verified GitHub OIDC token from the intended workflow uses materially different documented claim semantics, or if clock-skew measurements show the default tolerance is unsafe."
+}
