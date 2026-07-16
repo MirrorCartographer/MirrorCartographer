@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": "C-001",
+  "owner": "cloudflare_research",
+  "status": "blocked_external_configuration",
+  "completed_slice": "Added a fail-closed semantic validator for served identity evidence so a nonempty verifier array cannot substitute an alias, another origin, or another commit for the exact immutable deployment proof.",
+  "files": [
+    "cloudflare-static/validate-served-identity-evidence.mjs",
+    "cloudflare-static/validate-served-identity-evidence.test.mjs",
+    "operations/evidence/cloudflare-served-identity-binding-2026-07-15T2007-0400.json"
+  ],
+  "commits": [
+    "3461a0b35ab8b2c110ba5f6ae5efd78808352fc5",
+    "d0911754c6e7019aa753fe88ce404d8b768753bc",
+    "90d19abfa23957f066dfeb11d70156ed45c3e1a6"
+  ],
+  "verification": "Exact files committed; deterministic positive and adversarial fixtures added. Test execution and provider deployment remain unverified.",
+  "remaining": [
+    "wire the new validator and test into .github/workflows/cloudflare-pages-research.yml",
+    "execute the full Cloudflare contract suite in GitHub Actions",
+    "configure the cloudflare-research environment credentials",
+    "dispatch the workflow and retain a resolving Pages URL bound to the deployed commit"
+  ],
+  "rollback": "Revert the additive commits listed above; no deployment, DNS, payment, conversion, or existing history state was changed."
+}
