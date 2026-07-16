@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "queue_item": {
+    "id": "R-007",
+    "owner": "frontier_research",
+    "priority": 6,
+    "action": "Compose GitHub OIDC cryptographic verification and run-binding authorization into one fail-closed entrypoint.",
+    "dependencies": ["R-006"],
+    "status": "completed",
+    "required_evidence": [
+      "current official GitHub OIDC documentation",
+      "primary JOSE and OpenID specifications",
+      "committed composed verifier",
+      "adversarial ordering tests",
+      "explicit trust limits and falsification route"
+    ],
+    "progress": {
+      "primary_sources": [
+        "https://docs.github.com/en/actions/concepts/security/openid-connect",
+        "https://docs.github.com/en/actions/reference/security/oidc",
+        "https://datatracker.ietf.org/doc/html/rfc7515",
+        "https://datatracker.ietf.org/doc/html/rfc7517",
+        "https://openid.net/specs/openid-connect-discovery-1_0.html"
+      ],
+      "finding": "Authorization over decoded claims is unsafe unless signature verification succeeds first; the composed result must suppress claims on either signature or authorization failure.",
+      "module": "tools/frontier-research/github-oidc-verification-chain.mjs",
+      "test": "tools/frontier-research/github-oidc-verification-chain.test.mjs",
+      "evidence": "operations/evidence/frontier-research-github-oidc-verification-chain-2026-07-15.json",
+      "commits": [
+        "79b96c67ef0eec76d48dccee86e9f1437d75e38a",
+        "89067c6bf770612c494973c8fc4a9fe7edbaac0d",
+        "b8aedc1f6afad1886a50cf915e0b574a969ac601"
+      ],
+      "verification": "3 exact composed-chain tests committed; 5 functionally equivalent cryptographic-core tests passed locally. Exact committed chain execution remains pending."
+    },
+    "handoff": "Cloudflare and Vercel deployment evidence workflows should call verifyAndAuthorizeGitHubOidcRun as the sole claim-release boundary. They must still implement trusted discovery/JWKS retrieval, cache and rotation policy, replay rejection, and live-token evidence."
+  },
+  "canonical_queue_update_policy": "Add this record to ACTIVE_QUEUE.json in a conflict-aware aggregation step; do not overwrite records owned by other teams."
+}
