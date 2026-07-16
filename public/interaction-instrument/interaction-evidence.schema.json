@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fia.reader.interaction-evidence/1",
+  "title": "Foundation Interaction Instrument Evidence Export",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "feature", "privacy", "events"],
+  "properties": {
+    "schema": {"const": "fia.reader.interaction-evidence/1"},
+    "feature": {"const": "interaction-instrument-06"},
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["local_only", "user_initiated", "excluded"],
+      "properties": {
+        "local_only": {"const": true},
+        "user_initiated": {"const": true},
+        "excluded": {
+          "type": "array",
+          "items": {"enum": ["identity", "raw_text", "deleted_text", "microphone", "pointer_trajectories"]},
+          "uniqueItems": true
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "maxItems": 180,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["schema", "feature", "type", "at"],
+        "properties": {
+          "schema": {"const": "fia.interaction.delta/1"},
+          "feature": {"const": "interaction-instrument-06"},
+          "type": {"enum": ["audio_consent", "note_added", "note_undone", "motif_played", "motif_cleared", "evidence_exported", "evidence_erased", "accessibility_mode", "error"]},
+          "at": {"type": "string", "format": "date-time"},
+          "pitch_band": {"enum": ["low", "mid", "high"]},
+          "tension_band": {"enum": ["low", "mid", "high"]},
+          "duration_band": {"enum": ["tap", "short", "medium", "long"]},
+          "input_class": {"enum": ["keyboard", "pointer", "touch", "button"]},
+          "motif_size_band": {"enum": ["small", "medium", "large"]},
+          "remaining_band": {"enum": ["small", "medium", "large"]},
+          "audio_state": {"enum": ["enabled", "disabled", "unsupported"]},
+          "reduced_motion": {"type": "boolean"},
+          "code": {"enum": ["audio_unsupported", "audio_resume_failed", "storage_unavailable"]}
+        }
+      }
+    }
+  }
+}
