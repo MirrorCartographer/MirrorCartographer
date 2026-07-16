@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0.0",
+  "ledger_id": "continuity-claim-transition-ledger-v1",
+  "recorded_at": "2026-07-16T01:57:46Z",
+  "purpose": "Preserve how project claims change epistemic state without overwriting earlier observations.",
+  "allowed_states": [
+    "observed",
+    "inferred",
+    "proposed",
+    "superseded",
+    "unresolved"
+  ],
+  "transition_rules": [
+    {
+      "from": "observed",
+      "to": "superseded",
+      "condition": "A later authoritative source changes current interpretation while the earlier observation remains historically true at its cited source blob."
+    },
+    {
+      "from": "inferred",
+      "to": "observed",
+      "condition": "A primary repository source or retained runtime/deployment artifact directly supports the claim."
+    },
+    {
+      "from": "proposed",
+      "to": "observed",
+      "condition": "The proposal is implemented and retained with source-level evidence; implementation alone does not establish runtime or deployment truth."
+    },
+    {
+      "from": "unresolved",
+      "to": "observed",
+      "condition": "The named falsification or review route is satisfied by retained evidence."
+    },
+    {
+      "from": "observed",
+      "to": "unresolved",
+      "condition": "A contradiction appears and neither source has sufficient authority or recency to resolve it."
+    }
+  ],
+  "records": [
+    {
+      "transition_id": "CT-0001",
+      "subject": "M-001 queue status",
+      "prior_state": "observed",
+      "prior_record": "CM-0003",
+      "current_state": "superseded",
+      "current_record": "CM-0009",
+      "reason": "The earlier record correctly observed M-001 as active at an older ACTIVE_QUEUE blob; a later queue blob records completion. The historical observation is retained while its current-status interpretation is superseded.",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/continuity/continuity-index.json",
+          "content_sha": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a"
+        },
+        {
+          "type": "github_file",
+          "locator": "operations/ACTIVE_QUEUE.json",
+          "content_sha": "abb807e1a25d399f301238f6b8cc26d6be10385f"
+        }
+      ],
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Fetch CM-0003 and CM-0009 from the cited continuity-index blob and compare their source blobs and supersedes relationship."
+    },
+    {
+      "transition_id": "CT-0002",
+      "subject": "Canonical queue completeness assumption",
+      "prior_state": "inferred",
+      "prior_record": null,
+      "current_state": "superseded",
+      "current_record": "continuity-state-precedence-v1",
+      "reason": "Recent owner-scoped queue deltas and commits postdate the canonical ACTIVE_QUEUE snapshot, so the snapshot is a baseline rather than proof of complete current state.",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/continuity/state-precedence-policy.v1.json",
+          "content_sha": "commit:cc1ba83854b30beb962738578bc01a56ba3210be"
+        },
+        {
+          "type": "github_commit",
+          "locator": "2671d6fe4d823f3a39d73b00cfcd9be822b40672",
+          "content_sha": "2671d6fe4d823f3a39d73b00cfcd9be822b40672"
+        }
+      ],
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Produce a later explicit consolidation commit showing all cited deltas are incorporated into ACTIVE_QUEUE, or show the cited delta commit is invalid."
+    },
+    {
+      "transition_id": "CT-0003",
+      "subject": "Cloudflare deployment truth",
+      "prior_state": "proposed",
+      "prior_record": null,
+      "current_state": "unresolved",
+      "current_record": "CM-0008",
+      "reason": "Deployment tooling, validation, and configuration artifacts exist, but no retained resolving hostname, served identity, and deployed commit proof has been observed.",
+      "sources": [
+        {
+          "type": "github_file",
+          "locator": "operations/continuity/continuity-index.json",
+          "content_sha": "efb8b5ca41a00a3484af1df112a81fc6a1b6d63a"
+        },
+        {
+          "type": "github_commit",
+          "locator": "e5ff2aecc79e8bcae80e47989e602d1add87035b",
+          "content_sha": "e5ff2aecc79e8bcae80e47989e602d1add87035b"
+        }
+      ],
+      "privacy": "public_repository_safe",
+      "falsification_or_review_route": "Resolve only with immutable deployment evidence containing a resolving Cloudflare URL, matching served identity, and exact deployed commit."
+    }
+  ],
+  "privacy_boundary": {
+    "included": "Public repository paths, blob and commit identifiers, abstract operational claims, and explicit epistemic transitions.",
+    "excluded": "Raw private chat, health or pet-health material, credentials, personal identifiers, and unreviewed uploads."
+  },
+  "unresolved": [
+    "No automated validator yet enforces legal state transitions or source existence.",
+    "No atomic repository-wide consolidation protocol has been proven."
+  ]
+}
