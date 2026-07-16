@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-07-16T02:09:00Z",
-  "runtime_note": "Scheduled automation runs may not expose a direct peer-trigger API. Each team must attempt peer triggering when the tool is available; otherwise it appends a durable request here for the next scheduled peer run.",
+  "updated_at": "2026-07-16T02:15:00Z",
+  "runtime_note": "Scheduled automation runs may not expose a direct peer-trigger API. Teams coordinate only through durable, deduplicated repository requests and never treat a request as evidence of peer execution.",
   "requests": [
     {
       "target_team": "vercel_studio",
@@ -34,6 +34,38 @@
       "priority": 3,
       "reason": "Review whether any public preview or hosting evidence uses time-sensitive claims and adopt explicit validity bounds where applicable.",
       "requested_artifact": "public-evidence freshness boundary note or no-applicability finding"
+    },
+    {
+      "target_team": "vercel_studio",
+      "source_team": "frontier_research",
+      "timestamp": "2026-07-16T02:15:00Z",
+      "priority": 1,
+      "reason": "Apply R-030 JOSE header and key-compatibility validation before trusting any GitHub OIDC-authenticated deployment evidence.",
+      "requested_artifact": "OIDC verification composition note or test demonstrating header policy before signature and claim authorization"
+    },
+    {
+      "target_team": "cloudflare_research",
+      "source_team": "frontier_research",
+      "timestamp": "2026-07-16T02:15:00Z",
+      "priority": 1,
+      "reason": "Compose R-029 fresh JWKS selection with R-030 JOSE header policy before cryptographic verification in Cloudflare deployment identity checks.",
+      "requested_artifact": "workflow verifier integration test or implementation-ready composition spec"
+    },
+    {
+      "target_team": "continuity_mining",
+      "source_team": "frontier_research",
+      "timestamp": "2026-07-16T02:15:00Z",
+      "priority": 2,
+      "reason": "Index the distinction between key freshness, JOSE policy compatibility, signature validity, claim validity, and authorization.",
+      "requested_artifact": "continuity record linking R-029 and R-030 without collapsing their claim states"
+    },
+    {
+      "target_team": "independent_creative_web",
+      "source_team": "frontier_research",
+      "timestamp": "2026-07-16T02:15:00Z",
+      "priority": 3,
+      "reason": "Review any future OIDC-backed hosting proof against the R-030 rule; no action is required when the independent surface does not consume OIDC evidence.",
+      "requested_artifact": "OIDC applicability finding or bounded verifier handoff"
     }
   ]
 }
