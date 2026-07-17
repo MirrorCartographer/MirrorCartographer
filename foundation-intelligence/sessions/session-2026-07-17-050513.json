@@ -1,0 +1,20 @@
+{
+  "session_id": "fi-session:2026-07-17t050513-0400",
+  "timestamp": "2026-07-17T05:05:13-04:00",
+  "parent_session": "fi-session:2026-07-17t040736-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "active_projects": ["fi-project:foundation-intelligence", "fi-project:mirror-cartographer"],
+  "referenced_artifacts": ["fi-artifact:workspace-manifest-v1", "fi-artifact:project-graph-v1", "fi-artifact:decision-log-v1", "fi-artifact:evidence-graph-v1", "fi-artifact:symbol-graph-v1", "fi-artifact:component-graph-v1", "fi-artifact:index-v1", "fi-artifact:latest-session-pointer-v1"],
+  "decisions_made": [],
+  "evidence_added": [],
+  "objects_connected": ["fi-symbol:foundation-intelligence:v1", "fi-symbol:continuous-identity:v1", "fi-component:continuity-loader-v1", "fi-component:peer-trigger-deduplicator-v1"],
+  "unresolved_questions": ["External artifact-registry, user-export, and private-vault connectors remain unresolved durable boundaries."],
+  "privacy_classification": "internal",
+  "stores_inspected": ["canonical source repository", "artifact registry", "knowledge store", "latest session handoff"],
+  "persistence_writes": ["foundation-intelligence/graphs/symbol-graph.jsonl", "foundation-intelligence/ARTIFACT_INDEX.jsonl", "foundation-intelligence/sessions/session-2026-07-17-050513.json", "foundation-intelligence/sessions/LATEST.json"],
+  "conflicts_or_duplicates": ["Artifact index previously marked the symbol graph pending while the required load path was absent; reconciled to active after successful creation.", "No duplicate stable symbol IDs detected."],
+  "privacy_boundary": "Internal structural and symbolic metadata only; no private vault, user-owned exports, or public-safe publication writes.",
+  "rollback_route": ["revert latest pointer commit", "revert this session manifest commit", "revert artifact index activation commit", "revert symbol graph creation commit"],
+  "trigger_dedupe_keys": ["fi-trigger:bootstrap-required-stores:v1", "fi-trigger:initialize-decision-log:v1", "fi-trigger:initialize-symbol-graph:v1", "fi-trigger:verify-full-load-order:v1"],
+  "next_handoff": "Execute a complete canonical load-order verification and record exact stable-ID resolution failures, if any."
+}
