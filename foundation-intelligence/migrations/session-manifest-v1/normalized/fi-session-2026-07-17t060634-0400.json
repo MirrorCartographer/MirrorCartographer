@@ -1,0 +1,70 @@
+{
+  "session_id": "fi-session:2026-07-17t060634-0400",
+  "timestamp": "2026-07-17T06:06:34-04:00",
+  "parent_session": "fi-session:2026-07-17t050513-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "active_projects": [
+    {"id":"fi-project:foundation-intelligence","type":"project","provenance":"source manifest active_projects[0]","confidence":1.0},
+    {"id":"fi-project:mirror-cartographer","type":"project","provenance":"source manifest active_projects[1]","confidence":1.0}
+  ],
+  "referenced_artifacts": [
+    {"id":"fi-artifact:workspace-manifest-v1","type":"artifact","provenance":"source manifest referenced_artifacts[0]","confidence":1.0},
+    {"id":"fi-artifact:project-graph-v1","type":"artifact","provenance":"source manifest referenced_artifacts[1]","confidence":1.0},
+    {"id":"fi-artifact:decision-log-v1","type":"artifact","provenance":"source manifest referenced_artifacts[2]","confidence":1.0},
+    {"id":"fi-artifact:evidence-graph-v1","type":"artifact","provenance":"source manifest referenced_artifacts[3]","confidence":1.0},
+    {"id":"fi-artifact:symbol-graph-v1","type":"artifact","provenance":"source manifest referenced_artifacts[4]","confidence":1.0},
+    {"id":"fi-artifact:component-graph-v1","type":"artifact","provenance":"source manifest referenced_artifacts[5]","confidence":1.0},
+    {"id":"fi-artifact:index-v1","type":"artifact","provenance":"source manifest referenced_artifacts[6]","confidence":1.0},
+    {"id":"fi-artifact:latest-session-pointer-v1","type":"artifact","provenance":"source manifest referenced_artifacts[7]","confidence":1.0},
+    {"id":"fi-artifact:stable-id-resolution-audit-20260717t060634-0400","type":"artifact","provenance":"source manifest referenced_artifacts[8]","confidence":1.0}
+  ],
+  "decisions_made": [],
+  "evidence_added": [],
+  "symbols_touched": [],
+  "components_touched": [
+    {"id":"fi-component:continuity-loader-v1","type":"component","provenance":"source manifest objects_connected[1]","confidence":1.0},
+    {"id":"fi-component:peer-trigger-deduplicator-v1","type":"component","provenance":"source manifest objects_connected[2]","confidence":1.0}
+  ],
+  "unresolved_questions": [
+    "External artifact-registry, user-owned interaction export, and private-vault connectors remain unresolved durable boundaries.",
+    "Historical session manifests other than this projection have not yet been normalized against one schema version."
+  ],
+  "privacy_classification": "internal",
+  "stores_inspected": [
+    "canonical source repository",
+    "workspace manifest",
+    "project graph",
+    "decision log",
+    "evidence graph",
+    "symbol graph",
+    "component graph",
+    "artifact registry",
+    "latest session handoff"
+  ],
+  "objects_connected": [
+    {"from":"fi-session:2026-07-17t060634-0400","relation":"references","to":"fi-artifact:stable-id-resolution-audit-20260717t060634-0400","provenance":"source manifest objects_connected[0]","confidence":1.0},
+    {"from":"fi-session:2026-07-17t060634-0400","relation":"used-component","to":"fi-component:continuity-loader-v1","provenance":"source manifest objects_connected[1]","confidence":1.0},
+    {"from":"fi-session:2026-07-17t060634-0400","relation":"used-component","to":"fi-component:peer-trigger-deduplicator-v1","provenance":"source manifest objects_connected[2]","confidence":1.0},
+    {"from":"fi-session:2026-07-17t060634-0400","relation":"loaded-workspace","to":"fi-workspace:foundation-intelligence:v1","provenance":"source manifest objects_connected[3]","confidence":1.0}
+  ],
+  "conflicts_or_duplicates": [
+    {"status":"none","description":"No duplicate primary stable IDs in the audited canonical load set.","record_ids":[]},
+    {"status":"none","description":"No multiply resolved or dangling stable-ID references in the audited canonical load set.","record_ids":[]},
+    {"status":"confirmed","description":"The source manifest representation conflicts with SESSION_MANIFEST schema v1; this file is a non-destructive normalized projection.","record_ids":["fi-session:2026-07-17t060634-0400","fi-schema:session-manifest:v1"]}
+  ],
+  "persistence_writes": [
+    {"store":"canonical source repository","path":"foundation-intelligence/audits/stable-id-resolution-2026-07-17-060634.json","operation":"create","commit":"325aaeb34028b529488ffb41d1166340fafdb7e6"},
+    {"store":"artifact registry","path":"foundation-intelligence/ARTIFACT_INDEX.jsonl","operation":"update","commit":"3798fcabe22e0d7f8d6cccd717e9498d22602dc3"},
+    {"store":"canonical source repository","path":"foundation-intelligence/sessions/session-2026-07-17-060634.json","operation":"create","commit":null},
+    {"store":"canonical source repository","path":"foundation-intelligence/sessions/LATEST.json","operation":"update","commit":null}
+  ],
+  "rollback_route": {
+    "method": "Discard this normalized projection and continue resolving the immutable source manifest directly.",
+    "target": "foundation-intelligence/sessions/session-2026-07-17-060634.json"
+  },
+  "next_handoff": {
+    "summary": "Continue non-destructive normalization of historical session manifests without altering source records.",
+    "verification_step": "Validate this projection with a Draft 2020-12 JSON Schema validator, then normalize the next parent session.",
+    "trigger_dedupe_key": "fi-trigger:validate-normalized-session-projection:v1"
+  }
+}
