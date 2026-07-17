@@ -1,0 +1,65 @@
+{
+  "session_id": "fi-session:2026-07-17t050513-0400",
+  "timestamp": "2026-07-17T05:05:13-04:00",
+  "parent_session": "fi-session:2026-07-17t040736-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "active_projects": [
+    {"id":"fi-project:foundation-intelligence","type":"project","provenance":"immutable source manifest blob ac7b2e9c64e19dd2044fba251760d43e4a7aab66 active_projects[0]","confidence":1.0},
+    {"id":"fi-project:mirror-cartographer","type":"project","provenance":"immutable source manifest blob ac7b2e9c64e19dd2044fba251760d43e4a7aab66 active_projects[1]","confidence":1.0}
+  ],
+  "referenced_artifacts": [
+    {"id":"fi-artifact:workspace-manifest-v1","type":"artifact","provenance":"immutable source manifest referenced_artifacts[0]","confidence":1.0},
+    {"id":"fi-artifact:project-graph-v1","type":"artifact","provenance":"immutable source manifest referenced_artifacts[1]","confidence":1.0},
+    {"id":"fi-artifact:decision-log-v1","type":"artifact","provenance":"immutable source manifest referenced_artifacts[2]","confidence":1.0},
+    {"id":"fi-artifact:evidence-graph-v1","type":"artifact","provenance":"immutable source manifest referenced_artifacts[3]","confidence":1.0},
+    {"id":"fi-artifact:symbol-graph-v1","type":"artifact","provenance":"immutable source manifest referenced_artifacts[4]","confidence":1.0},
+    {"id":"fi-artifact:component-graph-v1","type":"artifact","provenance":"immutable source manifest referenced_artifacts[5]","confidence":1.0},
+    {"id":"fi-artifact:index-v1","type":"artifact","provenance":"immutable source manifest referenced_artifacts[6]","confidence":1.0},
+    {"id":"fi-artifact:latest-session-pointer-v1","type":"artifact","provenance":"immutable source manifest referenced_artifacts[7]","confidence":1.0}
+  ],
+  "decisions_made": [],
+  "evidence_added": [],
+  "symbols_touched": [
+    {"id":"fi-symbol:foundation-intelligence:v1","type":"symbol","provenance":"immutable source manifest objects_connected[0] reclassified by canonical symbol graph","confidence":1.0},
+    {"id":"fi-symbol:continuous-identity:v1","type":"symbol","provenance":"immutable source manifest objects_connected[1] reclassified by canonical symbol graph","confidence":1.0}
+  ],
+  "components_touched": [
+    {"id":"fi-component:continuity-loader-v1","type":"component","provenance":"immutable source manifest objects_connected[2] reclassified by canonical component graph","confidence":1.0},
+    {"id":"fi-component:peer-trigger-deduplicator-v1","type":"component","provenance":"immutable source manifest objects_connected[3] reclassified by canonical component graph","confidence":1.0}
+  ],
+  "unresolved_questions": [
+    "External artifact-registry, user-export, and private-vault connectors remain unresolved durable boundaries."
+  ],
+  "privacy_classification": "internal",
+  "stores_inspected": [
+    "canonical source repository",
+    "artifact registry",
+    "knowledge store",
+    "latest session handoff"
+  ],
+  "objects_connected": [
+    {"from":"fi-session:2026-07-17t050513-0400","relation":"touched-symbol","to":"fi-symbol:foundation-intelligence:v1","provenance":"immutable source manifest objects_connected[0] plus canonical symbol graph type resolution","confidence":1.0},
+    {"from":"fi-session:2026-07-17t050513-0400","relation":"touched-symbol","to":"fi-symbol:continuous-identity:v1","provenance":"immutable source manifest objects_connected[1] plus canonical symbol graph type resolution","confidence":1.0},
+    {"from":"fi-session:2026-07-17t050513-0400","relation":"touched-component","to":"fi-component:continuity-loader-v1","provenance":"immutable source manifest objects_connected[2] plus canonical component graph type resolution","confidence":1.0},
+    {"from":"fi-session:2026-07-17t050513-0400","relation":"touched-component","to":"fi-component:peer-trigger-deduplicator-v1","provenance":"immutable source manifest objects_connected[3] plus canonical component graph type resolution","confidence":1.0}
+  ],
+  "conflicts_or_duplicates": [
+    {"status":"confirmed","description":"Artifact index marked the symbol graph pending while the required load path was absent; the source session reports reconciliation to active after successful creation.","record_ids":["fi-artifact:symbol-graph-v1"]},
+    {"status":"none","description":"No duplicate stable symbol IDs detected.","record_ids":["fi-symbol:foundation-intelligence:v1","fi-symbol:continuous-identity:v1"]}
+  ],
+  "persistence_writes": [
+    {"store":"knowledge store","path":"foundation-intelligence/graphs/symbol-graph.jsonl","operation":"create","commit":null},
+    {"store":"artifact registry","path":"foundation-intelligence/ARTIFACT_INDEX.jsonl","operation":"update","commit":null},
+    {"store":"canonical source repository","path":"foundation-intelligence/sessions/session-2026-07-17-050513.json","operation":"create","commit":null},
+    {"store":"canonical source repository","path":"foundation-intelligence/sessions/LATEST.json","operation":"update","commit":null}
+  ],
+  "rollback_route": {
+    "method": "Revert latest pointer, source session, artifact-index activation, and symbol-graph creation commits in reverse order; source commit identifiers were not encoded in the immutable manifest.",
+    "target": "fi-session:2026-07-17t040736-0400"
+  },
+  "next_handoff": {
+    "summary": "Execute a complete canonical load-order verification.",
+    "verification_step": "Record exact stable-ID resolution failures, if any, without semantic auto-repair.",
+    "trigger_dedupe_key": "fi-trigger:verify-full-load-order:v1"
+  }
+}
