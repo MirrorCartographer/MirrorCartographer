@@ -1,0 +1,98 @@
+{
+  "session_id": "fi-session:2026-07-16t230519-0400",
+  "timestamp": "2026-07-16T23:05:19-04:00",
+  "parent_session": null,
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "active_projects": [
+    {
+      "id": "fi-project:foundation-intelligence",
+      "type": "project",
+      "label": "Foundation Intelligence",
+      "provenance": "current operating directive",
+      "confidence": 1.0
+    }
+  ],
+  "referenced_artifacts": [
+    {
+      "id": "fi-artifact:workspace-manifest-v1",
+      "type": "artifact",
+      "label": "WORKSPACE_MANIFEST.json",
+      "provenance": "repository write",
+      "confidence": 1.0
+    },
+    {
+      "id": "fi-artifact:session-manifest-schema-v1",
+      "type": "artifact",
+      "label": "SESSION_MANIFEST.schema.json",
+      "provenance": "repository write",
+      "confidence": 1.0
+    }
+  ],
+  "decisions_made": [
+    {
+      "id": "fi-decision:stable-id-no-name-merge-v1",
+      "type": "decision",
+      "label": "Do not merge by name similarity",
+      "provenance": "workspace reconciliation rule",
+      "confidence": 1.0
+    }
+  ],
+  "evidence_added": [],
+  "symbols_touched": [],
+  "components_touched": [],
+  "unresolved_questions": [
+    "The graph and artifact-index files named in the load order are not yet initialized.",
+    "External durable endpoints for interaction exports and the private vault are not yet connected."
+  ],
+  "privacy_classification": "internal",
+  "stores_inspected": [
+    "MirrorCartographer/MirrorCartographer repository code search",
+    "foundation-intelligence canonical source boundary"
+  ],
+  "objects_connected": [
+    {
+      "from": "fi-project:foundation-intelligence",
+      "relation": "governed_by",
+      "to": "fi-workspace:foundation-intelligence:v1",
+      "provenance": "workspace manifest",
+      "confidence": 1.0
+    },
+    {
+      "from": "fi-artifact:workspace-manifest-v1",
+      "relation": "validated_by",
+      "to": "fi-artifact:session-manifest-schema-v1",
+      "provenance": "session bootstrap",
+      "confidence": 0.9
+    }
+  ],
+  "conflicts_or_duplicates": [
+    {
+      "status": "none",
+      "description": "No prior canonical SESSION_MANIFEST or Foundation Intelligence manifest was found by repository search.",
+      "record_ids": []
+    }
+  ],
+  "persistence_writes": [
+    {
+      "store": "canonical_source_repository",
+      "path": "foundation-intelligence/SESSION_MANIFEST.schema.json",
+      "operation": "create",
+      "commit": "2219385967f79ae4b4b08c1166d18a8e79794b6d"
+    },
+    {
+      "store": "canonical_source_repository",
+      "path": "foundation-intelligence/WORKSPACE_MANIFEST.json",
+      "operation": "create",
+      "commit": "b9a4344e83e3f519517853f90b8ffe4e36d4e03e"
+    }
+  ],
+  "rollback_route": {
+    "method": "git revert",
+    "target": "commits 2219385967f79ae4b4b08c1166d18a8e79794b6d and b9a4344e83e3f519517853f90b8ffe4e36d4e03e"
+  },
+  "next_handoff": {
+    "summary": "Load the workspace manifest first, then initialize and validate every required graph and index path before adding domain records.",
+    "verification_step": "Create the five graph JSONL files, ARTIFACT_INDEX.jsonl, and sessions/LATEST.json; then validate this session against SESSION_MANIFEST.schema.json.",
+    "trigger_dedupe_key": "fi-trigger:bootstrap-required-stores:v1"
+  }
+}
