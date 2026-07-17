@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fi:schema:session-manifest:v1",
+  "title": "Foundation Intelligence SESSION_MANIFEST",
+  "description": "Public-safe canonical schema for cross-session continuity. Chat-local files and temporary runtimes are non-authoritative caches.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_id",
+    "session_id",
+    "timestamp",
+    "parent_session_id",
+    "active_project_ids",
+    "referenced_artifact_ids",
+    "decision_ids",
+    "evidence_ids",
+    "unresolved_question_ids",
+    "privacy_classification",
+    "stores_inspected",
+    "persistence_writes",
+    "rollback_route",
+    "next_handoff"
+  ],
+  "properties": {
+    "schema_id": {"const": "fi:schema:session-manifest:v1"},
+    "session_id": {"type": "string", "pattern": "^fi:session:[a-z0-9][a-z0-9._-]*$"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "parent_session_id": {"type": ["string", "null"], "pattern": "^fi:session:[a-z0-9][a-z0-9._-]*$"},
+    "active_project_ids": {"type": "array", "items": {"type": "string", "pattern": "^fi:project:"}, "uniqueItems": true},
+    "referenced_artifact_ids": {"type": "array", "items": {"type": "string", "pattern": "^fi:artifact:"}, "uniqueItems": true},
+    "decision_ids": {"type": "array", "items": {"type": "string", "pattern": "^fi:decision:"}, "uniqueItems": true},
+    "evidence_ids": {"type": "array", "items": {"type": "string", "pattern": "^fi:evidence:"}, "uniqueItems": true},
+    "unresolved_question_ids": {"type": "array", "items": {"type": "string", "pattern": "^fi:question:"}, "uniqueItems": true},
+    "symbol_ids": {"type": "array", "items": {"type": "string", "pattern": "^fi:symbol:"}, "uniqueItems": true, "default": []},
+    "component_ids": {"type": "array", "items": {"type": "string", "pattern": "^fi:component:"}, "uniqueItems": true, "default": []},
+    "privacy_classification": {"enum": ["public", "internal", "private", "restricted"]},
+    "stores_inspected": {
+      "type": "array",
+      "items": {"enum": ["canonical_source_repository", "artifact_registry", "knowledge_store", "user_interaction_exports", "private_data_vault", "public_safe_publication_layer"]},
+      "uniqueItems": true
+    },
+    "objects_connected": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["from_id", "relation", "to_id", "provenance", "confidence"],
+        "properties": {
+          "from_id": {"type": "string"},
+          "relation": {"type": "string"},
+          "to_id": {"type": "string"},
+          "provenance": {"type": "string"},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+        }
+      },
+      "default": []
+    },
+    "conflicts_or_duplicates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["record_ids", "status", "reason"],
+        "properties": {
+          "record_ids": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "status": {"enum": ["possible_duplicate", "confirmed_duplicate", "conflict", "resolved"]},
+          "reason": {"type": "string"},
+          "resolution_id": {"type": ["string", "null"]}
+        }
+      },
+      "default": []
+    },
+    "peer_triggers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["trigger_id", "source_object_id", "target_capability", "payload_hash", "status"],
+        "properties": {
+          "trigger_id": {"type": "string", "pattern": "^fi:trigger:"},
+          "source_object_id": {"type": "string"},
+          "target_capability": {"type": "string"},
+          "payload_hash": {"type": "string", "pattern": "^sha256:"},
+          "status": {"enum": ["pending", "dispatched", "consumed", "suppressed_duplicate", "failed"]}
+        }
+      },
+      "default": []
+    },
+    "persistence_writes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["store", "object_id", "operation", "commit_or_version"],
+        "properties": {
+          "store": {"type": "string"},
+          "object_id": {"type": "string"},
+          "operation": {"enum": ["create", "update", "link", "migrate", "verify"]},
+          "commit_or_version": {"type": "string"}
+        }
+      }
+    },
+    "rollback_route": {
+      "type": "object",
+      "required": ["strategy", "target"],
+      "properties": {
+        "strategy": {"enum": ["git_revert", "version_restore", "append_compensating_record"]},
+        "target": {"type": "string"}
+      }
+    },
+    "next_handoff": {
+      "type": "object",
+      "required": ["handoff_id", "summary", "next_verification"],
+      "properties": {
+        "handoff_id": {"type": "string", "pattern": "^fi:handoff:"},
+        "summary": {"type": "string"},
+        "next_verification": {"type": "string"}
+      }
+    }
+  },
+  "x-foundation-invariants": {
+    "stable_global_ids": true,
+    "provenance_required": true,
+    "name_similarity_is_not_identity": true,
+    "temporary_runtime_is_cache_only": true,
+    "peer_trigger_deduplication_key": "source_object_id + target_capability + payload_hash"
+  },
+  "x-store-boundaries": {
+    "canonical_source_repository": "Versioned schemas, source, migrations, and public-safe manifests.",
+    "artifact_registry": "Artifact identity, checksums, versions, locations, and lineage.",
+    "knowledge_store": "Concept, project, decision, evidence, symbol, and component graphs.",
+    "user_interaction_exports": "User-owned portable interaction records.",
+    "private_data_vault": "Restricted personal or sensitive data; never copied into public manifests.",
+    "public_safe_publication_layer": "Only explicitly reviewed public-safe projections."
+  }
+}
