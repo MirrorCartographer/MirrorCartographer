@@ -1,0 +1,48 @@
+{
+  "schema_id": "fi:schema:artifact-record:v1",
+  "artifact_id": "fi:artifact:foundation-one-world",
+  "version_id": "fi:artifact-version:foundation-one-world.v1",
+  "artifact_type": "interactive-web-experience",
+  "canonical_location": {
+    "store": "canonical_source_repository",
+    "repository": "MirrorCartographer/MirrorCartographer",
+    "path": "public/experiments/one/index.html",
+    "commit": "8dbfcd6998a14182b1d3d4bebfc6a05992d858d8"
+  },
+  "integrity": {
+    "algorithm": "git-blob-sha1",
+    "value": "07b88f397edd0ac227237e64ae2922e29e4a3059",
+    "scope": "UTF-8 blob at canonical_location.path"
+  },
+  "privacy_classification": "public",
+  "provenance": [
+    {
+      "source": "github:MirrorCartographer/MirrorCartographer@8dbfcd6998a14182b1d3d4bebfc6a05992d858d8",
+      "assertion": "This commit created the canonical ONE interactive world source file.",
+      "confidence": 1.0
+    },
+    {
+      "source": "github-blob:07b88f397edd0ac227237e64ae2922e29e4a3059",
+      "assertion": "The fetched canonical path resolves to this exact Git blob.",
+      "confidence": 1.0
+    }
+  ],
+  "lineage": {
+    "parent_version_ids": [],
+    "supersedes_version_ids": []
+  },
+  "project_ids": [
+    "fi:project:foundation-intelligence-website"
+  ],
+  "component_ids": [
+    "fi:component:foundation-one-world-canvas",
+    "fi:component:continuous-world-navigation",
+    "fi:component:generative-audio-interaction"
+  ],
+  "verification": {
+    "status": "verified",
+    "verified_at": "2026-07-16T21:09:00-04:00",
+    "method": "Fetched canonical repository path and matched returned Git blob SHA to registered integrity value; identity assigned explicitly, not inferred from filename or title.",
+    "evidence_id": "fi:evidence:artifact-foundation-one-world-verification-2026-07-16"
+  }
+}
