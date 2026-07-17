@@ -1,0 +1,121 @@
+{
+  "schema_version": "fi.session_manifest.v1",
+  "session_id": "ses_fi_20260716T220636-0400_interaction-learning_001",
+  "timestamp": "2026-07-16T22:06:36-04:00",
+  "parent_session_id": null,
+  "team_id": "team_fi_interaction-learning-continuity",
+  "workspace_id": "wrk_fi_canonical_001",
+  "active_projects": [
+    {
+      "project_id": "prj_foundation-intelligence_001",
+      "role": "canonical_workspace",
+      "status": "active"
+    },
+    {
+      "project_id": "prj_mirror-cartographer_001",
+      "role": "public_continuity_atlas",
+      "status": "active"
+    }
+  ],
+  "stores_inspected": [
+    {
+      "store_id": "store_canonical_source_repo_001",
+      "boundary": "canonical_source_repository",
+      "location": "github:MirrorCartographer/MirrorCartographer",
+      "result": "inspected"
+    }
+  ],
+  "referenced_artifacts": [
+    {
+      "artifact_id": "art_repo_readme_001",
+      "location": "README.md",
+      "relationship": "documents_public_continuity_scope"
+    },
+    {
+      "artifact_id": "art_connections_hub_001",
+      "location": "connections/index.html",
+      "relationship": "latest_known_public_artifact_family"
+    }
+  ],
+  "objects_connected": [
+    {
+      "source_id": "ses_fi_20260716T220636-0400_interaction-learning_001",
+      "predicate": "operates_on",
+      "target_id": "wrk_fi_canonical_001"
+    },
+    {
+      "source_id": "prj_foundation-intelligence_001",
+      "predicate": "uses_public_layer",
+      "target_id": "prj_mirror-cartographer_001"
+    }
+  ],
+  "decisions_made": [
+    {
+      "decision_id": "dec_fi_20260716_manifest-anchor_001",
+      "decision": "The canonical repository SHALL expose one deterministic latest-session manifest at continuity/SESSION_MANIFEST.latest.json.",
+      "status": "accepted",
+      "confidence": 1.0
+    },
+    {
+      "decision_id": "dec_fi_20260716_no-name-merge_001",
+      "decision": "Records SHALL NOT be merged on name similarity; reconciliation requires stable IDs or explicit evidence-backed equivalence.",
+      "status": "accepted",
+      "confidence": 1.0
+    }
+  ],
+  "evidence_added": [
+    {
+      "evidence_id": "ev_fi_20260716_missing-manifest_001",
+      "claim": "No canonical latest session manifest existed at continuity/SESSION_MANIFEST.latest.json before this write.",
+      "source": "github_contents_api_404",
+      "status": "verified",
+      "confidence": 1.0
+    },
+    {
+      "evidence_id": "ev_fi_20260716_readme-continuity_001",
+      "claim": "The public repository defines continuity, provenance, uncertainty, and public/private boundaries as core system concerns.",
+      "source": "README.md",
+      "status": "verified",
+      "confidence": 1.0
+    }
+  ],
+  "conflicts_or_duplicates": [],
+  "unresolved_questions": [
+    {
+      "question_id": "q_fi_store_registry_001",
+      "question": "Which durable repository path is authoritative for the workspace manifest, graph indexes, and artifact registry?",
+      "status": "open"
+    },
+    {
+      "question_id": "q_fi_parent_session_001",
+      "question": "What is the stable ID of the prior canonical Foundation Intelligence session?",
+      "status": "open"
+    }
+  ],
+  "privacy": {
+    "classification": "public-safe",
+    "contains_private_user_data": false,
+    "publication_layer": "public-safe publication layer",
+    "excluded_boundaries": [
+      "private-data vault",
+      "user-owned interaction exports",
+      "private knowledge store"
+    ]
+  },
+  "persistence_writes": [
+    {
+      "store_id": "store_canonical_source_repo_001",
+      "path": "continuity/SESSION_MANIFEST.latest.json",
+      "operation": "create"
+    }
+  ],
+  "rollback": {
+    "method": "Revert the Git commit that introduced continuity/SESSION_MANIFEST.latest.json.",
+    "data_loss_risk": "none outside this manifest"
+  },
+  "next_handoff": {
+    "handoff_id": "handoff_fi_20260716_001",
+    "next_step": "Create and verify continuity/WORKSPACE_MANIFEST.json plus stable indexes for projects, decisions, evidence, symbols, components, artifacts, and sessions; then set parent_session_id to this session in the next manifest.",
+    "verification": "Fetch continuity/SESSION_MANIFEST.latest.json from main and confirm schema_version, session_id, privacy classification, and persistence write path."
+  }
+}
