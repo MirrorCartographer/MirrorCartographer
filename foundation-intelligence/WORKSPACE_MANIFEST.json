@@ -1,0 +1,47 @@
+{
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "name": "Foundation Intelligence",
+  "version": 1,
+  "canonical_store": {
+    "kind": "git",
+    "repository": "MirrorCartographer/MirrorCartographer",
+    "root": "foundation-intelligence/"
+  },
+  "required_load_order": [
+    "WORKSPACE_MANIFEST.json",
+    "graphs/project-graph.jsonl",
+    "graphs/decision-log.jsonl",
+    "graphs/evidence-graph.jsonl",
+    "graphs/symbol-graph.jsonl",
+    "graphs/component-graph.jsonl",
+    "ARTIFACT_INDEX.jsonl",
+    "sessions/LATEST.json"
+  ],
+  "durable_store_boundaries": {
+    "canonical_source_repository": "MirrorCartographer/MirrorCartographer",
+    "artifact_registry": "foundation-intelligence/ARTIFACT_INDEX.jsonl",
+    "knowledge_store": "foundation-intelligence/graphs/",
+    "user_owned_interaction_exports": "external:user-owned-export-store",
+    "private_data_vault": "external:private-vault",
+    "public_safe_publication_layer": "public/"
+  },
+  "global_id_namespaces": [
+    "fi-concept:",
+    "fi-project:",
+    "fi-component:",
+    "fi-evidence:",
+    "fi-decision:",
+    "fi-symbol:",
+    "fi-session:",
+    "fi-artifact:"
+  ],
+  "reconciliation_rules": {
+    "identity": "Never merge records by label or prose similarity alone.",
+    "merge_requirement": "A merge requires matching stable IDs or an explicit fi-decision record with provenance.",
+    "uncertainty": "Preserve confidence, provenance, aliases, and conflict state on every inferred link.",
+    "trigger_deduplication": "Peer triggers are unique by trigger_dedupe_key; repeated keys update evidence but do not emit a second trigger."
+  },
+  "privacy_classes": ["public-safe", "internal", "private", "restricted"],
+  "session_schema": "SESSION_MANIFEST.schema.json",
+  "latest_session_pointer": "sessions/LATEST.json"
+}
