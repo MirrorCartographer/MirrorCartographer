@@ -1,0 +1,64 @@
+{
+  "session_id": "fi-session:2026-07-17t040736-0400",
+  "timestamp": "2026-07-17T04:07:36-04:00",
+  "parent_session": "fi-session:2026-07-17t000530-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "active_projects": [
+    {"id":"fi-project:foundation-intelligence","type":"project","label":"Foundation Intelligence","provenance":"project graph","confidence":1.0},
+    {"id":"fi-project:mirror-cartographer","type":"project","label":"Mirror Cartographer","provenance":"project graph","confidence":1.0}
+  ],
+  "referenced_artifacts": [
+    {"id":"fi-artifact:workspace-manifest-v1","type":"artifact","label":"Workspace Manifest","provenance":"artifact index","confidence":1.0},
+    {"id":"fi-artifact:project-graph-v1","type":"artifact","label":"Project Graph","provenance":"artifact index","confidence":1.0},
+    {"id":"fi-artifact:decision-log-v1","type":"artifact","label":"Decision Log","provenance":"artifact index","confidence":1.0},
+    {"id":"fi-artifact:evidence-graph-v1","type":"artifact","label":"Evidence Graph","provenance":"artifact index","confidence":1.0},
+    {"id":"fi-artifact:component-graph-v1","type":"artifact","label":"Component Graph","provenance":"artifact index","confidence":1.0},
+    {"id":"fi-artifact:index-v1","type":"artifact","label":"Artifact Index","provenance":"artifact index","confidence":1.0}
+  ],
+  "decisions_made": [
+    {"id":"fi-decision:required-store-bootstrap-v1","type":"decision","label":"Required Store Bootstrap","provenance":"decision log","confidence":1.0}
+  ],
+  "evidence_added": [
+    {"id":"fi-evidence:required-stores-absent-20260717t040736-0400","type":"evidence","label":"Required stores absent before bootstrap","provenance":"evidence graph","confidence":1.0}
+  ],
+  "symbols_touched": [],
+  "components_touched": [
+    {"id":"fi-component:continuity-loader-v1","type":"component","label":"Continuity Loader","provenance":"component graph","confidence":1.0},
+    {"id":"fi-component:peer-trigger-deduplicator-v1","type":"component","label":"Peer Trigger Deduplicator","provenance":"component graph","confidence":1.0}
+  ],
+  "unresolved_questions": [
+    "The symbol graph remains absent because two repository write attempts were blocked; initialize and verify it next.",
+    "Validate all JSONL records against dedicated graph schemas once those schemas exist."
+  ],
+  "privacy_classification": "internal",
+  "stores_inspected": [
+    "canonical source repository",
+    "workspace manifest",
+    "project graph",
+    "decision log path",
+    "evidence graph path",
+    "symbol graph path",
+    "component graph path",
+    "artifact index path",
+    "latest session handoff",
+    "session manifest schema"
+  ],
+  "objects_connected": [
+    {"from":"fi-session:2026-07-17t040736-0400","relation":"parent","to":"fi-session:2026-07-17t000530-0400","provenance":"LATEST.json and parent handoff","confidence":1.0},
+    {"from":"fi-decision:required-store-bootstrap-v1","relation":"supported-by","to":"fi-evidence:required-stores-absent-20260717t040736-0400","provenance":"decision and evidence graph records","confidence":1.0},
+    {"from":"fi-component:continuity-loader-v1","relation":"governs-load-order-for","to":"fi-workspace:foundation-intelligence:v1","provenance":"workspace required_load_order","confidence":1.0}
+  ],
+  "conflicts_or_duplicates": [
+    {"status":"confirmed","description":"Earlier narrative handoffs described decision, evidence, and artifact structures as initialized, but repository inspection showed the required files did not exist.","record_ids":["fi-session:2026-07-17t000530-0400"]},
+    {"status":"possible","description":"Symbol graph artifact is registered as pending but the canonical file is not yet present.","record_ids":["fi-artifact:symbol-graph-v1"]}
+  ],
+  "persistence_writes": [
+    {"store":"canonical source repository","path":"foundation-intelligence/graphs/decision-log.jsonl","operation":"create","commit":"36a3f0446b6e01360f9698e3ac18bfd3ac3a3e27"},
+    {"store":"knowledge store","path":"foundation-intelligence/graphs/evidence-graph.jsonl","operation":"create","commit":"7c79b7ff1039de629689a4f078236a8be0145276"},
+    {"store":"knowledge store","path":"foundation-intelligence/graphs/component-graph.jsonl","operation":"create","commit":"657c524d980d99a62d507386f588adc2a4d64269"},
+    {"store":"artifact registry","path":"foundation-intelligence/ARTIFACT_INDEX.jsonl","operation":"create","commit":"15986a1f103df3d837eef3a2813d7793ecd88c3e"},
+    {"store":"canonical source repository","path":"foundation-intelligence/sessions/session-2026-07-17-040736.json","operation":"create","commit":null}
+  ],
+  "rollback_route": {"method":"revert commits in reverse order and restore the prior LATEST pointer","target":"fi-session:2026-07-17t000530-0400"},
+  "next_handoff": {"summary":"Canonical decision, evidence, component, and artifact stores now exist; symbol graph remains pending.","verification_step":"Create foundation-intelligence/graphs/symbol-graph.jsonl, then re-run the complete declared load order and verify every referenced stable ID resolves exactly once.","trigger_dedupe_key":"fi-trigger:initialize-symbol-graph:v1"}
+}
