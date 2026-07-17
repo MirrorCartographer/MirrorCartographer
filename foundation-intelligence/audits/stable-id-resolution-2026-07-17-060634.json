@@ -1,0 +1,46 @@
+{
+  "audit_id": "fi-artifact:stable-id-resolution-audit-20260717t060634-0400",
+  "audit_type": "cross-session-referential-integrity",
+  "timestamp": "2026-07-17T06:06:34-04:00",
+  "session_id": "fi-session:2026-07-17t060634-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "scope": {
+    "required_load_order": [
+      "foundation-intelligence/WORKSPACE_MANIFEST.json",
+      "foundation-intelligence/graphs/project-graph.jsonl",
+      "foundation-intelligence/graphs/decision-log.jsonl",
+      "foundation-intelligence/graphs/evidence-graph.jsonl",
+      "foundation-intelligence/graphs/symbol-graph.jsonl",
+      "foundation-intelligence/graphs/component-graph.jsonl",
+      "foundation-intelligence/ARTIFACT_INDEX.jsonl",
+      "foundation-intelligence/sessions/LATEST.json",
+      "foundation-intelligence/sessions/session-2026-07-17-050513.json"
+    ],
+    "reference_namespaces": ["fi-workspace:", "fi-project:", "fi-decision:", "fi-evidence:", "fi-symbol:", "fi-component:", "fi-artifact:", "fi-session:"]
+  },
+  "results": {
+    "required_paths_loaded": 9,
+    "required_paths_failed": 0,
+    "primary_ids_examined": 18,
+    "duplicate_primary_ids": [],
+    "multiply_resolved_ids": [],
+    "dangling_references_in_loaded_canonical_records": [],
+    "reference_resolution_status": "pass",
+    "load_order_status": "pass"
+  },
+  "resolution_rules": {
+    "identity_key": "stable global ID",
+    "name_similarity_merge": "forbidden",
+    "unresolved_reference_action": "retain and record as evidence",
+    "multiple_resolution_action": "flag conflict; do not auto-merge"
+  },
+  "limitations": [
+    "This audit verifies the current canonical load set and latest handoff, not every historical session file recursively.",
+    "External user-owned exports, private vault, and external artifact-registry endpoints remain declared boundaries without active connectors."
+  ],
+  "privacy_classification": "internal",
+  "provenance": [
+    "Direct GitHub repository fetches performed in fi-session:2026-07-17t060634-0400",
+    "No record identity inferred from filename, alias, label, or prose similarity"
+  ]
+}
