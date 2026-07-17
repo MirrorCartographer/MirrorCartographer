@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fi-schema:session-manifest:v1",
+  "title": "Foundation Intelligence SESSION_MANIFEST",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "session_id",
+    "timestamp",
+    "parent_session",
+    "workspace_manifest_id",
+    "active_projects",
+    "referenced_artifacts",
+    "decisions_made",
+    "evidence_added",
+    "unresolved_questions",
+    "privacy_classification",
+    "stores_inspected",
+    "persistence_writes",
+    "rollback_route",
+    "next_handoff"
+  ],
+  "properties": {
+    "session_id": {"type":"string","pattern":"^fi-session:[a-z0-9._:-]+$"},
+    "timestamp": {"type":"string","format":"date-time"},
+    "parent_session": {"type":["string","null"],"pattern":"^fi-session:[a-z0-9._:-]+$"},
+    "workspace_manifest_id": {"type":"string","pattern":"^fi-workspace:[a-z0-9._:-]+$"},
+    "active_projects": {"type":"array","items":{"$ref":"#/$defs/ref"}},
+    "referenced_artifacts": {"type":"array","items":{"$ref":"#/$defs/ref"}},
+    "decisions_made": {"type":"array","items":{"$ref":"#/$defs/ref"}},
+    "evidence_added": {"type":"array","items":{"$ref":"#/$defs/ref"}},
+    "symbols_touched": {"type":"array","items":{"$ref":"#/$defs/ref"},"default":[]},
+    "components_touched": {"type":"array","items":{"$ref":"#/$defs/ref"},"default":[]},
+    "unresolved_questions": {"type":"array","items":{"type":"string"}},
+    "privacy_classification": {"enum":["public-safe","internal","private","restricted"]},
+    "stores_inspected": {"type":"array","items":{"type":"string"}},
+    "objects_connected": {"type":"array","items":{"$ref":"#/$defs/edge"},"default":[]},
+    "conflicts_or_duplicates": {"type":"array","items":{"type":"object","required":["status","description"],"properties":{"status":{"enum":["none","possible","confirmed"]},"description":{"type":"string"},"record_ids":{"type":"array","items":{"type":"string"}}},"additionalProperties":false}},
+    "persistence_writes": {"type":"array","items":{"type":"object","required":["store","path","operation"],"properties":{"store":{"type":"string"},"path":{"type":"string"},"operation":{"enum":["create","update","verify","migrate","reconcile"]},"commit":{"type":["string","null"]}},"additionalProperties":false}},
+    "rollback_route": {"type":"object","required":["method","target"],"properties":{"method":{"type":"string"},"target":{"type":"string"}},"additionalProperties":false},
+    "next_handoff": {"type":"object","required":["summary","verification_step"],"properties":{"summary":{"type":"string"},"verification_step":{"type":"string"},"trigger_dedupe_key":{"type":"string"}},"additionalProperties":false}
+  },
+  "$defs": {
+    "ref": {
+      "type":"object",
+      "additionalProperties":false,
+      "required":["id","type","provenance","confidence"],
+      "properties": {
+        "id":{"type":"string","pattern":"^fi-(concept|project|component|evidence|decision|symbol|session|artifact):[a-z0-9._:-]+$"},
+        "type":{"enum":["concept","project","component","evidence","decision","symbol","session","artifact"]},
+        "label":{"type":"string"},
+        "provenance":{"type":"string"},
+        "confidence":{"type":"number","minimum":0,"maximum":1}
+      }
+    },
+    "edge": {
+      "type":"object",
+      "additionalProperties":false,
+      "required":["from","relation","to","provenance","confidence"],
+      "properties": {
+        "from":{"type":"string"},
+        "relation":{"type":"string"},
+        "to":{"type":"string"},
+        "provenance":{"type":"string"},
+        "confidence":{"type":"number","minimum":0,"maximum":1}
+      }
+    }
+  }
+}
