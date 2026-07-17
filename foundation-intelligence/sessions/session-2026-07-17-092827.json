@@ -1,0 +1,71 @@
+{
+  "session_id": "fi-session:2026-07-17t092827-0400",
+  "timestamp": "2026-07-17T09:28:27-04:00",
+  "parent_session": "fi-session:2026-07-17t060634-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "active_projects": [
+    {"id":"fi-project:foundation-intelligence","type":"project","provenance":"canonical project graph","confidence":1.0},
+    {"id":"fi-project:mirror-cartographer","type":"project","provenance":"canonical project graph and repository boundary","confidence":1.0}
+  ],
+  "referenced_artifacts": [
+    {"id":"fi-artifact:workspace-manifest-v1","type":"artifact","provenance":"canonical load order","confidence":1.0},
+    {"id":"fi-artifact:project-graph-v1","type":"artifact","provenance":"canonical load order","confidence":1.0},
+    {"id":"fi-artifact:decision-log-v1","type":"artifact","provenance":"canonical load order","confidence":1.0},
+    {"id":"fi-artifact:evidence-graph-v1","type":"artifact","provenance":"canonical load order","confidence":1.0},
+    {"id":"fi-artifact:symbol-graph-v1","type":"artifact","provenance":"canonical load order","confidence":1.0},
+    {"id":"fi-artifact:component-graph-v1","type":"artifact","provenance":"canonical load order","confidence":1.0},
+    {"id":"fi-artifact:index-v1","type":"artifact","provenance":"canonical load order and updated registry","confidence":1.0},
+    {"id":"fi-artifact:latest-session-pointer-v1","type":"artifact","provenance":"canonical load order","confidence":1.0},
+    {"id":"fi-artifact:normalized-session-manifest-20260717t060634-0400","type":"artifact","provenance":"created by this non-destructive migration run","confidence":1.0}
+  ],
+  "decisions_made": [],
+  "evidence_added": [],
+  "symbols_touched": [],
+  "components_touched": [
+    {"id":"fi-component:continuity-loader-v1","type":"component","provenance":"executed canonical load order","confidence":1.0},
+    {"id":"fi-component:peer-trigger-deduplicator-v1","type":"component","provenance":"deduplicated next trigger against LATEST.json keys","confidence":1.0}
+  ],
+  "unresolved_questions": [
+    "Historical session manifests before fi-session:2026-07-17t060634-0400 remain unnormalized.",
+    "External artifact registry, user-owned interaction export, and private-vault connectors remain unresolved durable boundaries.",
+    "The normalized projection requires execution by an independent Draft 2020-12 JSON Schema validator."
+  ],
+  "privacy_classification": "internal",
+  "stores_inspected": [
+    "canonical source repository",
+    "workspace manifest",
+    "project graph",
+    "decision log",
+    "evidence graph",
+    "symbol graph",
+    "component graph",
+    "artifact registry",
+    "latest session handoff",
+    "session manifest schema"
+  ],
+  "objects_connected": [
+    {"from":"fi-session:2026-07-17t092827-0400","relation":"parent-session","to":"fi-session:2026-07-17t060634-0400","provenance":"LATEST.json resolved before mutation","confidence":1.0},
+    {"from":"fi-session:2026-07-17t092827-0400","relation":"created","to":"fi-artifact:normalized-session-manifest-20260717t060634-0400","provenance":"GitHub create_file commit db593e6fb81325d5de9149a0d6473d33230084a6","confidence":1.0},
+    {"from":"fi-artifact:normalized-session-manifest-20260717t060634-0400","relation":"projects-source-without-mutating","to":"fi-session:2026-07-17t060634-0400","provenance":"source blob sha 4d50c8413b0bf62c1a6634d2a994d330f07d8faf","confidence":1.0}
+  ],
+  "conflicts_or_duplicates": [
+    {"status":"confirmed","description":"The parent session manifest does not conform to SESSION_MANIFEST schema v1 because stable references are strings, objects_connected is a string list, conflicts are strings, rollback_route is a list, and next_handoff is a string.","record_ids":["fi-session:2026-07-17t060634-0400","fi-schema:session-manifest:v1"]},
+    {"status":"none","description":"No duplicate trigger key was emitted; the existing normalization key was retained and a distinct validation key is scheduled.","record_ids":[]},
+    {"status":"none","description":"The immutable source manifest was not modified or merged with its normalized projection.","record_ids":["fi-session:2026-07-17t060634-0400","fi-artifact:normalized-session-manifest-20260717t060634-0400"]}
+  ],
+  "persistence_writes": [
+    {"store":"canonical source repository","path":"foundation-intelligence/migrations/session-manifest-v1/normalized/fi-session-2026-07-17t060634-0400.json","operation":"migrate","commit":"db593e6fb81325d5de9149a0d6473d33230084a6"},
+    {"store":"artifact registry","path":"foundation-intelligence/ARTIFACT_INDEX.jsonl","operation":"update","commit":"c16349a7c6e8b95b123f67ff0df05f0507e05289"},
+    {"store":"canonical source repository","path":"foundation-intelligence/sessions/session-2026-07-17-092827.json","operation":"create","commit":null},
+    {"store":"canonical source repository","path":"foundation-intelligence/sessions/LATEST.json","operation":"update","commit":null}
+  ],
+  "rollback_route": {
+    "method": "Restore the prior LATEST pointer, then revert the session, artifact-index, and normalized-projection commits in reverse order.",
+    "target": "fi-session:2026-07-17t060634-0400"
+  },
+  "next_handoff": {
+    "summary": "Validate the normalized projection with an independent JSON Schema validator before extending normalization to older manifests.",
+    "verification_step": "Run Draft 2020-12 validation against fi-schema:session-manifest:v1 and record every validation error as evidence without modifying the source manifest.",
+    "trigger_dedupe_key": "fi-trigger:validate-normalized-session-projection:v1"
+  }
+}
