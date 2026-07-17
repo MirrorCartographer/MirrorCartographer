@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fi:schema:artifact-record:v1",
+  "title": "Foundation Intelligence Artifact Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_id",
+    "artifact_id",
+    "version_id",
+    "artifact_type",
+    "canonical_location",
+    "integrity",
+    "privacy_classification",
+    "provenance",
+    "lineage",
+    "project_ids",
+    "verification"
+  ],
+  "properties": {
+    "schema_id": {"const": "fi:schema:artifact-record:v1"},
+    "artifact_id": {"type": "string", "pattern": "^fi:artifact:[a-z0-9][a-z0-9._-]*$"},
+    "version_id": {"type": "string", "pattern": "^fi:artifact-version:[a-z0-9][a-z0-9._-]*$"},
+    "artifact_type": {"type": "string"},
+    "canonical_location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["store", "repository", "path", "commit"],
+      "properties": {
+        "store": {"const": "canonical_source_repository"},
+        "repository": {"type": "string"},
+        "path": {"type": "string"},
+        "commit": {"type": "string"}
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "value", "scope"],
+      "properties": {
+        "algorithm": {"enum": ["git-blob-sha1", "sha256"]},
+        "value": {"type": "string"},
+        "scope": {"type": "string"}
+      }
+    },
+    "privacy_classification": {"enum": ["public", "internal", "private", "restricted"]},
+    "provenance": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["source", "assertion", "confidence"],
+        "properties": {
+          "source": {"type": "string"},
+          "assertion": {"type": "string"},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+        }
+      }
+    },
+    "lineage": {
+      "type": "object",
+      "required": ["parent_version_ids", "supersedes_version_ids"],
+      "properties": {
+        "parent_version_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "supersedes_version_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "project_ids": {"type": "array", "items": {"type": "string", "pattern": "^fi:project:"}, "uniqueItems": true},
+    "component_ids": {"type": "array", "items": {"type": "string", "pattern": "^fi:component:"}, "uniqueItems": true, "default": []},
+    "verification": {
+      "type": "object",
+      "required": ["status", "verified_at", "method", "evidence_id"],
+      "properties": {
+        "status": {"enum": ["verified", "partially_verified", "unverified", "conflicted"]},
+        "verified_at": {"type": "string", "format": "date-time"},
+        "method": {"type": "string"},
+        "evidence_id": {"type": "string", "pattern": "^fi:evidence:"}
+      }
+    }
+  },
+  "x-identity-rule": "Artifact identity is the stable artifact_id plus explicit version lineage; filename and title similarity never establish identity."
+}
