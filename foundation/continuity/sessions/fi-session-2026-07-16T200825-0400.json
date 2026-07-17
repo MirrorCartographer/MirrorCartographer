@@ -1,0 +1,76 @@
+{
+  "schema_id": "fi:schema:session-manifest:v1",
+  "session_id": "fi:session:2026-07-16t200825-0400.interaction-learning-001",
+  "timestamp": "2026-07-16T20:08:25-04:00",
+  "parent_session_id": null,
+  "active_project_ids": [
+    "fi:project:foundation-intelligence-website",
+    "fi:project:cross-session-continuity"
+  ],
+  "referenced_artifact_ids": [
+    "fi:artifact:session-manifest-schema-v1"
+  ],
+  "decision_ids": [
+    "fi:decision:continuity-schema-public-safe-v1",
+    "fi:decision:name-similarity-not-identity"
+  ],
+  "evidence_ids": [
+    "fi:evidence:github-repository-inspection-2026-07-16"
+  ],
+  "unresolved_question_ids": [
+    "fi:question:canonical-private-knowledge-store-location",
+    "fi:question:artifact-registry-location",
+    "fi:question:parent-session-resolution"
+  ],
+  "symbol_ids": [],
+  "component_ids": [
+    "fi:component:session-manifest-schema",
+    "fi:component:peer-trigger-deduplicator"
+  ],
+  "privacy_classification": "public",
+  "stores_inspected": [
+    "canonical_source_repository",
+    "public_safe_publication_layer"
+  ],
+  "objects_connected": [
+    {
+      "from_id": "fi:project:cross-session-continuity",
+      "relation": "governed_by",
+      "to_id": "fi:artifact:session-manifest-schema-v1",
+      "provenance": "Repository write c9d379d92be081ad12b0668ecb8e7f18ecf11768",
+      "confidence": 1.0
+    },
+    {
+      "from_id": "fi:component:peer-trigger-deduplicator",
+      "relation": "specified_by",
+      "to_id": "fi:artifact:session-manifest-schema-v1",
+      "provenance": "x-foundation-invariants.peer_trigger_deduplication_key",
+      "confidence": 1.0
+    }
+  ],
+  "conflicts_or_duplicates": [],
+  "peer_triggers": [],
+  "persistence_writes": [
+    {
+      "store": "canonical_source_repository",
+      "object_id": "fi:artifact:session-manifest-schema-v1",
+      "operation": "create",
+      "commit_or_version": "c9d379d92be081ad12b0668ecb8e7f18ecf11768"
+    },
+    {
+      "store": "canonical_source_repository",
+      "object_id": "fi:session:2026-07-16t200825-0400.interaction-learning-001",
+      "operation": "create",
+      "commit_or_version": "pending-current-write"
+    }
+  ],
+  "rollback_route": {
+    "strategy": "git_revert",
+    "target": "Revert the schema and session-manifest commits in MirrorCartographer/MirrorCartographer."
+  },
+  "next_handoff": {
+    "handoff_id": "fi:handoff:2026-07-16.interaction-learning-001",
+    "summary": "Load this manifest and the v1 schema first. Resolve the authoritative private knowledge-store and artifact-registry locations without copying private records into the public repository.",
+    "next_verification": "Validate one real artifact record against stable-ID, provenance, checksum, privacy, and lineage requirements; then connect it to the project graph without name-based merging."
+  }
+}
