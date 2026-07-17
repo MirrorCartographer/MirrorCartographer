@@ -1,0 +1,68 @@
+{
+  "session_id": "fi-session:2026-07-17t060634-0400",
+  "timestamp": "2026-07-17T06:06:34-04:00",
+  "parent_session": "fi-session:2026-07-17t050513-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "active_projects": ["fi-project:foundation-intelligence", "fi-project:mirror-cartographer"],
+  "referenced_artifacts": [
+    "fi-artifact:workspace-manifest-v1",
+    "fi-artifact:project-graph-v1",
+    "fi-artifact:decision-log-v1",
+    "fi-artifact:evidence-graph-v1",
+    "fi-artifact:symbol-graph-v1",
+    "fi-artifact:component-graph-v1",
+    "fi-artifact:index-v1",
+    "fi-artifact:latest-session-pointer-v1",
+    "fi-artifact:stable-id-resolution-audit-20260717t060634-0400"
+  ],
+  "decisions_made": [],
+  "evidence_added": [],
+  "objects_connected": [
+    "fi-artifact:stable-id-resolution-audit-20260717t060634-0400",
+    "fi-component:continuity-loader-v1",
+    "fi-component:peer-trigger-deduplicator-v1",
+    "fi-workspace:foundation-intelligence:v1"
+  ],
+  "unresolved_questions": [
+    "External artifact-registry, user-owned interaction export, and private-vault connectors remain unresolved durable boundaries.",
+    "Historical session manifests have not yet been normalized against one schema version."
+  ],
+  "privacy_classification": "internal",
+  "stores_inspected": [
+    "canonical source repository",
+    "workspace manifest",
+    "project graph",
+    "decision log",
+    "evidence graph",
+    "symbol graph",
+    "component graph",
+    "artifact registry",
+    "latest session handoff"
+  ],
+  "persistence_writes": [
+    {"store":"canonical source repository","path":"foundation-intelligence/audits/stable-id-resolution-2026-07-17-060634.json","operation":"create","commit":"325aaeb34028b529488ffb41d1166340fafdb7e6"},
+    {"store":"artifact registry","path":"foundation-intelligence/ARTIFACT_INDEX.jsonl","operation":"update","commit":"3798fcabe22e0d7f8d6cccd717e9498d22602dc3"},
+    {"store":"canonical source repository","path":"foundation-intelligence/sessions/session-2026-07-17-060634.json","operation":"create","commit":null},
+    {"store":"canonical source repository","path":"foundation-intelligence/sessions/LATEST.json","operation":"update","commit":null}
+  ],
+  "conflicts_or_duplicates": [
+    "No duplicate primary stable IDs in the current canonical load set.",
+    "No multiply resolved or dangling stable-ID references in the current canonical load set.",
+    "Historical session manifests use more than one structural representation and require a schema-normalization migration rather than implicit merging."
+  ],
+  "privacy_boundary": "Internal structural metadata and audit results only; external user-owned exports and private vault were not accessed; public-safe publication layer was not modified.",
+  "rollback_route": [
+    "restore sessions/LATEST.json to fi-session:2026-07-17t050513-0400",
+    "revert this session manifest commit",
+    "revert artifact-index registration commit 3798fcabe22e0d7f8d6cccd717e9498d22602dc3",
+    "revert audit creation commit 325aaeb34028b529488ffb41d1166340fafdb7e6"
+  ],
+  "trigger_dedupe_keys": [
+    "fi-trigger:bootstrap-required-stores:v1",
+    "fi-trigger:initialize-decision-log:v1",
+    "fi-trigger:initialize-symbol-graph:v1",
+    "fi-trigger:verify-full-load-order:v1",
+    "fi-trigger:normalize-session-manifests:v1"
+  ],
+  "next_handoff": "Validate SESSION_MANIFEST.schema.json against current and historical session records, then implement an explicit non-destructive normalization migration for structural variants."
+}
