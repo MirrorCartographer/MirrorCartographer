@@ -1,0 +1,71 @@
+{
+  "session_id": "fi-session:2026-07-17t230526-0400",
+  "timestamp": "2026-07-17T23:05:26-04:00",
+  "parent_session": "fi-session:2026-07-17t220518-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "active_projects": [
+    {"id":"fi-project:foundation-intelligence","type":"project","provenance":"foundation-intelligence/graphs/project-graph.jsonl blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0},
+    {"id":"fi-project:mirror-cartographer","type":"project","provenance":"foundation-intelligence/graphs/project-graph.jsonl blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0}
+  ],
+  "referenced_artifacts": [
+    {"id":"fi-artifact:workspace-manifest-v1","type":"artifact","provenance":"canonical load order; workspace manifest blob b7c589d44e413f593a8e1dc8bfa607a6ed1c5169","confidence":1.0},
+    {"id":"fi-artifact:project-graph-v1","type":"artifact","provenance":"project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0},
+    {"id":"fi-artifact:decision-log-v1","type":"artifact","provenance":"decision log blob 508583644da75ec38a1d36982de3b59cc4ecc37f","confidence":1.0},
+    {"id":"fi-artifact:evidence-graph-v1","type":"artifact","provenance":"updated evidence graph commit c91ea28c45a2fd88f72cd2561954a90000f365c5","confidence":1.0},
+    {"id":"fi-artifact:symbol-graph-v1","type":"artifact","provenance":"symbol graph blob 50fc83e44e683f7ae375f1414a20ca31a6ddee37","confidence":1.0},
+    {"id":"fi-artifact:component-graph-v1","type":"artifact","provenance":"component graph blob b03e4bc4cb80a806b97e0a9c8bf84f55da87cdf2","confidence":1.0},
+    {"id":"fi-artifact:index-v1","type":"artifact","provenance":"updated artifact index commit 65d65262e48b8f4bdffffae02f752cc3fb9b95ba","confidence":1.0},
+    {"id":"fi-artifact:session-manifest-validation-20260717t230526-0400","type":"artifact","provenance":"audit commit 2693391fd5cd32f4e7584f783ea692ac79857fbe","confidence":1.0}
+  ],
+  "decisions_made": [],
+  "evidence_added": [
+    {"id":"fi-evidence:session-040736-valid-noop-20260717t230526-0400","type":"evidence","provenance":"evidence graph commit c91ea28c45a2fd88f72cd2561954a90000f365c5","confidence":1.0}
+  ],
+  "symbols_touched": [],
+  "components_touched": [
+    {"id":"fi-component:continuity-loader-v1","type":"component","provenance":"complete canonical load order executed","confidence":1.0},
+    {"id":"fi-component:peer-trigger-deduplicator-v1","type":"component","provenance":"completed trigger retained once and next trigger added once","confidence":1.0}
+  ],
+  "unresolved_questions": [
+    "Validate the bootstrap predecessor fi-session:2026-07-17t000530-0400 against the canonical schema and determine whether normalization is required."
+  ],
+  "privacy_classification": "internal",
+  "stores_inspected": [
+    "canonical source repository",
+    "workspace manifest",
+    "project graph",
+    "decision log",
+    "evidence graph",
+    "symbol graph",
+    "component graph",
+    "artifact registry",
+    "latest session pointer",
+    "latest session handoff",
+    "session manifest schema",
+    "historical session fi-session:2026-07-17t040736-0400"
+  ],
+  "objects_connected": [
+    {"from":"fi-session:2026-07-17t230526-0400","relation":"child-of","to":"fi-session:2026-07-17t220518-0400","provenance":"canonical LATEST.json before mutation","confidence":1.0},
+    {"from":"fi-artifact:session-manifest-validation-20260717t230526-0400","relation":"validates","to":"fi-session:2026-07-17t040736-0400","provenance":"audit commit 2693391fd5cd32f4e7584f783ea692ac79857fbe","confidence":1.0},
+    {"from":"fi-evidence:session-040736-valid-noop-20260717t230526-0400","relation":"documents-noop-migration-for","to":"fi-session:2026-07-17t040736-0400","provenance":"evidence graph commit c91ea28c45a2fd88f72cd2561954a90000f365c5","confidence":1.0},
+    {"from":"fi-artifact:session-manifest-validation-20260717t230526-0400","relation":"registered-in","to":"fi-artifact:index-v1","provenance":"artifact index commit 65d65262e48b8f4bdffffae02f752cc3fb9b95ba","confidence":1.0}
+  ],
+  "conflicts_or_duplicates": [
+    {"status":"confirmed","description":"The queued trigger requested normalization, but the exact historical source already conforms to schema v1. Creating a projection would introduce a redundant artifact identity; the migration was reconciled as a no-op.","record_ids":["fi-session:2026-07-17t040736-0400","fi-artifact:session-manifest-validation-20260717t230526-0400"]},
+    {"status":"none","description":"No duplicate stable IDs or trigger dedupe keys were introduced.","record_ids":["fi-component:peer-trigger-deduplicator-v1"]}
+  ],
+  "persistence_writes": [
+    {"store":"canonical source repository","path":"foundation-intelligence/audits/session-manifest-validation-2026-07-17-230526.json","operation":"create","commit":"2693391fd5cd32f4e7584f783ea692ac79857fbe"},
+    {"store":"artifact registry","path":"foundation-intelligence/ARTIFACT_INDEX.jsonl","operation":"update","commit":"65d65262e48b8f4bdffffae02f752cc3fb9b95ba"},
+    {"store":"knowledge store","path":"foundation-intelligence/graphs/evidence-graph.jsonl","operation":"update","commit":"c91ea28c45a2fd88f72cd2561954a90000f365c5"}
+  ],
+  "rollback_route": {
+    "method": "Revert the latest pointer and current session, then revert evidence, artifact-index, and audit commits in reverse order.",
+    "target": "fi-session:2026-07-17t220518-0400"
+  },
+  "next_handoff": {
+    "summary": "The historical 040736 session was validated in place; no redundant normalized projection was created.",
+    "verification_step": "Validate fi-session:2026-07-17t000530-0400 against fi-schema:session-manifest:v1, preserve its source, and create a projection only if exact schema violations require one.",
+    "trigger_dedupe_key": "fi-trigger:validate-session-20260717t000530-0400:v1"
+  }
+}
