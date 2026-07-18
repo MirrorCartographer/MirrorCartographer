@@ -1,0 +1,38 @@
+{
+  "artifact_id": "fi-artifact:evidence-reference-reconciliation-20260718t010604-0400",
+  "artifact_type": "audit",
+  "schema_version": 1,
+  "created_session": "fi-session:2026-07-18t010604-0400",
+  "timestamp": "2026-07-18T01:06:04-04:00",
+  "subject_reference_id": "fi-evidence:project-graph-missing-before-bootstrap-20260717",
+  "result": "referenced-but-not-durably-located",
+  "searches": [
+    {
+      "kind": "current-repository-code-search",
+      "query": "fi-evidence:project-graph-missing-before-bootstrap-20260717",
+      "result_count": 0
+    },
+    {
+      "kind": "repository-commit-search",
+      "query": "project-graph-missing-before-bootstrap-20260717",
+      "result_count": 0
+    }
+  ],
+  "known_reference": {
+    "session_id": "fi-session:2026-07-17t000530-0400",
+    "documented_by": "fi-session:2026-07-18t000323-0400"
+  },
+  "reconciliation": {
+    "merged": false,
+    "distinct_record_id": "fi-evidence:required-stores-absent-20260717t040736-0400",
+    "reason": "Stable IDs differ and no provenance-bearing reconciliation decision exists."
+  },
+  "confidence": 0.95,
+  "uncertainty": "Available GitHub code search covers indexed current contents and commit search covers commit metadata; this is not an exhaustive scan of every deleted blob. The exact ID is therefore classified as not durably located through available repository interfaces, not proven never to have existed.",
+  "privacy_classification": "internal",
+  "provenance": [
+    "workspace manifest blob b7c589d44e413f593a8e1dc8bfa607a6ed1c5169",
+    "evidence graph blob f80812322859a90ed854b5b248e971286ba17daa",
+    "latest session blob 4f4eacfa427a46053af5bc3c576a19981b8b38e4"
+  ]
+}
