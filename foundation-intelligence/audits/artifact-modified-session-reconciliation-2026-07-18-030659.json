@@ -1,0 +1,28 @@
+{
+  "artifact_id": "fi-artifact:artifact-modified-session-reconciliation-20260718t030659-0400",
+  "artifact_type": "audit",
+  "timestamp": "2026-07-18T03:06:59-04:00",
+  "session_id": "fi-session:2026-07-18t030659-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "rule_id": "fi-rule:artifact-modified-session-exact-provenance-v1",
+  "subject_artifact_id": "fi-artifact:latest-session-pointer-v1",
+  "subject_path": "foundation-intelligence/sessions/LATEST.json",
+  "registry_before": {
+    "modified_session": "fi-session:2026-07-17t050513-0400",
+    "artifact_index_blob_sha": "097eeb85e5e84f7e31ef0efc238226dad94a3259"
+  },
+  "durable_observation": {
+    "latest_pointer_session_before_run": "fi-session:2026-07-18t020652-0400",
+    "latest_pointer_blob_sha_before_run": "d92d6330e062dce940f1898c692fb64c0220eff3",
+    "finding": "The artifact registry modified_session predates the durable latest pointer state and therefore does not identify the session that most recently modified the pointer.",
+    "confidence": 1.0
+  },
+  "reconciliation": {
+    "operation": "Update only the registry record for fi-artifact:latest-session-pointer-v1 after this audit, preserving the previous value in provenance.",
+    "new_modified_session": "fi-session:2026-07-18t030659-0400",
+    "identity_basis": "Exact stable artifact ID and exact canonical storage path",
+    "similarity_merge_used": false
+  },
+  "privacy_classification": "internal",
+  "status": "active"
+}
