@@ -1,0 +1,74 @@
+{
+  "session_id": "fi-session:2026-07-18t030659-0400",
+  "timestamp": "2026-07-18T03:06:59-04:00",
+  "parent_session": "fi-session:2026-07-18t020652-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "active_projects": [
+    {"id":"fi-project:foundation-intelligence","type":"project","provenance":"project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0},
+    {"id":"fi-project:mirror-cartographer","type":"project","provenance":"project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0}
+  ],
+  "referenced_artifacts": [
+    {"id":"fi-artifact:workspace-manifest-v1","type":"artifact","provenance":"workspace manifest blob b7c589d44e413f593a8e1dc8bfa607a6ed1c5169","confidence":1.0},
+    {"id":"fi-artifact:project-graph-v1","type":"artifact","provenance":"project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0},
+    {"id":"fi-artifact:decision-log-v1","type":"artifact","provenance":"decision log blob 508583644da75ec38a1d36982de3b59cc4ecc37f","confidence":1.0},
+    {"id":"fi-artifact:evidence-graph-v1","type":"artifact","provenance":"evidence graph updated blob efd12f7309caa6ac2e2f67bb9ab6741590d9d3a5","confidence":1.0},
+    {"id":"fi-artifact:symbol-graph-v1","type":"artifact","provenance":"symbol graph blob 50fc83e44e683f7ae375f1414a20ca31a6ddee37","confidence":1.0},
+    {"id":"fi-artifact:component-graph-v1","type":"artifact","provenance":"component graph blob b03e4bc4cb80a806b97e0a9c8bf84f55da87cdf2","confidence":1.0},
+    {"id":"fi-artifact:index-v1","type":"artifact","provenance":"artifact index updated blob 6163502e8afff2ae4d3acfb48db6e421ae6ef54c","confidence":1.0},
+    {"id":"fi-artifact:latest-session-pointer-v1","type":"artifact","provenance":"pre-run pointer blob d92d6330e062dce940f1898c692fb64c0220eff3","confidence":1.0},
+    {"id":"fi-artifact:artifact-modified-session-reconciliation-20260718t030659-0400","type":"artifact","provenance":"audit commit 79c2063ee255b9fff852b41c55396ac2c35eccd1","confidence":1.0}
+  ],
+  "decisions_made": [],
+  "evidence_added": [
+    {"id":"fi-evidence:latest-pointer-modified-session-reconciled-20260718t030659-0400","type":"evidence","provenance":"evidence graph commit 8070d13297c01572d31bd9ee39b19e2d9ab94489","confidence":1.0}
+  ],
+  "symbols_touched": [
+    {"id":"fi-symbol:continuous-identity:v1","type":"symbol","provenance":"symbol graph blob 50fc83e44e683f7ae375f1414a20ca31a6ddee37","confidence":1.0}
+  ],
+  "components_touched": [
+    {"id":"fi-component:continuity-loader-v1","type":"component","provenance":"canonical required load order completed","confidence":1.0},
+    {"id":"fi-component:peer-trigger-deduplicator-v1","type":"component","provenance":"completed trigger retained once and next trigger added once","confidence":1.0}
+  ],
+  "unresolved_questions": [
+    "Other artifact modified_session fields have not yet been independently reconciled against durable write history.",
+    "External user-owned interaction exports and private-vault boundaries still lack active verification connectors."
+  ],
+  "privacy_classification": "internal",
+  "stores_inspected": [
+    "canonical source repository",
+    "workspace manifest",
+    "project graph",
+    "decision log",
+    "evidence graph",
+    "symbol graph",
+    "component graph",
+    "artifact registry",
+    "latest session pointer",
+    "latest session handoff"
+  ],
+  "objects_connected": [
+    {"from":"fi-session:2026-07-18t030659-0400","relation":"child-of","to":"fi-session:2026-07-18t020652-0400","provenance":"LATEST.json pre-run blob d92d6330e062dce940f1898c692fb64c0220eff3","confidence":1.0},
+    {"from":"fi-artifact:artifact-modified-session-reconciliation-20260718t030659-0400","relation":"audits","to":"fi-artifact:latest-session-pointer-v1","provenance":"audit commit 79c2063ee255b9fff852b41c55396ac2c35eccd1","confidence":1.0},
+    {"from":"fi-evidence:latest-pointer-modified-session-reconciled-20260718t030659-0400","relation":"supports","to":"fi-decision:stable-id-no-name-merge-v1","provenance":"evidence graph commit 8070d13297c01572d31bd9ee39b19e2d9ab94489","confidence":1.0},
+    {"from":"fi-artifact:latest-session-pointer-v1","relation":"registered-in","to":"fi-artifact:index-v1","provenance":"artifact index commit a52acdc780e1c9aae52a110e305fc5352269bfe9","confidence":1.0}
+  ],
+  "conflicts_or_duplicates": [
+    {"status":"resolved","description":"The latest-session-pointer registry record reported modified_session fi-session:2026-07-17t050513-0400 although the durable pointer had advanced through fi-session:2026-07-18t020652-0400. The registry record now preserves the old value in provenance and identifies this exact reconciling session.","record_ids":["fi-artifact:latest-session-pointer-v1","fi-artifact:index-v1"]},
+    {"status":"none","description":"No stable IDs were merged by name, path, alias, or prose similarity.","record_ids":["fi-decision:stable-id-no-name-merge-v1"]},
+    {"status":"none","description":"No duplicate peer-trigger dedupe key was emitted.","record_ids":["fi-component:peer-trigger-deduplicator-v1"]}
+  ],
+  "persistence_writes": [
+    {"store":"canonical source repository","path":"foundation-intelligence/audits/artifact-modified-session-reconciliation-2026-07-18-030659.json","operation":"create","commit":"79c2063ee255b9fff852b41c55396ac2c35eccd1"},
+    {"store":"artifact registry","path":"foundation-intelligence/ARTIFACT_INDEX.jsonl","operation":"update","commit":"a52acdc780e1c9aae52a110e305fc5352269bfe9"},
+    {"store":"knowledge store","path":"foundation-intelligence/graphs/evidence-graph.jsonl","operation":"update","commit":"8070d13297c01572d31bd9ee39b19e2d9ab94489"}
+  ],
+  "rollback_route": {
+    "method": "Revert latest pointer, session manifest, evidence graph, artifact index, and reconciliation audit commits in reverse order.",
+    "target": "fi-session:2026-07-18t020652-0400"
+  },
+  "next_handoff": {
+    "summary": "The latest-session-pointer artifact registry metadata now corresponds to this exact pointer-modifying session, with the stale value preserved as provenance.",
+    "verification_step": "Reconcile fi-artifact:evidence-graph-v1 modified_session against exact evidence-graph write history, preserving every prior registry value and uncertainty rather than inferring identity from content.",
+    "trigger_dedupe_key": "fi-trigger:reconcile-evidence-graph-modified-session:v1"
+  }
+}
