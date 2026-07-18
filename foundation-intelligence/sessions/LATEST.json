@@ -1,8 +1,8 @@
 {
   "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
-  "latest_session_id": "fi-session:2026-07-17t180554-0400",
-  "latest_session_path": "foundation-intelligence/sessions/session-2026-07-17-180554.json",
-  "updated_at": "2026-07-17T18:05:54-04:00",
+  "latest_session_id": "fi-session:2026-07-17t200927-0400",
+  "latest_session_path": "foundation-intelligence/sessions/session-2026-07-17-200927.json",
+  "updated_at": "2026-07-17T20:09:27-04:00",
   "trigger_dedupe_keys": [
     "fi-trigger:bootstrap-required-stores:v1",
     "fi-trigger:initialize-decision-log:v1",
@@ -11,6 +11,7 @@
     "fi-trigger:normalize-session-manifests:v1",
     "fi-trigger:validate-normalized-session-projection:v1",
     "fi-trigger:normalize-session-20260717t050513-0400:v1",
-    "fi-trigger:validate-normalized-session-20260717t050513-0400:v1"
+    "fi-trigger:validate-normalized-session-20260717t050513-0400:v1",
+    "fi-trigger:normalize-session-20260717t040736-0400:v1"
   ]
 }
