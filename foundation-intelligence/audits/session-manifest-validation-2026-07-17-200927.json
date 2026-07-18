@@ -1,0 +1,32 @@
+{
+  "audit_id": "fi-artifact:session-manifest-validation-20260717t200927-0400",
+  "audit_type": "json-schema-validation",
+  "session_id": "fi-session:2026-07-17t200927-0400",
+  "schema_id": "fi-schema:session-manifest:v1",
+  "schema_path": "foundation-intelligence/SESSION_MANIFEST.schema.json",
+  "schema_blob_sha": "cf3866500fc8e3c30174ecb680259c7081f37a27",
+  "subject_artifact_id": "fi-artifact:normalized-session-manifest-20260717t050513-0400",
+  "subject_path": "foundation-intelligence/migrations/session-manifest-v1/normalized/fi-session-2026-07-17t050513-0400.json",
+  "subject_blob_sha": "5788810553698a038bd872bafaf8d3b77c1ba2de",
+  "result": "valid",
+  "violations": [],
+  "checks": {
+    "required_properties": "pass",
+    "additional_properties": "pass",
+    "reference_objects": "pass",
+    "edge_objects": "pass",
+    "stable_id_patterns": "pass",
+    "enum_values": "pass",
+    "confidence_bounds": "pass",
+    "rollback_route": "pass",
+    "next_handoff": "pass",
+    "date_time_shape": "pass"
+  },
+  "source_mutated": false,
+  "projection_mutated": false,
+  "privacy_classification": "internal",
+  "provenance": [
+    "canonical load order completed in fi-session:2026-07-17t200927-0400",
+    "validation used only the canonical local schema and projection"
+  ]
+}
