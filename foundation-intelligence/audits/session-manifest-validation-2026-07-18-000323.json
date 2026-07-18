@@ -1,0 +1,33 @@
+{
+  "artifact_id": "fi-artifact:session-manifest-validation-20260718t000323-0400",
+  "artifact_type": "audit",
+  "created_session": "fi-session:2026-07-18t000323-0400",
+  "validated_object_id": "fi-session:2026-07-17t000530-0400",
+  "validated_projection_id": "fi-artifact:normalized-session-manifest-20260717t000530-0400",
+  "projection_path": "foundation-intelligence/migrations/session-manifest-v1/normalized/fi-session-2026-07-17t000530-0400.json",
+  "projection_blob_sha": "818d1ca6b7ca83c3b292d81d6a98a233e317a00c",
+  "source_blob_sha": "e4e066d1b8795a2f346d6d04c8e660d4cefbdd69",
+  "schema_id": "fi-schema:session-manifest:v1",
+  "schema_blob_sha": "cf3866500fc8e3c30174ecb680259c7081f37a27",
+  "validator": "jsonschema Draft202012Validator with FormatChecker",
+  "result": "valid",
+  "violation_count": 0,
+  "violations": [],
+  "referential_integrity": {
+    "resolved": [
+      "fi-project:foundation-intelligence",
+      "fi-project:mirror-cartographer",
+      "fi-artifact:project-graph-v1"
+    ],
+    "unresolved": [
+      "fi-evidence:project-graph-missing-before-bootstrap-20260717"
+    ],
+    "similar_record_not_merged": "fi-evidence:required-stores-absent-20260717t040736-0400"
+  },
+  "privacy_classification": "internal",
+  "provenance": [
+    "canonical source repository",
+    "exact stable-ID resolution against loaded graphs and artifact index",
+    "no semantic or filename-based merge"
+  ]
+}
