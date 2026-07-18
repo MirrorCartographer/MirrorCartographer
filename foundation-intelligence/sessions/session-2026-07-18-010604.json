@@ -1,0 +1,68 @@
+{
+  "session_id": "fi-session:2026-07-18t010604-0400",
+  "timestamp": "2026-07-18T01:06:04-04:00",
+  "parent_session": "fi-session:2026-07-18t000323-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "active_projects": [
+    {"id":"fi-project:foundation-intelligence","type":"project","provenance":"project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0},
+    {"id":"fi-project:mirror-cartographer","type":"project","provenance":"project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0}
+  ],
+  "referenced_artifacts": [
+    {"id":"fi-artifact:workspace-manifest-v1","type":"artifact","provenance":"workspace manifest blob b7c589d44e413f593a8e1dc8bfa607a6ed1c5169","confidence":1.0},
+    {"id":"fi-artifact:project-graph-v1","type":"artifact","provenance":"project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0},
+    {"id":"fi-artifact:decision-log-v1","type":"artifact","provenance":"decision log blob 508583644da75ec38a1d36982de3b59cc4ecc37f","confidence":1.0},
+    {"id":"fi-artifact:evidence-graph-v1","type":"artifact","provenance":"evidence graph blob f80812322859a90ed854b5b248e971286ba17daa","confidence":1.0},
+    {"id":"fi-artifact:symbol-graph-v1","type":"artifact","provenance":"symbol graph blob 50fc83e44e683f7ae375f1414a20ca31a6ddee37","confidence":1.0},
+    {"id":"fi-artifact:component-graph-v1","type":"artifact","provenance":"component graph blob b03e4bc4cb80a806b97e0a9c8bf84f55da87cdf2","confidence":1.0},
+    {"id":"fi-artifact:index-v1","type":"artifact","provenance":"artifact index blob a5f7002bae343b7e17a4ee7d57a49da0740ece3a","confidence":1.0},
+    {"id":"fi-artifact:evidence-reference-reconciliation-20260718t010604-0400","type":"artifact","provenance":"audit commit ce3e4dee3e9af349e9e06c9fc6db680357939af6","confidence":1.0}
+  ],
+  "decisions_made": [],
+  "evidence_added": [],
+  "symbols_touched": [],
+  "components_touched": [
+    {"id":"fi-component:continuity-loader-v1","type":"component","provenance":"canonical load order completed from repository","confidence":1.0},
+    {"id":"fi-component:peer-trigger-deduplicator-v1","type":"component","provenance":"existing keys preserved and one new key prepared","confidence":1.0}
+  ],
+  "unresolved_questions": [
+    "The reconciliation audit is durable but is not yet registered in ARTIFACT_INDEX.jsonl because the minimal append update was blocked by safety checks.",
+    "A future exhaustive history connector may strengthen or revise the 0.95-confidence not-durably-located finding."
+  ],
+  "privacy_classification": "internal",
+  "stores_inspected": [
+    "canonical source repository",
+    "workspace manifest",
+    "project graph",
+    "decision log",
+    "evidence graph",
+    "symbol graph",
+    "component graph",
+    "artifact registry",
+    "latest session pointer",
+    "latest session handoff",
+    "GitHub current-code search",
+    "GitHub commit search"
+  ],
+  "objects_connected": [
+    {"from":"fi-session:2026-07-18t010604-0400","relation":"child-of","to":"fi-session:2026-07-18t000323-0400","provenance":"LATEST.json blob b7f2916fae43f7a55c4db6953dcec3f36727878f before mutation","confidence":1.0},
+    {"from":"fi-artifact:evidence-reference-reconciliation-20260718t010604-0400","relation":"audits-reference","to":"fi-evidence:project-graph-missing-before-bootstrap-20260717","provenance":"audit commit ce3e4dee3e9af349e9e06c9fc6db680357939af6","confidence":1.0},
+    {"from":"fi-evidence:project-graph-missing-before-bootstrap-20260717","relation":"kept-distinct-from","to":"fi-evidence:required-stores-absent-20260717t040736-0400","provenance":"stable IDs differ and no explicit reconciliation decision exists","confidence":1.0}
+  ],
+  "conflicts_or_duplicates": [
+    {"status":"confirmed","description":"The exact historical evidence ID is referenced but was not found in current repository code or repository commit search.","record_ids":["fi-evidence:project-graph-missing-before-bootstrap-20260717"]},
+    {"status":"possible","description":"A later evidence record describes related missing-store conditions but remains a separate identity.","record_ids":["fi-evidence:project-graph-missing-before-bootstrap-20260717","fi-evidence:required-stores-absent-20260717t040736-0400"]},
+    {"status":"none","description":"No duplicate stable IDs or trigger keys were introduced.","record_ids":["fi-component:peer-trigger-deduplicator-v1"]}
+  ],
+  "persistence_writes": [
+    {"store":"canonical source repository","path":"foundation-intelligence/audits/evidence-reference-reconciliation-2026-07-18-010604.json","operation":"create","commit":"ce3e4dee3e9af349e9e06c9fc6db680357939af6"}
+  ],
+  "rollback_route": {
+    "method": "Revert the latest pointer, current session, and reconciliation audit commits in reverse order.",
+    "target": "fi-session:2026-07-18t000323-0400"
+  },
+  "next_handoff": {
+    "summary": "The unresolved historical evidence reference was classified as referenced but not durably located through available repository interfaces; no similarity-based merge was made.",
+    "verification_step": "Register fi-artifact:evidence-reference-reconciliation-20260718t010604-0400 in the artifact index through a minimal safe update, then verify every artifact index storage location resolves to exactly one durable object.",
+    "trigger_dedupe_key": "fi-trigger:register-evidence-reference-reconciliation-audit:v1"
+  }
+}
