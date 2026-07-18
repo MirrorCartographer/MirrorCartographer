@@ -1,0 +1,73 @@
+{
+  "session_id": "fi-session:2026-07-18t020652-0400",
+  "timestamp": "2026-07-18T02:06:52-04:00",
+  "parent_session": "fi-session:2026-07-18t010604-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "active_projects": [
+    {"id":"fi-project:foundation-intelligence","type":"project","provenance":"project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0},
+    {"id":"fi-project:mirror-cartographer","type":"project","provenance":"project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0}
+  ],
+  "referenced_artifacts": [
+    {"id":"fi-artifact:workspace-manifest-v1","type":"artifact","provenance":"workspace manifest blob b7c589d44e413f593a8e1dc8bfa607a6ed1c5169","confidence":1.0},
+    {"id":"fi-artifact:project-graph-v1","type":"artifact","provenance":"project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0},
+    {"id":"fi-artifact:decision-log-v1","type":"artifact","provenance":"decision log blob 508583644da75ec38a1d36982de3b59cc4ecc37f","confidence":1.0},
+    {"id":"fi-artifact:evidence-graph-v1","type":"artifact","provenance":"evidence graph prior blob f80812322859a90ed854b5b248e971286ba17daa; updated blob 420fb601ea982d6d2f6293e436af43a0b8d74fbb","confidence":1.0},
+    {"id":"fi-artifact:symbol-graph-v1","type":"artifact","provenance":"symbol graph blob 50fc83e44e683f7ae375f1414a20ca31a6ddee37","confidence":1.0},
+    {"id":"fi-artifact:component-graph-v1","type":"artifact","provenance":"component graph blob b03e4bc4cb80a806b97e0a9c8bf84f55da87cdf2","confidence":1.0},
+    {"id":"fi-artifact:index-v1","type":"artifact","provenance":"artifact index updated blob 097eeb85e5e84f7e31ef0efc238226dad94a3259","confidence":1.0},
+    {"id":"fi-artifact:evidence-reference-reconciliation-20260718t010604-0400","type":"artifact","provenance":"exact audit blob 3bf8dadd1d14c1b9d68ce58c5a70ce472171a286; registered commit 5c48a59c27d26c9aae326961558b4c0b63b84946","confidence":1.0},
+    {"id":"fi-artifact:artifact-storage-integrity-20260718t020652-0400","type":"artifact","provenance":"audit commit 409a0f7104e2e6857c29993f85a0101b6c6e7530","confidence":1.0}
+  ],
+  "decisions_made": [],
+  "evidence_added": [
+    {"id":"fi-evidence:artifact-storage-integrity-pass-20260718t020652-0400","type":"evidence","provenance":"evidence graph commit 4d80b58167b892e313a3771f35c1db4adc5e6736","confidence":1.0}
+  ],
+  "symbols_touched": [],
+  "components_touched": [
+    {"id":"fi-component:continuity-loader-v1","type":"component","provenance":"canonical required load order completed","confidence":1.0},
+    {"id":"fi-component:peer-trigger-deduplicator-v1","type":"component","provenance":"completed trigger retained once and next trigger added once","confidence":1.0}
+  ],
+  "unresolved_questions": [
+    "The artifact registry now resolves all canonical GitHub storage locations exactly once, but external user-owned export and private-vault boundaries still lack active verification connectors.",
+    "The artifact index self-record modified_session is updated, while the latest-session-pointer artifact metadata still has an older modified_session and should be reconciled against actual pointer history."
+  ],
+  "privacy_classification": "internal",
+  "stores_inspected": [
+    "canonical source repository",
+    "workspace manifest",
+    "project graph",
+    "decision log",
+    "evidence graph",
+    "symbol graph",
+    "component graph",
+    "artifact registry",
+    "latest session pointer",
+    "latest session handoff",
+    "all declared canonical artifact storage locations"
+  ],
+  "objects_connected": [
+    {"from":"fi-session:2026-07-18t020652-0400","relation":"child-of","to":"fi-session:2026-07-18t010604-0400","provenance":"LATEST.json blob dbb3d3652f2e9ef38f872c40f924f8916674e51a before mutation","confidence":1.0},
+    {"from":"fi-artifact:evidence-reference-reconciliation-20260718t010604-0400","relation":"registered-in","to":"fi-artifact:index-v1","provenance":"artifact index commit 5c48a59c27d26c9aae326961558b4c0b63b84946","confidence":1.0},
+    {"from":"fi-artifact:artifact-storage-integrity-20260718t020652-0400","relation":"audits","to":"fi-artifact:index-v1","provenance":"storage integrity audit commit 409a0f7104e2e6857c29993f85a0101b6c6e7530","confidence":1.0},
+    {"from":"fi-evidence:artifact-storage-integrity-pass-20260718t020652-0400","relation":"supports","to":"fi-decision:stable-id-no-name-merge-v1","provenance":"evidence graph commit 4d80b58167b892e313a3771f35c1db4adc5e6736","confidence":1.0}
+  ],
+  "conflicts_or_duplicates": [
+    {"status":"resolved","description":"The reconciliation audit was durable but absent from ARTIFACT_INDEX.jsonl; it is now registered by exact stable ID and canonical path.","record_ids":["fi-artifact:evidence-reference-reconciliation-20260718t010604-0400","fi-artifact:index-v1"]},
+    {"status":"none","description":"All 15 previously registered storage locations resolved exactly once; no dangling or multiply resolved locations were found.","record_ids":["fi-artifact:index-v1"]},
+    {"status":"none","description":"No duplicate stable IDs or trigger dedupe keys were introduced.","record_ids":["fi-component:peer-trigger-deduplicator-v1"]}
+  ],
+  "persistence_writes": [
+    {"store":"canonical source repository","path":"foundation-intelligence/audits/artifact-storage-integrity-2026-07-18-020652.json","operation":"create","commit":"409a0f7104e2e6857c29993f85a0101b6c6e7530"},
+    {"store":"artifact registry","path":"foundation-intelligence/ARTIFACT_INDEX.jsonl","operation":"update","commit":"5c48a59c27d26c9aae326961558b4c0b63b84946"},
+    {"store":"knowledge store","path":"foundation-intelligence/graphs/evidence-graph.jsonl","operation":"update","commit":"4d80b58167b892e313a3771f35c1db4adc5e6736"}
+  ],
+  "rollback_route": {
+    "method": "Revert latest pointer, session manifest, evidence graph, artifact index, and integrity audit commits in reverse order.",
+    "target": "fi-session:2026-07-18t010604-0400"
+  },
+  "next_handoff": {
+    "summary": "The pending reconciliation audit is registered and every canonical artifact-index storage location resolves exactly once without similarity-based repair.",
+    "verification_step": "Reconcile fi-artifact:latest-session-pointer-v1 metadata against durable pointer history, then verify registry modified_session fields correspond to actual modifying sessions and preserve discrepancies as evidence.",
+    "trigger_dedupe_key": "fi-trigger:reconcile-artifact-modified-session-metadata:v1"
+  }
+}
