@@ -1,0 +1,45 @@
+{
+  "session_id": "fi-session:2026-07-17t000530-0400",
+  "timestamp": "2026-07-17T00:05:30-04:00",
+  "parent_session": "fi-session:2026-07-16t230519-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "active_projects": [
+    {"id":"fi-project:foundation-intelligence","type":"project","provenance":"source manifest blob e4e066d1b8795a2f346d6d04c8e660d4cefbdd69 active_projects[0]; resolved in project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0},
+    {"id":"fi-project:mirror-cartographer","type":"project","provenance":"source manifest blob e4e066d1b8795a2f346d6d04c8e660d4cefbdd69 active_projects[1]; resolved in project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0}
+  ],
+  "referenced_artifacts": [
+    {"id":"fi-artifact:project-graph-v1","type":"artifact","provenance":"source manifest blob e4e066d1b8795a2f346d6d04c8e660d4cefbdd69 referenced_artifacts[0]; resolved in artifact index blob 01f84307cb9f23122b38ceb11ef1bae519bf696c","confidence":1.0}
+  ],
+  "decisions_made": [],
+  "evidence_added": [
+    {"id":"fi-evidence:project-graph-missing-before-bootstrap-20260717","type":"evidence","provenance":"source manifest blob e4e066d1b8795a2f346d6d04c8e660d4cefbdd69 evidence_added[0]; unresolved in evidence graph blob 57b91c20414490b62faf854433940a3463e7aa11","confidence":0.5}
+  ],
+  "symbols_touched": [],
+  "components_touched": [],
+  "unresolved_questions": [
+    "Initialize the remaining required graph and index files.",
+    "The historical evidence ID fi-evidence:project-graph-missing-before-bootstrap-20260717 does not resolve in the current evidence graph."
+  ],
+  "privacy_classification": "internal",
+  "stores_inspected": [
+    "historical source manifest as recorded; exact inspected-store list absent from source"
+  ],
+  "objects_connected": [
+    {"from":"fi-session:2026-07-17t000530-0400","relation":"child-of","to":"fi-session:2026-07-16t230519-0400","provenance":"source manifest parent_session field; blob e4e066d1b8795a2f346d6d04c8e660d4cefbdd69","confidence":1.0},
+    {"from":"fi-session:2026-07-17t000530-0400","relation":"references","to":"fi-artifact:project-graph-v1","provenance":"source manifest referenced_artifacts[0]; blob e4e066d1b8795a2f346d6d04c8e660d4cefbdd69","confidence":1.0}
+  ],
+  "conflicts_or_duplicates": [
+    {"status":"confirmed","description":"The historical source does not conform to fi-schema:session-manifest:v1 and requires a non-destructive projection.","record_ids":["fi-session:2026-07-17t000530-0400"]},
+    {"status":"possible","description":"The evidence reference fi-evidence:project-graph-missing-before-bootstrap-20260717 is present in the source but absent from the current evidence graph; it remains unresolved and was not merged with similarly described evidence.","record_ids":["fi-evidence:project-graph-missing-before-bootstrap-20260717","fi-evidence:required-stores-absent-20260717t040736-0400"]}
+  ],
+  "persistence_writes": [],
+  "rollback_route": {
+    "method": "Delete this normalized projection only; preserve the immutable historical source manifest.",
+    "target": "fi-session:2026-07-17t000530-0400"
+  },
+  "next_handoff": {
+    "summary": "Non-destructive schema-v1 projection created for the historical session; one historical evidence reference remains unresolved.",
+    "verification_step": "Validate this projection against fi-schema:session-manifest:v1 and reconcile the unresolved evidence reference only through exact stable-ID provenance.",
+    "trigger_dedupe_key": "fi-trigger:validate-normalized-session-20260717t000530-0400:v1"
+  }
+}
