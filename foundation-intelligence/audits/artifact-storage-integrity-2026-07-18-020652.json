@@ -1,0 +1,49 @@
+{
+  "artifact_id": "fi-artifact:artifact-storage-integrity-20260718t020652-0400",
+  "artifact_type": "audit",
+  "audit_type": "artifact-registry-storage-location-integrity",
+  "schema_version": 1,
+  "created_session": "fi-session:2026-07-18t020652-0400",
+  "timestamp": "2026-07-18T02:06:52-04:00",
+  "registry_id": "fi-artifact:index-v1",
+  "registry_blob_sha": "a5f7002bae343b7e17a4ee7d57a49da0740ece3a",
+  "result": "pass",
+  "counts": {
+    "registered_artifacts_examined": 15,
+    "registered_storage_locations_examined": 15,
+    "registered_locations_resolved_exactly_once": 15,
+    "dangling_registered_locations": 0,
+    "multiply_resolved_registered_locations": 0,
+    "unregistered_durable_artifacts_reconciled": 1
+  },
+  "reconciled_artifact": {
+    "artifact_id": "fi-artifact:evidence-reference-reconciliation-20260718t010604-0400",
+    "storage_location": "foundation-intelligence/audits/evidence-reference-reconciliation-2026-07-18-010604.json",
+    "blob_sha": "3bf8dadd1d14c1b9d68ce58c5a70ce472171a286",
+    "resolution_count": 1
+  },
+  "registered_location_results": [
+    {"artifact_id":"fi-artifact:workspace-manifest-v1","storage_location":"foundation-intelligence/WORKSPACE_MANIFEST.json","blob_sha":"b7c589d44e413f593a8e1dc8bfa607a6ed1c5169","resolution_count":1},
+    {"artifact_id":"fi-artifact:project-graph-v1","storage_location":"foundation-intelligence/graphs/project-graph.jsonl","blob_sha":"d2d8a635cdb699c627820ae99c5a165784786e5b","resolution_count":1},
+    {"artifact_id":"fi-artifact:decision-log-v1","storage_location":"foundation-intelligence/graphs/decision-log.jsonl","blob_sha":"508583644da75ec38a1d36982de3b59cc4ecc37f","resolution_count":1},
+    {"artifact_id":"fi-artifact:evidence-graph-v1","storage_location":"foundation-intelligence/graphs/evidence-graph.jsonl","blob_sha":"f80812322859a90ed854b5b248e971286ba17daa","resolution_count":1},
+    {"artifact_id":"fi-artifact:symbol-graph-v1","storage_location":"foundation-intelligence/graphs/symbol-graph.jsonl","blob_sha":"50fc83e44e683f7ae375f1414a20ca31a6ddee37","resolution_count":1},
+    {"artifact_id":"fi-artifact:component-graph-v1","storage_location":"foundation-intelligence/graphs/component-graph.jsonl","blob_sha":"b03e4bc4cb80a806b97e0a9c8bf84f55da87cdf2","resolution_count":1},
+    {"artifact_id":"fi-artifact:index-v1","storage_location":"foundation-intelligence/ARTIFACT_INDEX.jsonl","blob_sha":"a5f7002bae343b7e17a4ee7d57a49da0740ece3a","resolution_count":1},
+    {"artifact_id":"fi-artifact:latest-session-pointer-v1","storage_location":"foundation-intelligence/sessions/LATEST.json","blob_sha":"dbb3d3652f2e9ef38f872c40f924f8916674e51a","resolution_count":1},
+    {"artifact_id":"fi-artifact:stable-id-resolution-audit-20260717t060634-0400","storage_location":"foundation-intelligence/audits/stable-id-resolution-2026-07-17-060634.json","blob_sha":"bdf60db8488bb0500bab5e1b2d0c7e8152870bd5","resolution_count":1},
+    {"artifact_id":"fi-artifact:normalized-session-manifest-20260717t060634-0400","storage_location":"foundation-intelligence/migrations/session-manifest-v1/normalized/fi-session-2026-07-17t060634-0400.json","blob_sha":"ce26be39d532ee90c007b38b00bc5d2222e60558","resolution_count":1},
+    {"artifact_id":"fi-artifact:normalized-session-manifest-20260717t050513-0400","storage_location":"foundation-intelligence/migrations/session-manifest-v1/normalized/fi-session-2026-07-17t050513-0400.json","blob_sha":"5788810553698a038bd872bafaf8d3b77c1ba2de","resolution_count":1},
+    {"artifact_id":"fi-artifact:session-manifest-validation-20260717t200927-0400","storage_location":"foundation-intelligence/audits/session-manifest-validation-2026-07-17-200927.json","blob_sha":"a4e0305899926db59f8e15272c130007d10eaf4d","resolution_count":1},
+    {"artifact_id":"fi-artifact:session-manifest-validation-20260717t230526-0400","storage_location":"foundation-intelligence/audits/session-manifest-validation-2026-07-17-230526.json","blob_sha":"f476427cb6318fc93f1506fa7e5a109228fe28ae","resolution_count":1},
+    {"artifact_id":"fi-artifact:normalized-session-manifest-20260717t000530-0400","storage_location":"foundation-intelligence/migrations/session-manifest-v1/normalized/fi-session-2026-07-17t000530-0400.json","blob_sha":"818d1ca6b7ca83c3b292d81d6a98a233e317a00c","resolution_count":1},
+    {"artifact_id":"fi-artifact:session-manifest-validation-20260718t000323-0400","storage_location":"foundation-intelligence/audits/session-manifest-validation-2026-07-18-000323.json","blob_sha":"66a80dbf34e8cc081a6423b1f289fa9e6914230f","resolution_count":1}
+  ],
+  "reconciliation_rule": "Resolve registry storage locations by exact canonical path and stable artifact ID. Do not infer identity from filename, label, alias, or prose similarity.",
+  "privacy_classification": "internal",
+  "provenance": [
+    "canonical load from workspace manifest blob b7c589d44e413f593a8e1dc8bfa607a6ed1c5169",
+    "artifact index blob a5f7002bae343b7e17a4ee7d57a49da0740ece3a",
+    "exact GitHub contents fetch for every declared storage location"
+  ]
+}
