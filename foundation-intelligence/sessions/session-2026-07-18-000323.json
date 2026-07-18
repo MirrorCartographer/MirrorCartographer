@@ -1,0 +1,74 @@
+{
+  "session_id": "fi-session:2026-07-18t000323-0400",
+  "timestamp": "2026-07-18T00:03:23-04:00",
+  "parent_session": "fi-session:2026-07-17t230526-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "active_projects": [
+    {"id":"fi-project:foundation-intelligence","type":"project","provenance":"project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0},
+    {"id":"fi-project:mirror-cartographer","type":"project","provenance":"project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0}
+  ],
+  "referenced_artifacts": [
+    {"id":"fi-artifact:workspace-manifest-v1","type":"artifact","provenance":"workspace manifest blob b7c589d44e413f593a8e1dc8bfa607a6ed1c5169","confidence":1.0},
+    {"id":"fi-artifact:project-graph-v1","type":"artifact","provenance":"project graph blob d2d8a635cdb699c627820ae99c5a165784786e5b","confidence":1.0},
+    {"id":"fi-artifact:decision-log-v1","type":"artifact","provenance":"decision log blob 508583644da75ec38a1d36982de3b59cc4ecc37f","confidence":1.0},
+    {"id":"fi-artifact:evidence-graph-v1","type":"artifact","provenance":"evidence graph commit 16171a4d3eabe5a980155780a70615f58beeb7cc","confidence":1.0},
+    {"id":"fi-artifact:symbol-graph-v1","type":"artifact","provenance":"symbol graph blob 50fc83e44e683f7ae375f1414a20ca31a6ddee37","confidence":1.0},
+    {"id":"fi-artifact:component-graph-v1","type":"artifact","provenance":"component graph blob b03e4bc4cb80a806b97e0a9c8bf84f55da87cdf2","confidence":1.0},
+    {"id":"fi-artifact:index-v1","type":"artifact","provenance":"artifact index commit a9e91ecada3c4c73da920e01cba84bbfbd5e7109","confidence":1.0},
+    {"id":"fi-artifact:normalized-session-manifest-20260717t000530-0400","type":"artifact","provenance":"projection commit 0415fa6425fc20cef998b0c421e29a667d384d23","confidence":1.0},
+    {"id":"fi-artifact:session-manifest-validation-20260718t000323-0400","type":"artifact","provenance":"audit commit ab6e872856ec71517728ebe8431344201154f19b","confidence":1.0}
+  ],
+  "decisions_made": [],
+  "evidence_added": [
+    {"id":"fi-evidence:session-000530-projected-valid-20260718t000323-0400","type":"evidence","provenance":"evidence graph commit 16171a4d3eabe5a980155780a70615f58beeb7cc","confidence":1.0}
+  ],
+  "symbols_touched": [],
+  "components_touched": [
+    {"id":"fi-component:continuity-loader-v1","type":"component","provenance":"complete canonical load order executed","confidence":1.0},
+    {"id":"fi-component:peer-trigger-deduplicator-v1","type":"component","provenance":"existing trigger keys preserved; next unique key prepared","confidence":1.0}
+  ],
+  "unresolved_questions": [
+    "Determine whether fi-evidence:project-graph-missing-before-bootstrap-20260717 exists in an older durable store or was never persisted; do not reconcile it by descriptive similarity."
+  ],
+  "privacy_classification": "internal",
+  "stores_inspected": [
+    "canonical source repository",
+    "workspace manifest",
+    "project graph",
+    "decision log",
+    "evidence graph",
+    "symbol graph",
+    "component graph",
+    "artifact registry",
+    "latest session pointer",
+    "latest session handoff",
+    "session manifest schema",
+    "historical session fi-session:2026-07-17t000530-0400"
+  ],
+  "objects_connected": [
+    {"from":"fi-session:2026-07-18t000323-0400","relation":"child-of","to":"fi-session:2026-07-17t230526-0400","provenance":"LATEST.json blob 635866decdafc2da33f4ad75bd9b1b9d96c2cda4 before mutation","confidence":1.0},
+    {"from":"fi-artifact:normalized-session-manifest-20260717t000530-0400","relation":"projects","to":"fi-session:2026-07-17t000530-0400","provenance":"projection commit 0415fa6425fc20cef998b0c421e29a667d384d23","confidence":1.0},
+    {"from":"fi-artifact:session-manifest-validation-20260718t000323-0400","relation":"validates","to":"fi-artifact:normalized-session-manifest-20260717t000530-0400","provenance":"audit commit ab6e872856ec71517728ebe8431344201154f19b","confidence":1.0},
+    {"from":"fi-evidence:session-000530-projected-valid-20260718t000323-0400","relation":"documents-unresolved-reference","to":"fi-evidence:project-graph-missing-before-bootstrap-20260717","provenance":"evidence graph commit 16171a4d3eabe5a980155780a70615f58beeb7cc","confidence":1.0}
+  ],
+  "conflicts_or_duplicates": [
+    {"status":"confirmed","description":"The historical session is not schema-v1 conformant; a separate validated projection was created without modifying the source.","record_ids":["fi-session:2026-07-17t000530-0400","fi-artifact:normalized-session-manifest-20260717t000530-0400"]},
+    {"status":"possible","description":"The historical evidence ID is unresolved. A later evidence record has similar subject matter but was not merged because stable IDs differ and no explicit reconciliation decision exists.","record_ids":["fi-evidence:project-graph-missing-before-bootstrap-20260717","fi-evidence:required-stores-absent-20260717t040736-0400"]},
+    {"status":"none","description":"No duplicate stable IDs or trigger dedupe keys were introduced.","record_ids":["fi-component:peer-trigger-deduplicator-v1"]}
+  ],
+  "persistence_writes": [
+    {"store":"canonical source repository","path":"foundation-intelligence/migrations/session-manifest-v1/normalized/fi-session-2026-07-17t000530-0400.json","operation":"create","commit":"0415fa6425fc20cef998b0c421e29a667d384d23"},
+    {"store":"canonical source repository","path":"foundation-intelligence/audits/session-manifest-validation-2026-07-18-000323.json","operation":"create","commit":"ab6e872856ec71517728ebe8431344201154f19b"},
+    {"store":"artifact registry","path":"foundation-intelligence/ARTIFACT_INDEX.jsonl","operation":"update","commit":"a9e91ecada3c4c73da920e01cba84bbfbd5e7109"},
+    {"store":"knowledge store","path":"foundation-intelligence/graphs/evidence-graph.jsonl","operation":"update","commit":"16171a4d3eabe5a980155780a70615f58beeb7cc"}
+  ],
+  "rollback_route": {
+    "method": "Revert the latest pointer and current session, then revert evidence, artifact-index, audit, and projection commits in reverse order; preserve the historical source manifest.",
+    "target": "fi-session:2026-07-17t230526-0400"
+  },
+  "next_handoff": {
+    "summary": "Historical session 000530 was normalized non-destructively and the projection passed schema validation; one source evidence reference remains unresolved.",
+    "verification_step": "Search durable history for the exact stable ID fi-evidence:project-graph-missing-before-bootstrap-20260717 and either register its existing provenance or record that it was never persisted; do not merge it with similarly described evidence.",
+    "trigger_dedupe_key": "fi-trigger:reconcile-evidence-project-graph-missing-20260717:v1"
+  }
+}
