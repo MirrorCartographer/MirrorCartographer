@@ -1,0 +1,30 @@
+{
+  "artifact_id": "fi-artifact:session-manifest-validation-20260717t230526-0400",
+  "artifact_type": "audit",
+  "audit_type": "session-manifest-schema-validation",
+  "timestamp": "2026-07-17T23:05:26-04:00",
+  "created_session": "fi-session:2026-07-17t230526-0400",
+  "schema_id": "fi-schema:session-manifest:v1",
+  "schema_path": "foundation-intelligence/SESSION_MANIFEST.schema.json",
+  "schema_blob_sha": "cf3866500fc8e3c30174ecb680259c7081f37a27",
+  "subject_session_id": "fi-session:2026-07-17t040736-0400",
+  "subject_path": "foundation-intelligence/sessions/session-2026-07-17-040736.json",
+  "subject_blob_sha": "f791cb2d74689592f538dc95f9416d8a46baa3b3",
+  "result": "valid",
+  "violation_count": 0,
+  "violations": [],
+  "migration_action": "no-op",
+  "reconciliation_rule": "Do not create a normalized projection when the immutable historical source already conforms to the canonical schema; preserve the source and register validation evidence instead.",
+  "identity_basis": [
+    "exact session_id",
+    "canonical repository path",
+    "immutable source blob SHA",
+    "canonical schema ID and blob SHA"
+  ],
+  "provenance": [
+    "canonical load order executed in fi-session:2026-07-17t230526-0400",
+    "source and schema inspected directly through GitHub contents API"
+  ],
+  "uncertainty": "JSON Schema date-time format annotation was checked against the stored RFC3339 timestamp; all structural constraints and local references were evaluated.",
+  "privacy_classification": "internal"
+}
