@@ -1,0 +1,35 @@
+{
+  "artifact_id": "fi-artifact:artifact-modified-session-reconciliation-evidence-graph-20260718t040341-0400",
+  "artifact_type": "audit",
+  "timestamp": "2026-07-18T04:03:41-04:00",
+  "session_id": "fi-session:2026-07-18t040341-0400",
+  "workspace_manifest_id": "fi-workspace:foundation-intelligence:v1",
+  "rule": "Reconcile modified_session only by exact stable artifact ID, exact canonical storage path, and durable write provenance; preserve displaced metadata and uncertainty.",
+  "subject": {
+    "artifact_id": "fi-artifact:evidence-graph-v1",
+    "canonical_path": "foundation-intelligence/graphs/evidence-graph.jsonl",
+    "registry_prior_modified_session": "fi-session:2026-07-17t040736-0400",
+    "registry_prior_blob_sha": "6163502e8afff2ae4d3acfb48db6e421ae6ef54c",
+    "evidence_graph_pre_run_blob_sha": "efd12f7309caa6ac2e2f67bb9ab6741590d9d3a5"
+  },
+  "verified_write_provenance": [
+    {"session_id":"fi-session:2026-07-17t130539-0400","evidence_id":"fi-evidence:latest-pointer-stale-20260717t130539-0400"},
+    {"session_id":"fi-session:2026-07-17t160441-0400","evidence_id":"fi-evidence:normalized-session-projection-valid-20260717t160441-0400"},
+    {"session_id":"fi-session:2026-07-17t180554-0400","evidence_id":"fi-evidence:session-050513-normalized-20260717t180554-0400"},
+    {"session_id":"fi-session:2026-07-17t220518-0400","evidence_id":"fi-evidence:session-manifest-validation-audit-registered-20260717t220518-0400"},
+    {"session_id":"fi-session:2026-07-17t230526-0400","evidence_id":"fi-evidence:session-040736-valid-noop-20260717t230526-0400"},
+    {"session_id":"fi-session:2026-07-18t000323-0400","evidence_id":"fi-evidence:session-000530-projected-valid-20260718t000323-0400"},
+    {"session_id":"fi-session:2026-07-18t020652-0400","evidence_id":"fi-evidence:artifact-storage-integrity-pass-20260718t020652-0400"},
+    {"session_id":"fi-session:2026-07-18t030659-0400","evidence_id":"fi-evidence:latest-pointer-modified-session-reconciled-20260718t030659-0400"}
+  ],
+  "finding": {
+    "status": "confirmed-metadata-lag",
+    "latest_verified_prior_modifying_session": "fi-session:2026-07-18t030659-0400",
+    "reconciled_modified_session": "fi-session:2026-07-18t040341-0400",
+    "reason": "This session appends the reconciliation evidence and therefore becomes the exact latest modifying session for the evidence graph.",
+    "confidence": 1.0,
+    "uncertainty": "The audit enumerates durable evidence records visible in the canonical graph. It does not assert that every historical Git commit was exhaustively reconstructed beyond those records."
+  },
+  "privacy_classification": "internal",
+  "public_safe": false
+}
