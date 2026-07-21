@@ -1,0 +1,109 @@
+{
+  "community_update": {
+    "community_digest": "sha256:cab9f3f013ff379d900a498a53be643c67b2dc802e782b8ae6d9dc136de6ddfb",
+    "notes_added": [
+      "Treat registry products as replaceable delivery interfaces; bind release authority to a project-owned digest ledger and independently restorable bytes.",
+      "Measure sovereignty through successful restore from a separate failure domain, not through control of a registry process alone."
+    ],
+    "notes_challenged": [
+      "Owning a self-hosted registry process alone proves artifact sovereignty."
+    ],
+    "prior_views_consulted": 0
+  },
+  "corpus_digest": "sha256:a464d2d3103f381c9c60a5310e109cb355b35dc7917c5c7afe2ef7ac24825c38",
+  "coverage": {
+    "available": [
+      "current run instruction",
+      "available current-thread summary",
+      "public validator source",
+      "selected repository metadata",
+      "primary technical sources for OCI distribution and registry operation"
+    ],
+    "complete_corpus_claim": false,
+    "unavailable": [
+      "complete beginning-to-end private conversation corpus",
+      "raw prior private reader interpretations",
+      "reliably enumerable prior public-safe receipt inventory"
+    ]
+  },
+  "dialogue": {
+    "agreements": [
+      "Digest identity outranks mutable tags.",
+      "Two copies count as independent only when they occupy separate failure domains.",
+      "Restore verification determines whether custody claims survive."
+    ],
+    "disagreements": [
+      "Reader A initially treated an offline copy as the defining requirement; Reader B argued that a continuously replicated second site can satisfy the same control objective when failure independence is demonstrated."
+    ],
+    "omissions_detected": [
+      "No current benchmark establishes artifact volume, publish rate, restore-time objective, or available upstream bandwidth.",
+      "No key-management artifact yet signs custody ledgers."
+    ],
+    "revisions_after_discussion": [
+      "The design records failure-domain identity explicitly in the next schema revision rather than inferring independence from different paths.",
+      "The registry remains an OCI-compatible access plane while the custody ledger and verified bytes remain canonical."
+    ]
+  },
+  "implementation": {
+    "artifact_digests": {
+      "custody_py": "sha256:1a14dc93c1e94f0141e4d860038beb4f1ba21ff4d8fc5f8d3c3be8f500203e6f",
+      "test_custody_py": "sha256:da59d228bcd2c2c2d0cc5e9ff2d821159648790648cdcd8c4ebbb831b9679acb"
+    },
+    "capability": "canonical artifact custody and restore authority",
+    "private_branch": "agent/sovereign-artifact-custody",
+    "private_commit": "4f95312566555a9f31d3c4362796c8cfd24040cc",
+    "tests": {
+      "command": "python -m unittest discover -s tests -v",
+      "failed": 0,
+      "passed": 5
+    }
+  },
+  "parent_community_digest": null,
+  "privacy": {
+    "classification": "public-safe-abstracted",
+    "raw_transcript_published": false,
+    "review": "Passed automated field validation and manual exclusion review; contains no transcript excerpts, personal facts, locations, credentials, health information, animal information, or uniquely identifying fragments."
+  },
+  "readers": [
+    {
+      "background": {
+        "attention_bias": "tracks commitments, handoffs, and whether recovery remains possible after authority disappears",
+        "counter_bias": "does not equate long possession with verified integrity",
+        "discipline": "maritime logistics and archival practice",
+        "experience": "maintained custody chains through handoffs, damaged media, and incomplete manifests"
+      },
+      "mode": "conversational",
+      "observations": [
+        "The request repeatedly converts provider independence into lifecycle ownership.",
+        "Rollback language carries stronger meaning when the bytes remain independently recoverable."
+      ],
+      "reader_id": "reader-20a-port-archivist",
+      "thesis": "The platform owns artifact history only when each release survives provider loss through a verified custody chain and an exercised restore path.",
+      "uncertainties": [
+        "The available corpus does not expose every prior artifact-custody decision."
+      ]
+    },
+    {
+      "background": {
+        "attention_bias": "searches for shared failure domains, mutable names, and untested recovery assumptions",
+        "counter_bias": "does not reject simple local storage when evidence shows bounded scale and independent backups",
+        "discipline": "distributed storage reliability engineering",
+        "experience": "tested bit rot, quorum loss, garbage-collection races, and misleading redundancy claims"
+      },
+      "mode": "semantic",
+      "observations": [
+        "Content addressing supports portable identity across registry implementations.",
+        "Registry garbage collection can corrupt active uploads unless writes stop, so custody reachability and recovery verification gate deletion."
+      ],
+      "reader_id": "reader-20b-storage-falsifier",
+      "thesis": "An OCI registry provides useful interoperability but fails as sovereign authority unless digest-pinned ledger state and verified copies remain recoverable outside its tag database and operational process.",
+      "uncertainties": [
+        "Production throughput and retention volume remain unmeasured."
+      ]
+    }
+  ],
+  "receipt_digest": "sha256:63908c46a9ca77c2eaeca643560948cb760e917d4920fb70a00de5c92099c1e3",
+  "run_generation": 20,
+  "run_id": "2026-07-21-sovereign-artifact-custody-20",
+  "schema": "foundation.conversation-parallax-run.v1"
+}
