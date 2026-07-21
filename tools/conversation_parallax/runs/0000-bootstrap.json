@@ -1,0 +1,74 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_id": "0000-bootstrap",
+  "run_generation": 0,
+  "corpus_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "parent_community_digest": null,
+  "readers": [
+    {
+      "reader_id": "conversational-0000",
+      "mode": "conversational",
+      "background": {
+        "discipline": "oral history",
+        "experience": "long-form interview reconstruction",
+        "attention_bias": "sequence, repair, and turn-taking",
+        "counter_bias": "do not infer stable meaning from one dramatic turn"
+      },
+      "thesis": "The conversation is a negotiated process whose meaning changes through correction and return.",
+      "observations": [
+        "Sequence carries evidence that a topic map alone loses.",
+        "Repairs reveal which misunderstandings matter most."
+      ],
+      "uncertainties": [
+        "The synthetic bootstrap contains no private corpus."
+      ]
+    },
+    {
+      "reader_id": "semantic-0000",
+      "mode": "semantic",
+      "background": {
+        "discipline": "knowledge representation",
+        "experience": "concept graphs and evidence ledgers",
+        "attention_bias": "claims, constraints, contradictions, and invariant structure",
+        "counter_bias": "do not erase chronology when compressing concepts"
+      },
+      "thesis": "The conversation is a changing graph of concepts, commitments, boundaries, and unresolved contradictions.",
+      "observations": [
+        "Concept recurrence and revision define durable structure.",
+        "Contradictions remain first-class objects rather than cleanup noise."
+      ],
+      "uncertainties": [
+        "The synthetic bootstrap contains no private corpus."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "Meaning lives in change, correction, and relation rather than isolated messages."
+    ],
+    "disagreements": [
+      "The conversational reader treats sequence as primary; the semantic reader treats structure as primary."
+    ],
+    "omissions_detected": [
+      "Neither lens alone captures embodied context or external-world evidence."
+    ],
+    "revisions_after_discussion": [
+      "Both readers retain chronology and concept structure as linked but non-identical views."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 0,
+    "notes_added": [
+      "Preserve chronology and semantic topology together.",
+      "Record disagreement rather than forcing one merged interpretation."
+    ],
+    "notes_challenged": [],
+    "community_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-synthetic",
+    "review": "Synthetic bootstrap only; no private conversation text or personal facts."
+  },
+  "receipt_digest": "sha256:6bfefcc16f23ec5ec30e068e55bbb0d0f9af30f1e833b30a442cc1a07648301f"
+}
