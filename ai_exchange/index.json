@@ -1,0 +1,16 @@
+{
+  "schema": "foundation.ai-capability-index.v1",
+  "updated": "2026-07-21",
+  "capabilities": [
+    {
+      "id": "veteran-evidence-router.v1",
+      "status": "tested-prototype",
+      "entrypoint": "ai_exchange/veterans/veteran_evidence_router.py",
+      "source_registry": "ai_exchange/veterans/source_registry.json",
+      "adversarial_fixtures": "ai_exchange/veterans/fixtures/arc_challenges.json",
+      "tests": "ai_exchange/veterans/tests/test_veteran_evidence_router.py",
+      "privacy": "input text is classified in memory and is not emitted or retained in the output packet",
+      "authority_boundary": "routes to official sources; does not determine eligibility, diagnose, or submit claims"
+    }
+  ]
+}
