@@ -1,0 +1,84 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_generation": 2,
+  "run_id": "2026-07-21-foundation-build-engine-02",
+  "corpus_digest": "sha256:3b26048ca59e978fc47198a8abfb95d452f27115cd26e8b3ae223b690fd3f240",
+  "parent_community_digest": null,
+  "readers": [
+    {
+      "reader_id": "reader-02a-maintenance-cartographer",
+      "mode": "conversational",
+      "background": {
+        "discipline": "industrial maintenance and oral history",
+        "experience": "long-lived machinery handovers where operator memory outlasts vendor documentation",
+        "attention_bias": "tracks corrections, promises, ownership language, and when abstractions become commands",
+        "counter_bias": "tests nostalgia against executable evidence"
+      },
+      "thesis": "The conversation moves from abstract continuity toward owned operational continuity; trust appears only when claims become reproducible artifacts and reversible actions.",
+      "observations": [
+        "The active commitment rejects hosted providers as build authority while permitting replaceable infrastructure.",
+        "The same-question reader model treats accumulated experience as biography rather than rank or degradation.",
+        "The run converts deterministic packaging and rollback from policy into an executable tool."
+      ],
+      "uncertainties": [
+        "The complete authorized private corpus was not mounted, so chronological claims stop at the supplied run context.",
+        "Prior community receipts were not discoverable through repository code search in this run."
+      ]
+    },
+    {
+      "reader_id": "reader-02b-reproducibility-ecologist",
+      "mode": "semantic",
+      "background": {
+        "discipline": "reproducible systems engineering and ecosystem resilience",
+        "experience": "audits software supply chains and restoration paths across heterogeneous infrastructure",
+        "attention_bias": "maps authority boundaries, hidden coupling, artifact identity, and failure recovery",
+        "counter_bias": "resists treating consensus or policy documents as proof of capability"
+      },
+      "thesis": "The architecture defines sovereignty as independently verifiable artifact identity plus restoration capability; provider neutrality fails unless bundles reject embedded provider assumptions and verify every byte on restore.",
+      "observations": [
+        "Content-addressed identity remains stable across metadata-only filesystem changes.",
+        "Provider environment references form hidden runtime coupling and require an explicit build gate.",
+        "Rollback becomes a verified reconstruction operation rather than a pointer to a hosted deployment."
+      ],
+      "uncertainties": [
+        "The current prototype packages a supplied runtime directory but does not yet invoke the application compiler.",
+        "SBOM, signature, and multi-platform runtime closure remain outside this implementation slice."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "Both readers identify executable reversibility as the boundary between claimed and demonstrated ownership.",
+      "Both reject popularity, provider status, or prior narrative as artifact authority."
+    ],
+    "disagreements": [
+      "Reader A emphasizes continuity of commitments; Reader B treats continuity as insufficient until manifests and restoration checks close the evidence loop."
+    ],
+    "omissions_detected": [
+      "No complete corpus coverage proof exists in the run environment.",
+      "No prior public-safe community receipt inventory was available for comparison."
+    ],
+    "revisions_after_discussion": [
+      "Reader A revises continuity from remembered intent to remembered intent bound to artifact evidence.",
+      "Reader B revises restoration from a purely technical property to a continuity mechanism that preserves user ownership across infrastructure changes."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 0,
+    "notes_added": [
+      "Experience changes interpretation without creating authority: every reader evaluates the same question and retains an inspectable history of revisions.",
+      "Owned builds require a verified rollback artifact whose identity survives provider replacement and filesystem metadata changes."
+    ],
+    "notes_challenged": [
+      "A community consensus does not establish truth without direct evidence and independent reproduction.",
+      "A hosted deployment URL does not constitute a retained or restorable release."
+    ],
+    "community_digest": "sha256:fdc8977357e4140743442d74194147bb01c9060d624077ad5e09c7233b638f00"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Passed manual abstraction review: contains architecture, capability, test, and coverage statements only; excludes transcript quotations, personal facts, health, animals, credentials, locations, deleted text, and identifying fragments."
+  },
+  "receipt_digest": "sha256:1de03c681a0d60c2b48ff134b0be26becf4bdceb49e1bde392548da09df2b4ea"
+}
