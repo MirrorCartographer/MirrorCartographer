@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mirrorcartographer.org/schemas/conversation-parallax-community-run.v1.json",
+  "title": "Conversation Parallax Community Run",
+  "type": "object",
+  "required": [
+    "schema",
+    "run_id",
+    "run_generation",
+    "corpus_digest",
+    "parent_community_digest",
+    "readers",
+    "dialogue",
+    "community_update",
+    "privacy",
+    "receipt_digest"
+  ],
+  "properties": {
+    "schema": {"const": "foundation.conversation-parallax-run.v1"},
+    "run_id": {"type": "string", "minLength": 1},
+    "run_generation": {"type": "integer", "minimum": 0},
+    "corpus_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "parent_community_digest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+    "readers": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["reader_id", "mode", "background", "thesis", "observations", "uncertainties"],
+        "properties": {
+          "reader_id": {"type": "string"},
+          "mode": {"enum": ["conversational", "semantic"]},
+          "background": {
+            "type": "object",
+            "required": ["discipline", "experience", "attention_bias", "counter_bias"],
+            "properties": {
+              "discipline": {"type": "string"},
+              "experience": {"type": "string"},
+              "attention_bias": {"type": "string"},
+              "counter_bias": {"type": "string"}
+            },
+            "additionalProperties": false
+          },
+          "thesis": {"type": "string"},
+          "observations": {"type": "array", "items": {"type": "string"}},
+          "uncertainties": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": false
+      }
+    },
+    "dialogue": {
+      "type": "object",
+      "required": ["agreements", "disagreements", "omissions_detected", "revisions_after_discussion"],
+      "properties": {
+        "agreements": {"type": "array", "items": {"type": "string"}},
+        "disagreements": {"type": "array", "items": {"type": "string"}},
+        "omissions_detected": {"type": "array", "items": {"type": "string"}},
+        "revisions_after_discussion": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "community_update": {
+      "type": "object",
+      "required": ["prior_views_consulted", "notes_added", "notes_challenged", "community_digest"],
+      "properties": {
+        "prior_views_consulted": {"type": "integer", "minimum": 0},
+        "notes_added": {"type": "array", "items": {"type": "string"}},
+        "notes_challenged": {"type": "array", "items": {"type": "string"}},
+        "community_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "privacy": {
+      "type": "object",
+      "required": ["raw_transcript_published", "classification", "review"],
+      "properties": {
+        "raw_transcript_published": {"const": false},
+        "classification": {"enum": ["public-safe-synthetic", "public-safe-abstracted", "private-only"]},
+        "review": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "receipt_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}
