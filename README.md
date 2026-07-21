@@ -34,6 +34,16 @@ Run:
 
 This layer prevents MC packets from entering longitudinal memory, public research maps, question-prep, or discovery routes when provenance, privacy, missingness, actionability, temporality, controls, or operational variables are collapsed.
 
+## Conversation Parallax
+
+The public repository now contains a concrete proof layer for plural conversation reading:
+
+- `tools/conversation_parallax/community_protocol.json`
+- `tools/conversation_parallax/validate_community_log.py`
+- `tools/conversation_parallax/runs/0000-bootstrap.json`
+
+One reader follows a conversation chronologically. Another reads the same corpus semantically. They compare interpretations, preserve disagreement, and join a cumulative community of prior views. Raw private chats remain private; the public layer contains schemas, synthetic fixtures, redacted receipts, continuity digests, and validators.
+
 ## Core idea
 
 Most tools preserve fragments:
@@ -73,7 +83,7 @@ The target is a better quality of experience: more coherence, more agency, more 
 
 ### Understanding
 
-How a fragment becomes a field. How directness changes the map. How each interaction should show what changed.
+How a fragment becomes a field. How directness changes the map. How each interaction shows what changed.
 
 ### Memory and continuity
 
