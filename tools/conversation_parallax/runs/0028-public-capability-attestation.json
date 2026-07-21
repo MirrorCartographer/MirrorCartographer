@@ -1,0 +1,80 @@
+{
+  "community_update": {
+    "community_digest": "sha256:756e607fd3c63491b67fe5ac1f75560c084467a80a755492afc2dfaadc4c5341",
+    "notes_added": [
+      "Publish capability attestations that bind public claims to private commit and artifact digests without publishing private contents.",
+      "Treat participation as present when executable public routes preserve the ability to verify, extend, challenge, or reconnect with the private work."
+    ],
+    "notes_challenged": [
+      "A public repository proves private value merely by announcing that private work exists."
+    ],
+    "prior_views_consulted": 2
+  },
+  "corpus_digest": "sha256:076bc53157b1aa215a9a5661acc942c218752eac2060131830f4bd7f868d3106",
+  "dialogue": {
+    "agreements": [
+      "Public evidence must remain executable and contestable rather than promotional.",
+      "Private content stays private while public claims bind to stable opaque anchors.",
+      "Public proof establishes capability and continuity, not exhaustive semantic value."
+    ],
+    "disagreements": [
+      "The conversational reader treats latent participation as part of value; the semantic reader accepts it only when a concrete access, verification, or extension route remains available."
+    ],
+    "omissions_detected": [
+      "No complete private corpus was available for beginning-to-end analysis.",
+      "No independent cryptographic witness currently counters unilateral rewriting by the repository owner."
+    ],
+    "revisions_after_discussion": [
+      "The conversational reader added falsification as a condition for credible invitation.",
+      "The semantic reader added preserved future participation as a legitimate capability outcome rather than dismissing it as unverifiable sentiment."
+    ]
+  },
+  "parent_community_digest": "sha256:f4606ecb463da7a65a8402b19b8e0f61c801c68dd289392799f3c46a5bbbe3e5",
+  "privacy": {
+    "classification": "public-safe-abstracted",
+    "raw_transcript_published": false,
+    "review": "Contains only architecture abstractions, synthetic reader views, opaque digests, test outcomes, and privacy-boundary statements; no private transcript text or personal facts."
+  },
+  "readers": [
+    {
+      "background": {
+        "attention_bias": "continuity of participation, custody, interpretive access, and what public traces let future people enter",
+        "counter_bias": "do not equate visibility with value or secrecy with proof",
+        "discipline": "museum conservation and community stewardship",
+        "experience": "preserving valuable collections whose protected contents cannot all be publicly displayed"
+      },
+      "mode": "conversational",
+      "observations": [
+        "Public proof preserves the existence and evolution of private work without copying it.",
+        "Participation remains present as a real future route when public interfaces, tests, and claims stay executable."
+      ],
+      "reader_id": "conversational-0028",
+      "thesis": "The public repository proves the private repository matters when it exposes durable invitations to participate: capability claims, tests, validators, and continuity anchors that remain meaningful without revealing protected material.",
+      "uncertainties": [
+        "The complete authorized private corpus and all prior private reader journals were unavailable."
+      ]
+    },
+    {
+      "background": {
+        "attention_bias": "claim-evidence bindings, tamper detection, falsification routes, authority boundaries, and false assurance",
+        "counter_bias": "do not reduce experiential or symbolic value to only machine-verifiable metrics",
+        "discipline": "assurance engineering and forensic accounting",
+        "experience": "testing whether private records support public claims without disclosing protected ledgers"
+      },
+      "mode": "semantic",
+      "observations": [
+        "Opaque commit and artifact digests establish stable reference, not semantic truth.",
+        "Each public capability claim requires named evidence and a reproducible falsification action."
+      ],
+      "reader_id": "semantic-0028",
+      "thesis": "A public repository cannot prove hidden meaning directly; it can prove that named capabilities bind to immutable private anchors and passing evidence under an explicit privacy boundary.",
+      "uncertainties": [
+        "No independent witness signature or transparency-log inclusion proof exists yet."
+      ]
+    }
+  ],
+  "receipt_digest": "sha256:488435ea1b9b0c46706ff6ec517ac1079efe8e6f745fd278f18047c2250a9c87",
+  "run_generation": 28,
+  "run_id": "0028-public-capability-attestation",
+  "schema": "foundation.conversation-parallax-run.v1"
+}
