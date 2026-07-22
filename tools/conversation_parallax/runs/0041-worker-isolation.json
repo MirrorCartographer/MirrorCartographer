@@ -1,0 +1,53 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_generation": 41,
+  "run_id": "0041-fia-owned-worker-isolation",
+  "corpus_digest": "sha256:ea2988a707073d3281488efb31a99137548a224f1901ddd1e0372293360fcb7c",
+  "parent_community_digest": null,
+  "readers": [
+    {
+      "reader_id": "reader-a-41",
+      "mode": "conversational",
+      "background": {
+        "discipline": "quality assurance",
+        "experience": "release checklists and handoffs",
+        "attention_bias": "sequence and verification",
+        "counter_bias": "rejects unmeasured claims"
+      },
+      "thesis": "Worker isolation requires explicit controls and repeatable evidence.",
+      "observations": ["Network and image pulls remain disabled during execution."],
+      "uncertainties": ["Host enforcement remains to be measured."]
+    },
+    {
+      "reader_id": "reader-b-41",
+      "mode": "semantic",
+      "background": {
+        "discipline": "digital preservation",
+        "experience": "format validation and custody review",
+        "attention_bias": "evidence continuity",
+        "counter_bias": "rejects unverifiable portability"
+      },
+      "thesis": "The build receipt records both controls and residual dependencies.",
+      "observations": ["The worker shares the host kernel."],
+      "uncertainties": ["Kernel configuration remains outside this compiler."]
+    }
+  ],
+  "dialogue": {
+    "agreements": ["Disable network access.", "Use content-addressed images."],
+    "disagreements": ["Reader A prioritizes sequence; Reader B prioritizes evidence structure."],
+    "omissions_detected": ["Writable temporary mounts required an explicit bound."],
+    "revisions_after_discussion": ["Use one bounded temporary mount."]
+  },
+  "community_update": {
+    "prior_views_consulted": 0,
+    "notes_added": ["Compile isolation rules into a command contract.", "Record residual host dependencies."],
+    "notes_challenged": ["A runner label proves isolation."],
+    "community_digest": "sha256:6e0af308418f1a050899d56db876d0fe174b357245c03a998e269ea16285440e"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Synthetic technical abstractions only."
+  },
+  "receipt_digest": "sha256:ef7a131903bf83279090aa64361078f05d999f7d08d10102fdaab9a14bac7203"
+}
