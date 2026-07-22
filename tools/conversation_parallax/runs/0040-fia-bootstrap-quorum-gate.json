@@ -1,0 +1,53 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_generation": 40,
+  "run_id": "0040-fia-bootstrap-quorum-gate",
+  "corpus_digest": "sha256:5b12fcd36d51daa1f88e1ca2c86784d4ffb13797126be87ea5c6db8d8893f670",
+  "parent_community_digest": null,
+  "readers": [
+    {
+      "reader_id": "reader-a-40",
+      "mode": "conversational",
+      "background": {
+        "discipline": "emergency medicine operations",
+        "experience": "mass-casualty handoffs and controlled medication custody",
+        "attention_bias": "handoff sequence and quorum failure",
+        "counter_bias": "rejects convenience that destroys recovery"
+      },
+      "thesis": "Custody survives only when recovery works without the primary operator or primary machine.",
+      "observations": ["Prior runs repeatedly separate service convenience from sovereign authority."],
+      "uncertainties": ["Production operator roster remains unverified."]
+    },
+    {
+      "reader_id": "reader-b-40",
+      "mode": "semantic",
+      "background": {
+        "discipline": "constitutional governance",
+        "experience": "separation of powers and continuity-of-government planning",
+        "attention_bias": "authority concentration and succession",
+        "counter_bias": "rejects nominal quorum under one controlling account"
+      },
+      "thesis": "The bootstrap boundary acts as a constitution: no provider or single person controls system resurrection.",
+      "observations": ["Threshold custody converts recovery into governed authority."],
+      "uncertainties": ["Physical custody devices and succession policy remain unresolved."]
+    }
+  ],
+  "dialogue": {
+    "agreements": ["Automatic bootstrap convenience can create an external lifecycle dependency.", "Quorum requires independent operators and failure domains."],
+    "disagreements": ["Reader A prioritizes timed recovery; Reader B prioritizes authority separation."],
+    "omissions_detected": ["Both initially omitted immediate revocation of the initialization administrator."],
+    "revisions_after_discussion": ["The gate binds administrator revocation and two-operator recovery drills."]
+  },
+  "community_update": {
+    "prior_views_consulted": 0,
+    "notes_added": ["Treat bootstrap recovery as release-authority continuity.", "Count operator control as a failure domain."],
+    "notes_challenged": ["Automatic bootstrap equals operational sovereignty."],
+    "community_digest": "sha256:3d8dde9fe5108680599de4e1839c2bfd253d7913790c83661b3ff4908c5e6bf5"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Contains only synthetic technical abstractions and explicit coverage limits."
+  },
+  "receipt_digest": "sha256:4ddac6de8f647ef1f94723ad2623b43a99f119e06f8316e9cb3242879d4e53af"
+}
