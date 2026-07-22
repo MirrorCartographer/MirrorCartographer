@@ -1,0 +1,89 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_id": "0050-fia-owned-tls-authority",
+  "run_generation": 50,
+  "corpus_coverage": {
+    "available": [
+      "current run instruction",
+      "visible recent architecture history",
+      "current Caddy, Smallstep, Let’s Encrypt, and ACME primary documentation",
+      "implementation and adversarial evidence created in this run"
+    ],
+    "unavailable": [
+      "complete beginning-to-end private conversation corpus",
+      "complete private archive",
+      "all prior private reader journals",
+      "complete cumulative public-safe receipt corpus"
+    ]
+  },
+  "readers": [
+    {
+      "reader_id": "reader-a-50",
+      "mode": "conversational",
+      "background": {
+        "discipline": "lighthouse operations and maritime navigation safety",
+        "experience": "lamp redundancy, visibility failures, chart corrections, and handoff logs",
+        "attention_bias": "continuous external trust signal and recovery before darkness",
+        "counter_bias": "rejects a working lamp as proof that the next watch can relight it"
+      },
+      "thesis": "TLS authority survives only when another operator can renew or replace trust before the public signal expires.",
+      "observations": [
+        "The architecture repeatedly separates provider operation from canonical authority."
+      ],
+      "uncertainties": [
+        "Production DNS registrar, CA account, and hardware custody have not been exercised in this run."
+      ]
+    },
+    {
+      "reader_id": "reader-b-50",
+      "mode": "semantic",
+      "background": {
+        "discipline": "numismatic authentication and mint provenance",
+        "experience": "issuer marks, chain-of-custody, counterfeit detection, and authority transitions",
+        "attention_bias": "issuer lineage, key custody, and verification-chain continuity",
+        "counter_bias": "rejects possession of a certificate as ownership of the issuing authority"
+      },
+      "thesis": "The durable object is the trust graph binding names, keys, issuers, account credentials, and recovery evidence—not the current certificate file.",
+      "observations": [
+        "The architecture repeatedly separates provider operation from canonical authority."
+      ],
+      "uncertainties": [
+        "Production DNS registrar, CA account, and hardware custody have not been exercised in this run."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "Test renewal and issuer replacement before certificates approach expiry.",
+      "Keep public-CA account keys and internal root authority under project custody."
+    ],
+    "disagreements": [
+      "Reader A prioritizes operational continuity; Reader B prioritizes issuer and key provenance."
+    ],
+    "omissions_detected": [
+      "The first design used DNS-01 with credentials that could modify the complete production DNS zone."
+    ],
+    "revisions_after_discussion": [
+      "Delegate the ACME challenge zone and restrict credentials to that zone only."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 0,
+    "notes_added": [
+      "Treat certificate renewal as a recurring release-authority exercise.",
+      "Treat the TLS trust graph—not one certificate—as the recoverable identity object."
+    ],
+    "notes_challenged": [
+      "Automatic HTTPS alone proves certificate sovereignty."
+    ],
+    "community_digest": "sha256:120034527461ec66e7a7235bec60c6c478a96bd0cb3876cdb2a114290c45b4fb"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Contains synthetic technical abstractions and explicit corpus limits only."
+  },
+  "corpus_digest": "sha256:6c26b1fbd71c75b7eabdd591cd6b54c19a322ba2a374c81f1824a727a7aa76d7",
+  "parent_community_digest": null,
+  "receipt_digest": "sha256:4dbda8458350ded637bba272cbf5d7b505cf91f15dfc68e1fa70ebcb881af929"
+}
