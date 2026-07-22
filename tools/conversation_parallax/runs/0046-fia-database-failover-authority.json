@@ -1,0 +1,74 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_id": "0046-fia-database-failover-authority",
+  "run_generation": 46,
+  "corpus_coverage": {
+    "available": [
+      "current run instruction",
+      "visible recent architectural history",
+      "current PostgreSQL 18 and Patroni 4 primary documentation",
+      "implementation and adversarial evidence created in this run"
+    ],
+    "unavailable": [
+      "complete beginning-to-end private conversation corpus",
+      "complete private archive",
+      "all prior private reader journals",
+      "complete cumulative public-safe receipt corpus"
+    ]
+  },
+  "readers": [
+    {
+      "reader_id": "reader-a-46",
+      "mode": "conversational",
+      "background": {
+        "discipline": "electrical grid switching operations",
+        "experience": "breaker isolation, transfer authorization, and black-start recovery",
+        "attention_bias": "positive isolation before energizing an alternate path",
+        "counter_bias": "rejects indicator lights as proof that a circuit is de-energized"
+      },
+      "thesis": "Database promotion becomes safe only after the old write path is positively fenced and independently acknowledged."
+    },
+    {
+      "reader_id": "reader-b-46",
+      "mode": "semantic",
+      "background": {
+        "discipline": "historical textual criticism",
+        "experience": "reconstructing source lineages from divergent manuscripts",
+        "attention_bias": "timeline ancestry, divergence points, and authoritative continuity",
+        "counter_bias": "rejects the newest surviving copy as automatically canonical"
+      },
+      "thesis": "Failover authority depends on proving timeline ancestry and selecting the candidate whose WAL history preserves admitted continuity."
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "Prevent two writable primaries before evaluating service availability.",
+      "Bind every promotion to timeline, lag, fence, and archive evidence."
+    ],
+    "disagreements": [
+      "Reader A prioritizes physical isolation; Reader B prioritizes WAL lineage."
+    ],
+    "omissions_detected": [
+      "The first design allowed promotion without proving the displaced primary rejected writes."
+    ],
+    "revisions_after_discussion": [
+      "Require a negative write probe against the fenced former primary."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 0,
+    "notes_added": [
+      "Treat fencing acknowledgement as a prerequisite to database authority transfer.",
+      "Treat PostgreSQL timeline ancestry as the continuity graph for database identity."
+    ],
+    "notes_challenged": [
+      "A DCS leader lock alone eliminates split-brain risk."
+    ]
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Synthetic technical abstractions and explicit corpus limits only."
+  },
+  "receipt_digest": "sha256:ff1dbcbb50d50d8db3c462fba5d1362d7bbbf715550bab7a499e77c021ab41a6"
+}
