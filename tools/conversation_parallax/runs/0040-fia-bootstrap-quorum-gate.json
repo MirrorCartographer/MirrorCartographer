@@ -49,5 +49,5 @@
     "classification": "public-safe-abstracted",
     "review": "Contains only synthetic technical abstractions and explicit coverage limits."
   },
-  "receipt_digest": "sha256:4ddac6de8f647ef1f94723ad2623b43a99f119e06f8316e9cb3242879d4e53af"
+  "receipt_digest": "sha256:b4be767b48ba2b526a9f26ec36851af1b0a82d785e084accf471383146caad89"
 }
