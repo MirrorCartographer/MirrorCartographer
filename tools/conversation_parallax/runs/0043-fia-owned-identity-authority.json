@@ -1,0 +1,89 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_id": "0043-fia-owned-identity-authority",
+  "run_generation": 43,
+  "corpus_coverage": {
+    "available": [
+      "current run instruction",
+      "visible recent architectural history",
+      "primary-source identity research",
+      "implementation and adversarial fixtures created in this run"
+    ],
+    "unavailable": [
+      "complete beginning-to-end private conversation corpus",
+      "complete private archive",
+      "all prior private reader journals",
+      "complete cumulative public-safe receipt corpus"
+    ]
+  },
+  "readers": [
+    {
+      "reader_id": "reader-a-43",
+      "mode": "conversational",
+      "background": {
+        "discipline": "air-traffic identity and handoff operations",
+        "experience": "call-sign continuity, controller transfer, and loss-of-communications procedures",
+        "attention_bias": "issuer continuity, handoff order, and recovery under partial failure",
+        "counter_bias": "rejects a successful login as proof of durable identity authority"
+      },
+      "thesis": "Identity survives migration only when the issuer contract, signing continuity, and client handoffs remain under project control.",
+      "observations": [
+        "The architecture repeatedly separates identity authority from runtime implementation."
+      ],
+      "uncertainties": [
+        "Production issuer DNS and certificate custody remain untested."
+      ]
+    },
+    {
+      "reader_id": "reader-b-43",
+      "mode": "semantic",
+      "background": {
+        "discipline": "genealogical archival research",
+        "experience": "identity reconciliation across conflicting names, records, and custodians",
+        "attention_bias": "stable identifiers, provenance, and relationship graphs",
+        "counter_bias": "rejects platform account IDs as canonical person identity"
+      },
+      "thesis": "The identity layer is an evidence graph linking stable subjects, clients, roles, keys, and issuer history rather than a database of provider accounts.",
+      "observations": [
+        "Provider account identifiers do not preserve durable subject relationships across migrations."
+      ],
+      "uncertainties": [
+        "Credential-hash portability across replacement runtimes remains implementation-dependent."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "Fix the issuer URL and prevent request-header-derived issuer mutation.",
+      "Export client and role relationships independently of the runtime implementation."
+    ],
+    "disagreements": [
+      "Reader A prioritizes uninterrupted token verification; Reader B prioritizes durable subject and relationship continuity."
+    ],
+    "omissions_detected": [
+      "The first design treated realm export as a complete backup despite documented exclusions."
+    ],
+    "revisions_after_discussion": [
+      "Require both database restoration and realm import drills, and record export limitations explicitly."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 0,
+    "notes_added": [
+      "Treat issuer continuity as release authority for identity.",
+      "Preserve subject, client, role, and key relationships in a provider-neutral evidence graph."
+    ],
+    "notes_challenged": [
+      "A realm JSON export alone constitutes complete identity recovery."
+    ],
+    "community_digest": "sha256:29f5273f62cf41ab1cda74c86f82bc60bdec62844405c9a0fce189c5f1dc94ec"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Contains synthetic technical abstractions and explicit corpus limits only."
+  },
+  "corpus_digest": "sha256:6c26b1fbd71c75b7eabdd591cd6b54c19a322ba2a374c81f1824a727a7aa76d7",
+  "parent_community_digest": null,
+  "receipt_digest": "sha256:a35c998380c1ac99b8acffad32de2fd3a033d5c7e7024f27a4788f9508978d79"
+}
