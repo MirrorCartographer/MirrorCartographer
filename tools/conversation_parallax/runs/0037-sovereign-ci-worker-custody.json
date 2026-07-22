@@ -1,0 +1,76 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_generation": 37,
+  "run_id": "0037-sovereign-ci-worker-custody",
+  "corpus_digest": "sha256:04e83257860da2296b690630ad33c0c2ee2357942f03d6685fa602a42f16c461",
+  "parent_community_digest": null,
+  "readers": [
+    {
+      "reader_id": "conversational-0037",
+      "mode": "conversational",
+      "background": {
+        "discipline": "nuclear outage work-control",
+        "experience": "contamination boundaries, tool accountability, independent verification, and shift turnover",
+        "attention_bias": "residual state between jobs and operator handoff",
+        "counter_bias": "rejects cleanup claims without physical reset"
+      },
+      "thesis": "A CI worker becomes trustworthy when one job consumes one disposable environment and no prior job state survives turnover.",
+      "observations": [
+        "The architecture repeatedly separates project authority from replaceable execution machinery."
+      ],
+      "uncertainties": [
+        "No physical worker destruction drill ran."
+      ]
+    },
+    {
+      "reader_id": "semantic-0037",
+      "mode": "semantic",
+      "background": {
+        "discipline": "malware detonation infrastructure",
+        "experience": "sandbox escape analysis, egress control, image provenance, and evidence retention",
+        "attention_bias": "privilege paths, host sockets, mutable images, and covert persistence",
+        "counter_bias": "rejects containerization as isolation when host authority remains mounted"
+      },
+      "thesis": "Worker sovereignty combines digest-pinned execution, denied host authority, default-deny egress, external logs, and rebuildable disposable roots.",
+      "observations": [
+        "A persistent self-hosted runner remains a reusable attack surface even when the repository is private."
+      ],
+      "uncertainties": [
+        "Kernel escape resistance and live JIT registration remain untested."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "One job consumes one disposable worker.",
+      "The worker receives no privileged mode, host socket, host home, or reusable credentials.",
+      "Runner logs leave the worker before destruction."
+    ],
+    "disagreements": [
+      "Reader A prioritizes turnover evidence; Reader B prioritizes escape and supply-chain paths."
+    ],
+    "omissions_detected": [
+      "No live JIT registration, egress-proxy enforcement, or destruction receipt ran."
+    ],
+    "revisions_after_discussion": [
+      "Bind image digest, job identity, and destruction receipt into release provenance."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 10,
+    "notes_added": [
+      "Self-hosted CI becomes project-owned only after each job receives a disposable, digest-pinned, least-authority environment.",
+      "Container isolation remains false sovereignty when the worker mounts host control sockets, credentials, or unrestricted network paths."
+    ],
+    "notes_challenged": [
+      "Owning the runner machine alone establishes CI sovereignty."
+    ],
+    "community_digest": "sha256:a78c2db1bc9d7db6db44122516c8521ff78ebdf4088ee6574435131185e81690"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Synthetic policy, capability metrics, source coverage, and architectural abstractions only."
+  },
+  "receipt_digest": "sha256:ff19008c89ec77293e6ea86e37d82e704dcec8ffc3e90684a5b0a05915de2710"
+}
