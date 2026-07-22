@@ -26,7 +26,14 @@
         "attention_bias": "positive isolation before energizing an alternate path",
         "counter_bias": "rejects indicator lights as proof that a circuit is de-energized"
       },
-      "thesis": "Database promotion becomes safe only after the old write path is positively fenced and independently acknowledged."
+      "thesis": "Database promotion becomes safe only after the old write path is positively fenced and independently acknowledged.",
+      "observations": [
+        "The architecture repeatedly separates service availability from canonical authority.",
+        "The failover gate rejects promotion until fencing evidence exists."
+      ],
+      "uncertainties": [
+        "The production fence mechanism and independent power path remain untested."
+      ]
     },
     {
       "reader_id": "reader-b-46",
@@ -37,7 +44,14 @@
         "attention_bias": "timeline ancestry, divergence points, and authoritative continuity",
         "counter_bias": "rejects the newest surviving copy as automatically canonical"
       },
-      "thesis": "Failover authority depends on proving timeline ancestry and selecting the candidate whose WAL history preserves admitted continuity."
+      "thesis": "Failover authority depends on proving timeline ancestry and selecting the candidate whose WAL history preserves admitted continuity.",
+      "observations": [
+        "PostgreSQL timelines encode branch ancestry after promotion.",
+        "The gate binds candidate timeline and archive continuity before authority transfer."
+      ],
+      "uncertainties": [
+        "The production WAL rate and acceptable failover lag remain unmeasured."
+      ]
     }
   ],
   "dialogue": {
@@ -63,12 +77,15 @@
     ],
     "notes_challenged": [
       "A DCS leader lock alone eliminates split-brain risk."
-    ]
+    ],
+    "community_digest": "sha256:4e671c6fc796243bc22ae3e8a7e56823947b8d50b8d88e902e4aec2ee61d2aeb"
   },
   "privacy": {
     "raw_transcript_published": false,
     "classification": "public-safe-abstracted",
     "review": "Synthetic technical abstractions and explicit corpus limits only."
   },
-  "receipt_digest": "sha256:ff1dbcbb50d50d8db3c462fba5d1362d7bbbf715550bab7a499e77c021ab41a6"
+  "corpus_digest": "sha256:511a6a9106039e27638d5a56fc9d836a5d2b16bca73c4dd3ca34e0a095b64bd3",
+  "parent_community_digest": null,
+  "receipt_digest": "sha256:f00d97e762828ea69ea8134a4954188c6edb97e56b6b4f3f8de861dfd4b89be4"
 }
