@@ -1,0 +1,93 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_generation": 2,
+  "run_id": "ci-workers-001",
+  "corpus_digest": "sha256:e079b38cefc4b0bc62355a2fbc825d1a1e58a2426768efd6450c450b98380246",
+  "parent_community_digest": "sha256:07aecc40fe0f423da469557fc70a0fb04773cb86dad8e43810c18cb57ae61c9c",
+  "readers": [
+    {
+      "reader_id": "ciw-a-g2",
+      "mode": "conversational",
+      "background": {
+        "discipline": "industrial control systems maintenance",
+        "experience": "remote field repair under intermittent connectivity",
+        "attention_bias": "failure isolation and handoff sequence",
+        "counter_bias": "automation optimism"
+      },
+      "thesis": "A CI system becomes sovereign when a damaged worker can disappear without taking authority, evidence, or recovery knowledge with it.",
+      "observations": [
+        "The conversation repeatedly converts provider failures into authority-boundary questions.",
+        "The current program requires executable proof rather than infrastructure branding."
+      ],
+      "uncertainties": [
+        "The available corpus does not include every historical turn or private archive record.",
+        "The second-operator recovery capability remains unexecuted."
+      ]
+    },
+    {
+      "reader_id": "ciw-b-g2",
+      "mode": "semantic",
+      "background": {
+        "discipline": "distributed systems economics",
+        "experience": "cooperative infrastructure governance",
+        "attention_bias": "authority concentration and operating cost",
+        "counter_bias": "hardware romanticism"
+      },
+      "thesis": "Owning runners adds value only when policy, artifact acceptance, and exit paths remain independent of the scheduler, runtime, and physical host.",
+      "observations": [
+        "Physical hardware custody and software control-plane ownership solve different failure classes.",
+        "Persistent runners create hidden cross-job state and single-provider assumptions."
+      ],
+      "uncertainties": [
+        "Measured workload and concurrency data are absent.",
+        "Kernel and firmware compromise remain outside the policy prototype."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "Workers contain no canonical state and receive no release authority.",
+      "Single-use execution narrows persistence and credential reuse.",
+      "Foundation retains job admission and artifact acceptance."
+    ],
+    "disagreements": [
+      "Reader A prioritizes disposable virtual-machine isolation for hostile jobs; Reader B delays that cost until a measured risk tier requires it.",
+      "Reader A treats second-operator recovery as an immediate gate; Reader B treats it as a staged operational test."
+    ],
+    "omissions_detected": [
+      "No measured boot-time, throughput, energy, or bandwidth benchmark exists.",
+      "No destructive worker-host laboratory has run.",
+      "No complete private corpus was available."
+    ],
+    "revisions_after_discussion": [
+      "Adopt rootless containers for controlled internal jobs and require disposable virtual machines for untrusted public contributions.",
+      "Make second-operator blank-host reconstruction part of the first laboratory rather than a later documentation task."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 2,
+    "notes_added": [
+      {
+        "view_id": "v3",
+        "statement": "Treat every CI worker as disposable hostile compute; preserve authority and canonical state outside the worker."
+      },
+      {
+        "view_id": "v4",
+        "statement": "Prove worker sovereignty by destroying and rebuilding the fleet while retaining verifiable evidence and release separation."
+      }
+    ],
+    "notes_challenged": [
+      {
+        "view_id": "v1",
+        "challenge": "Immutable release digests remain necessary but do not prevent a compromised persistent worker from fabricating build evidence."
+      }
+    ],
+    "community_digest": "sha256:c15811b5a9933b9c791db42c3109e2009c857a6459da56434f8692fe8028a7a3"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Contains only abstract capability conclusions, synthetic role descriptions, and non-identifying coverage boundaries. It excludes transcript excerpts, personal facts, health or animal details, credentials, locations, deleted text, and unique conversation fragments."
+  },
+  "receipt_digest": "sha256:bde7e793af2d532c676c3742b03fef5dbed433b06e31dab42b7ac24cd5103fb9"
+}
