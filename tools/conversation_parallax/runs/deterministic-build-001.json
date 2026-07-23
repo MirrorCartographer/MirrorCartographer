@@ -1,0 +1,93 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_generation": 4,
+  "run_id": "deterministic-build-001",
+  "corpus_digest": "sha256:4e70cd8ae3f906d32a242b2cd780e7875d2f9ca25e87e16d9b6dc8d7994e35f8",
+  "parent_community_digest": "sha256:fada982e6d8227b2c716c979e43767d9cd62e8b2c4070366945d84167695a0e5",
+  "readers": [
+    {
+      "reader_id": "db-a-g4",
+      "mode": "conversational",
+      "background": {
+        "discipline": "forensic accounting",
+        "experience": "reconstructing transaction chains after control failures",
+        "attention_bias": "sequence, custody transitions, and acceptance evidence",
+        "counter_bias": "trust in nominal process compliance"
+      },
+      "thesis": "Build sovereignty exists when every accepted artifact has a reconstructable chain from admitted source to independently reproduced bytes, without relying on a provider success signal.",
+      "observations": [
+        "Earlier runs separate execution from authority and require destructive recovery evidence.",
+        "The conversation repeatedly corrects claims that confuse an absence of active errors with proof of correctness."
+      ],
+      "uncertainties": [
+        "The complete historical transcript and private archive were unavailable.",
+        "The current application has not yet produced two independently matching build outputs."
+      ]
+    },
+    {
+      "reader_id": "db-b-g4",
+      "mode": "semantic",
+      "background": {
+        "discipline": "compiler engineering",
+        "experience": "cross-platform toolchain determinism and binary comparison",
+        "attention_bias": "hidden inputs, undefined behavior, and environmental variance",
+        "counter_bias": "content-addressing as sufficient proof"
+      },
+      "thesis": "Deterministic execution requires controlling or declaring every input, then varying the environment aggressively enough to expose hidden dependencies before artifact acceptance.",
+      "observations": [
+        "Sandboxing and derivation hashing constrain inputs but do not eliminate timestamps, randomness, CPU variance, or poisoned toolchains.",
+        "Signing belongs after reproducible output acceptance because signing can introduce nondeterminism."
+      ],
+      "uncertainties": [
+        "Node and Vite dependency reproducibility remains unmeasured.",
+        "Cross-architecture byte equality may be infeasible for some outputs and requires declared platform scope."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "Provider build status never authorizes artifact acceptance.",
+      "Two clean builders and exact digest agreement form the initial acceptance gate.",
+      "Reproducibility and source trust remain separate claims."
+    ],
+    "disagreements": [
+      "Reader A prioritizes custody and acceptance evidence; Reader B prioritizes environment-variance coverage.",
+      "Reader A accepts two matching builds as a strong operational gate; Reader B treats two builds as only the start of a reproducibility campaign."
+    ],
+    "omissions_detected": [
+      "No committed Nix flake exists for the current application.",
+      "No measured clean-build duration, mismatch rate, or dependency-mirror size exists.",
+      "No complete private corpus was available."
+    ],
+    "revisions_after_discussion": [
+      "Require two clean builders plus explicit variance testing rather than two identical environments.",
+      "Record the platform scope of every reproducibility claim and quarantine mismatches for structured diagnosis."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 6,
+    "notes_added": [
+      {
+        "view_id": "v7",
+        "statement": "Accept a build artifact only after independent clean executors reproduce the same bytes from pinned source, dependencies, toolchain, and build instructions."
+      },
+      {
+        "view_id": "v8",
+        "statement": "Treat reproducibility as an artifact-identity gate, not proof that the source or pinned toolchain is safe."
+      }
+    ],
+    "notes_challenged": [
+      {
+        "view_id": "v3",
+        "challenge": "Disposable CI workers reduce persistence, but accepted artifacts still require independent byte reproduction and a separate artifact-identity gate."
+      }
+    ],
+    "community_digest": "sha256:2e7172e9336b54eedddd7184e4f50274be099e9e878a235eaafb5a215058b17f"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Contains only abstract architecture conclusions, synthetic reader profiles, coverage boundaries, and non-identifying continuity findings. It excludes transcript excerpts, personal facts, health or animal details, credentials, locations, deleted text, and unique conversation fragments."
+  },
+  "receipt_digest": "sha256:0b94dba3ad0d4d06fb50af57eda098991e6727c42897bae24180bc3ecb1d1375"
+}
