@@ -1,0 +1,93 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_generation": 3,
+  "run_id": "backup-restore-001",
+  "corpus_digest": "sha256:2e9879789e43be6e19a3b7296d36879668c1e2147dac6b8efab7b7f186a594e4",
+  "parent_community_digest": "sha256:c15811b5a9933b9c791db42c3109e2009c857a6459da56434f8692fe8028a7a3",
+  "readers": [
+    {
+      "reader_id": "bkr-a-g3",
+      "mode": "conversational",
+      "background": {
+        "discipline": "emergency logistics",
+        "experience": "regional disaster supply restoration",
+        "attention_bias": "sequence of usable recovery",
+        "counter_bias": "confidence in stored copies"
+      },
+      "thesis": "Backup sovereignty exists only when a second operator restores a usable service from independent copies after the primary environment is unavailable.",
+      "observations": [
+        "Earlier runs separate authority from provider execution.",
+        "The platform requires destructive proof rather than backup-count claims."
+      ],
+      "uncertainties": [
+        "The complete historical transcript and private archive were unavailable.",
+        "No measured full-service restore has run."
+      ]
+    },
+    {
+      "reader_id": "bkr-b-g3",
+      "mode": "semantic",
+      "background": {
+        "discipline": "archival science",
+        "experience": "long-term digital preservation and integrity review",
+        "attention_bias": "provenance, retention, and silent corruption",
+        "counter_bias": "availability-first replication"
+      },
+      "thesis": "A canonical backup is an evidence-bearing recovery set whose integrity, retention, and restore acceptance remain controlled independently of every storage provider.",
+      "observations": [
+        "Replication does not protect against logically valid destructive changes.",
+        "Content-addressed encrypted snapshots and database-native recovery solve different data classes."
+      ],
+      "uncertainties": [
+        "Actual data volume and restore bandwidth remain unmeasured.",
+        "Offline custody procedures remain untested."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "A stored copy does not count as a successful backup until an isolated restore passes.",
+      "At least one recovery copy remains outside normal production write authority.",
+      "Database recovery and artifact recovery use separate correctness tests."
+    ],
+    "disagreements": [
+      "Reader A prioritizes recovery speed and operator sequence; Reader B prioritizes preservation integrity and retention proof.",
+      "Reader A accepts three copies as an initial gate; Reader B treats failure-domain independence as more important than copy count."
+    ],
+    "omissions_detected": [
+      "No current storage-volume, change-rate, or restore-throughput benchmark exists.",
+      "No second-operator blank-machine recovery has run.",
+      "No complete private corpus was available."
+    ],
+    "revisions_after_discussion": [
+      "Require three copies across at least two failure domains and two sites, with one offline or append-only copy.",
+      "Measure both integrity and time-to-usable-service in the same quarterly recovery exercise."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 4,
+    "notes_added": [
+      {
+        "view_id": "v5",
+        "statement": "Count a backup only after an isolated restore reproduces declared data and service behavior."
+      },
+      {
+        "view_id": "v6",
+        "statement": "Keep at least one recovery path outside production write authority and prove provider replacement during restoration."
+      }
+    ],
+    "notes_challenged": [
+      {
+        "view_id": "v4",
+        "challenge": "Disposable workers preserve build evidence, but platform continuity still fails if canonical state cannot be restored independently."
+      }
+    ],
+    "community_digest": "sha256:fada982e6d8227b2c716c979e43767d9cd62e8b2c4070366945d84167695a0e5"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Contains only abstract capability conclusions, synthetic reader profiles, coverage boundaries, and non-identifying architecture findings. It excludes transcript excerpts, personal facts, health or animal details, credentials, locations, deleted text, and unique conversation fragments."
+  },
+  "receipt_digest": "sha256:39eda53fcfad202b8c174baeb2079f210547234aad37ab3ab93b4aa9f42fb0a3"
+}
