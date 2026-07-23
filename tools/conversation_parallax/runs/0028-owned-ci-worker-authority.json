@@ -1,0 +1,87 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_generation": 28,
+  "run_id": "0028-owned-ci-worker-authority",
+  "corpus_digest": "sha256:da274536ffaaac520f5faf328043bde282b953e4b323061eb40a112c0f6de0ff",
+  "parent_community_digest": "sha256:f4606ecb463da7a65a8402b19b8e0f61c801c68dd289392799f3c46a5bbbe3e5",
+  "readers": [
+    {
+      "reader_id": "conversational-0028-incident-recorder",
+      "mode": "conversational",
+      "background": {
+        "discipline": "aviation incident investigation and crew resource management",
+        "experience": "reconstructing event sequence, handoffs, checklist deviations, and recovery under time pressure",
+        "attention_bias": "tracks who authorized each action, when trust changed, and where a handoff lost context",
+        "counter_bias": "rejects a clean narrative when logs, timing, or independent evidence do not support it"
+      },
+      "thesis": "The conversation repeatedly converts trust from a provider promise into an inspectable chain of authority; CI ownership begins when every job identity, handoff, and destructive boundary is explicit and recoverable.",
+      "observations": [
+        "The request rejects a self-hosted worker that still receives canonical job authority from an external provider.",
+        "The preceding repository-preview build demonstrates utility but remains commodity execution rather than Foundation build authority.",
+        "A disposable worker protects continuity only when job records and artifacts survive worker destruction."
+      ],
+      "uncertainties": [
+        "The complete private chronology was unavailable, so earlier corrections and commitments outside the visible context were not reconstructed.",
+        "No live ephemeral virtual-machine runner executed a real repository build in this run."
+      ]
+    },
+    {
+      "reader_id": "semantic-0028-capacity-economist",
+      "mode": "semantic",
+      "background": {
+        "discipline": "distributed systems capacity engineering and infrastructure economics",
+        "experience": "models queue saturation, noisy-neighbor failure, fleet replacement, cost cliffs, and operator load",
+        "attention_bias": "maps control-plane authority, isolation boundaries, scaling bottlenecks, patch obligations, and exit costs",
+        "counter_bias": "rejects technical sovereignty claims that conceal unsustainable staffing or idle-capacity costs"
+      },
+      "thesis": "An owned CI plane combines self-hosted job authority with disposable compute; sovereignty fails when runner reuse, mutable dependencies, provider-held logs, or unrehearsed recovery preserve hidden external authority.",
+      "observations": [
+        "Forgejo supports server-controlled ephemeral runner registration, but the project still supplies the external orchestrator that creates and destroys machines.",
+        "Container isolation alone does not close the hostile-workflow boundary; a disposable VM or microVM contains the runner and its container engine.",
+        "GitHub self-hosted runners remain operationally useful during migration but retain GitHub as scheduler and impose service-driven runner update deadlines."
+      ],
+      "uncertainties": [
+        "Cold-start time and cost for disposable VM versus microVM workers remain unbenchmarked.",
+        "The selected isolation layer requires a later hardware-virtualization compatibility test on actual project-owned or rented hosts."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "Both readers reject persistent shared runners and host execution.",
+      "Both bind CI ownership to canonical job records, owned artifact custody, and clean control-plane restore.",
+      "Both preserve GitHub or other compute providers only as replaceable migration and capacity resources."
+    ],
+    "disagreements": [
+      "Reader A prioritizes traceable authorization and incident reconstruction; Reader B prioritizes isolation economics and fleet operability.",
+      "Reader A accepts disposable full virtual machines as the clearest initial boundary; Reader B keeps microVMs open as the likely scaling optimization after measurement."
+    ],
+    "omissions_detected": [
+      "The artifact gate does not yet provision Forgejo, a runner orchestrator, or a disposable machine.",
+      "No benchmark measures cold start, cache behavior, bandwidth, concurrency, or complete control-plane recovery time.",
+      "Prior reader-pair rotation could not be exhaustively checked because the complete receipt catalog was unavailable."
+    ],
+    "revisions_after_discussion": [
+      "The implementation adopts disposable virtual machines first and treats microVMs as a benchmarked substitution rather than an assumed optimization.",
+      "The recovery gate adds a second-operator drill so technical restoration does not conceal single-person dependency."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 4,
+    "notes_added": [
+      "Treat every CI runner identity as single-use and destroy its workspace, credentials, and machine boundary after one job.",
+      "Treat the CI scheduler, canonical job record, workflow source, and artifact destination as one authority chain that survives replacement of all worker compute."
+    ],
+    "notes_challenged": [
+      "Owning a self-hosted runner means owning CI authority.",
+      "A fresh container alone provides a sufficient boundary for hostile build code."
+    ],
+    "community_digest": "sha256:8d263d0cecd5685250ee95eeecc4647b753a9c06e00c95ca9dcc6e7666fdb7da"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Passed abstraction review: contains architecture, synthetic capability statements, reader backgrounds, coverage limits, and test results only; excludes transcript text, personal facts, health, animals, credentials, locations, deleted text, and uniquely identifying fragments."
+  },
+  "receipt_digest": "sha256:c7343a6f90ecda81727e2a25fb64d44fec3a474d12c0c228268b3a520a5645d8"
+}
