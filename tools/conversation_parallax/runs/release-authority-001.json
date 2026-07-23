@@ -1,0 +1,62 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_generation": 1,
+  "run_id": "release-authority-001",
+  "corpus_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "parent_community_digest": null,
+  "readers": [
+    {
+      "reader_id": "a",
+      "mode": "conversational",
+      "background": {
+        "discipline": "reliability",
+        "experience": "operations",
+        "attention_bias": "sequence",
+        "counter_bias": "lock-in"
+      },
+      "thesis": "Keep release decisions locally verifiable.",
+      "observations": [],
+      "uncertainties": []
+    },
+    {
+      "reader_id": "b",
+      "mode": "semantic",
+      "background": {
+        "discipline": "security",
+        "experience": "supply chain",
+        "attention_bias": "trust",
+        "counter_bias": "recovery"
+      },
+      "thesis": "Separate policy from implementation.",
+      "observations": [],
+      "uncertainties": []
+    }
+  ],
+  "dialogue": {
+    "agreements": [],
+    "disagreements": [],
+    "omissions_detected": [],
+    "revisions_after_discussion": []
+  },
+  "community_update": {
+    "prior_views_consulted": 0,
+    "notes_added": [
+      {
+        "view_id": "v1",
+        "statement": "Use immutable digests for release decisions."
+      },
+      {
+        "view_id": "v2",
+        "statement": "Prove portability through export and restore."
+      }
+    ],
+    "notes_challenged": [],
+    "community_digest": "sha256:07aecc40fe0f423da469557fc70a0fb04773cb86dad8e43810c18cb57ae61c9c"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Public-safe abstract receipt."
+  },
+  "receipt_digest": "sha256:5ba398af15e7f9ad67492d01dfae6e2408d7a1c1229b23205119e27eff3daefc"
+}
