@@ -1,0 +1,91 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_generation": 7,
+  "run_id": "tls-continuity-001",
+  "corpus_digest": "sha256:fa35edb4b4f1a4033b4262092ed80c2d1436b0129dddb30062bd5449a9df7234",
+  "parent_community_digest": "sha256:3a68787574f131798f27efe5d5db6314179f7ac40fa263bc4d369e21cd62bb8f",
+  "readers": [
+    {
+      "reader_id": "tls-a-g7",
+      "mode": "conversational",
+      "background": {
+        "discipline": "telecommunications outage restoration",
+        "experience": "restoring customer-facing services after cable cuts, power loss, and control-plane failure",
+        "attention_bias": "service continuity, handoff timing, and external reachability",
+        "counter_bias": "assuming successful issuance means the served certificate changed"
+      },
+      "thesis": "TLS sovereignty exists when Foundation restores a valid externally served chain after CA, DNS, proxy, host, and operator loss without transferring authority to any one provider.",
+      "observations": [
+        "Earlier runs separate release authority and canonical custody from provider status.",
+        "Certificate continuity crosses identity, DNS, reverse proxy, clocks, and disaster recovery."
+      ],
+      "uncertainties": [
+        "Complete historical transcripts were unavailable.",
+        "No measured DNS propagation or alternate-issuer recovery time exists."
+      ]
+    },
+    {
+      "reader_id": "tls-b-g7",
+      "mode": "semantic",
+      "background": {
+        "discipline": "public-key infrastructure engineering",
+        "experience": "X.509 path validation, ACME automation, CA ceremonies, and revocation design",
+        "attention_bias": "trust anchors, issuance scope, key compromise, and renewal failure",
+        "counter_bias": "equating internal CA ownership with public browser trust"
+      },
+      "thesis": "Foundation owns internal TLS policy and roots, but public web trust remains an external ecosystem dependency that requires issuer plurality, DNS exit paths, and independently verified serving state.",
+      "observations": [
+        "ACME standardizes issuance while challenge methods transfer trust to DNS, routing, or privileged ports.",
+        "Short-lived leaves reduce revocation dependence but increase automation and clock sensitivity."
+      ],
+      "uncertainties": [
+        "step-ca has limited active revocation and no CT integration.",
+        "Browser and operating-system root programs remain outside Foundation control."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "Keep the internal root offline and require threshold recovery.",
+      "Treat public CAs, DNS providers, and reverse proxies as replaceable implementations.",
+      "Verify the certificate actually served from outside the infrastructure after renewal and failover."
+    ],
+    "disagreements": [
+      "Reader A prioritizes external reachability and recovery timing; Reader B prioritizes trust-anchor custody, issuance scope, and compromise containment."
+    ],
+    "omissions_detected": [
+      "Prior architecture did not bind DNS-provider replacement to certificate issuance recovery.",
+      "No current laboratory proves alternate public CA issuance or second-operator CA reconstruction."
+    ],
+    "revisions_after_discussion": [
+      "Add two DNS provider paths, two public ACME issuers, and external served-chain verification.",
+      "Cap internal leaves at 24 hours and require quarterly destructive CA restoration."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 12,
+    "notes_added": [
+      {
+        "view_id": "v13",
+        "statement": "Own TLS continuity by separating Foundation-controlled internal trust and certificate policy from replaceable public CAs, DNS providers, and reverse proxies."
+      },
+      {
+        "view_id": "v14",
+        "statement": "Count certificate automation as recoverable only after alternate-issuer, alternate-DNS-provider, external-served-chain, and second-operator reconstruction tests pass."
+      }
+    ],
+    "notes_challenged": [
+      {
+        "view_id": "v8",
+        "challenge": "Identity continuity remains incomplete unless certificate issuance, DNS validation, clock health, and externally served-chain verification survive provider replacement."
+      }
+    ],
+    "community_digest": "sha256:0813b8418d6f8b8e739c91433694416b36c0fe6a330793e177662d70333de56e"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Contains only abstract architecture, synthetic reader profiles, coverage boundaries, and non-identifying continuity findings. Excludes private source material and personal data."
+  },
+  "receipt_digest": "sha256:27e1efef2d2f07a50e29a5aa1ba012773989254f186ff50fbfdc85cd1889b87c"
+}
