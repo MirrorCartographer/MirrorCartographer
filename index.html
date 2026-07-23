@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Random Joke Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <h1>Random Joke Generator</h1>
+    <div id="status" class="status" aria-live="polite">Click "Get a joke" to begin.</div>
+
+    <section class="card" id="jokeCard" aria-hidden="true">
+      <p id="jokeText" class="joke">—</p>
+      <p id="jokeExtra" class="extra" hidden></p>
+      <div class="controls">
+        <button id="anotherBtn">Another</button>
+        <button id="copyBtn">Copy</button>
+        <button id="shareBtn">Share</button>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button id="getBtn" class="primary">Get a joke</button>
+    </div>
+
+    <footer>
+      <small>Uses the public API at icanhazdadjoke.com (CORS-enabled). No external scripts required.</small>
+    </footer>
+  </main>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
