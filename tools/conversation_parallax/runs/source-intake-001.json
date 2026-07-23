@@ -1,0 +1,91 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_generation": 5,
+  "run_id": "source-intake-001",
+  "corpus_digest": "sha256:31d09077c7f8ebeb1ef3e8c1b2b4ac040aa8a046ba3a2f95a0d3eb95e46fe134",
+  "parent_community_digest": "sha256:2e7172e9336b54eedddd7184e4f50274be099e9e878a235eaafb5a215058b17f",
+  "readers": [
+    {
+      "reader_id": "si-a-g5",
+      "mode": "conversational",
+      "background": {
+        "discipline": "chain-of-custody forensics",
+        "experience": "evidence intake across contested handoffs",
+        "attention_bias": "sequence, custody breaks, and admission decisions",
+        "counter_bias": "trust in familiar hosting interfaces"
+      },
+      "thesis": "Source sovereignty begins when Foundation admits immutable source through a quarantined, reconstructable custody chain instead of treating a provider branch as canonical.",
+      "observations": [
+        "Earlier runs separate execution, release, and recovery authority from providers.",
+        "The architecture requires offline export and second-operator recovery."
+      ],
+      "uncertainties": [
+        "Complete historical transcripts were unavailable.",
+        "The current repository has not yet passed a full offline bundle intake laboratory."
+      ]
+    },
+    {
+      "reader_id": "si-b-g5",
+      "mode": "semantic",
+      "background": {
+        "discipline": "version-control internals",
+        "experience": "Git object databases, repository repair, and migration",
+        "attention_bias": "object integrity, hidden refs, and transport assumptions",
+        "counter_bias": "signed commits as sufficient source trust"
+      },
+      "thesis": "Source intake accepts an object graph only after strict integrity checks, local signature verification, reference capture, quarantine scanning, and an immutable normalization manifest.",
+      "observations": [
+        "Git object validity and author identity are independent claims.",
+        "Submodules, external file pointers, hooks, and archives expand the intake attack surface."
+      ],
+      "uncertainties": [
+        "Git SHA-256 interoperability remains incomplete across some ecosystems.",
+        "Pattern scanning cannot prove absence of sensitive material."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "Provider verification badges never replace local verification.",
+      "Admission occurs before checkout, build, or hook execution.",
+      "Offline export and raw bundle custody preserve the exit path."
+    ],
+    "disagreements": [
+      "Reader A prioritizes custody and operator approvals; Reader B prioritizes object-graph completeness and parser attack surfaces."
+    ],
+    "omissions_detected": [
+      "No production intake gateway currently emits a canonical manifest.",
+      "No measured maximum bundle size or inspection throughput exists."
+    ],
+    "revisions_after_discussion": [
+      "Gate intake on both strict object verification and two-person admission.",
+      "Keep signatures as identity evidence while retaining separate content and policy checks."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 8,
+    "notes_added": [
+      {
+        "view_id": "v9",
+        "statement": "Treat every incoming repository as hostile data until Foundation verifies the complete object graph, signatures, references, and quarantine policy without executing repository-controlled code."
+      },
+      {
+        "view_id": "v10",
+        "statement": "Make the admitted source identity an immutable manifest and retained offline bundle, never a provider branch name or verification badge."
+      }
+    ],
+    "notes_challenged": [
+      {
+        "view_id": "v7",
+        "challenge": "Reproducible builds remain downstream; they cannot repair unverified or incompletely captured source intake."
+      }
+    ],
+    "community_digest": "sha256:9d0db283293951b748d7b149156a0d24b350b2ad1fbe91cc6e43230033bd3e0d"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Contains only abstract architectural conclusions, synthetic reader profiles, coverage boundaries, and non-identifying continuity findings. Excludes transcript excerpts, personal facts, health or animal details, credentials, locations, deleted text, and unique conversation fragments."
+  },
+  "receipt_digest": "sha256:3c07f7f94d1b18aff15a7b218eb63849ebbf5a2d6749d2637a2c19c6c5b21cd0"
+}
