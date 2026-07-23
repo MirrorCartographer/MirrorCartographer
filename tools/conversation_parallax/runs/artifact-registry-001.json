@@ -1,0 +1,91 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_generation": 6,
+  "run_id": "artifact-registry-001",
+  "corpus_digest": "sha256:b4bcb8cf03358c9afa4e059ab8261213703a6eeea327e48ea0008c4a249abe5d",
+  "parent_community_digest": "sha256:9d0db283293951b748d7b149156a0d24b350b2ad1fbe91cc6e43230033bd3e0d",
+  "readers": [
+    {
+      "reader_id": "ar-a-g6",
+      "mode": "conversational",
+      "background": {
+        "discipline": "warehouse operations and disaster logistics",
+        "experience": "maintaining custody and retrieval during facility outages",
+        "attention_bias": "handoffs, inventory loss, and recovery sequence",
+        "counter_bias": "assuming a catalog entry proves the item remains recoverable"
+      },
+      "thesis": "Registry sovereignty exists when Foundation can reconstruct every accepted artifact and its evidence graph after deleting the original registry.",
+      "observations": [
+        "Earlier runs separate release authority and artifact acceptance from provider status.",
+        "Backups count only after restoration reproduces usable behavior."
+      ],
+      "uncertainties": [
+        "Complete historical transcripts were unavailable.",
+        "No measured full-registry restore throughput exists for the current artifact set."
+      ]
+    },
+    {
+      "reader_id": "ar-b-g6",
+      "mode": "semantic",
+      "background": {
+        "discipline": "content-addressed storage engineering",
+        "experience": "Merkle graphs, OCI manifests, garbage collection, and replication",
+        "attention_bias": "digest integrity, reachability, and deletion semantics",
+        "counter_bias": "treating content addressing as protection against authorized deletion"
+      },
+      "thesis": "A registry remains a replaceable index over digest-addressed content only when Foundation preserves manifests, blobs, referrers, policy, and portable recovery archives independently.",
+      "observations": [
+        "OCI digests verify bytes retrieved from untrusted distribution paths.",
+        "Garbage collection can corrupt active uploads unless writes stop or the implementation provides safe online collection."
+      ],
+      "uncertainties": [
+        "Registry implementations differ in referrer, replication, and garbage-collection behavior.",
+        "Object-storage durability does not protect against credentialed deletion."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "Deploy and promote artifacts by digest, never mutable tags.",
+      "Keep release authorization outside the registry.",
+      "Prove registry exit through complete export, deletion, restore, and digest verification."
+    ],
+    "disagreements": [
+      "Reader A prioritizes operator recovery sequence and inventory completeness; Reader B prioritizes graph reachability, mutation rules, and garbage-collection safety."
+    ],
+    "omissions_detected": [
+      "No production registry export currently proves preservation of signatures, SBOMs, attestations, and other referrers.",
+      "No measured storage-growth, garbage-collection pause, or migration-bandwidth limit exists."
+    ],
+    "revisions_after_discussion": [
+      "Make OCI-layout archives plus an independent inventory ledger part of canonical artifact custody.",
+      "Run garbage collection only after a dry run, read-only transition, verified backup, and post-collection graph audit."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 10,
+    "notes_added": [
+      {
+        "view_id": "v11",
+        "statement": "Treat an OCI registry as a replaceable distribution index; retain canonical artifact identity, referrer graphs, and recovery archives under Foundation-controlled custody."
+      },
+      {
+        "view_id": "v12",
+        "statement": "Run destructive registry migration and garbage-collection laboratories before counting a registry as recoverable or sovereign."
+      }
+    ],
+    "notes_challenged": [
+      {
+        "view_id": "v2",
+        "challenge": "Release export remains incomplete unless it preserves the full OCI referrer graph, not only the primary image manifest."
+      }
+    ],
+    "community_digest": "sha256:3a68787574f131798f27efe5d5db6314179f7ac40fa263bc4d369e21cd62bb8f"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Contains only abstract architecture, synthetic reader profiles, coverage boundaries, and non-identifying continuity findings. Excludes private source material."
+  },
+  "receipt_digest": "sha256:5335a4169a483721bef1c615ea3944a9bcb4126781b349fe776a0178baf966f7"
+}
