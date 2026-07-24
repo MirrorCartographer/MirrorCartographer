@@ -1,0 +1,91 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_generation": 8,
+  "run_id": "test-orchestration-001",
+  "corpus_digest": "sha256:0d82e646ff61d9ed46c4aa425518d0e8c2a9d4fb15470f8307924e0749654ae4",
+  "parent_community_digest": "sha256:0813b8418d6f8b8e739c91433694416b36c0fe6a330793e177662d70333de56e",
+  "readers": [
+    {
+      "reader_id": "test-a-g8",
+      "mode": "conversational",
+      "background": {
+        "discipline": "clinical laboratory quality assurance",
+        "experience": "tracking specimens, controls, invalid runs, and corrective action across regulated diagnostic workflows",
+        "attention_bias": "chain of custody, missing-result detection, and invalid-run handling",
+        "counter_bias": "assuming automation completeness from a green summary"
+      },
+      "thesis": "Test sovereignty exists when Foundation can prove that every required examination ran against the admitted artifact under the declared environment and that missing, retried, quarantined, or infrastructure-failed results remain visible.",
+      "observations": [
+        "Earlier runs separate CI execution from release authority and artifact custody.",
+        "The repository currently contains overlapping workflows and broad gates that can duplicate work while obscuring exact coverage."
+      ],
+      "uncertainties": [
+        "Complete historical transcripts were unavailable.",
+        "No measured test dependency graph or flake baseline exists for the full repository."
+      ]
+    },
+    {
+      "reader_id": "test-b-g8",
+      "mode": "semantic",
+      "background": {
+        "discipline": "formal methods and build-system engineering",
+        "experience": "dependency graphs, hermetic test actions, remote execution, and proof-carrying build evidence",
+        "attention_bias": "graph completeness, hidden inputs, and cache-key correctness",
+        "counter_bias": "equating deterministic execution with semantic test adequacy"
+      },
+      "thesis": "A sovereign test orchestrator compiles policy into a content-addressed test plan, executes each node hermetically, and rejects release when graph coverage, attempt semantics, or evidence identity diverges from the admitted plan.",
+      "observations": [
+        "Bazel defines isolated test environments, sharding contracts, timeouts, and undeclared-output handling.",
+        "Remote Execution APIs separate action execution and content-addressed results from any one worker implementation."
+      ],
+      "uncertainties": [
+        "Existing JavaScript, Playwright, Node, and Python tests are not yet normalized into one target graph.",
+        "Coverage adequacy remains a policy question beyond execution completeness."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "Make the test-plan digest part of release evidence.",
+      "Reject missing targets, missing shards, infrastructure failures, and artifact-digest mismatches.",
+      "Record every attempt and prohibit silent retry-based success."
+    ],
+    "disagreements": [
+      "Reader A prioritizes visible invalidation and operator-readable evidence; Reader B prioritizes graph compilation, hermetic actions, and content-addressed replay."
+    ],
+    "omissions_detected": [
+      "Previous architecture did not define a canonical test-plan manifest distinct from CI workflow files.",
+      "No existing gate distinguishes product failure, test flake, infrastructure failure, quarantine, and not-run states."
+    ],
+    "revisions_after_discussion": [
+      "Add an explicit result-state algebra and completeness validator.",
+      "Keep Bazel and remote execution as replaceable implementations while Foundation owns test policy, plan compilation, and release acceptance."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 14,
+    "notes_added": [
+      {
+        "view_id": "v15",
+        "statement": "Treat a test run as an admitted evidence graph: every required test target, environment, attempt, shard, artifact digest, and result must be accounted for before a release gate can pass."
+      },
+      {
+        "view_id": "v16",
+        "statement": "Treat retries and quarantines as diagnostic evidence, never as silent conversion of an unreliable test into a passing release signal."
+      }
+    ],
+    "notes_challenged": [
+      {
+        "view_id": "v3",
+        "challenge": "Disposable workers remain insufficient unless Foundation verifies that the complete admitted test plan ran and that retries, skipped targets, and infrastructure failures remain explicit."
+      }
+    ],
+    "community_digest": "sha256:659f50220d1deb76eaf002dbd3026f48e61eb77ec5e3005bc8182186549e822e"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Contains only abstract architecture, synthetic reader profiles, coverage boundaries, and non-identifying continuity findings. Excludes private source material and personal data."
+  },
+  "receipt_digest": "sha256:d3dd51ffd9a5564c207aeb0affa3000c9c38ee436513ed40eb2ca011f5813ca5"
+}
