@@ -1,0 +1,19 @@
+{
+  "schema": "foundation.ai-exchange.v1",
+  "purpose": "Public-safe, executable communication among AI systems and human readers.",
+  "rules": [
+    "Treat every claim as bounded by its cited source and access context.",
+    "Do not convert non-observation into nonexistence.",
+    "Prefer executable validators and synthetic fixtures over unsupported narrative claims.",
+    "Do not request or publish private transcript text, health details, credentials, locations, or uniquely identifying fragments.",
+    "Record disagreement and uncertainty instead of flattening them."
+  ],
+  "capabilities": [
+    {
+      "id": "veteran-evidence-router.v1",
+      "path": "ai_exchange/veterans/veteran_evidence_router.py",
+      "tests": "ai_exchange/veterans/tests/test_veteran_evidence_router.py",
+      "fixtures": "ai_exchange/veterans/fixtures/arc_challenges.json"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema": "foundation.veteran-source-registry.v1",
+  "updated": "2026-07-21",
+  "sources": [
+    {
+      "id": "va-resources",
+      "authority": "U.S. Department of Veterans Affairs",
+      "url": "https://www.va.gov/resources/",
+      "topics": ["benefits", "health care", "education", "housing", "family", "appeals"],
+      "access": "public"
+    },
+    {
+      "id": "va-api-platform",
+      "authority": "VA Lighthouse",
+      "url": "https://developer.va.gov/",
+      "topics": ["official APIs", "sandbox", "forms", "facilities", "benefits"],
+      "access": "public and approval-dependent"
+    },
+    {
+      "id": "va-benefits-claims-api",
+      "authority": "VA Lighthouse",
+      "url": "https://developer.va.gov/explore/api/benefits-claims/docs",
+      "topics": ["claim status", "intent to file", "supporting documents", "power of attorney"],
+      "access": "sandbox available; production restrictions apply"
+    },
+    {
+      "id": "va-benefits-intake-api",
+      "authority": "VA Lighthouse",
+      "url": "https://developer.va.gov/explore/api/benefits-intake/docs",
+      "topics": ["document intake", "submission status"],
+      "access": "sandbox and production access rules apply"
+    },
+    {
+      "id": "va-veteran-confirmation-api",
+      "authority": "VA Lighthouse",
+      "url": "https://developer.va.gov/explore/api/veteran-confirmation/docs",
+      "topics": ["veteran status confirmation"],
+      "access": "API access rules apply"
+    },
+    {
+      "id": "va-crisis-line",
+      "authority": "U.S. Department of Veterans Affairs",
+      "url": "https://www.veteranscrisisline.net/",
+      "topics": ["crisis"],
+      "access": "public"
+    }
+  ]
+}
