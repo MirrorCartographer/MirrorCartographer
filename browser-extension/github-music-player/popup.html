@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MC Music</title><link rel="stylesheet" href="popup.css"></head>
+<body><main><div class="eyebrow">MIRROR CARTOGRAPHER</div><h1>GitHub radio</h1><p class="sub">Your soundtrack, across the repository maze.</p>
+<label for="url">Direct audio URL</label><input id="url" type="url" placeholder="https://…/track.mp3" autocomplete="url">
+<div class="buttons"><button id="play">▶ Play</button><button id="pause">Ⅱ Pause</button><button id="stop">■ Stop</button></div>
+<label for="volume">Volume <span id="volumeValue">70%</span></label><input id="volume" type="range" min="0" max="1" step="0.01" value="0.7">
+<div id="status" role="status">Ready when you are.</div><p class="hint">Use a direct link to an audio file you own or are allowed to play. Start playback with a click; browsers block unsolicited audio.</p>
+</main><script src="popup.js"></script></body></html>
