@@ -1,0 +1,14 @@
+{
+  "packet_type": "limitation",
+  "id": "synthetic-limit-001",
+  "created_at": "2026-10-13",
+  "privacy": "redacted",
+  "environment": "Synthetic local test; no live service or user data",
+  "intended_capability": "Validate a structured observation without uploading the source file to a hosted analysis interface",
+  "observed_failure": "No failure observed in this synthetic fixture; this packet demonstrates the reporting schema",
+  "category": "tool",
+  "tests": ["offline schema fixture only; no live connector tested"],
+  "workaround": "Run a standard-library validator locally or in repository CI",
+  "residual_risk": "Schema validation does not prove the reported failure or make publication safe",
+  "next_experiment": "Reproduce a real limitation with a minimal redacted fixture and record the exact result"
+}
