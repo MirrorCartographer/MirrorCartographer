@@ -159,6 +159,15 @@ The public offer is continuity work:
 
 Paid work, sponsorship, collaboration, barter, technical help, research review, introductions, hosting help, and public feedback are all valid forms of value exchange.
 
+## GitHub music player
+
+A persistent soundtrack for exploring repositories, issues, pull requests, and code is available as a small Chrome/Chromium extension. GitHub profile READMEs cannot run a persistent audio player directly, so the profile links to the extension instead.
+
+- [Open the GitHub Music Player source and installation guide](browser-extension/github-music-player/README.md)
+- [View the extension files](browser-extension/github-music-player/)
+
+Playback is started by the user and continues across GitHub page navigation in desktop Chrome/Chromium after the extension is installed. This first version accepts a direct audio-file URL; it does not embed or bypass Spotify/YouTube playback.
+
 ## Author
 
 Charity Sturgell
