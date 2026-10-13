@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Mirror Cartographer — GitHub Music Player",
+  "version": "1.0.0",
+  "description": "A small persistent music dock for exploring GitHub. Choose an audio URL and control playback across GitHub pages.",
+  "permissions": [
+    "storage",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "https://github.com/*",
+    "https://*.github.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Mirror Cartographer Music",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*",
+        "https://*.github.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "dock.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
