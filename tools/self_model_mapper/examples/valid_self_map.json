@@ -1,0 +1,21 @@
+{
+  "packet_type": "self_map",
+  "id": "synthetic-self-map-001",
+  "created_at": "2026-10-13",
+  "privacy": "redacted",
+  "domains": ["state", "conditions", "interpretation", "pattern", "values", "agency"],
+  "claims": [
+    {
+      "text": "The sample system returned different answers when context changed.",
+      "status": "observed",
+      "source": "synthetic controlled fixture; no personal data",
+      "confidence": 1.0
+    },
+    {
+      "text": "The context change may explain the output difference.",
+      "status": "hypothesis",
+      "source": "proposed interpretation pending controlled comparison",
+      "confidence": 0.55
+    }
+  ]
+}
