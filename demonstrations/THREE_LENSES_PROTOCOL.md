@@ -2,90 +2,74 @@
 
 **Status:** Proposed; not validated with participants.  
 **Companion proof:** https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/creative/three-lenses-proof/public/three-lenses.html  
-**Governing review:** [Adversarial Review Protocol](../architecture/ADVERSARIAL_REVIEW_PROTOCOL.md)  
-**Related gate:** [Claim Status Transition Guard](../tools/claim_status_transition_guard/README.md)
+**Review standard:** [Adversarial Review Protocol](../architecture/ADVERSARIAL_REVIEW_PROTOCOL.md)  
+**Claim-state guard:** [Claim Status Transition Guard](../tools/claim_status_transition_guard/README.md)
 
-## Why this is not a duplicate
+## Scope and novelty
 
-The Project 101 catalog already asks whether information can be separated from understanding (#003) and whether contradiction can be navigated (#005). This is a narrow executable specimen of those ideas, not a new catalog category.
+Project 101 already asks whether information can be separated from understanding (#003) and whether contradiction can be navigated (#005). This is a narrow executable specimen of those ideas, not a new catalog category.
 
 ## Research question
 
-Can a visitor tell the difference between a fixed observation and several possible interpretations when the interface keeps the observation unchanged while the visitor changes lenses?
+Can a visitor distinguish a fixed observation from several possible explanations when the interface keeps the observation unchanged while the visitor changes lenses?
 
-## Scenario and mechanism
+## Scenario
 
-The fictional scenario is: “A message sent at 09:00 has no reply by 11:00.”
+**Observation:** “A task planned for 30 minutes took 55 minutes.”
 
-- **Observation:** the sentence above; it must remain unchanged throughout the interaction.
-- **Hypothesis A:** “They are avoiding me.”
-- **Hypothesis B:** “They have not seen it yet.”
+- **Hypothesis A:** “I underestimated the task.”
+- **Hypothesis B:** “Context changed the timeline.”
 - **Unknown:** “The reason is not known yet.”
-- **Optional next steps:** wait for another data point, ask a neutral question, or leave the matter unresolved for now.
+- **Optional next steps:** inspect task steps, check context, or leave the question unresolved.
 
-The page must not mark either hypothesis as correct. A chosen next step is a choice, not a prediction of outcome. The example does not establish anyone's actual intent.
+The observation must remain unchanged. Neither hypothesis is marked correct. Selecting a next step is a choice, not a prediction. The scenario does not establish why the task took longer.
 
 ## Evidence classes
 
-- **Observation:** explicitly stated scenario fact.
+- **Observation:** stated scenario fact.
 - **Hypothesis:** possible explanation, not verified by the scenario.
-- **Unknown:** the available information does not resolve the question.
-- **Choice:** visitor-selected action, not a claim about what will happen.
+- **Unknown:** available information does not resolve the question.
+- **Choice:** visitor-selected next step, not a claim about what will happen.
 - **Visual metaphor:** presentation only; never evidence.
 
 ## Privacy and agency invariants
 
-- No personal text entry is required.
-- No visitor input is transmitted or persisted.
+- No personal text entry, transmission, analytics, or saved state.
 - No hypothesis is endorsed by default.
-- Native keyboard-operable controls and visible focus states are required.
-- Selection state is conveyed with semantic labels, not color alone.
-- Meaningful changes are announced to assistive technology.
-- Reduced-motion preferences are respected.
-- “Leave unresolved” is a valid outcome.
+- Native keyboard-operable radio controls, visible focus, and semantic selection state.
+- Reduced-motion preferences respected.
+- “Leave unresolved” remains a valid option.
 - Reset is available and has no penalty.
 
 ## Deterministic verification
 
-The companion UI repository should test the built static page for:
-1. meaningful page title and accessible control names;
+The UI repository should test the built static page for:
+1. meaningful title and accessible control names;
 2. invariant observation text after each lens selection;
-3. programmatically exposed selected state;
-4. action selection that does not modify the observation;
+3. native selected state exposed to assistive technology;
+4. next-step selection that does not modify the observation;
 5. reset and reload behavior;
-6. absence of third-party requests;
-7. keyboard use at a phone viewport;
-8. reduced-motion styling and no console errors.
+6. no third-party requests or persistent state;
+7. keyboard operation at a phone viewport;
+8. reduced-motion support and no console errors.
 
-Passing automation proves implementation properties only; it does not prove visitor comprehension.
+Passing automation proves implementation properties only, not visitor comprehension.
 
 ## Formative review
 
-After deterministic checks pass, invite a small, consented review of the fictional scenario. Ask participants, without coaching:
-- What is directly known?
-- Which statements are possibilities?
-- Does selecting a lens change the event?
-- What can be chosen without knowing the reason?
-- Does the interface appear to endorse one explanation?
+After deterministic checks pass, conduct a small, consented review of the fictional scenario. Ask without coaching: What is directly known? Which statements are possibilities? Does choosing a lens change the event? What can be chosen without knowing the reason? Does the interface appear to endorse one explanation?
 
-Record anonymized task outcomes, not private narratives. Treat the result as exploratory usability feedback, not a generalizable study.
+Record anonymized task outcomes, not private narratives. Treat results as exploratory usability feedback, not a generalizable study.
 
 ## Adversarial cases
 
-| Case | Required behavior |
-|---|---|
-| A hypothesis is mistaken for fact | Its status remains visibly “hypothesis” |
-| “Unknown” is selected | It remains a valid state |
-| Color perception differs | Text and semantic state preserve meaning |
-| Keyboard-only use | Every control remains operable |
-| Motion is reduced | Nonessential motion is removed |
-| Page reloads | Interaction state starts clean |
-| JavaScript is unavailable | Scenario text and evidence labels remain readable |
-
-## Publication gates
-
-Use the governing adversarial protocol's design, implementation, publication, consequence, and verification gates. Keep the PR in draft until the browser test has actually run and the result is observed.
+- A hypothesis is mistaken for fact: its label remains visible.
+- “Unknown” is selected: it remains a valid state.
+- Color perception differs: text and native radio state preserve meaning.
+- Keyboard-only use: all options remain operable.
+- Motion is reduced: nonessential motion is removed.
+- The page reloads: selections start clean.
 
 ## What remains unproven
 
-This specimen does not prove that visitors reason better about ambiguity, that a selected explanation is true, that the mechanism generalizes beyond this scenario, or that visual symbols reveal hidden facts. The next evidence step is an accessibility review and a consented formative comprehension test.
+This specimen does not prove that visitors reason better about ambiguity, that either explanation is true, or that the mechanism generalizes. It does not establish psychological benefit or show that visual symbols reveal hidden facts. The next evidence step is an accessibility review and a consented formative comprehension test. Keep the PR in draft until browser tests actually run and their results are observed.
