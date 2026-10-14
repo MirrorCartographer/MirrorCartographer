@@ -1,8 +1,8 @@
-# Synthetic fixtures
+# Verification fixtures and observations
 
-These fixtures contain no user records and do not demonstrate a real ChatGPT limitation. They test the packet schema only.
+- `valid_self_map.json` is synthetic and contains no personal records.
+- `platform_limit.json` records a redacted runtime observation from 2026-10-14: local shell attempts to resolve `github.com` failed, while the connected GitHub repository tool could read repository files. No credentials or private records are included.
 
-- `valid_self_map.json`: sample self-model claims with separate observation and hypothesis statuses.
-- `platform_limit.json`: sample limitation report structure.
+The GitHub Actions workflow validates both packet schemas and compiles the validator. This checks the record format; it does not independently reproduce the local DNS condition. The observation is scoped to the execution environment used for this investigation, and its underlying cause remains unknown.
 
-For a real report, preserve exact observed errors, environment details, tests run, and workaround outcomes. Never invent evidence to fill a field. Keep unknown values explicit and review privacy before publication.
+Future reports should preserve command outcomes, distinguish observed symptoms from root-cause hypotheses, and use synthetic or redacted data.
