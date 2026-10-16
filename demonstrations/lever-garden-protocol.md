@@ -55,7 +55,7 @@ From the UI repository root:
 
 `npx playwright test tests/lever-garden.spec.js --reporter=line`
 
-The committed test is intended to check the initial state; one-variable water and wind contrasts; bounded comparison language; rule reveal; reset; no external requests or storage writes; narrow viewport overflow; reduced-motion preference; and the settings group.
+The committed test covers the initial state; one-variable water and wind contrasts; bounded comparison language; rule reveal; reset; narrow viewport overflow; reduced-motion preference; and the settings group. Network and storage isolation are design constraints visible in the page source, not assertions in this browser test; add a separate automated gate if that property becomes a release requirement.
 
 The test has not been run in this authoring session. It must not be described as passing until the actual command or CI run confirms that.
 
