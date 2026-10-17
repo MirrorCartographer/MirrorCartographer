@@ -1,0 +1,76 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_id": "0001-owned-build-worker",
+  "run_generation": 1,
+  "corpus_digest": "sha256:bfb5d4d800f0fbbacc073be876bcb35c5527d66be2bad93b6b491d4538419a04",
+  "parent_community_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "readers": [
+    {
+      "reader_id": "conversational-0001",
+      "mode": "conversational",
+      "background": {
+        "discipline": "aviation maintenance control",
+        "experience": "shift handoffs, maintenance release records, and fault isolation",
+        "attention_bias": "sequence of authorization, execution, discrepancy, and return-to-service",
+        "counter_bias": "do not treat a successful command as proof that the whole system is airworthy"
+      },
+      "thesis": "The owned worker becomes credible when every build follows an explicit handoff from source identity through execution to a verifiable release receipt.",
+      "observations": [
+        "The user repeatedly converts missing hosted capability into a demand for owned execution rather than a policy exception.",
+        "The implementation preserves that sequence by binding job identity, command execution, output inventory, and receipt digest."
+      ],
+      "uncertainties": [
+        "Complete private conversation history and all prior private reader notes were unavailable to this run."
+      ]
+    },
+    {
+      "reader_id": "semantic-0001",
+      "mode": "semantic",
+      "background": {
+        "discipline": "high-performance computing operations",
+        "experience": "batch schedulers, reproducible scientific workloads, and hostile shared-cluster failure modes",
+        "attention_bias": "environment closure, resource boundaries, provenance, and nondeterministic state",
+        "counter_bias": "do not mistake environment normalization for kernel-level isolation"
+      },
+      "thesis": "The worker establishes a deterministic execution contract but remains non-sovereign against untrusted jobs until resource, network, filesystem, and kernel isolation become enforceable gates.",
+      "observations": [
+        "The artifact closes locale, time, and hosted-provider identity inputs while content-addressing declared outputs.",
+        "The threat boundary remains process-level because the prototype does not isolate network, CPU, memory, syscalls, or the host filesystem."
+      ],
+      "uncertainties": [
+        "Cross-platform mode normalization and containerized execution remain unverified."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "Build authority resides in the job contract, owned worker, and output receipt rather than the hosted runner brand."
+    ],
+    "disagreements": [
+      "The chronological reader treats authorization handoff as the primary risk; the semantic reader treats host isolation as the primary risk."
+    ],
+    "omissions_detected": [
+      "The prototype lacks signed job admission, network denial, resource quotas, and a remote worker enrollment protocol."
+    ],
+    "revisions_after_discussion": [
+      "The next worker version binds signed admission to an isolated runtime and preserves the current deterministic receipt format."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 2,
+    "notes_added": [
+      "A worker receipt links source identity, normalized execution, and output custody without granting authority to the machine provider.",
+      "Process-level determinism and host-level isolation remain separate capabilities and receive separate verification gates."
+    ],
+    "notes_challenged": [
+      "A normalized environment alone does not prove a clean or secure build boundary."
+    ],
+    "community_digest": "sha256:6289c6b268899a3a3e4d3898298bf65f113a95f3473135dd562434926b496f26"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Contains only technical abstractions, synthetic capability statements, repository facts, and explicit coverage limits; excludes private transcript text and personal facts."
+  },
+  "receipt_digest": "sha256:011d7e8a6ceed45d69267cc948231356e78e27e9f17a865b16ad1a55fd785dcf"
+}
