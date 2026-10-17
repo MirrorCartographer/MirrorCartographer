@@ -1,0 +1,61 @@
+{
+  "schema": "foundation.sovereignty-receipt.v1",
+  "receipt_id": "0001-synthetic-platform-receipt",
+  "capability": "whole-platform-recovery",
+  "authority": "foundation",
+  "ownership_boundary": {
+    "software_control_plane": [
+      "recovery graph",
+      "promotion policy",
+      "release identity",
+      "restore acceptance"
+    ],
+    "not_claimed": [
+      "server hardware",
+      "internet transit",
+      "domain registry",
+      "public certificate authorities"
+    ]
+  },
+  "external_dependencies": [
+    "replacement compute",
+    "public DNS delegation",
+    "public trust stores"
+  ],
+  "exit_paths": [
+    "provider-neutral exports",
+    "clean-room reconstruction",
+    "alternate compute and network operators"
+  ],
+  "adversarial_evidence": [
+    {
+      "claim": "provider loss does not erase recovery authority",
+      "test": "reconstruct without primary provider credentials",
+      "result": "pass"
+    },
+    {
+      "claim": "backup integrity is independently checked",
+      "test": "inject corrupt archive and require rejection",
+      "result": "pass"
+    },
+    {
+      "claim": "restored release remains reversible",
+      "test": "execute rollback after recovery",
+      "result": "pass"
+    }
+  ],
+  "remaining_risks": [
+    "replacement capacity may miss RTO",
+    "human key custody may fail"
+  ],
+  "next_falsifiable_step": "Reconstruct the complete platform on empty replacement machines and measure RTO/RPO.",
+  "continuity": {
+    "parent_receipt_digest": null,
+    "generation": 1,
+    "public_views_added": [
+      "Treat disaster recovery as compilation of a dependency graph into an ordered reconstruction plan.",
+      "Treat post-recovery rollback as proof that restored release authority remains reversible."
+    ]
+  },
+  "receipt_digest": "sha256:3b4d1870902e8726558cb88aee3bface3ee00704e68fd241848381b5c1a49404"
+}
