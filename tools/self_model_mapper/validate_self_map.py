@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -24,35 +25,55 @@ LIMITATION_CATEGORIES = {
     "ui", "context", "attachment", "tool", "connector_permission", "api",
     "runtime", "policy", "credentials", "rate_limit", "unknown"
 }
+PRIVACY_LEVELS = {"public", "redacted", "private"}
 PRIVATE_MARKERS = {
     "password", "access_token", "refresh_token", "private_key", "api_key",
     "secret_key", "authorization"
 }
 
 
+def _contains_private_marker(value: object) -> bool:
+    """Scan string keys and values without serializing untrusted numeric values."""
+    pending = [value]
+    while pending:
+        item = pending.pop()
+        if isinstance(item, str):
+            lowered = item.lower()
+            if any(marker in lowered for marker in PRIVATE_MARKERS):
+                return True
+        elif isinstance(item, dict):
+            pending.extend(item.keys())
+            pending.extend(item.values())
+        elif isinstance(item, list):
+            pending.extend(item)
+    return False
+
+
 def validate(packet: object, kind: str) -> list[str]:
-    errors: list[str] = []
+    """Return validation errors; do not raise for malformed JSON-compatible values."""
+    if kind not in {"self_map", "limitation"}:
+        return ["kind must be 'self_map' or 'limitation'"]
     if not isinstance(packet, dict):
         return ["top-level JSON value must be an object"]
 
+    errors: list[str] = []
     required = SELF_MAP_REQUIRED if kind == "self_map" else LIMITATION_REQUIRED
     missing = sorted(required - packet.keys())
     if missing:
         errors.append("missing required fields: " + ", ".join(missing))
 
-    expected_type = kind
-    if packet.get("packet_type") != expected_type:
-        errors.append(f"packet_type must be {expected_type!r}")
+    if packet.get("packet_type") != kind:
+        errors.append(f"packet_type must be {kind!r}")
 
     for field in ("id", "created_at"):
         if field in packet and not isinstance(packet[field], str):
             errors.append(f"{field} must be a string")
 
-    if packet.get("privacy") not in {"public", "redacted", "private"}:
+    privacy = packet.get("privacy")
+    if not isinstance(privacy, str) or privacy not in PRIVACY_LEVELS:
         errors.append("privacy must be public, redacted, or private")
 
-    serialized = json.dumps(packet, ensure_ascii=False).lower()
-    if any(marker in serialized for marker in PRIVATE_MARKERS):
+    if _contains_private_marker(packet):
         errors.append("possible credential field/value detected; inspect and remove secrets")
 
     if kind == "self_map":
@@ -64,31 +85,40 @@ def validate(packet: object, kind: str) -> list[str]:
                 if not isinstance(claim, dict):
                     errors.append(f"claims[{index}] must be an object")
                     continue
-                if not isinstance(claim.get("text"), str) or not claim["text"].strip():
+                claim_text = claim.get("text")
+                if not isinstance(claim_text, str) or not claim_text.strip():
                     errors.append(f"claims[{index}].text must be a non-empty string")
-                if claim.get("status") not in CLAIM_STATUSES:
+                status = claim.get("status")
+                if not isinstance(status, str) or status not in CLAIM_STATUSES:
                     errors.append(f"claims[{index}].status is not a recognized evidence status")
-                if not isinstance(claim.get("source"), str) or not claim["source"].strip():
+                source = claim.get("source")
+                if not isinstance(source, str) or not source.strip():
                     errors.append(f"claims[{index}].source must identify provenance")
                 if "confidence" in claim:
                     confidence = claim["confidence"]
-                    if not isinstance(confidence, (int, float)) or not 0 <= confidence <= 1:
-                        errors.append(f"claims[{index}].confidence must be between 0 and 1")
+                    is_bool = isinstance(confidence, bool)
+                    is_number = isinstance(confidence, (int, float)) and not is_bool
+                    is_nonfinite_float = isinstance(confidence, float) and not math.isfinite(confidence)
+                    if not is_number or is_nonfinite_float or not 0 <= confidence <= 1:
+                        errors.append(f"claims[{index}].confidence must be a finite number between 0 and 1")
+
         domains = packet.get("domains")
         if not isinstance(domains, list) or not domains:
             errors.append("domains must be a non-empty list")
-        elif any(domain not in DOMAINS for domain in domains):
+        elif any(not isinstance(domain, str) or domain not in DOMAINS for domain in domains):
             errors.append("domains contains an unsupported domain")
     else:
-        if packet.get("category") not in LIMITATION_CATEGORIES:
+        category = packet.get("category")
+        if not isinstance(category, str) or category not in LIMITATION_CATEGORIES:
             errors.append("category must be a recognized limitation category")
         for field in ("environment", "intended_capability", "observed_failure",
                       "workaround", "residual_risk", "next_experiment"):
-            if field in packet and (not isinstance(packet[field], str) or not packet[field].strip()):
+            value = packet.get(field)
+            if not isinstance(value, str) or not value.strip():
                 errors.append(f"{field} must be a non-empty string")
         if not isinstance(packet.get("tests"), list):
             errors.append("tests must be a list, including an empty list when no tests ran")
-        if packet.get("privacy") == "public" and packet.get("category") == "unknown":
+        if privacy == "public" and category == "unknown":
             errors.append("public unknown-category reports should be reviewed or redacted before publication")
 
     return errors
