@@ -18,6 +18,11 @@ SOURCE_AVAILABILITY = {"available", "unavailable", "not_collected", "redacted"}
 RELATION_TYPES = {"contradicts", "alternative_to", "qualifies", "supersedes", "depends_on"}
 
 
+def allowed(value: Any, choices: set[str]) -> bool:
+    """Membership guard for untrusted JSON values, including arrays/objects."""
+    return isinstance(value, str) and value in choices
+
+
 def validate_ledger(ledger: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     if not isinstance(ledger, dict):
@@ -26,7 +31,7 @@ def validate_ledger(ledger: dict[str, Any]) -> list[str]:
         errors.append("schema_version must be mc.claim-ledger.v1")
     if not isinstance(ledger.get("ledger_id"), str) or not ledger["ledger_id"].strip():
         errors.append("ledger_id must be a non-empty string")
-    if ledger.get("privacy_scope") not in {"synthetic_public", "reviewed_public", "private"}:
+    if not allowed(ledger.get("privacy_scope"), {"synthetic_public", "reviewed_public", "private"}):
         errors.append("privacy_scope must be synthetic_public, reviewed_public, or private")
     claims = ledger.get("claims")
     relations = ledger.get("relations")
@@ -51,10 +56,10 @@ def validate_ledger(ledger: dict[str, Any]) -> list[str]:
         for field in ("statement", "scope", "perspective", "revision_reason", "recorded_at"):
             if not isinstance(claim.get(field), str) or not claim[field].strip():
                 errors.append(f"{prefix}.{field} must be a non-empty string")
-        if claim.get("kind") not in KINDS:
+        if not allowed(claim.get("kind"), KINDS):
             errors.append(f"{prefix}.kind is invalid")
         status = claim.get("status")
-        if status not in STATUSES:
+        if not allowed(status, STATUSES):
             errors.append(f"{prefix}.status is invalid")
 
         temporal = claim.get("temporal")
@@ -63,7 +68,7 @@ def validate_ledger(ledger: dict[str, Any]) -> list[str]:
         else:
             state = temporal.get("state")
             start, end = temporal.get("valid_from"), temporal.get("valid_to")
-            if state not in TEMPORAL_STATES:
+            if not allowed(state, TEMPORAL_STATES):
                 errors.append(f"{prefix}.temporal.state is invalid")
             elif state == "unknown" and (start is not None or end is not None):
                 errors.append(f"{prefix}: unknown temporal scope cannot assert valid_from/valid_to")
@@ -92,9 +97,9 @@ def validate_ledger(ledger: dict[str, Any]) -> list[str]:
             availability = source.get("availability")
             if not isinstance(source_id, str) or not source_id.strip():
                 errors.append(f"{sp}.source_id must be a non-empty string")
-            if relation not in SOURCE_RELATIONS:
+            if not allowed(relation, SOURCE_RELATIONS):
                 errors.append(f"{sp}.relation is invalid")
-            if availability not in SOURCE_AVAILABILITY:
+            if not allowed(availability, SOURCE_AVAILABILITY):
                 errors.append(f"{sp}.availability is invalid")
             key = (str(source_id), str(relation))
             if key in seen_sources:
@@ -122,13 +127,13 @@ def validate_ledger(ledger: dict[str, Any]) -> list[str]:
             errors.append(f"{prefix} must be an object")
             continue
         source, target, kind = relation.get("from_claim"), relation.get("to_claim"), relation.get("type")
-        if source not in ids:
+        if not isinstance(source, str) or source not in ids:
             errors.append(f"{prefix}.from_claim references unknown claim {source!r}")
-        if target not in ids:
+        if not isinstance(target, str) or target not in ids:
             errors.append(f"{prefix}.to_claim references unknown claim {target!r}")
         if source == target:
             errors.append(f"{prefix} cannot relate a claim to itself")
-        if kind not in RELATION_TYPES:
+        if not allowed(kind, RELATION_TYPES):
             errors.append(f"{prefix}.type is invalid")
         if not isinstance(relation.get("rationale"), str) or not relation["rationale"].strip():
             errors.append(f"{prefix}.rationale must be a non-empty string")
@@ -136,7 +141,7 @@ def validate_ledger(ledger: dict[str, Any]) -> list[str]:
         if key in relation_keys:
             errors.append(f"{prefix}: duplicate relation")
         relation_keys.add(key)
-        if kind == "supersedes" and source in ids and target in ids:
+        if kind == "supersedes" and isinstance(source, str) and source in ids and isinstance(target, str) and target in ids:
             supersedes.setdefault(source, []).append(target)
 
     # Reject supersession cycles; cycles would make currentness ambiguous.
