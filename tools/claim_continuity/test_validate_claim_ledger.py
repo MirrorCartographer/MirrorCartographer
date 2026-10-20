@@ -64,6 +64,21 @@ class ClaimLedgerTests(unittest.TestCase):
         self.assertTrue(any("unknown claim" in e for e in errors))
         self.assertTrue(any("type is invalid" in e for e in errors))
 
+    def test_rejects_timezone_naive_recorded_time(self):
+        ledger = valid_ledger()
+        ledger["claims"][0]["recorded_at"] = "2026-01-01T00:01:00"
+        self.assertTrue(any("recorded_at must be ISO-8601 with an explicit timezone" in e for e in validate_ledger(ledger)))
+
+    def test_rejects_inverted_temporal_interval(self):
+        ledger = valid_ledger()
+        ledger["claims"][0]["temporal"]["valid_to"] = "2025-12-31T23:59:59Z"
+        self.assertTrue(any("valid_from must not be after valid_to" in e for e in validate_ledger(ledger)))
+
+    def test_superseded_status_requires_explicit_successor_relation(self):
+        ledger = valid_ledger()
+        ledger["claims"][0]["status"] = "superseded"
+        self.assertTrue(any("superseded status requires an incoming supersedes relation" in e for e in validate_ledger(ledger)))
+
     def test_rejects_dangling_relation(self):
         ledger = valid_ledger()
         ledger["relations"] = [{"from_claim": "c1", "to_claim": "missing", "type": "contradicts", "rationale": "synthetic"}]
@@ -74,6 +89,8 @@ class ClaimLedgerTests(unittest.TestCase):
         ledger["claims"].append(copy.deepcopy(ledger["claims"][0]))
         ledger["claims"][1]["claim_id"] = "c2"
         ledger["claims"][1]["statement"] = "A later synthetic claim."
+        ledger["claims"][0]["status"] = "superseded"
+        ledger["claims"][1]["status"] = "superseded"
         ledger["claims"][1]["relations"] = []
         ledger["relations"] = [
             {"from_claim": "c1", "to_claim": "c2", "type": "supersedes", "rationale": "newer version"},

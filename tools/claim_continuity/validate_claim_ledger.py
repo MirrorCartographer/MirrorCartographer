@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import sys
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -21,6 +22,19 @@ RELATION_TYPES = {"contradicts", "alternative_to", "qualifies", "supersedes", "d
 def allowed(value: Any, choices: set[str]) -> bool:
     """Membership guard for untrusted JSON values, including arrays/objects."""
     return isinstance(value, str) and value in choices
+
+
+def parse_instant(value: Any) -> datetime | None:
+    """Parse an ISO-8601 instant only when an explicit timezone is present."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None or parsed.utcoffset() is None:
+        return None
+    return parsed
 
 
 def validate_ledger(ledger: dict[str, Any]) -> list[str]:
@@ -56,6 +70,9 @@ def validate_ledger(ledger: dict[str, Any]) -> list[str]:
         for field in ("statement", "scope", "perspective", "revision_reason", "recorded_at"):
             if not isinstance(claim.get(field), str) or not claim[field].strip():
                 errors.append(f"{prefix}.{field} must be a non-empty string")
+        recorded_at = parse_instant(claim.get("recorded_at"))
+        if recorded_at is None:
+            errors.append(f"{prefix}.recorded_at must be ISO-8601 with an explicit timezone")
         if not allowed(claim.get("kind"), KINDS):
             errors.append(f"{prefix}.kind is invalid")
         status = claim.get("status")
@@ -74,12 +91,18 @@ def validate_ledger(ledger: dict[str, Any]) -> list[str]:
                 errors.append(f"{prefix}: unknown temporal scope cannot assert valid_from/valid_to")
             elif state == "anchored" and start is None and end is None:
                 errors.append(f"{prefix}: anchored temporal scope requires at least one boundary")
+            parsed_start = parse_instant(start) if start is not None else None
+            parsed_end = parse_instant(end) if end is not None else None
             if start is not None and not isinstance(start, str):
                 errors.append(f"{prefix}.temporal.valid_from must be a string or null")
+            elif start is not None and parsed_start is None:
+                errors.append(f"{prefix}.temporal.valid_from must be ISO-8601 with an explicit timezone")
             if end is not None and not isinstance(end, str):
                 errors.append(f"{prefix}.temporal.valid_to must be a string or null")
-            if isinstance(start, str) and isinstance(end, str) and start > end:
-                errors.append(f"{prefix}: valid_from must not sort after valid_to")
+            elif end is not None and parsed_end is None:
+                errors.append(f"{prefix}.temporal.valid_to must be ISO-8601 with an explicit timezone")
+            if parsed_start is not None and parsed_end is not None and parsed_start > parsed_end:
+                errors.append(f"{prefix}: valid_from must not be after valid_to")
 
         sources = claim.get("sources")
         if not isinstance(sources, list) or not sources:
@@ -120,6 +143,7 @@ def validate_ledger(ledger: dict[str, Any]) -> list[str]:
             errors.append(f"{prefix}: disputed status requires available supporting and refuting sources")
 
     relation_keys: set[tuple[str, str, str]] = set()
+    superseded_targets: set[str] = set()
     supersedes: dict[str, list[str]] = {}
     for i, relation in enumerate(relations):
         prefix = f"relations[{i}]"
@@ -143,6 +167,10 @@ def validate_ledger(ledger: dict[str, Any]) -> list[str]:
         relation_keys.add(key)
         if kind == "supersedes" and isinstance(source, str) and source in ids and isinstance(target, str) and target in ids:
             supersedes.setdefault(source, []).append(target)
+            superseded_targets.add(target)
+            target_claim = next((item for item in claims if isinstance(item, dict) and item.get("claim_id") == target), None)
+            if target_claim is not None and target_claim.get("status") != "superseded":
+                errors.append(f"{prefix}: supersedes target {target} must have status superseded")
 
     # Reject supersession cycles; cycles would make currentness ambiguous.
     visiting: set[str] = set()
@@ -160,6 +188,11 @@ def validate_ledger(ledger: dict[str, Any]) -> list[str]:
         visiting.remove(node)
         visited.add(node)
 
+    for claim in claims:
+        if isinstance(claim, dict) and claim.get("status") == "superseded":
+            claim_id = claim.get("claim_id")
+            if isinstance(claim_id, str) and claim_id in ids and claim_id not in superseded_targets:
+                errors.append(f"claim {claim_id}: superseded status requires an incoming supersedes relation")
     for claim_id in ids:
         visit(claim_id)
     return errors

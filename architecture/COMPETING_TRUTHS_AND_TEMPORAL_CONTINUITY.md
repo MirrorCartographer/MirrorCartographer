@@ -56,6 +56,8 @@ Record at least:
 - **valid time:** when the proposition applies in the represented world (possibly unknown or partial);
 - **recorded time:** when the system learned or stored the proposition.
 
+Known timestamps must use ISO 8601 with an explicit timezone. Do not silently interpret a timezone-naive value as UTC. A claim marked superseded must have an explicit incoming supersedes relation from a later version.
+
 A later record does not automatically make an earlier claim false. A claim may have been true for its validity interval and later become outdated. A correction to the record is not necessarily a change in the world.
 
 Never collapse these states:
