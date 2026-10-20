@@ -51,6 +51,19 @@ class ClaimLedgerTests(unittest.TestCase):
         ledger["claims"][0]["status"] = "disputed"
         self.assertTrue(any("disputed status requires" in e for e in validate_ledger(ledger)))
 
+    def test_malformed_json_types_do_not_crash_validator(self):
+        ledger = valid_ledger()
+        ledger["claims"][0]["status"] = ["supported"]
+        ledger["claims"][0]["kind"] = {"unexpected": "object"}
+        ledger["claims"][0]["temporal"]["state"] = []
+        ledger["relations"] = [{"from_claim": ["c1"], "to_claim": {"id": "c2"}, "type": [], "rationale": "synthetic"}]
+        errors = validate_ledger(ledger)
+        self.assertTrue(any("status is invalid" in e for e in errors))
+        self.assertTrue(any("kind is invalid" in e for e in errors))
+        self.assertTrue(any("temporal.state is invalid" in e for e in errors))
+        self.assertTrue(any("unknown claim" in e for e in errors))
+        self.assertTrue(any("type is invalid" in e for e in errors))
+
     def test_rejects_dangling_relation(self):
         ledger = valid_ledger()
         ledger["relations"] = [{"from_claim": "c1", "to_claim": "missing", "type": "contradicts", "rationale": "synthetic"}]
