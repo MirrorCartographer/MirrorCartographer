@@ -67,11 +67,28 @@ Next import should preserve, for each selected original:
 
 Do not replace missing originals with generated substitutes. Do not label AI-generated or code-generated artifacts as solely hand-made originals. Keep co-creation and authorship attribution honest.
 
+
+## Newly located private Library media (not yet published)
+
+A separate search of the ChatGPT File Library found a much larger creative-media collection than the repository tree alone showed: visual identity and sigil images; personal identity-map illustrations; numerous dashboard/map concepts; Mallow anime/rig/motion-engine videos and poster frames; multiple Mirror Cartographer films, animatics, and music-video cuts; Thunder-Door proof footage; actor-engine and haunted-romance experiments; and six-style animation comparisons. A private working inventory was created for the user at `/mnt/data/Charity_Sturgell_Art_Inventory_2026-10-20.md`.
+
+The Library inventory is intentionally not uploaded to the public repository because it contains private asset filenames and unreviewed media. The attempt to save a copy back into Library was blocked by the Library storage limit; the verified local inventory remains available as a download in the current conversation. The existence of these files means the prior public catalog's gap is specifically **not yet imported or linked**, not “no art exists.”
+
+High-priority private records identified include:
+- `Charity's map of identity and dreams.png` — image-search summary describes a detailed storybook/atlas-style personal identity illustration.
+- `MC_Visual_Identity.png` and `Core_Sigil_Mirror_Cartographer.png` — visual-identity / sigil records.
+- `Mallow_Three_Min_Anime_Animatic.mp4`, `Mallow_poster_frame.png`, `The_Slug_Who_Carried_The_Moon.mp4`, and Mallow rig/motion-engine demos.
+- `Best_Shot_Mirror_Cartographer_Film.mp4`, `Mirror_Short_Film.mp4`, and multiple music-video/animatic cuts, including a file marked `FULL_FIXED`.
+- `thunder_door_proof_clip_v01.mp4`, plus actor-engine and haunted-romance video/poster experiments.
+- `What_Survives_Album_Booklet.pdf` — a literary/music-artifact lead.
+
+These filenames are discovery leads, not verified final titles or quality judgments. Version families must be compared before declaring a canonical cut. Private media must not be copied into public GitHub until the user selects the assets for release.
+
 ## Coverage status
 
 - **Repository-backed interactive works:** several source records connected.
 - **Story/animation development:** Mallow screenplay and animatic-engine note connected.
 - **Gallery UI:** linked to source records and catalog JSON.
 - **Conversation archive:** indexed by title and category, but not a substitute for the original media.
-- **Charity's original image/video collection:** not yet connected at individual-file level.
+- **Charity's original image/video collection:** multiple private Library assets now located; individual assets are inventoried privately but not yet imported into the public catalog.
 - **Completeness:** unknown. No universal or complete archive claim is made.
