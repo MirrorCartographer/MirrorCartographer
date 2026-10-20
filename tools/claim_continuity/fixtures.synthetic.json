@@ -1,0 +1,52 @@
+{
+  "schema_version": "mc.claim-ledger.v1",
+  "ledger_id": "synthetic-competing-interpretations-001",
+  "privacy_scope": "synthetic_public",
+  "claims": [
+    {
+      "claim_id": "c-current-a",
+      "statement": "The preview failed because the hosted runner did not reach user steps.",
+      "kind": "interpretation",
+      "status": "supported",
+      "scope": "workflow run synthetic-42",
+      "temporal": {"state": "anchored", "valid_from": "2026-10-01T10:00:00Z", "valid_to": "2026-10-01T10:05:00Z"},
+      "recorded_at": "2026-10-01T10:06:00Z",
+      "perspective": "reader-a: execution-boundary interpretation",
+      "revision_reason": "Initial interpretation from the synthetic run receipt.",
+      "sources": [
+        {"source_id": "s-job-steps", "relation": "supports", "availability": "available", "locator": "synthetic://run-42/job-steps"}
+      ]
+    },
+    {
+      "claim_id": "c-current-b",
+      "statement": "The preview failure was caused by repository policy before user steps.",
+      "kind": "hypothesis",
+      "status": "unknown",
+      "scope": "workflow run synthetic-42",
+      "temporal": {"state": "unknown", "valid_from": null, "valid_to": null},
+      "recorded_at": "2026-10-01T10:07:00Z",
+      "perspective": "reader-b: policy hypothesis",
+      "revision_reason": "Policy evidence has not been collected; do not promote the hypothesis.",
+      "sources": [
+        {"source_id": "s-policy-audit", "relation": "context_only", "availability": "not_collected"}
+      ]
+    },
+    {
+      "claim_id": "c-prior",
+      "statement": "A local validator passed in an isolated synthetic fixture.",
+      "kind": "observation",
+      "status": "supported",
+      "scope": "local synthetic test only",
+      "temporal": {"state": "anchored", "valid_from": "2026-09-30T12:00:00Z", "valid_to": "2026-09-30T12:00:00Z"},
+      "recorded_at": "2026-09-30T12:01:00Z",
+      "perspective": "test receipt",
+      "revision_reason": "Preserved as a bounded observation; it does not imply hosted workflow success.",
+      "sources": [
+        {"source_id": "s-local-test", "relation": "supports", "availability": "available", "locator": "synthetic://local-test/receipt"}
+      ]
+    }
+  ],
+  "relations": [
+    {"from_claim": "c-current-a", "to_claim": "c-current-b", "type": "alternative_to", "rationale": "Both describe possible explanations, but only the execution-boundary claim has direct synthetic run evidence."}
+  ]
+}
