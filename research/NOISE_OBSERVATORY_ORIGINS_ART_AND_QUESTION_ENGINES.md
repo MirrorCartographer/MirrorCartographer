@@ -161,6 +161,34 @@ For each item, record:
 
 **Collection strategy:** begin with museum collection APIs and catalogues, archaeology databases, manuscript repositories, image archives, and scholarly catalogues. Deduplicate by object identity rather than caption. Separate the artwork itself from its modern reproduction and from AI-generated images. Store rights metadata and link to the authoritative holding institution. Report which collections and languages were searched and which remain unsearched; never claim universal coverage from a keyword search.
 
+
+## First verified artwork seed set
+
+This is a **starter set**, not “all art.” Each link points to a holding institution's collection or research page; object records can change and should be rechecked before reuse.
+
+- Michelangelo, *The Creation of Adam* (Sistine Chapel ceiling): contextualized by the Vatican's discussion of the fresco and its theological interpretation: https://www.vatican.va/content/john-paul-ii/en/messages/urbi/documents/hf_jp-ii_mes_20001225_urbi.html
+- Auguste Rodin, *The Hand of God* (model before 1895; carved ca. 1907), The Metropolitan Museum of Art: https://www.metmuseum.org/art/collection/search/191046 — Adam and Eve are cradled in the sculptor/God's hand; the work explicitly blurs divine creation and artistic making.
+- Giuliano di Piero di Simone Bugiardini, *Adam; Eve* (ca. 1520), The Metropolitan Museum of Art: https://www.metmuseum.org/art/collection/search/435823 — the serpent's human-like head is a specific iconographic choice, not a universal feature of the story.
+- *Adam and Eve in the Garden of Eden with Virtues* (British, first half 17th century), The Metropolitan Museum of Art: https://www.metmuseum.org/art/collection/search/228988 — an embroidered textile, useful for preventing “art” from collapsing into paintings alone.
+- *The Creation of Eve* (about 1450–1475; illumination added about 1515–1520), J. Paul Getty Museum: https://www.getty.edu/art/collection/object/1KA7CB — manuscript illumination linked to Boccaccio's *Famous Women* tradition.
+- Jan Gossaert, *Adam and Eve* (ca. 1507–1508), Museo Nacional Thyssen-Bornemisza: https://www.museothyssen.org/en/collection/artists/gossaert-jan/adam-and-eve — the museum documents influence from Dürer's print and later changes to the composition.
+- Hans Baldung Grien, *Adam and Eve* (1531), Museo Nacional Thyssen-Bornemisza: https://www.museothyssen.org/en/collection/artists/baldung-grien-hans/adam-and-eve — useful for studying the Fall, bodily presentation, and gendered visual rhetoric.
+- *Adam and Eve* (1460/1480), National Gallery of Art: https://www.nga.gov/artworks/3894-adam-and-eve — a manuscript/painting record centered on the tree and serpent.
+- *The Creation of Eve* (Renaissance maiolica bowl), Fitzwilliam Museum: https://data.fitzmuseum.cam.ac.uk/id/object/73165 — ceramic medium with an inscription and a full narrative scene.
+- Albrecht Dürer, *Adam and Eve (The Fall of Man)* (1504), Michael C. Carlos Museum: https://digitalprojects.carlos.emory.edu/items/show/8879 — engraving whose idealized bodies draw on classical sculpture.
+- *The Creation of Eve* (Fra Bartolomeo, ca. 1510), Seattle Art Museum: https://samblog.seattleartmuseum.org/2022/08/bartolomeo-creation-of-eve/ — the museum discusses how its visual treatment reflects Renaissance ideas about women and art.
+- David Teniers the Younger, *Adam and Eve in Paradise*, The Metropolitan Museum of Art: https://www.metmuseum.org/art/collection/search/459069 — a further collection lead for expanding the corpus.
+- Daniel Mauch, *Adam and Eve* (pair of statuettes, ca. 1535), Cleveland Museum of Art: https://www.clevelandart.org/print/art/1946.429 — paired carved figures, expanding beyond two-dimensional imagery.
+- Jost Amman, *Adam and Eve in the Garden of Eden* (1579), The Metropolitan Museum of Art: https://www.metmuseum.org/art/collection/search/385504 — an engraving with a catalogued object record.
+
+### Initial art-search observations
+
+1. The story is not only represented in paintings: manuscripts, prints, textiles, ceramics, and sculpture all carry it.
+2. “Creation of Eve” and “Fall of Man” are often catalogued as separate moments; searching only “Adam and Eve” misses works.
+3. An artwork may combine several source traditions (text, earlier artwork, workshop conventions, patronage). A similarity between two images may reflect direct artistic influence rather than an independent historical memory.
+4. The same iconographic element can change meaning across time. Record the institution's interpretation and competing scholarship separately.
+5. The current seed set is strongly weighted toward European Christian collections and must not be presented as a global survey. The next expansion should deliberately add Jewish, Islamic, African, Asian, Indigenous, and other traditions where the specific question and sources justify inclusion, while avoiding the false premise that every culture has an Adam-and-Eve equivalent.
+
 ## The hardest open question
 
 If DNA, texts, oral traditions, archaeology, and art preserve different partial histories of humanity, what principled method lets us connect them without forcing them into one story—or fragmenting them so completely that real cross-domain relationships become invisible?
