@@ -34,6 +34,17 @@ Run:
 
 This layer prevents MC packets from entering longitudinal memory, public research maps, question-prep, or discovery routes when provenance, privacy, missingness, actionability, temporality, controls, or operational variables are collapsed.
 
+## Competing truths and temporal continuity
+
+The proposed continuity protocol preserves competing interpretations as versioned claims with explicit scope, source availability, valid time, recorded time, and revision history. Its dependency-free validator and synthetic fixtures are under tools/claim_continuity/.
+
+- [Competing Truths and Temporal Continuity Protocol](architecture/COMPETING_TRUTHS_AND_TEMPORAL_CONTINUITY.md)
+- [Claim-ledger validator](tools/claim_continuity/validate_claim_ledger.py)
+- [Synthetic fixture](tools/claim_continuity/fixtures.synthetic.json)
+- [Validator tests](tools/claim_continuity/test_validate_claim_ledger.py)
+
+This is a proposal and structural validation only; it does not establish factual truth or prove production integration.
+
 ## Conversation Parallax
 
 The public repository now contains a concrete proof layer for plural conversation reading:
