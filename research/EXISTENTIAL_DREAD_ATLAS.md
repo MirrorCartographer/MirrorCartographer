@@ -429,3 +429,8 @@ This question connects the risks without pretending they share a single hidden c
 The most useful response to existential dread is neither reassurance nor certainty. It is to identify which parts are evidenced, which remain unknown, which decisions are irreversible, and which interventions improve the odds across several plausible futures.
 
 **Bottom line:** the frightening possibility is not that every dark theory is true. It is that humanity can create systems powerful enough to alter its future while remaining fallible at observing, coordinating, and correcting those systems. The evidence for specific hazards varies; the remedy is to make claims testable, power contestable, and recovery demonstrable.
+
+
+## Companion investigation: the Noise Observatory
+
+The origin-and-art research branch of this atlas is maintained separately so it can develop its own methods and not be subordinated to an existential-risk framing. See [The Noise Observatory: Human Origins, Creation Narratives, and Ten Question Engines](NOISE_OBSERVATORY_ORIGINS_ART_AND_QUESTION_ENGINES.md). It distinguishes genetic lineage from whole-population ancestry, sacred narrative from genetic propositions, art from eyewitness evidence, and an unsearched archive from a negative finding. Its “noise” protocol requires preserving the original observation and the rationale for classification rather than deleting mismatches.
