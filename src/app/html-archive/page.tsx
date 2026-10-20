@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ChangeEvent, DragEvent, useEffect, useMemo, useRef, useState } from "react";
 
 type StoredArtifact = {
@@ -19,7 +20,6 @@ type LocalArtifact = Omit<StoredArtifact, "path" | "source"> & {
   source: "local";
 };
 
-type DisplayArtifact = StoredArtifact | LocalArtifact;
 
 type ArchivePayload = {
   configured: boolean;
@@ -216,9 +216,9 @@ export default function HtmlArchivePage() {
                 Drop an HTML file to preview it immediately. When public storage is configured, the same file is committed into the archive and becomes selectable from this page. Archived files stay inert until selected.
               </p>
             </div>
-            <a className="rounded-full border border-[#745a7d]/60 px-4 py-2 text-sm text-[#eadcf3] hover:border-[#d7b7ff] hover:bg-[#261c2c]" href="/">
+            <Link className="rounded-full border border-[#745a7d]/60 px-4 py-2 text-sm text-[#eadcf3] hover:border-[#d7b7ff] hover:bg-[#261c2c]" href="/">
               Reflection map
-            </a>
+            </Link>
           </div>
         </header>
 
