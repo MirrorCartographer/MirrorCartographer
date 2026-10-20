@@ -1,0 +1,32 @@
+name: Claim continuity validation
+
+on:
+  pull_request:
+    paths:
+      - "architecture/COMPETING_TRUTHS_AND_TEMPORAL_CONTINUITY.md"
+      - "tools/claim_continuity/**"
+      - ".github/workflows/claim-continuity-validation.yml"
+  push:
+    branches:
+      - main
+      - assistant/self-model-evidence-map-v1
+    paths:
+      - "architecture/COMPETING_TRUTHS_AND_TEMPORAL_CONTINUITY.md"
+      - "tools/claim_continuity/**"
+      - ".github/workflows/claim-continuity-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-claim-continuity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run synthetic claim-ledger tests
+        run: python -m unittest discover -s tools/claim_continuity -p "test_*.py"
+      - name: Validate synthetic claim ledger
+        run: python tools/claim_continuity/validate_claim_ledger.py

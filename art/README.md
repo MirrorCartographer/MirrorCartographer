@@ -26,3 +26,9 @@ Every piece should either:
 - reveal a relationship,
 - invite exploration,
 - or make the project feel larger than a document.
+
+
+## Current artwork index
+
+- [Charity Sturgell Artwork Record Map](./CHARITY_STURGELL_ARTWORK_RECORDS.md) — source-backed works, cross-repository links, conversation archive leads, and missing-originals status.
+- [Public gallery and catalog](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/public/artists.html) — source-linked creative artifacts, not a claim of complete recovery.
