@@ -1,0 +1,32 @@
+name: Self-model map validation
+
+on:
+  push:
+    paths:
+      - "tools/self_model_mapper/**"
+      - ".github/workflows/self-model-map-validation.yml"
+  pull_request:
+    paths:
+      - "tools/self_model_mapper/**"
+      - ".github/workflows/self-model-map-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-synthetic-packets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Validate self-map fixture
+        run: python tools/self_model_mapper/validate_self_map.py tools/self_model_mapper/examples/valid_self_map.json
+      - name: Validate limitation fixture
+        run: python tools/self_model_mapper/validate_self_map.py tools/self_model_mapper/examples/platform_limit.json --kind limitation
+      - name: Run validator regression tests
+        run: python -m unittest discover -s tools/self_model_mapper/tests -v
+      - name: Compile validator and tests
+        run: python -m py_compile tools/self_model_mapper/validate_self_map.py tools/self_model_mapper/tests/test_validate_self_map.py
