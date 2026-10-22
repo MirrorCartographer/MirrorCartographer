@@ -60,6 +60,8 @@ The first register is a bounded starting sample, not a systematic review. It con
 - *Multilevel Mechanisms of Cancer Drug Resistance* (2024 review). https://pmc.ncbi.nlm.nih.gov/articles/PMC11594576/
 - *Chemoresistance and the tumor microenvironment: the critical role of cell–cell communication* (2024 review). https://link.springer.com/article/10.1186/s12964-024-01857-7
 - Gray, Egelfeld & Vashi, *Access to and accessibility of care for rural veterans with disabilities* (2023). https://doi.org/10.1016/j.dhjo.2023.101515
+- U.S. Department of Veterans Affairs, *Eligibility for VA health care* (accessed 2026-10-22). https://www.va.gov/health-care/eligibility/
+- U.S. Department of Veterans Affairs, *Eligibility for community care outside VA* (accessed 2026-10-22). https://www.va.gov/resources/eligibility-for-community-care-outside-va/
 - *It's Like Finding Your Way Through the Labyrinth*: qualitative study of veterans' healthcare access (2024). https://pmc.ncbi.nlm.nih.gov/articles/PMC10973295/
 - *A rapid review of the barriers and facilitators of mental health service access among Veterans and their families* (2024). https://pmc.ncbi.nlm.nih.gov/articles/PMC11298457/
 - Ilea & Ilea, *Administrative burden for patients in U.S. health care settings* (2024). https://doi.org/10.1016/j.socscimed.2024.116686
