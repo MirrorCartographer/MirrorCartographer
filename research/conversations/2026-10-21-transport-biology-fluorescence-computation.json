@@ -1,0 +1,408 @@
+{
+  "record_id": "mc-conversation-2026-10-21-transport-biology-fluorescence-computation",
+  "title": "Transport, dengue-cell survival, fluorescence, computation, community, and dimensional mapping",
+  "date": "2026-10-21",
+  "project": "Mirror Cartographer",
+  "markdown_path": "research/conversations/2026-10-21-transport-biology-fluorescence-computation.md",
+  "preservation_note": "Companion structured index. The Markdown record contains the fuller conversation summary, user prompts, evidence distinctions, limitations, and next steps. Some earlier assistant turns were available only as contextual summaries, not verbatim transcript.",
+  "status": "working_research_map",
+  "evidence_status_definitions": {
+    "user_input": "Question, wording, or framing supplied by the user.",
+    "established": "Broadly established scientific fact or method; still scope-limited.",
+    "reported": "Result reported in a specific identified study.",
+    "inferred": "Interpretation based on evidence but not directly measured.",
+    "proposed": "Hypothesis or planned research direction.",
+    "analogy": "Structural comparison, not evidence of identical mechanism.",
+    "unresolved": "Source identity or mechanism not yet verified.",
+    "unsupported": "Claim not warranted by evidence currently logged."
+  },
+  "sources": [
+    {
+      "id": "S1",
+      "type": "primary_research_article",
+      "authors": [
+        "Tien-Huang Chen",
+        "Yin-Ping Lo",
+        "Chao-Fu Yang",
+        "Wei-June Chen"
+      ],
+      "year": 2012,
+      "title": "Additive Protection by Antioxidant and Apoptosis-Inhibiting Effects on Mosquito Cells with Dengue 2 Virus Infection",
+      "journal": "PLOS Neglected Tropical Diseases",
+      "volume": "6",
+      "issue": "4",
+      "article_id": "e1613",
+      "doi": "10.1371/journal.pntd.0001613",
+      "url": "https://doi.org/10.1371/journal.pntd.0001613",
+      "alternate_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/22530071/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3328429/"
+      ],
+      "supports": "GST-related antioxidant defense and IAP-associated antiapoptotic protection in dengue-2-infected Aedes albopictus-derived C6/36 cells; double knockdown increased apoptosis more than either single knockdown.",
+      "limitations": "Cell-line findings do not automatically generalize to all mosquito species, arboviruses, intact mosquitoes, or natural vector competence.",
+      "status": "identified_primary_source"
+    },
+    {
+      "id": "S2",
+      "type": "primary_research_article",
+      "year": 2011,
+      "title": "Antioxidant defense is one of the mechanisms by which mosquito cells survive dengue 2 viral infection",
+      "journal": "Virology",
+      "volume": "410",
+      "issue": "2",
+      "pages": "410-417",
+      "doi": "10.1016/j.virol.2010.12.013",
+      "url": "https://doi.org/10.1016/j.virol.2010.12.013",
+      "alternate_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/21216424/"
+      ],
+      "supports": "Prior study of antioxidant defense in dengue-infected mosquito cells.",
+      "status": "identified_primary_source"
+    },
+    {
+      "id": "S3",
+      "type": "user_supplied_paper_fragment",
+      "title_fragment": "Inhibition by [Tc]SESTAMIBI of I'-MIIAP binding to Pgp. (Al Urne I. V79, and biomedical",
+      "normalized_terms_to_verify": [
+        "technetium-99m sestamibi",
+        "iodoaryl azidoprazosin",
+        "[125I]IAAP",
+        "P-glycoprotein",
+        "P-gp",
+        "ABCB1",
+        "V79 cells"
+      ],
+      "related_background_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6161255/",
+      "status": "exact_primary_source_unresolved",
+      "caution": "Do not silently normalize MIAP to IAAP as a confirmed correction; verify title, authors, assay type, and cell model."
+    },
+    {
+      "id": "S4",
+      "type": "physiology_background",
+      "subject": "Cholera toxin, cAMP, CFTR-mediated chloride secretion, and water loss",
+      "status": "established_but_source_url_not_preserved_in_session",
+      "next_step": "Attach an authoritative primary review or textbook source before external publication."
+    },
+    {
+      "id": "S5",
+      "type": "methods_background",
+      "subject": "Fluorescence microscopy, fluorescence lifetime imaging microscopy (FLIM), time-resolved and multi-signal imaging",
+      "status": "established_methods_but_primary_references_to_recover",
+      "caution": "Signal intensity/lifetime is not a unique readout of health, activity, infection, or causality."
+    },
+    {
+      "id": "S6",
+      "type": "research_field",
+      "subject": "Biochemical information processing, molecular competition networks, dynamic graph modeling, machine learning",
+      "status": "established_field_general_claims_task_specific",
+      "caution": "Prediction is not causation; validate with controls, interventions, and independent data."
+    },
+    {
+      "id": "S7",
+      "type": "conceptual_domain",
+      "subject": "AI, religion, community interpretation, collective intelligence",
+      "status": "exploratory_cross_disciplinary",
+      "caution": "Not a biological mechanism; do not infer religious truth or AI consciousness from molecular or imaging evidence."
+    },
+    {
+      "id": "S8",
+      "type": "conversation_context",
+      "subject": "Song lyrics, transport as social infrastructure, automation, movement and access",
+      "status": "conceptual_antecedent",
+      "caution": "Analogy only, not biomedical evidence."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cholera_toxin",
+      "label": "Cholera toxin",
+      "type": "biological_mechanism",
+      "status": "established",
+      "source_ids": [
+        "S4"
+      ]
+    },
+    {
+      "id": "intestinal_camp_cftr",
+      "label": "cAMP / CFTR-mediated intestinal secretion",
+      "type": "biological_process",
+      "status": "established",
+      "source_ids": [
+        "S4"
+      ]
+    },
+    {
+      "id": "pgp",
+      "label": "P-glycoprotein / ABCB1",
+      "type": "membrane_transporter",
+      "status": "established",
+      "source_ids": [
+        "S3"
+      ]
+    },
+    {
+      "id": "iaap_probe",
+      "label": "Iodoaryl azidoprazosin probe ([125I]IAAP; spelling in user's title unresolved)",
+      "type": "assay_probe",
+      "status": "unresolved_source_identity",
+      "source_ids": [
+        "S3"
+      ]
+    },
+    {
+      "id": "sestamibi",
+      "label": "Technetium-99m sestamibi",
+      "type": "radiotracer",
+      "status": "established_background",
+      "source_ids": [
+        "S3"
+      ]
+    },
+    {
+      "id": "gst_antioxidant",
+      "label": "GST-related antioxidant defense",
+      "type": "cellular_defense",
+      "status": "reported",
+      "source_ids": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "id": "iap_apoptosis",
+      "label": "Inhibitor of apoptosis protein (IAP)",
+      "type": "cellular_regulator",
+      "status": "reported",
+      "source_ids": [
+        "S1"
+      ]
+    },
+    {
+      "id": "dengue_c636",
+      "label": "Dengue-2-infected Aedes albopictus-derived C6/36 cells",
+      "type": "experimental_model",
+      "status": "reported",
+      "source_ids": [
+        "S1"
+      ]
+    },
+    {
+      "id": "fluorescence",
+      "label": "Fluorescence measurements",
+      "type": "measurement_method",
+      "status": "established",
+      "source_ids": [
+        "S5"
+      ]
+    },
+    {
+      "id": "flim",
+      "label": "Fluorescence-lifetime imaging microscopy",
+      "type": "measurement_method",
+      "status": "established",
+      "source_ids": [
+        "S5"
+      ]
+    },
+    {
+      "id": "dynamic_multisignal",
+      "label": "Time-resolved multi-signal imaging",
+      "type": "measurement_architecture",
+      "status": "established_method_hypothesis_for_application",
+      "source_ids": [
+        "S5"
+      ]
+    },
+    {
+      "id": "biochemical_computation",
+      "label": "Biochemical information processing",
+      "type": "research_field",
+      "status": "established_field",
+      "source_ids": [
+        "S6"
+      ]
+    },
+    {
+      "id": "ai_models",
+      "label": "AI models for dynamic biological data",
+      "type": "computational_method",
+      "status": "task_dependent",
+      "source_ids": [
+        "S6"
+      ]
+    },
+    {
+      "id": "human_community",
+      "label": "Human community knowledge and coordination",
+      "type": "social_system",
+      "status": "analogy_or_empirical_social_science_question",
+      "source_ids": [
+        "S7"
+      ]
+    },
+    {
+      "id": "religion_interpretation",
+      "label": "Religious interpretation and practice",
+      "type": "cultural_system",
+      "status": "distinct_domain",
+      "source_ids": [
+        "S7"
+      ]
+    },
+    {
+      "id": "transportation_context",
+      "label": "Transportation as social infrastructure",
+      "type": "conversation_context",
+      "status": "analogy_only",
+      "source_ids": [
+        "S8"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "cholera_toxin",
+      "relation": "alters",
+      "to": "intestinal_camp_cftr",
+      "status": "established",
+      "source_ids": [
+        "S4"
+      ]
+    },
+    {
+      "from": "pgp",
+      "relation": "transports_or_exports",
+      "to": "certain_compounds",
+      "status": "established",
+      "source_ids": [
+        "S3"
+      ]
+    },
+    {
+      "from": "iaap_probe",
+      "relation": "probes_or_photolabels",
+      "to": "pgp",
+      "status": "assay_specific_source_unresolved",
+      "source_ids": [
+        "S3"
+      ]
+    },
+    {
+      "from": "sestamibi",
+      "relation": "substrate_or_interacting_compound_for",
+      "to": "efflux_transporters",
+      "status": "established_background_assay_specific",
+      "source_ids": [
+        "S3"
+      ]
+    },
+    {
+      "from": "gst_antioxidant",
+      "relation": "helps_mitigate",
+      "to": "oxidative_stress_in_dengue_infected_cells",
+      "status": "reported",
+      "source_ids": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "from": "iap_apoptosis",
+      "relation": "inhibits_aspects_of",
+      "to": "apoptosis_caspase_pathways",
+      "status": "established_biology_and_reported_context",
+      "source_ids": [
+        "S1"
+      ]
+    },
+    {
+      "from": "gst_antioxidant",
+      "relation": "and_iap_knockdown_increases",
+      "to": "apoptosis_in_C6_36_cells",
+      "status": "reported",
+      "source_ids": [
+        "S1"
+      ]
+    },
+    {
+      "from": "fluorescence",
+      "relation": "measures",
+      "to": "labeled_structures_or_selected_processes",
+      "status": "method_dependent",
+      "source_ids": [
+        "S5"
+      ]
+    },
+    {
+      "from": "flim",
+      "relation": "measures",
+      "to": "fluorescence_decay_lifetime",
+      "status": "established",
+      "source_ids": [
+        "S5"
+      ]
+    },
+    {
+      "from": "dynamic_multisignal",
+      "relation": "can_support_reconstruction_of",
+      "to": "spatiotemporal_biological_patterns",
+      "status": "established_method_application_dependent",
+      "source_ids": [
+        "S5"
+      ]
+    },
+    {
+      "from": "ai_models",
+      "relation": "can_model_or_predict",
+      "to": "dynamic_multisignal",
+      "status": "task_dependent",
+      "source_ids": [
+        "S6"
+      ]
+    },
+    {
+      "from": "biochemical_computation",
+      "relation": "provides_formal_concepts_for_comparison_with",
+      "to": "cellular_networks",
+      "status": "established_research_area",
+      "source_ids": [
+        "S6"
+      ]
+    },
+    {
+      "from": "cellular_networks",
+      "relation": "structurally_analogous_in_selected_respects_to",
+      "to": "human_community",
+      "status": "analogy_not_identity",
+      "source_ids": [
+        "S7"
+      ]
+    },
+    {
+      "from": "ai_models",
+      "relation": "can_mediate_interpretation_and_collective_work_with",
+      "to": "human_community",
+      "status": "testable_task_specific_hypothesis",
+      "source_ids": [
+        "S7"
+      ]
+    },
+    {
+      "from": "transportation_context",
+      "relation": "inspired_structural_comparison_about_movement_access_and_control_with",
+      "to": "biological_transport",
+      "status": "analogy_only",
+      "source_ids": [
+        "S8"
+      ]
+    }
+  ],
+  "priority_questions": [
+    "Identify the exact sestamibi / [125I]IAAP or MIAP / P-gp / V79 paper and distinguish binding or photolabeling from functional efflux.",
+    "Read the 2012 mosquito-cell paper methods/results and compare to the 2011 antioxidant-defense paper.",
+    "Separate cell-line survival from whole-mosquito vector competence.",
+    "Design a synthetic-data-first temporal graph model with explicit measured versus latent variables.",
+    "Define falsification criteria and compare against single-signal baselines before claiming cross-scale generalization.",
+    "Recover stable primary citations for cholera physiology, FLIM, biochemical computation, and the social/AI claims."
+  ]
+}
