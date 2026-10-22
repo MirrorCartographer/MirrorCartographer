@@ -1,0 +1,234 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "mc-research-claims-initial-2026-10-22",
+  "created_at": "2026-10-22",
+  "scope": "Initial, non-systematic source sample for designing testable research and evidence architecture.",
+  "status_vocabulary": [
+    "unreviewed",
+    "source-checked",
+    "qualified",
+    "tested",
+    "corroborated",
+    "contested",
+    "revised",
+    "retired"
+  ],
+  "claim_types": [
+    "observation",
+    "source-reported-finding",
+    "synthesis",
+    "inference",
+    "hypothesis",
+    "design-proposal",
+    "value-judgment"
+  ],
+  "source_records": [
+    {
+      "id": "SRC-BIO-NCI-001",
+      "title": "Why Do Cancer Treatments Stop Working?",
+      "publisher": "National Cancer Institute",
+      "url": "https://www.cancer.gov/about-cancer/treatment/research/drug-combo-resistance",
+      "published": "2017-08-15",
+      "source_type": "government research explainer",
+      "domain": "biomedical",
+      "supports": [
+        "CL-BIO-001"
+      ],
+      "limitations": [
+        "Cancer-focused overview; not a systematic review; does not establish a specific treatment for an individual."
+      ]
+    },
+    {
+      "id": "SRC-BIO-REV-001",
+      "title": "Multilevel Mechanisms of Cancer Drug Resistance",
+      "publisher": "PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11594576/",
+      "published": "2024-11-19",
+      "source_type": "review",
+      "domain": "biomedical",
+      "supports": [
+        "CL-BIO-001"
+      ],
+      "limitations": [
+        "Review conclusions depend on included studies; mechanisms require disease- and treatment-specific appraisal."
+      ]
+    },
+    {
+      "id": "SRC-BIO-REV-002",
+      "title": "Chemoresistance and the tumor microenvironment: the critical role of cell–cell communication",
+      "publisher": "Cell Communication and Signaling",
+      "url": "https://link.springer.com/article/10.1186/s12964-024-01857-7",
+      "published": "2024-10-10",
+      "source_type": "review",
+      "domain": "biomedical",
+      "supports": [
+        "CL-BIO-001"
+      ],
+      "limitations": [
+        "Mechanistic review; does not establish clinical effectiveness of a proposed intervention."
+      ]
+    },
+    {
+      "id": "SRC-VET-QUAL-001",
+      "title": "Access to and accessibility of care for rural veterans with disabilities: a qualitative evaluation of VA healthcare experiences",
+      "publisher": "Disability and Health Journal",
+      "url": "https://doi.org/10.1016/j.dhjo.2023.101515",
+      "published": "2023",
+      "source_type": "qualitative study",
+      "domain": "veteran-access",
+      "supports": [
+        "CL-VA-001"
+      ],
+      "limitations": [
+        "Identifies experienced barriers; not a population prevalence estimate."
+      ]
+    },
+    {
+      "id": "SRC-VET-QUAL-002",
+      "title": "It's Like Finding Your Way Through the Labyrinth: A Qualitative Study of Veterans' Experiences Accessing Healthcare",
+      "publisher": "PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10973295/",
+      "published": "2024",
+      "source_type": "qualitative study",
+      "domain": "veteran-access",
+      "supports": [
+        "CL-VA-001"
+      ],
+      "limitations": [
+        "Context-specific participant accounts; not a representative prevalence estimate."
+      ]
+    },
+    {
+      "id": "SRC-VET-REV-001",
+      "title": "A rapid review of the barriers and facilitators of mental health service access among Veterans and their families",
+      "publisher": "Frontiers in Health Services",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11298457/",
+      "published": "2024",
+      "source_type": "rapid review",
+      "domain": "veteran-access",
+      "supports": [
+        "CL-VA-001"
+      ],
+      "limitations": [
+        "Mental-health access scope; transfer to other benefits/services needs justification."
+      ]
+    },
+    {
+      "id": "SRC-ADMIN-REV-001",
+      "title": "Administrative burden for patients in U.S. health care settings Post-Affordable Care Act: A scoping review",
+      "publisher": "Social Science & Medicine",
+      "url": "https://doi.org/10.1016/j.socscimed.2024.116686",
+      "published": "2024-03",
+      "source_type": "scoping review",
+      "domain": "healthcare-access",
+      "supports": [
+        "CL-VA-001"
+      ],
+      "limitations": [
+        "General U.S. healthcare context, not solely veteran services; not an intervention-effect estimate."
+      ]
+    },
+    {
+      "id": "SRC-EVID-ROYAL-001",
+      "title": "Principles of Evidence Synthesis Research",
+      "publisher": "The Royal Society",
+      "url": "https://royalsociety.org/news-resources/projects/evidence-synthesis/principles/",
+      "source_type": "research-method guidance",
+      "domain": "evidence-method",
+      "supports": [
+        "CL-EPI-001"
+      ],
+      "limitations": [
+        "Guidance does not prove a particular project complies."
+      ]
+    },
+    {
+      "id": "SRC-EVID-FAIR-001",
+      "title": "The FAIR Guiding Principles for scientific data management and stewardship",
+      "publisher": "Scientific Data",
+      "url": "https://doi.org/10.1038/sdata.2016.18",
+      "published": "2016-03-15",
+      "source_type": "peer-reviewed principles paper",
+      "domain": "evidence-method",
+      "supports": [
+        "CL-EPI-001"
+      ],
+      "limitations": [
+        "FAIR is not equivalent to truth, validity, ethical access, or correct interpretation."
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "CL-BIO-001",
+      "proposition": "In cancer treatment resistance, multiple mechanisms—including tumor heterogeneity, cellular adaptation, and interactions with the tumor microenvironment—can contribute together; a useful research map must preserve disease and treatment scope.",
+      "claim_type": "source-reported-synthesis",
+      "status": "qualified",
+      "source_ids": [
+        "SRC-BIO-NCI-001",
+        "SRC-BIO-REV-001",
+        "SRC-BIO-REV-002"
+      ],
+      "confidence_rationale": "Convergent sources support this bounded statement about cancer treatment resistance, not all diseases.",
+      "not_established": [
+        "A novel mechanism",
+        "A validated therapeutic target",
+        "Clinical benefit from a proposed combination",
+        "Generalization to non-cancer diseases"
+      ],
+      "next_test": "Choose one cancer, treatment class, and resistance phenotype; pre-register a mechanism-specific prediction, controls, readouts, and disconfirmation criteria."
+    },
+    {
+      "id": "CL-VA-001",
+      "proposition": "Qualitative studies and reviews report that navigation, communication, coordination, transportation, provider availability, paperwork, and administrative friction can shape veterans' access to care; the magnitude and distribution of each barrier require context-specific measurement.",
+      "claim_type": "source-reported-synthesis",
+      "status": "qualified",
+      "source_ids": [
+        "SRC-VET-QUAL-001",
+        "SRC-VET-QUAL-002",
+        "SRC-VET-REV-001",
+        "SRC-ADMIN-REV-001"
+      ],
+      "confidence_rationale": "Relevant qualitative and review sources support reported failure modes, not a universal prevalence estimate.",
+      "not_established": [
+        "That every veteran experiences these barriers",
+        "A single national rate",
+        "That a specific benefit is available to an individual",
+        "That a proposed interface will reduce the barriers"
+      ],
+      "next_test": "Map one real service pathway using current official policy, timestamps, handoffs, user effort, drop-off, and outcome measures; compare with a defined baseline."
+    },
+    {
+      "id": "CL-EPI-001",
+      "proposition": "Evidence synthesis guidance and FAIR principles support explicit methods, source metadata, qualified links, provenance, limitations, and uncertainty; these practices improve inspectability but do not automatically make a conclusion true.",
+      "claim_type": "methodological-synthesis",
+      "status": "qualified",
+      "source_ids": [
+        "SRC-EVID-ROYAL-001",
+        "SRC-EVID-FAIR-001"
+      ],
+      "confidence_rationale": "Grounded in established research-method guidance and data stewardship principles.",
+      "not_established": [
+        "That a software implementation is compliant",
+        "That traceability alone prevents bias",
+        "That accessible data are accurate"
+      ],
+      "next_test": "Validate claim records against schema; test broken links, missing provenance, unsupported promotion, conflict preservation, and revision trace."
+    },
+    {
+      "id": "CL-HCAI-001",
+      "proposition": "Whether a navigable, metaphor-rich evidence interface improves comprehension, error detection, agency, or task completion is an empirical design question.",
+      "claim_type": "hypothesis",
+      "status": "unreviewed",
+      "source_ids": [],
+      "confidence_rationale": "A design hypothesis proposed for direct testing; no outcome data are claimed.",
+      "not_established": [
+        "Improved comprehension",
+        "Accessibility benefit",
+        "Reduced cognitive burden",
+        "Better decisions"
+      ],
+      "next_test": "Run an accessible task study against a conventional source-list interface; measure accuracy, source recall, uncertainty calibration, time, corrections, and adverse confusion."
+    }
+  ]
+}
