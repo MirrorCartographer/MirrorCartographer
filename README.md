@@ -173,3 +173,14 @@ Playback is started by the user and continues across GitHub page navigation in d
 Charity Sturgell
 
 U.S. Navy nuclear-trained machinist mate, independent human-AI interaction researcher, and creator of Mirror Cartographer.
+
+## Research method and claim register
+
+The research layer now records source-linked claims, explicit limits, and next tests rather than treating project intent as proof.
+
+- [Research method and evidence boundaries](research/METHOD.md)
+- [Initial source-linked claim register](research/claim-register.json)
+- [Claim record schema](research/claim-record.schema.json)
+- [Register integrity validator](research/validate_claim_register.py)
+
+Run `python research/validate_claim_register.py` from the repository root. This checks internal references and required fields; it does not verify source accuracy or URL availability.
