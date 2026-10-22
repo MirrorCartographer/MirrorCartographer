@@ -156,6 +156,36 @@
       "limitations": [
         "FAIR is not equivalent to truth, validity, ethical access, or correct interpretation."
       ]
+    },
+    {
+      "id": "SRC-VA-OFFICIAL-001",
+      "title": "Eligibility for VA health care",
+      "publisher": "U.S. Department of Veterans Affairs",
+      "url": "https://www.va.gov/health-care/eligibility/",
+      "source_type": "official agency guidance",
+      "accessed": "2026-10-22",
+      "domain": "veteran-access",
+      "supports": [
+        "CL-VA-002"
+      ],
+      "limitations": [
+        "Eligibility rules are individual and can change; this page is not an individual eligibility determination."
+      ]
+    },
+    {
+      "id": "SRC-VA-OFFICIAL-002",
+      "title": "Eligibility for community care outside VA",
+      "publisher": "U.S. Department of Veterans Affairs",
+      "url": "https://www.va.gov/resources/eligibility-for-community-care-outside-va/",
+      "source_type": "official agency guidance",
+      "accessed": "2026-10-22",
+      "domain": "veteran-access",
+      "supports": [
+        "CL-VA-002"
+      ],
+      "limitations": [
+        "General guidance; individual referrals, authorization, exceptions, and current standards must be checked for the specific case."
+      ]
     }
   ],
   "claims": [
@@ -229,6 +259,23 @@
         "Better decisions"
       ],
       "next_test": "Run an accessible task study against a conventional source-list interface; measure accuracy, source recall, uncertainty calibration, time, corrections, and adverse confusion."
+    },
+    {
+      "id": "CL-VA-002",
+      "proposition": "VA health care eligibility and community-care access are distinct administrative questions: community care has its own conditions, including prior VA authorization in most cases and specific qualifying circumstances.",
+      "claim_type": "source-reported-finding",
+      "status": "source-checked",
+      "source_ids": [
+        "SRC-VA-OFFICIAL-001",
+        "SRC-VA-OFFICIAL-002"
+      ],
+      "confidence_rationale": "Current official VA pages describe general health-care eligibility separately from community-care requirements; guidance was accessed 2026-10-22.",
+      "not_established": [
+        "Any particular veteran's eligibility",
+        "Approval of a specific referral",
+        "That every community-care pathway requires the same steps or has no exceptions"
+      ],
+      "next_test": "For a real case, record the exact service, current VA policy page, referral/authorization state, date checked, responsible office, and unresolved handoff; do not infer eligibility from this general claim."
     }
   ]
 }
