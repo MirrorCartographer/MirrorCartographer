@@ -21,3 +21,5 @@ jobs:
           python-version: "3.x"
       - name: Validate source and claim references
         run: python research/validate_claim_register.py
+      - name: Verify interface bindings against the canonical register
+        run: node ui-repo/scripts/validate-claim-ui-bindings.mjs research/claim-register.json ui-repo/public/research-atlas/index.html
