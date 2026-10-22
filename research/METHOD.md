@@ -70,3 +70,9 @@ The first register is a bounded starting sample, not a systematic review. It con
 
 ## Current honest status
 This initial pass establishes a documented research scaffold and candidate lines of inquiry. It does not constitute a comprehensive systematic review, clinical validation, causal discovery, VA policy determination, or measured user-outcome study.
+
+## Interactive instrument binding
+
+The public relationship instrument maps each exploration point to a claim ID in `research/claim-register.json` and displays that record's current review state. The current mapping is: biology signal/response → `CL-BIO-001`; VA pathway context/rule → `CL-VA-002`; records/interpretation → `CL-EPI-001`; outcome → `CL-VA-001`; and interface evaluation → `CL-HCAI-001`.
+
+These labels are navigation aids, not automatic scientific validation. The interface does not derive claim status from source content at runtime. Reviewers should compare the displayed binding with the register during changes; automated checks verify page structure and interactions, while substantive source appraisal remains a separate research task. In particular, `CL-HCAI-001` remains unreviewed until an accessible task study compares the interface with a conventional source-list experience.
