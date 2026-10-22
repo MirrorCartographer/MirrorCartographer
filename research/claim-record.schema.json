@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/MirrorCartographer/MirrorCartographer/blob/main/research/claim-record.schema.json",
+  "title": "Mirror Cartographer Research Claim Record",
+  "type": "object",
+  "required": [
+    "id",
+    "proposition",
+    "claim_type",
+    "status",
+    "source_ids",
+    "confidence_rationale",
+    "not_established",
+    "next_test"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^CL-[A-Z0-9-]+$"
+    },
+    "proposition": {
+      "type": "string",
+      "minLength": 12
+    },
+    "claim_type": {
+      "enum": [
+        "observation",
+        "source-reported-finding",
+        "source-reported-synthesis",
+        "methodological-synthesis",
+        "inference",
+        "hypothesis",
+        "design-proposal",
+        "value-judgment"
+      ]
+    },
+    "status": {
+      "enum": [
+        "unreviewed",
+        "source-checked",
+        "qualified",
+        "tested",
+        "corroborated",
+        "contested",
+        "revised",
+        "retired"
+      ]
+    },
+    "source_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "confidence_rationale": {
+      "type": "string",
+      "minLength": 8
+    },
+    "not_established": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "next_test": {
+      "type": "string",
+      "minLength": 8
+    },
+    "population_or_system": {
+      "type": "string"
+    },
+    "time_window": {
+      "type": "string"
+    },
+    "alternative_explanations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "falsification_condition": {
+      "type": "string"
+    },
+    "reviewed_by": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "revision_log": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "date",
+          "change"
+        ],
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "change": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
