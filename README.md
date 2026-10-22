@@ -182,5 +182,6 @@ The research layer now records source-linked claims, explicit limits, and next t
 - [Initial source-linked claim register](research/claim-register.json)
 - [Claim record schema](research/claim-record.schema.json)
 - [Register integrity validator](research/validate_claim_register.py)
+- [Explore The Between — interactive relationship instrument](https://mirror-cartographer-ui-3orp.vercel.app/research-atlas/)
 
 Run `python research/validate_claim_register.py` from the repository root. This checks internal references and required fields; it does not verify source accuracy or URL availability.
