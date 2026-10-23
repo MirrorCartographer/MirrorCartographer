@@ -3,6 +3,7 @@
 **Investigation date:** 2026-10-23  
 **Repository:** `MirrorCartographer/MirrorCartographer`  
 **Branch:** `investigation/github-ref-provenance-guard`  
+**Draft PR:** [#17](https://github.com/MirrorCartographer/MirrorCartographer/pull/17)  
 **Classification:** `tool` — source-reference ambiguity / provenance gap. This is not evidence of a GitHub outage or permission failure.
 
 ## Summary
@@ -61,7 +62,9 @@ The divergence message is expected output, not a test failure.
 
 ## Hosted verification status
 
-The workflow file has been committed to the investigation branch. At the time this record was written, no pull-request-triggered run for the new workflow had been observed. Local test success must not be represented as hosted CI success. Recheck the workflow after the draft PR is opened.
+Draft PR #17 was opened with branch head `6baa5c2bcd019bd3b3c759ab4d162cfb5d4f2f57`. For that head, the connector's pull-request-filtered workflow-run query returned no runs. Its combined-status query returned five Vercel deployment status contexts, all successful, but no status context identifying the new evidence-validation workflow.
+
+The workflow-run query only exposes pull-request-triggered runs and the combined-status result is not a complete inventory of Actions check runs. Therefore these observations do **not** establish that no push-triggered workflow ran. They also do not establish that the new validator workflow passed. **Hosted verification remains unverified.** Do not treat local test success as hosted CI success.
 
 ## Residual risks
 
@@ -69,13 +72,13 @@ The workflow file has been committed to the investigation branch. At the time th
 2. The validator does not fetch remote Git objects or authenticate source provenance.
 3. Branch names are mutable; immutable commit SHAs should be used for reproducible investigations.
 4. The historical application build conflict is separate from this provenance mitigation and is not fixed by it.
-5. No secrets or private records are included.
+5. The hosted validation result is unverified.
+6. No secrets or private records are included.
 
 ## Proof gate
 
-Keep the PR draft and unmerged until:
-- the new workflow passes on the PR head;
+Keep PR #17 draft and unmerged until:
+- the new workflow's result is verified against the exact PR head through an authoritative Actions/check-run record;
 - the exact head SHA and file/blob provenance are checked;
 - the full diff is reviewed;
 - the reviewer confirms that the record distinguishes direct observation from inference.
-
