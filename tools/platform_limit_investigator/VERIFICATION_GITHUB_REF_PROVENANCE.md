@@ -62,9 +62,13 @@ The divergence message is expected output, not a test failure.
 
 ## Hosted verification status
 
-Draft PR #17 was opened with branch head `6baa5c2bcd019bd3b3c759ab4d162cfb5d4f2f57`. For that head, the connector's pull-request-filtered workflow-run query returned no runs. Its combined-status query returned five Vercel deployment status contexts, all successful, but no status context identifying the new evidence-validation workflow.
+The current PR head before this record update was `a0b2730288f8a433ccd5db4b5f5c7016f8aa1168`. GitHub Actions evaluated PR merge ref `4267710813e5627e3618549d5c6431acea7e8f4f`, which merges that head into base commit `129e6ec1e48bd497ce15a84f6ca59e9021073e36`.
 
-The workflow-run query only exposes pull-request-triggered runs and the combined-status result is not a complete inventory of Actions check runs. Therefore these observations do **not** establish that no push-triggered workflow ran. They also do not establish that the new validator workflow passed. **Hosted verification remains unverified.** Do not treat local test success as hosted CI success.
+- [Platform-limit evidence validation run #5](https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/40008020781): **completed / success**. Job `validate-evidence` succeeded. The hosted log records 11 tests run, successful Python compilation, `VALID: 2 evidence records have explicit refs and immutable SHA provenance`, and the expected divergence report for `next.config.ts`.
+- [Mirror Cartographer CI run #4533](https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/40008020977): **completed / success**. The `Typecheck and build` job succeeded; logs show both typecheck and production build steps completed successfully.
+- The PR metadata still reports head `a0b2730288f8a433ccd5db4b5f5c7016f8aa1168`, base `129e6ec1e48bd497ce15a84f6ca59e9021073e36`, open, draft, unmerged.
+
+These are hosted results for the PR merge snapshot, not proof that every possible repository state or malformed record is covered. A record-only follow-up commit will change the PR head and should trigger a new validation run; verify that run separately rather than carrying this success forward by assumption.
 
 ## Residual risks
 
