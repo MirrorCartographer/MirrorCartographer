@@ -62,13 +62,13 @@ The divergence message is expected output, not a test failure.
 
 ## Hosted verification status
 
-The current PR head before this record update was `a0b2730288f8a433ccd5db4b5f5c7016f8aa1168`. GitHub Actions evaluated PR merge ref `4267710813e5627e3618549d5c6431acea7e8f4f`, which merges that head into base commit `129e6ec1e48bd497ce15a84f6ca59e9021073e36`.
+The evidence snapshot for the preceding PR head was `1309965cf8f1c18eb7740e206f6a89913bcaa940`, with base commit `129e6ec1e48bd497ce15a84f6ca59e9021073e36`. GitHub Actions evaluated PR merge ref `52420e8f8b159538522eeb13df224ebaf5b2239a`, which merges that head into that base.
 
-- [Platform-limit evidence validation run #5](https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/40008020781): **completed / success**. Job `validate-evidence` succeeded. The hosted log records 11 tests run, successful Python compilation, `VALID: 2 evidence records have explicit refs and immutable SHA provenance`, and the expected divergence report for `next.config.ts`.
-- [Mirror Cartographer CI run #4533](https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/40008020977): **completed / success**. The `Typecheck and build` job succeeded; logs show both typecheck and production build steps completed successfully.
-- The PR metadata still reports head `a0b2730288f8a433ccd5db4b5f5c7016f8aa1168`, base `129e6ec1e48bd497ce15a84f6ca59e9021073e36`, open, draft, unmerged.
+- [Platform-limit evidence validation run #7](https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/40124595101): **completed / success**. Job `validate-evidence` succeeded. The hosted log records 11 tests run, successful Python compilation, `VALID: 2 evidence records have explicit refs and immutable SHA provenance`, and the expected divergence report for `next.config.ts`.
+- [Mirror Cartographer CI run #4534](https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/40124595091): **completed / success**. The `Typecheck and build` job succeeded; logs show typecheck and production build completed successfully.
+- Both jobs checked out merge ref `52420e8f8b159538522eeb13df224ebaf5b2239a`; their logs state it merges head `1309965cf8f1c18eb7740e206f6a89913bcaa940` into base `129e6ec1e48bd497ce15a84f6ca59e9021073e36`.
 
-These are hosted results for the PR merge snapshot, not proof that every possible repository state or malformed record is covered. A record-only follow-up commit will change the PR head and should trigger a new validation run; verify that run separately rather than carrying this success forward by assumption.
+These hosted results validate the stated PR merge snapshot, not every possible repository state or malformed record. This documentation update itself will create a new PR head; its workflow results must be checked separately rather than inferred from the preceding runs.
 
 ## Residual risks
 
