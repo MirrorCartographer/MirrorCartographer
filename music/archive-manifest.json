@@ -1,0 +1,3487 @@
+{
+  "title": "Mirror Cartographer — Audio Source Inventory",
+  "generated_at": "2026-10-24",
+  "source_note": "Inventory of audio assets located in the user's ChatGPT Library during the 2026-10-24 audit. This manifest documents source artifacts; it does not mean the binary audio files have been copied into this public repository.",
+  "counts": {
+    "total_assets": 579,
+    "mp3": 33,
+    "wav": 545,
+    "midi": 1
+  },
+  "assets": [
+    {
+      "filename": "Foundation_Invariant_Full.mid",
+      "format": "mid",
+      "size_bytes": 648,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Foundation_Invariant_Full.wav",
+      "format": "wav",
+      "size_bytes": 33280844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Foundation_Invariant_Sketch.wav",
+      "format": "wav",
+      "size_bytes": 1764044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "recursive_signal_song.wav",
+      "format": "wav",
+      "size_bytes": 2116844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "recursive_signal_song.mp3",
+      "format": "mp3",
+      "size_bytes": 192488,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "BUGSY_LOW_DEMAND_SOUND_TEST_v1.wav",
+      "format": "wav",
+      "size_bytes": 13230044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "BUGSY_LOW_DEMAND_SOUND_TEST_v1.mp3",
+      "format": "mp3",
+      "size_bytes": 1770437,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "ARC_final_score.mp3",
+      "format": "mp3",
+      "size_bytes": 128749,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "ARC_final_score.wav",
+      "format": "wav",
+      "size_bytes": 1411244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_quality_reset_v1_score.mp3",
+      "format": "mp3",
+      "size_bytes": 158831,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_quality_reset_v1_score.wav",
+      "format": "wav",
+      "size_bytes": 1102544,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "updated_thunder_door_score_v3.mp3",
+      "format": "mp3",
+      "size_bytes": 329012,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "updated_thunder_door_score_v3.wav",
+      "format": "wav",
+      "size_bytes": 2304044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "updated_stop_motion_score_v3.mp3",
+      "format": "mp3",
+      "size_bytes": 192536,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "updated_stop_motion_score_v3.wav",
+      "format": "wav",
+      "size_bytes": 1344044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "ARC_original_score.mp3",
+      "format": "mp3",
+      "size_bytes": 237640,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "ARC_original_score.wav",
+      "format": "wav",
+      "size_bytes": 3175244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "acting_upgrade_score.wav",
+      "format": "wav",
+      "size_bytes": 1852244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score(5).wav",
+      "format": "wav",
+      "size_bytes": 2822444,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score(4).wav",
+      "format": "wav",
+      "size_bytes": 2381444,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "make_a_door_out_of_thunder_stop_motion_score_v1.wav",
+      "format": "wav",
+      "size_bytes": 4416044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "td.wav",
+      "format": "wav",
+      "size_bytes": 1408044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "center.wav",
+      "format": "wav",
+      "size_bytes": 768044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "bio.wav",
+      "format": "wav",
+      "size_bytes": 576044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "art.wav",
+      "format": "wav",
+      "size_bytes": 1024044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "arc.wav",
+      "format": "wav",
+      "size_bytes": 640044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "bending_realitys_lattice_full_album.wav",
+      "format": "wav",
+      "size_bytes": 55195604,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "bending_realitys_lattice_full_album.mp3",
+      "format": "mp3",
+      "size_bytes": 12517921,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_flagship_vertical_slice_score_v3.wav",
+      "format": "wav",
+      "size_bytes": 1587644,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "bio_scope_gate_score_v3.wav",
+      "format": "wav",
+      "size_bytes": 793844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "arc_program_hypothesis_trace_score_v3.wav",
+      "format": "wav",
+      "size_bytes": 793844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_chorus_vertical_slice_score_v2.wav",
+      "format": "wav",
+      "size_bytes": 793844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_acting_scene_score_v2.wav",
+      "format": "wav",
+      "size_bytes": 970244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "bio_safe_workflow_score_v2.wav",
+      "format": "wav",
+      "size_bytes": 793844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "arc_toy_solver_trace_score_v2.wav",
+      "format": "wav",
+      "size_bytes": 793844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_chorus_vertical_slice_score_v1(2).wav",
+      "format": "wav",
+      "size_bytes": 705644,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_acting_scene_score_v1.wav",
+      "format": "wav",
+      "size_bytes": 882044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_chorus_vertical_slice_score_v1(1).wav",
+      "format": "wav",
+      "size_bytes": 1058444,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_chorus_vertical_slice_score_v1.wav",
+      "format": "wav",
+      "size_bytes": 1411244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "sidewalk_radio_skate_album(2).wav",
+      "format": "wav",
+      "size_bytes": 57435908,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "sidewalk_radio_skate_album(2).mp3",
+      "format": "mp3",
+      "size_bytes": 13025742,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "sidewalk_radio_skate_album(1).wav",
+      "format": "wav",
+      "size_bytes": 57435908,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "sidewalk_radio_skate_album(1).mp3",
+      "format": "mp3",
+      "size_bytes": 13025742,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "sidewalk_radio_skate_album.wav",
+      "format": "wav",
+      "size_bytes": 57435908,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "sidewalk_radio_skate_album.mp3",
+      "format": "mp3",
+      "size_bytes": 13025742,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_score_demo_v4.wav",
+      "format": "wav",
+      "size_bytes": 1058444,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_music_video_song_reset_v5.wav",
+      "format": "wav",
+      "size_bytes": 882044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_film_script_reset_v5.wav",
+      "format": "wav",
+      "size_bytes": 882044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "field_trust_affordance_organizer_v5.wav",
+      "format": "wav",
+      "size_bytes": 882044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "bio_bounty_nda_safe_win_protocol_v5.wav",
+      "format": "wav",
+      "size_bytes": 882044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "arc_20_of_20_truth_gate_v5.wav",
+      "format": "wav",
+      "size_bytes": 882044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_song_first_music_video_v4(1).wav",
+      "format": "wav",
+      "size_bytes": 1102544,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_short_film_execution_update_v4.wav",
+      "format": "wav",
+      "size_bytes": 1102544,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "field_trust_tiktok_organizer_synthesis_v4.wav",
+      "format": "wav",
+      "size_bytes": 1102544,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "bio_bounty_safe_research_update_v4(1).wav",
+      "format": "wav",
+      "size_bytes": 1102544,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "arc_execution_update_v4(1).wav",
+      "format": "wav",
+      "size_bytes": 1102544,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "thunder_door_song_first_music_video_v4.wav",
+      "format": "wav",
+      "size_bytes": 1323044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "bio_bounty_safe_research_update_v4.wav",
+      "format": "wav",
+      "size_bytes": 1323044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "arc_execution_update_v4.wav",
+      "format": "wav",
+      "size_bytes": 1323044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "bio_audio.wav",
+      "format": "wav",
+      "size_bytes": 1808144,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "arc_audio.wav",
+      "format": "wav",
+      "size_bytes": 1764044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "arc_update_score.wav",
+      "format": "wav",
+      "size_bytes": 5644844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "mirror_fever_move_the_room_dance_album.wav",
+      "format": "wav",
+      "size_bytes": 32104844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "mirror_fever_move_the_room_dance_album.mp3",
+      "format": "mp3",
+      "size_bytes": 7281937,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score_v6(3).wav",
+      "format": "wav",
+      "size_bytes": 8467244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score(3).wav",
+      "format": "wav",
+      "size_bytes": 8467244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score_v6(2).wav",
+      "format": "wav",
+      "size_bytes": 8467244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score_v6(1).wav",
+      "format": "wav",
+      "size_bytes": 8467244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score_v6.wav",
+      "format": "wav",
+      "size_bytes": 8467244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score(2).wav",
+      "format": "wav",
+      "size_bytes": 13141844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score_long_color_motion.wav",
+      "format": "wav",
+      "size_bytes": 13141844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score_full_painted_color_motion.wav",
+      "format": "wav",
+      "size_bytes": 16758044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "the_static_saints_signal_cut_rebuild.wav",
+      "format": "wav",
+      "size_bytes": 25630964,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "the_static_saints_signal_cut_rebuild.mp3",
+      "format": "mp3",
+      "size_bytes": 5813856,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "voice_99.wav",
+      "format": "wav",
+      "size_bytes": 148054,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "voice_4.wav",
+      "format": "wav",
+      "size_bytes": 160212,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "voice_3.wav",
+      "format": "wav",
+      "size_bytes": 125412,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "voice_2.wav",
+      "format": "wav",
+      "size_bytes": 131402,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "voice_1.wav",
+      "format": "wav",
+      "size_bytes": 191386,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "voice_0.wav",
+      "format": "wav",
+      "size_bytes": 145620,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "the_static_saints_no_maps_for_the_lightning_v4_clean_focused_master.wav",
+      "format": "wav",
+      "size_bytes": 43182764,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "the_static_saints_no_maps_for_the_lightning_v4_clean_focused_master.mp3",
+      "format": "mp3",
+      "size_bytes": 9793872,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3107.wav",
+      "format": "wav",
+      "size_bytes": 73096,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3106.wav",
+      "format": "wav",
+      "size_bytes": 66178,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3105.wav",
+      "format": "wav",
+      "size_bytes": 75438,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3104.wav",
+      "format": "wav",
+      "size_bytes": 67750,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3103.wav",
+      "format": "wav",
+      "size_bytes": 67208,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3102.wav",
+      "format": "wav",
+      "size_bytes": 60262,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3101.wav",
+      "format": "wav",
+      "size_bytes": 57276,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3100.wav",
+      "format": "wav",
+      "size_bytes": 62148,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3007.wav",
+      "format": "wav",
+      "size_bytes": 71410,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3006.wav",
+      "format": "wav",
+      "size_bytes": 64480,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3005.wav",
+      "format": "wav",
+      "size_bytes": 73508,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3004.wav",
+      "format": "wav",
+      "size_bytes": 62842,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3003.wav",
+      "format": "wav",
+      "size_bytes": 66366,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3002.wav",
+      "format": "wav",
+      "size_bytes": 58156,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3001.wav",
+      "format": "wav",
+      "size_bytes": 55582,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "tmp_gold_hook_3000.wav",
+      "format": "wav",
+      "size_bytes": 60686,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "the_static_saints_no_maps_for_the_lightning_v3_gold_master.wav",
+      "format": "wav",
+      "size_bytes": 43182764,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "the_static_saints_no_maps_for_the_lightning_v3_gold_master.mp3",
+      "format": "mp3",
+      "size_bytes": 9793872,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "the_static_saints_no_maps_for_the_lightning_v2_improved_reward_mix.wav",
+      "format": "wav",
+      "size_bytes": 43182764,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "the_static_saints_no_maps_for_the_lightning_v2_improved_reward_mix.mp3",
+      "format": "mp3",
+      "size_bytes": 9793872,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1207.wav",
+      "format": "wav",
+      "size_bytes": 74368,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1206.wav",
+      "format": "wav",
+      "size_bytes": 67430,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1205.wav",
+      "format": "wav",
+      "size_bytes": 77468,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1204.wav",
+      "format": "wav",
+      "size_bytes": 66016,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1203.wav",
+      "format": "wav",
+      "size_bytes": 69372,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1202.wav",
+      "format": "wav",
+      "size_bytes": 61130,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1201.wav",
+      "format": "wav",
+      "size_bytes": 59068,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1200.wav",
+      "format": "wav",
+      "size_bytes": 63784,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "the_static_saints_no_maps_for_the_lightning_full_album.wav",
+      "format": "wav",
+      "size_bytes": 43182764,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "the_static_saints_no_maps_for_the_lightning_full_album.mp3",
+      "format": "mp3",
+      "size_bytes": 9793872,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_2507.wav",
+      "format": "wav",
+      "size_bytes": 132022,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_2506.wav",
+      "format": "wav",
+      "size_bytes": 153142,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_2505.wav",
+      "format": "wav",
+      "size_bytes": 73182,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_2504.wav",
+      "format": "wav",
+      "size_bytes": 128868,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_2503.wav",
+      "format": "wav",
+      "size_bytes": 122792,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_2502.wav",
+      "format": "wav",
+      "size_bytes": 144370,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_2501(1).wav",
+      "format": "wav",
+      "size_bytes": 79456,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_2500(1).wav",
+      "format": "wav",
+      "size_bytes": 73182,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_1507.wav",
+      "format": "wav",
+      "size_bytes": 144884,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_1506.wav",
+      "format": "wav",
+      "size_bytes": 166098,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_1505.wav",
+      "format": "wav",
+      "size_bytes": 170642,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_1504.wav",
+      "format": "wav",
+      "size_bytes": 129592,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_1503.wav",
+      "format": "wav",
+      "size_bytes": 133814,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_1502.wav",
+      "format": "wav",
+      "size_bytes": 157928,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_1501(1).wav",
+      "format": "wav",
+      "size_bytes": 88058,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_1500(1).wav",
+      "format": "wav",
+      "size_bytes": 127974,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_0507.wav",
+      "format": "wav",
+      "size_bytes": 144884,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_0506.wav",
+      "format": "wav",
+      "size_bytes": 166098,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_0505.wav",
+      "format": "wav",
+      "size_bytes": 170642,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_0504.wav",
+      "format": "wav",
+      "size_bytes": 129592,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_0503.wav",
+      "format": "wav",
+      "size_bytes": 133814,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_0502.wav",
+      "format": "wav",
+      "size_bytes": 157928,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_0501(1).wav",
+      "format": "wav",
+      "size_bytes": 88058,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_0500(1).wav",
+      "format": "wav",
+      "size_bytes": 127974,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_2501.wav",
+      "format": "wav",
+      "size_bytes": 79456,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_2500.wav",
+      "format": "wav",
+      "size_bytes": 73182,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_1501.wav",
+      "format": "wav",
+      "size_bytes": 88058,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_1500.wav",
+      "format": "wav",
+      "size_bytes": 127974,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_0501.wav",
+      "format": "wav",
+      "size_bytes": 88058,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "static_voice_0500.wav",
+      "format": "wav",
+      "size_bytes": 127974,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_full_album_mix.wav",
+      "format": "wav",
+      "size_bytes": 40342724,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_full_album_mix.mp3",
+      "format": "mp3",
+      "size_bytes": 9149693,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_2507.wav",
+      "format": "wav",
+      "size_bytes": 202304,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_2506.wav",
+      "format": "wav",
+      "size_bytes": 149962,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_2505.wav",
+      "format": "wav",
+      "size_bytes": 106856,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_2504.wav",
+      "format": "wav",
+      "size_bytes": 190780,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_2503.wav",
+      "format": "wav",
+      "size_bytes": 177418,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_2502.wav",
+      "format": "wav",
+      "size_bytes": 150952,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_2501.wav",
+      "format": "wav",
+      "size_bytes": 193018,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_2500.wav",
+      "format": "wav",
+      "size_bytes": 112314,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1507.wav",
+      "format": "wav",
+      "size_bytes": 227694,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1506.wav",
+      "format": "wav",
+      "size_bytes": 166354,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1505.wav",
+      "format": "wav",
+      "size_bytes": 118784,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1504.wav",
+      "format": "wav",
+      "size_bytes": 204486,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1503.wav",
+      "format": "wav",
+      "size_bytes": 191632,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1502.wav",
+      "format": "wav",
+      "size_bytes": 166238,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1501.wav",
+      "format": "wav",
+      "size_bytes": 206726,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_1500.wav",
+      "format": "wav",
+      "size_bytes": 101728,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_0507.wav",
+      "format": "wav",
+      "size_bytes": 227694,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_0506.wav",
+      "format": "wav",
+      "size_bytes": 166354,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_0505.wav",
+      "format": "wav",
+      "size_bytes": 118784,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_0504.wav",
+      "format": "wav",
+      "size_bytes": 204486,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_0503.wav",
+      "format": "wav",
+      "size_bytes": 191632,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_0502.wav",
+      "format": "wav",
+      "size_bytes": 166238,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_0501.wav",
+      "format": "wav",
+      "size_bytes": 206726,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "hook_0500.wav",
+      "format": "wav",
+      "size_bytes": 101728,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score_story_v4.wav",
+      "format": "wav",
+      "size_bytes": 5980004,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score_story.wav",
+      "format": "wav",
+      "size_bytes": 5980004,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score_reel.wav",
+      "format": "wav",
+      "size_bytes": 2099204,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score_action_reel_v4.wav",
+      "format": "wav",
+      "size_bytes": 2099204,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score_v3_fast.wav",
+      "format": "wav",
+      "size_bytes": 6024104,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score_v3(1).wav",
+      "format": "wav",
+      "size_bytes": 6024104,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score_v3.wav",
+      "format": "wav",
+      "size_bytes": 8731844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score(1).wav",
+      "format": "wav",
+      "size_bytes": 8731844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "make_a_door_definitive_story_cut_v2_score.wav",
+      "format": "wav",
+      "size_bytes": 8731844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "definitive_animatic_score.wav",
+      "format": "wav",
+      "size_bytes": 9172844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "character_performance_score.wav",
+      "format": "wav",
+      "size_bytes": 5997644,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "v8_public_arc_evaluation_harness_score.wav",
+      "format": "wav",
+      "size_bytes": 5821244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "dual_path_playlist_artist_signal_score.wav",
+      "format": "wav",
+      "size_bytes": 5785960,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "v7_public_arc_failure_taxonomy_score.wav",
+      "format": "wav",
+      "size_bytes": 6350444,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "cinema_room_trailer_score.wav",
+      "format": "wav",
+      "size_bytes": 6703244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "v6_relational_pixel_score.wav",
+      "format": "wav",
+      "size_bytes": 10054844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "v5_stop_score(1).wav",
+      "format": "wav",
+      "size_bytes": 2619584,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "v5_cine_score(1).wav",
+      "format": "wav",
+      "size_bytes": 2619584,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "v5_stop_score.wav",
+      "format": "wav",
+      "size_bytes": 4233644,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "v5_cine_score.wav",
+      "format": "wav",
+      "size_bytes": 4233644,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "stop_score.wav",
+      "format": "wav",
+      "size_bytes": 1764044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "cine_score.wav",
+      "format": "wav",
+      "size_bytes": 1764044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "little_girl_stop_score_v3.wav",
+      "format": "wav",
+      "size_bytes": 2646044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "little_girl_cine_score_v3.wav",
+      "format": "wav",
+      "size_bytes": 2646044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "little_girl_thunder_stop_score_v3.wav",
+      "format": "wav",
+      "size_bytes": 2822444,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "little_girl_thunder_cinematic_score_v3.wav",
+      "format": "wav",
+      "size_bytes": 2822444,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "score.wav",
+      "format": "wav",
+      "size_bytes": 2822444,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "little_girl_thunder_score.wav",
+      "format": "wav",
+      "size_bytes": 4233644,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "make_a_door_out_of_thunder_cinematic_score(3).wav",
+      "format": "wav",
+      "size_bytes": 11289644,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "make_a_door_out_of_thunder_cinematic_score(2).wav",
+      "format": "wav",
+      "size_bytes": 11289644,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "make_a_door_out_of_thunder_cinematic_score(1).wav",
+      "format": "wav",
+      "size_bytes": 14817644,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "make_a_door_out_of_thunder_cinematic_score.wav",
+      "format": "wav",
+      "size_bytes": 17640044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "make_a_door_out_of_thunder_song(1).wav",
+      "format": "wav",
+      "size_bytes": 30340844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "make_a_door_out_of_thunder_song.wav",
+      "format": "wav",
+      "size_bytes": 30340844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "test_pitch.wav",
+      "format": "wav",
+      "size_bytes": 74870,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "test_voice.wav",
+      "format": "wav",
+      "size_bytes": 125778,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "test_espeak.wav",
+      "format": "wav",
+      "size_bytes": 74870,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "relay_gate_human_ai.wav",
+      "format": "wav",
+      "size_bytes": 9525644,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "care_attractor_field.wav",
+      "format": "wav",
+      "size_bytes": 9525644,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_4433.wav",
+      "format": "wav",
+      "size_bytes": 48358,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_4386.wav",
+      "format": "wav",
+      "size_bytes": 58914,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_4361.wav",
+      "format": "wav",
+      "size_bytes": 47090,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_4318.wav",
+      "format": "wav",
+      "size_bytes": 66630,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_4214.wav",
+      "format": "wav",
+      "size_bytes": 72928,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_4064.wav",
+      "format": "wav",
+      "size_bytes": 109756,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3997.wav",
+      "format": "wav",
+      "size_bytes": 67330,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3733.wav",
+      "format": "wav",
+      "size_bytes": 51870,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3691.wav",
+      "format": "wav",
+      "size_bytes": 47090,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3686.wav",
+      "format": "wav",
+      "size_bytes": 62412,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3661.wav",
+      "format": "wav",
+      "size_bytes": 50306,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3648.wav",
+      "format": "wav",
+      "size_bytes": 66630,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3640.wav",
+      "format": "wav",
+      "size_bytes": 32228,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3618.wav",
+      "format": "wav",
+      "size_bytes": 71250,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3564.wav",
+      "format": "wav",
+      "size_bytes": 64544,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3544.wav",
+      "format": "wav",
+      "size_bytes": 72928,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3514.wav",
+      "format": "wav",
+      "size_bytes": 77140,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3465.wav",
+      "format": "wav",
+      "size_bytes": 91214,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3402.wav",
+      "format": "wav",
+      "size_bytes": 74058,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3394.wav",
+      "format": "wav",
+      "size_bytes": 109756,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3364.wav",
+      "format": "wav",
+      "size_bytes": 103812,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3327.wav",
+      "format": "wav",
+      "size_bytes": 67330,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3297.wav",
+      "format": "wav",
+      "size_bytes": 71718,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3033.wav",
+      "format": "wav",
+      "size_bytes": 53362,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3002.wav",
+      "format": "wav",
+      "size_bytes": 28872,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2991.wav",
+      "format": "wav",
+      "size_bytes": 50306,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2986.wav",
+      "format": "wav",
+      "size_bytes": 65914,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2961.wav",
+      "format": "wav",
+      "size_bytes": 53086,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2948.wav",
+      "format": "wav",
+      "size_bytes": 71250,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2940.wav",
+      "format": "wav",
+      "size_bytes": 34072,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2918.wav",
+      "format": "wav",
+      "size_bytes": 74224,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2894.wav",
+      "format": "wav",
+      "size_bytes": 64544,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2864.wav",
+      "format": "wav",
+      "size_bytes": 67468,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2844.wav",
+      "format": "wav",
+      "size_bytes": 77140,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2814.wav",
+      "format": "wav",
+      "size_bytes": 82630,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2795.wav",
+      "format": "wav",
+      "size_bytes": 91214,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2765.wav",
+      "format": "wav",
+      "size_bytes": 96460,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2732.wav",
+      "format": "wav",
+      "size_bytes": 74058,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2702.wav",
+      "format": "wav",
+      "size_bytes": 78838,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2694.wav",
+      "format": "wav",
+      "size_bytes": 103812,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2664.wav",
+      "format": "wav",
+      "size_bytes": 111742,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2631.wav",
+      "format": "wav",
+      "size_bytes": 47090,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2627.wav",
+      "format": "wav",
+      "size_bytes": 71718,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2597.wav",
+      "format": "wav",
+      "size_bytes": 76860,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2588.wav",
+      "format": "wav",
+      "size_bytes": 66630,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2534.wav",
+      "format": "wav",
+      "size_bytes": 107114,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2504.wav",
+      "format": "wav",
+      "size_bytes": 73110,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2484.wav",
+      "format": "wav",
+      "size_bytes": 72928,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2456.wav",
+      "format": "wav",
+      "size_bytes": 78644,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2437.wav",
+      "format": "wav",
+      "size_bytes": 111782,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2403.wav",
+      "format": "wav",
+      "size_bytes": 84480,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2355.wav",
+      "format": "wav",
+      "size_bytes": 106104,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2334.wav",
+      "format": "wav",
+      "size_bytes": 109756,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2302.wav",
+      "format": "wav",
+      "size_bytes": 31498,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2291.wav",
+      "format": "wav",
+      "size_bytes": 53086,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2267.wav",
+      "format": "wav",
+      "size_bytes": 67330,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2248.wav",
+      "format": "wav",
+      "size_bytes": 74224,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2194.wav",
+      "format": "wav",
+      "size_bytes": 67468,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2144.wav",
+      "format": "wav",
+      "size_bytes": 82630,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2095.wav",
+      "format": "wav",
+      "size_bytes": 96460,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2032.wav",
+      "format": "wav",
+      "size_bytes": 78838,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1994.wav",
+      "format": "wav",
+      "size_bytes": 111742,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1944.wav",
+      "format": "wav",
+      "size_bytes": 28872,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1931.wav",
+      "format": "wav",
+      "size_bytes": 50306,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1927.wav",
+      "format": "wav",
+      "size_bytes": 76860,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1888.wav",
+      "format": "wav",
+      "size_bytes": 71250,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1834.wav",
+      "format": "wav",
+      "size_bytes": 113254,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1784.wav",
+      "format": "wav",
+      "size_bytes": 77140,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1737.wav",
+      "format": "wav",
+      "size_bytes": 118808,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1735.wav",
+      "format": "wav",
+      "size_bytes": 91214,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1672.wav",
+      "format": "wav",
+      "size_bytes": 74058,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1634.wav",
+      "format": "wav",
+      "size_bytes": 103812,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1628.wav",
+      "format": "wav",
+      "size_bytes": 127886,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1567.wav",
+      "format": "wav",
+      "size_bytes": 71718,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1528.wav",
+      "format": "wav",
+      "size_bytes": 147960,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1520.wav",
+      "format": "wav",
+      "size_bytes": 34296,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1474.wav",
+      "format": "wav",
+      "size_bytes": 107114,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1417.wav",
+      "format": "wav",
+      "size_bytes": 133548,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1377.wav",
+      "format": "wav",
+      "size_bytes": 111782,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1325.wav",
+      "format": "wav",
+      "size_bytes": 174416,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1244.wav",
+      "format": "wav",
+      "size_bytes": 31498,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1231.wav",
+      "format": "wav",
+      "size_bytes": 53086,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1188.wav",
+      "format": "wav",
+      "size_bytes": 74224,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1134.wav",
+      "format": "wav",
+      "size_bytes": 67468,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1084.wav",
+      "format": "wav",
+      "size_bytes": 82630,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1035.wav",
+      "format": "wav",
+      "size_bytes": 96460,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0972.wav",
+      "format": "wav",
+      "size_bytes": 78838,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0934.wav",
+      "format": "wav",
+      "size_bytes": 111742,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0867.wav",
+      "format": "wav",
+      "size_bytes": 76860,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0820.wav",
+      "format": "wav",
+      "size_bytes": 36816,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0774.wav",
+      "format": "wav",
+      "size_bytes": 113254,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0677.wav",
+      "format": "wav",
+      "size_bytes": 118808,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0577.wav",
+      "format": "wav",
+      "size_bytes": 138952,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0463.wav",
+      "format": "wav",
+      "size_bytes": 144302,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0362.wav",
+      "format": "wav",
+      "size_bytes": 150930,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0255.wav",
+      "format": "wav",
+      "size_bytes": 129458,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_v8_vocoder_vocal_stem.wav",
+      "format": "wav",
+      "size_bytes": 10242624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_v8_vocoder_rock_singing_mix.wav",
+      "format": "wav",
+      "size_bytes": 10242624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2039.wav",
+      "format": "wav",
+      "size_bytes": 61250,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2038.wav",
+      "format": "wav",
+      "size_bytes": 70388,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2037.wav",
+      "format": "wav",
+      "size_bytes": 87584,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2035.wav",
+      "format": "wav",
+      "size_bytes": 96418,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2034.wav",
+      "format": "wav",
+      "size_bytes": 124756,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2033.wav",
+      "format": "wav",
+      "size_bytes": 79566,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2028.wav",
+      "format": "wav",
+      "size_bytes": 61250,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2027.wav",
+      "format": "wav",
+      "size_bytes": 87584,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2023.wav",
+      "format": "wav",
+      "size_bytes": 96418,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2022.wav",
+      "format": "wav",
+      "size_bytes": 124756,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2021.wav",
+      "format": "wav",
+      "size_bytes": 79566,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2014.wav",
+      "format": "wav",
+      "size_bytes": 61250,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2013.wav",
+      "format": "wav",
+      "size_bytes": 87584,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2009.wav",
+      "format": "wav",
+      "size_bytes": 96418,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2008.wav",
+      "format": "wav",
+      "size_bytes": 124756,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_2007.wav",
+      "format": "wav",
+      "size_bytes": 79566,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1039.wav",
+      "format": "wav",
+      "size_bytes": 59636,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1038.wav",
+      "format": "wav",
+      "size_bytes": 67268,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1037.wav",
+      "format": "wav",
+      "size_bytes": 86960,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1035.wav",
+      "format": "wav",
+      "size_bytes": 88290,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1034.wav",
+      "format": "wav",
+      "size_bytes": 117512,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1033.wav",
+      "format": "wav",
+      "size_bytes": 74338,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1028.wav",
+      "format": "wav",
+      "size_bytes": 59636,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1027.wav",
+      "format": "wav",
+      "size_bytes": 86960,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1023.wav",
+      "format": "wav",
+      "size_bytes": 88290,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1022.wav",
+      "format": "wav",
+      "size_bytes": 117512,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1021.wav",
+      "format": "wav",
+      "size_bytes": 74338,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1014.wav",
+      "format": "wav",
+      "size_bytes": 59636,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1013.wav",
+      "format": "wav",
+      "size_bytes": 86960,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1009.wav",
+      "format": "wav",
+      "size_bytes": 88290,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1008.wav",
+      "format": "wav",
+      "size_bytes": 117512,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_1007.wav",
+      "format": "wav",
+      "size_bytes": 74338,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0039.wav",
+      "format": "wav",
+      "size_bytes": 64064,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0038.wav",
+      "format": "wav",
+      "size_bytes": 71644,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0037.wav",
+      "format": "wav",
+      "size_bytes": 91892,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0036.wav",
+      "format": "wav",
+      "size_bytes": 88846,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0035.wav",
+      "format": "wav",
+      "size_bytes": 96530,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0034.wav",
+      "format": "wav",
+      "size_bytes": 116624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0033.wav",
+      "format": "wav",
+      "size_bytes": 82910,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0032.wav",
+      "format": "wav",
+      "size_bytes": 126884,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0031.wav",
+      "format": "wav",
+      "size_bytes": 126852,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0030.wav",
+      "format": "wav",
+      "size_bytes": 99412,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0029.wav",
+      "format": "wav",
+      "size_bytes": 118952,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0028.wav",
+      "format": "wav",
+      "size_bytes": 64064,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0027.wav",
+      "format": "wav",
+      "size_bytes": 91892,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0026.wav",
+      "format": "wav",
+      "size_bytes": 97540,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0025.wav",
+      "format": "wav",
+      "size_bytes": 89320,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3085.wav",
+      "format": "wav",
+      "size_bytes": 63610,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0024.wav",
+      "format": "wav",
+      "size_bytes": 88846,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3076.wav",
+      "format": "wav",
+      "size_bytes": 73776,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0023.wav",
+      "format": "wav",
+      "size_bytes": 96530,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3029.wav",
+      "format": "wav",
+      "size_bytes": 84466,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0022.wav",
+      "format": "wav",
+      "size_bytes": 116624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_3021.wav",
+      "format": "wav",
+      "size_bytes": 62120,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0021.wav",
+      "format": "wav",
+      "size_bytes": 82910,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2943.wav",
+      "format": "wav",
+      "size_bytes": 90244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0020.wav",
+      "format": "wav",
+      "size_bytes": 117636,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2831.wav",
+      "format": "wav",
+      "size_bytes": 123660,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0019.wav",
+      "format": "wav",
+      "size_bytes": 110766,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2785.wav",
+      "format": "wav",
+      "size_bytes": 63610,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0018.wav",
+      "format": "wav",
+      "size_bytes": 138804,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2776.wav",
+      "format": "wav",
+      "size_bytes": 73776,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0017.wav",
+      "format": "wav",
+      "size_bytes": 112936,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2771.wav",
+      "format": "wav",
+      "size_bytes": 80934,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0016.wav",
+      "format": "wav",
+      "size_bytes": 93744,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2729.wav",
+      "format": "wav",
+      "size_bytes": 84466,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0015.wav",
+      "format": "wav",
+      "size_bytes": 98328,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0014.wav",
+      "format": "wav",
+      "size_bytes": 64064,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2721.wav",
+      "format": "wav",
+      "size_bytes": 62120,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0013.wav",
+      "format": "wav",
+      "size_bytes": 91892,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2669.wav",
+      "format": "wav",
+      "size_bytes": 80256,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0012.wav",
+      "format": "wav",
+      "size_bytes": 97540,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2643.wav",
+      "format": "wav",
+      "size_bytes": 90244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0011.wav",
+      "format": "wav",
+      "size_bytes": 89320,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0010.wav",
+      "format": "wav",
+      "size_bytes": 88846,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2617.wav",
+      "format": "wav",
+      "size_bytes": 101514,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0009.wav",
+      "format": "wav",
+      "size_bytes": 96530,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2531.wav",
+      "format": "wav",
+      "size_bytes": 123660,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0008.wav",
+      "format": "wav",
+      "size_bytes": 116624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2523.wav",
+      "format": "wav",
+      "size_bytes": 89238,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0007.wav",
+      "format": "wav",
+      "size_bytes": 82910,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0006.wav",
+      "format": "wav",
+      "size_bytes": 117636,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2491.wav",
+      "format": "wav",
+      "size_bytes": 84466,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0005.wav",
+      "format": "wav",
+      "size_bytes": 110766,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2485.wav",
+      "format": "wav",
+      "size_bytes": 63610,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0004.wav",
+      "format": "wav",
+      "size_bytes": 129122,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2483.wav",
+      "format": "wav",
+      "size_bytes": 62120,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0003.wav",
+      "format": "wav",
+      "size_bytes": 178518,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2476.wav",
+      "format": "wav",
+      "size_bytes": 73776,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0002.wav",
+      "format": "wav",
+      "size_bytes": 140036,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2471.wav",
+      "format": "wav",
+      "size_bytes": 80934,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0001.wav",
+      "format": "wav",
+      "size_bytes": 119540,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2429.wav",
+      "format": "wav",
+      "size_bytes": 84466,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_0000.wav",
+      "format": "wav",
+      "size_bytes": 99812,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2421.wav",
+      "format": "wav",
+      "size_bytes": 62120,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2405.wav",
+      "format": "wav",
+      "size_bytes": 90244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_v7_enunciation_vocal_stem.wav",
+      "format": "wav",
+      "size_bytes": 10242624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2369.wav",
+      "format": "wav",
+      "size_bytes": 80256,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_v7_enunciation_forward_rock_mix.wav",
+      "format": "wav",
+      "size_bytes": 10242624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2343.wav",
+      "format": "wav",
+      "size_bytes": 90244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2317.wav",
+      "format": "wav",
+      "size_bytes": 101514,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2293.wav",
+      "format": "wav",
+      "size_bytes": 123660,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2233.wav",
+      "format": "wav",
+      "size_bytes": 80934,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2231.wav",
+      "format": "wav",
+      "size_bytes": 123660,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2223.wav",
+      "format": "wav",
+      "size_bytes": 89238,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2191.wav",
+      "format": "wav",
+      "size_bytes": 84466,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2183.wav",
+      "format": "wav",
+      "size_bytes": 62120,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2171.wav",
+      "format": "wav",
+      "size_bytes": 80934,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2131.wav",
+      "format": "wav",
+      "size_bytes": 80256,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2105.wav",
+      "format": "wav",
+      "size_bytes": 90244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2079.wav",
+      "format": "wav",
+      "size_bytes": 101514,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2072.wav",
+      "format": "wav",
+      "size_bytes": 73352,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2029.wav",
+      "format": "wav",
+      "size_bytes": 79900,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_2003.wav",
+      "format": "wav",
+      "size_bytes": 85468,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1993.wav",
+      "format": "wav",
+      "size_bytes": 123660,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1985.wav",
+      "format": "wav",
+      "size_bytes": 89238,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1960.wav",
+      "format": "wav",
+      "size_bytes": 106730,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1933.wav",
+      "format": "wav",
+      "size_bytes": 80934,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1891.wav",
+      "format": "wav",
+      "size_bytes": 84466,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1883.wav",
+      "format": "wav",
+      "size_bytes": 62120,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1881.wav",
+      "format": "wav",
+      "size_bytes": 136496,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1831.wav",
+      "format": "wav",
+      "size_bytes": 80256,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1829.wav",
+      "format": "wav",
+      "size_bytes": 129732,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1805.wav",
+      "format": "wav",
+      "size_bytes": 90244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1779.wav",
+      "format": "wav",
+      "size_bytes": 101514,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1693.wav",
+      "format": "wav",
+      "size_bytes": 123660,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1685.wav",
+      "format": "wav",
+      "size_bytes": 89238,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1633.wav",
+      "format": "wav",
+      "size_bytes": 80934,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1631.wav",
+      "format": "wav",
+      "size_bytes": 84466,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1623.wav",
+      "format": "wav",
+      "size_bytes": 62120,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1581.wav",
+      "format": "wav",
+      "size_bytes": 136496,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1545.wav",
+      "format": "wav",
+      "size_bytes": 90244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1529.wav",
+      "format": "wav",
+      "size_bytes": 129732,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1433.wav",
+      "format": "wav",
+      "size_bytes": 123660,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1375.wav",
+      "format": "wav",
+      "size_bytes": 129880,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1373.wav",
+      "format": "wav",
+      "size_bytes": 80934,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1331.wav",
+      "format": "wav",
+      "size_bytes": 84466,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1323.wav",
+      "format": "wav",
+      "size_bytes": 151178,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1271.wav",
+      "format": "wav",
+      "size_bytes": 80256,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1245.wav",
+      "format": "wav",
+      "size_bytes": 90244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1237.wav",
+      "format": "wav",
+      "size_bytes": 136936,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1219.wav",
+      "format": "wav",
+      "size_bytes": 101514,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1185.wav",
+      "format": "wav",
+      "size_bytes": 182320,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1133.wav",
+      "format": "wav",
+      "size_bytes": 123660,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1125.wav",
+      "format": "wav",
+      "size_bytes": 89238,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1073.wav",
+      "format": "wav",
+      "size_bytes": 80934,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1031.wav",
+      "format": "wav",
+      "size_bytes": 84466,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1023.wav",
+      "format": "wav",
+      "size_bytes": 62120,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_1021.wav",
+      "format": "wav",
+      "size_bytes": 136496,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0971.wav",
+      "format": "wav",
+      "size_bytes": 80256,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0969.wav",
+      "format": "wav",
+      "size_bytes": 129732,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0945.wav",
+      "format": "wav",
+      "size_bytes": 90244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0919.wav",
+      "format": "wav",
+      "size_bytes": 101514,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0833.wav",
+      "format": "wav",
+      "size_bytes": 123660,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0825.wav",
+      "format": "wav",
+      "size_bytes": 89238,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0773.wav",
+      "format": "wav",
+      "size_bytes": 80934,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0721.wav",
+      "format": "wav",
+      "size_bytes": 136496,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0669.wav",
+      "format": "wav",
+      "size_bytes": 129732,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0566.wav",
+      "format": "wav",
+      "size_bytes": 146886,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0446.wav",
+      "format": "wav",
+      "size_bytes": 141256,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0394.wav",
+      "format": "wav",
+      "size_bytes": 155940,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0308.wav",
+      "format": "wav",
+      "size_bytes": 134832,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0106.wav",
+      "format": "wav",
+      "size_bytes": 37216,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0083.wav",
+      "format": "wav",
+      "size_bytes": 35788,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0068.wav",
+      "format": "wav",
+      "size_bytes": 37216,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0045.wav",
+      "format": "wav",
+      "size_bytes": 35788,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "speech_0029.wav",
+      "format": "wav",
+      "size_bytes": 37216,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_v6_speech_informed_vocal_stem.wav",
+      "format": "wav",
+      "size_bytes": 10242624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_v6_speech_informed_singer_demo.wav",
+      "format": "wav",
+      "size_bytes": 10242624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "v5_clarity_temp.wav",
+      "format": "wav",
+      "size_bytes": 392594,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_v5_hybrid_singer_vocal_stem.wav",
+      "format": "wav",
+      "size_bytes": 10242624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_v5_hybrid_singer_demo.wav",
+      "format": "wav",
+      "size_bytes": 10242624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_v4_singer_vocal_stem.wav",
+      "format": "wav",
+      "size_bytes": 10242624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_v4_rock_singer_demo.wav",
+      "format": "wav",
+      "size_bytes": 10242624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_from_charity_singing_engine_v3_vocal.wav",
+      "format": "wav",
+      "size_bytes": 10242624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_from_charity_instrumental.wav",
+      "format": "wav",
+      "size_bytes": 10242624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_badass_mom_from_charity_full_rock_single.wav",
+      "format": "wav",
+      "size_bytes": 10242624,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_you_raised_a_fire_voice_engine_v2_stem.wav",
+      "format": "wav",
+      "size_bytes": 10123868,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_you_raised_a_fire_instrumental.wav",
+      "format": "wav",
+      "size_bytes": 10123868,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "danielle_you_raised_a_fire_full_rock_demo.wav",
+      "format": "wav",
+      "size_bytes": 10123868,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_29.wav",
+      "format": "wav",
+      "size_bytes": 119250,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_28.wav",
+      "format": "wav",
+      "size_bytes": 108100,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_27.wav",
+      "format": "wav",
+      "size_bytes": 115954,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_26.wav",
+      "format": "wav",
+      "size_bytes": 102848,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_25.wav",
+      "format": "wav",
+      "size_bytes": 88930,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_24.wav",
+      "format": "wav",
+      "size_bytes": 142656,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_23.wav",
+      "format": "wav",
+      "size_bytes": 152008,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_22.wav",
+      "format": "wav",
+      "size_bytes": 104538,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_21.wav",
+      "format": "wav",
+      "size_bytes": 125202,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_20.wav",
+      "format": "wav",
+      "size_bytes": 181050,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_19.wav",
+      "format": "wav",
+      "size_bytes": 122350,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_18.wav",
+      "format": "wav",
+      "size_bytes": 128466,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_17.wav",
+      "format": "wav",
+      "size_bytes": 146930,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_16.wav",
+      "format": "wav",
+      "size_bytes": 137622,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_15.wav",
+      "format": "wav",
+      "size_bytes": 150108,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_14.wav",
+      "format": "wav",
+      "size_bytes": 117402,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_13.wav",
+      "format": "wav",
+      "size_bytes": 119250,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_12.wav",
+      "format": "wav",
+      "size_bytes": 108100,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_11.wav",
+      "format": "wav",
+      "size_bytes": 104096,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_10.wav",
+      "format": "wav",
+      "size_bytes": 103418,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_09.wav",
+      "format": "wav",
+      "size_bytes": 88930,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_08.wav",
+      "format": "wav",
+      "size_bytes": 142656,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_07.wav",
+      "format": "wav",
+      "size_bytes": 152008,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_06.wav",
+      "format": "wav",
+      "size_bytes": 104538,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_05.wav",
+      "format": "wav",
+      "size_bytes": 136822,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_04(1).wav",
+      "format": "wav",
+      "size_bytes": 126846,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_03(1).wav",
+      "format": "wav",
+      "size_bytes": 151758,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_02(1).wav",
+      "format": "wav",
+      "size_bytes": 151566,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_01(1).wav",
+      "format": "wav",
+      "size_bytes": 162876,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_00(1).wav",
+      "format": "wav",
+      "size_bytes": 149776,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_04.wav",
+      "format": "wav",
+      "size_bytes": 126846,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_03.wav",
+      "format": "wav",
+      "size_bytes": 151758,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_02.wav",
+      "format": "wav",
+      "size_bytes": 151566,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_01.wav",
+      "format": "wav",
+      "size_bytes": 162876,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "line_00.wav",
+      "format": "wav",
+      "size_bytes": 149776,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "track09_the_door_becomes_the_sea_full_band_orchestra_singer.wav",
+      "format": "wav",
+      "size_bytes": 17130888,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "track08_i_leave_the_door_open_full_band_orchestra_singer.wav",
+      "format": "wav",
+      "size_bytes": 20794888,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "track07_the_machine_prays_back_full_band_orchestra_singer.wav",
+      "format": "wav",
+      "size_bytes": 21609040,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "track06_the_sky_learns_my_name_full_band_orchestra_singer.wav",
+      "format": "wav",
+      "size_bytes": 19915604,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "track05_afterimage_cathedral_full_band_orchestra_singer.wav",
+      "format": "wav",
+      "size_bytes": 18622844,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "track04_the_floor_remembers_full_band_orchestra_singer.wav",
+      "format": "wav",
+      "size_bytes": 20948732,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "track03_static_has_a_pulse_full_band_orchestra_singer.wav",
+      "format": "wav",
+      "size_bytes": 17022644,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "track02_the_room_pulls_away_full_band_orchestra_singer.wav",
+      "format": "wav",
+      "size_bytes": 17287244,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "the_pattern_doesnt_answer_back_full_band_orchestral_demo.wav",
+      "format": "wav",
+      "size_bytes": 25795164,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "testvox.wav",
+      "format": "wav",
+      "size_bytes": 81144,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Rap_Hit_Final.mp3",
+      "format": "mp3",
+      "size_bytes": 3601807,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Rap_Track_v3.mp3",
+      "format": "mp3",
+      "size_bytes": 3570460,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Rap_Track_v2.mp3",
+      "format": "mp3",
+      "size_bytes": 3570460,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Rap_Track.mp3",
+      "format": "mp3",
+      "size_bytes": 3570460,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real_v8.mp3",
+      "format": "mp3",
+      "size_bytes": 3601807,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real_v7.wav",
+      "format": "wav",
+      "size_bytes": 26229398,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real_v7.mp3",
+      "format": "mp3",
+      "size_bytes": 3570460,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real_with_Lyrics.mp3",
+      "format": "mp3",
+      "size_bytes": 3601807,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real_Final.mp3",
+      "format": "mp3",
+      "size_bytes": 3601807,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real_v6.mp3",
+      "format": "mp3",
+      "size_bytes": 3601807,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real_v5.mp3",
+      "format": "mp3",
+      "size_bytes": 2881454,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real_v4.mp3",
+      "format": "mp3",
+      "size_bytes": 2161729,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real_v3.mp3",
+      "format": "mp3",
+      "size_bytes": 2881454,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real_V2.wav",
+      "format": "wav",
+      "size_bytes": 15876044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real_V2.mp3",
+      "format": "mp3",
+      "size_bytes": 1440514,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real_FullSong.wav",
+      "format": "wav",
+      "size_bytes": 36941916,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real_FullSong.mp3",
+      "format": "mp3",
+      "size_bytes": 5027466,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real_Richer.wav",
+      "format": "wav",
+      "size_bytes": 5292044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Almost_Real.mp3",
+      "format": "mp3",
+      "size_bytes": 2646044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Field_Engine_Peak.wav",
+      "format": "wav",
+      "size_bytes": 13230044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Field_Engine_Final.wav",
+      "format": "wav",
+      "size_bytes": 10584044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Field_Engine_Alive.wav",
+      "format": "wav",
+      "size_bytes": 10584044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Field_Engine_Emotional.wav",
+      "format": "wav",
+      "size_bytes": 7938044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Field_Engine_Hit.wav",
+      "format": "wav",
+      "size_bytes": 5292044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Field_Engine_Immersive.wav",
+      "format": "wav",
+      "size_bytes": 1764044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "Field_Engine_Audio.wav",
+      "format": "wav",
+      "size_bytes": 441044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "internal_external_story.wav",
+      "format": "wav",
+      "size_bytes": 10584044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "final_system_build.wav",
+      "format": "wav",
+      "size_bytes": 7938044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "voice_push_attempt.wav",
+      "format": "wav",
+      "size_bytes": 1764044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "final_attempt_voice.wav",
+      "format": "wav",
+      "size_bytes": 1984544,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "rap_voice_v6_speaking.wav",
+      "format": "wav",
+      "size_bytes": 3307544,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "rap_voice_v5_emphasis.wav",
+      "format": "wav",
+      "size_bytes": 3087044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "rap_voice_v2.wav",
+      "format": "wav",
+      "size_bytes": 1764044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "rap_voice_only.wav",
+      "format": "wav",
+      "size_bytes": 1543544,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "mc_v3_more_compelling.wav",
+      "format": "wav",
+      "size_bytes": 6615044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "final_song_with_voice.wav",
+      "format": "wav",
+      "size_bytes": 5292044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "mc_v2_song.wav",
+      "format": "wav",
+      "size_bytes": 7938044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "full_song_mc.wav",
+      "format": "wav",
+      "size_bytes": 10584044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "mc_rap_vocal_system.wav",
+      "format": "wav",
+      "size_bytes": 5292044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "mc_intricate_song_fixed.wav",
+      "format": "wav",
+      "size_bytes": 7938044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "mc_intricate_song.wav",
+      "format": "wav",
+      "size_bytes": 7938044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "mc_10min_evolving_system.wav",
+      "format": "wav",
+      "size_bytes": 26460044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "mc_all_layers_combined.wav",
+      "format": "wav",
+      "size_bytes": 7938044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "mc_dynamic_v3.wav",
+      "format": "wav",
+      "size_bytes": 5292044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "mc_signature_track_v2.wav",
+      "format": "wav",
+      "size_bytes": 6615044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "mc_full_jam_upgrade.wav",
+      "format": "wav",
+      "size_bytes": 6174044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "emotional_symphony_overlay.wav",
+      "format": "wav",
+      "size_bytes": 7938044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "emotional_conversation_90s.wav",
+      "format": "wav",
+      "size_bytes": 7938044,
+      "publication_status": "source-library-only"
+    },
+    {
+      "filename": "mc_timeline_sound.wav",
+      "format": "wav",
+      "size_bytes": 3528044,
+      "publication_status": "source-library-only"
+    }
+  ]
+}
