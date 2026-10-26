@@ -1,0 +1,13 @@
+{
+  "note": "Synthetic fixture only; no real CI records or private data.",
+  "checks": {
+    "validator_ci": {
+      "status": "success",
+      "stale_phrases": [
+        "the committed versions must be fetched back and re-run",
+        "hosted CI must independently confirm",
+        "confirm hosted validation on the exact PR head SHA"
+      ]
+    }
+  }
+}

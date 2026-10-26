@@ -1,0 +1,34 @@
+name: Platform-limit proof-gate consistency validation
+
+on:
+  pull_request:
+    paths:
+      - "tools/platform_limit_investigator/proof_gate/**"
+      - ".github/workflows/platform-limit-proof-gate.yml"
+  push:
+    branches:
+      - "investigation/**"
+    paths:
+      - "tools/platform_limit_investigator/proof_gate/**"
+      - ".github/workflows/platform-limit-proof-gate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof-gate-consistency:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run regression tests
+        run: python -m unittest discover -s tools/platform_limit_investigator/proof_gate/tests -v
+      - name: Compile checker and tests
+        run: python -m py_compile tools/platform_limit_investigator/proof_gate/validate_proof_gate.py tools/platform_limit_investigator/proof_gate/tests/test_validate_proof_gate.py
+      - name: Confirm synthetic stale state is detected
+        run: python tools/platform_limit_investigator/proof_gate/validate_proof_gate.py tools/platform_limit_investigator/proof_gate/examples/synthetic_status.json tools/platform_limit_investigator/proof_gate/examples/synthetic_stale_record.md --expect-stale validator_ci
