@@ -1,5 +1,37 @@
 # Mirror Cartographer
 
+> **[Open the Living Atlas](https://mirrorcartographer.github.io/MirrorCartographer/)** · [Core repository](https://github.com/MirrorCartographer/MirrorCartographer) · [Interactive application](https://mirrorcartographer.github.io/mirror-cartographer-ui/) · [Continue in ChatGPT](https://chatgpt.com/)
+
+Mirror Cartographer is an open, evidence-aware environment for exploring how observations, relationships, hypotheses, contradictions, experiments, and outcomes fit together without erasing uncertainty.
+
+## Start here
+- **Living Atlas:** free static website, repository search, relationship explorer, research and creative entry points.
+- **Core repository:** source of truth for research, architecture, methods, demonstrations, creative work, evidence, and tools.
+- **Interactive application:** companion interface, published separately through GitHub Pages.
+- **ChatGPT:** general continuation link. It does not expose private conversations or embed a live ChatGPT session.
+
+## Repository map
+| Area | Contents |
+|---|---|
+| `research/`, `evidence/` | Source-linked claims, research methods, literature, protocols |
+| `architecture/`, `foundation/` | System architecture and design decisions |
+| `mind/`, `GitHubMind/` | Hypotheses, field notes, experiments, evaluation |
+| `demonstrations/`, `open-mic/` | Public demonstrations and interactive proofs |
+| `tools/`, `forge/`, `functions/` | Executable tools, validators, research infrastructure |
+| `art/`, `music/`, `Creative_Universe/` | Creative artifacts |
+| `independent-web/`, `independent-creative-web/`, `independent/` | Standalone interactive worlds |
+| `docs/`, `schemas/`, `governance/`, `ledgers/` | Documentation, data contracts, governance, traceability |
+
+## Free hosting
+The canonical website is a static GitHub Pages site built from `site/` by `.github/workflows/publish-mc-atlas.yml`. It requires no Cloudflare account, paid host, server, database, or API key. Search catalog generation happens during the build. See [site operations](docs/SITE_OPERATIONS.md).
+
+The companion Vite application is published from the `mirror-cartographer-ui` repository using its own GitHub Pages workflow. Both are public-repository Pages deployments.
+
+## Evidence and safety
+A visible connection is not automatically causal. MC separates observations, interpretations, hypotheses, and established claims; preserves provenance; and makes uncertainty inspectable. It is not a medical, veterinary, legal, or diagnostic authority. Sensitive records and raw private conversations do not belong in public repositories.
+
+---
+
 Mirror Cartographer is a public experiment in preserving and improving understanding across fragmented experience.
 
 It began as a symbolic reflection interface. It is now becoming a broader continuity atlas: a place where conversations, symbols, records, body signals, animal-care history, research questions, creative work, tool failures, and future goals can be mapped without flattening the life that produced them.
@@ -182,6 +214,6 @@ The research layer now records source-linked claims, explicit limits, and next t
 - [Initial source-linked claim register](research/claim-register.json)
 - [Claim record schema](research/claim-record.schema.json)
 - [Register integrity validator](research/validate_claim_register.py)
-- [Explore The Between — interactive relationship instrument](https://mirror-cartographer-ui-3orp.vercel.app/research-atlas/)
+- [Explore The Between — interactive relationship instrument](https://mirrorcartographer.github.io/mirror-cartographer-ui/research-atlas/)
 
 Run `python research/validate_claim_register.py` from the repository root. This checks internal references and required fields; it does not verify source accuracy or URL availability.

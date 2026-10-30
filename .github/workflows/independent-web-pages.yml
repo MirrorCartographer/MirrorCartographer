@@ -1,72 +1,8 @@
-name: Independent Web Pages
-
+name: Retired deployment workflow — independent-web-pages.yml
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'independent-web/**'
-      - '.github/workflows/independent-web-pages.yml'
   workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: independent-web-pages
-  cancel-in-progress: false
-
 jobs:
-  verify:
+  notice:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-      - name: Verify creative artifact contract
-        run: node independent-web/verify.mjs
-      - name: Verify mobile and independence behavior
-        run: node --test independent-web/mobile-contract.test.mjs
-      - name: Verify Afterbell Safari audio path
-        run: node --test independent-web/afterbell-safari-audio.test.mjs
-      - name: Verify Rain Organ Safari audio path
-        run: node --test independent-web/rain-organ-safari-audio.test.mjs
-      - name: Verify Pressure Garden contract
-        run: node --test independent-web/pressure-garden.contract.test.mjs
-      - name: Verify Pressure Garden genetics
-        run: node --test independent-web/pressure-garden/ecology.test.mjs
-      - name: Verify Pressure Garden pressed specimens
-        run: node --test independent-web/pressure-garden/specimen.test.mjs
-      - name: Verify earned Pressure Garden entry
-        run: node --test independent-web/pressure-garden-entry.contract.test.mjs
-      - name: Verify folded-room hosting contract
-        run: node independent-web/hosting-smoke.test.mjs
-      - name: Bind artifact to source commit
-        run: |
-          node -e "require('fs').writeFileSync('independent-web/deployment.json', JSON.stringify({schema_version:'1.0.0',artifact:'the-weather-inside-a-bell',commit:process.env.GITHUB_SHA,built_at:new Date().toISOString()}, null, 2)+'\n')"
-          touch independent-web/.nojekyll
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: independent-web
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: verify
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Verify served artwork and source identity
-        run: node independent-web/verify-deployment.mjs "${{ steps.deployment.outputs.page_url }}" "$GITHUB_SHA"
+      - run: echo "This deployment was consolidated into .github/workflows/publish-mc-atlas.yml. The canonical site is hosted on GitHub Pages; no separate hosting service is required."

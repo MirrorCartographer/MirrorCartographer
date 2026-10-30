@@ -1,29 +1,8 @@
-name: Deploy Worker Constellation
+name: Retired deployment workflow — deploy-constellation-pages.yml
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'constellation/**'
-      - '.github/workflows/deploy-constellation-pages.yml'
   workflow_dispatch:
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-concurrency:
-  group: pages
-  cancel-in-progress: true
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  notice:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: constellation
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - run: echo "This deployment was consolidated into .github/workflows/publish-mc-atlas.yml. The canonical site is hosted on GitHub Pages; no separate hosting service is required."
