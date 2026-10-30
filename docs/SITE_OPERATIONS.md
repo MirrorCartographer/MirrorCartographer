@@ -2,7 +2,7 @@
 
 The canonical static atlas is published from `site/` by `.github/workflows/publish-mc-atlas.yml`. Expected URL: https://mirrorcartographer.github.io/MirrorCartographer/.
 
-The build clones the public companion application repository and generates one searchable catalog across both repositories. The most recent successful build step indexed **6,449 public source files across two repositories**. The catalog links back to the canonical source files on GitHub.
+The build clones the public companion application repository and generates one searchable catalog across both repositories. The most recent successful build step indexed **6,450 public source files across two repositories**. The catalog links back to the canonical source files on GitHub.
 
 ## One-time free activation
 
