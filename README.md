@@ -1,6 +1,6 @@
 # Mirror Cartographer
 
-> **[Open the Living Atlas](https://mirrorcartographer.github.io/MirrorCartographer/)** · [Core repository](https://github.com/MirrorCartographer/MirrorCartographer) · [Interactive application](https://mirrorcartographer.github.io/mirror-cartographer-ui/) · [Continue in ChatGPT](https://chatgpt.com/)
+> **[Open the Living Atlas](https://mirrorcartographer.github.io/MirrorCartographer/)** · [Core repository](https://github.com/MirrorCartographer/MirrorCartographer) · [Interactive application](https://mirrorcartographer.github.io/mirror-cartographer-ui/) · [Open this project in ChatGPT](https://mirrorcartographer.github.io/MirrorCartographer/chatgpt/)
 
 Mirror Cartographer is an open, evidence-aware environment for exploring how observations, relationships, hypotheses, contradictions, experiments, and outcomes fit together without erasing uncertainty.
 
@@ -8,7 +8,7 @@ Mirror Cartographer is an open, evidence-aware environment for exploring how obs
 - **Living Atlas:** free static website, repository search, relationship explorer, research and creative entry points.
 - **Core repository:** source of truth for research, architecture, methods, demonstrations, creative work, evidence, and tools.
 - **Interactive application:** companion interface, published separately through GitHub Pages.
-- **ChatGPT:** general continuation link. It does not expose private conversations or embed a live ChatGPT session.
+- **ChatGPT handoff:** opens ChatGPT with a prepared prompt naming the selected public page and the machine-readable project manifest. The visitor reviews and sends the prompt; ChatGPT then retrieves the public sources itself.
 
 ## Repository map
 | Area | Contents |

@@ -1,6 +1,6 @@
 # Public website operations
 
-The canonical static atlas is published from `site/` by `.github/workflows/publish-mc-atlas.yml`. Expected URL: https://mirrorcartographer.github.io/MirrorCartographer/.
+The canonical static atlas is published from `site/` by `.github/workflows/publish-mc-atlas.yml`. The `/chatgpt/` route is a no-backend handoff: it creates a prepared ChatGPT prompt containing the selected public page and `chatgpt/project-manifest.json`; the visitor reviews and sends it, and ChatGPT must fetch the public sources itself. Expected URL: https://mirrorcartographer.github.io/MirrorCartographer/.
 
 The build clones the public companion application repository and generates one searchable catalog across both repositories. The most recent successful build step indexed **6,450 public source files across two repositories**. The catalog links back to the canonical source files on GitHub.
 
