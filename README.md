@@ -23,7 +23,7 @@ Mirror Cartographer is an open, evidence-aware environment for exploring how obs
 | `docs/`, `schemas/`, `governance/`, `ledgers/` | Documentation, data contracts, governance, traceability |
 
 ## Free hosting
-The canonical website is a static GitHub Pages site built from `site/` by `.github/workflows/publish-mc-atlas.yml`. It requires no Cloudflare account, paid host, server, database, or API key. Search catalog generation happens during the build. See [site operations](docs/SITE_OPERATIONS.md).
+The canonical website is a static GitHub Pages site built from `site/` by `.github/workflows/publish-mc-atlas.yml`. Its generated search catalog spans both public repositories (6,449 source files in the latest build). It requires no Cloudflare account, paid host, server, database, or API key. See [site operations](docs/SITE_OPERATIONS.md) for the one-time free Pages activation.
 
 The companion Vite application is published from the `mirror-cartographer-ui` repository using its own GitHub Pages workflow. Both are public-repository Pages deployments.
 
