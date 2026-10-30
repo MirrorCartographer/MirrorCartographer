@@ -76,6 +76,16 @@ The public repository now contains a concrete proof layer for plural conversatio
 
 One reader follows a conversation chronologically. Another reads the same corpus semantically. They compare interpretations, preserve disagreement, and join a cumulative community of prior views. Raw private chats remain private; the public layer contains schemas, synthetic fixtures, redacted receipts, continuity digests, and validators.
 
+
+## A more connected society
+
+MC is developing a public-interest research argument about how people, knowledge, technology, institutions, and local communities can work together without forcing everyone into one platform or one way of living.
+
+- [A More Connected Society — research thesis and argument](docs/A_MORE_CONNECTED_SOCIETY.md)
+- [Internal Researcher — charter and evidence protocol](docs/INTERNAL_RESEARCHER_CHARTER.md)
+
+The thesis is a research proposal, not a claim that the model has been proven. It identifies existing evidence, counterarguments, safeguards, measurable outcomes, and a staged pilot program.
+
 ## Core idea
 
 Most tools preserve fragments:
