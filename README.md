@@ -83,6 +83,9 @@ MC is developing a public-interest research argument about how people, knowledge
 
 - [A More Connected Society — research thesis and argument](docs/A_MORE_CONNECTED_SOCIETY.md)
 - [Internal Researcher — charter and evidence protocol](docs/INTERNAL_RESEARCHER_CHARTER.md)
+- [Systems Map of American Society — layers, flows, handoffs, and failure modes](docs/SYSTEMS_MAP_OF_AMERICAN_SOCIETY.md)
+- [Beyond the Screen — human interaction with electrical, biological, and computational systems](docs/BEYOND_THE_SCREEN_HUMAN_TECHNOLOGY_INTERACTION.md)
+- [What AI Brings to the Table — capability map and limits](docs/AI_ROLE_IN_HUMAN_TECHNOLOGY_SYSTEMS.md)
 
 The thesis is a research proposal, not a claim that the model has been proven. It identifies existing evidence, counterarguments, safeguards, measurable outcomes, and a staged pilot program.
 
