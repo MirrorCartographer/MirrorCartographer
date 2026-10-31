@@ -20,10 +20,13 @@ jobs:
           node-version: '22'
       - run: node site/validate-site.mjs
       - run: node --check site/generate-catalog.mjs
+      - run: node --check site/validate-catalog.mjs
       - name: Checkout companion application source
         run: git clone --depth 1 https://github.com/MirrorCartographer/mirror-cartographer-ui.git ui-repository
       - name: Generate catalog across both repositories
         run: node site/generate-catalog.mjs
+      - name: Validate catalog schema, uniqueness, and privacy exclusions
+        run: node site/validate-catalog.mjs
       - name: Prepare site
         run: |
           touch site/.nojekyll
