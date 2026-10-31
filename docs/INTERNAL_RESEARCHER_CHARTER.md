@@ -106,3 +106,10 @@ The function fails when it produces persuasive prose that cannot withstand sourc
 ## Governance
 
 The project originator sets research priorities and approves public project direction. Domain specialists should review claims in their areas. Affected communities should participate in defining problems and evaluating impacts. AI may assist with discovery, synthesis, and structured analysis, but responsibility for publication, interpretation, and decisions remains with accountable humans.
+
+
+---
+
+## Related work
+
+Use the [Connection Map](CONNECTION_MAP_RESEARCH_BIOLOGY_TECHNOLOGY_SOCIETY.md) to navigate the connected research program and its evidence paths.
