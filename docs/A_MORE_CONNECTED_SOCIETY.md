@@ -304,3 +304,10 @@ That is the proposition Mirror Cartographer should investigate—and the proposi
 - What incentives fairly compensate people who contribute time, knowledge, data, or labor?
 - Which outcomes can be measured credibly within a small pilot?
 - Under what conditions does shared infrastructure make coordination worse rather than better?
+
+
+---
+
+## Related work
+
+The societal thesis connects to biological research and human–technology interaction through the [Connection Map](CONNECTION_MAP_RESEARCH_BIOLOGY_TECHNOLOGY_SOCIETY.md).
