@@ -122,3 +122,10 @@ Report subgroup performance only when the data and sample sizes support it. Do n
 AI's most important contribution may not be a more convincing answer on a screen. It may be the ability to help systems coordinate across signals, people, environments, and institutions—while keeping uncertainty visible and authority accountable.
 
 **AI should make more forms of human capability possible, not make human beings more dependent on AI.**
+
+
+---
+
+## Related work
+
+AI's role spans biological research, human interfaces, and societal outcomes. Follow the [Connection Map](CONNECTION_MAP_RESEARCH_BIOLOGY_TECHNOLOGY_SOCIETY.md).
