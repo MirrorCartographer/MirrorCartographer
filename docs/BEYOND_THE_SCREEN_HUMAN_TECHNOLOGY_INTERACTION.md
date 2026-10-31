@@ -181,3 +181,10 @@ That possibility should not become a demand that everyone connect their body to 
 - How can benefits be evaluated over time, outside laboratory settings?
 
 The project should publish negative results and failure cases alongside successful demonstrations.
+
+
+---
+
+## Related work
+
+Biological interaction connects directly to neural repair, AI interpretation, and societal access. Follow the [Connection Map](CONNECTION_MAP_RESEARCH_BIOLOGY_TECHNOLOGY_SOCIETY.md).
