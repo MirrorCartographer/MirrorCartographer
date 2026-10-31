@@ -362,3 +362,10 @@ The following are starting points for the evidence ledger. They are not exhausti
 - Review of clinical trials across Alzheimer's, Parkinson's, and MS (2026): https://pubmed.ncbi.nlm.nih.gov/41318018/
 
 **Research integrity note:** This document is a structured research agenda, not medical advice, a treatment recommendation, or proof that any experimental intervention works. Clinical status and trial results must be verified against primary publications, registries, and regulators before use in decisions.
+
+
+---
+
+## Related work
+
+Disease pathways connect to bioelectric interaction, AI-assisted discovery, and societal capability. See the [Connection Map](CONNECTION_MAP_RESEARCH_BIOLOGY_TECHNOLOGY_SOCIETY.md).
