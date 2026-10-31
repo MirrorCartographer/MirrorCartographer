@@ -165,3 +165,10 @@ The model should be revised if:
 ## 11. Research status
 
 This is a working systems map. It is not a complete model of the United States, a causal account of social problems, or proof that one architecture can solve them. The next step is domain-specific mapping with affected communities, subject-matter experts, source-linked claims, and measurable pilots.
+
+
+---
+
+## Related work
+
+Follow how research discovery connects to public systems and real-world capability in the [Connection Map](CONNECTION_MAP_RESEARCH_BIOLOGY_TECHNOLOGY_SOCIETY.md).
