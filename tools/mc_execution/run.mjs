@@ -64,6 +64,7 @@ for (const relative of [
 const workflowChecks = [
   ["Execution queue step", process.env.MC_QUEUE_STATUS],
   ["Canonical site validation", process.env.MC_SITE_STATUS],
+  ["Playable Mind validation", process.env.MC_MIND_STATUS],
   ["Catalog tool syntax", process.env.MC_CATALOG_TOOLS_STATUS],
   ["Integrated evidence gates", process.env.MC_EVIDENCE_GATES_STATUS],
   ["Cross-repository catalog build", process.env.MC_CATALOG_BUILD_STATUS]
