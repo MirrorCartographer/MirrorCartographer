@@ -25,7 +25,7 @@ jobs:
   verify-and-report:
     name: Execute safe verification queue
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - name: Check out canonical repository
         uses: actions/checkout@v4
@@ -69,6 +69,18 @@ jobs:
           node site/generate-catalog.mjs
           node site/validate-catalog.mjs
 
+      - name: Install Playwright for browser smoke tests
+        id: install-playwright
+        run: npm install --no-save --no-audit --no-fund playwright
+
+      - name: Install Chromium for browser smoke tests
+        id: install-chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Exercise the Living Atlas and Mind in a real browser
+        id: browser-smoke
+        run: node tools/mc_execution/browser-smoke.mjs
+
       - name: Rebuild report with final verification results
         if: always()
         env:
@@ -78,6 +90,9 @@ jobs:
           MC_CATALOG_TOOLS_STATUS: ${{ steps.validate-catalog-tools.outcome }}
           MC_EVIDENCE_GATES_STATUS: ${{ steps.evidence-gates.outcome }}
           MC_CATALOG_BUILD_STATUS: ${{ steps.build-catalog.outcome }}
+          MC_PLAYWRIGHT_INSTALL_STATUS: ${{ steps.install-playwright.outcome }}
+          MC_CHROMIUM_INSTALL_STATUS: ${{ steps.install-chromium.outcome }}
+          MC_BROWSER_SMOKE_STATUS: ${{ steps.browser-smoke.outcome }}
         run: node tools/mc_execution/run.mjs
 
       - name: Upload execution report
