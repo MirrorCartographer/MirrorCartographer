@@ -6,14 +6,16 @@ The build clones the public companion application repository and generates one s
 
 ## One-time free activation
 
-GitHub's Actions token cannot create a Pages site for these repositories. A repository owner must enable the Pages source once:
+A repository owner, administrator, or maintainer must enable the Pages publishing source once in each repository:
 
 1. Open [core repository Pages settings](https://github.com/MirrorCartographer/MirrorCartographer/settings/pages).
-2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**, then save.
 3. Open [interactive application Pages settings](https://github.com/MirrorCartographer/mirror-cartographer-ui/settings/pages).
-4. Set **Source** to **GitHub Actions** there as well.
+4. Set **Source** to **GitHub Actions** there as well, then save.
 
-This is a free GitHub setting for public repositories. No Cloudflare account, paid host, server, database, or API key is required. After the settings are enabled, the existing workflows can deploy the sites.
+This is free for these public repositories. No Cloudflare account, paid host, server, database, personal access token, or API key is required. After the source is enabled, the existing workflows use the repository-scoped Actions token to deploy.
+
+The workflows intentionally call `actions/configure-pages@v5` without `enablement: true`. That option attempts to create the Pages site and requires a separate personal access token or GitHub App token with repository-administration permissions; the default `GITHUB_TOKEN` cannot perform that one-time administrative operation. Enabling the source in Settings is the correct no-secret setup.
 
 ## Architecture
 
@@ -38,14 +40,15 @@ The catalog excludes paths named private/secrets/credentials/personal-records, e
 
 ## Current deployment blocker — observed 2026-11-01
 
-The latest publication attempts separate source/build health from Pages activation:
+The latest runs confirm that source validation and static builds are healthy; deployment is blocked at repository-level Pages setup:
 
-- Core run [41351129471](https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/41351129471): site validation, cross-repository catalog generation, privacy checks, and Pages artifact upload passed. The deploy job failed before its steps started; no detailed deploy log was returned.
-- Companion run [41351094787](https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/41351094787): Vite build, all three route artifacts, and immutable GitHub Pages build-identity checks passed. `configure-pages` then reported **Get Pages site failed: Not Found** and **Create Pages site failed: Resource not accessible by integration**; `deploy-pages` was skipped.
+- Core run [41352287402](https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/41352287402): site validation, cross-repository catalog generation, privacy checks, and Pages artifact upload all passed. The deploy job failed before a runner started; GitHub returned no steps or job log. Repository metadata reports `has_pages: true`, but the publishing-source setting could not be read through the available connection. Verify that **Source** is set to **GitHub Actions**. If this job still fails before a runner starts afterward, inspect **Settings → Environments → github-pages** for deployment-branch restrictions or protection rules; the current run does not expose enough evidence to identify that as the cause.
+- Companion run [41352290517](https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/41352290517): the Vite build, all three route artifacts, immutable build-identity checks, and Pages artifact upload passed. `configure-pages` then reported **Get Pages site failed: Not Found** and `deploy-pages` was skipped. Repository metadata reports `has_pages: false`, consistent with the Pages site not yet being enabled.
+- The preceding companion run [41351541475](https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/41351541475) showed the additional **Create Pages site failed: Resource not accessible by integration** error. That run had `enablement: true`; both publishing workflows have since been corrected to stop asking `GITHUB_TOKEN` to perform the administrative site-creation step.
 
-This is a repository Pages-activation/permission blocker, not a failed application build. The owner must set **Settings → Pages → Build and deployment → Source → GitHub Actions** once in each repository. Then rerun both publication workflows. Do not switch to another hosting provider.
+This is not an application-build failure. Set **Settings → Pages → Build and deployment → Source → GitHub Actions** in both repositories, then rerun the two publication workflows. Do not switch to another hosting provider or add a personal access token.
 
-Neither public site is considered live until both deploy jobs succeed and the deployed routes have been checked on desktop and mobile.
+Neither public site is considered live until both deploy jobs succeed and the deployed routes have been opened and checked on desktop and mobile.
 
 ## ChatGPT relationship
 
