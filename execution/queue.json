@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "project": "Mirror Cartographer",
+  "purpose": "A durable, privacy-aware queue for work that can be resumed across sessions and executed by repository automation.",
+  "policy": {
+    "default_mode": "verify-and-report",
+    "allow_automatic_production_mutations": false,
+    "require_evidence_for_completion": true,
+    "keep_private_conversations_and_sensitive_personal_records_out_of_public_artifacts": true,
+    "hosting_constraint": "GitHub Pages and other free infrastructure only; no paid host, paid API, or required API key."
+  },
+  "tasks": [
+    {
+      "id": "EXEC-001",
+      "title": "Make the execution loop observable and repeatable",
+      "status": "active",
+      "priority": 1,
+      "kind": "verification",
+      "checks": [
+        "execution/queue.json exists and is valid JSON",
+        "site/validate-site.mjs passes",
+        "site/generate-catalog.mjs and site/validate-catalog.mjs parse",
+        "tools/mc_gate_integration/run_gate_check.py passes"
+      ],
+      "completion_evidence": "A successful workflow run and an uploaded execution report."
+    },
+    {
+      "id": "ATLAS-001",
+      "title": "Verify the canonical Living Atlas build inputs",
+      "status": "queued",
+      "priority": 1,
+      "kind": "verification",
+      "checks": [
+        "Canonical site validation passes",
+        "Catalog generation and privacy validation pass",
+        "Generated catalog is not committed unless a deliberate reviewed change requires it"
+      ],
+      "completion_evidence": "Workflow log and execution report."
+    },
+    {
+      "id": "APP-001",
+      "title": "Verify the companion application's published routes",
+      "status": "queued",
+      "priority": 1,
+      "kind": "verification",
+      "checks": [
+        "The companion repository can be checked out",
+        "Its existing Pages build command succeeds",
+        "The application, Atlas route, and research route exist in the build output"
+      ],
+      "completion_evidence": "Workflow log and execution report."
+    },
+    {
+      "id": "OPS-001",
+      "title": "Diagnose deployment blockers without bypassing repository permissions",
+      "status": "queued",
+      "priority": 2,
+      "kind": "diagnostic",
+      "checks": [
+        "Deployment workflow status is inspected",
+        "Permission or Pages configuration blockers are reported explicitly",
+        "No credentials, secrets, or access controls are bypassed"
+      ],
+      "completion_evidence": "A dated diagnostic report with the blocker and the next required action."
+    }
+  ]
+}
