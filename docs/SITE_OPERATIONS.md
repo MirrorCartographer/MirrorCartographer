@@ -36,6 +36,17 @@ Free GitHub Pages is the only approved public hosting target for these two sites
 
 The catalog excludes paths named private/secrets/credentials/personal-records, environment files, binary media, and workflow internals. This is a presentation filter, not a security boundary: anything committed to a public repository is public.
 
+## Current deployment blocker — observed 2026-11-01
+
+The latest publication attempts separate source/build health from Pages activation:
+
+- Core run [41351129471](https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/41351129471): site validation, cross-repository catalog generation, privacy checks, and Pages artifact upload passed. The deploy job failed before its steps started; no detailed deploy log was returned.
+- Companion run [41351094787](https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/41351094787): Vite build, all three route artifacts, and immutable GitHub Pages build-identity checks passed. `configure-pages` then reported **Get Pages site failed: Not Found** and **Create Pages site failed: Resource not accessible by integration**; `deploy-pages` was skipped.
+
+This is a repository Pages-activation/permission blocker, not a failed application build. The owner must set **Settings → Pages → Build and deployment → Source → GitHub Actions** once in each repository. Then rerun both publication workflows. Do not switch to another hosting provider.
+
+Neither public site is considered live until both deploy jobs succeed and the deployed routes have been checked on desktop and mobile.
+
 ## ChatGPT relationship
 
 The site links to https://chatgpt.com/ as a general continuation point. It cannot read private ChatGPT conversation state or embed an authenticated ChatGPT session. Direct conversation URLs must be intentionally supplied and reviewed before publication.
