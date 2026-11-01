@@ -75,7 +75,7 @@ for (const [label, outcome] of workflowChecks) {
   if (status === "FAIL") failures.push(label);
   results.push({ label, status, detail: outcome });
 }
-const summary = results.every(r => r.status === "PASS");
+const summary = results.every(r => r.status === "PASS") ? "PASS" : "FAIL";
 const tasks = queue?.tasks ?? [];
 const lines = [
   "# Mirror Cartographer — Execution Report",
