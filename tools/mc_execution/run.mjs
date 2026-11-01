@@ -61,15 +61,27 @@ for (const relative of [
   }));
 }
 
-const workflowStatus = process.env.MC_WORKFLOW_STATUS ?? "not-finalized";
-const summary = results.every(r => r.status === "PASS") && workflowStatus !== "failure" ? "PASS" : "FAIL";
+const workflowChecks = [
+  ["Execution queue step", process.env.MC_QUEUE_STATUS],
+  ["Canonical site validation", process.env.MC_SITE_STATUS],
+  ["Catalog tool syntax", process.env.MC_CATALOG_TOOLS_STATUS],
+  ["Integrated evidence gates", process.env.MC_EVIDENCE_GATES_STATUS],
+  ["Cross-repository catalog build", process.env.MC_CATALOG_BUILD_STATUS]
+];
+for (const [label, outcome] of workflowChecks) {
+  if (!outcome) continue;
+  const status = outcome === "success" ? "PASS" : "FAIL";
+  if (status === "FAIL") failures.push(label);
+  results.push({ label, status, detail: outcome });
+}
+const summary = results.every(r => r.status === "PASS");
 const tasks = queue?.tasks ?? [];
 const lines = [
   "# Mirror Cartographer — Execution Report",
   "",
   `- **Run time (UTC):** ${now}`,
   `- **Overall status:** ${summary}`,
-  `- **Workflow status:** ${workflowStatus}`,
+  `- **Verification steps captured:** ${workflowChecks.filter(([, outcome]) => Boolean(outcome)).length}/${workflowChecks.length}`,
   `- **Checks passed:** ${results.filter(r => r.status === "PASS").length}/${results.length}`,
   `- **Queue items:** ${tasks.length}`,
   "",
