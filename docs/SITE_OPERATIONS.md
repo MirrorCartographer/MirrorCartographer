@@ -44,19 +44,19 @@ Source validation and static builds are passing. Neither public deployment is cu
 
 ### Core Living Atlas
 
-- Current source commit: [c3548cde196eb3f7d1a7fa780a4067273522a226](https://github.com/MirrorCartographer/MirrorCartographer/commit/c3548cde196eb3f7d1a7fa780a4067273522a226).
-- [Publication run 41354181442](https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/41354181442): the build job passed site validation, cross-repository catalog generation, catalog privacy/schema checks, and Pages artifact upload. The deploy job failed before a runner started. GitHub returned no step list or job-log URL for that deploy job, so the exact cause is not established by this run.
+- Latest recorded core publication source: [fff08b619cef3582497bbbb88bdebc6d68e7fff4](https://github.com/MirrorCartographer/MirrorCartographer/commit/fff08b619cef3582497bbbb88bdebc6d68e7fff4).
+- [Publication run 41355538435](https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/41355538435): the build job passed site validation, cross-repository catalog generation, catalog privacy/schema checks, and Pages artifact upload. The deploy job failed before a runner started. GitHub returned no step list or job-log URL for that deploy job, so the exact cause is not established by this run.
 - Repository metadata reports `has_pages: true`. The connected GitHub read did not expose the Pages publishing-source setting. Do not infer that the source is correctly configured from `has_pages` alone.
-- [Core CI run 41354181443](https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/41354181443) passed typecheck and build.
+- [Core CI run 41355538433](https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/41355538433) passed typecheck and build.
 
 Check [core repository Pages settings](https://github.com/MirrorCartographer/MirrorCartographer/settings/pages) and confirm **Build and deployment → Source → GitHub Actions**. If that is already selected, inspect **Settings → Environments → github-pages** for deployment-branch restrictions or protection rules. The current deploy job has no runner log, so do not attribute its failure to a specific setting until that check is made.
 
 ### Companion interactive application
 
-- Current source commit: [12f4895543a79b4b7914b7f899297ae2bb91eadf](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/12f4895543a79b4b7914b7f899297ae2bb91eadf).
-- The preceding publication run [41354366039](https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/41354366039) passed the Vite build, all three route artifacts, immutable build-identity check, and Pages artifact upload. `actions/configure-pages@v5` then returned **Get Pages site failed: Not Found**; `actions/deploy-pages@v4` was skipped.
+- Latest recorded companion publication source: [d5f09fe3314893d51e982f5def6d2d4e4d63300c](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/d5f09fe3314893d51e982f5def6d2d4e4d63300c).
+- The latest recorded publication run [41355797665](https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/41355797665) passed the Vite build, all three route artifacts, immutable build-identity check, and Pages artifact upload. `actions/configure-pages@v5` then returned **Get Pages site failed: Not Found**; `actions/deploy-pages@v4` was skipped.
 - Repository metadata reports `has_pages: false`, consistent with the Pages site not yet being enabled.
-- [Phone-first local smoke run 41354366058](https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/41354366058), [build-artifact run 41354365983](https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/41354365983), and [working-machine run 41354365897](https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/41354365897) passed. These are source/build checks, not public deployment proof.
+- [Phone-first local smoke run 41355797560](https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/41355797560), [static preview artifact run 41355797636](https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/41355797636), and [working-machine run 41355797606](https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/41355797606) passed. These are source/build checks, not public deployment proof.
 - The live browser test was corrected to target the active Room-World control `button.world-surface`; the retired `button.sky` selector was not present in the active component. The selector contract is now checked by `scripts/live-wiring-check.mjs`.
 
 A repository administrator must open [interactive application Pages settings](https://github.com/MirrorCartographer/mirror-cartographer-ui/settings/pages) and set **Build and deployment → Source → GitHub Actions** once. Then rerun the publication workflow and the live route checks.
