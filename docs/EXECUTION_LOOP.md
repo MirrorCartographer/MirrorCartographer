@@ -7,7 +7,7 @@ The execution loop is a small, repository-owned runner. It is designed to operat
 - **Trigger:** manual dispatch, relevant pushes to `main`, and a scheduled run every six hours (GitHub may delay scheduled runs).
 - **Queue:** `execution/queue.json` is the durable, version-controlled work queue.
 - **Runner:** `tools/mc_execution/run.mjs` checks queue integrity and confirms required project inputs exist.
-- **Verification:** GitHub Actions validates the canonical site, parses the catalog tools, runs the integrated evidence-gate checks, and generates/validates the cross-repository catalog using a temporary checkout of the companion application.
+- **Verification:** GitHub Actions validates the canonical site, validates the playable Mind page (required systems, IDs, anchors, JavaScript syntax, room definitions, and local-only notebook boundary), parses the catalog tools, runs the integrated evidence-gate checks, and generates/validates the cross-repository catalog using a temporary checkout of the companion application.
 - **Report:** every run attempts to upload `execution-report.md` as the `mc-execution-report` workflow artifact, including on failure.
 
 ## Start or inspect a run
@@ -30,7 +30,7 @@ Do not mark a task `done` merely because a workflow ran. Record the evidence tha
 
 ## Safety and scope
 
-The current runner is deliberately **verify-and-report**, not an unrestricted self-modifying agent. It does not write to production code, merge changes, change repository settings, or mark tasks complete. A successful CI run verifies only the checks listed in that run; it does not prove that every interactive experience works in a real browser or that Pages is enabled in repository settings.
+The current runner is deliberately **verify-and-report**, not an unrestricted self-modifying agent. Each required workflow step reports its outcome into the final artifact; a failed or skipped verification is not represented as a pass. It does not write to production code, merge changes, change repository settings, or mark tasks complete. A successful CI run verifies only the checks listed in that run; it does not prove that every interactive experience works in a real browser or that Pages is enabled in repository settings.
 
 The next safe expansion is to add focused browser smoke tests and a failure-classification step. Any future automated patching should run on an isolated branch, produce a diff and test evidence, and require review before merge or deployment.
 
