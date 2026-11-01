@@ -1,0 +1,74 @@
+name: Mirror Cartographer Execution Loop
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Runs independently of a ChatGPT session. GitHub may delay scheduled jobs.
+    - cron: "17 */6 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "execution/**"
+      - "tools/mc_execution/**"
+      - "site/**"
+      - "tools/mc_gate_integration/**"
+      - ".github/workflows/mc-execution-loop.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mc-execution-loop
+  cancel-in-progress: false
+
+jobs:
+  verify-and-report:
+    name: Execute safe verification queue
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out canonical repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate execution queue and required inputs
+        run: node tools/mc_execution/run.mjs
+
+      - name: Validate canonical Living Atlas
+        run: node site/validate-site.mjs
+
+      - name: Validate JavaScript syntax for catalog tools
+        run: |
+          node --check site/generate-catalog.mjs
+          node --check site/validate-catalog.mjs
+
+      - name: Run integrated evidence-gate checks
+        run: python tools/mc_gate_integration/run_gate_check.py
+
+      - name: Build the cross-repository catalog in an isolated workspace
+        run: |
+          git clone --depth 1 https://github.com/MirrorCartographer/mirror-cartographer-ui.git "$RUNNER_TEMP/mc-ui"
+          node site/generate-catalog.mjs
+          node site/validate-catalog.mjs
+
+      - name: Rebuild report with final verification results
+        if: always()
+        run: node tools/mc_execution/run.mjs
+
+      - name: Upload execution report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mc-execution-report
+          path: execution-report.md
+          if-no-files-found: warn
+          retention-days: 30
