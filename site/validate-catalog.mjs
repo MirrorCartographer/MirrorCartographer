@@ -6,12 +6,13 @@ const c=JSON.parse(raw);
 if(!Array.isArray(c.items)||!c.items.length)throw Error('Catalog must contain a non-empty items array');
 const required=['path','title','category','repository','url'];
 const seen=new Set(),bad=[],blocked=[];
+const privatePath=/(^|\/)(private|secrets?|credentials?|personal-records?|raw-private)(\/|$)|(^|\/)\.env($|\.)|(^|\/)(node_modules|\.git)(\/|$)/i;
 for(const [i,x]of c.items.entries()){
  for(const k of required)if(typeof x[k]!=='string'||!x[k].trim())bad.push('item '+i+' missing '+k);
  if(typeof x.path==='string'){
   if(seen.has(x.repository+':'+x.path))bad.push('duplicate '+x.repository+':'+x.path);
   seen.add(x.repository+':'+x.path);
-  if(/(^|\\/)(private|secrets?|credentials?|personal-records?|raw-private)(\\/|$)|(^|\\/)\\.env($|\\.)|(^|\\/)(node_modules|\\.git)(\\/|$)/i.test(x.path))blocked.push(x.path);
+  if(privatePath.test(x.path))blocked.push(x.path);
  }
  if(typeof x.url==='string'&&!/^https:\/\/github\.com\/MirrorCartographer\/(MirrorCartographer|mirror-cartographer-ui)\/blob\/main\//.test(x.url))bad.push('unexpected source URL at item '+i);
 }
