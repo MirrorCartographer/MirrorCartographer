@@ -1,5 +1,6 @@
 import { readFileSync, existsSync, statSync } from 'node:fs';
-import { basename, extname } from 'node:path';
+import { extname } from 'node:path';
+import { isCredentialLikeFile, isPrivateCatalogPath } from './atlas-privacy-policy.mjs';
 
 const catalogPath = 'site/catalog.json';
 if (!existsSync(catalogPath)) throw new Error('Catalog generation did not produce ' + catalogPath);
@@ -9,11 +10,6 @@ const allowedRepositories = new Set([
   'MirrorCartographer/MirrorCartographer',
   'MirrorCartographer/mirror-cartographer-ui',
 ]);
-const blockedPath = /(^|\/)(private|secrets?|credentials?|personal-records?|raw-private|raw-conversations?|conversation-exports?|chat-exports?|medical-records?|health-records?|veterinary-records?|pet-records?|financial-records?|bank-records?|private-notes?|raw-notes?)(\/|$)|(^|\/)\.env($|\.)|(^|\/)(node_modules|\.git)(\/|$)/i;
-const excludedExtensions = new Set([
-  '.pem', '.key', '.p12', '.pfx', '.sqlite', '.db', '.dump', '.bak', '.kdbx', '.gpg', '.age', '.asc',
-]);
-const blockedBasename = /^(id_rsa|id_ed25519|authorized_keys|credentials?|secrets?|tokens?|passwords?)(\..*)?$/i;
 const required = ['path', 'title', 'category', 'repository', 'source_commit', 'url'];
 const seen = new Set();
 const errors = [];
@@ -34,7 +30,7 @@ for (const [index, item] of (catalog.items || []).entries()) {
   if (path.startsWith('/') || path.includes('\\') || path.split('/').some((part) => part === '.' || part === '..')) {
     errors.push('unsafe catalog path at item ' + index);
   }
-  if (blockedPath.test(path) || excludedExtensions.has(extname(path).toLowerCase()) || blockedBasename.test(basename(path))) {
+  if (isPrivateCatalogPath(path) || isCredentialLikeFile(path)) {
     errors.push('sensitive path or file type indexed at item ' + index);
   }
 

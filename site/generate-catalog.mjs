@@ -1,19 +1,17 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { basename, extname, join } from 'node:path';
+import { isCredentialLikeFile, isPrivateCatalogPath } from './atlas-privacy-policy.mjs';
 
 const sources = [
   { dir: '.', prefix: '', repo: 'MirrorCartographer/MirrorCartographer' },
   { dir: 'ui-repository', prefix: 'mirror-cartographer-ui/', repo: 'MirrorCartographer/mirror-cartographer-ui' },
 ];
 
-const blockedPath = /(^|\/)(private|secrets?|credentials?|personal-records?|raw-private|raw-conversations?|conversation-exports?|chat-exports?|medical-records?|health-records?|veterinary-records?|pet-records?|financial-records?|bank-records?|private-notes?|raw-notes?)(\/|$)|(^|\/)\.env($|\.)|(^|\/)(node_modules|\.git)(\/|$)/i;
-const excludedExtensions = new Set([
+const excludedMediaExtensions = new Set([
   '.png', '.jpg', '.jpeg', '.gif', '.webp', '.ico',
   '.woff', '.woff2', '.ttf', '.mp4', '.mov', '.mp3', '.wav', '.zip', '.pdf',
-  '.pem', '.key', '.p12', '.pfx', '.sqlite', '.db', '.dump', '.bak', '.kdbx', '.gpg', '.age', '.asc',
 ]);
-const blockedBasename = /^(id_rsa|id_ed25519|authorized_keys|credentials?|secrets?|tokens?|passwords?)(\..*)?$/i;
 const generated = new Set([
   'site/catalog.json',
   'public/atlas/catalog-main.json',
@@ -22,10 +20,9 @@ const generated = new Set([
 ]);
 
 function isExcluded(path) {
-  const name = basename(path);
-  return blockedPath.test(path)
-    || excludedExtensions.has(extname(path).toLowerCase())
-    || blockedBasename.test(name);
+  return isPrivateCatalogPath(path)
+    || isCredentialLikeFile(path)
+    || excludedMediaExtensions.has(extname(path).toLowerCase());
 }
 
 function category(path) {

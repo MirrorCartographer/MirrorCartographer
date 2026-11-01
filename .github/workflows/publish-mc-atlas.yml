@@ -18,6 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: node --test site/atlas-privacy-policy.test.mjs
       - run: node site/validate-site.mjs
       - run: node --check site/generate-catalog.mjs
       - run: node --check site/validate-catalog.mjs
