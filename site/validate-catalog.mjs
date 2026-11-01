@@ -1,22 +1,72 @@
-import{readFileSync,existsSync,statSync}from'node:fs';
-const path='site/catalog.json';
-if(!existsSync(path))throw Error('Catalog generation did not produce site/catalog.json');
-const raw=readFileSync(path,'utf8');
-const c=JSON.parse(raw);
-if(!Array.isArray(c.items)||!c.items.length)throw Error('Catalog must contain a non-empty items array');
-const required=['path','title','category','repository','url'];
-const seen=new Set(),bad=[],blocked=[];
-const privatePath=/(^|\/)(private|secrets?|credentials?|personal-records?|raw-private)(\/|$)|(^|\/)\.env($|\.)|(^|\/)(node_modules|\.git)(\/|$)/i;
-for(const [i,x]of c.items.entries()){
- for(const k of required)if(typeof x[k]!=='string'||!x[k].trim())bad.push('item '+i+' missing '+k);
- if(typeof x.path==='string'){
-  if(seen.has(x.repository+':'+x.path))bad.push('duplicate '+x.repository+':'+x.path);
-  seen.add(x.repository+':'+x.path);
-  if(privatePath.test(x.path))blocked.push(x.path);
- }
- if(typeof x.url==='string'&&!/^https:\/\/github\.com\/MirrorCartographer\/(MirrorCartographer|mirror-cartographer-ui)\/blob\/main\//.test(x.url))bad.push('unexpected source URL at item '+i);
+import { readFileSync, existsSync, statSync } from 'node:fs';
+import { basename, extname } from 'node:path';
+
+const catalogPath = 'site/catalog.json';
+if (!existsSync(catalogPath)) throw new Error('Catalog generation did not produce ' + catalogPath);
+
+const catalog = JSON.parse(readFileSync(catalogPath, 'utf8'));
+const allowedRepositories = new Set([
+  'MirrorCartographer/MirrorCartographer',
+  'MirrorCartographer/mirror-cartographer-ui',
+]);
+const blockedPath = /(^|\/)(private|secrets?|credentials?|personal-records?|raw-private|raw-conversations?|conversation-exports?|chat-exports?|medical-records?|health-records?|veterinary-records?|pet-records?|financial-records?|bank-records?|private-notes?|raw-notes?)(\/|$)|(^|\/)\.env($|\.)|(^|\/)(node_modules|\.git)(\/|$)/i;
+const excludedExtensions = new Set([
+  '.pem', '.key', '.p12', '.pfx', '.sqlite', '.db', '.dump', '.bak', '.kdbx', '.gpg', '.age', '.asc',
+]);
+const blockedBasename = /^(id_rsa|id_ed25519|authorized_keys|credentials?|secrets?|tokens?|passwords?)(\..*)?$/i;
+const required = ['path', 'title', 'category', 'repository', 'source_commit', 'url'];
+const seen = new Set();
+const errors = [];
+
+if (catalog.schema_version !== '1.0.0') errors.push('unexpected schema_version');
+if (!Array.isArray(catalog.items) || !catalog.items.length) errors.push('items must be a non-empty array');
+if (!Array.isArray(catalog.repositories) || catalog.repositories.length !== 2) errors.push('expected exactly two source repositories');
+
+for (const [index, item] of (catalog.items || []).entries()) {
+  for (const key of required) {
+    if (typeof item[key] !== 'string' || !item[key].trim()) errors.push('item ' + index + ' missing ' + key);
+  }
+
+  if (typeof item.path !== 'string' || typeof item.repository !== 'string') continue;
+  if (!allowedRepositories.has(item.repository)) errors.push('unexpected repository at item ' + index);
+
+  const path = item.path;
+  if (path.startsWith('/') || path.includes('\\\\') || path.split('/').some((part) => part === '.' || part === '..')) {
+    errors.push('unsafe catalog path at item ' + index);
+  }
+  if (blockedPath.test(path) || excludedExtensions.has(extname(path).toLowerCase()) || blockedBasename.test(basename(path))) {
+    errors.push('sensitive path or file type indexed: ' + path);
+  }
+
+  const key = item.repository + ':' + path;
+  if (seen.has(key)) errors.push('duplicate ' + key);
+  seen.add(key);
+
+  if (!/^[0-9a-f]{40}$/i.test(item.source_commit || '')) {
+    errors.push('invalid source_commit at item ' + index);
+  } else {
+    const repositoryPath = item.repository === 'MirrorCartographer/mirror-cartographer-ui'
+      ? path.replace(/^mirror-cartographer-ui\//, '')
+      : path;
+    if (item.repository === 'MirrorCartographer/mirror-cartographer-ui' && repositoryPath === path) {
+      errors.push('missing companion repository path prefix at item ' + index);
+    }
+    const expectedUrl = 'https://github.com/' + item.repository + '/blob/' + item.source_commit + '/'
+      + repositoryPath.split('/').map(encodeURIComponent).join('/');
+    if (item.url !== expectedUrl) errors.push('source URL is not pinned to the item commit at item ' + index);
+  }
 }
-if(bad.length)throw Error('Catalog schema checks failed:\n'+bad.slice(0,30).join('\n'));
-if(blocked.length)throw Error('Sensitive/private paths must not be indexed:\n'+blocked.slice(0,30).join('\n'));
-if(c.file_count!==c.items.length)throw Error('file_count does not match item count');
-console.log(JSON.stringify({result:'PASS',fileCount:c.items.length,repositories:c.repositories,categories:c.categories,bytes:statSync(path).size,uniquePaths:seen.size,privatePathLeaks:0},null,2));
+
+if (catalog.file_count !== (catalog.items || []).length) errors.push('file_count does not match item count');
+if (errors.length) throw new Error('Catalog validation failed:\\n' + errors.slice(0, 40).join('\\n'));
+
+console.log(JSON.stringify({
+  result: 'PASS',
+  fileCount: catalog.items.length,
+  repositories: catalog.repositories,
+  categories: catalog.categories,
+  bytes: statSync(catalogPath).size,
+  uniquePaths: seen.size,
+  privacyPathLeaks: 0,
+  sourceLinks: 'commit-pinned',
+}, null, 2));
