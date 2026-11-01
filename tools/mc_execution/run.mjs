@@ -61,13 +61,15 @@ for (const relative of [
   }));
 }
 
-const summary = results.every(r => r.status === "PASS") ? "PASS" : "FAIL";
+const workflowStatus = process.env.MC_WORKFLOW_STATUS ?? "not-finalized";
+const summary = results.every(r => r.status === "PASS") && workflowStatus !== "failure" ? "PASS" : "FAIL";
 const tasks = queue?.tasks ?? [];
 const lines = [
   "# Mirror Cartographer — Execution Report",
   "",
   `- **Run time (UTC):** ${now}`,
   `- **Overall status:** ${summary}`,
+  `- **Workflow status:** ${workflowStatus}`,
   `- **Checks passed:** ${results.filter(r => r.status === "PASS").length}/${results.length}`,
   `- **Queue items:** ${tasks.length}`,
   "",
