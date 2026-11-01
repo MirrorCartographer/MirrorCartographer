@@ -7,7 +7,7 @@ Mirror Cartographer is an open, evidence-aware environment for exploring how obs
 ## Start here
 - **Living Atlas:** free static website, repository search, relationship explorer, research and creative entry points.
 - **Core repository:** source of truth for research, architecture, methods, demonstrations, creative work, evidence, and tools.
-- **Interactive application:** companion interface, published separately through GitHub Pages.
+- **Interactive application:** the companion repository's wordless Room-World at `/`, its navigable Living Atlas at `/atlas/`, and The Between at `/research-atlas/`; all are published separately through free GitHub Pages. [Open the companion Living Atlas](https://mirrorcartographer.github.io/mirror-cartographer-ui/atlas/).
 - **ChatGPT handoff:** opens ChatGPT with a prepared prompt naming the selected public page and the machine-readable project manifest. The visitor reviews and sends the prompt; ChatGPT then retrieves the public sources itself.
 
 ## Repository map
