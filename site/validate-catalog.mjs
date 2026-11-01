@@ -31,11 +31,11 @@ for (const [index, item] of (catalog.items || []).entries()) {
   if (!allowedRepositories.has(item.repository)) errors.push('unexpected repository at item ' + index);
 
   const path = item.path;
-  if (path.startsWith('/') || path.includes('\\\\') || path.split('/').some((part) => part === '.' || part === '..')) {
+  if (path.startsWith('/') || path.includes('\\') || path.split('/').some((part) => part === '.' || part === '..')) {
     errors.push('unsafe catalog path at item ' + index);
   }
   if (blockedPath.test(path) || excludedExtensions.has(extname(path).toLowerCase()) || blockedBasename.test(basename(path))) {
-    errors.push('sensitive path or file type indexed: ' + path);
+    errors.push('sensitive path or file type indexed at item ' + index);
   }
 
   const key = item.repository + ':' + path;
@@ -58,7 +58,7 @@ for (const [index, item] of (catalog.items || []).entries()) {
 }
 
 if (catalog.file_count !== (catalog.items || []).length) errors.push('file_count does not match item count');
-if (errors.length) throw new Error('Catalog validation failed:\\n' + errors.slice(0, 40).join('\\n'));
+if (errors.length) throw new Error('Catalog validation failed:\n' + errors.slice(0, 40).join('\n'));
 
 console.log(JSON.stringify({
   result: 'PASS',
