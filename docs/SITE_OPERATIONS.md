@@ -22,6 +22,18 @@ This is a free GitHub setting for public repositories. No Cloudflare account, pa
 - `.github/workflows/publish-mc-atlas.yml`: clones the companion repo, builds the catalog, and publishes the static artifact.
 - The companion Vite app is built and published by `.github/workflows/publish-github-pages.yml` in the UI repository.
 
+## Companion route contract
+
+The companion application uses the repository project path on GitHub Pages:
+
+- `/` — wordless Room-World, built from `src/main.jsx` and `src/components/RoomWorldValid.jsx`.
+- `/atlas/` — navigable Living Atlas, served from `public/atlas/index.html`.
+- `/research-atlas/` — The Between, mirrored from `research-atlas/index.html` to `public/research-atlas/index.html`.
+
+The Room-World card in the companion atlas uses the relative link `../` so it returns to the GitHub Pages project root without depending on another hosting provider. Local world links must resolve to files under `public/atlas/worlds/`; The Between link must resolve to the published research-atlas route.
+
+Free GitHub Pages is the only approved public hosting target for these two sites. Existing Vercel, Netlify, and Cloudflare configuration or research files are retained as historical artifacts, not release targets.
+
 The catalog excludes paths named private/secrets/credentials/personal-records, environment files, binary media, and workflow internals. This is a presentation filter, not a security boundary: anything committed to a public repository is public.
 
 ## ChatGPT relationship
