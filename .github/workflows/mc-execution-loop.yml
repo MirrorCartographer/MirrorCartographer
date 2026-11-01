@@ -41,20 +41,25 @@ jobs:
           python-version: "3.12"
 
       - name: Validate execution queue and required inputs
+        id: validate-queue
         run: node tools/mc_execution/run.mjs
 
       - name: Validate canonical Living Atlas
+        id: validate-site
         run: node site/validate-site.mjs
 
       - name: Validate JavaScript syntax for catalog tools
+        id: validate-catalog-tools
         run: |
           node --check site/generate-catalog.mjs
           node --check site/validate-catalog.mjs
 
       - name: Run integrated evidence-gate checks
+        id: evidence-gates
         run: python tools/mc_gate_integration/run_gate_check.py
 
       - name: Build the cross-repository catalog in an isolated workspace
+        id: build-catalog
         run: |
           git clone --depth 1 https://github.com/MirrorCartographer/mirror-cartographer-ui.git ui-repository
           node site/generate-catalog.mjs
@@ -63,7 +68,11 @@ jobs:
       - name: Rebuild report with final verification results
         if: always()
         env:
-          MC_WORKFLOW_STATUS: ${{ job.status }}
+          MC_QUEUE_STATUS: ${{ steps.validate-queue.outcome }}
+          MC_SITE_STATUS: ${{ steps.validate-site.outcome }}
+          MC_CATALOG_TOOLS_STATUS: ${{ steps.validate-catalog-tools.outcome }}
+          MC_EVIDENCE_GATES_STATUS: ${{ steps.evidence-gates.outcome }}
+          MC_CATALOG_BUILD_STATUS: ${{ steps.build-catalog.outcome }}
         run: node tools/mc_execution/run.mjs
 
       - name: Upload execution report
