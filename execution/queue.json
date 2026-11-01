@@ -13,7 +13,7 @@
     {
       "id": "MIND-001",
       "title": "Build and verify the playable Mind experience",
-      "status": "active",
+      "status": "done",
       "priority": 1,
       "kind": "product-and-verification",
       "checks": [
@@ -23,12 +23,12 @@
         "JavaScript syntax and mobile layout are checked",
         "Privacy boundary is visible and local notebook is not sent to a server"
       ],
-      "completion_evidence": "Workflow checks pass and a browser smoke test confirms primary interactions."
+      "completion_evidence": "Static Mind validation and seven browser smoke tests passed in GitHub Actions run https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/41336316888. Public Pages deployment remains separately blocked by repository Pages configuration."
     },
     {
       "id": "EXEC-001",
       "title": "Make the execution loop observable and repeatable",
-      "status": "active",
+      "status": "done",
       "priority": 1,
       "kind": "verification",
       "checks": [
@@ -37,7 +37,7 @@
         "site/generate-catalog.mjs and site/validate-catalog.mjs parse",
         "tools/mc_gate_integration/run_gate_check.py passes"
       ],
-      "completion_evidence": "A successful workflow run and an uploaded execution report."
+      "completion_evidence": "Successful independent verification run and uploaded execution report: https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/41336316888"
     },
     {
       "id": "ATLAS-001",
@@ -81,7 +81,7 @@
     {
       "id": "ATLAS-002",
       "title": "Add browser smoke tests for core Living Atlas and Mind interactions",
-      "status": "queued",
+      "status": "done",
       "priority": 1,
       "kind": "testing",
       "checks": [
@@ -90,7 +90,22 @@
         "Test notebook save/export/reset",
         "Test narrow viewport and keyboard access"
       ],
-      "completion_evidence": "Automated browser test report attached to a workflow run."
+      "completion_evidence": "Seven Playwright smoke tests passed: homepage link, Mind loading, expedition progression, room selection, notebook save/JSON export, mobile layout, and uncaught JavaScript errors. Run: https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/41336316888"
+    },
+    {
+      "id": "ATLAS-DEPLOY-001",
+      "title": "Enable GitHub Pages deployment for the canonical Living Atlas",
+      "status": "blocked",
+      "priority": 1,
+      "kind": "external-configuration",
+      "checks": [
+        "Repository owner opens core repository Pages settings",
+        "Source is set to GitHub Actions",
+        "Publish workflow completes build and deploy jobs successfully",
+        "Deployed homepage and /mind/ route are opened and checked"
+      ],
+      "completion_evidence": "Waiting for one-time repository Pages configuration; build currently passes but the deployment job does not complete.",
+      "next_action": "https://github.com/MirrorCartographer/MirrorCartographer/settings/pages"
     }
   ]
 }
