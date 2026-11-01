@@ -7,7 +7,7 @@ The execution loop is a small, repository-owned runner. It is designed to operat
 - **Trigger:** manual dispatch, relevant pushes to `main`, and a scheduled run every six hours (GitHub may delay scheduled runs).
 - **Queue:** `execution/queue.json` is the durable, version-controlled work queue.
 - **Runner:** `tools/mc_execution/run.mjs` checks queue integrity and confirms required project inputs exist.
-- **Verification:** GitHub Actions validates the canonical site, validates the playable Mind page (required systems, IDs, anchors, JavaScript syntax, room definitions, and local-only notebook boundary), parses the catalog tools, runs the integrated evidence-gate checks, and generates/validates the cross-repository catalog using a temporary checkout of the companion application.
+- **Verification:** GitHub Actions validates the canonical site, validates the playable Mind page (required systems, IDs, anchors, JavaScript syntax, room definitions, and local-only notebook boundary), parses the catalog tools, runs the integrated evidence-gate checks, generates/validates the cross-repository catalog using a temporary checkout of the companion application, and runs Playwright smoke tests in Chromium for navigation, expedition progression, room selection, notebook export, and mobile overflow.
 - **Report:** every run attempts to upload `execution-report.md` as the `mc-execution-report` workflow artifact, including on failure.
 
 ## Start or inspect a run
