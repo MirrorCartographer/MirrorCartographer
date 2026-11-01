@@ -2,9 +2,20 @@
 
 Mirror Cartographer has two public surfaces with different responsibilities.
 
+## Current free-hosting map
+
+Both public surfaces use free GitHub Pages only. The former Vercel reference below describes the atmosphere's design role, not a current deployment target.
+
+- Atmosphere: the companion application's wordless root route at `https://mirrorcartographer.github.io/mirror-cartographer-ui/`.
+- Artist field / Living Atlas: the core site at `https://mirrorcartographer.github.io/MirrorCartographer/`, with the companion atlas at `https://mirrorcartographer.github.io/mirror-cartographer-ui/atlas/`.
+- The Between: the companion research instrument at `https://mirrorcartographer.github.io/mirror-cartographer-ui/research-atlas/`.
+
+Vercel, Netlify, and Cloudflare configuration retained in either repository is historical material, not an approved release path.
+
+
 ## 1. The atmosphere
 
-The Vercel phone-first site is the living encounter.
+The companion application's GitHub Pages root route is the living encounter.
 
 It should remain:
 
@@ -19,7 +30,7 @@ Its purpose is not to explain Mirror Cartographer. Its purpose is to let someone
 
 ## 2. The artist field
 
-The public Mirror Cartographer site is the usable creative substrate.
+The core GitHub Pages Living Atlas, together with the companion application's `/atlas/` route, is the usable creative substrate.
 
 It should expose:
 
