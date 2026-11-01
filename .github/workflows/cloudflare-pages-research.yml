@@ -1,6 +1,5 @@
-name: Legacy Cloudflare research deployment — do not use for public release
+name: Deploy Cloudflare research surface
 
-# Legacy manual research path only. The two public sites use free GitHub Pages; do not dispatch this workflow under the current hosting policy.
 on:
   workflow_dispatch:
     inputs:
