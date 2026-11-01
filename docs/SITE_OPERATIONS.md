@@ -2,7 +2,7 @@
 
 The canonical static atlas is published from `site/` by `.github/workflows/publish-mc-atlas.yml`. The `/chatgpt/` route is a no-backend handoff: it creates a prepared ChatGPT prompt containing the selected public page and `chatgpt/project-manifest.json`; the visitor reviews and sends it, and ChatGPT must fetch the public sources itself. Expected URL: https://mirrorcartographer.github.io/MirrorCartographer/.
 
-The build clones the public companion application repository and generates one searchable catalog across both repositories. The most recent successful build step indexed **6,450 public source files across two repositories**. The catalog links back to the canonical source files on GitHub.
+The build clones the public companion application repository and generates one searchable catalog across both repositories. The most recent successful build step indexed **6,450 public source files across two repositories**. The catalog links back to the exact source commit on GitHub rather than a moving `main` branch. Private, secret, credential, raw-conversation, personal-record, and sensitive health/pet/financial record paths are excluded from the public index; sensitive key-store and database formats are excluded as well.
 
 ## One-time free activation
 
@@ -20,11 +20,20 @@ The workflows intentionally call `actions/configure-pages@v5` without `enablemen
 ## Architecture
 
 - `site/index.html`: landing page, relationship explorer, and repository search interface.
-- `site/generate-catalog.mjs`: builds a searchable index from tracked public files in both repositories.
-- `.github/workflows/publish-mc-atlas.yml`: clones the companion repo, builds the catalog, and publishes the static artifact.
+- `site/generate-catalog.mjs`: builds a searchable index from tracked public files in both repositories, excludes private/credential-like paths and sensitive key-store formats, and pins each source link to its exact commit.
+- `site/validate-catalog.mjs`: rejects sensitive paths, duplicate entries, malformed provenance, and source links that drift from their recorded commit.
+- `site/experiments/` and `site/music/`: build-time copies of `public/experiments/` and `public/music/`; the ten interactive experiments and Music Room keep their relative links and assets.
+- `site/validate-public-routes.mjs`: verifies all ten experiment routes, required assets, and local links between the experiment and music collections.
+- `.github/workflows/publish-mc-atlas.yml`: clones the companion repo, builds the catalog, assembles the static routes, validates them, and publishes the artifact.
 - The companion Vite app is built and published by `.github/workflows/publish-github-pages.yml` in the UI repository.
 
 ## Companion route contract
+
+The core site also publishes two source-preserving static collections:
+- `/experiments/` — the ten original interactive HTML experiences, their collection index, and shared assets from `public/experiments/`.
+- `/music/` — the Music Room from `public/music/`, with relative links back to the experiment collection.
+
+The build copies both directories without flattening their internal paths. The route validator checks the experiment pages and the reciprocal experiment/music links before artifact upload.
 
 The companion application uses the repository project path on GitHub Pages:
 
