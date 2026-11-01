@@ -53,7 +53,8 @@ for (const relative of [
   "site/validate-site.mjs",
   "site/generate-catalog.mjs",
   "site/validate-catalog.mjs",
-  "tools/mc_gate_integration/run_gate_check.py"
+  "tools/mc_gate_integration/run_gate_check.py",
+  "tools/mc_execution/browser-smoke.mjs"
 ]) {
   results.push(check(`Required project input: ${relative}`, () => {
     if (!fs.existsSync(path.join(root, relative))) throw new Error("File not found");
@@ -67,7 +68,10 @@ const workflowChecks = [
   ["Playable Mind validation", process.env.MC_MIND_STATUS],
   ["Catalog tool syntax", process.env.MC_CATALOG_TOOLS_STATUS],
   ["Integrated evidence gates", process.env.MC_EVIDENCE_GATES_STATUS],
-  ["Cross-repository catalog build", process.env.MC_CATALOG_BUILD_STATUS]
+  ["Cross-repository catalog build", process.env.MC_CATALOG_BUILD_STATUS],
+  ["Playwright installation", process.env.MC_PLAYWRIGHT_INSTALL_STATUS],
+  ["Chromium installation", process.env.MC_CHROMIUM_INSTALL_STATUS],
+  ["Real-browser smoke tests", process.env.MC_BROWSER_SMOKE_STATUS]
 ];
 for (const [label, outcome] of workflowChecks) {
   if (!outcome) continue;
@@ -102,7 +106,7 @@ const lines = [
   "",
   "## Operating boundary",
   "",
-  "This run verifies repository inputs and queue integrity. It does not claim that a website is deployed or that interactive routes work in a real browser. It does not modify production code or automatically mark tasks complete.",
+  "This run verifies repository inputs and, when browser steps complete, exercises the local Living Atlas and Mind in Chromium. A local browser pass does not by itself prove GitHub Pages deployment is live. The runner does not modify production code or automatically mark tasks complete.",
   "",
   failures.length ? `## Failures\n\n${failures.map(f => "- " + f).join("\n")}` : "## Failures\n\nNone."
 ];
