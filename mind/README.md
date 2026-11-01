@@ -240,3 +240,10 @@ The repo now needs fewer new evidence maps and more executed audits:
 No artifact is allowed to upgrade confidence merely because it is detailed, beautiful, cited, structured, or emotionally resonant.
 
 Confidence changes only when evidence quality, direct support, independent corroboration, empirical validation, or successful falsification attempts improve.
+
+
+## Playable Mind experience
+
+The public-facing, interactive entrance is the [Playable Mind guide](human/PLAYABLE_MIND_GUIDE.md) and the deployed [Mind experience](https://mirrorcartographer.github.io/MirrorCartographer/mind/).
+
+It turns the research method into a small playable landscape: a guided six-scene investigation, a relationship map, seven rooms for evidence/hypotheses/contradictions/experiments/missingness/translation/reflection, and a local notebook with JSON/Markdown export. The browser-local notebook is not sent to a server. This interface is an entry point into the repository's deeper knowledge system, not a substitute for evidence records or evaluation.
