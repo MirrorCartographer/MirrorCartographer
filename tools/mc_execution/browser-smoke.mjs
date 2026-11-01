@@ -58,7 +58,8 @@ try {
     for (const id of ["expedition", "map", "rooms", "notebook"]) {
       assert(await page.locator("#" + id).count() === 1, "Missing #" + id);
     }
-    assert(await page.locator("[data-enter]").count() >= 7, "Expected seven room controls");\n    assert(await page.locator("[data-node]").count() >= 8, "Expected the center and all seven room nodes on the map");
+    assert(await page.locator("[data-enter]").count() >= 7, "Expected seven room controls");
+    assert(await page.locator("[data-node]").count() >= 8, "Expected the center and all seven room nodes on the map");
   });
 
   await test("Expedition answers and advances", async () => {
