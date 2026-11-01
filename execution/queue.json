@@ -11,6 +11,21 @@
   },
   "tasks": [
     {
+      "id": "MIND-001",
+      "title": "Build and verify the playable Mind experience",
+      "status": "active",
+      "priority": 1,
+      "kind": "product-and-verification",
+      "checks": [
+        "Playable Mind page exists at site/mind/index.html",
+        "Living Atlas links directly to the Mind",
+        "Guided investigation expedition, relationship map, seven rooms, local notebook, and exports are present",
+        "JavaScript syntax and mobile layout are checked",
+        "Privacy boundary is visible and local notebook is not sent to a server"
+      ],
+      "completion_evidence": "Workflow checks pass and a browser smoke test confirms primary interactions."
+    },
+    {
       "id": "EXEC-001",
       "title": "Make the execution loop observable and repeatable",
       "status": "active",
@@ -62,6 +77,20 @@
         "No credentials, secrets, or access controls are bypassed"
       ],
       "completion_evidence": "A dated diagnostic report with the blocker and the next required action."
+    },
+    {
+      "id": "ATLAS-002",
+      "title": "Add browser smoke tests for core Living Atlas and Mind interactions",
+      "status": "queued",
+      "priority": 1,
+      "kind": "testing",
+      "checks": [
+        "Test homepage navigation",
+        "Test Mind expedition and room selection",
+        "Test notebook save/export/reset",
+        "Test narrow viewport and keyboard access"
+      ],
+      "completion_evidence": "Automated browser test report attached to a workflow run."
     }
   ]
 }
