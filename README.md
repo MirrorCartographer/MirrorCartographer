@@ -1,6 +1,6 @@
 # Mirror Cartographer
 
-> **[Open the Living Atlas](https://mirrorcartographer.github.io/MirrorCartographer/)** · [Core repository](https://github.com/MirrorCartographer/MirrorCartographer) · [Interactive application](https://mirrorcartographer.github.io/mirror-cartographer-ui/) · [Open this project in ChatGPT](https://mirrorcartographer.github.io/MirrorCartographer/chatgpt/)
+> **[Living Atlas — deployment not yet verified](https://mirrorcartographer.github.io/MirrorCartographer/)** · [Core repository](https://github.com/MirrorCartographer/MirrorCartographer) · [Interactive application — Pages activation pending](https://mirrorcartographer.github.io/mirror-cartographer-ui/) · [Open this project in ChatGPT](https://mirrorcartographer.github.io/MirrorCartographer/chatgpt/)
 
 Mirror Cartographer is an open, evidence-aware environment for exploring how observations, relationships, hypotheses, contradictions, experiments, and outcomes fit together without erasing uncertainty.
 
@@ -23,9 +23,9 @@ Mirror Cartographer is an open, evidence-aware environment for exploring how obs
 | `docs/`, `schemas/`, `governance/`, `ledgers/` | Documentation, data contracts, governance, traceability |
 
 ## Free hosting
-The canonical website is a static GitHub Pages site built from `site/` by `.github/workflows/publish-mc-atlas.yml`. Its generated search catalog spans both public repositories (6,450 source files in the latest build). It requires no Cloudflare account, paid host, server, database, or API key. See [site operations](docs/SITE_OPERATIONS.md) for the one-time free Pages activation.
+The canonical website is a static GitHub Pages site built from `site/` by `.github/workflows/publish-mc-atlas.yml`. Its generated search catalog spans both public repositories (6,450 source files in the latest recorded build). It requires no Cloudflare account, paid host, server, database, or API key. The latest source/build checks pass, but the deployment job has not completed successfully; see [site operations](docs/SITE_OPERATIONS.md) for the verified status and the remaining Pages configuration check.
 
-The companion Vite application is published from the `mirror-cartographer-ui` repository using its own GitHub Pages workflow. Both are public-repository Pages deployments.
+The companion Vite application is built from the `mirror-cartographer-ui` repository for its own free GitHub Pages workflow. Its Pages site is not enabled yet, so the intended public route is not currently verified as live.
 
 ## Evidence and safety
 A visible connection is not automatically causal. MC separates observations, interpretations, hypotheses, and established claims; preserves provenance; and makes uncertainty inspectable. It is not a medical, veterinary, legal, or diagnostic authority. Sensitive records and raw private conversations do not belong in public repositories.
