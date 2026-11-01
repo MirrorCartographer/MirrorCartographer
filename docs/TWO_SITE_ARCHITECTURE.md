@@ -10,7 +10,7 @@ Both public surfaces use free GitHub Pages only. The former Vercel reference bel
 - Artist field / Living Atlas: the core site at `https://mirrorcartographer.github.io/MirrorCartographer/`, with the companion atlas at `https://mirrorcartographer.github.io/mirror-cartographer-ui/atlas/`.
 - The Between: the companion research instrument at `https://mirrorcartographer.github.io/mirror-cartographer-ui/research-atlas/`.
 
-Vercel and Netlify configuration retained in either repository is historical material. The core repository's former Cloudflare research deployment workflow is explicitly retired and cannot deploy; its evidence and contract files remain only as historical research material. The approved release path uses free GitHub Pages only.
+Vercel and Netlify configuration retained in either repository is historical material. The core repository still has a manually dispatchable Cloudflare research deployment workflow; it is not part of the approved release and must not be used under the Pages-only policy. Retiring it requires a coordinated update to its dependent workflow-contract and evidence tests. The approved two-site release path uses free GitHub Pages only.
 
 
 ## 1. The atmosphere

@@ -1,5 +1,6 @@
-name: Retired — Cloudflare research deployment (GitHub Pages only)
+name: Legacy Cloudflare research deployment — do not use for public release
 
+# Legacy manual research path only. The two public sites use free GitHub Pages; do not dispatch this workflow under the current hosting policy.
 on:
   workflow_dispatch:
     inputs:
@@ -19,16 +20,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  retired-notice:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: Explain the approved hosting path
-        run: echo "This Cloudflare deployment is retired. All public Mirror Cartographer surfaces use free GitHub Pages; no Cloudflare account, token, or paid service is required."
-
   deploy-and-verify:
-    if: ${{ false }} # Retired: do not deploy public Mirror Cartographer surfaces to Cloudflare.
     runs-on: ubuntu-latest
     environment: cloudflare-research
     steps:

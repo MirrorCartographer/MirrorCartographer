@@ -34,7 +34,7 @@ The companion application uses the repository project path on GitHub Pages:
 
 The Room-World card in the companion atlas uses the relative link `../` so it returns to the GitHub Pages project root without depending on another hosting provider. Local world links must resolve to files under `public/atlas/worlds/`; The Between link must resolve to the published research-atlas route.
 
-Free GitHub Pages is the only approved public hosting target for these two sites. The former Cloudflare research deployment workflow is retired and now emits a notice without deploying; related evidence and contract files remain as historical research artifacts. Existing Vercel and Netlify configuration is historical only. No third-party hosting account, paid service, or API key is required for the two-site release.
+Free GitHub Pages is the only approved public hosting target for these two sites. The core repository still contains a manually dispatchable Cloudflare research deployment workflow; it is separate from the two-site release and must not be dispatched under the current hosting policy. Its workflow-contract tests are coupled to that research experiment, so retiring the workflow safely requires a coordinated update to those tests and related evidence workflows. Existing Vercel and Netlify configuration is historical only. No third-party hosting account, paid service, or API key is required for the two-site release.
 
 The catalog excludes paths named private/secrets/credentials/personal-records, environment files, binary media, and workflow internals. This is a presentation filter, not a security boundary: anything committed to a public repository is public.
 
