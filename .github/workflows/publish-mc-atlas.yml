@@ -21,6 +21,7 @@ jobs:
       - run: node site/validate-site.mjs
       - run: node --check site/generate-catalog.mjs
       - run: node --check site/validate-catalog.mjs
+      - run: node --check site/validate-public-routes.mjs
       - name: Checkout companion application source
         run: git clone --depth 1 https://github.com/MirrorCartographer/mirror-cartographer-ui.git ui-repository
       - name: Generate catalog across both repositories
@@ -30,9 +31,12 @@ jobs:
       - name: Prepare site
         run: |
           touch site/.nojekyll
-          mkdir -p site/worlds/unreliable-observatory
+          mkdir -p site/worlds/unreliable-observatory site/experiments site/music
           cp independent-site/index.html site/worlds/unreliable-observatory/index.html
           cp independent-site/identity.json site/worlds/unreliable-observatory/identity.json
+          cp -R public/experiments/. site/experiments/
+          cp -R public/music/. site/music/
+          node site/validate-public-routes.mjs
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
