@@ -5,11 +5,11 @@
 
 ## The central proposition
 
-A person is not a static profile waiting to be classified. A person is a changing system in relationship with a changing world.
+A person is not a static profile waiting to be classified. A person is a changing system in relationship with a changing world. The map's job is not to close the case; it is to make overlooked conditions and relationships easier to see.
 
-Self-understanding is the construction and revision of a useful model from partial observations across time. Self-interaction is the deliberate act of participating in that system: noticing conditions, changing a response or environment, observing consequences, and revising the model without confusing the model for the person.
+Self-understanding is the construction and revision of a useful model from partial observations across time. Self-interaction is the deliberate act of participating in that system: noticing conditions, changing a response or environment, observing consequences, and revising the model without confusing the model for the person. A metaphor may give a difficult experience its first workable shape; it remains an invitation to observe, not a substitute for observation.
 
-The map must remain smaller than the territory.
+The map must remain smaller than the territory. It should help the person see more, never claim to contain them.
 
 ## Seven dimensions of observation
 
