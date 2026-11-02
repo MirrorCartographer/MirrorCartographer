@@ -12,6 +12,7 @@ It began as a symbolic reflection interface. It now spans research, continuity, 
 ## Choose a door
 
 - **[Read the Observatory Field Guide](OBSERVATORY_FIELD_GUIDE.md)** — the clearest map of this repository, its vocabulary, and a good way to begin.
+- **[Enter the Symbolic Language Engine](SYMBOLIC_LANGUAGE_ENGINE.md)** — learn how symbols become observations, relationships, questions, and discoveries without being mistaken for facts.
 - **[Read the Obsession Map](OBSESSION_MAP.md)** — follow the recurring questions through research, biology, systems, and creative work.
 - **[Open the Cabinet of Real Things](CABINET_OF_REAL_THINGS.md)** — see which artifacts already exist, what they demonstrate, and what remains unfinished.
 - **[Research method](research/METHOD.md)** — how evidence, claims, uncertainty, and tests are handled.
@@ -29,7 +30,7 @@ It began as a symbolic reflection interface. It now spans research, continuity, 
 | Understand how the project thinks | `research/METHOD.md`, `mind/`, `architecture/` |
 | Follow a scientific or systems question | `research/`, `evidence/`, `proof/` |
 | Inspect a working instrument | `tools/`, `demonstrations/`, `execution/` |
-| Explore the symbolic and creative layer | `Creative_Universe/`, `art/`, `music/`, `independent-creative/` |
+| Explore the symbolic and creative layer | `SYMBOLIC_LANGUAGE_ENGINE.md`, `Creative_Universe/`, `art/`, `music/`, `independent-creative/` |
 | Understand decisions and boundaries | `governance/`, `schemas/`, `ledgers/`, `docs/` |
 
 ## The method in one breath
