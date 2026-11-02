@@ -20,6 +20,7 @@ One question remains:
 - **[Research Expedition 001 — The Signal That Leaves the Wound](research/expeditions/001-the-signal-that-leaves-the-wound.md)** — a real, source-linked investigation into injury signaling, systemic response, bioelectricity, and regeneration; includes provisional hypotheses and an experiment ladder.
 - **[CASE 001 — The Person Who Was Never Sick Enough](site/cases/001-the-person-who-was-never-sick-enough/index.html)** — reconstruct a synthetic case from six records; find the omission, test competing explanations, and inspect the provenance.
 - **[Research method](research/METHOD.md)** — evidence, claims, uncertainty, tests.\n- **[The 101-Dimension Atlas](architecture/101_DIMENSION_ATLAS.md)** — the expandable multidimensional ontology underlying Mirror Cartographer.
+- **[Observer and Instrument](architecture/OBSERVER_AND_INSTRUMENT.md)** — the reflexive architecture for examining how observation and mapping shape what becomes visible.
 - **[Self-cartography model](docs/SELF_CARTOGRAPHY_MODEL.md)** — a revisable map of a person, never a substitute for one.
 - **[Mind](mind/)** — continuity, cognition, design, care, memory, experiments.
 - **[Research](research/)** — questions, source-linked claims, models, hypothesis tests.
