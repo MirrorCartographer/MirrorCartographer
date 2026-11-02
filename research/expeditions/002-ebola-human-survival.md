@@ -212,7 +212,7 @@ The most important current opportunity is the ongoing Bundibugyo treatment trial
 5. European Centre for Disease Prevention and Control. 2026-10-29. Ebola disease outbreak caused by Bundibugyo virus – Multi-country – 2026. https://www.ecdc.europa.eu/en/public-health-events/2026-eip-00026/2026-10-29. Epidemiological update.
 6. Centers for Disease Control and Prevention. 2026-05-27. Clinical Guidance for Ebola Disease. https://www.cdc.gov/ebola/hcp/clinical-guidance/index.html. Clinical guidance.
 7. Centers for Disease Control and Prevention. 2026-09-11. Caring for Ebola Disease Survivors in the United States. https://www.cdc.gov/ebola/hcp/clinical-guidance/management-of-survivors.html. Survivor guidance and persistence evidence.
-8. Basler CF. 2020. Molecular pathogenesis of Ebola virus disease. *Nature Reviews Microbiology* / related review record. https://www.nature.com/articles/s41572-020-0147-3. Mechanistic review; not clinical efficacy evidence.
+8. Jacob ST et al. 2020. Ebola virus disease. *Nature Reviews Disease Primers* 6, 13. https://www.nature.com/articles/s41572-020-0147-3. Disease primer covering clinical course, mechanisms, treatment evidence, and persistence; not clinical efficacy evidence.
 9. World Health Organization. 2026-05-28. Experts convened by WHO advise on candidate treatments and vaccines for Ebola disease caused by Bundibugyo virus. https://www.who.int/news/item/28-05-2026-experts-convened-by-who-advise-on-candidate-treatments-and-vaccines-for-ebola-disease-caused-by-bundibugyo-virus. Official candidate and trial recommendations.
 
 ## Review limitations
