@@ -16,7 +16,9 @@ One question remains:
 - **[Observatory Field Guide](OBSERVATORY_FIELD_GUIDE.md)** — the map, the vocabulary, the way in.
 - **[Symbolic Language Engine](SYMBOLIC_LANGUAGE_ENGINE.md)** — how symbols become observations, relationships, questions, and discoveries without becoming counterfeit facts.
 - **[Obsession Map](OBSESSION_MAP.md)** — follow the recurring questions across research, biology, systems, and creative work.
-- **[Cabinet of Real Things](CABINET_OF_REAL_THINGS.md)** — what exists, what it demonstrates, what remains unfinished.\n- **[CASE 001 — The Person Who Was Never Sick Enough](site/cases/001-the-person-who-was-never-sick-enough/index.html)** — reconstruct a synthetic case from six records; find the omission, test competing explanations, and inspect the provenance.
+- **[Cabinet of Real Things](CABINET_OF_REAL_THINGS.md)** — what exists, what it demonstrates, what remains unfinished.
+- **[Research Expedition 001 — The Signal That Leaves the Wound](research/expeditions/001-the-signal-that-leaves-the-wound.md)** — a real, source-linked investigation into injury signaling, systemic response, bioelectricity, and regeneration; includes provisional hypotheses and an experiment ladder.
+- **[CASE 001 — The Person Who Was Never Sick Enough](site/cases/001-the-person-who-was-never-sick-enough/index.html)** — reconstruct a synthetic case from six records; find the omission, test competing explanations, and inspect the provenance.
 - **[Research method](research/METHOD.md)** — evidence, claims, uncertainty, tests.
 - **[Self-cartography model](docs/SELF_CARTOGRAPHY_MODEL.md)** — a revisable map of a person, never a substitute for one.
 - **[Mind](mind/)** — continuity, cognition, design, care, memory, experiments.
