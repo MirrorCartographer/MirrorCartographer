@@ -426,8 +426,10 @@ Potential composite metrics should be developed only after construct validity is
 - **Disposition:** Documented research artifact; scientific hypotheses remain provisional.
 
 ### Checkpoint C — Verification
-- **Target:** This exact repository path and resulting Git blob/commit.
-- **Verification method:** Fetch the committed file from the repository default branch and compare returned content and blob identity with the intended artifact.
+- **Target:** `MirrorCartographer/MirrorCartographer/research/expeditions/003-continuity-through-selective-loss.md` on `main`.
+- **Commit:** `f77f7d9b347679bef7005c9e87a3698ebaba6e10` (initial artifact commit).
+- **Fetched blob:** `e7288cc19a7cfa16f9717ff74038bdefa31c3b52` (returned by a fresh default-branch fetch; content length 38,058 characters; opening heading and closing revision rule matched).
+- **Verification method:** Freshly fetched the exact path from the repository default branch; confirmed the expected opening heading, expected closing revision rule, and returned blob identity. This verifies repository presence and retrievability, not scientific claims or experimental execution.
 - **Execution boundary:** Repository presence proves that the document was committed and retrievable. It does not prove that laboratory experiments, external reviews, or systematic literature screening occurred.
 - **Remaining uncertainty:** Any source not independently checked beyond the cited record; all unperformed experiments; external replication.
 - **Disposition:** Verified as a repository artifact only. No scientific validation claim is made.
