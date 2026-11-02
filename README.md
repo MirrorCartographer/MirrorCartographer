@@ -21,6 +21,8 @@ One question remains:
 - **[CASE 001 — The Person Who Was Never Sick Enough](site/cases/001-the-person-who-was-never-sick-enough/index.html)** — reconstruct a synthetic case from six records; find the omission, test competing explanations, and inspect the provenance.
 - **[Research method](research/METHOD.md)** — evidence, claims, uncertainty, tests.\n- **[The 101-Dimension Atlas](architecture/101_DIMENSION_ATLAS.md)** — the expandable multidimensional ontology underlying Mirror Cartographer.
 - **[Observer and Instrument](architecture/OBSERVER_AND_INSTRUMENT.md)** — the reflexive architecture for examining how observation and mapping shape what becomes visible.
+- **[Demonstration 001 — The Hidden Interface](demonstrations/001-cross-domain-bridge/README.md)** — an executable synthetic example of finding cross-domain structural bridges without treating topology as causation.
+- **[Relationship engine](tools/relationship-engine/relationship-engine.mjs)** — a small tested engine for ranking candidate bridge nodes.
 - **[Self-cartography model](docs/SELF_CARTOGRAPHY_MODEL.md)** — a revisable map of a person, never a substitute for one.
 - **[Mind](mind/)** — continuity, cognition, design, care, memory, experiments.
 - **[Research](research/)** — questions, source-linked claims, models, hypothesis tests.
