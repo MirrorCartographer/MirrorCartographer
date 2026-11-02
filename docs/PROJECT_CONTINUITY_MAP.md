@@ -8,7 +8,7 @@ This file is the public-safe continuity spine for the Mirror Cartographer projec
 
 Mirror Cartographer is not limited to either repository or either website.
 
-The project corpus includes every relevant:
+The project corpus includes every relevant trace of how the work formed, changed, and corrected itself:
 
 - chat and conversation branch
 - uploaded file, image, video, audio artifact, document, spreadsheet, and code sample
@@ -19,7 +19,7 @@ The project corpus includes every relevant:
 - automation output and handoff
 - external page, connected tool, operator workflow, and deployment surface
 
-The repositories are durable implementation surfaces inside that larger corpus. They are not the whole project.
+The repositories are durable implementation surfaces inside that larger corpus. They are not the whole project, and their present structure must not be mistaken for the full history of the idea.
 
 Private, medical, intimate, or identifying source material must not be copied into the public repository. Public continuity records should preserve structure, decisions, meanings, provenance categories, and links to private evidence stores without exposing sensitive content.
 
@@ -147,4 +147,4 @@ Automations must not claim comprehensive continuity unless they have checked bot
 
 ## 8. Current unresolved contradiction
 
-The project requires total continuity across all material, while much of that material is private, fragmented across chats and uploaded artifacts, and not safely publishable. The correct architecture is therefore not to place everything in GitHub. It is to maintain a private indexed evidence layer plus a public-safe derived continuity layer with explicit provenance boundaries.
+The project requires total continuity across all material, while much of that material is private, fragmented across chats and uploaded artifacts, and not safely publishable. The correct architecture is therefore not to place everything in GitHub. It is to maintain a private indexed evidence layer plus a public-safe derived continuity layer with explicit provenance boundaries. Continuity should preserve the path by which an idea arrived—not retroactively pretend the destination was obvious from the beginning.
