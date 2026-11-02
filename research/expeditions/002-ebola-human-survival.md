@@ -218,3 +218,146 @@ The most important current opportunity is the ongoing Bundibugyo treatment trial
 ## Review limitations
 
 This is a bounded, source-linked dossier, not a systematic review. It does not include a formal risk-of-bias appraisal of all studies, a complete search strategy, all null or contradictory studies, patient-level trial data, or independent expert review. Counts and trial status are time-sensitive and must be refreshed before reuse.
+
+
+---
+
+## 10. Evidence update — treatment response, persistence biomarkers, and long-term neurological recovery
+
+**Update date:** 2026-11-02  
+**Purpose:** Incorporate newly identified 2026 human evidence and refine the research model. This update does not change the evidence hierarchy: a single case, a preprint, and a longitudinal cohort answer different questions.
+
+### 10.1 A treated Bundibugyo case provides a human virological timeline — not proof of efficacy
+
+Uhrig et al., *Nature Medicine* (published online 2026-08-24; volume 32, 2026), reported a 39-year-old healthcare worker with Bundibugyo virus disease who received investigational MBP134 under FDA eIND authorization, remdesivir, and supportive care.
+
+Reported observations:
+- Viral RNA was highest in oropharyngeal swabs and plasma.
+- RNA became undetectable in plasma, throat swabs, urine, and stool by day 13 after symptom onset.
+- Semen was RNA-positive on day 20 and negative on day 25.
+- Attempts to culture virus from selected plasma, throat-swab, and semen samples were unsuccessful in three specialized laboratories.
+- The patient recovered and was discharged on day 22.
+- The patient developed endogenous BDBV-specific antibody responses.
+
+Source: https://www.nature.com/articles/s41591-026-04663-5
+
+**What this establishes:** detailed human observations of virological and immune trajectories during combined investigational antibody, antiviral, and supportive treatment.
+
+**What it does not establish:** the independent effect of MBP134, remdesivir, or supportive care; comparative efficacy; a causal mechanism of clearance; or a generalizable treatment effect. One patient receiving multiple simultaneous interventions cannot identify which intervention caused which outcome. PCR negativity is not identical to proof of sterilizing clearance, and unsuccessful culture attempts are bounded by specimen selection and assay sensitivity.
+
+**Research implication:** collect synchronized, longitudinal, multi-compartment measurements and clinical outcomes in trials. Do not reduce response to a single blood viral-load curve.
+
+### 10.2 A preprint reports an antibody signature associated with Sudan virus RNA persistence
+
+Bai et al., Research Square preprint (2026-05-26), studied 86 of 87 survivors of the 2022–2023 Sudan ebolavirus outbreak in Uganda. The study is explicitly marked as **not yet peer reviewed** in the PMC record.
+
+Among 36 eligible and consenting adults sampled for semen or breast-milk RNA, 20 (55%) had viral RNA detected at one or more follow-up visits. A four-feature humoral signature was associated with RNA persistence:
+- GP-specific antibody-dependent cellular phagocytosis (ADCP);
+- NP-specific IgG2;
+- NP-specific IgA1;
+- VP40-specific IgM.
+
+The authors report an apparent AUC of 0.9938 for the four-feature classifier in this dataset. They also report that VP40-specific antibody features correlated with shorter duration of RNA detection.
+
+Sources:
+- Preprint: https://doi.org/10.21203/rs.3.rs-9601480/v1
+- Full text: https://pmc.ncbi.nlm.nih.gov/articles/PMC13232441/
+
+**Critical interpretation and limitations:**
+1. This is a preprint, not peer-reviewed evidence.
+2. Only 36 survivors had the relevant compartment sampling; the classifier's apparent performance is therefore vulnerable to small-sample optimism and overfitting.
+3. The remaining 50 survivors were not an independent external validation cohort; classifying them from the same immune signature is not equivalent to confirming persistence by direct virological sampling.
+4. The measured endpoint is viral RNA detection in semen or breast milk, not necessarily viable infectious virus.
+5. The antibody signature may be a response to persistent antigen rather than a mechanism that causes persistence or clears it.
+6. The association between VP40-directed antibodies and RNA clearance is hypothesis-generating. It does not demonstrate that administering VP40 antibodies would clear persistent infection or be safe.
+
+**Research implication:** this is a promising biomarker hypothesis, not a diagnostic test or treatment target ready for clinical use. It warrants preregistered, blinded, independent validation with adequate sample size, repeated compartment-specific testing, and carefully defined endpoints.
+
+### 10.3 Longitudinal neurological data show that survival is not the same as full recovery
+
+Billioux et al., *JAMA Neurology* (2026-08-01; doi:10.1001/jamaneurol.2026.2112), analyzed the PREVAIL III Neurology Study, a prospective Liberian cohort with more than seven years of follow-up.
+
+Among 148 Ebola antibody-positive survivors and 81 antibody-negative contacts, reported survivor sequelae included:
+- persistent headaches: 66.2%;
+- cognitive dysfunction: 56.1%;
+- fatigue: 51.1%;
+- cranial nerve abnormalities: 40.5%;
+- sensory abnormalities: 30.4%;
+- sleep abnormalities: 27.0%.
+
+Most neurological status measures improved over time, but memory loss, irritability, and concentration difficulties remained more common among survivors at the final evaluation than among contacts.
+
+Source: https://pubmed.ncbi.nlm.nih.gov/42268636/
+
+**Interpretation:** the data support long-term neurological follow-up after Ebola disease. They do not establish that all sequelae reflect ongoing viral replication; persistent symptoms may reflect prior tissue injury, immune-mediated effects, psychosocial factors, or multiple mechanisms. This is a Zaire/Ebola survivor cohort and must not be assumed to represent every filovirus species.
+
+### 10.4 Revised model: distinguish four states that are often collapsed
+
+The research model should no longer use “viral clearance” as one undifferentiated endpoint.
+
+| Dimension | State | Meaning | What it cannot establish alone |
+|---|---|---|---|
+| Molecular detection | RNA detected | Viral genetic material is present in the sampled specimen | That infectious virus is present |
+| Infectivity | Viable virus demonstrated | Infectious virus was recovered under the assay conditions | That every unsampled compartment is clear |
+| Host response | Antibody / immune signature | The host is responding to viral antigens | Whether the response is protective, causal, or sufficient |
+| Clinical recovery | Function and symptoms improve | The patient is recovering clinically | That all tissue injury or persistence has resolved |
+
+These dimensions must be measured separately and linked over time. A negative PCR in blood cannot establish clearance from every anatomical compartment. A positive PCR does not automatically establish transmissibility. An antibody signature cannot substitute for a direct virological endpoint without independent validation.
+
+### 10.5 New central research hypothesis: discordance contains information
+
+**H5 — Multi-compartment virological status, immune-response trajectories, and clinical recovery are partially independent dimensions. Their discordance may identify clinically meaningful survivor states that a single blood test or symptom score misses.**
+
+Examples of discordance to investigate (not assumed diagnoses):
+- blood RNA becomes undetectable while another sampled compartment remains RNA-positive;
+- RNA remains detectable while culture does not recover infectious virus;
+- an immune signature remains elevated after symptoms improve;
+- neurological or ophthalmological symptoms persist after acute systemic disease resolves.
+
+**Competing explanations:** assay sensitivity and specimen timing; residual non-infectious RNA; persistent antigen without replication; prior tissue injury; immune-mediated sequelae; reinfection or unrelated illness.
+
+**Falsification:** if adequately sampled, externally validated longitudinal data show that these dimensions are not independently informative after accounting for time, species, baseline severity, assay properties, and treatment, the proposed multi-axis model adds no clinical value.
+
+### 10.6 Next study design — observational validation before intervention
+
+The next defensible step is not to propose administering a new antibody or immunomodulator. It is to validate the measurement model in ethically governed survivor cohorts and clinical-trial follow-up.
+
+Minimum design requirements:
+1. Separate cohorts by virus species and outbreak.
+2. Preregister the primary biomarker hypothesis, endpoints, and analysis plan.
+3. Include all eligible survivors where possible; document who is not sampled and why.
+4. Collect repeated clinical assessments and non-invasive specimens under approved protocols; invasive sampling only when clinically justified and ethically approved.
+5. Record assay type, limit of detection, specimen handling, timing, and whether the result is RNA detection or infectivity evidence.
+6. Keep the biomarker development set separate from the external validation set.
+7. Test whether the immune signature adds predictive value beyond acute viral burden, age, severity, treatment, and time since illness.
+8. Measure patient-important outcomes: relapse, transmission events where established, organ function, neurological and ocular function, fatigue, cognition, mental health, and ability to resume daily activities.
+9. Distinguish prediction from causation. A biomarker that predicts persistence is not necessarily a therapeutic target.
+10. Ensure survivor governance, informed consent, privacy, and access to appropriate clinical follow-up.
+
+### 10.7 Revised priority ranking
+
+| Priority | Work | Rationale |
+|---|---|---|
+| P0 | Obtain and analyze PARTNERS trial results when publicly available | Human randomized evidence is the decisive test of Bundibugyo candidate treatment efficacy |
+| P0 | Validate the Sudan-virus persistence signature independently | Potential non-invasive way to stratify survivor follow-up, but currently preprint-level |
+| P1 | Build multi-axis longitudinal outcome datasets | Separate RNA detection, infectivity, immune state, and functional recovery |
+| P1 | Extend neurological and ocular follow-up across species | Survival endpoints omit substantial long-term disease burden |
+| P2 | Investigate VP40-associated immune mechanisms | Interesting association; not yet a validated therapeutic strategy |
+| P2 | Evaluate host-directed interventions | Requires a stronger causal understanding and safety evidence before clinical intervention |
+
+### 10.8 Revised conclusion
+
+The strongest new insight is not “antibodies can clear Ebola” or “persistent RNA means active infection.” Both are too crude.
+
+The evidence suggests that **viral material, infectious virus, immune memory, and clinical recovery can follow different timelines**. The scientifically useful object is the relationship among those trajectories, measured with clear distinctions between assay endpoints and clinical states.
+
+That reframes the human-survival problem from a single question — “Is the virus gone?” — into a set of linked questions:
+
+- From which compartment was it measured?
+- Was RNA detected, or was infectious virus demonstrated?
+- What is the host immune system doing over time?
+- Is organ and neurological function recovering?
+- Which combination of those observations predicts a patient-important outcome?
+- Can that prediction be independently validated and used to improve follow-up?
+
+**Status after update:** new human case evidence incorporated; preprint status and limitations explicitly recorded; long-term neurological evidence added; persistence model revised; next observational validation study specified. No new treatment efficacy claim or cure established.
