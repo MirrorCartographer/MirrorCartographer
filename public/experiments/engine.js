@@ -6,7 +6,7 @@ let p={x:.5,y:.5,down:false},audio=null,master=null,enabled=false,intensity=.65,
 const seed=[...mode].reduce((a,c)=>a+c.charCodeAt(0),0);
 const R=n=>{const v=Math.sin(seed*91.7+n*44.3)*43758.5453;return v-Math.floor(v)};
 function size(){d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;C.width=W*d;C.height=H*d;x.setTransform(d,0,0,d,0,0)}addEventListener('resize',size,{passive:true});size();
-function initAudio(){if(audio)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audio=new AC();master=audio.createGain();master.gain.value=0;master.connect(audio.destination)}
+function initAudio(){if(audio)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audio=new AC();master=audio.createGain();master.gain.value=1;master.connect(audio.destination)}
 function tone(){if(!enabled)return;initAudio();if(!audio)return;audio.resume();const o=audio.createOscillator(),g=audio.createGain(),q=audio.createStereoPanner?audio.createStereoPanner():null;o.type=['sine','triangle','sawtooth'][seed%3];o.frequency.value=90+seed%180+p.y*380;g.gain.setValueAtTime(.0001,audio.currentTime);g.gain.exponentialRampToValueAtTime(.035*intensity,audio.currentTime+.025);g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+.5);if(q){q.pan.value=p.x*2-1;o.connect(g).connect(q).connect(master)}else o.connect(g).connect(master);o.start();o.stop(audio.currentTime+.55)}
 function line(a,b,c,w=1){x.strokeStyle=c;x.lineWidth=w;x.beginPath();x.moveTo(a[0],a[1]);x.lineTo(b[0],b[1]);x.stroke()}
 function circle(X,Y,r,c,fill=true){x.beginPath();x.arc(X,Y,r,0,Math.PI*2);if(fill){x.fillStyle=c;x.fill()}else{x.strokeStyle=c;x.stroke()}}
