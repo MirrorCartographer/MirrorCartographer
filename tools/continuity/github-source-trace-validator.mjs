@@ -6,7 +6,7 @@ const FORBIDDEN_KEYS = new Set([
 const SHA = /^[a-f0-9]{40}$/;
 const DIGEST = /^sha256:[a-f0-9]{64}$/;
 const ID = /^MC-TRACE-[A-Z0-9-]{6,64}$/;
-const SOURCE = /^privsrc_[A-Za-z0-9_-]{12,96}$/;
+const SOURCE = /^privsrc_[A-Za-z0-9_-]{12,96}$/;\nconst ALLOWED_KEYS = new Set([\n  "schema_version","trace_id","repository","artifact_path","commit_sha","parent_sha",\n  "line_ranges","source_ref","source_digest","source_kind","relationship",\n  "transformation","claim_refs","decision_refs","privacy_scope",\n  "raw_content_included","completeness","review_status","notes_code"\n]);
 
 function validateGitHubSourceTrace(record) {
   const errors = [];
