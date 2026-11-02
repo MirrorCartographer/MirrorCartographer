@@ -47,3 +47,9 @@ test("rejects invalid line ranges and path traversal", () => {
   assert.ok(result.errors.some(x => x.includes("artifact_path")));
   assert.ok(result.errors.some(x => x.includes("line_ranges")));
 });
+
+test("rejects unrecognized fields instead of silently publishing them", () => {
+  const result = validateGitHubSourceTrace({ ...valid, private_pointer: "hidden" });
+  assert.equal(result.valid, false);
+  assert.ok(result.errors.some(x => x.includes("unknown field")));
+});
