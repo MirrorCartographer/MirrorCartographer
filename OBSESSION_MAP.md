@@ -5,6 +5,9 @@ This is not a backlog. It is a map of recurring gravitational pulls in the work:
 
 Read it like a constellation. You can enter anywhere. The point is to notice what each star makes visible in the others.
 
+
+For a grounded inventory of what already exists, open the [Cabinet of Real Things](CABINET_OF_REAL_THINGS.md).
+
 ## First orbit — the impossible question
 
 **What can be understood from individual facts, and how much remains invisible?**
