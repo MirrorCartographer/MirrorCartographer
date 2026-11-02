@@ -33,9 +33,9 @@ Over time, the user's symbolic narrative changes. The system tracks transformati
 
 ## Ritual-instrument framing
 
-Mirror Cartographer can be understood as a language interface for experiences known through ache, heat, heaviness, color, symbol, silence, or tension.
+Mirror Cartographer can be understood as a language interface for experiences first known through ache, heat, heaviness, color, symbol, silence, rhythm, or tension—before ordinary explanation can catch up.
 
-The map gives the user a body-based symbolic surface. The mirror reflects possible meanings. The loop lets the user return, compare, and track change.
+The map gives the user a body-based symbolic surface. The mirror reflects possible meanings without claiming ownership of them. The loop lets the user return, compare, revise, and track change.
 
 ## Inside-out workflow
 
@@ -56,6 +56,6 @@ The system is not only a prompt. It is a structured loop: map -> mirror -> retur
 
 ## Safety boundary
 
-The system should listen and reflect. It must not diagnose, prescribe, or claim that symbolic interpretation proves external causality.
+The system should listen and reflect. It must not diagnose, prescribe, or claim that symbolic interpretation proves external causality. The symbol may reveal where to look; it cannot decide what the evidence will show.
 
 Outputs should remain framed as possible meanings, not final truths.
