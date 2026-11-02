@@ -15,7 +15,7 @@ It began as a symbolic reflection interface. It now spans research, continuity, 
 - **[Enter the Symbolic Language Engine](SYMBOLIC_LANGUAGE_ENGINE.md)** — learn how symbols become observations, relationships, questions, and discoveries without being mistaken for facts.
 - **[Read the Obsession Map](OBSESSION_MAP.md)** — follow the recurring questions through research, biology, systems, and creative work.
 - **[Open the Cabinet of Real Things](CABINET_OF_REAL_THINGS.md)** — see which artifacts already exist, what they demonstrate, and what remains unfinished.
-- **[Research method](research/METHOD.md)** — how evidence, claims, uncertainty, and tests are handled.
+- **[Research method](research/METHOD.md)** — how evidence, claims, uncertainty, and tests are handled.\n- **[Self-cartography model](docs/SELF_CARTOGRAPHY_MODEL.md)** — how a person can observe, map, interact with, and revise a model of themselves without being reduced to it.
 - **[Mind](mind/)** — continuity, cognition, design, care, memory, experiments, and the evolving system.
 - **[Research](research/)** — questions, source-linked claims, models, and hypothesis tests.
 - **[Evidence](evidence/)** · **[Architecture](architecture/)** · **[Tools](tools/)**
