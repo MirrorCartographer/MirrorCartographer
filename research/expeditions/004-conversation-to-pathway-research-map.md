@@ -451,3 +451,85 @@ For every new user turn:
 - `mind/research/2026-06-27-claim-boundary-compiler.md`
 - `mind/research/2026-06-30-evidence-before-belief-gate.md`
 - `mind/research/2026-07-02-claim-promotion-ladder.md`
+
+
+## 13. First counterexample audit — the timing of removal can reverse the outcome
+
+**Audit date:** 2026-11-02  
+**Purpose:** Stress-test the provisional continuity framework against evidence that removal, persistence, or clearance can be beneficial or harmful depending on context.
+
+### Finding 1 — Some senescent cells actively support repair and regeneration
+
+Da Silva-Álvarez et al. (2019; published in *Aging Cell*, issue date 2020), “Cell senescence contributes to tissue regeneration in zebrafish,” studied adult zebrafish fin amputation. Senescence-associated cells appeared transiently at the injury site; removing them with senolytic interventions impaired fin regeneration in the tested model. The authors discuss limitations of senescence markers and the possibility of off-target effects from senolytic compounds, so the result should not be generalized to all senescent cells or tissues. Primary paper: https://pmc.ncbi.nlm.nih.gov/articles/PMC6974711/ ; DOI https://doi.org/10.1111/acel.13052.
+
+This is a direct counterexample to “remove senescent cells whenever detected.” A transient cell state can contribute to a repair program. The relevant variable is not simply presence versus absence, but cell identity, state, location, timing, and duration.
+
+### Finding 2 — A well-known wound-healing paper now carries an expression of concern
+
+The 2014 Demaria et al. paper, “An essential role for senescent cells in optimal wound healing through secretion of PDGF-AA” (Developmental Cell; PMID 25499914), is associated in PubMed with an **Expression of Concern** published 8 July 2026. PubMed lists the 2026 notice and explicitly links it as an expression of concern for the 2014 article: https://pubmed.ncbi.nlm.nih.gov/42412492/.
+
+**Proof Machine correction:** Do not treat the 2014 paper as clean, unqualified support. Any use of its findings must display the expression-of-concern status and the underlying concern must be inspected before drawing conclusions. The present audit has verified the notice exists, but has not yet retrieved and evaluated the publisher's full explanation. The evidence status is therefore flagged, not adjudicated.
+
+This is an example of why provenance must be temporal: a source's status can change after it has entered a research dossier.
+
+### Finding 3 — Senescence has context-dependent protective, reparative, and pathological roles
+
+The review “Cellular Senescence in Aging, Tissue Repair, and Regeneration” summarizes evidence that senescence can suppress tumorigenesis, participate in development and repair, and become harmful when senescent cells persist. It reports the zebrafish regeneration result and notes unresolved questions about identifying truly senescent cells versus transient expression of markers. https://pmc.ncbi.nlm.nih.gov/articles/PMC9529244/.
+
+A 2025 review likewise characterizes senescence as context-dependent, with transient senescence potentially supporting regeneration and chronic senescence contributing to tissue deterioration: https://pubmed.ncbi.nlm.nih.gov/40318767/.
+
+These are reviews, not new independent experiments. They help map the state of the field but do not multiply the number of independent primary replications.
+
+### Finding 4 — Efferocytosis can be redirected in tumors
+
+Yang et al. (2026), “Metabolic reprogramming of efferocytosis in the tumour microenvironment,” is a review describing how tumors can exploit apoptotic-cell clearance and associated metabolic signaling to promote immunosuppressive macrophage states, tumor progression, and treatment resistance. https://pmc.ncbi.nlm.nih.gov/articles/PMC12848541/ ; DOI https://doi.org/10.1002/ctm2.70601.
+
+This supports a bounded conclusion: a normal homeostatic process can be co-opted by a pathological environment. It does **not** establish that efferocytosis is generally harmful, nor that all tumors exploit it in the same way. The next step is to extract and audit the primary studies underlying each specific mechanism rather than treating the review's synthesis as independent proof.
+
+### Finding 5 — Plant abscission is not automatically beneficial
+
+Li & Su (2024) describe abscission as a regulated plant process that can support nutrient allocation and reproduction, while also noting that excessive or poorly timed abscission can reduce crop quality and yield. https://pmc.ncbi.nlm.nih.gov/articles/PMC11740850/ ; DOI https://doi.org/10.1007/s44307-024-00033-9.
+
+This prevents the plant analogy from becoming “shedding is healthy.” The consequence depends on what is shed, when, under what conditions, and what the remaining plant can sustain.
+
+### Revised synthesis after counterexample pressure
+
+The original proposition—continuity depends in part on coordinating preservation, selective removal, containment, replacement, and reintegration—survives only with a stronger qualification:
+
+**Continuity depends on context-appropriate control of component state and fate. Removal is one possible outcome, not the default objective. Persistence may be protective, reparative, neutral, or pathological; clearance may be restorative, mistimed, incomplete, or co-opted.**
+
+The framework therefore needs at least these state variables:
+- identity and functional state of the component;
+- tissue and organismal context;
+- timing relative to injury, development, infection, or tumor evolution;
+- duration and reversibility of the state;
+- clearance or persistence mechanism;
+- neighboring-cell and immune response;
+- boundary integrity;
+- replacement and integration capacity;
+- whole-system function after the event.
+
+### New adversarial tests
+
+1. **False-positive removal:** What happens when a useful transient cell state is classified as harmful and eliminated?
+2. **Clearance hijack:** Can a tumor or pathogen redirect a normal clearance pathway toward its own advantage?
+3. **Persistence benefit:** Which states must persist long enough to perform repair, patterning, or tumor suppression?
+4. **Timing inversion:** Does the same intervention help at one phase and harm at another?
+5. **Source-status drift:** Has a cited paper acquired a correction, expression of concern, retraction, or updated interpretation since the dossier was written?
+6. **Marker ambiguity:** Are markers sufficient to identify the biological state, or can they be transiently expressed by other cell types?
+
+### Claim register amendments
+
+- **C004-09 — “More clearance is always better”**: Rejected. Counterexamples show that removal of transient reparative senescent cells can impair regeneration in a zebrafish model, and normal efferocytosis can be redirected in tumor contexts.
+- **C004-10 — “A detected senescence marker identifies a harmful senescent cell”**: Rejected. Marker expression and functional cell state must be distinguished; cell identity, location, timing, and function matter.
+- **C004-11 — “The 2014 Demaria wound-healing study is unqualified supporting evidence”**: Blocked pending review of the 2026 expression-of-concern notice.
+- **C004-12 — “Abscission is intrinsically adaptive”**: Rejected as universal wording. Plant abscission can be useful or yield-reducing depending on context.
+
+### Source-status notes
+
+- **Primary study:** Da Silva-Álvarez et al. 2019/2020 zebrafish regeneration study. Supports a model-specific claim.
+- **Review:** López? No—do not merge this review with a primary result. The 2022 review is a synthesis and should be counted as secondary evidence.
+- **Primary study with current integrity flag:** Demaria et al. 2014 wound-healing paper; expression of concern indexed in 2026. Do not rely on it without inspecting the notice.
+- **Review:** Yang et al. 2026 tumor efferocytosis review; use it to locate primary mechanisms, not as proof of every mechanism it summarizes.
+- **Review:** Li & Su 2024 plant abscission; useful for scope and crop-impact context.
+
