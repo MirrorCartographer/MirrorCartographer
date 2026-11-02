@@ -12,6 +12,7 @@ It began as a symbolic reflection interface. It now spans research, continuity, 
 ## Choose a door
 
 - **[Read the Observatory Field Guide](OBSERVATORY_FIELD_GUIDE.md)** — the clearest map of this repository, its vocabulary, and a good way to begin.
+- **[Read the Obsession Map](OBSESSION_MAP.md)** — follow the recurring questions through research, biology, systems, and creative work.
 - **[Research method](research/METHOD.md)** — how evidence, claims, uncertainty, and tests are handled.
 - **[Mind](mind/)** — continuity, cognition, design, care, memory, experiments, and the evolving system.
 - **[Research](research/)** — questions, source-linked claims, models, and hypothesis tests.
