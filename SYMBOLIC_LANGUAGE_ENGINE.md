@@ -9,15 +9,15 @@ Sometimes the important thing is not the object, the symptom, the sentence, or t
 
 It is the distance between them.
 
-Mirror Cartographer began in that distance: between what happened and what was recorded; between what was felt and what could be said; between a fact and the life it was supposed to describe. The symbolic language grew there—not to decorate the unknown, but to give it somewhere to stand while we look.
+Mirror Cartographer began in that distance: between what happened and what was recorded; between what was felt and what could be said; between a fact and the life it was supposed to describe. The symbolic language grew there—not to decorate the unknown, but to give it somewhere to stand while we look. This is the work's poetic justice: the overlooked is not automatically made true, but it is no longer dismissed before it can be examined.
 
 A word can be a lantern. It can also become a cage. We need to know the difference.
 
 ## The first law: a symbol is a door, not a verdict
 
-A symbol gives shape to something that might otherwise pass unnoticed. It does not own the thing it names. It does not prove a cause, settle an identity, or tell another person what their experience must mean.
+A symbol gives shape to something that might otherwise pass unnoticed. It gives the experience a hearing, not a conviction. It does not own the thing it names. It does not prove a cause, settle an identity, or tell another person what their experience must mean.
 
-Let a symbol be vivid. Let its interpretation remain revisable.
+Let a symbol be vivid. Let its interpretation remain revisable. Beauty can make a question visible; it cannot, by itself, settle the answer.
 
 Keep two truths in the same room:
 
@@ -38,7 +38,7 @@ A symbol is not finished when it is named. It begins to live when it can move.
 6. **Tested** — observation, evidence, or consequence can change the interpretation.
 7. **Transformed** — the symbol deepens, divides, joins another, goes quiet, or is released.
 
-A symbol can return to any earlier state. That is not regression. It is the honest shape of understanding.
+A symbol can return to any earlier state. That is not regression. It is the honest shape of understanding—and sometimes the moment an old reading finally becomes fair to what was there all along.
 
 ## The first lexicon: words with weather inside them
 
