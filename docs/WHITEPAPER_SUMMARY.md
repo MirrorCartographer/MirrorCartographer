@@ -2,9 +2,9 @@
 
 ## Abstract
 
-Mirror Cartographer is a live symbolic systems engineering framework that externalizes internal emotional, sensory, and somatic states into structured symbolic form.
+Mirror Cartographer is a live symbolic systems framework that gives emotional, sensory, and bodily experience a form that can be seen, revisited, and understood over time. It begins where ordinary language is not yet enough: sensation, image, color, texture, rhythm, and metaphor become ways into reflection—not substitutes for evidence.
 
-It is designed to support neurodivergent cognition and high-empathy embodiment by integrating:
+It is designed for people whose experience may arrive first as sensation, image, color, texture, rhythm, or metaphor—including many neurodivergent people—by bringing together:
 
 - symbolic mapping
 - recursive AI reflection
@@ -14,11 +14,11 @@ It is designed to support neurodivergent cognition and high-empathy embodiment b
 - color-emotion encoding
 - narrative feedback
 
-The system is intended as a new interface for meaning-making, allowing users to regulate, interpret, and evolve inner experiences through structured symbolic input and feedback.
+The system is an interface for meaning-making: users can give an experience a temporary shape, reflect on it with AI, and revise that shape as their understanding changes. Its poetic justice lies in refusing to discard an experience simply because it has not yet become an explanation.
 
 ## Introduction
 
-Mirror Cartographer converts complex, ineffable internal experiences into modular, trackable symbolic structures.
+Mirror Cartographer gives complex, hard-to-name internal experiences a provisional symbolic form that can be revisited without pretending the map is the person.
 
 Unlike ordinary journaling or somatic tracking apps, it treats emotional and physical states as symbolic data inside a larger recursive feedback loop.
 
@@ -79,13 +79,13 @@ Each session produces both a static output and a dynamic shift in the symbolic m
 
 The whitepaper frames Mirror Cartographer as emerging from a need to express internal experiences that linear language could not hold. The user draws or names a body location, assigns color, texture, and symbol, sends it into the system, receives a reflective output, and then returns over time to compare changes.
 
-The system is not framed as a cure. It is framed as a way to witness evolving patterns and convert chaos into trackable symbolic structure.
+The system is not framed as a cure. It is a way to witness changing patterns, find language for what was difficult to name, and make experience easier to revisit without flattening it into a checklist.
 
 ## Safety boundary
 
 Mirror Cartographer may support reflection, self-description, and language-building. It must not claim to diagnose, prescribe, prove symbolic truths, or replace professional care.
 
-The product value depends on preserving the difference between:
+The product's integrity depends on preserving the difference between:
 
 - symbol and evidence
 - metaphor and diagnosis
