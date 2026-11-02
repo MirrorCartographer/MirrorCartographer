@@ -127,6 +127,16 @@ https://pubmed.ncbi.nlm.nih.gov/37585658/
 - **Boundary:** This review synthesizes mechanisms and therapeutic opportunities; it does not establish that all age-related inflammation is caused by impaired efferocytosis.
 - **Why it matters:** It links removal, immune regulation, and tissue repair while preserving the distinction between a mechanism and a clinical intervention.
 
+**Tan et al. (2026), “Restored clearance of senescent neutrophils by tissue-resident macrophages limits organ aging,” Science 393(6808):eaea3075.**  
+https://doi.org/10.1126/science.aea3075  
+https://pubmed.ncbi.nlm.nih.gov/42462036/
+
+- **Source type:** Primary research.
+- **Reported finding:** In aged mice, tissue-resident macrophage EP2 signaling impaired efferocytic clearance of senescent neutrophils. Reducing this signaling restored clearance and was associated with preservation of multiple organ-level measures, including mitochondrial fitness, cognition, frailty, muscle, cardiac function, and systemic inflammation.
+- **Human evidence:** Elevated macrophage EP2 expression and senescent neutrophils were also observed in aged and diseased human tissues; these observations do not establish human causal effects or treatment benefit.
+- **Boundary:** The causal intervention evidence is preclinical. The result concerns a specific macrophage–neutrophil clearance pathway and does not establish that all age-related organ decline is caused by failed efferocytosis.
+- **Why it matters:** This is an independent 2026 example linking impaired selective clearance to multi-organ aging phenotypes in mice. It strengthens the case for studying clearance as a functional contributor to aging, while leaving a universal "release capacity" unproven.
+
 ### F. Cancer: cell-level persistence can conflict with organism-level continuity
 
 **Aktipis et al. (2015), “Cancer across the tree of life: cooperation and cheating in multicellularity,” Philosophical Transactions of the Royal Society B.**  
@@ -198,7 +208,7 @@ https://doi.org/10.1093/emph/eoaf026
 ### C5 — Age-related impairment of a specific cellular quality-control pathway can impair immune clearance and delay repair
 - **Type:** Source-reported finding.
 - **Status:** Supported in preclinical models; human relevance preliminary.
-- **Evidence:** Sereda et al. (2026).
+- **Evidence:** Sereda et al. (2026); Tan et al. (2026).
 - **Confidence:** High for the reported experimental mouse and cell models; limited for human causal inference.
 - **Not established:** A general human aging mechanism, a human treatment, or reversal of organismal aging.
 - **Next test:** Independent replication, additional cell types and tissues, and prospective human validation with direct functional measures.
@@ -446,6 +456,7 @@ Potential composite metrics should be developed only after construct validity is
 8. Kirkland JL, Tchkonia T. 2023. Targeting Efferocytosis in Inflammaging. https://pubmed.ncbi.nlm.nih.gov/37585658/
 9. Aktipis CA et al. 2015. Cancer across the tree of life: cooperation and cheating in multicellularity. *Philosophical Transactions of the Royal Society B*. https://doi.org/10.1098/rstb.2014.0220
 10. Maley CC et al. 2025. Multicellular cooperation and the hallmarks of cancer: A new foundation. *Evolution, Medicine, and Public Health* 13:374–380. https://doi.org/10.1093/emph/eoaf026
+11. Tan YJ et al. 2026. Restored clearance of senescent neutrophils by tissue-resident macrophages limits organ aging. *Science* 393(6808):eaea3075. https://doi.org/10.1126/science.aea3075
 
 ---
 
