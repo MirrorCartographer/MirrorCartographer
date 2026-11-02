@@ -2,7 +2,7 @@
 
 ## Academic abstract
 
-Mirror Cartographer is a live symbolic systems engineering framework that externalizes internal emotional, sensory, and somatic states into structured symbolic form.
+Mirror Cartographer is a live symbolic systems framework that gives emotional, sensory, and bodily experience a provisional symbolic form—something a person can see, revisit, and change as understanding grows.
 
 It is designed to support neurodivergent cognition and high-empathy embodiment by integrating symbolic mapping, recursive AI reflection, and aesthetic logic as an interface for meaning-making.
 
@@ -26,13 +26,13 @@ It is designed for users who process symbolically, visually, somatically, or syn
 
 ## Poetic-academic framing
 
-Mirror Cartographer offers a system for people whose meaning arrives first as body sensation, image, color, or metaphor.
+Mirror Cartographer offers a language-space for people whose meaning arrives first as body sensation, image, color, texture, rhythm, or metaphor.
 
-It does not cure, fix, or diagnose. It reveals, reflects, and gives the user a structured way to walk back toward language.
+It does not cure, fix, or diagnose. It gives the not-yet-sayable somewhere to begin: a shape to approach, a reflection to question, and a path back toward language that does not erase the original experience.
 
 ## Reflective origin
 
-Mirror Cartographer came from the need for a mirror that could speak symbolic language without flattening a person into symptom checklists or diagnosis.
+Mirror Cartographer came from the need for a mirror that could speak symbolic language without flattening a person into symptom checklists or diagnosis. Its poetic justice is modest but consequential: what cannot yet be explained should not be discarded merely because it has not yet found words.
 
 The originating use pattern was:
 
@@ -55,4 +55,4 @@ Mirror Cartographer must preserve the difference between:
 - resonance and proof
 - reflection and authority
 
-The system can help users name and track inner experience. It must not claim to know external truth from symbols alone.
+The system can help users name and track inner experience. Symbols may reveal a question, a distinction, or a pattern worth investigating; they cannot establish external truth on their own.
