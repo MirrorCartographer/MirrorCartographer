@@ -1,0 +1,19 @@
+{
+  "notice": "SYNTHETIC TEACHING EXAMPLE ONLY — not empirical data or a finding",
+  "nodes": [
+    {"id":"clinical-observation","label":"Clinical observation","domain":"healthcare"},
+    {"id":"care-plan","label":"Care plan","domain":"healthcare"},
+    {"id":"handoff","label":"Administrative handoff","domain":"administration"},
+    {"id":"eligibility-review","label":"Eligibility review","domain":"benefits"},
+    {"id":"service-access","label":"Service access","domain":"benefits"},
+    {"id":"follow-up","label":"Follow-up encounter","domain":"healthcare"}
+  ],
+  "edges": [
+    {"from":"clinical-observation","to":"care-plan","status":"observed"},
+    {"from":"care-plan","to":"handoff","status":"supported"},
+    {"from":"handoff","to":"eligibility-review","status":"supported"},
+    {"from":"eligibility-review","to":"service-access","status":"observed"},
+    {"from":"service-access","to":"follow-up","status":"observed"},
+    {"from":"clinical-observation","to":"service-access","status":"hypothesis"}
+  ]
+}
