@@ -19,7 +19,7 @@ One question remains:
 - **[Cabinet of Real Things](CABINET_OF_REAL_THINGS.md)** — what exists, what it demonstrates, what remains unfinished.
 - **[Research Expedition 001 — The Signal That Leaves the Wound](research/expeditions/001-the-signal-that-leaves-the-wound.md)** — a real, source-linked investigation into injury signaling, systemic response, bioelectricity, and regeneration; includes provisional hypotheses and an experiment ladder.
 - **[CASE 001 — The Person Who Was Never Sick Enough](site/cases/001-the-person-who-was-never-sick-enough/index.html)** — reconstruct a synthetic case from six records; find the omission, test competing explanations, and inspect the provenance.
-- **[Research method](research/METHOD.md)** — evidence, claims, uncertainty, tests.
+- **[Research method](research/METHOD.md)** — evidence, claims, uncertainty, tests.\n- **[GitHub Blame ↔ Private Source Provenance Bridge](docs/architecture/GITHUB_BLAME_PRIVATE_SOURCE_BRIDGE.md)** — connect code history to private source lineage without publishing raw conversations.
 - **[Self-cartography model](docs/SELF_CARTOGRAPHY_MODEL.md)** — a revisable map of a person, never a substitute for one.
 - **[Mind](mind/)** — continuity, cognition, design, care, memory, experiments.
 - **[Research](research/)** — questions, source-linked claims, models, hypothesis tests.
