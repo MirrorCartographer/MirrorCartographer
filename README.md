@@ -3,49 +3,50 @@
 
 > **What if the information survived, but the understanding did not?**
 
-Mirror Cartographer is an evidence-aware research and systems practice for exploring what becomes visible when scattered observations are read together—without confusing a compelling connection with a proven one.
+An evidence-aware research and systems practice for exploring what becomes visible when scattered observations are read together—without mistaking a compelling connection for proof.
 
-It began as a symbolic reflection interface. It now spans research, continuity, human–technology interaction, public-interest systems, experimental software, and creative inquiry. Its central question stays the same:
+It began as a symbolic reflection interface. It now moves through research, continuity, human–technology interaction, public-interest systems, experimental software, and creative inquiry.
+
+One question remains:
 
 **What can we understand from individual facts—and how much remains invisible between them?**
 
 ## Choose a door
 
-- **[Read the Observatory Field Guide](OBSERVATORY_FIELD_GUIDE.md)** — the clearest map of this repository, its vocabulary, and a good way to begin.
-- **[Enter the Symbolic Language Engine](SYMBOLIC_LANGUAGE_ENGINE.md)** — learn how symbols become observations, relationships, questions, and discoveries without being mistaken for facts.
-- **[Read the Obsession Map](OBSESSION_MAP.md)** — follow the recurring questions through research, biology, systems, and creative work.
-- **[Open the Cabinet of Real Things](CABINET_OF_REAL_THINGS.md)** — see which artifacts already exist, what they demonstrate, and what remains unfinished.
-- **[Research method](research/METHOD.md)** — how evidence, claims, uncertainty, and tests are handled.\n- **[Self-cartography model](docs/SELF_CARTOGRAPHY_MODEL.md)** — how a person can observe, map, interact with, and revise a model of themselves without being reduced to it.
-- **[Mind](mind/)** — continuity, cognition, design, care, memory, experiments, and the evolving system.
-- **[Research](research/)** — questions, source-linked claims, models, and hypothesis tests.
+- **[Observatory Field Guide](OBSERVATORY_FIELD_GUIDE.md)** — the map, the vocabulary, the way in.
+- **[Symbolic Language Engine](SYMBOLIC_LANGUAGE_ENGINE.md)** — how symbols become observations, relationships, questions, and discoveries without becoming counterfeit facts.
+- **[Obsession Map](OBSESSION_MAP.md)** — follow the recurring questions across research, biology, systems, and creative work.
+- **[Cabinet of Real Things](CABINET_OF_REAL_THINGS.md)** — what exists, what it demonstrates, what remains unfinished.
+- **[Research method](research/METHOD.md)** — evidence, claims, uncertainty, tests.
+- **[Self-cartography model](docs/SELF_CARTOGRAPHY_MODEL.md)** — a revisable map of a person, never a substitute for one.
+- **[Mind](mind/)** — continuity, cognition, design, care, memory, experiments.
+- **[Research](research/)** — questions, source-linked claims, models, hypothesis tests.
 - **[Evidence](evidence/)** · **[Architecture](architecture/)** · **[Tools](tools/)**
-- **[Demonstrations](demonstrations/)** — examples that show the method rather than only describing it.
+- **[Demonstrations](demonstrations/)** — see the method move.
 - **[Creative Universe](Creative_Universe/)** · **[Art](art/)** · **[Music index](music/archive-manifest.json)** · **[Open Mic](open-mic/)**
-- **[Companion encounter repository](https://github.com/MirrorCartographer/mirror-cartographer-ui)** — interactive experiments, language, rooms, and creative interfaces.
+- **[Companion encounter repository](https://github.com/MirrorCartographer/mirror-cartographer-ui)** — rooms, language, interaction, and creative experiments.
 
-## The map, at a glance
+## Find your way
 
-| If you want to… | Begin here |
+| Follow… | Enter… |
 |---|---|
-| Understand how the project thinks | `research/METHOD.md`, `mind/`, `architecture/` |
-| Follow a scientific or systems question | `research/`, `evidence/`, `proof/` |
-| Inspect a working instrument | `tools/`, `demonstrations/`, `execution/` |
-| Explore the symbolic and creative layer | `SYMBOLIC_LANGUAGE_ENGINE.md`, `Creative_Universe/`, `art/`, `music/`, `independent-creative/` |
-| Understand decisions and boundaries | `governance/`, `schemas/`, `ledgers/`, `docs/` |
+| How the project thinks | `research/METHOD.md`, `mind/`, `architecture/` |
+| A scientific or systems question | `research/`, `evidence/`, `proof/` |
+| A working instrument | `tools/`, `demonstrations/`, `execution/` |
+| The symbolic and creative layer | `SYMBOLIC_LANGUAGE_ENGINE.md`, `Creative_Universe/`, `art/`, `music/` |
+| Decisions and boundaries | `governance/`, `schemas/`, `ledgers/`, `docs/` |
 
-## The method in one breath
+## The method
 
-Keep the source. Name the claim. Separate observation from interpretation. Preserve uncertainty and missingness. Look for competing explanations. Design a test that could prove the attractive idea wrong. Record what changed.
+Keep the source. Name the claim. Separate observation from interpretation. Preserve uncertainty and missingness. Look for rival explanations. Design a test that could prove the attractive idea wrong. Record what changed.
 
-A visible connection is a lead, not a verdict.
+A connection is a lead. Not a verdict.
 
-## Public integrity
+## Integrity
 
-This is a public repository. Do not commit raw private conversations, medical or veterinary records, financial details, credentials, or unreviewed personal material. Mirror Cartographer is not a medical, veterinary, legal, or diagnostic authority. Research proposals and hypotheses must remain clearly distinguished from established findings.
+This is a public repository. Never commit raw private conversations, medical or veterinary records, financial details, credentials, or unreviewed personal material.
 
-## Hosting status
-
-The canonical static atlas is intended to be built from `site/` by `.github/workflows/publish-mc-atlas.yml`. The companion Vite application is built from `mirror-cartographer-ui`. Hosting is a delivery layer, not the definition of the work; treat a route as live only after a deployment succeeds and the route is checked. See [site operations](docs/SITE_OPERATIONS.md) for the core repository's deployment notes and the companion repository's [deployment runbook](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/operations/atlas/DEPLOYMENT.md).
+Mirror Cartographer is not a medical, veterinary, legal, or diagnostic authority. A proposal is not a finding. A hypothesis is not a result.
 
 ---
 
