@@ -45,7 +45,7 @@ Potential professional-adjacent uses:
 
 ## Poetic framing
 
-The system is a container for many uses. It adapts, reflects, and grows with those who need it.
+The system is a container for many uses. It adapts, reflects, and grows with those who need it. Its poetic justice is that a difficult-to-name experience can be met with curiosity rather than dismissal, while the person remains free to revise or reject every interpretation.
 
 For a creator, it can become a map of inner weather.
 
@@ -55,6 +55,6 @@ For a user, it can become a way to return to their own record and see that they 
 
 ## Safety boundary
 
-The use cases are possibilities, not outcome guarantees.
+The use cases are possibilities, not outcome guarantees. Meaningful reflection is not proof of clinical benefit, and a resonant metaphor is not a verified explanation.
 
 Mirror Cartographer should always preserve the boundary between support and authority, symbol and evidence, reflection and treatment, insight and proof.
