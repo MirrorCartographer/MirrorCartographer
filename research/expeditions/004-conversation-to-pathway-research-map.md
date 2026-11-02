@@ -533,3 +533,35 @@ The framework therefore needs at least these state variables:
 - **Review:** Yang et al. 2026 tumor efferocytosis review; use it to locate primary mechanisms, not as proof of every mechanism it summarizes.
 - **Review:** Li & Su 2024 plant abscission; useful for scope and crop-impact context.
 
+
+
+## 14. Archive-recovery checkpoint — prior conversation material located
+
+**Audit date:** 2026-11-02  
+**Source route:** User Library semantic search and exact-phrase retrieval.
+
+The Library search surfaced prior chat-export files, including several similarly named RTF conversation logs, a pasted conversation fragment, and MC archive/atlas artifacts. A targeted in-file retrieval found an earlier exchange organized around the contrast between bracing and grounding, including the user's description of prolonged clenching and difficulty feeling stable without bracing. This is a meaningful antecedent motif for the current conversation's later challenge about clenching and release.
+
+**Important source boundary:** The retrieved historical exchange is not the same thing as the exact recent biological conversation being mapped in Nodes N01–N14. Searches for the distinctive current-thread phrases about singers, trees/leaves, and the specific recent sequence did not establish a complete raw transcript match. The present map therefore remains a reconstruction from the active conversation context and available summaries, with a verified but incomplete historical archive connection.
+
+### What this changes
+
+1. The bracing/release motif has a longer conversational history than the current thread alone shows.
+2. The symbolic history can inform the interpretation of why the question matters, but it cannot prove a physiological mechanism.
+3. The conversation graph should preserve two linked but distinct tracks:
+   - **Experiential/symbolic track:** bracing, stability, release, bodily agency, and the felt cost of sustained protection.
+   - **Biological research track:** contraction, motor control, autonomic regulation, immune resolution, cellular turnover, and tissue repair.
+4. The bridge between the tracks is a research question: under what conditions do persistent protective states become costly, and what measurable processes terminate or reorganize them? The symbolic account is a source of questions, not causal evidence.
+
+### Archive recovery status
+
+- Prior chat-export artifacts: **Located**.
+- Earlier bracing/grounding exchange: **Located in a Library file excerpt**.
+- Exact current biological conversation in a raw export: **Not yet verified**.
+- Full historical archive coverage: **Not established**.
+- Duplicate or overlapping export files: **Present; require deduplication before counting turns or recurrence**.
+- Privacy handling: Raw personal conversation remains private-source material; only abstracted research lineage is retained here.
+
+### Next recovery operation
+
+Continue searching the Library for the specific recent conversation using alternative wording and date/topic metadata; identify the canonical export; deduplicate overlapping chat logs; then attach message-level source locators to the existing nodes. Do not manufacture transcript completeness from semantic matches or repeated copies of the same excerpt.
