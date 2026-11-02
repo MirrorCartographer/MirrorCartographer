@@ -18,6 +18,7 @@ One question remains:
 - **[Obsession Map](OBSESSION_MAP.md)** — follow the recurring questions across research, biology, systems, and creative work.
 - **[Cabinet of Real Things](CABINET_OF_REAL_THINGS.md)** — what exists, what it demonstrates, what remains unfinished.
 - **[Research Expedition 001 — The Signal That Leaves the Wound](research/expeditions/001-the-signal-that-leaves-the-wound.md)** — a real, source-linked investigation into injury signaling, systemic response, bioelectricity, and regeneration; includes provisional hypotheses and an experiment ladder.
+- **[Research Expedition 002 — Ebola Human Survival](research/expeditions/002-ebola-human-survival.md)** — a species-specific, evidence-grounded map of antiviral treatment, host protection, survivor recovery, and the 2026 Bundibugyo clinical-trial agenda.
 - **[CASE 001 — The Person Who Was Never Sick Enough](site/cases/001-the-person-who-was-never-sick-enough/index.html)** — reconstruct a synthetic case from six records; find the omission, test competing explanations, and inspect the provenance.
 - **[Research method](research/METHOD.md)** — evidence, claims, uncertainty, tests.\n- **[The 101-Dimension Atlas](architecture/101_DIMENSION_ATLAS.md)** — the expandable multidimensional ontology underlying Mirror Cartographer.
 - **[Observer and Instrument](architecture/OBSERVER_AND_INSTRUMENT.md)** — the reflexive architecture for examining how observation and mapping shape what becomes visible.
