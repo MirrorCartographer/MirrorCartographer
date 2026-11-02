@@ -24,14 +24,14 @@ if(mode==='composer'){for(let i=0;i<64;i++){let a=i/64*Math.PI*2+t,r=80+(i%8)*23
 if(!paused)raf=requestAnimationFrame(draw)}
 function start(){cancelAnimationFrame(raf);draw()}start();
 addEventListener('pointermove',e=>{p.x=e.clientX/W;p.y=e.clientY/H},{passive:true});
-addEventListener('pointerdown',e=>{if(e.target.closest('button,a,input'))return;p.down=true;tone()});addEventListener('pointerup',()=>p.down=false);
+addEventListener('pointerdown',e=>{if(e.target.closest('button,a,input'))return;p.down=true;tone()});addEventListener('pointerup',()=>p.down=false);\naddEventListener('keydown',e=>{if(e.target.closest('button,a,input'))return;const step=.045;if(e.key==='ArrowLeft')p.x=Math.max(0,p.x-step);else if(e.key==='ArrowRight')p.x=Math.min(1,p.x+step);else if(e.key==='ArrowUp')p.y=Math.max(0,p.y-step);else if(e.key==='ArrowDown')p.y=Math.min(1,p.y+step);else if(e.key==='Enter'||e.key===' '){e.preventDefault();tone()}else return;});
 const controls=document.querySelector('.bottom .controls');
 if(controls){
 const soundButton=controls.querySelector('[data-action="sound"]');
 if(soundButton){soundButton.setAttribute('aria-pressed','false');soundButton.addEventListener('click',()=>{enabled=!enabled;soundButton.setAttribute('aria-pressed',String(enabled));soundButton.textContent=enabled?'sound on':'sound off';if(enabled)tone()})}
 const shiftButton=controls.querySelector('[data-action="shift"]');
 if(shiftButton)shiftButton.addEventListener('click',()=>{hue=(hue+67+Math.random()*75)%360;document.body.style.filter=`hue-rotate(${hue}deg)`;start()});
-const home=document.createElement('a');home.className='mc-home';home.href='../../';home.textContent='← all rooms';home.setAttribute('aria-label','Return to all rooms');controls.append(home);
+const home=document.createElement('a');home.className='mc-home';home.href='../../';home.textContent='← all rooms';home.setAttribute('aria-label','Return to all rooms');controls.append(home);const hint=document.createElement('span');hint.className='mc-key-hint';hint.textContent='ARROWS MOVE · ENTER SOUNDS';controls.append(hint);
 const stillButton=document.createElement('button');stillButton.type='button';stillButton.textContent=paused?'return to motion':'stillness';stillButton.addEventListener('click',()=>{paused=!paused;stillButton.textContent=paused?'return to motion':'stillness';if(paused)cancelAnimationFrame(raf);else start()});controls.append(stillButton);
 const label=document.createElement('label');label.className='mc-intensity';label.textContent='intensity ';const range=document.createElement('input');range.type='range';range.min='10';range.max='100';range.value='65';range.setAttribute('aria-label','Visual and sound intensity');range.addEventListener('input',()=>{intensity=Number(range.value)/100;start()});label.append(range);controls.append(label);
 }
