@@ -4,8 +4,8 @@ import path from 'node:path';
 import { validateContinuityRelations } from '../../operations/continuity/validate-continuity-relations.mjs';
 
 const CLAIM_STATES = new Set(['observed','inferred','proposed','superseded','unresolved']);
-const KINDS = new Set(['operating_rule','queue_item','decision','artifact','commit','language_term','contradiction','unresolved_question']);
-const EVIDENCE = new Set(['primary_repository_source','corroborated_repository_sources','single_secondary_source','unverified']);
+const KINDS = new Set(['operating_rule','queue_item','decision','artifact','commit','language_term','contradiction','unresolved_question','implementation_decision','continuity_model_decision','decision_history']);
+const EVIDENCE = new Set(['primary_repository_source','corroborated_repository_sources','single_secondary_source','unverified','tested_repository_artifact','committed_source_with_unexecuted_tests','committed_source_with_local_deterministic_tests','committed_repository_state_and_commit_metadata']);
 const PRIVACY = new Set(['public_repository_safe','restricted_reference_only','do_not_publish']);
 const SOURCE_TYPES = new Set(['github_file','github_commit','public_document','private_chat_reference','uploaded_file_reference']);
 
@@ -51,13 +51,18 @@ export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
   const scannedRoots = normalizedRecordDirs({ recordsDir, recordDirs });
   for (const dir of scannedRoots) {
     if (!fs.existsSync(dir)) continue;
-    for (const name of fs.readdirSync(dir).filter(n => n.endsWith('.json')).sort()) {
+    const directoryNames = new Set(fs.readdirSync(dir));
+    for (const name of [...directoryNames].filter(n => n.endsWith('.json')).sort()) {
       const file = path.join(dir, name);
       const raw = readJson(file);
       const records = raw.id && raw.claim_state ? [raw] : raw.record ? [raw.record]
         : Array.isArray(raw.records) ? raw.records
         : Array.isArray(raw.claims) ? raw.claims
         : [];
+      if (records.length > 1 && records.every(record => record?.id && directoryNames.has(record.id + '.json'))) {
+        skippedLegacyFiles.push(file + ' (superseded aggregate; individual CM files are canonical)');
+        continue;
+      }
       if (!records.length) {
         if (raw.record_id || raw.claim_states || raw.team === 'continuity_mining' || (raw.claims && !Array.isArray(raw.claims))) {
           skippedLegacyFiles.push(file);
