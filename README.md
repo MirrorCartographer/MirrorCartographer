@@ -30,7 +30,8 @@ These are user-confirmed working URLs. Do not replace them with unverified deplo
 - **[Research Expedition 002 — Ebola Human Survival](research/expeditions/002-ebola-human-survival.md)** — a species-specific, evidence-grounded map of antiviral treatment, host protection, survivor recovery, and the 2026 Bundibugyo clinical-trial agenda.
 - **[CASE 001 — The Person Who Was Never Sick Enough](site/cases/001-the-person-who-was-never-sick-enough/index.html)** — reconstruct a synthetic case from six records; find the omission, test competing explanations, and inspect the provenance.
 - **[Research method](research/METHOD.md)** — evidence, claims, uncertainty, tests.
-- **[Field Lens](tools/field-lens.html)** — add observations, propose relationships, and keep inference visibly separate from evidence.\n- **[The 101-Dimension Atlas](architecture/101_DIMENSION_ATLAS.md)** — the expandable multidimensional ontology underlying Mirror Cartographer.
+- **[Field Lens](tools/field-lens.html)** — add observations, propose relationships, and keep inference visibly separate from evidence.
+- **[The 101-Dimension Atlas](architecture/101_DIMENSION_ATLAS.md)** — the expandable multidimensional ontology underlying Mirror Cartographer.
 - **[Observer and Instrument](architecture/OBSERVER_AND_INSTRUMENT.md)** — the reflexive architecture for examining how observation and mapping shape what becomes visible.
 - **[Demonstration 001 — The Hidden Interface](demonstrations/001-cross-domain-bridge/README.md)** — an executable synthetic example of finding cross-domain structural bridges without treating topology as causation.
 - **[Relationship engine](tools/relationship-engine/relationship-engine.mjs)** — a small tested engine for ranking candidate bridge nodes.
