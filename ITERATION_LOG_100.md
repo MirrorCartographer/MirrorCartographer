@@ -82,3 +82,11 @@
 - **Change:** The validator now requires each field to be a non-empty string after trimming. Added regression tests for empty titles, numeric summaries, and whitespace-only review routes.
 - **Verification:** GitHub Actions Continuity integrity run #142 passed 173/173 tests; aggregate validator returned `ok: true` with 29 canonical records checked. Mirror Cartographer CI run #4783 also passed.
 - **Risk:** A non-empty review route is not proof that the route is actionable; independent source availability and falsifiability still require review.
+
+
+## Iteration 009 — Fail closed on malformed record/source objects
+
+- **Observation:** The validator assumed every collection entry and source was an object. A string record wrapper or null source could throw a runtime TypeError instead of returning a structured validation failure.
+- **Change:** Added explicit object-shape guards for records and source entries. Malformed values now produce locator-specific validation errors without crashing the validator. Added regression tests for a string record wrapper and a null source.
+- **Verification:** Prior hosted run #142 passed 173/173 tests and the full corpus validation. The malformed-object tests require a fresh hosted run.
+- **Risk:** This guards basic object shape; nested source metadata still requires field-by-field validation and hash verification.
