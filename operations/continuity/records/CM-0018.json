@@ -34,7 +34,9 @@
   "summary": "A review approval and canonical-change proposal are insufficient for adoption unless reviewer identity evidence is independently verified, time-bounded, bound to the exact authorization and proposal digests, bound to the prior canonical queue blob, and accepted by a deny-by-default policy over provider, reviewer, verifier identity, and verifier artifact. Even valid identity evidence does not permit adoption; manual application and post-application verification remain mandatory. Six deterministic Node tests passed against byte-identical pre-commit files.",
   "privacy": "public_repository_safe",
   "contradicts": [],
-  "supersedes": ["CM-0017:proposed"],
+  "supersedes": [
+    "CM-0017"
+  ],
   "status_relations": {
     "observed": "The committed evaluator creates a digest-bound reviewer identity binding only when provider signature verification is recorded, the authentication event is interactive human review, evidence is current, all authorization and proposal digests match, and a deny-by-default allowlist accepts the reviewer, provider, verifier, and verifier artifact.",
     "inferred": "Reviewer identity is a separate authority domain from review content; binding both prevents an approved payload from being adopted under a substituted, stale, or self-asserted identity.",
@@ -42,5 +44,8 @@
     "superseded": "The absence of an executable reviewer-identity binding contract is superseded by the committed evaluator and adversarial tests.",
     "unresolved": "No real identity-provider assertion, cryptographic verification artifact, authenticated reviewer event, manually applied queue commit, or post-application verification record currently exists."
   },
-  "falsification_or_review_route": "Run node --test operations/continuity/reviewer-identity-evidence.test.mjs and reject this record if self-asserted identity, an unlisted reviewer, expired evidence, digest substitution, an untrusted verifier artifact, or automatic adoption is accepted. Structural validation alone must not be interpreted as cryptographic verification of a real provider assertion."
+  "falsification_or_review_route": "Run node --test operations/continuity/reviewer-identity-evidence.test.mjs and reject this record if self-asserted identity, an unlisted reviewer, expired evidence, digest substitution, an untrusted verifier artifact, or automatic adoption is accepted. Structural validation alone must not be interpreted as cryptographic verification of a real provider assertion.",
+  "supersedes_state": {
+    "CM-0017": "proposed"
+  }
 }
