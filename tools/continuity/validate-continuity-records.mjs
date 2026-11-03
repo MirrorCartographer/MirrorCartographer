@@ -27,8 +27,8 @@ function validateRecord(record, locator) {
   else record.sources.forEach((source, i) => {
     const p = `${locator}.sources[${i}]`;
     if (!SOURCE_TYPES.has(source.type)) errors.push(`${p}: invalid type ${source.type}`);
-    if (!source.locator || typeof source.locator !== 'string') errors.push(`${p}: missing locator`);
-    if (!('content_sha' in source)) errors.push(`${p}: missing content_sha`);
+    if (typeof source.locator !== 'string' || !source.locator.trim()) errors.push(`${p}: locator must be a non-empty string`);
+    if (typeof source.content_sha !== 'string' || !source.content_sha.trim()) errors.push(`${p}: content_sha must be a non-empty string`);
   });
   for (const relation of ['contradicts','supersedes']) {
     if (relation in record && !Array.isArray(record[relation])) errors.push(`${locator}: ${relation} must be an array`);
