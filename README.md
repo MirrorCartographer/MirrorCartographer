@@ -53,6 +53,10 @@ These are user-confirmed working URLs. Do not replace them with unverified deplo
 | The symbolic and creative layer | `SYMBOLIC_LANGUAGE_ENGINE.md`, `Creative_Universe/`, `art/`, `music/` |
 | Decisions and boundaries | `governance/`, `schemas/`, `ledgers/`, `docs/` |
 
+## Daemon workforce
+
+- [Daemon workforce](DAEMON_WORKFORCE.md) — scheduled project inspectors, their mandates, safety boundaries, and the path toward model-backed workers.
+
 ## The method
 
 Keep the source. Name the claim. Separate observation from interpretation. Preserve uncertainty and missingness. Look for rival explanations. Design a test that could prove the attractive idea wrong. Record what changed.
