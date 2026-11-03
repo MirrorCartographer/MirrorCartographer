@@ -80,5 +80,5 @@
 
 - **Observation:** Required record fields were checked for presence, but `title`, `summary`, and `falsification_or_review_route` could still contain empty strings, whitespace, or non-string values.
 - **Change:** The validator now requires each field to be a non-empty string after trimming. Added regression tests for empty titles, numeric summaries, and whitespace-only review routes.
-- **Verification:** Hosted run #139 passed 172/172 tests and the full corpus validation before this change. The new explanatory-field tests require a fresh run.
+- **Verification:** GitHub Actions Continuity integrity run #142 passed 173/173 tests; aggregate validator returned `ok: true` with 29 canonical records checked. Mirror Cartographer CI run #4783 also passed.
 - **Risk:** A non-empty review route is not proof that the route is actionable; independent source availability and falsifiability still require review.
