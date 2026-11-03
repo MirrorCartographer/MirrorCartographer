@@ -14,17 +14,24 @@ const idPattern = /^CM-\d{4}$/;
 function loadCorpusRecords() {
   const index = JSON.parse(fs.readFileSync(indexFile, 'utf8'));
   const additive = fs.existsSync(recordsDir)
-    ? fs.readdirSync(recordsDir)
-        .filter(name => name.endsWith('.json'))
-        .sort()
-        .flatMap(name => {
+    ? (() => {
+        const names = new Set(fs.readdirSync(recordsDir));
+        return [...names].filter(name => name.endsWith('.json')).sort().flatMap(name => {
           const raw = JSON.parse(fs.readFileSync(path.join(recordsDir, name), 'utf8'));
           if (raw.id && raw.claim_state) return [raw];
           if (raw.record) return [raw.record];
           if (Array.isArray(raw.records)) return raw.records;
-          if (Array.isArray(raw.claims)) return raw.claims;
+          if (Array.isArray(raw.claims)) {
+            if (raw.claims.length > 1 && raw.claims.every(record => record?.id && names.has(record.id + '.json'))) return [];
+            return raw.claims;
+          }
+          if (Array.isArray(raw.records)) {
+            if (raw.records.length > 1 && raw.records.every(record => record?.id && names.has(record.id + '.json'))) return [];
+            return raw.records;
+          }
           return [];
-        })
+        });
+      })()
     : [];
   return [...(index.records ?? []), ...additive];
 }
