@@ -47,18 +47,23 @@ export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
   for (const [i, record] of (index.records ?? []).entries()) entries.push({ record, locator: `${indexFile}#records[${i}]` });
 
   const errors = [];
+  const skippedLegacyFiles = [];
   const scannedRoots = normalizedRecordDirs({ recordsDir, recordDirs });
   for (const dir of scannedRoots) {
     if (!fs.existsSync(dir)) continue;
     for (const name of fs.readdirSync(dir).filter(n => n.endsWith('.json')).sort()) {
       const file = path.join(dir, name);
       const raw = readJson(file);
-      const records = raw.id ? [raw] : raw.record ? [raw.record]
+      const records = raw.id && raw.claim_state ? [raw] : raw.record ? [raw.record]
         : Array.isArray(raw.records) ? raw.records
         : Array.isArray(raw.claims) ? raw.claims
         : [];
       if (!records.length) {
-        errors.push(`${file}: expected a record, record wrapper, records array, or claims array`);
+        if (raw.record_id || raw.claim_states) {
+          skippedLegacyFiles.push(file);
+          continue;
+        }
+        errors.push(`${file}: expected a canonical record, record wrapper, records array, or claims array`);
         continue;
       }
       records.forEach((record, i) => {
@@ -102,6 +107,7 @@ export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
     ok: errors.length === 0,
     records_checked: entries.length,
     scanned_roots: scannedRoots,
+    skipped_legacy_files: skippedLegacyFiles,
     ids: [...byId.keys()].sort(),
     relation_integrity,
     errors
