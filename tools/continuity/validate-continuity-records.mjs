@@ -55,6 +55,10 @@ export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
     for (const name of [...directoryNames].filter(n => n.endsWith('.json')).sort()) {
       const file = path.join(dir, name);
       const raw = readJson(file);
+      if (raw.legacy_id || raw.migration) {
+        skippedLegacyFiles.push(file + ' (migrated legacy alias)');
+        continue;
+      }
       const records = raw.id && raw.claim_state ? [raw] : raw.record ? [raw.record]
         : Array.isArray(raw.records) ? raw.records
         : Array.isArray(raw.claims) ? raw.claims
