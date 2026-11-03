@@ -59,7 +59,7 @@ export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
         : Array.isArray(raw.claims) ? raw.claims
         : [];
       if (!records.length) {
-        if (raw.record_id || raw.claim_states) {
+        if (raw.record_id || raw.claim_states || raw.team === 'continuity_mining' || (raw.claims && !Array.isArray(raw.claims))) {
           skippedLegacyFiles.push(file);
           continue;
         }
