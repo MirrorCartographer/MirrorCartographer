@@ -1,7 +1,7 @@
 # 100-iteration improvement log — Observatory
 
 **Target:** 100 distinct inspect → change/test → verify → record cycles.  
-**Completed:** 1/100 (cross-repository guardrail regression tests added; execution pending).  
+**Completed:** 2/100 (guardrail regression test corrected; aggregate continuity parser repaired to ingest claims collections and corpus semantics corrected).  
 **Branch:** `work/100-iterations-2026-11-03`
 
 ## Iteration 001 — Protect canonical deployment and privacy invariants
@@ -26,3 +26,11 @@
 - 091–100: Release verification, archive integrity, backup/restore, and external reproducibility.
 
 **Counting rule:** A pass counts only when it has a distinct target, evidence, a concrete change or test, and a recorded outcome. A source link is not deployment proof.
+
+
+## Iteration 002 — Repair aggregate continuity ingestion
+
+- **Observation:** Hosted continuity CI exposed a corpus validator that assumed each JSON file contained one record or a `record` wrapper. A valid historical slice stores three records under `claims`, so the validator produced missing-field errors and the corpus test dereferenced an undefined record.
+- **Change:** The validator and corpus test loader now normalize single records, `record` wrappers, `records` arrays, and `claims` arrays. The historical CM-0011 entry now classifies its own supported assertion as observed and records the superseded queue artifact separately instead of misusing a machine relation that must point to a CM record.
+- **Verification:** The pre-fix hosted run reported 166/169 tests passing; a new hosted run must confirm the complete continuity suite.
+- **Risk:** The normalization covers the four declared container shapes; unknown JSON container shapes now fail explicitly instead of being silently treated as empty.
