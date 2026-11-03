@@ -42,3 +42,11 @@
 - **Change:** The aggregate validator now validates canonical records and supported record collections, explicitly counts/skips legacy evidence packets, and reports the skip count. The corpus test uses the same canonical-record filter. CM-0016 now links to canonical ID `CM-0015` and preserves the prior state annotation in `supersedes_state`.
 - **Verification:** Prior hosted run exposed these exact incompatibilities. A fresh hosted run is required to prove the entire corpus and continuity suite pass.
 - **Risk:** Legacy packets remain preserved but are not schema-validated by the canonical CM validator; they require their own schema-specific validation.
+
+
+## Iteration 004 — Resolve duplicate aggregate records and taxonomy drift
+
+- **Observation:** The next hosted run showed that aggregate `claims` files duplicate individual `CM-####.json` files. It also revealed legitimate canonical kinds and evidence-strength labels missing from the validator's closed enums.
+- **Change:** Aggregate files are now skipped only when every contained CM record has an individual canonical file. The validator's accepted kind/evidence taxonomies now include the additional values observed in the committed corpus. The corpus test applies the same aggregate precedence rule.
+- **Verification:** The hosted run identified duplicate IDs and exact enum values. Another hosted run is required; additional schema and relation inconsistencies may remain.
+- **Risk:** Aggregate files with any record lacking an individual counterpart remain included. Legacy evidence packets are counted but not validated by the canonical schema.
