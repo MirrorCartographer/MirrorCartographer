@@ -84,3 +84,15 @@ test('rejects supersession cycles in the aggregate gate', () => {
   assert.equal(out.ok, false);
   assert.match(out.errors.join('\n'), /supersedes cycle/);
 });
+
+test('skips explicitly migrated legacy memory aliases without weakening duplicate checks', () => {
+  const legacyAlias = {
+    ...record('CM-0001'),
+    legacy_id: 'CM-0000',
+    migration: { preserves_history: true, canonical_predecessor_locator: 'memory/old.json' },
+  };
+  const out = validateFixture(fixture([record('CM-0001')], {}, { 'legacy-alias.json': legacyAlias }));
+  assert.equal(out.ok, true, out.errors.join('\\n'));
+  assert.ok(out.skipped_legacy_files.some(file => file.includes('legacy-alias.json')));
+});
+
