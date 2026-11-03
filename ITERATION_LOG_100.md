@@ -50,3 +50,11 @@
 - **Change:** Aggregate files are now skipped only when every contained CM record has an individual canonical file. The validator's accepted kind/evidence taxonomies now include the additional values observed in the committed corpus. The corpus test applies the same aggregate precedence rule.
 - **Verification:** The hosted run identified duplicate IDs and exact enum values. Another hosted run is required; additional schema and relation inconsistencies may remain.
 - **Risk:** Aggregate files with any record lacking an individual counterpart remain included. Legacy evidence packets are counted but not validated by the canonical schema.
+
+
+## Iteration 005 — Normalize historical machine relations
+
+- **Observation:** Hosted corpus validation exposed three records whose relation arrays contained state-annotated identifiers or prose rather than canonical CM IDs.
+- **Change:** CM-0018 and CM-0019 now point to canonical superseded IDs and preserve the former state annotations in separate metadata. CM-0020 moves its prose-only contradiction description into `related_artifacts` rather than a machine relation array.
+- **Verification:** The prior hosted run identified the exact relation defects. A fresh hosted continuity run is still required.
+- **Risk:** This normalizes three known cases; a broader corpus audit may reveal more legacy relation encodings.
