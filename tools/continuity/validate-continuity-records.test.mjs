@@ -122,3 +122,15 @@ test('rejects empty or non-string explanatory and review fields', () => {
     assert.match(out.errors.join('\\n'), new RegExp(key + ' must be a non-empty string'));
   }
 });
+
+test('rejects malformed record and source values without throwing', () => {
+  const malformedRecord = validateFixture(fixture([], { 'bad.json': { record: 'not-an-object' } }));
+  assert.equal(malformedRecord.ok, false);
+  assert.match(malformedRecord.errors.join('\\n'), /record must be an object/);
+
+  const malformedSource = validateFixture(fixture([
+    record('CM-0001', { sources: [null] }),
+  ]));
+  assert.equal(malformedSource.ok, false);
+  assert.match(malformedSource.errors.join('\\n'), /source must be an object/);
+});
