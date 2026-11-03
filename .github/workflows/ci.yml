@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify complete HTML workbench coverage
+        run: npm run verify:workbench
+
       - name: Typecheck
         run: npm run typecheck
 
