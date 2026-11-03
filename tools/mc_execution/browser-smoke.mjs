@@ -48,7 +48,7 @@ try {
   await test("Living Atlas loads and links to the Mind", async () => {
     const response = await page.goto(base + "/");
     assert(response?.ok(), "Homepage did not return HTTP success");
-    assert(await page.getByRole("link", { name: /The Mind/ }).count() > 0, "Mind link not found in navigation");
+    assert(await page.getByRole("link", { name: /the mind/i }).count() > 0, "Mind link not found in navigation");
     assert(await page.locator('a[href="./mind/"]').count() > 0, "No direct Mind entry point");
   });
 
