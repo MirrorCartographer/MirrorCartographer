@@ -46,6 +46,7 @@ export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
   const entries = [];
   for (const [i, record] of (index.records ?? []).entries()) entries.push({ record, locator: `${indexFile}#records[${i}]` });
 
+  const errors = [];
   const scannedRoots = normalizedRecordDirs({ recordsDir, recordDirs });
   for (const dir of scannedRoots) {
     if (!fs.existsSync(dir)) continue;
@@ -67,7 +68,6 @@ export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
     }
   }
 
-  const errors = [];
   const byId = new Map();
   for (const entry of entries) {
     errors.push(...validateRecord(entry.record ?? {}, entry.locator));
