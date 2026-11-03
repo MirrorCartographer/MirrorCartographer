@@ -47,7 +47,7 @@ function validateRecord(record, locator) {
       errors.push(`${locator}: ${relation} must be an array`);
     } else if (Array.isArray(record[relation])) {
       record[relation].forEach((target, i) => {
-        if (typeof target !== 'string' || !/^CM-\\d{4}$/.test(target)) {
+        if (typeof target !== 'string' || !/^CM-\d{4}$/.test(target)) {
           errors.push(`${locator}.${relation}[${i}]: relation target must be a canonical CM record ID`);
         }
       });
