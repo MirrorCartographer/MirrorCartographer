@@ -17,9 +17,13 @@ function loadCorpusRecords() {
     ? fs.readdirSync(recordsDir)
         .filter(name => name.endsWith('.json'))
         .sort()
-        .map(name => {
+        .flatMap(name => {
           const raw = JSON.parse(fs.readFileSync(path.join(recordsDir, name), 'utf8'));
-          return raw.id ? raw : raw.record;
+          if (raw.id) return [raw];
+          if (raw.record) return [raw.record];
+          if (Array.isArray(raw.records)) return raw.records;
+          if (Array.isArray(raw.claims)) return raw.claims;
+          return [];
         })
     : [];
   return [...(index.records ?? []), ...additive];
