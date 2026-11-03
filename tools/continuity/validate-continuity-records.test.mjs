@@ -96,3 +96,21 @@ test('skips explicitly migrated legacy memory aliases without weakening duplicat
   assert.ok(out.skipped_legacy_files.some(file => file.includes('legacy-alias.json')));
 });
 
+
+test('rejects empty and non-string source content hashes', () => {
+  for (const content_sha of ['', '   ', null, 42]) {
+    const out = validateFixture(fixture([
+      record('CM-0001', { sources: [{ ...source, content_sha }] }),
+    ]));
+    assert.equal(out.ok, false);
+    assert.match(out.errors.join('\\n'), /content_sha must be a non-empty string/);
+  }
+});
+
+test('rejects whitespace-only source locators', () => {
+  const out = validateFixture(fixture([
+    record('CM-0001', { sources: [{ ...source, locator: '   ' }] }),
+  ]));
+  assert.equal(out.ok, false);
+  assert.match(out.errors.join('\\n'), /locator must be a non-empty string/);
+});
