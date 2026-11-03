@@ -1,0 +1,9 @@
+{
+  "project": "Observatory",
+  "role": "Evidence and architecture integrity",
+  "guardrails": [
+    "Never publish personal, medical, veterinary, financial, or private conversational material.",
+    "Read-only inspection: never edits or deletes source.",
+    "Reports retained as workflow artifacts; no external publishing."
+  ]
+}
