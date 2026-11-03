@@ -58,3 +58,11 @@
 - **Change:** CM-0018 and CM-0019 now point to canonical superseded IDs and preserve the former state annotations in separate metadata. CM-0020 moves its prose-only contradiction description into `related_artifacts` rather than a machine relation array.
 - **Verification:** The prior hosted run identified the exact relation defects. A fresh hosted continuity run is still required.
 - **Risk:** This normalizes three known cases; a broader corpus audit may reveal more legacy relation encodings.
+
+
+## Iteration 006 — Distinguish migrated memory aliases from canonical records
+
+- **Observation:** The validator passed all 169 unit tests but its CLI corpus scan still failed because a migrated memory packet reused CM-0013 while a different canonical record now owns CM-0013. The memory packet explicitly carries `legacy_id` and migration provenance, so it is not a second canonical record.
+- **Change:** The validator now classifies packets with explicit `legacy_id` or `migration` metadata as migrated legacy aliases and records them in `skipped_legacy_files`. Added a regression test proving that this exception does not weaken duplicate detection for ordinary canonical records across storage roots.
+- **Verification:** The prior hosted run showed 169/169 tests passing and isolated the remaining failure to this migrated alias. A fresh run must pass both unit tests and the full CLI corpus validation.
+- **Risk:** Legacy aliases are preserved and counted but not validated against the canonical CM schema; their provenance remains available for a separate migration audit.
