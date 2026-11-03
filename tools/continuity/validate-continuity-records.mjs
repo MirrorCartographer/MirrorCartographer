@@ -16,6 +16,9 @@ function readJson(file) {
 
 function validateRecord(record, locator) {
   const errors = [];
+  if (!record || typeof record !== 'object' || Array.isArray(record)) {
+    return [`${locator}: record must be an object`];
+  }
   const req = ['id','kind','title','claim_state','evidence_strength','sources','summary','privacy','falsification_or_review_route'];
   for (const key of req) if (!(key in record)) errors.push(`${locator}: missing ${key}`);
   for (const key of ['title','summary','falsification_or_review_route']) {
@@ -31,6 +34,10 @@ function validateRecord(record, locator) {
   if (!Array.isArray(record.sources) || record.sources.length === 0) errors.push(`${locator}: sources must be non-empty`);
   else record.sources.forEach((source, i) => {
     const p = `${locator}.sources[${i}]`;
+    if (!source || typeof source !== 'object' || Array.isArray(source)) {
+      errors.push(`${p}: source must be an object`);
+      return;
+    }
     if (!SOURCE_TYPES.has(source.type)) errors.push(`${p}: invalid type ${source.type}`);
     if (typeof source.locator !== 'string' || !source.locator.trim()) errors.push(`${p}: locator must be a non-empty string`);
     if (typeof source.content_sha !== 'string' || !source.content_sha.trim()) errors.push(`${p}: content_sha must be a non-empty string`);
