@@ -34,7 +34,9 @@
   "summary": "Canonical queue adoption is valid only when a deny-by-default verifier binds the approved proposal, authenticated reviewer binding, prior queue bytes, exact resulting queue bytes, manually signed application commit, and trusted verifier artifact. The verifier rejects result drift, proposal or reviewer substitution, automated application, untrusted committers, and unverified signatures. Six deterministic Node tests passed against byte-identical pre-commit files.",
   "privacy": "public_repository_safe",
   "contradicts": [],
-  "supersedes": ["CM-0018:proposed"],
+  "supersedes": [
+    "CM-0018"
+  ],
   "status_relations": {
     "observed": "The committed post-application verifier emits adopted_exactly_as_authorized only when the resulting queue digest exactly matches the proposal, all prior-state bindings agree, application mode is manual, the commit signature is recorded as verified, and deny-by-default committer and verifier allowlists accept the evidence.",
     "inferred": "Adoption is not a property of approval alone; it is a closed evidence chain from prior state through authorized intent to the exact resulting state.",
@@ -42,5 +44,8 @@
     "superseded": "The absence of an executable post-application verification contract is superseded by the committed verifier and adversarial tests.",
     "unresolved": "No real manually applied canonical queue commit, trusted reviewer identity assertion, verified commit-signature artifact, or resulting queue verification packet currently exists."
   },
-  "falsification_or_review_route": "Run node --test operations/continuity/post-application-verifier.test.mjs and reject this record if result drift, proposal substitution, reviewer-binding substitution, automated application, an untrusted committer, or an unverified signature is accepted. Structural fields do not independently prove that GitHub verified a real commit signature or that the retained queue blob SHAs correspond to the supplied bytes."
+  "falsification_or_review_route": "Run node --test operations/continuity/post-application-verifier.test.mjs and reject this record if result drift, proposal substitution, reviewer-binding substitution, automated application, an untrusted committer, or an unverified signature is accepted. Structural fields do not independently prove that GitHub verified a real commit signature or that the retained queue blob SHAs correspond to the supplied bytes.",
+  "supersedes_state": {
+    "CM-0018": "proposed"
+  }
 }
