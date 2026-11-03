@@ -66,3 +66,11 @@
 - **Change:** The validator now classifies packets with explicit `legacy_id` or `migration` metadata as migrated legacy aliases and records them in `skipped_legacy_files`. Added a regression test proving that this exception does not weaken duplicate detection for ordinary canonical records across storage roots.
 - **Verification:** GitHub Actions Continuity integrity run #136 passed: 170/170 tests, aggregate validator `ok: true`, 29 canonical records checked, with migrated/legacy packets explicitly reported as skipped. The separate Mirror Cartographer CI typecheck/build run #4777 also passed.
 - **Risk:** Legacy aliases are preserved and counted but not validated against the canonical CM schema; their provenance remains available for a separate migration audit.
+
+
+## Iteration 007 — Enforce meaningful provenance locators and hashes
+
+- **Observation:** The continuity validator checked only that `content_sha` existed. Null, numeric, or whitespace-only values could pass the source-shape check despite providing no usable content identity. Whitespace-only locators had the same issue.
+- **Change:** Source locators and content hashes must now be non-empty strings after trimming. Added regression cases for empty, whitespace, null, numeric hashes, and whitespace-only locators.
+- **Verification:** The preceding hosted run passed 170/170 tests and the full aggregate corpus validator. This new provenance-shape test requires a fresh run.
+- **Risk:** A non-empty hash string is not proof that the hash matches the referenced bytes; content-hash verification remains a separate check.
