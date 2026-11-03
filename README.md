@@ -11,6 +11,13 @@ One question remains:
 
 **What can we understand from individual facts—and how much remains invisible between them?**
 
+## Live experiences — protected links
+
+- **[Mirror Cartographer UI](https://mirror-cartographer-ui-3orp.vercel.app)** — canonical encounter.
+- **[AV Prototype V4](https://mirrorcartographeravprototypev4.vercel.app/#)** — canonical audiovisual prototype.
+
+These are user-confirmed working URLs. Do not replace them with unverified deployment links. The source repositories contain many additional HTML files; their source presence does not establish that each one is deployed or interactive. See [cross-chat work coordination](WORK_COORDINATION.md) for the shared verification and handoff rules.
+
 ## Choose a door
 
 - **[Observatory Field Guide](OBSERVATORY_FIELD_GUIDE.md)** — the map, the vocabulary, the way in.
