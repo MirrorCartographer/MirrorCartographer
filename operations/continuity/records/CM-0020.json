@@ -39,9 +39,7 @@
   ],
   "summary": "The canonical ACTIVE_QUEUE.json records Frontier work only through R-004, while additive owned queue-update records establish completed R-005 and R-006 slices. This is a bounded state-lag contradiction, not evidence that either peer execution occurred or that canonical adoption is authorized. A committed detector now classifies missing, divergent, consistent, conflicting, and non-append-only records without mutating shared state; six deterministic Node tests passed against byte-identical candidate files.",
   "privacy": "public_repository_safe",
-  "contradicts": [
-    "Any current-state interpretation of ACTIVE_QUEUE.json that treats R-004 as the latest Frontier item"
-  ],
+  "contradicts": [],
   "supersedes": [],
   "status_relations": {
     "observed": "R-005 and R-006 exist as completed append-only queue records but are absent from the canonical queue blob inspected in this run.",
@@ -50,5 +48,8 @@
     "superseded": "No earlier historical observation is erased; this record supersedes only the assumption that the canonical queue alone is temporally complete.",
     "unresolved": "No authorized, manually applied, signature-verified canonical queue commit has incorporated R-005 or R-006, and the repository has no automated inventory of all queue-update files."
   },
-  "falsification_or_review_route": "Run node --test operations/continuity/canonical-queue-lag.test.mjs. Re-fetch the exact ACTIVE_QUEUE.json, R-005, and R-006 blobs. Falsify the lag claim if the canonical blob contains byte-equivalent R-005 and R-006 items, or if either append-only record is invalid, conflicting, or claims canonical mutation. Do not treat lag detection as authorization to rewrite ACTIVE_QUEUE.json."
+  "falsification_or_review_route": "Run node --test operations/continuity/canonical-queue-lag.test.mjs. Re-fetch the exact ACTIVE_QUEUE.json, R-005, and R-006 blobs. Falsify the lag claim if the canonical blob contains byte-equivalent R-005 and R-006 items, or if either append-only record is invalid, conflicting, or claims canonical mutation. Do not treat lag detection as authorization to rewrite ACTIVE_QUEUE.json.",
+  "related_artifacts": [
+    "Any current-state interpretation of ACTIVE_QUEUE.json that treats R-004 as the latest Frontier item"
+  ]
 }
