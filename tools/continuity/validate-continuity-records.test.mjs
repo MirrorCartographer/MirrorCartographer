@@ -134,3 +134,13 @@ test('rejects malformed record and source values without throwing', () => {
   assert.equal(malformedSource.ok, false);
   assert.match(malformedSource.errors.join('\\n'), /source must be an object/);
 });
+
+test('requires machine relation entries to be canonical CM IDs', () => {
+  for (const target of ['R-014', 'CM-0002:proposed', { id: 'CM-0002' }, null]) {
+    const out = validateFixture(fixture([
+      record('CM-0001', { supersedes: [target] }),
+    ]));
+    assert.equal(out.ok, false);
+    assert.match(out.errors.join('\\n'), /relation target must be a canonical CM record ID/);
+  }
+});
