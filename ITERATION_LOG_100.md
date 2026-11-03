@@ -72,5 +72,5 @@
 
 - **Observation:** The continuity validator checked only that `content_sha` existed. Null, numeric, or whitespace-only values could pass the source-shape check despite providing no usable content identity. Whitespace-only locators had the same issue.
 - **Change:** Source locators and content hashes must now be non-empty strings after trimming. Added regression cases for empty, whitespace, null, numeric hashes, and whitespace-only locators.
-- **Verification:** The preceding hosted run passed 170/170 tests and the full aggregate corpus validator. This new provenance-shape test requires a fresh run.
+- **Verification:** GitHub Actions Continuity integrity run #139 passed 172/172 tests; aggregate validator returned `ok: true` with 29 canonical records checked. Mirror Cartographer CI run #4780 also passed.
 - **Risk:** A non-empty hash string is not proof that the hash matches the referenced bytes; content-hash verification remains a separate check.
