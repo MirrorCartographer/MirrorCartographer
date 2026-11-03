@@ -18,6 +18,11 @@ function validateRecord(record, locator) {
   const errors = [];
   const req = ['id','kind','title','claim_state','evidence_strength','sources','summary','privacy','falsification_or_review_route'];
   for (const key of req) if (!(key in record)) errors.push(`${locator}: missing ${key}`);
+  for (const key of ['title','summary','falsification_or_review_route']) {
+    if (typeof record[key] !== 'string' || !record[key].trim()) {
+      errors.push(`${locator}: ${key} must be a non-empty string`);
+    }
+  }
   if (!/^CM-\d{4}$/.test(record.id ?? '')) errors.push(`${locator}: invalid id ${record.id}`);
   if (!KINDS.has(record.kind)) errors.push(`${locator}: invalid kind ${record.kind}`);
   if (!CLAIM_STATES.has(record.claim_state)) errors.push(`${locator}: invalid claim_state ${record.claim_state}`);
