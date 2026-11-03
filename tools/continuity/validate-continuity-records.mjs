@@ -52,7 +52,18 @@ export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
     for (const name of fs.readdirSync(dir).filter(n => n.endsWith('.json')).sort()) {
       const file = path.join(dir, name);
       const raw = readJson(file);
-      entries.push({ record: raw.id ? raw : raw.record, locator: file });
+      const records = raw.id ? [raw] : raw.record ? [raw.record]
+        : Array.isArray(raw.records) ? raw.records
+        : Array.isArray(raw.claims) ? raw.claims
+        : [];
+      if (!records.length) {
+        errors.push(`${file}: expected a record, record wrapper, records array, or claims array`);
+        continue;
+      }
+      records.forEach((record, i) => {
+        const suffix = records.length === 1 ? '' : `#records[${i}]`;
+        entries.push({ record, locator: file + suffix });
+      });
     }
   }
 
