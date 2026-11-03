@@ -19,7 +19,7 @@ function loadCorpusRecords() {
         .sort()
         .flatMap(name => {
           const raw = JSON.parse(fs.readFileSync(path.join(recordsDir, name), 'utf8'));
-          if (raw.id) return [raw];
+          if (raw.id && raw.claim_state) return [raw];
           if (raw.record) return [raw.record];
           if (Array.isArray(raw.records)) return raw.records;
           if (Array.isArray(raw.claims)) return raw.claims;
