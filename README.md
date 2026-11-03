@@ -53,6 +53,10 @@ These are user-confirmed working URLs. Do not replace them with unverified deplo
 | The symbolic and creative layer | `SYMBOLIC_LANGUAGE_ENGINE.md`, `Creative_Universe/`, `art/`, `music/` |
 | Decisions and boundaries | `governance/`, `schemas/`, `ledgers/`, `docs/` |
 
+## Complete construction map
+
+- [Complete Build Universe](BUILD_UNIVERSE.md) — the full scope, architecture, acceptance tests, and construction order across the worlds, research instruments, personal cartography, Veteran pathways, creative work, and daemons.
+
 ## Daemon workforce
 
 - [Daemon workforce](DAEMON_WORKFORCE.md) — scheduled project inspectors, their mandates, safety boundaries, and the path toward model-backed workers.
