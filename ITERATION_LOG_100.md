@@ -90,3 +90,11 @@
 - **Change:** Added explicit object-shape guards for records and source entries. Malformed values now produce locator-specific validation errors without crashing the validator. Added regression tests for a string record wrapper and a null source.
 - **Verification:** GitHub Actions Continuity integrity run #145 passed 174/174 tests; aggregate validator returned `ok: true` with 29 canonical records checked. The malformed-object fixture tests confirm structured rejection rather than a runtime exception.
 - **Risk:** This guards basic object shape; nested source metadata still requires field-by-field validation and hash verification.
+
+
+## Iteration 010 — Enforce canonical IDs in machine relation arrays
+
+- **Observation:** Relation arrays were checked for array shape and target existence, but malformed targets such as prose, state-annotated IDs, objects, or null values were not rejected at the schema boundary.
+- **Change:** Every `contradicts` and `supersedes` target must now match the canonical `CM-####` identifier form. Added regression cases for a legacy queue ID, state-annotated ID, object, and null.
+- **Verification:** Hosted run #145 passed 174/174 tests and full corpus validation before this change. The new relation-shape tests require a fresh hosted run.
+- **Risk:** Canonical ID shape does not prove that the target exists; the existing cross-record reference and cycle checks remain necessary.
