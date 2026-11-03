@@ -18,7 +18,8 @@
     "test:governance": "node --test tools/governance-validation/*.test.mjs tools/lib/*.test.mjs",
     "verify:governance": "npm run test:governance",
     "test:continuity": "node --test tools/continuity/*.test.mjs",
-    "verify:continuity": "npm run test:continuity && node tools/continuity/validate-continuity-records.mjs ."
+    "verify:continuity": "npm run test:continuity && node tools/continuity/validate-continuity-records.mjs .",
+    "verify:workbench": "node tools/validate-workbench-index.mjs"
   },
   "dependencies": {
     "react": "^19.0.0",
