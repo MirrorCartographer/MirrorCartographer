@@ -43,7 +43,15 @@ function validateRecord(record, locator) {
     if (typeof source.content_sha !== 'string' || !source.content_sha.trim()) errors.push(`${p}: content_sha must be a non-empty string`);
   });
   for (const relation of ['contradicts','supersedes']) {
-    if (relation in record && !Array.isArray(record[relation])) errors.push(`${locator}: ${relation} must be an array`);
+    if (relation in record && !Array.isArray(record[relation])) {
+      errors.push(`${locator}: ${relation} must be an array`);
+    } else if (Array.isArray(record[relation])) {
+      record[relation].forEach((target, i) => {
+        if (typeof target !== 'string' || !/^CM-\\d{4}$/.test(target)) {
+          errors.push(`${locator}.${relation}[${i}]: relation target must be a canonical CM record ID`);
+        }
+      });
+    }
   }
   return errors;
 }
