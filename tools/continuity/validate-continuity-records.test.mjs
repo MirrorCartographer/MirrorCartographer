@@ -114,3 +114,11 @@ test('rejects whitespace-only source locators', () => {
   assert.equal(out.ok, false);
   assert.match(out.errors.join('\\n'), /locator must be a non-empty string/);
 });
+
+test('rejects empty or non-string explanatory and review fields', () => {
+  for (const [key, value] of [['title', ''], ['summary', 7], ['falsification_or_review_route', '   ']]) {
+    const out = validateFixture(fixture([record('CM-0001', { [key]: value })]));
+    assert.equal(out.ok, false);
+    assert.match(out.errors.join('\\n'), new RegExp(key + ' must be a non-empty string'));
+  }
+});
