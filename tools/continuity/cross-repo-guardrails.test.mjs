@@ -20,7 +20,7 @@ test('Observatory and coordination guide preserve both canonical experiences', (
 test('deployment policy requires evidence before accepting a replacement', () => {
   const coordination = read('../../WORK_COORDINATION.md');
   assert.match(coordination, /Do not claim a replacement is working until it has been deployed and verified in a browser/);
-  assert.match(coordination, /A path to an HTML file is not proof that it is deployed or works/);
+  assert.match(coordination, /Other Vercel URLs are untrusted until tested/);
   assert.match(coordination, /DEPLOYED-UNVERIFIED/);
 });
 
