@@ -34,3 +34,11 @@
 - **Change:** The validator and corpus test loader now normalize single records, `record` wrappers, `records` arrays, and `claims` arrays. The historical CM-0011 entry now classifies its own supported assertion as observed and records the superseded queue artifact separately instead of misusing a machine relation that must point to a CM record.
 - **Verification:** The pre-fix hosted run reported 166/169 tests passing; a new hosted run must confirm the complete continuity suite.
 - **Risk:** The normalization covers the four declared container shapes; unknown JSON container shapes now fail explicitly instead of being silently treated as empty.
+
+
+## Iteration 003 — Separate canonical continuity records from legacy evidence packets
+
+- **Observation:** Hosted CI showed that the records directory contains two formats: canonical CM records and older continuity-mining packets using `record_id`/`claim_states`. Treating every JSON file as a canonical record generated false missing-field failures. One canonical record also encoded a relation as `CM-0015:proposed`, mixing a state annotation into an identifier.
+- **Change:** The aggregate validator now validates canonical records and supported record collections, explicitly counts/skips legacy evidence packets, and reports the skip count. The corpus test uses the same canonical-record filter. CM-0016 now links to canonical ID `CM-0015` and preserves the prior state annotation in `supersedes_state`.
+- **Verification:** Prior hosted run exposed these exact incompatibilities. A fresh hosted run is required to prove the entire corpus and continuity suite pass.
+- **Risk:** Legacy packets remain preserved but are not schema-validated by the canonical CM validator; they require their own schema-specific validation.
