@@ -64,5 +64,5 @@
 
 - **Observation:** The validator passed all 169 unit tests but its CLI corpus scan still failed because a migrated memory packet reused CM-0013 while a different canonical record now owns CM-0013. The memory packet explicitly carries `legacy_id` and migration provenance, so it is not a second canonical record.
 - **Change:** The validator now classifies packets with explicit `legacy_id` or `migration` metadata as migrated legacy aliases and records them in `skipped_legacy_files`. Added a regression test proving that this exception does not weaken duplicate detection for ordinary canonical records across storage roots.
-- **Verification:** The prior hosted run showed 169/169 tests passing and isolated the remaining failure to this migrated alias. A fresh run must pass both unit tests and the full CLI corpus validation.
+- **Verification:** GitHub Actions Continuity integrity run #136 passed: 170/170 tests, aggregate validator `ok: true`, 29 canonical records checked, with migrated/legacy packets explicitly reported as skipped. The separate Mirror Cartographer CI typecheck/build run #4777 also passed.
 - **Risk:** Legacy aliases are preserved and counted but not validated against the canonical CM schema; their provenance remains available for a separate migration audit.
