@@ -74,3 +74,11 @@
 - **Change:** Source locators and content hashes must now be non-empty strings after trimming. Added regression cases for empty, whitespace, null, numeric hashes, and whitespace-only locators.
 - **Verification:** GitHub Actions Continuity integrity run #139 passed 172/172 tests; aggregate validator returned `ok: true` with 29 canonical records checked. Mirror Cartographer CI run #4780 also passed.
 - **Risk:** A non-empty hash string is not proof that the hash matches the referenced bytes; content-hash verification remains a separate check.
+
+
+## Iteration 008 — Validate explanatory and falsification fields as text
+
+- **Observation:** Required record fields were checked for presence, but `title`, `summary`, and `falsification_or_review_route` could still contain empty strings, whitespace, or non-string values.
+- **Change:** The validator now requires each field to be a non-empty string after trimming. Added regression tests for empty titles, numeric summaries, and whitespace-only review routes.
+- **Verification:** Hosted run #139 passed 172/172 tests and the full corpus validation before this change. The new explanatory-field tests require a fresh run.
+- **Risk:** A non-empty review route is not proof that the route is actionable; independent source availability and falsifiability still require review.
