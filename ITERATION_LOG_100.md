@@ -171,3 +171,11 @@
 - **Change:** The reducer now accepts nested queue-item objects, extracts their identity/state/action, and recognizes `generated_at` as a document-supplied update time. Added a regression test for the observed historical shape.
 - **Verification:** Pending hosted Current View materialization across the complete corpus.
 - **Risk:** The nested object is normalized into the existing flat current-view record; original provenance remains available through the source path and blob SHA.
+
+ 
+## Iteration 021 — Normalize canonical status observations in legacy projections
+
+- **Observation:** A historical C-001 update stores state as `canonical_status_observed` and `projection.status`, with the durable work description nested under `projection`. The reducer recognized neither status field and would stop before producing the current view.
+- **Change:** Added explicit status-source precedence for canonical observations and nested projection state; the durable improvement can populate the action description when no top-level action exists. Added regression coverage for the observed shape.
+- **Verification:** Pending hosted Current View materialization across the complete corpus.
+- **Risk:** The reducer preserves which field supplied status; it does not promote the record's epistemic claims into deployment proof.
