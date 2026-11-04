@@ -144,3 +144,17 @@ test('requires machine relation entries to be canonical CM IDs', () => {
     assert.match(out.errors.join('\\n'), /relation target must be a canonical CM record ID/);
   }
 });
+
+\ntest('rejects malformed continuity index containers without throwing', () => {
+  const f = fixture([]);
+  fs.writeFileSync(f.indexFile, JSON.stringify({ records: { 'CM-0001': record('CM-0001') } }));
+  const objectRecords = validateFixture(f);
+  assert.equal(objectRecords.ok, false);
+  assert.equal(objectRecords.records_checked, 0);
+  assert.match(objectRecords.errors.join('\\n'), /records must be an array/);
+
+  fs.writeFileSync(f.indexFile, 'null');
+  const nullIndex = validateFixture(f);
+  assert.equal(nullIndex.ok, false);
+  assert.match(nullIndex.errors.join('\\n'), /index must be an object/);
+});
