@@ -139,3 +139,11 @@
 - **Change:** Non-completed updates may now derive `updated_at` from a parseable timestamp embedded in the filename when the document has neither timestamp field. The materialized record identifies `timestamp_source: filename`; completed updates still require an explicit `completed_at`. Added tests for offset-aware timestamp parsing and rejection of filenames without a timestamp.
 - **Verification:** Pending hosted Continuity Current View materialization; this iteration is not counted as complete until the full 549-file corpus is processed.
 - **Risk:** Filename-derived time is only as precise as the path encoding; the materialized view records the timestamp source so it cannot be mistaken for a document-supplied field.
+
+ 
+## Iteration 016 — Normalize legacy queue-update field names
+
+- **Observation:** The append-only queue corpus includes historical documents using `item_id` and `recorded_at` rather than the newer `queue_item` and `updated_at` fields. The materializer stopped at these records even though their identity and event time were present.
+- **Change:** The reducer now normalizes `item_id` to `queue_item` and `recorded_at` to the canonical update timestamp while retaining the timestamp provenance label. Added regression coverage for the legacy record shape.
+- **Verification:** Pending hosted Continuity Current View materialization across the full corpus; this iteration is not counted as complete until it succeeds.
+- **Risk:** Only the documented legacy aliases are accepted; unknown schema variants still fail closed.
