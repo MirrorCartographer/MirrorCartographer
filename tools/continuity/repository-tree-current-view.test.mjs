@@ -257,12 +257,12 @@ test('aggregates multiple invalid queue-update shapes before failing closed', ()
   assert.throws(() => reduceOwnedCurrentView({
     canonicalQueue, owner: 'continuity_mining',
     updateDocuments: [
-      { path: 'operations/queue-updates/M-998.json', document: { queue_item: 'M-998', owner: 'continuity_mining', updated_at: '2026-07-12T01:00:00Z' } },
-      { path: 'operations/queue-updates/M-999.json', document: { queue_item: 'M-999', owner: 'continuity_mining', status: 'active' } }
+      { path: 'operations/queue-updates/M-998.json', document: { queue_item: 'M-998', owner: 'continuity_mining', status: 'active', updated_at: 'bad-time-one' } },
+      { path: 'operations/queue-updates/M-999.json', document: { queue_item: 'M-999', owner: 'continuity_mining', status: 'active', updated_at: 'bad-time-two' } }
     ]
   }), error => {
-    assert.match(error.message, /M-998.json: missing canonical status/);
-    assert.match(error.message, /M-999.json: missing event timestamp/);
+    assert.match(error.message, /M-998.json: event timestamp is not parseable/);
+    assert.match(error.message, /M-999.json: event timestamp is not parseable/);
     return true;
   });
 });
