@@ -21,7 +21,7 @@
 </head>
 <body>
 <div class="frame">
-  <header class="masthead"><div class="brand">C / R O W N — EXHIBIT II</div><a href="crown.html">← Leave the midway · The Orrery of Almost</a></header>
+  <header class="masthead"><div class="brand">C / R O W N — EXHIBIT II</div><a href="orrery.html">← Leave the midway · The Orrery of Almost</a></header>
   <section class="hero"><div><div class="eyebrow">one night only · no prizes advertised</div><h1>THE MIDNIGHT <span>MILE</span></h1><p class="dek">A carnival has arrived where the road should be. Five attractions are still lit. The gate has three teeth. Somewhere under the floorboards, a room is keeping time.</p></div><aside class="hero-note"><strong>“You may leave with what you came for.”</strong><p>The ticket clerk said this while looking at the thing in your hand. You had not noticed you were carrying anything.</p></aside></section>
   <main class="world">
     <section class="stage" id="stage" aria-label="The Midnight Mile story stage">
@@ -171,7 +171,7 @@
       else if(action==='midway'){state.current='midway';render();focusStory();}
       else if(action==='gate')tryGate();
       else if(action==='restart')restart();
-      else if(action==='crown')window.location.href='crown.html';
+      else if(action==='crown')window.location.href='orrery.html';
       return;
     }
     if(target.dataset.ride){const id=target.dataset.ride;if(id==='understage'){if(hiddenUnlocked()){state.current='understage';render();focusStory();}return;}const ride=rides.find(item=>item.id===id);if(ride&&!state.visited.includes(id)){state.current=id;render();focusStory();}return;}
