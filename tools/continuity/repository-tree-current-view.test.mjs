@@ -244,3 +244,21 @@ test('normalizes nested queue item identity, status, action, and generated times
   assert.equal(view.items[0].updated_at, nested.generated_at);
   assert.equal(view.items[0].timestamp_source, 'document');
 });
+
+ 
+test('normalizes canonical_status_observed and projection state from historical updates', () => {
+  const legacy = {
+    team: 'cloudflare_research',
+    queue_item: 'C-001',
+    recorded_at: '2026-07-13T00:48:00-04:00',
+    canonical_status_observed: 'blocked_external_configuration',
+    projection: { status: 'blocked_external_configuration', durable_improvement: 'Integrated replay-ledger evidence.' }
+  };
+  const view = reduceOwnedCurrentView({
+    canonicalQueue, owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-001-2026-07-13T0048-0400.json', document: legacy }]
+  });
+  assert.equal(view.items[0].status, 'blocked_external_configuration');
+  assert.equal(view.items[0].status_source, 'canonical_status_observed');
+  assert.equal(view.items[0].action, 'Integrated replay-ledger evidence.');
+});
