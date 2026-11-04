@@ -253,7 +253,7 @@ export async function materializeFromRepositoryTree({ tree, fetchDocument, canon
     enumerated_path_count: paths.length,
     enumerated_paths: paths,
     fetched_path_count: updateDocuments.length,
-    completeness_verified: paths.length === updateDocuments.length && tree.truncated !== true,
+    completeness_verified: paths.length === updateDocuments.length && tree.truncated !== true && currentView.unattributed_update_paths.length === 0,
     current_view: currentView
   };
 }
