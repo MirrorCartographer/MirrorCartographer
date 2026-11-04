@@ -22,6 +22,7 @@ const required = [
   'forest/orrery.html',
   'forest/midnight-mile.html',
   'forest/weather-between.html',
+  'forest/permission-room.html',
   'experiments/engine.js',
   'experiments/shared.css',
   ...experimentSlugs.map((slug) => 'experiments/' + slug + '/index.html'),
