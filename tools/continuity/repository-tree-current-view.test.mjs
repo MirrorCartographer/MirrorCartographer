@@ -168,3 +168,21 @@ test('normalizes legacy item_id and recorded_at fields without changing their pr
   assert.equal(view.items[0].timestamp_source, 'document');
   assert.equal(view.applied_updates[0].queue_item, 'C-001');
 });
+
+ 
+test('normalizes legacy team ownership without treating other teams as owned', () => {
+  const legacy = {
+    queue_item: 'C-001', team: 'cloudflare_research', status: 'blocked_external_configuration',
+    updated_at: '2026-07-12T05:06:00-04:00'
+  };
+  const own = reduceOwnedCurrentView({
+    canonicalQueue, owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-001-2026-07-12T0506-0400.json', document: legacy }]
+  });
+  assert.equal(own.items[0].id, 'C-001');
+  const other = reduceOwnedCurrentView({
+    canonicalQueue, owner: 'continuity_mining',
+    updateDocuments: [{ path: 'operations/queue-updates/C-001-2026-07-12T0506-0400.json', document: legacy }]
+  });
+  assert.equal(other.items.some(item => item.id === 'C-001'), false);
+});
