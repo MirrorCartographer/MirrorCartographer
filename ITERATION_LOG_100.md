@@ -115,3 +115,11 @@
 - **Change:** Missing roots, non-directory roots, and unreadable roots now produce explicit validation errors. Added regression tests for missing and file-valued roots.
 - **Verification:** GitHub Actions Continuity integrity run #158 passed with the missing-root and non-directory-root regression cases; Mirror Cartographer CI run #4827 passed.
 - **Risk:** Every configured root is now required to exist. Callers must omit genuinely optional roots rather than passing nonexistent paths.
+
+ 
+## Iteration 013 — Convert malformed JSON into structured corpus errors
+
+- **Observation:** Invalid JSON in the continuity index or one record file threw from the parser and terminated the validator before it could return its normal machine-readable result or continue scanning other records.
+- **Change:** Index parse failures now return a structured failed result. Record-file parse failures are appended to the error list and scanning continues, preserving diagnostics from valid neighboring records. Added regression tests for both paths.
+- **Verification:** Pending hosted Continuity integrity validation; this iteration is not counted as complete until CI passes.
+- **Risk:** Malformed files remain fatal to overall validation, as intended; the change improves diagnostics and scan completeness rather than accepting bad data.
