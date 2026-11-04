@@ -176,3 +176,19 @@ test('fails closed when a configured record root is missing or not a directory',
   assert.equal(invalid.ok, false);
   assert.match(invalid.errors.join('\\n'), /not-a-directory: record root must be a directory/);
 });
+
+ 
+test('reports malformed index and record JSON without aborting the corpus scan', () => {
+  const f = fixture([record('CM-0001')]);
+  fs.writeFileSync(f.indexFile, '{ malformed');
+  const invalidIndex = validateFixture(f);
+  assert.equal(invalidIndex.ok, false);
+  assert.match(invalidIndex.errors.join('\\n'), /invalid JSON/);
+
+  fs.writeFileSync(f.indexFile, JSON.stringify({ records: [record('CM-0001')] }));
+  fs.writeFileSync(path.join(f.recordsDir, 'broken.json'), '{ malformed');
+  const invalidRecord = validateFixture(f);
+  assert.equal(invalidRecord.ok, false);
+  assert.match(invalidRecord.errors.join('\\n'), /broken.json: invalid JSON/);
+  assert.ok(invalidRecord.ids.includes('CM-0001'));
+});
