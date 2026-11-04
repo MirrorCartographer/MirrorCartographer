@@ -104,3 +104,27 @@ test('fails closed when an enumerated file cannot be parsed', async () => {
     /invalid JSON/
   );
 });
+
+ 
+test('accepts updated_at for blocked work but requires completed_at for completed work', () => {
+  const blocked = {
+    queue_item: 'C-001', owner: 'cloudflare_research', status: 'blocked_external_configuration',
+    updated_at: '2026-07-11T17:07:00-04:00'
+  };
+  const view = reduceOwnedCurrentView({
+    canonicalQueue,
+    owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-001.json', document: blocked }]
+  });
+  assert.equal(view.items[0].status, 'blocked_external_configuration');
+  assert.equal(view.items[0].updated_at, blocked.updated_at);
+  assert.equal('completed_at' in view.items[0], false);
+  assert.throws(() => reduceOwnedCurrentView({
+    canonicalQueue,
+    owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-002.json', document: {
+      queue_item: 'C-002', owner: 'cloudflare_research', status: 'completed',
+      updated_at: '2026-07-11T17:07:00-04:00'
+    }}]
+  }), /missing completed_at/);
+});
