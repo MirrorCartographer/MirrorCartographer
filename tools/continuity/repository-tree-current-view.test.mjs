@@ -128,3 +128,25 @@ test('accepts updated_at for blocked work but requires completed_at for complete
     }}]
   }), /missing completed_at/);
 });
+
+ 
+test('derives an update timestamp from the immutable filename for blocked records', () => {
+  const blocked = {
+    queue_item: 'C-001', owner: 'cloudflare_research', status: 'blocked_external_configuration'
+  };
+  const view = reduceOwnedCurrentView({
+    canonicalQueue,
+    owner: 'cloudflare_research',
+    updateDocuments: [{
+      path: 'operations/queue-updates/C-001-2026-07-11T1715-0400.json',
+      document: blocked
+    }]
+  });
+  assert.equal(view.items[0].updated_at, '2026-07-11T17:15:00-04:00');
+  assert.equal(view.items[0].timestamp_source, 'filename');
+  assert.equal(view.applied_updates[0].timestamp_source, 'filename');
+  assert.throws(() => reduceOwnedCurrentView({
+    canonicalQueue, owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-001-no-time.json', document: blocked }]
+  }), /no timestamp is encoded in the filename/);
+});
