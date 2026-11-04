@@ -20,16 +20,23 @@ function assertUpdate(update, path) {
   if (!update || typeof update !== 'object' || Array.isArray(update)) {
     throw new TypeError(`${path}: update must be an object`);
   }
-  for (const key of ['queue_item', 'owner', 'status', 'completed_at']) {
+  for (const key of ['queue_item', 'owner', 'status']) {
     if (typeof update[key] !== 'string' || update[key].length === 0) {
       throw new Error(`${path}: missing ${key}`);
     }
   }
-  const completed = Date.parse(update.completed_at);
-  if (!Number.isFinite(completed)) {
-    throw new Error(`${path}: completed_at is not parseable`);
+  const timestampField = update.completed_at ? 'completed_at' : 'updated_at';
+  if (update.status === 'completed' && timestampField !== 'completed_at') {
+    throw new Error(`${path}: missing completed_at`);
   }
-  return completed;
+  if (typeof update[timestampField] !== 'string' || update[timestampField].length === 0) {
+    throw new Error(`${path}: missing ${timestampField}`);
+  }
+  const timestamp = Date.parse(update[timestampField]);
+  if (!Number.isFinite(timestamp)) {
+    throw new Error(`${path}: ${timestampField} is not parseable`);
+  }
+  return { timestampField, timestampValue: update[timestampField], timestampMs: timestamp };
 }
 
 export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner }) {
@@ -58,17 +65,17 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
   }
 
   const normalized = updateDocuments.map(({ path, document, blob_sha = null }) => {
-    const completedMs = assertUpdate(document, path);
-    return { path, document, blob_sha, completedMs };
+    const timestamp = assertUpdate(document, path);
+    return { path, document, blob_sha, ...timestamp };
   }).filter(({ document }) => document.owner === owner)
-    .sort((a, b) => a.completedMs - b.completedMs
+    .sort((a, b) => a.timestampMs - b.timestampMs
       || a.document.queue_item.localeCompare(b.document.queue_item)
       || a.path.localeCompare(b.path));
 
   const applied = [];
   const duplicateKeys = new Set();
   for (const entry of normalized) {
-    const key = `${entry.document.queue_item}\u0000${entry.document.completed_at}`;
+    const key = `${entry.document.queue_item}\u0000${entry.timestampValue}`;
     if (duplicateKeys.has(key)) {
       throw new Error(`duplicate continuity update identity: ${entry.document.queue_item} at ${entry.document.completed_at}`);
     }
@@ -78,14 +85,14 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
       owner,
       status: entry.document.status,
       action: entry.document.action ?? null,
-      completed_at: entry.document.completed_at,
+      [entry.timestampField]: entry.timestampValue,
       source_layer: 'append_only_update',
       source_path: entry.path,
       source_blob_sha: entry.blob_sha
     });
     applied.push({
       queue_item: entry.document.queue_item,
-      completed_at: entry.document.completed_at,
+      [entry.timestampField]: entry.timestampValue,
       path: entry.path,
       blob_sha: entry.blob_sha
     });
@@ -94,7 +101,7 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
   return {
     owner,
     completeness_claim: 'eligible only when the supplied recursive tree is non-truncated and every enumerated update path was fetched and parsed',
-    ordering_rule: ['completed_at ascending', 'queue_item lexical ascending', 'path lexical ascending'],
+    ordering_rule: ['completed_at or updated_at ascending', 'queue_item lexical ascending', 'path lexical ascending'],
     applied_updates: applied,
     items: [...state.values()].sort((a, b) => a.id.localeCompare(b.id))
   };
