@@ -187,3 +187,11 @@
 - **Change:** Fetch/parse and record-shape validation now collect all failures across the enumerated set, then return one structured error listing every failing path. No partial current view is emitted when any required record is invalid. Added a multi-error regression test.
 - **Verification:** Pending hosted Current View validation against the complete repository tree.
 - **Risk:** The error output may be long for a heavily damaged corpus; it is intentionally path-specific to support deterministic repair.
+
+ 
+## Iteration 023 — Attribute historical updates before owner-scoped validation
+
+- **Observation:** The queue-update folder contains records for several teams and several historical schemas. Validating every record as if it belonged to the requested owner caused unrelated teams' legacy formats to fail the continuity_mining view.
+- **Change:** The reducer now infers ownership from explicit owner/team fields, nested queue-item owners, canonical queue ownership, and unambiguous ID prefixes. It validates only records attributed to the requested owner, counts other-owner records separately, and records unassigned paths; any unassigned path prevents a completeness claim.
+- **Verification:** Pending hosted Current View materialization across the complete repository tree.
+- **Risk:** Prefix-based owner inference is derived only from unambiguous prefixes in the canonical queue. Unknown prefixes remain explicitly unattributed rather than being guessed.
