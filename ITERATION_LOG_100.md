@@ -1,7 +1,7 @@
 # 100-iteration improvement log — Observatory
 
 **Target:** 100 distinct inspect → change/test → verify → record cycles.  
-**Completed:** 11/100 (ten prior validated continuity iterations plus malformed index-container rejection; latest hosted continuity integrity passed) (guardrail regression test corrected; aggregate continuity parser repaired to ingest claims collections and corpus semantics corrected).  
+**Completed:** 11/100 (ten prior continuity-integrity iterations plus malformed index-container rejection; hosted Continuity integrity run #154 and Mirror Cartographer CI run #4823 passed).  
 **Branch:** `work/100-iterations-2026-11-03`
 
 ## Iteration 001 — Protect canonical deployment and privacy invariants
@@ -105,5 +105,5 @@
 
 - **Observation:** The validator assumed the parsed index was an object with an array-valued `records` property. A null index or object-valued `records` field could throw a TypeError before the validator returned its structured diagnostics.
 - **Change:** Added explicit index-container and records-array guards. Malformed roots now return a normal failed validation result with a precise locator error; canonical records are not partially processed. Added regression tests for null and object-valued index containers.
-- **Verification:** Pending the next hosted Continuity integrity run; this iteration is not counted as complete until CI passes.
+- **Verification:** GitHub Actions Continuity integrity run #154 passed; Mirror Cartographer CI run #4823 passed. The index-shape regression cases are included in that run.
 - **Risk:** This validates the index envelope, not every optional index metadata field or the provenance bytes referenced by records.
