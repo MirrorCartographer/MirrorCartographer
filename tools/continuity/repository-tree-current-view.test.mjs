@@ -186,3 +186,18 @@ test('normalizes legacy team ownership without treating other teams as owned', (
   });
   assert.equal(other.items.some(item => item.id === 'C-001'), false);
 });
+
+ 
+test('preserves observed canonical status when legacy updates omit status', () => {
+  const observed = {
+    queue_item: 'C-001', owner: 'cloudflare_research',
+    observed_canonical_status: 'blocked_external_configuration'
+  };
+  const view = reduceOwnedCurrentView({
+    canonicalQueue, owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-001-2026-07-12T1035-0400.json', document: observed }]
+  });
+  assert.equal(view.items[0].status, 'blocked_external_configuration');
+  assert.equal(view.items[0].status_source, 'observed_canonical_status');
+  assert.equal(view.items[0].updated_at, '2026-07-12T10:35:00-04:00');
+});
