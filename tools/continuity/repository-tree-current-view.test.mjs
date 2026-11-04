@@ -150,3 +150,21 @@ test('derives an update timestamp from the immutable filename for blocked record
     updateDocuments: [{ path: 'operations/queue-updates/C-001-no-time.json', document: blocked }]
   }), /no timestamp is encoded in the filename/);
 });
+
+ 
+test('normalizes legacy item_id and recorded_at fields without changing their provenance', () => {
+  const legacy = {
+    item_id: 'C-001', owner: 'cloudflare_research',
+    status: 'blocked_external_configuration',
+    recorded_at: '2026-07-11T18:16:51-04:00'
+  };
+  const view = reduceOwnedCurrentView({
+    canonicalQueue,
+    owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-001-2026-07-11T1816-0400.json', document: legacy }]
+  });
+  assert.equal(view.items[0].id, 'C-001');
+  assert.equal(view.items[0].updated_at, legacy.recorded_at);
+  assert.equal(view.items[0].timestamp_source, 'document');
+  assert.equal(view.applied_updates[0].queue_item, 'C-001');
+});
