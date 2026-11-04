@@ -159,3 +159,20 @@ test('rejects malformed continuity index containers without throwing', () => {
   assert.equal(nullIndex.ok, false);
   assert.match(nullIndex.errors.join('\\n'), /index must be an object/);
 });
+
+ 
+test('fails closed when a configured record root is missing or not a directory', () => {
+  const f = fixture([record('CM-0001')]);
+  const missing = validateContinuity({
+    indexFile: f.indexFile,
+    recordDirs: [f.recordsDir, path.join(path.dirname(f.indexFile), 'missing-record-root')],
+  });
+  assert.equal(missing.ok, false);
+  assert.match(missing.errors.join('\\n'), /missing-record-root: record root does not exist/);
+
+  const fileRoot = path.join(path.dirname(f.indexFile), 'not-a-directory');
+  fs.writeFileSync(fileRoot, 'not a directory');
+  const invalid = validateContinuity({ indexFile: f.indexFile, recordDirs: [fileRoot] });
+  assert.equal(invalid.ok, false);
+  assert.match(invalid.errors.join('\\n'), /not-a-directory: record root must be a directory/);
+});
