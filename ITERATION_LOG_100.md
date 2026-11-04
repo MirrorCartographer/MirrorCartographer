@@ -131,3 +131,11 @@
 - **Change:** Queue updates now accept `updated_at` for non-completed statuses while completed records still require `completed_at`. The existing blocked record receives its filename-derived timestamp (`2026-07-11T17:07:00-04:00`). Sorting and duplicate detection use the actual event timestamp field. Added regression tests for both status classes.
 - **Verification:** Pending hosted Continuity Current View validation; this iteration is not counted as complete until materialization succeeds.
 - **Risk:** The timestamp is derived from the update filename's recorded local minute; it preserves the source event's precision rather than inventing seconds beyond `:00`.
+
+ 
+## Iteration 015 — Derive missing blocked-update timestamps from immutable paths
+
+- **Observation:** The current-view materializer correctly distinguished `updated_at` from `completed_at`, but the append-only corpus contains older blocked updates whose timestamp is recorded only in the immutable filename. The workflow therefore failed on the next historical C-001 update.
+- **Change:** Non-completed updates may now derive `updated_at` from a parseable timestamp embedded in the filename when the document has neither timestamp field. The materialized record identifies `timestamp_source: filename`; completed updates still require an explicit `completed_at`. Added tests for offset-aware timestamp parsing and rejection of filenames without a timestamp.
+- **Verification:** Pending hosted Continuity Current View materialization; this iteration is not counted as complete until the full 549-file corpus is processed.
+- **Risk:** Filename-derived time is only as precise as the path encoding; the materialized view records the timestamp source so it cannot be mistaken for a document-supplied field.
