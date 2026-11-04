@@ -163,3 +163,11 @@
 - **Change:** The reducer now normalizes `team` to the effective owner while preserving owner isolation. Added tests proving the legacy record is included for its team and excluded from another team's current view.
 - **Verification:** Pending hosted Current View materialization across the full repository tree.
 - **Risk:** Unknown ownership aliases remain rejected; only the observed legacy `team` field is accepted.
+
+ 
+## Iteration 020 — Normalize nested queue-update payloads
+
+- **Observation:** Some append-only updates encode the queue item as an object containing its own `id`, `status`, and `action`, and use `generated_at` for the event timestamp. Treating `queue_item` as a string caused the materializer to reject a valid historical record.
+- **Change:** The reducer now accepts nested queue-item objects, extracts their identity/state/action, and recognizes `generated_at` as a document-supplied update time. Added a regression test for the observed historical shape.
+- **Verification:** Pending hosted Current View materialization across the complete corpus.
+- **Risk:** The nested object is normalized into the existing flat current-view record; original provenance remains available through the source path and blob SHA.
