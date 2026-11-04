@@ -37,7 +37,7 @@ function assertUpdate(update, path) {
     throw new Error(`${path}: missing owner or team`);
   }
   const recordStatus = update.status ?? update.observed_canonical_status ?? update.queue_item?.status;
-  const statusSource = update.status ? 'status' : 'observed_canonical_status';
+  const statusSource = update.status ? 'status' : update.observed_canonical_status ? 'observed_canonical_status' : 'queue_item.status';
   if (typeof recordStatus !== 'string' || recordStatus.length === 0) {
     throw new Error(`${path}: missing status or observed_canonical_status`);
   }
