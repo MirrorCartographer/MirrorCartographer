@@ -62,7 +62,14 @@ function normalizedRecordDirs({ recordsDir, recordDirs }) {
 }
 
 export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
-  const index = readJson(indexFile);
+  let index;
+  try { index = readJson(indexFile); }
+  catch (error) {
+    return {
+      ok: false, records_checked: 0, scanned_roots: [], skipped_legacy_files: [],
+      ids: [], relation_integrity: null, errors: [error.message]
+    };
+  }
   if (!index || typeof index !== 'object' || Array.isArray(index)) {
     return {
       ok: false, records_checked: 0, scanned_roots: [], skipped_legacy_files: [],
@@ -98,7 +105,9 @@ export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
     }
     for (const name of [...directoryNames].filter(n => n.endsWith('.json')).sort()) {
       const file = path.join(dir, name);
-      const raw = readJson(file);
+      let raw;
+      try { raw = readJson(file); }
+      catch (error) { errors.push(error.message); continue; }
       if (raw.legacy_id || raw.migration) {
         skippedLegacyFiles.push(file + ' (migrated legacy alias)');
         continue;
