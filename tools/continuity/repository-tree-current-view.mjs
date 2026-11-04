@@ -36,8 +36,10 @@ function assertUpdate(update, path) {
   if (typeof recordOwner !== 'string' || recordOwner.length === 0) {
     throw new Error(`${path}: missing owner or team`);
   }
-  if (typeof update.status !== 'string' || update.status.length === 0) {
-    throw new Error(`${path}: missing status`);
+  const recordStatus = update.status ?? update.observed_canonical_status;
+  const statusSource = update.status ? 'status' : 'observed_canonical_status';
+  if (typeof recordStatus !== 'string' || recordStatus.length === 0) {
+    throw new Error(`${path}: missing status or observed_canonical_status`);
   }
   let timestampField = update.completed_at ? 'completed_at' : 'updated_at';
   let timestampValue = update.completed_at ?? update.updated_at ?? update.recorded_at;
@@ -45,11 +47,11 @@ function assertUpdate(update, path) {
     timestampField = 'updated_at';
   }
   let timestampSource = 'document';
-  if (update.status === 'completed' && timestampField !== 'completed_at') {
+  if (recordStatus === 'completed' && timestampField !== 'completed_at') {
     throw new Error(`${path}: missing completed_at`);
   }
   if (typeof timestampValue !== 'string' || timestampValue.length === 0) {
-    if (update.status === 'completed') throw new Error(`${path}: missing completed_at`);
+    if (recordStatus === 'completed') throw new Error(`${path}: missing completed_at`);
     timestampValue = timestampFromPath(path);
     timestampField = 'updated_at';
     timestampSource = 'filename';
@@ -61,7 +63,7 @@ function assertUpdate(update, path) {
   if (!Number.isFinite(timestamp)) {
     throw new Error(`${path}: ${timestampField} is not parseable`);
   }
-  return { queueItem, recordOwner, timestampField, timestampValue, timestampMs: timestamp, timestampSource };
+  return { queueItem, recordOwner, recordStatus, statusSource, timestampField, timestampValue, timestampMs: timestamp, timestampSource };
 }
 
 export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner }) {
@@ -108,7 +110,8 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
     state.set(entry.queueItem, {
       id: entry.queueItem,
       owner,
-      status: entry.document.status,
+      status: entry.recordStatus,
+      status_source: entry.statusSource,
       action: entry.document.action ?? null,
       [entry.timestampField]: entry.timestampValue,
       timestamp_source: entry.timestampSource,
