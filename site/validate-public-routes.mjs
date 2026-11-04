@@ -57,6 +57,7 @@ function resolveLocalTarget(file, rawValue) {
   } catch {
     throw new Error('Invalid URL encoding in ' + relative(siteRoot, file) + ': ' + rawValue);
   }
+  if (decoded.startsWith('#')) return null;
 
   const target = decoded.startsWith('/')
     ? resolve(siteRoot, '.' + decoded)
