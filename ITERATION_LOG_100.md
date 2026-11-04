@@ -147,3 +147,11 @@
 - **Change:** The reducer now normalizes `item_id` to `queue_item` and `recorded_at` to the canonical update timestamp while retaining the timestamp provenance label. Added regression coverage for the legacy record shape.
 - **Verification:** Pending hosted Continuity Current View materialization across the full corpus; this iteration is not counted as complete until it succeeds.
 - **Risk:** Only the documented legacy aliases are accepted; unknown schema variants still fail closed.
+
+ 
+## Iteration 017 — Materialize the immutable current view from local Git objects
+
+- **Observation:** The hosted current-view workflow fetched the commit, recursive tree, canonical queue, and every one of 549 queue-update blobs through separate GitHub API requests. Repeated runs exhausted the API allowance and failed with HTTP 403 before completing, even though the exact commit was already checked out.
+- **Change:** The workflow now resolves the requested immutable commit locally, derives its tree and blob identities with Git, enumerates the complete recursive tree, and reads each queue-update blob from that same commit. This preserves commit/tree/blob provenance and completeness checks while removing hundreds of network requests. Replaced API-mock tests with temporary-repository integration tests.
+- **Verification:** Pending hosted Current View materialization of the complete corpus and the local-Git regression suite.
+- **Risk:** The workflow now depends on checkout containing the exact `GITHUB_SHA` commit and its objects; the workflow must keep checkout and `GITHUB_SHA` aligned.
