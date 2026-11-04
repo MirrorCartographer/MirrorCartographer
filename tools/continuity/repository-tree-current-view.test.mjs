@@ -262,3 +262,18 @@ test('normalizes canonical_status_observed and projection state from historical 
   assert.equal(view.items[0].status_source, 'canonical_status_observed');
   assert.equal(view.items[0].action, 'Integrated replay-ledger evidence.');
 });
+
+ 
+test('aggregates multiple invalid queue-update shapes before failing closed', () => {
+  assert.throws(() => reduceOwnedCurrentView({
+    canonicalQueue, owner: 'continuity_mining',
+    updateDocuments: [
+      { path: 'operations/queue-updates/a.json', document: { owner: 'continuity_mining', status: 'active' } },
+      { path: 'operations/queue-updates/b.json', document: { queue_item: 'M-999', status: 'active' } }
+    ]
+  }), error => {
+    assert.match(error.message, /a.json: missing queue_item or item_id/);
+    assert.match(error.message, /b.json: missing owner or team/);
+    return true;
+  });
+});
