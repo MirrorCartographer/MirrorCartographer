@@ -123,3 +123,11 @@
 - **Change:** Index parse failures now return a structured failed result. Record-file parse failures are appended to the error list and scanning continues, preserving diagnostics from valid neighboring records. Added regression tests for both paths.
 - **Verification:** GitHub Actions Continuity integrity run #161 passed with malformed-index and malformed-record JSON cases; valid neighboring records remained visible in the diagnostic result.
 - **Risk:** Malformed files remain fatal to overall validation, as intended; the change improves diagnostics and scan completeness rather than accepting bad data.
+
+ 
+## Iteration 014 — Preserve timestamps for blocked queue updates
+
+- **Observation:** The repository-tree current-view workflow failed on the existing `C-001` update because its status is `blocked_external_configuration`, but the reducer required `completed_at` for every update. That incorrectly conflated a status update with completion.
+- **Change:** Queue updates now accept `updated_at` for non-completed statuses while completed records still require `completed_at`. The existing blocked record receives its filename-derived timestamp (`2026-07-11T17:07:00-04:00`). Sorting and duplicate detection use the actual event timestamp field. Added regression tests for both status classes.
+- **Verification:** Pending hosted Continuity Current View validation; this iteration is not counted as complete until materialization succeeds.
+- **Risk:** The timestamp is derived from the update filename's recorded local minute; it preserves the source event's precision rather than inventing seconds beyond `:00`.
