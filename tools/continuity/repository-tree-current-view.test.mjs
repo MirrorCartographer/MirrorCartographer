@@ -201,3 +201,24 @@ test('preserves observed canonical status when legacy updates omit status', () =
   assert.equal(view.items[0].status_source, 'observed_canonical_status');
   assert.equal(view.items[0].updated_at, '2026-07-12T10:35:00-04:00');
 });
+
+ 
+test('normalizes nested queue item identity, status, action, and generated timestamp', () => {
+  const nested = {
+    owner: 'cloudflare_research',
+    generated_at: '2026-07-12T23:37:08Z',
+    queue_item: {
+      id: 'C-001', status: 'blocked_external_configuration',
+      action: 'Resolve the deployed Pages hostname'
+    }
+  };
+  const view = reduceOwnedCurrentView({
+    canonicalQueue, owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-001-2026-07-12T2337Z.json', document: nested }]
+  });
+  assert.equal(view.items[0].id, 'C-001');
+  assert.equal(view.items[0].status, 'blocked_external_configuration');
+  assert.equal(view.items[0].action, 'Resolve the deployed Pages hostname');
+  assert.equal(view.items[0].updated_at, nested.generated_at);
+  assert.equal(view.items[0].timestamp_source, 'document');
+});
