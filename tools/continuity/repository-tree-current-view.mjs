@@ -17,7 +17,7 @@ export function enumerateQueueUpdatePaths(tree) {
 }
 
 function timestampFromPath(path) {
-  const match = path.match(/(\\d{4}-\\d{2}-\\d{2})T(\\d{2})(\\d{2})(\\d{2})?(Z|[+-]\\d{4})/);
+  const match = path.match(/(\d{4}-\d{2}-\d{2})T(\d{2})(\d{2})(\d{2})?(Z|[+-]\d{4})/);
   if (!match) return null;
   const [, date, hour, minute, seconds, zone] = match;
   const offset = zone === 'Z' ? 'Z' : zone.slice(0, 3) + ':' + zone.slice(3);
