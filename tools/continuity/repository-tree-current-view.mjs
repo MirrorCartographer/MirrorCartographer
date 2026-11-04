@@ -24,46 +24,102 @@ function timestampFromPath(path) {
   return date + 'T' + hour + ':' + minute + ':' + (seconds ?? '00') + offset;
 }
 
-function assertUpdate(update, path) {
+function candidateQueueItem(update, path) {
+  const nested = update?.queue_item && typeof update.queue_item === 'object' ? update.queue_item : null;
+  const fromDocument = update?.canonical_queue_item
+    ?? (typeof update?.queue_item === 'string' ? update.queue_item : nested?.id)
+    ?? update?.item_id
+    ?? update?.id;
+  if (typeof fromDocument === 'string' && fromDocument.length) return fromDocument;
+  return path.match(/(?:^|\/)([A-Z]+-\d+)(?:-|\.json$)/)?.[1] ?? null;
+}
+
+function buildOwnerMaps(canonicalQueue) {
+  const canonicalById = new Map();
+  const prefixOwners = new Map();
+  const ambiguousPrefixes = new Set();
+  for (const item of canonicalQueue.items) {
+    if (!item || typeof item.id !== 'string' || typeof item.owner !== 'string') continue;
+    canonicalById.set(item.id, item);
+    const prefix = item.id.match(/^([A-Z]+)-/)?.[1];
+    if (!prefix || ambiguousPrefixes.has(prefix)) continue;
+    const previous = prefixOwners.get(prefix);
+    if (previous && previous !== item.owner) {
+      prefixOwners.delete(prefix);
+      ambiguousPrefixes.add(prefix);
+    } else {
+      prefixOwners.set(prefix, item.owner);
+    }
+  }
+  return { canonicalById, prefixOwners };
+}
+
+function inferRecordOwner(update, queueItem, canonicalById, prefixOwners) {
+  const nested = update?.queue_item && typeof update.queue_item === 'object' ? update.queue_item : null;
+  const canonical = canonicalById.get(queueItem);
+  const prefix = queueItem?.match(/^([A-Z]+)-/)?.[1];
+  return update?.owner
+    ?? update?.team
+    ?? nested?.owner
+    ?? update?.canonical_queue_owner
+    ?? canonical?.owner
+    ?? prefixOwners.get(prefix)
+    ?? null;
+}
+
+function normalizeOwnedUpdate(update, path, queueItem, recordOwner, canonicalById) {
   if (!update || typeof update !== 'object' || Array.isArray(update)) {
     throw new TypeError(`${path}: update must be an object`);
   }
-  const queueItem = typeof update.queue_item === 'string' ? update.queue_item : update.queue_item?.id ?? update.item_id;
-  if (typeof queueItem !== 'string' || queueItem.length === 0) {
-    throw new Error(`${path}: missing queue_item or item_id`);
+  if (!queueItem) throw new Error(`${path}: missing queue item identity`);
+  const nested = update.queue_item && typeof update.queue_item === 'object' ? update.queue_item : null;
+  const canonical = canonicalById.get(queueItem);
+  if (canonical?.owner && canonical.owner !== recordOwner) {
+    throw new Error(`${path}: update owner ${recordOwner} conflicts with canonical owner ${canonical.owner}`);
   }
-  const recordOwner = update.owner ?? update.team;
-  if (typeof recordOwner !== 'string' || recordOwner.length === 0) {
-    throw new Error(`${path}: missing owner or team`);
-  }
-  const recordStatus = update.status ?? update.observed_canonical_status ?? update.canonical_status_observed ?? update.queue_item?.status ?? update.projection?.status;
-  const statusSource = update.status ? 'status' : update.observed_canonical_status ? 'observed_canonical_status' : update.canonical_status_observed ? 'canonical_status_observed' : update.queue_item?.status ? 'queue_item.status' : 'projection.status';
+  const recordStatus = update.canonical_status
+    ?? update.canonical_item_status
+    ?? update.observed_canonical_status
+    ?? update.canonical_status_observed
+    ?? nested?.status
+    ?? update.projection?.status
+    ?? update.status
+    ?? update.durable_slice?.status
+    ?? canonical?.status;
+  const statusSource = update.canonical_status ? 'canonical_status'
+    : update.canonical_item_status ? 'canonical_item_status'
+    : update.observed_canonical_status ? 'observed_canonical_status'
+    : update.canonical_status_observed ? 'canonical_status_observed'
+    : nested?.status ? 'queue_item.status'
+    : update.projection?.status ? 'projection.status'
+    : update.status ? 'status'
+    : update.durable_slice?.status ? 'durable_slice.status'
+    : 'canonical_queue';
   if (typeof recordStatus !== 'string' || recordStatus.length === 0) {
-    throw new Error(`${path}: missing status or observed_canonical_status`);
+    throw new Error(`${path}: missing canonical status`);
   }
   let timestampField = update.completed_at ? 'completed_at' : 'updated_at';
   let timestampValue = update.completed_at ?? update.updated_at ?? update.recorded_at ?? update.generated_at;
-  if (!update.completed_at && !update.updated_at && (update.recorded_at || update.generated_at)) {
-    timestampField = 'updated_at';
-  }
   let timestampSource = 'document';
-  if (recordStatus === 'completed' && timestampField !== 'completed_at') {
-    throw new Error(`${path}: missing completed_at`);
-  }
   if (typeof timestampValue !== 'string' || timestampValue.length === 0) {
-    if (recordStatus === 'completed') throw new Error(`${path}: missing completed_at`);
     timestampValue = timestampFromPath(path);
     timestampField = 'updated_at';
     timestampSource = 'filename';
   }
-  if (typeof timestampValue !== 'string' || timestampValue.length === 0) {
-    throw new Error(`${path}: missing updated_at and no timestamp is encoded in the filename`);
-  }
-  const timestamp = Date.parse(timestampValue);
-  if (!Number.isFinite(timestamp)) {
-    throw new Error(`${path}: ${timestampField} is not parseable`);
-  }
-  return { queueItem, recordOwner, recordStatus, statusSource, timestampField, timestampValue, timestampMs: timestamp, timestampSource };
+  if (!timestampValue) throw new Error(`${path}: missing event timestamp and no timestamp is encoded in the filename`);
+  const timestampMs = Date.parse(timestampValue);
+  if (!Number.isFinite(timestampMs)) throw new Error(`${path}: event timestamp is not parseable`);
+  const action = update.action
+    ?? nested?.action
+    ?? update.projection?.durable_improvement
+    ?? update.durable_slice?.summary
+    ?? canonical?.action
+    ?? null;
+  return {
+    path, document: update, queueItem, recordOwner, recordStatus, statusSource,
+    timestampField, timestampValue, timestampMs, timestampSource, action,
+    blob_sha: null
+  };
 }
 
 export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner }) {
@@ -91,13 +147,27 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
     });
   }
 
+  const { canonicalById, prefixOwners } = buildOwnerMaps(canonicalQueue);
   const normalized = [];
   const validationErrors = [];
+  const unattributedUpdatePaths = [];
+  let ignoredOtherOwnerCount = 0;
   for (const { path, document, blob_sha = null } of updateDocuments) {
+    const queueItem = candidateQueueItem(document, path);
+    const recordOwner = inferRecordOwner(document, queueItem, canonicalById, prefixOwners);
+    if (!recordOwner) {
+      unattributedUpdatePaths.push(path);
+      continue;
+    }
+    if (recordOwner !== owner) {
+      ignoredOtherOwnerCount++;
+      continue;
+    }
     try {
-      const timestamp = assertUpdate(document, path);
-      const entry = { path, document, blob_sha, ...timestamp };
-      if (entry.recordOwner === owner) normalized.push(entry);
+      normalized.push({
+        ...normalizeOwnedUpdate(document, path, queueItem, recordOwner, canonicalById),
+        blob_sha
+      });
     } catch (error) {
       validationErrors.push(error.message);
     }
@@ -122,7 +192,7 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
       owner,
       status: entry.recordStatus,
       status_source: entry.statusSource,
-      action: entry.document.action ?? (typeof entry.document.queue_item === 'object' ? entry.document.queue_item.action : null) ?? entry.document.projection?.durable_improvement ?? null,
+      action: entry.action,
       [entry.timestampField]: entry.timestampValue,
       timestamp_source: entry.timestampSource,
       source_layer: 'append_only_update',
@@ -140,7 +210,9 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
 
   return {
     owner,
-    completeness_claim: 'eligible only when the supplied recursive tree is non-truncated and every enumerated update path was fetched and parsed',
+    ignored_other_owner_count: ignoredOtherOwnerCount,
+    unattributed_update_paths: unattributedUpdatePaths,
+    completeness_claim: 'eligible only when the supplied recursive tree is non-truncated, every enumerated update path was fetched and parsed, and every update was attributed to an owner',
     ordering_rule: ['completed_at or updated_at ascending', 'queue_item lexical ascending', 'path lexical ascending'],
     applied_updates: applied,
     items: [...state.values()].sort((a, b) => a.id.localeCompare(b.id))
