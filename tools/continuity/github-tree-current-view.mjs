@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { writeFile } from 'node:fs/promises';
 import { materializeFromRepositoryTree } from './repository-tree-current-view.mjs';
 
@@ -6,70 +7,72 @@ function requireValue(value, name) {
   return value;
 }
 
-export async function fetchJson(url, { token, fetchImpl = fetch } = {}) {
-  const response = await fetchImpl(url, {
-    headers: {
-      Accept: 'application/vnd.github+json',
-      Authorization: `Bearer ${requireValue(token, 'token')}`,
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
+function git(args, cwd) {
+  return execFileSync('git', args, {
+    cwd,
+    encoding: 'utf8',
+    maxBuffer: 32 * 1024 * 1024,
+    stdio: ['ignore', 'pipe', 'pipe']
   });
-  if (!response.ok) throw new Error(`GitHub API ${response.status} for ${url}`);
-  return response.json();
 }
 
 export async function buildTreeBoundCurrentView({
   repository,
   commitSha,
-  token,
   owner = 'continuity_mining',
-  fetchImpl = fetch
+  cwd = process.cwd()
 }) {
   requireValue(repository, 'repository');
   requireValue(commitSha, 'commitSha');
   requireValue(owner, 'owner');
-  const api = `https://api.github.com/repos/${repository}`;
-  const commit = await fetchJson(`${api}/git/commits/${commitSha}`, { token, fetchImpl });
-  const tree = await fetchJson(`${api}/git/trees/${commit.tree.sha}?recursive=1`, { token, fetchImpl });
-  const queueFile = await fetchJson(`${api}/contents/operations/ACTIVE_QUEUE.json?ref=${commitSha}`, { token, fetchImpl });
-  const canonicalQueue = JSON.parse(Buffer.from(queueFile.content, 'base64').toString('utf8'));
+
+  const commit = git(['rev-parse', '--verify', `${commitSha}^{commit}`], cwd).trim();
+  if (!/^[0-9a-f]{40}$/.test(commit)) throw new Error('resolved commit is not immutable');
+  const commitTreeSha = git(['rev-parse', `${commit}^{tree}`], cwd).trim();
+  const treeText = git(['ls-tree', '-r', '-z', '--full-tree', commit], cwd);
+  const entries = treeText.split('\0').filter(Boolean).map((entry) => {
+    const tab = entry.indexOf('\t');
+    const [mode, type, sha] = entry.slice(0, tab).split(' ');
+    return { mode, type, sha, path: entry.slice(tab + 1) };
+  });
+  const tree = { sha: commitTreeSha, truncated: false, tree: entries };
+  const entryByPath = new Map(entries.map((entry) => [entry.path, entry]));
+
+  const canonicalQueuePath = 'operations/ACTIVE_QUEUE.json';
+  const canonicalQueue = JSON.parse(git(['show', `${commit}:${canonicalQueuePath}`], cwd));
+  const canonicalQueueBlobSha = git(['rev-parse', `${commit}:${canonicalQueuePath}`], cwd).trim();
 
   const result = await materializeFromRepositoryTree({
     tree,
     canonicalQueue,
     owner,
     fetchDocument: async (path) => {
-      const file = await fetchJson(`${api}/contents/${path}?ref=${commitSha}`, { token, fetchImpl });
-      return {
-        content: Buffer.from(file.content, 'base64').toString('utf8'),
-        sha: file.sha
-      };
+      const entry = entryByPath.get(path);
+      if (!entry || entry.type !== 'blob') throw new Error(`${path}: repository tree has no regular blob`);
+      return { content: git(['cat-file', 'blob', entry.sha], cwd), sha: entry.sha };
     }
   });
 
-  if (!result.completeness_verified) {
-    throw new Error('repository snapshot completeness was not verified');
-  }
+  if (!result.completeness_verified) throw new Error('repository snapshot completeness was not verified');
 
   return {
     schema_version: '1.0.0',
     repository,
-    commit_sha: commitSha,
-    commit_tree_sha: commit.tree.sha,
+    commit_sha: commit,
+    commit_tree_sha: commitTreeSha,
     recursive_tree_sha: result.tree_sha,
+    canonical_queue_blob_sha: canonicalQueueBlobSha,
     generated_at: new Date().toISOString(),
     ...result
   };
 }
 
-export async function main(env = process.env, fetchImpl = fetch) {
+export async function main(env = process.env) {
   const outputPath = env.CONTINUITY_OUTPUT ?? 'continuity-current-view.json';
   const manifest = await buildTreeBoundCurrentView({
     repository: env.GITHUB_REPOSITORY,
     commitSha: env.GITHUB_SHA,
-    token: env.GITHUB_TOKEN,
-    owner: env.CONTINUITY_OWNER ?? 'continuity_mining',
-    fetchImpl
+    owner: env.CONTINUITY_OWNER ?? 'continuity_mining'
   });
   await writeFile(outputPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
   return manifest;
