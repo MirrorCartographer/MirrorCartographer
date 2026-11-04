@@ -16,6 +16,14 @@ export function enumerateQueueUpdatePaths(tree) {
     .sort((a, b) => a.localeCompare(b));
 }
 
+function timestampFromPath(path) {
+  const match = path.match(/(\\d{4}-\\d{2}-\\d{2})T(\\d{2})(\\d{2})(\\d{2})?(Z|[+-]\\d{4})/);
+  if (!match) return null;
+  const [, date, hour, minute, seconds, zone] = match;
+  const offset = zone === 'Z' ? 'Z' : zone.slice(0, 3) + ':' + zone.slice(3);
+  return date + 'T' + hour + ':' + minute + ':' + (seconds ?? '00') + offset;
+}
+
 function assertUpdate(update, path) {
   if (!update || typeof update !== 'object' || Array.isArray(update)) {
     throw new TypeError(`${path}: update must be an object`);
@@ -25,18 +33,26 @@ function assertUpdate(update, path) {
       throw new Error(`${path}: missing ${key}`);
     }
   }
-  const timestampField = update.completed_at ? 'completed_at' : 'updated_at';
+  let timestampField = update.completed_at ? 'completed_at' : 'updated_at';
+  let timestampValue = update[timestampField];
+  let timestampSource = 'document';
   if (update.status === 'completed' && timestampField !== 'completed_at') {
     throw new Error(`${path}: missing completed_at`);
   }
-  if (typeof update[timestampField] !== 'string' || update[timestampField].length === 0) {
-    throw new Error(`${path}: missing ${timestampField}`);
+  if (typeof timestampValue !== 'string' || timestampValue.length === 0) {
+    if (update.status === 'completed') throw new Error(`${path}: missing completed_at`);
+    timestampValue = timestampFromPath(path);
+    timestampField = 'updated_at';
+    timestampSource = 'filename';
   }
-  const timestamp = Date.parse(update[timestampField]);
+  if (typeof timestampValue !== 'string' || timestampValue.length === 0) {
+    throw new Error(`${path}: missing updated_at and no timestamp is encoded in the filename`);
+  }
+  const timestamp = Date.parse(timestampValue);
   if (!Number.isFinite(timestamp)) {
     throw new Error(`${path}: ${timestampField} is not parseable`);
   }
-  return { timestampField, timestampValue: update[timestampField], timestampMs: timestamp };
+  return { timestampField, timestampValue, timestampMs: timestamp, timestampSource };
 }
 
 export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner }) {
@@ -86,6 +102,7 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
       status: entry.document.status,
       action: entry.document.action ?? null,
       [entry.timestampField]: entry.timestampValue,
+      timestamp_source: entry.timestampSource,
       source_layer: 'append_only_update',
       source_path: entry.path,
       source_blob_sha: entry.blob_sha
@@ -93,6 +110,7 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
     applied.push({
       queue_item: entry.document.queue_item,
       [entry.timestampField]: entry.timestampValue,
+      timestamp_source: entry.timestampSource,
       path: entry.path,
       blob_sha: entry.blob_sha
     });
