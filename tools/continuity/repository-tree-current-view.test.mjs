@@ -119,12 +119,21 @@ test('accepts updated_at for blocked work but requires completed_at for complete
   assert.equal(view.items[0].status, 'blocked_external_configuration');
   assert.equal(view.items[0].updated_at, blocked.updated_at);
   assert.equal('completed_at' in view.items[0], false);
-  assert.throws(() => reduceOwnedCurrentView({
+  const completed = reduceOwnedCurrentView({
     canonicalQueue,
     owner: 'cloudflare_research',
     updateDocuments: [{ path: 'operations/queue-updates/C-002.json', document: {
       queue_item: 'C-002', owner: 'cloudflare_research', status: 'completed',
       updated_at: '2026-07-11T17:07:00-04:00'
+    }}]
+  });
+  assert.equal(completed.items[0].status, 'completed');
+  assert.equal(completed.items[0].updated_at, '2026-07-11T17:07:00-04:00');
+  assert.equal('completed_at' in completed.items[0], false);
+  assert.throws(() => reduceOwnedCurrentView({
+    canonicalQueue, owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-003.json', document: {
+      queue_item: 'C-003', owner: 'cloudflare_research', status: 'blocked_external_configuration'
     }}]
   }), /missing event timestamp/);
 });
