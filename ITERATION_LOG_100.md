@@ -1,7 +1,7 @@
 # 100-iteration improvement log — Observatory
 
 **Target:** 100 distinct inspect → change/test → verify → record cycles.  
-**Completed:** 12/100 (malformed index containers and missing/non-directory record roots now fail closed; Continuity integrity run #158 and Mirror Cartographer CI run #4827 passed).  
+**Completed:** 13/100 (malformed index containers, incomplete record roots, and invalid JSON now fail with structured diagnostics; Continuity integrity run #161 passed).  
 **Branch:** `work/100-iterations-2026-11-03`
 
 ## Iteration 001 — Protect canonical deployment and privacy invariants
@@ -121,5 +121,5 @@
 
 - **Observation:** Invalid JSON in the continuity index or one record file threw from the parser and terminated the validator before it could return its normal machine-readable result or continue scanning other records.
 - **Change:** Index parse failures now return a structured failed result. Record-file parse failures are appended to the error list and scanning continues, preserving diagnostics from valid neighboring records. Added regression tests for both paths.
-- **Verification:** Pending hosted Continuity integrity validation; this iteration is not counted as complete until CI passes.
+- **Verification:** GitHub Actions Continuity integrity run #161 passed with malformed-index and malformed-record JSON cases; valid neighboring records remained visible in the diagnostic result.
 - **Risk:** Malformed files remain fatal to overall validation, as intended; the change improves diagnostics and scan completeness rather than accepting bad data.
