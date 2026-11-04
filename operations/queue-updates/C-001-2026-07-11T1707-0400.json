@@ -11,6 +11,5 @@
     "verification": "4 isolated Node tests passed; no workflow execution or deployment URL observed"
   },
   "blocker": "The cloudflare-research GitHub environment still requires valid CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN configuration.",
-  "next_action": "Configure the environment, dispatch the workflow, then reconcile this append-only patch into operations/ACTIVE_QUEUE.json after fetching its latest blob.",
-  "updated_at": "2026-07-11T17:07:00-04:00"
+  "next_action": "Configure the environment, dispatch the workflow, then reconcile this append-only patch into operations/ACTIVE_QUEUE.json after fetching its latest blob."
 }
