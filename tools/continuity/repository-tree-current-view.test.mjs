@@ -257,12 +257,12 @@ test('aggregates multiple invalid queue-update shapes before failing closed', ()
   assert.throws(() => reduceOwnedCurrentView({
     canonicalQueue, owner: 'continuity_mining',
     updateDocuments: [
-      { path: 'operations/queue-updates/a.json', document: { owner: 'continuity_mining', status: 'active' } },
-      { path: 'operations/queue-updates/M-999.json', document: { queue_item: 'M-999', owner: 'continuity_mining' } }
+      { path: 'operations/queue-updates/M-998.json', document: { queue_item: 'M-998', owner: 'continuity_mining', updated_at: '2026-07-12T01:00:00Z' } },
+      { path: 'operations/queue-updates/M-999.json', document: { queue_item: 'M-999', owner: 'continuity_mining', status: 'active' } }
     ]
   }), error => {
-    assert.match(error.message, /a.json: missing queue item identity/);
-    assert.match(error.message, /M-999.json: missing canonical status/);
+    assert.match(error.message, /M-998.json: missing canonical status/);
+    assert.match(error.message, /M-999.json: missing event timestamp/);
     return true;
   });
 });
@@ -275,8 +275,44 @@ test('records unattributed paths and refuses a complete current-view claim', asy
     ] },
     canonicalQueue,
     owner: 'continuity_mining',
-    fetchDocument: async () => ({ sha: 'unknown-sha', content: JSON.stringify({ event: 'not attributable' }) })
+    fetchDocument: async () => ({ sha: 'unknown-sha', content: JSON.stringify({ queue_item: 'Q-001', status: 'active', updated_at: '2026-07-12T00:00:00Z' }) })
   });
   assert.deepEqual(result.current_view.unattributed_update_paths, ['operations/queue-updates/unknown-event.json']);
   assert.equal(result.completeness_verified, false);
+});
+
+ 
+test('excludes evidence-only and proposed-item records from canonical queue state', () => {
+  const result = reduceOwnedCurrentView({
+    canonicalQueue, owner: 'continuity_mining',
+    updateDocuments: [
+      { path: 'operations/queue-updates/CM-010-2026-07-12T1304-0400.json', document: {
+        team: 'continuity_mining', id: 'CM-010',
+        queue_selection: { selected_item: null, observed_item: 'M-001' },
+        status: 'blocked_missing_owned_active_item'
+      }},
+      { path: 'operations/queue-updates/M-002-2026-07-12T1248-0400.json', document: {
+        team: 'continuity_mining', proposed_item: { id: 'M-002', status: 'completed_slice' }
+      }}
+    ]
+  });
+  assert.equal(result.applied_updates.length, 0);
+  assert.equal(result.excluded_non_queue_update_count, 2);
+  assert.equal(result.items.find(item => item.id === 'M-001').status, 'completed');
+});
+
+test('keeps progress status separate from canonical queue status', () => {
+  const result = reduceOwnedCurrentView({
+    canonicalQueue, owner: 'continuity_mining',
+    updateDocuments: [{ path: 'operations/queue-updates/M-QUEUE-FRESHNESS-003-2026-07-13T0652-0400.json', document: {
+      team: 'continuity_mining', queue_reference: 'M-001',
+      update_type: 'handoff_progress', status: 'implemented_local-runtime-verified',
+      created_at: '2026-07-13T06:52:00-04:00',
+      summary: 'Built the freshness witness validator.'
+    }}]
+  });
+  const item = result.items.find(entry => entry.id === 'M-001');
+  assert.equal(item.status, 'completed');
+  assert.equal(item.progress_status, 'implemented_local-runtime-verified');
+  assert.equal(item.action, 'Built the freshness witness validator.');
 });
