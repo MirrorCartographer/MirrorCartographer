@@ -219,6 +219,7 @@ test('normalizes nested queue item identity, status, action, and generated times
   assert.equal(view.items[0].id, 'C-001');
   assert.equal(view.items[0].status, 'blocked_external_configuration');
   assert.equal(view.items[0].action, 'Resolve the deployed Pages hostname');
+  assert.equal(view.items[0].status_source, 'queue_item.status');
   assert.equal(view.items[0].updated_at, nested.generated_at);
   assert.equal(view.items[0].timestamp_source, 'document');
 });
