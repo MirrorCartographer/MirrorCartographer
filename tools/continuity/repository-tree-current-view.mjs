@@ -91,13 +91,23 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
     });
   }
 
-  const normalized = updateDocuments.map(({ path, document, blob_sha = null }) => {
-    const timestamp = assertUpdate(document, path);
-    return { path, document, blob_sha, ...timestamp };
-  }).filter(({ recordOwner }) => recordOwner === owner)
-    .sort((a, b) => a.timestampMs - b.timestampMs
-      || a.queueItem.localeCompare(b.queueItem)
-      || a.path.localeCompare(b.path));
+  const normalized = [];
+  const validationErrors = [];
+  for (const { path, document, blob_sha = null } of updateDocuments) {
+    try {
+      const timestamp = assertUpdate(document, path);
+      const entry = { path, document, blob_sha, ...timestamp };
+      if (entry.recordOwner === owner) normalized.push(entry);
+    } catch (error) {
+      validationErrors.push(error.message);
+    }
+  }
+  if (validationErrors.length) {
+    throw new Error(`queue update validation failed (${validationErrors.length} record(s)):\\n${validationErrors.join('\\n')}`);
+  }
+  normalized.sort((a, b) => a.timestampMs - b.timestampMs
+    || a.queueItem.localeCompare(b.queueItem)
+    || a.path.localeCompare(b.path));
 
   const applied = [];
   const duplicateKeys = new Set();
@@ -143,18 +153,27 @@ export async function materializeFromRepositoryTree({ tree, fetchDocument, canon
   }
   const paths = enumerateQueueUpdatePaths(tree);
   const updateDocuments = [];
+  const fetchErrors = [];
   for (const path of paths) {
-    const fetched = await fetchDocument(path);
-    if (!fetched || typeof fetched.content !== 'string') {
-      throw new Error(`${path}: fetch did not return string content`);
-    }
-    let document;
     try {
-      document = JSON.parse(fetched.content);
+      const fetched = await fetchDocument(path);
+      if (!fetched || typeof fetched.content !== 'string') {
+        fetchErrors.push(`${path}: fetch did not return string content`);
+        continue;
+      }
+      let document;
+      try { document = JSON.parse(fetched.content); }
+      catch (error) {
+        fetchErrors.push(`${path}: invalid JSON: ${error.message}`);
+        continue;
+      }
+      updateDocuments.push({ path, document, blob_sha: fetched.sha ?? null });
     } catch (error) {
-      throw new Error(`${path}: invalid JSON: ${error.message}`);
+      fetchErrors.push(`${path}: ${error.message}`);
     }
-    updateDocuments.push({ path, document, blob_sha: fetched.sha ?? null });
+  }
+  if (fetchErrors.length) {
+    throw new Error(`queue update fetch/parse failed (${fetchErrors.length} record(s)):\\n${fetchErrors.join('\\n')}`);
   }
   const currentView = reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner });
   return {
