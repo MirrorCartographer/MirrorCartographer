@@ -1,7 +1,7 @@
 # 100-iteration improvement log — Observatory
 
 **Target:** 100 distinct inspect → change/test → verify → record cycles.  
-**Completed:** 2/100 (guardrail regression test corrected; aggregate continuity parser repaired to ingest claims collections and corpus semantics corrected).  
+**Completed:** 11/100 (ten prior validated continuity iterations plus malformed index-container rejection; latest hosted continuity integrity passed) (guardrail regression test corrected; aggregate continuity parser repaired to ingest claims collections and corpus semantics corrected).  
 **Branch:** `work/100-iterations-2026-11-03`
 
 ## Iteration 001 — Protect canonical deployment and privacy invariants
