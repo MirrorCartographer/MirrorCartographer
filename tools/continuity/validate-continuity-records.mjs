@@ -63,6 +63,18 @@ function normalizedRecordDirs({ recordsDir, recordDirs }) {
 
 export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
   const index = readJson(indexFile);
+  if (!index || typeof index !== 'object' || Array.isArray(index)) {
+    return {
+      ok: false, records_checked: 0, scanned_roots: [], skipped_legacy_files: [],
+      ids: [], relation_integrity: null, errors: [`${indexFile}: index must be an object`]
+    };
+  }
+  if (!Array.isArray(index.records)) {
+    return {
+      ok: false, records_checked: 0, scanned_roots: [], skipped_legacy_files: [],
+      ids: [], relation_integrity: null, errors: [`${indexFile}: records must be an array`]
+    };
+  }
   const entries = [];
   for (const [i, record] of (index.records ?? []).entries()) entries.push({ record, locator: `${indexFile}#records[${i}]` });
 
