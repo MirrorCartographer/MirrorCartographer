@@ -32,10 +32,12 @@ function assertUpdate(update, path) {
   if (typeof queueItem !== 'string' || queueItem.length === 0) {
     throw new Error(`${path}: missing queue_item or item_id`);
   }
-  for (const key of ['owner', 'status']) {
-    if (typeof update[key] !== 'string' || update[key].length === 0) {
-      throw new Error(`${path}: missing ${key}`);
-    }
+  const recordOwner = update.owner ?? update.team;
+  if (typeof recordOwner !== 'string' || recordOwner.length === 0) {
+    throw new Error(`${path}: missing owner or team`);
+  }
+  if (typeof update.status !== 'string' || update.status.length === 0) {
+    throw new Error(`${path}: missing status`);
   }
   let timestampField = update.completed_at ? 'completed_at' : 'updated_at';
   let timestampValue = update.completed_at ?? update.updated_at ?? update.recorded_at;
@@ -59,7 +61,7 @@ function assertUpdate(update, path) {
   if (!Number.isFinite(timestamp)) {
     throw new Error(`${path}: ${timestampField} is not parseable`);
   }
-  return { queueItem, timestampField, timestampValue, timestampMs: timestamp, timestampSource };
+  return { queueItem, recordOwner, timestampField, timestampValue, timestampMs: timestamp, timestampSource };
 }
 
 export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner }) {
@@ -90,7 +92,7 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
   const normalized = updateDocuments.map(({ path, document, blob_sha = null }) => {
     const timestamp = assertUpdate(document, path);
     return { path, document, blob_sha, ...timestamp };
-  }).filter(({ document }) => document.owner === owner)
+  }).filter(({ recordOwner }) => recordOwner === owner)
     .sort((a, b) => a.timestampMs - b.timestampMs
       || a.queueItem.localeCompare(b.queueItem)
       || a.path.localeCompare(b.path));
