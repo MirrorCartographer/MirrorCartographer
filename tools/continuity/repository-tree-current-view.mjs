@@ -103,7 +103,7 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
     }
   }
   if (validationErrors.length) {
-    throw new Error(`queue update validation failed (${validationErrors.length} record(s)):\\n${validationErrors.join('\\n')}`);
+    throw new Error(`queue update validation failed (${validationErrors.length} record(s)):\n${validationErrors.join('\n')}`);
   }
   normalized.sort((a, b) => a.timestampMs - b.timestampMs
     || a.queueItem.localeCompare(b.queueItem)
@@ -173,7 +173,7 @@ export async function materializeFromRepositoryTree({ tree, fetchDocument, canon
     }
   }
   if (fetchErrors.length) {
-    throw new Error(`queue update fetch/parse failed (${fetchErrors.length} record(s)):\\n${fetchErrors.join('\\n')}`);
+    throw new Error(`queue update fetch/parse failed (${fetchErrors.length} record(s)):\n${fetchErrors.join('\n')}`);
   }
   const currentView = reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner });
   return {
