@@ -36,8 +36,8 @@ function assertUpdate(update, path) {
   if (typeof recordOwner !== 'string' || recordOwner.length === 0) {
     throw new Error(`${path}: missing owner or team`);
   }
-  const recordStatus = update.status ?? update.observed_canonical_status ?? update.queue_item?.status;
-  const statusSource = update.status ? 'status' : update.observed_canonical_status ? 'observed_canonical_status' : 'queue_item.status';
+  const recordStatus = update.status ?? update.observed_canonical_status ?? update.canonical_status_observed ?? update.queue_item?.status ?? update.projection?.status;
+  const statusSource = update.status ? 'status' : update.observed_canonical_status ? 'observed_canonical_status' : update.canonical_status_observed ? 'canonical_status_observed' : update.queue_item?.status ? 'queue_item.status' : 'projection.status';
   if (typeof recordStatus !== 'string' || recordStatus.length === 0) {
     throw new Error(`${path}: missing status or observed_canonical_status`);
   }
@@ -112,7 +112,7 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
       owner,
       status: entry.recordStatus,
       status_source: entry.statusSource,
-      action: entry.document.action ?? (typeof entry.document.queue_item === 'object' ? entry.document.queue_item.action : null) ?? null,
+      action: entry.document.action ?? (typeof entry.document.queue_item === 'object' ? entry.document.queue_item.action : null) ?? entry.document.projection?.durable_improvement ?? null,
       [entry.timestampField]: entry.timestampValue,
       timestamp_source: entry.timestampSource,
       source_layer: 'append_only_update',
