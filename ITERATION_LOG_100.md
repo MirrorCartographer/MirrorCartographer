@@ -155,3 +155,11 @@
 - **Change:** The workflow now resolves the requested immutable commit locally, derives its tree and blob identities with Git, enumerates the complete recursive tree, and reads each queue-update blob from that same commit. This preserves commit/tree/blob provenance and completeness checks while removing hundreds of network requests. Replaced API-mock tests with temporary-repository integration tests.
 - **Verification:** Pending hosted Current View materialization of the complete corpus and the local-Git regression suite.
 - **Risk:** The workflow now depends on checkout containing the exact `GITHUB_SHA` commit and its objects; the workflow must keep checkout and `GITHUB_SHA` aligned.
+
+ 
+## Iteration 018 — Normalize legacy queue ownership fields
+
+- **Observation:** Historical queue updates use `team` where newer records use `owner`. The materializer required only `owner`, so it rejected valid historical entries before applying the owner filter.
+- **Change:** The reducer now normalizes `team` to the effective owner while preserving owner isolation. Added tests proving the legacy record is included for its team and excluded from another team's current view.
+- **Verification:** Pending hosted Current View materialization across the full repository tree.
+- **Risk:** Unknown ownership aliases remain rejected; only the observed legacy `team` field is accepted.
