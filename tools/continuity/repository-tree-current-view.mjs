@@ -28,7 +28,7 @@ function assertUpdate(update, path) {
   if (!update || typeof update !== 'object' || Array.isArray(update)) {
     throw new TypeError(`${path}: update must be an object`);
   }
-  const queueItem = update.queue_item ?? update.item_id;
+  const queueItem = typeof update.queue_item === 'string' ? update.queue_item : update.queue_item?.id ?? update.item_id;
   if (typeof queueItem !== 'string' || queueItem.length === 0) {
     throw new Error(`${path}: missing queue_item or item_id`);
   }
@@ -36,14 +36,14 @@ function assertUpdate(update, path) {
   if (typeof recordOwner !== 'string' || recordOwner.length === 0) {
     throw new Error(`${path}: missing owner or team`);
   }
-  const recordStatus = update.status ?? update.observed_canonical_status;
+  const recordStatus = update.status ?? update.observed_canonical_status ?? update.queue_item?.status;
   const statusSource = update.status ? 'status' : 'observed_canonical_status';
   if (typeof recordStatus !== 'string' || recordStatus.length === 0) {
     throw new Error(`${path}: missing status or observed_canonical_status`);
   }
   let timestampField = update.completed_at ? 'completed_at' : 'updated_at';
-  let timestampValue = update.completed_at ?? update.updated_at ?? update.recorded_at;
-  if (!update.completed_at && !update.updated_at && update.recorded_at) {
+  let timestampValue = update.completed_at ?? update.updated_at ?? update.recorded_at ?? update.generated_at;
+  if (!update.completed_at && !update.updated_at && (update.recorded_at || update.generated_at)) {
     timestampField = 'updated_at';
   }
   let timestampSource = 'document';
@@ -112,7 +112,7 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
       owner,
       status: entry.recordStatus,
       status_source: entry.statusSource,
-      action: entry.document.action ?? null,
+      action: entry.document.action ?? (typeof entry.document.queue_item === 'object' ? entry.document.queue_item.action : null) ?? null,
       [entry.timestampField]: entry.timestampValue,
       timestamp_source: entry.timestampSource,
       source_layer: 'append_only_update',
