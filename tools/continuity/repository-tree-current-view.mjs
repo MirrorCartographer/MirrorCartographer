@@ -27,7 +27,6 @@ function timestampFromPath(path) {
 function candidateQueueItem(update, path, canonicalById, prefixOwners) {
   const nested = update?.queue_item && typeof update.queue_item === 'object' ? update.queue_item : null;
   const nestedItem = update?.item && typeof update.item === 'object' ? update.item : null;
-  if (update?.proposed_item) return null;
   const fromDocument = update?.canonical_queue_item
     ?? (typeof update?.queue_item === 'string' ? update.queue_item : nested?.id)
     ?? update?.item_id
@@ -35,10 +34,12 @@ function candidateQueueItem(update, path, canonicalById, prefixOwners) {
     ?? update?.queue_reference
     ?? update?.queue_selection?.selected_item;
   if (typeof fromDocument === 'string' && fromDocument.length) return fromDocument;
+  if (update?.proposed_item) return null;
   const id = update?.id;
   const idPrefix = typeof id === 'string' ? id.match(/^([A-Z]+)-/)?.[1] : null;
   if (typeof id === 'string' && (canonicalById.has(id) || prefixOwners.has(idPrefix))) return id;
-  const pathId = path.match(/(?:^|\\/)([A-Z]+-\\d+)(?:-|\\.json$)/)?.[1] ?? null;
+  const filename = path.split('/').pop() ?? '';
+  const pathId = filename.match(/^([A-Z]+-\\d+)(?:-|\\.json$)/)?.[1] ?? null;
   const pathPrefix = pathId?.match(/^([A-Z]+)-/)?.[1];
   return pathId && prefixOwners.has(pathPrefix) ? pathId : null;
 }
