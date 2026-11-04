@@ -195,3 +195,11 @@
 - **Change:** The reducer now infers ownership from explicit owner/team fields, nested queue-item owners, canonical queue ownership, and unambiguous ID prefixes. It validates only records attributed to the requested owner, counts other-owner records separately, and records unassigned paths; any unassigned path prevents a completeness claim.
 - **Verification:** Pending hosted Current View materialization across the complete repository tree.
 - **Risk:** Prefix-based owner inference is derived only from unambiguous prefixes in the canonical queue. Unknown prefixes remain explicitly unattributed rather than being guessed.
+
+ 
+## Iteration 024 — Separate queue-state changes from supporting evidence
+
+- **Observation:** The historical folder contains several record classes: canonical queue updates, proposed items, queue-selection observations, progress handoffs, and evidence-only records. Flattening all of them into one status field could invent a queue transition or reject valid supporting evidence.
+- **Change:** The current-view reducer now excludes records with no explicit queue target and proposed-but-not-promoted items, preserves progress status separately from canonical queue status, and uses canonical state as the fallback for progress-only records. It reports excluded non-queue records and other-owner records separately; unknown owner attribution still blocks a completeness claim.
+- **Verification:** Pending the full hosted Current View materialization; this iteration is not counted as complete until the entire tree is processed.
+- **Risk:** The reducer recognizes explicit target fields and queue IDs inferred from unambiguous canonical prefixes. Unrecognized target/owner schemas remain visible as unattributed rather than guessed.
