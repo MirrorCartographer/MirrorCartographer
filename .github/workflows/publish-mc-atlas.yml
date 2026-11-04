@@ -37,6 +37,8 @@ jobs:
           cp independent-site/identity.json site/worlds/unreliable-observatory/identity.json
           cp -R public/experiments/. site/experiments/
           cp -R public/music/. site/music/
+          mkdir -p site/forest
+          cp -R public/forest/. site/forest/
           node site/validate-public-routes.mjs
       - uses: actions/upload-pages-artifact@v3
         with:
