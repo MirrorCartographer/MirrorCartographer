@@ -1,7 +1,7 @@
 # 100-iteration improvement log — Observatory
 
 **Target:** 100 distinct inspect → change/test → verify → record cycles.  
-**Completed:** 11/100 (ten prior continuity-integrity iterations plus malformed index-container rejection; hosted Continuity integrity run #154 and Mirror Cartographer CI run #4823 passed).  
+**Completed:** 12/100 (malformed index containers and missing/non-directory record roots now fail closed; Continuity integrity run #158 and Mirror Cartographer CI run #4827 passed).  
 **Branch:** `work/100-iterations-2026-11-03`
 
 ## Iteration 001 — Protect canonical deployment and privacy invariants
@@ -113,5 +113,5 @@
 
 - **Observation:** The validator silently skipped configured record directories that did not exist. A typo or missing mount could therefore produce a green result from only the remaining roots while omitting part of the continuity corpus.
 - **Change:** Missing roots, non-directory roots, and unreadable roots now produce explicit validation errors. Added regression tests for missing and file-valued roots.
-- **Verification:** Pending hosted Continuity integrity validation; this iteration is not counted as complete until CI passes.
+- **Verification:** GitHub Actions Continuity integrity run #158 passed with the missing-root and non-directory-root regression cases; Mirror Cartographer CI run #4827 passed.
 - **Risk:** Every configured root is now required to exist. Callers must omit genuinely optional roots rather than passing nonexistent paths.
