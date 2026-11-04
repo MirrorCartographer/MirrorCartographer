@@ -24,14 +24,23 @@ function timestampFromPath(path) {
   return date + 'T' + hour + ':' + minute + ':' + (seconds ?? '00') + offset;
 }
 
-function candidateQueueItem(update, path) {
+function candidateQueueItem(update, path, canonicalById, prefixOwners) {
   const nested = update?.queue_item && typeof update.queue_item === 'object' ? update.queue_item : null;
+  const nestedItem = update?.item && typeof update.item === 'object' ? update.item : null;
+  if (update?.proposed_item) return null;
   const fromDocument = update?.canonical_queue_item
     ?? (typeof update?.queue_item === 'string' ? update.queue_item : nested?.id)
     ?? update?.item_id
-    ?? update?.id;
+    ?? nestedItem?.id
+    ?? update?.queue_reference
+    ?? update?.queue_selection?.selected_item;
   if (typeof fromDocument === 'string' && fromDocument.length) return fromDocument;
-  return path.match(/(?:^|\/)([A-Z]+-\d+)(?:-|\.json$)/)?.[1] ?? null;
+  const id = update?.id;
+  const idPrefix = typeof id === 'string' ? id.match(/^([A-Z]+)-/)?.[1] : null;
+  if (typeof id === 'string' && (canonicalById.has(id) || prefixOwners.has(idPrefix))) return id;
+  const pathId = path.match(/(?:^|\\/)([A-Z]+-\\d+)(?:-|\\.json$)/)?.[1] ?? null;
+  const pathPrefix = pathId?.match(/^([A-Z]+)-/)?.[1];
+  return pathId && prefixOwners.has(pathPrefix) ? pathId : null;
 }
 
 function buildOwnerMaps(canonicalQueue) {
@@ -56,11 +65,13 @@ function buildOwnerMaps(canonicalQueue) {
 
 function inferRecordOwner(update, queueItem, canonicalById, prefixOwners) {
   const nested = update?.queue_item && typeof update.queue_item === 'object' ? update.queue_item : null;
+  const nestedItem = update?.item && typeof update.item === 'object' ? update.item : null;
   const canonical = canonicalById.get(queueItem);
   const prefix = queueItem?.match(/^([A-Z]+)-/)?.[1];
   return update?.owner
     ?? update?.team
     ?? nested?.owner
+    ?? nestedItem?.owner
     ?? update?.canonical_queue_owner
     ?? canonical?.owner
     ?? prefixOwners.get(prefix)
@@ -82,24 +93,28 @@ function normalizeOwnedUpdate(update, path, queueItem, recordOwner, canonicalByI
     ?? update.observed_canonical_status
     ?? update.canonical_status_observed
     ?? nested?.status
+    ?? update.item?.status
     ?? update.projection?.status
-    ?? update.status
-    ?? update.durable_slice?.status
-    ?? canonical?.status;
+    ?? (update.update_type ? null : update.status)
+    ?? update.durable_slice?.canonical_status
+    ?? canonical?.status
+    ?? 'unknown';
   const statusSource = update.canonical_status ? 'canonical_status'
     : update.canonical_item_status ? 'canonical_item_status'
     : update.observed_canonical_status ? 'observed_canonical_status'
     : update.canonical_status_observed ? 'canonical_status_observed'
     : nested?.status ? 'queue_item.status'
+    : update.item?.status ? 'item.status'
     : update.projection?.status ? 'projection.status'
-    : update.status ? 'status'
-    : update.durable_slice?.status ? 'durable_slice.status'
+    : update.durable_slice?.canonical_status ? 'durable_slice.canonical_status'
+    : update.update_type && canonical?.status ? 'canonical_queue'
+    : update.status && !update.update_type ? 'status'
     : 'canonical_queue';
   if (typeof recordStatus !== 'string' || recordStatus.length === 0) {
     throw new Error(`${path}: missing canonical status`);
   }
   let timestampField = update.completed_at ? 'completed_at' : 'updated_at';
-  let timestampValue = update.completed_at ?? update.updated_at ?? update.recorded_at ?? update.generated_at;
+  let timestampValue = update.completed_at ?? update.updated_at ?? update.recorded_at ?? update.generated_at ?? update.run_recorded_at ?? update.created_at;
   let timestampSource = 'document';
   if (typeof timestampValue !== 'string' || timestampValue.length === 0) {
     timestampValue = timestampFromPath(path);
@@ -111,12 +126,16 @@ function normalizeOwnedUpdate(update, path, queueItem, recordOwner, canonicalByI
   if (!Number.isFinite(timestampMs)) throw new Error(`${path}: event timestamp is not parseable`);
   const action = update.action
     ?? nested?.action
+    ?? update.item?.action
     ?? update.projection?.durable_improvement
+    ?? update.durable_improvement?.purpose
     ?? update.durable_slice?.summary
+    ?? update.summary
     ?? canonical?.action
     ?? null;
   return {
     path, document: update, queueItem, recordOwner, recordStatus, statusSource,
+    progressStatus: update.update_type && typeof update.status === 'string' ? update.status : null,
     timestampField, timestampValue, timestampMs, timestampSource, action,
     blob_sha: null
   };
@@ -153,7 +172,8 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
   const unattributedUpdatePaths = [];
   let ignoredOtherOwnerCount = 0;
   for (const { path, document, blob_sha = null } of updateDocuments) {
-    const queueItem = candidateQueueItem(document, path);
+    const queueItem = candidateQueueItem(document, path, canonicalById, prefixOwners);
+    if (!queueItem) { excludedNonQueueUpdateCount++; continue; }
     const recordOwner = inferRecordOwner(document, queueItem, canonicalById, prefixOwners);
     if (!recordOwner) {
       unattributedUpdatePaths.push(path);
