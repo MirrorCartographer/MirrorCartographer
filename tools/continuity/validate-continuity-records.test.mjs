@@ -145,7 +145,8 @@ test('requires machine relation entries to be canonical CM IDs', () => {
   }
 });
 
-\ntest('rejects malformed continuity index containers without throwing', () => {
+
+test('rejects malformed continuity index containers without throwing', () => {
   const f = fixture([]);
   fs.writeFileSync(f.indexFile, JSON.stringify({ records: { 'CM-0001': record('CM-0001') } }));
   const objectRecords = validateFixture(f);
