@@ -28,7 +28,9 @@
   "summary": "A reviewed approval can now be transformed into a deterministic, digest-bound canonical queue change proposal while preserving the canonical queue byte-for-byte. The proposal is limited to authorized M-series items, rejects duplicate identifiers and widened scope, and always requires separate human review and manual application. Six deterministic Node tests passed before commit.",
   "privacy": "public_repository_safe",
   "contradicts": [],
-  "supersedes": ["CM-0016:proposed"],
+  "supersedes": [
+    "CM-0016"
+  ],
   "status_relations": {
     "observed": "The proposal builder emits append-only queue operations and a proposal digest while returning canonical_queue_modified=false and application_permitted=false.",
     "inferred": "Separating proposal generation from application preserves a legible authorization chain and prevents reviewed evidence from silently becoming operational state.",
@@ -36,5 +38,8 @@
     "superseded": "The absence of a safe canonical-change proposal format is superseded by the committed builder and test contract.",
     "unresolved": "No authenticated human reviewer identity, manually applied queue commit, or post-change verification artifact currently exists."
   },
-  "falsification_or_review_route": "Run node --test operations/continuity/canonical-change-proposal.test.mjs and reject this record if a rejected authorization, stale projection digest, widened scope, duplicate queue identifier, automatic application permission, direct mutation permission, or mutation of the input canonical queue is accepted."
+  "falsification_or_review_route": "Run node --test operations/continuity/canonical-change-proposal.test.mjs and reject this record if a rejected authorization, stale projection digest, widened scope, duplicate queue identifier, automatic application permission, direct mutation permission, or mutation of the input canonical queue is accepted.",
+  "supersedes_state": {
+    "CM-0016": "proposed"
+  }
 }

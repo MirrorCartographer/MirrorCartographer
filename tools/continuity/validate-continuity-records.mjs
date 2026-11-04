@@ -4,8 +4,8 @@ import path from 'node:path';
 import { validateContinuityRelations } from '../../operations/continuity/validate-continuity-relations.mjs';
 
 const CLAIM_STATES = new Set(['observed','inferred','proposed','superseded','unresolved']);
-const KINDS = new Set(['operating_rule','queue_item','decision','artifact','commit','language_term','contradiction','unresolved_question']);
-const EVIDENCE = new Set(['primary_repository_source','corroborated_repository_sources','single_secondary_source','unverified']);
+const KINDS = new Set(['operating_rule','queue_item','decision','artifact','commit','language_term','contradiction','unresolved_question','implementation_decision','continuity_model_decision','decision_history']);
+const EVIDENCE = new Set(['primary_repository_source','corroborated_repository_sources','single_secondary_source','unverified','tested_repository_artifact','committed_source_with_unexecuted_tests','committed_source_with_local_deterministic_tests','committed_repository_state_and_commit_metadata']);
 const PRIVACY = new Set(['public_repository_safe','restricted_reference_only','do_not_publish']);
 const SOURCE_TYPES = new Set(['github_file','github_commit','public_document','private_chat_reference','uploaded_file_reference']);
 
@@ -16,8 +16,16 @@ function readJson(file) {
 
 function validateRecord(record, locator) {
   const errors = [];
+  if (!record || typeof record !== 'object' || Array.isArray(record)) {
+    return [`${locator}: record must be an object`];
+  }
   const req = ['id','kind','title','claim_state','evidence_strength','sources','summary','privacy','falsification_or_review_route'];
   for (const key of req) if (!(key in record)) errors.push(`${locator}: missing ${key}`);
+  for (const key of ['title','summary','falsification_or_review_route']) {
+    if (typeof record[key] !== 'string' || !record[key].trim()) {
+      errors.push(`${locator}: ${key} must be a non-empty string`);
+    }
+  }
   if (!/^CM-\d{4}$/.test(record.id ?? '')) errors.push(`${locator}: invalid id ${record.id}`);
   if (!KINDS.has(record.kind)) errors.push(`${locator}: invalid kind ${record.kind}`);
   if (!CLAIM_STATES.has(record.claim_state)) errors.push(`${locator}: invalid claim_state ${record.claim_state}`);
@@ -26,12 +34,24 @@ function validateRecord(record, locator) {
   if (!Array.isArray(record.sources) || record.sources.length === 0) errors.push(`${locator}: sources must be non-empty`);
   else record.sources.forEach((source, i) => {
     const p = `${locator}.sources[${i}]`;
+    if (!source || typeof source !== 'object' || Array.isArray(source)) {
+      errors.push(`${p}: source must be an object`);
+      return;
+    }
     if (!SOURCE_TYPES.has(source.type)) errors.push(`${p}: invalid type ${source.type}`);
-    if (!source.locator || typeof source.locator !== 'string') errors.push(`${p}: missing locator`);
-    if (!('content_sha' in source)) errors.push(`${p}: missing content_sha`);
+    if (typeof source.locator !== 'string' || !source.locator.trim()) errors.push(`${p}: locator must be a non-empty string`);
+    if (typeof source.content_sha !== 'string' || !source.content_sha.trim()) errors.push(`${p}: content_sha must be a non-empty string`);
   });
   for (const relation of ['contradicts','supersedes']) {
-    if (relation in record && !Array.isArray(record[relation])) errors.push(`${locator}: ${relation} must be an array`);
+    if (relation in record && !Array.isArray(record[relation])) {
+      errors.push(`${locator}: ${relation} must be an array`);
+    } else if (Array.isArray(record[relation])) {
+      record[relation].forEach((target, i) => {
+        if (typeof target !== 'string' || !/^CM-\d{4}$/.test(target)) {
+          errors.push(`${locator}.${relation}[${i}]: relation target must be a canonical CM record ID`);
+        }
+      });
+    }
   }
   return errors;
 }
@@ -42,21 +62,79 @@ function normalizedRecordDirs({ recordsDir, recordDirs }) {
 }
 
 export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
-  const index = readJson(indexFile);
+  let index;
+  try { index = readJson(indexFile); }
+  catch (error) {
+    return {
+      ok: false, records_checked: 0, scanned_roots: [], skipped_legacy_files: [],
+      ids: [], relation_integrity: null, errors: [error.message]
+    };
+  }
+  if (!index || typeof index !== 'object' || Array.isArray(index)) {
+    return {
+      ok: false, records_checked: 0, scanned_roots: [], skipped_legacy_files: [],
+      ids: [], relation_integrity: null, errors: [`${indexFile}: index must be an object`]
+    };
+  }
+  if (!Array.isArray(index.records)) {
+    return {
+      ok: false, records_checked: 0, scanned_roots: [], skipped_legacy_files: [],
+      ids: [], relation_integrity: null, errors: [`${indexFile}: records must be an array`]
+    };
+  }
   const entries = [];
   for (const [i, record] of (index.records ?? []).entries()) entries.push({ record, locator: `${indexFile}#records[${i}]` });
 
+  const errors = [];
+  const skippedLegacyFiles = [];
   const scannedRoots = normalizedRecordDirs({ recordsDir, recordDirs });
   for (const dir of scannedRoots) {
-    if (!fs.existsSync(dir)) continue;
-    for (const name of fs.readdirSync(dir).filter(n => n.endsWith('.json')).sort()) {
+    if (!fs.existsSync(dir)) {
+      errors.push(`${dir}: record root does not exist`);
+      continue;
+    }
+    if (!fs.statSync(dir).isDirectory()) {
+      errors.push(`${dir}: record root must be a directory`);
+      continue;
+    }
+    let directoryNames;
+    try { directoryNames = new Set(fs.readdirSync(dir)); }
+    catch (error) {
+      errors.push(`${dir}: could not read record root: ${error.message}`);
+      continue;
+    }
+    for (const name of [...directoryNames].filter(n => n.endsWith('.json')).sort()) {
       const file = path.join(dir, name);
-      const raw = readJson(file);
-      entries.push({ record: raw.id ? raw : raw.record, locator: file });
+      let raw;
+      try { raw = readJson(file); }
+      catch (error) { errors.push(error.message); continue; }
+      if (raw.legacy_id || raw.migration) {
+        skippedLegacyFiles.push(file + ' (migrated legacy alias)');
+        continue;
+      }
+      const records = raw.id && raw.claim_state ? [raw] : raw.record ? [raw.record]
+        : Array.isArray(raw.records) ? raw.records
+        : Array.isArray(raw.claims) ? raw.claims
+        : [];
+      if (records.length > 1 && records.every(record => record?.id && directoryNames.has(record.id + '.json'))) {
+        skippedLegacyFiles.push(file + ' (superseded aggregate; individual CM files are canonical)');
+        continue;
+      }
+      if (!records.length) {
+        if (raw.record_id || raw.claim_states || raw.team === 'continuity_mining' || (raw.claims && !Array.isArray(raw.claims))) {
+          skippedLegacyFiles.push(file);
+          continue;
+        }
+        errors.push(`${file}: expected a canonical record, record wrapper, records array, or claims array`);
+        continue;
+      }
+      records.forEach((record, i) => {
+        const suffix = records.length === 1 ? '' : `#records[${i}]`;
+        entries.push({ record, locator: file + suffix });
+      });
     }
   }
 
-  const errors = [];
   const byId = new Map();
   for (const entry of entries) {
     errors.push(...validateRecord(entry.record ?? {}, entry.locator));
@@ -91,6 +169,7 @@ export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
     ok: errors.length === 0,
     records_checked: entries.length,
     scanned_roots: scannedRoots,
+    skipped_legacy_files: skippedLegacyFiles,
     ids: [...byId.keys()].sort(),
     relation_integrity,
     errors

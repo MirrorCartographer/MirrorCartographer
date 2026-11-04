@@ -84,3 +84,111 @@ test('rejects supersession cycles in the aggregate gate', () => {
   assert.equal(out.ok, false);
   assert.match(out.errors.join('\n'), /supersedes cycle/);
 });
+
+test('skips explicitly migrated legacy memory aliases without weakening duplicate checks', () => {
+  const legacyAlias = {
+    ...record('CM-0001'),
+    legacy_id: 'CM-0000',
+    migration: { preserves_history: true, canonical_predecessor_locator: 'memory/old.json' },
+  };
+  const out = validateFixture(fixture([record('CM-0001')], {}, { 'legacy-alias.json': legacyAlias }));
+  assert.equal(out.ok, true, out.errors.join('\\n'));
+  assert.ok(out.skipped_legacy_files.some(file => file.includes('legacy-alias.json')));
+});
+
+
+test('rejects empty and non-string source content hashes', () => {
+  for (const content_sha of ['', '   ', null, 42]) {
+    const out = validateFixture(fixture([
+      record('CM-0001', { sources: [{ ...source, content_sha }] }),
+    ]));
+    assert.equal(out.ok, false);
+    assert.match(out.errors.join('\\n'), /content_sha must be a non-empty string/);
+  }
+});
+
+test('rejects whitespace-only source locators', () => {
+  const out = validateFixture(fixture([
+    record('CM-0001', { sources: [{ ...source, locator: '   ' }] }),
+  ]));
+  assert.equal(out.ok, false);
+  assert.match(out.errors.join('\\n'), /locator must be a non-empty string/);
+});
+
+test('rejects empty or non-string explanatory and review fields', () => {
+  for (const [key, value] of [['title', ''], ['summary', 7], ['falsification_or_review_route', '   ']]) {
+    const out = validateFixture(fixture([record('CM-0001', { [key]: value })]));
+    assert.equal(out.ok, false);
+    assert.match(out.errors.join('\\n'), new RegExp(key + ' must be a non-empty string'));
+  }
+});
+
+test('rejects malformed record and source values without throwing', () => {
+  const malformedRecord = validateFixture(fixture([], { 'bad.json': { record: 'not-an-object' } }));
+  assert.equal(malformedRecord.ok, false);
+  assert.match(malformedRecord.errors.join('\\n'), /record must be an object/);
+
+  const malformedSource = validateFixture(fixture([
+    record('CM-0001', { sources: [null] }),
+  ]));
+  assert.equal(malformedSource.ok, false);
+  assert.match(malformedSource.errors.join('\\n'), /source must be an object/);
+});
+
+test('requires machine relation entries to be canonical CM IDs', () => {
+  for (const target of ['R-014', 'CM-0002:proposed', { id: 'CM-0002' }, null]) {
+    const out = validateFixture(fixture([
+      record('CM-0001', { supersedes: [target] }),
+    ]));
+    assert.equal(out.ok, false);
+    assert.match(out.errors.join('\\n'), /relation target must be a canonical CM record ID/);
+  }
+});
+
+
+test('rejects malformed continuity index containers without throwing', () => {
+  const f = fixture([]);
+  fs.writeFileSync(f.indexFile, JSON.stringify({ records: { 'CM-0001': record('CM-0001') } }));
+  const objectRecords = validateFixture(f);
+  assert.equal(objectRecords.ok, false);
+  assert.equal(objectRecords.records_checked, 0);
+  assert.match(objectRecords.errors.join('\\n'), /records must be an array/);
+
+  fs.writeFileSync(f.indexFile, 'null');
+  const nullIndex = validateFixture(f);
+  assert.equal(nullIndex.ok, false);
+  assert.match(nullIndex.errors.join('\\n'), /index must be an object/);
+});
+
+ 
+test('fails closed when a configured record root is missing or not a directory', () => {
+  const f = fixture([record('CM-0001')]);
+  const missing = validateContinuity({
+    indexFile: f.indexFile,
+    recordDirs: [f.recordsDir, path.join(path.dirname(f.indexFile), 'missing-record-root')],
+  });
+  assert.equal(missing.ok, false);
+  assert.match(missing.errors.join('\\n'), /missing-record-root: record root does not exist/);
+
+  const fileRoot = path.join(path.dirname(f.indexFile), 'not-a-directory');
+  fs.writeFileSync(fileRoot, 'not a directory');
+  const invalid = validateContinuity({ indexFile: f.indexFile, recordDirs: [fileRoot] });
+  assert.equal(invalid.ok, false);
+  assert.match(invalid.errors.join('\\n'), /not-a-directory: record root must be a directory/);
+});
+
+ 
+test('reports malformed index and record JSON without aborting the corpus scan', () => {
+  const f = fixture([record('CM-0001')]);
+  fs.writeFileSync(f.indexFile, '{ malformed');
+  const invalidIndex = validateFixture(f);
+  assert.equal(invalidIndex.ok, false);
+  assert.match(invalidIndex.errors.join('\\n'), /invalid JSON/);
+
+  fs.writeFileSync(f.indexFile, JSON.stringify({ records: [record('CM-0001')] }));
+  fs.writeFileSync(path.join(f.recordsDir, 'broken.json'), '{ malformed');
+  const invalidRecord = validateFixture(f);
+  assert.equal(invalidRecord.ok, false);
+  assert.match(invalidRecord.errors.join('\\n'), /broken.json: invalid JSON/);
+  assert.ok(invalidRecord.ids.includes('CM-0001'));
+});

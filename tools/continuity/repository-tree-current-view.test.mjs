@@ -104,3 +104,100 @@ test('fails closed when an enumerated file cannot be parsed', async () => {
     /invalid JSON/
   );
 });
+
+ 
+test('accepts updated_at for blocked work but requires completed_at for completed work', () => {
+  const blocked = {
+    queue_item: 'C-001', owner: 'cloudflare_research', status: 'blocked_external_configuration',
+    updated_at: '2026-07-11T17:07:00-04:00'
+  };
+  const view = reduceOwnedCurrentView({
+    canonicalQueue,
+    owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-001.json', document: blocked }]
+  });
+  assert.equal(view.items[0].status, 'blocked_external_configuration');
+  assert.equal(view.items[0].updated_at, blocked.updated_at);
+  assert.equal('completed_at' in view.items[0], false);
+  assert.throws(() => reduceOwnedCurrentView({
+    canonicalQueue,
+    owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-002.json', document: {
+      queue_item: 'C-002', owner: 'cloudflare_research', status: 'completed',
+      updated_at: '2026-07-11T17:07:00-04:00'
+    }}]
+  }), /missing completed_at/);
+});
+
+ 
+test('derives an update timestamp from the immutable filename for blocked records', () => {
+  const blocked = {
+    queue_item: 'C-001', owner: 'cloudflare_research', status: 'blocked_external_configuration'
+  };
+  const view = reduceOwnedCurrentView({
+    canonicalQueue,
+    owner: 'cloudflare_research',
+    updateDocuments: [{
+      path: 'operations/queue-updates/C-001-2026-07-11T1715-0400.json',
+      document: blocked
+    }]
+  });
+  assert.equal(view.items[0].updated_at, '2026-07-11T17:15:00-04:00');
+  assert.equal(view.items[0].timestamp_source, 'filename');
+  assert.equal(view.applied_updates[0].timestamp_source, 'filename');
+  assert.throws(() => reduceOwnedCurrentView({
+    canonicalQueue, owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-001-no-time.json', document: blocked }]
+  }), /no timestamp is encoded in the filename/);
+});
+
+ 
+test('normalizes legacy item_id and recorded_at fields without changing their provenance', () => {
+  const legacy = {
+    item_id: 'C-001', owner: 'cloudflare_research',
+    status: 'blocked_external_configuration',
+    recorded_at: '2026-07-11T18:16:51-04:00'
+  };
+  const view = reduceOwnedCurrentView({
+    canonicalQueue,
+    owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-001-2026-07-11T1816-0400.json', document: legacy }]
+  });
+  assert.equal(view.items[0].id, 'C-001');
+  assert.equal(view.items[0].updated_at, legacy.recorded_at);
+  assert.equal(view.items[0].timestamp_source, 'document');
+  assert.equal(view.applied_updates[0].queue_item, 'C-001');
+});
+
+ 
+test('normalizes legacy team ownership without treating other teams as owned', () => {
+  const legacy = {
+    queue_item: 'C-001', team: 'cloudflare_research', status: 'blocked_external_configuration',
+    updated_at: '2026-07-12T05:06:00-04:00'
+  };
+  const own = reduceOwnedCurrentView({
+    canonicalQueue, owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-001-2026-07-12T0506-0400.json', document: legacy }]
+  });
+  assert.equal(own.items[0].id, 'C-001');
+  const other = reduceOwnedCurrentView({
+    canonicalQueue, owner: 'continuity_mining',
+    updateDocuments: [{ path: 'operations/queue-updates/C-001-2026-07-12T0506-0400.json', document: legacy }]
+  });
+  assert.equal(other.items.some(item => item.id === 'C-001'), false);
+});
+
+ 
+test('preserves observed canonical status when legacy updates omit status', () => {
+  const observed = {
+    queue_item: 'C-001', owner: 'cloudflare_research',
+    observed_canonical_status: 'blocked_external_configuration'
+  };
+  const view = reduceOwnedCurrentView({
+    canonicalQueue, owner: 'cloudflare_research',
+    updateDocuments: [{ path: 'operations/queue-updates/C-001-2026-07-12T1035-0400.json', document: observed }]
+  });
+  assert.equal(view.items[0].status, 'blocked_external_configuration');
+  assert.equal(view.items[0].status_source, 'observed_canonical_status');
+  assert.equal(view.items[0].updated_at, '2026-07-12T10:35:00-04:00');
+});

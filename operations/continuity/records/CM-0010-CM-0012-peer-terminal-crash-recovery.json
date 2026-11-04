@@ -47,7 +47,7 @@
     {
       "id": "CM-0011",
       "kind": "contradiction",
-      "claim_state": "superseded",
+      "claim_state": "observed",
       "evidence_strength": "corroborated_repository_sources",
       "title": "The earlier statement that crash-boundary testing was only a next action is no longer current",
       "sources": [
@@ -67,10 +67,11 @@
       "summary": "A prior queue update correctly left process-death crash injection as future work. Later commits implemented that work. The earlier statement remains historically valid but is superseded as a description of current implementation state.",
       "privacy": "public_repository_safe",
       "contradicts": [],
-      "supersedes": [
+      "supersedes": [],
+      "falsification_or_review_route": "Inspect the prior queue update and later crash-recovery test commit. Reject supersession if the later test does not actually terminate an OS process or cover the named boundaries.",
+      "related_artifacts": [
         "R-014-next-action-process-crash-injection"
-      ],
-      "falsification_or_review_route": "Inspect the prior queue update and later crash-recovery test commit. Reject supersession if the later test does not actually terminate an OS process or cover the named boundaries."
+      ]
     },
     {
       "id": "CM-0012",

@@ -28,7 +28,9 @@
   "summary": "A reviewed projection now has a separate fail-closed authorization packet that binds exact projection bytes, canonical queue blob identity, source commit, reviewer identity, decision, and bounded M-series scope. A valid packet records approval or rejection only; it cannot permit automatic adoption or canonical queue mutation. Five deterministic Node tests passed before commit.",
   "privacy": "public_repository_safe",
   "contradicts": [],
-  "supersedes": ["CM-0015:proposed"],
+  "supersedes": [
+    "CM-0015"
+  ],
   "status_relations": {
     "observed": "The validator records a bounded review decision while always returning canonical_queue_modified=false and automatic_adoption_permitted=false.",
     "inferred": "Separating review authorization from mutation prevents evidence review from silently becoming operational authority.",
@@ -36,5 +38,8 @@
     "superseded": "The absence of an explicit projection-review authorization format is superseded by this validator and packet contract.",
     "unresolved": "No authenticated reviewer-signature mechanism or successful workflow artifact currently binds a real human review to this packet."
   },
-  "falsification_or_review_route": "Run node --test operations/continuity/reviewed-adoption-authorization.test.mjs and reject this record if changed projection bytes, widened queue scope, automatic adoption permission, or canonical mutation permission are accepted; additionally reject any claim of human authorization until reviewer identity is independently authenticated."
+  "falsification_or_review_route": "Run node --test operations/continuity/reviewed-adoption-authorization.test.mjs and reject this record if changed projection bytes, widened queue scope, automatic adoption permission, or canonical mutation permission are accepted; additionally reject any claim of human authorization until reviewer identity is independently authenticated.",
+  "supersedes_state": {
+    "CM-0015": "proposed"
+  }
 }

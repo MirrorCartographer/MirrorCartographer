@@ -16,20 +16,54 @@ export function enumerateQueueUpdatePaths(tree) {
     .sort((a, b) => a.localeCompare(b));
 }
 
+function timestampFromPath(path) {
+  const match = path.match(/(\d{4}-\d{2}-\d{2})T(\d{2})(\d{2})(\d{2})?(Z|[+-]\d{4})/);
+  if (!match) return null;
+  const [, date, hour, minute, seconds, zone] = match;
+  const offset = zone === 'Z' ? 'Z' : zone.slice(0, 3) + ':' + zone.slice(3);
+  return date + 'T' + hour + ':' + minute + ':' + (seconds ?? '00') + offset;
+}
+
 function assertUpdate(update, path) {
   if (!update || typeof update !== 'object' || Array.isArray(update)) {
     throw new TypeError(`${path}: update must be an object`);
   }
-  for (const key of ['queue_item', 'owner', 'status', 'completed_at']) {
-    if (typeof update[key] !== 'string' || update[key].length === 0) {
-      throw new Error(`${path}: missing ${key}`);
-    }
+  const queueItem = update.queue_item ?? update.item_id;
+  if (typeof queueItem !== 'string' || queueItem.length === 0) {
+    throw new Error(`${path}: missing queue_item or item_id`);
   }
-  const completed = Date.parse(update.completed_at);
-  if (!Number.isFinite(completed)) {
-    throw new Error(`${path}: completed_at is not parseable`);
+  const recordOwner = update.owner ?? update.team;
+  if (typeof recordOwner !== 'string' || recordOwner.length === 0) {
+    throw new Error(`${path}: missing owner or team`);
   }
-  return completed;
+  const recordStatus = update.status ?? update.observed_canonical_status;
+  const statusSource = update.status ? 'status' : 'observed_canonical_status';
+  if (typeof recordStatus !== 'string' || recordStatus.length === 0) {
+    throw new Error(`${path}: missing status or observed_canonical_status`);
+  }
+  let timestampField = update.completed_at ? 'completed_at' : 'updated_at';
+  let timestampValue = update.completed_at ?? update.updated_at ?? update.recorded_at;
+  if (!update.completed_at && !update.updated_at && update.recorded_at) {
+    timestampField = 'updated_at';
+  }
+  let timestampSource = 'document';
+  if (recordStatus === 'completed' && timestampField !== 'completed_at') {
+    throw new Error(`${path}: missing completed_at`);
+  }
+  if (typeof timestampValue !== 'string' || timestampValue.length === 0) {
+    if (recordStatus === 'completed') throw new Error(`${path}: missing completed_at`);
+    timestampValue = timestampFromPath(path);
+    timestampField = 'updated_at';
+    timestampSource = 'filename';
+  }
+  if (typeof timestampValue !== 'string' || timestampValue.length === 0) {
+    throw new Error(`${path}: missing updated_at and no timestamp is encoded in the filename`);
+  }
+  const timestamp = Date.parse(timestampValue);
+  if (!Number.isFinite(timestamp)) {
+    throw new Error(`${path}: ${timestampField} is not parseable`);
+  }
+  return { queueItem, recordOwner, recordStatus, statusSource, timestampField, timestampValue, timestampMs: timestamp, timestampSource };
 }
 
 export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner }) {
@@ -58,34 +92,37 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
   }
 
   const normalized = updateDocuments.map(({ path, document, blob_sha = null }) => {
-    const completedMs = assertUpdate(document, path);
-    return { path, document, blob_sha, completedMs };
-  }).filter(({ document }) => document.owner === owner)
-    .sort((a, b) => a.completedMs - b.completedMs
-      || a.document.queue_item.localeCompare(b.document.queue_item)
+    const timestamp = assertUpdate(document, path);
+    return { path, document, blob_sha, ...timestamp };
+  }).filter(({ recordOwner }) => recordOwner === owner)
+    .sort((a, b) => a.timestampMs - b.timestampMs
+      || a.queueItem.localeCompare(b.queueItem)
       || a.path.localeCompare(b.path));
 
   const applied = [];
   const duplicateKeys = new Set();
   for (const entry of normalized) {
-    const key = `${entry.document.queue_item}\u0000${entry.document.completed_at}`;
+    const key = `${entry.queueItem}\u0000${entry.timestampValue}`;
     if (duplicateKeys.has(key)) {
-      throw new Error(`duplicate continuity update identity: ${entry.document.queue_item} at ${entry.document.completed_at}`);
+      throw new Error(`duplicate continuity update identity: ${entry.queueItem} at ${entry.timestampValue}`);
     }
     duplicateKeys.add(key);
-    state.set(entry.document.queue_item, {
-      id: entry.document.queue_item,
+    state.set(entry.queueItem, {
+      id: entry.queueItem,
       owner,
-      status: entry.document.status,
+      status: entry.recordStatus,
+      status_source: entry.statusSource,
       action: entry.document.action ?? null,
-      completed_at: entry.document.completed_at,
+      [entry.timestampField]: entry.timestampValue,
+      timestamp_source: entry.timestampSource,
       source_layer: 'append_only_update',
       source_path: entry.path,
       source_blob_sha: entry.blob_sha
     });
     applied.push({
-      queue_item: entry.document.queue_item,
-      completed_at: entry.document.completed_at,
+      queue_item: entry.queueItem,
+      [entry.timestampField]: entry.timestampValue,
+      timestamp_source: entry.timestampSource,
       path: entry.path,
       blob_sha: entry.blob_sha
     });
@@ -94,7 +131,7 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
   return {
     owner,
     completeness_claim: 'eligible only when the supplied recursive tree is non-truncated and every enumerated update path was fetched and parsed',
-    ordering_rule: ['completed_at ascending', 'queue_item lexical ascending', 'path lexical ascending'],
+    ordering_rule: ['completed_at or updated_at ascending', 'queue_item lexical ascending', 'path lexical ascending'],
     applied_updates: applied,
     items: [...state.values()].sort((a, b) => a.id.localeCompare(b.id))
   };
