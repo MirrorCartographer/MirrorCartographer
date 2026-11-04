@@ -126,7 +126,7 @@ test('accepts updated_at for blocked work but requires completed_at for complete
       queue_item: 'C-002', owner: 'cloudflare_research', status: 'completed',
       updated_at: '2026-07-11T17:07:00-04:00'
     }}]
-  }), /missing completed_at/);
+  }), /missing event timestamp/);
 });
 
  
@@ -224,26 +224,6 @@ test('normalizes nested queue item identity, status, action, and generated times
   assert.equal(view.items[0].timestamp_source, 'document');
 });
 
- 
-test('normalizes nested queue item identity, status, action, and generated timestamp', () => {
-  const nested = {
-    owner: 'cloudflare_research',
-    generated_at: '2026-07-12T23:37:08Z',
-    queue_item: {
-      id: 'C-001', status: 'blocked_external_configuration',
-      action: 'Resolve the deployed Pages hostname'
-    }
-  };
-  const view = reduceOwnedCurrentView({
-    canonicalQueue, owner: 'cloudflare_research',
-    updateDocuments: [{ path: 'operations/queue-updates/C-001-2026-07-12T2337Z.json', document: nested }]
-  });
-  assert.equal(view.items[0].id, 'C-001');
-  assert.equal(view.items[0].status, 'blocked_external_configuration');
-  assert.equal(view.items[0].action, 'Resolve the deployed Pages hostname');
-  assert.equal(view.items[0].updated_at, nested.generated_at);
-  assert.equal(view.items[0].timestamp_source, 'document');
-});
 
  
 test('normalizes canonical_status_observed and projection state from historical updates', () => {
@@ -269,11 +249,25 @@ test('aggregates multiple invalid queue-update shapes before failing closed', ()
     canonicalQueue, owner: 'continuity_mining',
     updateDocuments: [
       { path: 'operations/queue-updates/a.json', document: { owner: 'continuity_mining', status: 'active' } },
-      { path: 'operations/queue-updates/b.json', document: { queue_item: 'M-999', status: 'active' } }
+      { path: 'operations/queue-updates/M-999.json', document: { queue_item: 'M-999', owner: 'continuity_mining' } }
     ]
   }), error => {
-    assert.match(error.message, /a.json: missing queue_item or item_id/);
-    assert.match(error.message, /b.json: missing owner or team/);
+    assert.match(error.message, /a.json: missing queue item identity/);
+    assert.match(error.message, /M-999.json: missing canonical status/);
     return true;
   });
+});
+
+ 
+test('records unattributed paths and refuses a complete current-view claim', async () => {
+  const result = await materializeFromRepositoryTree({
+    tree: { sha: 'unknown-owner-tree', truncated: false, tree: [
+      { type: 'blob', path: 'operations/queue-updates/unknown-event.json' }
+    ] },
+    canonicalQueue,
+    owner: 'continuity_mining',
+    fetchDocument: async () => ({ sha: 'unknown-sha', content: JSON.stringify({ event: 'not attributable' }) })
+  });
+  assert.deepEqual(result.current_view.unattributed_update_paths, ['operations/queue-updates/unknown-event.json']);
+  assert.equal(result.completeness_verified, false);
 });
