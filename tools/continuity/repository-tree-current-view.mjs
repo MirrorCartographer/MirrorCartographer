@@ -28,13 +28,20 @@ function assertUpdate(update, path) {
   if (!update || typeof update !== 'object' || Array.isArray(update)) {
     throw new TypeError(`${path}: update must be an object`);
   }
-  for (const key of ['queue_item', 'owner', 'status']) {
+  const queueItem = update.queue_item ?? update.item_id;
+  if (typeof queueItem !== 'string' || queueItem.length === 0) {
+    throw new Error(`${path}: missing queue_item or item_id`);
+  }
+  for (const key of ['owner', 'status']) {
     if (typeof update[key] !== 'string' || update[key].length === 0) {
       throw new Error(`${path}: missing ${key}`);
     }
   }
   let timestampField = update.completed_at ? 'completed_at' : 'updated_at';
-  let timestampValue = update[timestampField];
+  let timestampValue = update.completed_at ?? update.updated_at ?? update.recorded_at;
+  if (!update.completed_at && !update.updated_at && update.recorded_at) {
+    timestampField = 'updated_at';
+  }
   let timestampSource = 'document';
   if (update.status === 'completed' && timestampField !== 'completed_at') {
     throw new Error(`${path}: missing completed_at`);
@@ -52,7 +59,7 @@ function assertUpdate(update, path) {
   if (!Number.isFinite(timestamp)) {
     throw new Error(`${path}: ${timestampField} is not parseable`);
   }
-  return { timestampField, timestampValue, timestampMs: timestamp, timestampSource };
+  return { queueItem, timestampField, timestampValue, timestampMs: timestamp, timestampSource };
 }
 
 export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner }) {
@@ -85,19 +92,19 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
     return { path, document, blob_sha, ...timestamp };
   }).filter(({ document }) => document.owner === owner)
     .sort((a, b) => a.timestampMs - b.timestampMs
-      || a.document.queue_item.localeCompare(b.document.queue_item)
+      || a.queueItem.localeCompare(b.queueItem)
       || a.path.localeCompare(b.path));
 
   const applied = [];
   const duplicateKeys = new Set();
   for (const entry of normalized) {
-    const key = `${entry.document.queue_item}\u0000${entry.timestampValue}`;
+    const key = `${entry.queueItem}\u0000${entry.timestampValue}`;
     if (duplicateKeys.has(key)) {
-      throw new Error(`duplicate continuity update identity: ${entry.document.queue_item} at ${entry.document.completed_at}`);
+      throw new Error(`duplicate continuity update identity: ${entry.queueItem} at ${entry.timestampValue}`);
     }
     duplicateKeys.add(key);
-    state.set(entry.document.queue_item, {
-      id: entry.document.queue_item,
+    state.set(entry.queueItem, {
+      id: entry.queueItem,
       owner,
       status: entry.document.status,
       action: entry.document.action ?? null,
@@ -108,7 +115,7 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
       source_blob_sha: entry.blob_sha
     });
     applied.push({
-      queue_item: entry.document.queue_item,
+      queue_item: entry.queueItem,
       [entry.timestampField]: entry.timestampValue,
       timestamp_source: entry.timestampSource,
       path: entry.path,
