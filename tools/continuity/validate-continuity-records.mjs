@@ -82,8 +82,20 @@ export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
   const skippedLegacyFiles = [];
   const scannedRoots = normalizedRecordDirs({ recordsDir, recordDirs });
   for (const dir of scannedRoots) {
-    if (!fs.existsSync(dir)) continue;
-    const directoryNames = new Set(fs.readdirSync(dir));
+    if (!fs.existsSync(dir)) {
+      errors.push(`${dir}: record root does not exist`);
+      continue;
+    }
+    if (!fs.statSync(dir).isDirectory()) {
+      errors.push(`${dir}: record root must be a directory`);
+      continue;
+    }
+    let directoryNames;
+    try { directoryNames = new Set(fs.readdirSync(dir)); }
+    catch (error) {
+      errors.push(`${dir}: could not read record root: ${error.message}`);
+      continue;
+    }
     for (const name of [...directoryNames].filter(n => n.endsWith('.json')).sort()) {
       const file = path.join(dir, name);
       const raw = readJson(file);
