@@ -39,7 +39,7 @@ function candidateQueueItem(update, path, canonicalById, prefixOwners) {
   const idPrefix = typeof id === 'string' ? id.match(/^([A-Z]+)-/)?.[1] : null;
   if (typeof id === 'string' && (canonicalById.has(id) || prefixOwners.has(idPrefix))) return id;
   const filename = path.split('/').pop() ?? '';
-  const pathId = filename.match(/^([A-Z]+-\\d+)(?:-|\\.json$)/)?.[1] ?? null;
+  const pathId = filename.match(/^([A-Z]+-\d+)(?:-|\.json$)/)?.[1] ?? null;
   const pathPrefix = pathId?.match(/^([A-Z]+)-/)?.[1];
   return pathId && prefixOwners.has(pathPrefix) ? pathId : null;
 }
