@@ -171,6 +171,7 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
   const validationErrors = [];
   const unattributedUpdatePaths = [];
   let ignoredOtherOwnerCount = 0;
+  let excludedNonQueueUpdateCount = 0;
   for (const { path, document, blob_sha = null } of updateDocuments) {
     const queueItem = candidateQueueItem(document, path, canonicalById, prefixOwners);
     if (!queueItem) { excludedNonQueueUpdateCount++; continue; }
@@ -212,6 +213,7 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
       owner,
       status: entry.recordStatus,
       status_source: entry.statusSource,
+      ...(entry.progressStatus ? { progress_status: entry.progressStatus } : {}),
       action: entry.action,
       [entry.timestampField]: entry.timestampValue,
       timestamp_source: entry.timestampSource,
@@ -223,6 +225,7 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
       queue_item: entry.queueItem,
       [entry.timestampField]: entry.timestampValue,
       timestamp_source: entry.timestampSource,
+      progress_status: entry.progressStatus,
       path: entry.path,
       blob_sha: entry.blob_sha
     });
@@ -231,6 +234,7 @@ export function reduceOwnedCurrentView({ canonicalQueue, updateDocuments, owner 
   return {
     owner,
     ignored_other_owner_count: ignoredOtherOwnerCount,
+    excluded_non_queue_update_count: excludedNonQueueUpdateCount,
     unattributed_update_paths: unattributedUpdatePaths,
     completeness_claim: 'eligible only when the supplied recursive tree is non-truncated, every enumerated update path was fetched and parsed, and every update was attributed to an owner',
     ordering_rule: ['completed_at or updated_at ascending', 'queue_item lexical ascending', 'path lexical ascending'],
