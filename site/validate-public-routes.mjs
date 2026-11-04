@@ -18,6 +18,10 @@ const experimentSlugs = [
 const required = [
   'experiments/index.html',
   'music/index.html',
+  'forest/index.html',
+  'forest/orrery.html',
+  'forest/midnight-mile.html',
+  'forest/weather-between.html',
   'experiments/engine.js',
   'experiments/shared.css',
   ...experimentSlugs.map((slug) => 'experiments/' + slug + '/index.html'),
@@ -77,6 +81,7 @@ function resolveLocalTarget(file, rawValue) {
 const htmlFiles = [
   ...walk(join(siteRoot, 'experiments')),
   ...walk(join(siteRoot, 'music')),
+  ...walk(join(siteRoot, 'forest')),
 ].filter((file) => extname(file).toLowerCase() === '.html');
 
 let checkedReferences = 0;
