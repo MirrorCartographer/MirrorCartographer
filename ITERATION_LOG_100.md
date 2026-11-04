@@ -99,4 +99,11 @@
 - **Verification:** GitHub Actions Continuity integrity run #148 passed 175/175 tests; aggregate validator returned `ok: true` with 29 canonical records checked. Mirror Cartographer CI run #4789 passed.
 - **Risk:** Canonical ID shape does not prove that the target exists; the existing cross-record reference and cycle checks remain necessary.
 
-\n\n## Iteration 011 — Fail closed on malformed continuity index containers\n\n- **Observation:** The validator assumed the parsed index was an object with an array-valued `records` property. A null index or object-valued `records` field could throw a TypeError before the validator returned its structured diagnostics.\n- **Change:** Added explicit index-container and records-array guards. Malformed roots now return a normal failed validation result with a precise locator error; canonical records are not partially processed. Added regression tests for null and object-valued index containers.\n- **Verification:** Pending the next hosted Continuity integrity run; this iteration is not counted as complete until CI passes.\n- **Risk:** This validates the index envelope, not every optional index metadata field or the provenance bytes referenced by records.\n
+
+
+## Iteration 011 — Fail closed on malformed continuity index containers
+
+- **Observation:** The validator assumed the parsed index was an object with an array-valued `records` property. A null index or object-valued `records` field could throw a TypeError before the validator returned its structured diagnostics.
+- **Change:** Added explicit index-container and records-array guards. Malformed roots now return a normal failed validation result with a precise locator error; canonical records are not partially processed. Added regression tests for null and object-valued index containers.
+- **Verification:** Pending the next hosted Continuity integrity run; this iteration is not counted as complete until CI passes.
+- **Risk:** This validates the index envelope, not every optional index metadata field or the provenance bytes referenced by records.
