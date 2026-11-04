@@ -107,3 +107,11 @@
 - **Change:** Added explicit index-container and records-array guards. Malformed roots now return a normal failed validation result with a precise locator error; canonical records are not partially processed. Added regression tests for null and object-valued index containers.
 - **Verification:** GitHub Actions Continuity integrity run #154 passed; Mirror Cartographer CI run #4823 passed. The index-shape regression cases are included in that run.
 - **Risk:** This validates the index envelope, not every optional index metadata field or the provenance bytes referenced by records.
+
+ 
+## Iteration 012 — Fail closed when configured record roots are missing
+
+- **Observation:** The validator silently skipped configured record directories that did not exist. A typo or missing mount could therefore produce a green result from only the remaining roots while omitting part of the continuity corpus.
+- **Change:** Missing roots, non-directory roots, and unreadable roots now produce explicit validation errors. Added regression tests for missing and file-valued roots.
+- **Verification:** Pending hosted Continuity integrity validation; this iteration is not counted as complete until CI passes.
+- **Risk:** Every configured root is now required to exist. Callers must omit genuinely optional roots rather than passing nonexistent paths.
