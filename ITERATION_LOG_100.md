@@ -179,3 +179,11 @@
 - **Change:** Added explicit status-source precedence for canonical observations and nested projection state; the durable improvement can populate the action description when no top-level action exists. Added regression coverage for the observed shape.
 - **Verification:** Pending hosted Current View materialization across the complete corpus.
 - **Risk:** The reducer preserves which field supplied status; it does not promote the record's epistemic claims into deployment proof.
+
+ 
+## Iteration 022 — Aggregate corpus errors before failing closed
+
+- **Observation:** The tree-bound reducer stopped at the first malformed historical record. With hundreds of append-only updates, that forced one repair-and-retry cycle per schema defect and obscured the full state of the corpus.
+- **Change:** Fetch/parse and record-shape validation now collect all failures across the enumerated set, then return one structured error listing every failing path. No partial current view is emitted when any required record is invalid. Added a multi-error regression test.
+- **Verification:** Pending hosted Current View validation against the complete repository tree.
+- **Risk:** The error output may be long for a heavily damaged corpus; it is intentionally path-specific to support deterministic repair.
