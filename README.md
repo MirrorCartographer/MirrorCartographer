@@ -114,6 +114,7 @@ Mirror Cartographer is not a medical, veterinary, legal, or diagnostic authority
 ## Historical recovery and external review
 
 - [Mirror Cartographer Public Starter v1](agents/mirror-cartographer-public-starter-v1/README.md) — reconstructed assistant instructions, onboarding, prompt library, symbolic schema, safety rules, and acceptance tests.
+- [Download Public Starter v1 ZIP](https://github.com/MirrorCartographer/MirrorCartographer/raw/refs/heads/main/dist/mirror-cartographer-public-starter-v1.zip) — generated from the inspectable source package by GitHub Actions.
 
 - [Recovered Creation Portal v1](https://mirrorcartographer.github.io/mirror-cartographer-ui/creation-portal-v1.html) — a browser-local creative portal prototype with a saved-artifact archive.
 
