@@ -61,3 +61,29 @@ The workflow is configured for Monday 13:00 UTC, manual dispatch, and a one-time
 
 
 An initial names-only snapshot is preserved at [`evidence/branch-census/initial-names-only-2026-11-05.json`](../evidence/branch-census/initial-names-only-2026-11-05.json). It records all 224 UI branch names and all 71 research branch names. The branch-search response did not expose head SHAs or timestamps, so the file explicitly marks those fields as unavailable; the scheduled census worker is intended to add them.
+
+## Branch-family concentration
+
+The names-only snapshot supports a useful first-pass clustering:
+
+| Repository | Branch family | Count |
+|---|---|---:|
+| UI | `fia/` | 119 |
+| UI | no prefix | 48 |
+| UI | `agent/` | 18 |
+| UI | `research/` | 8 |
+| UI | `creative/` | 7 |
+| UI | `feature/` | 6 |
+| Research | `agent/` | 10 |
+| Research | no prefix | 9 |
+| Research | `automation/` | 8 |
+| Research | `research/` | 8 |
+| Research | `creative/` | 7 |
+| Research | `feature/` | 6 |
+| Research | `investigation/` | 6 |
+| Research | `feat/` | 5 |
+
+The 119 UI `fia/` branches cluster by naming into 19 artifact-registry branches, 15 worker/isolation branches, 11 release-evidence/promotion branches, 8 reproducibility branches, 6 deployment/rollback branches, 4 evidence/provenance branches, 1 security/admission branch, and 55 other FIA branches. These are mutually exclusive first-match categories based on branch names, not verified implementation categories.
+
+**Interpretation:** the strongest hidden infrastructure lead is the FIA lane. It appears to contain a large parallel program for artifact custody, reproducible builds, isolated workers, release graphs, deployment/rollback, and evidence sealing. This is a high-value recovery target, but the branch census alone cannot establish that any worker ran or that any artifact registry is operational. The next step is a head-SHA/diff/test ledger and dependency graph, not a mass merge.
+
