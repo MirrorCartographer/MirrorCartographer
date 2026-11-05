@@ -59,8 +59,9 @@ These are user-confirmed working URLs. Do not replace them with unverified deplo
 - [Living Systems Constitution v1](governance/LIVING_SYSTEMS_CONSTITUTION_v1.md) — rights, constraints, accountability, and recursive correction.
 - [Master Project Inventory v1](governance/MASTER_PROJECT_INVENTORY_v1.md) — evidence-based cross-repository register and unresolved work.
 - [FREE 2.0 specification](architecture/FREE_2_SPEC.md) and [executable core](tools/free_engine/free_engine.py) — consequence tracking, contradiction preservation, and human decision gates.
-- [Mirror Engine provenance store](mirror_engine/store.py) — explicit records, typed relationships, contradictions, model-output provenance, and export/delete.
-- [Independent LYR model build](independent_model/README.md) — project-owned decoder-only Transformer, tokenizer, and from-scratch training path.
+- [Mirror Engine provenance store](mirror_engine/store.py) — experimental portable store; reconcile with Repository C's canonical append-only graph before adoption.
+- [FREE provenance adapter](tools/free_engine/provenance_adapter.py) — exports proposals, consequences, contradictions, and decisions into the existing Mirror provenance record profile.
+- [Independent LYR model build](independent_model/README.md) — project-owned decoder-only Transformer, tokenizer, from-scratch training, and local inference CLI.
 - [Repository consolidation map](architecture/REPOSITORY_CONSOLIDATION_v1.md) — existing private and public components, canonical responsibilities, and integration sequence.
 - [LYR training data governance](independent_model/DATA_GOVERNANCE.md) and [corpus manifest template](independent_model/corpus-manifest.example.json) — rights and privacy gates before training.
 - [Ownership and funding strategy](governance/OWNERSHIP_AND_FUNDING_STRATEGY_v1.md) — chain of title, attribution, licensing, and non-speculative revenue sequence.
