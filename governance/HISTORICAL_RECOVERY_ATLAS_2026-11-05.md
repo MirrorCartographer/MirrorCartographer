@@ -13,9 +13,9 @@ Mirror Cartographer is not one repository or one application. It is a historical
 | `MirrorCartographer/MirrorCartographer` | Public | 4,246 | Observatory: research, evidence, architecture, governance, tools, demonstrations, public-interest methods, and creative work |
 | `MirrorCartographer/mirror-cartographer-ui` | Public | 2,506 | House of Mouths: interactive experiences, rooms, Living Atlas, workbench, Self Cartographer, research interfaces, and creative environments |
 | Private creative/core archive | Private | 691 | Historical source corpus, symbolic reflection system, personal archive, prototypes, structured data, continuity records, and local model/runtime experiments |
-| Private Human Judgment Lab | Private | 20 | Human evaluation operations studio, Consensus Trap experiment, synthetic evaluation data, and test harnesses |
+| Private Human Judgment Lab | Private | 21 | Human evaluation operations studio, Consensus Trap experiment, synthetic evaluation data, and test harnesses |
 
-The four accessible trees contained **7,464 tracked entries** in this snapshot. These are Git tree entries, not 7,450 finished features. Counts change with commits and include source, tests, documents, images, data, and generated or supporting files. All four recursive trees returned complete, non-truncated results.
+The four accessible trees contained **7,464 tracked entries** in this snapshot. These are Git tree entries, not 7,464 finished features. Counts change with commits and include source, tests, documents, images, data, and generated or supporting files. All four recursive trees returned complete, non-truncated results.
 
 The Library also contains a 55-page *Mirror Cartographer Atlas — Expanded Edition*, original whitepapers, module summaries, migration and sovereignty documents, ethics/licensing materials, companion journals, images, large conversation-history exports, and a May 2026 catalog of 256 production/research/operations artifacts. Those Library artifacts are separate from the Git trees and must retain their own source identifiers and dates.
 
@@ -171,7 +171,7 @@ The original product requirements also call for style adaptation that can both m
 | Count | What it means | What it does not mean |
 |---:|---|---|
 | 7,464 | Git tree entries across four accessible repositories on 2026-11-05 | 7,464 finished or validated features |
-| 4,246 | Public research repository tree entries on 2026-11-05 | 4,243 research findings |
+| 4,246 | Public research repository tree entries on 2026-11-05 | 4,246 research findings |
 | 2,506 | Public encounter/UI repository tree entries on 2026-11-05 | 2,506 rooms |
 | 691 | Private creative/core archive tree entries on 2026-11-05 | 691 independent projects |
 | 21 | Private Human Judgment Lab tree entries on 2026-11-05 | 21 empirical studies |
