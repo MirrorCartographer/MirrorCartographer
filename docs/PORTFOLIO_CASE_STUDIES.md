@@ -45,7 +45,7 @@ This page translates the work into inspectable case studies. Each case states th
 
 **Contribution.** The project lead directed a procedural visual/audio/motion portal and independent image-organism experiments. Implementation uses browser APIs, seeded geometry, SVG, CSS, and local artifact storage.
 
-**Inspectable evidence.** Historical Canvas and Library artifacts include the extracted Creation Portal and procedural visual engine; newer public UI artifacts provide related experiences.
+**Inspectable evidence.** The recovered [Creation Portal v1 source](../evidence/historical/creation-portal-v1.html) is a standalone browser prototype with a localStorage artifact archive; its inline JavaScript passed syntax validation. The [Implementation Pack v1](../evidence/historical/implementation-pack-v1.md) and [Access Implementation Pack v2](../evidence/historical/access-implementation-pack-v2.md) preserve the product instructions, symbolic ontology, state contract, reflection logic, user flow, safety constraints, and developer handoff. Newer public UI artifacts include a local-first execution hub.
 
 **Evidence boundary.** These are procedural generators and interactive prototypes, not evidence that a trained image model or external image-generation infrastructure was created.
 
