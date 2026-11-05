@@ -158,3 +158,16 @@ All three scheduled workflows are configured but no successful Actions run was v
 | [Branch/deployment audit — current](REPOSITORY_BRANCH_AND_DEPLOYMENT_AUDIT.md) | [c2e2cab](https://github.com/MirrorCartographer/MirrorCartographer/commit/c2e2cab764e3aac0f04c0a282611d50066477f0b) | `5aecb75a73a971c30fe29850460a12cae99f8d10` |
 | [README — current](../README.md) | [3502b23](https://github.com/MirrorCartographer/MirrorCartographer/commit/3502b23ac6baa2c46ef304610d70dc79d74d0cb8) | `b39c8fc882ac602ea6079e8454252dce67b91bfe` |
 
+
+## FIA branch-family analysis and final Hub revision
+
+| Artifact | Commit | Git blob SHA |
+|---|---|---|
+| [Initial branch census with prefix/FIA family counts](../evidence/branch-census/initial-names-only-2026-11-05.json) | [a2d2388](https://github.com/MirrorCartographer/MirrorCartographer/commit/a2d23880f751f3fe8ee198194af81617f0a19171) | `89e0ffd425e5a83ebfac5dc8552dfdf13cbe6361` |
+| [Branch/deployment audit with FIA analysis](REPOSITORY_BRANCH_AND_DEPLOYMENT_AUDIT.md) | [ec0b6b7](https://github.com/MirrorCartographer/MirrorCartographer/commit/ec0b6b73334bfb088062cbe720b6c86e674252ae) | `9a69c4874dd10e19b63e55305e82699937a78564` |
+| [Branch census worker with family counts](../scripts/public-branch-census.mjs) | [f8839e7](https://github.com/MirrorCartographer/MirrorCartographer/commit/f8839e77c4a439138ef4f5910bb2656fde9d0e33) | `fa145515d2dfbadf1454c797f99f82303e80b934` |
+| [Weekly census workflow with read permissions](../.github/workflows/weekly-public-evidence-census.yml) | [16ae19e](https://github.com/MirrorCartographer/MirrorCartographer/commit/16ae19ea3186af82eb5d268fe851e8fc5005f49c) | `8abd19082a71a72ec682d2be750e70d4dd1918e4` |
+| [Execution Hub — final root source](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/execution-hub.html) | [f79c221](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/f79c221ebbe1a483aefe8b4327052297545997b9) | `a695c6ce7682f86aae3813ca7c1b630577a6fb5e` |
+| [Execution Hub — final Vite public copy](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/public/execution-hub.html) | [df8ece2](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/df8ece267f317e752eed5186c0770f72dcd3f366) | `a695c6ce7682f86aae3813ca7c1b630577a6fb5e` |
+| [Execution Hub contract test — final](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/scripts/execution-hub-contract-check.mjs) | [2972eda](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/2972eda556d2902d7f854cec03578e6c17f8352c) | `328b9e3493870d8f8dfd001518cbb9afca1d629f` |
+
