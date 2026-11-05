@@ -53,6 +53,21 @@ These are user-confirmed working URLs. Do not replace them with unverified deplo
 | The symbolic and creative layer | `SYMBOLIC_LANGUAGE_ENGINE.md`, `Creative_Universe/`, `art/`, `music/` |
 | Decisions and boundaries | `governance/`, `schemas/`, `ledgers/`, `docs/` |
 
+
+## Living Systems implementation
+
+- [Living Systems Constitution v1](governance/LIVING_SYSTEMS_CONSTITUTION_v1.md) — rights, constraints, accountability, and recursive correction.
+- [Master Project Inventory v1](governance/MASTER_PROJECT_INVENTORY_v1.md) — evidence-based cross-repository register and unresolved work.
+- [FREE 2.0 specification](architecture/FREE_2_SPEC.md) and [executable core](tools/free_engine/free_engine.py) — consequence tracking, contradiction preservation, and human decision gates.
+- [Mirror Engine provenance store](mirror_engine/store.py) — explicit records, typed relationships, contradictions, model-output provenance, and export/delete.
+- [Independent LYR model build](independent_model/README.md) — project-owned decoder-only Transformer, tokenizer, and from-scratch training path.
+- [Ownership and funding strategy](governance/OWNERSHIP_AND_FUNDING_STRATEGY_v1.md) — chain of title, attribution, licensing, and non-speculative revenue sequence.
+- [Kannapolis Rider Transit pilot](pilots/KANNAPOLIS_RIDER_TRANSIT_CLARITY_PILOT_v1.md) — measurable, source-linked trip-information usability experiment.
+- [North Carolina and global scaling gates](roadmap/NORTH_CAROLINA_AND_GLOBAL_SCALING_GATES_v1.md) — evidence-gated expansion.
+- [Mirror Engine CI workflow](.github/workflows/mirror-engine-tests.yml) — automated tests for the deterministic core and syntax compilation of the model implementation.
+
+These are initial committed implementations and specifications. Passing CI, trained-model checkpoints, partner permission, participant research, and measured pilot outcomes must be recorded separately before claiming those stages are complete.
+
 ## Complete construction map
 
 - [Complete Build Universe](BUILD_UNIVERSE.md) — the full scope, architecture, acceptance tests, and construction order across the worlds, research instruments, personal cartography, Veteran pathways, creative work, and daemons.
