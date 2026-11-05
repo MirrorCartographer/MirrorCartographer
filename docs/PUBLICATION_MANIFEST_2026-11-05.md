@@ -149,3 +149,12 @@ These UI artifacts are source-published. The Pages URL is expected from the repo
 
 All three scheduled workflows are configured but no successful Actions run was visible during this audit. The UI Hub root and Vite public copies were fetched and confirmed byte-identical. The Pages URL remains an expected route, not a verified live deployment.
 
+
+## Initial branch inventory and final index updates
+
+| Artifact | Commit | Git blob SHA |
+|---|---|---|
+| [Initial public branch-name census](../evidence/branch-census/initial-names-only-2026-11-05.json) | [0ea114f](https://github.com/MirrorCartographer/MirrorCartographer/commit/0ea114f08f3ecce95ea1142e3bc41b59d7569e49) | `a02adf0565de373dda5d712485960dd290a46eca` |
+| [Branch/deployment audit — current](REPOSITORY_BRANCH_AND_DEPLOYMENT_AUDIT.md) | [c2e2cab](https://github.com/MirrorCartographer/MirrorCartographer/commit/c2e2cab764e3aac0f04c0a282611d50066477f0b) | `5aecb75a73a971c30fe29850460a12cae99f8d10` |
+| [README — current](../README.md) | [3502b23](https://github.com/MirrorCartographer/MirrorCartographer/commit/3502b23ac6baa2c46ef304610d70dc79d74d0cb8) | `b39c8fc882ac602ea6079e8454252dce67b91bfe` |
+
