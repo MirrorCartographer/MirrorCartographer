@@ -5,7 +5,7 @@
 ## Public-facing system
 
 - **Observatory / research repository:** research framing, expeditions, project vocabulary, public evidence and review documents.
-- **Mirror Cartographer UI:** interactive rooms, field instruments, visual experiments, Living Atlas, and source workbench. See https://github.com/MirrorCartographer/mirror-cartographer-ui.
+- **Mirror Cartographer UI:** interactive rooms, field instruments, visual experiments, Living Atlas, source workbench, and the local-first Unified Execution Hub at https://mirrorcartographer.github.io/mirror-cartographer-ui/execution-hub.html. Source: https://github.com/MirrorCartographer/mirror-cartographer-ui.
 
 ## Related private systems
 
