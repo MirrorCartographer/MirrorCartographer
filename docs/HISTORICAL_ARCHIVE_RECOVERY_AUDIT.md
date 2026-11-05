@@ -117,3 +117,10 @@ An archive manifest generator is provided at `tools/build_archive_manifest.py`. 
 ## Reproducibility and integrity
 
 Use the archive manifest tool on a staged copy, review exclusions, then preserve the manifest and its own SHA-256. Do not change or normalize original files before hashing. For long-term authenticity, publish signed Git tags or detached signatures and preserve source archives in at least two owner-controlled locations.
+
+## Selected source artifacts inspected
+
+A separate recovered Library file, `Mirror_Cartographer_Core_Specification_v1.md`, was materialized, inspected, and copied verbatim to [`evidence/historical/core-spec-v1-recovered.md`](../evidence/historical/core-spec-v1-recovered.md). Its source bytes were 324 bytes with SHA-256 `a3c94e5829a05ad4bc673eb366c756d7d4d3f587803500b21464effd7bc2290f`. The recovered file has no authenticated creation timestamp in the available metadata, so none is asserted.
+
+Additional candidate source artifacts were inspected for privacy. A JavaScript room registry includes a named private/personal room, and an HTML context engine includes pet names and health-context fields. These were excluded from public release. Their original bytes remain in the Library; no source copy was published.
+
