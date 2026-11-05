@@ -9,6 +9,8 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  checks: read
+  statuses: read
 concurrency:
   group: public-evidence-census
   cancel-in-progress: false
