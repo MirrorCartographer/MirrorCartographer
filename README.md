@@ -116,7 +116,9 @@ Mirror Cartographer is not a medical, veterinary, legal, or diagnostic authority
 - [Recovered Creation Portal v1](https://mirrorcartographer.github.io/mirror-cartographer-ui/creation-portal-v1.html) — a browser-local creative portal prototype with a saved-artifact archive.
 
 - [Canvas revision index](evidence/canvas/document-index.json) — privacy-filtered document/code inventory with observed version numbers and message timestamps.
-- [Recovered Core Specification v1](evidence/historical/core-specification-v1-full.md) — full formal system definition and epistemic/safety architecture.
+- [Recovered Core Specification v1](evidence/historical/core-specification-v1-full.md)
+- [Implementation Pack v1](evidence/historical/implementation-pack-v1.md) — recovered prototype architecture, modes, ontology, state schema summary, and reflection engine logic.
+- [One-page project brief v1](evidence/historical/one-page-project-brief-v1.md) — recovered concise project definition and capability areas. — full formal system definition and epistemic/safety architecture.
 - [Access Implementation Pack v2](evidence/historical/access-implementation-pack-v2.md) — Custom GPT instruction layer, state contract, ontology, reflection logic, user flow, and developer handoff.
 - [Collapse Codex](evidence/historical/collapse-codex-v1.md) — recovered symbolic recursion artifact.
 
