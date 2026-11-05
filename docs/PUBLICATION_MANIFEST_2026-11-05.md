@@ -53,3 +53,12 @@ An open request for an independent review was published as [GitHub issue #23](ht
 - The inspected public repository commits had Vercel status checks failing with a build-rate-limit target. This is recorded separately in the repository branch and deployment audit.
 - The connected Render service listing returned null; no Render service was verified.
 
+
+## Historical source snapshot
+
+| Artifact | Commit | Git blob SHA | Original file SHA-256 |
+|---|---|---|---|
+| [Recovered Core Specification v1](../evidence/historical/core-spec-v1-recovered.md) | [39d94a6](https://github.com/MirrorCartographer/MirrorCartographer/commit/39d94a604db63d9c4704b2c871e6805bf88c297f) | `f6d5833e81c813be3d3e098ccf867874a3e2b852` | `a3c94e5829a05ad4bc673eb366c756d7d4d3f587803500b21464effd7bc2290f` |
+
+Latest historical archive audit revision: [deea4e7](https://github.com/MirrorCartographer/MirrorCartographer/commit/deea4e7aefb4214f46a4a3959e092f93bf96507b), Git blob SHA `ac2a76ce3d75a5a7ba59627c8351d35544a99c09`.
+
