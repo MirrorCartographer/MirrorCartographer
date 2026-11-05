@@ -14,7 +14,7 @@ class ArchiveManifestTests(unittest.TestCase):
             p.write_bytes(b'mirror-cartographer')
             digest, size, suspicious = module.sha256_file(p)
             self.assertEqual(size, 19)
-            self.assertEqual(digest, 'f6f5d2a3f1e6d65b8a6a6c4d4b0a7f4e6f6c8c2b1c8c7e4f4e4b3c8b0f0f0f0f') if False else self.assertEqual(size, 19)
+            self.assertEqual(digest, '8f6b5da04b199ff14801a630a92128096dd02f64a5946b84dccc2d34018c804d')
             self.assertFalse(suspicious)
 
     def test_sensitive_paths_are_excluded(self):
