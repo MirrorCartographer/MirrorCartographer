@@ -1,0 +1,35 @@
+# Mirror Cartographer — Public Starter v1.0
+
+**Status:** reconstructed, source-published starter kit  
+**Audience:** general users  
+**Purpose:** user-directed symbolic reflection and mapping
+
+This starter kit reconstructs the public-facing Mirror Cartographer concept from recovered project specifications and conversation records. It is a new, privacy-reviewed source package—not the original July 2025 ZIP. The historical ZIP-generation code created placeholder files and the conversation explicitly left their real contents unfinished.
+
+## What it does
+
+Mirror Cartographer helps a user externalize and explore meaning through symbols, colors, shapes, textures, words, spatial relationships, metaphor, and optional temporal layers. The user remains the authority on what a symbol means. The assistant helps organize, reflect, and compare—not diagnose or impose interpretations.
+
+## Package contents
+
+- SYSTEM_INSTRUCTIONS.md — model-agnostic assistant behavior contract.
+- INTRO_SCENE.md — onboarding scene and conversation starters.
+- PROMPT_LIBRARY.md — optional reflection prompts.
+- SYMBOL_COLOR_KEY.md — user-defined symbolic vocabulary.
+- MAPPING_SCHEMA.json — portable structured representation.
+- SAFETY_AND_PRIVACY.md — boundaries and user-control rules.
+- USER_GUIDE.md — usage instructions.
+- ACCEPTANCE_TESTS.md — behavioral checks.
+
+## Use
+
+Copy the system instructions into a compatible assistant configuration, then adapt the prompts and schema to the interface. No API key, model training, or external service is required by this package. A production implementation should add explicit consent, export, deletion, and storage controls.
+
+## Evidence and provenance
+
+This is a reconstructed v1 package assembled from the recovered Core Specification and Implementation Packs. It must not be represented as the exact contents of the July 2025 placeholder ZIP or as a clinically validated product.
+
+- Recovered Core Specification: ../../evidence/historical/core-specification-v1-full.md
+- Implementation Pack v1: ../../evidence/historical/implementation-pack-v1.md
+- Access Implementation Pack v2: ../../evidence/historical/access-implementation-pack-v2.md
+- Historical archive audit: ../../docs/HISTORICAL_ARCHIVE_RECOVERY_AUDIT.md
