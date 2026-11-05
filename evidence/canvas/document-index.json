@@ -35,19 +35,20 @@
       "title": "Mirror Sentience Stack",
       "textdoc_id": "6847b336ed988191885d2306c6510a14",
       "decoded_identifier_time_utc": "2025-06-10T04:23:18Z",
-      "implementation_crosswalk": "planning/architecture; exact implementation mapping pending",
+      "implementation_crosswalk": "Architecture/vision document; no exact source-to-commit match established.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-06-10T04:23:22.293546Z",
       "last_observed_utc": "2025-06-10T04:23:22.293546Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "MC UI Tone Preview",
       "textdoc_id": "6850dbccd31c8191a70a5295fa0b9f07",
       "decoded_identifier_time_utc": "2025-06-17T03:06:52Z",
-      "implementation_crosswalk": "UI tone prototype; exact commit mapping pending",
+      "implementation_crosswalk": "React UI tone prototype; the public UI repository is Vite 4 + React 18.3.1 and contains interactive room/portal code. Exact component-to-commit mapping remains pending.",
       "canvas_metadata_event_count": 178,
       "first_observed_utc": "2025-06-17T03:06:59.031408Z",
       "last_observed_utc": "2025-06-17T19:58:18.900229Z",
@@ -85,13 +86,14 @@
         152,
         158,
         171
-      ]
+      ],
+      "mapping_status": "related_stack"
     },
     {
       "title": "MC UI Tone Preview",
       "textdoc_id": "6851c993e0308191bec76c631c35cf30",
       "decoded_identifier_time_utc": "2025-06-17T20:01:23Z",
-      "implementation_crosswalk": "second document revision/title; exact commit mapping pending",
+      "implementation_crosswalk": "React UI tone prototype; the public UI repository is Vite 4 + React 18.3.1 and contains interactive room/portal code. Exact component-to-commit mapping remains pending.",
       "canvas_metadata_event_count": 13,
       "first_observed_utc": "2025-06-17T20:01:28.563051Z",
       "last_observed_utc": "2025-06-17T20:20:48.348794Z",
@@ -100,13 +102,14 @@
         10,
         14,
         17
-      ]
+      ],
+      "mapping_status": "related_stack"
     },
     {
       "title": "Mirror Cartographer Repo Setup",
       "textdoc_id": "6851d10ec2f88191aca66dcd71bc4a44",
       "decoded_identifier_time_utc": "2025-06-17T20:33:18Z",
-      "implementation_crosswalk": "repository scaffold; compare with public UI repository history",
+      "implementation_crosswalk": "Canvas scaffold aligns with the current public Vite 4 + React 18.3.1 UI repository. Historical branch and exact commit mapping remain pending.",
       "canvas_metadata_event_count": 25,
       "first_observed_utc": "2025-06-17T20:33:20.986336Z",
       "last_observed_utc": "2025-06-17T23:50:50.239101Z",
@@ -114,13 +117,14 @@
         1,
         6,
         10
-      ]
+      ],
+      "mapping_status": "related_stack"
     },
     {
       "title": "Mirror Cartographer Step Plan",
       "textdoc_id": "6854f74d3bb8819194717257cf49de08",
       "decoded_identifier_time_utc": "2025-06-20T05:53:17Z",
-      "implementation_crosswalk": "implementation plan; source mapping pending",
+      "implementation_crosswalk": "Implementation planning record; no exact source mapping established.",
       "canvas_metadata_event_count": 75,
       "first_observed_utc": "2025-06-20T05:53:19.238693Z",
       "last_observed_utc": "2025-06-20T07:15:30.753408Z",
@@ -135,26 +139,28 @@
         33,
         35,
         40
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "MC System Evolution Roadmap",
       "textdoc_id": "685611177f888191b111e12411a46d61",
       "decoded_identifier_time_utc": "2025-06-21T01:55:35Z",
-      "implementation_crosswalk": "system roadmap; source mapping pending",
+      "implementation_crosswalk": "System roadmap; compare against current public system map and private engine records.",
       "canvas_metadata_event_count": 2,
       "first_observed_utc": "2025-06-21T01:55:37.172492Z",
       "last_observed_utc": "2025-06-21T02:15:41.212547Z",
       "observed_version_numbers": [
         1,
         20
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Harnessed Effort Capacities",
       "textdoc_id": "68561b9ddccc81918f412d3505672766",
       "decoded_identifier_time_utc": "2025-06-21T02:40:29Z",
-      "implementation_crosswalk": "reasoning/capability framework; source mapping pending",
+      "implementation_crosswalk": "Reasoning/capability framework; no runtime implementation mapping established.",
       "canvas_metadata_event_count": 7,
       "first_observed_utc": "2025-06-21T02:40:24.543923Z",
       "last_observed_utc": "2025-06-22T00:43:12.021275Z",
@@ -166,25 +172,27 @@
         22,
         26,
         30
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "MC Future Map",
       "textdoc_id": "68575c20e45c8191aef862b5c982fc36",
       "decoded_identifier_time_utc": "2025-06-22T01:28:00Z",
-      "implementation_crosswalk": "project map; source mapping pending",
+      "implementation_crosswalk": "Project map; related to current system map, but exact source lineage not established.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-06-22T01:28:01.399742Z",
       "last_observed_utc": "2025-06-22T01:28:01.399742Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Tech Growth Strategy",
       "textdoc_id": "685b314fbd3481919b5d3db5cf862b0c",
       "decoded_identifier_time_utc": "2025-06-24T23:14:23Z",
-      "implementation_crosswalk": "technical growth planning; source mapping pending",
+      "implementation_crosswalk": "Technical growth strategy; no direct code artifact mapped.",
       "canvas_metadata_event_count": 247,
       "first_observed_utc": "2025-06-24T23:14:26.265362Z",
       "last_observed_utc": "2025-06-28T02:00:59.156266Z",
@@ -211,99 +219,107 @@
         119,
         122,
         124
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Tech Growth Strategy",
       "textdoc_id": "685b762f2d0c819180431caa078e140a",
       "decoded_identifier_time_utc": "2025-06-25T04:08:15Z",
-      "implementation_crosswalk": "second document; source mapping pending",
+      "implementation_crosswalk": "Technical growth strategy; no direct code artifact mapped.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-06-25T04:08:16.916343Z",
       "last_observed_utc": "2025-06-25T04:08:16.916343Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Whisper Symbolic Pipeline",
       "textdoc_id": "6864df1890448191b91b679c17f71607",
       "decoded_identifier_time_utc": "2025-07-02T07:26:16Z",
-      "implementation_crosswalk": "audio/transcription pipeline; runtime unverified",
+      "implementation_crosswalk": "Audio/transcription pipeline documents and code references exist; no reproducible deployed Whisper pipeline verified.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-07-02T07:26:20.433591Z",
       "last_observed_utc": "2025-07-02T07:26:20.433591Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "unverified"
     },
     {
       "title": "Whisper Symbolic Pipeline",
       "textdoc_id": "6864df8b87048191be1721c7aac39f40",
       "decoded_identifier_time_utc": "2025-07-02T07:28:11Z",
-      "implementation_crosswalk": "second document; runtime unverified",
+      "implementation_crosswalk": "Audio/transcription pipeline documents and code references exist; no reproducible deployed Whisper pipeline verified.",
       "canvas_metadata_event_count": 4,
       "first_observed_utc": "2025-07-02T07:28:13.630275Z",
       "last_observed_utc": "2025-07-02T07:36:50.517730Z",
       "observed_version_numbers": [
         1,
         9
-      ]
+      ],
+      "mapping_status": "unverified"
     },
     {
       "title": "Mirror Cartographer Setup",
       "textdoc_id": "68671a1774608191a130221c52a888de",
       "decoded_identifier_time_utc": "2025-07-04T00:02:31Z",
-      "implementation_crosswalk": "React/Node/GPT-4 scaffold; runtime and successful inference unverified",
+      "implementation_crosswalk": "Canvas code scaffold references React/Node and a GPT-4 API route. Current UI repo uses Vite/React; successful GPT-4 API inference remains unverified.",
       "canvas_metadata_event_count": 2,
       "first_observed_utc": "2025-07-04T00:02:35.738170Z",
       "last_observed_utc": "2025-07-04T00:45:55.837389Z",
       "observed_version_numbers": [
         1,
         2
-      ]
+      ],
+      "mapping_status": "related_stack"
     },
     {
       "title": "Mirror System Merge",
       "textdoc_id": "6869cdfcc6c881918e48a88fb5685f08",
       "decoded_identifier_time_utc": "2025-07-06T01:14:36Z",
-      "implementation_crosswalk": "system merge plan; exact source mapping pending",
+      "implementation_crosswalk": "Merge plan; no merge commit identified from this document alone.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-07-06T01:14:39.934059Z",
       "last_observed_utc": "2025-07-06T01:14:39.934059Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Mirror Cartographer Merge",
       "textdoc_id": "6869cef2f57c81918c7afdfab34ca5b7",
       "decoded_identifier_time_utc": "2025-07-06T01:18:42Z",
-      "implementation_crosswalk": "project merge plan; exact source mapping pending",
+      "implementation_crosswalk": "Merge plan; no merge commit identified from this document alone.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-07-06T01:18:45.504828Z",
       "last_observed_utc": "2025-07-06T01:18:45.504828Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Mirror Cartographer Core",
       "textdoc_id": "6869cf676928819195ea7e40032f5f37",
       "decoded_identifier_time_utc": "2025-07-06T01:20:39Z",
-      "implementation_crosswalk": "core specification; compare with current public architecture",
+      "implementation_crosswalk": "Related recovered specifications are preserved at evidence/historical/core-specification-v1-full.md and evidence/historical/implementation-pack-v1.md; these are specifications, not proof of a deployed runtime.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-07-06T01:20:44.570497Z",
       "last_observed_utc": "2025-07-06T01:20:44.570497Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "direct_source_snapshot"
     },
     {
       "title": "Mirror Migration Plan",
       "textdoc_id": "6869d10ecda48191871557b0addfb4ec",
       "decoded_identifier_time_utc": "2025-07-06T01:27:42Z",
-      "implementation_crosswalk": "migration plan; exact source mapping pending",
+      "implementation_crosswalk": "Migration plan; exact source-to-commit mapping pending.",
       "canvas_metadata_event_count": 7,
       "first_observed_utc": "2025-07-06T01:27:45.804040Z",
       "last_observed_utc": "2025-07-06T01:42:12.489635Z",
@@ -311,98 +327,106 @@
         1,
         6,
         16
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Mirror Axiom OS Law",
       "textdoc_id": "686af27d75488191979c7d59530b6f1e",
       "decoded_identifier_time_utc": "2025-07-06T22:02:37Z",
-      "implementation_crosswalk": "governance/axiom design; source mapping pending",
+      "implementation_crosswalk": "Governance/axiom design; compare with current provenance and governance records.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-07-06T22:02:41.884520Z",
       "last_observed_utc": "2025-07-06T22:02:41.884520Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Mirror Truth Module",
       "textdoc_id": "686af31fd40c8191a52844aa7545c78c",
       "decoded_identifier_time_utc": "2025-07-06T22:05:19Z",
-      "implementation_crosswalk": "truth/integrity module design; source mapping pending",
+      "implementation_crosswalk": "Truth/integrity module design; compare with current evidence register and private FREE work.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-07-06T22:05:23.907552Z",
       "last_observed_utc": "2025-07-06T22:05:23.907552Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Relational Scroll UI",
       "textdoc_id": "686af40a6544819197065d6b7250777a",
       "decoded_identifier_time_utc": "2025-07-06T22:09:14Z",
-      "implementation_crosswalk": "UI concept; exact implementation mapping pending",
+      "implementation_crosswalk": "UI concept identified; no exact implementation or runtime mapping established.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-07-06T22:09:17.166132Z",
       "last_observed_utc": "2025-07-06T22:09:17.166132Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "unverified"
     },
     {
       "title": "Mirror Cartographer Visions",
       "textdoc_id": "6872e3f1c6cc8191b1cf2a1da71bc572",
       "decoded_identifier_time_utc": "2025-07-12T22:38:41Z",
-      "implementation_crosswalk": "vision/requirements; source mapping pending",
+      "implementation_crosswalk": "Vision/requirements document; no direct code mapping established.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-07-12T22:38:46.143703Z",
       "last_observed_utc": "2025-07-12T22:38:46.143703Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Symbolic Logic Pivot",
       "textdoc_id": "68730361f0e4819189426297c74ce55d",
       "decoded_identifier_time_utc": "2025-07-13T00:52:49Z",
-      "implementation_crosswalk": "symbolic logic design; source mapping pending",
+      "implementation_crosswalk": "Symbolic logic design; no direct code mapping established.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-07-13T00:52:53.355199Z",
       "last_observed_utc": "2025-07-13T00:52:53.355199Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Dreams Symbols Receiver",
       "textdoc_id": "687308ad83a88191881f84ef2ed7f687",
       "decoded_identifier_time_utc": "2025-07-13T01:15:25Z",
-      "implementation_crosswalk": "symbolic input design; source mapping pending",
+      "implementation_crosswalk": "Symbolic input design; no direct code mapping established.",
       "canvas_metadata_event_count": 2,
       "first_observed_utc": "2025-07-13T01:15:30.095376Z",
       "last_observed_utc": "2025-07-13T01:31:46.262246Z",
       "observed_version_numbers": [
         1,
         3
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Intuition Action Map",
       "textdoc_id": "6873104b28f88191b24f953e5df6a6d1",
       "decoded_identifier_time_utc": "2025-07-13T01:47:55Z",
-      "implementation_crosswalk": "action mapping design; source mapping pending",
+      "implementation_crosswalk": "Action mapping design; no direct code mapping established.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-07-13T01:48:00.714489Z",
       "last_observed_utc": "2025-07-13T01:48:00.714489Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Mirror Modules Summary",
       "textdoc_id": "68771bbae28c8191b370ddb07af0a953",
       "decoded_identifier_time_utc": "2025-07-16T03:25:46Z",
-      "implementation_crosswalk": "modular architecture summary; source mapping pending",
+      "implementation_crosswalk": "Modular architecture summary; compare with current system map and private repository modules; exact file mapping pending.",
       "canvas_metadata_event_count": 92,
       "first_observed_utc": "2025-07-16T03:25:47.265956Z",
       "last_observed_utc": "2025-07-17T04:03:33.022242Z",
@@ -419,56 +443,61 @@
         97,
         113,
         130
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Recursive Integrity Audit – V1",
       "textdoc_id": "688168c4f66c81918f1b5f8bcbc4e69d",
       "decoded_identifier_time_utc": "2025-07-23T22:57:08Z",
-      "implementation_crosswalk": "integrity audit; compare with current evidence architecture",
+      "implementation_crosswalk": "Conceptually related to the public provenance/evidence architecture and private FREE governance; no exact implementation equivalence established.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-07-23T22:57:09.131842Z",
       "last_observed_utc": "2025-07-23T22:57:09.131842Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "related_architecture"
     },
     {
       "title": "Axis Mirror Pitches",
       "textdoc_id": "688c3ac6fad48191baf10d53e9465168",
       "decoded_identifier_time_utc": "2025-08-01T03:55:50Z",
-      "implementation_crosswalk": "product/pitch concepts; source mapping pending",
+      "implementation_crosswalk": "Product/pitch concepts; no direct implementation mapping established.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-08-01T03:55:51.347781Z",
       "last_observed_utc": "2025-08-01T03:55:51.347781Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     },
     {
       "title": "Presence Field Prototype",
       "textdoc_id": "688ebdd2e9f08191b390493c3f1f1c72",
       "decoded_identifier_time_utc": "2025-08-03T01:39:30Z",
-      "implementation_crosswalk": "prototype document; runtime unverified",
+      "implementation_crosswalk": "Historical prototype document identified; no reproducible current runtime found.",
       "canvas_metadata_event_count": 1,
       "first_observed_utc": "2025-08-03T01:39:31.138355Z",
       "last_observed_utc": "2025-08-03T01:39:31.138355Z",
       "observed_version_numbers": [
         1
-      ]
+      ],
+      "mapping_status": "unverified"
     },
     {
       "title": "Collapse Echo Map",
       "textdoc_id": "688f86f48864819193bc1f77bf8809c6",
       "decoded_identifier_time_utc": "2025-08-03T15:57:40Z",
-      "implementation_crosswalk": "symbolic mapping document; runtime unverified",
+      "implementation_crosswalk": "Symbolic mapping document; no direct runtime mapping established.",
       "canvas_metadata_event_count": 2,
       "first_observed_utc": "2025-08-03T15:57:45.242573Z",
       "last_observed_utc": "2025-08-03T16:13:46.690341Z",
       "observed_version_numbers": [
         1,
         5
-      ]
+      ],
+      "mapping_status": "conceptual_only"
     }
   ]
 }
