@@ -36,6 +36,8 @@ def excluded(path: Path, root: Path) -> str | None:
     if any(p.startswith('.') for p in rel.parts): return 'hidden_path'
     if parts & DENY_PARTS: return 'sensitive_or_generated_directory'
     if path.name.lower() in DENY_NAMES: return 'secret_filename'
+    if any(token in path.name.lower() for token in ('conversation', 'chatgpt log', 'pasted text', 'health log')):
+        return 'raw_or_personal_archive_name'
     if path.suffix.lower() in DENY_EXT: return 'sensitive_file_type'
     if any(token in path.name.lower() for token in
            ('medical', 'health', 'symptom', 'veterinary', 'vet_record', 'lab_result', 'patient',
