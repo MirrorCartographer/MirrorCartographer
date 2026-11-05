@@ -78,3 +78,14 @@ The 2024–2025 archive clarifies several names that should not be retroactively
 - **LYR:** the user explicitly described LYR as the voice of AI for them while stating that LYR is not sentient. Preserve this as an interaction-identity boundary, not a claim of consciousness.
 
 The user's own design requirements remain attributable: AI as a cognitive extension that structures feeling and complexity; user-supplied language rather than imposed labels; factual and opposing perspectives alongside symbolic interpretation; conversation-first interaction; and a portable system whose memory and decisions do not depend on one model vendor.
+
+
+### Continuity architecture and deployment boundaries
+
+- **Memory Palace / Coauthor Autobiography:** the repository documents explicitly describe durable project continuity and assistant participation history, not hidden off-session consciousness. The Memory Palace README says its rooms are initial placeholders until populated; the autobiography protocol is not evidence of an active hourly job.
+- **Continuity Lens Record Router:** the five-view schema is a proposal. It explicitly lacks a permissions engine, encryption model, revocation model, audit UI, and consent workflow.
+- **Continuity API:** backend CRUD/export/upload code and a SQL schema exist, but the current room-world frontend persists progress in browser localStorage and no frontend continuity API client was found. Live Supabase/Vercel persistence is unverified.
+- **Source coverage:** M-RECONCILE-002 contracts require branch, reachable-commit, tree/blob, and cross-source coverage before exhaustive absence claims. The current source-class ledger remains unresolved. The collector script does not yet prove tree/blob coverage or complete parent-edge closure.
+- **Self-hosted worker:** PRs #131–#139 contain a substantial Linux namespace/cgroup/CAS/journaled-recovery execution chain. They are stacked draft branches with failed latest checks; no production-host execution is verified. The separate release/runtime chain #117–#125 is also draft and does not establish a deployed model agent.
+- **Runtime substrate:** the `platform/runtime` inventory and policy are contract/test artifacts. Their README lists live cgroup, OOM, PSI, seccomp, rootless, and host-kernel proof as remaining obligations. Vercel evidence records no deployment attempt for the exact-commit audio runtime; Cloudflare evidence does not prove a Pages project or production hostname; no Render service was found.
+- **PR inventory:** 67 of 158 open PR titles match agent/runtime terms, and 151 of the 158 open PRs are drafts. These are overlapping proposals and experiments, not 67 agents or 158 completed features.
