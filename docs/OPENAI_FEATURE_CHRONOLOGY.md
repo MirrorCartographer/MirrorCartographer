@@ -13,7 +13,7 @@ Compare (1) the earliest recoverable dated Mirror Cartographer artifact, (2) the
 |---|---|---|---|
 | ChatGPT Memory | Feb 13, 2024 test announcement; wider rollouts followed | Recovered project material discusses persistent symbolic/session memory and continuity; current inspected archive contains detailed design documents but the earliest pre-Feb-2024 dated source has not been authenticated in this audit | Similar problem space; chronological priority not established |
 | Canvas | Oct 3, 2024 beta announcement | RTF export contains 28 text-document creation events; the IDs appear to encode UTC Unix timestamps from May–Aug 2025. This proves later Canvas use and extensive document work, not pre-launch invention of Canvas | No adoption inference; artifact dates are after launch |
-| ChatGPT Projects | Dec 2024 rollout (date to be verified against official release notes before stronger use) | Project organization, master maps, cross-document continuity, and repository structure appear in later project records | Broad workflow similarity; not enough for technical equivalence or influence |
+| ChatGPT Projects | Dec 13, 2024 (official release notes) | Project organization, master maps, cross-document continuity, and repository structure appear in later project records | Broad workflow similarity; not enough for technical equivalence or influence |
 | Operator / browser-use agent | Jan 23, 2025 research preview | Mirror Cartographer project daemon and automation concepts exist in project documentation; no evidence of an independently implemented general browser operator predating Operator in this audit | Not equivalent on current evidence |
 | Codex | May 16, 2025 research preview | Historical conversations show AI-assisted code generation and debugging before Codex. This is consistent with general-purpose LLM coding capability, not evidence of an independently built Codex-like agent | Important distinction: coding with a model is not the same as a coding agent product |
 | ChatGPT agent | Jul 17, 2025 | Project daemons, orchestration plans, and bounded model-worker concepts appear in private project records; exact dates and runnable capabilities must be checked per commit | Conceptual overlap; no causal link established |
@@ -21,7 +21,8 @@ Compare (1) the earliest recoverable dated Mirror Cartographer artifact, (2) the
 ## Source-backed OpenAI release dates
 
 - **Memory:** OpenAI announced a test on Feb 13, 2024. The post describes cross-chat memory and user controls. Source: https://openai.com/index/memory-and-new-controls-for-chatgpt/
-- **Canvas:** OpenAI announced Canvas on Oct 3, 2024 as a separate workspace for writing and coding collaboration. Source: https://openai.com/index/introducing-canvas/
+- **Canvas:** OpenAI announced Canvas on Oct 3, 2024 as a separate workspace for writing and coding collaboration. On Dec 10, 2024, release notes added Python execution in Canvas; on Jan 15, 2025, they added import-from-chat into Canvas. Sources: https://openai.com/index/introducing-canvas/ and https://help.openai.com/en/articles/6825453-chatgpt-release-notes
+- **Projects:** OpenAI release notes date Projects in ChatGPT to Dec 13, 2024, describing grouped chats/files with shared context and custom instructions. Source: https://help.openai.com/en/articles/6825453-chatgpt-release-notes
 - **Operator:** OpenAI announced the browser-operating agent on Jan 23, 2025. Source: https://openai.com/index/introducing-operator/
 - **Codex:** OpenAI announced its cloud software-engineering agent on May 16, 2025. Source: https://openai.com/index/introducing-codex/
 - **ChatGPT agent:** OpenAI announced the agentic system on Jul 17, 2025. Source: https://openai.com/index/introducing-chatgpt-agent/
