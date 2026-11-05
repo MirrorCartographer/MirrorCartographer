@@ -90,6 +90,9 @@ These are complementary surfaces, not four interchangeable versions of the same 
 | Biomedical and somatic research | Observation organization, longitudinal signals, literature/evidence routing, and explicit clinical boundaries | Research tools and private records exist. Symbolic resemblance is not biological mechanism; no diagnostic authority is claimed |
 | Public-interest systems | Administrative failure, missing records, access barriers, and local service navigation | Kannapolis Rider Transit is a candidate pilot, not a confirmed partner, approved study, or measured intervention |
 | Creative universe | Procedural art, music, interactive rooms, games, animation/film, stories, and standalone worlds | Scripts, prototypes, and playable artifacts are mixed; a screenplay or source file is not proof of a finished film or live experience |
+| Foundation Intelligence Architecture (FIA) | Parent architecture beneath Mirror Cartographer: perception/Reader, attention, intelligence kernel, cognitive grammar, knowledge-memory-evidence graphs, translation, model routing, execution, applications, and feedback | Foundational specification and graph/session artifacts exist; not a single integrated or independently validated intelligence system |
+| Human capability and human–technology interaction | Human-AI interaction, agency, attention, trust, memory, collective judgment, collaboration readiness, multimodal interaction, and beyond-screen interfaces | Research briefs, synthetic gates, and a playable evidence-learning environment exist; physiological interfaces and broad capability claims remain research directions |
+| Procedural image generation / Image Organism | Canvas-based, seeded procedural renderer with organism families, density/fracture/symmetry/seed controls, generate/disturb, PNG export, and local recipe save/recall | Actual self-contained browser code exists in `public/art-machine/index.html`; this is procedural graphics, not a trained image model and not evidence of integration with ChatGPT's built-in image generator |
 | Human capability research | Cognitive reflection, collective judgment, pattern translation, learning, agency, and human–AI collaboration | Research questions and conceptual models exist; broad claims require operational definitions and empirical tests |
 | Ownership and sustainability | Authorship, provenance, licensing, publishing, funding, and sustainable product/service pathways | Planning documents exist; legal ownership, market demand, revenue, and institutional partnerships are not established by those documents |
 
@@ -101,9 +104,9 @@ The recovered system can be represented as a set of cooperating layers:
 2. **Provenance/continuity layer:** records who observed or authored what, where it came from, how it changed, what contradicts it, and what superseded it.
 3. **Reasoning/research layer:** relationship discovery, hypothesis formation, alternative explanations, uncertainty, falsifiers, and evidence assessment.
 4. **Decision-integrity layer:** FREE 2.0 follows impacts and downstream consequences, enforces hard gates, and leaves consequential decisions with authorized humans.
-5. **Evaluation layer:** Human Judgment Lab and ARC-style benchmarks test the quality of reasoning and measurement without allowing a model to certify itself.
+5. **Evaluation layer:** Human Judgment Lab and ARC-style benchmarks test the quality of reasoning and measurement without allowing a model to certify itself. The Playable Mind and related learning surfaces teach observation, competing hypotheses, missingness, contradiction, falsification, and revision through interaction.
 6. **Model/provider layer:** LYR configuration and replaceable local/cloud model adapters generate candidate language; generated output is not independent evidence.
-7. **Experience layer:** the House of Mouths and related interfaces let people explore, express, test, and create without turning the research system into a generic dashboard.
+7. **Experience layer:** the House of Mouths and related interfaces let people explore, express, test, and create without turning the research system into a generic dashboard. Image Organism is a confirmed procedural canvas renderer; it should remain distinct from neural image-generation services.
 8. **Application lanes:** veterinary, biomedical, veteran, civic, educational, and creative applications use the shared method but require domain-specific evidence, authority, and safeguards.
 
 The dependency direction is not one-way. Evaluation can challenge the reasoning layer; affected users can correct source records; observed outcomes can revise hypotheses; the creative interface can reveal missing variables; and governance can block a technically feasible intervention.
@@ -177,7 +180,7 @@ The following pull requests are open and unmerged. Their own descriptions report
 
 Do not merge or discard these branches as part of archaeology. First compare their base/head commits, inspect diffs and checks, and determine whether any later branch supersedes an earlier one. The 100-iteration labels are scoped work programs, not evidence that 100 iterations have already been completed.
 
-## 10. What remains to complete recovery
+## 11. What remains to complete recovery
 
 This first crosswalk corrects the repository-only view, but full recovery still requires:
 1. A complete path-level artifact register for all four Git trees, grouped by project, artifact type, source date, and current branch/commit.
@@ -190,14 +193,20 @@ This first crosswalk corrects the repository-only view, but full recovery still 
 
 No consolidation, deletion of distinct versions, or replacement of canonical components should occur until those steps are complete.
 
-## 11. Primary source index
+## 12. Primary source index
 
 ### Public repositories
 - `MirrorCartographer/MirrorCartographer/README.md`
 - `BUILD_UNIVERSE.md`
 - `CABINET_OF_REAL_THINGS.md`
 - `OBSERVATORY_FIELD_GUIDE.md`
+- `architecture/FOUNDATION_INTELLIGENCE_ARCHITECTURE.md`
 - `architecture/101_DIMENSION_ATLAS.md`
+- `docs/AI_ROLE_IN_HUMAN_TECHNOLOGY_SYSTEMS.md`
+- `docs/BEYOND_THE_SCREEN_HUMAN_TECHNOLOGY_INTERACTION.md`
+- `docs/HUMAN_AI_INTERACTION_BRIEF.md`
+- `mind/human/PLAYABLE_MIND_GUIDE.md`
+- `public/art-machine/index.html`
 - `architecture/FREE_2_SPEC.md`
 - `governance/LIVING_SYSTEMS_CONSTITUTION_v1.md`
 - `governance/MASTER_PROJECT_INVENTORY_v1.md`
