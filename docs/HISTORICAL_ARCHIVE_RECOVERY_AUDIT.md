@@ -204,3 +204,10 @@ A privacy-reviewed, fully populated public starter kit has now been reconstructe
 
 The reconstructed public starter now contains ten inspectable source files, including a machine-readable mapping schema and twelve acceptance tests. A GitHub Actions packaging workflow validated the schema, built the ZIP, and committed the generated binary as `github-actions[bot]` in commit [f3e1117](https://github.com/MirrorCartographer/MirrorCartographer/commit/f3e111733708a9f02da6a36e85b64677565e9e59). This is verified package generation, distinct from the historical placeholder ZIPs.
 
+
+## Expanded sandbox-reference recovery
+
+The private RTF work log contains 479 historical sandbox-path references, representing 413 unique path names, plus 275 Markdown download links (253 unique destinations). It also contains extensive image and personal-context material, so the raw log and complete path list remain private. A private reference index preserves the counts and selected project-oriented filenames.
+
+These references materially expand the recovery scope beyond the 256-row artifact catalog. They are historical links, not proof that the files still exist. Eleven selected source records have been materialized and hashed; the remaining references require exact Library search and retrieval before they can be considered recovered.
+
