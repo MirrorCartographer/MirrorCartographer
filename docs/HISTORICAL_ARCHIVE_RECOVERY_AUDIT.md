@@ -211,3 +211,5 @@ The private RTF work log contains 479 historical sandbox-path references, repres
 
 These references materially expand the recovery scope beyond the 256-row artifact catalog. They are historical links, not proof that the files still exist. Eleven selected source records have been materialized and hashed; the remaining references require exact Library search and retrieval before they can be considered recovered.
 
+
+The Library contains three copies of the 62,059,190-byte conversation export (`conversations.json`, `conversations(1).json`, and `conversations(2).json`). All three materialized copies have the same SHA-256 (`bc2ae8ef65254df31eced4f6ca9c87c850c503bb9f2bfd154ee4a0cb0a710fdb`), so they are duplicates, not three independent archive periods.
