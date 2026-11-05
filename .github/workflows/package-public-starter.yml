@@ -1,0 +1,40 @@
+name: Package Mirror Cartographer Public Starter
+on:
+  push:
+    paths:
+      - 'agents/mirror-cartographer-public-starter-v1/**'
+      - '.github/workflows/package-public-starter.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: package-public-starter
+  cancel-in-progress: false
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON schema and required files
+        run: |
+          python -m json.tool agents/mirror-cartographer-public-starter-v1/MAPPING_SCHEMA.json >/dev/null
+          test -s agents/mirror-cartographer-public-starter-v1/README.md
+          test -s agents/mirror-cartographer-public-starter-v1/SYSTEM_INSTRUCTIONS.md
+          test -s agents/mirror-cartographer-public-starter-v1/SAFETY_AND_PRIVACY.md
+      - name: Build starter ZIP
+        run: |
+          mkdir -p dist
+          rm -f dist/mirror-cartographer-public-starter-v1.zip
+          zip -qr dist/mirror-cartographer-public-starter-v1.zip agents/mirror-cartographer-public-starter-v1
+          sha256sum dist/mirror-cartographer-public-starter-v1.zip
+      - name: Commit generated package
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add dist/mirror-cartographer-public-starter-v1.zip
+          if git diff --cached --quiet; then
+            echo 'Package is unchanged.'
+          else
+            git commit -m 'Build Mirror Cartographer Public Starter v1 package'
+            git push
+          fi
