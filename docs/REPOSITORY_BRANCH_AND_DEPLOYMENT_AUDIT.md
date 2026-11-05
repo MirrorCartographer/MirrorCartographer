@@ -87,3 +87,15 @@ The 119 UI `fia/` branches cluster by naming into 19 artifact-registry branches,
 
 **Interpretation:** the strongest hidden infrastructure lead is the FIA lane. It appears to contain a large parallel program for artifact custody, reproducible builds, isolated workers, release graphs, deployment/rollback, and evidence sealing. This is a high-value recovery target, but the branch census alone cannot establish that any worker ran or that any artifact registry is operational. The next step is a head-SHA/diff/test ledger and dependency graph, not a mass merge.
 
+
+## Current repository identity and stack reconciliation
+
+A recovered May 3, 2026 repo-comparison packet labels `mirror-cartographer-ui` as private and the Next.js research repository as public. That visibility record is stale: the connected GitHub API currently reports both `MirrorCartographer/MirrorCartographer` and `MirrorCartographer/mirror-cartographer-ui` as public, while `MirrorCartographer/c` and `MirrorCartographer/J` remain private.
+
+Current default-branch package metadata:
+
+- `mirror-cartographer-ui`: Vite 4, React 18.3.1, with a `build:pages` script that builds for the `/mirror-cartographer-ui/` Pages base.
+- `MirrorCartographer`: Next.js 15.3.5, React 19, TypeScript 5, Tailwind CSS 4, with separate governance/continuity/workbench verification scripts.
+
+This confirms the historical Vite/React UI lane is now publicly inspectable. It does not prove that the old private prototype and the current public repository are byte-for-byte identical or that every historical Canvas artifact was merged into it.
+
