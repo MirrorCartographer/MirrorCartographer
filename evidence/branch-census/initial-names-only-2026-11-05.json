@@ -237,7 +237,40 @@
         "sovereign/postgres-pitr",
         "stable/phone-gate-2026-07-09",
         "work/100-iterations-2026-11-03"
-      ]
+      ],
+      "prefix_counts": {
+        "(no-prefix)": 48,
+        "agent": 18,
+        "art": 1,
+        "assistant": 2,
+        "automation": 1,
+        "build-engine": 1,
+        "build": 2,
+        "cloudflare": 1,
+        "continuity": 2,
+        "creative": 7,
+        "experience": 1,
+        "feature": 6,
+        "fia": 119,
+        "fix": 1,
+        "foundation": 1,
+        "independent-creative": 1,
+        "independent-platform": 1,
+        "research": 8,
+        "sovereign": 1,
+        "stable": 1,
+        "work": 1
+      },
+      "fia_family_counts": {
+        "deployment-and-rollback": 6,
+        "other-fia": 55,
+        "workers-and-isolation": 15,
+        "evidence-and-provenance": 4,
+        "security-and-admission": 1,
+        "reproducibility": 8,
+        "artifact-registry": 19,
+        "release-evidence-and-promotion": 11
+      }
     },
     {
       "repository": "MirrorCartographer/MirrorCartographer",
@@ -316,7 +349,28 @@
         "studio/first-commission-offer",
         "vercel/react-server-components-cve-vu-ohd66i",
         "work/100-iterations-2026-11-03"
-      ]
+      ],
+      "prefix_counts": {
+        "agent": 10,
+        "art": 1,
+        "assistant": 1,
+        "automation": 8,
+        "cloudflare": 2,
+        "creative": 7,
+        "docs": 2,
+        "(no-prefix)": 9,
+        "experience": 1,
+        "feat": 5,
+        "feature": 6,
+        "film": 1,
+        "fix": 1,
+        "investigation": 6,
+        "research": 8,
+        "studio": 1,
+        "vercel": 1,
+        "work": 1
+      },
+      "fia_family_counts": {}
     }
   ]
 }
