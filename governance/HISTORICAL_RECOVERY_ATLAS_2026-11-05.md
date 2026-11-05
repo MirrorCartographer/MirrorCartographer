@@ -161,7 +161,23 @@ The UI repository also documents GitHub Pages entry points and a Netlify recover
 
 The public Observatory repository is the sanitized research surface. The private archive remains private. Do not copy personal source material, health/veterinary records, financial information, raw conversation exports, credentials, or private project notes into the public repository.
 
-## 9. What remains to complete recovery
+## 9. Current open workstreams observed 2026-11-05
+
+The following pull requests are open and unmerged. Their own descriptions report the iteration counts and hosted test results below; these are branch-level results, not proof that the changes are in the default branch or deployed.
+
+| Repository | Open pull request | Reported progress / evidence | Boundary |
+|---|---|---|---|
+| Public Observatory | [#22 — Continuity and evidence integrity](https://github.com/MirrorCartographer/MirrorCartographer/pull/22) | 13/100 iterations; continuity integrity run reported success | Draft; 87 iterations remain; separate CI was still running; no production deployment claimed |
+| Public House of Mouths | [#178 — Living Atlas interactions](https://github.com/MirrorCartographer/mirror-cartographer-ui/pull/178) | 14/100 iterations; smoke, static preview, and room-integrity runs reported success | Draft; 86 iterations remain; mergeability false at inspection; Vercel daily deployment limit reported |
+| Public House of Mouths | [#176 — Living Encounter gestures](https://github.com/MirrorCartographer/mirror-cartographer-ui/pull/176) | Connects live gestures to encounter selection/history | Open; requires CI/runtime verification before merge |
+| Private creative/core archive | [#4 — Model bridge and memory retrieval](https://github.com/MirrorCartographer/c/pull/4) | 14/100 iterations; quality run reported 18/18 Node tests and Vite/structural checks passed | Draft; 86 iterations remain; real model inference is not implied |
+| Private creative/core archive | [#5 — Exact duplicate assets](https://github.com/MirrorCartographer/c/pull/5) | Removes 12 byte-identical image files across 11 duplicate-content groups | Open; distinct/non-identical historical versions preserved; review before merge |
+| Private creative/core archive | [#3 — Offline cache and evidence ledger](https://github.com/MirrorCartographer/c/pull/3) | Service-worker cache regression tests and 75-entry ledger alignment added | Draft; hosted CI and real-device/browser verification not yet observed |
+| Private Human Judgment Lab | [#1 — Reproducible evaluation experiments](https://github.com/MirrorCartographer/J/pull/1) | 10/100 iterations; validation and workbench runs reported success | Draft; 90 iterations remain; simulation remains synthetic, not empirical human-rater research |
+
+Do not merge or discard these branches as part of archaeology. First compare their base/head commits, inspect diffs and checks, and determine whether any later branch supersedes an earlier one. The 100-iteration labels are scoped work programs, not evidence that 100 iterations have already been completed.
+
+## 10. What remains to complete recovery
 
 This first crosswalk corrects the repository-only view, but full recovery still requires:
 1. A complete path-level artifact register for all four Git trees, grouped by project, artifact type, source date, and current branch/commit.
@@ -174,7 +190,7 @@ This first crosswalk corrects the repository-only view, but full recovery still 
 
 No consolidation, deletion of distinct versions, or replacement of canonical components should occur until those steps are complete.
 
-## 10. Primary source index
+## 11. Primary source index
 
 ### Public repositories
 - `MirrorCartographer/MirrorCartographer/README.md`
