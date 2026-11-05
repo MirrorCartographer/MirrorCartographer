@@ -213,3 +213,5 @@ These references materially expand the recovery scope beyond the 256-row artifac
 
 
 The Library contains three copies of the 62,059,190-byte conversation export (`conversations.json`, `conversations(1).json`, and `conversations(2).json`). All three materialized copies have the same SHA-256 (`bc2ae8ef65254df31eced4f6ca9c87c850c503bb9f2bfd154ee4a0cb0a710fdb`), so they are duplicates, not three independent archive periods.
+
+The Library also contains four copies of the 25,279,288-byte RTF work log (`chatgpt log.rtf` and numbered copies). All four have the same SHA-256 (`03b2ebf944f36fe6e1a9235029f256fdd3bf4e5310b0ff50b6840294cc6acd48`), so they are duplicate storage records, not four independent histories.
