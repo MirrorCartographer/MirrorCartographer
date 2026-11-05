@@ -16,13 +16,14 @@ from pathlib import Path
 
 DENY_NAMES = {'.env', '.env.local', '.env.production', 'credentials.json',
               'secrets.json', 'token.json', 'id_rsa', 'id_ed25519',
-              'cookies.txt', 'login data', 'web data'}
+              'cookies.txt', 'login data', 'web data', 'chatgpt log.rtf',
+              'conversations.json', 'messages.json', 'account.json'}
 DENY_PARTS = {'.git', 'node_modules', '.venv', '__pycache__',
               'medical', 'health', 'veterinary', 'vet_records',
               'personal', 'private', 'raw_conversations',
               'conversation_exports', 'browser_profiles'}
 DENY_EXT = {'.pem', '.key', '.p12', '.pfx', '.sqlite', '.db',
-            '.heic', '.dcm', '.dicom'}
+            '.heic', '.dcm', '.dicom', '.rtf', '.jsonl'}
 SECRET_PATTERNS = [
     re.compile(rb'(?i)sk-[A-Za-z0-9_-]{20,}'),
     re.compile(rb'(?i)gh[pousr]_[A-Za-z0-9]{20,}'),
@@ -37,7 +38,8 @@ def excluded(path: Path, root: Path) -> str | None:
     if path.name.lower() in DENY_NAMES: return 'secret_filename'
     if path.suffix.lower() in DENY_EXT: return 'sensitive_file_type'
     if any(token in path.name.lower() for token in
-           ('medical', 'health', 'symptom', 'veterinary', 'vet_record', 'lab_result', 'patient')):
+           ('medical', 'health', 'symptom', 'veterinary', 'vet_record', 'lab_result', 'patient',
+            'bugsy', 'omalley', 'financial', 'bank_statement', 'tax_record', 'disability')):
         return 'sensitive_filename'
     return None
 
