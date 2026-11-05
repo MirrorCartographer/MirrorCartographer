@@ -171,3 +171,12 @@ All three scheduled workflows are configured but no successful Actions run was v
 | [Execution Hub — final Vite public copy](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/public/execution-hub.html) | [df8ece2](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/df8ece267f317e752eed5186c0770f72dcd3f366) | `a695c6ce7682f86aae3813ca7c1b630577a6fb5e` |
 | [Execution Hub contract test — final](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/scripts/execution-hub-contract-check.mjs) | [2972eda](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/2972eda556d2902d7f854cec03578e6c17f8352c) | `328b9e3493870d8f8dfd001518cbb9afca1d629f` |
 
+
+## Final repository visibility and FIA branch-family reconciliation
+
+| Artifact | Commit | Git blob SHA |
+|---|---|---|
+| [Branch/deployment audit — final current revision](REPOSITORY_BRANCH_AND_DEPLOYMENT_AUDIT.md) | [c1f8e3d](https://github.com/MirrorCartographer/MirrorCartographer/commit/c1f8e3daae65688bedcda6e1a7baee419b13ab9f) | `e77ad336207df116020f1156e301eab8c828fa3a` |
+| [Initial branch census — final family summary](../evidence/branch-census/initial-names-only-2026-11-05.json) | [a2d2388](https://github.com/MirrorCartographer/MirrorCartographer/commit/a2d23880f751f3fe8ee198194af81617f0a19171) | `89e0ffd425e5a83ebfac5dc8552dfdf13cbe6361` |
+| [Public branch census worker — final family summary](../scripts/public-branch-census.mjs) | [f8839e7](https://github.com/MirrorCartographer/MirrorCartographer/commit/f8839e77c4a439138ef4f5910bb2656fde9d0e33) | `fa145515d2dfbadf1454c797f99f82303e80b934` |
+
