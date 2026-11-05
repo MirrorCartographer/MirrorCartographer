@@ -139,6 +139,8 @@ These records distinguish implemented software, source-level evidence, historica
 
 ## Background verification
 
+- [Initial public branch census](evidence/branch-census/initial-names-only-2026-11-05.json) — all 224 UI and 71 research branch names; head SHAs await the scheduled census worker.
+
 - Weekly public branch census: `.github/workflows/weekly-public-evidence-census.yml` (Monday 13:00 UTC).
 - Weekly archive-manifest tests: `.github/workflows/archive-manifest-tests.yml` (Monday 13:10 UTC).
 - Weekly Hub/Creation Portal contract checks: `mirror-cartographer-ui/.github/workflows/execution-hub-contract.yml` (Monday 13:05 UTC).
