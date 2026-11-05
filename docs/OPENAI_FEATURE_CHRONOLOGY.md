@@ -54,3 +54,12 @@ To upgrade a candidate from similarity to influence, find a contemporaneous reco
 
 Until then, use the wording: “The project explored a related problem or interaction pattern; a later public OpenAI capability has similarities. Direct influence is not established.”
 
+
+## What the recovered conversation export can and cannot date
+
+The inspected `conversations.json` is a bounded export of 337 conversations from 2024-08-22 through 2025-08-12 UTC. Within it, 49 conversations predate the Oct 3, 2024 Canvas launch; none contains the exact project name `Mirror Cartographer`. The first conversation with explicit Mirror Cartographer project content in this export is dated May 22, 2025. The first Canvas document creation whose title is clearly project-specific is `Mirror Sentience Stack`, with a decoded identifier time of 2025-06-10 UTC. The project-specific Canvas document series then expands from June through August 2025.
+
+This means the current recovered export documents substantial Mirror Cartographer work and Canvas use after OpenAI's public Canvas launch. It does not establish pre-launch invention of Canvas, ChatGPT Memory, Projects, Codex, or agent mode. It also cannot disprove earlier work that may exist in other conversations, local files, or archives outside this bounded export.
+
+Model metadata in the same export records 13,513 message entries labeled `gpt-4o`, 25 labeled `gpt-4`, 61 labeled `gpt-4o-mini`, 103 labeled `gpt-5`, 8 labeled `o3-mini`, 3 labeled `gpt-5-thinking`, and 161 labeled `research`. These are exported ChatGPT message metadata counts, not counts of external API requests and not evidence of internal OpenAI adoption.
+
