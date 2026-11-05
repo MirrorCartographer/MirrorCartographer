@@ -113,6 +113,8 @@ Mirror Cartographer is not a medical, veterinary, legal, or diagnostic authority
 
 ## Historical recovery and external review
 
+- [Unified Execution Hub](https://mirrorcartographer.github.io/mirror-cartographer-ui/execution-hub.html) — local-first task and evidence dashboard with browser storage and JSON import/export.
+
 - [OpenAI feature chronology](docs/OPENAI_FEATURE_CHRONOLOGY.md) — source-backed public release dates and alternative explanations.
 - [Historical archive recovery audit](docs/HISTORICAL_ARCHIVE_RECOVERY_AUDIT.md) — 256-row inventory, recovered Canvas document events, API integration evidence, and privacy boundaries.
 - [Repository branch and deployment audit](docs/REPOSITORY_BRANCH_AND_DEPLOYMENT_AUDIT.md) — 224 UI branches, 71 research branches, Vercel rate-limit failures, and integration priorities.
