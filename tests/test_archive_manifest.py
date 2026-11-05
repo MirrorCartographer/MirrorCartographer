@@ -27,6 +27,12 @@ class ArchiveManifestTests(unittest.TestCase):
             root = Path(tmp)
             self.assertEqual(module.excluded(root / '.env', root), 'hidden_path')
 
+    def test_raw_conversation_export_names_are_excluded(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.assertEqual(module.excluded(root / 'conversations(1).json', root), 'raw_or_personal_archive_name')
+            self.assertEqual(module.excluded(root / 'Pasted text(30).txt', root), 'raw_or_personal_archive_name')
+
     def test_secret_pattern_is_detected(self):
         with tempfile.TemporaryDirectory() as tmp:
             p = Path(tmp) / 'config.txt'
