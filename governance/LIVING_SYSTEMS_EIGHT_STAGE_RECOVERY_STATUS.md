@@ -11,7 +11,7 @@ The eight-stage initiative has substantial source material, specifications, prot
 
 | Stage | Recovered artifact/evidence | Current status | What is still required |
 |---|---|---|---|
-| 1. Master project inventory | Four Git repositories; 7,464 tracked tree entries; May 2026 catalog of 256 production/research artifacts; 337-conversation export for 2024-08-22 to 2025-08-12; Library source documents; private crosswalks | **PARTIAL — major sources located and indexed** | Reconcile every path to its project, requirement, owner, date, and status; recover missing sandbox media; retrieve and classify later 2025–2026 conversation history; compare versions and rights |
+| 1. Master project inventory | Four Git repositories; 8,314 tracked tree entries; 305 branches; 158 open pull requests; May 2026 catalog of 256 production/research artifacts; 337-conversation export for 2024-08-22 to 2025-08-12; Library source documents; private crosswalks | **PARTIAL — major sources located and indexed** | Reconcile every path to its project, requirement, owner, date, and status; recover missing sandbox media; retrieve and classify later 2025–2026 conversation history; compare versions and rights |
 | 2. Constitution and ethics | `governance/LIVING_SYSTEMS_CONSTITUTION_v1.md`, version 1.0.0-draft; rights, epistemic integrity, decision constraints, model/memory boundaries, recursive correction, governance, decision rules | **DRAFT EXISTS** | Independent legal/domain review; affected-party review; operational enforcement tests; versioned approval process; no claim of legal status or institutional adoption |
 | 3. FREE 2.0 | `architecture/FREE_2_SPEC.md`; deterministic Python core and tests; provenance adapter; nine-stage lifecycle; hard gates and decision states | **EXECUTABLE SCAFFOLD** | Test against adversarial cases and real workflows; validate integration with the private provenance graph; verify CI; add domain-specific legal/safety review; do not treat as an ethics oracle |
 | 4. Independent LYR / Mirror Engine | Private C provider bridge to Ollama/OpenAI-compatible endpoints; append-only provenance graph; public experimental store; project-owned decoder-only Transformer, tokenizer, training and inference path | **PARTIAL — architecture/code exists, no trained LYR model verified** | Rights-cleared corpus; training run from random initialization; checkpoint; held-out evaluation; privacy/memorization tests; local inference with no vendor API key; continuity acceptance tests; model/persona boundary |
@@ -58,10 +58,10 @@ These tools can support the stages above, but they are not substitutes for field
 ## Remaining recovery blockers
 
 1. Historical sandbox media and ZIP packages listed in the May 2026 catalog are not currently present in the active runtime; locate surviving Library copies or user-held backups and verify hashes.
-2. The structured conversation export stops at 2025-08-12; later 2025–2026 conversation history is not yet exhaustively indexed.
-3. The 17 MB `Pasted text(30).txt` artifact remains unclassified and is kept private.
-4. The current open 100-iteration pull requests are drafts/unmerged and require diff/CI/runtime review; iteration counts are not completion claims.
-5. Live deployments could not be independently verified during this recovery pass.
+2. The structured conversation export stops at 2025-08-12; later 2025–2026 conversation history is not yet exhaustively indexed. The 2026-06-18 continuity export is a handoff summary, not a raw account export.
+3. The pasted-text fragments are duplicates of the canonical archive, not missing later history; the four RTF log copies are byte-identical to one another and are supplementary transcript material.
+4. The 158 open pull requests are unmerged; review their diffs, CI, and deployment status before treating them as integrated capabilities.
+5. Live deployments and the model-backed runtime still require end-to-end verification.
 
 ## Decision
 
