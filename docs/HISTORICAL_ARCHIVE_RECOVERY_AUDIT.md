@@ -177,7 +177,7 @@ The recovered Unified Execution Hub v1 manifest and May 1–2, 2026 current-stat
 
 The recovered `chat_index.csv` is a two-row sample with placeholder conversation IDs, not a complete archive index. The 8-lane `lane_registry_v14.csv`, six-entry `evidence_register(1).csv`, ten-entry `evidence_register_v18.json`, and ten-edge `connection_edges_v19.csv` are structured planning/evidence records. They document the operating model but do not, by themselves, prove a deployed backend.
 
-The 256-row artifact catalog contains historical paths and metadata for many assets. Those paths do not prove the files remain mounted or retrievable. The current audit materialized and hashed selected Library records; it did not hash all 256 referenced assets. The archive-manifest generator is provided for owner-controlled staging and privacy-reviewed hashing when those files are available.
+The 256-row artifact catalog contains historical paths and metadata for many assets. Those paths do not prove the files remain mounted or retrievable. Eleven selected Library source records were materialized and SHA-256 hashed in this pass; this does not mean all 256 catalog assets were recovered or hashed. The archive-manifest generator is provided for owner-controlled staging and privacy-reviewed hashing when those files are available.
 
 
 ## Additional recovered prototype and implementation-pack artifacts
