@@ -62,3 +62,16 @@ An open request for an independent review was published as [GitHub issue #23](ht
 
 Latest historical archive audit revision: [deea4e7](https://github.com/MirrorCartographer/MirrorCartographer/commit/deea4e7aefb4214f46a4a3959e092f93bf96507b), Git blob SHA `ac2a76ce3d75a5a7ba59627c8351d35544a99c09`.
 
+
+## Evidence corrections and hardened archive tooling
+
+| Artifact | Latest relevant commit | Git blob SHA |
+|---|---|---|
+| [Historical archive recovery audit](HISTORICAL_ARCHIVE_RECOVERY_AUDIT.md) | [83fc21d](https://github.com/MirrorCartographer/MirrorCartographer/commit/83fc21d168ad26e40cb017c5468042a011fadf20) | `15e16dbc6217b4c6f8f99230eca5f4ef50c1763d` |
+| [Technical evidence register](TECHNICAL_EVIDENCE_REGISTER.md) | [320f219](https://github.com/MirrorCartographer/MirrorCartographer/commit/320f219754c1513cc5c22ed09d488519098870a7) | `5ca94d648b3c9cc8a1bb36f937d18e3a24dac215` |
+| [Public project system map](PROJECT_SYSTEM_MAP.md) | [76ebdb5](https://github.com/MirrorCartographer/MirrorCartographer/commit/76ebdb56b2eef5d706dd3c4dad98771692201ba0) | `0aa3d501bf5893809a8aff3b94d6808d4a317848` |
+| [Archive manifest generator](../tools/build_archive_manifest.py) | [3096626](https://github.com/MirrorCartographer/MirrorCartographer/commit/30966267b3ec520cac5e5d3d06dc216769f5e13d) | `b24be5e0fbeb0632b08f2e7852fcf5fbfcca610b` |
+| [Archive manifest tests](../tests/test_archive_manifest.py) | [28423de](https://github.com/MirrorCartographer/MirrorCartographer/commit/28423deb06eb9fd1e54c03f3528d0944936a6170) | `f288d4ef5c8d235dd260a02b9c13607c69028553` |
+
+These revisions correct the earlier overstatement that 129 text-document references were 129 snapshots. The recovered JSON export supports 38 distinct document-creation events; 129 is a broader textual match count, not a verified revision count. The archive-manifest tool also now excludes more raw conversation export filenames by default.
+
