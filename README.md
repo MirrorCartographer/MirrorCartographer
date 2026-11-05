@@ -113,6 +113,13 @@ Mirror Cartographer is not a medical, veterinary, legal, or diagnostic authority
 
 ## Historical recovery and external review
 
+- [OpenAI feature chronology](docs/OPENAI_FEATURE_CHRONOLOGY.md) — source-backed public release dates and alternative explanations.
+- [Historical archive recovery audit](docs/HISTORICAL_ARCHIVE_RECOVERY_AUDIT.md) — 256-row inventory, recovered Canvas document events, API integration evidence, and privacy boundaries.
+- [Repository branch and deployment audit](docs/REPOSITORY_BRANCH_AND_DEPLOYMENT_AUDIT.md) — 224 UI branches, 71 research branches, Vercel rate-limit failures, and integration priorities.
+- [Independent technical review request](docs/INDEPENDENT_REVIEW_REQUEST.md) — review scope and reproducibility protocol.
+- [Privacy-aware archive manifest tool](tools/build_archive_manifest.py) — local SHA-256 inventory generator with default-deny exclusions.
+
+
 - [Historical archive recovery audit](docs/HISTORICAL_ARCHIVE_RECOVERY_AUDIT.md) — 256-row artifact inventory, Canvas identifier chronology, API integration evidence, and privacy boundary.
 - [OpenAI feature chronology](docs/OPENAI_FEATURE_CHRONOLOGY.md) — source-backed comparison with alternative explanations; no causal adoption claim.
 - [Independent technical review request](docs/INDEPENDENT_REVIEW_REQUEST.md) — scope and reproducibility protocol for an external reviewer.
