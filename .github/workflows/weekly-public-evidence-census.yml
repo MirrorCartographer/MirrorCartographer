@@ -1,0 +1,37 @@
+name: Weekly public repository evidence census
+on:
+  push:
+    paths:
+      - 'scripts/public-branch-census.mjs'
+      - '.github/workflows/weekly-public-evidence-census.yml'
+  schedule:
+    - cron: '0 13 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: public-evidence-census
+  cancel-in-progress: false
+jobs:
+  census:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Capture public branch heads and default-branch checks
+        run: node scripts/public-branch-census.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit dated evidence snapshot
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add evidence/branch-census/latest.json evidence/branch-census/snapshot-*.json
+          if git diff --cached --quiet; then
+            echo 'No census changes to publish.'
+          else
+            git commit -m 'Update public repository evidence census'
+            git push
+          fi
