@@ -75,3 +75,24 @@ Latest historical archive audit revision: [deea4e7](https://github.com/MirrorCar
 
 These revisions correct the earlier overstatement that 129 text-document references were 129 snapshots. The recovered JSON export supports 38 distinct document-creation events; 129 is a broader textual match count, not a verified revision count. The archive-manifest tool also now excludes more raw conversation export filenames by default.
 
+
+## Canvas revision index and recovered design artifacts
+
+| Artifact | Commit | Git blob SHA | Original source SHA-256 (when available) |
+|---|---|---|---|
+| [Canvas document index](../evidence/canvas/document-index.json) | [37b50c6](https://github.com/MirrorCartographer/MirrorCartographer/commit/37b50c667fff4aad2f777f5a510a34ec7ffdcde4) | `1096027a16766c1a06b6ddc46bda119135be1d97` | Derived from private conversation export `conversations.json` |
+| [Full Core Specification v1](../evidence/historical/core-specification-v1-full.md) | [33609bf](https://github.com/MirrorCartographer/MirrorCartographer/commit/33609bfe7e7dd085367f200100f5eae4187ec84d) | `1f22d02a1187044857137d7d3ef71f06628e35d7` | `6458832010065789bd02130acde1bb965456c81390a95ef789532469305cd782` |
+| [Access Implementation Pack v2](../evidence/historical/access-implementation-pack-v2.md) | [e3627ba](https://github.com/MirrorCartographer/MirrorCartographer/commit/e3627baf1e5c377a9651f1d715977063ca9d02d0) | `e08c52896885117cf0a3ac91adcdcde6e3e4a04e` | `87bbb5fda05005abc4e2924fb0f6b197ae21b8335df078ef5287e03dcdfd61f6` |
+| [Collapse Codex v1](../evidence/historical/collapse-codex-v1.md) | [9d62dca](https://github.com/MirrorCartographer/MirrorCartographer/commit/9d62dca77ba7ab65ff5e3606cb8e46328da731c0) | `0db4e8ee7d470aa6398572a39f8cbbc54842c130` | `7338f0528beaeb294d1ff1e9c888251fa7a981b5c54d920969cfad694828848c` |
+| [Historical archive audit — current revision](HISTORICAL_ARCHIVE_RECOVERY_AUDIT.md) | [aac802d](https://github.com/MirrorCartographer/MirrorCartographer/commit/aac802d9062cc74be2e98c17b40bce2ab57627ef) | `502a0ea401dae20a91465ea61c455243cefe5bbc` | — |
+| [OpenAI feature chronology — current revision](OPENAI_FEATURE_CHRONOLOGY.md) | [cd1e73f](https://github.com/MirrorCartographer/MirrorCartographer/commit/cd1e73fffc0726ce68d8c21e0fda83f6d9a78982) | `f81dab4ef7acc2c607d69252b52f833ce43de08d` | — |
+| [Technical evidence register — current revision](TECHNICAL_EVIDENCE_REGISTER.md) | [93d193b](https://github.com/MirrorCartographer/MirrorCartographer/commit/93d193b784107a99ef5f2dec525e22a8c36c0d32) | `7e48e4fc89b3319ae8799f30fceb0502453832e4` | — |
+| [Public project system map — current revision](PROJECT_SYSTEM_MAP.md) | [553be51](https://github.com/MirrorCartographer/MirrorCartographer/commit/553be512a0f13ee11a059027e822accee33c814b) | `f7c14be415b11032ab0f9ea79f78b26cb3ee79ce` | — |
+| [Main README — current evidence index](../README.md) | [945037e](https://github.com/MirrorCartographer/MirrorCartographer/commit/945037ec9ab4e919893dab5534022352e4884011) | `6a557b273731e3b0038f07499f5bb57ff74f62c8` | — |
+
+## Unified Execution Hub publication
+
+- [Static local-first Hub source](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/execution-hub.html): commit [832bdac](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/832bdac1ec41c0d22acd06805f59f36eb8053d4f), Git blob SHA `9f7271ff114eaf6b11fba9797bf4a1442fc3ce31`.
+- [UI repository README link](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/6529c6afedab8e0f58927b619b6acc1b0d998fa0): commit `6529c6afedab8e0f58927b619b6acc1b0d998fa0`, blob SHA `8fb98dfaa56732d73307d329ec93ae80163fac5f`.
+- The expected GitHub Pages URL is `https://mirrorcartographer.github.io/mirror-cartographer-ui/execution-hub.html`; live availability was not verified by the current web inspection.
+
