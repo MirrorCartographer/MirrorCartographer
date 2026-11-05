@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mirror Cartographer Map",
+  "type": "object",
+  "required": ["schema_version", "map_id", "created_at", "mode", "entries"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "map_id": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "mode": { "type": "string", "enum": ["canonical", "reflective", "mythopoetic"] },
+    "title": { "type": "string" },
+    "consent": {
+      "type": "object",
+      "properties": {
+        "persist": { "type": "boolean", "default": false },
+        "export": { "type": "boolean", "default": false },
+        "body_metaphors": { "type": "boolean", "default": false }
+      },
+      "additionalProperties": false
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["entry_id", "source", "epistemic_layer", "content"],
+        "properties": {
+          "entry_id": { "type": "string" },
+          "source": { "type": "string", "enum": ["user", "assistant", "imported_artifact"] },
+          "epistemic_layer": { "type": "string", "enum": ["observation", "user_interpretation", "assistant_hypothesis", "open_question"] },
+          "content": { "type": "string" },
+          "symbol": { "type": "string" },
+          "color": { "type": "string" },
+          "shape": { "type": "string" },
+          "texture": { "type": "string" },
+          "spatial_position": { "type": "string" },
+          "user_defined_meaning": { "type": "string" },
+          "assistant_hypothesis": { "type": "string" },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "temporal_context": { "type": "string" },
+          "relationships": { "type": "array", "items": { "type": "string" } },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "private": { "type": "boolean", "default": true }
+        },
+        "additionalProperties": false
+      }
+    },
+    "unresolved_contradictions": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}
