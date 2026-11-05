@@ -1,14 +1,14 @@
 # Master Project Inventory — v1
 Updated: 2026-11-04
-Status: initial evidence-based register; not exhaustive across uninspected private repository contents or all historical conversations.
+Status: expanded evidence-based register; private repositories structurally inspected, but full path-level artifact and historical conversation reconciliation remains open. See [Historical Recovery Atlas](HISTORICAL_RECOVERY_ATLAS_2026-11-05.md).
 
 ## Repository register
 | Repository | Visibility | Verified description / role | Status |
 |---|---|---|---|
 | MirrorCartographer/MirrorCartographer | Public | Research, evidence, systems architecture, tools, demonstrations, governance, creative universe | README and core architecture documents inspected |
 | MirrorCartographer/mirror-cartographer-ui | Public | Interactive creative/reflection application, rooms, atlas, workbench | README, package manifest, completion map inspected |
-| Private companion repository A | Private | Internal evaluation research | Detailed inventory retained in private working records |
-| Private companion repository B | Private | Internal continuity and model prototype | Detailed inventory retained in private working records |
+| Private creative/core archive | Private | Historical source corpus, symbolic reflection runtime, continuity/provenance, prototypes, structured data, and creative archive | 681 tracked tree entries; project map, corpus map, completion map, and audit inspected |
+| Private Human Judgment Lab | Private | Evaluation operations studio, Consensus Trap experiment, synthetic evaluation data, and test harnesses | 20 tracked tree entries; README, thesis, experiment specification, and current PR inspected |
 
 ## Existing named work
 | Work | Type | Evidence/status | Next action |
@@ -60,8 +60,8 @@ Status: initial evidence-based register; not exhaustive across uninspected priva
 - A successful build is not proof of a successful deployment; a route returning 200 is not proof of a working interaction.
 
 ## Unresolved implementation register
-1. Audit private repositories J and c before declaring project inventory complete.
-2. Inspect all research repository directories, governance, ledgers, execution, schemas, and daemon code.
+1. Complete path-level artifact classification across all four accessible repository trees; current recursive counts are 4,243 public research entries, 2,506 public UI entries, 681 private archive entries, and 20 private evaluation-lab entries.
+2. Inspect all remaining research repository directories, governance, ledgers, execution, schemas, and daemon code; current work has inspected representative architecture, code, and status artifacts but not every file.
 3. Unify record schemas for source, observation, claim, hypothesis, experiment, result, decision, contradiction, and consequence.
 4. Implement FREE 2.0 as a tested engine and bind it to the existing instruments.
 5. Build an independent model runtime; no project-trained LLM is verified as existing.
@@ -88,7 +88,7 @@ An entry is complete only when repository/path, owner, purpose, implementation s
 
 ## Private repository audit
 
-Two private companion repositories were inspected. Their detailed paths, implementation notes, and operational status are preserved in a private working record and are intentionally not reproduced in this public inventory.
+The private creative/core archive and private Human Judgment Lab were inspected at repository structure, key documentation, representative implementation, and current pull-request level. Their detailed source maps and sensitive archive boundaries are preserved in the private recovery crosswalk. This public inventory intentionally omits private source contents.
 
 ## Updated architectural decision
 Repository C's append-only provenance graph and model adapter are canonical existing components to extend. The new Python FREE 2.0 engine and SQLite MirrorStore are experimental portable modules; integrate them with C's record schema rather than silently replacing it. Repository J supplies the adversarial evaluation layer. See [REPOSITORY_CONSOLIDATION_v1.md](../architecture/REPOSITORY_CONSOLIDATION_v1.md).
