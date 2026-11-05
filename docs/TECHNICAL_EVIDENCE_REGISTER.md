@@ -16,7 +16,7 @@
 | LYR | Independent language-model research implementation | Private repository C | Model architecture/training/inference code exists; no verified trained checkpoint established |
 | ARC | Relation reasoning and composition experiments | Research artifacts and private project records | Separate solver/evaluation lane; do not conflate with LYR or FREE |
 | Meaning Integrity | Response-level meaning failure evaluation | Research and private benchmark artifacts | Distinct from Human Judgment Lab; benchmark validity requires separate study |
-| Historical Canvas corpus | Product specs, code documents, revision history | User-controlled Canvas recovery archive | 38 recovered documents / 129 snapshots; archive coverage is not complete account history |
+| Historical Canvas corpus | Product specs, code documents, revision history | User-controlled Canvas recovery archive | 38 distinct Canvas/text-document creation events and 129 broader `textdoc_id`-related text matches in the inspected export; these are not 129 verified revisions or snapshots. The export contains 337 conversation objects and is not the complete account history. |
 | Historical Google Apps Script integration | Form intake, Apps Script request, email response | Recovered conversation/source artifacts | Code configured to request OpenAI Chat Completions with `gpt-4`; successful generation for a specific submission is not established by fallback email alone |
 
 ## Verified source-level evidence
@@ -56,7 +56,7 @@
 
 ## Historical API evidence
 
-A recovered Google Apps Script workflow includes a function that constructs a request to `https://api.openai.com/v1/chat/completions` with `model: "gpt-4"`, and a caller that passes form submissions into the email workflow. A received email containing the script's fallback text demonstrates that the email path ran, but not that a successful model completion was returned. The exact API response/error log for that submission has not been recovered. Report this as an implemented integration attempt with unverified successful inference.
+A recovered May 30, 2025 Google Form / Apps Script workflow constructs a request to `https://api.openai.com/v1/chat/completions` with `model: "gpt-4"`. The conversation archive contains three user-pasted email outputs from that workflow, including a later fallback message (“The symbols may be silent for now. Try again later.”). This is contemporaneous, user-reported evidence that the email path delivered messages; it does not establish successful GPT-4 inference. No Apps Script execution record, HTTP status, raw API response, request ID, or Gmail headers were recovered. Report this as an implemented integration attempt with unverified successful inference.
 
 ## Verification labels
 
