@@ -59,3 +59,5 @@ A weekly public-only GitHub Actions worker is now committed at `scripts/public-b
 
 The workflow is configured for Monday 13:00 UTC, manual dispatch, and a one-time push trigger for its own source/workflow. It does not inspect private repositories C or J, does not collect source contents, and does not require a long-lived API key. Its first successful run has not been verified in the connected status results; treat the worker as configured, not yet operationally proven.
 
+
+An initial names-only snapshot is preserved at [`evidence/branch-census/initial-names-only-2026-11-05.json`](../evidence/branch-census/initial-names-only-2026-11-05.json). It records all 224 UI branch names and all 71 research branch names. The branch-search response did not expose head SHAs or timestamps, so the file explicitly marks those fields as unavailable; the scheduled census worker is intended to add them.
