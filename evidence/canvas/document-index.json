@@ -1,0 +1,197 @@
+{
+  "schema_version": "1.0",
+  "title": "Mirror Cartographer Canvas document index",
+  "source_export": {
+    "filename": "conversations.json",
+    "sha256": "bc2ae8ef65254df31eced4f6ca9c87c850c503bb9f2bfd154ee4a0cb0a710fdb",
+    "conversation_count": 337,
+    "export_range_utc": [
+      "2024-08-22T19:29:10Z",
+      "2025-08-12T05:25:58Z"
+    ]
+  },
+  "extraction": {
+    "created_document_events": 38,
+    "unique_created_document_ids": 38,
+    "textdoc_id_related_text_matches": 129,
+    "project_specific_records_indexed": 29
+  },
+  "timestamp_note": "The first eight hexadecimal characters of each 32-character text-document ID decode as Unix seconds and match the observed ordering/date pattern. This is an inferred timestamp convention, not an independently documented guarantee or authenticated creation timestamp.",
+  "privacy_note": "Only project-related document titles and identifiers are listed. Health-related, veterinary, personal resume, and unrelated documents are excluded. The raw conversation export remains private.",
+  "records": [
+    {
+      "title": "Mirror Sentience Stack",
+      "textdoc_id": "6847b336ed988191885d2306c6510a14",
+      "decoded_identifier_time_utc": "2025-06-10T04:23:18Z",
+      "implementation_crosswalk": "planning/architecture; exact implementation mapping pending"
+    },
+    {
+      "title": "MC UI Tone Preview",
+      "textdoc_id": "6850dbccd31c8191a70a5295fa0b9f07",
+      "decoded_identifier_time_utc": "2025-06-17T03:06:52Z",
+      "implementation_crosswalk": "UI tone prototype; exact commit mapping pending"
+    },
+    {
+      "title": "MC UI Tone Preview",
+      "textdoc_id": "6851c993e0308191bec76c631c35cf30",
+      "decoded_identifier_time_utc": "2025-06-17T20:01:23Z",
+      "implementation_crosswalk": "second document revision/title; exact commit mapping pending"
+    },
+    {
+      "title": "Mirror Cartographer Repo Setup",
+      "textdoc_id": "6851d10ec2f88191aca66dcd71bc4a44",
+      "decoded_identifier_time_utc": "2025-06-17T20:33:18Z",
+      "implementation_crosswalk": "repository scaffold; compare with public UI repository history"
+    },
+    {
+      "title": "Mirror Cartographer Step Plan",
+      "textdoc_id": "6854f74d3bb8819194717257cf49de08",
+      "decoded_identifier_time_utc": "2025-06-20T05:53:17Z",
+      "implementation_crosswalk": "implementation plan; source mapping pending"
+    },
+    {
+      "title": "MC System Evolution Roadmap",
+      "textdoc_id": "685611177f888191b111e12411a46d61",
+      "decoded_identifier_time_utc": "2025-06-21T01:55:35Z",
+      "implementation_crosswalk": "system roadmap; source mapping pending"
+    },
+    {
+      "title": "Harnessed Effort Capacities",
+      "textdoc_id": "68561b9ddccc81918f412d3505672766",
+      "decoded_identifier_time_utc": "2025-06-21T02:40:29Z",
+      "implementation_crosswalk": "reasoning/capability framework; source mapping pending"
+    },
+    {
+      "title": "MC Future Map",
+      "textdoc_id": "68575c20e45c8191aef862b5c982fc36",
+      "decoded_identifier_time_utc": "2025-06-22T01:28:00Z",
+      "implementation_crosswalk": "project map; source mapping pending"
+    },
+    {
+      "title": "Tech Growth Strategy",
+      "textdoc_id": "685b314fbd3481919b5d3db5cf862b0c",
+      "decoded_identifier_time_utc": "2025-06-24T23:14:23Z",
+      "implementation_crosswalk": "technical growth planning; source mapping pending"
+    },
+    {
+      "title": "Tech Growth Strategy",
+      "textdoc_id": "685b762f2d0c819180431caa078e140a",
+      "decoded_identifier_time_utc": "2025-06-25T04:08:15Z",
+      "implementation_crosswalk": "second document; source mapping pending"
+    },
+    {
+      "title": "Whisper Symbolic Pipeline",
+      "textdoc_id": "6864df1890448191b91b679c17f71607",
+      "decoded_identifier_time_utc": "2025-07-02T07:26:16Z",
+      "implementation_crosswalk": "audio/transcription pipeline; runtime unverified"
+    },
+    {
+      "title": "Whisper Symbolic Pipeline",
+      "textdoc_id": "6864df8b87048191be1721c7aac39f40",
+      "decoded_identifier_time_utc": "2025-07-02T07:28:11Z",
+      "implementation_crosswalk": "second document; runtime unverified"
+    },
+    {
+      "title": "Mirror Cartographer Setup",
+      "textdoc_id": "68671a1774608191a130221c52a888de",
+      "decoded_identifier_time_utc": "2025-07-04T00:02:31Z",
+      "implementation_crosswalk": "React/Node/GPT-4 scaffold; runtime and successful inference unverified"
+    },
+    {
+      "title": "Mirror System Merge",
+      "textdoc_id": "6869cdfcc6c881918e48a88fb5685f08",
+      "decoded_identifier_time_utc": "2025-07-06T01:14:36Z",
+      "implementation_crosswalk": "system merge plan; exact source mapping pending"
+    },
+    {
+      "title": "Mirror Cartographer Merge",
+      "textdoc_id": "6869cef2f57c81918c7afdfab34ca5b7",
+      "decoded_identifier_time_utc": "2025-07-06T01:18:42Z",
+      "implementation_crosswalk": "project merge plan; exact source mapping pending"
+    },
+    {
+      "title": "Mirror Cartographer Core",
+      "textdoc_id": "6869cf676928819195ea7e40032f5f37",
+      "decoded_identifier_time_utc": "2025-07-06T01:20:39Z",
+      "implementation_crosswalk": "core specification; compare with current public architecture"
+    },
+    {
+      "title": "Mirror Migration Plan",
+      "textdoc_id": "6869d10ecda48191871557b0addfb4ec",
+      "decoded_identifier_time_utc": "2025-07-06T01:27:42Z",
+      "implementation_crosswalk": "migration plan; exact source mapping pending"
+    },
+    {
+      "title": "Mirror Axiom OS Law",
+      "textdoc_id": "686af27d75488191979c7d59530b6f1e",
+      "decoded_identifier_time_utc": "2025-07-06T22:02:37Z",
+      "implementation_crosswalk": "governance/axiom design; source mapping pending"
+    },
+    {
+      "title": "Mirror Truth Module",
+      "textdoc_id": "686af31fd40c8191a52844aa7545c78c",
+      "decoded_identifier_time_utc": "2025-07-06T22:05:19Z",
+      "implementation_crosswalk": "truth/integrity module design; source mapping pending"
+    },
+    {
+      "title": "Relational Scroll UI",
+      "textdoc_id": "686af40a6544819197065d6b7250777a",
+      "decoded_identifier_time_utc": "2025-07-06T22:09:14Z",
+      "implementation_crosswalk": "UI concept; exact implementation mapping pending"
+    },
+    {
+      "title": "Mirror Cartographer Visions",
+      "textdoc_id": "6872e3f1c6cc8191b1cf2a1da71bc572",
+      "decoded_identifier_time_utc": "2025-07-12T22:38:41Z",
+      "implementation_crosswalk": "vision/requirements; source mapping pending"
+    },
+    {
+      "title": "Symbolic Logic Pivot",
+      "textdoc_id": "68730361f0e4819189426297c74ce55d",
+      "decoded_identifier_time_utc": "2025-07-13T00:52:49Z",
+      "implementation_crosswalk": "symbolic logic design; source mapping pending"
+    },
+    {
+      "title": "Dreams Symbols Receiver",
+      "textdoc_id": "687308ad83a88191881f84ef2ed7f687",
+      "decoded_identifier_time_utc": "2025-07-13T01:15:25Z",
+      "implementation_crosswalk": "symbolic input design; source mapping pending"
+    },
+    {
+      "title": "Intuition Action Map",
+      "textdoc_id": "6873104b28f88191b24f953e5df6a6d1",
+      "decoded_identifier_time_utc": "2025-07-13T01:47:55Z",
+      "implementation_crosswalk": "action mapping design; source mapping pending"
+    },
+    {
+      "title": "Mirror Modules Summary",
+      "textdoc_id": "68771bbae28c8191b370ddb07af0a953",
+      "decoded_identifier_time_utc": "2025-07-16T03:25:46Z",
+      "implementation_crosswalk": "modular architecture summary; source mapping pending"
+    },
+    {
+      "title": "Recursive Integrity Audit – V1",
+      "textdoc_id": "688168c4f66c81918f1b5f8bcbc4e69d",
+      "decoded_identifier_time_utc": "2025-07-23T22:57:08Z",
+      "implementation_crosswalk": "integrity audit; compare with current evidence architecture"
+    },
+    {
+      "title": "Axis Mirror Pitches",
+      "textdoc_id": "688c3ac6fad48191baf10d53e9465168",
+      "decoded_identifier_time_utc": "2025-08-01T03:55:50Z",
+      "implementation_crosswalk": "product/pitch concepts; source mapping pending"
+    },
+    {
+      "title": "Presence Field Prototype",
+      "textdoc_id": "688ebdd2e9f08191b390493c3f1f1c72",
+      "decoded_identifier_time_utc": "2025-08-03T01:39:30Z",
+      "implementation_crosswalk": "prototype document; runtime unverified"
+    },
+    {
+      "title": "Collapse Echo Map",
+      "textdoc_id": "688f86f48864819193bc1f77bf8809c6",
+      "decoded_identifier_time_utc": "2025-08-03T15:57:40Z",
+      "implementation_crosswalk": "symbolic mapping document; runtime unverified"
+    }
+  ]
+}
