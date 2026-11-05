@@ -108,4 +108,6 @@ Mirror Cartographer is not a medical, veterinary, legal, or diagnostic authority
 - [Portfolio case studies](docs/PORTFOLIO_CASE_STUDIES.md) — problem, contribution, artifacts, and evidence for representative work.
 - [Reproducibility and independent review](docs/REPRODUCIBILITY_AND_REVIEW.md) — how reviewers can inspect and reproduce public artifacts.
 
+- [OpenAI adoption evidence audit](docs/OPENAI_ADOPTION_EVIDENCE_AUDIT.md) — a falsifiable, evidence-bounded investigation; no internal adoption claim is made without direct evidence.
+
 These records distinguish implemented software, source-level evidence, historical prototypes, plans, and unverified runtime claims. Private repositories and personal archives remain private.
