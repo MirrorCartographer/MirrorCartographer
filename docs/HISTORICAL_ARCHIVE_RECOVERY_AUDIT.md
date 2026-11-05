@@ -201,3 +201,6 @@ Therefore, the three ZIPs were placeholder scaffolds—not completed knowledge p
 
 A privacy-reviewed, fully populated public starter kit has now been reconstructed at [agents/mirror-cartographer-public-starter-v1](../agents/mirror-cartographer-public-starter-v1/). It is explicitly labeled as a new reconstruction, not the original ZIP contents. Private companion-agent material was not published.
 
+
+The reconstructed public starter now contains ten inspectable source files, including a machine-readable mapping schema and twelve acceptance tests. A GitHub Actions packaging workflow validated the schema, built the ZIP, and committed the generated binary as `github-actions[bot]` in commit [f3e1117](https://github.com/MirrorCartographer/MirrorCartographer/commit/f3e111733708a9f02da6a36e85b64677565e9e59). This is verified package generation, distinct from the historical placeholder ZIPs.
+
