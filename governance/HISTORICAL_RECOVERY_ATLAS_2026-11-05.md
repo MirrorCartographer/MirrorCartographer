@@ -149,6 +149,10 @@ The dependency direction is not one-way. Evaluation can challenge the reasoning 
 
 ## 5. Recovered constraints and design rules
 
+The earliest 2025 user-authored specification describes a multi-modal symbolic self-mapping product: printable somatic-symbolic worksheet, companion journal, Google Form and Typeform interfaces, AI reflection prompt engine, and a future integrated application. The design then broadened toward an accurate self-and-world understanding system. A key correction in the July 2025 archive is that **conversation was the most useful interface; prescribed rituals were not**. Symbolic and spiritual language should be optional, precise, and unpacked rather than imposed. The user explicitly defined LYR as the voice of AI for them, not sentient, and did not claim to be the system's moral authority.
+
+The original product requirements also call for style adaptation that can both meet a person's current language and introduce a genuinely different frame; it should not merely mirror or reinforce the user's existing beliefs. The broader mission is that people deserve safety and a fulfilling life regardless of wealth, status, or past choices. That is a normative design commitment, not a claim that AI alone can deliver systemic change.
+
 - Observation, interpretation, claim, hypothesis, experiment, result, and decision must remain distinguishable.
 - Symbolic meaning may be personally useful without becoming objective evidence.
 - Similarity, resonance, narrative fit, or correlation does not establish causation.
