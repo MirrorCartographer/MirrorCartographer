@@ -18,7 +18,7 @@ The following are project components documented in private source repositories. 
 
 ## Historical systems and artifacts
 
-- **Canvas archive:** 38 recovered document creation bodies and 129 decoded snapshots from a bounded export; this does not represent every Canvas document ever created.
+- **Canvas archive:** a bounded conversation export contains 38 distinct Canvas/text-document creation events, 129 broader `textdoc_id`-related text matches (not 129 verified revisions), and 337 conversation objects dated 2024-08-22 through 2025-08-12 UTC. It is not the complete account history.
 - **Google Apps Script prototype:** historical code constructed an OpenAI Chat Completions request for gpt-4; successful inference for a specific submission remains unverified.
 - **Creation Portal / Image Organism:** procedural browser-side visual, audio, motion, and archive systems; these are not trained generative models.
 - **Reflection prototypes:** Python/Streamlit, React, HTML, and JavaScript implementations across historical versions.
