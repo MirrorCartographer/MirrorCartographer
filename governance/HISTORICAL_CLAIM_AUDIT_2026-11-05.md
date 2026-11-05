@@ -82,7 +82,8 @@ The user's own design requirements remain attributable: AI as a cognitive extens
 
 ### Continuity architecture and deployment boundaries
 
-- **Memory Palace / Coauthor Autobiography:** the repository documents explicitly describe durable project continuity and assistant participation history, not hidden off-session consciousness. The Memory Palace README says its rooms are initial placeholders until populated; the autobiography protocol is not evidence of an active hourly job.
+- **Memory Palace / Coauthor Autobiography:** the repository defines a ten-room map; 66 files currently occupy eight room directories, while the listed archive and garden directories are absent. The Coauthor Autobiography has one reconstructed entry, explicitly not objective history or continuous off-session consciousness. Its hourly protocol is not evidence of an active hourly job.
+- **Mind Studio population:** the `mind/` tree contains 287 files, but the stable-memory, graph, decision, queue, question, and failure ledgers remain README-only scaffolds; journal, experiment, and hypothesis ledgers have only limited entries. The 66-file Memory Palace is a substantial design/research space, not a fully populated memory database.
 - **Continuity Lens Record Router:** the five-view schema is a proposal. It explicitly lacks a permissions engine, encryption model, revocation model, audit UI, and consent workflow.
 - **Continuity API:** backend CRUD/export/upload code and a SQL schema exist, but the current room-world frontend persists progress in browser localStorage and no frontend continuity API client was found. Live Supabase/Vercel persistence is unverified.
 - **Source coverage:** M-RECONCILE-002 contracts require branch, reachable-commit, tree/blob, and cross-source coverage before exhaustive absence claims. The current source-class ledger remains unresolved. The collector script does not yet prove tree/blob coverage or complete parent-edge closure.
