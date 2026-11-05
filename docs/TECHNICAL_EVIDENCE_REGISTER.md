@@ -16,6 +16,7 @@
 | LYR | Independent language-model research implementation | Private repository C | Model architecture/training/inference code exists; no verified trained checkpoint established |
 | ARC | Relation reasoning and composition experiments | Research artifacts and private project records | Separate solver/evaluation lane; do not conflate with LYR or FREE |
 | Meaning Integrity | Response-level meaning failure evaluation | Research and private benchmark artifacts | Distinct from Human Judgment Lab; benchmark validity requires separate study |
+| Unified Execution Hub UI | Local-first static dashboard in `MirrorCartographer/mirror-cartographer-ui/execution-hub.html` | Source verified; browser behavior not independently executed in this pass |
 | Historical Canvas corpus | Product specs, code documents, revision history | User-controlled Canvas recovery archive | 39 unique Canvas textdoc IDs (32 document artifacts, 7 code artifacts), 695 Canvas metadata events, and 133 distinct `(textdoc_id, version)` pairs across a bounded 337-conversation export. These are observed version identifiers, not every historical revision. |
 | Historical Google Apps Script integration | Form intake, Apps Script request, email response | Recovered conversation/source artifacts | Code configured to request OpenAI Chat Completions with `gpt-4`; successful generation for a specific submission is not established by fallback email alone |
 
