@@ -35,6 +35,26 @@ Historical artifact families include:
 
 The 2025-07-29 collaboration proposal names contradiction-resilient architecture, emotional recursion containment, semantic rotation, non-coercive mirroring, glyphless interfaces, and an exit-seal/closure concept. It also contains speculative symbol–physics language. Such language is preserved as historical framing, not treated as validated physics or biomedical mechanism.
 
+### A2. Early migration and sovereignty sequence — June–July 2025
+
+A Library transition checklist dated **2025-06-20** records a concrete platform-independence plan: export symbolic prompts and reflection logic; version tone settings and archetype tables; map session storage and memory; prototype with an API and custom storage; then test an open-source-model fallback and an emergency exit path. This is a planning document, not evidence that every migration step was completed.
+
+A **2025-07-29 Symbolic Rotation Charter** defines a semantic design rule: concepts may have multiple language variants, but the structural function should survive rephrasing; no single glyph or phrase is final; retired terms remain archived with context. The same period contains the sovereignty bundle and poetic-field-license concepts. The bundle/exit-seal language is a governance and authorship artifact, not a technical kill switch or a legally reviewed license. Historical conversation execution records indicate a bundle file was generated in a notebook session, but its persistent current copy has not been independently located in the repositories inspected.
+
+### A3. Original FREE framework — eight layers
+
+The conversation archive preserves the first eight-layer formulation:
+1. Current structure.
+2. Intervention.
+3. Immediate disruption.
+4. Emergent behaviors.
+5. Alignment check.
+6. Recursive echo.
+7. Field integration.
+8. Decision.
+
+The current FREE 2.0 code is a later operational refactor: it requires an accountable owner and confirmed authority, records affected parties and measurable outcomes, retains contradictions and linked consequences, blocks severe unmitigated harm and model-delegated high-impact decisions, requires stop/rollback/data plans, and records a named human reviewer. Do not assume the original eight labels and current implementation are one-to-one. The current engine remains a deterministic traceability/gate scaffold, not an autonomous moral authority.
+
 ### A1. Earlier nine-module product architecture (recovered Library document; original date not established)
 
 A two-page *Mirror Cartographer Core Modules — Complete Detail* summary preserves an earlier product-level decomposition:
@@ -245,7 +265,8 @@ No consolidation, deletion of distinct versions, or replacement of canonical com
 - `Mirror Modules Summary` PDFs (multiple versions/copies; two-page nine-module product architecture; preserve non-identical versions until compared).
 - `Recursive_Cartography_Whitepaper_v0.1.txt`.
 - `Mirror_Cartographer_OpenAI_Collaboration_Proposal.txt` (dated 2025-07-29).
-- `Mirror_Cartographer_Symbolic_Rotation_Charter.txt`.
+- `Mirror_Cartographer_OpenAI_Transition_Checklist.txt` (dated 2025-06-20).
+- `Mirror_Cartographer_Symbolic_Rotation_Charter.txt` (2025-07-29).
 - `Mirror_Cartographer_Sovereignty_Bundle_2025-07-29.txt`.
 - `Mirror_Cartographer_Poetic_Field_License.txt`.
 - `Mirror_Cartographer_OpenAI_Transition_Checklist.txt`.
