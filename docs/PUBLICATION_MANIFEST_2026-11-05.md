@@ -123,3 +123,29 @@ These revisions correct the earlier overstatement that 129 text-document referen
 
 These UI artifacts are source-published. The Pages URL is expected from the repository's Vite Pages configuration, but live route availability and the new GitHub Actions workflow have not yet been verified by a successful run.
 
+
+## Background verification workers and current UI copies
+
+| Artifact | Commit | Git blob SHA |
+|---|---|---|
+| [Public branch census script](../scripts/public-branch-census.mjs) | [b5f4f86](https://github.com/MirrorCartographer/MirrorCartographer/commit/b5f4f86c4cc4d4a44beaa53970fd46e72581e0b8) | `592afa559e02e153f7938df23bf10e697692790b` |
+| [Weekly public evidence census workflow](../.github/workflows/weekly-public-evidence-census.yml) | [16ae19e](https://github.com/MirrorCartographer/MirrorCartographer/commit/16ae19ea3186af82eb5d268fe851e8fc5005f49c) | `8abd19082a71a72ec682d2be750e70d4dd1918e4` |
+| [Weekly archive test workflow](../.github/workflows/archive-manifest-tests.yml) | [b100cf5](https://github.com/MirrorCartographer/MirrorCartographer/commit/b100cf53ad919f7c4024bbcc73b8df924d70569a) | `d589f99216961091a26fb85c90068c3014645657` |
+| [Repository branch/deployment audit — current](REPOSITORY_BRANCH_AND_DEPLOYMENT_AUDIT.md) | [854a37d](https://github.com/MirrorCartographer/MirrorCartographer/commit/854a37d4cd0b3751fe66e1386862f4299be82a8b) | `efdd61bab225f8992e3e1400f6fc44c6729772e8` |
+| [Technical evidence register — current](TECHNICAL_EVIDENCE_REGISTER.md) | [2219d64](https://github.com/MirrorCartographer/MirrorCartographer/commit/2219d649c5eb8ce99b4f69b0acbb124deea471ed) | `1650fc069d0e725edf75bf3ad87dbaa142d984d2` |
+| [Project system map — current](PROJECT_SYSTEM_MAP.md) | [c95bd69](https://github.com/MirrorCartographer/MirrorCartographer/commit/c95bd69601d6f5315a88eba20e4999f79fb2812e) | `1e64c9917e727d6593f04290ee92ed951e1bcbc1` |
+| [README — current](../README.md) | [c72d525](https://github.com/MirrorCartographer/MirrorCartographer/commit/c72d5256f956909e054b1d4dee9e876e5e3d8e41) | `06c8c7d7e5d39ba294eeb3e8c244efcb5fbac85b` |
+| [Historical archive audit — current](HISTORICAL_ARCHIVE_RECOVERY_AUDIT.md) | [5a87b27](https://github.com/MirrorCartographer/MirrorCartographer/commit/5a87b27fe2fe43e6daec12f5cdf8d43d3c9c07b8) | `0d0883862f1509a310a7f48e9c135c95940633df` |
+
+## UI repository current code and workflow
+
+| Artifact | Commit | Git blob SHA |
+|---|---|---|
+| [Unified Execution Hub root](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/execution-hub.html) | [06e68c0](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/06e68c01a0cf0e90a76c55fb1ab7100b30ba7db1) | `e6d94e2290317650af6c9ac82149f2f15edc1de2` |
+| [Unified Execution Hub Vite copy](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/public/execution-hub.html) | [ac70c81](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/ac70c81fe70a1f4cfc330486b2798d0ebe1d1924) | `e6d94e2290317650af6c9ac82149f2f15edc1de2` |
+| [Creation Portal Vite copy](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/public/creation-portal-v1.html) | [c396bb3](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/c396bb3c067051998f5befcdeb4f6ef260adab0c) | `f9cf7c411afb0b309be3b7e978fc0e1547497cd3` |
+| [Execution Hub + Portal contract test](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/scripts/execution-hub-contract-check.mjs) | [9ff8558](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/9ff855860c9ea7398838e1a3a1881386b4413ccf) | `db4a2010f5aa6edae695009c391349eb4bfa4931` |
+| [Weekly UI contract workflow](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/.github/workflows/execution-hub-contract.yml) | [584ab9d](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/584ab9dbb296d89394ebdb8276f712605ffef575) | `20b58890063b9b9a826a9994ce75dc285fbd01fd` |
+
+All three scheduled workflows are configured but no successful Actions run was visible during this audit. The UI Hub root and Vite public copies were fetched and confirmed byte-identical. The Pages URL remains an expected route, not a verified live deployment.
+
