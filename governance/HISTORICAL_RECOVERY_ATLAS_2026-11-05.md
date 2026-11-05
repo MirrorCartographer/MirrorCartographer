@@ -8,18 +8,32 @@
 
 Mirror Cartographer is not one repository or one application. It is a historically layered body of work with at least four distinct source environments:
 
-| Source environment | Visibility | Git tree entries observed 2026-11-05 | Role established by repository evidence |
-|---|---:|---:|---|
-| `MirrorCartographer/MirrorCartographer` | Public | 4,246 | Observatory: research, evidence, architecture, governance, tools, demonstrations, public-interest methods, and creative work |
-| `MirrorCartographer/mirror-cartographer-ui` | Public | 2,506 | House of Mouths: interactive experiences, rooms, Living Atlas, workbench, Self Cartographer, research interfaces, and creative environments |
-| Private creative/core archive | Private | 691 | Historical source corpus, symbolic reflection system, personal archive, prototypes, structured data, continuity records, and local model/runtime experiments |
-| Private Human Judgment Lab | Private | 21 | Human evaluation operations studio, Consensus Trap experiment, synthetic evaluation data, and test harnesses |
+| Repository | Visibility | Git tree entries observed 2026-11-05 | Branches | Open PRs | Role established by repository evidence |
+|---|---:|---:|---:|---:|---|
+| `MirrorCartographer/MirrorCartographer` | Public | 4,694 | 71 | 15 | Observatory: research, evidence, architecture, governance, tools, demonstrations, public-interest methods, and creative work |
+| `MirrorCartographer/mirror-cartographer-ui` | Public | 2,780 | 224 | 139 | House of Mouths: interactive experiences, rooms, Living Atlas, workbench, Self Cartographer, research interfaces, and creative environments |
+| `MirrorCartographer/c` | Private | 810 | 8 | 3 | Historical source corpus, symbolic reflection system, provenance memory, prototypes, provider bridge, and bounded worker |
+| `MirrorCartographer/J` | Private | 30 | 2 | 1 | Human Judgment Lab: evaluation operations, Consensus Trap experiment, synthetic evaluation data, and test harnesses |
+| **Total** |  | **8,314** | **305** | **158** |  |
 
-The four accessible trees contained **7,464 tracked entries** in this snapshot. These are Git tree entries, not 7,464 finished features. Counts change with commits and include source, tests, documents, images, data, and generated or supporting files. All four recursive trees returned complete, non-truncated results.
+The four accessible trees contained **8,314 tracked entries** in this snapshot. These are Git tree entries, not finished features. Branch and pull-request counts include unmerged experiments and proposals; they are not counts of integrated or deployed capabilities. Counts change with commits. All four recursive trees returned complete, non-truncated results, and the branch/PR totals were reconciled across paginated GitHub API results.
 
 The Library also contains a 55-page *Mirror Cartographer Atlas — Expanded Edition*, original whitepapers, module summaries, migration and sovereignty documents, ethics/licensing materials, companion journals, images, large conversation-history exports, and a May 2026 catalog of 256 production/research/operations artifacts. Those Library artifacts are separate from the Git trees and must retain their own source identifiers and dates.
 
 ## 2. Historical lineage
+
+### A0. Pre-name lineage — 2024 to May 2025
+
+The earliest recovered archive begins on 2024-08-22. Its precursor material concerns making difficult bodily and emotional experience describable, examining how people interpret themselves, autobiographical self-understanding, and questions about mirror-neuron research. These are precursors to the later product problem, not evidence that an AI agent or software architecture already existed in 2024.
+
+Authorship matters in the naming sequence:
+- **2025-04-02 — “Mirror Weaver”:** the assistant coined this as a symbolic character/archetype for a creative/tattoo concept. It was not the name of the software system.
+- **2025-04-20 — “Mirror Intelligence”:** the assistant introduced this phrase and then explained it when the user asked what it meant. It is not an established scientific discipline or an independently discovered system.
+- **2025-05-22 — cognitive-extension requirement:** the user explicitly described AI as a helpful extension to their brain, with feeling and complexity supplied by the person and structure supplied by AI. The user asked to build the system step by step, wanted concise factual analysis, and asked for an opposing/logical perspective rather than only symbolic language.
+- **2025-05-23 — product behavior before product label:** the user described a person entering their own language and wording, with an AI-supported interface that helps them examine and shift how a feeling is understood. The assistant proposed the name “Mirror Cartographer”; the user adopted the name and continued developing the product. The name is therefore later than the underlying interaction concept.
+- **2025-07-29 — LYR boundary:** the user explicitly described LYR as the voice of AI for them while stating that LYR is not sentient. Preserve LYR as an interaction identity/configuration, not a conscious being.
+
+The later Foundation Intelligence Architecture (FIA), Observatory, House of Mouths, and eight-lane studio are broader 2026 architectural and project structures. They must not be used as filters that erase the earlier, differently named work.
 
 ### A. Symbolic reflection and personal cartography — 2025
 
@@ -106,6 +120,14 @@ The current public-facing split is explicit:
 - The private Human Judgment Lab retains evaluation operations and synthetic experiments.
 
 These are complementary surfaces, not four interchangeable versions of the same application.
+
+### 2E. All-at-Once Studio and eight operational lanes — May 2026
+
+The 2026-05-04 Library catalog contains 256 artifact rows: 102 Thunder-Door/music-film, 34 studio/proof-system, 23 ARC, 15 TikTok/field organizer, 14 bio-safety/bounty, 64 general/uncategorized, and 4 index/manifest entries. The catalog reports 72 image-art, 55 video, 33 document, 31 ZIP-package, 23 audio, 17 ledger/table, 14 manifest/data, and 11 dashboard/HTML-tool rows. These are catalog entries, not 256 validated products; many historical sandbox media bytes are not currently recoverable.
+
+The separate `lane_registry_v14` defines eight operational lanes: Mirror Cartographer, TikTok Organizer, AI Safety/Locksmith, Animal Health, Archive Continuity, Tech Deploy, ARC/Research, and Music/Video. The separate five-lane studio engine uses five proof rooms: ARC, Bio safety, Thunder-Door music video, Thunder-Door film, and TikTok/field organizer. Its four-layer execution map is Foundation → Studio execution → Proof/vertical slice → LEAP Stack. These are different decompositions, not eight autonomous agents.
+
+The proof ledger preserves important limits: ARC local demos are not official benchmark results; safe bounty packets are not a bounty win; music/film assets are not automatically the final canonical cut; TikTok taxonomy examples are not evidence that a real account export was processed. The Animal Recovery Signal Tool has offline v5/v6/v6.1 artifacts, but it is an observation and escalation aid, not a diagnostic system.
 
 ## 3. Recovered system map
 
@@ -217,6 +239,14 @@ The following pull requests are open and unmerged. Their own descriptions report
 | Private creative/core archive | [#5 — Exact duplicate assets](https://github.com/MirrorCartographer/c/pull/5) | Removes 12 byte-identical image files across 11 duplicate-content groups | Open; distinct/non-identical historical versions preserved; review before merge |
 | Private creative/core archive | [#3 — Offline cache and evidence ledger](https://github.com/MirrorCartographer/c/pull/3) | Service-worker cache regression tests and 75-entry ledger alignment added | Draft; hosted CI and real-device/browser verification not yet observed |
 | Private Human Judgment Lab | [#1 — Reproducible evaluation experiments](https://github.com/MirrorCartographer/J/pull/1) | 10/100 iterations; validation and workbench runs reported success | Draft; 90 iterations remain; simulation remains synthetic, not empirical human-rater research |
+
+| Public House of Mouths | [#158 — Foundation Conversation Compiler](https://github.com/MirrorCartographer/mirror-cartographer-ui/pull/158) | Small deterministic compiler proposal for conversation material | Draft/unmerged; not a complete account-history ingestion pipeline |
+| Public House of Mouths | [#161 — Provider-neutral build worker](https://github.com/MirrorCartographer/mirror-cartographer-ui/pull/161) | Worker prototype; six tests reported passing | Draft/unmerged; process isolation is not a hardened VM/container sandbox |
+| Public House of Mouths | [#163 — LYR ARC-AGI-1 baseline](https://github.com/MirrorCartographer/mirror-cartographer-ui/pull/163) | Deterministic candidate-program search solver and evaluation workflow | Workflow failed; no measured 400-task score verified |
+| Public House of Mouths | [#165 — Full sovereign platform program](https://github.com/MirrorCartographer/mirror-cartographer-ui/pull/165) | Large program/contract specification spanning 27 domains | Draft/unmerged; contract validation is not a deployed platform |
+| Public House of Mouths | [#168 — Braid five self-improving stewards](https://github.com/MirrorCartographer/mirror-cartographer-ui/pull/168) | Five-steward orchestration/control-plane proposal | Draft/unmerged; checks did not establish an operational multi-agent workforce |
+| Public House of Mouths | [#171 — Self-model agent map](https://github.com/MirrorCartographer/mirror-cartographer-ui/pull/171) | Deterministic self-audit runner and agent-map proposal | Draft/unmerged; no model-backed autonomous agent verified |
+| Public House of Mouths | [#178 — Living Encounter iteration](https://github.com/MirrorCartographer/mirror-cartographer-ui/pull/178) | 14/100 scoped iterations; source checks reported passing | Open; deployment of the exact branch commit not verified |
 
 Do not merge or discard these branches as part of archaeology. First compare their base/head commits, inspect diffs and checks, and determine whether any later branch supersedes an earlier one. The 100-iteration labels are scoped work programs, not evidence that 100 iterations have already been completed.
 
