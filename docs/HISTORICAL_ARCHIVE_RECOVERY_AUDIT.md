@@ -33,20 +33,28 @@ These hashes identify the exact bytes of the three records inspected in this aud
 | `REFRESHED_ARTIFACT_CATALOG_CURRENT.csv` | 56,016 bytes | `1e8f67707ad0682d0c4b5ec3b939e848c1d4fd30dd3d52fc0ac0ce68a801da96` |
 | `Mirror_Cartographer_Atlas_Omnibus(1).pdf` | 8,113,153 bytes | `ae3133f2283bfacbc56b5fbc36cf5a8dc961de99cafb05dc26753f7bd98a3b0f` |
 | `chatgpt log.rtf` | 25,279,288 bytes | `03b2ebf944f36fe6e1a9235029f256fdd3bf4e5310b0ff50b6840294cc6acd48` |
+| `conversations.json` | 62,059,190 bytes | `bc2ae8ef65254df31eced4f6ca9c87c850c503bb9f2bfd154ee4a0cb0a710fdb` |
 
 These hashes are recorded as local audit observations. Because the original files are not publicly available at these paths, an external reviewer cannot independently recompute them without receiving the source files through a privacy-controlled channel.
 
 ## Canvas / text-document evidence
 
-The inspected RTF archive contains 509 textual mentions of Canvas, 103 occurrences of `textdoc_id`, and 28 distinct `Successfully created text document` records. This is direct evidence that the export preserves a substantial set of Canvas/text-document creation events. It does not establish that all 28 documents, all snapshots, or the full account history are present.
+The recovered `conversations.json` export contains 337 conversation objects spanning 2024-08-22 19:29 UTC through 2025-08-12 05:25 UTC. Its message metadata records model slugs including GPT-4o, GPT-4, GPT-4o mini, GPT-5, o3-mini, and research. The archive contains 38 distinct Canvas/text-document creation events with 38 unique 32-character document identifiers. A broader text scan finds 129 `textdoc_id`-related mentions; these are not 129 verified revisions or snapshots. A separate RTF export contains 28 creation markers and 509 Canvas mentions, so it is a partial/overlapping export rather than a complete duplicate of the JSON archive. This establishes substantial document creation and use, but not completeness of the account's entire Canvas history.
 
 Identifiable project-related records include:
 
 | Canvas/text-document title | Text-document identifier | Decoded identifier time (UTC; inferred) |
 |---|---|---|
+| Mirror Sentience Stack | `6847b336ed988191885d2306c6510a14` | 2025-06-10 04:23 |
 | MC UI Tone Preview | `6850dbccd31c8191a70a5295fa0b9f07` | 2025-06-17 03:06 |
 | MC UI Tone Preview (second record) | `6851c993e0308191bec76c631c35cf30` | 2025-06-17 20:01 |
 | Mirror Cartographer Repo Setup | `6851d10ec2f88191aca66dcd71bc4a44` | 2025-06-17 20:33 |
+| Mirror Cartographer Step Plan | `6854f74d3bb8819194717257cf49de08` | 2025-06-20 05:53 |
+| MC System Evolution Roadmap | `685611177f888191b111e12411a46d61` | 2025-06-21 01:55 |
+| Harnessed Effort Capacities | `68561b9ddccc81918f412d3505672766` | 2025-06-21 02:40 |
+| MC Future Map | `68575c20e45c8191aef862b5c982fc36` | 2025-06-22 01:28 |
+| Tech Growth Strategy | `685b314fbd3481919b5d3db5cf862b0c` | 2025-06-24 23:14 |
+| Tech Growth Strategy (second record) | `685b762f2d0c819180431caa078e140a` | 2025-06-25 04:08 |
 | Whisper Symbolic Pipeline | `6864df1890448191b91b679c17f71607` | 2025-07-02 07:26 |
 | Whisper Symbolic Pipeline (second record) | `6864df8b87048191be1721c7aac39f40` | 2025-07-02 07:28 |
 | Mirror Cartographer Setup | `68671a1774608191a130221c52a888de` | 2025-07-04 00:02 |
@@ -54,12 +62,15 @@ Identifiable project-related records include:
 | Mirror Cartographer Merge | `6869cef2f57c81918c7afdfab34ca5b7` | 2025-07-06 01:18 |
 | Mirror Cartographer Core | `6869cf676928819195ea7e40032f5f37` | 2025-07-06 01:20 |
 | Mirror Migration Plan | `6869d10ecda48191871557b0addfb4ec` | 2025-07-06 01:27 |
+| Mirror Axiom OS Law | `686af27d75488191979c7d59530b6f1e` | 2025-07-06 22:02 |
+| Mirror Truth Module | `686af31fd40c8191a52844aa7545c78c` | 2025-07-06 22:05 |
+| Relational Scroll UI | `686af40a6544819197065d6b7250777a` | 2025-07-06 22:09 |
 | Mirror Cartographer Visions | `6872e3f1c6cc8191b1cf2a1da71bc572` | 2025-07-12 22:38 |
 | Symbolic Logic Pivot | `68730361f0e4819189426297c74ce55d` | 2025-07-13 00:52 |
 | Dreams Symbols Receiver | `687308ad83a88191881f84ef2ed7f687` | 2025-07-13 01:15 |
 | Intuition Action Map | `6873104b28f88191b24f953e5df6a6d1` | 2025-07-13 01:47 |
 | Mirror Modules Summary | `68771bbae28c8191b370ddb07af0a953` | 2025-07-16 03:25 |
-| Recursive Integrity Audit | `688168c4f66c81918f1b5f8bcbc4e69d` | 2025-07-23 22:57 |
+| Recursive Integrity Audit – V1 | `688168c4f66c81918f1b5f8bcbc4e69d` | 2025-07-23 22:57 |
 | Axis Mirror Pitches | `688c3ac6fad48191baf10d53e9465168` | 2025-08-01 03:55 |
 | Presence Field Prototype | `688ebdd2e9f08191b390493c3f1f1c72` | 2025-08-03 01:39 |
 | Collapse Echo Map | `688f86f48864819193bc1f77bf8809c6` | 2025-08-03 15:57 |
@@ -78,6 +89,16 @@ Health-related Canvas records and personal conversation content are deliberately
 | Presence Field Prototype | Presence Field / reflective interaction artifacts | Historical document identified; execution and commit mapping pending |
 | Collapse Echo Map / Axis Mirror Pitches | Symbolic and relational mapping research | Historical documents identified; implementation mapping not established |
 | Mirror Modules Summary / Recursive Integrity Audit | Modular architecture and integrity research | Historical documents identified; exact source mapping pending |
+
+## Google Form → Apps Script → email chronology
+
+The May 30, 2025 `Google Form Response Guide` conversation preserves a detailed setup sequence. The code shown constructs a request to OpenAI's Chat Completions endpoint with `model: "gpt-4"`, then uses `choices[0].message.content` as the reflection content and sends an email through Apps Script.
+
+The same conversation records three user-pasted email outputs at 2025-05-30 02:52, 03:00, and 03:30 UTC. The third includes the fallback sentence “The symbols may be silent for now. Try again later.” The conversation also records the user reporting no email at 03:27 UTC, then reporting receipt of the fallback email at 03:30 UTC. This is contemporaneous, user-reported evidence that the form/Sheet/Apps Script email path produced delivered messages. It is not independent Gmail-header or Apps Script execution-log evidence.
+
+The assistant's contemporaneous troubleshooting response identified the fallback as a GPT-call failure. This is consistent with an error response or missing `choices` object, but the underlying HTTP status and raw response were not captured. The evidence supports an attempted GPT-4 API integration and a working email-delivery path, while successful GPT-4-generated reflection remains unverified.
+
+Connected Gmail searches for `testOpenAICall`, `Apps Script` + `OpenAI`, `Mirror Cartographer` + `GPT-4`, the Chat Completions URL, and `execution log` + `GPT-4` returned no matching threads. This does not rule out messages in another Google account or non-Gmail Apps Script logs.
 
 ## Google Apps Script / OpenAI API evidence
 
