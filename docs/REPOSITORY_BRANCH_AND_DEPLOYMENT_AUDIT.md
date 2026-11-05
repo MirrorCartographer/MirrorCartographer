@@ -102,7 +102,7 @@ This confirms the historical Vite/React UI lane is now publicly inspectable. It 
 
 ## Privacy review finding
 
-A sample of legacy public branch README files contains personal identifying material and references to personal health/pet context. Those README bodies were not copied into the public evidence archive and should not be merged into the canonical branch without a privacy scrub. A private ledger preserves the exact sampled locations and blob identifiers. The sample is not a complete scan of all 224 UI branches.
+Sampling of at least 12 distinct legacy public branch refs found README content containing personal identifying material and references to personal health/pet context. Those README bodies were not copied into the public evidence archive and should not be merged into the canonical branch without a privacy scrub. A private ledger preserves the exact sampled locations and blob identifiers. The sample is not a complete scan of all 224 UI branches.
 
 Replacing a README with a sanitized version would not remove the original content from Git history. Full historical removal would require destructive history rewriting or branch deletion, so no such operation was performed. A complete privacy sweep and any history rewrite require explicit owner approval.
 
