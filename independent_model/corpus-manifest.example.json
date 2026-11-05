@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "corpus_name": "LYR research corpus",
+  "corpus_version": "0.0.0",
+  "status": "EMPTY_TEMPLATE_NOT_TRAINING_DATA",
+  "items": [],
+  "excluded_categories": [
+    "private conversations",
+    "medical and veterinary records",
+    "financial records",
+    "private messages",
+    "credentials",
+    "unlicensed or unclear-rights material"
+  ],
+  "review": {
+    "rights_reviewed": false,
+    "privacy_reviewed": false,
+    "deduplication_completed": false,
+    "train_validation_test_separation_verified": false,
+    "reviewer": null,
+    "reviewed_at": null
+  }
+}
