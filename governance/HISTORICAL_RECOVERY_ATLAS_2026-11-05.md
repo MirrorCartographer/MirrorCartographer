@@ -35,6 +35,21 @@ Historical artifact families include:
 
 The 2025-07-29 collaboration proposal names contradiction-resilient architecture, emotional recursion containment, semantic rotation, non-coercive mirroring, glyphless interfaces, and an exit-seal/closure concept. It also contains speculative symbol–physics language. Such language is preserved as historical framing, not treated as validated physics or biomedical mechanism.
 
+### A1. Earlier nine-module product architecture (recovered Library document; original date not established)
+
+A two-page *Mirror Cartographer Core Modules — Complete Detail* summary preserves an earlier product-level decomposition:
+1. Somatic Symbol Map.
+2. Symbol-Archetype Mapper.
+3. Reflective Prompt Engine.
+4. Mirror Interpretation Core.
+5. Trajectory & Pattern Tracker.
+6. Lineage + Inheritance Engine.
+7. Emotional Operating System (EOS).
+8. Adaptive Interface Layer (Tone + Safety Engine).
+9. Continuity Artifact Generator.
+
+This is a separate historical design layer from the later ten-engine Atlas stack. The two should not be collapsed into one list: the nine modules describe user-facing product functions and subsystems; the ten engines describe transformations and system dynamics. The earlier Lineage + Inheritance module uses ancestral/epigenetic language in a symbolic design context; that wording is not evidence of a validated epigenetic inference capability. The source copy is a design summary, not proof that all nine modules were implemented.
+
 ### B. Formalized Mirror Cartographer Atlas — 2026-04-25 Library artifact
 
 The 55-page Atlas omnibus is arranged into six volumes:
@@ -227,6 +242,7 @@ No consolidation, deletion of distinct versions, or replacement of canonical com
 
 ### Library historical anchors
 - `Mirror_Cartographer_Atlas_Omnibus.pdf` (55 pages; six-volume structure).
+- `Mirror Modules Summary` PDFs (multiple versions/copies; two-page nine-module product architecture; preserve non-identical versions until compared).
 - `Recursive_Cartography_Whitepaper_v0.1.txt`.
 - `Mirror_Cartographer_OpenAI_Collaboration_Proposal.txt` (dated 2025-07-29).
 - `Mirror_Cartographer_Symbolic_Rotation_Charter.txt`.
