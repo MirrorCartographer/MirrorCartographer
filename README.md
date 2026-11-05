@@ -61,6 +61,8 @@ These are user-confirmed working URLs. Do not replace them with unverified deplo
 - [FREE 2.0 specification](architecture/FREE_2_SPEC.md) and [executable core](tools/free_engine/free_engine.py) — consequence tracking, contradiction preservation, and human decision gates.
 - [Mirror Engine provenance store](mirror_engine/store.py) — explicit records, typed relationships, contradictions, model-output provenance, and export/delete.
 - [Independent LYR model build](independent_model/README.md) — project-owned decoder-only Transformer, tokenizer, and from-scratch training path.
+- [Repository consolidation map](architecture/REPOSITORY_CONSOLIDATION_v1.md) — existing private and public components, canonical responsibilities, and integration sequence.
+- [LYR training data governance](independent_model/DATA_GOVERNANCE.md) and [corpus manifest template](independent_model/corpus-manifest.example.json) — rights and privacy gates before training.
 - [Ownership and funding strategy](governance/OWNERSHIP_AND_FUNDING_STRATEGY_v1.md) — chain of title, attribution, licensing, and non-speculative revenue sequence.
 - [Kannapolis Rider Transit pilot](pilots/KANNAPOLIS_RIDER_TRANSIT_CLARITY_PILOT_v1.md) — measurable, source-linked trip-information usability experiment.
 - [North Carolina and global scaling gates](roadmap/NORTH_CAROLINA_AND_GLOBAL_SCALING_GATES_v1.md) — evidence-gated expansion.
