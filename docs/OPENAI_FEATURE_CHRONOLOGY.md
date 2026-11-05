@@ -12,10 +12,10 @@ Compare (1) the earliest recoverable dated Mirror Cartographer artifact, (2) the
 | OpenAI capability | OpenAI public date | Recovered project evidence | Assessment |
 |---|---|---|---|
 | ChatGPT Memory | Feb 13, 2024 test announcement; wider rollouts followed | Recovered project material discusses persistent symbolic/session memory and continuity; current inspected archive contains detailed design documents but the earliest pre-Feb-2024 dated source has not been authenticated in this audit | Similar problem space; chronological priority not established |
-| Canvas | Oct 3, 2024 beta announcement | RTF export contains 28 text-document creation events; the IDs appear to encode UTC Unix timestamps from May–Aug 2025. This proves later Canvas use and extensive document work, not pre-launch invention of Canvas | No adoption inference; artifact dates are after launch |
+| Canvas | Oct 3, 2024 beta announcement | The bounded JSON export contains 39 unique Canvas textdoc IDs, 695 metadata events, and 133 distinct `(textdoc_id, version)` pairs; the separate RTF export contains 28 creation markers. The observed identifier pattern points to June–August 2025 project Canvas records. This proves later Canvas use and extensive document work, not pre-launch invention of Canvas | No adoption inference; artifact dates are after launch |
 | ChatGPT Projects | Dec 13, 2024 (official release notes) | Project organization, master maps, cross-document continuity, and repository structure appear in later project records | Broad workflow similarity; not enough for technical equivalence or influence |
 | Operator / browser-use agent | Jan 23, 2025 research preview | Mirror Cartographer project daemon and automation concepts exist in project documentation; no evidence of an independently implemented general browser operator predating Operator in this audit | Not equivalent on current evidence |
-| Codex | May 16, 2025 research preview | Historical conversations show AI-assisted code generation and debugging before Codex. This is consistent with general-purpose LLM coding capability, not evidence of an independently built Codex-like agent | Important distinction: coding with a model is not the same as a coding agent product |
+| Codex | May 16, 2025 research preview | The bounded export contains general coding conversations before Codex, but its first explicit Mirror Cartographer project record is May 22, 2025, after Codex's May 16 announcement. No pre-Codex Mirror Cartographer code artifact has been authenticated in this export. This is consistent with general-purpose LLM coding capability, not evidence of an independently built Codex-like agent | Important distinction: coding with a model is not the same as a coding agent product |
 | ChatGPT agent | Jul 17, 2025 | Project daemons, orchestration plans, and bounded model-worker concepts appear in private project records; exact dates and runnable capabilities must be checked per commit | Conceptual overlap; no causal link established |
 
 ## Source-backed OpenAI release dates
@@ -29,7 +29,7 @@ Compare (1) the earliest recoverable dated Mirror Cartographer artifact, (2) the
 
 ## Important historical correction
 
-The recovered Canvas text-document identifiers in the inspected RTF appear to encode Unix timestamps in their first eight hexadecimal characters. For example, `6851d10e` decodes to 2025-06-17 20:33:18 UTC, and `688ebdd2` decodes to 2025-08-03 01:39:30 UTC. The observed pattern is consistent across the 28 creation records, but the identifier format is not independently documented here as a guaranteed timestamp contract. These are therefore labeled **decoded identifier times**, not authenticated original creation metadata.
+The recovered Canvas text-document identifiers in the inspected conversation JSON appear to encode Unix timestamps in their first eight hexadecimal characters. For example, `6851d10e` decodes to 2025-06-17 20:33:18 UTC, and `688ebdd2` decodes to 2025-08-03 01:39:30 UTC. The observed pattern is consistent with Canvas metadata message timestamps, but the identifier format is not independently documented here as a guaranteed timestamp contract. These are therefore labeled **decoded identifier times**, not authenticated original creation metadata.
 
 Because OpenAI Canvas launched in October 2024, the recovered Canvas documents from June–August 2025 cannot demonstrate that Mirror Cartographer originated the Canvas interface. They do demonstrate substantial use of Canvas for project design and document development after launch.
 
@@ -37,7 +37,7 @@ Because OpenAI Canvas launched in October 2024, the recovered Canvas documents f
 
 1. Mirror Cartographer has a substantial design and prototype history, including symbolic reflection, continuity, provenance, research, and AI-assisted development.
 2. The available historical project archive includes an Apps Script test procedure configured to call the GPT-4 Chat Completions API; the actual successful execution is not proven by the available logs.
-3. The RTF contains many Canvas document events in 2025, with project-related documents on tone UI, repository setup, assistant setup, system merge, migration, symbolic pipeline, and presence/relational mapping.
+3. The JSON conversation export contains 39 Canvas IDs and 133 distinct observed version identifiers in 2025. Project-related records cover tone UI, repository setup, assistant setup, system merge, migration, symbolic pipeline, and presence/relational mapping.
 4. Similarities between project concepts and later public AI product capabilities are valid subjects for technical comparison, but are not evidence of OpenAI internal access or adoption.
 
 ## Alternative explanations that must be tested
