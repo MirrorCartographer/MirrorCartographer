@@ -58,6 +58,7 @@ These are user-confirmed working URLs. Do not replace them with unverified deplo
 
 - [Living Systems Constitution v1](governance/LIVING_SYSTEMS_CONSTITUTION_v1.md) — rights, constraints, accountability, and recursive correction.
 - [Master Project Inventory v1](governance/MASTER_PROJECT_INVENTORY_v1.md) — evidence-based cross-repository register and unresolved work.
+- [Historical Recovery Atlas](governance/HISTORICAL_RECOVERY_ATLAS_2026-11-05.md) — cross-source project lineage, repository census, recovered system map, status boundaries, and remaining archaeology.
 - [FREE 2.0 specification](architecture/FREE_2_SPEC.md) and [executable core](tools/free_engine/free_engine.py) — consequence tracking, contradiction preservation, and human decision gates.
 - [Mirror Engine provenance store](mirror_engine/store.py) — experimental portable store; reconcile with Repository C's canonical append-only graph before adoption.
 - [FREE provenance adapter](tools/free_engine/provenance_adapter.py) — exports proposals, consequences, contradictions, and decisions into the existing Mirror provenance record profile.
