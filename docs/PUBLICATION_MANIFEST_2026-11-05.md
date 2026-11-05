@@ -96,3 +96,30 @@ These revisions correct the earlier overstatement that 129 text-document referen
 - [UI repository README link](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/6529c6afedab8e0f58927b619b6acc1b0d998fa0): commit `6529c6afedab8e0f58927b619b6acc1b0d998fa0`, blob SHA `8fb98dfaa56732d73307d329ec93ae80163fac5f`.
 - The expected GitHub Pages URL is `https://mirrorcartographer.github.io/mirror-cartographer-ui/execution-hub.html`; live availability was not verified by the current web inspection.
 
+
+## Recovered prototype source and local-first tools
+
+| Artifact | Commit | Git blob SHA | Original source SHA-256 |
+|---|---|---|---|
+| [Implementation Pack v1](../evidence/historical/implementation-pack-v1.md) | [1c83c13](https://github.com/MirrorCartographer/MirrorCartographer/commit/1c83c13eaff7f939c263b8c2d5511a1729b37ec5) | `7832a878babb2faeaf46b326e555763d1546a2f6` | `dd5e0131599ebb00d854eb423db0e1fad2bfee52f32d020b27c99df46ac10044` |
+| [Creation Portal v1 HTML](../evidence/historical/creation-portal-v1.html) | [7255424](https://github.com/MirrorCartographer/MirrorCartographer/commit/7255424077fa70afb7ea3c68b7bce14747bad757) | `f9cf7c411afb0b309be3b7e978fc0e1547497cd3` | `d1fba1c518babbbfdec808e3442583b3fb338f122d2615118e0acde3615a5817` |
+| [One-page project brief](../evidence/historical/one-page-project-brief-v1.md) | [8982b10](https://github.com/MirrorCartographer/MirrorCartographer/commit/8982b1004634bc4590f4055c088c961d45ca4e58) | `22d5523e70df44fa051a3f1f176d0b7f051160a0` | `982a6ba438dde6c37d0e67c5094f621833353c4e1457e15651623a92a6713886` |
+| [Canvas index — current revision](../evidence/canvas/document-index.json) | [9584cb0](https://github.com/MirrorCartographer/MirrorCartographer/commit/9584cb0b49e19cfee2bf323fb6f6230c12feb1d3) | `7131f8a70d80001a99161642d83bd7b2d907fcdb` | Derived from private conversation export |
+| [Archive recovery audit — current revision](HISTORICAL_ARCHIVE_RECOVERY_AUDIT.md) | [14e0e10](https://github.com/MirrorCartographer/MirrorCartographer/commit/14e0e10becee4ecc8740d0c97156a382a927fb80) | `d151e9d205f6eaf727cbe83bbcdadd3bc9e21b11` | — |
+| [Technical evidence register — current revision](TECHNICAL_EVIDENCE_REGISTER.md) | [df1a4d1](https://github.com/MirrorCartographer/MirrorCartographer/commit/df1a4d13fe5dffc0f7a9e34836dc4a09b07d7dfe) | `d745fb29d05ffea768eae93d714a3824c78abb16` | — |
+| [Portfolio case studies — current revision](PORTFOLIO_CASE_STUDIES.md) | [55aef79](https://github.com/MirrorCartographer/MirrorCartographer/commit/55aef79c2007130b2aeb8acae85e617a45bd0a3d) | `902779090400b46d3fd0d739b7a787558c17e5a5` | — |
+| [README — current evidence index](../README.md) | [f867179](https://github.com/MirrorCartographer/MirrorCartographer/commit/f8671799ee00058ad625620ee7ceee9f0a1f4fcb) | `${readmeBlob}` | — |
+
+## UI repository static prototype delivery
+
+| Artifact | Commit | Git blob SHA |
+|---|---|---|
+| [Unified Execution Hub root source](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/execution-hub.html) | [832bdac](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/832bdac1ec41c0d22acd06805f59f36eb8053d4f) | `9f7271ff114eaf6b11fba9797bf4a1442fc3ce31` |
+| [Unified Execution Hub Vite public copy](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/public/execution-hub.html) | [8b7290a](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/8b7290acab5c130590cb053060b10358b45f332e) | `9f7271ff114eaf6b11fba9797bf4a1442fc3ce31` |
+| [Creation Portal Vite public copy](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/public/creation-portal-v1.html) | [c396bb3](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/c396bb3c067051998f5befcdeb4f6ef260adab0c) | `f9cf7c411afb0b309be3b7e978fc0e1547497cd3` |
+| [Execution Hub contract test](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/scripts/execution-hub-contract-check.mjs) | [33c3d0f](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/33c3d0fc73748c1653b479db0670e6016cdaaec5) | `2cfef28baccdee626d4803e197681c9f9ac083ca` |
+| [Execution Hub Actions workflow](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/.github/workflows/execution-hub-contract.yml) | [e227f5f](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/e227f5f97993d2f5a3fc92d3adad7385172eb613) | `be1f5eade6319c9bfced94227ccf84ce668b22f5` |
+| [UI package script update](https://github.com/MirrorCartographer/mirror-cartographer-ui/blob/main/package.json) | [0dccf58](https://github.com/MirrorCartographer/mirror-cartographer-ui/commit/0dccf5827badcb6a71ff420dadcf82831aa58e54) | `f6f2a30c8026b859ca48aaa2d599b0db17edeff4` |
+
+These UI artifacts are source-published. The Pages URL is expected from the repository's Vite Pages configuration, but live route availability and the new GitHub Actions workflow have not yet been verified by a successful run.
+
