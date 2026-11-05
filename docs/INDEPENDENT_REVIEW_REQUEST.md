@@ -33,4 +33,5 @@ Reviewers should disclose financial, employment, or personal conflicts. The proj
 ## Contact
 
 Project lead: Charity Alessandra Sturgell  
-Project: Mirror Cartographer
+Project: Mirror Cartographer  
+Public reviewer invitation: https://github.com/MirrorCartographer/MirrorCartographer/issues/23
