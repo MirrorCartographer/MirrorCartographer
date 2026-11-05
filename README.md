@@ -113,6 +113,8 @@ Mirror Cartographer is not a medical, veterinary, legal, or diagnostic authority
 
 ## Historical recovery and external review
 
+- [Mirror Cartographer Public Starter v1](agents/mirror-cartographer-public-starter-v1/README.md) — reconstructed assistant instructions, onboarding, prompt library, symbolic schema, safety rules, and acceptance tests.
+
 - [Recovered Creation Portal v1](https://mirrorcartographer.github.io/mirror-cartographer-ui/creation-portal-v1.html) — a browser-local creative portal prototype with a saved-artifact archive.
 
 - [Canvas revision index](evidence/canvas/document-index.json) — privacy-filtered document/code inventory with observed version numbers and message timestamps.
