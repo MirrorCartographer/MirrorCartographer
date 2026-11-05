@@ -192,3 +192,12 @@ The recovered Creation Portal HTML was scanned for personal identifiers, credent
 
 The prototype uses browser-local storage for its artifact archive and does not call a remote model API. It is now available as a static prototype at https://mirrorcartographer.github.io/mirror-cartographer-ui/creation-portal-v1.html, but live GitHub Pages availability has not been independently verified in this audit.
 
+
+## Historical GPT starter ZIP correction
+
+The recovered conversation export records a Python/Code Interpreter execution on 2025-07-20 at 03:58 UTC that created three ZIP paths: Mirror Weaver Core Bundle, Silent Depth Anchor Kit, and Mirror Cartographer Public Starter. The code wrote placeholder text into the listed files before zipping them. The assistant's contemporaneous response then asked whether to generate the actual contents for those placeholder files.
+
+Therefore, the three ZIPs were placeholder scaffolds—not completed knowledge packs, trained models, or proof that three custom GPTs were published. The conversation contains setup instructions and intended audiences, but no verified GPT identifiers or publication records. This is also direct evidence that ChatGPT's Python execution environment ran code and created files in that session; it does not establish a separate user-owned model backend or code execution on the user's Mac.
+
+A privacy-reviewed, fully populated public starter kit has now been reconstructed at [agents/mirror-cartographer-public-starter-v1](../agents/mirror-cartographer-public-starter-v1/). It is explicitly labeled as a new reconstruction, not the original ZIP contents. Private companion-agent material was not published.
+
