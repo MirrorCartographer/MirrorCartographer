@@ -136,3 +136,11 @@ Mirror Cartographer is not a medical, veterinary, legal, or diagnostic authority
 
 
 These records distinguish implemented software, source-level evidence, historical prototypes, plans, and unverified runtime claims. Private repositories and personal archives remain private.
+
+## Background verification
+
+- Weekly public branch census: `.github/workflows/weekly-public-evidence-census.yml` (Monday 13:00 UTC).
+- Weekly archive-manifest tests: `.github/workflows/archive-manifest-tests.yml` (Monday 13:10 UTC).
+- Weekly Hub/Creation Portal contract checks: `mirror-cartographer-ui/.github/workflows/execution-hub-contract.yml` (Monday 13:05 UTC).
+
+These workflows are configured to run on GitHub Actions. Their first successful runs remain unverified; they do not access private repositories or local device sandboxes.
