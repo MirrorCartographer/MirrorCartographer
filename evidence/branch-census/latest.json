@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0",
-  "captured_at_utc": "2026-11-05T18:11:26.430Z",
+  "captured_at_utc": "2026-11-05T18:13:08.138Z",
   "scope": "public repositories only; no private repository source or metadata is collected",
   "reports": [
     {
       "repository": "MirrorCartographer/MirrorCartographer",
       "visibility": "public",
       "default_branch": "main",
-      "default_branch_head_sha": "29a82ffe483a23a470372232ce77e1463a599935",
+      "default_branch_head_sha": "16ae19ea3186af82eb5d268fe851e8fc5005f49c",
       "branch_count": 71,
       "unique_branch_heads": 58,
       "shared_head_groups": [
@@ -328,7 +328,7 @@
         },
         {
           "name": "main",
-          "head_sha": "29a82ffe483a23a470372232ce77e1463a599935",
+          "head_sha": "16ae19ea3186af82eb5d268fe851e8fc5005f49c",
           "protected": false
         },
         {
@@ -420,27 +420,33 @@
       "default_branch_check_runs": [
         {
           "name": "build",
-          "status": "queued",
-          "conclusion": null,
-          "html_url": "https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/42081811610/job/127436564885"
-        },
-        {
-          "name": "census",
           "status": "in_progress",
           "conclusion": null,
-          "html_url": "https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/42081811802/job/127436539864"
+          "html_url": "https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/42082083560/job/127437495921"
         },
         {
           "name": "Typecheck and build",
           "status": "in_progress",
           "conclusion": null,
-          "html_url": "https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/42081811952/job/127436528968"
+          "html_url": "https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/42082083848/job/127437474320"
         },
         {
           "name": "inspect",
           "status": "in_progress",
           "conclusion": null,
-          "html_url": "https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/42081811819/job/127436528449"
+          "html_url": "https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/42082083854/job/127437473187"
+        },
+        {
+          "name": "census",
+          "status": "in_progress",
+          "conclusion": null,
+          "html_url": "https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/42082083439/job/127437471420"
+        },
+        {
+          "name": "Cloudflare Pages",
+          "status": "in_progress",
+          "conclusion": null,
+          "html_url": "https://github.com/MirrorCartographer/MirrorCartographer/runs/127437466445"
         }
       ]
     },
@@ -448,7 +454,7 @@
       "repository": "MirrorCartographer/mirror-cartographer-ui",
       "visibility": "public",
       "default_branch": "main",
-      "default_branch_head_sha": "9ff855860c9ea7398838e1a3a1881386b4413ccf",
+      "default_branch_head_sha": "584ab9dbb296d89394ebdb8276f712605ffef575",
       "branch_count": 224,
       "unique_branch_heads": 221,
       "shared_head_groups": [
@@ -1305,7 +1311,7 @@
         },
         {
           "name": "main",
-          "head_sha": "9ff855860c9ea7398838e1a3a1881386b4413ccf",
+          "head_sha": "584ab9dbb296d89394ebdb8276f712605ffef575",
           "protected": false
         },
         {
@@ -1591,64 +1597,58 @@
       },
       "default_branch_check_runs": [
         {
+          "name": "deploy",
+          "status": "queued",
+          "conclusion": null,
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42082015658/job/127437513808"
+        },
+        {
           "name": "live-smoke-test",
           "status": "completed",
-          "conclusion": "success",
-          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081804986/job/127436503276"
-        },
-        {
-          "name": "Workers Builds: mirror-cartographer-ui",
-          "status": "completed",
-          "conclusion": "failure",
-          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/runs/127436408702"
-        },
-        {
-          "name": "deploy",
-          "status": "completed",
-          "conclusion": "success",
-          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699888/job/127436306937"
+          "conclusion": "skipped",
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42082030070/job/127437287800"
         },
         {
           "name": "build",
           "status": "completed",
           "conclusion": "success",
-          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699888/job/127436133963"
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42082015658/job/127437244585"
         },
         {
           "name": "Portal build",
           "status": "completed",
           "conclusion": "success",
-          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699797/job/127436133638"
-        },
-        {
-          "name": "contract",
-          "status": "completed",
-          "conclusion": "failure",
-          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699788/job/127436133501"
-        },
-        {
-          "name": "inspect",
-          "status": "completed",
-          "conclusion": "success",
-          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699743/job/127436133340"
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42082015696/job/127437235191"
         },
         {
           "name": "ARC harness tests",
           "status": "completed",
           "conclusion": "success",
-          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699797/job/127436133249"
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42082015696/job/127437234942"
         },
         {
           "name": "build-artifact",
+          "status": "in_progress",
+          "conclusion": null,
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42082015898/job/127437234426"
+        },
+        {
+          "name": "contract",
           "status": "completed",
-          "conclusion": "success",
-          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699808/job/127436132434"
+          "conclusion": "failure",
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42082015574/job/127437234417"
         },
         {
           "name": "phone-first-smoke",
           "status": "completed",
           "conclusion": "failure",
-          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699740/job/127436132261"
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42082015530/job/127437234359"
+        },
+        {
+          "name": "inspect",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42082015418/job/127437233329"
         }
       ]
     }
