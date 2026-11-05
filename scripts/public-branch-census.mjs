@@ -42,13 +42,30 @@ async function snapshot(fullName) {
     combined = { state: status.state, total_count: status.total_count, statuses: (status.statuses ?? []).map(s => ({ context: s.context, state: s.state, description: s.description, target_url: s.target_url })) };
     checkRuns = (checks.check_runs ?? []).map(x => ({ name: x.name, status: x.status, conclusion: x.conclusion, html_url: x.html_url }));
   }
+  const prefixCounts = {};
+  const fiaFamilies = {};
+  for (const b of branches) {
+    const prefix = b.name.includes('/') ? b.name.split('/')[0] : '(no-prefix)';
+    prefixCounts[prefix] = (prefixCounts[prefix] ?? 0) + 1;
+    if (b.name.startsWith('fia/')) {
+      const family = /artifact-registry/.test(b.name) ? 'artifact-registry'
+        : /self-hosted-worker|worker/.test(b.name) ? 'workers-and-isolation'
+        : /release/.test(b.name) ? 'release-evidence-and-promotion'
+        : /reproducibility|hermetic/.test(b.name) ? 'reproducibility'
+        : /deployment|deploy/.test(b.name) ? 'deployment-and-rollback'
+        : /evidence|provenance|identity/.test(b.name) ? 'evidence-and-provenance'
+        : /security|admission|cgroup|sandbox/.test(b.name) ? 'security-and-admission'
+        : 'other-fia';
+      fiaFamilies[family] = (fiaFamilies[family] ?? 0) + 1;
+    }
+  }
   const heads = new Map();
   for (const b of branches) if (b.head_sha) heads.set(b.head_sha, [...(heads.get(b.head_sha) ?? []), b.name]);
   const sharedHeads = [...heads.entries()].filter(([, names]) => names.length > 1).map(([sha, names]) => ({ sha, branches: names }));
   return {
     repository: fullName, visibility: meta.visibility, default_branch: meta.default_branch,
     default_branch_head_sha: main?.head_sha ?? null, branch_count: branches.length,
-    unique_branch_heads: heads.size, shared_head_groups: sharedHeads, branches,
+    unique_branch_heads: heads.size, shared_head_groups: sharedHeads, prefix_counts: prefixCounts, fia_family_counts: fiaFamilies, branches,
     default_branch_status: combined, default_branch_check_runs: checkRuns
   };
 }
