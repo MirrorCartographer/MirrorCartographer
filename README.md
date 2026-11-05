@@ -110,4 +110,12 @@ Mirror Cartographer is not a medical, veterinary, legal, or diagnostic authority
 
 - [OpenAI adoption evidence audit](docs/OPENAI_ADOPTION_EVIDENCE_AUDIT.md) — a falsifiable, evidence-bounded investigation; no internal adoption claim is made without direct evidence.
 
+
+## Historical recovery and external review
+
+- [Historical archive recovery audit](docs/HISTORICAL_ARCHIVE_RECOVERY_AUDIT.md) — 256-row artifact inventory, Canvas identifier chronology, API integration evidence, and privacy boundary.
+- [OpenAI feature chronology](docs/OPENAI_FEATURE_CHRONOLOGY.md) — source-backed comparison with alternative explanations; no causal adoption claim.
+- [Independent technical review request](docs/INDEPENDENT_REVIEW_REQUEST.md) — scope and reproducibility protocol for an external reviewer.
+- [Privacy-aware archive manifest tool](tools/build_archive_manifest.py) — local SHA-256 inventory generator with default-deny exclusions.
+
 These records distinguish implemented software, source-level evidence, historical prototypes, plans, and unverified runtime claims. Private repositories and personal archives remain private.
