@@ -159,3 +159,23 @@ A separate recovered Library file, `Mirror_Cartographer_Core_Specification_v1.md
 
 Additional candidate source artifacts were inspected for privacy. A JavaScript room registry includes a named private/personal room, and an HTML context engine includes pet names and health-context fields. These were excluded from public release. Their original bytes remain in the Library; no source copy was published.
 
+
+## Additional recovered architecture and implementation artifacts
+
+| Recovered artifact | Source SHA-256 | Publication / handling |
+|---|---|---|
+| `Mirror_Cartographer_Core_Specification_v1.docx` (38,535 bytes) | `6458832010065789bd02130acde1bb965456c81390a95ef789532469305cd782` | Extracted and published as [`core-specification-v1-full.md`](../evidence/historical/core-specification-v1-full.md) |
+| `Mirror_Cartographer_Access_Implementation_Pack_v2.docx` (41,433 bytes) | `87bbb5fda05005abc4e2924fb0f6b197ae21b8335df078ef5287e03dcdfd61f6` | Privacy-reviewed text extracted and published as [`access-implementation-pack-v2.md`](../evidence/historical/access-implementation-pack-v2.md) |
+| `Mirror_Cartographer_Collapse_Codex(1).docx` (37,445 bytes) | `7338f0528beaeb294d1ff1e9c888251fa7a981b5c54d920969cfad694828848c` | Privacy-reviewed text published as [`collapse-codex-v1.md`](../evidence/historical/collapse-codex-v1.md) |
+| `Mirror_Cartographer_Atlas_Omnibus(1).pdf` (8,113,153 bytes) | `ae3133f2283bfacbc56b5fbc36cf5a8dc961de99cafb05dc26753f7bd98a3b0f` | Kept private; text search only, embedded visual content not exhaustively reviewed |
+
+The Access Implementation Pack contains a deployable Custom GPT instruction layer, explicit non-clinical/safety boundaries, three interaction modes, confidence tags, a symbolic-state JSON contract, ontology seed, reflection logic, feedback weighting, public user flow, API route proposals, data-table proposals, developer handoff, and a concrete MVP acceptance test. The document body states `Generated: 2026-05-13T04:53:53.933879 UTC`. Its embedded DOCX core properties use generic `python-docx` defaults and are not reliable creation metadata.
+
+The formal Core Specification defines the system as a recursive symbolic cognition interface with the ENTRY → FIELD → RECURSION → RETURN flow, Canonical / Reflective / Mythopoetic modes, longitudinal symbolic state, contradiction preservation, and explicit separation of fact, inference, symbolism, and speculation.
+
+The recovered Unified Execution Hub v1 manifest and May 1–2, 2026 current-state/synthesis packets describe a lane/proof/action control-panel architecture. The inspected Library copy of the Hub manifest is a specification, not a verified executable dashboard. A new static, browser-local implementation has now been published at [Unified Execution Hub](https://mirrorcartographer.github.io/mirror-cartographer-ui/execution-hub.html). It supports local task-state updates and JSON import/export; it does not run background jobs or access external accounts.
+
+The recovered `chat_index.csv` is a two-row sample with placeholder conversation IDs, not a complete archive index. The 8-lane `lane_registry_v14.csv`, six-entry `evidence_register(1).csv`, ten-entry `evidence_register_v18.json`, and ten-edge `connection_edges_v19.csv` are structured planning/evidence records. They document the operating model but do not, by themselves, prove a deployed backend.
+
+The 256-row artifact catalog contains historical paths and metadata for many assets. Those paths do not prove the files remain mounted or retrievable. The current audit materialized and hashed selected Library records; it did not hash all 256 referenced assets. The archive-manifest generator is provided for owner-controlled staging and privacy-reviewed hashing when those files are available.
+
