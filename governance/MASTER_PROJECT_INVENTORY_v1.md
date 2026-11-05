@@ -7,8 +7,8 @@ Status: initial evidence-based register; not exhaustive across uninspected priva
 |---|---|---|---|
 | MirrorCartographer/MirrorCartographer | Public | Research, evidence, systems architecture, tools, demonstrations, governance, creative universe | README and core architecture documents inspected |
 | MirrorCartographer/mirror-cartographer-ui | Public | Interactive creative/reflection application, rooms, atlas, workbench | README, package manifest, completion map inspected |
-| MirrorCartographer/J | Private | Human Judgment Lab | Repository existence verified; contents not audited in this pass |
-| MirrorCartographer/c | Private | Unfinished Constellation | Repository existence verified; contents not audited in this pass |
+| Private companion repository A | Private | Internal evaluation research | Detailed inventory retained in private working records |
+| Private companion repository B | Private | Internal continuity and model prototype | Detailed inventory retained in private working records |
 
 ## Existing named work
 | Work | Type | Evidence/status | Next action |
@@ -86,24 +86,9 @@ Status: initial evidence-based register; not exhaustive across uninspected priva
 An entry is complete only when repository/path, owner, purpose, implementation status, data boundary, tests, deployment status, dependencies, and next action are recorded. Unknown is a valid status; guessing is not.
 
 
-## Private repository audit completed 2026-11-04
+## Private repository audit
 
-### MirrorCartographer/J — Human Judgment Lab
-- README identifies an independent human-evaluation research/build laboratory.
-- `index.html` contains a multi-section Human Evaluation Operations Studio: program brief, page review, rubric, calibration, reliability, operations, and decision packet. Its content labels the dataset and metrics as synthetic.
-- `lab/consensus-trap.html` is an interactive simulation with controls for evidence signal, shared bias, independent noise, evaluator count, and trial count. It measures majority accuracy, panel agreement, ties, unanimous cases, and unanimously wrong cases.
-- `docs/LAB_THESIS.md` distinguishes agreement, accuracy, confidence, evidence quality, and decision quality.
-- Status: existing experiment and evaluation surface; synthetic simulation is not empirical evidence of real evaluator behavior.
-
-### MirrorCartographer/c — The Unfinished Constellation
-- README and `COMPLETION_MAP.md` identify a private creative/research workspace with Vite reflection application, workbench, provenance engine, local model bridge, daemons, memory, and tests.
-- `tools/ask.mjs` supports Ollama local inference and an OpenAI-compatible endpoint. Optional `--memory` retrieves up to five local project documents by keyword. It sends selected context to the configured model but does not persist prompts or responses. It is not a trained LYR model.
-- `memory/index.json` defines an append-only provenance graph, record types, statuses, origin/authorship fields, and a rule that unknown authorship remains unverified.
-- `memory/project-map.md` documents authored symbolic corpora, deterministic phrase-to-symbol mapping, five-lens retrieval, optional local history, and existing privacy boundaries.
-- `neurology/engine.mjs` provides a typed provenance graph with validation, source locators, confidence, uncertainty, contradiction, supersession, support, derivation, lineage, and audit.
-- `daemons/model_worker.py` is a bounded patch worker with an explicit file allowlist, validation, and rollback. It uses a configured OpenAI-compatible endpoint when a secret exists; latest completion evidence says model inference was skipped because the secret was absent.
-- `COMPLETION_MAP.md` reports deterministic quality-gate passes but explicitly leaves real Ollama inference, website-to-model integration, and some graph/continuity acceptance work unverified.
-- Status: strongest existing independence/continuity prototype; local Ollama use on the owner's device remains unverified.
+Two private companion repositories were inspected. Their detailed paths, implementation notes, and operational status are preserved in a private working record and are intentionally not reproduced in this public inventory.
 
 ## Updated architectural decision
 Repository C's append-only provenance graph and model adapter are canonical existing components to extend. The new Python FREE 2.0 engine and SQLite MirrorStore are experimental portable modules; integrate them with C's record schema rather than silently replacing it. Repository J supplies the adversarial evaluation layer. See [REPOSITORY_CONSOLIDATION_v1.md](../architecture/REPOSITORY_CONSOLIDATION_v1.md).
