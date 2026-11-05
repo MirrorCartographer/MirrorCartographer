@@ -17,7 +17,7 @@ Mirror Cartographer is not one repository or one application. It is a historical
 
 The four accessible trees contained **7,454 tracked entries** in this snapshot. These are Git tree entries, not 7,450 finished features. Counts change with commits and include source, tests, documents, images, data, and generated or supporting files. The recursive trees were not truncated by the API. Current tree SHAs: Observatory `c7f84b34a2900d2cb6e8626592e5324fd6fd15ff`; House of Mouths `07026a06691489b8b0d68c366ad9f54646f72f1f`; private creative/core archive `79093fd932989f5f07fdc38d6e557e7ca9b2643f`; private Human Judgment Lab `0081d7b882a64a4b79f7c789facc4aa5e2a0b49a`.
 
-The Library also contains a 55-page *Mirror Cartographer Atlas — Expanded Edition*, original whitepapers, module summaries, migration and sovereignty documents, ethics/licensing materials, companion journals, images, and large conversation-history exports. Those Library artifacts are separate from the Git trees and must retain their own source identifiers and dates.
+The Library also contains a 55-page *Mirror Cartographer Atlas — Expanded Edition*, original whitepapers, module summaries, migration and sovereignty documents, ethics/licensing materials, companion journals, images, large conversation-history exports, and a May 2026 catalog of 256 production/research/operations artifacts. Those Library artifacts are separate from the Git trees and must retain their own source identifiers and dates.
 
 ## 2. Historical lineage
 
