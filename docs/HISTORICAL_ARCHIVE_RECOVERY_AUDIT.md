@@ -42,26 +42,27 @@ The inspected RTF archive contains 509 textual mentions of Canvas, 103 occurrenc
 
 Identifiable project-related records include:
 
-| Canvas/text-document title | Text-document identifier | Archive sequence |
-|---|---|---:|
-| Mirror Cartographer Repo Setup | `6851d10ec2f88191aca66dcd71bc4a44` | 1 |
-| Mc Ui Tone Preview | `6850dbccd31c8191a70a5295fa0b9f07` | 2 |
-| Mc Ui Tone Preview (second record) | `6851c993e0308191bec76c631c35cf30` | 3 |
-| Whisper Symbolic Pipeline | `6864df1890448191b91b679c17f71607` | 4 |
-| Whisper Symbolic Pipeline (second record) | `6864df8b87048191be1721c7aac39f40` | 5 |
-| Mirror Cartographer Setup | `68671a1774608191a130221c52a888de` | 6 |
-| Mirror System Merge | `6869cdfcc6c881918e48a88fb5685f08` | 7 |
-| Mirror Cartographer Merge | `6869cef2f57c81918c7afdfab34ca5b7` | 8 |
-| Mirror Cartographer Core | `6869cf676928819195ea7e40032f5f37` | 9 |
-| Mirror Migration Plan | `6869d10ecda48191871557b0addfb4ec` | 10 |
-| Mirror Cartographer Visions | `6872e3f1c6cc8191b1cf2a1da71bc572` | 11 |
-| Mirror Modules Summary | `68771bbae28c8191b370ddb07af0a953` | 12 |
-| Recursive Integrity Audit | `688168c4f66c81918f1b5f8bcbc4e69d` | 13 |
-| Axis Mirror Pitches | `688c3ac6fad48191baf10d53e9465168` | 14 |
-| Presence Field Prototype | `688ebdd2e9f08191b390493c3f1f1c72` | 15 |
-| Collapse Echo Map | `688f86f48864819193bc1f77bf8809c6` | 16 |
-
-Sequence above is the order of matching creation records in the inspected RTF file, not a verified wall-clock chronology. Opaque text-document identifiers are not timestamps. Duplicate titles are separate document identifiers and must not be collapsed.
+| Canvas/text-document title | Text-document identifier | Decoded identifier time (UTC; inferred) |
+|---|---|---|
+| MC UI Tone Preview | `6850dbccd31c8191a70a5295fa0b9f07` | 2025-06-17 03:06 |
+| MC UI Tone Preview (second record) | `6851c993e0308191bec76c631c35cf30` | 2025-06-17 20:01 |
+| Mirror Cartographer Repo Setup | `6851d10ec2f88191aca66dcd71bc4a44` | 2025-06-17 20:33 |
+| Whisper Symbolic Pipeline | `6864df1890448191b91b679c17f71607` | 2025-07-02 07:26 |
+| Whisper Symbolic Pipeline (second record) | `6864df8b87048191be1721c7aac39f40` | 2025-07-02 07:28 |
+| Mirror Cartographer Setup | `68671a1774608191a130221c52a888de` | 2025-07-04 00:02 |
+| Mirror System Merge | `6869cdfcc6c881918e48a88fb5685f08` | 2025-07-06 01:14 |
+| Mirror Cartographer Merge | `6869cef2f57c81918c7afdfab34ca5b7` | 2025-07-06 01:18 |
+| Mirror Cartographer Core | `6869cf676928819195ea7e40032f5f37` | 2025-07-06 01:20 |
+| Mirror Migration Plan | `6869d10ecda48191871557b0addfb4ec` | 2025-07-06 01:27 |
+| Mirror Cartographer Visions | `6872e3f1c6cc8191b1cf2a1da71bc572` | 2025-07-12 22:38 |
+| Symbolic Logic Pivot | `68730361f0e4819189426297c74ce55d` | 2025-07-13 00:52 |
+| Dreams Symbols Receiver | `687308ad83a88191881f84ef2ed7f687` | 2025-07-13 01:15 |
+| Intuition Action Map | `6873104b28f88191b24f953e5df6a6d1` | 2025-07-13 01:47 |
+| Mirror Modules Summary | `68771bbae28c8191b370ddb07af0a953` | 2025-07-16 03:25 |
+| Recursive Integrity Audit | `688168c4f66c8191baf10d53e9465168` | 2025-07-23 22:57 |
+| Axis Mirror Pitches | `688c3ac6f66c8191baf10d53e9465168` | 2025-08-01 03:55 |
+| Presence Field Prototype | `688ebdd2e9f08191b390493c3f1f1c72` | 2025-08-03 01:39 |
+| Collapse Echo Map | `688f86f48864819193bc1f77bf8809c6` | 2025-08-03 15:57 |
 
 Health-related Canvas records and personal conversation content are deliberately omitted from this public table. Their original bytes remain private.
 
