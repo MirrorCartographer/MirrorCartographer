@@ -246,7 +246,6 @@ The following pull requests are open and unmerged. Their own descriptions report
 | Public House of Mouths | [#165 — Full sovereign platform program](https://github.com/MirrorCartographer/mirror-cartographer-ui/pull/165) | Large program/contract specification spanning 27 domains | Draft/unmerged; contract validation is not a deployed platform |
 | Public House of Mouths | [#168 — Braid five self-improving stewards](https://github.com/MirrorCartographer/mirror-cartographer-ui/pull/168) | Five-steward orchestration/control-plane proposal | Draft/unmerged; checks did not establish an operational multi-agent workforce |
 | Public House of Mouths | [#171 — Self-model agent map](https://github.com/MirrorCartographer/mirror-cartographer-ui/pull/171) | Deterministic self-audit runner and agent-map proposal | Draft/unmerged; no model-backed autonomous agent verified |
-| Public House of Mouths | [#178 — Living Encounter iteration](https://github.com/MirrorCartographer/mirror-cartographer-ui/pull/178) | 14/100 scoped iterations; source checks reported passing | Open; deployment of the exact branch commit not verified |
 
 Do not merge or discard these branches as part of archaeology. First compare their base/head commits, inspect diffs and checks, and determine whether any later branch supersedes an earlier one. The 100-iteration labels are scoped work programs, not evidence that 100 iterations have already been completed.
 
