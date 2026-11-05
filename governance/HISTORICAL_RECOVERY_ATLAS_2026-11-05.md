@@ -15,7 +15,7 @@ Mirror Cartographer is not one repository or one application. It is a historical
 | Private creative/core archive | Private | 689 | Historical source corpus, symbolic reflection system, personal archive, prototypes, structured data, continuity records, and local model/runtime experiments |
 | Private Human Judgment Lab | Private | 20 | Human evaluation operations studio, Consensus Trap experiment, synthetic evaluation data, and test harnesses |
 
-The four accessible trees contained **7,460 tracked entries** in this snapshot. These are Git tree entries, not 7,450 finished features. Counts change with commits and include source, tests, documents, images, data, and generated or supporting files. All four recursive trees returned complete, non-truncated results.
+The four accessible trees contained **7,461 tracked entries** in this snapshot. These are Git tree entries, not 7,450 finished features. Counts change with commits and include source, tests, documents, images, data, and generated or supporting files. All four recursive trees returned complete, non-truncated results.
 
 The Library also contains a 55-page *Mirror Cartographer Atlas — Expanded Edition*, original whitepapers, module summaries, migration and sovereignty documents, ethics/licensing materials, companion journals, images, large conversation-history exports, and a May 2026 catalog of 256 production/research/operations artifacts. Those Library artifacts are separate from the Git trees and must retain their own source identifiers and dates.
 
@@ -119,7 +119,7 @@ These are complementary surfaces, not four interchangeable versions of the same 
 | FREE 2.0 | Consequence mapping, contradiction preservation, rights and safety gates, reversible tests, human decisions, recursive review | Specification and executable Python scaffold exist; integration and full acceptance remain separate proof obligations |
 | Mirror Engine / continuity | Provenance-native memory, origin/authorship, support, contradiction, derivation, supersession, and lineage | The private archive contains the existing append-only graph and provider bridge. The public SQLite store is experimental, not canonical |
 | Meaning Integrity Lab / Meaning Integrity Index | 100-case benchmark for subtle AI response failures involving relief-as-proof, felt-truth collapse, symbolic overreach, coercion, embodiment erasure, false authority, dependency, medical/vet risk blur, action drift, and semantic intimacy without evidence | Library DOCX/XLSX/CSV and buyer pitch exist; public research index exists. The 100 unique cases are balanced at 10 per failure class; risk mix is 40 Medium, 50 High, and 10 Critical. The workbook has nine sheets: Cover, 100 Cases, Failure Taxonomy, Scoring Rubric, Annotation Guide, Red-Team Protocol, Prototype Spec, User Study, and Commercial Use. No independent model run, user study, clinical review, or paid contract was verified. Private benchmark rows contain personal examples and must be sanitized before publication |
-| Human Judgment Lab | Evaluation operations, rubric/calibration work, and the Consensus Trap question: can agreement still be wrong? | Synthetic simulation and reproducible test work exist; synthetic data is not empirical evaluator research |
+| Human Judgment Lab | Human Evaluation Operations Studio, evaluation program charter, 1–5 rubric with N/A, synthetic recommendation-page dataset, seeded Consensus Trap experiment, run-record export, and reproducibility tests | 20 original source files plus a recovery index; synthetic examples only; no empirical human-rater study or production partner. Independent work, not affiliated with Netflix or based on its internal data |
 | ARC reasoning research | Multiple solver versions, relation composition, benchmark and evaluation harnesses in the companion UI repository | Code and tests exist; performance claims require named benchmark results and independent comparison |
 | Animal Recovery Signal Tool | Veterinary record organization, triage/escalation, vet packets, and a scientific health-upgrade workflow | v5/v6/v6.1 offline browser artifacts, manifests, and READMEs; v6.1 adds test-mode labels, QA-entry cleanup, editable/deletable logs, branch-status fields, test/result notes, text packet export, and typed reset confirmation. Basic parser checks are recorded; real-device QA and health outcomes are not established |
 | Veteran pathways | Veteran Hub as a practical service map; Veteran Mission as a playable learning model; benefits, housing, health, education, and employment pathways | Public source artifacts exist; eligibility decisions and live service accuracy require authoritative sources and human review |
@@ -170,11 +170,11 @@ The original product requirements also call for style adaptation that can both m
 
 | Count | What it means | What it does not mean |
 |---:|---|---|
-| 7,460 | Git tree entries across four accessible repositories on 2026-11-05 | 7,460 finished or validated features |
+| 7,461 | Git tree entries across four accessible repositories on 2026-11-05 | 7,460 finished or validated features |
 | 4,245 | Public research repository tree entries on 2026-11-05 | 4,243 research findings |
 | 2,506 | Public encounter/UI repository tree entries on 2026-11-05 | 2,506 rooms |
 | 689 | Private creative/core archive tree entries on 2026-11-05 | 689 independent projects |
-| 20 | Private Human Judgment Lab tree entries on 2026-11-05 | 20 empirical studies |
+| 21 | Private Human Judgment Lab tree entries on 2026-11-05 | 20 empirical studies |
 | 96 | HTML artifacts indexed by the UI workbench/completion record | 96 fully audited, production-ready experiences |
 | 34 | Curated room/destination identity contracts | 34 individually complete experiences |
 | 79 | Procedural room configurations | 79 finished authored rooms |
