@@ -35,6 +35,21 @@ Historical artifact families include:
 
 The 2025-07-29 collaboration proposal names contradiction-resilient architecture, emotional recursion containment, semantic rotation, non-coercive mirroring, glyphless interfaces, and an exit-seal/closure concept. It also contains speculative symbol–physics language. Such language is preserved as historical framing, not treated as validated physics or biomedical mechanism.
 
+### A1. Earlier nine-module product architecture (recovered Library document; original date not established)
+
+A two-page *Mirror Cartographer Core Modules — Complete Detail* summary preserves an earlier product-level decomposition:
+1. Somatic Symbol Map.
+2. Symbol-Archetype Mapper.
+3. Reflective Prompt Engine.
+4. Mirror Interpretation Core.
+5. Trajectory & Pattern Tracker.
+6. Lineage + Inheritance Engine.
+7. Emotional Operating System (EOS).
+8. Adaptive Interface Layer (Tone + Safety Engine).
+9. Continuity Artifact Generator.
+
+This is a separate historical design layer from the later ten-engine Atlas stack. The two should not be collapsed into one list: the nine modules describe user-facing product functions and subsystems; the ten engines describe transformations and system dynamics. The earlier Lineage + Inheritance module uses ancestral/epigenetic language in a symbolic design context; that wording is not evidence of a validated epigenetic inference capability. The source copy is a design summary, not proof that all nine modules were implemented.
+
 ### A2. Early migration and sovereignty sequence — June–July 2025
 
 A Library transition checklist dated **2025-06-20** records a concrete platform-independence plan: export symbolic prompts and reflection logic; version tone settings and archetype tables; map session storage and memory; prototype with an API and custom storage; then test an open-source-model fallback and an emergency exit path. This is a planning document, not evidence that every migration step was completed.
@@ -54,21 +69,6 @@ The conversation archive preserves the first eight-layer formulation:
 8. Decision.
 
 The current FREE 2.0 code is a later operational refactor: it requires an accountable owner and confirmed authority, records affected parties and measurable outcomes, retains contradictions and linked consequences, blocks severe unmitigated harm and model-delegated high-impact decisions, requires stop/rollback/data plans, and records a named human reviewer. Do not assume the original eight labels and current implementation are one-to-one. The current engine remains a deterministic traceability/gate scaffold, not an autonomous moral authority.
-
-### A1. Earlier nine-module product architecture (recovered Library document; original date not established)
-
-A two-page *Mirror Cartographer Core Modules — Complete Detail* summary preserves an earlier product-level decomposition:
-1. Somatic Symbol Map.
-2. Symbol-Archetype Mapper.
-3. Reflective Prompt Engine.
-4. Mirror Interpretation Core.
-5. Trajectory & Pattern Tracker.
-6. Lineage + Inheritance Engine.
-7. Emotional Operating System (EOS).
-8. Adaptive Interface Layer (Tone + Safety Engine).
-9. Continuity Artifact Generator.
-
-This is a separate historical design layer from the later ten-engine Atlas stack. The two should not be collapsed into one list: the nine modules describe user-facing product functions and subsystems; the ten engines describe transformations and system dynamics. The earlier Lineage + Inheritance module uses ancestral/epigenetic language in a symbolic design context; that wording is not evidence of a validated epigenetic inference capability. The source copy is a design summary, not proof that all nine modules were implemented.
 
 ### B. Formalized Mirror Cartographer Atlas — 2026-04-25 Library artifact
 
