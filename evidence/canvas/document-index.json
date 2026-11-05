@@ -23,7 +23,10 @@
       "code/react": 4,
       "code/bash": 2,
       "code/html": 1
-    }
+    },
+    "private_records_excluded": 10,
+    "private_supplement_repository": "MirrorCartographer/c",
+    "private_supplement_path": "memory/CANVAS_PRIVATE_METADATA_SUPPLEMENT_2026-11-05.json"
   },
   "timestamp_note": "Per-message metadata.canvas fields expose a version number and message timestamp. This index records unique (textdoc_id, version) pairs and observed timestamps. Repeated messages may report the same version, so 695 metadata events are not 695 distinct versions. First-eight-hex Unix decoding is a cross-check, not the sole timestamp source.",
   "privacy_note": "Only project-related document titles and identifiers are listed. Health-related, veterinary, personal resume, and unrelated documents are excluded. The raw conversation export remains private.",
