@@ -99,3 +99,13 @@ Mirror Cartographer is not a medical, veterinary, legal, or diagnostic authority
 **Language must mirror, not trap. Truth survives when it rotates.**
 
 *The Observatory holds the method. The companion world holds the encounter.*
+
+
+## Independent review, provenance, and professional portfolio
+
+- [Provenance and authorship record](docs/PROVENANCE_AND_AUTHORSHIP.md) — project origin, contribution model, AI-assistance disclosure, and evidence hierarchy.
+- [Technical evidence register](docs/TECHNICAL_EVIDENCE_REGISTER.md) — system map, implementation status, verification labels, and known boundaries.
+- [Portfolio case studies](docs/PORTFOLIO_CASE_STUDIES.md) — problem, contribution, artifacts, and evidence for representative work.
+- [Reproducibility and independent review](docs/REPRODUCIBILITY_AND_REVIEW.md) — how reviewers can inspect and reproduce public artifacts.
+
+These records distinguish implemented software, source-level evidence, historical prototypes, plans, and unverified runtime claims. Private repositories and personal archives remain private.
