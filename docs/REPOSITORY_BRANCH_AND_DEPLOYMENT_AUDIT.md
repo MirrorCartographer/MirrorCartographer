@@ -55,7 +55,7 @@ Do not merge all 224 UI branches or 71 research branches automatically. First pr
 
 ## Self-maintaining public census
 
-A weekly public-only GitHub Actions worker is now committed at `scripts/public-branch-census.mjs` with workflow `.github/workflows/weekly-public-evidence-census.yml`. It snapshots branch names, head SHAs, protected-branch flags, duplicate branch-head groups, and default-branch status/check-run metadata for the two public repositories only. It writes a dated JSON snapshot plus `latest.json` and commits those records back to this repository.
+A weekly public-only GitHub Actions worker is now committed at `scripts/public-branch-census.mjs` with workflow `.github/workflows/weekly-public-evidence-census.yml`. It snapshots branch names, head SHAs, protected-branch flags, duplicate branch-head groups, and default-branch status/check-run metadata for the two public repositories only. It writes a dated JSON snapshot plus `latest.json` and commits those records back to this repository. Two additional weekly test workflows run the archive-manifest unit tests (Monday 13:10 UTC) and the UI Hub/Creation Portal contract tests (Monday 13:05 UTC).
 
 The workflow is configured for Monday 13:00 UTC, manual dispatch, and a one-time push trigger for its own source/workflow. It does not inspect private repositories C or J, does not collect source contents, and does not require a long-lived API key. Its first successful run has not been verified in the connected status results; treat the worker as configured, not yet operationally proven.
 
