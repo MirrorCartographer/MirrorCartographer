@@ -16,6 +16,7 @@
 | LYR | Independent language-model research implementation | Private repository C | Model architecture/training/inference code exists; no verified trained checkpoint established |
 | ARC | Relation reasoning and composition experiments | Research artifacts and private project records | Separate solver/evaluation lane; do not conflate with LYR or FREE |
 | Meaning Integrity | Response-level meaning failure evaluation | Research and private benchmark artifacts | Distinct from Human Judgment Lab; benchmark validity requires separate study |
+| Public branch census worker | Node script + scheduled GitHub Actions workflow snapshots branch heads and default-branch checks for the two public repositories | Source verified; first scheduled/triggered run not yet verified |
 | Creation Portal v1 | Recovered standalone HTML prototype with localStorage artifact archive; inline JS syntax passed `node --check` | Source verified and syntax checked; browser behavior not fully tested |
 | Implementation Packs v1/v2 | Product instructions, symbolic ontology, session-state contract, reflection logic, safety boundaries, and developer handoff | Historical specifications; not proof of a deployed backend |
 | Unified Execution Hub UI | Local-first static dashboard in `MirrorCartographer/mirror-cartographer-ui/execution-hub.html` | Source verified; browser behavior not independently executed in this pass |
