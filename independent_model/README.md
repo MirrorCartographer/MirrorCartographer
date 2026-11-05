@@ -36,3 +36,24 @@ A small decoder-only Transformer (byte-level tokenizer initially; replace only w
 
 ## Non-claims
 No consciousness claim. No claim of frontier-level reasoning. No claim that a model trained on a small corpus is safe or generally intelligent. No use of unlicensed scraped data. No claim of training completion until a reproducible checkpoint and evaluation report exist.
+
+## Local training and inference
+Install the declared dependency in a dedicated environment:
+
+```sh
+python -m pip install -r independent_model/requirements.txt
+```
+
+After creating and reviewing a rights-cleared corpus and completing `corpus-manifest.example.json` as a real manifest, train:
+
+```sh
+python independent_model/train.py --data path/to/approved-corpus.txt --steps 1000 --out independent_model/checkpoints/lyr.pt
+```
+
+Run the trained checkpoint without a network provider:
+
+```sh
+python independent_model/infer.py --checkpoint independent_model/checkpoints/lyr.pt --prompt "State what is known and unknown."
+```
+
+The repository does not include a training corpus or checkpoint. The commands define a reproducible path; they are not evidence that training has already occurred.
