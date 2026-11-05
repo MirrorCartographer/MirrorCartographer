@@ -113,6 +113,11 @@ Mirror Cartographer is not a medical, veterinary, legal, or diagnostic authority
 
 ## Historical recovery and external review
 
+- [Canvas revision index](evidence/canvas/document-index.json) — privacy-filtered document/code inventory with observed version numbers and message timestamps.
+- [Recovered Core Specification v1](evidence/historical/core-specification-v1-full.md) — full formal system definition and epistemic/safety architecture.
+- [Access Implementation Pack v2](evidence/historical/access-implementation-pack-v2.md) — Custom GPT instruction layer, state contract, ontology, reflection logic, user flow, and developer handoff.
+- [Collapse Codex](evidence/historical/collapse-codex-v1.md) — recovered symbolic recursion artifact.
+
 - [Unified Execution Hub](https://mirrorcartographer.github.io/mirror-cartographer-ui/execution-hub.html) — local-first task and evidence dashboard with browser storage and JSON import/export.
 
 - [OpenAI feature chronology](docs/OPENAI_FEATURE_CHRONOLOGY.md) — source-backed public release dates and alternative explanations.
