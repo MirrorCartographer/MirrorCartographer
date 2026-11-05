@@ -12,10 +12,10 @@ Mirror Cartographer is not one repository or one application. It is a historical
 |---|---:|---:|---|
 | `MirrorCartographer/MirrorCartographer` | Public | 4,245 | Observatory: research, evidence, architecture, governance, tools, demonstrations, public-interest methods, and creative work |
 | `MirrorCartographer/mirror-cartographer-ui` | Public | 2,506 | House of Mouths: interactive experiences, rooms, Living Atlas, workbench, Self Cartographer, research interfaces, and creative environments |
-| Private creative/core archive | Private | 683 | Historical source corpus, symbolic reflection system, personal archive, prototypes, structured data, continuity records, and local model/runtime experiments |
+| Private creative/core archive | Private | 689 | Historical source corpus, symbolic reflection system, personal archive, prototypes, structured data, continuity records, and local model/runtime experiments |
 | Private Human Judgment Lab | Private | 20 | Human evaluation operations studio, Consensus Trap experiment, synthetic evaluation data, and test harnesses |
 
-The four accessible trees contained **7,454 tracked entries** in this snapshot. These are Git tree entries, not 7,450 finished features. Counts change with commits and include source, tests, documents, images, data, and generated or supporting files. The recursive trees were not truncated by the API. Current tree SHAs: Observatory `c7f84b34a2900d2cb6e8626592e5324fd6fd15ff`; House of Mouths `07026a06691489b8b0d68c366ad9f54646f72f1f`; private creative/core archive `79093fd932989f5f07fdc38d6e557e7ca9b2643f`; private Human Judgment Lab `0081d7b882a64a4b79f7c789facc4aa5e2a0b49a`.
+The four accessible trees contained **7,460 tracked entries** in this snapshot. These are Git tree entries, not 7,450 finished features. Counts change with commits and include source, tests, documents, images, data, and generated or supporting files. The recursive trees were not truncated by the API. Current tree references: Observatory `fab0d8ff6033519c1ae43fc7029b017b55ba807a`; House of Mouths `07026a06691489b8b0d68c366ad9f54646f72f1f`; private creative/core archive `17ac77273a13679e392a73a1abcc0f4bc7757686`; private Human Judgment Lab `0081d7b882a64a4b79f7c789facc4aa5e2a0b49a`.
 
 The Library also contains a 55-page *Mirror Cartographer Atlas — Expanded Edition*, original whitepapers, module summaries, migration and sovereignty documents, ethics/licensing materials, companion journals, images, large conversation-history exports, and a May 2026 catalog of 256 production/research/operations artifacts. Those Library artifacts are separate from the Git trees and must retain their own source identifiers and dates.
 
@@ -170,10 +170,10 @@ The original product requirements also call for style adaptation that can both m
 
 | Count | What it means | What it does not mean |
 |---:|---|---|
-| 7,454 | Git tree entries across four accessible repositories on 2026-11-05 | 7,450 finished or validated features |
+| 7,460 | Git tree entries across four accessible repositories on 2026-11-05 | 7,460 finished or validated features |
 | 4,245 | Public research repository tree entries on 2026-11-05 | 4,243 research findings |
 | 2,506 | Public encounter/UI repository tree entries on 2026-11-05 | 2,506 rooms |
-| 683 | Private creative/core archive tree entries on 2026-11-05 | 681 independent projects |
+| 689 | Private creative/core archive tree entries on 2026-11-05 | 689 independent projects |
 | 20 | Private Human Judgment Lab tree entries on 2026-11-05 | 20 empirical studies |
 | 96 | HTML artifacts indexed by the UI workbench/completion record | 96 fully audited, production-ready experiences |
 | 34 | Curated room/destination identity contracts | 34 individually complete experiences |
