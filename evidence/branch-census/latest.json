@@ -1,0 +1,1656 @@
+{
+  "schema_version": "1.0",
+  "captured_at_utc": "2026-11-05T18:11:26.430Z",
+  "scope": "public repositories only; no private repository source or metadata is collected",
+  "reports": [
+    {
+      "repository": "MirrorCartographer/MirrorCartographer",
+      "visibility": "public",
+      "default_branch": "main",
+      "default_branch_head_sha": "29a82ffe483a23a470372232ce77e1463a599935",
+      "branch_count": 71,
+      "unique_branch_heads": 58,
+      "shared_head_groups": [
+        {
+          "sha": "702cb40857effe7c8bc09359c54e17ba2e737db6",
+          "branches": [
+            "agent/conversation-parallax-0035-edge-ingress",
+            "parallax-0042"
+          ]
+        },
+        {
+          "sha": "9520e3eaee3b715edd6cb331b0729f3891eda5eb",
+          "branches": [
+            "automation/public-safe-runtime-boundaries-2026-07-01",
+            "automation/public-safe-runtime-boundaries-2026-07-01b",
+            "automation/public-safe-runtime-boundaries-actual",
+            "automation/public-safe-runtime-boundaries-createfile",
+            "automation/public-safe-runtime-boundaries-file",
+            "automation/public-safe-runtime-boundaries-final",
+            "automation/public-safe-runtime-boundaries-real-write",
+            "automation/try-createfile-direct"
+          ]
+        },
+        {
+          "sha": "b9fb26d525216a78a3f2e27dffa69246803d3969",
+          "branches": [
+            "creative/not-seen-not-zero-protocol-20261019",
+            "research/failure-attribution-calibration-20261020"
+          ]
+        },
+        {
+          "sha": "4d2e16f7f8d0f476dd625c768668f4f777578371",
+          "branches": [
+            "feat/personal-world-bridge",
+            "feat/personal-world-bridge-v3",
+            "feat/personal-world-bridge-v4",
+            "feat/personal-world-bridge-v5"
+          ]
+        },
+        {
+          "sha": "fd225c3c3a1f53a8dfdaa268719d4e26ca617261",
+          "branches": [
+            "investigation/validator-type-guards",
+            "research/self-model-map-and-tooling"
+          ]
+        }
+      ],
+      "branches": [
+        {
+          "name": "agent/ai-exchange-veteran-infrastructure-01",
+          "head_sha": "27644ce27a34195c150360bd566e87fc6163bebb",
+          "protected": false
+        },
+        {
+          "name": "agent/conversation-parallax-0032",
+          "head_sha": "231740d9a83c55e99c6b925fc4435360af69b757",
+          "protected": false
+        },
+        {
+          "name": "agent/conversation-parallax-0035-edge-ingress",
+          "head_sha": "702cb40857effe7c8bc09359c54e17ba2e737db6",
+          "protected": false
+        },
+        {
+          "name": "agent/conversation-parallax-0037-ci-worker",
+          "head_sha": "a50c0ee47f7630e87173fdaaa42753b960cd1a37",
+          "protected": false
+        },
+        {
+          "name": "agent/conversation-parallax-0055-secrets-identity",
+          "head_sha": "8b96153a686241c5059986658f9af145e8e90783",
+          "protected": false
+        },
+        {
+          "name": "agent/foundation-sovereignty-ledger-0001",
+          "head_sha": "9be4f09a33a7268d74d0587065a3a1994c9915be",
+          "protected": false
+        },
+        {
+          "name": "agent/parallax-artifact-custody-20",
+          "head_sha": "4c85796d98334fc1572ca70b8b45970fb1cf30c3",
+          "protected": false
+        },
+        {
+          "name": "agent/parallax-bootstrap-0040",
+          "head_sha": "d77ac257896e46d35ece0e5b03487c5a97acd966",
+          "protected": false
+        },
+        {
+          "name": "agent/parallax-owned-build-worker-0001",
+          "head_sha": "6211bf121b79e7d04e3d772fc50cf0ce34f90661",
+          "protected": false
+        },
+        {
+          "name": "agent/parallax-public-capability-28",
+          "head_sha": "7b91f17147d8e38666fee53d8999204c3555868a",
+          "protected": false
+        },
+        {
+          "name": "art/steward-system-orbit-20260724",
+          "head_sha": "4dc9775da91a216b610a9cadd734076a32c7b440",
+          "protected": false
+        },
+        {
+          "name": "assistant/self-model-evidence-map-v1",
+          "head_sha": "e417954f8cbade0c1a9baf06b8d755f5a62e1a81",
+          "protected": false
+        },
+        {
+          "name": "automation/public-safe-runtime-boundaries-2026-07-01",
+          "head_sha": "9520e3eaee3b715edd6cb331b0729f3891eda5eb",
+          "protected": false
+        },
+        {
+          "name": "automation/public-safe-runtime-boundaries-2026-07-01b",
+          "head_sha": "9520e3eaee3b715edd6cb331b0729f3891eda5eb",
+          "protected": false
+        },
+        {
+          "name": "automation/public-safe-runtime-boundaries-actual",
+          "head_sha": "9520e3eaee3b715edd6cb331b0729f3891eda5eb",
+          "protected": false
+        },
+        {
+          "name": "automation/public-safe-runtime-boundaries-createfile",
+          "head_sha": "9520e3eaee3b715edd6cb331b0729f3891eda5eb",
+          "protected": false
+        },
+        {
+          "name": "automation/public-safe-runtime-boundaries-file",
+          "head_sha": "9520e3eaee3b715edd6cb331b0729f3891eda5eb",
+          "protected": false
+        },
+        {
+          "name": "automation/public-safe-runtime-boundaries-final",
+          "head_sha": "9520e3eaee3b715edd6cb331b0729f3891eda5eb",
+          "protected": false
+        },
+        {
+          "name": "automation/public-safe-runtime-boundaries-real-write",
+          "head_sha": "9520e3eaee3b715edd6cb331b0729f3891eda5eb",
+          "protected": false
+        },
+        {
+          "name": "automation/try-createfile-direct",
+          "head_sha": "9520e3eaee3b715edd6cb331b0729f3891eda5eb",
+          "protected": false
+        },
+        {
+          "name": "cloudflare/exact-checkout-contract-20260712",
+          "head_sha": "61e13aede2410f313b4e91d9f3a26232cfa1ed03",
+          "protected": false
+        },
+        {
+          "name": "cloudflare/materialize-missing-evidence-20260712",
+          "head_sha": "ec309465184dc24b6e40b2df4631684dbce6bbf7",
+          "protected": false
+        },
+        {
+          "name": "creative/forecast-loom-protocol",
+          "head_sha": "566a170614ad1ad3659b20632205a77d7abab9a9",
+          "protected": false
+        },
+        {
+          "name": "creative/lever-garden-protocol",
+          "head_sha": "0d0ff66cf4b5f5bea69433278193644b6ed8d8d3",
+          "protected": false
+        },
+        {
+          "name": "creative/not-seen-not-zero-protocol-20261019",
+          "head_sha": "b9fb26d525216a78a3f2e27dffa69246803d3969",
+          "protected": false
+        },
+        {
+          "name": "creative/public-safe-abstraction-protocol",
+          "head_sha": "5e303446a7c5faf92c9be018d26e73bcdefa098e",
+          "protected": false
+        },
+        {
+          "name": "creative/three-lenses-protocol",
+          "head_sha": "48285423ec7307406f642e2f16e80ebb285c1b4d",
+          "protected": false
+        },
+        {
+          "name": "creative/three-lenses-protocol-review",
+          "head_sha": "dcddeb26d9a2f227ca3df74931978b59d36a2bfa",
+          "protected": false
+        },
+        {
+          "name": "creative/translation-loom-protocol-20261018",
+          "head_sha": "e240bd4fef81823107132cd70e68745b832b8b23",
+          "protected": false
+        },
+        {
+          "name": "docs/contribution-protocol",
+          "head_sha": "cd676ad21b82d091dd7624e5b5819fbd626602ba",
+          "protected": false
+        },
+        {
+          "name": "docs/security-boundaries",
+          "head_sha": "5f9e795a9ca6777200f556f4831e1a7b942d79d0",
+          "protected": false
+        },
+        {
+          "name": "epistemic-continuity-2026-10",
+          "head_sha": "e68e99d8c9d19ae312c64b4390959bceffa8d9c8",
+          "protected": false
+        },
+        {
+          "name": "experience/immersive-front-door",
+          "head_sha": "e008b1f70234954b3861010d0c0de75e3c641a9b",
+          "protected": false
+        },
+        {
+          "name": "feat/personal-world-bridge",
+          "head_sha": "4d2e16f7f8d0f476dd625c768668f4f777578371",
+          "protected": false
+        },
+        {
+          "name": "feat/personal-world-bridge-v2",
+          "head_sha": "df7f5d07f26210da02086a662be95e71e5a11e32",
+          "protected": false
+        },
+        {
+          "name": "feat/personal-world-bridge-v3",
+          "head_sha": "4d2e16f7f8d0f476dd625c768668f4f777578371",
+          "protected": false
+        },
+        {
+          "name": "feat/personal-world-bridge-v4",
+          "head_sha": "4d2e16f7f8d0f476dd625c768668f4f777578371",
+          "protected": false
+        },
+        {
+          "name": "feat/personal-world-bridge-v5",
+          "head_sha": "4d2e16f7f8d0f476dd625c768668f4f777578371",
+          "protected": false
+        },
+        {
+          "name": "feature/accessibility-composition-mode-07",
+          "head_sha": "05e8ee33f19fceb350dddcedbd8a0027c7737a38",
+          "protected": false
+        },
+        {
+          "name": "feature/first-reflection-loop",
+          "head_sha": "29269770647c0a68b4286ae00826641a9940e4f6",
+          "protected": false
+        },
+        {
+          "name": "feature/interaction-instrument-06",
+          "head_sha": "6f65f5059cad6b21a1e1a357aa4152d2efda3439",
+          "protected": false
+        },
+        {
+          "name": "feature/local-composition-memory-09",
+          "head_sha": "dcb9ec7a947034f95445bd8ef25dbb7485e6b534",
+          "protected": false
+        },
+        {
+          "name": "feature/narrative-harmonic-room-05",
+          "head_sha": "958a9885c05497b0b3148549a31c8e74fcbdbe1d",
+          "protected": false
+        },
+        {
+          "name": "feature/sovereign-performance-score-10",
+          "head_sha": "afc5f05befa1faf65f3c22a6794da1cdc04db47f",
+          "protected": false
+        },
+        {
+          "name": "film/echo-next",
+          "head_sha": "3b8d55954515f553eb1aa9d080054651df3b84da",
+          "protected": false
+        },
+        {
+          "name": "fix/pages-object-url-validator-20261105",
+          "head_sha": "a4707f5326b772035825c14b9f82ca3b983bc972",
+          "protected": false
+        },
+        {
+          "name": "gh-pages",
+          "head_sha": "3f1ca33f68033409c49db29366d3b130bc1e916f",
+          "protected": false
+        },
+        {
+          "name": "interaction-capsules",
+          "head_sha": "8cf3afeff8cb3eb7331716c74c59aa377f86f911",
+          "protected": false
+        },
+        {
+          "name": "investigation/github-ref-provenance-guard",
+          "head_sha": "37aa123468f70afde41e85ac0e11903abe0d41d5",
+          "protected": false
+        },
+        {
+          "name": "investigation/next-static-export-route-guard",
+          "head_sha": "712e4116557d89027bc17bdf43a8cff03218ea34",
+          "protected": false
+        },
+        {
+          "name": "investigation/proof-gate-state-consistency",
+          "head_sha": "d91550d2f183dd44a6797b99df27ba91ae017fd1",
+          "protected": false
+        },
+        {
+          "name": "investigation/validator-type-guards",
+          "head_sha": "fd225c3c3a1f53a8dfdaa268719d4e26ca617261",
+          "protected": false
+        },
+        {
+          "name": "investigation/validator-type-guards-v2",
+          "head_sha": "e40c31cb5fbccd9f87740eecf9794658d9c9e1f2",
+          "protected": false
+        },
+        {
+          "name": "investigation/workflow-run-inventory-completeness",
+          "head_sha": "376d9c043d34f6ca99cb43ceaf406e9aa1f5937e",
+          "protected": false
+        },
+        {
+          "name": "main",
+          "head_sha": "29a82ffe483a23a470372232ce77e1463a599935",
+          "protected": false
+        },
+        {
+          "name": "parallax-0042",
+          "head_sha": "702cb40857effe7c8bc09359c54e17ba2e737db6",
+          "protected": false
+        },
+        {
+          "name": "research/author-source-invariance-20261019",
+          "head_sha": "21f9a1a57a53ff800220fb2f0019d6587b0e517d",
+          "protected": false
+        },
+        {
+          "name": "research/continuity-perturbation-study-20261014",
+          "head_sha": "754c75ca6330b635b571696b21601dd6479cb304",
+          "protected": false
+        },
+        {
+          "name": "research/dependency-map-counterfactual-20261017",
+          "head_sha": "c58682760aedf474840789a9acd6b3926d087641",
+          "protected": false
+        },
+        {
+          "name": "research/evidence-gated-correction-20261017",
+          "head_sha": "341776544b495ccf784fac5f2897efb1e08810c0",
+          "protected": false
+        },
+        {
+          "name": "research/failure-attribution-calibration-20261020",
+          "head_sha": "b9fb26d525216a78a3f2e27dffa69246803d3969",
+          "protected": false
+        },
+        {
+          "name": "research/prompt-frame-invariance-20261016",
+          "head_sha": "4bf8e16e34c0f4e2a4aa2118206230d81752df32",
+          "protected": false
+        },
+        {
+          "name": "research/self-model-map-and-tooling",
+          "head_sha": "fd225c3c3a1f53a8dfdaa268719d4e26ca617261",
+          "protected": false
+        },
+        {
+          "name": "research/system-identity-transition-20261018",
+          "head_sha": "9b6ed5949da8c5f18534be7235b0e78b1fc92c47",
+          "protected": false
+        },
+        {
+          "name": "run-0041",
+          "head_sha": "e5de23e5156a7a9eb55e697c08951b822b822907",
+          "protected": false
+        },
+        {
+          "name": "run-0043",
+          "head_sha": "13a5630d2bc899e71fe43d4e98c736114b28ad0e",
+          "protected": false
+        },
+        {
+          "name": "run-0046",
+          "head_sha": "8bdf6257f4ef719d9701315124707b48d57c622a",
+          "protected": false
+        },
+        {
+          "name": "run-0050",
+          "head_sha": "986802e207d9c6dd5bb86df27223ad242fb63ee9",
+          "protected": false
+        },
+        {
+          "name": "studio/first-commission-offer",
+          "head_sha": "125958b677df1e5c48431950460e3474c5f48d13",
+          "protected": false
+        },
+        {
+          "name": "vercel/react-server-components-cve-vu-ohd66i",
+          "head_sha": "a2788dcd3d5ffb4ecc137cb841b199fc8df03b12",
+          "protected": false
+        },
+        {
+          "name": "work/100-iterations-2026-11-03",
+          "head_sha": "e205d1e8dcfff5fd0c8f2287e5388ed392cf9a56",
+          "protected": false
+        }
+      ],
+      "default_branch_status": {
+        "state": "pending",
+        "total_count": 0,
+        "statuses": []
+      },
+      "default_branch_check_runs": [
+        {
+          "name": "build",
+          "status": "queued",
+          "conclusion": null,
+          "html_url": "https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/42081811610/job/127436564885"
+        },
+        {
+          "name": "census",
+          "status": "in_progress",
+          "conclusion": null,
+          "html_url": "https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/42081811802/job/127436539864"
+        },
+        {
+          "name": "Typecheck and build",
+          "status": "in_progress",
+          "conclusion": null,
+          "html_url": "https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/42081811952/job/127436528968"
+        },
+        {
+          "name": "inspect",
+          "status": "in_progress",
+          "conclusion": null,
+          "html_url": "https://github.com/MirrorCartographer/MirrorCartographer/actions/runs/42081811819/job/127436528449"
+        }
+      ]
+    },
+    {
+      "repository": "MirrorCartographer/mirror-cartographer-ui",
+      "visibility": "public",
+      "default_branch": "main",
+      "default_branch_head_sha": "9ff855860c9ea7398838e1a3a1881386b4413ccf",
+      "branch_count": 224,
+      "unique_branch_heads": 221,
+      "shared_head_groups": [
+        {
+          "sha": "ea2a2ed8e9490596f3103dde7b4d581cbc232631",
+          "branches": [
+            "agent/sovereign-secrets-custody-06",
+            "preview-build-capsule",
+            "preview-fia-owned-scaling-16",
+            "preview-fia-test-orchestration-17"
+          ]
+        }
+      ],
+      "branches": [
+        {
+          "name": "agent-fia-reproducibility-gate-08",
+          "head_sha": "5edc0aa018c1d3eac4140b093c6180d366a40ca5",
+          "protected": false
+        },
+        {
+          "name": "agent/arc-competition-connector",
+          "head_sha": "526535c5ce2e48843da1ebd1d9d6c203c7c594c1",
+          "protected": false
+        },
+        {
+          "name": "agent/arc1-measured-baseline",
+          "head_sha": "7f3cac044cfcef9c117b949b5dab46dc33085c98",
+          "protected": false
+        },
+        {
+          "name": "agent/fia-clean-source-reproducibility-v1",
+          "head_sha": "936f0724d7a401fd2db4c98c95d4f4c2e30eabd6",
+          "protected": false
+        },
+        {
+          "name": "agent/fia-owned-build-worker-09",
+          "head_sha": "6a0f380e10b75c7cf5f48c0a152599ac2a881783",
+          "protected": false
+        },
+        {
+          "name": "agent/fia-owned-secrets-identity-22",
+          "head_sha": "9f35ca8ff026cf304489c816364285bbe408f2c3",
+          "protected": false
+        },
+        {
+          "name": "agent/fia-owned-static-release-compiler-v1",
+          "head_sha": "bb32f75c0388c5c12e3247efb9d777bfc3d1f418",
+          "protected": false
+        },
+        {
+          "name": "agent/fia-provider-coupling-gate-06",
+          "head_sha": "480f8626ef4b942b5a9cc8b6d72b5cda80c6ec15",
+          "protected": false
+        },
+        {
+          "name": "agent/fia-rollback-bundle-gate-09",
+          "head_sha": "d6817c95ba5bf817d859fab3a4d62b28512f10b3",
+          "protected": false
+        },
+        {
+          "name": "agent/fia-runtime-bundle-gate-10",
+          "head_sha": "30ca0a0c1d4ea5680c4599e7851de51f057ade2c",
+          "protected": false
+        },
+        {
+          "name": "agent/fia-secrets-bootstrap-gate-09",
+          "head_sha": "160e772dcf7c2626b3dc431de64583029d2aff53",
+          "protected": false
+        },
+        {
+          "name": "agent/foundation-conversation-compiler-01",
+          "head_sha": "da275273df73cd75035643dd9b253d15fe2f1039",
+          "protected": false
+        },
+        {
+          "name": "agent/foundation-os-bootstrap",
+          "head_sha": "b77a7b9839b0fd6aa1f48659284a503d94edda1e",
+          "protected": false
+        },
+        {
+          "name": "agent/public-capability-attestation-16",
+          "head_sha": "406070705643a00888b27b81eb0b52329bb2045c",
+          "protected": false
+        },
+        {
+          "name": "agent/sovereign-artifact-custody",
+          "head_sha": "4f95312566555a9f31d3c4362796c8cfd24040cc",
+          "protected": false
+        },
+        {
+          "name": "agent/sovereign-ci-worker-custody-10",
+          "head_sha": "a2ad991301fe125a34f0448cb400029590456c6e",
+          "protected": false
+        },
+        {
+          "name": "agent/sovereign-edge-ingress-08",
+          "head_sha": "f7fbbda1a0ac4574fea142d96e90bed4766156bf",
+          "protected": false
+        },
+        {
+          "name": "agent/sovereign-oci-registry-gate-32",
+          "head_sha": "fb18aac1889fb89fb1a4972a11e0898c70108add",
+          "protected": false
+        },
+        {
+          "name": "agent/sovereign-secrets-custody-06",
+          "head_sha": "ea2a2ed8e9490596f3103dde7b4d581cbc232631",
+          "protected": false
+        },
+        {
+          "name": "art/braid-state-grammar-v1",
+          "head_sha": "3ac442a6bb1cc9eccbcd748ec9607476c4c1d909",
+          "protected": false
+        },
+        {
+          "name": "assistant/braid-control-plane-v1",
+          "head_sha": "cccfabbe32365f9e3cef6bdbd4a41d9e6fe44f78",
+          "protected": false
+        },
+        {
+          "name": "assistant/self-model-agent-map-v1",
+          "head_sha": "b6a58b26b86e43ed25f8ef7c556e444111533775",
+          "protected": false
+        },
+        {
+          "name": "automation/bounded-build-gate-20260724",
+          "head_sha": "cd0d66bc070c7f4de29620bf3107364e30a4300c",
+          "protected": false
+        },
+        {
+          "name": "build-engine/fia-artifact-bundle-v1",
+          "head_sha": "1f219ed4a0b6820b48c050ca7781a846ea95349b",
+          "protected": false
+        },
+        {
+          "name": "build/atlas-local-worlds",
+          "head_sha": "f112eb8af577c3abf21f3db3d460954e60b22f6c",
+          "protected": false
+        },
+        {
+          "name": "build/atlas-local-worlds-v2",
+          "head_sha": "567d78eea67d7f2bedb18c19474616bbc0c1d306",
+          "protected": false
+        },
+        {
+          "name": "cloudflare/adversarial-source-freshness-v2",
+          "head_sha": "5c6f4f14f0f935ac182e185e43ac53ab17070f28",
+          "protected": false
+        },
+        {
+          "name": "continuity/adversarial-evidence-binding-v4",
+          "head_sha": "74a5605dd1890d4bc529e986e94e4994c108f72e",
+          "protected": false
+        },
+        {
+          "name": "continuity/adversarial-review-v2",
+          "head_sha": "4ade581716a4cb347eecdce6ed0c5f1ac5055829",
+          "protected": false
+        },
+        {
+          "name": "creative/forecast-loom-proof",
+          "head_sha": "ec206832f12362b09610d3bf2f326d2963f9a6c8",
+          "protected": false
+        },
+        {
+          "name": "creative/glasshouse-abstraction-gate",
+          "head_sha": "93f92b0eb64dc11d7ac206510a33f624e25503ed",
+          "protected": false
+        },
+        {
+          "name": "creative/lever-garden-proof",
+          "head_sha": "609cfa3a2f49cec7f6867fd7f3ce7646229b9447",
+          "protected": false
+        },
+        {
+          "name": "creative/not-seen-not-zero-proof-20261019",
+          "head_sha": "99693699ba9f6bc567de3ec41a7c5d702ce33229",
+          "protected": false
+        },
+        {
+          "name": "creative/three-lenses-proof",
+          "head_sha": "2b155dd837385774e9117dda9bc34186a10b0d44",
+          "protected": false
+        },
+        {
+          "name": "creative/three-lenses-proof-review",
+          "head_sha": "f83a7e7025fec170d72a4a4ef45dd3da50da1eb3",
+          "protected": false
+        },
+        {
+          "name": "creative/translation-loom-proof-20261018",
+          "head_sha": "2f6896077aec3c61c02752139ae9bd21477ce50b",
+          "protected": false
+        },
+        {
+          "name": "epistemic-continuity-2026-10",
+          "head_sha": "06d4119aefba5c652c80501b037059e8f2e81c50",
+          "protected": false
+        },
+        {
+          "name": "experience/rooms-mirror",
+          "head_sha": "d6ef0a6009446abc9b9440248241f1ab583d217f",
+          "protected": false
+        },
+        {
+          "name": "feature/authenticated-platform-dashboard",
+          "head_sha": "22ac0e231522048237bff1e59faa60ad7885408e",
+          "protected": false
+        },
+        {
+          "name": "feature/composition-memory-01",
+          "head_sha": "92aa174b02fdf4fb48273d8f17d026cae64dfecb",
+          "protected": false
+        },
+        {
+          "name": "feature/generative-score-garden-04",
+          "head_sha": "1402bb2968ae94367534fa4923eb5b9da26fa1ae",
+          "protected": false
+        },
+        {
+          "name": "feature/repository-local-preview-hub",
+          "head_sha": "52a9fc345135ec3ecb7fe865e73dc56efe11c889",
+          "protected": false
+        },
+        {
+          "name": "feature/spatial-sound-field-03",
+          "head_sha": "1c619850bb756fb079c6b3ce9c1f1d97e9a64558",
+          "protected": false
+        },
+        {
+          "name": "feature/visual-music-grammar-02",
+          "head_sha": "e6e8d4e485d4d41bd8c6c71c43ad6ab6ceb1bb3d",
+          "protected": false
+        },
+        {
+          "name": "fia-invariant-song-01",
+          "head_sha": "19a8f4830ac99a35bec842efa7dc53f513f1512d",
+          "protected": false
+        },
+        {
+          "name": "fia/atomic-deployment-manager-v1",
+          "head_sha": "27789461f5eab70195e07ee58094c6c7cba3feb6",
+          "protected": false
+        },
+        {
+          "name": "fia/build-coordinator-v1",
+          "head_sha": "aedb48c2169d7d99cade4277523f7fdd61694b76",
+          "protected": false
+        },
+        {
+          "name": "fia/build-input-manifest-v1",
+          "head_sha": "8c7665f2e18e578bdbbed5cc9d04a5ee96c3cafe",
+          "protected": false
+        },
+        {
+          "name": "fia/build-plan-preflight-v1",
+          "head_sha": "2475955dd2a01da967850147187c6fa884ea5520",
+          "protected": false
+        },
+        {
+          "name": "fia/build-run-manifest-v1",
+          "head_sha": "c0488172e9e12d645e3637ce7e3857b4f1443de6",
+          "protected": false
+        },
+        {
+          "name": "fia/cgroup-private-root-worker-run-v1",
+          "head_sha": "c764af4fe6b076fe56c5203c712c9faceb5cf868",
+          "protected": false
+        },
+        {
+          "name": "fia/clean-build-transaction-v1",
+          "head_sha": "b3a31dd423013b4e52e1722c784b0390cdb87d23",
+          "protected": false
+        },
+        {
+          "name": "fia/clean-environment-build-v1",
+          "head_sha": "5a530e2c533cd2ac5b544d7b76d5b0d3546f8aa7",
+          "protected": false
+        },
+        {
+          "name": "fia/clean-workspace-executor-v1",
+          "head_sha": "9629170221f5f6eda9e2cc04e3f0f56ef26296c1",
+          "protected": false
+        },
+        {
+          "name": "fia/composition-world-v1",
+          "head_sha": "7903cb3b3bfcae0141eead1784ee97ace498a867",
+          "protected": false
+        },
+        {
+          "name": "fia/content-addressed-store-v1",
+          "head_sha": "f587eb8f4ac0d4a1ffe11d3b87c6434832754be8",
+          "protected": false
+        },
+        {
+          "name": "fia/dependency-authority-v1",
+          "head_sha": "0a75a8ec13a9c4d88cb935fe6a54bef3755ed1f0",
+          "protected": false
+        },
+        {
+          "name": "fia/deterministic-sbom-v1",
+          "head_sha": "2da49a91e67e1b01371ec104e8d572f81f67d1c2",
+          "protected": false
+        },
+        {
+          "name": "fia/evidence-bound-sealing-v1",
+          "head_sha": "5ca36482e2ea9137f0fcff8d1f4b3a5d1ed3993c",
+          "protected": false
+        },
+        {
+          "name": "fia/execution-admission-integrity-v1",
+          "head_sha": "18e08815bd9f370a740a481bb98eaeb30a3af24b",
+          "protected": false
+        },
+        {
+          "name": "fia/hardened-linux-worker-plan-v1",
+          "head_sha": "9051f981246b9845f589381a4adb14822ae6583c",
+          "protected": false
+        },
+        {
+          "name": "fia/hardened-linux-worker-run-v1",
+          "head_sha": "dc5143ef030bc387aa147053f35e5b25c0c8da47",
+          "protected": false
+        },
+        {
+          "name": "fia/lockfile-supply-chain-gate-v1",
+          "head_sha": "84c047abdae7b1703ff3da8be3911aa783fbba9a",
+          "protected": false
+        },
+        {
+          "name": "fia/manifest-bound-clean-build-v1",
+          "head_sha": "d2433f8ea9a985d96bf2e1d13eae74ce491cf24a",
+          "protected": false
+        },
+        {
+          "name": "fia/offline-dependency-reproducibility-v1",
+          "head_sha": "81266edf7903fafde10c2e7dd73359a3fc8ead21",
+          "protected": false
+        },
+        {
+          "name": "fia/offline-install-reproducibility-v1",
+          "head_sha": "d9b3692242fa796b9ad16b3096e93fb1a6edfe0b",
+          "protected": false
+        },
+        {
+          "name": "fia/offline-runtime-bundle-v1",
+          "head_sha": "35677c8c1560c3b567258e96dd2b8e9eb197abe1",
+          "protected": false
+        },
+        {
+          "name": "fia/offline-runtime-verification-v1",
+          "head_sha": "b457459d2cde71dd1a6ba1be8bf44dbb5ae49397",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-gc-recovery-v1",
+          "head_sha": "f5ded32002e409ac3d73688e2d4bb16a795a9b26",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-gc-recovery-v2",
+          "head_sha": "a5bececf1dba0e00f0d4ed9dd3dfc4ace1376716",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-gc-v1",
+          "head_sha": "c95b75fd576addc5323b01baedf9a455b2f2d6cb",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-gc-v2",
+          "head_sha": "574e31de500dedb925e6fc1244e476c2f34fe674",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-recovery-v1",
+          "head_sha": "c4b0920c86ba9da147f5bd1fd5157489463e844b",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-sovereign-release-capsule-archive-v1",
+          "head_sha": "aaad5952d7c2edd730913f2fa46b369ca2663a73",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-sovereign-release-capsule-stream-v1",
+          "head_sha": "b459b51f5015bc24269eda240e64fe969b576ebb",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-sovereign-release-capsule-v1",
+          "head_sha": "cb0cc1e25270180fd2d7940a869918bf18c169f9",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-sovereign-release-promotion-recovery-v1",
+          "head_sha": "5bf25574d638457b49084049533cb7be557c5412",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-sovereign-release-promotion-v1",
+          "head_sha": "24d8c13f6f0d4f92b6c395b92cea532963204c4f",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-sovereign-release-rollback-recovery-v1",
+          "head_sha": "76fb11efa70b4e907d2d183b3a59c47976cb8a54",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-sovereign-release-rollback-v1",
+          "head_sha": "b05453453ae553ce3ddcb7a8ef61aa33218ec6ff",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-startup-recovery-archive-v1",
+          "head_sha": "4626c857ccab32cdfb6ea959da4947de99995be4",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-startup-recovery-lineage-transport-v1",
+          "head_sha": "6d079895ea3bfa566d3a30ca22a549d1623cd048",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-startup-recovery-plan-v1",
+          "head_sha": "1dee2d6b5f98ad986b70c0dc7bbc331985b3e4c6",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-startup-recovery-plan-v2",
+          "head_sha": "8150705e6edc486ccca65d6c930c99c9c4f6450c",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-startup-recovery-v1",
+          "head_sha": "abc1ad52870f6b8dcca460865e77f1785d539cc0",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-startup-recovery-verification-v1",
+          "head_sha": "32fe26acccdd9a5ae50d89131405d8394decef78",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-artifact-registry-transaction-v1",
+          "head_sha": "d299a3899df7aa7472dd62f272ddf5693a72b893",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-build-transaction-v1",
+          "head_sha": "c1975210b4114d6c2d3ab594d13d4ebd54f61f70",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-cas-authority-dispatcher-v1",
+          "head_sha": "989b39e186c3e6b1af2f7be5e6777fc9486d35dd",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-cas-authority-reconciliation-v1",
+          "head_sha": "3a9c11e817999fed9bc296c74a55130dd67b4765",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-cas-authority-recovery-v1",
+          "head_sha": "7d2e6faf646958ca595fd9897e589cb5de5837f8",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-cas-authority-transaction-v1",
+          "head_sha": "9fe9f8e07f40f1880b05b897d502a31afc4e3ac9",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-cas-publisher-reconciliation-v1",
+          "head_sha": "eb17c8d1f602b9c554f99974f9978c6146315fdf",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-cas-reachability-quarantine-v1",
+          "head_sha": "2e4759a7431524490d00857d6f93c7e80d144d23",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-cas-reachability-recovery-v1",
+          "head_sha": "bde00b0d43cadc524f7ba4b06057d0dd2981f086",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-cas-reconciliation-transaction-v1",
+          "head_sha": "fcdf11c9a49359e92defa21d0a8ce56879262f96",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-clean-source-reproducibility-v1",
+          "head_sha": "9ece53dc2cf93fcf3933aa13761837b2af49b3a3",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-clean-source-reproducibility-v1-real",
+          "head_sha": "1981ac7c0e1ebf9ed91678d40ca3f40fc4d23665",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-clean-source-reproducibility-v2",
+          "head_sha": "a03d75808b70325b9e710f68ba335d6c3cf6898b",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-dependency-installation-v1",
+          "head_sha": "9ec7897f0a9f5639486106c4b5fe9f2de35587ee",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-dependency-installation-v1-real",
+          "head_sha": "85ae02a5a3e85b62035b13d7aeee06a182e17b0a",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-dependency-materialization-v1",
+          "head_sha": "381afe60db710d7564d7b1da02593445b9079d09",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-dependency-materialization-v1-real",
+          "head_sha": "fa7d7e7cbfe827e14f58c08ef6785a1714bac609",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-deployment-bundle-v1",
+          "head_sha": "b49fce9e68f53eb4c09fb604434c8a1e493695f7",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-deployment-commit-v1",
+          "head_sha": "63799ada64be3672043f403990d7c1e9af76fa17",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-deployment-installation-v1",
+          "head_sha": "e7d9cb7a37fd0c4913413a9a4224a00e40da0afa",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-deployment-restore-v1",
+          "head_sha": "9c7c0a3b2065fd2a7a83a4cf89db66e501563a34",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-hermetic-reproducibility-proof-v1",
+          "head_sha": "bbec48a552b67f12eecab6dcfd5c5956ae5c96dc",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-hermetic-source-compilation-v1",
+          "head_sha": "f559644852425cb0dbe012860e46e74baa0baeca",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-listener-handoff-v1",
+          "head_sha": "f6f793b1d24cf7b96be90e61757b92890a01ed1e",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-listener-promotion-v1",
+          "head_sha": "5f77eb421967691960af9465cbbb259abff50edb",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-listener-supervisor-v1",
+          "head_sha": "f8c2d12e3cf250d7da163f73663ac5e8874acacf",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-live-deployment-commit-v1",
+          "head_sha": "b91b3c3721812c0dedf45969fc4ffbb443a523cb",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-npm-cache-compiler-v1",
+          "head_sha": "cf4f31c28d3c9ac018e3b479c6d83a128981cf58",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-npm-cache-import-v1",
+          "head_sha": "295a1af5de2ac6b121a06977e27bea2c611615e3",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-npm-dependency-cache-v1",
+          "head_sha": "67e305073dbf3a5e78626485e321faa66583d599",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-publication-transaction-v1",
+          "head_sha": "dcb2f0a9c4fc3061be8c8061769a51299988c10f",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-registry-writer-v1",
+          "head_sha": "a6e3e3473a00f2e8f5e9216a7534a3e1b0827c84",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-release-activation-v1",
+          "head_sha": "29c2ff29cd4cb2aa2b56a112053f751c18df259e",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-release-artifact-graph-restore-v1",
+          "head_sha": "9a77ee23f823c3e56fe97542ad96ddeee10a13df",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-release-artifact-graph-v1",
+          "head_sha": "430ef4d69866f5edbf6cab9a05a91829bbeba8ed",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-routing-proxy-supervision-v1",
+          "head_sha": "250a3663b7b063d8e1fb23e224fbf380e067f48c",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-routing-proxy-v1",
+          "head_sha": "0500fad943d6672408a144c2f44a0c27eccfeb8e",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-runtime-generation-handoff-v1",
+          "head_sha": "5f48bd4c44a97711cf4d51c6c3a1a27937b16523",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-runtime-health-v1",
+          "head_sha": "067759e46ddedc97982f06d3bde397674e249e5a",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-runtime-process-generation-handoff-v1",
+          "head_sha": "f455da508510c9380f23159c792a8be9cf68a246",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-runtime-verifier-v1",
+          "head_sha": "83700ecc3f50280405d0b39afd7965a006ff334b",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-self-hosted-worker-execution-recovery-v1",
+          "head_sha": "a64705dfc56692cccf17483a7365269e1e8911ea",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-self-hosted-worker-execution-v2",
+          "head_sha": "2d69ab532b882ee878b9a79f648206699454e9f7",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-self-hosted-worker-execution-v3",
+          "head_sha": "5d578958919daa4df1005384d8c1db3e47e6df7c",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-self-hosted-worker-execution-v4",
+          "head_sha": "72af13cf4b7cdc4c62543fff330d59c59dc4b08d",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-self-hosted-worker-execution-v5",
+          "head_sha": "181266ec93e01ffb59121a6181bbe162f295a502",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-self-hosted-worker-filesystem-v1",
+          "head_sha": "6bf43b2d7d6be8aadb393f00933472328c6d149c",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-self-hosted-worker-sandbox-v1",
+          "head_sha": "2b75dd5ba43aac812e1f26b6ce6ad1f2e374fc47",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-static-release-compiler-v1",
+          "head_sha": "a3d1cc03ce47f2dcfd348c898b57a2566f35e964",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-static-release-compiler-v1-real",
+          "head_sha": "86d08d967b0585266edc8645231462cb72e3efcf",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-static-runtime-server-v1",
+          "head_sha": "7e833f55cbc9d84861369f1f7b3306500c513b99",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-static-runtime-v1",
+          "head_sha": "87236d423f52a242c828474b0a6e19e951163839",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-worker-cas-publication-v1",
+          "head_sha": "980d83cb49d4664b07634b61c93ed9b6af5babc9",
+          "protected": false
+        },
+        {
+          "name": "fia/owned-worker-resource-accounting-v1",
+          "head_sha": "4af29117ab43db88195fe351e2c37e7e3b3e3b5c",
+          "protected": false
+        },
+        {
+          "name": "fia/portable-runtime-bundle-v1",
+          "head_sha": "db5b2d6882ac3a028cf260adebcdb7be57fe4f8f",
+          "protected": false
+        },
+        {
+          "name": "fia/private-root-worker-run-v1",
+          "head_sha": "e14469ae839570f9c228659ee8bb6b9616c4ff53",
+          "protected": false
+        },
+        {
+          "name": "fia/private-root-worker-spec-v1",
+          "head_sha": "9fed47ea9bc746667f30e9b6618f3f2db91a0338",
+          "protected": false
+        },
+        {
+          "name": "fia/provider-neutral-build-plan-v1",
+          "head_sha": "74d07d7cc1e85ec5399590cb78e5780885e9bdd9",
+          "protected": false
+        },
+        {
+          "name": "fia/provider-neutral-build-run-v1",
+          "head_sha": "3050bd536f5c868a6be9b409d70cb06813166c39",
+          "protected": false
+        },
+        {
+          "name": "fia/registered-owned-build-v1",
+          "head_sha": "0c362e708225585540bfbae67bec45dfcb2981d4",
+          "protected": false
+        },
+        {
+          "name": "fia/release-bundle-export-v1",
+          "head_sha": "f5d6b08d186fb76d1802c3e5465b7f078f3e274b",
+          "protected": false
+        },
+        {
+          "name": "fia/release-evidence-graph-v1",
+          "head_sha": "105197ca368d2e9774987ccafaae79dedb78c9eb",
+          "protected": false
+        },
+        {
+          "name": "fia/release-evidence-v1",
+          "head_sha": "d68a7250dd47ee658419e76bd290b22e9f342ccf",
+          "protected": false
+        },
+        {
+          "name": "fia/release-graph-compiler-v1",
+          "head_sha": "9ba56ffa1bc3bc86199042907d8e1c526819a8f9",
+          "protected": false
+        },
+        {
+          "name": "fia/release-import-rehearsal-v1",
+          "head_sha": "ec1a0ba67178d796b8417509733f40f1db0ee677",
+          "protected": false
+        },
+        {
+          "name": "fia/release-sealing-promotion-v1",
+          "head_sha": "850d878445e498f186f65dce709da60cecf6fa43",
+          "protected": false
+        },
+        {
+          "name": "fia/repository-portable-bundle-v1",
+          "head_sha": "34191d200a25004945ef55641fe1c63d109f7e9c",
+          "protected": false
+        },
+        {
+          "name": "fia/reproducibility-gate-v1",
+          "head_sha": "92bb96041566da3f2947e46253dd085f28cfb169",
+          "protected": false
+        },
+        {
+          "name": "fia/retained-build-step-logs-v1",
+          "head_sha": "9c8a12f4f70d89e7502e87bb3762a0e1c3cb30ac",
+          "protected": false
+        },
+        {
+          "name": "fia/runtime-artifact-identity-v1",
+          "head_sha": "f7eccaecf9c12bca17d9b7f9d303b457c0a69512",
+          "protected": false
+        },
+        {
+          "name": "fia/runtime-identity-contract-v1",
+          "head_sha": "cea493a6558e615b9a0287b84261b64669eb40ef",
+          "protected": false
+        },
+        {
+          "name": "fia/runtime-route-manifest-v1",
+          "head_sha": "a225ebc4b784e693026c53b0b4a1580b4bccb834",
+          "protected": false
+        },
+        {
+          "name": "fia/seccomp-enforcement-verifier-v1",
+          "head_sha": "6af257d76d6ae626be4fc22a05828a11d6e87459",
+          "protected": false
+        },
+        {
+          "name": "fia/seccomp-policy-compiler-v1",
+          "head_sha": "7a74e5a08915164f92c857569f05d77c18768aa8",
+          "protected": false
+        },
+        {
+          "name": "fia/self-hosted-worker-envelope-v1",
+          "head_sha": "00323822f5ed2eb580bc92ac0fdd6bf0351507c9",
+          "protected": false
+        },
+        {
+          "name": "fia/signed-provenance-v1",
+          "head_sha": "714719c32daaf051eaa0ff0d0938380873f27be0",
+          "protected": false
+        },
+        {
+          "name": "fia/static-artifact-validator-v1",
+          "head_sha": "931715aa6895b2104d0ccea2333cbea68797571c",
+          "protected": false
+        },
+        {
+          "name": "fia/transitive-script-preflight-v1",
+          "head_sha": "23556ae462d2444bee842c0b764f7ec3dd2fd676",
+          "protected": false
+        },
+        {
+          "name": "fix/living-encounter-runtime",
+          "head_sha": "b54399d592152626b2ce010bb000228504dd7bf4",
+          "protected": false
+        },
+        {
+          "name": "foundation/full-sovereign-platform-program",
+          "head_sha": "1625dacb41a365fa9898c907ed7c08497941c47a",
+          "protected": false
+        },
+        {
+          "name": "independent-creative/observatory-small-machines",
+          "head_sha": "848a5509c69988337617da90e2b3ff0b0fa5e759",
+          "protected": false
+        },
+        {
+          "name": "independent-platform/immutable-release-packager",
+          "head_sha": "6f4317051eddc3efdd70876b1582d99a2d9599ed",
+          "protected": false
+        },
+        {
+          "name": "main",
+          "head_sha": "9ff855860c9ea7398838e1a3a1881386b4413ccf",
+          "protected": false
+        },
+        {
+          "name": "mc-animal-recovery-v5-qa-log",
+          "head_sha": "f9f6949bca4a6af3bffad6564d5bcb59d0895283",
+          "protected": false
+        },
+        {
+          "name": "mc-animal-scientific-health-upgrade-v6",
+          "head_sha": "0e181f20dea46de5bb1077803812dddc5966c60a",
+          "protected": false
+        },
+        {
+          "name": "mc-animal-v6-device-qa-and-v61-backlog",
+          "head_sha": "ab6b0bdaeacd7c92fea69153f9ad1bfae2aad142",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-accuracy-learning-playbook",
+          "head_sha": "b7f72b1d2d62fdf90a109ea3099dcaa1cb46d71b",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-enclosed-fill-v5",
+          "head_sha": "3a0816ba9e5560b82bb3c98c4a1ba917c59949ab",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-generator-expansion-v1",
+          "head_sha": "4835affb0ba19ac4772f6b4b0b052415849d87c2",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-generator-expansion-v2-clean",
+          "head_sha": "6449694e6b4a7e9cf0dc4760eded52b9fd873668",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-keyed-recolor-v3",
+          "head_sha": "3b2f8ca7694c07201f5e16c3b783e19672dd4a03",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-object-relations-v4",
+          "head_sha": "0d5e2f5b174ec82f0751bebb902e2602e88c494c",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-probability-forecast-v1",
+          "head_sha": "19b87a205dbb45b1fd8e5df1a3cc0442013531d6",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-public-eval-harness-v8",
+          "head_sha": "0cf2cc36c7190065104ad24d8fe3cbc098018d3e",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-real-benchmark-workflow",
+          "head_sha": "a2a732acd9882a9355c4d55b612f1e1a7b768899",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-smoke-manifest-v1",
+          "head_sha": "c1c47e63a8eb8f3d50d82c5c1ac6cdc6e1b3ba26",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-solver-v1",
+          "head_sha": "7399d6f22b0c3c599d5458d939f9c0b3db8155ae",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-training-smoke-run",
+          "head_sha": "d726908457d45cfd6b20be1efbc9886ca5b6dd98",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-v6-relation-composition-primitives",
+          "head_sha": "184650313fb9f62f508489c39bf2e3aba891fe0a",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-v6-solver-integration",
+          "head_sha": "c75e66c656f7a1b11e558c020d2740b19e765187",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-v6-solver-translation",
+          "head_sha": "244970f88ec18d72c5c33c56b9d1de0a16d3c188",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-v7-frame-size-fill",
+          "head_sha": "c73e41c3ca1541b339744dded9e3d323264399ef",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-v8-vertical-period-extend",
+          "head_sha": "28d4aa32eece0f0558217e00be9a6b495f761d23",
+          "protected": false
+        },
+        {
+          "name": "mc-arc-v9-row-wise-right-nudge",
+          "head_sha": "6243cc5616565e0effa3e373080214bd4b43673a",
+          "protected": false
+        },
+        {
+          "name": "mc-codex-desktop-bridge-v1",
+          "head_sha": "2f603f6665413c827f1f3c1130fd96b6db932973",
+          "protected": false
+        },
+        {
+          "name": "mc-dualpath-convergence-doctrine-v1",
+          "head_sha": "82a1635fcb541bb35a75998777052bb9c8c75ae7",
+          "protected": false
+        },
+        {
+          "name": "mc-dualpath-taste-engine-v1",
+          "head_sha": "88f8a40805eafd5a708a05b6944e7bf24d38834f",
+          "protected": false
+        },
+        {
+          "name": "mc-log-v3-and-content-organizer-v1",
+          "head_sha": "c361ac0b0658d0fb56625afe933f6670d4608971",
+          "protected": false
+        },
+        {
+          "name": "mc-proof-lane-next-packets-atlas",
+          "head_sha": "098355c715d461cd1a817fab94ee693a21e598e1",
+          "protected": false
+        },
+        {
+          "name": "mc-record-smoke-result-and-plan-v1",
+          "head_sha": "197e5d9af384a49b808ba1053a7115ce7ca3bdd5",
+          "protected": false
+        },
+        {
+          "name": "mc-thunder-door-v2-and-arc-v6-spec",
+          "head_sha": "1020441a47ee5f5d5618b3c07d596e6af33f2913",
+          "protected": false
+        },
+        {
+          "name": "mc-tiktok-state-signal-atlas-v1",
+          "head_sha": "0864c3e15ecf923a21f3b8e248af0c69d13719ca",
+          "protected": false
+        },
+        {
+          "name": "mc-trigger-arc-training-smoke",
+          "head_sha": "d05ac0473c9704f2f098c62fee477726e37a0137",
+          "protected": false
+        },
+        {
+          "name": "mc-working-machine-v1",
+          "head_sha": "bee298685ba87b8e69adf4163ca6e7b01de599d5",
+          "protected": false
+        },
+        {
+          "name": "preview",
+          "head_sha": "ca1023148fd67c691fc5959cdb6f2bdd3296c814",
+          "protected": false
+        },
+        {
+          "name": "preview-build-capsule",
+          "head_sha": "ea2a2ed8e9490596f3103dde7b4d581cbc232631",
+          "protected": false
+        },
+        {
+          "name": "preview-fia-db-failover-15",
+          "head_sha": "7355831700de1eea2056fe77b187c89fef1c7490",
+          "protected": false
+        },
+        {
+          "name": "preview-fia-deploy-activation-14",
+          "head_sha": "1d075fd46037e00909ed6f3206cea42bd77091ef",
+          "protected": false
+        },
+        {
+          "name": "preview-fia-owned-identity-12",
+          "head_sha": "9e7a67969352f9cd1deadc037ec236319a0f5779",
+          "protected": false
+        },
+        {
+          "name": "preview-fia-owned-queue-13",
+          "head_sha": "53af421bd492fb534a654fac4da9708630a2392f",
+          "protected": false
+        },
+        {
+          "name": "preview-fia-owned-registry-11",
+          "head_sha": "559fcae994570d340c60db8aa4faf2817bbde56f",
+          "protected": false
+        },
+        {
+          "name": "preview-fia-owned-scaling-16",
+          "head_sha": "ea2a2ed8e9490596f3103dde7b4d581cbc232631",
+          "protected": false
+        },
+        {
+          "name": "preview-fia-owned-tls-18",
+          "head_sha": "24af6580d52cf88efa0965dfec05717a5271758a",
+          "protected": false
+        },
+        {
+          "name": "preview-fia-test-orchestration-17",
+          "head_sha": "ea2a2ed8e9490596f3103dde7b4d581cbc232631",
+          "protected": false
+        },
+        {
+          "name": "preview-fia-worker-isolation-10",
+          "head_sha": "21a2f0f043e7964a7679fa624ccc480202fdc1f6",
+          "protected": false
+        },
+        {
+          "name": "preview-secrets-authority-27",
+          "head_sha": "e7bf30d41d001b5e57693c6528a67a5604617fbf",
+          "protected": false
+        },
+        {
+          "name": "research/continuity-observatory-20261014",
+          "head_sha": "b0f2e41a9ebbabe9b0a9843dc49af439bb653316",
+          "protected": false
+        },
+        {
+          "name": "research/correction-ledger-20261017",
+          "head_sha": "14a85f9119fff95d97f491c3d23e233f534f6e05",
+          "protected": false
+        },
+        {
+          "name": "research/dependency-mirror-20261017",
+          "head_sha": "afe78bc326976986a14b51ec1a45d051c21c71aa",
+          "protected": false
+        },
+        {
+          "name": "research/experience-self-map",
+          "head_sha": "0ff7854e0340e6706a13c99f1a35fed81bb07341",
+          "protected": false
+        },
+        {
+          "name": "research/failure-attribution-lens-20261020",
+          "head_sha": "cda8ef62a76be4284ea2d0a8c84cc4952ed030be",
+          "protected": false
+        },
+        {
+          "name": "research/identity-transition-atlas-20261018",
+          "head_sha": "7df78cc0c38845aad4fd324b25a937db235da610",
+          "protected": false
+        },
+        {
+          "name": "research/invariance-lens-20261016",
+          "head_sha": "e104fb773af0f08b01a60c370cd29b1294db53a4",
+          "protected": false
+        },
+        {
+          "name": "research/source-origin-lens-20261019",
+          "head_sha": "3acdb83371259cba1a24678696f13d4786d9e5a4",
+          "protected": false
+        },
+        {
+          "name": "sovereign-ingress-tls-dns",
+          "head_sha": "4ecf0d21abb03b2cb250bfab9a904713df765b87",
+          "protected": false
+        },
+        {
+          "name": "sovereign/postgres-pitr",
+          "head_sha": "0935efc30b12eb983874c65d0de23a25080eec82",
+          "protected": false
+        },
+        {
+          "name": "stable/phone-gate-2026-07-09",
+          "head_sha": "1fbc704c091d14b619349d1f1f1750fc05b15d9a",
+          "protected": false
+        },
+        {
+          "name": "work/100-iterations-2026-11-03",
+          "head_sha": "321583ef11ed07b41df137c67393e190200a9168",
+          "protected": false
+        }
+      ],
+      "default_branch_status": {
+        "state": "pending",
+        "total_count": 0,
+        "statuses": []
+      },
+      "default_branch_check_runs": [
+        {
+          "name": "live-smoke-test",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081804986/job/127436503276"
+        },
+        {
+          "name": "Workers Builds: mirror-cartographer-ui",
+          "status": "completed",
+          "conclusion": "failure",
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/runs/127436408702"
+        },
+        {
+          "name": "deploy",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699888/job/127436306937"
+        },
+        {
+          "name": "build",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699888/job/127436133963"
+        },
+        {
+          "name": "Portal build",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699797/job/127436133638"
+        },
+        {
+          "name": "contract",
+          "status": "completed",
+          "conclusion": "failure",
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699788/job/127436133501"
+        },
+        {
+          "name": "inspect",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699743/job/127436133340"
+        },
+        {
+          "name": "ARC harness tests",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699797/job/127436133249"
+        },
+        {
+          "name": "build-artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699808/job/127436132434"
+        },
+        {
+          "name": "phone-first-smoke",
+          "status": "completed",
+          "conclusion": "failure",
+          "html_url": "https://github.com/MirrorCartographer/mirror-cartographer-ui/actions/runs/42081699740/job/127436132261"
+        }
+      ]
+    }
+  ]
+}
