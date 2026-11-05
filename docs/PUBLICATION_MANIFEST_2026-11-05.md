@@ -180,3 +180,22 @@ All three scheduled workflows are configured but no successful Actions run was v
 | [Initial branch census — final family summary](../evidence/branch-census/initial-names-only-2026-11-05.json) | [a2d2388](https://github.com/MirrorCartographer/MirrorCartographer/commit/a2d23880f751f3fe8ee198194af81617f0a19171) | `89e0ffd425e5a83ebfac5dc8552dfdf13cbe6361` |
 | [Public branch census worker — final family summary](../scripts/public-branch-census.mjs) | [f8839e7](https://github.com/MirrorCartographer/MirrorCartographer/commit/f8839e77c4a439138ef4f5910bb2656fde9d0e33) | `fa145515d2dfbadf1454c797f99f82303e80b934` |
 
+
+## Reconstructed Public Starter v1 — source files and generated package
+
+| Artifact | Commit | Git blob SHA |
+|---|---|---|
+| [Starter README](../agents/mirror-cartographer-public-starter-v1/README.md) | [3e76fa4](https://github.com/MirrorCartographer/MirrorCartographer/commit/3e76fa45c5cfee88cff29f4664258b79547326c5) | `210e8b27ac41c3a7ab0899d24083fc188b6680d2` |
+| [System instructions](../agents/mirror-cartographer-public-starter-v1/SYSTEM_INSTRUCTIONS.md) | [ffde1d3](https://github.com/MirrorCartographer/MirrorCartographer/commit/ffde1d36cca3eb3eaf51e034e360610f825b9e52) | `368842bf683f0192734224a0c2ec42e96b93193e` |
+| [Introduction](../agents/mirror-cartographer-public-starter-v1/INTRO_SCENE.md) | [06e47d6](https://github.com/MirrorCartographer/MirrorCartographer/commit/06e47d6f8b4676f8f5bd5bb805a7c4ee431d9453) | `f4c1edc9f33f043be55314385810680566834ee5` |
+| [Prompt library](../agents/mirror-cartographer-public-starter-v1/PROMPT_LIBRARY.md) | [478f906](https://github.com/MirrorCartographer/MirrorCartographer/commit/478f906a4247d312088ddd042411dda86d8408c2) | `504c21a5f77835978ea4e8426e6cf031e8cd60f4` |
+| [Symbol/color key](../agents/mirror-cartographer-public-starter-v1/SYMBOL_COLOR_KEY.md) | [aaf3bca](https://github.com/MirrorCartographer/MirrorCartographer/commit/aaf3bcaba635aca8f768b0519f02da5fc99ade22) | `4974d7e43078370f0bb1ebdce7758b3e4ab0bc0c` |
+| [Mapping JSON schema](../agents/mirror-cartographer-public-starter-v1/MAPPING_SCHEMA.json) | [b94287c](https://github.com/MirrorCartographer/MirrorCartographer/commit/b94287c373fd830fdfec766e4a362727477f6d37) | `810d79c4a82f25b3f182e7af8ec70dca2b93a868` |
+| [Safety and privacy rules](../agents/mirror-cartographer-public-starter-v1/SAFETY_AND_PRIVACY.md) | [49c6ba7](https://github.com/MirrorCartographer/MirrorCartographer/commit/49c6ba7dc6528e47188ddcdc63a03afce970b717) | `fd4d2b05070b46018cd0576091e0bc5adc7cf5ff` |
+| [User guide](../agents/mirror-cartographer-public-starter-v1/USER_GUIDE.md) | [d8de488](https://github.com/MirrorCartographer/MirrorCartographer/commit/d8de4885b1966cff1cc800bfed6803b35c959d5a) | `3d455535a4aa0b25a4ebc015fdc632a1c886246a` |
+| [Acceptance tests](../agents/mirror-cartographer-public-starter-v1/ACCEPTANCE_TESTS.md) | [0895df7](https://github.com/MirrorCartographer/MirrorCartographer/commit/0895df77cc9b5d6c37d7a3ed01fa769818f3bc35) | `57db17f329b951a7f7aacf0ba7e1f56443c42855` |
+| [Changelog](../agents/mirror-cartographer-public-starter-v1/CHANGELOG.md) | [3cf3f76](https://github.com/MirrorCartographer/MirrorCartographer/commit/3cf3f7646e3878ac648b011a7a40dd4dee4176ef) | `dd53d7a9df97e81f8f8ff6b584a4375c6a97f8c3` |
+| [Generated starter ZIP](../dist/mirror-cartographer-public-starter-v1.zip) | [f3e1117](https://github.com/MirrorCartographer/MirrorCartographer/commit/f3e111733708a9f02da6a36e85b64677565e9e59) | `541f384dc0598765fdb36ee84d56c5a55ed0b76e` |
+
+The ZIP commit was authored and committed by `github-actions[bot]` after the workflow validated the JSON file and packaged the source directory. The Git blob SHA identifies the committed ZIP bytes; the workflow also prints a SHA-256 digest in its run log, but that digest was not independently retrieved in this audit.
+
