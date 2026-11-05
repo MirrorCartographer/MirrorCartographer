@@ -39,7 +39,7 @@ These hashes are recorded as local audit observations. Because the original file
 
 ## Canvas / text-document evidence
 
-The recovered `conversations.json` export contains 337 conversation objects spanning 2024-08-22 19:29 UTC through 2025-08-12 05:25 UTC. Its message metadata records model slugs including GPT-4o, GPT-4, GPT-4o mini, GPT-5, o3-mini, and research. The archive contains 38 distinct Canvas/text-document creation events with 38 unique 32-character document identifiers. A broader text scan finds 129 `textdoc_id`-related mentions; these are not 129 verified revisions or snapshots. A separate RTF export contains 28 creation markers and 509 Canvas mentions, so it is a partial/overlapping export rather than a complete duplicate of the JSON archive. This establishes substantial document creation and use, but not completeness of the account's entire Canvas history.
+The recovered `conversations.json` export contains 337 conversation objects spanning 2024-08-22 19:29 UTC through 2025-08-12 05:25 UTC. Its message metadata records model slugs including GPT-4o, GPT-4, GPT-4o mini, GPT-5, o3-mini, and research. The Canvas metadata contains 39 unique textdoc IDs: 32 document artifacts and 7 code artifacts (4 React, 2 Bash, 1 HTML). Across those IDs, the export preserves 695 Canvas metadata events and 133 distinct `(textdoc_id, version)` pairs. These are observed version identifiers, not necessarily every revision ever made. A separate text scan finds 129 broader `textdoc_id`-related mentions; this is not a revision or snapshot count. The RTF export contains 28 creation markers and 509 Canvas mentions, so it is a partial/overlapping export rather than a complete duplicate of the JSON archive. This establishes substantial document creation, code editing, and revision activity, but not completeness of the account's entire Canvas history.
 
 Identifiable project-related records include:
 
@@ -76,6 +76,20 @@ Identifiable project-related records include:
 | Collapse Echo Map | `688f86f48864819193bc1f77bf8809c6` | 2025-08-03 15:57 |
 
 Health-related Canvas records and personal conversation content are deliberately omitted from this public table. Their original bytes remain private.
+
+## Revision-depth findings
+
+The highest-activity Canvas artifacts in the recovered metadata include:
+
+| Artifact | Metadata events | Distinct version numbers observed | Highest version number |
+|---|---:|---:|---:|
+| MC UI Tone Preview (React code) | 178 | 33 | 171 |
+| Tech Growth Strategy | 247 | 22 | 124 |
+| Mirror Modules Summary | 92 | 12 | 130 |
+| Mirror Cartographer Step Plan | 75 | 10 | 40 |
+| Whisper Symbolic Pipeline (document) | 4 | 2 | 9 |
+
+Repeated metadata messages often refer to the same version. The 695 events therefore reduce to 133 distinct `(textdoc_id, version)` pairs across all 39 IDs. This is a revision-history signal; it is not proof that the original document body for every version is present in the export. The current index records per-document version numbers and first/last observed message timestamps.
 
 ## Canvas-to-implementation crosswalk
 
