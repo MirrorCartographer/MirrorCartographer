@@ -179,3 +179,16 @@ The recovered `chat_index.csv` is a two-row sample with placeholder conversation
 
 The 256-row artifact catalog contains historical paths and metadata for many assets. Those paths do not prove the files remain mounted or retrievable. The current audit materialized and hashed selected Library records; it did not hash all 256 referenced assets. The archive-manifest generator is provided for owner-controlled staging and privacy-reviewed hashing when those files are available.
 
+
+## Additional recovered prototype and implementation-pack artifacts
+
+| Artifact | Source SHA-256 | Public handling |
+|---|---|---|
+| `Mirror_Cartographer_Implementation_Pack_v1.docx` (39,779 bytes) | `dd5e0131599ebb00d854eb423db0e1fad2bfee52f32d020b27c99df46ac10044` | Extracted to [`implementation-pack-v1.md`](../evidence/historical/implementation-pack-v1.md); no personal identifiers or credentials found |
+| `index(35).html` — Mirror Portal / Creation World (52,595 bytes) | `d1fba1c518babbbfdec808e3442583b3fb338f122d2615118e0acde3615a5817` | Published as [`creation-portal-v1.html`](../evidence/historical/creation-portal-v1.html) and copied into the UI repo's Vite `public/` directory |
+| `Mirror_Cartographer_One_Page.pdf` (1,979 bytes) | `982a6ba438dde6c37d0e67c5094f621833353c4e1457e15651623a92a6713886` | Extracted to [`one-page-project-brief-v1.md`](../evidence/historical/one-page-project-brief-v1.md) |
+
+The recovered Creation Portal HTML was scanned for personal identifiers, credentials, and network/API calls. No personal names, credential patterns, `fetch`, `XMLHttpRequest`, `WebSocket`, or OpenAI API URL were found. Its one inline JavaScript block passed `node --check`. This establishes syntactic validity only; full browser interaction, persistence behavior, audio behavior, and cross-device compatibility have not been independently tested.
+
+The prototype uses browser-local storage for its artifact archive and does not call a remote model API. It is now available as a static prototype at https://mirrorcartographer.github.io/mirror-cartographer-ui/creation-portal-v1.html, but live GitHub Pages availability has not been independently verified in this audit.
+
