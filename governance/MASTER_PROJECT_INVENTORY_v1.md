@@ -7,8 +7,8 @@ Status: expanded evidence-based register; private repositories structurally insp
 |---|---|---|---|
 | MirrorCartographer/MirrorCartographer | Public | Research, evidence, systems architecture, tools, demonstrations, governance, creative universe | README and core architecture documents inspected |
 | MirrorCartographer/mirror-cartographer-ui | Public | Interactive creative/reflection application, rooms, atlas, workbench | README, package manifest, completion map inspected |
-| Private creative/core archive | Private | Historical source corpus, symbolic reflection runtime, continuity/provenance, prototypes, structured data, and creative archive | 691 tracked tree entries; project map, corpus map, completion map, and audit inspected |
-| Private Human Judgment Lab | Private | Evaluation operations studio, Consensus Trap experiment, synthetic evaluation data, and test harnesses | 21 tracked tree entries; README, thesis, experiment specification, and current PR inspected |
+| MirrorCartographer/c | Private | Historical source corpus, symbolic reflection runtime, continuity/provenance, prototypes, structured data, provider bridge, and bounded worker | 810 tracked tree entries; project map, corpus map, completion map, and audit inspected |
+| MirrorCartographer/J | Private | Evaluation operations studio, Consensus Trap experiment, synthetic evaluation data, and test harnesses | 30 tracked tree entries; README, thesis, experiment specification, and current PR inspected |
 
 ## Existing named work
 | Work | Type | Evidence/status | Next action |
@@ -60,7 +60,7 @@ Status: expanded evidence-based register; private repositories structurally insp
 - A successful build is not proof of a successful deployment; a route returning 200 is not proof of a working interaction.
 
 ## Unresolved implementation register
-1. Complete path-level artifact classification across all four accessible repository trees; current recursive counts are 4,246 public research entries, 2,506 public UI entries, 691 private archive entries, and 21 private evaluation-lab entries.
+1. Complete path-level artifact classification across all four accessible repository trees; the current snapshot is 4,694 public research entries, 2,780 public UI entries, 810 private core entries, and 30 private evaluation-lab entries (8,314 total). The same snapshot contains 305 branches and 158 open PRs; unmerged branches are not integrated features.
 2. Inspect all remaining research repository directories, governance, ledgers, execution, schemas, and daemon code; current work has inspected representative architecture, code, and status artifacts but not every file.
 3. Unify record schemas for source, observation, claim, hypothesis, experiment, result, decision, contradiction, and consequence.
 4. Implement FREE 2.0 as a tested engine and bind it to the existing instruments.
