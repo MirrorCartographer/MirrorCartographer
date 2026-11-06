@@ -266,7 +266,7 @@ export default function HtmlArchivePage() {
 
               <label className="mt-5 block text-sm text-[#d8cfdc]">
                 Search archive
-                <input className="mt-2 w-full rounded-2xl border border-[#745a7d]/40 bg-[#0f0d12] p-3 text-[#f5efe7] outline-none focus:border-[#d7b7ff]" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="artifact name, filename, path" />
+                <input className="mt-2 w-full rounded-2xl border border-[#745a7d]/40 bg-[#0f0d12] p-3 text-[#f5efe7] outline-none focus:border-[#d7b7ff]" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Name, filename, or path" />
               </label>
 
               <div className="mt-5 grid max-h-[34rem] gap-3 overflow-auto pr-1">
@@ -278,7 +278,7 @@ export default function HtmlArchivePage() {
                   filteredArtifacts.map((artifact) => (
                     <button
                       key={artifact.id}
-                      className={`rounded-2xl border p-4 text-left transition ${selectedArtifact?.id === artifact.id ? "border-[#d7b7ff] bg-[#261c2c]" : "border-[#745a7d]/35 bg-[#0f0d12] hover:border-[#d7b7ff]"}`}
+                      className={`rounded-2xl border p-4 text-left transition ${selectedArtifact?.id === artifact.id ? "border-[#d7b7ff] bg-[#261c2c]" : "border-[#745a7d]/35 bg-[#0f0d12] hover:border-[#745a7d]"}`}
                       onClick={() => setSelectedId(artifact.id)}
                       type="button"
                     >
@@ -324,7 +324,7 @@ export default function HtmlArchivePage() {
                 {showSource ? (
                   <textarea className="min-h-[42rem] w-full flex-1 rounded-[1.25rem] border border-[#745a7d]/40 bg-[#0f0d12] p-4 font-mono text-sm leading-6 text-[#eee4f4] outline-none" readOnly value={sourceText} />
                 ) : (
-                  <iframe className="min-h-[42rem] w-full flex-1 rounded-[1.25rem] border border-[#745a7d]/40 bg-white" key={selectedArtifact.id} sandbox="allow-scripts allow-forms allow-popups allow-modals" src={selectedArtifact.rawUrl} title={`Preview of ${selectedArtifact.name}`} />
+                  <iframe className="min-h-[42rem] w-full flex-1 rounded-[1.25rem] border border-[#745a7d]/40 bg-white" key={selectedArtifact.id} sandbox="allow-scripts allow-forms allow-popups allow-modals" src={selectedArtifact.rawUrl} title={`Preview of ${selectedArtifact.filename}`} />
                 )}
               </div>
             ) : (
