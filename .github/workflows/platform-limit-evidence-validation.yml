@@ -1,0 +1,34 @@
+name: Platform-limit evidence validation
+
+on:
+  pull_request:
+    paths:
+      - "tools/platform_limit_investigator/**"
+      - ".github/workflows/platform-limit-evidence-validation.yml"
+  push:
+    branches:
+      - "investigation/**"
+    paths:
+      - "tools/platform_limit_investigator/**"
+      - ".github/workflows/platform-limit-evidence-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run regression tests
+        run: python -m unittest discover -s tools/platform_limit_investigator/tests -v
+      - name: Compile validator and tests
+        run: python -m py_compile tools/platform_limit_investigator/validate_evidence.py tools/platform_limit_investigator/tests/test_validate_evidence.py
+      - name: Validate synthetic evidence fixture
+        run: python tools/platform_limit_investigator/validate_evidence.py tools/platform_limit_investigator/examples/github_ref_provenance.json
