@@ -69,7 +69,9 @@
       "contradicts": [],
       "supersedes": [],
       "falsification_or_review_route": "Inspect the prior queue update and later crash-recovery test commit. Reject supersession if the later test does not actually terminate an OS process or cover the named boundaries.",
-      "historical_supersedes_reference": "R-014-next-action-process-crash-injection"
+      "supersedes_external": [
+        "R-014-next-action-process-crash-injection"
+      ]
     },
     {
       "id": "CM-0012",
