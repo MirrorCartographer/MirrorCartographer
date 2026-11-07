@@ -54,7 +54,11 @@ for (const relative of [
   "site/generate-catalog.mjs",
   "site/validate-catalog.mjs",
   "tools/mc_gate_integration/run_gate_check.py",
-  "tools/mc_execution/browser-smoke.mjs"
+  "tools/mc_execution/browser-smoke.mjs",
+  "site/investigation/index.html",
+  "site/investigation/engine.mjs",
+  "site/investigation/investigation.schema.json",
+  "site/investigation/engine.test.mjs"
 ]) {
   results.push(check(`Required project input: ${relative}`, () => {
     if (!fs.existsSync(path.join(root, relative))) throw new Error("File not found");
@@ -64,6 +68,7 @@ for (const relative of [
 
 const workflowChecks = [
   ["Execution queue step", process.env.MC_QUEUE_STATUS],
+  ["Investigation engine tests", process.env.MC_INVESTIGATION_ENGINE_STATUS],
   ["Canonical site validation", process.env.MC_SITE_STATUS],
   ["Playable Mind validation", process.env.MC_MIND_STATUS],
   ["Catalog tool syntax", process.env.MC_CATALOG_TOOLS_STATUS],
