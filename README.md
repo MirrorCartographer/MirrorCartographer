@@ -15,7 +15,7 @@ One question remains:
 
 - **[The Observatory / Living Atlas](https://mirrorcartographer.github.io/MirrorCartographer/)** — this repository's GitHub Pages publication.
 - **[The House of Mouths](https://mirrorcartographer.github.io/mirror-cartographer-ui/)** — the companion interactive application.
-- **[The Living Country](https://mirrorcartographer.github.io/mirror-cartographer-ui/?view=workshop&lane=country)** — the artist-led field atlas and investigation room.
+- **The Living Country** — artist-led field atlas in [UI PR #179](https://github.com/MirrorCartographer/mirror-cartographer-ui/pull/179), pending review and publication.
 
 GitHub Pages is the supported public publishing path. A source file existing in GitHub does not establish that it is deployed or interactive. Only call a route live after its exact commit, publication workflow, and public route have been verified. See [cross-chat work coordination](WORK_COORDINATION.md) for shared verification and handoff rules.
 
