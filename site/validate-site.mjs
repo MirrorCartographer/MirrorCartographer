@@ -6,4 +6,4 @@ const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);const duplicates=id
 const known=new Set(ids);const broken=[...html.matchAll(/href="#([^"]+)"/g)].map(m=>m[1]).filter(x=>x&&!known.has(x));if(broken.length)throw Error('Broken in-page links: '+[...new Set(broken)].join(', '));
 const scripts=[...html.matchAll(/<script>([\s\S]*?)<\/script>/gi)].map(m=>m[1]);if(scripts.length!==1)throw Error('Expected one inline application script; found '+scripts.length);new Script(scripts[0],{filename:'site-inline-app.js'});
 console.log(JSON.stringify({result:'PASS',requiredChecks:required.length,uniqueIds:ids.length,internalLinks:'PASS',inlineScriptSyntax:'PASS'},null,2));
-for (const path of ['site/investigation/index.html','site/investigation/engine.mjs','site/investigation/investigation.schema.json']) { if (!existsSync(path)) throw Error('Missing investigation instrument asset: '+path); }
+for (const path of ['site/investigation/index.html','site/investigation/engine.mjs','site/investigation/investigation.schema.json','site/investigation/gate-registry.json']) { if (!existsSync(path)) throw Error('Missing investigation instrument asset: '+path); }
