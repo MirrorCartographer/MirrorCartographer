@@ -2,6 +2,14 @@ name: Mirror Cartographer Execution Loop
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - "execution/**"
+      - "tools/mc_execution/**"
+      - "site/**"
+      - "tools/mc_gate_integration/**"
+      - ".github/workflows/mc-execution-loop.yml"
   schedule:
     # Runs independently of a ChatGPT session. GitHub may delay scheduled jobs.
     - cron: "17 */6 * * *"
@@ -68,8 +76,11 @@ jobs:
 
       - name: Build the cross-repository catalog in an isolated workspace
         id: build-catalog
+        if: env.MC_UI_REPOSITORY_TOKEN != ''
+        env:
+          MC_UI_REPOSITORY_TOKEN: ${{ secrets.MC_UI_REPOSITORY_TOKEN }}
         run: |
-          git clone --depth 1 https://github.com/MirrorCartographer/mirror-cartographer-ui.git ui-repository
+          git clone --depth 1 "https://x-access-token:${MC_UI_REPOSITORY_TOKEN}@github.com/MirrorCartographer/mirror-cartographer-ui.git" ui-repository
           node site/generate-catalog.mjs
           node site/validate-catalog.mjs
 
