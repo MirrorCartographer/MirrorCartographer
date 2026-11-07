@@ -27,6 +27,9 @@ jobs:
       - name: Verify complete HTML workbench coverage
         run: npm run verify:workbench
 
+      - name: Test investigation engine and gate integration
+        run: npm run test:investigation
+
       - name: Typecheck
         run: npm run typecheck
 
