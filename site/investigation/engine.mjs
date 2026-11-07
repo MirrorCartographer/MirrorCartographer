@@ -109,7 +109,7 @@ export function addObservation(inv, input, now) {
   const variables = list(input.variables) ? input.variables.map(v => ({ name:v.name, value:v.value ?? null, unit:v.unit ?? null, missingness:v.missingness || missingness })) : [];
   for (const v of variables) {
     if (!text(v.name) || !MISSINGNESS.has(v.missingness)) throw new TypeError("Each variable needs a name and valid missingness state.");
-    if (v.missingness === "observed" && (v.value === null || v.value === undefined || !text(String(v.unit || "")))) throw new TypeError("Observed variables need a value and unit.");
+    if (v.missingness === "observed" && (v.value === null || v.value === undefined || (typeof v.value === "string" && !v.value.trim()) || !text(String(v.unit || "")))) throw new TypeError("Observed variables need a value and unit.");
     if (v.missingness !== "observed" && v.value !== null) throw new TypeError("Non-observed values must remain null; do not turn missingness into absence.");
   }
   const observation = { id:input.id || id("obs"), description:input.description, source_id:input.source_id, collected_at:input.collected_at || stamp(now), method:input.method || "", context:input.context || "", variables };
@@ -244,16 +244,22 @@ export function auditInvestigation(inv) {
   }
   for(const source of inv.sources){
     if(!text(source.title)||!safeLocator(source))errors.push("source "+source.id+": missing title or exact source locator");
+    if(!text(source.independence_group))errors.push("source "+source.id+": missing independence group");
     if(!PRIVACY_STATES.has(source.privacy_status))errors.push("source "+source.id+": invalid privacy status");
     if(source.privacy_status!=="public_safe")warnings.push("source "+source.id+": privacy/reuse review is "+source.privacy_status);
   }
   for(const observation of inv.observations){
     if(!inv.sources.some(s=>s.id===observation.source_id))errors.push("observation "+observation.id+": dangling source");
-    for(const v of observation.variables||[])if(!MISSINGNESS.has(v.missingness))errors.push("observation "+observation.id+": invalid missingness");
+    for(const v of observation.variables||[]){
+      if(!MISSINGNESS.has(v.missingness))errors.push("observation "+observation.id+": invalid missingness");
+      if(v.missingness==="observed"&&(v.value===null||v.value===undefined||(typeof v.value==="string"&&!v.value.trim())||!text(String(v.unit||""))))errors.push("observation "+observation.id+": observed variable missing value or unit");
+      if(v.missingness!=="observed"&&v.value!==null)errors.push("observation "+observation.id+": missingness incorrectly encoded as a value");
+    }
   }
   for(const claim of inv.claims){
     if(!CLAIM_TYPES.has(claim.claim_type))errors.push("claim "+claim.id+": invalid type");
     if(!CLAIM_STATES.includes(claim.status))errors.push("claim "+claim.id+": invalid review state");
+    if(!text(claim.proposition)||!text(claim.confidence_rationale)||!text(claim.next_test)||!list(claim.not_established)||claim.not_established.length===0)errors.push("claim "+claim.id+": incomplete proposition, rationale, limits, or next test");
     for(const sourceId of claim.source_ids||[])if(!inv.sources.some(s=>s.id===sourceId))errors.push("claim "+claim.id+": dangling source "+sourceId);
     for(const link of claim.evidence_links||[]){
       if(!inv.sources.some(s=>s.id===link.source_id))errors.push("claim "+claim.id+": dangling evidence source "+link.source_id);
@@ -271,11 +277,16 @@ export function auditInvestigation(inv) {
   }
   for(const test of inv.tests){
     if(!inv.hypotheses.some(h=>h.id===test.hypothesis_id))errors.push("test "+test.id+": dangling hypothesis");
+    if(!["planned","completed"].includes(test.status))errors.push("test "+test.id+": invalid status");
+    if(!text(test.title)||!text(test.protocol)||!list(test.measurements)||!test.measurements.length||!text(test.comparison)||!text(test.predeclared_disconfirmation))errors.push("test "+test.id+": incomplete preregistration");
     if(test.status==="completed"&&!test.result)errors.push("test "+test.id+": completed without result");
+    if(test.result){if(!text(test.result.outcome)||!text(test.result.interpretation)||!text(test.result.limitations))errors.push("test "+test.id+": incomplete result record");for(const sourceId of test.result.source_ids||[])if(!inv.sources.some(s=>s.id===sourceId))errors.push("test "+test.id+": dangling result source "+sourceId);}
   }
   for(const decision of inv.decisions){
+    if(!text(decision.choice)||!text(decision.rationale)||!text(decision.uncertainty)||!text(decision.review_trigger))errors.push("decision "+decision.id+": incomplete rationale, uncertainty, or review trigger");
     for(const ref of decision.evidence_refs||[])if(!inv.sources.some(s=>s.id===ref)&&!inv.claims.some(c=>c.id===ref)&&!inv.tests.some(t=>t.id===ref))errors.push("decision "+decision.id+": dangling evidence "+ref);
   }
+  for(const unknown of inv.unknowns){if(!text(unknown.question)||!MISSINGNESS.has(unknown.missingness)||!text(unknown.why_it_matters))errors.push("unknown "+unknown.id+": incomplete question or missingness record");}
   const groups=new Map();
   for(const source of inv.sources){const group=source.independence_group||source.publisher||source.id;groups.set(group,(groups.get(group)||0)+1);}
   for(const [group,count] of groups)if(count>1)warnings.push("source group "+group+" has "+count+" records; do not count repeated outputs as independent corroboration");
