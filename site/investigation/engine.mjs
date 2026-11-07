@@ -388,6 +388,7 @@ export function runIntegratedGateChecks(inv, registry) {
   const results = gates.map(gate => {
     const spec = resolveGateSpec(gate, registry);
     const errors = spec ? validateIntegratedPacket({ ...packet, gate, packet_id: "mc." + gate + "." + inv.id }, spec) : ["unknown or invalid gate specification"];
+    if (!audit.valid) errors.push(...audit.errors.map(error => "investigation structural audit: " + error));
     return { gate, decision, valid: errors.length === 0, errors };
   });
   const invalid = results.filter(result => !result.valid);
