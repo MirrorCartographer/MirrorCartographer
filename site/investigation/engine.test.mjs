@@ -17,6 +17,11 @@ test("requires exact source location and safe URL or path",()=>{
  const inv=base();assert.throws(()=>addSource(inv,{id:"s1",title:"Bad",url:"javascript:alert(1)",exact_location:"page 2"}),/Source needs/);
  assert.throws(()=>addSource(inv,{id:"s1",title:"Bad",url:"https://example.org/x"}),/exact location/);
 });
+test("rejects credential-bearing source URLs and absolute local paths",()=>{
+ const inv=base();
+ assert.throws(()=>addSource(inv,{id:"bad-url",title:"Credential URL",url:"https://user:pass@example.org/paper",exact_location:"page 1"}),/Source needs/);
+ assert.throws(()=>addSource(inv,{id:"bad-path",title:"Absolute path",path:"/private/record.pdf",exact_location:"page 1"}),/Source needs/);
+});
 test("adds source records with explicit privacy and independence groups",()=>{
  const inv=addSource(base(),source("s1"));assert.equal(inv.sources.length,1);assert.equal(inv.sources[0].privacy_status,"public_safe");
 });
@@ -103,6 +108,7 @@ test("export/import round trip preserves investigation and blocks private public
  let inv=addSource(base(),source("s1"));inv=addClaim(inv,{...claimInput,source_ids:["s1"]});
  const restored=importInvestigation(exportInvestigation(inv));assert.deepEqual(restored,inv);
  const privateInv=addSource(base(),{...source("s2"),privacy_status:"private"});
- assert.throws(()=>exportInvestigation(privateInv,{publicSafeOnly:true}),/privacy review/);
+ assert.throws(()=>exportInvestigation(inv,{publicSafeOnly:true}),/explicit review/);
+ assert.throws(()=>exportInvestigation(privateInv,{publicSafeOnly:true,privacyReviewed:true}),/privacy review/);
 });
 test("rejects malformed imports",()=>assert.throws(()=>importInvestigation({schema:"wrong",schema_version:1,investigation:{}}),/Unsupported/));
