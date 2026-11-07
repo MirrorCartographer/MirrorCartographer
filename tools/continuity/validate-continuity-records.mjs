@@ -52,7 +52,11 @@ export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
     for (const name of fs.readdirSync(dir).filter(n => n.endsWith('.json')).sort()) {
       const file = path.join(dir, name);
       const raw = readJson(file);
-      entries.push({ record: raw.id ? raw : raw.record, locator: file });
+      if (raw.id) entries.push({ record: raw, locator: file });
+      else if (raw.record?.id) entries.push({ record: raw.record, locator: file + "#record" });
+      else if (Array.isArray(raw.claims)) {
+        for (const [i, record] of raw.claims.entries()) entries.push({ record, locator: file + "#claims[" + i + "]" });
+      } else entries.push({ record: raw, locator: file });
     }
   }
 
