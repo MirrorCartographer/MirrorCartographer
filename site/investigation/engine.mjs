@@ -134,6 +134,7 @@ export function addClaim(inv, input, now) {
   for(const sourceId of claim.source_ids) requireRef(inv.sources,sourceId,"source");
   if(!text(claim.confidence_rationale)) throw new TypeError("Confidence rationale must be explicit.");
   if(!claim.not_established.length||claim.not_established.some(x=>!text(x))) throw new TypeError("State at least one thing not established.");
+  if(!text(claim.next_test)) throw new TypeError("Claim needs a next discriminating test or observation.");
   const next=clone(inv); next.claims.push(claim);
   return recordEvent(next,"claim_created",claim.id + " entered as unreviewed",now);
 }
@@ -205,9 +206,17 @@ export function addDecision(inv,input,now) {
 export function transitionClaim(inv,claimId,nextStatus,reason,now) {
   assertInvestigation(inv);const claim=inv.claims.find(x=>x.id===claimId);if(!claim)throw new Error("Unknown claim: "+claimId);
   if(!CLAIM_STATES.includes(nextStatus)||!text(reason))throw new TypeError("A valid next status and revision reason are required.");
-  const current=CLAIM_STATES.indexOf(claim.status),nextIndex=CLAIM_STATES.indexOf(nextStatus);
-  const terminal=new Set(["retired"]);
-  if(terminal.has(claim.status))throw new Error("Retired claims cannot be promoted; create a new claim linked to this one.");
+  const allowedTransitions = {
+    unreviewed: ["source-checked","revised","retired"],
+    "source-checked": ["qualified","contested","revised","retired"],
+    qualified: ["tested","corroborated","contested","revised","retired"],
+    tested: ["corroborated","contested","revised","retired"],
+    corroborated: ["contested","revised","retired"],
+    contested: ["revised","retired"],
+    revised: ["source-checked","qualified","tested","corroborated","contested","retired"],
+    retired: []
+  };
+  if(!allowedTransitions[claim.status]?.includes(nextStatus))throw new Error("Invalid claim transition: "+claim.status+" → "+nextStatus+".");
   if(nextStatus==="source-checked"&&claim.source_ids.length===0)throw new Error("Source-check requires at least one linked source.");
   if(nextStatus==="qualified"&&claim.evidence_links.length===0)throw new Error("Qualification requires exact evidence links.");
   if(nextStatus==="tested"&&!inv.tests.some(t=>t.status==="completed"&&claim.source_ids.some(s=>t.result?.source_ids?.includes(s)))) throw new Error("Tested status requires a completed test with linked result sources; record the test first.");
@@ -217,7 +226,6 @@ export function transitionClaim(inv,claimId,nextStatus,reason,now) {
     if(groups.size<2)throw new Error("Corroborated requires supporting evidence from at least two independent source groups.");
   }
   if(nextStatus==="contested"&&!claim.evidence_links.some(x=>x.direction==="contradicts"))throw new Error("Contested requires at least one explicit contradictory evidence link.");
-  if(nextStatus!=="revised"&&nextIndex>current+1&&nextStatus!=="retired")throw new Error("Claim promotion must move one review state at a time.");
   const next=clone(inv);const target=next.claims.find(x=>x.id===claimId);
   target.status=nextStatus;target.revision_log.push({date:stamp(now),change:"Status changed from "+claim.status+" to "+nextStatus,reason});
   return recordEvent(next,"claim_status_changed",claimId+" "+claim.status+" → "+nextStatus+" / "+reason,now);
