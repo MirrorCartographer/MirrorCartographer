@@ -177,6 +177,19 @@ try {
     assert(download.suggestedFilename().endsWith(".mc-investigation.json"), "Investigation export was not created");
   });
 
+  await test("Synthetic Case 001 opens as a complete investigation", async () => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(base + "/investigation/");
+    await page.locator("#load-example").click();
+    const sample = await page.evaluate(() => JSON.parse(localStorage.getItem("mc-investigation-workbench-v1")).investigations.find(x => x.id === "MC-CASE-001-SYNTHETIC"));
+    assert(sample && sample.sources.length === 6, "Synthetic case did not load six source records");
+    assert(sample.claims.length === 2 && sample.hypotheses.length === 1 && sample.tests.length === 1, "Synthetic case is missing investigation stages");
+    await page.waitForFunction(() => document.querySelector("#run-gates") && !document.querySelector("#run-gates").disabled);
+    await page.locator("#run-gates").click();
+    const report = await page.locator("#gate-results").textContent();
+    assert(report.includes("18/18 gate packets structurally valid"), "Synthetic case did not pass structural gate checks: " + report);
+  });
+
   await test("Investigation Desk remains usable on a phone", async () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(base + "/investigation/");
