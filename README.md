@@ -11,12 +11,13 @@ One question remains:
 
 **What can we understand from individual facts—and how much remains invisible between them?**
 
-## Live experiences — protected links
+## Canonical public experiences
 
-- **[Mirror Cartographer UI](https://mirror-cartographer-ui-3orp.vercel.app)** — canonical encounter.
-- **[AV Prototype V4](https://mirrorcartographeravprototypev4.vercel.app/#)** — canonical audiovisual prototype.
+- **[The Observatory / Living Atlas](https://mirrorcartographer.github.io/MirrorCartographer/)** — this repository's GitHub Pages publication.
+- **[The House of Mouths](https://mirrorcartographer.github.io/mirror-cartographer-ui/)** — the companion interactive application.
+- **[The Living Country](https://mirrorcartographer.github.io/mirror-cartographer-ui/?view=workshop&lane=country)** — the artist-led field atlas and investigation room.
 
-These are user-confirmed working URLs. Do not replace them with unverified deployment links. The source repositories contain many additional HTML files; their source presence does not establish that each one is deployed or interactive. See [cross-chat work coordination](WORK_COORDINATION.md) for the shared verification and handoff rules.
+GitHub Pages is the supported public publishing path. A source file existing in GitHub does not establish that it is deployed or interactive. Only call a route live after its exact commit, publication workflow, and public route have been verified. See [cross-chat work coordination](WORK_COORDINATION.md) for shared verification and handoff rules.
 
 **Interactive source workbench:** from the repository root, run `python3 -m http.server 8000` and open `http://localhost:8000/workbench.html` to preview, edit, and run any of the indexed HTML designs. The deployable copy is `site/workbench.html`.
 
