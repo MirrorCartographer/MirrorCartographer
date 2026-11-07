@@ -123,6 +123,10 @@ Database source defines connection requests, acceptance/revocation, expiring pre
 ### P1 — Mobile
 Automated phone contracts exist, but they do not establish that the current experience is good on a physical iPhone. The latest UI default-branch commit has Vercel statuses failing with provider build-rate-limit links. Treat this as a provider/build-capacity blocker, not proof of a specific application defect. Do not claim current Vercel deployment health from source or older runs.
 
+
+### Additional setup-document defect found during audit
+The UI repository's `supabase/README.md` lists `db/004_agency_preserving_memory_ledger.sql` twice in the migration sequence. This appears to be a documentation duplication, not evidence that the migration itself is duplicated in the database. Correct the setup guide before asking an operator to apply migrations, then verify the actual Supabase migration history rather than assuming it is clean.
+
 ## 7. Current commit-status snapshot
 
 Inspected default-branch HEADs on 2026-11-07:
