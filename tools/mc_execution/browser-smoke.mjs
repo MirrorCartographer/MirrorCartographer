@@ -163,6 +163,11 @@ try {
     await page.locator('[data-claim-status="' + claimId + '"]').selectOption("tested");
     await page.locator('[data-claim-reason="' + claimId + '"]').fill("A linked test result is recorded; scope remains synthetic.");
     await page.locator('[data-transition="' + claimId + '"]').click();
+    await page.waitForFunction(() => document.querySelector("#run-gates") && !document.querySelector("#run-gates").disabled);
+    await page.locator("#run-gates").click();
+    const gateText = await page.locator("#gate-results").textContent();
+    assert(gateText.includes("18/18 gate packets structurally valid"), "Integrated gate registry did not validate all 18 entries: " + gateText);
+    assert(gateText.includes("route: pass"), "Complete synthetic workflow did not reach the structural pass route");
     const finalRecord = await page.evaluate(() => JSON.parse(localStorage.getItem("mc-investigation-workbench-v1")).investigations[0]);
     assert(finalRecord.claims[0].status === "tested", "Claim lifecycle did not reach tested state");
     assert(finalRecord.observations.length === 1 && finalRecord.tests[0].status === "completed", "Observation or test result was not retained");
