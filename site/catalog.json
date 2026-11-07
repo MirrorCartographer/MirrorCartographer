@@ -5,6 +5,12 @@
       "title": "The Room of Unmeasured",
       "category": "research",
       "url": "./neurology/"
+    },
+    {
+      "path": "site/fragments/index.html",
+      "title": "Found Fragments — runnable instruments",
+      "category": "tools",
+      "url": "./fragments/"
     }
   ]
 }
