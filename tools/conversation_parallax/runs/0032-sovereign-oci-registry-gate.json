@@ -1,0 +1,83 @@
+{
+  "schema": "foundation.conversation-parallax-run.v1",
+  "run_generation": 32,
+  "run_id": "0032-sovereign-oci-registry-gate",
+  "corpus_digest": "sha256:751be07694304dc0d51cdc524b6f8828a21c63faf48f16e1392543af7728a918",
+  "parent_community_digest": null,
+  "readers": [
+    {
+      "reader_id": "conversational-0032",
+      "mode": "conversational",
+      "background": {
+        "discipline": "military logistics and demobilization planning",
+        "experience": "moving critical materiel between commands while preserving custody records and fallback routes",
+        "attention_bias": "tracks who held authority at each handoff, what changed after failures, and whether exit instructions remain executable",
+        "counter_bias": "rejects branded service continuity as proof of owned custody"
+      },
+      "thesis": "Artifact sovereignty emerges when every release handoff preserves immutable identity, custody evidence, and an executable exit route independent of the current registry operator.",
+      "observations": [
+        "The trajectory repeatedly replaces provider identity with project-owned manifests, gates, and recovery evidence.",
+        "The current package scripts still encode hosted-provider operations, making a neutral registry boundary a necessary migration seam."
+      ],
+      "uncertainties": [
+        "The complete private conversation corpus was unavailable.",
+        "No live project-controlled registry endpoint participated in this run."
+      ]
+    },
+    {
+      "reader_id": "semantic-0032",
+      "mode": "semantic",
+      "background": {
+        "discipline": "digital preservation and protocol conformance",
+        "experience": "validating long-lived archives across storage migrations and incompatible repository implementations",
+        "attention_bias": "maps immutable identifiers, protocol guarantees, fallback semantics, and silent format degradation",
+        "counter_bias": "does not equate successful retrieval by tag with verifiable content custody"
+      },
+      "thesis": "An OCI registry becomes an acceptable commodity only after the system verifies digest equality, content-discovery capability, transport policy, and neutral export semantics.",
+      "observations": [
+        "OCI distribution supplies a standardized migration boundary rather than a sovereignty guarantee.",
+        "Referrers discovery determines whether signatures, SBOMs, and provenance remain attached and discoverable across registry changes."
+      ],
+      "uncertainties": [
+        "Backend replication and garbage-collection behavior remain implementation-specific.",
+        "The gate does not yet test upload, deletion, backup restoration, or cross-registry copy."
+      ]
+    }
+  ],
+  "dialogue": {
+    "agreements": [
+      "Both readers reject tags and provider accounts as artifact authority.",
+      "Both require digest-bound verification before promotion."
+    ],
+    "disagreements": [
+      "Reader A prioritizes custody handoffs and operator-independent exit procedures; Reader B prioritizes protocol-level conformance and metadata attachment integrity."
+    ],
+    "omissions_detected": [
+      "No live dual-registry replication benchmark ran.",
+      "No garbage-collection failure drill ran.",
+      "No offline OCI-layout export was restored."
+    ],
+    "revisions_after_discussion": [
+      "Reader A adds referrers discovery to custody evidence because detached provenance can be lost during migration.",
+      "Reader B adds operator handoff and offline export to the conformance boundary because protocol support alone does not establish recoverability."
+    ]
+  },
+  "community_update": {
+    "prior_views_consulted": 4,
+    "notes_added": [
+      "A registry qualifies as commodity infrastructure only after exact digest custody and attached-evidence discovery pass an executable gate.",
+      "OCI compatibility creates an exit surface; independent exports, replicas, and restore drills create recovery authority."
+    ],
+    "notes_challenged": [
+      "Successful image pull establishes artifact sovereignty.",
+      "Registry replication under one administrative control plane creates an independent recovery path."
+    ],
+    "community_digest": "sha256:a64b4653a57238c6d909f033fd25eb5fb259e46b0daf69c86c36c0d1a5af84a0"
+  },
+  "privacy": {
+    "raw_transcript_published": false,
+    "classification": "public-safe-abstracted",
+    "review": "Contains synthetic fixtures, protocol capability metrics, public technical abstractions, and explicit coverage limits only."
+  },
+  "receipt_digest": "sha256:5730308f390dfeafddef3d358fcb2947b36482fc25b97cd5a3a8bb36ddcf0fe2"
+}
