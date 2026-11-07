@@ -58,6 +58,7 @@ for (const relative of [
   "site/investigation/index.html",
   "site/investigation/engine.mjs",
   "site/investigation/investigation.schema.json",
+  "site/investigation/gate-registry.json",
   "site/investigation/engine.test.mjs"
 ]) {
   results.push(check(`Required project input: ${relative}`, () => {
