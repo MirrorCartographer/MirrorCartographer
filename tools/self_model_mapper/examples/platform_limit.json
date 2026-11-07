@@ -1,0 +1,14 @@
+{
+  "packet_type": "limitation",
+  "id": "runtime-github-dns-001",
+  "created_at": "2026-10-14",
+  "privacy": "redacted",
+  "environment": "Container-backed execution environment",
+  "intended_capability": "Read a public repository from the local shell using Git transport",
+  "observed_failure": "DNS lookup for github.com returned no addresses. Git clone and git ls-remote both failed with Could not resolve host: github.com. The connected GitHub repository tool could still read repository files.",
+  "category": "runtime",
+  "tests": ["getent ahosts github.com: exit 2, no address output", "git ls-remote: exit 128, Could not resolve host: github.com", "GitHub connector fetch_file: succeeded"],
+  "workaround": "Use the repository connector for supported reads and writes, then GitHub Actions for execution. Do not bypass the local network boundary.",
+  "residual_risk": "The root cause is unknown; connector operations are narrower than a shell and CI runs in a separate environment.",
+  "next_experiment": "Run CI against this report and regression tests; use an approved environment with documented network access if local Git transport is required."
+}
