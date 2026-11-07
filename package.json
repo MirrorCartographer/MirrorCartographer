@@ -8,7 +8,7 @@
     "build:cloudflare": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "verify": "npm run typecheck && npm run build",
+    "verify": "npm run typecheck && npm run build && npm run test:investigation",
     "cloudflare:connect": "node tools/cloudflare-connector.mjs",
     "cloudflare:deploy": "node tools/cloudflare-connector.mjs",
     "cloudflare:bridge": "node tools/cloudflare-browser-bridge.mjs",
@@ -19,7 +19,8 @@
     "verify:governance": "npm run test:governance",
     "test:continuity": "node --test tools/continuity/*.test.mjs",
     "verify:continuity": "npm run test:continuity && node tools/continuity/validate-continuity-records.mjs .",
-    "verify:workbench": "node tools/validate-workbench-index.mjs"
+    "verify:workbench": "node tools/validate-workbench-index.mjs",
+    "test:investigation": "node --test site/investigation/engine.test.mjs"
   },
   "dependencies": {
     "react": "^19.0.0",
