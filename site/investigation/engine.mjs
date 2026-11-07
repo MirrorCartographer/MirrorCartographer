@@ -302,6 +302,121 @@ export function auditInvestigation(inv) {
   return {valid:errors.length===0,errors,warnings,checks,summary:{sources:inv.sources.length,observations:inv.observations.length,claims:inv.claims.length,hypotheses:inv.hypotheses.length,tests:inv.tests.length,completed_tests:resultTests,decisions:inv.decisions.length,unknowns:inv.unknowns.length,events:inv.events.length}};
 }
 
+export function createSyntheticExample() {
+  const casePath = "site/cases/001-the-person-who-was-never-sick-enough/index.html";
+  let inv = createInvestigation({
+    id: "MC-CASE-001-SYNTHETIC",
+    title: "Case 001 — The Person Who Was Never Sick Enough",
+    question: "How did six narrow records become an administrative conclusion, and what evidence is still missing?",
+    domain: "veteran-access",
+    created_at: "2026-11-07T12:00:00.000Z",
+    scope: {
+      population_or_system: "Entirely fictional administrative case involving Mara Vale",
+      context: "Six fictional records across primary care, urgent care, a lab portal, specialty care, and an administrative packet",
+      time_window: "Six weeks",
+      outcome: "Whether the administrative summary accurately represents the submitted record set"
+    },
+    reflexivity: {
+      territory: "The fictional six-record administrative case and its packet assembly process",
+      observer_standpoint: "A reviewer reading only the six supplied synthetic records",
+      instrument: "Source-linked investigation desk and packet reconstruction",
+      instrument_version: "MC Investigation Engine v1",
+      assumptions: ["The six records are the complete synthetic case file for this exercise."],
+      selection_and_exclusions: "No original submission manifest, receipt log, full lab value, or governing evidence rule is included.",
+      transformations: ["Narrative record excerpts are entered as source-linked summaries."],
+      blind_spots: ["The synthetic case cannot establish real-world prevalence, causality, or institutional intent."],
+      observer_effect: "plausible",
+      revision_trigger: "Revisit if the original manifest, receipt log, actual lab result, or governing rule becomes available."
+    }
+  });
+  const records = [
+    ["SRC-CASE-001-R01","R-01 — Initial report","Primary care","04 March · initial report"],
+    ["SRC-CASE-001-R02","R-02 — Acute evaluation","Urgent care","09 March · acute evaluation"],
+    ["SRC-CASE-001-R03","R-03 — Screening results","Lab portal","12 March · screening result"],
+    ["SRC-CASE-001-R04","R-04 — Consultation summary","Specialist","20 March · consultation summary"],
+    ["SRC-CASE-001-R05","R-05 — Functional impact follow-up","Primary care","02 April · follow-up note"],
+    ["SRC-CASE-001-R06","R-06 — Administrative closure extract","Administrative summary","10 April · closure extract"]
+  ];
+  for (const [sourceId,title,publisher,locator] of records) {
+    inv = addSource(inv,{
+      id:sourceId,title,publisher,source_type:"synthetic case record",path:casePath,
+      exact_location:locator,independence_group:"CASE-001-SYNTHETIC-RECORD-SET",
+      privacy_status:"public_safe",
+      limitations:["Entirely fictional demonstration record; not a real patient, institution, medical record, or empirical finding."]
+    });
+  }
+  const observations = [
+    {id:"OBS-CASE-001-R01",source_id:"SRC-CASE-001-R01",description:"The fictional initial report describes fatigue, intermittent dizziness, diffuse aches, and approximately five weeks of symptoms.",variables:[{name:"reported_symptom_duration",value:5,unit:"weeks",missingness:"observed"}]},
+    {id:"OBS-CASE-001-R02",source_id:"SRC-CASE-001-R02",description:"The urgent-care record documents no acute distress and a grossly nonfocal screening examination at one encounter.",variables:[{name:"acute_distress_at_encounter",value:"not_documented",unit:"recorded finding",missingness:"observed"}]},
+    {id:"OBS-CASE-001-R03",source_id:"SRC-CASE-001-R03",description:"The portal reports one result outside its reference range, but the actual value and interpretation are not included in the supplied record.",variables:[{name:"out_of_range_flag",value:"present",unit:"portal flag",missingness:"observed"},{name:"actual_result_value",value:null,unit:null,missingness:"not_collected"}]},
+    {id:"OBS-CASE-001-R04",source_id:"SRC-CASE-001-R04",description:"The specialist documents no focal deficit on the examination performed that day.",variables:[{name:"focal_deficit_at_exam",value:"not_found",unit:"examination finding",missingness:"observed"}]},
+    {id:"OBS-CASE-001-R05",source_id:"SRC-CASE-001-R05",description:"The follow-up note records reduced work hours and assistance with routine tasks on worse days.",variables:[{name:"functional_impact_recorded",value:"yes",unit:"documented report",missingness:"observed"}]},
+    {id:"OBS-CASE-001-R06",source_id:"SRC-CASE-001-R06",description:"The closure extract states that the R-05 functional-impact note is absent from the packet index.",variables:[{name:"R05_listed_in_packet_index",value:"no",unit:"index status",missingness:"observed"}]}
+  ];
+  for (const observation of observations) inv = addObservation(inv,observation);
+  inv = addClaim(inv,{
+    id:"CL-CASE-001-ACUTE",
+    proposition:"The fictional urgent-care record reports no acute distress at the single encounter on 09 March.",
+    claim_type:"source-reported-finding",
+    source_ids:["SRC-CASE-001-R02"],
+    confidence_rationale:"Directly stated in one synthetic encounter record; scope is limited to that visit.",
+    not_established:["The person's overall health status","The absence of symptoms outside that visit","A diagnosis or eligibility determination"],
+    population_or_system:"Fictional case subject at one urgent-care encounter",
+    time_window:"09 March",
+    alternative_explanations:["Symptoms may fluctuate between encounters."],
+    next_test:"Compare the point-in-time record with the longitudinal symptom and functional history."
+  });
+  inv = linkEvidence(inv,"CL-CASE-001-ACUTE",{source_id:"SRC-CASE-001-R02",direction:"supports",exact_location:"R-02 · acute evaluation"});
+  inv = addClaim(inv,{
+    id:"CL-CASE-001-OMISSION",
+    proposition:"The fictional administrative closure extract's packet index does not list the functional-impact follow-up note R-05.",
+    claim_type:"inference",
+    source_ids:["SRC-CASE-001-R05","SRC-CASE-001-R06"],
+    confidence_rationale:"The supplied R-05 record documents functional impact and R-06 explicitly says that record is absent from the packet index; the original submission manifest is unavailable.",
+    not_established:["Whether R-05 was submitted","Whether R-05 was received but not indexed","Why the record is absent","Whether the omission affected the decision"],
+    population_or_system:"Fictional six-record administrative case",
+    time_window:"02–10 April",
+    alternative_explanations:["R-05 may have been submitted separately.","The closure extract may summarize a partial packet.","An indexing or transfer error may have occurred."],
+    falsification_condition:"An original manifest and receipt log show that R-05 was included in the indexed and reviewed packet.",
+    next_test:"Compare the original submission manifest, receipt log, packet index, and governing evidence rule."
+  });
+  inv = linkEvidence(inv,"CL-CASE-001-OMISSION",{source_id:"SRC-CASE-001-R05",direction:"supports",exact_location:"R-05 · functional impact paragraph"});
+  inv = linkEvidence(inv,"CL-CASE-001-OMISSION",{source_id:"SRC-CASE-001-R06",direction:"supports",exact_location:"R-06 · packet index omission statement"});
+  inv = addHypothesis(inv,{
+    id:"HYP-CASE-001-PACKET",
+    statement:"The functional-impact note R-05 was omitted from the packet index before the fictional administrative closure.",
+    claim_ids:["CL-CASE-001-OMISSION"],
+    predictions:["The original packet index will contain no R-05 entry.","The receipt log will either lack R-05 or show a separate attachment path."],
+    alternative_explanations:["R-05 was received but the summary used a partial index.","R-05 was stored as a separate attachment.","The closure summary was generated before the follow-up note arrived."],
+    falsification_condition:"The original receipt log confirms R-05 was received, indexed, and reviewed before closure.",
+    known_assumptions:["The displayed six records are the complete synthetic file supplied for this exercise."]
+  });
+  inv = addTest(inv,{
+    id:"TST-CASE-001-MANIFEST",
+    hypothesis_id:"HYP-CASE-001-PACKET",
+    title:"Reconstruct the submission manifest and receipt sequence",
+    protocol:"Compare the original submitted-record manifest, receipt log, packet index, and closure timestamp. Preserve document identifiers and timestamps; do not infer intent from absence alone.",
+    measurements:["R-05 document identifier presence","Receipt timestamp","Packet-index inclusion","Review disposition"],
+    comparison:"Submitted records versus received records versus indexed and reviewed records",
+    time_window:"02–10 April",
+    predeclared_support:"R-05 is absent from the original packet index and no receipt record shows that it was separately received and reviewed.",
+    predeclared_disconfirmation:"The receipt log confirms R-05 was received, indexed, and reviewed before closure."
+  });
+  inv = addUnknown(inv,{id:"UNK-CASE-001-LAB",question:"What was the actual value and clinical interpretation of the out-of-range screening result?",missingness:"not_collected",why_it_matters:"A portal flag alone does not establish clinical relevance or whether the administrative rule treated it as qualifying evidence.",resolution_route:"Retrieve the original laboratory report and clinician interpretation."});
+  inv = addUnknown(inv,{id:"UNK-CASE-001-MANIFEST",question:"Was R-05 submitted and received before the administrative closure?",missingness:"unknown",why_it_matters:"Without the manifest and receipt log, the reason for the packet-index omission cannot be established.",resolution_route:"Obtain the original submission manifest, receipt log, and packet index."});
+  inv = addUnknown(inv,{id:"UNK-CASE-001-RULE",question:"What exact evidence rule governed the fictional administrative decision?",missingness:"not_collected",why_it_matters:"The phrase qualifying objective abnormality cannot be evaluated without the rule's wording and scope.",resolution_route:"Retrieve the governing fictional program rule and version date."});
+  inv = addDecision(inv,{
+    id:"DEC-CASE-001-OPEN",
+    choice:"Keep the cause of the packet-index omission unresolved and request the manifest, receipt log, original lab report, and governing rule before attributing responsibility.",
+    rationale:"The supplied records support a traceable omission in the closure index but do not establish submission, receipt, review, intent, or the effect on the outcome.",
+    evidence_refs:["CL-CASE-001-OMISSION","TST-CASE-001-MANIFEST"],
+    uncertainty:"The case is synthetic and the original manifest, receipt log, lab value, and governing rule are not supplied.",
+    review_trigger:"Revisit when any original manifest, receipt, laboratory, or rule record is added.",
+    reversible:true
+  });
+  return inv;
+}
+
 function resolveGateSpec(gate, registry) {
   let spec = registry?.gates?.[gate];
   const seen = new Set([gate]);
