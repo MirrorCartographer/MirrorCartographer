@@ -17,13 +17,13 @@ Current default-branch recursive Git trees returned complete, non-truncated resu
 
 | Repository | Visibility | Tree entries | HTML files | Canonical role |
 |---|---:|---:|---:|---|
-| `MirrorCartographer/MirrorCartographer` | Public | 4,697 | 70 | Research, evidence, governance, architecture, tools, demonstrations, creative work |
-| `MirrorCartographer/mirror-cartographer-ui` | Public | 2,826 | 112 | Living Atlas, The Between, rooms, games, workbench, creative interfaces |
-| `MirrorCartographer/c` | Private | 821 | 12 | Historical source corpus, symbolic reflection, continuity/provenance, prototypes, provider bridge, bounded worker |
-| `MirrorCartographer/J` | Private | 30 | 4 | Human Judgment Lab, evaluation operations, Consensus Trap experiment |
-| **Total** | **2 public / 2 private** | **8,374** | **198** | **Four connected-by-intent but not yet unified repositories** |
+| `MirrorCartographer/MirrorCartographer` | Public | not recounted | 70 | Research, evidence, governance, architecture, tools, demonstrations, creative work |
+| `MirrorCartographer/mirror-cartographer-ui` | Public | not recounted | 117 | Living Country, The Between, House, rooms, games, workbench, creative interfaces |
+| `MirrorCartographer/c` | Private | not recounted | 12 | Historical source corpus, symbolic reflection, continuity/provenance, LYR/FREE/J bridges, bounded worker |
+| `MirrorCartographer/J` | Private | not recounted | 4 | Human Judgment Lab, evaluation operations, versioned export packet, Consensus Trap experiment |
+| **Total** | **2 public / 2 private** | **not recounted** | **203** | **187 public HTML modules plus 16 private-source HTML modules** |
 
-Counts are Git tree entries and HTML source files, not counts of finished products. HTML includes experiments, archived/independent works, previews, tools, and standalone applications. The UI completion map's earlier 96-artifact workbench count is not the same as the current 112 HTML files in the repository tree; index coverage must be recalculated before claiming all HTML is reachable from the workbench.
+Counts are HTML source files, not counts of finished products. HTML includes experiments, archived/independent works, previews, tools, and standalone applications. The UI workbench now indexes 117 HTML artifacts. The public module manifest records 187 HTML modules across the two public repositories; the private master registry records all 203 HTML files across the four repositories. Classification is still incomplete, so an indexed file is not automatically a finished or deployed product.
 
 ## 2. What exists, with evidence boundaries
 
@@ -33,7 +33,7 @@ Counts are Git tree entries and HTML source files, not counts of finished produc
 - FREE 2.0 executable core scaffold for proposals, consequences, contradictions, decision gates, review and reversal.
 - Provenance, governance, ownership and historical-recovery records.
 - Creative Universe and independent creative projects.
-- Independent LYR model code path: tokenizer/model/training/inference implementation and specifications exist, but the repository explicitly states no trained project checkpoint exists.
+- Independent LYR model code path: tokenizer/model/training/inference implementation and specifications exist. The inference CLI now accepts stdin prompts for local provider integration, but the repository still contains no project-trained checkpoint.
 
 ### Public interactive UI repository
 - React/Vite room-world and 79 procedural room configurations; configurations are not 79 finished authored worlds.
@@ -41,21 +41,23 @@ Counts are Git tree entries and HTML source files, not counts of finished produc
 - Shared room encounter engine, research atlas, workbench, creative tools, games and veteran-related experiences.
 - The Between's perception ledger, deterministic resident-response policy, bounded scene cues, explicit dialogue choices and consent-aware continuity design.
 - Supabase schema and Edge Function source for authentication, private continuity, shared presence/connections and optional resident dialogue.
-- A separate Vercel/serverless API and Supabase-backed record architecture also exists. These two runtime/deployment paths need an explicit canonical decision.
+- A separate Vercel/serverless API and Supabase-backed record architecture also exists. GitHub Pages is now the intended canonical static publishing path; Vercel is not the canonical release path and its checks have repeatedly hit provider build-rate limits. The authenticated API boundary and any remaining Vercel responsibilities still need a final retirement/separation decision.
 
 ### Private Repository C
 - Original symbolic reflection and self-mapping material, historical documents, structured corpora and prototypes.
 - Append-only provenance/continuity records and source-aware retrieval.
-- Provider-neutral command-line bridge for local Ollama or OpenAI-compatible endpoints.
+- Provider-neutral command-line bridge for local Ollama or OpenAI-compatible endpoints, now with an optional local LYR provider that calls the public research repository's inference script through stdin and requires an explicit checkpoint.
+- Review-gated importers for FREE 2.0 audit JSON and J evaluation packets into the same append-only provenance ledger. Both default to preview-only; explicit `--apply` is required; source provenance and uncertainty are preserved.
 - Bounded model patch worker with allowlist, validation and rollback.
 - Local/offline shell and workbench.
-- Existing audit says the browser UI is not yet connected to the CLI model bridge; localStorage is not encrypted; live browser/offline and local Ollama inference remain unverified. The latest completion map also records that model inference was skipped because the required secret was absent.
+- The browser UI is still not connected to C's local CLI model bridge through a live server-side gateway. The LYR provider is a local CLI bridge only. localStorage is not encrypted; live browser/offline and local Ollama/LYR inference remain unverified. No LYR checkpoint is present.
 
 ### Private Repository J
 - Human Evaluation Operations Studio.
 - Interactive Consensus Trap experiment.
 - Six-dimension evaluation rubric and synthetic evaluation dataset.
 - Reproducible test harness.
+- The review packet now has a versioned schema and can be imported into C's ledger as separate synthetic, human-review, reliability, and decision records. The packet remains private and the importer is preview-only by default.
 - Synthetic simulation is not field research or a validated claim about real-world evaluator behavior.
 
 ## 3. What is yours, what is collaborative, and what is not established
@@ -100,28 +102,28 @@ The product's durable value should survive model switching:
 ### P0 — Resolve runtime topology
 The Between integration map describes GitHub Pages + Supabase Auth/Postgres/Realtime + a Supabase Edge Function for resident dialogue. The separate infrastructure document describes a Vercel serverless API for authenticated records and signed uploads. Both can coexist only if their responsibilities and API boundaries are explicit. At present, the product documentation does not provide one definitive, end-to-end runtime map covering all experiences.
 
-The current Supabase setup guide lists migrations, browser variables, Auth redirects, Edge Function deployment and provider secrets as owner-side activation steps. A committed migration is not evidence that it was applied. The Supabase project state and live multi-account behavior were not inspected in this audit.
+The current Supabase setup guide lists migrations, browser variables, Auth redirects, Edge Function deployment and provider secrets as owner-side activation steps. A committed migration is not evidence that it was applied. The visitor-note UI and migration `db/005_shared_world_notes.sql` have been added to the open public-site integration PR; the migration has not been applied and the live Supabase project state has not been inspected. The public Pages build must also have `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` configured.
 
 ### P0 — Choose canonical data and identity contracts
 There are overlapping continuity stores, memory ledger schemas, provenance graphs, project stores, localStorage stores and experimental SQLite/MirrorStore work. The consolidation map already says the append-only provenance graph remains canonical and SQLite is experimental. Enforce that rule through adapters and tests; do not create another competing memory database.
 
 ### P0 — Establish one module registry
-The HTML collections need a machine-readable registry with stable module ID, canonical source path, owner repository, status (production / prototype / archive / planned), runtime requirements, route, capabilities, data scopes, permissions, dependencies, tests, and deployment target. The shell should load modules through explicit adapters. Do not iframe everything indiscriminately and do not paste all source into one HTML file.
+The machine-readable inventories now exist: a public experience manifest with 187 public HTML modules and a private master registry with all 203 modules. Both include source paths and blob hashes; the private registry records the two reviewed public derivatives from C and J. Most modules remain unclassified or unverified. The shell should load modules through explicit adapters. Do not iframe everything indiscriminately and do not paste all source into one HTML file.
 
 ### P1 — Complete experience truth
 The UI completion map says 79 procedural rooms are discoverable, but explicitly leaves meaningful differentiation and individual destination audits open. A room is not complete merely because a route loads or a control reacts. Test visible state change, spatial continuity, persistence, return paths, keyboard/touch behavior, reduced motion, sound controls, error states and phone usability.
 
 ### P1 — Reconcile workbench coverage
-The repository currently contains 112 HTML files, while the completion map previously reported 96 indexed artifacts. Identify intentional exclusions, add missing experiences to the registry/workbench, and fail CI when a new module is unclassified.
+The UI repository now contains 117 HTML files and both workbench indexes include all 117. The four-repository inventory totals 203 HTML files: 70 research, 117 UI, 12 C, and 4 J. The public manifest records 187 public modules; the remaining 16 are private source files. CI validates workbench coverage. Classification of the full inventory remains open.
 
 ### P1 — Model independence
-The local provider bridge and from-scratch LYR training path are real source artifacts. No project-trained model checkpoint is verified. Keep external model providers replaceable and server-side; do not expose credentials in browser code. The system must remain useful with model inference disabled.
+The local provider bridge now has a tested C-to-LYR stdin contract, and C's CLI can route to LYR when a local checkpoint is supplied. No project-trained checkpoint is verified. FREE 2.0 and J evaluation packets can be imported into C's append-only ledger through review-gated adapters. The public website still has no live C/LYR server gateway. Keep external model providers replaceable and server-side; do not expose credentials in browser code. The system must remain useful with model inference disabled.
 
 ### P1 — Shared world
-Database source defines connection requests, acceptance/revocation, expiring presence, and row-level security. This is meaningful architecture, but live service activation and multi-account privacy tests are still required. Presence is not a shared creative artifact store; artifact collaboration needs its own permission and version contract.
+Database source defines connection requests, acceptance/revocation, expiring presence, and row-level security. The new visitor-note migration adds an authenticated, moderated, persistent shared wall with author-only pending records, moderator publication, and a five-note/hour limit. The UI and migration are in the open public-site PR; the database migration is not applied, the owner's moderator UUID is not registered, and live two-account privacy tests are still required. This is the first shared artifact path, not a complete collaborative artifact/version system.
 
 ### P1 — Mobile
-Automated phone contracts exist, but they do not establish that the current experience is good on a physical iPhone. The latest UI default-branch commit has Vercel statuses failing with provider build-rate-limit links. Treat this as a provider/build-capacity blocker, not proof of a specific application defect. Do not claim current Vercel deployment health from source or older runs.
+Phone-first tests now cover the art-first field entrance, The Between, Charity's House, visitor movement, sound gating, and the notebook. The full UI PR smoke gate is still running; no physical iPhone session has been completed. GitHub Pages is the intended canonical deployment. Vercel status failures are provider/build-capacity signals, not proof of a live or broken application.
 
 
 ### Additional setup-document defect found during audit
@@ -135,7 +137,7 @@ Inspected default-branch HEADs on 2026-11-07:
 - Private C `a54759ab75dc5b1d517e24870e65d9cc9e71d4cc`: two Vercel status checks report success.
 - Private J `67b0cee50c0b2b5cdbbba35c030614cb31df394d`: Vercel status reports failure with a build-rate-limit link.
 
-These are GitHub commit statuses only. They do not prove all tests passed, a deployment is live, or the intended user journey works.
+Execution update after the original snapshot: J's packet-schema PR, the research repository's LYR stdin PR, and C's LYR/FREE/J bridge PR have been merged; their GitHub Actions validation jobs passed. The public UI integration PR remains open and its current phone-first smoke gate is pending. Vercel build-rate-limit failures are not treated as deployment evidence. GitHub Pages deployment has not yet been triggered from the merged UI changes.
 
 ## 8. The nontechnical gap
 
@@ -151,7 +153,7 @@ The product can contain many doors. It still needs one coherent promise and one 
 
 ## 9. Hardware
 
-No owned custom hardware implementation or hardware integration was found in the four repository trees searched for this audit. The phone is an existing client, not proprietary hardware.
+No owned custom hardware implementation or hardware integration was found in the four repository trees. Earlier tactile-console, knob/button, haptic and sensor concepts were proposals, not a finalized user-approved device specification or bill of materials. The phone is an existing client, not proprietary hardware. The House is a web destination; a printed QR/link card could later bridge in-person encounters without custom electronics.
 
 A sensible hardware path is an optional physical interface, not a phone replacement:
 - **First prototype:** USB/Bluetooth control surface with tactile knobs, a few assignable buttons and haptic feedback to manipulate maps, layers, timelines and spatial objects.
@@ -177,4 +179,4 @@ Do not commission a custom PCB or wearable until a hardware-independent software
 
 This audit is source-level. It did not inspect private service dashboards, apply database migrations, read secrets, deploy services, test two real accounts, exercise a physical phone, or test hardware. No such completion is claimed.
 
-**Next implementation action:** build the canonical module registry from all 198 HTML files, classify each module, reconcile the UI workbench's 96-versus-112 count, and generate a unified shell route map. This is the safest first integration slice because it connects the visible products without overwriting private data or prematurely merging competing backends.
+**Next implementation action:** finish and merge the public UI integration PR after its phone-first smoke gate passes; then apply Supabase migration 005, configure the public Pages variables, register the owner as note moderator, and verify two-account note visibility. Add the narrowly scoped publication token to C and J to enable automated public-derivative PRs. The next major runtime bridge is a server-side gateway between the public site, C's continuity ledger, and model router; it depends on a verified LYR checkpoint or a deliberately selected external provider. Confirm the Render workspace before inspecting or provisioning hosted services.
