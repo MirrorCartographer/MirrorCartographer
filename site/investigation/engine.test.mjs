@@ -1,9 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import {
   createInvestigation,addSource,addObservation,addClaim,linkEvidence,addHypothesis,
   addTest,recordTestResult,addUnknown,addDecision,transitionClaim,auditInvestigation,
-  exportInvestigation,importInvestigation
+  exportInvestigation,importInvestigation,runIntegratedGateChecks
 } from "./engine.mjs";
 
 const base=()=>createInvestigation({id:"inv-test",title:"Synthetic signal inquiry",question:"What explains the change in the synthetic signal?",domain:"systems",created_at:"2026-11-07T12:00:00.000Z"});
@@ -112,3 +113,30 @@ test("export/import round trip preserves investigation and blocks private public
  assert.throws(()=>exportInvestigation(privateInv,{publicSafeOnly:true,privacyReviewed:true}),/privacy review/);
 });
 test("rejects malformed imports",()=>assert.throws(()=>importInvestigation({schema:"wrong",schema_version:1,investigation:{}}),/Unsupported/));
+
+test("browser gate registry stays aligned with the canonical registry",()=>{
+ const browserRegistry=JSON.parse(readFileSync(new URL("./gate-registry.json",import.meta.url),"utf8"));
+ const canonicalRegistry=JSON.parse(readFileSync(new URL("../../tools/mc_gate_integration/gate_registry.json",import.meta.url),"utf8"));
+ assert.deepEqual(browserRegistry,canonicalRegistry);
+});
+test("integrated gate registry runs all entries and preserves routing decisions",()=>{
+ const registry=JSON.parse(readFileSync(new URL("./gate-registry.json",import.meta.url),"utf8"));
+ let inv=addSource(base(),source("s1","synthetic-study"));
+ inv=addObservation(inv,{id:"obs-1",source_id:"s1",description:"Synthetic signal observed.",variables:[{name:"amplitude",value:2,unit:"mV",missingness:"observed"}]});
+ inv=addClaim(inv,{...claimInput,source_ids:["s1"]});
+ inv=linkEvidence(inv,"cl-1",{source_id:"s1",direction:"supports",exact_location:"section 2"});
+ inv=addHypothesis(inv,{id:"h1",statement:"Sensor drift explains the synthetic signal change.",predictions:["A calibrated reference remains stable."],falsification_condition:"The calibrated reference reproduces the same change."});
+ inv=addTest(inv,{id:"t1",hypothesis_id:"h1",title:"Reference comparison",protocol:"Repeat with a calibrated synthetic reference.",measurements:["Amplitude in mV"],comparison:"Original sensor versus reference",predeclared_disconfirmation:"Both sensors reproduce the same shift."});
+ const report=runIntegratedGateChecks(inv,registry);
+ assert.equal(report.total,Object.keys(registry.gates).length);
+ assert.equal(report.valid_count,report.total);
+ assert.equal(report.decision,"pass");
+ const contradicted=linkEvidence(inv,"cl-1",{source_id:"s1",direction:"contradicts",exact_location:"appendix B"});
+ assert.equal(runIntegratedGateChecks(contradicted,registry).decision,"route_to_contradiction_ledger");
+});
+test("integrated gate registry routes incomplete investigations to more evidence",()=>{
+ const registry=JSON.parse(readFileSync(new URL("./gate-registry.json",import.meta.url),"utf8"));
+ const report=runIntegratedGateChecks(base(),registry);
+ assert.equal(report.decision,"needs_more_evidence");
+ assert.equal(report.valid_count,report.total);
+});
