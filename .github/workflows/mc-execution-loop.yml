@@ -44,6 +44,10 @@ jobs:
         id: validate-queue
         run: node tools/mc_execution/run.mjs
 
+      - name: Test investigation engine and claim lifecycle
+        id: investigation-engine
+        run: node --test site/investigation/engine.test.mjs
+
       - name: Validate canonical Living Atlas
         id: validate-site
         run: node site/validate-site.mjs
