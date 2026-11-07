@@ -121,7 +121,7 @@ try {
     await page.locator("#src-privacy").selectOption("public_safe");
     await page.locator("#source-form button[type=submit]").click();
     const sourceId = await page.evaluate(() => JSON.parse(localStorage.getItem("mc-investigation-workbench-v1")).investigations[0].sources[0].id);
-    await page.locator("#obs-source").selectOption({ label: new RegExp(sourceId) });
+    await page.locator("#obs-source").selectOption(sourceId);
     await page.locator("#obs-description").fill("The synthetic reference measurement changed by the stated amount.");
     await page.locator("#obs-variable").fill("amplitude");
     await page.locator("#obs-value").fill("2");
@@ -133,7 +133,7 @@ try {
     await page.locator("#cl-next").fill("Repeat the comparison with an independent reference.");
     await page.locator("#claim-form button[type=submit]").click();
     const claimId = await page.evaluate(() => JSON.parse(localStorage.getItem("mc-investigation-workbench-v1")).investigations[0].claims[0].id);
-    await page.locator("#ev-claim").selectOption({ label: new RegExp(claimId) });
+    await page.locator("#ev-claim").selectOption(claimId);
     await page.locator("#ev-source").selectOption({ label: new RegExp(sourceId) });
     await page.locator("#ev-locator").fill("fixture section 1, measurement row 2");
     await page.locator("#evidence-form button[type=submit]").click();
