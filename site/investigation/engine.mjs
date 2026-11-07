@@ -302,6 +302,107 @@ export function auditInvestigation(inv) {
   return {valid:errors.length===0,errors,warnings,checks,summary:{sources:inv.sources.length,observations:inv.observations.length,claims:inv.claims.length,hypotheses:inv.hypotheses.length,tests:inv.tests.length,completed_tests:resultTests,decisions:inv.decisions.length,unknowns:inv.unknowns.length,events:inv.events.length}};
 }
 
+function resolveGateSpec(gate, registry) {
+  let spec = registry?.gates?.[gate];
+  const seen = new Set([gate]);
+  while (spec && spec.$ref) {
+    if (seen.has(spec.$ref)) return null;
+    seen.add(spec.$ref);
+    spec = registry.gates[spec.$ref];
+  }
+  return spec || null;
+}
+function validateIntegratedPacket(packet, spec) {
+  const errors = [];
+  for (const field of spec.required_packet_fields || []) if (!(field in packet)) errors.push("missing required field " + field);
+  for (const label of spec.required_labels || []) if (!packet[label]) errors.push("empty label " + label);
+  if (!(spec.allowed_decisions || []).includes(packet.decision)) errors.push("invalid decision " + packet.decision);
+  const blocked = (packet.boundary_flags || []).filter(flag => (spec.blocked_boundary_flags || []).includes(flag));
+  if (blocked.length && packet.decision === "pass") errors.push("blocked flags passed: " + blocked.join(", "));
+  if (!Array.isArray(packet.observations) || !packet.observations.length) errors.push("observations required");
+  let observedCount = 0;
+  for (let index = 0; index < (packet.observations || []).length; index += 1) {
+    const observation = packet.observations[index];
+    if (!MISSINGNESS.has(observation.missingness)) errors.push("observation " + index + " has invalid missingness");
+    if (observation.missingness === "observed") {
+      observedCount += 1;
+      for (const key of ["variable","value","unit"]) if (!(key in observation)) errors.push("observed observation " + index + " missing " + key);
+    } else if ([0,false,"absent","none"].includes(observation.value)) {
+      errors.push("missingness collapsed into absence at observation " + index);
+    }
+  }
+  if (packet.decision === "pass" && observedCount === 0) errors.push("pass requires at least one observed variable");
+  if (packet.decision === "pass" && !(packet.measurable_variables || []).length) errors.push("pass requires measurable variables");
+  return errors;
+}
+
+/**
+ * Runs the browser-safe integration registry. These are structural routing checks,
+ * not the specialized domain validators in tools/* and not scientific appraisal.
+ */
+export function runIntegratedGateChecks(inv, registry) {
+  const audit = auditInvestigation(inv);
+  const gates = Object.keys(registry?.gates || {});
+  if (!gates.length) throw new TypeError("Investigation gate registry is missing or empty.");
+  const flatVariables = (inv.observations || []).flatMap(observation =>
+    (observation.variables || []).map(variable => ({ ...variable, observation_id: observation.id }))
+  );
+  const observed = flatVariables.filter(variable => variable.missingness === "observed");
+  const contradictionCount = (inv.claims || []).reduce((sum, claim) => sum + (claim.evidence_links || []).filter(link => link.direction === "contradicts").length, 0);
+  const allSourcesPublic = inv.sources.length > 0 && inv.sources.every(source => source.privacy_status === "public_safe");
+  const claimsLinked = inv.claims.length > 0 && inv.claims.every(claim => claim.evidence_links?.length > 0);
+  const hasFalsifiableHypothesis = inv.hypotheses.some(hypothesis => hypothesis.predictions?.length > 0 && text(hypothesis.falsification_condition));
+  const hasTestPlan = inv.tests.length > 0;
+  const nextAction = inv.unknowns.find(item => item.status === "open")?.resolution_route ||
+    (!inv.sources.length ? "Add a source with a recoverable locator." :
+    !observed.length ? "Add a source-linked observation with explicit missingness and units." :
+    !claimsLinked ? "Attach exact evidence locations to every claim." :
+    !hasFalsifiableHypothesis ? "Add competing hypotheses with distinct predictions and falsification conditions." :
+    !hasTestPlan ? "Pre-register a test with measures, comparison, and disconfirmation." :
+    "Review the domain-specific gates and record the next result.");
+  const observations = flatVariables.length ? flatVariables.map(variable => ({
+    variable: variable.name, value: variable.missingness === "observed" ? variable.value : null,
+    unit: variable.missingness === "observed" ? variable.unit : null,
+    missingness: variable.missingness
+  })) : [{ variable: "unrecorded_observation", value: null, unit: null, missingness: "not_collected" }];
+  const decision = !audit.valid ? "reject" :
+    contradictionCount ? "route_to_contradiction_ledger" :
+    (!allSourcesPublic || !observed.length || !claimsLinked || !hasFalsifiableHypothesis || !hasTestPlan) ? "needs_more_evidence" :
+    "pass";
+  const packet = {
+    route: "investigation_review",
+    source_status: inv.sources.length ? "source-linked" : "no-source-records",
+    claim_status: inv.claims.length ? [...new Set(inv.claims.map(claim => claim.status))].join(",") : "no-claims",
+    privacy_status: allSourcesPublic ? "public_safe" : "review_required_or_no_sources",
+    missingness: "states present: " + [...new Set(observations.map(observation => observation.missingness))].join(", ") + "; missing is not absence",
+    revision_reason: inv.events.at(-1)?.detail || "No revision recorded yet.",
+    implementation_status: "local-first investigation engine v1",
+    testability: "browser structural audit against the canonical integration registry",
+    falsification_route: "contradictory evidence links, pre-registered disconfirmation criteria, or source/claim revision",
+    measurable_variables: [...new Set(observed.map(variable => variable.name))],
+    next_executable_action: nextAction,
+    observations,
+    boundary_flags: [],
+    decision
+  };
+  const results = gates.map(gate => {
+    const spec = resolveGateSpec(gate, registry);
+    const errors = spec ? validateIntegratedPacket({ ...packet, gate, packet_id: "mc." + gate + "." + inv.id }, spec) : ["unknown or invalid gate specification"];
+    return { gate, decision, valid: errors.length === 0, errors };
+  });
+  const invalid = results.filter(result => !result.valid);
+  return {
+    registry_id: registry.suite_id || "unnamed_registry",
+    registry_source_status: registry.source_status || "not_declared",
+    total: results.length,
+    valid_count: results.length - invalid.length,
+    invalid_count: invalid.length,
+    decision,
+    structural_audit: audit,
+    results
+  };
+}
+
 export function exportInvestigation(inv,{publicSafeOnly=false,privacyReviewed=false}={}) {
   const audit=auditInvestigation(inv);if(!audit.valid)throw new Error("Cannot export an invalid investigation: "+audit.errors.join("; "));
   if(publicSafeOnly&&!privacyReviewed)throw new Error("Public-safe export requires explicit review of every free-text field for private, identifying, or sensitive information.");
