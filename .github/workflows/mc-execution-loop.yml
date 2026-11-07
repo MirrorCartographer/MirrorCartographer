@@ -100,6 +100,7 @@ jobs:
         if: always()
         env:
           MC_QUEUE_STATUS: ${{ steps.validate-queue.outcome }}
+          MC_INVESTIGATION_ENGINE_STATUS: ${{ steps.investigation-engine.outcome }}
           MC_SITE_STATUS: ${{ steps.validate-site.outcome }}
           MC_MIND_STATUS: ${{ steps.validate-mind.outcome }}
           MC_CATALOG_TOOLS_STATUS: ${{ steps.validate-catalog-tools.outcome }}
