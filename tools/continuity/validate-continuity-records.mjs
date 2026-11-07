@@ -30,6 +30,8 @@ function validateRecord(record, locator) {
     if (!source.locator || typeof source.locator !== 'string') errors.push(`${p}: missing locator`);
     if (!('content_sha' in source)) errors.push(`${p}: missing content_sha`);
   });
+  if ('supersedes_external' in record && !Array.isArray(record.supersedes_external)) errors.push(`${locator}: supersedes_external must be an array`);
+  if (Array.isArray(record.supersedes_external)) record.supersedes_external.forEach((target, i) => { if (typeof target !== 'string' || !target.trim() || /^CM-\\d{4}$/.test(target)) errors.push(`${locator}: supersedes_external[${i}] must be a non-CM external reference`); });
   for (const relation of ['contradicts','supersedes']) {
     if (relation in record && !Array.isArray(record[relation])) errors.push(`${locator}: ${relation} must be an array`);
   }
@@ -77,7 +79,7 @@ export function validateContinuity({ indexFile, recordsDir, recordDirs }) {
         else if (!byId.has(target)) errors.push(`${locator}: ${relation} references missing ${target}`);
       }
     }
-    if (record?.claim_state === 'superseded' && !(record.supersedes?.length)) {
+    if (record?.claim_state === 'superseded' && !(record.supersedes?.length || record.supersedes_external?.length)) {
       errors.push(`${locator}: superseded claim_state requires at least one supersedes target`);
     }
   }
