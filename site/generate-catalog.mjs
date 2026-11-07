@@ -5,7 +5,6 @@ import { isCredentialLikeFile, isPrivateCatalogPath } from './atlas-privacy-poli
 
 const sources = [
   { dir: '.', prefix: '', repo: 'MirrorCartographer/MirrorCartographer' },
-  { dir: 'ui-repository', prefix: 'mirror-cartographer-ui/', repo: 'MirrorCartographer/mirror-cartographer-ui' },
 ];
 
 const excludedMediaExtensions = new Set([
@@ -30,7 +29,7 @@ function category(path) {
   if (p.startsWith('research/') || p.startsWith('evidence/') || p.startsWith('research-atlas/') || p.startsWith('public/research-atlas/')) return 'research';
   if (p.startsWith('architecture/') || p.startsWith('foundation/')) return 'architecture';
   if (p.startsWith('demonstrations/') || p.startsWith('open-mic/')) return 'demonstrations';
-  if (p.startsWith('art/') || p.startsWith('music/') || p.startsWith('creative_universe/') || p.startsWith('independent') || p.startsWith('public/experiments/') || p.startsWith('operations/independent')) return 'creative';
+  if (p.startsWith('art/') || p.startsWith('music/') || p.startsWith('creative_universe/') || p.startsWith('independent') || p.startsWith('public/experiments/') || p.startsWith('operations/independent') || p.startsWith('site/companion/')) return 'creative';
   if (p.startsWith('tools/') || p.startsWith('forge/') || p.startsWith('functions/') || p.startsWith('scripts/') || p.startsWith('src/') || p.startsWith('engines/') || p.startsWith('server/') || p.startsWith('api/')) return 'tools';
   if (p.startsWith('governance/') || p.startsWith('ledgers/') || p.startsWith('proof/')) return 'governance';
   if (p.startsWith('docs/') || p.endsWith('readme.md') || p.endsWith('.md')) return 'documentation';
