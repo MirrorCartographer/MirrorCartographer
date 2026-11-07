@@ -37,7 +37,7 @@ These are user-confirmed working URLs. Do not replace them with unverified deplo
 - **[Relationship engine](tools/relationship-engine/relationship-engine.mjs)** — a small tested engine for ranking candidate bridge nodes.
 - **[Self-cartography model](docs/SELF_CARTOGRAPHY_MODEL.md)** — a revisable map of a person, never a substitute for one.
 - **[Mind](mind/)** — continuity, cognition, design, care, memory, experiments.
-- **[Investigation Desk](site/investigation/)** — source-linked inquiry from observation through claim review, competing hypotheses, falsification, uncertainty, and decisions; local-first, no account or model required.
+- **[Investigation Desk](site/investigation/README.md)** — source-linked inquiry from observation through claim review, competing hypotheses, falsification, uncertainty, and decisions; local-first, no account or model required. The playable entry point is `site/investigation/index.html`.
 - **[Research](research/)** — questions, source-linked claims, models, hypothesis tests.
 - **[Evidence](evidence/)** · **[Architecture](architecture/)** · **[Tools](tools/)**
 - **[Demonstrations](demonstrations/)** — see the method move.
