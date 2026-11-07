@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
-  createInvestigation,addSource,addObservation,addClaim,linkEvidence,addHypothesis,
+  createInvestigation,createSyntheticExample,addSource,addObservation,addClaim,linkEvidence,addHypothesis,
   addTest,recordTestResult,addUnknown,addDecision,transitionClaim,auditInvestigation,
   exportInvestigation,importInvestigation,runIntegratedGateChecks
 } from "./engine.mjs";
@@ -139,4 +139,21 @@ test("integrated gate registry routes incomplete investigations to more evidence
  const report=runIntegratedGateChecks(base(),registry);
  assert.equal(report.decision,"needs_more_evidence");
  assert.equal(report.valid_count,report.total);
+});
+
+test("synthetic case 001 is a complete, auditable, explicitly fictional investigation",()=>{
+ const inv=createSyntheticExample();
+ assert.equal(inv.sources.length,6);
+ assert.equal(inv.observations.length,6);
+ assert.equal(inv.claims.length,2);
+ assert.equal(inv.hypotheses.length,1);
+ assert.equal(inv.tests.length,1);
+ assert.equal(inv.unknowns.length,3);
+ assert.equal(inv.decisions.length,1);
+ assert.equal(auditInvestigation(inv).valid,true);
+ const registry=JSON.parse(readFileSync(new URL("./gate-registry.json",import.meta.url),"utf8"));
+ const report=runIntegratedGateChecks(inv,registry);
+ assert.equal(report.decision,"pass");
+ assert.equal(report.valid_count,report.total);
+ assert.ok(report.structural_audit.warnings.some(x=>x.includes("repeated outputs")));
 });
