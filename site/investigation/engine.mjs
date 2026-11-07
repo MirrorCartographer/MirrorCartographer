@@ -303,7 +303,7 @@ export function auditInvestigation(inv) {
 }
 
 export function createSyntheticExample() {
-  const casePath = "site/cases/001-the-person-who-was-never-sick-enough/index.html";
+  const caseUrl = "https://github.com/MirrorCartographer/MirrorCartographer/blob/main/site/cases/001-the-person-who-was-never-sick-enough/index.html";
   let inv = createInvestigation({
     id: "MC-CASE-001-SYNTHETIC",
     title: "Case 001 — The Person Who Was Never Sick Enough",
@@ -339,7 +339,7 @@ export function createSyntheticExample() {
   ];
   for (const [sourceId,title,publisher,locator] of records) {
     inv = addSource(inv,{
-      id:sourceId,title,publisher,source_type:"synthetic case record",path:casePath,
+      id:sourceId,title,publisher,source_type:"synthetic case record",url:caseUrl,
       exact_location:locator,independence_group:"CASE-001-SYNTHETIC-RECORD-SET",
       privacy_status:"public_safe",
       limitations:["Entirely fictional demonstration record; not a real patient, institution, medical record, or empirical finding."]
