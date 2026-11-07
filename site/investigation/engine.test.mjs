@@ -14,7 +14,7 @@ test("creates a bounded investigation with explicit reflexivity fields",()=>{
  const inv=base();assert.equal(inv.schema,"mc-investigation");assert.equal(inv.status,"open");assert.ok(inv.reflexivity.blind_spots);assert.equal(auditInvestigation(inv).valid,true);
 });
 test("requires exact source location and safe URL or path",()=>{
- const inv=base();assert.throws(()=>addSource(inv,{id:"s1",title:"Bad",url:"javascript:alert(1)",exact_location:"page 2"}),/exact source locator/);
+ const inv=base();assert.throws(()=>addSource(inv,{id:"s1",title:"Bad",url:"javascript:alert(1)",exact_location:"page 2"}),/Source needs/);
  assert.throws(()=>addSource(inv,{id:"s1",title:"Bad",url:"https://example.org/x"}),/exact location/);
 });
 test("adds source records with explicit privacy and independence groups",()=>{
@@ -36,7 +36,7 @@ test("rejects claims without scope limits or source refs",()=>{
 test("claim starts unreviewed and cannot skip review states",()=>{
  let inv=addSource(base(),source("s1"));inv=addClaim(inv,{...claimInput,source_ids:["s1"]});
  assert.equal(inv.claims[0].status,"unreviewed");
- assert.throws(()=>transitionClaim(inv,"cl-1","qualified","skip"),/one review state/);
+ assert.throws(()=>transitionClaim(inv,"cl-1","qualified","skip"),/Invalid claim transition/);
 });
 test("claim needs exact evidence links before qualification",()=>{
  let inv=addSource(base(),source("s1"));inv=addClaim(inv,{...claimInput,source_ids:["s1"]});
@@ -46,19 +46,25 @@ test("claim needs exact evidence links before qualification",()=>{
  inv=transitionClaim(inv,"cl-1","qualified","Evidence link and scope limits reviewed.");
  assert.equal(inv.claims[0].status,"qualified");
 });
-test("corroboration requires two independent source groups",()=>{
+test("corroboration requires two independent source groups, not two records",()=>{
  let inv=addSource(base(),source("s1","same-study"));inv=addSource(inv,source("s2","same-study"));
  inv=addClaim(inv,{...claimInput,source_ids:["s1","s2"]});
  inv=linkEvidence(inv,"cl-1",{source_id:"s1",direction:"supports",exact_location:"section 2"});
  inv=linkEvidence(inv,"cl-1",{source_id:"s2",direction:"supports",exact_location:"table 1"});
- assert.throws(()=>transitionClaim(inv,"cl-1","source-checked","Checked"),/one review state/);
- inv=transitionClaim(inv,"cl-1","source-checked","Checked");
- inv=transitionClaim(inv,"cl-1","qualified","Qualified");
- assert.throws(()=>transitionClaim(inv,"cl-1","tested","Tested"),/completed test/);
+ inv=transitionClaim(inv,"cl-1","source-checked","Source identities checked.");
+ inv=transitionClaim(inv,"cl-1","qualified","Exact evidence locations checked.");
+ assert.throws(()=>transitionClaim(inv,"cl-1","corroborated","Only one underlying study group."),/two independent source groups/);
+ inv=addSource(inv,source("s3","independent-study"));
+ inv=linkEvidence(inv,"cl-1",{source_id:"s3",direction:"supports",exact_location:"appendix A"});
+ inv=transitionClaim(inv,"cl-1","corroborated","Independent source groups support the bounded proposition.");
+ assert.equal(inv.claims[0].status,"corroborated");
 });
 test("contested requires a contradictory evidence link",()=>{
  let inv=addSource(base(),source("s1"));inv=addClaim(inv,{...claimInput,source_ids:["s1"]});
- assert.throws(()=>transitionClaim(inv,"cl-1","contested","Contested"),/contradictory evidence/);
+ inv=linkEvidence(inv,"cl-1",{source_id:"s1",direction:"supports",exact_location:"section 2"});
+ inv=transitionClaim(inv,"cl-1","source-checked","Source checked.");
+ inv=transitionClaim(inv,"cl-1","qualified","Evidence linked.");
+ assert.throws(()=>transitionClaim(inv,"cl-1","contested","No contradiction has been linked."),/contradictory evidence/);
 });
 test("hypotheses require predictions and explicit falsification",()=>{
  const inv=base();assert.throws(()=>addHypothesis(inv,{statement:"A plausible explanation for the signal."}),/prediction/);
