@@ -140,26 +140,27 @@
 <div id="decisions" class="items"></div>
 </div>
 </section>
-<aside class="audit"><div class="eyebrow">LIVE STRUCTURAL AUDIT</div><h3 style="font:1.5rem var(--serif);margin:8px 0" id="audit-title">No investigation</h3><p class="notice" id="audit-summary">Create an investigation to begin.</p><div id="audit-checks"></div><div id="audit-warnings"></div><div class="eyebrow" style="margin-top:18px">REVIEW RULE</div><p class="notice">An audit can detect missing structure and invalid links. It cannot determine whether a source is accurate, whether a causal claim is justified, or whether an interpretation is correct. Human review and domain expertise remain required.</p></aside>
+<aside class="audit"><div class="eyebrow">LIVE STRUCTURAL AUDIT</div><h3 style="font:1.5rem var(--serif);margin:8px 0" id="audit-title">No investigation</h3><p class="notice" id="audit-summary">Create an investigation to begin.</p><div id="audit-checks"></div><div id="audit-warnings"></div><button class="btn primary" id="run-gates" disabled>LOADING GATE REGISTRY…</button><div id="gate-results" aria-live="polite" class="items" style="margin-top:10px"></div><p class="notice">This runs the 18 entries in the current shared integration registry. It does not execute every specialized validator under tools/ or replace domain review.</p><div class="eyebrow" style="margin-top:18px">REVIEW RULE</div><p class="notice">An audit can detect missing structure and invalid links. It cannot determine whether a source is accurate, whether a causal claim is justified, or whether an interpretation is correct. Human review and domain expertise remain required.</p></aside>
 </div>
 <footer class="footer"><span>MIRROR CARTOGRAPHER / INVESTIGATION DESK</span><span>LOCAL STORAGE · SOURCE-LINKED · REVISABLE · NO MODEL REQUIRED</span></footer>
 </main>
 <script type="module">
-import {createInvestigation,addSource,addObservation,addClaim,linkEvidence,addHypothesis,addTest,recordTestResult,addUnknown,addDecision,transitionClaim,auditInvestigation,exportInvestigation,importInvestigation} from './engine.mjs';
+import {createInvestigation,addSource,addObservation,addClaim,linkEvidence,addHypothesis,addTest,recordTestResult,addUnknown,addDecision,transitionClaim,auditInvestigation,exportInvestigation,importInvestigation,runIntegratedGateChecks} from './engine.mjs';
 const STORE='mc-investigation-workbench-v1';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const lines=s=>String(s||'').split('\n').map(x=>x.trim()).filter(Boolean);
 const splitIds=s=>String(s||'').split(',').map(x=>x.trim()).filter(Boolean);
-let investigations=[],activeId=null,activeTab='overview',inv=null;
+let investigations=[],activeId=null,activeTab='overview',inv=null,gateRegistry=null,lastGateReport=null;
 function load(){try{const x=JSON.parse(localStorage.getItem(STORE)||'{}');investigations=Array.isArray(x.investigations)?x.investigations:[];activeId=x.activeId||null;}catch{investigations=[];activeId=null;}inv=investigations.find(x=>x.id===activeId)||null;if(!inv){inv=createInvestigation();investigations=[inv,...investigations];activeId=inv.id;persist();}}
 function persist(){try{const idx=investigations.findIndex(x=>x.id===inv.id);if(idx<0)investigations.unshift(inv);else investigations[idx]=inv;activeId=inv.id;localStorage.setItem(STORE,JSON.stringify({activeId,investigations}));}catch{alert('Browser storage is unavailable or full. Export your investigation before continuing.');}}
-function apply(next){inv=next;persist();render();}
+function apply(next){inv=next;lastGateReport=null;persist();render();}
 function setTab(tab){activeTab=tab;document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('hidden',x.id!=='tab-'+tab));}
 function optionList(items,selected=''){return items.map(x=>'<option value="'+esc(x.id)+'" '+(x.id===selected?'selected':'')+'>'+esc(x.id+' · '+(x.title||x.proposition||x.statement||x.choice||x.name||x.id))+'</option>').join('');}
 function card(title,meta,body,badges=[]){return '<article class="item"><h4>'+esc(title)+'</h4><div class="meta">'+esc(meta)+'</div><p>'+esc(body)+'</p>'+badges.map(x=>'<span class="pill '+(x[1]||'')+'">'+esc(x[0])+'</span>').join('')+'</article>';}
 function render(){
  if(!inv)return;
+ $('gate-results').innerHTML=lastGateReport?renderGateReport(lastGateReport):'<p class="notice">Run the integrated registry after adding sources, observations, claims, hypotheses and tests.</p>';
  $('switch-investigation').innerHTML=investigations.map(x=>'<option value="'+esc(x.id)+'" '+(x.id===inv.id?'selected':'')+'>'+esc(x.title||x.id)+'</option>').join('');
  $('inv-title').value=inv.title;$('inv-question').value=inv.question;$('inv-domain').value=inv.domain;
  for(const [id,key] of [['inv-population','population_or_system'],['inv-context','context'],['inv-time','time_window'],['inv-outcome','outcome']])$(id).value=inv.scope[key]||'';
@@ -182,10 +183,17 @@ function render(){
  document.querySelectorAll('[data-transition]').forEach(b=>b.addEventListener('click',()=>{const cid=b.dataset.transition,status=document.querySelector('[data-claim-status="'+CSS.escape(cid)+'"]').value,reason=document.querySelector('[data-claim-reason="'+CSS.escape(cid)+'"]').value;try{apply(transitionClaim(inv,cid,status,reason));}catch(e){alert(e.message)}}));
  setTab(activeTab);
 }
+function renderGateReport(report){
+ const summary='<p class="notice '+(report.invalid_count?'error':report.decision==='pass'?'good':'warning')+'">'+report.valid_count+'/'+report.total+' gate packets structurally valid · route: '+esc(report.decision)+'</p>';
+ const detail=report.results.map(item=>'<div class="check"><b class="'+(item.valid?'good':'error')+'">'+esc(item.gate)+' / '+(item.valid?'VALID':'INVALID')+'</b><small>'+esc(item.decision)+(item.errors.length?' · '+esc(item.errors.join('; ')):'')+'</small></div>').join('');
+ return summary+detail+'<p class="notice">Registry: '+esc(report.registry_id)+'. A PASS is a structural routing result only; it is not scientific validation or automatic claim promotion.</p>';
+}
 function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function submit(id,fn,{reset=true}={}){$(id).addEventListener('submit',e=>{e.preventDefault();try{apply(fn());if(reset)$(id).reset();}catch(error){alert(error.message)}});}
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
 $('switch-investigation').addEventListener('change',()=>{const selected=investigations.find(x=>x.id===$('switch-investigation').value);if(selected){inv=selected;activeId=selected.id;persist();render();}});
+$('run-gates').onclick=()=>{if(!gateRegistry){alert('Gate registry has not loaded.');return;}try{lastGateReport=runIntegratedGateChecks(inv,gateRegistry);$('gate-results').innerHTML=renderGateReport(lastGateReport);}catch(error){alert('Gate check failed: '+error.message);}};
+fetch('./gate-registry.json').then(response=>{if(!response.ok)throw new Error('Gate registry request failed');return response.json();}).then(registry=>{gateRegistry=registry;$('run-gates').disabled=false;$('run-gates').textContent='RUN '+Object.keys(registry.gates||{}).length+' INTEGRATED GATES';}).catch(error=>{$('run-gates').textContent='GATE REGISTRY UNAVAILABLE';$('gate-results').innerHTML='<p class="notice error">'+esc(error.message)+'</p>';});
 $('new-investigation').onclick=()=>{if(!confirm('Create a new investigation? Your existing investigations remain saved in this browser.'))return;inv=createInvestigation();investigations.unshift(inv);activeId=inv.id;persist();activeTab='overview';render();};
 $('delete-investigation').onclick=()=>{if(!confirm('Permanently delete this investigation from this browser? Export first if you need a copy.'))return;investigations=investigations.filter(x=>x.id!==inv.id);inv=investigations[0]||createInvestigation();if(!investigations.length)investigations=[inv];activeId=inv.id;persist();render();};
 $('export-json').onclick=()=>{try{download(inv.id+'.mc-investigation.json',exportInvestigation(inv),'application/json')}catch(e){alert(e.message)}};
