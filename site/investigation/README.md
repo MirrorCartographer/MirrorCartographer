@@ -49,3 +49,10 @@ It does **not** determine whether a source is authentic or accurate, whether a p
 ## Integration boundary
 
 This desk is the first complete interactive investigation surface. It reuses the repository's existing claim lifecycle and evidence principles. The specialized tools under `tools/` remain separate gates and validators; this UI does not pretend to execute every domain-specific gate yet. The next integration step is a server-side adapter that accepts a validated packet, runs the relevant registered gates, returns a signed/versioned result, and preserves the exact source commit and tool versions. No browser secret or model API key belongs in this page.
+
+
+## Integrated gate registry
+
+The browser desk loads `gate-registry.json`, which is checked for exact structural parity with the canonical `tools/mc_gate_integration/gate_registry.json` in Node tests. The browser runner evaluates the 18 current registry entries using the shared packet contract and routes incomplete work to `needs_more_evidence`, contradictions to `route_to_contradiction_ledger`, and structurally invalid investigations to `reject`.
+
+**Important boundary:** the 18 current registry entries share the current common packet specification. This browser check does not execute every specialized validator under `tools/`; those remain separate executable tools and are not represented as having run merely because the browser registry passes.
