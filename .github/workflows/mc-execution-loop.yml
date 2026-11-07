@@ -2,6 +2,14 @@ name: Mirror Cartographer Execution Loop
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - "execution/**"
+      - "tools/mc_execution/**"
+      - "site/**"
+      - "tools/mc_gate_integration/**"
+      - ".github/workflows/mc-execution-loop.yml"
   schedule:
     # Runs independently of a ChatGPT session. GitHub may delay scheduled jobs.
     - cron: "17 */6 * * *"
@@ -44,6 +52,10 @@ jobs:
         id: validate-queue
         run: node tools/mc_execution/run.mjs
 
+      - name: Test investigation engine and claim lifecycle
+        id: investigation-engine
+        run: node --test site/investigation/engine.test.mjs
+
       - name: Validate canonical Living Atlas
         id: validate-site
         run: node site/validate-site.mjs
@@ -64,8 +76,11 @@ jobs:
 
       - name: Build the cross-repository catalog in an isolated workspace
         id: build-catalog
+        if: env.MC_UI_REPOSITORY_TOKEN != ''
+        env:
+          MC_UI_REPOSITORY_TOKEN: ${{ secrets.MC_UI_REPOSITORY_TOKEN }}
         run: |
-          git clone --depth 1 https://github.com/MirrorCartographer/mirror-cartographer-ui.git ui-repository
+          git clone --depth 1 "https://x-access-token:${MC_UI_REPOSITORY_TOKEN}@github.com/MirrorCartographer/mirror-cartographer-ui.git" ui-repository
           node site/generate-catalog.mjs
           node site/validate-catalog.mjs
 
@@ -85,6 +100,7 @@ jobs:
         if: always()
         env:
           MC_QUEUE_STATUS: ${{ steps.validate-queue.outcome }}
+          MC_INVESTIGATION_ENGINE_STATUS: ${{ steps.investigation-engine.outcome }}
           MC_SITE_STATUS: ${{ steps.validate-site.outcome }}
           MC_MIND_STATUS: ${{ steps.validate-mind.outcome }}
           MC_CATALOG_TOOLS_STATUS: ${{ steps.validate-catalog-tools.outcome }}

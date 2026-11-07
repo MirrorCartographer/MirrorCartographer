@@ -1,6 +1,6 @@
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
-import Ajv2020 from "ajv/dist/2020.js";
+import Ajv2020 from "ajv2020/dist/2020.js";
 import { assertSafeRepoRelativePath, repoRelativeDisplayPath } from "./path-authority.mjs";
 
 export const DEFAULT_SCHEMA_DIR = "mind/schemas";

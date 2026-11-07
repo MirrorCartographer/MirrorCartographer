@@ -106,6 +106,26 @@
       ],
       "completion_evidence": "Waiting for one-time repository Pages configuration; build currently passes but the deployment job does not complete.",
       "next_action": "https://github.com/MirrorCartographer/MirrorCartographer/settings/pages"
+    },
+    {
+      "id": "INV-001",
+      "title": "Build and verify the source-linked investigation workbench",
+      "status": "active",
+      "priority": 1,
+      "kind": "product-and-verification",
+      "checks": [
+        "A local-first investigation can be created, saved, reopened, and exported",
+        "Sources require recoverable URLs or safe paths and exact locators",
+        "Observations link to sources and preserve explicit missingness states",
+        "Claims retain type, review status, evidence direction, scope, uncertainty, alternatives, and revision history",
+        "Hypotheses require predictions and falsification conditions",
+        "Tests require predeclared measures, comparisons, and disconfirmation criteria",
+        "Decisions retain evidence references, uncertainty, reversibility, and review triggers",
+        "Structural audit detects dangling references and false corroboration from one source group",
+        "Node tests and Playwright browser smoke pass",
+        "Public-safe export is blocked until sources are explicitly reviewed"
+      ],
+      "completion_evidence": "Implementation on investigation/integrated-workbench-v1; awaiting automated verification and review."
     }
   ]
 }

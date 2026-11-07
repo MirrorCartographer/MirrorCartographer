@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/MirrorCartographer/MirrorCartographer/blob/main/site/investigation/investigation.schema.json",
+  "title": "Mirror Cartographer Investigation",
+  "type": "object",
+  "required": ["schema", "schema_version", "id", "title", "question", "domain", "scope", "reflexivity", "sources", "observations", "claims", "hypotheses", "tests", "decisions", "unknowns", "events", "created_at", "updated_at"],
+  "properties": {
+    "schema": {"const": "mc-investigation"},
+    "schema_version": {"const": 1},
+    "id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "question": {"type": "string"},
+    "domain": {"type": "string"},
+    "status": {"enum": ["open", "paused", "closed"]},
+    "scope": {"type": "object", "required": ["population_or_system", "context", "time_window", "outcome"], "properties": {"population_or_system": {"type":"string"}, "context":{"type":"string"}, "time_window":{"type":"string"}, "outcome":{"type":"string"}}, "additionalProperties": true},
+    "reflexivity": {"type":"object"},
+    "sources": {"type":"array", "items":{"$ref":"#/$defs/source"}},
+    "observations": {"type":"array", "items":{"$ref":"#/$defs/observation"}},
+    "claims": {"type":"array", "items":{"$ref":"#/$defs/claim"}},
+    "hypotheses": {"type":"array", "items":{"$ref":"#/$defs/hypothesis"}},
+    "tests": {"type":"array", "items":{"$ref":"#/$defs/test"}},
+    "decisions": {"type":"array", "items":{"type":"object"}},
+    "unknowns": {"type":"array", "items":{"type":"object"}},
+    "events": {"type":"array", "items":{"type":"object", "required":["id","at","action","detail"]}},
+    "created_at": {"type":"string", "format":"date-time"},
+    "updated_at": {"type":"string", "format":"date-time"}
+  },
+  "$defs": {
+    "source": {
+      "type":"object",
+      "required":["id","title","source_type","exact_location","independence_group","privacy_status"],
+      "properties":{
+        "id":{"type":"string"}, "title":{"type":"string"}, "publisher":{"type":"string"},
+        "source_type":{"type":"string"}, "domain":{"type":"string"}, "url":{"type":"string"},
+        "path":{"type":"string"}, "exact_location":{"type":"string"},
+        "independence_group":{"type":"string"},
+        "privacy_status":{"enum":["public_safe","private","sensitive","unreviewed"]},
+        "limitations":{"type":"array","items":{"type":"string"}}
+      }
+    },
+    "observation": {
+      "type":"object",
+      "required":["id","description","source_id","collected_at","variables"],
+      "properties":{
+        "id":{"type":"string"}, "description":{"type":"string"}, "source_id":{"type":"string"},
+        "collected_at":{"type":"string"}, "method":{"type":"string"}, "context":{"type":"string"},
+        "variables":{"type":"array","items":{"type":"object","required":["name","value","unit","missingness"],"properties":{
+          "name":{"type":"string"}, "value":{}, "unit":{"type":["string","null"]},
+          "missingness":{"enum":["observed","unknown","not_collected","redacted","not_applicable"]}
+        }}}
+      }
+    },
+    "claim": {
+      "type":"object",
+      "required":["id","proposition","claim_type","status","source_ids","evidence_links","confidence_rationale","not_established","next_test","revision_log"],
+      "properties":{
+        "id":{"type":"string"}, "proposition":{"type":"string"},
+        "claim_type":{"enum":["observation","source-reported-finding","source-reported-synthesis","methodological-synthesis","inference","hypothesis","design-proposal","value-judgment"]},
+        "status":{"enum":["unreviewed","source-checked","qualified","tested","corroborated","contested","revised","retired"]},
+        "source_ids":{"type":"array","items":{"type":"string"}},
+        "evidence_links":{"type":"array","items":{"type":"object","required":["source_id","direction","exact_location"],"properties":{
+          "source_id":{"type":"string"}, "direction":{"enum":["supports","contradicts","qualifies","does_not_address"]},
+          "exact_location":{"type":"string"}, "scope_fit":{"type":"string"}
+        }}},
+        "confidence_rationale":{"type":"string"}, "not_established":{"type":"array","items":{"type":"string"}},
+        "next_test":{"type":"string"}, "falsification_condition":{"type":"string"},
+        "alternative_explanations":{"type":"array","items":{"type":"string"}}, "revision_log":{"type":"array"}
+      }
+    },
+    "hypothesis": {
+      "type":"object",
+      "required":["id","statement","status","predictions","alternative_explanations","falsification_condition"],
+      "properties":{"id":{"type":"string"},"statement":{"type":"string"},"status":{"type":"string"},
+        "predictions":{"type":"array","items":{"type":"string"}},
+        "alternative_explanations":{"type":"array","items":{"type":"string"}},
+        "falsification_condition":{"type":"string"}}
+    },
+    "test": {
+      "type":"object",
+      "required":["id","hypothesis_id","title","protocol","measurements","comparison","predeclared_disconfirmation","status"],
+      "properties":{"id":{"type":"string"},"hypothesis_id":{"type":"string"},"title":{"type":"string"},
+        "protocol":{"type":"string"},"measurements":{"type":"array","items":{"type":"string"}},
+        "comparison":{"type":"string"},"predeclared_disconfirmation":{"type":"string"},
+        "status":{"enum":["planned","completed"]},"result":{"type":["object","null"]}}
+    }
+  },
+  "additionalProperties": true
+}

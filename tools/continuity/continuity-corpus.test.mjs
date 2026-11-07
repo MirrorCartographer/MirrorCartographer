@@ -19,10 +19,13 @@ function loadCorpusRecords() {
         .sort()
         .map(name => {
           const raw = JSON.parse(fs.readFileSync(path.join(recordsDir, name), 'utf8'));
-          return raw.id ? raw : raw.record;
+          if (raw.id) return [raw];
+          if (raw.record?.id) return [raw.record];
+          if (Array.isArray(raw.claims)) return raw.claims;
+          return [raw];
         })
     : [];
-  return [...(index.records ?? []), ...additive];
+  return [...(index.records ?? []), ...additive.flat()];
 }
 
 test('committed continuity corpus passes the aggregate validator', () => {

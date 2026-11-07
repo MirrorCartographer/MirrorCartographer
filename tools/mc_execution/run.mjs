@@ -54,7 +54,12 @@ for (const relative of [
   "site/generate-catalog.mjs",
   "site/validate-catalog.mjs",
   "tools/mc_gate_integration/run_gate_check.py",
-  "tools/mc_execution/browser-smoke.mjs"
+  "tools/mc_execution/browser-smoke.mjs",
+  "site/investigation/index.html",
+  "site/investigation/engine.mjs",
+  "site/investigation/investigation.schema.json",
+  "site/investigation/gate-registry.json",
+  "site/investigation/engine.test.mjs"
 ]) {
   results.push(check(`Required project input: ${relative}`, () => {
     if (!fs.existsSync(path.join(root, relative))) throw new Error("File not found");
@@ -64,6 +69,7 @@ for (const relative of [
 
 const workflowChecks = [
   ["Execution queue step", process.env.MC_QUEUE_STATUS],
+  ["Investigation engine tests", process.env.MC_INVESTIGATION_ENGINE_STATUS],
   ["Canonical site validation", process.env.MC_SITE_STATUS],
   ["Playable Mind validation", process.env.MC_MIND_STATUS],
   ["Catalog tool syntax", process.env.MC_CATALOG_TOOLS_STATUS],
@@ -75,11 +81,11 @@ const workflowChecks = [
 ];
 for (const [label, outcome] of workflowChecks) {
   if (!outcome) continue;
-  const status = outcome === "success" ? "PASS" : "FAIL";
+  const status = outcome === "success" ? "PASS" : outcome === "skipped" ? "SKIP" : "FAIL";
   if (status === "FAIL") failures.push(label);
   results.push({ label, status, detail: outcome });
 }
-const summary = results.every(r => r.status === "PASS") ? "PASS" : "FAIL";
+const summary = results.some(r => r.status === "FAIL") ? "FAIL" : results.some(r => r.status === "SKIP") ? "PARTIAL" : "PASS";
 const tasks = queue?.tasks ?? [];
 const lines = [
   "# Mirror Cartographer — Execution Report",
@@ -106,10 +112,10 @@ const lines = [
   "",
   "## Operating boundary",
   "",
-  "This run verifies repository inputs and, when browser steps complete, exercises the local Living Atlas and Mind in Chromium. A local browser pass does not by itself prove GitHub Pages deployment is live. The runner does not modify production code or automatically mark tasks complete.",
+  "This run verifies repository inputs and, when browser steps complete, exercises the local Living Atlas and Mind in Chromium. A local browser pass does not by itself prove GitHub Pages deployment is live. Cross-repository catalog generation may be skipped when the private companion repository token is not configured; such a run is PARTIAL, not PASS. The runner does not modify production code or automatically mark tasks complete.",
   "",
   failures.length ? `## Failures\n\n${failures.map(f => "- " + f).join("\n")}` : "## Failures\n\nNone."
 ];
 fs.writeFileSync(reportPath, lines.join("\n") + "\n", "utf8");
 console.log(`Wrote ${reportPath} with overall status ${summary}`);
-if (summary !== "PASS") process.exitCode = 1;
+if (summary === "FAIL") process.exitCode = 1;
