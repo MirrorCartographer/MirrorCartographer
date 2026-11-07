@@ -69,8 +69,12 @@ function safeLocator(locator) {
   if (!locator || typeof locator !== "object") return false;
   const url = locator.url;
   const path = locator.path;
-  const safeUrl = text(url) && /^https?:\/\//i.test(url);
-  const safePath = text(path) && !/(^|\/)\.\.(\/|$)/.test(path);
+  let safeUrl = false;
+  try {
+    const parsed = new URL(url);
+    safeUrl = ["http:","https:"].includes(parsed.protocol) && !parsed.username && !parsed.password;
+  } catch {}
+  const safePath = text(path) && !path.startsWith("/") && !/^[A-Za-z]:/.test(path) && !/(^|\/)\.\.(\/|$)/.test(path);
   return (safeUrl || safePath) && text(locator.exact_location);
 }
 
@@ -249,6 +253,7 @@ export function auditInvestigation(inv) {
   }
   for(const claim of inv.claims){
     if(!CLAIM_TYPES.has(claim.claim_type))errors.push("claim "+claim.id+": invalid type");
+    if(!CLAIM_STATES.includes(claim.status))errors.push("claim "+claim.id+": invalid review state");
     for(const sourceId of claim.source_ids||[])if(!inv.sources.some(s=>s.id===sourceId))errors.push("claim "+claim.id+": dangling source "+sourceId);
     for(const link of claim.evidence_links||[]){
       if(!inv.sources.some(s=>s.id===link.source_id))errors.push("claim "+claim.id+": dangling evidence source "+link.source_id);
@@ -286,8 +291,9 @@ export function auditInvestigation(inv) {
   return {valid:errors.length===0,errors,warnings,checks,summary:{sources:inv.sources.length,observations:inv.observations.length,claims:inv.claims.length,hypotheses:inv.hypotheses.length,tests:inv.tests.length,completed_tests:resultTests,decisions:inv.decisions.length,unknowns:inv.unknowns.length,events:inv.events.length}};
 }
 
-export function exportInvestigation(inv,{publicSafeOnly=false}={}) {
+export function exportInvestigation(inv,{publicSafeOnly=false,privacyReviewed=false}={}) {
   const audit=auditInvestigation(inv);if(!audit.valid)throw new Error("Cannot export an invalid investigation: "+audit.errors.join("; "));
+  if(publicSafeOnly&&!privacyReviewed)throw new Error("Public-safe export requires explicit review of every free-text field for private, identifying, or sensitive information.");
   if(publicSafeOnly&&inv.sources.some(s=>s.privacy_status!=="public_safe"))throw new Error("Public-safe export blocked: every source must be explicitly marked public_safe.");
   return JSON.stringify({schema:SCHEMA,schema_version:SCHEMA_VERSION,exported_at:new Date().toISOString(),investigation:inv,audit},null,2);
 }
