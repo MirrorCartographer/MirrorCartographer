@@ -110,7 +110,7 @@ test("export/import round trip preserves investigation and blocks private public
  const restored=importInvestigation(exportInvestigation(inv));assert.deepEqual(restored,inv);
  const privateInv=addSource(base(),{...source("s2"),privacy_status:"private"});
  assert.throws(()=>exportInvestigation(inv,{publicSafeOnly:true}),/explicit review/);
- assert.throws(()=>exportInvestigation(privateInv,{publicSafeOnly:true,privacyReviewed:true}),/privacy review/);
+ assert.throws(()=>exportInvestigation(privateInv,{publicSafeOnly:true,privacyReviewed:true}),/public_safe/);
 });
 test("rejects malformed imports",()=>assert.throws(()=>importInvestigation({schema:"wrong",schema_version:1,investigation:{}}),/Unsupported/));
 
