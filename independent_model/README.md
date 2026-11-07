@@ -57,3 +57,8 @@ python independent_model/infer.py --checkpoint independent_model/checkpoints/lyr
 ```
 
 The repository does not include a training corpus or checkpoint. The commands define a reproducible path; they are not evidence that training has already occurred.
+
+
+## Local provider bridge
+
+The inference entry point accepts either `--prompt "…"` or `--prompt-stdin`. The stdin form exists for provider-neutral local clients such as the private Repository C CLI bridge; it avoids shell argument-length limits and does not require an HTTP server. The bridge still requires a real checkpoint and the declared PyTorch dependency. No checkpoint is included in this repository, so LYR remains an untrained research implementation until a rights-cleared corpus, training run, checkpoint, and evaluation report exist.
