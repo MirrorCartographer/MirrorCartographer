@@ -56,3 +56,8 @@ This desk is the first complete interactive investigation surface. It reuses the
 The browser desk loads `gate-registry.json`, which is checked for exact structural parity with the canonical `tools/mc_gate_integration/gate_registry.json` in Node tests. The browser runner evaluates the 18 current registry entries using the shared packet contract and routes incomplete work to `needs_more_evidence`, contradictions to `route_to_contradiction_ledger`, and structurally invalid investigations to `reject`.
 
 **Important boundary:** the 18 current registry entries share the current common packet specification. This browser check does not execute every specialized validator under `tools/`; those remain separate executable tools and are not represented as having run merely because the browser registry passes.
+
+
+## Included synthetic walkthrough
+
+Use **OPEN SYNTHETIC CASE 001** in the desk to load the six-record fictional case from `site/cases/001-the-person-who-was-never-sick-enough/`. It includes source records, observations, two bounded claims, a competing hypothesis, a pre-registered test, explicit unknowns, and a reversible decision. All records and the person are invented. The example is designed to demonstrate how a traceable omission can be identified without claiming intent, clinical meaning, or a real-world institutional finding.
