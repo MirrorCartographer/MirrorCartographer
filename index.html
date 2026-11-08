@@ -1,35 +1,86 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Random Joke Generator</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171319">
+  <meta name="description" content="Meet Charity Alessandra Sturgell — the maker behind Mirror Cartographer, an independent world of art, research, strange rooms, and useful questions.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Meet Charity — Stir-Jewel">
+  <meta property="og:description" content="The person behind the rooms, questions, experiments, and the world that keeps shifting.">
+  <meta property="og:site_name" content="The Living Country">
+  <meta name="twitter:card" content="summary">
+  <title>Meet Charity — Stir-Jewel / The Living Country</title>
+  <style>
+    :root{color-scheme:dark;--night:#171319;--ink:#f0e9d8;--muted:#c0b5a8;--paper:#d9c9a9;--moss:#9eaa83;--rose:#b87d87;--line:#ffffff28;--serif:Georgia,'Times New Roman',serif;--sans:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 78% 8%,#59334255,transparent 38rem),radial-gradient(ellipse at 9% 52%,#526b5544,transparent 40rem),var(--night);color:var(--ink);font:16px/1.65 var(--sans)}
+    a{color:inherit}a:focus-visible,button:focus-visible{outline:2px solid var(--paper);outline-offset:5px}.wrap{width:min(1160px,calc(100% - 42px));margin:auto}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:24px 0;border-bottom:1px solid var(--line)}.brand{display:flex;gap:12px;align-items:center;text-decoration:none;font-size:11px;letter-spacing:.18em;font-weight:800}.brand-mark{display:grid;place-items:center;width:34px;height:34px;border:1px solid #d9c9a988;border-radius:50%;color:var(--paper);font-size:20px}.top nav{display:flex;gap:20px;flex-wrap:wrap}.top nav a{font-size:10px;letter-spacing:.15em;text-decoration:none;color:var(--muted)}.top nav a:hover{color:var(--paper)}
+    .hero{min-height:690px;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:5vw;padding:72px 0 80px}.eyebrow,.label{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--moss);font-weight:800}.hero h1{font:500 clamp(58px,9vw,118px)/.91 var(--serif);letter-spacing:-.075em;margin:24px 0 28px}.hero h1 em{color:var(--paper);font-weight:400}.intro{max-width:570px;font:20px/1.55 var(--serif);color:#e4d9c7}.intro strong{color:#fff2d9;font-weight:500}.subintro{max-width:510px;color:var(--muted);font-size:14px;margin:22px 0 30px}.actions{display:flex;gap:12px;flex-wrap:wrap}.button{display:inline-flex;align-items:center;gap:22px;padding:13px 17px;border:1px solid #d9c9a977;text-decoration:none;text-transform:uppercase;letter-spacing:.15em;font-size:10px;font-weight:800;transition:background .2s,transform .2s}.button.primary{background:var(--paper);color:var(--night);border-color:var(--paper)}.button:hover{transform:translateY(-3px);background:#ffffff12}.button.primary:hover{background:#efe2c4}
+    .art{position:relative;min-height:520px;display:grid;place-items:center}.art:before{content:"";position:absolute;width:min(88%,490px);aspect-ratio:1;border:1px solid #d9c9a955;border-radius:48% 52% 45% 55%;transform:rotate(-17deg);box-shadow:0 0 90px #b87d871a,inset 0 0 70px #9eaa8310}.art:after{content:"A PERSON IS NOT A CATEGORY";position:absolute;bottom:3%;right:0;color:#c9b99b88;font-size:9px;letter-spacing:.2em;transform:rotate(-5deg)}.art svg{width:min(100%,590px);height:auto;position:relative;filter:drop-shadow(0 20px 60px #0008)}.art-caption{position:absolute;top:8%;left:0;max-width:130px;font:italic 15px/1.3 var(--serif);color:#d9c9a9;transform:rotate(-8deg)}
+    .ticker{border-block:1px solid var(--line);padding:14px 0;overflow:hidden;color:#d7c8aa;font-size:10px;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap}.ticker span{display:inline-block;padding-right:40px}
+    .section{padding:100px 0;border-bottom:1px solid var(--line)}.section-head{display:grid;grid-template-columns:.7fr 1.3fr;gap:40px;align-items:start;margin-bottom:42px}.section h2{font:400 clamp(38px,6vw,70px)/.98 var(--serif);letter-spacing:-.055em;margin:0}.section h2 em{color:var(--rose);font-weight:400}.section-lede{max-width:610px;color:var(--muted);margin:5px 0 0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.tile{padding:25px;border:1px solid var(--line);background:linear-gradient(145deg,#ffffff0b,#ffffff02);min-height:220px}.tile small{color:var(--moss);font-size:10px;letter-spacing:.18em}.tile h3{font:400 27px/1.1 var(--serif);margin:18px 0 10px}.tile p{font-size:13px;color:var(--muted);margin:0}
+    .manifesto{display:grid;grid-template-columns:1fr 1fr;gap:7vw;align-items:center}.quote{font:italic clamp(29px,4vw,48px)/1.15 var(--serif);color:#eadcc4}.quote span{color:var(--rose)}.manifesto-copy p{color:var(--muted);max-width:540px}.signature{font:italic 32px var(--serif);color:var(--paper);margin-top:26px}.credit{border:1px solid #d9c9a955;padding:28px;display:flex;justify-content:space-between;align-items:center;gap:25px;margin-top:46px;background:#ffffff08}.credit strong{display:block;font:400 27px var(--serif)}.credit span{display:block;color:var(--muted);font-size:12px;margin-top:5px}.credit .stamp{font-size:11px;letter-spacing:.2em;color:var(--paper);white-space:nowrap}
+    .closing{padding:90px 0 65px;text-align:center}.closing h2{font:400 clamp(45px,7vw,82px)/.98 var(--serif);letter-spacing:-.06em;margin:20px auto;max-width:850px}.closing p{color:var(--muted);max-width:580px;margin:0 auto 28px}.closing .actions{justify-content:center}.footer{padding:24px 0 34px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:#a99e94;font-size:11px}.footer a{text-decoration:none}
+    @media(max-width:760px){.wrap{width:min(100% - 30px,600px)}.top{align-items:flex-start}.top nav{gap:10px 14px;justify-content:flex-end}.hero{grid-template-columns:1fr;gap:15px;padding:64px 0 60px}.hero h1{font-size:clamp(62px,17vw,100px)}.art{min-height:370px}.art svg{max-width:450px}.art-caption{top:1%;left:5%}.section{padding:70px 0}.section-head,.manifesto{grid-template-columns:1fr;gap:20px}.grid{grid-template-columns:1fr}.tile{min-height:0}.credit{align-items:flex-start;flex-direction:column}.credit .stamp{white-space:normal}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button{transition:none}.button:hover{transform:none}}
+  </style>
 </head>
 <body>
-  <main class="app">
-    <h1>Random Joke Generator</h1>
-    <div id="status" class="status" aria-live="polite">Click "Get a joke" to begin.</div>
-
-    <section class="card" id="jokeCard" aria-hidden="true">
-      <p id="jokeText" class="joke">—</p>
-      <p id="jokeExtra" class="extra" hidden></p>
-      <div class="controls">
-        <button id="anotherBtn">Another</button>
-        <button id="copyBtn">Copy</button>
-        <button id="shareBtn">Share</button>
-      </div>
-    </section>
-
-    <div class="actions">
-      <button id="getBtn" class="primary">Get a joke</button>
-    </div>
-
-    <footer>
-      <small>Uses the public API at icanhazdadjoke.com (CORS-enabled). No external scripts required.</small>
-    </footer>
-  </main>
-
-  <script type="module" src="script.js"></script>
+  <div class="wrap">
+    <header class="top">
+      <a class="brand" href="https://github.com/MirrorCartographer/MirrorCartographer"><span class="brand-mark">✳</span><span>THE LIVING COUNTRY</span></a>
+      <nav aria-label="Explore"><a href="https://github.com/MirrorCartographer/MirrorCartographer">THE WORLD</a><a href="https://github.com/MirrorCartographer/MirrorCartographer/tree/main/site">THE ATLAS</a><a href="https://github.com/MirrorCartographer/MirrorCartographer">WORK WITH ME</a></nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">THE PERSON BEHIND THE PORTALS / A CREATOR'S NOTE</p>
+          <h1>HELLO.<br>I'M <em>CHARITY.</em></h1>
+          <p class="intro">I make strange little worlds for <strong>big complicated things</strong> — the questions that won't sit still, the details people overlook, and the parts of being human that refuse to fit neatly in a box.</p>
+          <p class="subintro">I'm Charity Alessandra Sturgell: the person building Mirror Cartographer, collecting curious minds, making art out of the in-between, and trying to leave the internet a little more alive than I found it.</p>
+          <div class="actions"><a class="button primary" href="https://github.com/MirrorCartographer/MirrorCartographer">EXPLORE THE WORK <span>↗</span></a><a class="button" href="https://github.com/MirrorCartographer/MirrorCartographer">EXPLORE THE RESEARCH <span>↗</span></a></div>
+        </div>
+        <div class="art" aria-label="An illustrated mirror surrounded by winding botanical forms">
+          <span class="art-caption">A map is not the territory.<br>But it can be a door.</span>
+          <svg viewBox="0 0 620 620" role="img" aria-labelledby="art-title art-desc">
+            <title id="art-title">The mirror garden</title><desc id="art-desc">A hand-drawn oval mirror surrounded by branching stems, leaves, small stars, and ripples.</desc>
+            <defs><linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d9c9a9"/><stop offset=".48" stop-color="#718e82"/><stop offset="1" stop-color="#583344"/></linearGradient><radialGradient id="glow"><stop stop-color="#d9c9a9" stop-opacity=".5"/><stop offset="1" stop-color="#d9c9a9" stop-opacity="0"/></radialGradient></defs>
+            <circle cx="310" cy="305" r="250" fill="url(#glow)" opacity=".5"/>
+            <g fill="none" stroke="#a8b48b" stroke-width="5" stroke-linecap="round"><path d="M307 565C220 475 203 392 242 296c24-58 24-125-15-207M313 560c92-86 123-174 87-271-25-66-12-136 42-204M228 486C145 451 101 386 93 292M396 485c93-33 141-105 142-200"/></g>
+            <g fill="#9eaa83" stroke="#d8cfb4" stroke-width="1.5"><path d="M226 392c-86-9-125-57-119-119 70-17 127 16 138 81 15-73 65-111 124-108 4 68-37 117-109 134Z"/><path d="M230 268c-74-39-91-98-60-151 65 17 99 68 83 127 40-63 98-78 148-46-28 63-83 91-151 73Z"/><path d="M394 385c79-25 136 4 153 65-60 37-122 22-155-38 7 75-29 126-90 143-28-68-2-130 71-170Z"/><path d="M170 463c-70 17-118-14-130-68 53-35 109-20 135 33-5-67 30-111 86-124 24 61-2 116-69 150Z"/><path d="M458 253c56-48 113-43 147 5-38 51-96 59-143 20 31 57 20 111-28 146-47-48-42-109 24-171Z"/></g>
+            <g transform="rotate(-8 310 305)"><ellipse cx="310" cy="305" rx="128" ry="177" fill="#241b25" stroke="#d9c9a9" stroke-width="9"/><ellipse cx="310" cy="305" rx="111" ry="159" fill="url(#glass)" stroke="#b87d87" stroke-width="3"/><path d="M230 289c38-44 118-53 160-1-35 54-115 59-160 1Z" fill="#211924" opacity=".72"/><circle cx="310" cy="287" r="18" fill="#e9dec9" opacity=".8"/><path d="M235 354c39 42 113 49 151 1" fill="none" stroke="#f0e9d8" stroke-width="2" opacity=".55"/></g>
+            <g fill="none" stroke="#d9c9a9" stroke-width="2" opacity=".8"><circle cx="310" cy="305" r="207" stroke-dasharray="2 13"/><path d="M69 180q44-24 81 0m322 247q42-19 77 2M125 535q40-28 82-8"/></g>
+            <g fill="#e8d6b6"><path d="m91 103 7 17 17 7-17 7-7 17-7-17-17-7 17-7Z"/><path d="m505 95 5 12 12 5-12 5-5 12-5-12-12-5 12-5Z"/><path d="m521 508 6 14 14 6-14 6-6 14-6-14-14-6 14-6Z"/></g>
+            <g fill="none" stroke="#b87d87" stroke-width="2"><path d="M40 312q-13 16 0 32m540-70q17 19 1 37M280 46q22-18 44 0"/></g>
+          </svg>
+        </div>
+      </section>
+      <div class="ticker" aria-label="Creative disciplines"><span>ART / RESEARCH / INTERACTIVE WORLDS / SYSTEMS / QUESTIONS / PLAY / HUMAN-SCALE TECHNOLOGY / ART / RESEARCH / INTERACTIVE WORLDS / SYSTEMS / QUESTIONS / PLAY /</span></div>
+      <section class="section">
+        <div class="section-head"><p class="label">01 / WHAT I MAKE</p><div><h2>Not a personal brand.<br><em>A whole little universe.</em></h2><p class="section-lede">Mirror Cartographer is the larger project. The Living Country is the invitation into it. Inside are experiments, rooms, tools, research trails, art, sounds, and ways for people to encounter one another without having to become the same person.</p></div></div>
+        <div class="grid">
+          <article class="tile"><small>01 / THE WORLDS</small><h3>Places to get lost on purpose</h3><p>Interactive rooms, strange residents, visual experiments, and small discoveries hiding around the next corner.</p></article>
+          <article class="tile"><small>02 / THE QUESTIONS</small><h3>Curiosity with its sleeves rolled up</h3><p>Research and systems work that keeps sources visible, uncertainty intact, and a compelling theory from pretending it is already true.</p></article>
+          <article class="tile"><small>03 / THE MAKING</small><h3>Ideas that become things</h3><p>Art, prototypes, instruments, writing, and collaborative experiments. Not just a mood board: things you can enter, test, use, and change.</p></article>
+        </div>
+      </section>
+      <section class="section manifesto">
+        <div><p class="label">02 / WHY IT EXISTS</p><p class="quote">“I want the internet to feel like somewhere you can <span>actually arrive.</span>”</p></div>
+        <div class="manifesto-copy"><h2>Make room<br>for the <em>unusual.</em></h2><p>I’m interested in what happens when people are allowed to be complicated. When a question can stay open long enough to become useful. When creativity and rigor can share a table. When technology makes more room for human agency instead of quietly taking it away.</p><p>This project is an ongoing attempt to build that kind of place: curious, a little unruly, careful with evidence, generous with imagination, and open to revision.</p><div class="signature">— Charity</div></div>
+      </section>
+      <section class="section">
+        <p class="label">03 / THE CREDIT, CLEARLY</p>
+        <div class="credit"><div><strong>Made by Stir-Jewel.</strong><span>Created by Charity Alessandra Sturgell. An independent, evolving body of work.</span></div><span class="stamp">AUTHORSHIP / STIR-JEWEL</span></div>
+      </section>
+      <section class="closing">
+        <p class="eyebrow">YOU FOUND THE PERSON. NOW FIND THE DOOR.</p>
+        <h2>There's more to this place than the front page.</h2>
+        <p>Pick a thread. Meet the residents. Find the room that feels like it was waiting for you. If you want to make something together, there is a door for that too.</p>
+        <div class="actions"><a class="button primary" href="https://github.com/MirrorCartographer/MirrorCartographer">ENTER THE LIVING COUNTRY ↗</a><a class="button" href="https://github.com/MirrorCartographer/MirrorCartographer">MAKE SOMETHING WITH ME ↗</a><a class="button" href="https://github.com/MirrorCartographer/mirror-cartographer-ui">SEE THE WORK ↗</a></div>
+      </section>
+    </main>
+    <footer class="footer"><span>© Stir-Jewel / Charity Alessandra Sturgell</span><span><a href="https://github.com/MirrorCartographer/MirrorCartographer">THE LIVING COUNTRY</a> · <a href="https://github.com/MirrorCartographer/MirrorCartographer/tree/main/site">MIRROR CARTOGRAPHER</a></span><span>Still becoming. Deliberately.</span></footer>
+  </div>
 </body>
 </html>
