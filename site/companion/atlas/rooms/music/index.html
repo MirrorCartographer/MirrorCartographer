@@ -1,12 +1,65 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090910"><title>The Music Room</title>
 <style>
 :root{color-scheme:dark;--bg:#090910;--ink:#f4ecd9;--muted:#aaa2b5;--line:#393344;--glow:#a68aff}*{box-sizing:border-box}body{margin:0;min-height:100svh;background:radial-gradient(ellipse at 50% 0%,#302044 0,transparent 52%),var(--bg);color:var(--ink);font:15px/1.55 system-ui,sans-serif}main{max-width:1200px;margin:auto;padding:clamp(20px,5vw,64px)}a{color:inherit;text-decoration:none}button,select,input{font:inherit;color:inherit}button{cursor:pointer;border:1px solid #76658d;border-radius:999px;padding:11px 15px;background:#21192d}button:hover{background:#38294a}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid white;outline-offset:3px}.back{font:10px ui-monospace,monospace;letter-spacing:.12em;color:#c8b8dc}.eyebrow{font:10px ui-monospace,monospace;letter-spacing:.2em;color:#c4a9e5;text-transform:uppercase}h1{font:400 clamp(4rem,10vw,9rem)/.82 Georgia,serif;letter-spacing:-.07em;margin:1rem 0 1.4rem}.lead{font:italic clamp(1rem,2vw,1.3rem)/1.5 Georgia,serif;color:#c9bfd4;max-width:42rem}.stage{position:relative;margin:2.5rem 0;border:1px solid #51435f;min-height:400px;overflow:hidden;background:radial-gradient(circle at 50% 50%,#291d3a,#0b0a10 68%)}canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.stage-inner{position:relative;z-index:1;padding:clamp(16px,3vw,34px);display:flex;flex-direction:column;justify-content:space-between;min-height:400px}.stage-top,.stage-bottom{display:flex;justify-content:space-between;gap:1rem;align-items:center;flex-wrap:wrap}.stage-title{font:2rem Georgia,serif}.controls{display:flex;flex-wrap:wrap;gap:8px}.keys{display:grid;grid-template-columns:repeat(8,1fr);gap:7px;margin:2rem 0}.key{border-radius:10px;min-height:110px;background:linear-gradient(#3b2b50,#18131f);border:1px solid #7b6492;display:flex;align-items:end;justify-content:center;padding:10px;font:11px ui-monospace,monospace;transition:transform .1s,background .1s}.key:active,.key.active{transform:translateY(4px);background:#7756a0}.key small{display:block;color:#c7b5dc}.panel{display:grid;grid-template-columns:1fr 1fr;gap:12px}.panel section{padding:18px;border:1px solid #41354c;background:#110f17}.panel h2{font:1.5rem Georgia,serif;margin:0 0 .5rem}.panel p{font-size:12px;color:var(--muted)}label{font:10px ui-monospace,monospace;letter-spacing:.08em;color:#c7b5dc}.range{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}.range input{accent-color:#c4a9e5;max-width:220px}.range select{background:#17121e;border:1px solid #665476;padding:8px}.readout{font:11px ui-monospace,monospace;color:#c4a9e5;min-height:1.5em;margin-top:12px}.foot{font:10px ui-monospace,monospace;color:#8e8299;margin-top:2rem}@media(max-width:700px){.keys{grid-template-columns:repeat(4,1fr)}.key{min-height:78px}.panel{grid-template-columns:1fr}.stage,.stage-inner{min-height:350px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}
+
+/* Recorded archive player */
+.recorded-library{margin:3rem 0 2rem;padding:clamp(18px,3vw,34px);border:1px solid #5c4a69;background:linear-gradient(145deg,rgba(40,28,51,.96),rgba(12,11,18,.98));box-shadow:0 24px 70px rgba(0,0,0,.28)}
+.recorded-library-head{display:flex;justify-content:space-between;align-items:end;gap:18px;flex-wrap:wrap}
+.recorded-library h2{font:clamp(2.1rem,5vw,4rem)/.95 Georgia,serif;font-weight:400;letter-spacing:-.045em;margin:.5rem 0}
+.recorded-library .library-lead{max-width:42rem;color:#c9bfd4;font:italic 1rem/1.55 Georgia,serif}
+.library-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:20px 0}
+.library-tools button,.library-tools label{border:1px solid #76658d;border-radius:999px;padding:10px 14px;background:#21192d;color:#f4ecd9;font:10px ui-monospace,monospace;letter-spacing:.08em;cursor:pointer}
+.library-tools button:hover,.library-tools label:hover{background:#38294a}
+.library-tools input{display:none}
+.library-drop{border:1px dashed #88759d;padding:18px;text-align:center;color:#bfb2cc;background:rgba(255,255,255,.025);font:11px ui-monospace,monospace;transition:background .15s,border-color .15s}
+.library-drop.dragover{background:rgba(166,138,255,.12);border-color:#d2c2ff}
+.library-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(240px,.85fr);gap:14px;margin-top:16px}
+.library-list{display:flex;flex-direction:column;gap:8px;min-width:0}
+.library-track{display:grid;grid-template-columns:40px minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px;border:1px solid #3e3448;background:#100e16;text-align:left;border-radius:4px}
+.library-track[aria-current="true"]{border-color:#b69ae0;background:linear-gradient(90deg,rgba(116,83,151,.24),rgba(16,14,22,.95))}
+.track-index{font:12px ui-monospace,monospace;color:#c4a9e5}
+.track-meta{min-width:0}.track-meta strong{display:block;font:1rem Georgia,serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.track-meta small{display:block;color:#9f93aa;font:9px ui-monospace,monospace;letter-spacing:.08em;margin-top:4px}
+.track-play{width:38px;height:38px;padding:0;border-radius:50%;font-size:13px}
+.track-remove{background:transparent;border:0;color:#a99bb6;padding:6px}
+.library-empty{padding:24px;border:1px solid #3e3448;color:#a99bb6;font:12px/1.6 ui-monospace,monospace}
+.library-now{border:1px solid #4b3e59;background:radial-gradient(ellipse at 50% 0%,rgba(120,86,157,.22),transparent 65%),#100e16;padding:18px;display:flex;flex-direction:column;justify-content:space-between;min-height:250px}
+.library-now .now-label{font:9px ui-monospace,monospace;letter-spacing:.2em;color:#c4a9e5}
+.library-now h3{font:clamp(1.5rem,3vw,2.2rem)/1.05 Georgia,serif;font-weight:400;margin:12px 0}
+.library-now audio{width:100%;margin:14px 0;accent-color:#c4a9e5}
+.library-now .now-file{font:10px ui-monospace,monospace;color:#a99bb6;overflow-wrap:anywhere}
+.library-note{margin-top:14px;color:#8f839a;font:10px/1.5 ui-monospace,monospace}
+@media(max-width:760px){.library-grid{grid-template-columns:1fr}.library-now{min-height:210px}.library-track{grid-template-columns:32px minmax(0,1fr) auto}.recorded-library{margin-top:2rem}}
+
 </style><link rel="stylesheet" href="../../../art-direction.css">
 </head><body><main>
 <a class="back" href="../">← RETURN TO THE ROOMS</a><p class="eyebrow" style="margin-top:3rem">A PLACE FOR SOUND</p><h1>The Music<br>Room.</h1><p class="lead" id="line">The air is waiting to be moved.</p>
 <section class="stage" id="stage"><canvas id="visual"></canvas><div class="stage-inner"><div class="stage-top"><div><div class="eyebrow">LIVE INSTRUMENT / 01</div><div class="stage-title">The listening field</div></div><div class="controls"><button id="sound">WAKE THE ROOM</button><button id="play">PLAY THE PATTERN</button><button id="stop">STOP</button></div></div><div><div class="keys" id="keys" aria-label="Eight playable notes"></div><div class="stage-bottom"><span class="eyebrow" id="status" aria-live="polite">SILENCE / READY</span><span class="eyebrow">TAP A NOTE · BUILD A PATTERN</span></div></div></div></section>
 <div class="panel"><section><h2>Shape the sound</h2><p>Change the voice and the distance between notes.</p><div class="range"><label for="tempo">TEMPO</label><input id="tempo" type="range" min="45" max="180" value="92"><output id="tempo-out">92 BPM</output></div><div class="range"><label for="voice">VOICE</label><select id="voice"><option value="sine">Glass</option><option value="triangle">Wood</option><option value="sawtooth">Wire</option><option value="square">Bell metal</option></select></div><div class="range"><label for="space">SPACE</label><input id="space" type="range" min="0" max="100" value="28"><output id="space-out">28%</output></div><div class="range"><label for="volume">VOLUME</label><input id="volume" type="range" min="0" max="100" value="25"><output id="volume-out">25%</output></div></section><section><h2>Leave a pattern</h2><p>Each note becomes part of a small sequence. Clear it, change it, or let it repeat.</p><div class="controls"><button id="random">FIND A PATTERN</button><button id="clear">CLEAR THE FIELD</button><button id="ambience">AMBIENCE OFF</button></div><div class="readout" id="readout" aria-live="polite">0 NOTES IN THE PATTERN</div></section></div>
 <p class="foot">A sound begins only after you wake the room. Use headphones at a comfortable volume.</p>
+
+<section class="recorded-library" aria-labelledby="recorded-title">
+  <div class="recorded-library-head">
+    <div><p class="eyebrow">THE ARCHIVE / RECORDED WORKS</p><h2 id="recorded-title">The listening library.</h2><p class="library-lead">Completed recordings belong here beside the instrument. Bring in a whole folder or a few tracks; the room will build a playable queue.</p></div>
+    <span class="eyebrow" id="library-count" aria-live="polite">0 TRACKS LOADED</span>
+  </div>
+  <div class="library-tools">
+    <label for="library-files">＋ ADD MUSIC FILES<input id="library-files" type="file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.opus,.flac,.aiff,.aif" multiple></label>
+    <button type="button" id="library-play-all">PLAY ALL</button>
+    <button type="button" id="library-shuffle">SHUFFLE OFF</button>
+    <button type="button" id="library-clear">CLEAR QUEUE</button>
+  </div>
+  <div class="library-drop" id="library-drop" tabindex="0" role="button" aria-label="Drop audio files here or activate to choose files">DROP AUDIO FILES HERE · MP3 / WAV / M4A / AAC / OGG / OPUS / FLAC / AIFF</div>
+  <div class="library-grid">
+    <div class="library-list" id="library-list" aria-live="polite"><div class="library-empty">THE LIBRARY IS WAITING. Add the starter recordings or drop in any supported audio files from your archive.</div></div>
+    <div class="library-now">
+      <div><div class="now-label">NOW PLAYING</div><h3 id="library-title">Nothing selected yet</h3><div class="now-file" id="library-file">Your queue will appear here.</div></div>
+      <audio id="library-audio" controls preload="metadata"></audio>
+      <div class="now-label" id="library-status" aria-live="polite">READY / SILENCE</div>
+    </div>
+  </div>
+  <p class="library-note">Files are played locally in this browser and are not uploaded. Browser codec support varies; MIDI files need a separate instrument renderer and are not yet playable in this audio queue.</p>
+</section>
+
 </main><script>
 (()=>{'use strict';const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,notes=[220,246.94,293.66,329.63,392,440,493.88,587.33],names=['A','B','C','D','E','F','G','H'];let ctx=null,master=null,delay=null,feedback=null,enabled=false,pattern=[],timer=null,step=0,amb=false,stars=[],W=0,H=0;
 const canvas=$('visual'),g=canvas.getContext('2d');function resize(){const d=Math.min(devicePixelRatio||1,2);W=canvas.width=canvas.clientWidth*d;H=canvas.height=canvas.clientHeight*d;g.setTransform(d,0,0,d,0,0);W/=d;H/=d;stars=Array.from({length:55},()=>({x:Math.random()*W,y:Math.random()*H,r:1+Math.random()*3,a:.1+Math.random()*.5}))}addEventListener('resize',resize);resize();
@@ -26,4 +79,32 @@ $('tempo').addEventListener('input',e=>{$('tempo-out').textContent=e.target.valu
 document.addEventListener('keydown',e=>{if(['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName))return;const map={a:0,s:1,d:2,f:3,g:4,h:5,j:6,k:7};if(e.key.toLowerCase() in map){if(enabled){const i=map[e.key.toLowerCase()];pattern.push(i);note(i);update()}}if(e.key==='Escape')$('stop').click()});
 window.__MC_MUSIC_ROOM__={play,stop:()=>$('stop').click(),pattern:()=>pattern.slice()};
 })();
-</script></body></html>
+</script>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id),input=$('library-files'),drop=$('library-drop'),list=$('library-list'),audio=$('library-audio');
+if(!input||!drop||!list||!audio)return;
+let tracks=[],current=-1,shuffle=false,objectUrls=new Set();
+const pretty=name=>name.replace(/\\.[^.]+$/,'').replace(/[_-]+/g,' ').replace(/\\bfull band orchestra singer\\b/ig,'').replace(/\\s+/g,' ').trim().replace(/\\b\\w/g,c=>c.toUpperCase());
+const starterTitles=[
+['the_pattern_doesnt_answer_back_full_band_orchestral_demo','The Pattern Doesn’t Answer Back','FULL-BAND ORCHESTRAL DEMO'],
+['track04_the_floor_remembers_full_band_orchestra_singer','The Floor Remembers','FULL-BAND ORCHESTRAL RECORDING · VOCALS'],
+['track06_the_sky_learns_my_name_full_band_orchestra_singer','The Sky Learns My Name','FULL-BAND ORCHESTRAL RECORDING · VOCALS']
+];
+function labelFor(file){const stem=file.name.replace(/\\.[^.]+$/,'').toLowerCase();const found=starterTitles.find(([key])=>stem===key);return found?{title:found[1],subtitle:found[2]}:{title:pretty(file.name),subtitle:(file.type||'AUDIO FILE').toUpperCase()}}
+function addFiles(files){const accepted=[...files].filter(f=>f.type.startsWith('audio/')||/\\.(mp3|wav|m4a|aac|ogg|opus|flac|aiff|aif)$/i.test(f.name));accepted.forEach(file=>{const url=URL.createObjectURL(file);objectUrls.add(url);const meta=labelFor(file);tracks.push({file,url,...meta})});render();if(current<0&&tracks.length)select(0,false);$('library-status').textContent=accepted.length?accepted.length+' TRACK(S) ADDED':'NO SUPPORTED AUDIO FILES FOUND'}
+function select(index,autoplay=true){if(index<0||index>=tracks.length)return;current=index;const t=tracks[index];audio.src=t.url;$('library-title').textContent=t.title;$('library-file').textContent=t.file.name;$('library-status').textContent='LOADED / READY';render();if(autoplay)audio.play().then(()=>$('library-status').textContent='PLAYING').catch(()=>$('library-status').textContent='PRESS PLAY TO LISTEN')}
+function render(){ $('library-count').textContent=tracks.length+' TRACK'+(tracks.length===1?'':'S')+' LOADED';if(!tracks.length){list.innerHTML='<div class="library-empty">THE LIBRARY IS WAITING. Add the starter recordings or drop in supported audio files from your archive.</div>';return}list.replaceChildren();tracks.forEach((t,i)=>{const row=document.createElement('div');row.className='library-track';row.setAttribute('aria-current',String(i===current));const number=document.createElement('span');number.className='track-index';number.textContent=String(i+1).padStart(2,'0');const meta=document.createElement('span');meta.className='track-meta';const title=document.createElement('strong');title.textContent=t.title;const sub=document.createElement('small');sub.textContent=t.subtitle;meta.append(title,sub);const controls=document.createElement('span');const play=document.createElement('button');play.className='track-play';play.type='button';play.textContent=i===current&&!audio.paused?'Ⅱ':'▶';play.setAttribute('aria-label',(i===current&&!audio.paused?'Pause ':'Play ')+t.title);play.addEventListener('click',()=>{if(i===current&&!audio.paused){audio.pause();$('library-status').textContent='PAUSED'}else if(i===current){audio.play().catch(()=>{});$('library-status').textContent='PLAYING'}else select(i,true)});const remove=document.createElement('button');remove.className='track-remove';remove.type='button';remove.textContent='×';remove.setAttribute('aria-label','Remove '+t.title);remove.addEventListener('click',()=>removeTrack(i));controls.append(play,remove);row.append(number,meta,controls);list.append(row)})}
+function removeTrack(i){const [removed]=tracks.splice(i,1);if(removed){URL.revokeObjectURL(removed.url);objectUrls.delete(removed.url)}if(i===current){audio.pause();audio.removeAttribute('src');current=-1;if(tracks.length)select(Math.min(i,tracks.length-1),false);else{$('library-title').textContent='Nothing selected yet';$('library-file').textContent='Your queue will appear here.'}}else if(i<current)current--;render()}
+function next(){if(!tracks.length)return;const index=shuffle?Math.floor(Math.random()*tracks.length):(current+1)%tracks.length;select(index,true)}
+input.addEventListener('change',e=>{addFiles(e.target.files);input.value=''});drop.addEventListener('click',()=>input.click());drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();input.click()}});
+['dragenter','dragover'].forEach(type=>drop.addEventListener(type,e=>{e.preventDefault();drop.classList.add('dragover')}));['dragleave','drop'].forEach(type=>drop.addEventListener(type,e=>{e.preventDefault();drop.classList.remove('dragover')}));drop.addEventListener('drop',e=>addFiles(e.dataTransfer.files));
+$('library-play-all').addEventListener('click',()=>{if(!tracks.length){input.click();return}select(current<0?0:current,true)});
+$('library-shuffle').addEventListener('click',()=>{shuffle=!shuffle;$('library-shuffle').textContent='SHUFFLE '+(shuffle?'ON':'OFF')});
+$('library-clear').addEventListener('click',()=>{audio.pause();audio.removeAttribute('src');tracks.forEach(t=>URL.revokeObjectURL(t.url));tracks=[];objectUrls.clear();current=-1;$('library-title').textContent='Nothing selected yet';$('library-file').textContent='Your queue will appear here.';$('library-status').textContent='READY / SILENCE';render()});
+audio.addEventListener('play',()=>{$('library-status').textContent='PLAYING';render()});audio.addEventListener('pause',()=>{if(audio.src){$('library-status').textContent='PAUSED';render()}});audio.addEventListener('ended',next);audio.addEventListener('error',()=>{$('library-status').textContent='THIS FILE COULD NOT BE DECODED BY THIS BROWSER'});window.addEventListener('beforeunload',()=>objectUrls.forEach(URL.revokeObjectURL));
+window.__MC_RECORDED_LIBRARY__={addFiles,play:()=>audio.play(),pause:()=>audio.pause(),tracks:()=>tracks.map(t=>({title:t.title,file:t.file.name}))};
+})();
+</script>
+
+</body></html>
