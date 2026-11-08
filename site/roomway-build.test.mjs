@@ -43,8 +43,8 @@ test('public Roomway builds all 61 reviewed doors and injects every companion pa
     assert.equal(manifest.rooms[39].name,'Character Atelier');
     assert.equal(manifest.rooms[0].href,'./atlas/rooms/experiments/room-1/');
     assert.equal(manifest.annexes[0].href,'./atlas/rooms/annex-1.html');
-    assert.match(fs.readFileSync(path.join(companion,'index.html'),'utf8'),/src="atlas\/roomway\.js"/);
-    assert.match(fs.readFileSync(path.join(atlas,'index.html'),'utf8'),/src="roomway\.js"/);
+    assert.match(fs.readFileSync(path.join(companion,'index.html'),'utf8'),/src="\.\/atlas\/roomway\.js"/);
+    assert.match(fs.readFileSync(path.join(atlas,'index.html'),'utf8'),/src="\.\/roomway\.js"/);
     assert.match(fs.readFileSync(path.join(rooms,'index.html'),'utf8'),/src="\.\.\/roomway\.js"/);
     assert.match(fs.readFileSync(path.join(rooms,'annexes.html'),'utf8'),/src="\.\.\/roomway\.js"/);
     assert.match(fs.readFileSync(path.join(rooms,'nested','index.html'),'utf8'),/src="\.\.\/\.\.\/roomway\.js"/);
