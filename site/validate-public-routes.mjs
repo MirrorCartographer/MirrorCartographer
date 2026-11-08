@@ -133,7 +133,7 @@ for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');
   const refs = [
     ...[...html.matchAll(/\b(?:href|src)\s*=\s*["']([^"']+)["']/gi)].map((match) => match[1]),
-    ...[...html.matchAll(/url\(\s*["']?([^"')]+)["']?\s*\)/gi)].map((match) => match[1]),
+    ...[...html.matchAll(/(?<![A-Za-z0-9_.])url\(\s*["']?([^"')]+)["']?\s*\)/gi)].map((match) => match[1]),
   ];
 
   for (const ref of refs) {
