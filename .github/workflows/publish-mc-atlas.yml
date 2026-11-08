@@ -6,9 +6,7 @@ on:
     branches: [main]
   workflow_dispatch:
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 concurrency:
   group: mirror-cartographer-canonical-pages-${{ github.ref }}
   cancel-in-progress: true
@@ -44,19 +42,10 @@ jobs:
           cp -R public/forest/. site/forest/
           node site/build-roomway.mjs
           node site/validate-public-routes.mjs
-      - uses: actions/upload-pages-artifact@v3
+      - name: Publish the built site to the configured gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: site
-  deploy:
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages
+          force_orphan: false
