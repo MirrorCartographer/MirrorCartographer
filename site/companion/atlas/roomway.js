@@ -58,7 +58,7 @@
       <div class="mc-roomway-controls" id="mc-roomway-filters"><input id="mc-roomway-search" type="search" placeholder="Search rooms, tools, worlds…" aria-label="Search rooms"></div>
       <p id="mc-roomway-count" role="status">LOADING THE ATLAS…</p>
       <div id="mc-roomway-grid"></div>
-      <footer class="mc-roomway-footer"><a id="mc-roomway-home" href="#">RETURN TO THE ATLAS</a><a id="mc-roomway-between" href="#">VISIT TAZAR &amp; JELLO</a><a id="mc-roomway-field" href="#">10 PROCEDURAL EXPERIMENTS</a></footer>
+      <footer class="mc-roomway-footer"><a id="mc-roomway-home" href="#">RETURN TO THE ATLAS</a><a id="mc-roomway-between" href="#">VISIT THE CHARACTER ATELIER</a><a id="mc-roomway-field" href="#">10 PROCEDURAL EXPERIMENTS</a></footer>
     </div>`;
   document.body.append(launch,dialog);
   const close = () => { dialog.removeAttribute('open'); dialog.style.display='none'; launch.focus(); };
@@ -77,7 +77,7 @@
   });
   const baseLink=(suffix)=>new URL(suffix,siteBase).href;
   dialog.querySelector('#mc-roomway-home').href=baseLink('atlas/');
-  dialog.querySelector('#mc-roomway-between').href=baseLink('?view=between');
+  dialog.querySelector('#mc-roomway-between').href=baseLink('atlas/rooms/character-atelier/');
   dialog.querySelector('#mc-roomway-field').href=baseLink('atlas/rooms/experiments/');
   fetch(manifestUrl,{cache:'no-cache'}).then(response=>{if(!response.ok)throw new Error('Atlas manifest unavailable');return response.json();}).then(manifest=>{
     const entries=[
