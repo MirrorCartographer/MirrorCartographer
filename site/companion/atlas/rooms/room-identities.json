@@ -1,7 +1,7 @@
 {
   "schema": "mc.room-identity.v1",
   "purpose": "A room is a distinct environment with its own visual grammar, interaction grammar, temporal behavior, and consequence. Shared infrastructure may handle navigation, accessibility, and persistence; it must not flatten room identity. The interaction and memory fields are design contracts, not claims that those features are already implemented.",
-  "count": 39,
+  "count": 40,
   "acceptance": {
     "distinctAxes": [
       "palette",
@@ -447,7 +447,10 @@
       "visual": "a crooked passage behind the wallpaper; distressed institutional fragments, handbill typography, doors that reveal practical support only after entry",
       "interaction": "Choose a passage into housing, benefits, health, records, education, or the existing Veteran Mission; follow official references without treating the site as a government service",
       "temporal": "evergreen pathways with time-sensitive external program rules",
-      "memory": "no personal case data; external links only; no eligibility or account state stored"
+      "memory": "no personal case data; external links only; no eligibility or account state stored",
+      "implementation_status": "published-destination",
+      "interaction_status": "static narrative corridor with four navigable support routes; no personal case data collection",
+      "memory_status": "no personal case data stored; external links only"
     },
     {
       "id": "032",
@@ -514,7 +517,10 @@
       "visual": "a field notebook crossed with a biological specimen archive; layered evidence slips and a living timeline",
       "interaction": "Record dated observations, measurements, context, interpretations, confidence, and clinician questions; export a raw archive or a concise clinician note",
       "temporal": "chronological observations with editable local records",
-      "memory": "browser-local storage only; export is user initiated; no diagnosis or server upload"
+      "memory": "browser-local storage only; export is user initiated; no diagnosis or server upload",
+      "implementation_status": "implemented-local-first",
+      "interaction_status": "working observation form, dated local timeline, typed records, JSON export, clinician-note export, and erase controls",
+      "memory_status": "browser localStorage only; user-exported; no network upload"
     },
     {
       "id": "037",
@@ -525,7 +531,10 @@
       "visual": "a hand-drawn constellation of human, spatial, and conceptual relationships; crooked lines and layered paper",
       "interaction": "Add people, places, groups, projects, questions, and resources; connect a new point to an existing one and export the local constellation",
       "temporal": "relationships evolve as points are added or removed",
-      "memory": "browser-local storage only; no public publishing, messaging, or account connection"
+      "memory": "browser-local storage only; no public publishing, messaging, or account connection",
+      "implementation_status": "implemented-local-first",
+      "interaction_status": "working local relationship graph, add nodes and links, validated JSON import, JSON export, and clear controls",
+      "memory_status": "browser localStorage only; no shared publishing, messaging, or account connection"
     },
     {
       "id": "038",
@@ -554,6 +563,20 @@
       "implementation_status": "implemented-local-first",
       "interaction_status": "functional transition note composer, local save, individual removal, JSON export, and linked external resource routes",
       "memory_status": "browser localStorage only; no network upload or account sync"
+    },
+    {
+      "id": "040",
+      "name": "Character Atelier",
+      "path": "character-atelier/",
+      "kind": "instrument",
+      "palette": "forest glass / ember / parchment / dusk plum",
+      "visual": "moth-like character forms, translucent wing geometry, botanical shadow, and a hand-built palette editor",
+      "interaction": "Name a character, choose its seed symbol and visual grammar, then propose and explicitly accept symbolic evolution. Every appearance choice remains manually controlled.",
+      "temporal": "the character changes only when the visitor edits it or accepts a proposed evolution",
+      "memory": "opt-in local browser profile, collected user-selected symbols, and an explicit evolution history; export and erase controls",
+      "implementation_status": "implemented-local-first",
+      "interaction_status": "working character creation, manual palette/motif/texture editing, user-authored traits, proposal/accept/reject evolution controls, JSON export, and local erase",
+      "memory_status": "browser localStorage only; no account sync, network upload, model call, or external provider"
     }
   ]
 }
