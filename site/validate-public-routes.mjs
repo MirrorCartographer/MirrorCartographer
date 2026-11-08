@@ -25,6 +25,13 @@ const required = [
   'forest/permission-room.html',
   'experiments/engine.js',
   'experiments/shared.css',
+  'companion/index.html',
+  'companion/atlas/index.html',
+  'companion/atlas/rooms/index.html',
+  'companion/atlas/rooms/annexes.html',
+  'companion/atlas/rooms/room-identities.json',
+  'companion/atlas/rooms/character-atelier/index.html',
+  'companion/atlas/rooms/character-atelier/character-engine.mjs',
   ...experimentSlugs.map((slug) => 'experiments/' + slug + '/index.html'),
 ];
 
@@ -80,10 +87,45 @@ function resolveLocalTarget(file, rawValue) {
   return found;
 }
 
+const roomsRoot = join(siteRoot, 'companion/atlas/rooms');
+const roomIndexPath = join(roomsRoot, 'index.html');
+const roomCatalog = JSON.parse(readFileSync(join(roomsRoot, 'room-identities.json'), 'utf8'));
+if (roomCatalog.count !== 40 || !Array.isArray(roomCatalog.rooms) || roomCatalog.rooms.length !== 40) {
+  throw new Error('The public companion room catalog must contain exactly 40 named destinations.');
+}
+const roomDirectory = readFileSync(roomIndexPath, 'utf8');
+const roomCards = [...roomDirectory.matchAll(/<a class="room" href="([^"]+)"[^>]*>([\\s\\S]*?)<\\/a>/g)].map(match => ({
+  href: match[1],
+  name: match[2].match(/<h2>([\\s\\S]*?)<\\/h2>/)?.[1]?.trim()
+}));
+if (roomCards.length !== 40) throw new Error('The public room directory must expose exactly 40 room cards.');
+const roomIds = new Set();
+const roomNames = new Set();
+for (const room of roomCatalog.rooms) {
+  if (!room.id || !room.name || !room.path || roomIds.has(room.id) || roomNames.has(room.name)) {
+    throw new Error('Missing or duplicate public room identity: ' + JSON.stringify(room));
+  }
+  if (!room.implementation_status || !room.interaction_status || !room.memory_status) {
+    throw new Error('Room status metadata must be explicit: ' + room.id + ' / ' + room.name);
+  }
+  roomIds.add(room.id);
+  roomNames.add(room.name);
+  const expected = resolveLocalTarget(roomIndexPath, room.path);
+  const card = roomCards.find(item => item.name === room.name);
+  if (!expected || !card) throw new Error('Missing room route or directory card: ' + room.name);
+  const actual = resolveLocalTarget(roomIndexPath, card.href);
+  if (actual !== expected) throw new Error('Room directory card points to the wrong destination: ' + room.name);
+}
+const atelierHtml = readFileSync(join(roomsRoot, 'character-atelier/index.html'), 'utf8');
+if (!atelierHtml.includes("from './character-engine.mjs'")) {
+  throw new Error('Character Atelier must load its published local engine module.');
+}
+
 const htmlFiles = [
   ...walk(join(siteRoot, 'experiments')),
   ...walk(join(siteRoot, 'music')),
   ...walk(join(siteRoot, 'forest')),
+  ...walk(roomsRoot),
 ].filter((file) => extname(file).toLowerCase() === '.html');
 
 let checkedReferences = 0;
@@ -102,6 +144,7 @@ for (const file of htmlFiles) {
 console.log(JSON.stringify({
   result: 'PASS',
   experimentRoutes: experimentSlugs.length,
+  publishedRoomDestinations: roomCatalog.rooms.length,
   requiredFiles: required.length,
   htmlRoutesChecked: htmlFiles.length,
   localReferencesChecked: checkedReferences,
