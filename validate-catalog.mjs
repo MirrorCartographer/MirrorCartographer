@@ -1,0 +1,59 @@
+import { readFileSync, existsSync, statSync } from 'node:fs';
+import { extname } from 'node:path';
+import { isCredentialLikeFile, isPrivateCatalogPath } from './atlas-privacy-policy.mjs';
+
+const catalogPath = 'site/catalog.json';
+if (!existsSync(catalogPath)) throw new Error('Catalog generation did not produce ' + catalogPath);
+
+const catalog = JSON.parse(readFileSync(catalogPath, 'utf8'));
+const allowedRepositories = new Set(['MirrorCartographer/MirrorCartographer']);
+const required = ['path', 'title', 'category', 'repository', 'source_commit', 'url'];
+const seen = new Set();
+const errors = [];
+
+if (catalog.schema_version !== '1.0.0') errors.push('unexpected schema_version');
+if (!Array.isArray(catalog.items) || !catalog.items.length) errors.push('items must be a non-empty array');
+if (!Array.isArray(catalog.repositories) || catalog.repositories.length !== 1 || catalog.repositories[0] !== 'MirrorCartographer/MirrorCartographer') errors.push('catalog must be sourced only from the public website repository');
+
+for (const [index, item] of (catalog.items || []).entries()) {
+  for (const key of required) {
+    if (typeof item[key] !== 'string' || !item[key].trim()) errors.push('item ' + index + ' missing ' + key);
+  }
+
+  if (typeof item.path !== 'string' || typeof item.repository !== 'string') continue;
+  if (!allowedRepositories.has(item.repository)) errors.push('unexpected repository at item ' + index);
+
+  const path = item.path;
+  if (path.startsWith('/') || path.includes('\\') || path.split('/').some((part) => part === '.' || part === '..')) {
+    errors.push('unsafe catalog path at item ' + index);
+  }
+  if (isPrivateCatalogPath(path) || isCredentialLikeFile(path)) {
+    errors.push('sensitive path or file type indexed at item ' + index);
+  }
+
+  const key = item.repository + ':' + path;
+  if (seen.has(key)) errors.push('duplicate ' + key);
+  seen.add(key);
+
+  if (!/^[0-9a-f]{40}$/i.test(item.source_commit || '')) {
+    errors.push('invalid source_commit at item ' + index);
+  } else {
+    const expectedUrl = 'https://github.com/' + item.repository + '/blob/' + item.source_commit + '/'
+      + path.split('/').map(encodeURIComponent).join('/');
+    if (item.url !== expectedUrl) errors.push('source URL is not pinned to the item commit at item ' + index);
+  }
+}
+
+if (catalog.file_count !== (catalog.items || []).length) errors.push('file_count does not match item count');
+if (errors.length) throw new Error('Catalog validation failed:\n' + errors.slice(0, 40).join('\n'));
+
+console.log(JSON.stringify({
+  result: 'PASS',
+  fileCount: catalog.items.length,
+  repositories: catalog.repositories,
+  categories: catalog.categories,
+  bytes: statSync(catalogPath).size,
+  uniquePaths: seen.size,
+  privacyPathLeaks: 0,
+  sourceLinks: 'commit-pinned',
+}, null, 2));

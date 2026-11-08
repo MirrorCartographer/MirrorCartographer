@@ -1,0 +1,72 @@
+{
+  "schema": "mc-neurology-source-registry",
+  "schema_version": 1,
+  "reviewed_on": "2026-11-04",
+  "sources": [
+    {
+      "id": "SRC-ALS-NINDS-2026",
+      "title": "Focus on Amyotrophic Lateral Sclerosis",
+      "publisher": "National Institute of Neurological Disorders and Stroke",
+      "published": null,
+      "accessed": "2026-11-04",
+      "url": "https://www.ninds.nih.gov/current-research/focus-disorders/focus-amyotrophic-lateral-sclerosis",
+      "doi": null,
+      "pmid": null,
+      "source_type": "government_research_overview",
+      "scope": "ALS biology, therapeutic targets, and current research context",
+      "limitations": "Research overview; not a clinical practice guideline or patient-specific recommendation."
+    },
+    {
+      "id": "SRC-MS-NINDS-2025",
+      "title": "Multiple Sclerosis: Hope Through Research",
+      "publisher": "National Institute of Neurological Disorders and Stroke",
+      "published": "2025-05",
+      "accessed": "2026-11-04",
+      "url": "https://www.ninds.nih.gov/sites/default/files/2025-05/multiple-sclerosis-hope-through-research.pdf",
+      "doi": null,
+      "pmid": null,
+      "source_type": "government_research_overview",
+      "scope": "MS diagnosis, clinical assessment, MRI, CSF, evoked potentials, and research",
+      "limitations": "General research overview; individual diagnosis requires clinical criteria and exclusion of alternatives."
+    },
+    {
+      "id": "SRC-DT-NEURO-2026",
+      "title": "Digital twin for neurological conditions: a systematic scoping review",
+      "publisher": "Biomedical Engineering Letters",
+      "published": "2026-09",
+      "accessed": "2026-11-04",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42801050/",
+      "doi": "10.1007/s13534-026-00605-9",
+      "pmid": "42801050",
+      "source_type": "peer_reviewed_systematic_scoping_review",
+      "scope": "36 neurological digital-twin studies; data sources, modeling, clinical applications, validation maturity",
+      "limitations": "The review reports mostly proof-of-concept or retrospective work, limited external validation, and no randomized controlled trials identified in its search."
+    },
+    {
+      "id": "SRC-CDS-FDA-2026",
+      "title": "Clinical Decision Support Software Guidance for Industry and Food and Drug Administration Staff",
+      "publisher": "U.S. Food and Drug Administration",
+      "published": "2026-01",
+      "accessed": "2026-11-04",
+      "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/clinical-decision-support-software",
+      "doi": null,
+      "pmid": null,
+      "source_type": "regulatory_guidance",
+      "scope": "Regulatory distinctions among clinical decision support and device software functions",
+      "limitations": "Guidance is not a substitute for product-specific regulatory analysis."
+    },
+    {
+      "id": "SRC-CAUSAL-DT-2026",
+      "title": "Causal inference and digital twins: a roadmap for the future of clinical trials",
+      "publisher": "npj Digital Medicine",
+      "published": "2026-06-23",
+      "accessed": "2026-11-04",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42337047/",
+      "doi": "10.1038/s41746-026-02871-4",
+      "pmid": "42337047",
+      "source_type": "peer_reviewed_review",
+      "scope": "Causal inference and digital twins for treatment-effect heterogeneity, transportability, and trial design",
+      "limitations": "Roadmap/review; proposed potential is not proof of clinical effectiveness."
+    }
+  ]
+}

@@ -1,0 +1,559 @@
+{
+  "schema": "mirror-cartographer.roomway.v1",
+  "counts": {
+    "rooms": 40,
+    "annexes": 21,
+    "totalDoors": 61
+  },
+  "rooms": [
+    {
+      "id": "001",
+      "name": "The Observatory",
+      "kind": "environment",
+      "href": "./atlas/rooms/experiments/001-observatory/",
+      "visual": "parallax star vault; proximity constellations; elliptical orbital mechanics",
+      "interaction": "Move to bring nearby stars into temporary constellations; transform to alter orbital relationships.",
+      "status": "procedural-renderer-present",
+      "implementation_status": "procedural-renderer-present"
+    },
+    {
+      "id": "002",
+      "name": "Machine Garden",
+      "kind": "environment",
+      "href": "./atlas/rooms/experiments/002-machine-garden/",
+      "visual": "recursive stems; branching growth; translucent seed pods",
+      "interaction": "Touch plants to grow branches; cross-pollinate two forms to create a hybrid.",
+      "status": "procedural-renderer-present",
+      "implementation_status": "procedural-renderer-present"
+    },
+    {
+      "id": "003",
+      "name": "Echo Cathedral",
+      "kind": "environment",
+      "href": "./atlas/rooms/experiments/003-echo-cathedral/",
+      "visual": "ribbed nave; resonance rings; spectral glass",
+      "interaction": "Sound or gesture excites a resonant structure; overlapping tones reveal hidden architectural modes.",
+      "status": "procedural-renderer-present",
+      "implementation_status": "procedural-renderer-present"
+    },
+    {
+      "id": "004",
+      "name": "Carnival of Thought",
+      "kind": "environment",
+      "href": "./atlas/rooms/experiments/004-carnival-of-thought/",
+      "visual": "distorted funhouse geometry; kinetic signage; rotating booths",
+      "interaction": "Choose a booth; each action changes the rules of another booth, creating playful interference.",
+      "status": "procedural-renderer-present",
+      "implementation_status": "procedural-renderer-present"
+    },
+    {
+      "id": "005",
+      "name": "The Ocean",
+      "kind": "environment",
+      "href": "./atlas/rooms/experiments/005-ocean/",
+      "visual": "layered fluid fields; pressure haze; caustic light; drifting particles",
+      "interaction": "Move horizontally to travel and vertically to change depth; sonar reveals temporary contours.",
+      "status": "procedural-renderer-present",
+      "implementation_status": "procedural-renderer-present"
+    },
+    {
+      "id": "006",
+      "name": "Living Blueprint",
+      "kind": "instrument",
+      "href": "./atlas/rooms/experiments/006-living-blueprint/",
+      "visual": "technical grid; measured vectors; exploded geometry",
+      "interaction": "Place constraints and connect components; a viable structure assembles from the drawing.",
+      "status": "procedural-renderer-present",
+      "implementation_status": "procedural-renderer-present"
+    },
+    {
+      "id": "007",
+      "name": "Dream Library",
+      "kind": "environment",
+      "href": "./atlas/rooms/experiments/007-dream-library/",
+      "visual": "floating shelves; impossible staircases; book constellations",
+      "interaction": "Follow a volume by sensory clue; opening it changes nearby shelf topology and reveals a fragment.",
+      "status": "procedural-renderer-present",
+      "implementation_status": "procedural-renderer-present"
+    },
+    {
+      "id": "008",
+      "name": "Signal Forest",
+      "kind": "environment",
+      "href": "./atlas/rooms/experiments/008-signal-forest/",
+      "visual": "layered canopy; branching antennae; wind-borne light",
+      "interaction": "Send a signal from one tree; trace how it propagates and changes through the canopy.",
+      "status": "procedural-renderer-present",
+      "implementation_status": "procedural-renderer-present"
+    },
+    {
+      "id": "009",
+      "name": "Impossible Museum",
+      "kind": "environment",
+      "href": "./atlas/rooms/experiments/009-impossible-museum/",
+      "visual": "non-Euclidean galleries; contradictory frames; impossible thresholds",
+      "interaction": "Select two conflicting exhibits and rotate perspective until both interpretations can coexist.",
+      "status": "procedural-renderer-present",
+      "implementation_status": "procedural-renderer-present"
+    },
+    {
+      "id": "010",
+      "name": "The Composer",
+      "kind": "instrument",
+      "href": "./atlas/rooms/experiments/010-composer/",
+      "visual": "radial notation; gesture trails; luminous score lines",
+      "interaction": "Drag to compose motifs; position changes pitch and geometry; layer motifs into a score.",
+      "status": "procedural-renderer-present",
+      "implementation_status": "procedural-renderer-present"
+    },
+    {
+      "id": "011",
+      "name": "Music Room",
+      "kind": "instrument",
+      "href": "./atlas/rooms/music/",
+      "visual": "stage lighting; waveform curtains; tactile instrument panels",
+      "interaction": "Select and sequence original project audio; inspect track relationships and sound layers.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "012",
+      "name": "The Mind",
+      "kind": "instrument",
+      "href": "./atlas/rooms/mind/",
+      "visual": "branching thought map; layered translucent planes",
+      "interaction": "Move between thought, sensation, context, and interpretation without collapsing them into one label.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "013",
+      "name": "Unreliable Observatory",
+      "kind": "world",
+      "href": "./atlas/rooms/worlds/unreliable-observatory/",
+      "visual": "unstable star charts; shifting horizon; unreliable instruments",
+      "interaction": "Compare readings from instruments that disagree; calibrate without erasing disagreement.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "014",
+      "name": "Self Cartographer",
+      "kind": "instrument",
+      "href": "./atlas/rooms/../../self/",
+      "visual": "editable layered self-map; nested regions; movable landmarks",
+      "interaction": "Build a map from chosen dimensions; every label remains revisable and user-owned.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "015",
+      "name": "Image Organism",
+      "kind": "instrument",
+      "href": "./atlas/rooms/../../art-machine/",
+      "visual": "procedural morphology; cellular patterns; evolving image organisms",
+      "interaction": "Change environmental parameters and observe form emerge; save seeds to branch variations.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "016",
+      "name": "Research Atlas",
+      "kind": "instrument",
+      "href": "./atlas/rooms/../../research-atlas/",
+      "visual": "source constellations; claim graphs; uncertainty bands",
+      "interaction": "Move from observation to claim to hypothesis; inspect provenance and competing explanations.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "017",
+      "name": "Archive",
+      "kind": "archive",
+      "href": "./atlas/rooms/../archive.html",
+      "visual": "stratified shelves; dated layers; artifact thumbnails",
+      "interaction": "Filter by time, medium, theme, and provenance; open an artifact without losing its place.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "018",
+      "name": "Leave a Fragment",
+      "kind": "instrument",
+      "href": "./atlas/rooms/chatgpt/",
+      "visual": "fragment wall; branching prompt slips; visible provenance",
+      "interaction": "Compose a fragment, inspect the prepared handoff, and choose whether to send it; no automatic submission.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "019",
+      "name": "The Weather Inside a Bell",
+      "kind": "environment",
+      "href": "./atlas/rooms/independent-web/",
+      "visual": "bell-shaped atmosphere; pressure contours; suspended rain",
+      "interaction": "Change pressure and watch weather form inside the bell; tap to send a wave through the atmosphere.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "020",
+      "name": "Afterbell",
+      "kind": "experience",
+      "href": "./atlas/rooms/independent-web/afterbell.html",
+      "visual": "residual rings; fading light; ghost geometry",
+      "interaction": "Trigger an event, then navigate only by its fading traces.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "021",
+      "name": "Rain Organ",
+      "kind": "instrument",
+      "href": "./atlas/rooms/independent-web/rain-organ/",
+      "visual": "rainfall columns; resonant gutters; water-driven keys",
+      "interaction": "Route drops through channels to play layered tones and rhythms.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "022",
+      "name": "Afterimage Orchard",
+      "kind": "environment",
+      "href": "./atlas/rooms/independent-web/afterimage-orchard/",
+      "visual": "ghost fruit; photographic persistence; branching paths",
+      "interaction": "Move through light trails; linger to develop an afterimage into a new branch.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "023",
+      "name": "Cloud Press",
+      "kind": "instrument",
+      "href": "./atlas/rooms/independent-web/cloud-press/",
+      "visual": "atmospheric press; soft mechanical plates; cloud typography",
+      "interaction": "Compress and release cloud masses; pressure changes density, shape, and printed traces.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "024",
+      "name": "Moth Dial",
+      "kind": "instrument",
+      "href": "./atlas/rooms/independent-web/moth-dial/",
+      "visual": "radial dial; moth-wing symmetry; lamp halo",
+      "interaction": "Rotate a dial to redirect moths and light; observe attraction, avoidance, and orbit.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "025",
+      "name": "The Orchard That Remembers Rain",
+      "kind": "environment",
+      "href": "./atlas/rooms/independent-web/orchard-that-remembers-rain/",
+      "visual": "rain-memory rings; fruiting branches; water-marked surfaces",
+      "interaction": "Rain changes the orchard; revisit a branch to read where water fell and what grew.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "026",
+      "name": "Pressure Garden",
+      "kind": "environment",
+      "href": "./atlas/rooms/independent-web/pressure-garden/",
+      "visual": "inflatable botanical forms; pressure vessels; elastic stems",
+      "interaction": "Apply pressure to one region and watch neighboring structures respond through coupled constraints.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "027",
+      "name": "Night Shift Orchard",
+      "kind": "environment",
+      "href": "./atlas/rooms/night-shift-orchard/",
+      "visual": "night work lights; orchard rows; long shadows",
+      "interaction": "Move between tasks and watch the orchard change under a limited night shift; prioritize without a perfect view.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "028",
+      "name": "The House That Forgets Gravity",
+      "kind": "world",
+      "href": "./atlas/rooms/house-that-forgets-gravity/",
+      "visual": "tilting rooms; suspended furniture; architectural drift",
+      "interaction": "Reorient the house; objects retain momentum and settle according to the new gravity vector.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "029",
+      "name": "Connections",
+      "kind": "game",
+      "href": "./atlas/rooms/arcade/connections/",
+      "visual": "compact puzzle board; crisp grouping feedback",
+      "interaction": "Group related items; require a reasoned grouping and allow deliberate revision.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "030",
+      "name": "The Mission",
+      "kind": "game",
+      "href": "./atlas/rooms/arcade/veteran-mission/",
+      "visual": "mission map; route nodes; resource and capacity indicators",
+      "interaction": "Navigate service-to-civilian transition choices; decisions reveal dependencies and next steps.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "031",
+      "name": "The Service Corridor",
+      "kind": "experience",
+      "href": "./atlas/rooms/service-corridor/",
+      "visual": "a crooked passage behind the wallpaper; distressed institutional fragments, handbill typography, doors that reveal practical support only after entry",
+      "interaction": "Choose a passage into housing, benefits, health, records, education, or the existing Veteran Mission; follow official references without treating the site as a government service",
+      "status": "published-destination",
+      "implementation_status": "published-destination"
+    },
+    {
+      "id": "032",
+      "name": "The World",
+      "kind": "world",
+      "href": "./atlas/rooms/world/",
+      "visual": "navigable terrain; layered biomes; distant landmarks",
+      "interaction": "Explore by movement and discovery; landmarks change the map and open linked experiences.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "033",
+      "name": "Composition Field",
+      "kind": "instrument",
+      "href": "./atlas/rooms/composition/",
+      "visual": "spatial composition surface; movable forms; generative balance",
+      "interaction": "Arrange forms and forces; the composition responds to tension, spacing, and rhythm.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "034",
+      "name": "The Unmapped",
+      "kind": "experience",
+      "href": "./atlas/rooms/unmapped/",
+      "visual": "unknown terrain; incomplete contours; generative negative space",
+      "interaction": "Discover the rules through experimentation; the system reveals no tutorial until a pattern is found.",
+      "status": "existing-destination-needs-audit",
+      "implementation_status": "existing-destination-needs-audit"
+    },
+    {
+      "id": "035",
+      "name": "The Picture House",
+      "kind": "cinema",
+      "href": "./atlas/rooms/screening-room/",
+      "visual": "single widescreen projection framed by distressed paper, handbill typography, and a hand-built cinema poster",
+      "interaction": "Play the featured film in the embedded player; the published featured-film configuration replaces the program without changing the room",
+      "status": "single-feature-player-present",
+      "implementation_status": "single-feature-player-present"
+    },
+    {
+      "id": "036",
+      "name": "The Body Archive",
+      "kind": "instrument",
+      "href": "./atlas/rooms/body-archive/",
+      "visual": "a field notebook crossed with a biological specimen archive; layered evidence slips and a living timeline",
+      "interaction": "Record dated observations, measurements, context, interpretations, confidence, and clinician questions; export a raw archive or a concise clinician note",
+      "status": "implemented-local-first",
+      "implementation_status": "implemented-local-first"
+    },
+    {
+      "id": "037",
+      "name": "Common Thread",
+      "kind": "instrument",
+      "href": "./atlas/rooms/common-thread/",
+      "visual": "a hand-drawn constellation of human, spatial, and conceptual relationships; crooked lines and layered paper",
+      "interaction": "Add people, places, groups, projects, questions, and resources; connect a new point to an existing one and export the local constellation",
+      "status": "implemented-local-first",
+      "implementation_status": "implemented-local-first"
+    },
+    {
+      "id": "038",
+      "name": "The Signal Loom",
+      "kind": "instrument",
+      "href": "./atlas/rooms/signal-loom/",
+      "visual": "evidence threads, dated traces, fine-grained labels, and a restrained intensity plot",
+      "interaction": "Add a dated body signal, measurement, intervention response, context, interpretation, or clinician question; filter the evidence ledger and export a source-preserving summary.",
+      "status": "implemented-local-first",
+      "implementation_status": "implemented-local-first"
+    },
+    {
+      "id": "039",
+      "name": "After the Uniform",
+      "kind": "experience",
+      "href": "./atlas/rooms/after-the-uniform/",
+      "visual": "distressed field notebook, torn-paper panels, service-to-civilian transition fragments, handbill typography",
+      "interaction": "Choose a pressure area and horizon, record the situation, obstacle, support needed, and one next move; save locally or export the notes.",
+      "status": "implemented-local-first",
+      "implementation_status": "implemented-local-first"
+    },
+    {
+      "id": "040",
+      "name": "Character Atelier",
+      "kind": "instrument",
+      "href": "./atlas/rooms/character-atelier/",
+      "visual": "moth-like character forms, translucent wing geometry, botanical shadow, and a hand-built palette editor",
+      "interaction": "Name a character, choose its seed symbol and visual grammar, then propose and explicitly accept symbolic evolution. Every appearance choice remains manually controlled.",
+      "status": "implemented-local-first",
+      "implementation_status": "implemented-local-first"
+    }
+  ],
+  "annexes": [
+    {
+      "id": "annex-01",
+      "name": "Signal Garden",
+      "kind": "arcade",
+      "description": "A compact challenge from the Connections arcade. Enter the game and explore its own visual puzzle.",
+      "href": "./atlas/rooms/arcade/connections/game-1.html"
+    },
+    {
+      "id": "annex-02",
+      "name": "Deep Archive",
+      "kind": "arcade",
+      "description": "A compact challenge from the Connections arcade. Enter the game and explore its own visual puzzle.",
+      "href": "./atlas/rooms/arcade/connections/game-2.html"
+    },
+    {
+      "id": "annex-03",
+      "name": "Machine Dream",
+      "kind": "arcade",
+      "description": "A compact challenge from the Connections arcade. Enter the game and explore its own visual puzzle.",
+      "href": "./atlas/rooms/arcade/connections/game-3.html"
+    },
+    {
+      "id": "annex-04",
+      "name": "Carnival Logic",
+      "kind": "arcade",
+      "description": "A compact challenge from the Connections arcade. Enter the game and explore its own visual puzzle.",
+      "href": "./atlas/rooms/arcade/connections/game-4.html"
+    },
+    {
+      "id": "annex-05",
+      "name": "Mirror Rooms",
+      "kind": "arcade",
+      "description": "A compact challenge from the Connections arcade. Enter the game and explore its own visual puzzle.",
+      "href": "./atlas/rooms/arcade/connections/game-5.html"
+    },
+    {
+      "id": "annex-06",
+      "name": "Neon Weather",
+      "kind": "arcade",
+      "description": "A compact challenge from the Connections arcade. Enter the game and explore its own visual puzzle.",
+      "href": "./atlas/rooms/arcade/connections/game-6.html"
+    },
+    {
+      "id": "annex-07",
+      "name": "Velvet Cosmos",
+      "kind": "arcade",
+      "description": "A compact challenge from the Connections arcade. Enter the game and explore its own visual puzzle.",
+      "href": "./atlas/rooms/arcade/connections/game-7.html"
+    },
+    {
+      "id": "annex-08",
+      "name": "Paper Kingdom",
+      "kind": "arcade",
+      "description": "A compact challenge from the Connections arcade. Enter the game and explore its own visual puzzle.",
+      "href": "./atlas/rooms/arcade/connections/game-8.html"
+    },
+    {
+      "id": "annex-09",
+      "name": "Electric Kitchen",
+      "kind": "arcade",
+      "description": "A compact challenge from the Connections arcade. Enter the game and explore its own visual puzzle.",
+      "href": "./atlas/rooms/arcade/connections/game-9.html"
+    },
+    {
+      "id": "annex-10",
+      "name": "Quiet Labyrinth",
+      "kind": "arcade",
+      "description": "A compact challenge from the Connections arcade. Enter the game and explore its own visual puzzle.",
+      "href": "./atlas/rooms/arcade/connections/game-10.html"
+    },
+    {
+      "id": "annex-11",
+      "name": "Signal Loom · Arcade",
+      "kind": "arcade",
+      "description": "A compact challenge from the Connections arcade. Enter the game and explore its own visual puzzle.",
+      "href": "./atlas/rooms/arcade/connections/game-11.html"
+    },
+    {
+      "id": "annex-12",
+      "name": "Creative Rooms",
+      "kind": "wing",
+      "description": "A crooked collection of playable places, strange artifacts, and unfinished stories.",
+      "href": "./atlas/rooms/creative/"
+    },
+    {
+      "id": "annex-13",
+      "name": "The Midnight Mile",
+      "kind": "exhibit",
+      "description": "A branching midnight carnival with five attractions, an unfinished ticket, and a gate that remembers what you traded.",
+      "href": "./atlas/rooms/creative/the-midnight-mile/"
+    },
+    {
+      "id": "annex-14",
+      "name": "Ten Rooms",
+      "kind": "directory",
+      "description": "The index to the ten procedural room experiments.",
+      "href": "./atlas/rooms/experiments/"
+    },
+    {
+      "id": "annex-15",
+      "name": "Observatory Field Notes",
+      "kind": "field notes",
+      "description": "An interaction field notebook for the Observatory.",
+      "href": "./atlas/rooms/observatory.html"
+    },
+    {
+      "id": "annex-16",
+      "name": "Research Rooms",
+      "kind": "wing",
+      "description": "Investigations into evidence, judgment, uncertainty, and what confidence can hide.",
+      "href": "./atlas/rooms/research/"
+    },
+    {
+      "id": "annex-17",
+      "name": "The Consensus Trap",
+      "kind": "experiment",
+      "description": "A Human Judgment Lab exhibit about consensus and the reliability of group judgment.",
+      "href": "./atlas/rooms/research/consensus-trap/"
+    },
+    {
+      "id": "annex-18",
+      "name": "Veteran Hub",
+      "kind": "community",
+      "description": "The veteran community entry point and shared resource space.",
+      "href": "./atlas/rooms/veterans/hub.html"
+    },
+    {
+      "id": "annex-19",
+      "name": "Veteran Mission Brief",
+      "kind": "experience",
+      "description": "A focused veteran transition and mission-planning experience.",
+      "href": "./atlas/rooms/veterans/mission.html"
+    },
+    {
+      "id": "annex-20",
+      "name": "Veteran Pathway",
+      "kind": "experience",
+      "description": "A pathway through veteran resources and next steps.",
+      "href": "./atlas/rooms/veterans/pathway.html"
+    },
+    {
+      "id": "annex-21",
+      "name": "The Living Country",
+      "kind": "world",
+      "description": "A larger world space connected to the station and its visitors.",
+      "href": "./atlas/rooms/worlds/the-living-country/"
+    }
+  ]
+}
