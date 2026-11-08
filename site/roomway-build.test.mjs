@@ -35,7 +35,7 @@ test('public Roomway builds all 61 reviewed doors and injects every companion pa
     fs.writeFileSync(path.join(rooms,'nested','index.html'),'<html><body>Nested room</body></html>');
 
     const result=buildRoomway(companion);
-    assert.deepEqual(result,{rooms:40,annexes:21,totalDoors:61,htmlPages:4,injected:4});
+    assert.deepEqual(result,{rooms:40,annexes:21,totalDoors:61,htmlPages:5,injected:5});
     const manifest=JSON.parse(fs.readFileSync(path.join(atlas,'roomway-manifest.json'),'utf8'));
     assert.equal(manifest.counts.totalDoors,61);
     assert.equal(manifest.rooms.length,40);
@@ -46,6 +46,7 @@ test('public Roomway builds all 61 reviewed doors and injects every companion pa
     assert.match(fs.readFileSync(path.join(companion,'index.html'),'utf8'),/src="atlas\/roomway\.js"/);
     assert.match(fs.readFileSync(path.join(atlas,'index.html'),'utf8'),/src="roomway\.js"/);
     assert.match(fs.readFileSync(path.join(rooms,'index.html'),'utf8'),/src="\.\.\/roomway\.js"/);
+    assert.match(fs.readFileSync(path.join(rooms,'annexes.html'),'utf8'),/src="\.\.\/roomway\.js"/);
     assert.match(fs.readFileSync(path.join(rooms,'nested','index.html'),'utf8'),/src="\.\.\/\.\.\/roomway\.js"/);
     const again=buildRoomway(companion);
     assert.equal(again.injected,0);
