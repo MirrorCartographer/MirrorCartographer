@@ -62,10 +62,9 @@ jobs:
         id: evidence-gates
         run: python tools/mc_gate_integration/run_gate_check.py
 
-      - name: Build the cross-repository catalog in an isolated workspace
+      - name: Build the public artifact catalog from this repository
         id: build-catalog
         run: |
-          git clone --depth 1 https://github.com/MirrorCartographer/mirror-cartographer-ui.git ui-repository
           node site/generate-catalog.mjs
           node site/validate-catalog.mjs
 
