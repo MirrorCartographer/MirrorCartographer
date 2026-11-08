@@ -94,9 +94,9 @@ if (roomCatalog.count !== 40 || !Array.isArray(roomCatalog.rooms) || roomCatalog
   throw new Error('The public companion room catalog must contain exactly 40 named destinations.');
 }
 const roomDirectory = readFileSync(roomIndexPath, 'utf8');
-const roomCards = [...roomDirectory.matchAll(/<a class="room" href="([^"]+)"[^>]*>([\\s\\S]*?)<\\/a>/g)].map(match => ({
+const roomCards = [...roomDirectory.matchAll(/<a class="room" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)].map(match => ({
   href: match[1],
-  name: match[2].match(/<h2>([\\s\\S]*?)<\\/h2>/)?.[1]?.trim()
+  name: match[2].match(/<h2>([\s\S]*?)<\/h2>/)?.[1]?.trim()
 }));
 if (roomCards.length !== 40) throw new Error('The public room directory must expose exactly 40 room cards.');
 const roomIds = new Set();
