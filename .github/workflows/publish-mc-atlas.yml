@@ -2,13 +2,15 @@ name: Publish Mirror Cartographer Living Atlas
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
   pages: write
   id-token: write
 concurrency:
-  group: mirror-cartographer-canonical-pages
+  group: mirror-cartographer-canonical-pages-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   build:
@@ -44,6 +46,7 @@ jobs:
         with:
           path: site
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:
