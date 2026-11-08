@@ -24,7 +24,7 @@ jobs:
       - run: node --check site/validate-catalog.mjs
       - run: node --check site/validate-public-routes.mjs
       - run: node --check site/companion/atlas/rooms/character-atelier/character-engine.mjs
-      - run: node --test site/companion/atlas/rooms/character-atelier/character-engine.test.mjs
+      - run: node --test tests/character-atelier-public.test.mjs
       - name: Generate the public-site catalog from reviewed artifacts
         run: node site/generate-catalog.mjs
       - name: Validate catalog schema, uniqueness, and privacy exclusions
