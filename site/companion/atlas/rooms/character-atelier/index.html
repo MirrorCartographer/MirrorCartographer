@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101511">
+<meta name="description" content="Make a character from symbols you choose. Customize every detail. Keep every change under your control.">
+<title>Character Atelier — Mirror Cartographer</title>
+<style>
+:root{color-scheme:dark;--paper:#e9e1cf;--muted:#aaa995;--line:#e9e1cf2b;--moss:#8da17b;--gold:#d9bd88;--plum:#513b50;--ink:#101511;--panel:#171d18;--a:#38232b;--b:#c66b4e;--c:#e9c28e}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 12% 10%,#26382a 0,transparent 38%),radial-gradient(ellipse at 90% 75%,#35283a 0,transparent 34%),#0d120f;color:var(--paper);font:15px/1.55 ui-sans-serif,system-ui,sans-serif}
+a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+header{max-width:1160px;margin:auto;padding:25px clamp(18px,4vw,48px);display:flex;justify-content:space-between;gap:18px;align-items:center;border-bottom:1px solid var(--line)}
+.brand{font:10px ui-monospace,monospace;letter-spacing:.2em;color:var(--gold)}.brand small{display:block;color:var(--muted);letter-spacing:.12em;margin-top:5px}
+nav{display:flex;gap:16px;flex-wrap:wrap;font:9px ui-monospace,monospace;letter-spacing:.12em;color:var(--muted)}
+main{max-width:1160px;margin:auto;padding:clamp(34px,6vw,72px) clamp(18px,4vw,48px) 90px}
+.kicker{font:9px ui-monospace,monospace;letter-spacing:.22em;color:var(--gold);text-transform:uppercase}
+h1{font:500 clamp(44px,8vw,86px)/.92 Georgia,serif;letter-spacing:-.055em;margin:12px 0 16px}
+.intro{max-width:660px;color:#c6c3b2;font:italic 16px/1.65 Georgia,serif}
+.workbench{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:18px;margin-top:42px;align-items:start}
+.panel{border:1px solid var(--line);background:linear-gradient(145deg,#1b241ddf,#111612ef);padding:clamp(18px,3vw,28px);box-shadow:8px 10px 0 #0005}
+.panel h2{font:500 27px/1.05 Georgia,serif;margin:0 0 18px}
+.field{display:grid;gap:6px;margin:0 0 15px}.field label{font:9px ui-monospace,monospace;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}.field input[type=checkbox]{width:auto;min-height:auto;accent-color:var(--gold)}
+input,select{width:100%;min-height:44px;border:1px solid #d5c7a444;background:#0b100d;color:var(--paper);padding:10px 12px;border-radius:0;font:14px Georgia,serif}
+.hint{font:11px/1.5 ui-sans-serif,sans-serif;color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+button{min-height:42px;padding:10px 14px;border:1px solid #d9bd8870;background:#d9bd8818;color:var(--paper);font:9px ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+button.primary{background:#d9bd88;color:#171812;border-color:#d9bd88}button.danger{border-color:#b8797966;color:#e5b5aa}button:disabled{opacity:.45;cursor:not-allowed}
+.preview{position:sticky;top:18px;min-height:470px;overflow:hidden;display:grid;grid-template-rows:1fr auto}
+.preview-art{position:relative;min-height:370px;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--c) 22%,transparent),transparent 55%),linear-gradient(145deg,#18241b,#12101a)}
+.preview-art:before,.preview-art:after{content:"";position:absolute;border:1px solid color-mix(in srgb,var(--c) 30%,transparent);border-radius:50%;width:74%;aspect-ratio:1;box-shadow:0 0 0 18px #ffffff05,0 0 0 38px #ffffff03}
+.preview-art:after{width:54%;transform:rotate(28deg) scaleX(.7);border-radius:48% 52% 36% 64%}
+.creature{position:relative;z-index:1;width:min(78%,320px);filter:drop-shadow(0 18px 30px #0009)}
+.creature .wing{fill:var(--b);stroke:var(--c);stroke-width:2}.creature .body{fill:var(--a);stroke:var(--c);stroke-width:2}.creature .face{fill:var(--c)}.creature .eye{fill:#161514}.creature .antenna{stroke:var(--c);stroke-width:4;fill:none;stroke-linecap:round}
+.preview-caption{position:relative;z-index:2;padding:18px 20px;background:#0d120feF;border-top:1px solid var(--line)}
+.preview-caption strong{display:block;font:26px Georgia,serif}.preview-caption span{font:9px ui-monospace,monospace;letter-spacing:.12em;color:var(--muted)}
+.status{min-height:28px;margin-top:12px;color:#c8d6b8;font:12px/1.5 ui-sans-serif,sans-serif}
+.symbols{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.symbol{padding:5px 9px;border:1px solid var(--line);font:10px ui-monospace,monospace;color:var(--gold)}
+.proposal{margin-top:18px;padding:16px;border:1px dashed #d9bd8877;background:#d9bd880b}.proposal[hidden]{display:none}.proposal h3{font:20px Georgia,serif;margin:0 0 8px}.proposal p{font-size:12px;color:var(--muted)}
+.history{margin-top:22px;border-top:1px solid var(--line);padding-top:16px}.history h3{font:18px Georgia,serif;margin:0 0 10px}.history li{font:11px/1.5 ui-monospace,monospace;color:var(--muted);margin:7px 0}
+.boundary{margin-top:34px;padding:18px 20px;border-left:2px solid var(--moss);background:#a1b18c0d;color:#c7c8b6;font-size:12px}
+footer{max-width:1160px;margin:auto;padding:20px 48px 34px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:var(--muted);font:9px ui-monospace,monospace;letter-spacing:.12em}
+@media(max-width:760px){.workbench{grid-template-columns:1fr}.preview{position:relative;top:auto;grid-row:1}.preview-art{min-height:300px}header{align-items:flex-start;flex-direction:column}footer{padding-inline:18px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="../">MIRROR CARTOGRAPHER<small>THE ATLAS / CHARACTER ATELIER</small></a>
+  <nav aria-label="Room navigation"><a href="../">ROOMS</a><a href="../../../">THE COMPANION</a><a href="../../">THE ATLAS</a></nav>
+</header>
+<main>
+  <p class="kicker">A ROOM FOR MAKING, NOT MEASURING</p>
+  <h1>Give a shape<br>its own weather.</h1>
+  <p class="intro">Build a character from a symbol you choose. Change its colors, texture, name, and details by hand. If it gathers a new symbol, the Atelier may suggest an evolution—but nothing changes until you say yes.</p>
+
+  <div class="workbench">
+    <section class="panel" aria-labelledby="design-title">
+      <h2 id="design-title">The workbench</h2>
+      <div class="field"><label for="character-name">Character name</label><input id="character-name" maxlength="80" value="Moth" autocomplete="off"></div>
+      <div class="field"><label for="seed-symbol">First symbol</label><input id="seed-symbol" maxlength="120" value="Lantern" autocomplete="off"><span class="hint">Your chosen starting point. Not a personality test.</span></div>
+      <div class="field"><label for="palette">Color family</label><select id="palette"><option value="ember">Ember · rust / rose / candlelight</option><option value="tide">Tide · deep blue / sea glass</option><option value="glass">Glass · indigo / silver / bone</option><option value="moss">Moss · forest / sage / parchment</option><option value="dusk">Dusk · plum / lilac / warm dusk</option></select></div>
+      <div class="field"><label for="motif">Motif</label><input id="motif" maxlength="80" value="spark"></div>
+      <div class="field"><label for="texture">Texture</label><select id="texture"><option value="soft-grain">Soft grain</option><option value="ink-wash">Ink wash</option><option value="glass-dust">Glass dust</option><option value="moss-velvet">Moss velvet</option><option value="paper-fiber">Paper fiber</option></select></div>
+      <div class="field"><label for="traits">Traits you choose</label><input id="traits" maxlength="400" placeholder="e.g. curious, stubborn, nocturnal"><span class="hint">Optional words you assign. The software never guesses them.</span></div>
+      <div class="field"><label class="toggle" for="suggestions-enabled"><input type="checkbox" id="suggestions-enabled" checked> Allow visual evolution suggestions</label><span class="hint">Turn this off whenever you want. Suggestions never apply themselves.</span></div>
+      <div class="actions"><button class="primary" id="create">MAKE / UPDATE CHARACTER</button><button id="export">EXPORT PROFILE</button><button class="danger" id="erase">ERASE LOCAL PROFILE</button></div>
+      <p class="status" id="status" role="status" aria-live="polite">Nothing has been saved yet. Start by changing the name or symbol.</p>
+      <div class="history"><h3>Collected symbols</h3><div class="symbols" id="symbols"><span class="hint">Your chosen symbols will gather here.</span></div></div>
+      <div class="history"><h3>Possible evolution</h3>
+        <div class="field"><label for="new-symbol">A symbol you want to add</label><input id="new-symbol" maxlength="120" placeholder="Rain, key, moth-wing…"></div>
+        <div class="field"><label for="new-trait">A trait you want to attach (optional)</label><input id="new-trait" maxlength="80" placeholder="A word you choose"></div>
+        <div class="actions"><button id="propose">PROPOSE EVOLUTION</button></div>
+        <div class="proposal" id="proposal" hidden><h3 id="proposal-title">A possible change</h3><p id="proposal-copy"></p><div class="actions"><button class="primary" id="accept">ACCEPT THIS CHANGE</button><button id="reject">LEAVE IT UNCHANGED</button></div></div>
+      </div>
+      <div class="history"><h3>Evolution record</h3><ol id="evolution"><li class="hint">No changes accepted yet.</li></ol></div>
+    </section>
+    <aside class="panel preview" aria-label="Character preview">
+      <div class="preview-art" id="preview-art">
+        <svg class="creature" viewBox="0 0 320 300" role="img" aria-labelledby="creature-title creature-desc">
+          <title id="creature-title">Your character preview</title><desc id="creature-desc">A stylized moth-like character. Its colors change with your selected palette.</desc>
+          <path class="wing" d="M144 130C66 4 7 40 26 130c10 53 62 82 119 69Z"/>
+          <path class="wing" d="M176 130C254 4 313 40 294 130c-10 53-62 82-119 69Z"/>
+          <path class="wing" d="M143 161C72 123 44 181 83 221c22 22 47 18 68 0Z" opacity=".75"/>
+          <path class="wing" d="M177 161c71-38 99 20 60 60-22 22-47 18-68 0Z" opacity=".75"/>
+          <path class="antenna" d="M145 96Q106 28 78 44M175 96q39-68 67-52"/>
+          <ellipse class="face" cx="160" cy="121" rx="45" ry="48"/>
+          <path class="body" d="M115 166q45-24 90 0l30 104q-75 30-150 0Z"/>
+          <ellipse class="eye" cx="145" cy="123" rx="5" ry="8"/><ellipse class="eye" cx="175" cy="123" rx="5" ry="8"/>
+          <path d="M153 143q7 6 14 0" fill="none" stroke="#6a4b4b" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="160" cy="195" r="5" fill="var(--c)"/><circle cx="160" cy="224" r="4" fill="var(--c)"/>
+        </svg>
+      </div>
+      <div class="preview-caption"><strong id="preview-name">Moth</strong><span id="preview-meta">EMBER / SPARK / SOFT GRAIN</span></div>
+    </aside>
+  </div>
+
+  <div class="boundary"><strong>Design boundary.</strong> A character is an expressive artifact, not a psychological profile. No score, diagnosis, personality inference, or hidden emotional classification controls appearance or progression. Your choices stay on this device unless you export them yourself. This room does not upload character profiles or call an outside model.</div>
+</main>
+<footer><span>THE ATELIER / LOCAL FIRST</span><a href="../">BACK TO THE ROOMS ↑</a></footer>
+<script type="module">
+import { createCharacter, customizeCharacter, proposeCharacterEvolution, acceptCharacterEvolution } from './character-engine.mjs';
+const KEY='mc-character-atelier-profile-v1';
+const $=id=>document.getElementById(id);
+const paletteColors={ember:['#38232b','#c66b4e','#e9c28e'],tide:['#142f3a','#4e8790','#c4d8cf'],glass:['#252638','#8c91a8','#e4d9c6'],moss:['#26352b','#71836a','#d6c49c'],dusk:['#30243d','#8a6d91','#d8b9a7']};
+let profile=null,suggestion=null;
+function read(){try{const raw=localStorage.getItem(KEY);if(!raw)return null;const value=JSON.parse(raw);if(value?.schema!=='mc-character'||value?.version!==1||typeof value.id!=='string'||typeof value.name!=='string'||typeof value.seedSymbol!=='string'||!paletteColors[value.appearance?.palette]||!Array.isArray(value.traits)||!Array.isArray(value.collectedSymbols)||!Array.isArray(value.evolution)||!value.controls||typeof value.controls!=='object')return null;return value}catch{return null}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(profile));$('status').textContent='Saved on this device. Nothing was sent to the Network.';return true}catch{$('status').textContent='This browser blocked local storage. Export the profile to keep a copy.';return false}}
+function render(){
+ if(!profile)return;
+ const [a,b,colorC]=paletteColors[profile.appearance.palette];$('preview-art').style.setProperty('--a',a);$('preview-art').style.setProperty('--b',b);$('preview-art').style.setProperty('--c',colorC);
+ $('preview-name').textContent=profile.name;$('preview-meta').textContent=profile.appearance.palette.toUpperCase()+' / '+profile.appearance.motif.toUpperCase()+' / '+profile.appearance.texture.toUpperCase();
+ $('character-name').value=profile.name;$('seed-symbol').value=profile.seedSymbol;$('palette').value=profile.appearance.palette;$('motif').value=profile.appearance.motif;$('texture').value=profile.appearance.texture;$('traits').value=profile.traits.join(', ');$('suggestions-enabled').checked=profile.controls.suggestionsEnabled!==false;
+ const symbols=$('symbols');symbols.replaceChildren();profile.collectedSymbols.forEach(value=>{const span=document.createElement('span');span.className='symbol';span.textContent=value;symbols.append(span)});
+ const history=$('evolution');history.replaceChildren();if(!profile.evolution.length){const li=document.createElement('li');li.textContent='No changes accepted yet.';history.append(li)}else profile.evolution.forEach(item=>{const li=document.createElement('li');li.textContent=item.acceptedAt+' · '+item.symbol+' · '+item.change.palette+'/'+item.change.motif;history.append(li)});
+}
+function createOrUpdate(){
+ const name=$('character-name').value.trim(),seedSymbol=$('seed-symbol').value.trim();
+ if(!name||!seedSymbol){$('status').textContent='Give the character a name and a starting symbol first.';return}
+ if(!profile){const id=globalThis.crypto?.randomUUID?.()||('character-'+Date.now().toString(36));profile=createCharacter({id,name,seedSymbol,palette:$('palette').value})}
+ profile=customizeCharacter(profile,{name,palette:$('palette').value,motif:$('motif').value,texture:$('texture').value,traits:$('traits').value.split(',').map(x=>x.trim()).filter(Boolean),suggestionsEnabled:$('suggestions-enabled').checked});
+ if(!profile.collectedSymbols.includes(seedSymbol)){profile.collectedSymbols.push(seedSymbol);profile.seedSymbol=seedSymbol}
+ suggestion=null;$('proposal').hidden=true;render();save();
+}
+$('create').addEventListener('click',createOrUpdate);
+$('propose').addEventListener('click',()=>{
+ if(!profile){$('status').textContent='Create your character before proposing an evolution.';return}
+ const symbol=$('new-symbol').value.trim();if(!symbol){$('status').textContent='Choose a symbol to propose.';return}
+ suggestion=proposeCharacterEvolution(profile,{symbol,userChosenTrait:$('new-trait').value.trim()});
+ if(!suggestion){$('status').textContent='Suggestions are disabled in this character profile.';return}
+ $('proposal-title').textContent='A possible '+suggestion.suggestion.palette+' evolution';
+ $('proposal-copy').textContent='Add “'+suggestion.symbol+'” and shift the palette to '+suggestion.suggestion.palette+'. This is a proposal only. Your character has not changed.';
+ $('proposal').hidden=false;
+});
+$('accept').addEventListener('click',()=>{
+ if(!profile||!suggestion)return;
+ profile=acceptCharacterEvolution(profile,suggestion);suggestion=null;$('proposal').hidden=true;render();save();
+});
+$('reject').addEventListener('click',()=>{suggestion=null;$('proposal').hidden=true;$('status').textContent='Suggestion rejected. Your character was not changed.'});
+$('export').addEventListener('click',()=>{
+ if(!profile){$('status').textContent='Create a character before exporting.';return}
+ const blob=new Blob([JSON.stringify({format:'mirror-cartographer-character-v1',exportedAt:new Date().toISOString(),profile},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mirror-cartographer-character.json';a.click();URL.revokeObjectURL(url);$('status').textContent='Profile exported. Keep the file somewhere you control.';
+});
+$('erase').addEventListener('click',()=>{if(!confirm('Erase the character profile saved in this browser?'))return;try{localStorage.removeItem(KEY)}catch{}profile=null;suggestion=null;$('proposal').hidden=true;$('symbols').textContent='Your chosen symbols will gather here.';$('evolution').innerHTML='<li class="hint">No changes accepted yet.</li>';$('preview-name').textContent='Unmade';$('preview-meta').textContent='A blank beginning';$('status').textContent='Local profile erased.'});
+profile=read();if(profile){render();$('status').textContent='Your character was restored from this device.'}
+</script>
+</body>
+</html>
