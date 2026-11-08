@@ -2,13 +2,15 @@ name: Publish Mirror Cartographer Living Atlas
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
   pages: write
   id-token: write
 concurrency:
-  group: mirror-cartographer-canonical-pages
+  group: mirror-cartographer-canonical-pages-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   build:
@@ -23,9 +25,9 @@ jobs:
       - run: node --check site/generate-catalog.mjs
       - run: node --check site/validate-catalog.mjs
       - run: node --check site/validate-public-routes.mjs
-      - name: Checkout companion application source
-        run: git clone --depth 1 https://github.com/MirrorCartographer/mirror-cartographer-ui.git ui-repository
-      - name: Generate catalog across both repositories
+      - run: node --check site/companion/atlas/rooms/character-atelier/character-engine.mjs
+      - run: node --test tests/character-atelier-public.test.mjs
+      - name: Generate the public-site catalog from reviewed artifacts
         run: node site/generate-catalog.mjs
       - name: Validate catalog schema, uniqueness, and privacy exclusions
         run: node site/validate-catalog.mjs
@@ -44,6 +46,7 @@ jobs:
         with:
           path: site
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:
