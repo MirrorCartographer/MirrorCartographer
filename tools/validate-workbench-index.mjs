@@ -6,8 +6,14 @@ const ignored = new Set([".git", "node_modules", ".next", "dist", "build", "cove
 const actual = [];
 function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (entry.isDirectory()) { if (!ignored.has(entry.name)) walk(path.join(dir, entry.name)); }
-    else if (entry.isFile() && /\.html?$/i.test(entry.name)) actual.push(path.relative(root, path.join(dir, entry.name)).split(path.sep).join("/"));
+    const child = path.join(dir, entry.name);
+    const relative = path.relative(root, child).split(path.sep).join("/");
+    const isPublicCompanionArtifact = relative === "site/companion" || relative.startsWith("site/companion/");
+    if (entry.isDirectory()) {
+      if (!ignored.has(entry.name) && !isPublicCompanionArtifact) walk(child);
+    } else if (entry.isFile() && /\.html?$/i.test(entry.name) && !isPublicCompanionArtifact) {
+      actual.push(relative);
+    }
   }
 }
 function indexed(file) {
