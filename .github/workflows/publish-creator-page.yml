@@ -1,31 +1,8 @@
-name: Publish creator page
-
+name: Retired creator-only deployment — use canonical Living Atlas publisher
 on:
-  push:
-    branches: [main]
-    paths:
-      - "site/creator/**"
-      - ".github/workflows/publish-creator-page.yml"
   workflow_dispatch:
-
-permissions:
-  contents: write
-
-concurrency:
-  group: creator-page-publish
-  cancel-in-progress: true
-
 jobs:
-  deploy:
+  notice:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Publish creator page to the configured Pages branch
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./site/creator
-          force_orphan: false
-          commit_message: "Publish creator page from ${{ github.sha }}"
+      - run: echo "Creator page is included in site/ and is published with the complete Living Atlas by .github/workflows/publish-mc-atlas.yml. Do not deploy a partial directory to gh-pages."
