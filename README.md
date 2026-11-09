@@ -13,14 +13,13 @@ One question remains:
 
 ## Live experiences — protected links
 
-- **[Mirror Cartographer UI](https://mirror-cartographer-ui-3orp.vercel.app)** — canonical encounter.
-- **[AV Prototype V4](https://mirrorcartographeravprototypev4.vercel.app/#)** — canonical audiovisual prototype.
+- **[Mirror Cartographer — Living Atlas](https://mirrorcartographer.github.io/MirrorCartographer/)** — canonical public encounter, published directly with GitHub Pages.
 
 These are user-confirmed working URLs. Do not replace them with unverified deployment links. The source repositories contain many additional HTML files; their source presence does not establish that each one is deployed or interactive. See [cross-chat work coordination](WORK_COORDINATION.md) for the shared verification and handoff rules.
 
 **Interactive source workbench:** from the repository root, run `python3 -m http.server 8000` and open `http://localhost:8000/workbench.html` to preview, edit, and run any of the indexed HTML designs. The deployable copy is `site/workbench.html`.
 
-## Choose a door
+## Public expeditions\n\n- [Expeditions directory](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/) — all three worlds and their six playable side rooms.\n- [Riddle Arcade](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/riddle-arcade.html) · [Pattern Loom](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/pattern-loom.html)\n- [The Between](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/the-between.html) · [Signal Garden](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/signal-garden.html)\n- [Specimen Garden](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/specimen-garden.html) · [Ecology Lab](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/ecology-lab.html)\n\n## Choose a door
 
 - **[Observatory Field Guide](OBSERVATORY_FIELD_GUIDE.md)** — the map, the vocabulary, the way in.
 - **[Symbolic Language Engine](SYMBOLIC_LANGUAGE_ENGINE.md)** — how symbols become observations, relationships, questions, and discoveries without becoming counterfeit facts.
