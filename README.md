@@ -122,7 +122,7 @@ Mirror Cartographer is not a medical, veterinary, legal, or diagnostic authority
 - [Mirror Cartographer Public Starter v1](agents/mirror-cartographer-public-starter-v1/README.md) — reconstructed assistant instructions, onboarding, prompt library, symbolic schema, safety rules, and acceptance tests.
 - [Download Public Starter v1 ZIP](https://github.com/MirrorCartographer/MirrorCartographer/raw/refs/heads/main/dist/mirror-cartographer-public-starter-v1.zip) — generated from the inspectable source package by GitHub Actions.
 
-- [Recovered Creation Portal v1](https://mirrorcartographer.github.io/mirror-cartographer-ui/creation-portal-v1.html) — a browser-local creative portal prototype with a saved-artifact archive.
+- [Creator page](https://mirrorcartographer.github.io/MirrorCartographer/creator/) — project authorship, capabilities, and the public work.
 
 - [Canvas revision index](evidence/canvas/document-index.json) — privacy-filtered document/code inventory with observed version numbers and message timestamps.
 - [Recovered Core Specification v1](evidence/historical/core-specification-v1-full.md)
@@ -131,11 +131,11 @@ Mirror Cartographer is not a medical, veterinary, legal, or diagnostic authority
 - [Access Implementation Pack v2](evidence/historical/access-implementation-pack-v2.md) — Custom GPT instruction layer, state contract, ontology, reflection logic, user flow, and developer handoff.
 - [Collapse Codex](evidence/historical/collapse-codex-v1.md) — recovered symbolic recursion artifact.
 
-- [Unified Execution Hub](https://mirrorcartographer.github.io/mirror-cartographer-ui/execution-hub.html) — local-first task and evidence dashboard with browser storage and JSON import/export.
+- [Public workbench](https://mirrorcartographer.github.io/MirrorCartographer/workbench.html) — inspect and remix published HTML artifacts in the browser.
 
 - [OpenAI feature chronology](docs/OPENAI_FEATURE_CHRONOLOGY.md) — source-backed public release dates and alternative explanations.
 - [Historical archive recovery audit](docs/HISTORICAL_ARCHIVE_RECOVERY_AUDIT.md) — 256-row inventory, recovered Canvas document events, API integration evidence, and privacy boundaries.
-- [Repository branch and deployment audit](docs/REPOSITORY_BRANCH_AND_DEPLOYMENT_AUDIT.md) — 224 UI branches, 71 research branches, Vercel rate-limit failures, and integration priorities.
+- [Repository branch and deployment audit](docs/REPOSITORY_BRANCH_AND_DEPLOYMENT_AUDIT.md) — historical record of branch and hosting investigations; active publication is GitHub Pages only.
 - [Independent technical review request](docs/INDEPENDENT_REVIEW_REQUEST.md) — review scope and reproducibility protocol.
 - [Privacy-aware archive manifest tool](tools/build_archive_manifest.py) — local SHA-256 inventory generator with default-deny exclusions.
 - [Publication manifest](docs/PUBLICATION_MANIFEST_2026-11-05.md) — commit and blob hashes for the published evidence records.
