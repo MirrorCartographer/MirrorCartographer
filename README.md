@@ -25,6 +25,8 @@ The public encounter is published directly through GitHub Pages from the public 
 - [Riddle Arcade](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/riddle-arcade.html) · [Pattern Loom](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/pattern-loom.html)
 - [The Between](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/the-between.html) · [Signal Garden](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/signal-garden.html)
 - [Specimen Garden](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/specimen-garden.html) · [Ecology Lab](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/ecology-lab.html)
+- Reconnected doors: [Door 13 — Self Cartographer](https://mirrorcartographer.github.io/MirrorCartographer/self-cartographer/) · [Door 14 — Grow a Specimen](https://mirrorcartographer.github.io/MirrorCartographer/grow-a-specimen/) · [Door 15 — Another World](https://mirrorcartographer.github.io/MirrorCartographer/another-world/)
+- [Music Room](https://mirrorcartographer.github.io/MirrorCartographer/companion/atlas/rooms/music/) · [Veteran Hub](https://mirrorcartographer.github.io/MirrorCartographer/companion/atlas/rooms/veterans/hub/)
 
 ## Choose a door
 
