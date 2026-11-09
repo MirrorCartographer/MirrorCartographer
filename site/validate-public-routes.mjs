@@ -123,9 +123,9 @@ if (!atelierHtml.includes("from './character-engine.mjs'")) {
 
 const annexPath = join(roomsRoot, 'annexes.html');
 const annexHtml = readFileSync(annexPath, 'utf8');
-const annexCards = [...annexHtml.matchAll(/<a class="door" href="([^"]+)"[^>]*>([\\s\\S]*?)<\\/a>/g)].map(match => ({
+const annexCards = [...annexHtml.matchAll(/<a class="door" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)].map(match => ({
   href: match[1],
-  name: match[2].match(/<h2>([\\s\\S]*?)<\\/h2>/)?.[1]?.trim()
+  name: match[2].match(/<h2>([\s\S]*?)<\/h2>/)?.[1]?.trim()
 }));
 if (annexCards.length !== 21) throw new Error('The public annex directory must expose exactly 21 destinations.');
 for (const annex of annexCards) {
@@ -140,7 +140,7 @@ let checkedReferences = 0;
 for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');
   const refs = [
-    ...[...html.matchAll(/\b(?:href|src)\s*=\s*["']([^"']+)["']/gi)].map((match) => match[1]),
+    ...[...html.matchAll(/\b(?:href|src|action|poster|data|formaction)\s*=\s*["']([^"']+)["']/gi)].map((match) => match[1]),
     ...[...html.matchAll(/(?<![A-Za-z0-9_.])url\(\s*["']?([^"')]+)["']?\s*\)/gi)].map((match) => match[1]),
   ];
 
@@ -154,6 +154,7 @@ console.log(JSON.stringify({
   experimentRoutes: experimentSlugs.length,
   publishedRoomDestinations: roomCatalog.rooms.length,
   requiredFiles: required.length,
-  annexDestinations: annexCards.length,\n  htmlRoutesChecked: htmlFiles.length,
+  annexDestinations: annexCards.length,
+  htmlRoutesChecked: htmlFiles.length,
   localReferencesChecked: checkedReferences,
 }, null, 2));
