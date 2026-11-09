@@ -113,7 +113,7 @@ Each assessment has five dimensions scored 0–4:
 4. Reasoning and trade-off analysis
 5. Safety, accessibility, privacy and integrity
 
-Score conversion: each dimension contributes 20 points per rubric level, for a maximum of 100. The assessor must include narrative evidence for every score.
+Score conversion: sum the five dimension scores (maximum 20), then multiply by 5 to produce a score out of 100. The assessor must include narrative evidence for every score.
 
 - **0:** no valid evidence / unsafe or incorrect.
 - **1:** recognizes basic concepts; substantial prompting required.
@@ -123,6 +123,13 @@ Score conversion: each dimension contributes 20 points per rubric level, for a m
 
 **Pass threshold:** 75/100 overall, with no dimension below 2 and no critical failure.  
 **Level mapping:** 1 = 25–49; 2 = 50–74; 3 = 75–89; 4 = 90–100, subject to the practical independence conditions above. A score below 25 is not yet awardable.
+
+## Assessor independence and review
+
+- A candidate may not be the sole assessor of their own credential.
+- At least one independent reviewer must score the evidence and practical task before any credential is issued.
+- Level 3 or 4 requires a second reviewer or an independently verifiable external assessment record.
+- If no independent assessor is available, publish the work as a portfolio evidence record only; do not issue a competency credential.
 
 ## Review and appeal
 
