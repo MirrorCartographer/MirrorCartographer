@@ -140,7 +140,7 @@ let checkedReferences = 0;
 for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');
   const refs = [
-    ...[...html.matchAll(/\b(?:href|src|action|poster|data|formaction)\s*=\s*["']([^"']+)["']/gi)].map((match) => match[1]),
+    ...[...html.matchAll(/(?<![-\w])(?:href|src|action|poster|data|formaction)\s*=\s*["']([^"']+)["']/gi)].map((match) => match[1]),
     ...[...html.matchAll(/(?<![A-Za-z0-9_.])url\(\s*["']?([^"')]+)["']?\s*\)/gi)].map((match) => match[1]),
   ];
 
