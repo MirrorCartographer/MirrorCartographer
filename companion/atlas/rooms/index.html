@@ -305,7 +305,7 @@ let intensity=.68,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,
 body.dataset.still=String(paused);const stillControl=document.getElementById('still');stillControl.setAttribute('aria-pressed',String(paused));stillControl.textContent=paused?'Return to motion':'Stillness';
 function setMode(mode){body.dataset.mode=mode;modes.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===mode)));try{localStorage.setItem('mc-experience-mode',mode)}catch{}}
 try{const saved=localStorage.getItem('mc-experience-mode');if(['visual','text','audio','minimal'].includes(saved))setMode(saved)}catch{}
-modes.forEach(b=>b.addEventListener('click',()=>{setMode(b.dataset.mode);if(b.dataset.mode==='audio'&&!sound)document.getElementById('sound').click()}));
+modes.forEach(b=>b.addEventListener('click',()=>{setMode(b.dataset.mode)}));
 function size(){const d=Math.min(devicePixelRatio||1,2);canvas.width=innerWidth*d;canvas.height=innerHeight*d;ctx.setTransform(d,0,0,d,0,0)}addEventListener('resize',size,{passive:true});size();
 function draw(){if(paused)return;t+=.003+intensity*.004;ctx.clearRect(0,0,innerWidth,innerHeight);const w=innerWidth,h=innerHeight;for(let i=0;i<48;i++){const a=i*2.399+t*(i%2?1:-1),r=40+(i%12)*36+Math.sin(t*2+i)*18,x=w*.5+Math.cos(a)*r,y=h*.48+Math.sin(a*.83)*r*.6;ctx.beginPath();ctx.arc(x,y,1+(i%3),0,Math.PI*2);ctx.fillStyle='rgba(197,215,180,'+(.08+intensity*.18)+')';ctx.fill();if(i%4===0){ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(w*.5,h*.48);ctx.strokeStyle='rgba(180,205,180,.045)';ctx.stroke()}}raf=requestAnimationFrame(draw)}
 function start(){cancelAnimationFrame(raf);if(!paused)draw()}start();
