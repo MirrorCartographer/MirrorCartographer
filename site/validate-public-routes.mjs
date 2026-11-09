@@ -53,7 +53,7 @@ function isExternal(value) {
 }
 
 function resolveLocalTarget(file, rawValue) {
-  const value = rawValue.trim();
+  const value = rawValue.trim().replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
   if (!value || value.startsWith('#') || isExternal(value)) return null;
 
   const pathPart = value.split(/[?#]/, 1)[0];
@@ -121,12 +121,20 @@ if (!atelierHtml.includes("from './character-engine.mjs'")) {
   throw new Error('Character Atelier must load its published local engine module.');
 }
 
-const htmlFiles = [
-  ...walk(join(siteRoot, 'experiments')),
-  ...walk(join(siteRoot, 'music')),
-  ...walk(join(siteRoot, 'forest')),
-  ...walk(roomsRoot),
-].filter((file) => extname(file).toLowerCase() === '.html');
+const annexPath = join(roomsRoot, 'annexes.html');
+const annexHtml = readFileSync(annexPath, 'utf8');
+const annexCards = [...annexHtml.matchAll(/<a class="door" href="([^"]+)"[^>]*>([\\s\\S]*?)<\\/a>/g)].map(match => ({
+  href: match[1],
+  name: match[2].match(/<h2>([\\s\\S]*?)<\\/h2>/)?.[1]?.trim()
+}));
+if (annexCards.length !== 21) throw new Error('The public annex directory must expose exactly 21 destinations.');
+for (const annex of annexCards) {
+  if (!annex.name || !resolveLocalTarget(annexPath, annex.href)) {
+    throw new Error('Missing annex name or published destination: ' + JSON.stringify(annex));
+  }
+}
+
+const htmlFiles = walk(siteRoot).filter((file) => extname(file).toLowerCase() === '.html');
 
 let checkedReferences = 0;
 for (const file of htmlFiles) {
@@ -146,6 +154,6 @@ console.log(JSON.stringify({
   experimentRoutes: experimentSlugs.length,
   publishedRoomDestinations: roomCatalog.rooms.length,
   requiredFiles: required.length,
-  htmlRoutesChecked: htmlFiles.length,
+  annexDestinations: annexCards.length,\n  htmlRoutesChecked: htmlFiles.length,
   localReferencesChecked: checkedReferences,
 }, null, 2));
