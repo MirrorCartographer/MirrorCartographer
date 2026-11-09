@@ -19,7 +19,14 @@ The public encounter is published directly through GitHub Pages from the public 
 
 **Interactive source workbench:** from the repository root, run `python3 -m http.server 8000` and open `http://localhost:8000/workbench.html` to preview, edit, and run any of the indexed HTML designs. The deployable copy is `site/workbench.html`.
 
-## Public expeditions\n\n- [Expeditions directory](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/) — all three worlds and their six playable side rooms.\n- [Riddle Arcade](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/riddle-arcade.html) · [Pattern Loom](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/pattern-loom.html)\n- [The Between](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/the-between.html) · [Signal Garden](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/signal-garden.html)\n- [Specimen Garden](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/specimen-garden.html) · [Ecology Lab](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/ecology-lab.html)\n\n## Choose a door
+## Public expeditions
+
+- [Expeditions directory](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/) — all three worlds and their six playable side rooms.
+- [Riddle Arcade](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/riddle-arcade.html) · [Pattern Loom](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/pattern-loom.html)
+- [The Between](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/the-between.html) · [Signal Garden](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/signal-garden.html)
+- [Specimen Garden](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/specimen-garden.html) · [Ecology Lab](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/ecology-lab.html)
+
+## Choose a door
 
 - **[Observatory Field Guide](OBSERVATORY_FIELD_GUIDE.md)** — the map, the vocabulary, the way in.
 - **[Symbolic Language Engine](SYMBOLIC_LANGUAGE_ENGINE.md)** — how symbols become observations, relationships, questions, and discoveries without becoming counterfeit facts.
