@@ -113,8 +113,8 @@
       "href": "./atlas/rooms/music/",
       "visual": "stage lighting; waveform curtains; tactile instrument panels",
       "interaction": "Select and sequence original project audio; inspect track relationships and sound layers.",
-      "status": "existing-destination-needs-audit",
-      "implementation_status": "existing-destination-needs-audit"
+      "status": "live-synth-instrument-published; recorded audio archive inventoried but original binaries are not yet in the public Pages build",
+      "implementation_status": "live-synth-instrument-published; recorded audio archive inventoried but original binaries are not yet in the public Pages build"
     },
     {
       "id": "012",
@@ -143,8 +143,8 @@
       "href": "./atlas/rooms/../../self/",
       "visual": "editable layered self-map; nested regions; movable landmarks",
       "interaction": "Build a map from chosen dimensions; every label remains revisable and user-owned.",
-      "status": "existing-destination-needs-audit",
-      "implementation_status": "existing-destination-needs-audit"
+      "status": "interactive-self-mapping-instrument-published",
+      "implementation_status": "interactive-self-mapping-instrument-published"
     },
     {
       "id": "015",
@@ -153,8 +153,8 @@
       "href": "./atlas/rooms/../../art-machine/",
       "visual": "procedural morphology; cellular patterns; evolving image organisms",
       "interaction": "Change environmental parameters and observe form emerge; save seeds to branch variations.",
-      "status": "existing-destination-needs-audit",
-      "implementation_status": "existing-destination-needs-audit"
+      "status": "interactive-generative-organism-published",
+      "implementation_status": "interactive-generative-organism-published"
     },
     {
       "id": "016",

@@ -168,9 +168,9 @@
       "interaction": "Select and sequence original project audio; inspect track relationships and sound layers.",
       "temporal": "tempo, rests, looping",
       "memory": "playlists and listening position",
-      "implementation_status": "existing-destination-needs-audit",
-      "interaction_status": "design-contract-not-yet-implemented-or-verified",
-      "memory_status": "memory behavior not implemented or verified"
+      "implementation_status": "live-synth-instrument-published; recorded audio archive inventoried but original binaries are not yet in the public Pages build",
+      "interaction_status": "eight-note Web Audio instrument, note sequencing, tempo, voice, reverb-space and volume controls are implemented; recorded audio playlist is pending binary publication; no local file import is offered",
+      "memory_status": "current note pattern is session-local; persistent playlist and listening-position memory are not implemented"
     },
     {
       "id": "012",
@@ -210,9 +210,9 @@
       "interaction": "Build a map from chosen dimensions; every label remains revisable and user-owned.",
       "temporal": "nonlinear revisiting",
       "memory": "private local map and change history",
-      "implementation_status": "existing-destination-needs-audit",
-      "interaction_status": "design-contract-not-yet-implemented-or-verified",
-      "memory_status": "memory behavior not implemented or verified"
+      "implementation_status": "interactive-self-mapping-instrument-published",
+      "interaction_status": "six editable lenses, trace placement, map clearing and export controls are implemented; user-entered map state is local to the browser",
+      "memory_status": "localStorage-backed map state persists in this browser; clear and export controls are provided"
     },
     {
       "id": "015",
@@ -224,9 +224,9 @@
       "interaction": "Change environmental parameters and observe form emerge; save seeds to branch variations.",
       "temporal": "growth, mutation, decay",
       "memory": "seed lineage and selected specimens",
-      "implementation_status": "existing-destination-needs-audit",
-      "interaction_status": "design-contract-not-yet-implemented-or-verified",
-      "memory_status": "memory behavior not implemented or verified"
+      "implementation_status": "interactive-generative-organism-published",
+      "interaction_status": "grow, disturb, adjust-form, save-recipe, recall-last and export-PNG controls are implemented",
+      "memory_status": "localStorage-backed recipe recall is implemented; exported PNG is user-triggered"
     },
     {
       "id": "016",
