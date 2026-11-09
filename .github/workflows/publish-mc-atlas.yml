@@ -42,6 +42,7 @@ jobs:
           cp -R public/forest/. site/forest/
           node site/build-roomway.mjs
           node site/validate-public-routes.mjs
+          node site/validate-expeditions.mjs
       - name: Publish the built site to the configured gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
