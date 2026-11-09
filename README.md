@@ -15,7 +15,7 @@ One question remains:
 
 - **[Mirror Cartographer — Living Atlas](https://mirrorcartographer.github.io/MirrorCartographer/)** — canonical public encounter, published directly with GitHub Pages.
 
-These are user-confirmed working URLs. Do not replace them with unverified deployment links. The source repositories contain many additional HTML files; their source presence does not establish that each one is deployed or interactive. See [cross-chat work coordination](WORK_COORDINATION.md) for the shared verification and handoff rules.
+The public encounter is published directly through GitHub Pages from the public core repository. The companion UI source repository is private and is not used as a public Pages host. The source repositories contain many additional HTML files; their source presence does not establish that each one is deployed or interactive. See [cross-chat work coordination](WORK_COORDINATION.md) for the shared verification and handoff rules.
 
 **Interactive source workbench:** from the repository root, run `python3 -m http.server 8000` and open `http://localhost:8000/workbench.html` to preview, edit, and run any of the indexed HTML designs. The deployable copy is `site/workbench.html`.
 
