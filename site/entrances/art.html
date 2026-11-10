@@ -1,31 +1,97 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#18231d"><title>The Specimen Room — Mirror Cartographer</title>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#e9dfc9">
+<title>Radio Elsewhere — Mirror Cartographer</title>
 <style>
-:root{--paper:#e3dfc9;--ink:#19231d;--moss:#879b6b;--orange:#d76c48;--blue:#7b9da0}*{box-sizing:border-box}body{margin:0;background:#18231d;color:var(--paper);font:14px/1.5 Arial,sans-serif}.top{display:flex;justify-content:space-between;padding:15px 4vw;border-bottom:1px solid #a6b49a55;font:10px ui-monospace,monospace;letter-spacing:.13em}.top a{color:var(--paper);text-decoration:none}main{max-width:1500px;margin:auto;padding:34px 4vw 60px}.head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:25px}.eyebrow{color:#b5c78b;font:10px ui-monospace,monospace;letter-spacing:.17em}.head h1{font:900 clamp(4rem,10vw,9.5rem)/.75 Arial,sans-serif;letter-spacing:-.1em;margin:15px 0 0}.head h1 i{font:italic 400 .9em Georgia;color:#d8a27d}.head p{max-width:300px;color:#c1c9b5}.room{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,.6fr);min-height:590px;border:1px solid #8b9e7b77}.stage{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#52684b,#263a2d 48%,#111b17 80%);min-height:590px}.stage:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#d9e5b00b 1px,transparent 1px),linear-gradient(90deg,#d9e5b00b 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(transparent,#000 15%,#000 85%,transparent)}.stage canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y}.stage-label{position:absolute;top:18px;left:20px;z-index:2;font:9px ui-monospace,monospace;letter-spacing:.16em;color:#d1ddb9;pointer-events:none}.stage-note{position:absolute;bottom:18px;left:20px;z-index:2;color:#d1ddb9;font:9px ui-monospace,monospace;pointer-events:none}.panel{background:#e3dfc9;color:var(--ink);padding:26px;display:flex;flex-direction:column;justify-content:space-between}.panel h2{font:400 35px Georgia;margin:0}.panel p{color:#475247}.specimens{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:20px 0}.specimen{border:1px solid #89917c;background:#d3d5bb;color:var(--ink);min-height:105px;padding:12px;text-align:left;cursor:pointer;position:relative;overflow:hidden}.specimen:hover,.specimen[aria-pressed=true]{background:#c0c99d;border-color:#273b2d}.specimen b{display:block;font:22px Georgia;font-weight:400;position:relative;z-index:1}.specimen small{display:block;font:9px ui-monospace,monospace;margin-top:8px;position:relative;z-index:1}.specimen:after{content:"";position:absolute;width:65px;height:65px;border:1px solid #566b4e;border-radius:50%;right:-15px;top:-15px;box-shadow:0 0 0 9px #566b4e22,0 0 0 19px #566b4e11}.specimen:nth-child(2):after{border-radius:0;transform:rotate(45deg)}.specimen:nth-child(3):after{border-radius:80% 0 80% 0}.specimen:nth-child(4):after{border-style:dashed}.specimen:nth-child(5):after{border-radius:50% 0 50% 0}.specimen:nth-child(6):after{border-radius:4px;transform:rotate(20deg)}.note{border-top:1px solid #9da48d;padding-top:15px;min-height:145px}.note small{font:9px ui-monospace,monospace;letter-spacing:.14em;color:#64734e}.note h3{font:italic 26px Georgia;margin:7px 0}.note p{font-size:13px;margin:0}.tools{display:flex;gap:8px;flex-wrap:wrap}.tools button{border:1px solid #6b785d;background:transparent;color:var(--ink);padding:10px 12px;cursor:pointer;font:9px ui-monospace,monospace;letter-spacing:.08em}.tools button:hover{background:#c4cba9}.foot{display:flex;justify-content:space-between;gap:15px;margin-top:18px;color:#aeb9a3;font:9px ui-monospace,monospace;letter-spacing:.1em}@media(max-width:850px){.room{grid-template-columns:1fr}.stage{min-height:55vh}.panel{min-height:490px}.head{display:block}.head p{max-width:420px}}@media(max-width:560px){main{padding:25px 15px 40px}.top{padding:14px 15px}.stage{min-height:440px}.head h1{font-size:19vw}.foot{flex-direction:column}.panel{padding:20px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
-</style></head><body><header class="top"><a href="./">← THE DOORS</a><a href="../">MIRROR CARTOGRAPHER / ATLAS ↗</a></header><main><section class="head"><div><div class="eyebrow">ROOM 01 / SPECIMENS THAT REFUSE TO SIT STILL</div><h1>The specimen<br><i>room.</i></h1></div><p>Six little systems. No instructions worth trusting. Pick one, disturb it, see what changes. This is a place to play with relationships—not to be told what they mean.</p></section>
-<section class="room"><div class="stage" id="stage"><div class="stage-label">LIVE DISPLAY / TOUCH THE GLASS</div><canvas id="canvas"></canvas><div class="stage-note" id="stageNote">SELECT A SPECIMEN TO WAKE IT UP</div></div><aside class="panel"><div><div class="eyebrow" style="color:#66784f">SPECIMEN INDEX / 06</div><h2>What have we got?</h2><p>Choose a specimen. Then move your finger or mouse through its little ecosystem. Nothing here is being saved or sent.</p><div class="specimens">
-<button class="specimen" data-kind="orbit" aria-pressed="true"><b>Orbit</b><small>GRAVITY / ATTRACTION</small></button>
-<button class="specimen" data-kind="fracture" aria-pressed="false"><b>Fracture</b><small>PRESSURE / CHANGE</small></button>
-<button class="specimen" data-kind="garden" aria-pressed="false"><b>Garden</b><small>GROWTH / COEXISTENCE</small></button>
-<button class="specimen" data-kind="swarm" aria-pressed="false"><b>Swarm</b><small>COLLECTIVE / INDIVIDUAL</small></button>
-<button class="specimen" data-kind="tide" aria-pressed="false"><b>Tide</b><small>RHYTHM / RETURN</small></button>
-<button class="specimen" data-kind="glitch" aria-pressed="false"><b>Glitch</b><small>ERROR / POSSIBILITY</small></button>
-</div></div><div class="note" aria-live="polite"><small id="noteTag">SPECIMEN 01 / ORBIT</small><h3 id="noteTitle">Everything pulls on something.</h3><p id="noteText">A field of tiny bodies changing one another's paths. Move through it. Watch what bends, what escapes, and what keeps coming back.</p></div><div class="tools"><button id="change">CHANGE THE CONDITIONS ↗</button><button id="reset">RESET THE ROOM</button></div></aside></section>
-<div class="foot"><span>NO SCORE. NO WRONG ANSWER. PLEASE DO NOT FEED THE ABSTRACT CONCEPTS.</span><span>LOCAL INTERACTION / EPHEMERAL</span></div></main>
+:root{--paper:#e9dfc9;--ink:#24251f;--red:#b94c37;--green:#526b50;--cream:#f5eddb;--blue:#526b76}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 Georgia,serif}
+a{color:inherit}.top{display:flex;justify-content:space-between;padding:15px 4vw;border-bottom:1px solid #24251f;font:10px/1.4 ui-monospace,monospace;letter-spacing:.12em;text-decoration:none}
+main{max-width:1180px;margin:auto;padding:42px 4vw 70px}.intro{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:26px}
+.kicker,.tiny{font:10px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase}
+h1{font:italic 400 clamp(4rem,10vw,8rem)/.8 Georgia,serif;letter-spacing:-.075em;margin:15px 0 0}
+.intro p{max-width:290px;margin:0 0 5px;color:#57564b}
+.radio{background:#d2b995;border:2px solid var(--ink);border-radius:8px;padding:clamp(16px,3vw,34px);box-shadow:12px 13px 0 #24251f;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;position:relative}
+.radio:before{content:"";position:absolute;inset:8px;border:1px solid #fff6;pointer-events:none;border-radius:4px}
+.face{background:var(--cream);border:2px solid var(--ink);padding:22px;position:relative;min-height:400px;display:flex;flex-direction:column}
+.brand{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #aaa18f;padding-bottom:12px}
+.brand strong{font: bold 12px ui-monospace,monospace;letter-spacing:.12em}
+.brand span{font:9px ui-monospace,monospace}
+.display{margin:auto 0;text-align:center;padding:30px 8px}
+.frequency{font:clamp(3.6rem,8vw,6.8rem)/.9 Georgia,serif;letter-spacing:-.07em;color:var(--green);font-variant-numeric:tabular-nums}
+.station{font:10px ui-monospace,monospace;letter-spacing:.18em;margin-top:13px}
+.wave{height:68px;width:100%;margin-top:20px}
+.wave path{fill:none;stroke:var(--red);stroke-width:2;stroke-linecap:round}
+.dialrow{display:flex;align-items:center;gap:14px;border-top:1px solid #aaa18f;padding-top:17px}
+.knob{width:70px;height:70px;border-radius:50%;border:2px solid var(--ink);background:repeating-conic-gradient(from 0deg,#8c806b 0 2deg,#d2c3a8 2deg 15deg);box-shadow:inset 0 0 0 7px #eee2cc;position:relative;flex:none}
+.knob:after{content:"";position:absolute;width:3px;height:20px;background:var(--red);left:32px;top:5px;transform-origin:50% 30px;transform:rotate(var(--turn,0deg))}
+.dialrow label{display:block;font:9px ui-monospace,monospace;letter-spacing:.1em;margin-bottom:7px}
+input[type=range]{width:100%;accent-color:var(--red)}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+button{font:10px ui-monospace,monospace;letter-spacing:.08em;padding:10px 12px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+button:hover,button:focus-visible{background:var(--ink);color:var(--cream)}
+.listen{background:var(--red);color:#fff8e9;border-color:var(--ink)}
+.right{display:flex;flex-direction:column;justify-content:space-between;padding:8px 4px 4px}
+.right .onair{font:10px ui-monospace,monospace;letter-spacing:.15em;color:#493d30}
+.right h2{font:italic 400 clamp(2rem,4vw,3.5rem)/.98 Georgia,serif;margin:18px 0}
+.right .description{font-size:17px;max-width:370px}
+.quote{border-top:1px solid #65543e;padding-top:18px;margin-top:24px;font:italic 22px/1.25 Georgia,serif;color:#584638}
+.station-list{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:28px}
+.preset{text-align:left;min-height:80px;background:transparent;padding:12px;border:1px solid #8f826e}
+.preset b{display:block;font:italic 18px Georgia;margin-bottom:6px}.preset small{font:9px ui-monospace,monospace;letter-spacing:.08em}
+.preset[aria-pressed=true]{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.footer{display:flex;justify-content:space-between;gap:20px;margin-top:30px;font:9px ui-monospace,monospace;letter-spacing:.1em;color:#5b594e}
+@media(max-width:760px){main{padding:30px 15px 50px}.intro{display:block}.intro p{margin-top:20px}.radio{grid-template-columns:1fr;padding:13px;gap:15px}.face{min-height:370px;padding:16px}.right{padding:15px}.station-list{grid-template-columns:1fr 1fr}.footer{flex-direction:column}.top{padding:14px 15px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style></head>
+<body>
+<header class="top"><a href="./">← THE DOORS</a><a href="../">MIRROR CARTOGRAPHER / ATLAS ↗</a></header>
+<main>
+<section class="intro"><div><div class="kicker">A SMALL TRANSMISSION FROM SOMEWHERE ELSE</div><h1>Radio<br>Elsewhere.</h1></div><p>For the hours when the house is quiet and your brain has opened seventeen tabs. Turn the dial. See what’s coming through.</p></section>
+<section class="radio" aria-label="Interactive imaginary radio">
+<div class="face">
+<div class="brand"><strong>MC / RADIO ELSEWHERE</strong><span>EST. WHENEVER<br>NO. 000.7</span></div>
+<div class="display" aria-live="polite">
+<div class="tiny">NOW RECEIVING</div><div class="frequency" id="freq">88.4</div><div class="station" id="station">THE GREENHOUSE AT 2AM</div>
+<svg class="wave" viewBox="0 0 400 68" role="img" aria-label="A hand-drawn radio signal"><path id="wavePath" d="M0 34 Q25 8 50 34 T100 34 T150 34 T200 34 T250 34 T300 34 T350 34 T400 34"/></svg>
+</div>
+<div class="dialrow"><div class="knob" id="knob" aria-hidden="true"></div><div style="flex:1"><label for="tuner">TUNING / TURN SLOWLY</label><input id="tuner" type="range" min="0" max="7" step="1" value="0"><div class="controls"><button id="scan">SCAN FOR A SIGNAL ↗</button><button id="sound" class="listen" aria-pressed="false">SOUND OFF</button></div></div></div>
+</div>
+<aside class="right"><div><div class="onair">● ON THE AIR / IN YOUR HEAD</div><h2 id="title">The greenhouse at 2am.</h2><p class="description" id="description">Somewhere, a window is open. The plants are doing that quiet plant thing where they look like they know something and have decided not to make it your problem.</p></div><div class="quote" id="quote">“You don't have to turn every feeling into a task.”</div></aside>
+</section>
+<section class="station-list" aria-label="Radio presets">
+<button class="preset" data-station="0" aria-pressed="true"><b>Greenhouse</b><small>88.4 / AFTER HOURS</small></button>
+<button class="preset" data-station="1" aria-pressed="false"><b>Lost & Found</b><small>91.2 / ODD OBJECTS</small></button>
+<button class="preset" data-station="2" aria-pressed="false"><b>Moon Motel</b><small>94.6 / VACANCY</small></button>
+<button class="preset" data-station="3" aria-pressed="false"><b>Ocean Floor</b><small>97.1 / LOW TIDE</small></button>
+<button class="preset" data-station="4" aria-pressed="false"><b>Soft Rebellion</b><small>101.3 / NO REQUESTS</small></button>
+<button class="preset" data-station="5" aria-pressed="false"><b>Weather Inside</b><small>104.8 / LOCAL CONDITIONS</small></button>
+<button class="preset" data-station="6" aria-pressed="false"><b>Unfinished Business</b><small>107.2 / STILL OPEN</small></button>
+<button class="preset" data-station="7" aria-pressed="false"><b>Dead Air</b><small>108.9 / LISTEN ANYWAY</small></button>
+</section>
+<div class="footer"><span>NO TRACKING. NO UPLOADS. JUST A LITTLE MADE-UP FREQUENCY.</span><span>IF YOU HEAR YOUR OWN THOUGHTS, THEY WERE ALREADY THERE.</span></div>
+</main>
 <script>
-(()=>{const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d'),stage=document.getElementById('stage'),$=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;let w=0,h=0,dpr=1,kind='orbit',nodes=[],mouse=null,phase=0,raf=0,active=true,boost=1;
-const info={orbit:['SPECIMEN 01 / ORBIT','Everything pulls on something.','A field of tiny bodies changing one another’s paths. Move through it. Watch what bends, what escapes, and what keeps coming back.'],fracture:['SPECIMEN 02 / FRACTURE','Pressure changes the shape.','Lines hold until they don’t. Drag across the fault and watch a neat arrangement become a different kind of structure.'],garden:['SPECIMEN 03 / GARDEN','Not everything grows the same way.','Some things reach. Some things spread. Some things make room. The field changes when you change where the light falls.'],swarm:['SPECIMEN 04 / SWARM','Together is not the same as identical.','Each point follows a small set of rules. The group makes a shape none of them planned. Interrupt the crowd.'],tide:['SPECIMEN 05 / TIDE','Return is not repetition.','A wave comes back to a changed shore. Move through the current and see how a rhythm absorbs a disturbance.'],glitch:['SPECIMEN 06 / GLITCH','An error is information with bad manners.','The system is trying to be orderly. You are welcome to make that difficult. Look for the strange edge where a rule stops working.']};
-function resize(){let r=stage.getBoundingClientRect();w=r.width;h=r.height;dpr=Math.min(devicePixelRatio||1,2);canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);seed();draw()}
-function seed(){nodes=[];let n=kind==='garden'?72:kind==='swarm'?145:100;for(let i=0;i<n;i++){let a=Math.random()*6.28,rad=Math.random()*Math.min(w,h)*.42;nodes.push({x:w/2+Math.cos(a)*rad,y:h/2+Math.sin(a)*rad,vx:(Math.random()-.5)*1.2,vy:(Math.random()-.5)*1.2,a,rad:rad,phase:Math.random()*6.28,size:Math.random()*2.2+.5})}}
-function draw(){ctx.clearRect(0,0,w,h);let cx=w/2,cy=h/2;phase+=.012;let colors=kind==='fracture'?['#ed986d','#d8c4a1','#a7bac0']:kind==='garden'?['#d6e59a','#a5c99d','#e4bb8a']:kind==='glitch'?['#e2ee73','#ed795e','#9cb9d5']:['#d5e5a0','#9dc3ad','#d8ad86'];ctx.globalAlpha=1;
-for(let i=0;i<nodes.length;i++){let p=nodes[i],dx=0,dy=0;if(kind==='orbit'){let a=p.a+phase*.28,rr=p.rad+Math.sin(phase+p.phase)*18;dx=cx+Math.cos(a)*rr-p.x;dy=cy+Math.sin(a)*rr-p.y}else if(kind==='tide'){dx=0;dy=Math.sin(p.x*.012+phase+p.phase)*.8}else if(kind==='garden'){dx=Math.cos(p.phase+phase*.3)*.4;dy=-.18+Math.sin(p.phase)*.2}else if(kind==='fracture'){dx=Math.sin(p.y*.02+phase)*.4;dy=Math.cos(p.x*.015+phase)*.4}else if(kind==='swarm'){let tx=cx+Math.sin(p.phase+phase*.7)*Math.min(w,h)*.3,ty=cy+Math.cos(p.phase*1.2+p.a)*Math.min(w,h)*.3;dx=(tx-p.x)*.002;dy=(ty-p.y)*.002}else{dx=Math.sin(p.phase*4+phase*2)*1.2;dy=Math.cos(p.phase*3+phase)*.9}
-if(mouse){let mx=p.x-mouse.x,my=p.y-mouse.y,d=Math.hypot(mx,my);if(d<150&&d>1){let f=(1-d/150)*.11*boost;dx+=mx/d*f;dy+=my/d*f}}
-p.vx=(p.vx+dx*.035)*.985;p.vy=(p.vy+dy*.035)*.985;p.x+=p.vx;p.y+=p.vy;if(p.x<-20)p.x=w+20;if(p.x>w+20)p.x=-20;if(p.y<-20)p.y=h+20;if(p.y>h+20)p.y=-20;
-if(kind==='fracture'&&Math.random()<.002){p.x+=Math.random()*60-30;p.y+=Math.random()*60-30}
-ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle=colors[i%colors.length];ctx.globalAlpha=.7;ctx.fill();ctx.globalAlpha=1;
-let max=kind==='swarm'?78:kind==='glitch'?45:65;for(let j=i+1;j<Math.min(i+8,nodes.length);j++){let q=nodes[j],d=Math.hypot(p.x-q.x,p.y-q.y);if(d<max){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=colors[(i+j)%colors.length];ctx.globalAlpha=(1-d/max)*.25;ctx.lineWidth=kind==='glitch'?.9:.6;ctx.stroke();ctx.globalAlpha=1}}}
-if(active&&!reduced)raf=requestAnimationFrame(draw)}
-function select(k){kind=k;document.querySelectorAll('[data-kind]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.kind===k)));let a=info[k];$('noteTag').textContent=a[0];$('noteTitle').textContent=a[1];$('noteText').textContent=a[2];$('stageNote').textContent=k.toUpperCase()+' / LIVE SPECIMEN';seed();if(!active){active=true;draw()}}
-document.querySelectorAll('[data-kind]').forEach(b=>b.onclick=()=>select(b.dataset.kind));canvas.addEventListener('pointermove',e=>{let r=canvas.getBoundingClientRect();mouse={x:e.clientX-r.left,y:e.clientY-r.top}});canvas.addEventListener('pointerleave',()=>mouse=null);canvas.addEventListener('pointerdown',e=>{let r=canvas.getBoundingClientRect();mouse={x:e.clientX-r.left,y:e.clientY-r.top};boost=3;setTimeout(()=>boost=1,300)});$('change').onclick=()=>{boost=kind==='glitch'?5:2.6;setTimeout(()=>boost=1,900);for(let p of nodes){p.vx+=(Math.random()-.5)*4;p.vy+=(Math.random()-.5)*4}};$('reset').onclick=()=>{seed();$('stageNote').textContent='ROOM RESET / '+kind.toUpperCase()};new ResizeObserver(resize).observe(stage);resize();if(reduced)draw();
+(()=>{'use strict';
+const stations=[
+['88.4','THE GREENHOUSE AT 2AM','The greenhouse at 2am.','Somewhere, a window is open. The plants are doing that quiet plant thing where they look like they know something and have decided not to make it your problem.','“You don’t have to turn every feeling into a task.”'],
+['91.2','LOST & FOUND FOR ODD OBJECTS','The lost & found.','A single glove. A key to a door that no longer exists. A receipt for something you absolutely did not buy. Please describe the object. We will make a guess and probably be wrong.','“Not everything misplaced is asking to be recovered.”'],
+['94.6','THE MOON MOTEL / VACANCY','The Moon Motel.','The vacancy sign flickers. The ice machine is full of tiny planets. Someone in room 12 keeps ordering a sunrise and sending it back because the color is off.','“Stay as long as you need. Checkout is theoretical.”'],
+['97.1','BROADCASTING FROM THE OCEAN FLOOR','The ocean floor.','A slow blue hush. Something enormous passes overhead, not interested in your deadlines. The sand keeps a better archive than most institutions.','“You are allowed to be difficult to locate for a while.”'],
+['101.3','SOFT REBELLION / NO REQUESTS','Soft rebellion.','Tonight’s program: refusing to become a more efficient version of a person who was already tired. The playlist is mostly bass, nerve, and excellent timing.','“A boundary is not a customer-service failure.”'],
+['104.8','WEATHER INSIDE / LOCAL CONDITIONS','Weather inside.','Light pressure around the temples. A chance of sudden clarity after a snack and a walk. Winds variable. Do not make major decisions during a dramatic soundtrack.','“Forecasts are not verdicts.”'],
+['107.2','UNFINISHED BUSINESS / OPEN LATE','Unfinished business.','A tiny desk lamp is on in a room at the end of the hall. There are notes everywhere. One of them says: we can make something out of this, but not tonight.','“A pause is not the same thing as a disappearance.”'],
+['108.9','DEAD AIR / PLEASE HOLD','Dead air.','Nothing. Then a chair creaks. Then the sound of someone opening a packet of crisps with the intensity of a demolition crew. We regret to inform you that this is the programme.','“Silence has never once submitted a status report.”']
+];
+const $=id=>document.getElementById(id);let current=0,audio=null,osc=null,gain=null;
+function tune(n){current=Math.max(0,Math.min(7,n));const s=stations[current];$('freq').textContent=s[0];$('station').textContent=s[1];$('title').textContent=s[2];$('description').textContent=s[3];$('quote').textContent=s[4];$('tuner').value=current;$('knob').style.setProperty('--turn',(current/7*250-125)+'deg');document.querySelectorAll('[data-station]').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.station===current)));drawWave()}
+function drawWave(){let d='';for(let x=0;x<=400;x+=4){let y=34+Math.sin(x*.055+current*1.4)*Math.sin(x*.013+1)*((current+1)*1.25);d+=(x?'L':'M')+x+' '+y.toFixed(1)+' '} $('wavePath').setAttribute('d',d)}
+document.querySelectorAll('[data-station]').forEach(b=>b.addEventListener('click',()=>tune(+b.dataset.station)));
+$('tuner').addEventListener('input',e=>tune(+e.target.value));
+$('scan').addEventListener('click',()=>tune((current+1+Math.floor(Math.random()*7))%8));
+function audioOn(){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;if(!audio){audio=new AC();osc=audio.createOscillator();gain=audio.createGain();osc.type='sine';osc.frequency.value=110;gain.gain.value=0;osc.connect(gain).connect(audio.destination);osc.start()}audio.resume();osc.frequency.setTargetAtTime(72+current*19,audio.currentTime,.12);gain.gain.setTargetAtTime(.018,audio.currentTime,.2)}
+$('sound').addEventListener('click',()=>{let on=$('sound').getAttribute('aria-pressed')!=='true';$('sound').setAttribute('aria-pressed',String(on));$('sound').textContent=on?'SOUND ON':'SOUND OFF';if(on)audioOn();else if(gain)gain.gain.setTargetAtTime(0,audio.currentTime,.1)});
+tune(0);
 })();
 </script></body></html>
