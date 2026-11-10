@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101018">
+<meta name="description" content="A provenance-aware history of Mirror Cartographer: its beginnings, investigations, artifacts, revisions, and open questions.">
+<title>The History of Becoming — Mirror Cartographer</title>
+<style>
+:root{color-scheme:dark;--bg:#101018;--panel:#191a22;--ink:#f4ead8;--muted:#c0b5a7;--acid:#c8f238;--pink:#ff5b93;--teal:#35c6bd;--line:#555044;--serif:Georgia,serif;--mono:ui-monospace,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#302035 0,transparent 38rem),radial-gradient(ellipse at 90% 22%,#153d3a 0,transparent 34rem),var(--bg);color:var(--ink);font:15px/1.6 system-ui,sans-serif}
+a{color:var(--acid);text-decoration:none}a:hover{text-decoration:underline}button,input{font:inherit}button{cursor:pointer;color:inherit}
+.shell{max-width:1240px;margin:auto;padding:22px clamp(16px,4vw,48px) 80px}
+.top{display:flex;justify-content:space-between;gap:16px;align-items:center;border-bottom:1px solid #ffffff24;padding-bottom:16px;font:10px var(--mono);letter-spacing:.13em;text-transform:uppercase}
+.top a{color:var(--ink);border:1px solid #ffffff30;padding:9px 13px}
+.hero{padding:clamp(58px,10vw,120px) 0 64px;display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:end}
+.eyebrow{color:var(--acid);font:10px var(--mono);letter-spacing:.2em;text-transform:uppercase}
+h1{font:400 clamp(4rem,10vw,9rem)/.82 var(--serif);letter-spacing:-.075em;margin:20px 0 24px;max-width:8ch}
+h1 em{color:var(--acid);font-weight:400}
+.lede{max-width:650px;color:#e0c9c5;font:italic clamp(1.05rem,2vw,1.35rem)/1.55 var(--serif)}
+.hero-note,.panel{border:1px solid #ffffff27;background:linear-gradient(145deg,#ffffff10,#ffffff04);padding:22px;box-shadow:7px 8px 0 #762f45}
+.hero-note strong{display:block;color:var(--acid);font:11px var(--mono);letter-spacing:.12em;margin-bottom:12px}
+.hero-note p{margin:0;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 60px}
+.stat{border-top:2px solid var(--teal);background:#151821;padding:18px 14px}
+.stat b{display:block;font:clamp(1.8rem,4vw,3rem)/1 var(--serif);color:var(--acid)}
+.stat span{display:block;margin-top:9px;color:var(--muted);font:9px var(--mono);letter-spacing:.09em;text-transform:uppercase}
+.section{padding:54px 0;border-top:1px solid #ffffff24}
+.section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:24px}
+h2{font:400 clamp(2.4rem,5vw,4.8rem)/.95 var(--serif);letter-spacing:-.05em;margin:8px 0}
+.section-head p{max-width:430px;color:var(--muted);font-size:13px}
+.lenses{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+.lens{min-height:130px;text-align:left;border:1px solid #ffffff30;background:#171821;padding:14px;transition:.2s}
+.lens:hover,.lens[aria-pressed=true]{border-color:var(--acid);background:#24252a;transform:translateY(-3px)}
+.lens small{display:block;color:var(--teal);font:9px var(--mono);letter-spacing:.14em}
+.lens b{display:block;font:1.25rem var(--serif);margin:12px 0 5px}
+.lens span{display:block;color:var(--muted);font-size:11px;line-height:1.4}
+#lens-output{margin-top:12px;min-height:108px}
+.timeline{display:grid;gap:12px}
+.event{display:grid;grid-template-columns:150px 1fr;gap:18px;padding:18px;border:1px solid #ffffff24;background:#171821}
+.event time{color:var(--acid);font:10px var(--mono);letter-spacing:.08em}
+.event h3{font:1.5rem var(--serif);margin:0 0 6px}
+.event p{margin:0;color:var(--muted);font-size:13px}
+.tag{display:inline-block;margin:10px 6px 0 0;padding:4px 7px;border:1px solid #ffffff26;color:#d8d0c4;font:9px var(--mono);text-transform:uppercase}
+.tag.established{border-color:#35c6bd;color:#7fe5dc}.tag.inferred{border-color:#e4bc61;color:#e4bc61}.tag.unknown{border-color:#ff5b93;color:#ff9fbd}
+.metadata{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.meta{padding:17px;border:1px solid #ffffff26;background:#151821}
+.meta b{display:block;font:1.6rem var(--serif);color:var(--acid)}
+.meta span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.meta small{display:block;color:#8e9b8d;font:9px var(--mono);margin-top:10px}
+.limits{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.limits article{padding:20px;border:1px solid #ffffff26;background:#171821}
+.limits h3{font:1.5rem var(--serif);margin:0 0 8px}
+.limits p,.limits li{color:var(--muted);font-size:13px}
+.limits ul{padding-left:18px}
+.private{border:1px solid #ff5b93aa;background:linear-gradient(130deg,#2a1824,#171821);padding:22px}
+.private h3{font:2rem var(--serif);margin:0 0 8px}
+.private p{color:#e0c9c5;font-size:13px}
+.private-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.private-links a,.source-link{border:1px solid #ff9fbd77;padding:10px 12px;color:#ffd7e3;font:10px var(--mono)}
+.foot{margin-top:64px;border-top:1px solid #ffffff24;padding-top:20px;color:#9b9b91;font:10px var(--mono);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media(max-width:850px){.hero{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.lenses{grid-template-columns:repeat(2,1fr)}.metadata{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.event{grid-template-columns:1fr;gap:6px}.limits{grid-template-columns:1fr}.metadata{grid-template-columns:1fr}.section-head{display:block}.top{align-items:flex-start;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+</style>
+</head>
+<body><main class="shell">
+<header class="top"><a href="../">← Living Atlas</a><span>OBSERVATORY / HISTORICAL RECONSTRUCTION / v1</span></header>
+<section class="hero">
+<div><p class="eyebrow">A backward map of how this place came to be</p><h1>The History of <em>Becoming.</em></h1><p class="lede">Start at the beginning. Follow what changed, what survived, what was built, and what we still cannot prove. This is not a polished origin myth. It is a working reconstruction with its seams left visible.</p></div>
+<aside class="hero-note"><strong>THE RULE OF THE MAP</strong><p>A conversation is not automatically a decision. A document is not automatically an implementation. A repository file is not proof that something ran. Every connection needs a source, an authorship label, a confidence level, and room for correction.</p></aside>
+</section>
+<section class="stats" aria-label="Recovered archive metadata">
+<div class="stat"><b>337</b><span>conversation objects</span></div>
+<div class="stat"><b>22,166</b><span>message objects counted</span></div>
+<div class="stat"><b>39</b><span>unique Canvas IDs</span></div>
+<div class="stat"><b>133</b><span>distinct ID/version pairs</span></div>
+</section>
+<section class="section" id="lenses"><div class="section-head"><div><p class="eyebrow">01 / CHOOSE A LENS</p><h2>Same history. Different questions.</h2></div><p>These lenses are ways of reading the record, not claims that every conversation has already been tagged or that one interpretation is final.</p></div>
+<div class="lenses" role="group" aria-label="Historical investigation lenses">
+<button class="lens" data-lens="origin" aria-pressed="true"><small>01 / ORIGIN</small><b>What came first?</b><span>Early questions, language, and product intent.</span></button>
+<button class="lens" data-lens="evidence" aria-pressed="false"><small>02 / EVIDENCE</small><b>What survived?</b><span>Files, records, timestamps, source material.</span></button>
+<button class="lens" data-lens="change" aria-pressed="false"><small>03 / CHANGE</small><b>What shifted?</b><span>Revisions, renaming, corrections, forks.</span></button>
+<button class="lens" data-lens="construction" aria-pressed="false"><small>04 / CONSTRUCTION</small><b>What got built?</b><span>Artifacts, code, tests, deployments.</span></button>
+<button class="lens" data-lens="absence" aria-pressed="false"><small>05 / ABSENCE</small><b>What is missing?</b><span>Gaps, inaccessible sources, unresolved claims.</span></button>
+</div><article class="panel" id="lens-output" aria-live="polite"><p class="eyebrow">ORIGIN LENS</p><h3>Begin before the name.</h3><p>The recovered chronology places the precursor conversations before the product label. The product problem—helping a person express experience in their own language and examine it through more than one frame—predates the name Mirror Cartographer.</p></article>
+</section>
+<section class="section" id="timeline"><div class="section-head"><div><p class="eyebrow">02 / RECONSTRUCTED CHRONOLOGY</p><h2>Work backward. Then forward.</h2></div><p>Dates below describe the recovered sources. Where a date is inferred, or where an artifact is only a design, that limitation stays attached.</p></div>
+<div class="timeline">
+<article class="event"><time>2024-08 → 2025-05</time><div><h3>Before the name</h3><p>The earliest recovered conversation export begins August 22, 2024. The precursor material concerns making difficult experience describable, self-understanding, and questions about how people interpret themselves. This is conceptual lineage—not evidence that the software already existed.</p><span class="tag established">archive range observed</span><span class="tag inferred">lineage interpretation</span></div></article>
+<article class="event"><time>2025-05-22</time><div><h3>The cognitive-extension requirement</h3><p>The recovery index attributes to the user a request for AI to help structure feeling and complexity, while preserving the person's own language and adding a factual or opposing perspective. This is a documented product requirement.</p><span class="tag established">conversation-index record</span></div></article>
+<article class="event"><time>2025-05-23</time><div><h3>The product gets its name</h3><p>The assistant proposed “Mirror Cartographer”; the user adopted it. The name came after the underlying interaction concept. Early scope included symbolic self-mapping through color, shape, texture, and metaphor, alongside practical reflection tools.</p><span class="tag established">authorship sequence recorded</span></div></article>
+<article class="event"><time>2025-06 → 2025-07</time><div><h3>Canvas, prototypes, and migration thinking</h3><p>Recovered Canvas metadata identifies 39 unique text-document IDs, 695 metadata events, and 133 distinct ID/version pairs. The records show substantial iteration, but do not prove that every revision body survives or that each design shipped.</p><span class="tag established">metadata counts</span><span class="tag unknown">revision bodies incomplete</span></div></article>
+<article class="event"><time>2026-04-25</time><div><h3>The expanded Atlas</h3><p>A 55-page Atlas omnibus is listed in the recovery inventory, with six volumes covering foundations, engines, visual language, implementation, applications, governance, and appendices. It is a design synthesis, not proof that every described engine runs.</p><span class="tag established">artifact listed in audit</span><span class="tag inferred">design synthesis</span></div></article>
+<article class="event"><time>2026-06 → 2026-07</time><div><h3>From reflection tool to research practice</h3><p>The recovered architecture broadens into provenance, continuity, memory admission, evidence/interpretation boundaries, deterministic validation, replay, and deployment governance. These are documented research and implementation families; each capability still needs its own test and runtime evidence.</p><span class="tag established">repository lineage documented</span></div></article>
+<article class="event"><time>2026-11-05</time><div><h3>The recovery pass</h3><p>Public and private repositories, Library artifacts, and available conversation exports were reconciled into separate public-safe and private indexes. The audit explicitly limits its scope: it is not the entirety of the user's account, devices, or historical workspace.</p><span class="tag established">dated audit</span><span class="tag unknown">archive completeness unresolved</span></div></article>
+</div></section>
+<section class="section" id="metadata"><div class="section-head"><div><p class="eyebrow">03 / THE RECORD'S OTHER METADATA</p><h2>Count the traces, not the mythology.</h2></div><p>These are source-inventory measurements from the recovered private archive index. They describe the export that was inspected, not all conversations ever held.</p></div>
+<div class="metadata">
+<div class="meta"><b>7,850</b><span>user-role message objects</span><small>RECOVERED EXPORT CENSUS</small></div>
+<div class="meta"><b>10,834</b><span>assistant-role message objects</span><small>RECOVERED EXPORT CENSUS</small></div>
+<div class="meta"><b>2,331</b><span>tool-role message objects</span><small>RECOVERED EXPORT CENSUS</small></div>
+<div class="meta"><b>1,151</b><span>system-role message objects</span><small>RECOVERED EXPORT CENSUS</small></div>
+<div class="meta"><b>7,466</b><span>text-bearing user messages</span><small>NON-EMPTY TEXT PARTS</small></div>
+<div class="meta"><b>8,281</b><span>text-bearing assistant messages</span><small>NON-EMPTY TEXT PARTS</small></div>
+<div class="meta"><b>695</b><span>Canvas metadata events</span><small>REPEATS MAY REFER TO SAME VERSION</small></div>
+<div class="meta"><b>38</b><span>created-document events</span><small>38 UNIQUE CREATED DOCUMENT IDS</small></div>
+<div class="meta"><b>29</b><span>project-specific Canvas records indexed</span><small>10 PRIVATE RECORDS EXCLUDED FROM PUBLIC INDEX</small></div>
+<div class="meta"><b>4,694+</b><span>public Observatory tree entries in the Nov 5 snapshot</span><small>GIT TREE ENTRIES, NOT FEATURES</small></div>
+<div class="meta"><b>747</b><span>private C tree entries in the Nov 5 private snapshot</span><small>GIT TREE ENTRIES, NOT FEATURES</small></div>
+<div class="meta"><b>3</b><span>distinct source environments in this reconstruction</span><small>PUBLIC OBSERVATORY / PRIVATE C / PRIVATE J + UI SOURCE</small></div>
+</div>
+</section>
+<section class="section" id="limits"><div class="section-head"><div><p class="eyebrow">04 / EPISTEMIC BOUNDARIES</p><h2>What the archive cannot tell us yet.</h2></div><p>Missing evidence is part of the history. It should remain visible rather than being filled with a persuasive story.</p></div>
+<div class="limits">
+<article><h3>Recovered, not complete</h3><ul><li>The conversation export covers 2024-08-22 through 2025-08-12.</li><li>Canvas metadata is not the same as complete revision bodies.</li><li>Library catalog paths are historical references, not proof that files still exist.</li></ul></article>
+<article><h3>Designed, not necessarily running</h3><ul><li>A specification does not establish an implementation.</li><li>Source code does not establish successful deployment.</li><li>A deterministic test does not establish real model inference or clinical validity.</li></ul></article>
+<article><h3>Authorship is record-specific</h3><ul><li>Some early concepts were user-authored; some names and formulations were assistant-generated.</li><li>Unknown authorship stays unknown.</li><li>Later summaries must not overwrite earlier source wording.</li></ul></article>
+<article><h3>Private means private</h3><ul><li>Raw conversation exports, personal records, health and veterinary material, and credentials are not reproduced here.</li><li>Private source indexes remain in owner-restricted repositories.</li><li>Public counts do not grant public access to private source content.</li></ul></article>
+</div></section>
+<section class="section" id="private"><div class="private"><p class="eyebrow">05 / OWNER-ONLY SHELVES</p><h3>There is more behind the door.</h3><p>The private archive contains the project memory index, append-only records, decision ledger, historical crosswalk, and conversation archive recovery index. These links point to private GitHub files. They require an account with permission; this page does not copy their contents into the public site. Personal and health-related records are kept out of the public history.</p><div class="private-links">
+<a href="https://github.com/MirrorCartographer/c">PRIVATE C / WORKSHOP</a>
+<a href="https://github.com/MirrorCartographer/c/blob/main/memory/README.md">MEMORY INDEX</a>
+<a href="https://github.com/MirrorCartographer/c/blob/main/memory/records.jsonl">PROVENANCE RECORDS</a>
+<a href="https://github.com/MirrorCartographer/c/blob/main/memory/decisions.jsonl">DECISION LEDGER</a>
+<a href="https://github.com/MirrorCartographer/c/blob/main/memory/historical-recovery-crosswalk-2026-11-05.md">PRIVATE RECOVERY CROSSWALK</a>
+<a href="https://github.com/MirrorCartographer/c/blob/main/memory/conversation-archive-recovery-2024-2025.md">CONVERSATION ARCHIVE INDEX</a>
+<a href="https://github.com/MirrorCartographer/J">PRIVATE J / JUDGMENT LAB</a>
+</div></div></section>
+<footer class="foot"><span>MIRROR CARTOGRAPHER / HISTORY OF BECOMING</span><span>RECONSTRUCTION v1 · SOURCE BOUNDARIES PRESERVED</span></footer>
+</main>
+<script>
+const lensData={
+origin:{title:'Begin before the name.',body:'The recovered chronology places the precursor conversations before the product label. The product problem—helping a person express experience in their own language and examine it through more than one frame—predates the name Mirror Cartographer.'},
+evidence:{title:'What actually survived?',body:'The available export contains 337 conversation objects and 22,166 non-null message objects. Canvas metadata records 39 unique text-document IDs and 133 distinct ID/version pairs. These counts are direct observations about the recovered export, not a census of the entire account.'},
+change:{title:'The idea changed shape.',body:'The history moves from symbolic self-mapping toward a broader research and systems practice. The recovery record also corrects authorship: the assistant proposed the product name, the user adopted it, and later assistant-generated scientific-sounding language must remain labeled as speculative.'},
+construction:{title:'Separate plans from working things.',body:'The archive contains real source code, symbolic corpora, tests, prototypes, and published pages. Each still needs its own verification. A code file is not a deployment; a passing contract test is not proof of live behavior.'},
+absence:{title:'The gaps belong on the map.',body:'The raw conversation archive is not public; Canvas revision bodies are incomplete; private source records are access-controlled; and some historical artifact-to-commit mappings remain unresolved. Those are explicit open questions, not empty spaces to fill by inference.'}
+};
+document.querySelectorAll('[data-lens]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-lens]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));const d=lensData[button.dataset.lens];const box=document.getElementById('lens-output');box.innerHTML='<p class="eyebrow">'+button.dataset.lens.toUpperCase()+' LENS</p><h3>'+d.title+'</h3><p>'+d.body+'</p>';}));
+</script>
+</body></html>
