@@ -1,7 +1,7 @@
 # Mirror Cartographer Credential Program
 
 **Program:** MC Credential Program  
-**Version:** 1.0  
+**Version:** 1.1  
 **Status:** Established as a pilot framework; no competency credentials have yet been awarded.  
 **Issuer for internal records:** Mirror Cartographer project  
 **Public project:** https://github.com/MirrorCartographer/MirrorCartographer
@@ -12,8 +12,9 @@ The program turns real project work into inspectable evidence of capability. It 
 
 The program has two separate credential lanes:
 
-1. **Internal Mirror Cartographer credentials** — awarded only after a published assessment is completed and passed. These are project-issued competency records, not accredited or industry certifications.
-2. **External credentials** — awarded only by the named external provider after the candidate completes that provider's requirements. Mirror Cartographer can map project evidence to the provider's syllabus and prepare the candidate, but cannot issue or guarantee those credentials.
+1. **AI-assessed Mirror Cartographer credentials** — awarded after a published rubric is applied to inspectable evidence and candidate responses. These are project-issued credentials and must explicitly disclose the AI assessor and the founder/issuer relationship. They are not accredited or industry certifications.
+2. **Human-reviewed Mirror Cartographer credentials** — an optional additional track with a named human assessor and conflict disclosure.
+3. **External credentials** — awarded only by the named external provider after the candidate completes that provider's requirements. Mirror Cartographer can map project evidence to the provider's syllabus and prepare the candidate, but cannot issue or guarantee those credentials.
 
 ## Internal credential suite
 
@@ -43,10 +44,12 @@ A level is awarded per credential, not globally. No level is assumed from projec
 - Require both a portfolio review and a candidate-performed assessment.
 - Distinguish authored decisions, AI-assisted artifacts, and independently demonstrated skills.
 - Record evidence links, assessor identity, date, rubric scores, limitations, and appeal/retake outcome.
-- A pass requires at least 75/100 overall and no critical failure in safety, privacy, provenance, or assessment integrity.
+- Award thresholds are level-specific: Level 1 (25–49) is formative only; Level 2 (50–74) may be awarded after a guided practical task with no dimension below 1; Level 3 (75–89) requires no dimension below 2 and independent practical completion; Level 4 (90–100) requires no dimension below 3, advanced practical evidence, and a second reviewer. No level overrides a critical failure.
 - For Level 3 or 4, the practical task must be completed independently under documented conditions.
 - Assessors must disclose conflicts of interest. Where possible, a second reviewer validates Level 3/4 decisions.
 - Do not award a credential retroactively from a project description alone.
+
+See [AI-Assessed Credential Policy](AI_ASSESSED_CREDENTIAL_POLICY.md) and [LinkedIn Publishing Guide](LINKEDIN_PUBLISHING_GUIDE.md) for the AI assessor rules and profile publication requirements.
 
 ## Issuance and verification
 
@@ -87,7 +90,7 @@ External registration, exam fees, identity checks, accommodations and issuance a
 
 **Candidate:** project founder / program designer  
 **Portfolio evidence:** project direction, requirements, design decisions, iterative review, and collaborative artifacts are documented in the repository and related project records.  
-**Assessment status:** not yet assessed.  
+**Assessment status:** competency assessments not yet completed; AI assessment is an approved assessor track under policy v1.1.  
 **Credentials awarded under this program:** none.  
 **Next step:** complete the first candidate assessment sequence in `ASSESSMENT_PLAN.md`.
 

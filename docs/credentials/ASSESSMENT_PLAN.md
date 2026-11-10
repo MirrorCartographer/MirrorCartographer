@@ -121,15 +121,31 @@ Score conversion: sum the five dimension scores (maximum 20), then multiply by 5
 - **3:** completes and explains the task independently.
 - **4:** handles complex constraints, evaluates alternatives and improves the system.
 
-**Pass threshold:** 75/100 overall, with no dimension below 2 and no critical failure.  
-**Level mapping:** 1 = 25–49; 2 = 50–74; 3 = 75–89; 4 = 90–100, subject to the practical independence conditions above. A score below 25 is not yet awardable.
+**Award thresholds:**  
+- **Level 1 (25–49):** formative feedback only; no credential is issued.  
+- **Level 2 (50–74):** credential may be issued when no dimension is below 1, a guided practical task is completed, and no critical failure occurs.  
+- **Level 3 (75–89):** credential may be issued when no dimension is below 2 and the candidate independently completes the practical task.  
+- **Level 4 (90–100):** credential may be issued when no dimension is below 3, advanced practical evidence is present, and a second reviewer is recorded.  
+A score below 25 is not awardable. A numerical score never overrides a critical failure or missing required practical evidence.
 
-## Assessor independence and review
+## Assessor model: AI and human tracks
 
-- A candidate may not be the sole assessor of their own credential.
-- At least one independent reviewer must score the evidence and practical task before any credential is issued.
-- Level 3 or 4 requires a second reviewer or an independently verifiable external assessment record.
-- If no independent assessor is available, publish the work as a portfolio evidence record only; do not issue a competency credential.
+Mirror Cartographer accepts AI as an assessor when the assessment record names the AI system and model (when known), records the assessment date and rubric version, links every scored claim to inspectable evidence, and discloses that the AI assessor is not an independent human professional or accrediting body.
+
+Two credential tracks are available:
+
+- **AI-assessed project credential:** an AI reviewer evaluates the submitted portfolio and candidate responses against the published rubric. The credential title and LinkedIn description must say “AI-assessed” and “project-issued.” The record must disclose that the candidate is the project founder and that the project is the issuer. The assessment must include evidence links, dimension scores, rationales, limitations, and a reproducible review prompt/version.
+- **Human-reviewed project credential:** a named human assessor independently evaluates the evidence and practical task, declares conflicts, and signs the decision. A second reviewer is required for Level 4. This track is optional and is not a prerequisite for an AI-assessed credential.
+
+AI assessment is a valid project assessment method, not independent human verification, vendor certification, professional licensure, or accreditation. A credential must never imply otherwise. The AI assessor must not invent candidate actions, infer hands-on programming from project direction, or award practical execution points without direct evidence.
+
+## Review and appeal
+
+- Candidate receives the rubric and task in advance.
+- Assessment records document the evidence set, model/assessor identity, prompt or method version, accommodations, limitations, and date.
+- Candidate may request one reassessment after receiving specific feedback.
+- Candidate may appeal factual errors, unsupported inferences, inaccessible assessment conditions or inconsistent rubric application.
+- Assessment records preserve the original result and any corrected or superseding result.
 
 ## Review and appeal
 
