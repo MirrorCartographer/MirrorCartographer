@@ -42,9 +42,9 @@ async function load(){
  $('status').textContent='Requesting live data from GitHub…';$('stats').innerHTML='';
  try{
   const [r,issues,pulls,commits]=await Promise.all([get(base),get(base+'/issues?state=open&per_page=8'),get(base+'/pulls?state=open&per_page=8'),get(base+'/commits?per_page=6')]);
-  $('stats').innerHTML=[['Stars',r.stargazers_count],['Forks',r.forks_count],['Open issues',r.open_issues_count],['Watchers',r.subscribers_count]].map(([k,v])=>'<div class="stat"><strong>'+Number(v).toLocaleString()+'</strong><span>'+k+'</span></div>').join('');
-  list($('pulls'),pulls,p=>'<div class="item"><a href="'+esc(p.html_url)+'" target="_blank" rel="noopener">#'+p.number+' · '+esc(p.title)+'</a><div>'+esc(p.user?.login)+' · '+new Date(p.updated_at).toLocaleDateString()+'</div></div>','No open pull requests.');
   const onlyIssues=issues.filter(i=>!i.pull_request);
+  $('stats').innerHTML=[['Stars',r.stargazers_count],['Forks',r.forks_count],['Open issues',onlyIssues.length],['Open PRs',pulls.length]].map(([k,v])=>'<div class="stat"><strong>'+Number(v).toLocaleString()+'</strong><span>'+k+'</span></div>').join('');
+  list($('pulls'),pulls,p=>'<div class="item"><a href="'+esc(p.html_url)+'" target="_blank" rel="noopener">#'+p.number+' · '+esc(p.title)+'</a><div>'+esc(p.user?.login)+' · '+new Date(p.updated_at).toLocaleDateString()+'</div></div>','No open pull requests.');
   list($('issues'),onlyIssues,i=>'<div class="item"><a href="'+esc(i.html_url)+'" target="_blank" rel="noopener">#'+i.number+' · '+esc(i.title)+'</a><div>'+esc(i.user?.login)+' · '+new Date(i.updated_at).toLocaleDateString()+'</div></div>','No open issues.');
   list($('commits'),commits,c=>'<div class="item"><a href="'+esc(c.html_url)+'" target="_blank" rel="noopener">'+esc(c.sha.slice(0,7))+' · '+esc(c.commit.message.split('\n')[0])+'</a><div>'+esc(c.commit.author?.name)+' · '+new Date(c.commit.author?.date||Date.now()).toLocaleDateString()+'</div></div>','No recent commits.');
   $('details').innerHTML='<p>'+esc(r.description||'No description')+'</p><p>Default branch: <strong>'+esc(r.default_branch)+'</strong><br>Visibility: '+(r.private?'Private':'Public')+'<br>Created: '+new Date(r.created_at).toLocaleDateString()+'</p><p><a href="'+esc(r.html_url)+'" target="_blank" rel="noopener">Open repository on GitHub ↗</a></p>';

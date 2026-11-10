@@ -43,7 +43,7 @@ A level is awarded per credential, not globally. No level is assumed from projec
 - Require both a portfolio review and a candidate-performed assessment.
 - Distinguish authored decisions, AI-assisted artifacts, and independently demonstrated skills.
 - Record evidence links, assessor identity, date, rubric scores, limitations, and appeal/retake outcome.
-- A pass requires at least 75/100 overall and no critical failure in safety, privacy, provenance, or assessment integrity.
+- Award thresholds are level-specific: Level 2 requires at least 50/100 and no dimension below 1; Level 3 requires at least 75/100 and no dimension below 2; Level 4 requires at least 90/100 and no dimension below 3. Every level requires no critical failure in safety, privacy, provenance, or assessment integrity.
 - For Level 3 or 4, the practical task must be completed independently under documented conditions.
 - Assessors must disclose conflicts of interest. Where possible, a second reviewer validates Level 3/4 decisions.
 - Do not award a credential retroactively from a project description alone.
@@ -63,6 +63,10 @@ An issued record must contain:
 - revocation/correction status.
 
 The pilot may publish a human-readable credential record first. Before claiming Open Badges 3.0 compatibility, the issuer must implement and validate the specification, issuer identity, credential data, proof/signature, status, and verification workflow. A badge image or JSON file alone does not make a credential externally accredited.
+
+## Founder recognition already issued
+
+The project has issued **MC-OR-001 — Founder and Project Originator** as an internal recognition certificate. The [independent assessor worksheet](../../public/credentials/assessor-review.html) is available for a real external reviewer. It is explicitly not an independently assessed competency credential. See [the human-readable record](issued/MC-OR-001-founder-recognition.md) and [printable certificate](../../public/credentials/MC-OR-001.html).
 
 ## External pathway
 

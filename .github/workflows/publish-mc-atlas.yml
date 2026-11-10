@@ -40,6 +40,9 @@ jobs:
           cp -R public/music/. site/music/
           mkdir -p site/forest
           cp -R public/forest/. site/forest/
+          mkdir -p site/tools site/credentials
+          cp -R public/tools/. site/tools/
+          cp -R public/credentials/. site/credentials/
           node site/build-roomway.mjs
           node site/validate-public-routes.mjs
           node site/validate-expeditions.mjs
