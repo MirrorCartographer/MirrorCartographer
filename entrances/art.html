@@ -44,24 +44,58 @@ button:hover,button:focus-visible{background:var(--ink);color:var(--cream)}
 .footer{display:flex;justify-content:space-between;gap:20px;margin-top:30px;font:9px ui-monospace,monospace;letter-spacing:.1em;color:#5b594e}
 @media(max-width:760px){main{padding:30px 15px 50px}.intro{display:block}.intro p{margin-top:20px}.radio{grid-template-columns:1fr;padding:13px;gap:15px}.face{min-height:370px;padding:16px}.right{padding:15px}.station-list{grid-template-columns:1fr 1fr}.footer{flex-direction:column}.top{padding:14px 15px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* THEME SLEEVE: folklore, night radio, hand-painted carnival */
+:root{--paper:#17131e;--ink:#f7e9d8;--red:#ff496f;--green:#c8f238;--cream:#f5dfc8;--blue:#24c6bd}
+body{background-color:#17131e;background-image:radial-gradient(ellipse at 12% 18%,#7e315e66,transparent 34%),radial-gradient(ellipse at 88% 78%,#146e6966,transparent 36%),repeating-linear-gradient(133deg,transparent 0 38px,#ffffff06 39px 40px);color:var(--ink);font-family:Georgia,serif}
+.top{border-color:#f7e9d866;color:#d8c4c0}
+main{max-width:1280px}
+.kicker,.tiny,.brand strong,.brand span,.station,.dialrow label,.controls button,.onair,.preset small,.footer{font-family:ui-monospace,monospace}
+h1{color:#f8d8ca;text-shadow:4px 4px 0 #a82e5c}
+.intro p{color:#e3c8c4;font-size:17px}
+.radio{background:#c9ef42;border:3px solid #f7e9d8;box-shadow:12px 13px 0 #ff496f;border-radius:2px;transform:rotate(-.35deg)}
+.radio:before{border:1px dashed #332235}
+.face{background:#f5dfc8;border:3px solid #2a1727;color:#2a1727;box-shadow:inset 0 0 0 7px #f5dfc8,inset 0 0 0 8px #b95a72}
+.brand{border-color:#b68b88}
+.brand strong{color:#9a2451}
+.frequency{color:#b52d62;text-shadow:2px 2px 0 #c8f238}
+.wave path{stroke:#087e82;stroke-width:3}
+.knob{border-color:#281a2a;background:repeating-conic-gradient(#f04b77 0 3deg,#f7e1cb 3deg 14deg);box-shadow:inset 0 0 0 7px #f4d8c4}
+.knob:after{background:#087e82}
+.dialrow{border-color:#b68b88}
+button{border-color:#2a1727;color:#2a1727}
+button:hover,button:focus-visible{background:#2a1727;color:#f5dfc8}
+.listen{background:#ef3e71;color:#fff5df}
+.right .onair{color:#c8f238}
+.right h2{color:#ffb0c3;text-shadow:2px 2px 0 #6b2d60}
+.right .description{color:#f2d8d0}
+.quote{border-color:#24c6bd;color:#c8f238}
+.preset{border:1px solid #e9b8c2;color:#f5dfc8;background:#2b1b31}
+.preset b{color:#ffb2c5}
+.preset[aria-pressed=true]{background:#c8f238;color:#24172b;border-color:#c8f238}
+.preset[aria-pressed=true] b{color:#24172b}
+.footer{color:#c9b3c2}
+.intro .kicker:before{content:"✷ ";color:#c8f238}
+.radio:after{content:"✷  LIVE FROM THE WEIRD SIDE OF THE WOODS  ✷";position:absolute;right:18px;top:-15px;background:#ff496f;color:#fff2d9;padding:6px 12px;font:9px ui-monospace,monospace;letter-spacing:.13em;transform:rotate(2deg)}
+@media(max-width:760px){.radio{transform:none}.radio:after{right:8px;font-size:8px}.face{min-height:350px}}
 </style></head>
 <body>
 <header class="top"><a href="./">← THE DOORS</a><a href="../">MIRROR CARTOGRAPHER / ATLAS ↗</a></header>
 <main>
-<section class="intro"><div><div class="kicker">A SMALL TRANSMISSION FROM SOMEWHERE ELSE</div><h1>Radio<br>Elsewhere.</h1></div><p>For the hours when the house is quiet and your brain has opened seventeen tabs. Turn the dial. See what’s coming through.</p></section>
+<section class="intro"><div><div class="kicker">ODD FREQUENCIES / FOLKLORE / AFTER-HOURS STATIC</div><h1>Radio<br>Elsewhere.</h1></div><p>Drag the dial past the ordinary. Somewhere between a midnight carnival, a fox story, and the weather rolling over the ridge, there's a station with your name on it.</p></section>
 <section class="radio" aria-label="Interactive imaginary radio">
 <div class="face">
 <div class="brand"><strong>MC / RADIO ELSEWHERE</strong><span>EST. WHENEVER<br>NO. 000.7</span></div>
 <div class="display" aria-live="polite">
-<div class="tiny">NOW RECEIVING</div><div class="frequency" id="freq">88.4</div><div class="station" id="station">THE GREENHOUSE AT 2AM</div>
+<div class="tiny">NOW RECEIVING</div><div class="frequency" id="freq">88.4</div><div class="station" id="station">THE WOODS ARE LISTENING</div>
 <svg class="wave" viewBox="0 0 400 68" role="img" aria-label="A hand-drawn radio signal"><path id="wavePath" d="M0 34 Q25 8 50 34 T100 34 T150 34 T200 34 T250 34 T300 34 T350 34 T400 34"/></svg>
 </div>
 <div class="dialrow"><div class="knob" id="knob" aria-hidden="true"></div><div style="flex:1"><label for="tuner">TUNING / TURN SLOWLY</label><input id="tuner" type="range" min="0" max="7" step="1" value="0"><div class="controls"><button id="scan">SCAN FOR A SIGNAL ↗</button><button id="sound" class="listen" aria-pressed="false">SOUND OFF</button></div></div></div>
 </div>
-<aside class="right"><div><div class="onair">● ON THE AIR / IN YOUR HEAD</div><h2 id="title">The greenhouse at 2am.</h2><p class="description" id="description">Somewhere, a window is open. The plants are doing that quiet plant thing where they look like they know something and have decided not to make it your problem.</p></div><div class="quote" id="quote">“You don't have to turn every feeling into a task.”</div></aside>
+<aside class="right"><div><div class="onair">● ON THE AIR / IN YOUR HEAD</div><h2 id="title">The woods are listening.</h2><p class="description" id="description">The tree line has gone ink-black. Something with too many tails just crossed the road. Bugsy says absolutely not. The radio disagrees.</p></div><div class="quote" id="quote">“You don't have to turn every feeling into a task.”</div></aside>
 </section>
 <section class="station-list" aria-label="Radio presets">
-<button class="preset" data-station="0" aria-pressed="true"><b>Greenhouse</b><small>88.4 / AFTER HOURS</small></button>
+<button class="preset" data-station="0" aria-pressed="true"><b>The Woods</b><small>88.4 / AFTER HOURS</small></button>
 <button class="preset" data-station="1" aria-pressed="false"><b>Lost & Found</b><small>91.2 / ODD OBJECTS</small></button>
 <button class="preset" data-station="2" aria-pressed="false"><b>Moon Motel</b><small>94.6 / VACANCY</small></button>
 <button class="preset" data-station="3" aria-pressed="false"><b>Ocean Floor</b><small>97.1 / LOW TIDE</small></button>
@@ -70,12 +104,12 @@ button:hover,button:focus-visible{background:var(--ink);color:var(--cream)}
 <button class="preset" data-station="6" aria-pressed="false"><b>Unfinished Business</b><small>107.2 / STILL OPEN</small></button>
 <button class="preset" data-station="7" aria-pressed="false"><b>Dead Air</b><small>108.9 / LISTEN ANYWAY</small></button>
 </section>
-<div class="footer"><span>NO TRACKING. NO UPLOADS. JUST A LITTLE MADE-UP FREQUENCY.</span><span>IF YOU HEAR YOUR OWN THOUGHTS, THEY WERE ALREADY THERE.</span></div>
+<div class="footer"><span>NO TRACKING. NO UPLOADS. JUST STRANGE LITTLE FREQUENCIES.</span><span>IF YOU HEAR HOWLING, MIND YOUR BUSINESS.</span></div>
 </main>
 <script>
 (()=>{'use strict';
 const stations=[
-['88.4','THE GREENHOUSE AT 2AM','The greenhouse at 2am.','Somewhere, a window is open. The plants are doing that quiet plant thing where they look like they know something and have decided not to make it your problem.','“You don’t have to turn every feeling into a task.”'],
+['88.4','THE WOODS ARE LISTENING','The greenhouse at 2am.','The tree line has gone ink-black. Something with too many tails just crossed the road. Bugsy says absolutely not. The radio disagrees.','“If the moon wanted privacy, it shouldn't have been so shiny.”'],
 ['91.2','LOST & FOUND FOR ODD OBJECTS','The lost & found.','A single glove. A key to a door that no longer exists. A receipt for something you absolutely did not buy. Please describe the object. We will make a guess and probably be wrong.','“Not everything misplaced is asking to be recovered.”'],
 ['94.6','THE MOON MOTEL / VACANCY','The Moon Motel.','The vacancy sign flickers. The ice machine is full of tiny planets. Someone in room 12 keeps ordering a sunrise and sending it back because the color is off.','“Stay as long as you need. Checkout is theoretical.”'],
 ['97.1','BROADCASTING FROM THE OCEAN FLOOR','The ocean floor.','A slow blue hush. Something enormous passes overhead, not interested in your deadlines. The sand keeps a better archive than most institutions.','“You are allowed to be difficult to locate for a while.”'],
