@@ -1,7 +1,5 @@
 # Mirror Cartographer Internal Recognition
 
-<badge-placeholder>
-
 **Recognition ID:** MC-OR-001  
 **Recipient:** Charity Sturgell  
 **Recognition title:** Founder and Project Originator — Mirror Cartographer  
