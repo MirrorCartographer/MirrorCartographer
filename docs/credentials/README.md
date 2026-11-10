@@ -44,7 +44,7 @@ A level is awarded per credential, not globally. No level is assumed from projec
 - Require both a portfolio review and a candidate-performed assessment.
 - Distinguish authored decisions, AI-assisted artifacts, and independently demonstrated skills.
 - Record evidence links, assessor identity, date, rubric scores, limitations, and appeal/retake outcome.
-- A pass requires at least 75/100 overall and no critical failure in safety, privacy, provenance, or assessment integrity.
+- Award thresholds are level-specific: Level 1 (25–49) is formative only; Level 2 (50–74) may be awarded after a guided practical task with no dimension below 1; Level 3 (75–89) requires no dimension below 2 and independent practical completion; Level 4 (90–100) requires no dimension below 3, advanced practical evidence, and a second reviewer. No level overrides a critical failure.
 - For Level 3 or 4, the practical task must be completed independently under documented conditions.
 - Assessors must disclose conflicts of interest. Where possible, a second reviewer validates Level 3/4 decisions.
 - Do not award a credential retroactively from a project description alone.
