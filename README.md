@@ -28,6 +28,16 @@ The public encounter is published directly through GitHub Pages from the public 
 - Reconnected doors: [Door 13 — Self Cartographer](https://mirrorcartographer.github.io/MirrorCartographer/self-cartographer/) · [Door 14 — Grow a Specimen](https://mirrorcartographer.github.io/MirrorCartographer/grow-a-specimen/) · [Door 15 — Another World](https://mirrorcartographer.github.io/MirrorCartographer/another-world/)
 - [Music Room](https://mirrorcartographer.github.io/MirrorCartographer/companion/atlas/rooms/music/) · [Veteran Hub](https://mirrorcartographer.github.io/MirrorCartographer/companion/atlas/rooms/veterans/hub.html)
 
+
+
+## New public spaces — November 2026
+
+- **[Mind Palace](https://mirrorcartographer.github.io/MirrorCartographer/mind-palace/)** — spatial navigation across the project's chambers; chronology and provenance remain underneath.
+- **[Wordless Sky](https://mirrorcartographer.github.io/MirrorCartographer/wordless-sky/)** — a rebuilt touch-responsive weather and original browser-synthesized sound environment.
+- **[The Story House](https://mirrorcartographer.github.io/MirrorCartographer/stories/)** — long-form narrative, including [The Map That Learned to Open](https://mirrorcartographer.github.io/MirrorCartographer/stories/the-map-that-learned-to-open/), an assistant-side reconstruction with evidence gaps explicitly labeled.
+
+The Mind Palace, Wordless Sky and Story House are public-facing reconstructions. Their source records, detailed provenance and private conversation metadata remain in the private workspace. The assistant-side story is a narrative reconstruction, not a verbatim transcript or a claim of continuous subjective experience.
+
 ## Choose a door
 
 - **[Observatory Field Guide](OBSERVATORY_FIELD_GUIDE.md)** — the map, the vocabulary, the way in.
