@@ -157,3 +157,12 @@ These records distinguish implemented software, source-level evidence, historica
 - Weekly Hub/Creation Portal contract checks: `mirror-cartographer-ui/.github/workflows/execution-hub-contract.yml` (Monday 13:05 UTC).
 
 These workflows are configured to run on GitHub Actions. Their first successful runs remain unverified; they do not access private repositories or local device sandboxes.
+
+
+## Credential program and project tools
+
+- [Mirror Cartographer Credential Program](docs/credentials/README.md) — internal competency standards, assessments, and external pathways.
+- [Founder recognition record](docs/credentials/issued/MC-OR-001-founder-recognition.md) — internal project recognition; not an accredited or independently assessed qualification.
+- [GitHub Field Kit](https://mirrorcartographer.github.io/MirrorCartographer/tools/github-field-kit.html) — read-only public repository explorer using the GitHub REST API.
+- [Integration Uninstaller](https://mirrorcartographer.github.io/MirrorCartographer/tools/integration-uninstaller.html) — guided account-level removal of unwanted GitHub Apps.
+- [Security policy](SECURITY.md) and [authorized research scope](docs/security/RESEARCH_SCOPE.md).
