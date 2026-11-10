@@ -43,6 +43,9 @@ jobs:
           node site/build-roomway.mjs
           node site/validate-public-routes.mjs
           node site/validate-expeditions.mjs
+          cp mc-veterans-event.css site/mc-veterans-event.css
+          cp mc-veterans-event.js site/mc-veterans-event.js
+          node site/apply-veterans-event.mjs
       - name: Publish the built site to the configured gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
