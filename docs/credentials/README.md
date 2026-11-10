@@ -66,7 +66,7 @@ The pilot may publish a human-readable credential record first. Before claiming 
 
 ## Founder recognition already issued
 
-The project has issued **MC-OR-001 — Founder and Project Originator** as an internal recognition record. It is explicitly not an independently assessed competency credential. See [the human-readable record](issued/MC-OR-001-founder-recognition.md) and [printable certificate](../../public/credentials/MC-OR-001.html).
+The project has issued **MC-OR-001 — Founder and Project Originator** as an internal recognition certificate. The [independent assessor worksheet](../../public/credentials/assessor-review.html) is available for a real external reviewer. It is explicitly not an independently assessed competency credential. See [the human-readable record](issued/MC-OR-001-founder-recognition.md) and [printable certificate](../../public/credentials/MC-OR-001.html).
 
 ## External pathway
 
