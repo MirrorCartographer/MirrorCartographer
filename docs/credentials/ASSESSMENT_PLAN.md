@@ -121,8 +121,13 @@ Score conversion: sum the five dimension scores (maximum 20), then multiply by 5
 - **3:** completes and explains the task independently.
 - **4:** handles complex constraints, evaluates alternatives and improves the system.
 
-**Pass threshold:** 75/100 overall, with no dimension below 2 and no critical failure.  
-**Level mapping:** 1 = 25–49; 2 = 50–74; 3 = 75–89; 4 = 90–100, subject to the practical independence conditions above. A score below 25 is not yet awardable.
+**Level mapping and award thresholds:**
+- Level 1 (25–49): formative progress only; no credential is issued.
+- Level 2 (50–74): credential may be awarded with no dimension below 1, guided practical completion, and no critical failure.
+- Level 3 (75–89): credential may be awarded with no dimension below 2 and independent practical completion.
+- Level 4 (90–100): credential may be awarded with no dimension below 3, advanced practical evidence, and a second reviewer.
+
+A score below 25 is not yet awardable. Every credential level requires a real assessor and a recorded decision.
 
 ## Assessor independence and review
 
