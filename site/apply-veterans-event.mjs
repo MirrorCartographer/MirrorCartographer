@@ -1,7 +1,6 @@
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-const root = new URL('./', import.meta.url).pathname;
-const site = join(root, 'site');
+const site = new URL('./', import.meta.url).pathname;
 const css = '<link rel="stylesheet" href="/MirrorCartographer/mc-veterans-event.css">';
 const js = '<script src="/MirrorCartographer/mc-veterans-event.js" defer></script>';
 async function walk(dir) {
