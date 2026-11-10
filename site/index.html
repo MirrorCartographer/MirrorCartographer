@@ -68,11 +68,31 @@ body{background:
 footer{border-color:rgba(200,242,56,.3);color:#d2c0b2}
 @media(max-width:560px){.hero h1{text-shadow:3px 3px 0 #7e294f,6px 6px 0 rgba(0,0,0,.45)}.room{transform:none!important}.rooms{gap:12px}}
 
+
+/* OWNER-SELECTED RELEASE: VETERANS DAY 2026 */
+:root{--void:#0b0d0c;--ink:#e9e3d5;--moss:#b6b99a;--line:#514b3e;--dim:#aaa89a;--glow:rgba(183,153,103,.18)}
+.mc-veterans-ribbon{position:relative;z-index:9;display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 18px;background:linear-gradient(90deg,#171c19,#29271f,#171c19);border-bottom:1px solid #a48b5a66;color:#e9dfc7;text-align:center;font:10px var(--mono);letter-spacing:.12em}
+.mc-veterans-ribbon a{color:#e7c98d;text-decoration:underline;text-underline-offset:3px}
+.mc-veterans-cover{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:22px;background:radial-gradient(ellipse at 50% 42%,#353b31 0,#171b18 48%,#090b0a 100%);transition:opacity .5s ease,visibility .5s ease}
+.mc-veterans-cover[hidden]{display:none}
+.mc-veterans-frame{position:relative;width:min(940px,100%);min-height:min(690px,calc(100svh - 44px));display:flex;flex-direction:column;justify-content:space-between;padding:clamp(25px,6vw,70px);border:1px solid #b7a07855;background:linear-gradient(135deg,#171d19eF,#211f19eF);box-shadow:0 25px 100px #0009;overflow:hidden}
+.mc-veterans-frame:before,.mc-veterans-frame:after{content:"";position:absolute;pointer-events:none;border:1px solid #b8a47726;border-radius:50%;width:70vw;height:70vw;max-width:780px;max-height:780px;right:-24%;top:-42%}
+.mc-veterans-frame:after{width:52vw;height:52vw;right:-14%;top:-29%;border-style:dashed}
+.mc-veterans-kicker{position:relative;z-index:1;color:#c3b18b;font:10px var(--mono);letter-spacing:.24em;text-transform:uppercase}
+.mc-veterans-title{position:relative;z-index:1;margin:clamp(45px,10vh,100px) 0 18px;max-width:780px;font:400 clamp(3.4rem,10vw,8.4rem)/.82 var(--serif);letter-spacing:-.075em;color:#eee6d5}
+.mc-veterans-title i{color:#c2ad7e;font-weight:400}
+.mc-veterans-dek{position:relative;z-index:1;max-width:570px;color:#c2c2b3;font:italic clamp(1rem,2vw,1.4rem)/1.6 var(--serif)}
+.mc-veterans-actions{position:relative;z-index:1;display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.mc-veterans-actions button,.mc-veterans-actions a{border:1px solid #a18c61;background:#24281f;color:#eee4ce;padding:13px 17px;font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.mc-veterans-actions a{background:#c9b487;color:#171a15;border-color:#c9b487}
+.mc-veterans-foot{position:relative;z-index:1;color:#9e9e90;font:9px var(--mono);letter-spacing:.12em}
+@media(max-width:600px){.mc-veterans-frame{min-height:calc(100svh - 44px)}.mc-veterans-title{font-size:clamp(3.4rem,18vw,6rem)}.mc-veterans-ribbon{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.mc-veterans-cover{transition:none}}
 </style></head>
 <body>
 <canvas id="field" aria-hidden="true"></canvas><div class="grain" aria-hidden="true"></div>
-<header class="top"><a class="brand" href="#">MIRROR CARTOGRAPHER<span>FIELD NOTES / 00—∞</span></a><nav class="nav"><a href="#atlas">FIELD</a><a href="#worlds">ROOMS</a><a href="#instruments">INSTRUMENTS</a><a href="./mind-palace/">MIND PALACE</a><a href="./wordless-sky/">WORDLESS SKY</a><a href="./stories/">STORY HOUSE</a><a href="./mind/">THE MIND</a><a href="./history-of-becoming/">HISTORY</a><a href="#library">SHELVES</a><a href="./music/">SOUND</a><a href="./workbench.html">SOURCE / PLAY</a><a href="./expeditions/">EXPEDITIONS</a><a href="./entrances/">CHOOSE YOUR ENTRANCE</a><a href="./creator/">CREATOR</a></nav><button class="sound-state" id="sound-toggle" aria-pressed="false">SOUND OFF</button></header>
-<main>
+<div class="mc-veterans-ribbon"><span>11 NOVEMBER · VETERANS DAY</span><span>—</span><a href="./companion/atlas/rooms/veterans/pathway.html">AFTER THE UNIFORM: FIND A WAY THROUGH ↗</a></div>\n<header class="top"><a class="brand" href="#">MIRROR CARTOGRAPHER<span>FIELD NOTES / 00—∞</span></a><nav class="nav"><a href="#atlas">FIELD</a><a href="#worlds">ROOMS</a><a href="#instruments">INSTRUMENTS</a><a href="./mind-palace/">MIND PALACE</a><a href="./wordless-sky/">WORDLESS SKY</a><a href="./stories/">STORY HOUSE</a><a href="./mind/">THE MIND</a><a href="./history-of-becoming/">HISTORY</a><a href="#library">SHELVES</a><a href="./music/">SOUND</a><a href="./workbench.html">SOURCE / PLAY</a><a href="./expeditions/">EXPEDITIONS</a><a href="./entrances/">CHOOSE YOUR ENTRANCE</a><a href="./creator/">CREATOR</a></nav><button class="sound-state" id="sound-toggle" aria-pressed="false">SOUND OFF</button></header>
+<section class="mc-veterans-cover" id="mc-veterans-cover" aria-label="Veterans Day entrance"><div class="mc-veterans-frame"><div><div class="mc-veterans-kicker">Mirror Cartographer · 11 November 2026</div><h1 class="mc-veterans-title">After<br>the <i>Uniform.</i></h1><p class="mc-veterans-dek">A country that remembers what people carry. The service ends. The person keeps going. This door is for the life that comes after.</p><div class="mc-veterans-actions"><a href="./companion/atlas/rooms/veterans/pathway.html">ENTER AFTER THE UNIFORM ↗</a><button type="button" id="mc-veterans-return">RETURN TO THE WORLD</button></div></div><div class="mc-veterans-foot">NO ONE OWES THIS PLACE A STORY. TAKE WHAT IS USEFUL. LEAVE WHEN YOU WANT.</div></div></section>\n<main>
 <section class="hero wrap">
 <div><p class="eyebrow">A door is already open.</p><h1>The room<br>without <i>instructions.</i></h1><p class="subtle" id="whisper">Somewhere, a small light is waiting for a hand.</p><div class="hero-actions"><a class="pill primary" href="#worlds">WANDER IN ↓</a><a class="pill" href="./entrances/">ART OR ABSURDITY ↗</a><button class="pill" id="surprise">TAKE ME SOMEWHERE ↗</button><button class="pill" id="clear-field">LET THE DUST SETTLE</button></div></div>
 <div class="orbit" id="atlas" aria-label="Interactive constellation. Select a light."><div class="core">TOUCH<br>THE BETWEEN</div><button class="orbit-node active" data-node="echo">ECHO</button><button class="orbit-node" data-node="drift">DRIFT</button><button class="orbit-node" data-node="memory">MEMORY</button><button class="orbit-node" data-node="signal">SIGNAL</button><button class="orbit-node" data-node="bloom">BLOOM</button><button class="orbit-node" data-node="absence">ABSENCE</button></div>
@@ -135,4 +155,4 @@ $('search').addEventListener('input',drawCatalog);$('category').addEventListener
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!['INPUT','SELECT'].includes(document.activeElement.tagName)){e.preventDefault();$('search').focus()}if(e.key==='Escape'){$('erase').click()}});
 window.__MIRROR_CARTOGRAPHER__={version:'2.0.0',rooms:15,trace:addPoint,clear:()=>{$('erase').click()}};
 })();
-</script></body></html>
+</script><script>(()=>{const el=document.getElementById('mc-veterans-cover'),key='mc-veterans-2026-dismissed';if(!el)return;try{if(sessionStorage.getItem(key)==='1')el.hidden=true}catch{}document.getElementById('mc-veterans-return')?.addEventListener('click',()=>{el.hidden=true;try{sessionStorage.setItem(key,'1')}catch{}});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!el.hidden){el.hidden=true;try{sessionStorage.setItem(key,'1')}catch{}}});})();</script></body></html>
