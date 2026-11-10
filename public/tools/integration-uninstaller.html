@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Integration Uninstaller — Mirror Cartographer</title>
+<style>
+:root{color-scheme:dark;--bg:#111411;--panel:#1b211c;--line:#3a493b;--ink:#e9eee5;--muted:#aab7a6;--accent:#b9d79b;--warn:#e6c58c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,sans-serif}main{max-width:760px;margin:40px auto;padding:0 18px}h1{font-size:clamp(2rem,6vw,3rem);line-height:1.05}p,li{color:var(--muted)}a{color:var(--accent)}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:18px 0}.action{display:inline-block;background:var(--accent);color:#172016;text-decoration:none;padding:12px 16px;border-radius:10px;font-weight:750;margin:8px 0}.warn{border-left:4px solid var(--warn);padding:10px 14px;background:#282419}.step{padding:12px 0;border-bottom:1px solid var(--line)}.step:last-child{border:0}label{display:flex;gap:10px;align-items:flex-start;margin:10px 0;color:var(--ink)}input{margin-top:6px}
+</style></head>
+<body><main>
+<p><a href="../index.html">← Mirror Cartographer</a></p>
+<p style="letter-spacing:.15em;text-transform:uppercase;color:var(--accent)">Account maintenance</p>
+<h1>Integration Uninstaller</h1>
+<p>Use this page to remove unwanted Vercel or Netlify GitHub integrations. The final uninstall must be confirmed by an account owner in GitHub. This tool does not request or store credentials.</p>
+<section class="panel">
+<h2>Open GitHub's installed-app settings</h2>
+<p>Review the app names and repository access before removing anything.</p>
+<a class="action" href="https://github.com/settings/installations" target="_blank" rel="noopener">Open GitHub App installations ↗</a>
+<div class="warn"><strong>Do not remove the GitHub integration used by your current ChatGPT connection</strong> unless you intentionally want to revoke that access too. Remove only the provider apps you have identified as unwanted.</div>
+</section>
+<section class="panel"><h2>Uninstall checklist</h2>
+<div class="step"><label><input type="checkbox"> I located the Vercel app and confirmed its identity.</label><ol><li>Open its configuration.</li><li>Review selected repositories.</li><li>Choose Uninstall and confirm.</li></ol></div>
+<div class="step"><label><input type="checkbox"> I located the Netlify app and confirmed its identity.</label><ol><li>Open its configuration.</li><li>Review selected repositories.</li><li>Choose Uninstall and confirm.</li></ol></div>
+<div class="step"><label><input type="checkbox"> I reviewed provider-side connections.</label><p><a href="https://vercel.com/account" target="_blank" rel="noopener">Vercel account settings ↗</a> · <a href="https://app.netlify.com/user/applications" target="_blank" rel="noopener">Netlify applications ↗</a></p></div>
+<div class="step"><label><input type="checkbox"> I checked a fresh pull request to confirm no new Vercel or Netlify status checks appear.</label></div>
+</section>
+<section class="panel"><h2>Why this is a guided uninstall</h2><p>GitHub's API for uninstalling an app requires a JWT belonging to that specific GitHub App. A repository token cannot revoke a different provider's installation. The safe action is to send the account owner to GitHub's authenticated settings UI and let them confirm the exact app.</p><p>Reference: <a href="https://docs.github.com/en/rest/apps/apps#delete-an-installation-for-the-authenticated-app" target="_blank" rel="noopener">GitHub's uninstall API requirements ↗</a>.</p></section>
+</main></body></html>
