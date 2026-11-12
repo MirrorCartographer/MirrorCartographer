@@ -251,6 +251,34 @@
         "Research instrument, not a diagnostic or treatment system.",
         "No clinical integration or validation established."
       ]
+    },
+    {
+      "id": "business-value-engine",
+      "name": "Business Value Engine",
+      "repository": "MirrorCartographer/MirrorCartographer",
+      "role": "Discover valuable problems, compose engine capabilities into deliverables, validate outcomes, model delivery economics and guide reinvestment",
+      "capabilities": [
+        "business.discover_opportunity",
+        "business.compose_service",
+        "business.validate_value",
+        "business.model_unit_economics",
+        "business.plan_reinvestment"
+      ],
+      "status": "planned_not_implemented",
+      "adapter": {
+        "kind": "orchestration-module",
+        "state": "not_implemented"
+      },
+      "dependencies": [
+        "free-2",
+        "human-judgment-lab"
+      ],
+      "evidence": "Historical Tech Growth Strategy recovery and Engine Mesh business lifecycle; no executable opportunity or pricing engine is established.",
+      "limits": [
+        "A proposed opportunity is not customer demand.",
+        "No revenue or willingness-to-pay claim without buyer validation.",
+        "Do not monetize private records or sensitive inferences."
+      ]
     }
   ],
   "routing_rules": [
