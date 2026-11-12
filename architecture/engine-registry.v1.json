@@ -1,0 +1,266 @@
+{
+  "schema": "mc.engine-registry.v1",
+  "version": "1.0.0",
+  "updated_at": "2026-11-11",
+  "contract": {
+    "request_schema": "mc.engine-request.v1",
+    "result_schema": "mc.engine-result.v1",
+    "required_request_fields": [
+      "request_id",
+      "created_at",
+      "requested_capability",
+      "purpose",
+      "actor",
+      "inputs",
+      "permissions",
+      "constraints",
+      "provenance_refs"
+    ],
+    "required_result_fields": [
+      "request_id",
+      "engine_id",
+      "engine_version",
+      "status",
+      "outputs",
+      "provenance_refs",
+      "limitations",
+      "review_state"
+    ],
+    "result_statuses": [
+      "completed",
+      "needs_review",
+      "blocked",
+      "failed",
+      "not_configured"
+    ],
+    "review_states": [
+      "unreviewed",
+      "human_reviewed",
+      "rejected"
+    ]
+  },
+  "engines": [
+    {
+      "id": "living-atlas-ui",
+      "name": "Living Atlas / UI",
+      "repository": "MirrorCartographer/MirrorCartographer and MirrorCartographer/mirror-cartographer-ui",
+      "role": "Human-facing experiences, rooms, navigation and controls",
+      "capabilities": [
+        "experience.render",
+        "experience.navigate",
+        "experience.collect_explicit_input"
+      ],
+      "status": "source_and_release_evidence",
+      "adapter": {
+        "kind": "web-ui",
+        "state": "implemented"
+      },
+      "dependencies": [],
+      "evidence": "Public core README and private UI project completion map; route-level current checks remain necessary.",
+      "limits": [
+        "A route existing in source does not prove it is deployed or functional."
+      ]
+    },
+    {
+      "id": "mc-network",
+      "name": "Mirror Cartographer Network",
+      "repository": "MirrorCartographer/mirror-cartographer-ui and MirrorCartographer/c",
+      "role": "Owner-scoped identity, shared-world services and provenance API",
+      "capabilities": [
+        "provenance.read",
+        "provenance.write",
+        "provenance.link",
+        "provenance.contradiction",
+        "provenance.output_receipt"
+      ],
+      "status": "implemented_deployment_unverified",
+      "adapter": {
+        "kind": "authenticated-http",
+        "state": "client_and_server_source"
+      },
+      "dependencies": [],
+      "evidence": "MirrorNetworkClient and documented provenance API actions; production availability not verified in this review.",
+      "limits": [
+        "Bearer token required.",
+        "No silent synchronization.",
+        "Only explicitly approved records may be synchronized."
+      ]
+    },
+    {
+      "id": "lyr",
+      "name": "LYR",
+      "repository": "MirrorCartographer/c",
+      "role": "Language and symbolic interpretation with provider routing",
+      "capabilities": [
+        "language.transform",
+        "language.reflect",
+        "language.summarize"
+      ],
+      "status": "implemented_unverified",
+      "adapter": {
+        "kind": "node-cli-provider-adapter",
+        "state": "implemented"
+      },
+      "dependencies": [
+        "mc-network"
+      ],
+      "evidence": "tools/ask.mjs supports local Ollama and compatible remote providers, optional local retrieval and optional Network retrieval.",
+      "limits": [
+        "No verified trained LYR checkpoint.",
+        "CLI bridge is not the website conversation runtime.",
+        "Provider calls may incur separate charges."
+      ]
+    },
+    {
+      "id": "free-2",
+      "name": "FREE 2.0",
+      "repository": "MirrorCartographer/MirrorCartographer",
+      "role": "Proposal registration, consequence mapping, integrity gates and human-review decisions",
+      "capabilities": [
+        "decision.register",
+        "decision.map_consequences",
+        "decision.gate",
+        "decision.audit_export"
+      ],
+      "status": "implemented_local",
+      "adapter": {
+        "kind": "python-library",
+        "state": "implemented_no_service_adapter"
+      },
+      "dependencies": [],
+      "evidence": "tools/free_engine/free_engine.py and architecture/FREE_2_SPEC.md.",
+      "limits": [
+        "Not an ethics oracle.",
+        "Cannot authorize high-impact decisions.",
+        "Requires accountable human review."
+      ]
+    },
+    {
+      "id": "mirror-engine",
+      "name": "Mirror Engine",
+      "repository": "MirrorCartographer/MirrorCartographer",
+      "role": "Evidence records, links, contradictions and model-output receipts",
+      "capabilities": [
+        "provenance.local_record",
+        "provenance.local_link",
+        "provenance.local_contradiction",
+        "provenance.local_output_receipt",
+        "provenance.export"
+      ],
+      "status": "implemented_local_prototype",
+      "adapter": {
+        "kind": "python-sqlite",
+        "state": "implemented_no_network_service"
+      },
+      "dependencies": [],
+      "evidence": "mirror_engine/store.py.",
+      "limits": [
+        "SQLite store is not encrypted at rest.",
+        "Do not store sensitive personal data.",
+        "Network synchronization is a separate explicit operation."
+      ]
+    },
+    {
+      "id": "relationship-engine",
+      "name": "Relationship Engine",
+      "repository": "MirrorCartographer/MirrorCartographer",
+      "role": "Rank candidate structural bridges for human inspection",
+      "capabilities": [
+        "research.rank_candidate_bridges"
+      ],
+      "status": "implemented_tested_narrow_scope",
+      "adapter": {
+        "kind": "javascript-module",
+        "state": "implemented"
+      },
+      "dependencies": [],
+      "evidence": "tools/relationship-engine/relationship-engine.mjs and linked demonstration catalogue.",
+      "limits": [
+        "Candidate topology is not proof of causation.",
+        "Not a general autonomous ARC service."
+      ]
+    },
+    {
+      "id": "human-judgment-lab",
+      "name": "Human Judgment Lab",
+      "repository": "MirrorCartographer/J",
+      "role": "Rubric design, calibration, reliability and evaluation operations",
+      "capabilities": [
+        "evaluation.design_rubric",
+        "evaluation.run_synthetic_experiment",
+        "evaluation.analyze_ratings",
+        "evaluation.export_packet"
+      ],
+      "status": "implemented_synthetic_only",
+      "adapter": {
+        "kind": "standalone-web-lab-and-export",
+        "state": "implemented_preview_first_handoff"
+      },
+      "dependencies": [],
+      "evidence": "J README, recovery index, evaluation program and Consensus Trap experiment.",
+      "limits": [
+        "Synthetic results are not field evidence.",
+        "No empirical human-rater study is established.",
+        "Agreement is not validity."
+      ]
+    },
+    {
+      "id": "compute-mesh",
+      "name": "Compute Mesh",
+      "repository": "MirrorCartographer/c",
+      "role": "Bounded workers, node identity, signed manifests/receipts and resource limits",
+      "capabilities": [
+        "compute.register_node",
+        "compute.verify_manifest",
+        "compute.run_bounded_job",
+        "compute.emit_receipt"
+      ],
+      "status": "code_only_integration_incomplete",
+      "adapter": {
+        "kind": "worker_protocol",
+        "state": "partial"
+      },
+      "dependencies": [
+        "mc-network"
+      ],
+      "evidence": "Private-workspace implementation; prior local report recorded 14/14 tests passing.",
+      "limits": [
+        "Enrollment, multi-device communication, recovery and production deployment remain incomplete."
+      ]
+    },
+    {
+      "id": "neurology-research",
+      "name": "Neurology Research Engine",
+      "repository": "MirrorCartographer/c",
+      "role": "Local evidence-aware neurological research provenance workflow",
+      "capabilities": [
+        "domain.neurology.record",
+        "domain.neurology.link",
+        "domain.neurology.export"
+      ],
+      "status": "implemented_local_research_prototype",
+      "adapter": {
+        "kind": "javascript-module",
+        "state": "local_tests_documented"
+      },
+      "dependencies": [
+        "mirror-engine"
+      ],
+      "evidence": "neurology/engine.mjs, neurology/ui.mjs and tests/neurology-engine.test.mjs.",
+      "limits": [
+        "Research instrument, not a diagnostic or treatment system.",
+        "No clinical integration or validation established."
+      ]
+    }
+  ],
+  "routing_rules": [
+    "Route by declared capability and explicit user purpose.",
+    "Check permissions and data classification before retrieving or transmitting inputs.",
+    "Pass the smallest required payload; prefer provenance references over raw archives.",
+    "Preserve engine identity, version, limitations and review state in every result.",
+    "Store model outputs as unreviewed until an authorized human reviews them.",
+    "Require FREE review and authorized human decision-making for consequential proposals.",
+    "Use Human Judgment Lab evaluation independently; engines must not self-certify their own quality.",
+    "Fail closed when an adapter, permission, credential, schema or resource limit is missing."
+  ]
+}
