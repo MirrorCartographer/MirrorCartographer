@@ -28,6 +28,7 @@ A request may use one engine or a sequence. The orchestrator selects engines by 
 | Human Judgment Lab | Rubric design, calibration, agreement, reliability and evaluation operations | Interactive lab and reproducible synthetic Consensus Trap experiment | Executable research environment; synthetic evidence only, no field validation |
 | Compute Mesh | Bounded workers, node identity, signed manifests/receipts, resource limits and execution | Private-workspace implementation and reported local test results | Code exists; enrollment, multi-device communication, recovery and production deployment remain incomplete |
 | Domain research engines | Specialized workflows such as neurological evidence/provenance analysis | Local neurology engine and tests in the private workshop | Research prototype; not a clinical system or medical-device workflow |
+| Business Value Engine | Opportunity discovery, service design, pricing, unit economics, funding fit and reinvestment | The business architecture and historical Tech Growth Strategy define the method | Design layer only; no executable opportunity/pricing engine yet |
 
 The machine-readable registry is `engine-registry.v1.json`. It deliberately distinguishes implemented code, local tests, deployment verification, and planned connections.
 
@@ -91,7 +92,19 @@ Results are stored as unreviewed provenance records unless an authorized human e
 9. **Reversibility and audit.** Mutations need an actor, timestamp, reason, prior state and recovery path.
 10. **Data minimization.** Pass references and the smallest required payload, not entire archives or unrelated personal records.
 
-## 6. Business architecture: how the system sustains the free world
+## 6. Business Value Engine: how the system sustains the free world
+
+This is the business-building method we developed: inspect the whole environment, identify valuable unmet needs, combine existing capabilities, design a deliverable, measure its value and delivery cost, then reinvest the surplus. It is a proposed orchestration capability, not a software engine that currently runs by itself.
+
+Its lifecycle is:
+
+1. **Discover** — map real problems, affected people, current workarounds and existing resources.
+2. **Compose** — select engines and partners that can solve a bounded part of the problem.
+3. **Validate** — test whether the result improves a measurable outcome; preserve uncertainty and negative results.
+4. **Package** — define the buyer, deliverable, scope, service boundary, price and support obligation.
+5. **Deliver** — execute with permissions, named owners, evidence and human review.
+6. **Measure** — calculate value delivered, cost to serve, quality, repeatability and risks.
+7. **Reinvest** — direct a defined share of earned revenue or grant funding into the free public layer and the next validated capability.
 
 The public creative and learning experience can remain free. The revenue-bearing layer should sell institutional capability, not access to a person's inner life.
 
