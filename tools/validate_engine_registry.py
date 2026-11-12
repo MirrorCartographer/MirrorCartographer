@@ -16,11 +16,12 @@ ALLOWED_STATUS = {
     "implemented_synthetic_only",
     "code_only_integration_incomplete",
     "implemented_local_research_prototype",
+    "planned_not_implemented",
 }
 ALLOWED_ADAPTER_STATES = {
     "implemented", "client_and_server_source", "implemented_no_service_adapter",
     "implemented_no_network_service", "implemented_preview_first_handoff",
-    "partial", "local_tests_documented"
+    "partial", "local_tests_documented", "not_implemented"
 }
 
 def main() -> int:
