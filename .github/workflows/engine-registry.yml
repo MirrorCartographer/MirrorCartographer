@@ -1,0 +1,28 @@
+name: Engine registry validation
+
+on:
+  pull_request:
+    paths:
+      - "architecture/engine-registry.v1.json"
+      - "tools/validate_engine_registry.py"
+      - ".github/workflows/engine-registry.yml"
+  push:
+    branches: [main]
+    paths:
+      - "architecture/engine-registry.v1.json"
+      - "tools/validate_engine_registry.py"
+      - ".github/workflows/engine-registry.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Validate engine registry
+        run: python tools/validate_engine_registry.py
