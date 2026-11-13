@@ -218,7 +218,7 @@ function buildPanels(){
 function install(){
  buildPanels();refreshHistory();health();validateSession();
  const save=$('save');if(save)save.addEventListener('click',()=>setTimeout(refreshHistory,0));
- const list=$('savedList');if(list){list.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.textContent!=='DELETE')return;const row=b.closest('.saved-item');const id=row?.dataset.mapId;if(id){const t=new Set(tombstones());t.add(id);write(TOMBSTONES,[...t])}},true);new MutationObserver(refreshHistory).observe(list,{childList:true,subtree:true})}
+ const list=$('savedList');if(list){list.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.textContent!=='DELETE')return;const row=b.closest('.saved-item');const id=row?.dataset.mapId;if(id){const t=new Set(tombstones());t.add(id);write(TOMBSTONES,[...t])}},false);new MutationObserver(refreshHistory).observe(list,{childList:true,subtree:true})}
  window.addEventListener('storage',e=>{if([LOCAL,TOMBSTONES].includes(e.key))refreshHistory()});
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install);else install();
