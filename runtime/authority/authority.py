@@ -52,9 +52,10 @@ def load_grant(path: str | Path | None = None) -> dict[str, Any]:
     return data
 
 
-def _within_scope(resource: str, prefixes: list[str]) -> bool:
+def _within_scope(resource: str, prefixes: list[str], exact_resources: list[str] | None = None) -> bool:
     normalized = resource.replace("\\", "/").lstrip("/")
-    return any(normalized.startswith(prefix) for prefix in prefixes)
+    exact_resources = exact_resources or []
+    return normalized in exact_resources or any(normalized.startswith(prefix) for prefix in prefixes)
 
 
 def evaluate(request: ActionRequest, grant: dict[str, Any] | None = None) -> AuthorityDecision:
@@ -70,7 +71,7 @@ def evaluate(request: ActionRequest, grant: dict[str, Any] | None = None) -> Aut
         return decision("blocked", "Actor is not the delegated authority.")
     if request.capability not in policy["capabilities"]:
         return decision("approval_required", "Capability is outside the owner's delegated grant.")
-    if not _within_scope(request.resource, policy["resource_prefixes"]):
+    if not _within_scope(request.resource, policy["resource_prefixes"], policy.get("resource_exact", [])):
         return decision("approval_required", "Resource is outside the delegated project scope.")
     if request.data_classification in policy["blocked_data_classes"]:
         return decision("approval_required", "This data class is excluded from autonomous access.")
