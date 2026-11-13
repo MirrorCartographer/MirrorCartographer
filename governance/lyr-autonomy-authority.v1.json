@@ -1,0 +1,52 @@
+{
+  "schema": "mc.lyr-authority-grant.v1",
+  "version": "1.0.0",
+  "owner": "project-owner",
+  "delegate": "lyr",
+  "grant": {
+    "capabilities": [
+      "site.content.write",
+      "site.feature.write",
+      "network.component.write",
+      "maintenance.repair",
+      "workflow.modify",
+      "release.deploy"
+    ],
+    "resource_prefixes": [
+      "site/",
+      "public/",
+      "architecture/",
+      "runtime/",
+      "network/",
+      "tools/",
+      ".github/workflows/"
+    ],
+    "blocked_data_classes": [
+      "credentials",
+      "secrets",
+      "private_user_data",
+      "health_data",
+      "veterinary_data",
+      "financial_data",
+      "identity_data"
+    ],
+    "human_approval_required_for": [
+      "irreversible",
+      "destructive",
+      "financial",
+      "credential_access",
+      "private_data_access",
+      "unapproved_external_effect"
+    ],
+    "production_release": {
+      "enabled": true,
+      "target": "owned-production",
+      "required_evidence": [
+        "tests_passed",
+        "rollback_available",
+        "artifact_digest",
+        "provenance_ref"
+      ]
+    }
+  }
+}
