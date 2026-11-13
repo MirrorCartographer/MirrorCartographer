@@ -50,6 +50,7 @@ The Mind Palace, Wordless Sky and Story House are public-facing reconstructions.
 - **[Research method](research/METHOD.md)** — evidence, claims, uncertainty, tests.
 - **[Field Lens](tools/field-lens.html)** — add observations, propose relationships, and keep inference visibly separate from evidence.
 - **[The 101-Dimension Atlas](architecture/101_DIMENSION_ATLAS.md)** — the expandable multidimensional ontology underlying Mirror Cartographer.
+- **[Engine Mesh v1](architecture/ENGINE_MESH_v1.md)** — the shared engine architecture, integration contract, privacy boundaries, business model and build order; [machine-readable registry](architecture/engine-registry.v1.json).
 - **[Observer and Instrument](architecture/OBSERVER_AND_INSTRUMENT.md)** — the reflexive architecture for examining how observation and mapping shape what becomes visible.
 - **[Demonstration 001 — The Hidden Interface](demonstrations/001-cross-domain-bridge/README.md)** — an executable synthetic example of finding cross-domain structural bridges without treating topology as causation.
 - **[Relationship engine](tools/relationship-engine/relationship-engine.mjs)** — a small tested engine for ranking candidate bridge nodes.
