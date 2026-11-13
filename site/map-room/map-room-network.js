@@ -185,7 +185,7 @@ function compareMaps(rows){
   const line=el('p');line.append(el('b',label+': '),el('span','continued '+(same.join(', ')||'none')+' · appeared '+(added.join(', ')||'none')+' · absent '+(removed.join(', ')||'none')));out.append(line);
  });
  const delta=Number(later.intensity)-Number(earlier.intensity);
- out.append(el('p','Intensity change: '+(delta>0?'+':'')+delta+' / 10. This is a change in the user's selected scale, not a clinical measure.'));
+ out.append(el('p',"Intensity change: "+(delta>0?'+':'')+delta+" / 10. This is a change in the user's selected scale, not a clinical measure."));
  if(earlier.temperature!==later.temperature)out.append(el('p','Temperature changed from '+(earlier.temperature||'unspecified')+' to '+(later.temperature||'unspecified')+'.'));
 }
 function refreshHistory(){
