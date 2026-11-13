@@ -193,8 +193,8 @@ function refreshHistory(){
  status('historyCount',rows.length+' MAPS · '+(rows.length?new Date(rows[0].createdAt).toLocaleDateString()+' → '+new Date(rows[rows.length-1].createdAt).toLocaleDateString():'NO OBSERVATIONS YET'));
  const patterns=$('patternSummary');if(patterns){patterns.replaceChildren();patterns.append(summaryLine('COLORS',listCounts(rows,'colors')),summaryLine('SHAPES',listCounts(rows,'shapes')),summaryLine('TEXTURES',listCounts(rows,'textures')),summaryLine('BODY AREAS',listCounts(rows,'bodyLocations')),summaryLine('MOVEMENT',listCounts(rows,'movement')))}
  drawTrend(rows);
- const a=$('compareA'),b=$('compareB');fillSelect(a,rows.slice().reverse());fillSelect(b,rows.slice().reverse());
- if(rows.length>1){if(!a.value)a.value=rows[rows.length-1].id;if(!b.value)b.value=rows[rows.length-2].id}
+ const a=$('compareA'),b=$('compareB'),priorA=a?.value||'',priorB=b?.value||'';fillSelect(a,rows.slice().reverse());fillSelect(b,rows.slice().reverse());
+ if(rows.length){if(!priorA)a.value=rows[rows.length-1].id;if(rows.length>1&&!priorB)b.value=rows[rows.length-2].id}
  compareMaps(rows);
  const timeline=$('mapTimeline');if(timeline){timeline.replaceChildren();rows.slice().reverse().slice(0,30).forEach(r=>{const item=el('div',undefined,'saved-item');const details=el('div');details.append(el('strong',r.title||'Untitled map'),el('small',new Date(r.createdAt).toLocaleString()+' · intensity '+r.intensity+'/10'));item.append(details);timeline.append(item)});if(!rows.length)timeline.append(el('p','Your saved maps will appear here.','muted'))}
 }
