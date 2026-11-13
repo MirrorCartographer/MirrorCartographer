@@ -100,7 +100,7 @@ async function ensureKey(remoteExists){
  if(remoteExists)throw new Error('An encrypted vault already exists. Import its recovery-key file before syncing; do not generate a replacement key.');
  const raw=crypto.getRandomValues(new Uint8Array(32)),value=b64u(raw);
  await crypto.subtle.importKey('raw',raw,{name:'AES-GCM'},false,['encrypt','decrypt']);
- localStorage.setItem(KEY,value);exportRecoveryKey();
+ localStorage.setItem(KEY,value);status('keyStatus','A new encryption key was created on this device. Download its backup before using the vault on another device.');
  return value;
 }
 async function encryptVault(vault,keyString){
