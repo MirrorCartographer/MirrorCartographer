@@ -10,6 +10,7 @@ GRANT = {
     "grant": {
         "capabilities": ["site.content.write", "network.component.write", "release.deploy"],
         "resource_prefixes": ["site/", "network/"],
+        "resource_exact": ["owned-production"],
         "blocked_data_classes": ["credentials", "private_user_data", "health_data"],
         "human_approval_required_for": ["irreversible", "destructive"],
         "production_release": {
