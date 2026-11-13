@@ -12,6 +12,9 @@
       "workflow.modify",
       "release.deploy"
     ],
+    "resource_exact": [
+      "owned-production"
+    ],
     "resource_prefixes": [
       "site/",
       "public/",
