@@ -128,5 +128,5 @@ class LyrOrchestrator:
         if not dry_run:
             return DispatchResult("execution_disabled", "Policy passed, but v1 has no execution adapter. No mutation occurred.",
                                   decision.to_dict(), free_gate, rid)
-        return DispatchResult("dry_run_authorized", "FREE 2.0 and delegated authority passed. No mutation occurred.",
+        return DispatchResult("dry_run_review_ready", "Deterministic preflight passed. This is not human approval and no mutation occurred.",
                               decision.to_dict(), free_gate, rid)
