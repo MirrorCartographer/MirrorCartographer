@@ -31,7 +31,7 @@ class OrchestratorTests(unittest.TestCase):
    return result,(Path(tmp)/"audit.jsonl").read_text()
  def test_valid_action_is_dry_run_only_and_audited(self):
   result,audit=self.run_action()
-  self.assertEqual(result.status,"dry_run_authorized")
+  self.assertEqual(result.status,"dry_run_review_ready")
   self.assertIn('"performed": false',audit)
   self.assertTrue(result.receipt_id)
  def test_bad_credentials_block_before_policy(self):
