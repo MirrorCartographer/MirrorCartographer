@@ -54,6 +54,14 @@ class OrchestratorTests(unittest.TestCase):
    p=free_proposal();p.rollback_plan=None
    proposal=ProposedAction("site.content.write","site/new.html","Add",p)
    self.assertEqual(service.dispatch("valid",proposal).status,"blocked")
+ def test_unresolved_contradictions_require_review(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   service=LyrOrchestrator(Auth(),Risk(),JsonlAuditSink(Path(tmp)/"a.jsonl"),GRANT)
+   p=free_proposal()
+   from tools.free_engine.free_engine import Contradiction
+   p.add_contradiction(Contradiction("source-a","source-b","Conflicting evidence"))
+   proposal=ProposedAction("site.content.write","site/new.html","Add",p)
+   self.assertEqual(service.dispatch("valid",proposal).status,"approval_required")
  def test_execution_request_cannot_execute_in_v1(self):
   result,audit=self.run_action(dry_run=False)
   self.assertEqual(result.status,"execution_disabled")
