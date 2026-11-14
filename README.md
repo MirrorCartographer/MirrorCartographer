@@ -22,6 +22,7 @@ The public encounter is published directly through GitHub Pages from the public 
 ## LYR / the developing authority layer
 
 - **[LYR Signal Chamber](https://mirrorcartographer.github.io/MirrorCartographer/lyr/)** — an interactive view of LYR's delegated capability proposal, browser-side policy examples, and a private local signal ledger. The page labels the still-unconnected runtime and production deployment boundary explicitly.
+- **[Trip Clarity Field Test](https://mirrorcartographer.github.io/MirrorCartographer/pilots/rider-transit-trip-clarity.html)** — an independent, privacy-first worksheet for testing how riders locate and verify official transit information. It does not provide live trip directions or claim agency endorsement.
 
 ## Public expeditions
 
