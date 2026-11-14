@@ -19,6 +19,10 @@ The public encounter is published directly through GitHub Pages from the public 
 
 **Interactive source workbench:** from the repository root, run `python3 -m http.server 8000` and open `http://localhost:8000/workbench.html` to preview, edit, and run any of the indexed HTML designs. The deployable copy is `site/workbench.html`.
 
+## LYR / the developing authority layer
+
+- **[LYR Signal Chamber](https://mirrorcartographer.github.io/MirrorCartographer/lyr/)** — an interactive view of LYR's delegated capability proposal, browser-side policy examples, and a private local signal ledger. The page labels the still-unconnected runtime and production deployment boundary explicitly.
+
 ## Public expeditions
 
 - [Expeditions directory](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/) — all three worlds and their six playable side rooms.
