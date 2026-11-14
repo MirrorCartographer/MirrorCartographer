@@ -95,8 +95,9 @@ class LyrOrchestrator:
                 raise ValueError("FREE gate returned invalid result")
         except Exception:
             return DispatchResult("blocked", "FREE 2.0 review unavailable; failed closed.")
-        if free_gate.get("state") in {"BLOCKED", "RETURN_FOR_REVISION"}:
-            return DispatchResult("blocked", "FREE 2.0 gate did not clear the proposal.", free_gate=free_gate)
+        if free_gate.get("state") != "ELIGIBLE_FOR_HUMAN_REVIEW":
+            status = "approval_required" if free_gate.get("state") == "REVIEW_REQUIRED" else "blocked"
+            return DispatchResult(status, "FREE 2.0 gate did not clear the proposal for autonomous processing.", free_gate=free_gate)
         request = ActionRequest(
             actor=identity.subject, capability=proposal.capability, resource=proposal.resource,
             purpose=proposal.purpose, environment=proposal.environment,
