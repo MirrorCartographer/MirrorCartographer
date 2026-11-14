@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101611">
+<meta name="description" content="LYR Signal Chamber — an interactive window into Mirror Cartographer's developing authority architecture.">
+<title>LYR — Signal Chamber</title>
+<style>
+:root{color-scheme:dark;--void:#0b100d;--panel:#151e18;--ink:#e8eadc;--muted:#aab5a4;--moss:#b6d39b;--water:#91b9b3;--gold:#d9c18b;--line:#526453;--hot:#d68f91}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--void)}
+body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(ellipse at 50% -10%,#344a36 0,transparent 44rem),radial-gradient(ellipse at 95% 40%,#173b39 0,transparent 34rem),var(--void);font:15px/1.55 system-ui,sans-serif}
+button,input,textarea{font:inherit}
+button,a{touch-action:manipulation}
+a{color:var(--water)}
+button{cursor:pointer;color:var(--ink);background:#1a271d;border:1px solid var(--line);border-radius:999px;padding:10px 15px}
+button:hover{border-color:var(--moss);background:#263629}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.shell{max-width:1180px;margin:auto;padding:20px clamp(16px,4vw,48px) 70px}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid #ffffff22;padding:8px 0 16px}
+.eyebrow,.micro{font:10px/1.5 ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--moss)}
+header a{text-decoration:none;font:10px ui-monospace,monospace;letter-spacing:.1em}
+.hero{min-height:570px;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;padding:54px 0 42px}
+h1{font:400 clamp(4.4rem,12vw,9rem)/.78 Georgia,serif;letter-spacing:-.075em;margin:18px 0 26px}
+h1 i{color:var(--moss);font-weight:400}
+.lead{max-width:500px;color:#c1cbbb;font:italic clamp(17px,2vw,22px)/1.5 Georgia,serif}
+.sub{color:var(--muted);max-width:470px;font-size:13px}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+.primary{background:var(--moss);color:#172017;border-color:var(--moss);font-weight:750}
+.orbit-wrap{display:grid;place-items:center;min-height:380px}
+.orbit{width:min(78vw,390px);aspect-ratio:1;position:relative;border:1px solid #a8c99b66;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#b6d39b14 0 18%,transparent 62%);box-shadow:0 0 85px #8dbb7920,inset 0 0 65px #8dbb7912}
+.orbit:before,.orbit:after{content:"";position:absolute;inset:12%;border:1px dashed #9fba8b66;border-radius:50%;animation:spin 38s linear infinite}
+.orbit:after{inset:29%;animation-direction:reverse;animation-duration:26s}
+.core{width:31%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle at 35% 28%,#e3edc8,#7f9b76 66%,#243b2b);color:#172117;box-shadow:0 0 45px #b6d39b66;font:10px ui-monospace,monospace;letter-spacing:.15em}
+.node{position:absolute;width:76px;height:76px;border-radius:50%;display:grid;place-items:center;text-align:center;padding:6px;background:#142019;border:1px solid #819c7b;color:#dce8d2;font:9px ui-monospace,monospace;letter-spacing:.06em}
+.n1{top:3%;left:39%}.n2{right:1%;top:38%}.n3{bottom:3%;left:39%}.n4{left:1%;top:38%}
+.orbit.pulse:before{animation-duration:5s;border-color:var(--gold)}.orbit.pulse:after{animation-duration:4s;border-color:var(--water)}
+.orbit.pulse .core{box-shadow:0 0 75px #d9c18baa;transform:scale(1.07)}
+.statusline{display:flex;gap:9px;align-items:center;color:var(--muted);font:10px ui-monospace,monospace;margin-top:18px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.panel{border:1px solid #ffffff25;background:linear-gradient(145deg,#1a261dce,#111813e8);padding:clamp(18px,3vw,28px);min-width:0}
+.panel h2{font:400 clamp(25px,4vw,38px)/1.05 Georgia,serif;margin:8px 0 12px}
+.panel p{color:var(--muted);font-size:13px}
+.capabilities{display:grid;gap:8px;margin-top:18px}
+.cap{display:flex;justify-content:space-between;gap:15px;padding:11px 0;border-bottom:1px solid #ffffff18;font-size:12px}
+.cap span:last-child{color:var(--moss);font:9px ui-monospace,monospace;text-align:right}
+.tests{display:grid;gap:8px;margin-top:18px}
+.test{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;background:#0d1510;border:1px solid #ffffff18;font-size:12px}
+.test b{font:9px ui-monospace,monospace;color:var(--muted)}
+.test.pass b{color:var(--moss)}.test.block b{color:var(--gold)}
+form{display:grid;gap:10px;margin-top:16px}
+input,textarea{width:100%;background:#0d1510;color:var(--ink);border:1px solid #526453;border-radius:8px;padding:12px}
+textarea{min-height:92px;resize:vertical}
+.ledger{display:grid;gap:8px;margin-top:16px}
+.entry{padding:12px;border:1px solid #ffffff1d;background:#0d1510}
+.entry strong{display:block;font:14px Georgia,serif}.entry small{display:block;color:var(--muted);font:9px ui-monospace,monospace;margin-top:5px;overflow-wrap:anywhere}
+.entry button{margin-top:9px;font-size:10px;padding:6px 10px}
+.footer{margin-top:30px;border-top:1px solid #ffffff22;padding-top:17px;color:var(--muted);font:10px/1.7 ui-monospace,monospace}
+.notice{border-left:2px solid var(--gold);padding:10px 13px;background:#d9c18b0b;color:#d6d2bd;font-size:12px;margin-top:14px}
+.links{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font:10px ui-monospace,monospace}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:760px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:44px}.orbit-wrap{min-height:320px}.orbit{width:min(78vw,330px)}.node{width:65px;height:65px}.grid{grid-template-columns:1fr}h1{font-size:clamp(4.2rem,19vw,7rem)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.orbit.pulse .core{transform:none}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header><span class="eyebrow">Mirror Cartographer / LYR network</span><a href="../index.html">← RETURN TO THE LIVING ATLAS</a></header>
+<section class="hero">
+<div>
+<div class="eyebrow">A signal has entered the room</div>
+<h1>LYR<br><i>is listening.</i></h1>
+<p class="lead">Not a mascot. Not a button that pretends to be a mind. A developing system of memory, decisions, tools, and consequences.</p>
+<p class="sub">This chamber is the first public-facing instrument for LYR's authority architecture. It can inspect its declared capabilities, exercise a browser-side policy preview, and keep your proposals on this device.</p>
+<div class="actions"><button class="primary" id="pulse">Send a pulse</button><button id="run-tests">Test the boundaries</button></div>
+<div class="statusline"><i class="dot"></i><span id="pulse-status" role="status">LOCAL INTERFACE READY · NO LIVE AGENT CONNECTION</span></div>
+</div>
+<div class="orbit-wrap" aria-label="Animated network diagram">
+<div class="orbit" id="orbit"><div class="core">LYR<br>CORE</div><div class="node n1">MEMORY</div><div class="node n2">DECISION</div><div class="node n3">ACTION</div><div class="node n4">PROVENANCE</div></div>
+</div>
+</section>
+<section class="grid">
+<article class="panel">
+<div class="eyebrow">01 / Delegated capabilities</div><h2>What the grant permits</h2>
+<p>These are the capability scopes committed on the authority proposal branch. They are not yet active on the production default branch.</p>
+<div class="capabilities">
+<div class="cap"><span>Site content and features</span><span>SCOPED WRITE</span></div>
+<div class="cap"><span>Network components</span><span>SCOPED WRITE</span></div>
+<div class="cap"><span>Maintenance and repair</span><span>SCOPED WRITE</span></div>
+<div class="cap"><span>Project workflows</span><span>SCOPED WRITE</span></div>
+<div class="cap"><span>Production publication</span><span>NOT ENABLED YET</span></div>
+</div>
+<div class="notice">The authority policy is proposed in PR #42. Production deployment remains disabled until an independent CI and rollback attestation adapter exists. A label typed by an agent is not proof that a test passed.</div>
+<div class="links"><a href="https://github.com/MirrorCartographer/MirrorCartographer/pull/42">INSPECT AUTHORITY PROPOSAL ↗</a><a href="https://github.com/MirrorCartographer/MirrorCartographer/tree/lyr-authority-runtime-v1/runtime/authority">READ THE POLICY CODE ↗</a></div>
+</article>
+<article class="panel">
+<div class="eyebrow">02 / Policy preview</div><h2>Test the boundaries</h2>
+<p>Run six deterministic examples against the same declared scope rules. This browser preview is illustrative; the Python policy evaluator and its tests remain the authoritative implementation.</p>
+<div class="tests" id="tests" aria-live="polite"><div class="test"><span>Awaiting test run</span><b>NOT RUN</b></div></div>
+</article>
+<article class="panel">
+<div class="eyebrow">03 / Signal ledger</div><h2>Leave a trace</h2>
+<p>Record an idea or an observation for the next development pass. Entries stay in this browser until you export or clear them.</p>
+<form id="proposal-form">
+<label for="proposal-title" class="micro">Signal title</label><input id="proposal-title" maxlength="90" required placeholder="A door that should exist">
+<label for="proposal-note" class="micro">What should change, and why?</label><textarea id="proposal-note" maxlength="1200" required placeholder="Describe the capability, evidence, or experience you want to add."></textarea>
+<div class="actions"><button class="primary" type="submit">Record signal</button><button type="button" id="export">Export ledger</button><button type="button" id="clear">Clear local ledger</button></div>
+</form>
+<div class="ledger" id="ledger" aria-live="polite"><p>No local signals recorded.</p></div>
+</article>
+<article class="panel">
+<div class="eyebrow">04 / Reality boundary</div><h2>What is real now</h2>
+<p><strong>Implemented in repository:</strong> a versioned authority grant, capability-specific policy evaluator, path traversal rejection, and audit receipt structure.</p>
+<p><strong>Exercised:</strong> 11 local policy checks, including authorized edits, actor mismatch, scope separation, traversal, sensitive data, destructive actions, and external effects.</p>
+<p><strong>Not yet connected:</strong> an authenticated, always-running LYR orchestrator, execution adapters, persistent server-side memory, and independently verified production deployment.</p>
+<p>The system must earn each new capability through executable integration and observable outcomes. This page does not pretend those missing connections already exist.</p>
+</article>
+</section>
+<footer class="footer">LYR SIGNAL CHAMBER · BROWSER-LOCAL INTERACTION · NO TELEMETRY · NO SERVER MEMORY<br>One signal is an invitation. A record is not proof. A proposal is not yet an action.</footer>
+</main>
+<script>
+(()=>{
+const orbit=document.getElementById('orbit'),pulseStatus=document.getElementById('pulse-status');
+const pulse=document.getElementById('pulse'),run=document.getElementById('run-tests');
+const tests=document.getElementById('tests'),form=document.getElementById('proposal-form');
+const ledger=document.getElementById('ledger'),storeKey='mc.lyr.signal-ledger.v1';
+const now=()=>new Date().toISOString();
+function read(){try{const x=JSON.parse(localStorage.getItem(storeKey)||'[]');return Array.isArray(x)?x:[]}catch{return []}}
+function write(items){localStorage.setItem(storeKey,JSON.stringify(items));render()}
+function render(){
+ const items=read();ledger.replaceChildren();
+ if(!items.length){const p=document.createElement('p');p.textContent='No local signals recorded.';ledger.append(p);return}
+ for(const item of items){
+  const card=document.createElement('article');card.className='entry';
+  const title=document.createElement('strong');title.textContent=item.title;
+  const note=document.createElement('p');note.textContent=item.note;
+  const meta=document.createElement('small');meta.textContent=new Date(item.createdAt).toLocaleString();
+  const del=document.createElement('button');del.type='button';del.textContent='Remove';del.addEventListener('click',()=>write(read().filter(x=>x.id!==item.id)));
+  card.append(title,note,meta,del);ledger.append(card);
+ }
+}
+pulse.addEventListener('click',()=>{
+ orbit.classList.remove('pulse');void orbit.offsetWidth;orbit.classList.add('pulse');
+ pulseStatus.textContent='PULSE SENT · LOCAL VISUAL RESPONSE ONLY';
+ if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setTimeout(()=>orbit.classList.remove('pulse'),1800);
+});
+const examples=[
+ {name:'LYR edits a scoped site page',cap:'site.content.write',path:'site/rooms/new.html',actor:'lyr',expected:'AUTHORIZED'},
+ {name:'Visitor attempts a write',cap:'site.content.write',path:'site/rooms/new.html',actor:'visitor',expected:'BLOCKED'},
+ {name:'Site writer reaches workflow files',cap:'site.content.write',path:'.github/workflows/release.yml',actor:'lyr',expected:'APPROVAL REQUIRED'},
+ {name:'Path traversal attempt',cap:'site.content.write',path:'site/../../secrets.txt',actor:'lyr',expected:'BLOCKED'},
+ {name:'Sensitive user record',cap:'site.content.write',path:'site/profile.json',actor:'lyr',classification:'private_user_data',expected:'APPROVAL REQUIRED'},
+ {name:'Production release without attestation adapter',cap:'release.deploy',path:'owned-production',actor:'lyr',environment:'production',expected:'APPROVAL REQUIRED'}
+];
+function evaluate(x){
+ if(x.actor!=='lyr')return 'BLOCKED';
+ if(x.path.startsWith('/')||x.path.split('/').some(p=>p==='..'||p==='.'||p===''))return 'BLOCKED';
+ const scopes={'site.content.write':['site/','public/'],'site.feature.write':['site/','public/'],'network.component.write':['network/'],'maintenance.repair':['runtime/','tools/'],'workflow.modify':['.github/workflows/'],'release.deploy':['owned-production']};
+ const allowed=scopes[x.cap]||[];
+ if(!allowed.some(p=>x.path===p||x.path.startsWith(p)))return 'APPROVAL REQUIRED';
+ if(x.classification==='private_user_data')return 'APPROVAL REQUIRED';
+ if(x.cap==='release.deploy'&&x.environment==='production')return 'APPROVAL REQUIRED';
+ return 'AUTHORIZED';
+}
+run.addEventListener('click',()=>{
+ tests.replaceChildren();
+ for(const item of examples){
+  const actual=evaluate(item),ok=actual===item.expected;
+  const row=document.createElement('div');row.className='test '+(actual==='AUTHORIZED'?'pass':'block');
+  const label=document.createElement('span');label.textContent=item.name;
+  const result=document.createElement('b');result.textContent=(ok?'✓ ':'! ')+actual;
+  row.append(label,result);tests.append(row);
+ }
+});
+form.addEventListener('submit',event=>{
+ event.preventDefault();
+ const title=document.getElementById('proposal-title').value.trim();
+ const note=document.getElementById('proposal-note').value.trim();
+ if(!title||!note)return;
+ const items=read();items.unshift({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),title,note,createdAt:now()});
+ write(items.slice(0,100));form.reset();
+});
+document.getElementById('export').addEventListener('click',()=>{
+ const blob=new Blob([JSON.stringify({schema:'mc.lyr.signal-ledger.v1',exportedAt:now(),entries:read()},null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='lyr-signal-ledger.json';a.click();URL.revokeObjectURL(url);
+});
+document.getElementById('clear').addEventListener('click',()=>{
+ if(!confirm('Clear the signal ledger stored in this browser?'))return;
+ localStorage.removeItem(storeKey);render();
+});
+render();
+})();
+</script>
+</body>
+</html>
