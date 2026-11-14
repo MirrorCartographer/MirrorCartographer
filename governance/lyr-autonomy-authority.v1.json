@@ -1,6 +1,6 @@
 {
   "schema": "mc.lyr-authority-grant.v1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "owner": "project-owner",
   "delegate": "lyr",
   "grant": {
@@ -12,18 +12,47 @@
       "workflow.modify",
       "release.deploy"
     ],
-    "resource_exact": [
-      "owned-production"
-    ],
-    "resource_prefixes": [
-      "site/",
-      "public/",
-      "architecture/",
-      "runtime/",
-      "network/",
-      "tools/",
-      ".github/workflows/"
-    ],
+    "capability_scopes": {
+      "site.content.write": {
+        "prefixes": [
+          "site/",
+          "public/"
+        ],
+        "exact": []
+      },
+      "site.feature.write": {
+        "prefixes": [
+          "site/",
+          "public/"
+        ],
+        "exact": []
+      },
+      "network.component.write": {
+        "prefixes": [
+          "network/"
+        ],
+        "exact": []
+      },
+      "maintenance.repair": {
+        "prefixes": [
+          "runtime/",
+          "tools/"
+        ],
+        "exact": []
+      },
+      "workflow.modify": {
+        "prefixes": [
+          ".github/workflows/"
+        ],
+        "exact": []
+      },
+      "release.deploy": {
+        "prefixes": [],
+        "exact": [
+          "owned-production"
+        ]
+      }
+    },
     "blocked_data_classes": [
       "credentials",
       "secrets",
@@ -42,14 +71,15 @@
       "unapproved_external_effect"
     ],
     "production_release": {
-      "enabled": true,
+      "enabled": false,
       "target": "owned-production",
       "required_evidence": [
         "tests_passed",
         "rollback_available",
         "artifact_digest",
         "provenance_ref"
-      ]
+      ],
+      "disabled_reason": "Awaiting independently verified CI and rollback attestation adapter."
     }
   }
 }
