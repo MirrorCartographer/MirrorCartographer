@@ -4,7 +4,7 @@ const atlas=readFileSync('site/living-atlas.html','utf8');
 const atlasRequired=['<title>Mirror Cartographer — The Living Atlas</title>','id="atlas"','id="worlds"','id="research"','id="library"','id="repositories"','id="search"','id="category"','id="results"','href="./chatgpt/"','href="./mind/"','href="./companion/atlas/rooms/"'];
 const missingAtlas=atlasRequired.filter(x=>!atlas.includes(x));if(missingAtlas.length)throw Error('Preserved Living Atlas is incomplete: '+missingAtlas.join(', '));
 if(atlas.includes('https://github.com/MirrorCartographer/mirror-cartographer-ui')||atlas.includes('mirrorcartographer.github.io/mirror-cartographer-ui'))throw Error('Public Atlas must not link to the private companion repository or its disabled Pages URL.');
-const houseRequired=['<title>The House That Remembers</title>','THE HOUSE','THAT <em>REMEMBERS.</em>','THE SMALL HEARTS','THE CARNIVAL','THE WEST WINDOW','id="rooms"','id="small-hearts"','id="door"','./living-atlas.html'];
+const houseRequired=['<title>Mirror Cartographer — The Unfinished Country</title>','aria-label="An intricate hand-drawn night landscape','data-title="The light left on"','data-title="The impossible greenhouse"','data-title="The crooked carnival"','data-title="A boat with no timetable"','id="reveal"','id="closeReveal"','./living-atlas.html'];
 const missingHouse=houseRequired.filter(x=>!house.includes(x));if(missingHouse.length)throw Error('House front door is incomplete: '+missingHouse.join(', '));
 function validateDocument(html,label){
  const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);const duplicates=ids.filter((id,i)=>ids.indexOf(id)!==i);if(duplicates.length)throw Error(label+' has duplicate HTML IDs: '+[...new Set(duplicates)].join(', '));

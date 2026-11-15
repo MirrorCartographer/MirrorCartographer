@@ -3,277 +3,212 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#15121a">
-<meta name="description" content="A house for the things that didn't fit anywhere else. Art, strange rooms, small lives, grief, wonder, and a door left open.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="The House That Remembers">
-<meta property="og:description" content="I kept a light on for everything the world told me to leave outside.">
-<meta name="twitter:card" content="summary_large_image">
-<title>The House That Remembers</title>
+<meta name="theme-color" content="#10191a">
+<meta name="description" content="A strange illustrated world. Look closely.">
+<title>Mirror Cartographer — The Unfinished Country</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&display=swap');
-:root{--paper:#e8ddc6;--ink:#17131b;--wine:#79364c;--hot:#d96c5d;--acid:#c3c96e;--moss:#9fb28a;--sea:#739c98;--gold:#d8b779;--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--serif:'Instrument Serif',Georgia,serif}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}body{margin:0;background:#121016;color:var(--paper);font:15px/1.55 var(--serif);overflow-x:hidden}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid #f2dcae;outline-offset:4px}
-.grain{position:fixed;inset:-40%;z-index:30;pointer-events:none;opacity:.1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");mix-blend-mode:soft-light}
-header{position:absolute;z-index:20;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px clamp(18px,5vw,76px);border-bottom:1px solid #e8ddc62b;background:linear-gradient(#100d13df,#100d1366);backdrop-filter:blur(8px)}
-.signature{display:flex;align-items:center;gap:12px;color:var(--paper);font:500 10px/1.2 var(--mono);letter-spacing:.16em}.signature small{display:block;margin-top:7px;color:#c29b89;font-size:8px;letter-spacing:.2em}.mark{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--gold);color:var(--gold);font-size:25px;transform:rotate(-9deg);box-shadow:4px 4px 0 var(--wine)}
-nav{display:flex;gap:clamp(12px,2.4vw,34px)}nav a,.light-switch{color:#e8ddc6;text-decoration:none;font:9px var(--mono);letter-spacing:.14em}nav a{padding:8px 0;border-bottom:1px solid transparent}nav a:hover{border-color:var(--hot);color:#f2a08b}.light-switch{border:1px solid #d8b77977;background:#19141d;padding:11px 14px}
-.opening{position:relative;min-height:100svh;display:grid;grid-template-columns:minmax(340px,.88fr) minmax(400px,1.12fr);align-items:center;padding:145px clamp(22px,7vw,112px) 85px;gap:2vw;background:radial-gradient(ellipse at 76% 45%,#6d344a88,transparent 38%),radial-gradient(ellipse at 16% 85%,#244b4780,transparent 42%),linear-gradient(125deg,#15121b,#21141e 54%,#101b1c)}
-.opening-copy{position:relative;z-index:3;max-width:620px}.overline,.index,.number{font:9px var(--mono);letter-spacing:.2em;color:var(--acid)}
-h1{margin:28px 0 26px;font:900 clamp(4.2rem,9vw,9.8rem)/.76 var(--sans);letter-spacing:-.095em;color:#f0e3cb;text-shadow:-3px 1px var(--hot),5px 7px #4b243b,11px 13px #09090b;transform:rotate(-2deg)}
-h1 em{font-style:normal;color:#d9a08c;-webkit-text-stroke:1px #f0d9ba}
-.opening-line{max-width:470px;font:italic clamp(1.45rem,2.4vw,2.25rem)/1.1 var(--serif);color:#f0d8bd}
-.opening-small{max-width:405px;margin:20px 0 28px;color:#c9b7a9;font:13px/1.8 var(--sans)}
-.enter{display:inline-flex;align-items:center;gap:28px;padding:15px 19px;border:1px solid #f0dfc1;background:#d9c9a6;color:#1b151b;font:700 10px var(--mono);letter-spacing:.17em;box-shadow:5px 5px 0 var(--wine);transform:rotate(-1deg);transition:.2s}.enter:hover{transform:translate(-2px,-3px);box-shadow:8px 9px 0 var(--wine)}
-.margin-note{display:block;margin-top:28px;color:#9f908c;font:8px var(--mono);letter-spacing:.16em}
-.art-wrap{position:relative;z-index:2;width:min(100%,760px);justify-self:center;transform:rotate(2deg)}.house-art{display:block;width:100%;height:auto;filter:drop-shadow(0 22px 35px #0008) saturate(.9)}.caption{position:absolute;right:6%;bottom:5%;font:8px var(--mono);letter-spacing:.16em;color:#e5cda6;transform:rotate(-3deg)}.scribble{position:absolute;left:0;top:17%;padding:10px 14px;background:var(--acid);color:#26202a;font:italic 19px/1 var(--serif);transform:rotate(-8deg);box-shadow:5px 5px 0 var(--wine)}
-.side-note{position:absolute;right:20px;bottom:32%;writing-mode:vertical-rl;color:#bba997;font:8px var(--mono);letter-spacing:.2em}
-.threshold{position:relative;padding:145px 22px 165px;text-align:center;background:#d9cdb5;color:#201820;overflow:hidden}.threshold .index{color:#8b4053}.threshold h2{margin:35px auto 24px;font:clamp(2.7rem,6.5vw,6.2rem)/.9 var(--serif);letter-spacing:-.04em}.threshold h2 em{color:#93445a}.threshold p:last-of-type{max-width:550px;margin:0 auto;color:#51434a;font:13px/1.9 var(--sans)}.thread{width:1px;height:90px;margin:60px auto 0;background:#9a6b65;position:relative}.thread:after{content:"";position:absolute;left:-4px;bottom:0;width:9px;height:9px;border-radius:50%;background:#c15c5a;box-shadow:0 0 0 7px #c15c5a22}
-.rooms{padding:130px clamp(22px,8vw,124px) 160px;background:radial-gradient(ellipse at 12% 35%,#355b5066,transparent 38%),#17131a}.rooms-heading{max-width:680px;margin:0 auto 75px;text-align:center}.rooms-heading h2{margin:25px 0;font:clamp(3rem,6vw,6rem)/.85 var(--serif);letter-spacing:-.06em}.rooms-heading h2 em{color:#d98b7b}.rooms-heading>span{color:#b8aaa0;font:13px/1.7 var(--sans)}
-.room-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:1120px;margin:auto}.room{position:relative;min-height:300px;padding:35px 34px 40px;border:1px solid #d9c9a633;background:linear-gradient(145deg,#29202b,#151c1c);box-shadow:8px 9px 0 #0d0b10;overflow:hidden;transform:rotate(-.5deg)}.room:nth-child(even){transform:rotate(.7deg);background:linear-gradient(145deg,#30202a,#182423)}.room h3{position:relative;z-index:1;max-width:390px;margin:32px 0 26px;font:clamp(1.6rem,3vw,2.8rem)/.9 var(--serif)}.room summary{position:relative;z-index:2;display:inline-block;padding:11px 13px;border:1px solid #d9c9a66b;background:#17131b;color:#e7d9bf;font:8px var(--mono);letter-spacing:.14em;cursor:pointer;list-style:none}.room summary::-webkit-details-marker{display:none}.room summary:after{content:" +";color:var(--acid)}.room details[open] summary:after{content:" −"}.room details p{position:relative;z-index:2;max-width:440px;margin:24px 0 0;color:#d7c8b3;font:italic 17px/1.55 var(--serif)}.room-mark{position:absolute;right:14px;bottom:-40px;color:#a9b88c25;font:220px/1 var(--serif);pointer-events:none}.room.rain{border-top:4px solid #729a9a}.room.animals{border-top:4px solid #d88a78}.room.carnival{border-top:4px solid #c4c96d}.room.ocean{border-top:4px solid #719ea7}
-.small-hearts{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:7vw;padding:140px clamp(24px,9vw,140px);background:#d9cdb5;color:#211921}.hearts-image{position:relative;min-height:450px;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 48%,#f5dba5 0 8%,#c56f72 9% 20%,transparent 21%),linear-gradient(145deg,#234747,#161a20 60%,#502b43);border:1px solid #332532;box-shadow:12px 14px 0 #8b4053;transform:rotate(-1.5deg);overflow:hidden}.window{position:relative;width:170px;height:210px;border:7px solid #e9d7b4;background:linear-gradient(180deg,#e8b27d,#d56c70 55%,#254b50);box-shadow:0 0 70px #f6d68a88}.window:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:6px;background:#e9d7b4}.window:after{content:"";position:absolute;left:0;right:0;top:50%;height:6px;background:#e9d7b4}.window b{position:absolute;right:-30px;bottom:-12px;width:42px;height:48px;border-radius:60% 60% 45% 45%;background:#17131b;box-shadow:-12px -33px 0 -10px #17131b,12px -33px 0 -10px #17131b}.hearts-image>p{position:absolute;bottom:20px;left:24px;color:#f2dfc4;font:9px/1.7 var(--mono);letter-spacing:.18em}.hearts-copy{max-width:510px}.hearts-copy .overline{color:#91445a}.hearts-copy h2{margin:25px 0;font:clamp(3rem,6vw,6rem)/.85 var(--serif);letter-spacing:-.07em}.hearts-copy h2 em{color:#9a4758}.hearts-copy>p:not(.overline){color:#4c3e44;font:14px/1.9 var(--sans)}.signoff{display:block;margin-top:32px;color:#8c4055;font:italic 17px var(--serif)}
-.carnival{position:relative;padding:140px clamp(24px,14vw,210px) 160px;text-align:center;background:radial-gradient(ellipse at 50% 45%,#702d4b,#261727 54%,#111016 100%);overflow:hidden}.carnival h2{position:relative;z-index:1;margin:30px 0;font:900 clamp(3.5rem,9vw,8rem)/.78 var(--sans);letter-spacing:-.09em;text-shadow:5px 6px 0 #161018}.carnival h2 em{color:#e28b74;font-style:normal;-webkit-text-stroke:1px #f3d9b7}.carnival>p:not(.overline){position:relative;z-index:1;max-width:600px;margin:0 auto;color:#dfcbb8;font:14px/1.9 var(--sans)}.lights{display:flex;justify-content:center;gap:clamp(7px,2vw,25px);margin:70px 0 34px;flex-wrap:wrap}.lights i{width:13px;height:13px;border-radius:50%;background:var(--acid);box-shadow:0 0 18px currentColor;animation:blink 2.6s ease-in-out infinite alternate}.lights i:nth-child(3n){background:#e48c7c;animation-delay:-.8s}.lights i:nth-child(4n){background:#8cb7b0;animation-delay:-1.5s}@keyframes blink{to{opacity:.35;transform:scale(.65)}}.ticket{display:inline-block;padding:13px 20px;border:1px dashed #e8c98e;color:#e8c98e;font:9px var(--mono);letter-spacing:.15em;transform:rotate(-2deg)}
-.ocean{position:relative;min-height:680px;display:grid;grid-template-columns:.8fr 1.2fr;align-items:center;gap:4vw;padding:110px clamp(24px,8vw,120px);background:linear-gradient(130deg,#121b20,#172e31 50%,#263f3e)}.ocean-copy{position:relative;z-index:2;max-width:480px}.ocean-copy h2{margin:30px 0;font:900 clamp(3.4rem,7vw,7rem)/.8 var(--sans);letter-spacing:-.09em}.ocean-copy h2 em{font-style:normal;color:#d8bd88}.ocean-copy>p:last-child{color:#c0c9bb;font:14px/1.9 var(--sans)}.ocean-art{align-self:end;margin-bottom:5vh;transform:rotate(3deg);filter:drop-shadow(0 22px 28px #0007)}.ocean-art svg{display:block;width:100%;height:auto}
-.last-door{position:relative;min-height:90svh;display:grid;grid-template-columns:1fr .8fr;align-items:center;gap:5vw;padding:120px clamp(24px,9vw,140px);background:radial-gradient(ellipse at 70% 40%,#65314988,transparent 40%),#131018;overflow:hidden}.last-copy{position:relative;z-index:2;max-width:610px}.last-copy h2{margin:30px 0;font:900 clamp(3.4rem,8vw,8rem)/.78 var(--sans);letter-spacing:-.09em}.last-copy h2 em{color:#c2c96c;font-style:normal;-webkit-text-stroke:1px #e7d8b7}.last-copy>p:not(.overline){max-width:440px;color:#c5b7aa;font:14px/1.9 var(--sans)}.last-copy a{display:inline-block;margin-top:22px;padding:15px 18px;background:#d9c9a6;color:#201820;border:1px solid #f2dfc1;box-shadow:5px 5px 0 #79364c;font:9px var(--mono);letter-spacing:.15em}.last-door .house-art{max-width:510px;transform:rotate(-4deg)}.whisper{position:absolute;right:5%;bottom:8%;color:#c7a08b;font:italic 16px/1.4 var(--serif);transform:rotate(5deg)}
-footer{display:flex;justify-content:space-between;gap:20px;padding:25px clamp(20px,5vw,76px);background:#0d0b11;border-top:1px solid #d8b77944;color:#aa9c91;font:8px var(--mono);letter-spacing:.14em}footer a{color:#d8b779}
-[data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}[data-reveal].seen{opacity:1;transform:translateY(0)}
-.lights-on .opening{background:radial-gradient(ellipse at 76% 45%,#b95d6288,transparent 38%),radial-gradient(ellipse at 16% 85%,#48776b99,transparent 42%),linear-gradient(125deg,#211a24,#3a202b 54%,#152c2c)}.lights-on .art-wrap{filter:drop-shadow(0 0 28px #f4d6a555)}
-@media(max-width:850px){header{padding:16px 18px;gap:12px}nav{display:none}.opening{grid-template-columns:1fr;padding:118px 24px 70px;min-height:auto}.opening-copy{max-width:100%}h1{font-size:clamp(4rem,17vw,7.5rem)}.art-wrap{width:min(100%,590px);margin-top:15px}.side-note{display:none}.small-hearts,.ocean,.last-door{grid-template-columns:1fr}.hearts-image{min-height:330px}.ocean{min-height:0}.ocean-art{margin:0}.last-door .house-art{max-width:420px;justify-self:center}.room-grid{grid-template-columns:1fr}.room{min-height:260px}.footer{flex-wrap:wrap}}
-@media(max-width:480px){header{padding:13px 12px}.signature{font-size:8px;letter-spacing:.1em}.mark{width:32px;height:32px}.light-switch{font-size:7px;padding:9px}.opening{padding:105px 20px 60px}h1{font-size:clamp(3.65rem,16.5vw,5.8rem)}.opening-small{font-size:12px}.threshold{padding:105px 22px}.threshold h2{font-size:3rem}.rooms,.small-hearts,.carnival,.ocean,.last-door{padding:92px 22px}.rooms-heading{margin-bottom:48px}.room{padding:27px 22px;min-height:250px}.hearts-image{min-height:285px}.carnival h2{font-size:3.35rem}.ocean-copy h2,.last-copy h2{font-size:3.5rem}footer{flex-wrap:wrap;font-size:7px}}
-@media(prefers-reduced-motion:reduce){.lights i,[data-reveal]{animation:none;transition:none}.enter{transition:none}html{scroll-behavior:auto}}
-
-/* THE HOUSE IS NOT A BROCHURE: tactile instruments */
-:root{--electric:#d7df79;--inkglass:#0b1114}
-.instrument-bench{position:relative;padding:110px clamp(20px,7vw,105px);background:radial-gradient(ellipse at 20% 20%,#4d6a5266,transparent 38%),linear-gradient(130deg,#11151b,#24202a 52%,#11191b);overflow:hidden}
-.instrument-bench:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(117deg,transparent 0 49px,#e6d2b10b 50px 51px);pointer-events:none}
-.bench-head{position:relative;display:flex;align-items:end;justify-content:space-between;gap:30px;max-width:1200px;margin:0 auto 45px}
-.bench-head h2{margin:12px 0 0;font:clamp(2.8rem,6vw,6rem)/.82 var(--serif);letter-spacing:-.06em}
-.bench-head p:last-child{max-width:280px;color:#c6b7a7;font:12px/1.7 var(--sans)}
-.bench-grid{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:20px;max-width:1200px;margin:auto}
-.specimen{position:relative;min-height:510px;border:1px solid #e7d1a644;background:#12161b;overflow:hidden;box-shadow:12px 14px 0 #08090c}
-.specimen-art{position:absolute;inset:0;width:100%;height:100%}
-.specimen-art .leaf{transform-box:fill-box;transform-origin:bottom;animation:leafmove 5s ease-in-out infinite alternate}
-.specimen-art .leaf:nth-child(2n){animation-delay:-2.4s}
-@keyframes leafmove{to{transform:rotate(4deg)}}
-.specimen-label{position:absolute;left:18px;top:18px;padding:8px 10px;background:#d6cbad;color:#211922;font:9px var(--mono);letter-spacing:.15em}
-.hotspot{position:absolute;width:40px;height:40px;border:1px solid #f5dfb5;border-radius:50%;background:#d8b77933;color:#fff1c7;box-shadow:0 0 0 7px #f1d59b19,0 0 24px #f3d59b88;display:grid;place-items:center;transition:transform .2s,background .2s}
-.hotspot:hover,.hotspot[aria-pressed=true]{transform:scale(1.25);background:#d8b779;color:#211922}
-.hotspot[data-note="window"]{left:47%;top:42%}.hotspot[data-note="cat"]{left:25%;top:73%}.hotspot[data-note="roof"]{left:69%;top:25%}
-.specimen-caption{position:absolute;left:18px;right:18px;bottom:16px;display:flex;justify-content:space-between;gap:15px;color:#e8ddc6;font:9px var(--mono);letter-spacing:.12em;text-shadow:0 2px 8px #000}
-.instrument-side{display:grid;grid-template-rows:1fr auto;gap:20px}
-.tactile-panel{padding:27px;background:#d8cdb5;color:#211921;box-shadow:8px 9px 0 #08090c;min-height:275px;position:relative;overflow:hidden}
-.tactile-panel:after{content:"";position:absolute;right:-50px;bottom:-90px;width:220px;height:220px;border:1px solid #8c405555;border-radius:50%;box-shadow:0 0 0 20px #8c405511,0 0 0 45px #8c405511}
-.tactile-panel .index{color:#91445a}.tactile-panel h3{font:italic 2.3rem/.95 var(--serif);margin:18px 0}.tactile-panel p{max-width:340px;color:#59474a;font:12px/1.7 var(--sans)}
-.note-readout{position:relative;z-index:1;min-height:65px;padding:14px 15px;margin-top:20px;border-left:3px solid #91445a;background:#c8b99f;font:italic 16px/1.35 var(--serif)}
-.sound-desk{padding:23px;background:#22262a;border:1px solid #d8b77955}
-.sound-desk h3{margin:0 0 15px;font:italic 1.8rem var(--serif);color:#eddbbd}
-.sound-controls{display:flex;gap:10px;flex-wrap:wrap}
-.sound-button,.tiny-action{padding:11px 13px;border:1px solid #d8b77988;background:#15171b;color:#f0dfc1;font:9px var(--mono);letter-spacing:.12em}
-.sound-button[aria-pressed=true]{background:#d8b779;color:#211921}
-.waveform{height:34px;margin-top:17px;display:flex;align-items:center;gap:3px;opacity:.55}
-.waveform i{flex:1;height:var(--h);background:#9fb8a0;transform-origin:center;animation:wave 1.2s ease-in-out infinite alternate;animation-play-state:paused}
-.sound-desk.playing .waveform i{animation-play-state:running}
-.waveform i:nth-child(3n){animation-delay:-.5s}.waveform i:nth-child(4n){animation-delay:-.8s}
-@keyframes wave{to{transform:scaleY(.2);opacity:.4}}
-.curiosity{padding:110px clamp(20px,7vw,105px);background:#d8cdb5;color:#211921;position:relative;overflow:hidden}
-.curiosity-head{text-align:center;max-width:720px;margin:0 auto 45px}.curiosity-head .index{color:#91445a}
-.curiosity-head h2{font:clamp(2.7rem,6vw,5.5rem)/.88 var(--serif);margin:18px 0}
-.curiosity-head p:last-child{font:12px/1.7 var(--sans);color:#57474b}
-.object-shelf{max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:13px}
-.curio{min-height:180px;position:relative;border:1px solid #57474b55;background:#e6d9bf;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#30242b;transition:transform .2s,box-shadow .2s;box-shadow:4px 5px 0 #9c8974}
-.curio:hover,.curio[aria-pressed=true]{transform:translateY(-7px) rotate(var(--tilt));box-shadow:7px 12px 0 #91445a}
-.curio .object{font-size:clamp(2.5rem,5vw,4.5rem);filter:drop-shadow(2px 4px 0 #8b405533)}
-.curio small{font:8px var(--mono);letter-spacing:.13em}
-.curio-output{max-width:1100px;min-height:92px;margin:25px auto 0;padding:20px 24px;background:#25212a;color:#e9dcc5;display:flex;align-items:center;gap:20px}
-.curio-output strong{font:italic 1.6rem var(--serif);color:#e2bd88}.curio-output span{font:12px/1.6 var(--sans);color:#d1c3b2}
-.carnival-game{padding:100px 22px;background:radial-gradient(ellipse at 50% 55%,#6f314d,#211521 65%,#100e14);text-align:center;overflow:hidden}
-.carnival-game h2{font:900 clamp(2.7rem,7vw,6rem)/.85 var(--sans);letter-spacing:-.08em;margin:15px 0}
-.carnival-game>p:not(.overline){max-width:520px;margin:0 auto 35px;color:#e1cbb7;font:13px/1.7 var(--sans)}
-.fortune-wheel{position:relative;width:min(72vw,330px);aspect-ratio:1;margin:35px auto;border-radius:50%;border:9px solid #e1c99b;background:conic-gradient(#c4c96d 0 45deg,#9d4b60 45deg 90deg,#729c99 90deg 135deg,#d7a06e 135deg 180deg,#c4c96d 180deg 225deg,#9d4b60 225deg 270deg,#729c99 270deg 315deg,#d7a06e 315deg);box-shadow:0 0 0 8px #1b111c,0 0 40px #e0c78a66;transition:transform 2.4s cubic-bezier(.12,.75,.18,1)}
-.fortune-wheel:before{content:"✳";position:absolute;inset:35%;display:grid;place-items:center;border-radius:50%;background:#211922;border:3px solid #e8d4ad;color:#e8d4ad;font-size:clamp(2rem,5vw,3rem)}
-.wheel-pointer{width:0;height:0;margin:0 auto -42px;border-left:18px solid transparent;border-right:18px solid transparent;border-top:35px solid #f3d9a5;position:relative;z-index:2;filter:drop-shadow(0 4px 2px #160e16)}
-.fortune-result{min-height:52px;color:#f1dcb8;font:italic 1.6rem var(--serif);margin:12px auto}
-#spinWheel{padding:15px 24px;background:#e1c99b;color:#211922;border:0;font:10px var(--mono);letter-spacing:.16em;box-shadow:5px 5px 0 #100e14}
-.constellation{padding:95px 22px;background:#10191d;position:relative;overflow:hidden;text-align:center}
-.constellation h2{font:clamp(2.6rem,6vw,5rem)/.9 var(--serif);margin:18px 0}
-.constellation p{max-width:500px;margin:0 auto 25px;color:#b8c7bc;font:12px/1.7 var(--sans)}
-.starfield{position:relative;max-width:850px;height:330px;margin:30px auto 15px;border:1px solid #b8c7bc44;background:radial-gradient(ellipse at 50% 80%,#21484b,#10191d 70%);overflow:hidden;touch-action:manipulation}
-.starfield:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#f2d69a 1px,transparent 1.5px),radial-gradient(#a8c6b9 1px,transparent 1.5px);background-size:73px 67px,113px 91px;background-position:10px 20px,40px 8px;opacity:.5}
-.starfield svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.star-dot{position:absolute;z-index:2;width:20px;height:20px;border:0;border-radius:50%;background:#f0d99e;box-shadow:0 0 10px 4px #f0d99e66;transform:translate(-50%,-50%);padding:0}
-.star-dot:after{content:"";position:absolute;inset:-9px;border:1px solid #f0d99e55;border-radius:50%}
-.star-instructions{font:9px var(--mono)!important;letter-spacing:.15em;color:#d7bd8c!important}
-.star-tools{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-@media(max-width:850px){.bench-grid{grid-template-columns:1fr}.specimen{min-height:420px}.instrument-side{grid-template-rows:auto auto}.object-shelf{grid-template-columns:repeat(3,1fr)}.bench-head{display:block}.bench-head p:last-child{margin-top:20px}}
-@media(max-width:480px){.instrument-bench,.curiosity{padding:80px 17px}.specimen{min-height:340px}.tactile-panel{padding:22px}.object-shelf{grid-template-columns:repeat(2,1fr)}.curio{min-height:145px}.curio-output{align-items:flex-start;flex-direction:column;gap:6px}.starfield{height:260px}}
-
+:root{color-scheme:dark;--night:#10191a;--bone:#e8d8b9;--rust:#b96c55;--moss:#849879;--water:#527b7b;--gold:#d8b477}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--night);color:var(--bone)}
+body{overflow-x:hidden;font-family:Georgia,serif}
+button,a{font:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #f5d99c;outline-offset:5px}
+.world{position:relative;min-height:100svh;overflow:hidden;background:#10191a}
+.world:before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.17;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");mix-blend-mode:screen}
+.topline{position:absolute;z-index:5;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:22px 28px;color:#d6c7a9;font:9px/1.2 "Courier New",monospace;letter-spacing:.19em;text-transform:uppercase;pointer-events:none}
+.topline a{pointer-events:auto;color:inherit;text-decoration:none;border-bottom:1px solid #d6c7a955;padding-bottom:5px}
+.topline .sig{display:flex;align-items:center;gap:12px}
+.sig-mark{width:22px;height:22px;border:1px solid #c49b70;border-radius:50% 42% 50% 38%;transform:rotate(-27deg);position:relative}
+.sig-mark:after{content:"";position:absolute;inset:5px;border:1px solid #c49b70;border-radius:50%}
+.scene{display:block;width:100%;height:100svh;min-height:650px;max-height:1100px}
+svg text{user-select:none}
+.relic{cursor:pointer;outline:none}
+.relic .halo{opacity:0;transition:opacity .35s}
+.relic:hover .halo,.relic:focus .halo,.relic:focus-visible .halo{opacity:1}
+.relic:focus-visible{filter:drop-shadow(0 0 8px #f3d99b)}
+.moon{transform-origin:1180px 190px;animation:moon-breathe 9s ease-in-out infinite alternate}
+.waterline{animation:water 11s ease-in-out infinite alternate;transform-origin:center}
+.lantern{animation:float 5.5s ease-in-out infinite alternate}
+.lantern:nth-of-type(2n){animation-delay:-2.7s}
+.leaf-sway{transform-box:fill-box;transform-origin:bottom;animation:leaf 7s ease-in-out infinite alternate}
+.firefly{animation:firefly 4s ease-in-out infinite alternate}
+.firefly:nth-child(2n){animation-delay:-2s}
+@keyframes moon-breathe{to{transform:scale(1.035)}}
+@keyframes water{to{transform:translateX(16px)}}
+@keyframes float{to{transform:translateY(-13px)}}
+@keyframes leaf{to{transform:rotate(3deg)}}
+@keyframes firefly{to{opacity:.18;transform:translate(5px,-8px)}}
+.inscription{position:absolute;z-index:4;left:50%;bottom:26px;transform:translateX(-50%);display:flex;align-items:center;gap:13px;color:#c6b89d;font:8px "Courier New",monospace;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;opacity:.78}
+.inscription:before,.inscription:after{content:"";width:38px;height:1px;background:#c6b89d66}
+.reveal{position:absolute;z-index:7;left:50%;bottom:72px;transform:translate(-50%,16px);width:min(420px,calc(100% - 38px));padding:18px 22px 20px;border:1px solid #d8b47777;background:#172021eF;color:#eadbbd;box-shadow:8px 8px 0 #090e0f;opacity:0;pointer-events:none;transition:opacity .35s,transform .35s}
+.reveal.open{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.reveal small{display:block;margin-bottom:10px;color:#c18a6d;font:8px "Courier New",monospace;letter-spacing:.2em;text-transform:uppercase}
+.reveal p{margin:0;font:italic 19px/1.3 Georgia,serif}
+.reveal button{position:absolute;top:8px;right:9px;border:0;background:none;color:#e8d8b9;font:18px Georgia;cursor:pointer}
+.exit{position:absolute;z-index:5;right:27px;bottom:25px;color:#d6c7a9;text-decoration:none;font:8px "Courier New",monospace;letter-spacing:.17em;border-bottom:1px solid #d6c7a955;padding-bottom:5px}
+@media(max-width:700px){
+ .topline{padding:16px 15px;font-size:8px}
+ .scene{height:86svh;min-height:600px;max-height:850px}
+ .inscription{bottom:17px;font-size:7px;letter-spacing:.13em}
+ .inscription:before,.inscription:after{width:18px}
+ .exit{right:15px;bottom:52px;font-size:7px}
+ .reveal{bottom:90px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<div class="grain" aria-hidden="true"></div>
-<header>
-<a class="signature" href="#beginning"><span class="mark">✳</span><span>AN UNFINISHED PLACE<small>MADE OF WHAT REMAINED</small></span></a>
-<nav aria-label="House navigation"><a href="#rooms">ROOMS</a><a href="#small-hearts">THE SMALL HEARTS</a><a href="#door">THE DOOR</a></nav>
-<button class="light-switch" id="lightSwitch" aria-pressed="false">TURN ON A LIGHT</button>
-</header>
-<main>
-<section class="opening" id="beginning">
-<div class="opening-copy">
-<p class="overline">A PLACE FOR THE THINGS THAT DIDN’T FIT ANYWHERE ELSE</p>
-<h1>THE HOUSE<br>THAT <em>REMEMBERS.</em></h1>
-<p class="opening-line">I kept a light on for everything the world told me to leave outside.</p>
-<p class="opening-small">For the strange ideas. The difficult bodies. The animals who made a home inside a life. The people who are still trying to make something kind out of a place that can be cruel.</p>
-<a class="enter" href="#inside">COME INSIDE <span>↓</span></a>
-<span class="margin-note">NO MAP REQUIRED · NO RIGHT WAY THROUGH</span>
-</div>
-<div class="art-wrap">
-<svg class="house-art" viewBox="0 0 900 900" role="img" aria-label="A hand-drawn crooked house with a lit window, overgrown branches, a small animal at the door, and rain turning into stars">
-<defs><linearGradient id="windowLight" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0a8"/><stop offset="1" stop-color="#e36b72"/></linearGradient><filter id="pencil"><feTurbulence baseFrequency=".035" numOctaves="3" seed="8" type="fractalNoise"/><feDisplacementMap in="SourceGraphic" scale="2.6"/></filter></defs>
-<path d="M170 710 Q120 480 260 340 Q320 250 445 190 Q520 140 635 260 Q780 390 760 700" fill="none" stroke="#b8c18b" stroke-width="5" stroke-dasharray="3 13" opacity=".65"/>
-<path d="M208 704 L225 405 L449 235 L698 405 L710 710 Z" fill="#251a29" stroke="#e7c9a2" stroke-width="7" filter="url(#pencil)"/>
-<path d="M188 415 L445 205 L731 414 L694 430 L445 250 L225 448 Z" fill="#8e4056" stroke="#e7c9a2" stroke-width="5"/>
-<path d="M252 440 L445 286 L665 442 L654 690 L260 690 Z" fill="#182b2c" stroke="#d8b98f" stroke-width="4"/>
-<path d="M370 475 L525 475 L525 626 L370 626 Z" fill="url(#windowLight)" stroke="#f4dfb9" stroke-width="8"/>
-<path d="M445 475 L445 626 M370 548 L525 548" stroke="#3a2934" stroke-width="9"/>
-<path d="M560 534 Q610 515 624 552 L624 690 L548 690 L548 564Z" fill="#473044" stroke="#d8b98f" stroke-width="5"/><circle cx="606" cy="610" r="5" fill="#f5d69c"/>
-<path d="M292 690 Q280 618 322 602 Q358 615 351 690" fill="#151b1c" stroke="#d9c5a1" stroke-width="4"/><path d="M302 615 Q310 575 335 581 Q355 590 350 620" fill="#151b1c" stroke="#d9c5a1" stroke-width="4"/><path d="M310 590 L304 570 L322 582 M337 584 L349 567 L351 591" fill="#151b1c" stroke="#d9c5a1" stroke-width="3"/><circle cx="322" cy="600" r="3" fill="#f3dfae"/><circle cx="340" cy="600" r="3" fill="#f3dfae"/>
-<path d="M100 760 Q220 720 340 752 T610 746 T830 760" fill="none" stroke="#9db58a" stroke-width="5"/>
-<g fill="none" stroke-linecap="round"><path d="M130 710 Q75 610 120 515 Q145 475 180 470 M135 610 Q80 585 70 535 M145 660 Q210 610 200 540" stroke="#a7bd87" stroke-width="8"/><path d="M755 700 Q835 580 780 475 Q760 440 720 430 M790 610 Q850 575 865 520 M780 655 Q710 600 720 530" stroke="#a7bd87" stroke-width="8"/></g>
-<g fill="#d3a2a0" stroke="#e6d0ac" stroke-width="2"><ellipse cx="95" cy="510" rx="17" ry="34" transform="rotate(-35 95 510)"/><ellipse cx="185" cy="520" rx="13" ry="27" transform="rotate(35 185 520)"/><ellipse cx="800" cy="470" rx="16" ry="31" transform="rotate(35 800 470)"/><ellipse cx="715" cy="520" rx="13" ry="27" transform="rotate(-32 715 520)"/></g>
-<g stroke="#8ab3b1" stroke-width="3" opacity=".8"><path d="M160 120 L130 260 M215 90 L188 235 M710 110 L685 255 M770 150 L742 290 M105 270 L95 330 M810 300 L790 360"/></g>
-<g fill="#f2d58f"><path d="M130 300l8 20 20 8-20 8-8 20-8-20-20-8 20-8z"/><path d="M770 350l6 15 15 6-15 6-6 15-6-15-15-6 15-6z"/><circle cx="580" cy="120" r="5"/><circle cx="340" cy="115" r="4"/><circle cx="850" cy="430" r="4"/></g>
-<path d="M350 800 Q450 770 550 800" fill="none" stroke="#d76e65" stroke-width="4" stroke-dasharray="2 12"/>
-<text x="450" y="855" text-anchor="middle" fill="#e6d3b4" font-size="16" letter-spacing="7" font-family="Georgia">THE HOUSE THAT REMEMBERS</text>
-</svg>
-<span class="caption">FIG. 01 — THE LIGHT WAS NEVER FOR SHOW</span><span class="scribble">still here<br>still making</span>
-</div><span class="side-note">A HOUSE IS A KIND OF MEMORY THAT YOU CAN WALK THROUGH.</span>
-</section>
-
-<section class="instrument-bench" id="look-closer">
- <div class="bench-head"><div><p class="overline">A WORKING COLLECTION / TOUCH THE DETAILS</p><h2>Look closer.<br><em>Things move here.</em></h2></div><p>This is not a page to read. It is a little room full of things that answer when you touch them.</p></div>
- <div class="bench-grid">
-  <div class="specimen" id="specimen">
-   <svg class="specimen-art" viewBox="0 0 720 560" role="img" aria-label="Layered cut-paper illustration of a strange house growing through a garden">
-    <defs><linearGradient id="specSky" x2="0" y2="1"><stop stop-color="#243d46"/><stop offset=".55" stop-color="#8e5660"/><stop offset="1" stop-color="#d7a06e"/></linearGradient><filter id="specGrain"><feTurbulence baseFrequency=".7" numOctaves="2" seed="12" type="fractalNoise"/><feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 .12 0"/></filter></defs>
-    <rect width="720" height="560" fill="url(#specSky)"/><circle cx="535" cy="120" r="68" fill="#e7c88e" opacity=".8"/><path d="M0 370Q120 290 240 360T480 340T720 350V560H0Z" fill="#263c37"/><path d="M0 440Q150 365 300 430T720 415V560H0Z" fill="#172b2a"/>
-    <g class="leaf" fill="none" stroke="#9eb48a" stroke-width="13" stroke-linecap="round"><path d="M30 560Q75 420 30 250Q110 330 95 410Q145 270 180 205"/><path d="M690 560Q640 420 700 220Q610 300 620 390Q570 270 540 210"/></g>
-    <g fill="#c77d83" stroke="#e4c9a7" stroke-width="2"><path d="M75 300q-45-60 5-85q40 15 5 85q-35-55 5-75"/><path d="M630 300q-40-65 8-82q38 22 0 82q-30-58 8-75"/></g>
-    <path d="M190 430L205 220L365 95L535 225L520 450Z" fill="#63394b" stroke="#e8d5b4" stroke-width="6"/><path d="M170 230L365 65L565 230L530 245L365 120L205 260Z" fill="#bd795e" stroke="#f0dcb8" stroke-width="5"/><path d="M235 250L365 145L495 250V430H235Z" fill="#233c3b" stroke="#dfc9a3" stroke-width="4"/>
-    <path d="M305 270H425V365H305Z" fill="#f4cf8e" stroke="#f1dfbd" stroke-width="7"/><path d="M365 270V365M305 318H425" stroke="#654050" stroke-width="7"/><path d="M450 330Q485 315 485 350V430H445V350Z" fill="#372c3a" stroke="#d9c49e" stroke-width="4"/>
-    <path d="M130 470Q200 420 270 470T420 470T590 470" fill="none" stroke="#d8b779" stroke-width="4" stroke-dasharray="4 11"/>
-    <g fill="#f2d99d"><path d="M120 160l7 19 19 7-19 7-7 19-7-19-19-7 19-7z"/><path d="M610 170l5 14 14 5-14 5-5 14-5-14-14-5 14-5z"/><circle cx="270" cy="105" r="4"/><circle cx="480" cy="85" r="3"/></g>
-    <g transform="translate(140 440)" fill="#17151b" stroke="#e4cda8" stroke-width="3"><path d="M0 55Q-5 15 25 12Q55 15 50 55Z"/><path d="M9 18L4 0L22 12M34 12L49 0L45 22"/><circle cx="19" cy="27" r="3" fill="#f5dca2" stroke="none"/><circle cx="35" cy="27" r="3" fill="#f5dca2" stroke="none"/></g>
-    <rect width="720" height="560" filter="url(#specGrain)" opacity=".5"/>
-   </svg>
-   <span class="specimen-label">SPECIMEN 001 / THE HOUSE AT DUSK</span>
-   <button class="hotspot" data-note="window" aria-label="Inspect the lit window" aria-pressed="false">✳</button>
-   <button class="hotspot" data-note="cat" aria-label="Inspect the small visitor" aria-pressed="false">✳</button>
-   <button class="hotspot" data-note="roof" aria-label="Inspect the roof garden" aria-pressed="false">✳</button>
-   <div class="specimen-caption"><span>THREE DETAILS ARE HIDING</span><span>TOUCH THE LIGHTS</span></div>
-  </div>
-  <div class="instrument-side">
-   <div class="tactile-panel"><p class="index">FIELD NOTE / <span id="detailCount">00</span></p><h3 id="detailTitle">The house has pockets.</h3><p id="detailText">Touch one of the small lights in the picture. Each one opens a different layer of the same place.</p><div class="note-readout" id="detailWhisper">Nothing here is only decoration.</div></div>
-   <div class="sound-desk" id="soundDesk"><h3>Weather you can hear</h3><div class="sound-controls"><button class="sound-button" id="rainSound" aria-pressed="false">☂ RAIN ON GLASS</button><button class="sound-button" id="nightSound" aria-pressed="false">✳ NIGHT GARDEN</button></div><div class="waveform" aria-hidden="true"><i style="--h:12px"></i><i style="--h:29px"></i><i style="--h:24px"></i><i style="--h:19px"></i><i style="--h:14px"></i><i style="--h:31px"></i><i style="--h:26px"></i><i style="--h:21px"></i><i style="--h:16px"></i><i style="--h:33px"></i><i style="--h:28px"></i><i style="--h:23px"></i><i style="--h:18px"></i><i style="--h:13px"></i><i style="--h:30px"></i><i style="--h:25px"></i><i style="--h:20px"></i><i style="--h:15px"></i><i style="--h:32px"></i><i style="--h:27px"></i><i style="--h:22px"></i><i style="--h:17px"></i><i style="--h:12px"></i><i style="--h:29px"></i></div></div>
-  </div>
- </div>
-</section>
-<section class="curiosity" id="cabinet">
- <div class="curiosity-head"><p class="index">CABINET OF LIVING TRACES / OPEN THE DRAWERS</p><h2>Pick something up.<br><em>It remembers being held.</em></h2><p>Five small objects. No quiz. No correct interpretation. Just see what happens when you turn one over.</p></div>
- <div class="object-shelf">
-  <button class="curio" data-curio="thread" style="--tilt:-3deg" aria-pressed="false"><span class="object">🧵</span><small>THE GOLD THREAD</small></button>
-  <button class="curio" data-curio="shell" style="--tilt:2deg" aria-pressed="false"><span class="object">🐚</span><small>THE POCKET SEA</small></button>
-  <button class="curio" data-curio="key" style="--tilt:-2deg" aria-pressed="false"><span class="object">🗝</span><small>THE WRONG KEY</small></button>
-  <button class="curio" data-curio="seed" style="--tilt:3deg" aria-pressed="false"><span class="object">🌱</span><small>THE STUBBORN SEED</small></button>
-  <button class="curio" data-curio="bell" style="--tilt:-1deg" aria-pressed="false"><span class="object">🔔</span><small>THE LITTLE BELL</small></button>
- </div>
- <div class="curio-output" aria-live="polite"><strong id="curioTitle">The drawer is waiting.</strong><span id="curioText">Choose an object. Turn it over. See what was tucked underneath.</span></div>
-</section>
-<section class="carnival-game" id="game"><p class="overline">THE CARNIVAL / ONE BOOTH IS STILL OPEN</p><h2>THE MACHINE<br><em>THAT GIVES THINGS BACK.</em></h2><p>It doesn't predict anything. It returns a small strange instruction. Spin when you feel like it. Ignore it if you don't.</p><div class="wheel-pointer"></div><div class="fortune-wheel" id="fortuneWheel" aria-label="A colorful wheel of strange instructions"></div><button id="spinWheel">TURN THE MACHINE</button><div class="fortune-result" id="fortuneResult" aria-live="polite">It is waiting for a hand.</div></section>
-<section class="constellation" id="sky-map"><p class="overline">THE WEST WINDOW / A SKY THAT BELONGS TO NOBODY</p><h2>Leave a little light.</h2><p>Tap the dark and make a constellation. It stays in this browser, on this device. No account, no public posting.</p><div class="starfield" id="starfield" aria-label="Interactive star field. Tap to place stars."><svg id="starLines" viewBox="0 0 100 100" preserveAspectRatio="none"></svg></div><p class="star-instructions" id="starCount">00 LIGHTS LEFT HERE</p><div class="star-tools"><button class="tiny-action" id="undoStar">UNDO LAST LIGHT</button><button class="tiny-action" id="clearStars">CLEAR THE SKY</button></div></section>
-
-<section class="threshold" id="inside">
-<p class="index">ENTRY / 01</p>
-<h2 data-reveal>There were thousands of little things.<br><em>None of them were little.</em></h2>
-<p data-reveal>Some were facts. Some were feelings. Some were questions that came back years later wearing different clothes. Some were living things who needed somewhere safe to sleep.</p><div class="thread" aria-hidden="true"></div>
-</section>
-<section class="rooms" id="rooms">
-<div class="rooms-heading" data-reveal><p class="overline">THE ROOMS / OPEN WHAT CALLS YOU</p><h2>Nothing here<br><em>is arranged for company.</em></h2><span>These rooms were made to hold their shape, even when the person inside them changes.</span></div>
-<div class="room-grid">
-<article class="room rain" data-reveal><span class="number">01 / PRIVATE WEATHER</span><h3>THE ROOM THAT HEARS THE RAIN</h3><details><summary>OPEN THE DRAWER</summary><p>Some nights the whole world is too loud. This room does not ask you to explain why. The window is open by one inch. The rain is doing the talking.</p></details><span class="room-mark">≈</span></article>
-<article class="room animals" data-reveal><span class="number">02 / PRIVATE WEATHER</span><h3>THE SMALL HEARTS</h3><details><summary>OPEN THE DRAWER</summary><p>There are lives that rearrange a house simply by being in it. There are names that remain in the shape of a sleeping place. Love does not become less real because a body could not stay.</p></details><span class="room-mark">✳</span></article>
-<article class="room carnival" data-reveal><span class="number">03 / PRIVATE WEATHER</span><h3>THE CARNIVAL THAT LIED</h3><details><summary>OPEN THE DRAWER</summary><p>Every booth sold a clean answer. Every answer left somebody outside. So the lights were rewired. Now the machines give back the things they were built to ignore.</p></details><span class="room-mark">☼</span></article>
-<article class="room ocean" data-reveal><span class="number">04 / PRIVATE WEATHER</span><h3>THE WINDOW FACING WEST</h3><details><summary>OPEN THE DRAWER</summary><p>Not an escape hatch. A direction. The water keeps moving without asking permission from the shore. You can look at it for as long as you need.</p></details><span class="room-mark">⌁</span></article>
-</div></section>
-<section class="small-hearts" id="small-hearts">
-<div class="hearts-image" data-reveal><div class="window"><b></b></div><p>THEIR PLACES<br>ARE STILL HERE.</p></div>
-<div class="hearts-copy" data-reveal><p class="overline">A ROOM WITH THE DOOR LEFT OPEN</p><h2>Some love<br>leaves <em>a shape.</em></h2>
-<p>There are bowls that should still be full. There are warm places on a blanket that take a long time to cool. There are small footsteps a house keeps expecting.</p>
-<p>We do not turn that into a lesson. We do not ask it to become beautiful. We make a place where it can remain true.</p><span class="signoff">for every small life that changed the weather in here</span></div>
-</section>
-<section class="carnival" data-reveal><p class="overline">OUT BACK / AFTER MIDNIGHT</p><h2>THE CARNIVAL<br><em>IS STILL RUNNING.</em></h2><p>One booth for every neat explanation that failed somebody. One ride for every system that called its own limits a person's fault. The lights are crooked. The music is strange. Nobody gets turned away for being difficult to categorize.</p><div class="lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="ticket">ADMIT ONE / NO EXPLANATION REQUIRED</span></section>
-<section class="ocean" data-reveal><div class="ocean-copy"><p class="overline">THE WEST WINDOW</p><h2>THE WATER<br>DOESN’T ASK<br><em>WHO YOU WERE.</em></h2><p>It keeps moving. So do you. Not in a straight line. Not on command. Sometimes the only honest thing a place can offer is a horizon and enough room to look at it.</p></div>
-<div class="ocean-art" aria-hidden="true"><svg viewBox="0 0 720 430"><path d="M0 170 Q90 120 180 170 T360 170 T540 170 T720 170 V430 H0Z" fill="#1d5155"/><path d="M0 220 Q100 170 200 220 T400 220 T600 220 T800 220" fill="none" stroke="#b8c8a0" stroke-width="4"/><path d="M0 285 Q100 245 200 285 T400 285 T600 285 T800 285" fill="none" stroke="#e0b77c" stroke-width="2"/><path d="M0 350 Q100 315 200 350 T400 350 T600 350 T800 350" fill="none" stroke="#8bb7ac" stroke-width="5"/><circle cx="515" cy="92" r="48" fill="#e7bd82"/><path d="M460 92 Q515 68 570 92" stroke="#f5dfb3" stroke-width="3" fill="none"/></svg></div></section>
-<section class="last-door" id="door"><div class="last-copy" data-reveal><p class="overline">THE LAST ROOM IS NOT THE END</p><h2>YOU CAN<br>LEAVE A LIGHT<br><em>ON FOR SOMEONE.</em></h2><p>This place is not finished. It is allowed to change. It is allowed to be strange. It is allowed to hold grief without making grief its only language. It is allowed to become useful to somebody who has never been here before.</p><a href="./living-atlas.html">LEAVE THE DOOR AJAR ↗</a></div>
-<svg class="house-art" viewBox="0 0 900 900" role="img" aria-label="A small lit house among dark branches"><path d="M170 710 L225 405 L449 235 L698 405 L710 710Z" fill="#251a29" stroke="#e7c9a2" stroke-width="7"/><path d="M188 415L445 205L731 414L694 430L445 250L225 448Z" fill="#8e4056" stroke="#e7c9a2" stroke-width="5"/><path d="M252 440L445 286L665 442L654 690L260 690Z" fill="#182b2c" stroke="#d8b98f" stroke-width="4"/><path d="M370 475H525V626H370Z" fill="#f4c989" stroke="#f4dfb9" stroke-width="8"/><path d="M445 475V626M370 548H525" stroke="#3a2934" stroke-width="9"/><path d="M560 534Q610 515 624 552V690H548V564Z" fill="#473044" stroke="#d8b98f" stroke-width="5"/></svg><span class="whisper">the map keeps moving<br>because life does</span></section>
+<main class="world">
+ <div class="topline"><div class="sig"><span class="sig-mark"></span><span>Mirror Cartographer</span></div><a href="./living-atlas.html">the atlas ↗</a></div>
+ <svg class="scene" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="An intricate hand-drawn night landscape: a crooked house grown into a tree, a glass greenhouse, a winding path, a distant carnival, and a dark sea beneath an enormous moon.">
+ <defs>
+  <linearGradient id="sky" x2=".15" y2="1"><stop stop-color="#172a2b"/><stop offset=".46" stop-color="#293b38"/><stop offset="1" stop-color="#8b5b4c"/></linearGradient>
+  <linearGradient id="moon" x2=".8" y2="1"><stop stop-color="#f3dfb4"/><stop offset=".7" stop-color="#d8ae7c"/><stop offset="1" stop-color="#bd8269"/></linearGradient>
+  <linearGradient id="sea" x2="0" y2="1"><stop stop-color="#426d6b"/><stop offset="1" stop-color="#142d31"/></linearGradient>
+  <linearGradient id="window" x2="1" y2="1"><stop stop-color="#fff0b8"/><stop offset="1" stop-color="#c96d5d"/></linearGradient>
+  <linearGradient id="glass" x2="0" y2="1"><stop stop-color="#b5c3a0" stop-opacity=".5"/><stop offset="1" stop-color="#385b55" stop-opacity=".12"/></linearGradient>
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="13" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="2.8"/></filter>
+  <filter id="glow"><feGaussianBlur stdDeviation="15"/></filter>
+  <pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(32)"><path d="M0 0V9" stroke="#d6c5a0" stroke-opacity=".12" stroke-width="1"/></pattern>
+ </defs>
+ <rect width="1600" height="1000" fill="url(#sky)"/>
+ <path d="M0 380Q170 285 340 350T680 330T1000 355T1320 315T1600 350V1000H0Z" fill="#243a34"/>
+ <g class="moon">
+  <circle cx="1180" cy="190" r="142" fill="#e7c58f" opacity=".12" filter="url(#glow)"/>
+  <circle cx="1180" cy="190" r="104" fill="url(#moon)" stroke="#f2d9aa" stroke-width="2"/>
+  <path d="M1112 140q30-27 56-4t-5 42q-30 19-51-8M1200 222q30-24 54-3t-10 34" fill="none" stroke="#a8755e" stroke-opacity=".35" stroke-width="5"/>
+  <path d="M1090 187q34-14 66-2m-39 47q26-12 47-5m-4-102q30 7 42 29" fill="none" stroke="#fff0c8" stroke-opacity=".5" stroke-width="2"/>
+ </g>
+ <g fill="#e7d2a7">
+  <circle cx="180" cy="150" r="2"/><circle cx="270" cy="240" r="3"/><circle cx="430" cy="105" r="2"/><circle cx="680" cy="180" r="2"/><circle cx="825" cy="90" r="3"/><circle cx="950" cy="270" r="2"/><circle cx="1390" cy="115" r="3"/><circle cx="1500" cy="280" r="2"/>
+ </g>
+ <g fill="none" stroke="#d5c29b" stroke-opacity=".4">
+  <path d="M80 210q80-70 160 0t160 0m-275 28q95-50 180 0t150 0" stroke-dasharray="1 11" stroke-width="2"/>
+  <path d="M870 120q40-32 80 0t80 0m-65 23q40-25 80 0" stroke-width="1"/>
+ </g>
+ <!-- distant ridges -->
+ <path d="M0 480Q170 390 330 460T660 435T990 470T1300 420T1600 450V720H0Z" fill="#31463c" stroke="#8da087" stroke-opacity=".35" stroke-width="3"/>
+ <path d="M0 535Q200 450 390 520T770 485T1110 520T1450 475T1600 500" fill="none" stroke="#9ba98b" stroke-opacity=".32" stroke-width="3"/>
+ <!-- far carnival -->
+ <g transform="translate(1310 420)" stroke="#d6b783" stroke-width="4" fill="none">
+  <path d="M-105 155L0-25L105 155M-78 115H78M-57 75H57"/>
+  <circle cx="0" cy="60" r="67" stroke="#c98c6e" stroke-width="3"/>
+  <circle cx="0" cy="60" r="8" fill="#d6b783"/>
+  <path d="M0-7V127M-67 60H67M-47 13L47 107M47 13L-47 107" stroke-width="2"/>
+  <g fill="#e7c98f" stroke="none"><circle cx="0" cy="-7" r="5"/><circle cx="67" cy="60" r="5"/><circle cx="0" cy="127" r="5"/><circle cx="-67" cy="60" r="5"/></g>
+  <path d="M-120 155H120" stroke-width="6"/>
+ </g>
+ <g fill="#d88d6e">
+  <path d="M1190 445l20-65 20 65z"/><path d="M1238 445l18-53 18 53z"/><path d="M1400 454l20-65 20 65z"/>
+ </g>
+ <g class="firefly" fill="#f1d89e"><circle cx="1040" cy="395" r="4"/><circle cx="1080" cy="440" r="3"/><circle cx="1450" cy="360" r="4"/><circle cx="950" cy="460" r="3"/></g>
+ <!-- sea and shoreline -->
+ <path d="M0 620Q170 565 340 620T680 610T1010 625T1330 590T1600 615V1000H0Z" fill="url(#sea)"/>
+ <g class="waterline" fill="none" stroke-linecap="round">
+  <path d="M0 690q110-28 220 0t220 0t220 0t220 0t220 0t220 0t220 0t220 0" stroke="#a4b49a" stroke-width="4" opacity=".6"/>
+  <path d="M-20 755q95-20 190 0t190 0t190 0t190 0t190 0t190 0t190 0t190 0t190 0" stroke="#d3b17e" stroke-width="2" opacity=".7"/>
+  <path d="M0 835q130-35 260 0t260 0t260 0t260 0t260 0t260 0" stroke="#8eaaa0" stroke-width="3" opacity=".48"/>
+  <path d="M80 920q80-18 160 0t160 0t160 0t160 0t160 0t160 0t160 0" stroke="#b7b49a" stroke-width="2" opacity=".38"/>
+ </g>
+ <!-- winding path -->
+ <path d="M570 1000Q620 900 720 855Q820 810 775 740Q730 675 820 625Q920 570 960 510" fill="none" stroke="#c39b72" stroke-width="78" opacity=".35"/>
+ <path d="M570 1000Q620 900 720 855Q820 810 775 740Q730 675 820 625Q920 570 960 510" fill="none" stroke="#d8bc91" stroke-width="3" stroke-dasharray="2 15" opacity=".8"/>
+ <!-- foreground cliffs -->
+ <path d="M0 560Q100 520 210 585Q315 650 390 720Q440 800 490 1000H0Z" fill="#182b29" stroke="#9aa083" stroke-opacity=".55" stroke-width="4"/>
+ <path d="M0 640q95-30 170 40t160 50m-300 40q100-40 200 30t190 20m-380 80q90-25 180 25" fill="none" stroke="#6f8a70" stroke-width="4" opacity=".55"/>
+ <path d="M1600 540q-100-35-210 45t-160 140q-45 90-90 275h460Z" fill="#192a28" stroke="#9aa083" stroke-opacity=".45" stroke-width="4"/>
+ <!-- giant tree -->
+ <g filter="url(#rough)">
+  <path d="M330 1000Q380 810 350 660Q320 500 395 370Q430 300 405 220Q480 300 470 390Q540 310 600 280Q570 380 505 440Q585 410 660 435Q580 495 495 510Q555 610 505 740Q480 850 545 1000Z" fill="#302d29" stroke="#b29a73" stroke-width="8"/>
+  <path d="M400 1000Q445 810 410 660Q385 500 450 390M480 1000Q455 850 485 710Q520 590 470 480" fill="none" stroke="#9a8062" stroke-width="5"/>
+  <path d="M400 490Q300 410 250 300Q230 245 260 195Q280 310 360 350M485 430Q580 330 710 300Q770 285 815 320Q700 330 630 390M420 370Q350 250 360 150Q390 90 420 65Q385 180 445 280" fill="none" stroke="#493d32" stroke-width="34" stroke-linecap="round"/>
+  <g fill="none" stroke="#9ba17c" stroke-width="4" opacity=".8"><path d="M260 195q-35-50-15-90m15 90q40-40 35-85M710 300q45-45 95-35m-95 35q25 35 70 45M360 150q-15-55 15-90"/></g>
+ </g>
+ <!-- root system -->
+ <g fill="none" stroke="#927a5f" stroke-width="8" stroke-linecap="round">
+  <path d="M420 850Q310 870 240 960M430 890Q380 920 360 1000M490 850Q580 900 650 1000M455 910Q520 950 530 1000"/>
+  <path d="M400 875Q280 900 180 890M500 875Q620 850 700 910"/>
+ </g>
+ <!-- leaves and tiny hanging lamps -->
+ <g class="leaf-sway" fill="#718b68" stroke="#c2b38a" stroke-width="2">
+  <path d="M255 300q-70-90-10-120q65 15 10 120M286 335q-20-95 40-102q48 45-40 102M650 350q20-90 80-75q28 55-80 75M700 330q60-75 105-30q5 65-105 30"/>
+  <path d="M370 210q-40-70 15-92q55 38-15 92M520 390q-15-75 40-88q48 50-40 88"/>
+ </g>
+ <g class="lantern">
+  <path d="M260 280v44m0 0q-20 18 0 38q20-20 0-38" stroke="#d7b77e" stroke-width="2" fill="#d88b66"/>
+  <circle cx="260" cy="342" r="5" fill="#ffe3a8"/>
+ </g>
+ <g class="lantern" style="animation-delay:-2s">
+  <path d="M690 330v38m0 0q-17 16 0 34q17-18 0-34" stroke="#d7b77e" stroke-width="2" fill="#d88b66"/>
+  <circle cx="690" cy="382" r="5" fill="#ffe3a8"/>
+ </g>
+ <!-- house grown into tree -->
+ <g transform="translate(395 440)" filter="url(#rough)">
+  <path d="M-110 130L-85-35L40-140L185-35L205 130Z" fill="#573a3b" stroke="#d6bd91" stroke-width="7"/>
+  <path d="M-128-25L38-165L220-23L185-5L40-125L-90 5Z" fill="#9b5b4d" stroke="#e4c99d" stroke-width="6"/>
+  <path d="M-70 0L40-95L160 0V115H-70Z" fill="#253b38" stroke="#c9b58c" stroke-width="4"/>
+  <path d="M-28 20H45V95H-28Z" fill="url(#window)" stroke="#f0d9aa" stroke-width="6"/>
+  <path d="M8 20V95M-28 57H45" stroke="#60434a" stroke-width="5"/>
+  <path d="M90 48Q125 35 132 65V115H86V62Z" fill="#302c32" stroke="#cbb78e" stroke-width="4"/>
+  <circle cx="123" cy="78" r="3" fill="#f5dba1"/>
+  <path d="M-105 130q-25-80 5-135m290 135q25-70-5-125" fill="none" stroke="#71886b" stroke-width="8"/>
+  <path d="M-100-35q-35-35-20-70m300 75q45-40 35-85" fill="none" stroke="#8da27d" stroke-width="5"/>
+ </g>
+ <!-- greenhouse -->
+ <g transform="translate(880 565)">
+  <path d="M-135 120V-5L0-95L145-5V120Z" fill="url(#glass)" stroke="#c6c39e" stroke-width="5"/>
+  <path d="M0-95V120M-135-5H145M-70-50V120M70-50V120" fill="none" stroke="#c6c39e" stroke-width="3"/>
+  <path d="M-95 110q0-60 35-75q30 35 0 75m30 0q0-75 40-100q35 50 0 100m35 0q0-55 40-70q25 45 0 70" fill="none" stroke="#b0bd8d" stroke-width="5"/>
+  <path d="M-118 122H128" stroke="#d2b789" stroke-width="6"/>
+  <circle cx="0" cy="-25" r="5" fill="#f3d99c"/>
+ </g>
+ <!-- flowers in foreground -->
+ <g fill="none" stroke="#a6ad83" stroke-width="3">
+  <path d="M125 820q-10-75 15-120m-15 120q-30-50-60-55m75 55q30-55 55-65M1020 900q-10-80 18-135m-18 135q-30-50-65-55m85 55q25-45 60-52"/>
+ </g>
+ <g fill="#d18b76" stroke="#ead2a7" stroke-width="2">
+  <path d="M140 700q-28-30 0-45q28 15 0 45q-28-25 0-45m-80 63q-24-27 0-40q24 13 0 40q-24-24 0-40m135-20q-24-27 0-40q24 13 0 40q-24-24 0-40"/>
+  <path d="M1038 765q-26-28 0-43q26 15 0 43q-26-24 0-43m-72 85q-22-26 0-39q22 13 0 39q-22-23 0-39m130-22q-22-26 0-39q22 13 0 39q-22-23 0-39"/>
+ </g>
+ <g fill="#e4c98d"><circle cx="140" cy="700" r="5"/><circle cx="60" cy="763" r="4"/><circle cx="195" cy="743" r="4"/><circle cx="1038" cy="765" r="5"/></g>
+ <!-- tiny skiff -->
+ <path d="M1120 840q90 35 180 0l-22 30h-130Z" fill="#392f2c" stroke="#c9ad7d" stroke-width="3"/>
+ <path d="M1205 830V750q45 25 60 80Z" fill="#c7a67a" stroke="#e3cda5" stroke-width="2"/>
+ <!-- clickable details -->
+ <g class="relic" tabindex="0" role="button" aria-label="Open the lit window" data-title="The light left on" data-copy="A small square of warmth in a very large night. It was never a signal to come back unchanged.">
+  <circle class="halo" cx="403" cy="495" r="55" fill="#f4d28b" opacity=".22"/><circle cx="403" cy="495" r="13" fill="transparent"/>
+ </g>
+ <g class="relic" tabindex="0" role="button" aria-label="Open the greenhouse" data-title="The impossible greenhouse" data-copy="Things grow here without being asked to justify the shape they take. Some of them only bloom after dark.">
+  <circle class="halo" cx="880" cy="545" r="95" fill="#b5c69b" opacity=".18"/><circle cx="880" cy="545" r="13" fill="transparent"/>
+ </g>
+ <g class="relic" tabindex="0" role="button" aria-label="Look toward the carnival" data-title="The crooked carnival" data-copy="The wheel turns whether or not anyone is watching. One of its little lights is always late.">
+  <circle class="halo" cx="1310" cy="480" r="105" fill="#e4bc7c" opacity=".16"/><circle cx="1310" cy="480" r="13" fill="transparent"/>
+ </g>
+ <g class="relic" tabindex="0" role="button" aria-label="Find the boat" data-title="A boat with no timetable" data-copy="It does not promise rescue. It offers a direction, a little room, and the sound of water under the boards.">
+  <circle class="halo" cx="1200" cy="835" r="80" fill="#c4b58d" opacity=".16"/><circle cx="1200" cy="835" r="13" fill="transparent"/>
+ </g>
+ <!-- fine ink scratches and contour marks -->
+ <g fill="none" stroke="#d6c7a5" stroke-opacity=".22" stroke-width="2">
+  <path d="M220 570q-60 45-90 120m-35-80q50 20 80 75M735 560q50-50 100-45m-65 70q40-20 80-5M1480 610q-70 25-105 90m85-35q-45 0-75 40"/>
+  <path d="M320 780q-70 25-105 70m60-85q-15 45-5 80M950 920q55-45 110-35m-65 55q35-20 65-10"/>
+ </g>
+ </svg>
+ <div class="inscription">the unfinished country · touch the small lights</div>
+ <div class="reveal" id="reveal" role="status" aria-live="polite"><button type="button" id="closeReveal" aria-label="Close">×</button><small id="revealTitle"></small><p id="revealCopy"></p></div>
+ <a class="exit" href="./living-atlas.html">wander further ↗</a>
 </main>
-<footer><span>THE HOUSE THAT REMEMBERS</span><span>BUILT FROM WHAT WAS NOT LEFT BEHIND</span><a href="./living-atlas.html">ENTER THE LIVING ATLAS ↗</a><a href="#beginning">BACK TO THE LIGHT ↑</a></footer>
 <script>
-(() => {
- const root=document.documentElement, button=document.getElementById('lightSwitch');
- button.addEventListener('click',()=>{const on=document.body.classList.toggle('lights-on');button.textContent=on?'LIGHTS LOW':'TURN ON A LIGHT';button.setAttribute('aria-pressed',String(on));});
- const nodes=document.querySelectorAll('[data-reveal]');
- if(!('IntersectionObserver' in window)){nodes.forEach(n=>n.classList.add('seen'));return;}
- const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('seen');observer.unobserve(entry.target);}}),{threshold:.14});
- nodes.forEach(n=>observer.observe(n));
+(()=>{
+ const panel=document.getElementById('reveal'),title=document.getElementById('revealTitle'),copy=document.getElementById('revealCopy');
+ const close=()=>panel.classList.remove('open');
+ document.getElementById('closeReveal').addEventListener('click',close);
+ document.querySelectorAll('.relic').forEach(item=>{
+  const open=()=>{title.textContent=item.dataset.title;copy.textContent=item.dataset.copy;panel.classList.add('open')};
+  item.addEventListener('click',open);
+  item.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
+ });
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 })();
-
-(() => {
- const $=id=>document.getElementById(id);
- const notes={
-  window:{title:'The window remembers warmth.',text:'Someone left a light on before they knew who would need it. The glass holds the last color of the day.',whisper:'A small light is still a kind of architecture.'},
-  cat:{title:'A visitor with no explanation.',text:'It came because the door was open. It does not need to be useful, impressive, or easy to understand to belong here.',whisper:'Some lives change the whole shape of a room.'},
-  roof:{title:'Things are growing out of the roof.',text:'The house was never finished. Moss, stubborn flowers, and improbable little gardens keep taking back the edges.',whisper:'Not every crack needs to be repaired.'}
- };
- let inspected=0;
- document.querySelectorAll('.hotspot').forEach(btn=>btn.addEventListener('click',()=>{
-  const n=notes[btn.dataset.note];inspected++;document.querySelectorAll('.hotspot').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));
-  $('detailCount').textContent=String(inspected).padStart(2,'0');$('detailTitle').textContent=n.title;$('detailText').textContent=n.text;$('detailWhisper').textContent=n.whisper;
-  $('specimen').style.filter=btn.dataset.note==='window'?'saturate(1.25) brightness(1.08)':btn.dataset.note==='cat'?'contrast(1.12)':'hue-rotate(-9deg)';
- }));
- const AudioContext=window.AudioContext||window.webkitAudioContext;let audio=null,active=null,source=null,gain=null;
- function stopSound(){if(source){try{source.stop()}catch(e){}source=null}if(gain){gain.disconnect();gain=null}active=null;$('soundDesk').classList.remove('playing');document.querySelectorAll('.sound-button').forEach(b=>b.setAttribute('aria-pressed','false'));}
- async function playSound(kind){
-  if(active===kind){stopSound();return}stopSound();if(!AudioContext)return;
-  audio=audio||new AudioContext();await audio.resume();gain=audio.createGain();gain.gain.value=.12;gain.connect(audio.destination);
-  const buffer=audio.createBuffer(1,audio.sampleRate*3,audio.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1);
-  source=audio.createBufferSource();source.buffer=buffer;source.loop=true;
-  const filter=audio.createBiquadFilter();filter.type=kind==='rain'?'lowpass':'bandpass';filter.frequency.value=kind==='rain'?650:1450;filter.Q.value=kind==='rain'?.4:.7;
-  const volume=audio.createGain();volume.gain.value=kind==='rain'?.42:.13;source.connect(filter);filter.connect(volume);volume.connect(gain);source.start();active=kind;$('soundDesk').classList.add('playing');
-  const button=$(kind==='rain'?'rainSound':'nightSound');button.setAttribute('aria-pressed','true');
- }
- $('rainSound').addEventListener('click',()=>playSound('rain'));$('nightSound').addEventListener('click',()=>playSound('night'));
- const objects={
-  thread:['The gold thread','It does not pull you toward a destination. It marks the places you have already crossed, even when you thought you were lost.'],
-  shell:['The pocket sea','Hold it to your ear. The sound is not the ocean. It is the memory of having somewhere to go when the world got too loud.'],
-  key:['The wrong key','It never fit the door it was made for. It opened a little gate in the fence instead. That was enough.'],
-  seed:['The stubborn seed','It waited under the floorboards through three winters. Nobody called it progress. Then one morning the whole room smelled green.'],
-  bell:['The little bell','It rings when somebody arrives. It also rings when somebody leaves. The house refuses to pretend those are the same sound.']
- };
- document.querySelectorAll('.curio').forEach(btn=>btn.addEventListener('click',()=>{
-  const o=objects[btn.dataset.curio];document.querySelectorAll('.curio').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));
-  $('curioTitle').textContent=o[0];$('curioText').textContent=o[1];
- }));
- const fortunes=['Keep the strange little thing.','Open a window in the story.','Let the unfinished part breathe.','Follow the animal, not the sign.','Put the answer down for a minute.','Make room for the impossible guest.','The map is allowed to change.','Leave one light on.'];
- let spins=0;$('spinWheel').addEventListener('click',()=>{spins++;const wheel=$('fortuneWheel');wheel.style.transform='rotate('+(spins*1440+Math.floor(Math.random()*360))+'deg)';$('fortuneResult').textContent=fortunes[Math.floor(Math.random()*fortunes.length)];});
- const field=$('starfield'),svg=$('starLines');let stars=[];
- function drawStars(){field.querySelectorAll('.star-dot').forEach(n=>n.remove());svg.innerHTML='';stars.forEach((p,i)=>{
-  const b=document.createElement('button');b.className='star-dot';b.style.left=p.x+'%';b.style.top=p.y+'%';b.setAttribute('aria-label','Light '+(i+1));field.appendChild(b);
-  if(i){const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('x1',stars[i-1].x);line.setAttribute('y1',stars[i-1].y);line.setAttribute('x2',p.x);line.setAttribute('y2',p.y);line.setAttribute('stroke','#e7d19b');line.setAttribute('stroke-width','.35');line.setAttribute('opacity','.7');svg.appendChild(line);}
- });$('starCount').textContent=String(stars.length).padStart(2,'0')+' LIGHTS LEFT HERE';}
- field.addEventListener('click',e=>{if(e.target.closest('.star-dot'))return;const r=field.getBoundingClientRect();if(stars.length>=24)stars.shift();stars.push({x:((e.clientX-r.left)/r.width)*100,y:((e.clientY-r.top)/r.height)*100});drawStars();});
- $('undoStar').addEventListener('click',()=>{stars.pop();drawStars()});$('clearStars').addEventListener('click',()=>{stars=[];drawStars()});
- window.addEventListener('pagehide',stopSound);
-})();
-
 </script>
-</body></html>
+</body>
+</html>
