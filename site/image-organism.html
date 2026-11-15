@@ -73,6 +73,50 @@ if(s.style==='brutal'||/concrete|architecture|building|machine/.test(s.prompt.to
 if(s.style==='anatomy'||/anatom|specimen|vein|root|organ/.test(s.prompt.toLowerCase())){for(let i=0;i<Math.round(8+density*24);i++){let x=r()*w,y=r()*h,rad=5+r()*25;out.push('<circle cx="'+x+'" cy="'+y+'" r="'+rad+'" fill="none" stroke="'+A+'" stroke-width="'+(1+r()*3)+'" stroke-opacity=".45"/><path d="M '+x+' '+y+' q '+(r()-.5)*110+' '+(-rad*3)+' '+(r()-.5)*180+' '+(rad*2)+'" fill="none" stroke="'+C+'" stroke-opacity=".38" stroke-width="1.5"/>')}}
 if(s.style==='carnival'||/carnival|fairground|carousel|funfair/.test(s.prompt.toLowerCase())){let cx=w*(.35+r()*.3),cy=h*(.3+r()*.4),rad=Math.min(w,h)*(.13+r()*.12);out.push('<circle cx="'+cx+'" cy="'+cy+'" r="'+rad+'" fill="none" stroke="'+A+'" stroke-width="5" stroke-opacity=".55"/>');for(let i=0;i<16;i++){let a=i*Math.PI/8;out.push('<path d="M '+cx+' '+cy+' L '+(cx+Math.cos(a)*rad)+' '+(cy+Math.sin(a)*rad)+'" stroke="'+C+'" stroke-opacity=".45" stroke-width="2"/>')}} 
 if(s.style==='weather'||/rain|storm|weather|signal|lightning/.test(s.prompt.toLowerCase())){for(let i=0;i<Math.round(35+density*75);i++){let x=r()*w,y=r()*h,ln=8+r()*65;out.push('<path d="M '+x+' '+y+' l '+(r()-.5)*12+' '+ln+'" stroke="'+C+'" stroke-opacity="'+(.12+r()*.3)+'" stroke-width="'+(.6+r()*2)+'"/>')}}
+
+// ORGANISM GRAMMAR — details are generated as connected systems, not isolated confetti.
+const words=s.prompt.toLowerCase();
+const wantsPlant=/plant|botan|garden|greenhouse|leaf|root|vine|flower|moss|forest/.test(words)||s.style==='decay'||s.style==='anatomy';
+const wantsMachine=/machine|metal|iron|steel|carnival|engine|gear|industrial|brutal|architecture/.test(words)||s.style==='brutal'||s.style==='carnival';
+const wantsWater=/water|sea|ocean|tide|rain|lake|river|wet|flood|shore/.test(words)||s.style==='nocturne'||s.style==='weather';
+const wantsRuin=/ruin|abandon|broken|decay|rust|fracture|wreck|crack|rot/.test(words)||s.style==='decay'||s.style==='carnival';
+const anchors=[];
+for(let i=0;i<Math.round(3+density*5);i++) anchors.push({x:w*(.12+r()*.76),y:h*(.12+r()*.72),scale:.45+r()*.95,phase:r()*Math.PI*2});
+function pathBranch(x,y,angle,length,depthLeft,width){
+ if(depthLeft<=0||length<3)return;
+ const bend=(r()-.5)*fract*1.25,ex=x+Math.cos(angle+bend)*length,ey=y+Math.sin(angle+bend)*length;
+ const mx=(x+ex)/2+(r()-.5)*length*.24,my=(y+ey)/2+(r()-.5)*length*.24;
+ out.push('<path d="M '+x+' '+y+' Q '+mx+' '+my+' '+ex+' '+ey+'" fill="none" stroke="'+(r()>.48?B:A)+'" stroke-width="'+Math.max(.65,width)+'" stroke-linecap="round" stroke-opacity="'+(.22+depth*.48)+'"/>');
+ if(depthLeft>1){pathBranch(ex,ey,angle-.35-r()*.55,length*(.56+r()*.12),depthLeft-1,width*.68);pathBranch(ex,ey,angle+.35+r()*.55,length*(.56+r()*.12),depthLeft-1,width*.68)}
+ else out.push('<ellipse cx="'+ex+'" cy="'+ey+'" rx="'+(2+r()*5)+'" ry="'+(1+r()*3)+'" transform="rotate('+(r()*160-80)+' '+ex+' '+ey+')" fill="'+C+'" fill-opacity=".58"/>');
+}
+anchors.forEach((a,idx)=>{
+ const radius=Math.min(w,h)*(.025+a.scale*.055);
+ // A shared nucleus gives each cluster an internal topology.
+ out.push('<g opacity="'+(.42+depth*.5)+'"><circle cx="'+a.x+'" cy="'+a.y+'" r="'+radius+'" fill="none" stroke="'+(idx%2?A:B)+'" stroke-width="'+(1.2+depth*2)+'" stroke-opacity=".7"/><circle cx="'+a.x+'" cy="'+a.y+'" r="'+(radius*.68)+'" fill="none" stroke="'+C+'" stroke-width=".8" stroke-dasharray="2 5" opacity=".65"/></g>');
+ if(wantsPlant){
+   pathBranch(a.x,a.y,-Math.PI/2+a.phase,radius*2.5,4+Math.floor(density*3),1.2+depth*2);
+   for(let k=0;k<9;k++){const ang=a.phase+k*Math.PI*2/9,dist=radius*(.8+r()*.8),lx=a.x+Math.cos(ang)*dist,ly=a.y+Math.sin(ang)*dist,leaf=radius*(.24+r()*.22);out.push('<path d="M '+a.x+' '+a.y+' Q '+(lx-Math.sin(ang)*leaf*1.8)+' '+(ly+Math.cos(ang)*leaf*1.8)+' '+lx+' '+ly+' Q '+(lx+Math.cos(ang)*leaf)+' '+(ly+Math.sin(ang)*leaf)+' '+a.x+' '+a.y+'" fill="'+(k%2?B:A)+'" fill-opacity=".24" stroke="'+C+'" stroke-opacity=".42" stroke-width=".8"/>')}
+ }
+ if(wantsMachine){
+   const sides=5+Math.floor(r()*7),outer=radius*(1.5+r()*.7),inner=outer*(.72+r()*.12);let poly='';
+   for(let k=0;k<sides;k++){const ang=a.phase+k*Math.PI*2/sides,px=a.x+Math.cos(ang)*outer,py=a.y+Math.sin(ang)*outer;poly+=(k?' L ':'M ')+px+' '+py}
+   poly+=' Z';out.push('<path d="'+poly+'" fill="none" stroke="'+A+'" stroke-width="'+(1+depth*2)+'" stroke-opacity=".55"/><circle cx="'+a.x+'" cy="'+a.y+'" r="'+inner+'" fill="none" stroke="'+C+'" stroke-width="1" stroke-dasharray="7 3" opacity=".48"/>');
+   for(let k=0;k<sides;k++){const ang=a.phase+k*Math.PI*2/sides,px=a.x+Math.cos(ang)*outer,py=a.y+Math.sin(ang)*outer;out.push('<circle cx="'+px+'" cy="'+py+'" r="'+(1.4+depth*1.5)+'" fill="'+C+'" opacity=".72"/>')}
+ }
+ if(wantsWater){
+   for(let k=0;k<4;k++){const rr=radius*(1.9+k*.38);out.push('<ellipse cx="'+(a.x+(r()-.5)*radius*.3)+'" cy="'+(a.y+(r()-.5)*radius*.2)+'" rx="'+rr+'" ry="'+(rr*(.2+r()*.16))+'" transform="rotate('+(r()*24-12)+' '+a.x+' '+a.y+')" fill="none" stroke="'+(k%2?C:B)+'" stroke-width="'+(.7+r()*1.7)+'" stroke-opacity="'+(.16+depth*.28)+'"/>')}
+ }
+ if(wantsRuin){
+   for(let k=0;k<5;k++){const ang=r()*Math.PI*2,rr=radius*(.8+r()*1.5),sx=a.x+Math.cos(ang)*rr,sy=a.y+Math.sin(ang)*rr;out.push('<path d="M '+sx+' '+sy+' l '+((r()-.5)*radius*.7)+' '+(radius*(.15+r()*.6))+' l '+((r()-.5)*radius*.4)+' '+(radius*(.1+r()*.4))+'" fill="none" stroke="'+C+'" stroke-width=".9" stroke-opacity=".48"/>')}
+ }
+});
+// Fine connective filaments bind nearby anchors into one ecology.
+for(let i=0;i<anchors.length;i++)for(let j=i+1;j<anchors.length;j++){
+ const a=anchors[i],b=anchors[j],dx=b.x-a.x,dy=b.y-a.y,dist=Math.hypot(dx,dy);
+ if(dist<Math.min(w,h)*.38 && r()>.24){const bend=(r()-.5)*dist*.22;out.push('<path d="M '+a.x+' '+a.y+' Q '+((a.x+b.x)/2-bend)+' '+((a.y+b.y)/2+bend)+' '+b.x+' '+b.y+'" fill="none" stroke="'+(wantsWater?C:B)+'" stroke-width="'+(.55+r()*1.1)+'" stroke-opacity="'+(.07+depth*.17)+'" stroke-dasharray="'+(wantsWater?'3 8':'none')+'"/>')}
+}
+
 for(let i=0;i<Math.round(grain*1300);i++){let x=r()*w,y=r()*h,rr=.3+r()*1.7;out.push('<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+rr.toFixed(1)+'" fill="'+(r()>.5?C:'#000')+'" opacity="'+(.04+r()*.22)+'"/>')}
 out.push('<rect width="100%" height="100%" fill="url(#dust)" opacity="'+(.12+grain*.35)+'"/>');
 out.push('<path d="M 0 '+h*.82+' Q '+w*.22+' '+h*(.72+r()*.08)+' '+w*.45+' '+h*.86+' T '+w+' '+h*.8+' L '+w+' '+h+' L 0 '+h+'Z" fill="#050807" fill-opacity=".48"/>');
