@@ -78,7 +78,7 @@ out.push('<rect width="100%" height="100%" fill="url(#dust)" opacity="'+(.12+gra
 out.push('<path d="M 0 '+h*.82+' Q '+w*.22+' '+h*(.72+r()*.08)+' '+w*.45+' '+h*.86+' T '+w+' '+h*.8+' L '+w+' '+h+' L 0 '+h+'Z" fill="#050807" fill-opacity=".48"/>');
 out.push('</svg>');return out.join('');
 }
-function render(){read();let [w,h]=dimensions[state.format];current=makeSvg(state);$('canvas').innerHTML=current;$('seedOut').value=state.seed;$('compositionLabel').textContent=state.style.toUpperCase()+' / '+state.seed;$('dimensions').textContent=w+' × '+h;$('status').textContent='Rendered from seed '+state.seed+'. Every visible layer is part of the SVG source.'}
+function render(){read();let [w,h]=dimensions[state.format];current=makeSvg(state);$('canvas').style.aspectRatio=w+' / '+h;$('canvas').innerHTML=current;$('seedOut').value=state.seed;$('compositionLabel').textContent=state.style.toUpperCase()+' / '+state.seed;$('dimensions').textContent=w+' × '+h;$('status').textContent='Rendered from seed '+state.seed+'. Every visible layer is part of the SVG source.'}
 function download(name,type,data){let blob=new Blob([data],{type:type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 function mutate(){let s=read();s.seed=(s.seed+Math.floor(Math.random()*7919)+1)>>>0;$('seed').value=s.seed;render()}
 function newSeed(){ $('seed').value=Math.floor(Math.random()*9000000)+1000;render()}
