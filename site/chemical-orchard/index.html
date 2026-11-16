@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#12120e">
+<meta name="description" content="A real reaction–diffusion art instrument in Charity's Living Country. Touch the chemistry. Something grows.">
+<title>CHEMICAL ORCHARD — C. A. S.</title>
+<link rel="stylesheet" href="./orchard.css">
+</head>
+<body>
+<main class="orchard" id="orchard" data-recipe="lacing">
+  <svg class="botany" aria-hidden="true" viewBox="0 0 1400 950" preserveAspectRatio="xMidYMid slice">
+    <defs><filter id="rough"><feTurbulence baseFrequency=".014" numOctaves="2" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="5"/></filter></defs>
+    <g filter="url(#rough)" fill="none" stroke="#b5be76" stroke-width="3" opacity=".38">
+      <path d="M90 980C-20 500 300 345 175-70M160 920C70 600 340 480 345 115M1280 930C1420 600 1080 405 1250-90"/>
+      <path d="M52 714q-120-130-38-210M81 600q130-164 49-290M250 530q140-132 152-300M1220 640q-142-135-180-270M1305 465q110-160 65-300"/>
+    </g>
+    <g fill="#ced793" opacity=".16"><ellipse cx="130" cy="380" rx="29" ry="85" transform="rotate(34 130 380)"/><ellipse cx="332" cy="252" rx="20" ry="66" transform="rotate(45 332 252)"/><ellipse cx="1176" cy="382" rx="31" ry="75" transform="rotate(-34 1176 382)"/></g>
+  </svg>
+  <div class="film" aria-hidden="true"></div>
+  <header class="masthead"><a class="back" href="../" aria-label="Back into the labyrinth">↶</a><div class="brand"><span class="edition">FIELD NOTES / VOL. XIII</span><strong>CHEMICAL<br><em>ORCHARD</em></strong><span class="maker">CHARITY ALESSANDRA STURGELL · PRIVATE EXPERIMENT</span></div><button id="sound" type="button" aria-pressed="false" aria-label="Enable sound" title="Sound off">♫</button></header>
+  <div class="specimen-wrap">
+    <svg class="glass-edge" viewBox="0 0 1000 710" preserveAspectRatio="none" aria-hidden="true"><path d="M23 20L960 9Q990 18 981 47L985 659 952 692 19 701Q-4 689 12 648L5 60Z" fill="none" stroke="#e3d4b2" stroke-width="3"/><path d="M37 37L941 28Q963 32 960 52L963 638 940 672 39 680 27 643 24 60Z" fill="none" stroke="#b8d681" stroke-width="1" stroke-dasharray="3 7"/></svg>
+    <canvas id="specimen" tabindex="0" role="application" aria-label="Interactive chemical field. Touch or drag to introduce reagent. Press Space to introduce reagent in the center. Arrow keys move the keyboard injection point."></canvas>
+    <div class="specimen-stamp" aria-hidden="true">DO NOT<br>FEED<br>THE GLASS</div>
+    <div class="field-status" aria-live="polite"><span id="state">GROWING</span><span class="ticks" id="ticks">000000</span></div>
+    <div class="crosshair" id="crosshair" aria-hidden="true">⊹</div>
+  </div>
+  <nav class="reagents" aria-label="Chemical recipes"><button class="reagent active" data-recipe="lacing" aria-pressed="true" aria-label="Lace formation, recipe one"><span class="glyph">⌁</span><span class="tiny">01 · LACE</span></button><button class="reagent" data-recipe="leopard" aria-pressed="false" aria-label="Feral spots, recipe two"><span class="glyph">✳</span><span class="tiny">02 · FERAL</span></button><button class="reagent" data-recipe="coral" aria-pressed="false" aria-label="Bloom branches, recipe three"><span class="glyph">ϟ</span><span class="tiny">03 · BLOOM</span></button></nav>
+  <div class="dock"><button id="erase" type="button" aria-label="Start again, press twice" title="Reset: twice to confirm">⟲</button><button id="export" type="button" aria-label="Save chemical artwork as PNG" title="Save image">⇩</button><label id="tactile-label" class="tactile" title="Physical haptic tick on compatible iPhone, vibrator on Android"><span>✳</span><input type="checkbox" switch id="tactile" aria-label="Touch for haptic response; depends on device support"></label><span class="living-numbers" id="living-numbers" aria-live="off">0.000 / 0.000</span><a id="hidden-door" class="hidden-door" href="../wordless-sky/" aria-label="Unexpected doorway to Wordless Sky" hidden>↗</a></div>
+  <div class="footprint" aria-hidden="true">NO TWO GROWTHS OWE YOU AN EXPLANATION.</div>
+  <div class="toast" id="toast" aria-live="polite" role="status"></div>
+  <noscript><p class="no-js">This room needs JavaScript for its chemical simulation. <a href="../living-atlas.html">Enter the atlas</a>.</p></noscript>
+</main>
+<script type="module" src="./orchard.js"></script>
+</body>
+</html>
