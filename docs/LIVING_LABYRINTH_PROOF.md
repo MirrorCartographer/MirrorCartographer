@@ -31,6 +31,14 @@ Date: 2026-11-16. This file distinguishes implementation from verification and a
 - Runtime selfTest for generated mazes: 12 unique portal cells reachable, no isolated walkable cells in the generated sample.
 - Desktop 1440×900 and mobile 390×844: weather, map, close, source-linked interpretation, notebook, encounter, tap tests passed without page exceptions after the blocking close-button issue was fixed.
 
+## Additional tested capability: gesture-to-atmosphere
+
+- Tap ground: shortest-path navigation to a traversable cell.
+- Drag: records an ephemeral nonverbal stroke; geometrically distinguishes loops, jagged marks and current-like traces; changes weather and, when opted in, original synthesized notes. The system **does not** infer the visitor's psychological state or claim a gesture has an objectively universal meaning.
+- Browser gesture test: a closed loop was classified as `loop`, displayed the ink and changed weather to `hush`.
+- Browser opt-in audio test: `AudioContext` reached `running`, then sound was disabled; physical iPhone audibility still unverified.
+- Two-press maze reseeding test: first press preserved the map, second changed seed and reset explored terrain intentionally.
+
 ## Not yet proved
 
 - Production-host deployment (requires separate CI confirmation and published branch readback).
