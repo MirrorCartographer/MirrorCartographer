@@ -17,7 +17,7 @@ footer{display:flex;align-items:end;justify-content:space-between;gap:1rem;font:
 @media (max-width:620px){header{gap:.5rem}.meter{font-size:.58rem}.controls{flex-direction:column;align-items:flex-start}button,.chamber{padding:.68rem .85rem}.state{max-width:9rem}}
 @media (prefers-reduced-motion:reduce){.instructions,.chamber{transition:none}}
 </style>
-</head>
+<style data-mc-maze-return>.mc-maze-return{position:fixed;z-index:2147483000;left:max(10px,env(safe-area-inset-left));bottom:max(10px,env(safe-area-inset-bottom));display:grid;place-items:center;width:43px;height:43px;color:#d3ee53!important;background:#18251feb!important;border:2px double #bdb58c!important;box-shadow:3px 4px #74263db8!important;transform:rotate(-9deg);font:30px Georgia,serif!important;text-decoration:none!important;opacity:.86;touch-action:manipulation}.mc-maze-return:hover,.mc-maze-return:focus-visible{opacity:1;transform:rotate(3deg) scale(1.13);outline:2px solid #effc97;outline-offset:3px}@media(prefers-reduced-motion:reduce){.mc-maze-return{transition:none!important}}</style></head>
 <body>
 <canvas id="sky" aria-hidden="true"></canvas>
 <div class="shell">
@@ -52,5 +52,5 @@ async function wake(){if(audio){await audio.ctx.resume();return}const AC=window.
 soundButton.addEventListener('click',wake);eraseButton.addEventListener('click',()=>{score.clear();shockwaves.length=0;closeChambers();state.textContent='the weather forgot its score'});document.addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();if(!pointer.down){pointer.down=true;holdStarted=performance.now();strike(Math.random(),Math.random())}}if(e.key.toLowerCase()==='s')wake();if(e.key.toLowerCase()==='e')eraseButton.click();if(e.key.toLowerCase()==='a'&&thresholdOpen)location.href=afterbell.href;if(e.key.toLowerCase()==='g'&&gardenOpen)location.href=garden.href});document.addEventListener('keyup',e=>{if(e.code==='Space'&&pointer.down){pointer.down=false;releasePressure()}});
 </script>
 <script defer src="../../roomway.js" data-mc-roomway></script>
-</body>
+<a data-mc-maze-return class="mc-maze-return" href="../../../../index.html" aria-label="Return to the living labyrinth" title="Return to the country">✳</a></body>
 </html>

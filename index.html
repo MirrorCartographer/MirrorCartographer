@@ -3,212 +3,80 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#10191a">
-<meta name="description" content="A strange illustrated world. Look closely.">
-<title>Mirror Cartographer — The Unfinished Country</title>
-<style>
-:root{color-scheme:dark;--night:#10191a;--bone:#e8d8b9;--rust:#b96c55;--moss:#849879;--water:#527b7b;--gold:#d8b477}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--night);color:var(--bone)}
-body{overflow-x:hidden;font-family:Georgia,serif}
-button,a{font:inherit}
-button:focus-visible,a:focus-visible{outline:2px solid #f5d99c;outline-offset:5px}
-.world{position:relative;min-height:100svh;overflow:hidden;background:#10191a}
-.world:before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.17;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");mix-blend-mode:screen}
-.topline{position:absolute;z-index:5;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:22px 28px;color:#d6c7a9;font:9px/1.2 "Courier New",monospace;letter-spacing:.19em;text-transform:uppercase;pointer-events:none}
-.topline a{pointer-events:auto;color:inherit;text-decoration:none;border-bottom:1px solid #d6c7a955;padding-bottom:5px}
-.topline .sig{display:flex;align-items:center;gap:12px}
-.sig-mark{width:22px;height:22px;border:1px solid #c49b70;border-radius:50% 42% 50% 38%;transform:rotate(-27deg);position:relative}
-.sig-mark:after{content:"";position:absolute;inset:5px;border:1px solid #c49b70;border-radius:50%}
-.scene{display:block;width:100%;height:100svh;min-height:650px;max-height:1100px}
-svg text{user-select:none}
-.relic{cursor:pointer;outline:none}
-.relic .halo{opacity:0;transition:opacity .35s}
-.relic:hover .halo,.relic:focus .halo,.relic:focus-visible .halo{opacity:1}
-.relic:focus-visible{filter:drop-shadow(0 0 8px #f3d99b)}
-.moon{transform-origin:1180px 190px;animation:moon-breathe 9s ease-in-out infinite alternate}
-.waterline{animation:water 11s ease-in-out infinite alternate;transform-origin:center}
-.lantern{animation:float 5.5s ease-in-out infinite alternate}
-.lantern:nth-of-type(2n){animation-delay:-2.7s}
-.leaf-sway{transform-box:fill-box;transform-origin:bottom;animation:leaf 7s ease-in-out infinite alternate}
-.firefly{animation:firefly 4s ease-in-out infinite alternate}
-.firefly:nth-child(2n){animation-delay:-2s}
-@keyframes moon-breathe{to{transform:scale(1.035)}}
-@keyframes water{to{transform:translateX(16px)}}
-@keyframes float{to{transform:translateY(-13px)}}
-@keyframes leaf{to{transform:rotate(3deg)}}
-@keyframes firefly{to{opacity:.18;transform:translate(5px,-8px)}}
-.inscription{position:absolute;z-index:4;left:50%;bottom:26px;transform:translateX(-50%);display:flex;align-items:center;gap:13px;color:#c6b89d;font:8px "Courier New",monospace;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;opacity:.78}
-.inscription:before,.inscription:after{content:"";width:38px;height:1px;background:#c6b89d66}
-.reveal{position:absolute;z-index:7;left:50%;bottom:72px;transform:translate(-50%,16px);width:min(420px,calc(100% - 38px));padding:18px 22px 20px;border:1px solid #d8b47777;background:#172021eF;color:#eadbbd;box-shadow:8px 8px 0 #090e0f;opacity:0;pointer-events:none;transition:opacity .35s,transform .35s}
-.reveal.open{opacity:1;transform:translate(-50%,0);pointer-events:auto}
-.reveal small{display:block;margin-bottom:10px;color:#c18a6d;font:8px "Courier New",monospace;letter-spacing:.2em;text-transform:uppercase}
-.reveal p{margin:0;font:italic 19px/1.3 Georgia,serif}
-.reveal button{position:absolute;top:8px;right:9px;border:0;background:none;color:#e8d8b9;font:18px Georgia;cursor:pointer}
-.exit{position:absolute;z-index:5;right:27px;bottom:25px;color:#d6c7a9;text-decoration:none;font:8px "Courier New",monospace;letter-spacing:.17em;border-bottom:1px solid #d6c7a955;padding-bottom:5px}
-@media(max-width:700px){
- .topline{padding:16px 15px;font-size:8px}
- .scene{height:86svh;min-height:600px;max-height:850px}
- .inscription{bottom:17px;font-size:7px;letter-spacing:.13em}
- .inscription:before,.inscription:after{width:18px}
- .exit{right:15px;bottom:52px;font-size:7px}
- .reveal{bottom:90px}
-}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
-</style>
+<meta name="theme-color" content="#11110c">
+<meta name="description" content="Charity Alessandra Sturgell's living country. A walkable, reactive, strange place. No account. No instruction manual.">
+<title>CHARITY — the country has teeth</title>
+<link rel="stylesheet" href="./maze.css">
 </head>
 <body>
-<main class="world">
- <div class="topline"><div class="sig"><span class="sig-mark"></span><span>Mirror Cartographer</span></div><a href="./living-atlas.html">the atlas ↗</a></div>
- <svg class="scene" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="An intricate hand-drawn night landscape: a crooked house grown into a tree, a glass greenhouse, a winding path, a distant carnival, and a dark sea beneath an enormous moon.">
- <defs>
-  <linearGradient id="sky" x2=".15" y2="1"><stop stop-color="#172a2b"/><stop offset=".46" stop-color="#293b38"/><stop offset="1" stop-color="#8b5b4c"/></linearGradient>
-  <linearGradient id="moon" x2=".8" y2="1"><stop stop-color="#f3dfb4"/><stop offset=".7" stop-color="#d8ae7c"/><stop offset="1" stop-color="#bd8269"/></linearGradient>
-  <linearGradient id="sea" x2="0" y2="1"><stop stop-color="#426d6b"/><stop offset="1" stop-color="#142d31"/></linearGradient>
-  <linearGradient id="window" x2="1" y2="1"><stop stop-color="#fff0b8"/><stop offset="1" stop-color="#c96d5d"/></linearGradient>
-  <linearGradient id="glass" x2="0" y2="1"><stop stop-color="#b5c3a0" stop-opacity=".5"/><stop offset="1" stop-color="#385b55" stop-opacity=".12"/></linearGradient>
-  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="13" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="2.8"/></filter>
-  <filter id="glow"><feGaussianBlur stdDeviation="15"/></filter>
-  <pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(32)"><path d="M0 0V9" stroke="#d6c5a0" stroke-opacity=".12" stroke-width="1"/></pattern>
- </defs>
- <rect width="1600" height="1000" fill="url(#sky)"/>
- <path d="M0 380Q170 285 340 350T680 330T1000 355T1320 315T1600 350V1000H0Z" fill="#243a34"/>
- <g class="moon">
-  <circle cx="1180" cy="190" r="142" fill="#e7c58f" opacity=".12" filter="url(#glow)"/>
-  <circle cx="1180" cy="190" r="104" fill="url(#moon)" stroke="#f2d9aa" stroke-width="2"/>
-  <path d="M1112 140q30-27 56-4t-5 42q-30 19-51-8M1200 222q30-24 54-3t-10 34" fill="none" stroke="#a8755e" stroke-opacity=".35" stroke-width="5"/>
-  <path d="M1090 187q34-14 66-2m-39 47q26-12 47-5m-4-102q30 7 42 29" fill="none" stroke="#fff0c8" stroke-opacity=".5" stroke-width="2"/>
- </g>
- <g fill="#e7d2a7">
-  <circle cx="180" cy="150" r="2"/><circle cx="270" cy="240" r="3"/><circle cx="430" cy="105" r="2"/><circle cx="680" cy="180" r="2"/><circle cx="825" cy="90" r="3"/><circle cx="950" cy="270" r="2"/><circle cx="1390" cy="115" r="3"/><circle cx="1500" cy="280" r="2"/>
- </g>
- <g fill="none" stroke="#d5c29b" stroke-opacity=".4">
-  <path d="M80 210q80-70 160 0t160 0m-275 28q95-50 180 0t150 0" stroke-dasharray="1 11" stroke-width="2"/>
-  <path d="M870 120q40-32 80 0t80 0m-65 23q40-25 80 0" stroke-width="1"/>
- </g>
- <!-- distant ridges -->
- <path d="M0 480Q170 390 330 460T660 435T990 470T1300 420T1600 450V720H0Z" fill="#31463c" stroke="#8da087" stroke-opacity=".35" stroke-width="3"/>
- <path d="M0 535Q200 450 390 520T770 485T1110 520T1450 475T1600 500" fill="none" stroke="#9ba98b" stroke-opacity=".32" stroke-width="3"/>
- <!-- far carnival -->
- <g transform="translate(1310 420)" stroke="#d6b783" stroke-width="4" fill="none">
-  <path d="M-105 155L0-25L105 155M-78 115H78M-57 75H57"/>
-  <circle cx="0" cy="60" r="67" stroke="#c98c6e" stroke-width="3"/>
-  <circle cx="0" cy="60" r="8" fill="#d6b783"/>
-  <path d="M0-7V127M-67 60H67M-47 13L47 107M47 13L-47 107" stroke-width="2"/>
-  <g fill="#e7c98f" stroke="none"><circle cx="0" cy="-7" r="5"/><circle cx="67" cy="60" r="5"/><circle cx="0" cy="127" r="5"/><circle cx="-67" cy="60" r="5"/></g>
-  <path d="M-120 155H120" stroke-width="6"/>
- </g>
- <g fill="#d88d6e">
-  <path d="M1190 445l20-65 20 65z"/><path d="M1238 445l18-53 18 53z"/><path d="M1400 454l20-65 20 65z"/>
- </g>
- <g class="firefly" fill="#f1d89e"><circle cx="1040" cy="395" r="4"/><circle cx="1080" cy="440" r="3"/><circle cx="1450" cy="360" r="4"/><circle cx="950" cy="460" r="3"/></g>
- <!-- sea and shoreline -->
- <path d="M0 620Q170 565 340 620T680 610T1010 625T1330 590T1600 615V1000H0Z" fill="url(#sea)"/>
- <g class="waterline" fill="none" stroke-linecap="round">
-  <path d="M0 690q110-28 220 0t220 0t220 0t220 0t220 0t220 0t220 0t220 0" stroke="#a4b49a" stroke-width="4" opacity=".6"/>
-  <path d="M-20 755q95-20 190 0t190 0t190 0t190 0t190 0t190 0t190 0t190 0t190 0" stroke="#d3b17e" stroke-width="2" opacity=".7"/>
-  <path d="M0 835q130-35 260 0t260 0t260 0t260 0t260 0t260 0" stroke="#8eaaa0" stroke-width="3" opacity=".48"/>
-  <path d="M80 920q80-18 160 0t160 0t160 0t160 0t160 0t160 0t160 0" stroke="#b7b49a" stroke-width="2" opacity=".38"/>
- </g>
- <!-- winding path -->
- <path d="M570 1000Q620 900 720 855Q820 810 775 740Q730 675 820 625Q920 570 960 510" fill="none" stroke="#c39b72" stroke-width="78" opacity=".35"/>
- <path d="M570 1000Q620 900 720 855Q820 810 775 740Q730 675 820 625Q920 570 960 510" fill="none" stroke="#d8bc91" stroke-width="3" stroke-dasharray="2 15" opacity=".8"/>
- <!-- foreground cliffs -->
- <path d="M0 560Q100 520 210 585Q315 650 390 720Q440 800 490 1000H0Z" fill="#182b29" stroke="#9aa083" stroke-opacity=".55" stroke-width="4"/>
- <path d="M0 640q95-30 170 40t160 50m-300 40q100-40 200 30t190 20m-380 80q90-25 180 25" fill="none" stroke="#6f8a70" stroke-width="4" opacity=".55"/>
- <path d="M1600 540q-100-35-210 45t-160 140q-45 90-90 275h460Z" fill="#192a28" stroke="#9aa083" stroke-opacity=".45" stroke-width="4"/>
- <!-- giant tree -->
- <g filter="url(#rough)">
-  <path d="M330 1000Q380 810 350 660Q320 500 395 370Q430 300 405 220Q480 300 470 390Q540 310 600 280Q570 380 505 440Q585 410 660 435Q580 495 495 510Q555 610 505 740Q480 850 545 1000Z" fill="#302d29" stroke="#b29a73" stroke-width="8"/>
-  <path d="M400 1000Q445 810 410 660Q385 500 450 390M480 1000Q455 850 485 710Q520 590 470 480" fill="none" stroke="#9a8062" stroke-width="5"/>
-  <path d="M400 490Q300 410 250 300Q230 245 260 195Q280 310 360 350M485 430Q580 330 710 300Q770 285 815 320Q700 330 630 390M420 370Q350 250 360 150Q390 90 420 65Q385 180 445 280" fill="none" stroke="#493d32" stroke-width="34" stroke-linecap="round"/>
-  <g fill="none" stroke="#9ba17c" stroke-width="4" opacity=".8"><path d="M260 195q-35-50-15-90m15 90q40-40 35-85M710 300q45-45 95-35m-95 35q25 35 70 45M360 150q-15-55 15-90"/></g>
- </g>
- <!-- root system -->
- <g fill="none" stroke="#927a5f" stroke-width="8" stroke-linecap="round">
-  <path d="M420 850Q310 870 240 960M430 890Q380 920 360 1000M490 850Q580 900 650 1000M455 910Q520 950 530 1000"/>
-  <path d="M400 875Q280 900 180 890M500 875Q620 850 700 910"/>
- </g>
- <!-- leaves and tiny hanging lamps -->
- <g class="leaf-sway" fill="#718b68" stroke="#c2b38a" stroke-width="2">
-  <path d="M255 300q-70-90-10-120q65 15 10 120M286 335q-20-95 40-102q48 45-40 102M650 350q20-90 80-75q28 55-80 75M700 330q60-75 105-30q5 65-105 30"/>
-  <path d="M370 210q-40-70 15-92q55 38-15 92M520 390q-15-75 40-88q48 50-40 88"/>
- </g>
- <g class="lantern">
-  <path d="M260 280v44m0 0q-20 18 0 38q20-20 0-38" stroke="#d7b77e" stroke-width="2" fill="#d88b66"/>
-  <circle cx="260" cy="342" r="5" fill="#ffe3a8"/>
- </g>
- <g class="lantern" style="animation-delay:-2s">
-  <path d="M690 330v38m0 0q-17 16 0 34q17-18 0-34" stroke="#d7b77e" stroke-width="2" fill="#d88b66"/>
-  <circle cx="690" cy="382" r="5" fill="#ffe3a8"/>
- </g>
- <!-- house grown into tree -->
- <g transform="translate(395 440)" filter="url(#rough)">
-  <path d="M-110 130L-85-35L40-140L185-35L205 130Z" fill="#573a3b" stroke="#d6bd91" stroke-width="7"/>
-  <path d="M-128-25L38-165L220-23L185-5L40-125L-90 5Z" fill="#9b5b4d" stroke="#e4c99d" stroke-width="6"/>
-  <path d="M-70 0L40-95L160 0V115H-70Z" fill="#253b38" stroke="#c9b58c" stroke-width="4"/>
-  <path d="M-28 20H45V95H-28Z" fill="url(#window)" stroke="#f0d9aa" stroke-width="6"/>
-  <path d="M8 20V95M-28 57H45" stroke="#60434a" stroke-width="5"/>
-  <path d="M90 48Q125 35 132 65V115H86V62Z" fill="#302c32" stroke="#cbb78e" stroke-width="4"/>
-  <circle cx="123" cy="78" r="3" fill="#f5dba1"/>
-  <path d="M-105 130q-25-80 5-135m290 135q25-70-5-125" fill="none" stroke="#71886b" stroke-width="8"/>
-  <path d="M-100-35q-35-35-20-70m300 75q45-40 35-85" fill="none" stroke="#8da27d" stroke-width="5"/>
- </g>
- <!-- greenhouse -->
- <g transform="translate(880 565)">
-  <path d="M-135 120V-5L0-95L145-5V120Z" fill="url(#glass)" stroke="#c6c39e" stroke-width="5"/>
-  <path d="M0-95V120M-135-5H145M-70-50V120M70-50V120" fill="none" stroke="#c6c39e" stroke-width="3"/>
-  <path d="M-95 110q0-60 35-75q30 35 0 75m30 0q0-75 40-100q35 50 0 100m35 0q0-55 40-70q25 45 0 70" fill="none" stroke="#b0bd8d" stroke-width="5"/>
-  <path d="M-118 122H128" stroke="#d2b789" stroke-width="6"/>
-  <circle cx="0" cy="-25" r="5" fill="#f3d99c"/>
- </g>
- <!-- flowers in foreground -->
- <g fill="none" stroke="#a6ad83" stroke-width="3">
-  <path d="M125 820q-10-75 15-120m-15 120q-30-50-60-55m75 55q30-55 55-65M1020 900q-10-80 18-135m-18 135q-30-50-65-55m85 55q25-45 60-52"/>
- </g>
- <g fill="#d18b76" stroke="#ead2a7" stroke-width="2">
-  <path d="M140 700q-28-30 0-45q28 15 0 45q-28-25 0-45m-80 63q-24-27 0-40q24 13 0 40q-24-24 0-40m135-20q-24-27 0-40q24 13 0 40q-24-24 0-40"/>
-  <path d="M1038 765q-26-28 0-43q26 15 0 43q-26-24 0-43m-72 85q-22-26 0-39q22 13 0 39q-22-23 0-39m130-22q-22-26 0-39q22 13 0 39q-22-23 0-39"/>
- </g>
- <g fill="#e4c98d"><circle cx="140" cy="700" r="5"/><circle cx="60" cy="763" r="4"/><circle cx="195" cy="743" r="4"/><circle cx="1038" cy="765" r="5"/></g>
- <!-- tiny skiff -->
- <path d="M1120 840q90 35 180 0l-22 30h-130Z" fill="#392f2c" stroke="#c9ad7d" stroke-width="3"/>
- <path d="M1205 830V750q45 25 60 80Z" fill="#c7a67a" stroke="#e3cda5" stroke-width="2"/>
- <!-- clickable details -->
- <g class="relic" tabindex="0" role="button" aria-label="Open the lit window" data-title="The light left on" data-copy="A small square of warmth in a very large night. It was never a signal to come back unchanged.">
-  <circle class="halo" cx="403" cy="495" r="55" fill="#f4d28b" opacity=".22"/><circle cx="403" cy="495" r="13" fill="transparent"/>
- </g>
- <g class="relic" tabindex="0" role="button" aria-label="Open the greenhouse" data-title="The impossible greenhouse" data-copy="Things grow here without being asked to justify the shape they take. Some of them only bloom after dark.">
-  <circle class="halo" cx="880" cy="545" r="95" fill="#b5c69b" opacity=".18"/><circle cx="880" cy="545" r="13" fill="transparent"/>
- </g>
- <g class="relic" tabindex="0" role="button" aria-label="Look toward the carnival" data-title="The crooked carnival" data-copy="The wheel turns whether or not anyone is watching. One of its little lights is always late.">
-  <circle class="halo" cx="1310" cy="480" r="105" fill="#e4bc7c" opacity=".16"/><circle cx="1310" cy="480" r="13" fill="transparent"/>
- </g>
- <g class="relic" tabindex="0" role="button" aria-label="Find the boat" data-title="A boat with no timetable" data-copy="It does not promise rescue. It offers a direction, a little room, and the sound of water under the boards.">
-  <circle class="halo" cx="1200" cy="835" r="80" fill="#c4b58d" opacity=".16"/><circle cx="1200" cy="835" r="13" fill="transparent"/>
- </g>
- <!-- fine ink scratches and contour marks -->
- <g fill="none" stroke="#d6c7a5" stroke-opacity=".22" stroke-width="2">
-  <path d="M220 570q-60 45-90 120m-35-80q50 20 80 75M735 560q50-50 100-45m-65 70q40-20 80-5M1480 610q-70 25-105 90m85-35q-45 0-75 40"/>
-  <path d="M320 780q-70 25-105 70m60-85q-15 45-5 80M950 920q55-45 110-35m-65 55q35-20 65-10"/>
- </g>
- </svg>
- <div class="inscription">the unfinished country · touch the small lights</div>
- <div class="reveal" id="reveal" role="status" aria-live="polite"><button type="button" id="closeReveal" aria-label="Close">×</button><small id="revealTitle"></small><p id="revealCopy"></p></div>
- <a class="exit" href="./living-atlas.html">wander further ↗</a>
+<main id="country" class="country" data-weather="static">
+  <canvas id="terrain" tabindex="0" aria-label="The Living Country labyrinth. Touch the ground to walk; use arrow keys to move. Landmarks are also available through the accessibility door index." role="application"></canvas>
+  <div id="veil" aria-hidden="true"></div>
+  <div id="rain" aria-hidden="true"></div>
+  <header class="signature" aria-label="Charity's Living Country">
+    <a href="./legacy-entrance/" class="rubber-stamp" title="Visit the original illustrated entrance" aria-label="Original illustrated entrance">C<span>✳</span></a>
+    <div class="maker"><strong>CHARITY</strong><small>ALESSANDRA <i>ϟ</i> STURGELL</small></div>
+    <span class="serial" aria-hidden="true">NO. 001 / STILL BREATHING</span>
+  </header>
+  <div class="orbit-controls" aria-label="World controls">
+    <button id="weather" type="button" aria-label="Change weather" title="Weather">ϟ</button>
+    <button id="sound" type="button" aria-pressed="false" aria-label="Turn original sound on" title="Sound">♫</button>
+    <button id="voice" type="button" aria-pressed="false" aria-label="Turn spoken encounters on" title="Voice">◌</button>
+    <button id="map-toggle" type="button" aria-expanded="false" aria-label="Open explored map" title="Map">⌁</button>
+    <button id="trace-open" type="button" aria-label="Open private thread" title="Private thread">✎</button>
+  </div>
+  <div class="ambient-type" aria-hidden="true"><span id="ambient-a">EVERY ROAD HAS AN OPINION.</span><span id="ambient-b">✳</span></div>
+  <div class="feet-indicator" aria-hidden="true"><span id="compass-dot">●</span><span id="footsteps">⌁⌁</span></div>
+  <section id="encounter" class="encounter" hidden aria-labelledby="encounter-title">
+    <span class="encounter-number" id="encounter-number">0 / 10</span>
+    <button id="encounter-close" class="tiny-close" type="button" aria-label="Close encounter">×</button>
+    <span id="encounter-glyph" class="encounter-glyph" aria-hidden="true">ϟ</span>
+    <h1 id="encounter-title">WORDLESS SKY</h1>
+    <p id="encounter-line" aria-live="polite"></p>
+    <div class="encounter-actions"><a id="encounter-enter" href="./wordless-sky/" class="slit-door" aria-label="Enter this world">↗</a><button id="encounter-mark" type="button" class="small-glyph" aria-label="Keep this encounter">♡</button></div>
+  </section>
+  <section id="map-sheet" class="map-sheet" hidden aria-label="Explored territory">
+    <div class="map-top"><span>WHAT THE GROUND REMEMBERS</span><button id="map-close" type="button" aria-label="Close map">×</button></div>
+    <canvas id="mini-map" width="420" height="340" aria-label="A chart of your traveled paths"></canvas>
+    <div class="map-note"><span id="map-progress">0</span> FOOTPRINTS <button id="maze-shift" type="button" title="Make a new labyrinth">↻</button></div>
+    <details class="accessible-index"><summary>THE OTHER DOORS</summary>
+      <nav id="door-index" aria-label="Accessible destinations">
+        <a href="./wordless-sky/">Wordless Sky</a>
+        <a href="./expeditions/the-between.html">The Between</a>
+        <a href="./companion/atlas/rooms/music/">Radio and Music</a>
+        <a href="./expeditions/riddle-arcade.html">Arcade</a>
+        <a href="./image-organism.html">Image Organism</a>
+        <a href="./living-atlas.html">Living Atlas</a>
+        <a href="./mind-palace/">Mind Palace</a>
+        <a href="./companion/atlas/rooms/character-atelier/">Character Atelier</a>
+        <a href="./companion/atlas/rooms/house-that-forgets-gravity/">House That Forgets Gravity</a>
+        <a href="./entrances/art.html">Artist Entrance</a>
+        <a href="./companion/atlas/rooms/night-shift-orchard/">Night Shift Orchard</a>
+        <a href="./companion/atlas/rooms/screening-room/">Screening Room</a>
+      </nav>
+    </details>
+  </section>
+  <section id="trace" class="trace" hidden role="dialog" aria-modal="true" aria-label="Private day thread">
+    <div class="trace-head"><span>THE DAY NEVER REALLY ENDS</span><button id="trace-close" type="button" aria-label="Close private thread">×</button></div>
+    <div class="trace-ink" aria-hidden="true">✳ <i>ϟ</i> ♫</div>
+    <form id="trace-form">
+      <fieldset class="trace-lenses"><legend class="visually-hidden">Record type</legend>
+        <label><input type="radio" name="kind" value="exact" checked><span>EXACT COPY</span></label>
+        <label><input type="radio" name="kind" value="interpret"><span>INTERPRET</span></label>
+        <label><input type="radio" name="kind" value="idea"><span>IDEA</span></label>
+      </fieldset>
+      <div id="trace-source-row" class="source-row" hidden><label for="trace-source">↳ SOURCE</label><select id="trace-source"><option value="">Select an exact statement</option></select></div>
+      <textarea id="trace-text" maxlength="3000" required placeholder="..." aria-label="Your words"></textarea>
+      <div class="trace-buttons"><button type="submit" class="trace-stamp">✳</button><button id="trace-export" type="button" title="Export records">⇩</button><button id="trace-clear" type="button" title="Clear locally stored records">⌫</button></div>
+      <p id="trace-status" role="status" aria-live="polite"></p>
+    </form>
+    <ol id="trace-entries" class="trace-entries"></ol>
+    <p class="privacy-slip">YOUR WORDS STAY ON THIS DEVICE. <span>THE MACHINE HAS NOT BEEN TAUGHT TO PRETEND.</span></p>
+  </section>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <div class="foot-mark" aria-hidden="true">C / ϟ / ∞</div>
+  <div class="failsafe" id="failsafe" hidden><p>THE GROUND IS HERE, BUT THE ENGINE DIDN'T START.</p><a href="./living-atlas.html">ENTER THE ATLAS ↗</a></div>
 </main>
-<script>
-(()=>{
- const panel=document.getElementById('reveal'),title=document.getElementById('revealTitle'),copy=document.getElementById('revealCopy');
- const close=()=>panel.classList.remove('open');
- document.getElementById('closeReveal').addEventListener('click',close);
- document.querySelectorAll('.relic').forEach(item=>{
-  const open=()=>{title.textContent=item.dataset.title;copy.textContent=item.dataset.copy;panel.classList.add('open')};
-  item.addEventListener('click',open);
-  item.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
- });
- document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
-})();
-</script>
+<script defer src="./maze-engine.js"></script>
 </body>
 </html>
