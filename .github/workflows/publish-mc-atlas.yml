@@ -20,6 +20,7 @@ jobs:
           node-version: '22'
       - run: node --test site/atlas-privacy-policy.test.mjs
       - run: node --test site/image-organism.test.mjs
+      - run: node --test site/maze-contract.test.mjs
       - run: node site/validate-site.mjs
       - run: node --check site/map-room/map-room-network.js
       - run: node --check site/generate-catalog.mjs
@@ -43,6 +44,7 @@ jobs:
           mkdir -p site/forest
           cp -R public/forest/. site/forest/
           node site/build-roomway.mjs
+          node site/bridge-rooms.mjs
           node site/validate-public-routes.mjs
           node site/validate-expeditions.mjs
       - name: Publish the built site to the configured gh-pages branch
