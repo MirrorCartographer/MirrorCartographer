@@ -15,7 +15,7 @@ const PORTALS=[
  {id:'sky',name:'WORDLESS SKY',glyph:'ϟ',line:'The weather remembers how to speak without words.',route:'./wordless-sky/',color:'#d4f470',sound:2},
  {id:'between',name:'THE BETWEEN',glyph:'∴',line:'Somewhere the distance between two people goes strange.',route:'./expeditions/the-between.html',color:'#f4abbd',sound:4},
  {id:'music',name:'RADIO GHOST',glyph:'♫',line:'A station with no permission to behave.',route:'./companion/atlas/rooms/music/',color:'#b08dec',sound:7},
- {id:'arcade',name:'CARNIVAL',glyph:'✳',line:'Something is laughing behind the Ferris wheel.',route:'./companion/atlas/rooms/arcade/',color:'#ef6582',sound:6},
+ {id:'arcade',name:'CARNIVAL',glyph:'✳',line:'Something is laughing behind the Ferris wheel.',route:'./expeditions/riddle-arcade.html',color:'#ef6582',sound:6},
  {id:'art',name:'IMAGE ORGANISM',glyph:'⌁',line:'Give it a mark. See what grows.',route:'./image-organism.html',color:'#91dbc7',sound:9},
  {id:'atlas',name:'THE LIVING ATLAS',glyph:'◈',line:'Here are all the maps that tried to make sense.',route:'./living-atlas.html',color:'#e3c390',sound:5},
  {id:'mind',name:'MIND PALACE',glyph:'◎',line:'A floor plan will not survive this house.',route:'./mind-palace/',color:'#d8a8df',sound:3},
