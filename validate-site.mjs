@@ -14,8 +14,10 @@ function validateDocument(html,label){
  return {uniqueIds:ids.length,internalLinks:'PASS',inlineScriptSyntax:'PASS'};
 }
 const houseResult=validateDocument(house,'Preserved Original House');const atlasResult=validateDocument(atlas,'Living Atlas');
-const labyrinthRequired=['<title>CHARITY — the country has teeth</title>','id="terrain"','id="map-sheet"','id="trace"','id="door-index"','./maze.css','./maze-engine.js'];
+const labyrinthRequired=['<title>CHARITY — the country has teeth</title>','id="terrain"','id="map-sheet"','id="trace"','id="door-index"','./maze.css','./maze-engine.js','./tactile-dimensions.js'];
 const missingLabyrinth=labyrinthRequired.filter(x=>!labyrinth.includes(x));if(missingLabyrinth.length)throw Error('Living labyrinth entrance is incomplete: '+missingLabyrinth.join(', '));
+const tactileSource=readFileSync('site/tactile-dimensions.js','utf8');new Script(tactileSource,{filename:'tactile-dimensions.js'});
+if(!tactileSource.includes("switchInput.setAttribute('switch', '')")) throw Error('Native tactile input missing');
 const mazeSource=readFileSync('site/maze-engine.js','utf8');new Script(mazeSource,{filename:'maze-engine.js'});
 const mazeStyle=readFileSync('site/maze.css','utf8');if(!mazeStyle.includes('prefers-reduced-motion'))throw Error('Labyrinth must preserve reduced-motion mode');
 const mazeIds=[...labyrinth.matchAll(/\\bid="([^"]+)"/g)].map(m=>m[1]);if(new Set(mazeIds).size!==mazeIds.length)throw Error('Living labyrinth contains duplicate IDs');

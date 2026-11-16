@@ -12,3 +12,6 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}}
 /* A dialog's decorative ink must never catch touch intended for its close control. */
 .trace-head{position:sticky;top:-27px;z-index:5;padding:7px 0;background:#1b1920ee}.trace-ink{pointer-events:none}.trace[hidden]+#toast{pointer-events:none}
+
+/* A visible, keyboard-reachable entrance to the Mind without reverting to a menu. */
+.signature .mind-knot{position:absolute;right:max(94px,9vw);top:clamp(19px,3vw,36px);z-index:33;display:grid;place-items:center;width:31px;height:31px;color:#d4e985;text-decoration:none;border:1px dashed #d4e98577;border-radius:52% 47% 55% 45%;font-size:20px;line-height:1;transform:rotate(16deg);background:#14160da8;box-shadow:0 0 15px #c3e34c24}.signature .mind-knot:hover,.signature .mind-knot:focus-visible{color:#0e1209;background:#d2ed87;border-color:#d2ed87;outline:2px solid #d2ed87;outline-offset:3px}

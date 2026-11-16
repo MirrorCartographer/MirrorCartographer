@@ -8,6 +8,8 @@ test('live labyrinth has a playable canvas, discoverable map, audio controls and
  for(const id of ['terrain','weather','sound','voice','map-toggle','map-sheet','mini-map','encounter','trace','trace-form','trace-entries','door-index','maze-shift','failsafe'])assert.ok(html.includes(`id="${id}"`),id);
  const links=[...html.matchAll(/<a href="([^"]+)"/g)].map(m=>m[1]);assert.ok(links.some(x=>x.includes('wordless-sky')));assert.ok(links.some(x=>x.includes('living-atlas')));
  assert.ok([...html.matchAll(/<a href=".\/companion\/atlas\/rooms\//g)].length>=5);
+ assert.ok(html.includes('<a href="./mind/">The Mind</a>'));
+ assert.ok(html.includes('class="mind-knot" aria-label="The Mind"'));
 });
 test('javascript parses and exposes movement, real graph reachability, evidence threads and sound lifecycle',()=>{
  assert.doesNotThrow(()=>new Script(engine));
