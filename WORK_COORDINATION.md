@@ -78,3 +78,13 @@ Any ChatGPT conversation working on this project should:
 - Commits for public additions are indexed in the master inventory and repository README. The private audit record is stored only in the private continuity workspace.
 - Verification: file writes were accepted by GitHub. CI result, local model inference, checkpoint training, and pilot outcomes remain unverified.
 - Next: inspect CI results; validate the provenance adapter against the private ledger validator; perform an owner-device inference smoke test; obtain Rider Transit discovery permission before participant research.
+
+
+## 2026-11-16 — Chemical Orchard: generative chemistry as an actual room
+- Repository: `MirrorCartographer/MirrorCartographer`. This is a new artistic instrument, not a replacement for the existing maze or a change to protected Vercel environments.
+- Source: `site/chemical-orchard/index.html`, `orchard.css`, `orchard.js`, `reaction-core.mjs`. Connected through `site/maze-engine.js` as the 13th generated reachable portal and through the accessible destination index in `site/index.html`; links return to the labyrinth and Wordless Sky.
+- Tests: `tests/chemical-orchard.test.mjs` (6/6 local), numerical boundedness/determinism, user touch impacts field, no API/model calls. Playwright inline-content desktop and 390px phone interaction tests passed, with browser audio context running; navigation-based Chromium tests blocked by administrator. Added public GitHub Pages workflow gate and source-integrity entries, updated both hard-coded workbench indexes from 96 to 97.
+- Scientific model: constrained Gray–Scott two-reagent reaction diffusion with three independently parameterized recipes; emergent doorway based on measured pattern complexity. This is an artistic simulation, not a medical or physical experiment.
+- Hardware caveat: Android Vibration API best effort and a user-direct native iOS switch; an actual iPhone haptic pulse and sound audibility have **not** been tested on owner hardware.
+- Docs: `docs/CHEMICAL_ORCHARD.md`. Actual CI/publisher status must be checked at the final commit; this entry alone does not prove production access.
+- Next exact action: verify `gh-pages` branch has the chemical room, independent public HTTP fetch of `/MirrorCartographer/chemical-orchard/`, check iPhone Safari haptic and runtime performance, then expand room-specific consequences without adding generic interface cards.
