@@ -1,0 +1,13 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';import {Script} from 'node:vm';
+import {RECIPES,createField,seedField,inoculate,advance,sampleField} from '../site/chemical-orchard/reaction-core.mjs';
+
+const html=readFileSync(new URL('../site/chemical-orchard/index.html',import.meta.url),'utf8');
+const css=readFileSync(new URL('../site/chemical-orchard/orchard.css',import.meta.url),'utf8');
+const js=readFileSync(new URL('../site/chemical-orchard/orchard.js',import.meta.url),'utf8');
+test('the three reagents implement distinct valid parameter regimes',()=>{assert.equal(RECIPES.length,3);assert.equal(new Set(RECIPES.map(x=>x.id)).size,3);assert.equal(new Set(RECIPES.map(x=>x.feed+'|'+x.kill)).size,3)});
+test('reaction law conserves bounded finite numerical state',()=>{const f=seedField(createField(72,48),414);advance(f,RECIPES[0],128);advance(f,RECIPES[1],128);advance(f,RECIPES[2],128);for(const buf of [f.a,f.b])for(const v of buf)assert.ok(Number.isFinite(v)&&v>=0&&v<=1);assert.equal(f.ticks,384)});
+test('true nonlinear growth differs from unseeded equilibrium',()=>{const a=seedField(createField(70,50),22),b=createField(70,50);advance(a,RECIPES[0],128);advance(b,RECIPES[0],128);const sa=sampleField(a),sb=sampleField(b);assert.ok(sa.peak>0.04,sa.peak);assert.equal(sb.peak,0);assert.ok(a.b.some(x=>x>.05))});
+test('same seed and recipe give deterministic future, intervention changes it',()=>{const f=seedField(createField(40,40),51),g=seedField(createField(40,40),51);advance(f,RECIPES[0],60);advance(g,RECIPES[0],60);assert.deepEqual(f.b,g.b);inoculate(g,15,15,5,.9);advance(f,RECIPES[2],10);advance(g,RECIPES[2],10);assert.notDeepEqual(f.b,g.b)});
+test('HTML is touch- and keyboard-accessible and reversible',()=>{for(const id of ['specimen','sound','erase','export','tactile','hidden-door','living-numbers'])assert.ok(html.includes(`id="${id}"`),id);assert.match(html,/href="\.\.\/"/);assert.match(html,/aria-label="Interactive chemical field/);assert.match(html,/reagent active/);assert.match(css,/prefers-reduced-motion/);assert.match(js,/e\.key===' '|e\.key==='Enter'/);});
+test('no involuntary audio, API key, private archive or network dependency',()=>{assert.doesNotMatch(js,/(fetch\(|XMLHttpRequest|openai|api[_-]?key|autoPlay)/i);assert.match(js,/audio\.resume\(\)/);assert.match(js,/soundEnabled=false/);assert.doesNotMatch(html,/(<script[^>]+https?:|@import.+https?:|data:image\/png;base64)/i);assert.doesNotMatch(js,/The requested file reference is not currently visible/)});
