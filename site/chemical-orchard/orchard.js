@@ -10,14 +10,14 @@ if(!context){$('state').textContent='UNAVAILABLE';throw new Error('No canvas sup
 const W=178,H=126;const field=seedField(createField(W,H),20261116);
 let recipe=RECIPES[0], pointer=false, raf=0, lastDraw=0, sample={coverage:0,complexity:0,peak:0};
 let audio=null,soundEnabled=false,oscillator=null,tone=null,noise=null,resetArmed=false,seed=20261116;
-let cursor={x:W/2,y:H/2},lastX=cursor.x,lastY=cursor.y,strokeLength=0;
+let cursor={x:W/2,y:H/2},lastX=cursor.x,lastY=cursor.y,strokeLength=0,lastHaptic=0;
 const buffer=document.createElement('canvas');buffer.width=W;buffer.height=H;
 const pixels=buffer.getContext('2d',{alpha:false});const image=pixels.createImageData(W,H);
 let toastTimeout;
 
 function notice(s){$('toast').textContent=s;$('toast').classList.add('visible');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>$('toast').classList.remove('visible'),1250)}
 function position(e){const r=canvas.getBoundingClientRect();return {x:Math.min(W-2,Math.max(1,(e.clientX-r.left)/Math.max(1,r.width)*W)),y:Math.min(H-2,Math.max(1,(e.clientY-r.top)/Math.max(1,r.height)*H))};}
-function reaction(x,y,r=5){inoculate(field,x,y,r,.93);cursor={x,y};const rect=canvas.getBoundingClientRect();$('crosshair').style.left=`${x/W*100}%`;$('crosshair').style.top=`${y/H*100}%`;$('crosshair').classList.remove('reacting');void $('crosshair').offsetWidth;$('crosshair').classList.add('reacting');if(navigator.vibrate)try{navigator.vibrate(9)}catch{}}
+function reaction(x,y,r=5){inoculate(field,x,y,r,.93);cursor={x,y};const rect=canvas.getBoundingClientRect();$('crosshair').style.left=`${x/W*100}%`;$('crosshair').style.top=`${y/H*100}%`;$('crosshair').classList.remove('reacting');void $('crosshair').offsetWidth;$('crosshair').classList.add('reacting');const now=performance.now();if(now-lastHaptic>85&&navigator.vibrate){lastHaptic=now;try{navigator.vibrate(9)}catch{}}}
 canvas.addEventListener('pointerdown',e=>{e.preventDefault();pointer=true;canvas.setPointerCapture(e.pointerId);const p=position(e);lastX=p.x;lastY=p.y;strokeLength=0;reaction(p.x,p.y,4.4);});
 canvas.addEventListener('pointermove',e=>{if(!pointer)return;const p=position(e);const length=Math.hypot(p.x-lastX,p.y-lastY);strokeLength+=length;if(length>=2.2){const parts=Math.min(8,Math.ceil(length/3));for(let i=1;i<=parts;i++)reaction(lastX+(p.x-lastX)*i/parts,lastY+(p.y-lastY)*i/parts,3.2+Math.min(4,length*.12));lastX=p.x;lastY=p.y;}});
 function release(){pointer=false}
@@ -66,7 +66,8 @@ function frame(now){raf=requestAnimationFrame(frame);if(document.hidden)return;
   lastDraw=now;
   advance(field,recipe,reduced.matches?1:3);
   if(field.ticks%12<3){sample=sampleField(field);$('state').textContent=sample.coverage>.24?'FERMENTING':sample.coverage>.075?'MULTIPLYING':'GROWING';$('living-numbers').textContent=`${sample.coverage.toFixed(3)} / ${sample.complexity.toFixed(3)}`;$('ticks').textContent=String(field.ticks).padStart(6,'0');syncAudio();
-   if(sample.coverage>.12&&field.ticks>175)$('hidden-door').hidden=false;
+   const gate=({lacing:.017,leopard:.082,coral:.105})[recipe.id];
+   if(sample.complexity>gate&&field.ticks>240)$('hidden-door').hidden=false;
   }
   render();
 }
