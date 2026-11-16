@@ -16,6 +16,7 @@ const PORTALS=[
  {id:'between',name:'THE BETWEEN',glyph:'∴',line:'Somewhere the distance between two people goes strange.',route:'./expeditions/the-between.html',color:'#f4abbd',sound:4},
  {id:'music',name:'RADIO GHOST',glyph:'♫',line:'A station with no permission to behave.',route:'./companion/atlas/rooms/music/',color:'#b08dec',sound:7},
  {id:'arcade',name:'CARNIVAL',glyph:'✳',line:'Something is laughing behind the Ferris wheel.',route:'./expeditions/riddle-arcade.html',color:'#ef6582',sound:6},
+ {id:'chemical',name:'CHEMICAL ORCHARD',glyph:'⚗',line:'Someone planted a reaction in the dark.',route:'./chemical-orchard/',color:'#d6ed55',sound:6},
  {id:'art',name:'IMAGE ORGANISM',glyph:'⌁',line:'Give it a mark. See what grows.',route:'./image-organism.html',color:'#91dbc7',sound:9},
  {id:'atlas',name:'THE LIVING ATLAS',glyph:'◈',line:'Here are all the maps that tried to make sense.',route:'./living-atlas.html',color:'#e3c390',sound:5},
  {id:'mind',name:'MIND PALACE',glyph:'◎',line:'A floor plan will not survive this house.',route:'./mind-palace/',color:'#d8a8df',sound:3},
@@ -249,7 +250,7 @@ function paintStroke(points,opacity,color){if(opacity<=0||points.length<2)return
 function keyboard(ev){if(!$('trace').hidden||!$('map-sheet').hidden){if(ev.key==='Escape'){closeMap();closeTrace()}return}
  if(ev.key==='Escape'){closeEncounter();return}
  const step={ArrowUp:[0,-1],w:[0,-1],ArrowDown:[0,1],s:[0,1],ArrowLeft:[-1,0],a:[-1,0],ArrowRight:[1,0],d:[1,0]}[ev.key];if(step){ev.preventDefault();const nx=Math.round(player.x)+step[0],ny=Math.round(player.y)+step[1];if(open(nx,ny))walk=routeTo(nx,ny);else{toast('THE WALL WON.');if(soundOn)chirp(0)}}if(ev.key==='Enter'&&encounter){window.location.assign(encounter.route)}}
-function showEncounter(p){encounter=p;$('encounter').hidden=false;$('encounter-number').textContent=`${String(PORTALS.indexOf(PORTALS.find(t=>t.id===p.id))+1).padStart(2,'0')} / 12`;$('encounter-glyph').textContent=p.glyph;$('encounter-glyph').style.color=p.color;$('encounter-title').textContent=p.name;$('encounter-line').textContent=p.line;$('encounter-enter').href=p.route;$('encounter-enter').setAttribute('aria-label','Enter '+p.name);$('encounter-mark').textContent=found.has(p.id)?'♥':'♡';if(soundOn)chirp(p.sound);speak(p.line)}
+function showEncounter(p){encounter=p;$('encounter').hidden=false;$('encounter-number').textContent=`${String(PORTALS.indexOf(PORTALS.find(t=>t.id===p.id))+1).padStart(2,'0')} / ${PORTALS.length}`;$('encounter-glyph').textContent=p.glyph;$('encounter-glyph').style.color=p.color;$('encounter-title').textContent=p.name;$('encounter-line').textContent=p.line;$('encounter-enter').href=p.route;$('encounter-enter').setAttribute('aria-label','Enter '+p.name);$('encounter-mark').textContent=found.has(p.id)?'♥':'♡';if(soundOn)chirp(p.sound);speak(p.line)}
 function closeEncounter(){encounter=null;$('encounter').hidden=true}
 function toggleMap(){const sheet=$('map-sheet'),show=sheet.hidden;sheet.hidden=!show;$('map-toggle').setAttribute('aria-expanded',String(show));if(show){closeEncounter();drawMap();$('map-close').focus()}}
 function closeMap(){$('map-sheet').hidden=true;$('map-toggle').setAttribute('aria-expanded','false')}
