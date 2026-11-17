@@ -31,12 +31,32 @@
 @media(max-width:760px){.library-grid{grid-template-columns:1fr}.library-now{min-height:210px}.library-track{grid-template-columns:32px minmax(0,1fr) auto}.recorded-library{margin-top:2rem}}
 
 </style><link rel="stylesheet" href="../../../art-direction.css">
+<link rel="stylesheet" href="./ink-score.css">
 </head><body><main>
 <a class="back" href="../">← RETURN TO THE ROOMS</a><p class="eyebrow" style="margin-top:3rem">A PLACE FOR SOUND</p><h1>The Music<br>Room.</h1><p class="lead" id="line">The air is waiting to be moved.</p>
 <section class="stage" id="stage"><canvas id="visual"></canvas><div class="stage-inner"><div class="stage-top"><div><div class="eyebrow">LIVE INSTRUMENT / 01</div><div class="stage-title">The listening field</div></div><div class="controls"><button id="sound">WAKE THE ROOM</button><button id="play">PLAY THE PATTERN</button><button id="stop">STOP</button></div></div><div><div class="keys" id="keys" aria-label="Eight playable notes"></div><div class="stage-bottom"><span class="eyebrow" id="status" aria-live="polite">SILENCE / READY</span><span class="eyebrow">TAP A NOTE · BUILD A PATTERN</span></div></div></div></section>
 <div class="panel"><section><h2>Shape the sound</h2><p>Change the voice and the distance between notes.</p><div class="range"><label for="tempo">TEMPO</label><input id="tempo" type="range" min="45" max="180" value="92"><output id="tempo-out">92 BPM</output></div><div class="range"><label for="voice">VOICE</label><select id="voice"><option value="sine">Glass</option><option value="triangle">Wood</option><option value="sawtooth">Wire</option><option value="square">Bell metal</option></select></div><div class="range"><label for="space">SPACE</label><input id="space" type="range" min="0" max="100" value="28"><output id="space-out">28%</output></div><div class="range"><label for="volume">VOLUME</label><input id="volume" type="range" min="0" max="100" value="25"><output id="volume-out">25%</output></div></section><section><h2>Leave a pattern</h2><p>Each note becomes part of a small sequence. Clear it, change it, or let it repeat.</p><div class="controls"><button id="random">FIND A PATTERN</button><button id="clear">CLEAR THE FIELD</button><button id="ambience">AMBIENCE OFF</button></div><div class="readout" id="readout" aria-live="polite">0 NOTES IN THE PATTERN</div></section></div>
 <p class="foot">A sound begins only after you wake the room. Use headphones at a comfortable volume.</p>
 
+<section class="scratch-field" id="scratch-field" aria-labelledby="scratch-title">
+  <div class="scratch-marginalia" aria-hidden="true"><span>ϟ</span><span>✳</span><span>⌁</span></div>
+  <div class="scratch-heading"><span class="scratch-vol" aria-hidden="true">✹</span><div><p class="scratch-overline">AN UNRELIABLE INSTRUMENT / 02</p><h2 id="scratch-title">The crooked score.</h2></div><span class="scratch-stamp" aria-hidden="true">DRAW<br>LOUDER</span></div>
+  <div class="scratch-paper" id="scratch-paper">
+    <canvas id="score-ground" tabindex="0" aria-label="Draw a musical contour with touch or mouse. The horizontal position sets when a note happens and the height determines its pitch. Keyboard: arrow keys move the nib; Space places a note."></canvas>
+    <span class="scratch-seam scratch-seam-a" aria-hidden="true"></span><span class="scratch-seam scratch-seam-b" aria-hidden="true"></span>
+  </div>
+  <div class="scratch-underside"><span class="scratch-time">← TIME →</span><span class="scratch-sign">C.A.S. / NO. 02</span><span class="scratch-up">↑ PITCH</span></div>
+  <div class="scratch-machine" aria-label="Crooked score controls">
+    <button id="scratch-start" type="button" aria-label="Play the drawing" title="Play the drawing">▶</button>
+    <button id="scratch-stop" type="button" aria-label="Stop playing" title="Stop">■</button>
+    <button id="scratch-save" type="button" aria-label="Save the score privately on this device" title="Save here">✳</button>
+    <button id="scratch-export" type="button" aria-label="Export your score as JSON" title="Export JSON">⇩</button>
+    <button id="scratch-erase" type="button" aria-label="Erase the drawing, confirm by pressing twice" title="Erase — press twice">⌫</button>
+    <label class="scratch-speed" for="scratch-tempo"><span>↝</span><input id="scratch-tempo" type="range" min="48" max="180" value="92" aria-label="Playback tempo"><output id="scratch-bpm">92</output></label>
+  </div>
+  <p id="scratch-status" class="scratch-status" role="status" aria-live="polite">THE PAPER IS LISTENING.</p>
+  <p class="scratch-footnote">Original tones from your drawn marks. Sound begins only when you press play. Your score stays on this device unless you export it.</p>
+</section>
 <section class="recorded-library" aria-labelledby="recorded-title">
   <div class="recorded-library-head">
     <div><p class="eyebrow">THE ARCHIVE / RECORDED WORKS</p><h2 id="recorded-title">The listening library.</h2><p class="library-lead">This is where the original recordings belong: directly playable beside the instrument, with no file picker and no work pushed onto the visitor.</p></div>
@@ -71,4 +91,5 @@ window.__MC_MUSIC_ROOM__={play,stop:()=>$('stop').click(),pattern:()=>pattern.sl
 </script>
 
 
+<script type="module" src="./ink-score.js"></script>
 </body></html>
