@@ -1,76 +1,75 @@
-# Mirror Cartographer
+# MIRROR CARTOGRAPHER
 ### The Observatory of Almost-Known Things
 
-> **What if the information survived, but the understanding did not?**
+**Oh, good. Someone opened the door instead of just admiring the sign.**
 
-An evidence-aware research and systems practice for exploring what becomes visible when scattered observations are read together—without mistaking a compelling connection for proof.
+This is an experimental research world disguised as a country with questionable wiring, odd weather, a few excellent monsters, and an unreasonable number of doors. Some things here are art. Some are functioning instruments. Some are hypotheses waiting to be embarrassed by evidence. Learn the difference; it matters.
 
-It began as a symbolic reflection interface. It now moves through research, continuity, human–technology interaction, public-interest systems, experimental software, and creative inquiry.
+If you came for a beautiful answer that agrees with you, the internet has thousands. We are trying something more difficult.
 
-One question remains:
+**An observation is not an explanation. A compelling story is not proof. A broken button is a broken button, not a metaphor.**
 
-**What can we understand from individual facts—and how much remains invisible between them?**
+[**ENTER THE LIVING COUNTRY**](https://mirrorcartographer.github.io/MirrorCartographer/) · [**TAKE THE OLD ATLAS**](https://mirrorcartographer.github.io/MirrorCartographer/living-atlas.html) · [**OPEN THE EXPEDITIONS**](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/)
 
-## Live experiences — protected links
+---
 
-- **[The House That Remembers](https://mirrorcartographer.github.io/MirrorCartographer/)** — the new public front door: an intimate, hand-drawn world of rooms, memory, animals, grief, strange beauty, and open doors.\n- **[The Living Atlas](https://mirrorcartographer.github.io/MirrorCartographer/living-atlas.html)** — the previous interactive atlas, preserved as a separate experience.
+## The experiment
 
-The public experience is published directly through GitHub Pages from the public core repository. The companion UI source repository is private and is not used as a public Pages host. The source repositories contain many additional HTML files; their source presence does not establish that each one is deployed or interactive. See [cross-chat work coordination](WORK_COORDINATION.md) for the shared verification and handoff rules.
+We began with a more intimate question: can someone map a feeling, sensation, or contradiction without being reduced to a diagnosis, a personality type, or whatever the algorithm thinks is most marketable this week?
 
-**Interactive source workbench:** from the repository root, run `python3 -m http.server 8000` and open `http://localhost:8000/workbench.html` to preview, edit, and run any of the indexed HTML designs. The deployable copy is `site/workbench.html`.
+That became a larger investigation into **how observations acquire meaning**, how systems lose context, what an AI can infer without pretending to know, and how another person might inspect or correct the result.
 
-## Public expeditions
+Here is the procedure. It is almost offensively simple:
 
-- [Expeditions directory](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/) — all three worlds and their six playable side rooms.
-- [Riddle Arcade](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/riddle-arcade.html) · [Pattern Loom](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/pattern-loom.html)
-- [The Between](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/the-between.html) · [Signal Garden](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/signal-garden.html)
-- [Specimen Garden](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/specimen-garden.html) · [Ecology Lab](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/ecology-lab.html)
-- Reconnected doors: [Door 13 — Self Cartographer](https://mirrorcartographer.github.io/MirrorCartographer/self-cartographer/) · [Door 14 — Grow a Specimen](https://mirrorcartographer.github.io/MirrorCartographer/grow-a-specimen/) · [Door 15 — Another World](https://mirrorcartographer.github.io/MirrorCartographer/another-world/)
-- [Music Room](https://mirrorcartographer.github.io/MirrorCartographer/companion/atlas/rooms/music/) · [Veteran Hub](https://mirrorcartographer.github.io/MirrorCartographer/companion/atlas/rooms/veterans/hub.html)
+1. **Notice** something, including what's missing.
+2. **Separate** direct observation, interpretation, source, and uncertainty.
+3. **Challenge** the first explanation. Find a rival explanation worth testing.
+4. **Change one condition.** Keep the evidence trail.
+5. **Record the outcome** even if the splendid theory dies immediately.
 
+We keep contradictions when they are genuinely unresolved. We resolve them when evidence permits. Neither a mirror nor an assistant gets the final vote.
 
+## Laboratories with actual doors
 
-## New public spaces — November 2026
+| Door | What you can do there |
+| --- | --- |
+| [The Research Atlas](https://mirrorcartographer.github.io/MirrorCartographer/companion/research-atlas/) | Move between claims, context, and alternative interpretations. |
+| [Consensus Trap](https://mirrorcartographer.github.io/MirrorCartographer/companion/atlas/rooms/research/consensus-trap/) | Investigate how agreement can rise while accuracy doesn't. Synthetic experiment, not field evidence. |
+| [CASE 001: The Person Who Was Never Sick Enough](https://mirrorcartographer.github.io/MirrorCartographer/cases/001-the-person-who-was-never-sick-enough/) | Reconstruct an omission from six fictional records and inspect the provenance. |
+| [Field Lens](tools/field-lens.html) | Inspect candidate relationships without laundering guesses into facts. |
+| [The Map Room](https://mirrorcartographer.github.io/MirrorCartographer/map-room/) | Give a bodily or emotional state its own color, texture, shape, and language. Your map is not a diagnosis. |
+| [Wordless Sky](https://mirrorcartographer.github.io/MirrorCartographer/wordless-sky/) | Make weather respond to you. Creative/sensory instrument, not a scientific measurement device. |
+| [The Living Country](https://mirrorcartographer.github.io/MirrorCartographer/) | Wander first. Discover why the research needs art in the first place. |
 
-- **[Mind Palace](https://mirrorcartographer.github.io/MirrorCartographer/mind-palace/)** — spatial navigation across the project's chambers; chronology and provenance remain underneath.
-- **[Wordless Sky](https://mirrorcartographer.github.io/MirrorCartographer/wordless-sky/)** — a rebuilt touch-responsive weather and original browser-synthesized sound environment.
-- **[The Story House](https://mirrorcartographer.github.io/MirrorCartographer/stories/)** — long-form narrative, including [The Map That Learned to Open](https://mirrorcartographer.github.io/MirrorCartographer/stories/the-map-that-learned-to-open/), an assistant-side reconstruction with evidence gaps explicitly labeled.
+Three independent puzzle-world source packages—[B: The Between](https://github.com/MirrorCartographer/B), [r: Riddle Arcade](https://github.com/MirrorCartographer/r), and [S: Specimen Garden](https://github.com/MirrorCartographer/S)—have **one public expedition directory**, not three competing website hosts. The packages remain separate for provenance and testing; the public experiences live [here](https://mirrorcartographer.github.io/MirrorCartographer/expeditions/).
 
-The Mind Palace, Wordless Sky and Story House are public-facing reconstructions. Their source records, detailed provenance and private conversation metadata remain in the private workspace. The assistant-side story is a narrative reconstruction, not a verbatim transcript or a claim of continuous subjective experience.
+## Expeditions still underway
 
-## Choose a door
+- [The Signal That Leaves the Wound](research/expeditions/001-the-signal-that-leaves-the-wound.md): injury signaling, bioelectricity, regeneration, and testable gaps.
+- [Ebola Human Survival](research/expeditions/002-ebola-human-survival.md): treatment, host protection, survivor recovery, and research questions.
+- [101-Dimension Atlas](architecture/101_DIMENSION_ATLAS.md): a working ontology for things that resist tidy categories.
+- [Historical Recovery Atlas](governance/HISTORICAL_RECOVERY_ATLAS_2026-11-05.md): what the archives actually establish, rather than what we wish had happened.
+- [Research method](research/METHOD.md): source, inference, rival hypothesis, falsification, revision.
 
-- **[Observatory Field Guide](OBSERVATORY_FIELD_GUIDE.md)** — the map, the vocabulary, the way in.
-- **[Symbolic Language Engine](SYMBOLIC_LANGUAGE_ENGINE.md)** — how symbols become observations, relationships, questions, and discoveries without becoming counterfeit facts.
-- **[Obsession Map](OBSESSION_MAP.md)** — follow the recurring questions across research, biology, systems, and creative work.
-- **[Cabinet of Real Things](CABINET_OF_REAL_THINGS.md)** — what exists, what it demonstrates, what remains unfinished.
-- **[Research Expedition 001 — The Signal That Leaves the Wound](research/expeditions/001-the-signal-that-leaves-the-wound.md)** — a real, source-linked investigation into injury signaling, systemic response, bioelectricity, and regeneration; includes provisional hypotheses and an experiment ladder.
-- **[Research Expedition 002 — Ebola Human Survival](research/expeditions/002-ebola-human-survival.md)** — a species-specific, evidence-grounded map of antiviral treatment, host protection, survivor recovery, and the 2026 Bundibugyo clinical-trial agenda.
-- **[CASE 001 — The Person Who Was Never Sick Enough](site/cases/001-the-person-who-was-never-sick-enough/index.html)** — reconstruct a synthetic case from six records; find the omission, test competing explanations, and inspect the provenance.
-- **[Research method](research/METHOD.md)** — evidence, claims, uncertainty, tests.
-- **[Field Lens](tools/field-lens.html)** — add observations, propose relationships, and keep inference visibly separate from evidence.
-- **[The 101-Dimension Atlas](architecture/101_DIMENSION_ATLAS.md)** — the expandable multidimensional ontology underlying Mirror Cartographer.
-- **[Observer and Instrument](architecture/OBSERVER_AND_INSTRUMENT.md)** — the reflexive architecture for examining how observation and mapping shape what becomes visible.
-- **[Demonstration 001 — The Hidden Interface](demonstrations/001-cross-domain-bridge/README.md)** — an executable synthetic example of finding cross-domain structural bridges without treating topology as causation.
-- **[Relationship engine](tools/relationship-engine/relationship-engine.mjs)** — a small tested engine for ranking candidate bridge nodes.
-- **[Self-cartography model](docs/SELF_CARTOGRAPHY_MODEL.md)** — a revisable map of a person, never a substitute for one.
-- **[Mind](mind/)** — continuity, cognition, design, care, memory, experiments.
-- **[Research](research/)** — questions, source-linked claims, models, hypothesis tests.
-- **[Evidence](evidence/)** · **[Architecture](architecture/)** · **[Tools](tools/)**
-- **[Demonstrations](demonstrations/)** — see the method move.
-- **[Creative Universe](Creative_Universe/)** · **[Art](art/)** · **[Music index](music/archive-manifest.json)** · **[Open Mic](open-mic/)**
-- **[Companion encounter repository](https://github.com/MirrorCartographer/mirror-cartographer-ui)** — rooms, language, interaction, and creative experiments.
+**Research is not a decorative room.** It is how the whole place earns the right to say anything.
 
-## Find your way
+## The house rules (yes, there are rules)
 
-| Follow… | Enter… |
-|---|---|
-| How the project thinks | `research/METHOD.md`, `mind/`, `architecture/` |
-| A scientific or systems question | `research/`, `evidence/`, `proof/` |
-| A working instrument | `tools/`, `demonstrations/`, `execution/` |
-| The symbolic and creative layer | `SYMBOLIC_LANGUAGE_ENGINE.md`, `Creative_Universe/`, `art/`, `music/` |
-| Decisions and boundaries | `governance/`, `schemas/`, `ledgers/`, `docs/` |
+- No coercive reflection; no mandatory confession. Symbols belong to the person using them.
+- No diagnosis by metaphor, no supernatural claims disguised as experiments, no promised cures.
+- Privacy by default. Public derivatives must not leak the private workshop, raw archives, or personal records.
+- Source, implementation, test result, public deployment, and independent verification are different things.
+- If the experiment fails, write down the failure. If the page 404s, fix the link. Don't declare the error a portal.
+- The project was conceived and creatively directed by **Charity Alessandra Sturgell**; software and artifacts include AI-assisted work. Individual sources retain their own attribution and licensing.
 
+The **public site and research record** live in this repository. [The private UI workshop](https://github.com/MirrorCartographer/mirror-cartographer-ui), [private creative archive C](https://github.com/MirrorCartographer/c), and [Human Judgment Lab J](https://github.com/MirrorCartographer/J) serve different purposes. Private source does not become public merely because a README links to its repository.
+
+Now go break a theory. Carefully.
+
+---
+
+<details>
+<summary><strong>Under the floorboards — engineering, provenance, verification, and governance</strong></summary>
 
 ## Living Systems implementation
 
@@ -167,3 +166,5 @@ These records distinguish implemented software, source-level evidence, historica
 - Weekly Hub/Creation Portal contract checks: `mirror-cartographer-ui/.github/workflows/execution-hub-contract.yml` (Monday 13:05 UTC).
 
 These workflows are configured to run on GitHub Actions. Their first successful runs remain unverified; they do not access private repositories or local device sandboxes.
+
+</details>
