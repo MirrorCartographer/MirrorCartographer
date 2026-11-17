@@ -1,0 +1,40 @@
+{
+  "schema": "mc.decision-triad.v1",
+  "decision_id": "2026-11-16.crooked-score",
+  "exact_copy": {
+    "speaker": "user",
+    "source_kind": "private_conversation",
+    "source_date": "2026-11-16",
+    "excerpt_sha256": "d187f6a587b17aa116a4772480503de362a5cc3f028dd5cb6075c8457c2f2f88",
+    "literal_source_public": false,
+    "attribution_check": "human-verified from current conversation; not machine-verified against full archive"
+  },
+  "interpretation": {
+    "status": "hypothesis",
+    "proposal": "Provide a hand-drawn musical system in which original visitor-made marks shape tempo, pitch and timbre instead of presenting another static music player.",
+    "alternative": "The request may prioritize publishing the existing original recordings and adding cinematic hand-drawn animation over a new composing instrument.",
+    "owner_review": "pending"
+  },
+  "idea": {
+    "name": "The Crooked Score",
+    "description": "A locally authored musical drawing surface integrated into the existing Music Room. Horizontal drawing location sets event time, vertical location selects pitch, drawing density sets dynamics. Web Audio is opt-in.",
+    "source_paths": [
+      "site/companion/atlas/rooms/music/index.html",
+      "site/companion/atlas/rooms/music/ink-score.js",
+      "site/companion/atlas/rooms/music/ink-score-core.mjs",
+      "site/companion/atlas/rooms/music/ink-score.css"
+    ],
+    "test_path": "tests/ink-score.test.mjs",
+    "code_status": "integrated",
+    "human_impact_status": "not-tested",
+    "owner_device_sound_status": "not-tested",
+    "deployment_status": "pending-independent-verification"
+  },
+  "constraints": [
+    "Do not upload private historical chats or recordings.",
+    "Do not claim inventoried recordings are publicly playable.",
+    "Preserve the existing eight-note instrument.",
+    "Keep sound off until user interaction.",
+    "Honor reduced-motion and keyboard alternatives."
+  ]
+}
