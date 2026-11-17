@@ -14,6 +14,11 @@ const required = new Map([
   ['site/chemical-orchard/orchard.js', ['createField', 'advance(field,recipe', 'audio.resume()']],
   ['site/chemical-orchard/reaction-core.mjs', ['export function advance', 'react=A*B*B']],
   ['site/chemical-orchard/orchard.css', ['.specimen-wrap', 'prefers-reduced-motion']],
+  ['site/world-imprint.mjs', ['material-not-person', 'export function validateImprint', 'export function distillFields']],
+  ['site/afterimage.js', ['validateImprint', 'reweaveFromImprint']],
+  ['site/afterimage.css', ['.foreign-stone', 'prefers-reduced-motion']],
+  ['site/chemical-orchard/unlived-core.mjs', ['createTwins', 'advanceTwins', 'divergence']],
+  ['tests/unlived-consequence.test.mjs', ["node:test", "intervention"]],
 ]);
 
 test('critical artifacts contain source rather than retrieval errors or placeholders', () => {
