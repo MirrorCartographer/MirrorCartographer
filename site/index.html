@@ -27,7 +27,7 @@
     <button id="map-toggle" type="button" aria-expanded="false" aria-label="Open explored map" title="Map">⌁</button>
     <button id="trace-open" type="button" aria-label="Open private thread" title="Private thread">✎</button>
   </div>
-  <div class="ambient-type" aria-hidden="true"><span id="ambient-a">EVERY ROAD HAS AN OPINION.</span><span id="ambient-b">✳</span></div>
+  <div class="ambient-type" aria-hidden="true"><span id="ambient-a">EVERY ROAD HAS AN OPINION. SOME ARE TERRIBLE.</span><span id="ambient-b">✳</span></div>
   <div class="feet-indicator" aria-hidden="true"><span id="compass-dot">●</span><span id="footsteps">⌁⌁</span></div>
   <section id="encounter" class="encounter" hidden aria-labelledby="encounter-title">
     <span class="encounter-number" id="encounter-number">0 / 10</span>
@@ -38,10 +38,10 @@
     <div class="encounter-actions"><a id="encounter-enter" href="./wordless-sky/" class="slit-door" aria-label="Enter this world">↗</a><button id="encounter-mark" type="button" class="small-glyph" aria-label="Keep this encounter">♡</button></div>
   </section>
   <section id="map-sheet" class="map-sheet" hidden aria-label="Explored territory">
-    <div class="map-top"><span>WHAT THE GROUND REMEMBERS</span><button id="map-close" type="button" aria-label="Close map">×</button></div>
+    <div class="map-top"><span>WHAT THE GROUND INSISTS IT REMEMBERS</span><button id="map-close" type="button" aria-label="Close map">×</button></div>
     <canvas id="mini-map" width="420" height="340" aria-label="A chart of your traveled paths"></canvas>
     <div class="map-note"><span id="map-progress">0</span> FOOTPRINTS <button id="maze-shift" type="button" title="Make a new labyrinth">↻</button></div>
-    <details class="accessible-index"><summary>THE OTHER DOORS</summary>
+    <details class="accessible-index"><summary>FINE. HERE ARE THE OTHER DOORS.</summary>
       <nav id="door-index" aria-label="Accessible destinations">
         <a href="./wordless-sky/">Wordless Sky</a>
         <a href="./expeditions/the-between.html">The Between</a>
@@ -61,7 +61,7 @@
     </details>
   </section>
   <section id="trace" class="trace" hidden role="dialog" aria-modal="true" aria-label="Private day thread">
-    <div class="trace-head"><span>THE DAY NEVER REALLY ENDS</span><button id="trace-close" type="button" aria-label="Close private thread">×</button></div>
+    <div class="trace-head"><span>EVEN THE GROUND KEEPS RECEIPTS</span><button id="trace-close" type="button" aria-label="Close private thread">×</button></div>
     <div class="trace-ink" aria-hidden="true">✳ <i>ϟ</i> ♫</div>
     <form id="trace-form">
       <fieldset class="trace-lenses"><legend class="visually-hidden">Record type</legend>
@@ -79,7 +79,7 @@
   </section>
   <div id="toast" role="status" aria-live="polite"></div>
   <div class="foot-mark" aria-hidden="true">C / ϟ / ∞</div>
-  <div class="failsafe" id="failsafe" hidden><p>THE GROUND IS HERE, BUT THE ENGINE DIDN'T START.</p><a href="./living-atlas.html">ENTER THE ATLAS ↗</a></div>
+  <div class="failsafe" id="failsafe" hidden><p>THE ENGINE DIDN'T START. HOW VERY EXPERIMENTAL. TRY THE ATLAS.</p><a href="./living-atlas.html">ENTER THE ATLAS ↗</a></div>
 </main>
 <script defer src="./maze-engine.js"></script>
 <script defer src="./tactile-dimensions.js"></script>
