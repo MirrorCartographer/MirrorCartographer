@@ -26,6 +26,8 @@ jobs:
       - run: node --test tests/chemical-orchard.test.mjs
       - run: node --test tests/unlived-consequence.test.mjs
       - run: node --test tests/ink-score.test.mjs
+      - run: node --test tests/build-triad.test.mjs
+      - run: node --test tests/workbench-source.test.mjs
       - run: node site/validate-site.mjs
       - run: node --check site/map-room/map-room-network.js
       - run: node --check site/generate-catalog.mjs
