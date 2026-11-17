@@ -358,7 +358,7 @@ function sustainRadio(){
  }
  const f=110*Math.pow(2,(game.frequency-87)/21);
  drone.frequency.setTargetAtTime(f,audio.currentTime,.12);
- droneGain.gain.setTargetAtTime(mode==='radio'?.016:.004,audio.currentTime,.12);
+ droneGain.gain.setTargetAtTime(mode==='radio' ? .016 : .004,audio.currentTime,.12);
 }
 function chime(...freqs){
  if(!soundOn)return;
