@@ -53,6 +53,8 @@ Three independent puzzle-world source packages—[B: The Between](https://github
 
 **Research is not a decorative room.** It is how the whole place earns the right to say anything.
 
+**[The House Voice: a field manual for not becoming a brochure](docs/VOICE_OF_THE_LIVING_COUNTRY.md)** — the writing standard used across public rooms, research copy, and future updates.
+
 ## The house rules (yes, there are rules)
 
 - No coercive reflection; no mandatory confession. Symbols belong to the person using them.
