@@ -45,7 +45,7 @@ test('the theatre cannot open without a valid triad and state is session-reversi
 });
 test('graph obeys screen aspect, and pathfinding always chooses a shortest route',()=>{
  let s=startForest();
- for(const [x,y] of [[.12,.5],[.24,.5],[.37,.5],[.5,.5],[.65,.5]])s=plantLight(s,x,y,2);
+ for(const [x,y] of [[.12,.5],[.24,.5],[.37,.5],[.5,.5],[.63,.5]])s=plantLight(s,x,y,2);
  assert.deepEqual(routeTo(s,4,2),[0,1,2,3,4]);
  assert.ok(edgesOf(s,.4).length>edgesOf(s,2).length);
 });
