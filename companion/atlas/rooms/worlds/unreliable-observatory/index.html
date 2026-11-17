@@ -13,9 +13,9 @@
 <body>
 <main class="stage">
 <canvas class="sky" id="sky" aria-hidden="true"></canvas><div class="grain" aria-hidden="true"></div>
-<header><section class="brand"><div class="eyebrow">Field station 00</div><h1>The Unreliable Observatory</h1><p>Weather reports from places that refuse to exist.</p></section><nav class="controls" aria-label="Observatory controls"><button id="scan">Scan again</button><button id="sound" aria-pressed="false">Sound off</button></nav></header>
+<header><section class="brand"><div class="eyebrow">Field station 00</div><h1>The Unreliable Observatory</h1><p>Weather reports from places that refuse to exist. Verification requests have been returned unopened.</p></section><nav class="controls" aria-label="Observatory controls"><button id="scan">Demand another forecast</button><button id="sound" aria-pressed="false">Sound off</button></nav></header>
 <section class="instrument" aria-labelledby="place" aria-describedby="weather"><div class="needle" id="needle"></div><div class="dial-label"><div class="place" id="place">The Orchard Beneath Tuesday</div><div class="weather" id="weather">Light ladders, drifting east.</div></div></section>
-<section class="reading" aria-live="polite"><strong>Operator's note</strong><p id="note">Do not shelter. The ladders are shy and will fold themselves away.</p></section><div class="counter"><span id="count">01</span><br/>impossible climates observed</div><div id="announce" class="sr-only" aria-live="assertive"></div>
+<section class="reading" aria-live="polite"><strong>Operator's note</strong><p id="note">Do not shelter. The ladders are shy and will fold themselves away.</p></section><div class="counter"><span id="count">01</span><br/>impossible climates reported · zero planning permissions</div><div id="announce" class="sr-only" aria-live="assertive"></div>
 </main>
 <script>
 const REPORTS=[
