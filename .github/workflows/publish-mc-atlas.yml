@@ -21,6 +21,7 @@ jobs:
       - run: node --test site/atlas-privacy-policy.test.mjs
       - run: node --test site/image-organism.test.mjs
       - run: node --test site/maze-contract.test.mjs
+      - run: node --test tests/carnival-booths.test.mjs
       - run: node --test site/tactile-dimensions.test.mjs
       - run: node --test site/source-integrity.test.mjs
       - run: node --test tests/chemical-orchard.test.mjs
