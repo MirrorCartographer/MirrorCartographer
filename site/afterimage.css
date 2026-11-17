@@ -1,0 +1,7 @@
+/* An imprint from a different physical system. The object is the interface. */
+.foreign-stone{position:absolute;z-index:13;left:clamp(18px,9vw,140px);bottom:clamp(97px,14vh,164px);width:96px;height:96px;padding:0;background:transparent;border:0;cursor:pointer;transform:rotate(-9deg);filter:drop-shadow(4px 6px 1px #000a) drop-shadow(0 0 12px #d7ef57a0)}
+.foreign-stone canvas{width:100%;height:100%}
+.foreign-stone:hover,.foreign-stone:focus-visible{transform:rotate(7deg) scale(1.06);outline:2px dashed #e2f5aa;outline-offset:3px}
+.foreign-stone.spent{opacity:.55;filter:grayscale(.55) drop-shadow(4px 6px 1px #000b);cursor:default}
+@media(max-width:650px){.foreign-stone{left:13px;bottom:99px;width:61px;height:61px}}
+@media(prefers-reduced-motion:reduce){.foreign-stone,.foreign-stone:hover,.foreign-stone:focus-visible{transform:none;transition:none}}
