@@ -5,7 +5,7 @@ const canvas=$('midway-world'),ctx=canvas.getContext('2d',{alpha:false});
 const narrator=$('narrator'),title=$('station-title'),hint=$('station-hint');
 const TAU=Math.PI*2,PI=Math.PI,clamp=(x,a,b)=>Math.min(b,Math.max(a,x)),lerp=(a,b,t)=>a+(b-a)*t;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-let W=0,H=0,D=1,time=0,last=0,mode='world',game=initialGame(),coin=initialBooths(),noMotion=reduced,audio=null,soundOn=false;
+let W=0,H=0,D=1,time=0,last=0,mode='world',game=initialGame(),coin=initialBooths(),noMotion=reduced,audio=null,drone=null,droneGain=null,soundOn=false;
 let wheelAngle=0,wheelVel=0,pointer={x:0,y:0,down:false},hold=false,arrival=null,selected=1;
 let avatar={x:.51,y:.86,tx:.51,ty:.86},particles=[],messageTimeout=0;
 const words={
@@ -45,11 +45,11 @@ function enter(name){
  if(name==='mirror')announce('The reflection is missing its shadow. An embarrassing oversight.');
  if(name==='wheel')announce('Spin it. Then ask which part of the spectacle was evidence.');
  if(name==='gallery')announce('Three green hits out of six shots. The red things have excellent marketing.');
- if(name==='radio')announce('This radio only plays sounds generated here, if you turn sound on.');
+ if(name==='radio'){announce('An original tone moves when you tune, if you explicitly turn on sound.');sustainRadio();}
  if(name==='weather')announce('Press the copper lung. Nothing is supposed to happen. Obviously.');
  if(name==='gate')announce(statusOf(game).need?'The gate requires '+statusOf(game).need+' more marks. The fence is not impressed.':'The lock has run out of objections. Touch the gate.');
 }
-function back(){mode='world';arrival=null;title.textContent='';hint.textContent='';$('return').hidden=true;announce(game.afterHours?'The rides are behind you. The woods appear to have opinions.':'Tap the dirt to walk. Tap a strange thing to make it stranger.');canvas.focus({preventScroll:true});}
+function back(){mode='world';arrival=null;title.textContent='';hint.textContent='';$('return').hidden=true;sustainRadio();announce(game.afterHours?'The rides are behind you. The woods appear to have opinions.':'Tap the dirt to walk. Tap a strange thing to make it stranger.');canvas.focus({preventScroll:true});}
 function positions(){
  const top=clamp(H*.225,110,210),bottom=H-(W<700?150:136),span=Math.max(175,bottom-top);
  const a=top+span*.26,b=top+span*.74;
@@ -349,6 +349,17 @@ function clock(now){
  requestAnimationFrame(clock);
 }
 requestAnimationFrame(clock);
+function sustainRadio(){
+ if(!soundOn||!audio)return;
+ if(!drone){
+  drone=audio.createOscillator();droneGain=audio.createGain();
+  drone.type='sine';droneGain.gain.value=0;
+  drone.connect(droneGain).connect(audio.destination);drone.start();
+ }
+ const f=110*Math.pow(2,(game.frequency-87)/21);
+ drone.frequency.setTargetAtTime(f,audio.currentTime,.12);
+ droneGain.gain.setTargetAtTime(mode==='radio' ? .016 : .004,audio.currentTime,.12);
+}
 function chime(...freqs){
  if(!soundOn)return;
  try{
@@ -378,7 +389,7 @@ function shoot(kind){
 }
 function adjustX(x){
  if(mode==='mirror')apply('mirror',clamp((x-W*.15)/(W*.7),0,1));
- if(mode==='radio'){const f=87+clamp((x-W*.2)/(W*.6),0,1)*21;apply('radio',f);if(game.stamps.includes('radio'))chime(247,370);}
+ if(mode==='radio'){const f=87+clamp((x-W*.2)/(W*.6),0,1)*21;apply('radio',f);sustainRadio();}
 }
 function press(x,y){
  pointer.down=true;pointer.x=x;pointer.y=y;
@@ -447,9 +458,10 @@ $('return').addEventListener('click',back);
 $('sound').addEventListener('click',e=>{
  soundOn=!soundOn;
  if(soundOn){
-  try{audio??=new (window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();chime(196,293.7,392);}
+  try{audio??=new (window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();sustainRadio();chime(196,293.7,392);}
   catch{soundOn=false;}
  }
+ if(!soundOn&&droneGain&&audio)droneGain.gain.setTargetAtTime(0,audio.currentTime,.04);
  e.currentTarget.setAttribute('aria-pressed',String(soundOn));e.currentTarget.textContent=soundOn?'♫ SOUND ON':'♫ SOUND OFF';
 });
 $('still').addEventListener('click',e=>{
