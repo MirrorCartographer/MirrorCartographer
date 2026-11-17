@@ -31,7 +31,7 @@
 .midway .judgment small{display:block;color:#dfbea8;margin-top:5px}
 .midway .reset{background:transparent;color:#f0ce90;border:1px solid #8d6a62;margin-top:10px}
 @media(max-width:650px){.midway{width:100%;max-height:min(44dvh,440px)}.midway summary{font-size:10px;padding:10px}.midway .inside{padding:0 10px 10px}.midway .booths{grid-template-columns:1fr}.midway .ticket{min-height:unset;padding:8px}.midway .ticket p{margin:4px 0}.midway .small-print{font-size:10px}}
-</style><script src=../engine.js><script type="module">
+</style><script src="../engine.js"></script><script type="module">
 import {initialBooths,changeBooth,evaluateBooths} from './booth-model.mjs';
 const panel=document.getElementById('midway');
 let state=initialBooths();
@@ -53,4 +53,4 @@ panel.querySelectorAll('[data-booth]').forEach(button=>button.addEventListener('
   if(button.dataset.booth!=='reset')window.__MC_EXPERIMENT__?.transform?.();
 }));
 redraw();
-</script></script></body></html>
+</script></body></html>
