@@ -38,6 +38,17 @@ Any ChatGPT conversation working on this project should:
 
 ## Work log
 
+### 2026-11-17 — Hushwood: the second world has actual consequences
+
+- **Status — CODE-VERIFIED / PUBLISHED-BRANCH-CONFIRMED; browser/device unverified.**
+- Public repository: PR #53 merged, commit `df210684fb99a129cb3eef43e9c008f7d17f9293`. Carnival After Hours now branches into a separately rendered procedural Hushwood: plant connected lanterns, guide an animated moth using breadth-first shortest-path routing, reveal a portal after visiting three noncollinear lights, then enter a gesture-driven shadow theatre based on the user's actual lantern graph. Sound remains opt-in, reduced-motion path resolution remains playable, accessible forest commands provided. No storage, identifiers, analytics, API calls or uploads. Nothing shared between visitors.
+- Public tests: `tests/carnival-hushwood.test.mjs` for graph logic, `tests/carnival-interaction-smoke.test.mjs` for a simulated full keyboard/pointer path from original attractions through gate, lanterns, moth and theatre. Tests integrated into publisher and passed on PR head, alongside JavaScript syntax, site validations, typecheck/build. The `gh-pages` branch contains the new core and renderer files and the main publishing workflow succeeded.
+- Private UI: PR #207 merged, commit `cdbf6ad606ca009468c6c2aff172aace4f404794`, synchronizing the same experience files and room directory wording. Baseline private CI / Vercel remain failing; do not claim private production deployed.
+- Missing proof: direct public HTTP reachability and actual iPhone/audio/sensory quality were not independently tested; attempted page fetch returned an inaccessible result. Do not equate pipeline success with on-device behavior.
+- Next exact action: inspect the playable public Carnival URL on a phone and confirm 4-stamp gate, tap-based lantern placement, connected-path traversal, visible portal, theatre touch response, opt-in sound and reduced motion. Fix observed bugs rather than claiming completion from source alone.
+
+
+
 ### 2026-11-02 — Chat A
 - Repository: `MirrorCartographer/J`
 - Commit: `fd874502c5a6ee619d4396601d321e811fbf7cdb`
