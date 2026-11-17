@@ -37,7 +37,7 @@ async function load(){
    const response=await fetch(sourceOption.url,{cache:'no-store'});
    if(!response.ok)throw Error('HTTP '+response.status);
    const body=await response.text();
-   if(!/^\\s*<(?:!doctype|html|!--)/i.test(body))throw Error('Not HTML source');
+   if(!/^\s*<(?:!doctype|html|!--)/i.test(body))throw Error('Not HTML source');
    original=body;current=path;source.value=original;dirty=false;
    preview.removeAttribute('src');preview.srcdoc=previewDocument(original,sourceBase(path));
    document.querySelector('#previewLabel').textContent=path;
