@@ -24,6 +24,7 @@ jobs:
       - run: node --test tests/carnival-booths.test.mjs
       - run: node --test tests/carnival-midway.test.mjs
       - run: node --test tests/carnival-hushwood.test.mjs
+      - run: node --test tests/carnival-interaction-smoke.test.mjs
       - run: node --check site/companion/atlas/rooms/experiments/004-carnival-of-thought/hushwood-scene.mjs
       - run: node --check site/companion/atlas/rooms/experiments/004-carnival-of-thought/midway.js
       - run: node --test site/tactile-dimensions.test.mjs
