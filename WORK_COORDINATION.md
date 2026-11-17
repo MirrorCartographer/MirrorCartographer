@@ -28,6 +28,14 @@ Any ChatGPT conversation working on this project should:
 - Prefer a generated interactive catalog from repository metadata so newly added HTML experiences do not silently remain undiscoverable.
 - Preserve GitHub Pages routes only where the current deployment configuration supports them.
 
+## 2026-11-17 — The House found its voice, then demanded evidence
+
+- **Public repo:** `MirrorCartographer/MirrorCartographer`. PR #48 established the sharper, evidence-aware house voice across 29 HTML pages; PR #49 added Carnival of Thought's three-booth synthetic coin experiment with a pure statistical model and Node tests; PR #50 extended distinct voice and action feedback to 10 additional rooms. All three were merged to main.
+- **Private UI source:** `MirrorCartographer/mirror-cartographer-ui`. PR #204 mirrored the Carnival HTML and model into the private source. Private CI and Vercel remain baseline-failing; no private production deployment is claimed.
+- **Tests:** Public PR #49's Pages build and Typecheck/build passed, including the new `tests/carnival-booths.test.mjs` test required by the public publisher. PR #50's publisher and typecheck/build passed. Public Pages publishing subsequently reported success for the latest main commit, but independent live browser reachability, audio/haptics, and user experience are not verified here.
+- **Boundaries:** The model uses deterministic simulated fair-coin flips, deliberately correlated committee applause, approximate Wilson intervals, a 400-flip cap, and no persistence or upload. This is a thought experiment, not empirical evidence about humans.
+- **Next:** Check the actual GitHub Pages route for Carnival with browser interaction, keyboard and touch; verify the `booth-model.mjs` 200 response and visible action feedback. Continue one room-specific interaction improvement at a time, keeping the [voice guide](docs/VOICE_OF_THE_LIVING_COUNTRY.md), privacy, and observed implementation truth separate from atmospheric narrative.
+
 ## Work log
 
 ### 2026-11-02 — Chat A
