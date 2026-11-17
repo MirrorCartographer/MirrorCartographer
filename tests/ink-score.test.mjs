@@ -31,6 +31,7 @@ test('interface offers original sound without importing recordings or contacting
  assert.ok(runtime.includes('pointerdown')&&runtime.includes('visibilitychange'));
  assert.doesNotMatch(html+runtime,/api\.openai\.com|<audio\s+autoplay|sendBeacon|fetch\(/);
  assert.ok(css.includes('prefers-reduced-motion'));
+ assert.match(css,/#score-ground\{[^}]*pointer-events:auto/);
 });
 test('runtime JavaScript parses as an ES module',async()=>{
  const child=await import('node:child_process');const cp=child.spawnSync(process.execPath,['--check',new URL('../site/companion/atlas/rooms/music/ink-score.js',import.meta.url).pathname]);assert.equal(cp.status,0,cp.stderr?.toString());
