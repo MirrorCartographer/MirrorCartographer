@@ -7,7 +7,7 @@ const TAU=Math.PI*2,PI=Math.PI,clamp=(x,a,b)=>Math.min(b,Math.max(a,x)),lerp=(a,
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let W=0,H=0,D=1,time=0,last=0,mode='world',game=initialGame(),coin=initialBooths(),noMotion=reduced,audio=null,drone=null,droneGain=null,soundOn=false;
 let wheelAngle=0,wheelVel=0,pointer={x:0,y:0,down:false},hold=false,arrival=null,selected=1;
-let avatar={x:.51,y:.86,tx:.51,ty:.86},particles=[],messageTimeout=0;
+let avatar={x:.51,y:.86,tx:.51,ty:.86},particles=[],lanterns=[],messageTimeout=0;
 const words={
  mirror:['THE MIRROR THAT DISAGREES','Drag your reflection into the pale silhouette.'],
  wheel:['THE WHEEL OF EXPERTS','Touch the wheel. Gravity is the only panelist with credentials.'],
@@ -49,7 +49,7 @@ function enter(name){
  if(name==='weather')announce('Press the copper lung. Nothing is supposed to happen. Obviously.');
  if(name==='gate')announce(statusOf(game).need?'The gate requires '+statusOf(game).need+' more marks. The fence is not impressed.':'The lock has run out of objections. Touch the gate.');
 }
-function back(){mode='world';arrival=null;title.textContent='';hint.textContent='';$('return').hidden=true;sustainRadio();announce(game.afterHours?'The rides are behind you. The woods appear to have opinions.':'Tap the dirt to walk. Tap a strange thing to make it stranger.');canvas.focus({preventScroll:true});}
+function back(){mode='world';arrival=null;title.textContent='';hint.textContent='';$('return').hidden=true;sustainRadio();announce(game.afterHours?'The woods are yours to disturb. Tap the earth to plant a local-only lantern.':'Tap the dirt to walk. Tap a strange thing to make it stranger.');canvas.focus({preventScroll:true});}
 function positions(){
  const top=clamp(H*.225,110,210),bottom=H-(W<700?150:136),span=Math.max(175,bottom-top);
  const a=top+span*.26,b=top+span*.74;
@@ -174,6 +174,27 @@ function drawPlayer(){
  line(x-7,y+13,x-8,y+26,'#e7d6a8',4);line(x+6,y+13,x+8,y+26,'#e7d6a8',4);
  line(x-14,y-22,x+13,y-22,'#362430',4);line(x-7,y-29,x+5,y-29,'#362430',10);
 }
+function plantLantern(x,y){
+ if(lanterns.some(p=>Math.hypot(p.x-x,p.y-y)<.035))return;
+ lanterns.push({x,y,age:time});if(lanterns.length>26)lanterns.shift();
+ note(lanterns.length===1?'A LANTERN. Nobody else can see it; it belongs to this visit.':lanterns.length<5?'Another light. The trees are beginning to draw lines.':'THE WOODS HAVE STARTED MAKING THEIR OWN MAP. Naturally, they have refused to publish the methodology.');
+ chime(220+lanterns.length*19);
+}
+function drawLanterns(){
+ for(let i=0;i<lanterns.length;i++){
+  const a=lanterns[i],ax=a.x*W,ay=a.y*H;
+  for(let j=i+1;j<lanterns.length;j++){
+   const b=lanterns[j],bx=b.x*W,by=b.y*H,d=Math.hypot(ax-bx,ay-by);
+   if(d<Math.min(W,H)*.29)line(ax,ay,bx,by,'#d0f58a66',Math.max(.9,2.4-d*.006));
+  }
+ }
+ lanterns.forEach((p,i)=>{
+  const x=p.x*W,y=p.y*H,r=11+Math.sin(noMotion?i:time*2+i)*2;
+  ellipse(x,y+9,12,3,'#010607aa');circ(x,y,r*2,'#caff6c1a');
+  path([[x-r*.45,y-r*.55],[x+r*.45,y-r*.55],[x+r*.45,y+r*.55],[x-r*.45,y+r*.55]]);
+  fill('#b8e76a88');stroke('#d8f3ab',1.5);circ(x,y,r*.26,'#efffc9');
+ });
+}
 function drawWorld(){
  sky();
  if(game.afterHours){
@@ -185,7 +206,8 @@ function drawWorld(){
   }
  }
  for(const p of positions())stationArt(p);
- if(!game.afterHours)drawPlayer();else drawPlayer();
+ if(game.afterHours)drawLanterns();
+ drawPlayer();
  const dots=positions();
  if(arrival){
   const p=dots.find(x=>x.name===arrival);
@@ -396,7 +418,7 @@ function press(x,y){
  if(mode==='world'){
   const candidate=positions().map(p=>({...p,d:Math.hypot(x-p.x,y-p.y)})).sort((a,b)=>a.d-b.d)[0];
   if(candidate && candidate.d<candidate.r*1.22){arrival=candidate.name;avatar.tx=candidate.x/W;avatar.ty=candidate.y/H;note('Walking toward '+words[candidate.name][0].toLowerCase()+'.');}
-  else{avatar.tx=clamp(x/W,.02,.98);avatar.ty=clamp(y/H,.3,.85);arrival=null;}
+  else{avatar.tx=clamp(x/W,.02,.98);avatar.ty=clamp(y/H,.3,.85);arrival=null;if(game.afterHours)plantLantern(avatar.tx,avatar.ty);}
  }else if(mode==='wheel')spin();
  else if(mode==='gallery'){
   const t=targets().find(t=>Math.hypot(x-t.x,y-t.y)<t.r*1.35);
@@ -428,6 +450,7 @@ function keyboard(e){
  if(arrows.includes(key)||key==='enter'||key===' '){e.preventDefault();}
  if(mode==='world'){
   const d=.035;
+  if(game.afterHours&&key===' '){plantLantern(avatar.x,avatar.y);return;}
   if(key==='arrowleft'||key==='a')avatar.tx=clamp(avatar.tx-d,.02,.98);
   if(key==='arrowright'||key==='d')avatar.tx=clamp(avatar.tx+d,.02,.98);
   if(key==='arrowup'||key==='w')avatar.ty=clamp(avatar.ty-d,.3,.85);
@@ -475,4 +498,4 @@ $('map').querySelectorAll('[data-enter]').forEach(b=>b.addEventListener('click',
  $('map').hidden=true;$('map-toggle').setAttribute('aria-expanded','false');enter(b.dataset.enter);canvas.focus({preventScroll:true});
 }));
 refresh();
-window.__MC_CARNIVAL__={getState:()=>({...game,stamps:[...game.stamps]}),getMode:()=>mode,visit:enter,reset:()=>{apply('reset');coin=initialBooths();back();}};
+window.__MC_CARNIVAL__={getState:()=>({...game,stamps:[...game.stamps],lanterns:lanterns.map(p=>({x:p.x,y:p.y}))}),getMode:()=>mode,visit:enter,reset:()=>{apply('reset');coin=initialBooths();lanterns=[];back();}};
