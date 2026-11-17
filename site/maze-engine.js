@@ -284,6 +284,18 @@ const api=Object.freeze({
  selfTest:()=>({engine:'loaded',canvas:Boolean(ctx),routeLinks:document.querySelectorAll('#door-index a').length,model:validateModel(),webaudio:Boolean(window.AudioContext||window.webkitAudioContext),speech:Boolean(window.speechSynthesis),vibration:typeof navigator.vibrate==='function',storageWritable:(()=>{try{const key='mc.probe';localStorage.setItem(key,'1');localStorage.removeItem(key);return true}catch{return false}})(),prefersReducedMotion:reduced.matches}),
  setWeather, navigateTo:(id)=>{const p=portals.find(v=>v.id===id);if(p){walk=routeTo(p.x,p.y);return walk.length>0 || (Math.round(player.x)===p.x&&Math.round(player.y)===p.y)}return false},
  showPortal:(id)=>{const p=portals.find(v=>v.id===id);if(p){showEncounter(p);return true}return false},
+ reweaveFromImprint:(materialSeed,newWeather)=>{
+  if(!Number.isInteger(materialSeed)||materialSeed<0||materialSeed>0xffffffff||!['hush','static','storm','heat'].includes(newWeather))return {success:false,allPortalsReachable:false};
+  // A carried physical field alters the actual graph, not merely its pigment.
+  const previousSeed=seed,previousSeen=new Set(seen),previousFound=new Set(found),previousWeather=weather;
+  seed=(Math.imul((seed ^ (materialSeed>>>0))>>>0,0x85ebca6b)>>>0);
+  if(seed===previousSeed)seed=(seed+0x9e3779b9)>>>0;
+  walk=[];seen.clear();closeEncounter();closeMap();generate();
+  const proof=validateModel();
+  if(!proof.allPortalsReachable||proof.orphanedPassableCells){seed=previousSeed;seen=previousSeen;found=previousFound;generate();setWeather(previousWeather);return {success:false,allPortalsReachable:false}}
+  setWeather(newWeather);save();
+  return {success:true,seed,allPortalsReachable:true,portalCount:proof.portals};
+ },
  routeTo:(x,y)=>routeTo(x,y),
  });
  Object.defineProperty(window,'MC_LABYRINTH',{value:api,configurable:false});
