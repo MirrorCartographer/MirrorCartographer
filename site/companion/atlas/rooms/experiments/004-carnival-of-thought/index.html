@@ -1,2 +1,56 @@
 <!doctype html><html><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>004 Carnival of Thought</title><link rel=stylesheet href=../shared.css><style>:root{--bg:#16020d;--ink:#fff1bf}body{background:radial-gradient(circle,#5a123f,#19020f 62%,#050005)}</style><link rel="stylesheet" href="../../../../art-direction.css">
-</head><body data-mode=carnival><canvas></canvas><div class=ui><div class=top><div><div class=tag>Experiment 004</div><div class=title>Carnival of Thought</div><div class=copy>Ideas refuse to stand still. Please resist the urge to optimize the fun. Nudge the orbit and let this ridiculous machinery keep turning.</div></div><div class=pill>joy as navigation</div></div><div class=bottom><div class=controls><button data-action=sound>ring a booth</button><button data-action=shift>change the lights</button></div><div class=note>Built for poking, not explaining.</div></div></div><script src=../engine.js></script></body></html>
+</head><body data-mode=carnival><canvas></canvas><div class=ui><div class=top><div><div class=tag>Experiment 004</div><div class=title>Carnival of Thought</div><div class=copy>Ideas refuse to stand still. Please resist the urge to optimize the fun. Nudge the orbit and let this ridiculous machinery keep turning.</div></div><div class=pill>joy as navigation</div></div><div class=bottom><div class=controls><button data-action=sound>ring a booth</button><button data-action=shift>change the lights</button></div><div class=note>Built for poking, not explaining.</div></div></div><details class="midway" id="midway" aria-label="Three-booth synthetic research experiment">
+<summary>THE DEPARTMENT OF UNDESERVED CONFIDENCE · OPEN THE BOOTHS</summary>
+<div class="inside">
+<p class="small-print">A simulated fair coin is being investigated by a very biased committee. All flips are deterministic synthetic data, generated here. Nobody is being observed, and nothing is uploaded.</p>
+<div class="booths">
+<section class="ticket"><h2>01 / THE BOASTING ORACLE</h2><p id="booth-claim">The coin LOVES heads (90%)</p><button type="button" data-booth="claim">CHANGE THE CLAIM</button></section>
+<section class="ticket"><h2>02 / THE COMMITTEE</h2><p id="booth-crowd">1 of 9 chairs applauding</p><button type="button" data-booth="applause">HIRE TWO MORE YES-MEN</button></section>
+<section class="ticket"><h2>03 / THE RECEIPT DESK</h2><p id="booth-sample">No flips conducted</p><button type="button" data-booth="sample">RUN 40 FAIR-COIN FLIPS</button></section>
+</div>
+<div class="judgment"><output id="booth-verdict" role="status" aria-live="polite">No evidence collected. The confidence is decorative.</output><small id="booth-interval">No interval without observations</small></div>
+<button type="button" class="reset" data-booth="reset">SHRED THE FILE · RESTART</button>
+<p class="small-print">The committee's votes are deliberately correlated theater. Only the coin flips feed the interval. Approximate 95% intervals can still reject true hypotheses by chance; this booth is not a scientific conclusion about people.</p>
+</div></details><style id="midway-audit-style">
+.midway{pointer-events:auto;position:fixed;z-index:15;left:50%;top:50%;transform:translate(-50%,-50%);width:min(940px,98%);max-height:min(51dvh,480px);overflow:auto;margin:0 auto;background:#150d17f2;border:2px solid #c9a368;box-shadow:7px 7px 0 #080608,0 18px 60px #000b;scrollbar-color:#a47b60 #171018}
+.midway summary{display:block;cursor:pointer;padding:13px 16px;font:700 12px ui-monospace,monospace;letter-spacing:.11em;color:#ffe2a8;outline-offset:-3px}
+.midway summary::marker{content:""}
+.midway summary:focus-visible,.midway button:focus-visible{outline:3px solid #f8e09a;outline-offset:-3px}
+.midway summary:after{content:" +";float:right}
+.midway[open] summary:after{content:" −"}
+.midway .inside{padding:0 16px 15px;font:13px/1.55 ui-sans-serif,system-ui,sans-serif}
+.midway .small-print{font-size:11px;color:#cfbaa5;margin:4px 0 12px}
+.midway .booths{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.midway .ticket{border:1px dashed #b78b6f;background:#301a2a;padding:11px;min-height:140px}
+.midway .ticket h2{font:700 12px ui-monospace,monospace;color:#f5c789;letter-spacing:.07em;margin:0 0 8px}
+.midway .ticket p{margin:7px 0;color:#f6e8d0;font-size:13px}
+.midway button{font:700 11px ui-monospace,monospace;color:#200b16;background:#f0ce90;border:0;padding:10px 12px;cursor:pointer;min-height:40px}
+.midway button:hover{background:#fff0b8}
+.midway .judgment{background:#110c13;border-left:3px solid #e5af76;padding:10px;margin-top:12px}
+.midway .judgment output{display:block;font:600 14px/1.5 Georgia,serif;color:#fff0c4}
+.midway .judgment small{display:block;color:#dfbea8;margin-top:5px}
+.midway .reset{background:transparent;color:#f0ce90;border:1px solid #8d6a62;margin-top:10px}
+@media(max-width:650px){.midway{width:100%;max-height:min(44dvh,440px)}.midway summary{font-size:10px;padding:10px}.midway .inside{padding:0 10px 10px}.midway .booths{grid-template-columns:1fr}.midway .ticket{min-height:unset;padding:8px}.midway .ticket p{margin:4px 0}.midway .small-print{font-size:10px}}
+</style><script src=../engine.js><script type="module">
+import {initialBooths,changeBooth,evaluateBooths} from './booth-model.mjs';
+const panel=document.getElementById('midway');
+let state=initialBooths();
+const put=(id,value)=>{document.getElementById(id).textContent=value;};
+function redraw(){
+  const result=evaluateBooths(state);
+  put('booth-claim',result.claim.label);
+  put('booth-crowd',result.crowdText);
+  put('booth-sample',result.sampleText);
+  put('booth-verdict',result.verdict);
+  put('booth-interval',result.rangeText);
+  const sampleButton=panel.querySelector('[data-booth="sample"]');
+  sampleButton.disabled=state.trials>=400;
+  sampleButton.textContent=sampleButton.disabled?'SAMPLE LIMIT REACHED':'RUN 40 FAIR-COIN FLIPS';
+}
+panel.querySelectorAll('[data-booth]').forEach(button=>button.addEventListener('click',()=>{
+  state=changeBooth(state,button.dataset.booth);
+  redraw();
+  if(button.dataset.booth!=='reset')window.__MC_EXPERIMENT__?.transform?.();
+}));
+redraw();
+</script></script></body></html>
