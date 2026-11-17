@@ -18,6 +18,10 @@ const required = new Map([
   ['site/afterimage.js', ['validateImprint', 'reweaveFromImprint']],
   ['site/afterimage.css', ['.foreign-stone', 'prefers-reduced-motion']],
   ['site/chemical-orchard/unlived-core.mjs', ['createTwins', 'advanceTwins', 'divergence']],
+  ['site/companion/atlas/rooms/music/ink-score-core.mjs', ['export function composeScore', 'export function validateSavedScore']],
+  ['site/companion/atlas/rooms/music/ink-score.js', ['composeScore', 'context.resume()', 'pointerdown']],
+  ['site/companion/atlas/rooms/music/ink-score.css', ['.scratch-field', 'prefers-reduced-motion']],
+  ['site/companion/atlas/rooms/music/index.html', ['id="score-ground"', 'src="./ink-score.js"']],
   ['tests/unlived-consequence.test.mjs', ["node:test", "intervention"]],
 ]);
 
