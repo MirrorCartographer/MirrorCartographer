@@ -41,10 +41,10 @@
       "name": "Carnival of Thought",
       "kind": "environment",
       "href": "./atlas/rooms/experiments/004-carnival-of-thought/",
-      "visual": "distorted funhouse geometry; kinetic signage; rotating booths",
-      "interaction": "Choose a booth; each action changes the rules of another booth, creating playful interference.",
-      "status": "procedural-renderer-present",
-      "implementation_status": "procedural-renderer-present"
+      "visual": "procedural walkable midnight midway with five graphical attractions; after-hours cut-paper woods, animated lantern-graph moth, and gesture-responsive shadow theatre",
+      "interaction": "Walk/tap and play attractions; four earned stamps open Hushwood; place connected lanterns, guide a moth along graph routes, and form a noncollinear three-light constellation to expose the shadow theatre.",
+      "status": "published-source: interactive canvas, five attraction mechanics, Hushwood graph and shadow theatre; browser/device verification still required",
+      "implementation_status": "published-source: interactive canvas, five attraction mechanics, Hushwood graph and shadow theatre; browser/device verification still required"
     },
     {
       "id": "005",
