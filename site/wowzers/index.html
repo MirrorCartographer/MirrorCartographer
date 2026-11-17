@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090e10"><meta name="description" content="A tiny impossible weather machine. Touch the sky, wake the creature, and leave a light for somebody. A Mirror Cartographer encounter.">
+<title>WOWZERS // THE WEATHER HAS TEETH</title>
+<style>
+:root{color-scheme:dark;--acid:#d8ff42;--paper:#e9d9b4;--rust:#ff744d;--ink:#090e10}
+*{box-sizing:border-box}html,body{height:100%;margin:0;background:var(--ink);color:var(--paper);overflow:hidden}
+body{font-family:ui-monospace,Menlo,Consolas,monospace}
+#world{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:crosshair}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.17;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E")}
+.leopard{position:fixed;top:-40px;right:-55px;width:220px;height:220px;transform:rotate(24deg);pointer-events:none;opacity:.53;background:radial-gradient(ellipse 13px 9px at 26px 28px,transparent 53%,#9eae43 58%,#9eae43 72%,transparent 76%) 0 0/57px 53px,radial-gradient(ellipse 8px 7px at 10px 10px,#b3c43f 70%,transparent 73%) 0 0/37px 47px;mask-image:radial-gradient(circle,#000,transparent 75%)}
+.hud{position:fixed;inset:0;pointer-events:none;display:flex;flex-direction:column;padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(18px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+.hud a,.hud button,.hud input,.hud .note-card{pointer-events:auto}
+.top{display:flex;gap:12px;justify-content:space-between;align-items:flex-start;font-size:10px;letter-spacing:.16em}
+.brand{border-top:4px solid var(--acid);padding-top:9px;max-width:245px;line-height:1.7;font-weight:bold}
+.brand span{display:block;color:var(--acid)}
+.return{color:var(--paper);text-decoration:none;border:1px solid #e9d9b45c;padding:10px;background:#0a0e10a8}
+.return:hover,.return:focus-visible{border-color:var(--acid);color:var(--acid)}
+.headline{margin:auto 0 auto 4vw;max-width:min(780px,90vw);transform:rotate(-2deg);text-shadow:4px 5px 0 #010203,0 0 35px #0008}
+.mini{display:inline-block;font-size:11px;color:var(--rust);font-weight:800;letter-spacing:.24em;transform:rotate(2deg);border-bottom:2px dashed var(--rust);padding-bottom:7px}
+h1{font-family:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;font-stretch:condensed;font-weight:900;line-height:.78;letter-spacing:-.055em;font-size:clamp(69px,14vw,182px);margin:24px 0 15px;text-transform:uppercase}
+h1 b{color:var(--acid);font-weight:inherit;display:block;transform:translateX(8vw) rotate(3deg);text-shadow:4px 6px 0 #0e1515,-3px -2px 0 #d8ff4255}
+.sub{max-width:390px;font:clamp(12px,1.35vw,15px)/1.65 Georgia,serif;letter-spacing:.015em;background:#081014ba;padding:9px 13px;border-left:3px solid var(--rust)}
+.bottom{align-self:stretch;display:flex;justify-content:space-between;align-items:flex-end;gap:15px}
+.instrument{background:#081012d9;border:1px solid #d8ff426e;padding:12px 13px 14px;max-width:min(570px,100%);box-shadow:5px 5px 0 #000c}
+.instrument>small{color:var(--acid);display:block;font-size:10px;letter-spacing:.2em;margin-bottom:8px}
+.actions{display:flex;gap:7px;flex-wrap:wrap}
+button{font:700 11px/1.3 ui-monospace,monospace;letter-spacing:.055em;cursor:pointer;border:1px solid #d6e2c580;background:#121c1c;color:var(--paper);padding:11px 12px;border-radius:0;touch-action:manipulation}
+button[aria-pressed=true],button:hover,button:focus-visible{background:var(--acid);color:#091111;border-color:var(--acid)}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--rust);outline-offset:3px}
+button.urgent{background:#bc422a;color:#fff0d5;border-color:#ff987b}
+.corner{font-size:10px;text-align:right;max-width:185px;line-height:1.7;color:#e9d9b4a3;letter-spacing:.09em}
+.corner b{font-size:29px;color:var(--acid);font-family:Georgia,serif;font-weight:400;display:block;line-height:1}
+.note-card{position:absolute;right:5vw;top:18%;width:min(340px,88vw);padding:18px 18px 20px;background:#dcd3aa;color:#11160e;transform:rotate(2deg);box-shadow:8px 9px 0 #0103039e;border:2px solid #1a1d0d;display:none;max-height:40vh;overflow:auto}
+.note-card.show{display:block}.note-card small{display:block;font-weight:800;letter-spacing:.1em;font-size:10px}.note-card p{font:italic 22px/1.25 Georgia,serif;overflow-wrap:anywhere}
+.note-card button{background:#111;color:#eee}.note-card button:hover{background:var(--rust)}
+.dialog{position:fixed;left:50%;bottom:125px;transform:translateX(-50%) rotate(-1deg);width:min(500px,calc(100vw - 36px));background:#d8ff42;color:#0b1511;padding:13px;z-index:5;box-shadow:9px 9px 0 #010304;display:none}
+.dialog.open{display:block}.dialog label{display:block;font-size:11px;font-weight:900;letter-spacing:.1em;margin-bottom:8px}
+.dialog input{width:100%;background:#faf5dd;color:#111;border:2px solid #111;padding:11px;font-size:16px;outline-offset:2px}
+.dialog p{font:11px/1.4 ui-monospace,monospace}.dialog .actions{margin-top:9px}
+.dialog button{background:#08100d;color:#fcf5df}
+.dialog button:hover{background:#8c3c22;color:#fff}
+#shareurl{font-size:12px;word-break:break-all;display:none;margin-top:8px;color:#24301b;user-select:all}
+.toast{position:fixed;top:18%;left:50%;transform:translateX(-50%) rotate(-2deg);background:#ff744d;color:#09100f;max-width:88vw;font:900 14px/1.4 ui-monospace,monospace;padding:10px 20px;display:none;box-shadow:5px 5px 0 #000;z-index:6;text-align:center}
+.toast.show{display:block}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:700px){.hud{padding:14px 14px 16px}.top{font-size:8px}.brand{max-width:170px}.headline{margin:auto 0 auto 0}.mini{font-size:8px}h1{font-size:clamp(60px,16vw,105px);margin:13px 0 16px}h1 b{transform:translateX(7vw) rotate(3deg)}.sub{font-size:12px;max-width:250px;padding:7px 10px}.instrument{width:100%;padding:10px}.instrument>small{font-size:8px}.actions{gap:5px}.actions button{font-size:10px;padding:10px 8px}.corner{display:none}.note-card{top:18%;right:3vw;max-height:32vh}.note-card p{font-size:18px}.dialog{bottom:112px}}
+@media(max-height:620px){h1{font-size:clamp(45px,13vh,95px)}.headline{margin:auto 0}.mini{font-size:8px}.sub{display:none}.dialog{bottom:100px}.note-card{top:13%;max-height:30vh}}
+@media(prefers-reduced-motion:reduce){h1,b,.headline{transform:none!important}}
+</style></head><body>
+<canvas id="world" role="img" aria-label="An illustrated storm, a crooked carnival on a distant hill, a hidden dog, and lanterns. Touch or drag to draw lightning. Controls below provide accessible alternatives."></canvas>
+<div class="leopard" aria-hidden="true"></div>
+<main class="hud">
+<header class="top"><div class="brand">MIRROR CARTOGRAPHER <span>UNAUTHORIZED WEATHER DEPARTMENT</span></div><a class="return" href="../">↖ BACK TO THE COUNTRY</a></header>
+<section class="headline" aria-labelledby="headline"><span class="mini" id="serial">FIELD INCIDENT NO. 001 / STRANGE WEATHER</span>
+<h1 id="headline">THE SKY<br>IS A BAD <b>LIAR.</b></h1>
+<div class="sub" id="hint">Touch the sky. Drag until it cracks. There is something alive down by the crooked fence.</div></section>
+<section class="bottom"><div class="instrument"><small>✳ PICK YOUR TROUBLE / NO SIGN-IN / NO PERMISSION SLIPS</small>
+<div class="actions"><button id="storm" aria-pressed="true" type="button">ϟ BREAK THE SKY</button><button id="lantern" aria-pressed="false" type="button">✳ LEAVE A LIGHT</button><button id="beast" aria-pressed="false" type="button">◉ FIND THE BEAST</button><button id="sound" type="button" aria-pressed="false">♫ WAKE SOUND</button></div></div>
+<div class="corner"><b>✺</b> IN CASE OF WONDER:<br>MAKE A LITTLE MORE.</div></section>
+<div class="note-card" id="received" role="status" aria-live="polite"><small>✳ SOMEBODY LEFT YOU A LIGHT</small><p id="receivedText"></p><button id="closeReceived" type="button">KEEP WALKING ↗</button></div>
+</main>
+<section class="dialog" id="dialog" role="dialog" aria-label="Leave a lantern for somebody" aria-modal="false"><label for="message">WRITE SOMETHING SOMEBODY SHOULD FIND.</label><input id="message" maxlength="120" placeholder="I was here. Keep the light." autocomplete="off"><div class="actions"><button id="share" type="button">✳ RELEASE THE LANTERN</button><button id="close" type="button">× CLOSE</button></div><p>This makes a shareable link, not a public wall. Anyone with the link can read it. Nothing is uploaded to a message database.</p><div id="shareurl" role="status"></div></section>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(()=>{'use strict';
+const c=document.getElementById('world'),g=c.getContext('2d'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=id=>document.getElementById(id),s={w:1,h:1,dpr:1,t:0,storm:0,mode:'storm',press:false,trail:[],bolts:[],lanterns:[],sparks:[],beast:false,sound:false,audio:null,osc:[],master:null,flash:0};
+const seed=(n)=>{let x=Math.sin(n*127.1+41.3)*43758.5453;return x-Math.floor(x)};
+const stars=Array.from({length:115},(_,i)=>({x:seed(i+3),y:seed(i+242)*.66,r:.4+seed(i+417)*1.6}));
+function fit(){const d=Math.min(devicePixelRatio||1,2);s.w=innerWidth;s.h=innerHeight;s.dpr=d;c.width=Math.round(s.w*d);c.height=Math.round(s.h*d);g.setTransform(d,0,0,d,0,0)}
+addEventListener('resize',fit);fit();
+const line=(pts,color,w=2)=>{if(pts.length<2)return;g.strokeStyle=color;g.lineWidth=w;g.lineJoin='round';g.lineCap='round';g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.stroke()};
+function hill(pts,fill){g.fillStyle=fill;g.beginPath();g.moveTo(0,s.h);g.lineTo(0,pts[0]);for(let i=1;i<pts.length;i++)g.lineTo(i/(pts.length-1)*s.w,pts[i]);g.lineTo(s.w,s.h);g.closePath();g.fill()}
+function drawCloud(x,y,scale,alpha){g.save();g.globalAlpha=alpha;g.fillStyle='#13262b';g.strokeStyle='#35453d';g.lineWidth=1.4;for(let k=0;k<4;k++){g.beginPath();g.ellipse(x+scale*(k-1.5)*.36,y+Math.sin(k*3)*scale*.15,scale*(.65+seed(k)*.2),scale*.33,-.08,0,Math.PI*2);g.fill();g.stroke()}g.restore()}
+function drawGround(){const h=s.h,w=s.w;hill([h*.79,h*.74,h*.8,h*.7,h*.77,h*.71,h*.78,h*.75,h*.82],'#172321');hill([h*.84,h*.79,h*.82,h*.77,h*.83,h*.76,h*.86,h*.79,h*.83],'#101b1a');hill([h*.91,h*.87,h*.9,h*.85,h*.9,h*.87,h*.91,h*.86,h*.9],'#071010');
+g.strokeStyle='#33483b';g.lineWidth=2;g.beginPath();g.moveTo(0,h*.85);for(let x=0;x<w;x+=17)g.lineTo(x,h*(.85+Math.sin(x*.012)*.013));g.stroke();
+const cx=w*.77,cy=h*.78,r=Math.min(w,h)*.105;
+g.save();g.translate(cx,cy);g.rotate(.09);g.strokeStyle='#828b4d';g.lineWidth=2;g.beginPath();g.arc(0,0,r,0,Math.PI*2);g.stroke();for(let a=0;a<8;a++){let p=a*Math.PI/4;line([[0,0],[Math.cos(p)*r,Math.sin(p)*r]],'#65714a',1.2);g.fillStyle='#a68743';g.fillRect(Math.cos(p)*r-3,Math.sin(p)*r-3,6,6)}line([[0,r],[0,r*1.8]],'#65714a',3);line([[-r*.75,r*1.8],[r*.75,r*1.8]],'#65714a',3);g.restore();
+g.strokeStyle='#59673d';g.lineWidth=2;for(let x=w*.08;x<w*.42;x+=w*.035){line([[x,h*.86],[x+5,h*.8]],'#4b5a38',2)}line([[w*.05,h*.82],[w*.45,h*.83]],'#637849',2);
+}
+function drawBeast(){const w=s.w,h=s.h,x=w*.26,y=h*.862,sc=Math.max(.7,Math.min(w,h)/500);g.save();g.translate(x,y);g.scale(sc,sc);g.fillStyle='#030807';g.beginPath();g.moveTo(-21,0);g.quadraticCurveTo(-29,-19,-10,-28);g.quadraticCurveTo(-2,-31,9,-26);g.lineTo(20,-42);g.lineTo(23,-19);g.lineTo(27,-7);g.lineTo(20,1);g.closePath();g.fill();g.fillRect(-12,-2,6,17);g.fillRect(10,-2,6,17);line([[-20,-16],[-39,-30],[-47,-27]],'#070b09',7);g.fillStyle=s.beast?'#d8ff42':'#526436';g.shadowColor=s.beast?'#d8ff42':'#344e26';g.shadowBlur=s.beast?20:4;g.fillRect(16,-24,3,3);g.fillRect(23,-24,3,3);g.shadowBlur=0;if(s.beast){g.fillStyle='#ff744d';g.fillRect(-3,-17,17,5);g.fillStyle='#e8e0b4';g.font='bold 10px monospace';g.fillText('B',2,-7)}g.restore()}
+function background(t){const w=s.w,h=s.h;const grad=g.createLinearGradient(0,0,0,h);grad.addColorStop(0,'#080f16');grad.addColorStop(.5,s.flash>0?'#344a49':'#12272b');grad.addColorStop(1,'#364331');g.fillStyle=grad;g.fillRect(0,0,w,h);
+const mx=w*.72,my=h*.24;const glow=g.createRadialGradient(mx,my,8,mx,my,h*.46);glow.addColorStop(0,'#b3bb7270');glow.addColorStop(.3,'#a9c27620');glow.addColorStop(1,'#b0c08000');g.fillStyle=glow;g.fillRect(0,0,w,h);
+g.fillStyle='#cadba2';g.beginPath();g.arc(mx,my,Math.min(w,h)*.08,0,Math.PI*2);g.fill();g.fillStyle='#14232b';g.beginPath();g.arc(mx+13,my-9,Math.min(w,h)*.08,0,Math.PI*2);g.fill();
+for(const p of stars){g.globalAlpha=.2+.65*(.5+.5*Math.sin(t*.00065+p.x*88));g.fillStyle='#cbdec2';g.fillRect(w*p.x,h*p.y,p.r,p.r)}g.globalAlpha=1;
+drawCloud(w*.23+Math.sin(t*.00009)*28,h*.27,w*.19,.8);drawCloud(w*.58-Math.sin(t*.00012)*35,h*.37,w*.2,.83);
+for(let i=0;i<70;i++){const x=(seed(i+999)*w+t*.023*(.5+seed(i+43)))%(w+70)-40,y=(seed(i+99)*h+t*.23*(.6+seed(i+65)))%(h+100)-50;line([[x,y],[x-6,y+17]],'#7d9b8b32',.8)}
+drawGround();drawBeast();
+}
+function spark(x,y){for(let i=0;i<14;i++){let a=seed(i*13+s.t)*Math.PI*2;s.sparks.push({x,y,vx:Math.cos(a)*(1+seed(i+8)*2.5),vy:Math.sin(a)*(1+seed(i+16)*2.5),life:1})}}
+function bolt(pts){if(!pts||pts.length<2)return;s.bolts.push({points:pts,life:1});s.flash=1;s.storm++;spark(pts.at(-1)[0],pts.at(-1)[1]);if(s.sound)thunder();if(s.storm===1){$('serial').textContent='FIELD INCIDENT NO. 001 / THE SKY CRACKED';$('hint').textContent='Good. Again. Or find the little thing watching from the fence.'}}
+function lightning(x,y){let pts=[[x,0]],px=x;for(let i=1;i<=11;i++){px+=(seed(i*17+s.t)*2-1)*26;pts.push([px,(y*i)/11])}bolt(pts)}
+function addLantern(text){const x=s.w*(.2+seed(s.lanterns.length+s.t)*.6),y=s.h*.85;s.lanterns.push({x,y,startY:y,text:text||'',age:0,phase:seed(s.t)*6});spark(x,y);s.flash=.27}
+function drawFx(dt){for(const b of s.bolts){g.save();g.globalAlpha=b.life;g.shadowBlur=26;g.shadowColor='#d8ff42';line(b.points,'#d8ff42',5);g.shadowBlur=0;line(b.points,'#faffdf',1.8);g.restore();b.life-=dt*.00135} s.bolts=s.bolts.filter(b=>b.life>0);
+for(const p of s.sparks){g.globalAlpha=p.life;g.fillStyle='#ffb34b';g.fillRect(p.x,p.y,2.4,2.4);p.x+=p.vx*dt*.08;p.y+=p.vy*dt*.08;p.life-=dt*.00125}g.globalAlpha=1;s.sparks=s.sparks.filter(p=>p.life>0);
+for(const a of s.lanterns){a.age+=dt;let y=a.startY-a.age*.023,x=a.x+Math.sin(a.age*.0009+a.phase)*24;g.save();g.translate(x,y);g.rotate(Math.sin(a.age*.001)*.13);g.shadowColor='#e8ff6d';g.shadowBlur=22;g.fillStyle='#d9ff42';g.beginPath();g.moveTo(-10,-17);g.lineTo(10,-17);g.lineTo(7,16);g.lineTo(-7,16);g.closePath();g.fill();g.shadowBlur=0;g.fillStyle='#292f12';g.fillRect(-3,-6,6,12);g.strokeStyle='#f8e7a3';g.lineWidth=2;g.beginPath();g.arc(0,-17,10,Math.PI,Math.PI*2);g.stroke();g.restore()}s.lanterns=s.lanterns.filter(a=>a.age<26000);
+s.flash=Math.max(0,s.flash-dt*.002);
+if(s.press&&s.trail.length>1)line(s.trail,'#d8ff42b8',2)}
+let last=0;function frame(t){const dt=Math.min(40,t-last||16);last=t;s.t=t;g.setTransform(s.dpr,0,0,s.dpr,0,0);background(t);drawFx(dt);if(reduce){if(s.bolts.length||s.lanterns.length||s.sparks.length)requestAnimationFrame(frame)}else requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+function point(e){const r=c.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]}
+c.addEventListener('pointerdown',e=>{c.setPointerCapture(e.pointerId);let [x,y]=point(e);if(s.mode==='lantern'){addLantern($('message').value);return}if(s.mode==='beast'||(x<s.w*.38&&y>s.h*.7)){reveal();return}s.press=true;s.trail=[[x,y]]});
+c.addEventListener('pointermove',e=>{if(!s.press)return;const p=point(e),last=s.trail.at(-1);if(Math.hypot(p[0]-last[0],p[1]-last[1])>8)s.trail.push(p)});
+c.addEventListener('pointerup',e=>{if(!s.press)return;const p=point(e);s.trail.push(p);if(s.trail.length<4)lightning(p[0],p[1]);else bolt(s.trail.slice());s.press=false;s.trail=[]});
+c.addEventListener('pointercancel',()=>{s.press=false;s.trail=[]});
+function toast(str){const el=$('toast');el.textContent=str;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),2300)}
+function mode(id){s.mode=id;for(const k of ['storm','lantern','beast'])$(k).setAttribute('aria-pressed',String(k===id));}
+$('storm').onclick=()=>{mode('storm');lightning(s.w*.5,s.h*.65);toast('THE WEATHER HAS AN ATTITUDE.')};
+$('lantern').onclick=()=>{mode('lantern');$('dialog').classList.add('open');$('message').focus()};
+function reveal(){s.beast=true;mode('beast');$('serial').textContent='FIELD INCIDENT NO. 002 / FOUR LITTLE PAWS';$('hint').textContent='It was never the weather. It was who stayed beside you while it changed.';toast('BUGSY HAS BEEN HERE THE WHOLE TIME.');spark(s.w*.26,s.h*.82)}
+$('beast').onclick=reveal;
+$('close').onclick=()=>{$('dialog').classList.remove('open');$('shareurl').style.display='none'};
+$('closeReceived').onclick=()=>$('received').classList.remove('show');
+const originalUrl=location.origin+location.pathname;
+$('share').onclick=async()=>{const note=$('message').value.trim();if(!note){toast('THE LANTERN NEEDS A FEW WORDS.');return}const url=originalUrl+'#l='+encodeURIComponent(note);addLantern(note);$('dialog').classList.remove('open');$('shareurl').textContent=url;
+try{if(navigator.share){await navigator.share({title:'Somebody left you a light',url});toast('THE LANTERN IS ON ITS WAY.');return}}catch(err){if(err.name==='AbortError'){toast('THE LIGHT IS STILL HERE.');return}}
+try{await navigator.clipboard.writeText(url);toast('SHARE LINK COPIED.')}catch(err){$('dialog').classList.add('open');$('shareurl').style.display='block';toast('SELECT THE LINK TO SHARE IT.')}};
+function incoming(){if(!location.hash.startsWith('#l='))return;let v='';try{v=decodeURIComponent(location.hash.slice(3))}catch(e){return}v=v.slice(0,120);if(v){$('receivedText').textContent=v;$('received').classList.add('show');addLantern(v)}}
+addEventListener('hashchange',incoming);incoming();
+function thunder(){if(!s.audio)return;let ctx=s.audio;const dur=.65,buffer=ctx.createBuffer(1,Math.round(ctx.sampleRate*dur),ctx.sampleRate),arr=buffer.getChannelData(0);for(let i=0;i<arr.length;i++)arr[i]=(Math.random()*2-1)*(1-i/arr.length);const src=ctx.createBufferSource(),f=ctx.createBiquadFilter(),gain=ctx.createGain();src.buffer=buffer;f.type='lowpass';f.frequency.value=230;gain.gain.setValueAtTime(.0001,ctx.currentTime);gain.gain.exponentialRampToValueAtTime(.08,ctx.currentTime+.04);gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+dur);src.connect(f).connect(gain).connect(ctx.destination);src.start();src.stop(ctx.currentTime+dur)}
+$('sound').onclick=async()=>{if(s.sound){s.sound=false;$('sound').textContent='♫ WAKE SOUND';$('sound').setAttribute('aria-pressed','false');if(s.audio){await s.audio.suspend()}return}
+try{if(!s.audio){const C=window.AudioContext||window.webkitAudioContext;if(!C)throw Error('Web Audio unavailable');const a=s.audio=new C(),master=s.master=a.createGain();master.gain.value=.025;master.connect(a.destination);for(const f of [55,82.41,110]){const o=a.createOscillator(),vol=a.createGain();o.type=f===82.41?'triangle':'sine';o.frequency.value=f;vol.gain.value=f===55?.38:.18;o.connect(vol).connect(master);o.start();s.osc.push(o)}}await s.audio.resume();s.sound=true;$('sound').textContent='♫ QUIET, PLEASE';$('sound').setAttribute('aria-pressed','true');toast('ORIGINAL SOUND / AWAKE')}catch(e){toast('SOUND UNAVAILABLE HERE.')}}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('dialog').classList.remove('open');$('received').classList.remove('show')}if(e.code==='Space'&&document.activeElement===c){e.preventDefault();lightning(s.w*.5,s.h*.55)}});
+})();
+</script></body></html>
