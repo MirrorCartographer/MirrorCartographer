@@ -66,13 +66,13 @@
       "path": "experiments/004-carnival-of-thought/",
       "kind": "environment",
       "palette": "oxblood / electric magenta / amber bulbs",
-      "visual": "distorted funhouse geometry; kinetic signage; rotating booths",
-      "interaction": "Choose a booth; each action changes the rules of another booth, creating playful interference.",
-      "temporal": "bursts, loops, surprise",
-      "memory": "collected oddities and altered booth rules",
-      "implementation_status": "procedural-renderer-present",
-      "interaction_status": "pointer-gesture traces prototype; room-specific persistent state and full interaction grammar remain unfinished",
-      "memory_status": "opt-in local trace persistence restores phase, gesture, hue, and up to 36 traces on reload; room-specific consequence state remains unfinished"
+      "visual": "procedural walkable midnight midway with five graphical attractions; after-hours cut-paper woods, animated lantern-graph moth, and gesture-responsive shadow theatre",
+      "interaction": "Walk/tap and play attractions; four earned stamps open Hushwood; place connected lanterns, guide a moth along graph routes, and form a noncollinear three-light constellation to expose the shadow theatre.",
+      "temporal": "optional wheel inertia, moving gallery targets, pressure-driven storms, moth route traversal, and locally generated theatre pulses; reduced-motion mode resolves route actions without animation",
+      "memory": "session-only attraction stamps and Hushwood lantern graph, cleared on reload; no storage or cross-device visitor sharing",
+      "implementation_status": "published-source: interactive canvas, five attraction mechanics, Hushwood graph and shadow theatre; browser/device verification still required",
+      "interaction_status": "automated synthetic input playthrough covers stamps, gate, lamp placement, three-light moth route, theatre and exit; real device touch/audio/a11y still unverified",
+      "memory_status": "ephemeral in-memory state only (no localStorage and no network); resets on reload"
     },
     {
       "id": "005",
