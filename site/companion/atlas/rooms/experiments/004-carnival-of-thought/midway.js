@@ -1,5 +1,7 @@
 import {initialGame,advance,statusOf,STATIONS} from './midway-core.mjs';
 import {initialBooths,changeBooth,evaluateBooths} from './booth-model.mjs';
+import {startForest,plantLight,routeTo,visitLight,portalAt,enterTheatre,clearForest} from './hushwood-core.mjs';
+import {drawForest,drawTheatre} from './hushwood-scene.mjs';
 const $=id=>document.getElementById(id);
 const canvas=$('midway-world'),ctx=canvas.getContext('2d',{alpha:false});
 const narrator=$('narrator'),title=$('station-title'),hint=$('station-hint');
@@ -7,14 +9,15 @@ const TAU=Math.PI*2,PI=Math.PI,clamp=(x,a,b)=>Math.min(b,Math.max(a,x)),lerp=(a,
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let W=0,H=0,D=1,time=0,last=0,mode='world',game=initialGame(),coin=initialBooths(),noMotion=reduced,audio=null,drone=null,droneGain=null,soundOn=false;
 let wheelAngle=0,wheelVel=0,pointer={x:0,y:0,down:false},hold=false,arrival=null,selected=1;
-let avatar={x:.51,y:.86,tx:.51,ty:.86},particles=[],lanterns=[],messageTimeout=0;
+let avatar={x:.51,y:.86,tx:.51,ty:.86},particles=[],forest=startForest(),moth=null,theatrePulses=[],theatrePointer={x:0,y:0},lastStrikeAt=-1000,messageTimeout=0;
 const words={
  mirror:['THE MIRROR THAT DISAGREES','Drag your reflection into the pale silhouette.'],
  wheel:['THE WHEEL OF EXPERTS','Touch the wheel. Gravity is the only panelist with credentials.'],
  gallery:['THE GALLERY OF ALMOST-FACTS','Hit the acid-green evidence, not the convincing red nonsense.'],
  radio:['RADIO ELSEWHERE','Drag the needle. Something peculiar lives near 94.6.'],
  weather:['THE WEATHER BUREAU','Press and hold the copper lung. The sky has no supervisor.'],
- gate:['THE UNINSPECTED EXIT','Four punch marks. Absolutely no valid permit.']
+ gate:['THE UNINSPECTED EXIT','Four punch marks. Absolutely no valid permit.'],
+ theatre:['THE SHADOW THEATRE','Touch or drag the stage. The shadow answers movement, not meaning.']
 };
 function announce(s){narrator.textContent=s;}
 function note(s){announce(s);messageTimeout=time+5;}
@@ -33,10 +36,12 @@ function refresh(){
  const icons=STATIONS.map(n=>game.stamps.includes(n)?'✳':'◇').join(' ');
  $('stamps').textContent=icons;
  $('count').textContent=game.afterHours?'GATE OPEN · YOU ARE SOMEWHERE ELSE':status.need?status.stamps+' / 4 TO OPEN THE GATE':'THE GATE IS READY';
+ $('forest-commands').hidden=!game.afterHours;
+ $('map-forest-note').hidden=!game.afterHours;
  if(mode==='world')title.textContent='';
 }
 function enter(name){
- if(!words[name])return;
+ if(!words[name]||(name==='theatre'&&!forest.open))return;
  mode=name;
  arrival=null;
  title.textContent=words[name][0];
@@ -48,8 +53,9 @@ function enter(name){
  if(name==='radio'){announce('An original tone moves when you tune, if you explicitly turn on sound.');sustainRadio();}
  if(name==='weather')announce('Press the copper lung. Nothing is supposed to happen. Obviously.');
  if(name==='gate')announce(statusOf(game).need?'The gate requires '+statusOf(game).need+' more marks. The fence is not impressed.':'The lock has run out of objections. Touch the gate.');
+ if(name==='theatre')announce('This stage casts a shadow from your movement. It cannot infer what you feel, even if the curtains act impressed.');
 }
-function back(){mode='world';arrival=null;title.textContent='';hint.textContent='';$('return').hidden=true;sustainRadio();announce(game.afterHours?'The woods are yours to disturb. Tap the earth to plant a local-only lantern.':'Tap the dirt to walk. Tap a strange thing to make it stranger.');canvas.focus({preventScroll:true});}
+function back(){mode='world';arrival=null;title.textContent='';hint.textContent='';$('return').hidden=true;sustainRadio();announce(game.afterHours?'Plant lanterns. Touch a lantern to guide the moth across connected lights.':'Tap the dirt to walk. Tap a strange thing to make it stranger.');canvas.focus({preventScroll:true});}
 function positions(){
  const top=clamp(H*.225,110,210),bottom=H-(W<700?150:136),span=Math.max(175,bottom-top);
  const a=top+span*.26,b=top+span*.74;
@@ -66,6 +72,7 @@ function resize(){
  W=innerWidth;H=innerHeight;D=Math.min(devicePixelRatio||1,2);
  canvas.width=Math.round(W*D);canvas.height=Math.round(H*D);
  ctx.setTransform(D,0,0,D,0,0);
+ if(!theatrePointer.x&&!theatrePointer.y)theatrePointer={x:W*.5,y:H*.55};
  particles=Array.from({length:Math.min(100,Math.ceil(W*H/9000))},(_,i)=>({x:(i*73.3%101)/101*W,y:(i*41.1%103)/103*H,r:(i%3)+.4}));
 }
 resize();addEventListener('resize',resize,{passive:true});
@@ -175,38 +182,71 @@ function drawPlayer(){
  line(x-14,y-22,x+13,y-22,'#362430',4);line(x-7,y-29,x+5,y-29,'#362430',10);
 }
 function plantLantern(x,y){
- if(lanterns.some(p=>Math.hypot(p.x-x,p.y-y)<.035))return;
- lanterns.push({x,y,age:time});if(lanterns.length>26)lanterns.shift();
- note(lanterns.length===1?'A LANTERN. Nobody else can see it; it belongs to this visit.':lanterns.length<5?'Another light. The trees are beginning to draw lines.':'THE WOODS HAVE STARTED MAKING THEIR OWN MAP. Naturally, they have refused to publish the methodology.');
- chime(220+lanterns.length*19);
+ const next=plantLight(forest,x,y,W/H);
+ if(next===forest){note('Too close, outside the path, or the woods are full. Move a little.');return;}
+ const first=forest.lanterns.length===0;
+ forest=next;
+ if(first){moth={x:forest.lanterns[0].x,y:forest.lanterns[0].y,path:[]};}
+ note(forest.lanterns.length===1?'THE FIRST LIGHT. The moth is awake.':forest.lanterns.length<4?'MORE LIGHT. Draw a route, not a straight line.':'THE WOODS ARE GETTING CONNECTED. The moth refuses to teleport.');
+ chime(220+forest.lanterns.length*23);
 }
-function drawLanterns(){
- for(let i=0;i<lanterns.length;i++){
-  const a=lanterns[i],ax=a.x*W,ay=a.y*H;
-  for(let j=i+1;j<lanterns.length;j++){
-   const b=lanterns[j],bx=b.x*W,by=b.y*H,d=Math.hypot(ax-bx,ay-by);
-   if(d<Math.min(W,H)*.29)line(ax,ay,bx,by,'#d0f58a66',Math.max(.9,2.4-d*.006));
-  }
+function announceArrival(id){
+ const before=forest.open;
+ forest=visitLight(forest,id);
+ if(!before&&forest.open){
+  note('THREE LIGHTS, ONE CROOKED PATH. A door has appeared. The forest would rather not discuss its architect.');
+  chime(294,392,523.25,698);
+ }else{
+  note('THE MOTH REMEMBERS '+forest.visited.length+' DISTINCT LIGHTS. No opinions were polled.');
+  chime(294+id*19);
  }
- lanterns.forEach((p,i)=>{
-  const x=p.x*W,y=p.y*H,r=11+Math.sin(noMotion?i:time*2+i)*2;
-  ellipse(x,y+9,12,3,'#010607aa');circ(x,y,r*2,'#caff6c1a');
-  path([[x-r*.45,y-r*.55],[x+r*.45,y-r*.55],[x+r*.45,y+r*.55],[x-r*.45,y+r*.55]]);
-  fill('#b8e76a88');stroke('#d8f3ab',1.5);circ(x,y,r*.26,'#efffc9');
- });
+}
+function guideMoth(target){
+ if(!moth)return;
+ const route=routeTo(forest,target,W/H);
+ if(!route){note('NO BRIDGE. Plant a lamp between those islands. This moth has standards.');return;}
+ if(route.length<2){note('THE MOTH IS ALREADY HERE. It has nothing useful to add.');return;}
+ moth.path=route.slice(1);
+ if(noMotion){
+  for(const id of moth.path){moth.x=forest.lanterns[id].x;moth.y=forest.lanterns[id].y;announceArrival(id);}
+  moth.path=[];
+ }else note('WATCH THE MOTH FOLLOW THE LIGHTS. It cannot jump across a missing connection.');
+}
+function guideNextMoth(){
+ if(!moth||forest.lanterns.length<2){note('Plant at least two connected lanterns first.');return;}
+ const options=forest.lanterns.map((p,i)=>({i,route:routeTo(forest,i,W/H)})).filter(x=>x.route&&x.route.length>1);
+ const next=options.find(x=>!forest.visited.includes(x.i))||options[0];
+ if(next)guideMoth(next.i);else note('No reachable second light. Bridge the dark with another lantern.');
+}
+function stepMoth(dt){
+ if(!moth?.path?.length)return;
+ const id=moth.path[0],point=forest.lanterns[id];
+ if(!point){moth.path=[];return;}
+ const delta=Math.hypot((moth.x-point.x)*W/H,moth.y-point.y);
+ if(delta<.005){
+  moth.x=point.x;moth.y=point.y;
+  moth.path.shift();announceArrival(id);
+  return;
+ }
+ const portion=Math.min(1,dt*.26/delta);
+ moth.x+=(point.x-moth.x)*portion;
+ moth.y+=(point.y-moth.y)*portion;
+}
+function strikeTheatre(x,y){
+ const point={x:clamp(x/W,.04,.96),y:clamp(y/H,.28,.91),at:time};
+ theatrePointer={x,y};
+ if(performance.now()-lastStrikeAt<110&&theatrePulses.length)return;
+ lastStrikeAt=performance.now();
+ theatrePulses.push(point);
+ if(theatrePulses.length>24)theatrePulses.shift();
+ if(theatrePulses.length===2)note('THERE ARE TWO EYES NOW. Correlation remains an unfortunate word.');
+ else if(theatrePulses.length===6)note('YOU MADE THE SHADOW MOVE. You did not tell it what to believe.');
+ if(theatrePulses.length<=8)chime(190+theatrePulses.length*32);
 }
 function drawWorld(){
+ if(game.afterHours){drawForest(ctx,W,H,forest,moth,time,noMotion);drawPlayer();return;}
  sky();
- if(game.afterHours){
-  text('THE WOODS HAVE BEEN LISTENING',W*.5,H*.24,clamp(W*.034,13,31),'#d4f599','Georgia');
-  for(let i=0;i<9;i++){
-   const x=W*(i+.5)/9,sy=H*(.64+seeded(i+4)*.1);
-   line(x,sy,x,sy-35-seeded(i+33)*85,'#09221a',7);
-   circ(x,sy-40,6+Math.sin(time+i)*2,'#ccf99199');
-  }
- }
  for(const p of positions())stationArt(p);
- if(game.afterHours)drawLanterns();
  drawPlayer();
  const dots=positions();
  if(arrival){
@@ -364,10 +404,11 @@ function clock(now){
   const next=game.weatherPressure+dt*.55;
   if(Math.abs(next-game.weatherPressure)>.0001)apply('pressure',next);
  }
+ if(game.afterHours&&mode==='world')stepMoth(dt);
  if(!ctx)return;
- if(mode==='world')drawWorld();else drawStation();
+ if(mode==='world')drawWorld();else if(mode==='theatre')drawTheatre(ctx,W,H,forest,theatrePulses,theatrePointer,time,noMotion);else drawStation();
  if(mode==='wheel'&&wheelVel)hint.textContent='The wheel is still having an opinion.';
- if(messageTimeout&&time>messageTimeout){messageTimeout=0;if(mode==='world')announce('Touch the next attraction. Nobody is supervising.');}
+ if(messageTimeout&&time>messageTimeout){messageTimeout=0;if(mode==='world')announce(game.afterHours?'Tap a lantern to guide the moth; the trails are real.':'Touch the next attraction. Nobody is supervising.');}
  requestAnimationFrame(clock);
 }
 requestAnimationFrame(clock);
@@ -415,10 +456,25 @@ function adjustX(x){
 }
 function press(x,y){
  pointer.down=true;pointer.x=x;pointer.y=y;
+ if(mode==='world'&&game.afterHours){
+  const gate=portalAt(forest);
+  if(gate&&Math.hypot(x-gate.x*W,y-gate.y*H)<Math.min(W,H)*.12){
+   forest=enterTheatre(forest);
+   enter('theatre');chime(174,261.63,349.23);return;
+  }
+  const nearest=forest.lanterns.map((p,i)=>({i,d:Math.hypot(x-p.x*W,y-p.y*H)})).sort((a,b)=>a.d-b.d)[0];
+  if(nearest&&nearest.d<31){guideMoth(nearest.i);}
+  else{
+   avatar.tx=clamp(x/W,.04,.96);avatar.ty=clamp(y/H,.33,.84);
+   plantLantern(avatar.tx,avatar.ty);
+  }
+  return;
+ }
+ if(mode==='theatre'){strikeTheatre(x,y);return;}
  if(mode==='world'){
   const candidate=positions().map(p=>({...p,d:Math.hypot(x-p.x,y-p.y)})).sort((a,b)=>a.d-b.d)[0];
   if(candidate && candidate.d<candidate.r*1.22){arrival=candidate.name;avatar.tx=candidate.x/W;avatar.ty=candidate.y/H;note('Walking toward '+words[candidate.name][0].toLowerCase()+'.');}
-  else{avatar.tx=clamp(x/W,.02,.98);avatar.ty=clamp(y/H,.3,.85);arrival=null;if(game.afterHours)plantLantern(avatar.tx,avatar.ty);}
+  else{avatar.tx=clamp(x/W,.02,.98);avatar.ty=clamp(y/H,.3,.85);arrival=null;}
  }else if(mode==='wheel')spin();
  else if(mode==='gallery'){
   const t=targets().find(t=>Math.hypot(x-t.x,y-t.y)<t.r*1.35);
@@ -437,7 +493,7 @@ canvas.addEventListener('pointerdown',e=>{
 });
 canvas.addEventListener('pointermove',e=>{
  pointer.x=e.clientX;pointer.y=e.clientY;
- if(pointer.down)adjustX(e.clientX);
+ if(mode==='theatre'){theatrePointer={x:e.clientX,y:e.clientY};if(pointer.down)strikeTheatre(e.clientX,e.clientY);}else if(pointer.down)adjustX(e.clientX);
 });
 const release=()=>{pointer.down=false;hold=false;};
 canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);addEventListener('blur',release);
@@ -445,20 +501,32 @@ function keyboard(e){
  const key=e.key.toLowerCase(),shortcut={'1':'mirror','2':'wheel','3':'gallery','4':'radio','5':'weather','g':'gate'};
  if(key==='escape'){e.preventDefault();if(!$('map').hidden){$('map').hidden=true;$('map-toggle').setAttribute('aria-expanded','false')}else back();return;}
  if(e.target.tagName==='BUTTON'||e.target.tagName==='A')return;
- if(shortcut[key]&&mode==='world'){e.preventDefault();enter(shortcut[key]);return;}
+ if(shortcut[key]&&mode==='world'&&!game.afterHours){e.preventDefault();enter(shortcut[key]);return;}
  const arrows=['arrowleft','arrowright','arrowup','arrowdown','w','a','s','d'];
  if(arrows.includes(key)||key==='enter'||key===' '){e.preventDefault();}
  if(mode==='world'){
   const d=.035;
   if(game.afterHours&&key===' '){plantLantern(avatar.x,avatar.y);return;}
+  if(game.afterHours&&key==='k'){
+   if(forest.open){forest=enterTheatre(forest);enter('theatre');}else note('Three distinct lanterns. Make a crooked connected route. Then ask for the door.');
+   return;
+  }
+  if(game.afterHours&&key==='e'){guideNextMoth();return;}
   if(key==='arrowleft'||key==='a')avatar.tx=clamp(avatar.tx-d,.02,.98);
   if(key==='arrowright'||key==='d')avatar.tx=clamp(avatar.tx+d,.02,.98);
   if(key==='arrowup'||key==='w')avatar.ty=clamp(avatar.ty-d,.3,.85);
   if(key==='arrowdown'||key==='s')avatar.ty=clamp(avatar.ty+d,.3,.85);
+  if(game.afterHours&&key==='enter'){guideNextMoth();return;}
   if(key==='enter'||key===' '){
    const nearest=positions().map(p=>({...p,d:Math.hypot(p.x/W-avatar.x,p.y/H-avatar.y)})).sort((a,b)=>a.d-b.d)[0];
    if(nearest)enter(nearest.name);
   }
+ }else if(mode==='theatre'){
+  if(key==='arrowleft'||key==='a')theatrePointer.x=clamp(theatrePointer.x-W*.04,0,W);
+  if(key==='arrowright'||key==='d')theatrePointer.x=clamp(theatrePointer.x+W*.04,0,W);
+  if(key==='arrowup'||key==='w')theatrePointer.y=clamp(theatrePointer.y-H*.04,0,H);
+  if(key==='arrowdown'||key==='s')theatrePointer.y=clamp(theatrePointer.y+H*.04,0,H);
+  if(key==='enter'||key===' ')strikeTheatre(theatrePointer.x,theatrePointer.y);
  }else if(mode==='wheel'&&(key==='enter'||key===' '))spin();
  else if(mode==='mirror'){
   if(key==='arrowleft'||key==='a')apply('mirror',game.mirrorAngle-.025);
@@ -478,6 +546,14 @@ function keyboard(e){
 }
 addEventListener('keydown',keyboard);
 $('return').addEventListener('click',back);
+$('forest-commands').querySelectorAll('[data-forest]').forEach(btn=>btn.addEventListener('click',()=>{
+ const action=btn.dataset.forest;
+ if(action==='plant')plantLantern(avatar.x,avatar.y);
+ if(action==='guide')guideNextMoth();
+ if(action==='theatre'){if(forest.open){forest=enterTheatre(forest);enter('theatre');}else note('The clearing remains locked. Guide the moth through three lamps that do not lie on one line.');}
+ if(action==='clear'){forest=clearForest();moth=null;theatrePulses=[];announce('The lamps are gone. The ground remains.');}
+ $('map').hidden=true;$('map-toggle').setAttribute('aria-expanded','false');canvas.focus({preventScroll:true});
+}));
 $('sound').addEventListener('click',e=>{
  soundOn=!soundOn;
  if(soundOn){
@@ -498,4 +574,4 @@ $('map').querySelectorAll('[data-enter]').forEach(b=>b.addEventListener('click',
  $('map').hidden=true;$('map-toggle').setAttribute('aria-expanded','false');enter(b.dataset.enter);canvas.focus({preventScroll:true});
 }));
 refresh();
-window.__MC_CARNIVAL__={getState:()=>({...game,stamps:[...game.stamps],lanterns:lanterns.map(p=>({x:p.x,y:p.y}))}),getMode:()=>mode,visit:enter,reset:()=>{apply('reset');coin=initialBooths();lanterns=[];back();}};
+window.__MC_CARNIVAL__={getState:()=>({...game,stamps:[...game.stamps],forest:{...forest,lanterns:forest.lanterns.map(p=>({...p})),visited:[...forest.visited]}}),getMode:()=>mode,visit:enter,reset:()=>{apply('reset');coin=initialBooths();forest=clearForest();moth=null;theatrePulses=[];back();}};
