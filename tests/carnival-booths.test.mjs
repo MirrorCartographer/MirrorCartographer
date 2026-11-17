@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {CLAIMS,TRIAL_STEP,MAX_TRIALS,initialBooths,changeBooth,evaluateBooths,wilson95} from '../site/companion/atlas/rooms/experiments/004-carnival-of-thought/booth-model.mjs';
 
 test('committee applause cannot change evidence or statistical interval',()=>{
@@ -43,4 +44,13 @@ test('reset discards all session data and the interval is well formed',()=>{
   assert.ok(interval.low<0.5&&interval.high>0.5);
   assert.equal(wilson95(0,0),null);
   assert.equal(wilson95(6,5),null);
+});
+
+test('Carnival page loads the canvas engine and booth module as separate executable scripts',()=>{
+ const html=readFileSync('site/companion/atlas/rooms/experiments/004-carnival-of-thought/index.html','utf8');
+ assert.match(html,/<script src="\.\.\/engine\.js"><\/script><script type="module">/);
+ assert.doesNotMatch(html,/<script src=\.\.\/engine\.js><script/);
+ assert.doesNotMatch(html,/<\/script><\/script>/);
+ for(const action of ['claim','applause','sample','reset']) assert.ok(html.includes('data-booth="'+action+'"'));
+ assert.ok(html.includes("from './booth-model.mjs'"));
 });
