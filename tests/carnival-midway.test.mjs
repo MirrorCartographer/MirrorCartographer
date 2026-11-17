@@ -42,3 +42,18 @@ test('unknown actions and repeat claims do not award extra tickets',()=>{
  assert.equal(t.stamps.length,1);assert.equal(t.wheelSpins,2);
  assert.deepEqual(advance(t,'nonsense'),t);
 });
+
+test('the public entry supports an opt-in sound switch, reduced motion and a nonpuzzle accessible directory',()=>{
+ const html=readFileSync('site/companion/atlas/rooms/experiments/004-carnival-of-thought/index.html','utf8');
+ const code=readFileSync('site/companion/atlas/rooms/experiments/004-carnival-of-thought/midway.js','utf8');
+ const css=readFileSync('site/companion/atlas/rooms/experiments/004-carnival-of-thought/midway.css','utf8');
+ assert.match(html,/id="sound" type="button" aria-pressed="false"/);
+ assert.match(html,/id="still" type="button" aria-pressed="false"/);
+ assert.match(html,/id="map" class="map" hidden/);
+ assert.match(html,/id="return" type="button" hidden/);
+ assert.match(code,/prefers-reduced-motion: reduce/);
+ assert.match(code,/soundOn=false/);
+ assert.match(css,/touch-action:none/);
+ assert.match(css,/focus-visible/);
+ assert.doesNotMatch(code,/localStorage|sessionStorage|fetch\(/);
+});

@@ -381,7 +381,7 @@ function adjustX(x){
  if(mode==='radio'){const f=87+clamp((x-W*.2)/(W*.6),0,1)*21;apply('radio',f);if(game.stamps.includes('radio'))chime(247,370);}
 }
 function press(x,y){
- pointer.down=true;pointer.x=x;pointer.y=y;canvas.setPointerCapture?.(window.__pointerId||1);
+ pointer.down=true;pointer.x=x;pointer.y=y;
  if(mode==='world'){
   const candidate=positions().map(p=>({...p,d:Math.hypot(x-p.x,y-p.y)})).sort((a,b)=>a.d-b.d)[0];
   if(candidate && candidate.d<candidate.r*1.22){arrival=candidate.name;avatar.tx=candidate.x/W;avatar.ty=candidate.y/H;note('Walking toward '+words[candidate.name][0].toLowerCase()+'.');}
