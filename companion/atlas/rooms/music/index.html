@@ -33,14 +33,14 @@
 </style><link rel="stylesheet" href="../../../art-direction.css">
 <link rel="stylesheet" href="./ink-score.css">
 <style data-mc-maze-return>.mc-maze-return{position:fixed;z-index:2147483000;left:max(10px,env(safe-area-inset-left));bottom:max(10px,env(safe-area-inset-bottom));display:grid;place-items:center;width:43px;height:43px;color:#d3ee53!important;background:#18251feb!important;border:2px double #bdb58c!important;box-shadow:3px 4px #74263db8!important;transform:rotate(-9deg);font:30px Georgia,serif!important;text-decoration:none!important;opacity:.86;touch-action:manipulation}.mc-maze-return:hover,.mc-maze-return:focus-visible{opacity:1;transform:rotate(3deg) scale(1.13);outline:2px solid #effc97;outline-offset:3px}@media(prefers-reduced-motion:reduce){.mc-maze-return{transition:none!important}}</style></head><body><main>
-<a class="back" href="../">← RETURN TO THE ROOMS</a><p class="eyebrow" style="margin-top:3rem">A PLACE FOR SOUND</p><h1>The Music<br>Room.</h1><p class="lead" id="line">The air is waiting to be moved.</p>
+<a class="back" href="../">← RETURN TO THE ROOMS</a><p class="eyebrow" style="margin-top:3rem">A PLACE FOR SOUND</p><h1>The Music<br>Room.</h1><p class="lead" id="line">The air has been waiting for someone with questionable taste and excellent timing.</p>
 <section class="stage" id="stage"><canvas id="visual"></canvas><div class="stage-inner"><div class="stage-top"><div><div class="eyebrow">LIVE INSTRUMENT / 01</div><div class="stage-title">The listening field</div></div><div class="controls"><button id="sound">WAKE THE ROOM</button><button id="play">PLAY THE PATTERN</button><button id="stop">STOP</button></div></div><div><div class="keys" id="keys" aria-label="Eight playable notes"></div><div class="stage-bottom"><span class="eyebrow" id="status" aria-live="polite">SILENCE / READY</span><span class="eyebrow">TAP A NOTE · BUILD A PATTERN</span></div></div></div></section>
 <div class="panel"><section><h2>Shape the sound</h2><p>Change the voice and the distance between notes.</p><div class="range"><label for="tempo">TEMPO</label><input id="tempo" type="range" min="45" max="180" value="92"><output id="tempo-out">92 BPM</output></div><div class="range"><label for="voice">VOICE</label><select id="voice"><option value="sine">Glass</option><option value="triangle">Wood</option><option value="sawtooth">Wire</option><option value="square">Bell metal</option></select></div><div class="range"><label for="space">SPACE</label><input id="space" type="range" min="0" max="100" value="28"><output id="space-out">28%</output></div><div class="range"><label for="volume">VOLUME</label><input id="volume" type="range" min="0" max="100" value="25"><output id="volume-out">25%</output></div></section><section><h2>Leave a pattern</h2><p>Each note becomes part of a small sequence. Clear it, change it, or let it repeat.</p><div class="controls"><button id="random">FIND A PATTERN</button><button id="clear">CLEAR THE FIELD</button><button id="ambience">AMBIENCE OFF</button></div><div class="readout" id="readout" aria-live="polite">0 NOTES IN THE PATTERN</div></section></div>
 <p class="foot">A sound begins only after you wake the room. Use headphones at a comfortable volume.</p>
 
 <section class="scratch-field" id="scratch-field" aria-labelledby="scratch-title">
   <div class="scratch-marginalia" aria-hidden="true"><span>ϟ</span><span>✳</span><span>⌁</span></div>
-  <div class="scratch-heading"><span class="scratch-vol" aria-hidden="true">✹</span><div><p class="scratch-overline">AN UNRELIABLE INSTRUMENT / 02</p><h2 id="scratch-title">The crooked score.</h2></div><span class="scratch-stamp" aria-hidden="true">DRAW<br>LOUDER</span></div>
+  <div class="scratch-heading"><span class="scratch-vol" aria-hidden="true">✹</span><div><p class="scratch-overline">AN UNRELIABLE INSTRUMENT / 02</p><h2 id="scratch-title">The crooked score. Music theory can cope.</h2></div><span class="scratch-stamp" aria-hidden="true">DRAW<br>LOUDER</span></div>
   <div class="scratch-paper" id="scratch-paper">
     <canvas id="score-ground" tabindex="0" aria-label="Draw a musical contour with touch or mouse. The horizontal position sets when a note happens and the height determines its pitch. Keyboard: arrow keys move the nib; Space places a note."></canvas>
     <span class="scratch-seam scratch-seam-a" aria-hidden="true"></span><span class="scratch-seam scratch-seam-b" aria-hidden="true"></span>
@@ -64,7 +64,7 @@
   </div>
   <div class="library-now" style="min-height:0">
     <div class="now-label">PUBLICATION STATUS</div>
-    <h3>Recorded audio is not yet attached to the public site.</h3>
+    <h3>Recorded audio is not yet attached to the public site. Unlike some galleries, we refuse to call silence a finished playlist.</h3>
     <p class="library-note">The source archive has been inventoried, but its audio binaries are still in the private file library. The live instrument above works now. This section will become a native playlist when the original audio files can be transferred into the GitHub Pages build.</p>
   </div>
 </section>
