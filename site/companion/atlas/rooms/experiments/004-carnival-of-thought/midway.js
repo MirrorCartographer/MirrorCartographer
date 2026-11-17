@@ -9,7 +9,7 @@ const TAU=Math.PI*2,PI=Math.PI,clamp=(x,a,b)=>Math.min(b,Math.max(a,x)),lerp=(a,
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let W=0,H=0,D=1,time=0,last=0,mode='world',game=initialGame(),coin=initialBooths(),noMotion=reduced,audio=null,drone=null,droneGain=null,soundOn=false;
 let wheelAngle=0,wheelVel=0,pointer={x:0,y:0,down:false},hold=false,arrival=null,selected=1;
-let avatar={x:.51,y:.86,tx:.51,ty:.86},particles=[],forest=startForest(),moth=null,theatrePulses=[],theatrePointer={x:0,y:0},lastStrikeAt=-1,messageTimeout=0;
+let avatar={x:.51,y:.86,tx:.51,ty:.86},particles=[],forest=startForest(),moth=null,theatrePulses=[],theatrePointer={x:0,y:0},lastStrikeAt=-1000,messageTimeout=0;
 const words={
  mirror:['THE MIRROR THAT DISAGREES','Drag your reflection into the pale silhouette.'],
  wheel:['THE WHEEL OF EXPERTS','Touch the wheel. Gravity is the only panelist with credentials.'],
@@ -36,6 +36,8 @@ function refresh(){
  const icons=STATIONS.map(n=>game.stamps.includes(n)?'✳':'◇').join(' ');
  $('stamps').textContent=icons;
  $('count').textContent=game.afterHours?'GATE OPEN · YOU ARE SOMEWHERE ELSE':status.need?status.stamps+' / 4 TO OPEN THE GATE':'THE GATE IS READY';
+ $('forest-commands').hidden=!game.afterHours;
+ $('map-forest-note').hidden=!game.afterHours;
  if(mode==='world')title.textContent='';
 }
 function enter(name){
@@ -70,6 +72,7 @@ function resize(){
  W=innerWidth;H=innerHeight;D=Math.min(devicePixelRatio||1,2);
  canvas.width=Math.round(W*D);canvas.height=Math.round(H*D);
  ctx.setTransform(D,0,0,D,0,0);
+ if(!theatrePointer.x&&!theatrePointer.y)theatrePointer={x:W*.5,y:H*.55};
  particles=Array.from({length:Math.min(100,Math.ceil(W*H/9000))},(_,i)=>({x:(i*73.3%101)/101*W,y:(i*41.1%103)/103*H,r:(i%3)+.4}));
 }
 resize();addEventListener('resize',resize,{passive:true});
@@ -209,6 +212,12 @@ function guideMoth(target){
   moth.path=[];
  }else note('WATCH THE MOTH FOLLOW THE LIGHTS. It cannot jump across a missing connection.');
 }
+function guideNextMoth(){
+ if(!moth||forest.lanterns.length<2){note('Plant at least two connected lanterns first.');return;}
+ const options=forest.lanterns.map((p,i)=>({i,route:routeTo(forest,i,W/H)})).filter(x=>x.route&&x.route.length>1);
+ const next=options.find(x=>!forest.visited.includes(x.i))||options[0];
+ if(next)guideMoth(next.i);else note('No reachable second light. Bridge the dark with another lantern.');
+}
 function stepMoth(dt){
  if(!moth?.path?.length)return;
  const id=moth.path[0],point=forest.lanterns[id];
@@ -226,8 +235,8 @@ function stepMoth(dt){
 function strikeTheatre(x,y){
  const point={x:clamp(x/W,.04,.96),y:clamp(y/H,.28,.91),at:time};
  theatrePointer={x,y};
- if(time-lastStrikeAt<.11&&theatrePulses.length)return;
- lastStrikeAt=time;
+ if(performance.now()-lastStrikeAt<110&&theatrePulses.length)return;
+ lastStrikeAt=performance.now();
  theatrePulses.push(point);
  if(theatrePulses.length>24)theatrePulses.shift();
  if(theatrePulses.length===2)note('THERE ARE TWO EYES NOW. Correlation remains an unfortunate word.');
@@ -492,20 +501,32 @@ function keyboard(e){
  const key=e.key.toLowerCase(),shortcut={'1':'mirror','2':'wheel','3':'gallery','4':'radio','5':'weather','g':'gate'};
  if(key==='escape'){e.preventDefault();if(!$('map').hidden){$('map').hidden=true;$('map-toggle').setAttribute('aria-expanded','false')}else back();return;}
  if(e.target.tagName==='BUTTON'||e.target.tagName==='A')return;
- if(shortcut[key]&&mode==='world'){e.preventDefault();enter(shortcut[key]);return;}
+ if(shortcut[key]&&mode==='world'&&!game.afterHours){e.preventDefault();enter(shortcut[key]);return;}
  const arrows=['arrowleft','arrowright','arrowup','arrowdown','w','a','s','d'];
  if(arrows.includes(key)||key==='enter'||key===' '){e.preventDefault();}
  if(mode==='world'){
   const d=.035;
   if(game.afterHours&&key===' '){plantLantern(avatar.x,avatar.y);return;}
+  if(game.afterHours&&key==='k'){
+   if(forest.open){forest=enterTheatre(forest);enter('theatre');}else note('Three distinct lanterns. Make a crooked connected route. Then ask for the door.');
+   return;
+  }
+  if(game.afterHours&&key==='e'){guideNextMoth();return;}
   if(key==='arrowleft'||key==='a')avatar.tx=clamp(avatar.tx-d,.02,.98);
   if(key==='arrowright'||key==='d')avatar.tx=clamp(avatar.tx+d,.02,.98);
   if(key==='arrowup'||key==='w')avatar.ty=clamp(avatar.ty-d,.3,.85);
   if(key==='arrowdown'||key==='s')avatar.ty=clamp(avatar.ty+d,.3,.85);
+  if(game.afterHours&&key==='enter'){guideNextMoth();return;}
   if(key==='enter'||key===' '){
    const nearest=positions().map(p=>({...p,d:Math.hypot(p.x/W-avatar.x,p.y/H-avatar.y)})).sort((a,b)=>a.d-b.d)[0];
    if(nearest)enter(nearest.name);
   }
+ }else if(mode==='theatre'){
+  if(key==='arrowleft'||key==='a')theatrePointer.x=clamp(theatrePointer.x-W*.04,0,W);
+  if(key==='arrowright'||key==='d')theatrePointer.x=clamp(theatrePointer.x+W*.04,0,W);
+  if(key==='arrowup'||key==='w')theatrePointer.y=clamp(theatrePointer.y-H*.04,0,H);
+  if(key==='arrowdown'||key==='s')theatrePointer.y=clamp(theatrePointer.y+H*.04,0,H);
+  if(key==='enter'||key===' ')strikeTheatre(theatrePointer.x,theatrePointer.y);
  }else if(mode==='wheel'&&(key==='enter'||key===' '))spin();
  else if(mode==='mirror'){
   if(key==='arrowleft'||key==='a')apply('mirror',game.mirrorAngle-.025);
@@ -525,6 +546,14 @@ function keyboard(e){
 }
 addEventListener('keydown',keyboard);
 $('return').addEventListener('click',back);
+$('forest-commands').querySelectorAll('[data-forest]').forEach(btn=>btn.addEventListener('click',()=>{
+ const action=btn.dataset.forest;
+ if(action==='plant')plantLantern(avatar.x,avatar.y);
+ if(action==='guide')guideNextMoth();
+ if(action==='theatre'){if(forest.open){forest=enterTheatre(forest);enter('theatre');}else note('The clearing remains locked. Guide the moth through three lamps that do not lie on one line.');}
+ if(action==='clear'){forest=clearForest();moth=null;theatrePulses=[];announce('The lamps are gone. The ground remains.');}
+ $('map').hidden=true;$('map-toggle').setAttribute('aria-expanded','false');canvas.focus({preventScroll:true});
+}));
 $('sound').addEventListener('click',e=>{
  soundOn=!soundOn;
  if(soundOn){
@@ -545,4 +574,4 @@ $('map').querySelectorAll('[data-enter]').forEach(b=>b.addEventListener('click',
  $('map').hidden=true;$('map-toggle').setAttribute('aria-expanded','false');enter(b.dataset.enter);canvas.focus({preventScroll:true});
 }));
 refresh();
-window.__MC_CARNIVAL__={getState:()=>({...game,stamps:[...game.stamps],lanterns:lanterns.map(p=>({x:p.x,y:p.y}))}),getMode:()=>mode,visit:enter,reset:()=>{apply('reset');coin=initialBooths();lanterns=[];back();}};
+window.__MC_CARNIVAL__={getState:()=>({...game,stamps:[...game.stamps],forest:{...forest,lanterns:forest.lanterns.map(p=>({...p})),visited:[...forest.visited]}}),getMode:()=>mode,visit:enter,reset:()=>{apply('reset');coin=initialBooths();forest=clearForest();moth=null;theatrePulses=[];back();}};

@@ -48,3 +48,19 @@ test('graph obeys screen aspect, and pathfinding always chooses a shortest route
  assert.deepEqual(routeTo(s,4,2),[0,1,2,3,4]);
  assert.ok(edgesOf(s,.4).length>edgesOf(s,2).length);
 });
+
+test('Hushwood renderer, keyboard, pointer, and fallback directory are linked to the live entry',()=>{
+ const html=readFileSync('site/companion/atlas/rooms/experiments/004-carnival-of-thought/index.html','utf8');
+ const js=readFileSync('site/companion/atlas/rooms/experiments/004-carnival-of-thought/midway.js','utf8');
+ const renderer=readFileSync('site/companion/atlas/rooms/experiments/004-carnival-of-thought/hushwood-scene.mjs','utf8');
+ assert.match(html,/id="forest-commands" class="forest-commands" hidden/);
+ for(const action of ['plant','guide','theatre','clear'])assert.ok(html.includes('data-forest="'+action+'"'));
+ assert.match(js,/import \{startForest,plantLight,routeTo,visitLight,portalAt,enterTheatre,clearForest\}/);
+ assert.match(js,/drawForest\(ctx,W,H,forest,moth,time,noMotion\)/);
+ assert.match(js,/drawTheatre\(ctx,W,H,forest,theatrePulses,theatrePointer,time,noMotion\)/);
+ assert.match(js,/guideNextMoth\(\)/);
+ assert.match(js,/if\(game\.afterHours&&key===' '/);
+ assert.match(js,/mode==='theatre'/);
+ assert.match(renderer,/edgesOf\(forest,aspect\)/);
+ assert.doesNotMatch(js+renderer,/localStorage|sessionStorage|fetch\(/);
+});
