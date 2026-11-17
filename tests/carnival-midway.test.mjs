@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {initialGame,advance,collect,gateReady,statusOf,GATE_STAMPS} from '../site/companion/atlas/rooms/experiments/004-carnival-of-thought/midway-core.mjs';
 test('the gate requires four distinct discovered attractions',()=>{
  let state=initialGame();assert.equal(gateReady(state),false);
