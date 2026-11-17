@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {startForest,plantLight,edgesOf,routeTo,visitLight,triadOf,portalAt,enterTheatre,clearForest,MAX_LIGHTS} from '../site/companion/atlas/rooms/experiments/004-carnival-of-thought/hushwood-core.mjs';
 
 test('lantern placements require visible clear ground, with no duplicates or unbounded growth',()=>{
