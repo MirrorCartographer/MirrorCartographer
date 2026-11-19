@@ -23,7 +23,7 @@ async function main() {
   let browser;
   let page;
   try {
-    browser = await chromium.launch({headless:true,args:['--disable-gpu','--no-sandbox']});
+    browser = await chromium.launch({channel:'chrome',headless:true,args:['--disable-gpu','--no-sandbox']});
     page = await browser.newPage({viewport:{width:390,height:844}});
     const outgoingPosts = [];
     const pageErrors = [];
