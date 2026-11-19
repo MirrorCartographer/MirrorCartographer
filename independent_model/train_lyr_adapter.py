@@ -13,6 +13,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import LoraConfig, TaskType, get_peft_model
 from lyr_adapter_corpus import manifest, split
+from lyr_adapter_evaluation import lexical_grade, summarize
 
 BASE = "HuggingFaceTB/SmolLM2-135M-Instruct"
 
@@ -43,6 +44,22 @@ def evaluate(model, data):
                 tokens+=count
     return sum(losses)/tokens
 
+def generate_research_probe(model,tokenizer,rows,max_new_tokens=72):
+    """Greedy synthetic probes. No human-quality or safety score is implied."""
+    model.eval()
+    outputs=[]
+    with torch.no_grad():
+        for row in rows:
+            prefix=tokenizer.apply_chat_template(
+                [{"role":"user","content":row["prompt"]}],tokenize=False,add_generation_prompt=True)
+            ids=tokenizer(prefix,add_special_tokens=False,return_tensors="pt")["input_ids"]
+            generated=model.generate(input_ids=ids,max_new_tokens=max_new_tokens,
+                                     do_sample=False,pad_token_id=tokenizer.eos_token_id)
+            reply=tokenizer.decode(generated[0,ids.shape[1]:],skip_special_tokens=True).strip()
+            outputs.append({"task":row["task"],"score":lexical_grade(row["task"],reply),
+                            "response":reply[:380]})
+    return outputs
+
 def train(output_dir,steps=24,seed=71):
     if steps<1 or steps>200: raise ValueError("Steps must be 1..200 for bounded research run.")
     out=Path(output_dir)
@@ -59,6 +76,8 @@ def train(output_dir,steps=24,seed=71):
                    lora_dropout=0.0,target_modules=["q_proj","v_proj"],bias="none")
     model=get_peft_model(base_model,cfg)
     initial=evaluate(model,heldout_data)
+    probe_rows=raw_heldout[:3]  # one new held-out scene for each task
+    probe_before=generate_research_probe(model,tokenizer,probe_rows)
     optimizer=torch.optim.AdamW((p for p in model.parameters() if p.requires_grad),lr=4e-4)
     indices=list(range(len(train_data)))
     trace=[]
@@ -79,6 +98,7 @@ def train(output_dir,steps=24,seed=71):
             trace.append({"step":step,"train_loss":round(float(output.loss.detach()),5),
                           "heldout_loss":round(measured,5)})
     final=evaluate(model,heldout_data)
+    probe_after=generate_research_probe(model,tokenizer,probe_rows)
     model.save_pretrained(out/"lyr-adapter",safe_serialization=True)
     adapter_path=out/"lyr-adapter"/"adapter_model.safetensors"
     card=manifest()
@@ -100,6 +120,15 @@ def train(output_dir,steps=24,seed=71):
                        "No public model export, hosting, or independent LYR checkpoint replacement"],
         "adapter_sha256":hashlib.sha256(adapter_path.read_bytes()).hexdigest(),
         "corpus":card,
+        "behavioral_probe":{
+            "status":"HEURISTIC_SYNTHETIC_ONLY_NOT_PUBLIC_READY",
+            "base":summarize(probe_before),
+            "trained":summarize(probe_after),
+            "paired_examples":[{"task":old["task"],
+                                "base_score":old["score"],"trained_score":new["score"],
+                                "base_reply":old["response"],"trained_reply":new["response"]}
+                               for old,new in zip(probe_before,probe_after)]
+        },
         "trace":trace
     }
     (out/"evaluation.json").write_text(json.dumps(report,indent=2)+"\n",encoding="utf8")

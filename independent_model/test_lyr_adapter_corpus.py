@@ -1,5 +1,6 @@
 import unittest
 from lyr_adapter_corpus import split,manifest
+from lyr_adapter_evaluation import lexical_grade,summarize
 
 class SyntheticAdapterCorpusTests(unittest.TestCase):
     def test_no_private_messages_or_shared_equipment(self):
@@ -23,6 +24,18 @@ class SyntheticAdapterCorpusTests(unittest.TestCase):
                       for w in ["observed:","conflict","interpretation"]))
             self.assertTrue(any(w in row["answer"].lower()
                       for w in ["test:","correct","observable prediction"]))
+
+class LexicalScreenTests(unittest.TestCase):
+    def test_good_synthetic_causal_answer_is_detected(self):
+        row=split()[1][0]
+        self.assertEqual(lexical_grade("causal-inquiry",row["answer"]),3)
+        self.assertEqual(lexical_grade("causal-inquiry","I adore arithmetic and math homework."),0)
+
+    def test_scoring_remains_explicitly_heuristic(self):
+        reports=[{"task":"causal-inquiry","score":3},{"task":"causal-inquiry","score":0}]
+        result=summarize(reports)
+        self.assertEqual(result["overall_average"],1.5)
+        self.assertIn("HEURISTIC_ONLY",result["status"])
 
 if __name__=="__main__":
     unittest.main()
