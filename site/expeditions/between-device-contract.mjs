@@ -43,3 +43,10 @@ export function extractGeneratedText(result) {
   if (!text) throw new TypeError('The model returned an empty response');
   return text;
 }
+
+/** A navigator.gpu object alone is not evidence that WebGPU is available. */
+export async function getUsableGpuAdapter(navigatorLike) {
+  if (typeof navigatorLike?.gpu?.requestAdapter !== 'function') return null;
+  try { return (await navigatorLike.gpu.requestAdapter()) || null; }
+  catch { return null; }
+}
