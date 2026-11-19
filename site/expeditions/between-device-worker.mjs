@@ -1,4 +1,4 @@
-import { MODEL_ID, buildResidentMessages, extractGeneratedText } from './between-device-contract.mjs';
+import { MODEL_ID, buildResidentMessages, extractGeneratedText, getUsableGpuAdapter } from './between-device-contract.mjs';
 
 // This is an open-weight third-party model running inside the visitor's device,
 // not the unvalidated from-scratch LYR research checkpoint and not a hosted chat API.
@@ -23,11 +23,7 @@ async function loadModel() {
     // Feature presence is not enough: headless Chrome and some mobile browsers
     // expose navigator.gpu while denying GPU adapter access. Probe BEFORE loading
     // any WebGPU backend, which could otherwise make WASM fallback unusable.
-    let gpuAdapter = null;
-    if (typeof self.navigator?.gpu?.requestAdapter === 'function') {
-      try { gpuAdapter = await self.navigator.gpu.requestAdapter(); }
-      catch { gpuAdapter = null; }
-    }
+    const gpuAdapter = await getUsableGpuAdapter(self.navigator);
     if (gpuAdapter) {
       try {
         report('status', {message:'Hardware GPU is available. Loading on-device graphics mode…'});
