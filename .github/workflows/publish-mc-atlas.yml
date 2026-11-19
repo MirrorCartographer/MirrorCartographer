@@ -65,6 +65,7 @@ jobs:
           node site/validate-public-routes.mjs
           node site/validate-expeditions.mjs
       - name: Publish the built site to the configured gh-pages branch
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
