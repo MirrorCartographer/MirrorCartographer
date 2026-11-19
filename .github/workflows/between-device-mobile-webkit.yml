@@ -1,16 +1,19 @@
 name: Night Shift mobile WebKit acceptance
 on:
-  workflow_run:
-    workflows:
-      - Publish Mirror Cartographer Living Atlas
-    types:
-      - completed
+  push:
+    branches: [main]
+    paths:
+      - 'site/expeditions/between-device*.mjs'
+      - 'site/expeditions/lyr-evidence-protocol.mjs'
+      - 'site/expeditions/between-device.html'
+      - 'site/between-device-mobile-webkit-smoke.cjs'
+      - '.github/workflows/between-device-mobile-webkit.yml'
   workflow_dispatch: {}
 permissions:
   contents: read
 jobs:
   webkit-mobile:
-    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main') }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
@@ -21,7 +24,7 @@ jobs:
       - name: Install supported WebKit mobile test environment
         run: |
           npm install --no-save playwright@1.58.1
-          npx playwright install --with-deps webkit
+          npx playwright install webkit
       - name: Test actual published mobile WebKit model inference
         run: node site/between-device-mobile-webkit-smoke.cjs
       - name: Preserve observable mobile browser failure
