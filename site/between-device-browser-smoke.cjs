@@ -21,9 +21,10 @@ async function waitForStatus(page, expected, timeoutMs) {
 }
 async function main() {
   let browser;
+  let page;
   try {
     browser = await chromium.launch({headless:true,args:['--disable-gpu','--no-sandbox']});
-    const page = await browser.newPage({viewport:{width:390,height:844}});
+    page = await browser.newPage({viewport:{width:390,height:844}});
     const outgoingPosts = [];
     const pageErrors = [];
     page.on('request', request=>{
@@ -57,6 +58,9 @@ async function main() {
     console.log('Synthetic response excerpt: '+reply.slice(0,230));
     if (pageErrors.length) console.log('Nonfatal page errors: '+pageErrors.slice(0,3).join(' | '));
   } catch(error) {
+    if (page) {
+      try { await page.screenshot({path:'night-shift-browser-failure.png',fullPage:true}); } catch {}
+    }
     console.error('FAIL live Night Shift browser acceptance: '+String(error));
     throw error;
   } finally {
