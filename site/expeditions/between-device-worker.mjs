@@ -1,4 +1,4 @@
-import { MODEL_ID, buildResidentMessages, extractGeneratedText } from './between-device-contract.mjs';
+import { MODEL_ID, buildResidentMessages, extractGeneratedText, getUsableGpuAdapter } from './between-device-contract.mjs';
 
 // This is an open-weight third-party model running inside the visitor's device,
 // not the unvalidated from-scratch LYR research checkpoint and not a hosted chat API.
@@ -20,17 +20,22 @@ async function loadModel() {
     report('status', {message:'Loading the local model runtime…'});
     const { pipeline } = await import(LIBRARY);
     const options = {progress_callback:describeProgress};
-    if (self.navigator?.gpu) {
+    // Feature presence is not enough: headless Chrome and some mobile browsers
+    // expose navigator.gpu while denying GPU adapter access. Probe BEFORE loading
+    // any WebGPU backend, which could otherwise make WASM fallback unusable.
+    const gpuAdapter = await getUsableGpuAdapter(self.navigator);
+    if (gpuAdapter) {
       try {
-        report('status', {message:'Trying the local graphics processor…'});
+        report('status', {message:'Hardware GPU is available. Loading on-device graphics mode…'});
         engine = await pipeline('text-generation', MODEL_ID, {
           ...options, device:'webgpu', dtype:'q4f16'
         });
-      } catch (error) {
-        report('status', {message:'Graphics mode unavailable. Trying local CPU…'});
+      } catch {
+        report('status', {message:'Graphics initialization failed; attempting local CPU…'});
       }
     }
     if (!engine) {
+      report('status', {message:'Loading local CPU/WASM model. GPU is not required.'});
       engine = await pipeline('text-generation', MODEL_ID, {
         ...options, device:'wasm', dtype:'q8'
       });
