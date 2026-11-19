@@ -1,0 +1,45 @@
+name: Reproduce LYR research training
+on:
+  push:
+    branches: [main, research/lyr-training-and-inference-2026-11-19]
+    paths:
+      - 'independent_model/**'
+      - '.github/workflows/lyr-research-training.yml'
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  train-research-model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU PyTorch
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu 'torch>=2.2,<3.0'
+      - name: Test provenance and model checkpoint loading
+        run: python independent_model/test_research_training.py
+      - name: Train tiny independent LYR research model on original synthetic corpus
+        run: |
+          python independent_model/train_research_demo.py --out-dir /tmp/lyr-research --steps 500
+          python - <<'PY'
+          import json
+          report=json.load(open('/tmp/lyr-research/evaluation.json'))
+          assert report['status']=='TRAINED_SMALL_RESEARCH_CHECKPOINT_NOT_PRODUCTION'
+          assert report['quality_gate']=='FAIL_GENERAL_DIALOGUE_NOT_EVALUATED'
+          assert report['checkpoint_bytes']>10000
+          print('Training checkpoint produced; general dialogue still unverified.',report['heldout_loss'])
+          PY
+      - name: Preserve checkpoint with explicit failed quality gate
+        uses: actions/upload-artifact@v4
+        with:
+          name: lyr-research-only-checkpoint
+          path: |
+            /tmp/lyr-research/lyr-demo.pt
+            /tmp/lyr-research/evaluation.json
+            /tmp/lyr-research/corpus-manifest.json
+          retention-days: 14
