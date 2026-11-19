@@ -21,8 +21,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install --index-url https://download.pytorch.org/whl/cpu 'torch>=2.2,<3.0'
+      - name: Install local inference test dependencies
+        run: python -m pip install 'fastapi>=0.110,<1.0' 'httpx>=0.27,<1.0'
       - name: Test provenance and model checkpoint loading
         run: python independent_model/test_research_training.py
+      - name: Exercise actual trained checkpoint through authenticated local HTTP endpoint
+        run: python independent_model/test_research_server.py
       - name: Train tiny independent LYR research model on original synthetic corpus
         run: |
           python independent_model/train_research_demo.py --out-dir /tmp/lyr-research --steps 500
