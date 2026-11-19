@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { buildResidentMessages, extractGeneratedText, MODEL_ID, RESIDENTS } from './expeditions/between-device-contract.mjs';
+import { buildResidentMessages, extractGeneratedText, getUsableGpuAdapter, MODEL_ID, RESIDENTS } from './expeditions/between-device-contract.mjs';
 
 const html = readFileSync('site/expeditions/between-device.html','utf8');
 const worker = readFileSync('site/expeditions/between-device-worker.mjs','utf8');
@@ -61,4 +61,16 @@ test('the new room exists within the public atlas rather than a broken private d
   assert.match(between,/href="\.\/between-device\.html"/);
   assert.match(index,/href="between-device\.html"/);
   assert.match(readFileSync('site/index.html','utf8'),/expeditions\/between-device\.html/);
+});
+
+test('GPU availability is based on an actual adapter; unsupported and denied GPUs use WASM', async () => {
+  assert.equal(await getUsableGpuAdapter({}), null);
+  assert.equal(await getUsableGpuAdapter({gpu:{}}), null);
+  assert.equal(await getUsableGpuAdapter({gpu:{requestAdapter:async()=>null}}), null);
+  assert.equal(await getUsableGpuAdapter({gpu:{requestAdapter:async()=>{throw Error('GPU denied')}}}), null);
+  const adapter={label:'test adapter'};
+  assert.equal(await getUsableGpuAdapter({gpu:{requestAdapter:async()=>adapter}}), adapter);
+  assert.match(worker, /if \(gpuAdapter\)/);
+  assert.match(worker, /getUsableGpuAdapter\(self.navigator\)/);
+  assert.match(worker, /device:'wasm'/);
 });
