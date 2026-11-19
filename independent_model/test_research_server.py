@@ -39,7 +39,7 @@ class LocalModelServerTests(unittest.TestCase):
             headers={"authorization":"Bearer test-local-only-token-123456789012345"},
             json={"model":"lyr-research-demo",
                   "messages":[{"role":"user","content":"What is observed?"}],
-                  "max_tokens":12})
+                  "max_tokens":240})
         self.assertEqual(response.status_code, 200)
         output = response.json()
         self.assertEqual(output["model"], "lyr-research-demo")
