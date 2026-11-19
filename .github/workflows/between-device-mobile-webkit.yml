@@ -15,16 +15,17 @@ jobs:
   webkit-mobile:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-24.04
+    container:
+      image: mcr.microsoft.com/playwright:v1.58.1-noble
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install supported WebKit mobile test environment
+      - name: Use the matching prebuilt Playwright browser and dependencies
         run: |
           npm install --no-save playwright@1.58.1
-          npx playwright install webkit
       - name: Test actual published mobile WebKit model inference
         run: node site/between-device-mobile-webkit-smoke.cjs
       - name: Preserve observable mobile browser failure
