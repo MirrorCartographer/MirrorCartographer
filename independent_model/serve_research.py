@@ -26,7 +26,7 @@ class Message(BaseModel):
 class ChatRequest(BaseModel):
     model: str
     messages: list[Message] = Field(min_length=1, max_length=10)
-    max_tokens: int = Field(default=72, ge=1, le=120)
+    max_tokens: int = Field(default=72, ge=1, le=240)
     temperature: float = Field(default=0.8, ge=0.1, le=1.5)
 
 def get_model():
@@ -76,7 +76,7 @@ def chat(request: ChatRequest, authorization: str = Header(default="")):
     token_ids = [ByteTokenizer.BOS] + list(prompt_bytes)
     x = torch.tensor([token_ids], dtype=torch.long)
     with torch.inference_mode():
-        out = model.generate(x, max_new_tokens=request.max_tokens,
+        out = model.generate(x, max_new_tokens=min(request.max_tokens, 120),
                              temperature=request.temperature, top_k=30)
     text = TOKENIZER.decode(out[0].tolist()[x.size(1):])
     return {
