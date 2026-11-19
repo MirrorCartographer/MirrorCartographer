@@ -1,0 +1,49 @@
+name: Train LYR-specific research adapter
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'independent_model/lyr_adapter_corpus.py'
+      - 'independent_model/train_lyr_adapter.py'
+      - 'independent_model/test_lyr_adapter_corpus.py'
+      - '.github/workflows/lyr-adapter-training.yml'
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  bounded-cpu-sft:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install supported CPU training dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu 'torch>=2.2,<3'
+          python -m pip install 'transformers==5.22.2' 'peft==0.21.2' 'accelerate==1.15.0' safetensors
+      - name: Verify synthetic corpus integrity and provenance
+        run: python independent_model/test_lyr_adapter_corpus.py
+      - name: Train the original LYR protocol adapter on a separately attributed language base
+        run: |
+          python independent_model/train_lyr_adapter.py --out-dir /tmp/lyr-adapter --steps 24
+          python - <<'PY'
+          import json,pathlib
+          p=pathlib.Path('/tmp/lyr-adapter/evaluation.json')
+          r=json.loads(p.read_text())
+          assert r['adapter_status']=='TRAINED_DELTA_RESEARCH_ONLY'
+          assert r['quality_gate']=='FAIL_PUBLIC_DIALOGUE_NOT_EVALUATED'
+          assert r['trainable_parameters']>0
+          assert pathlib.Path('/tmp/lyr-adapter/lyr-adapter/adapter_model.safetensors').is_file()
+          print('LYR adapter trained, synthetic baseline',r['heldout_loss_before'],'post',r['heldout_loss_after'])
+          PY
+      - name: Preserve trained delta with raw evaluation and provenance
+        uses: actions/upload-artifact@v4
+        with:
+          name: lyr-synthetic-research-lora-adapter
+          path: |
+            /tmp/lyr-adapter/lyr-adapter/
+            /tmp/lyr-adapter/evaluation.json
+          retention-days: 14
