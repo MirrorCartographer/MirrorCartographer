@@ -51,6 +51,9 @@ async function main() {
     if (!reply || reply.length < 16 || reply.includes('WRITTEN GREETING')) {
       throw new Error('No usable generated text was displayed');
     }
+    if (/your responses so far|your assignments|as you said earlier|your previous work/i.test(reply)) {
+      throw new Error('Model invented visitor history not present in the ephemeral conversation: '+reply.slice(0,180));
+    }
     // Exercise the first-party LYR investigation procedure through the same real model.
     await page.locator('#lyr-evidence summary').click();
     const witness = await page.locator('#lyr-observed').innerText();
@@ -61,6 +64,9 @@ async function main() {
     const investigation = await page.locator('.utterance.resident').last().innerText();
     if (investigation.length < 16 || investigation.includes('WRITTEN GREETING')) {
       throw new Error('The LYR investigation button did not return generated text');
+    }
+    if (!/\b(clock|winding|pendulum|mechanism|battery|chime|motor|test|observe|measurement)\b/i.test(investigation)) {
+      throw new Error('Model drifted away from the asked clock investigation: '+investigation.slice(0,210));
     }
     if (outgoingPosts.length) throw new Error('Unapproved HTTP POST detected: '+outgoingPosts.join(', '));
     console.log('PASS: published browser scene, role switch, sky interaction and real on-device generated reply.');
