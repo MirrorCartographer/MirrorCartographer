@@ -1,4 +1,5 @@
 import { MODEL_ID, buildResidentMessages, extractGeneratedText, getUsableGpuAdapter } from './between-device-contract.mjs';
+import { auditResidentReply } from './lyr-reply-audit.mjs';
 
 // This is an open-weight third-party model running inside the visitor's device,
 // not the unvalidated from-scratch LYR research checkpoint and not a hosted chat API.
@@ -73,15 +74,33 @@ self.onmessage = async (event) => {
       resident:data.resident, message:data.message, history:data.history, scene:data.scene, mode:data.mode
     });
     report('thinking',{id});
-    const result = await engine(messages, {
-      max_new_tokens:112,
-      do_sample:true,
-      temperature:0.45,
-      top_p:0.85,
-      repetition_penalty:1.08
-    });
-    const reply = extractGeneratedText(result);
-    report('reply',{id,reply,model:MODEL_ID,source:'on-device-open-weights'});
+    let reply=null;
+    let screening=null;
+    // One bounded correction attempt. Never pass rejected text as evidence.
+    for (let attempt=0; attempt<2; attempt++) {
+      const result = await engine(messages, {
+        max_new_tokens:112,
+        do_sample:true,
+        temperature:attempt===0 ? 0.45 : 0.20,
+        top_p:attempt===0 ? 0.85 : 0.75,
+        repetition_penalty:1.08
+      });
+      reply = extractGeneratedText(result);
+      screening = auditResidentReply({message:data.message,reply,mode:data.mode});
+      if (screening.pass) break;
+      if (attempt===0) {
+        report('status',{message:'The draft failed a basic evidence check. Attempting a correction on-device…'});
+        messages.splice(1,0,{role:'system',content:
+          'Correction: Answer the MOST RECENT visitor question directly and only. '+
+          'Never claim to know their mood, attitude, personal history, or any real-world event. '+
+          'No invented source or unrelated example.'});
+      }
+    }
+    if (!screening?.pass) {
+      throw new Error('The local model could not pass the basic evidence screen ('+screening?.reason+'). No reply was presented.');
+    }
+    report('reply',{id,reply,model:MODEL_ID,source:'on-device-open-weights',
+                    screening:'limited-pattern-screen-passed'});
   } catch (error) {
     report('error',{stage:'generate',id,message:String(error?.message||'The local model failed.').slice(0,220)});
   } finally { locked=false; }
