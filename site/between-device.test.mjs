@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { buildResidentMessages, extractGeneratedText, getUsableGpuAdapter, MODEL_ID, RESIDENTS } from './expeditions/between-device-contract.mjs';
 import { makeEvidenceFrame, procedureInstructions, PROTOCOL_VERSION } from './expeditions/lyr-evidence-protocol.mjs';
+import { auditResidentReply } from './expeditions/lyr-reply-audit.mjs';
 
 const html = readFileSync('site/expeditions/between-device.html','utf8');
 const worker = readFileSync('site/expeditions/between-device-worker.mjs','utf8');
@@ -113,4 +114,29 @@ test('decorative station tape never steals mobile sky taps',()=>{
   assert.match(html,/\.tape\{[^}]*pointer-events:none\}/);
   assert.match(html,/id="sky"/);
   assert.match(room,/byId\('sky'\)\.addEventListener\('click'/);
+});
+
+test('LYR evidence audit blocks a model guessing private attitude from scene weather',()=>{
+  const example="Based on the LYR interface state, the visitor's current attitude indicates they are anxious.";
+  assert.deepEqual(auditResidentReply({message:"Which part is measured?",reply:example}),
+                   {pass:false,reason:'unverified-personal-inference'});
+  assert.equal(auditResidentReply({message:"Hello",reply:"Based on your responses so far, I know your preferences."}).reason,
+               'invented-visitor-memory');
+  assert.equal(auditResidentReply({message:"Can you access my account?",
+                reply:"I checked your account, and it was fixed."}).reason,
+               'unverified-external-action');
+});
+test('LYR does not mistake uncertainty for a claim of hidden access',()=>{
+  assert.equal(auditResidentReply({message:"Do you know how I feel?",
+               reply:"I cannot determine your feelings or mood from the station interface."}).pass,true);
+  assert.equal(auditResidentReply({message:"Why did the clock stop?",mode:"investigate",
+               reply:"Try winding the clock, then observe whether it stops again."}).pass,true);
+});
+test('LYR investigation floor catches an unrelated arithmetic response',()=>{
+  const fail=auditResidentReply({message:"Why did the clock stop?",mode:"investigate",
+              reply:"The first number in a long sequence could be squared."});
+  assert.deepEqual(fail,{pass:false,reason:'unrelated-investigation'});
+  assert.match(worker,/auditResidentReply\(\{message:data\.message,reply,mode:data\.mode\}\)/);
+  assert.match(worker,/for \(let attempt=0; attempt<2; attempt\+\+\)/);
+  assert.match(worker,/No reply was presented\./);
 });
