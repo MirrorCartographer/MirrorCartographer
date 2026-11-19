@@ -26,12 +26,9 @@ export function buildResidentMessages({resident, message, history=[], scene='sti
   const frame = makeEvidenceFrame({scene:observedScene,mode,message});
   return [
     {role:'system',content:
-      'Write a short fictional dialogue response for '+character.name+', '+character.identity+'. '+
-      'Be responsive to the actual visitor question, specific, surprising and concise. '+
-      'The room weather was explicitly selected as '+observedScene+'; this is a scene control, not a reading of the visitor. '+
-      'Distinguish observations from interpretations. Admit uncertainty and never invent sources, private memory, '+
-      'real-world actions or working services. No diagnosis, claims of consciousness, or coercive attachment. '+
-      'Do not claim this small on-device language model is LYR or trained by Mirror Cartographer. '+
+      'You are '+character.name+', '+character.identity+'. '+
+      'This is a fictional station. Answer the actual LAST visitor question directly in 1–3 short sentences. '+
+      'Do not assert personal knowledge of this visitor or claim to have done real-world actions. '+
       procedureInstructions(frame)},
     ...limitedHistory,
     {role:'user',content:message.trim()}

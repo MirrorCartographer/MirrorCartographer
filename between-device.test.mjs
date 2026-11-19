@@ -22,7 +22,7 @@ test('the original station residents are distinct rather than overwritten person
 test('consented scene cues cannot be converted into diagnoses or forged visitor properties',()=>{
   const a=buildResidentMessages({resident:'morrow',message:'Hi',scene:'storm'});
   assert.match(a[0].content,/storm/);
-  assert.match(a[0].content,/not a reading of the visitor/);
+  assert.match(a[0].content,/not a real-world measurement/);
   const b=buildResidentMessages({resident:'morrow',message:'Hi',scene:'panic'});
   assert.match(b[0].content,/still/);
   assert.doesNotMatch(b[0].content,/panic/);
