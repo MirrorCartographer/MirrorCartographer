@@ -53,8 +53,8 @@ test('model files are downloaded only when visitor clicks, and responses remain 
   assert.match(worker,/model:MODEL_ID/);
   assert.match(worker,/https:\/\/cdn\.jsdelivr\.net\//);
   assert.match(MODEL_ID,/SmolLM2-135M-Instruct/);
-  assert.doesNotMatch(room, /\\.setItem\\(|\\.getItem\\(|indexedDB\\.\\w+|fetch\\(/);
-  assert.doesNotMatch(worker, /\\.setItem\\(|\\.getItem\\(|indexedDB\\.\\w+|fetch\\(/);
+  assert.doesNotMatch(room, /\.setItem\(|\.getItem\(|indexedDB\.\w+|fetch\(/);
+  assert.doesNotMatch(worker, /\.setItem\(|\.getItem\(|indexedDB\.\w+|fetch\(/);
 });
 test('the new room exists within the public atlas rather than a broken private deployment',()=>{
   assert.match(html,/between-device-room\.mjs/);
