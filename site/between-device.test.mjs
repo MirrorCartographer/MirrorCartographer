@@ -108,3 +108,9 @@ test('visitor controls really pass inquiry mode to model worker without private 
   assert.match(worker,/await engine\(messages/);
   assert.doesNotMatch(room,/\.setItem\(|\.getItem\(|indexedDB\.\w+|fetch\(/);
 });
+
+test('decorative station tape never steals mobile sky taps',()=>{
+  assert.match(html,/\.tape\{[^}]*pointer-events:none\}/);
+  assert.match(html,/id="sky"/);
+  assert.match(room,/byId\('sky'\)\.addEventListener\('click'/);
+});
