@@ -52,8 +52,9 @@ async function main() {
       throw new Error('No usable generated text was displayed');
     }
     // Exercise the first-party LYR investigation procedure through the same real model.
+    await page.locator('#lyr-evidence summary').click();
     const witness = await page.locator('#lyr-observed').innerText();
-    if (!/current station weather is wind/.test(witness)) throw new Error('Evidence provenance did not track the rendered weather state');
+    if (!/current station weather is wind/.test(witness)) throw new Error('Evidence provenance did not track the rendered weather state: '+witness);
     await page.locator('#message').fill('What would distinguish two possible explanations for the clock stopping?');
     await page.locator('#investigate').click();
     await waitForStatus(page,/Generated on this device using/,deadlineMs);
