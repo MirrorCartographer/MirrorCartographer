@@ -21,6 +21,10 @@ jobs:
       - run: node --test site/atlas-privacy-policy.test.mjs
       - run: node --test site/image-organism.test.mjs
       - run: node --test site/maze-contract.test.mjs
+      - run: node --test site/between-device.test.mjs
+      - run: node --check site/expeditions/between-device-contract.mjs
+      - run: node --check site/expeditions/between-device-worker.mjs
+      - run: node --check site/expeditions/between-device-room.mjs
       - run: node --test tests/carnival-booths.test.mjs
       - run: node --test tests/carnival-midway.test.mjs
       - run: node --test tests/carnival-hushwood.test.mjs

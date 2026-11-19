@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#171510">
+<meta name="description" content="Talk with Morrow and Vesper through a small, on-device open-weight language model. No account, no chat server.">
+<title>NIGHT SHIFT — The Speaking Station</title>
+<style>
+:root{color-scheme:dark;background:#171510;color:#eddfbe;font:15px/1.35 Georgia,serif}
+*{box-sizing:border-box}
+body{margin:0;min-height:100svh;overflow-x:hidden;background:radial-gradient(ellipse at 50% -30%,#4c402a 0%,transparent 60%),#171510}
+body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:30;opacity:.13;background:repeating-linear-gradient(0deg,transparent 0 2px,#0d110a 3px 4px);mix-blend-mode:overlay}
+a{color:#dbe3a2}button,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.5}
+:focus-visible{outline:3px dashed #c9f27e;outline-offset:5px}
+main{max-width:1120px;margin:auto;padding:clamp(12px,2.5vw,26px)}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px;font:11px/1.4 monospace;letter-spacing:.1em}
+header a{color:#f1d4a0;text-decoration:none;border-bottom:1px dashed #9e977c}
+header span{color:#bbb290;text-align:right}
+.eyebrow{font:10px monospace;letter-spacing:.25em;color:#d5ed8c;margin:14px 0 5px}
+h1{font:clamp(38px,8vw,76px)/.82 Georgia;margin:0;max-width:600px;letter-spacing:-.04em;text-transform:uppercase}
+h1 em{color:#e2d296;font-weight:normal}
+.deck{margin:10px 0 14px;color:#bfb098;max-width:720px;font:13px/1.55 monospace}
+.station{position:relative;overflow:hidden;min-height:390px;height:min(54svh,550px);border:1px solid #4c513e;background:radial-gradient(ellipse at 51% 85%,#77713a55,transparent 55%),linear-gradient(160deg,#1a1f1b 0%,#373321 52%,#111911 100%);isolation:isolate;box-shadow:5px 6px 0 #090b08,0 18px 60px #0007}
+.station:before{content:'';position:absolute;inset:0;background:radial-gradient(#f0c875aa 1px,transparent 2px) 0 0/57px 71px,linear-gradient(20deg,transparent 48%,#0d110b 49% 50%,transparent 51%);opacity:.17;pointer-events:none}
+.station:after{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(102deg,transparent 0 19px,#f4df9633 20px,#22291b55 22px,transparent 28px);mix-blend-mode:screen;opacity:.23}
+.station[data-weather="wind"]:after{animation:weatherSlide 8s linear infinite;opacity:.42}
+.station[data-weather="storm"]:after{animation:weatherSlide 1.2s linear infinite;opacity:.8}
+@keyframes weatherSlide{to{background-position:250px 0}}
+.sky-touch{position:absolute;inset:0;z-index:1;border:0;background:transparent;color:transparent}
+.sky-touch:focus-visible{outline-offset:-6px}
+.clock{position:absolute;top:20%;left:50%;width:80px;height:80px;border:5px double #bfad68;border-radius:50%;transform:translateX(-50%) rotate(-8deg);box-shadow:0 0 40px #b6aa6b55,inset 0 0 22px #060c08;background:#292d21}
+.clock:before,.clock:after{content:'';position:absolute;background:#e0b871;width:2px;left:50%;top:50%;transform-origin:top}
+.clock:before{height:27px;transform:rotate(28deg)}.clock:after{height:19px;transform:rotate(-125deg)}
+.silo{position:absolute;bottom:20%;left:36%;width:28%;height:34%;border:4px solid #101810;background:linear-gradient(100deg,#282c20,#090f0b);clip-path:polygon(7% 26%,49% 0,94% 28%,94% 100%,7% 100%);opacity:.85}
+.silo:after{content:'';position:absolute;left:43%;bottom:0;width:20%;height:58%;border:2px solid #998b58;border-bottom:0;background:#0d140e}
+.platform{position:absolute;bottom:0;left:-10%;width:120%;height:25%;background:linear-gradient(0deg,#0c140f,#202921 75%,#4d5341);clip-path:polygon(0 37%,100% 12%,100% 100%,0 100%);border-top:2px solid #a18c53}
+.platform:after{content:'';display:block;position:absolute;top:62%;width:100%;border-top:4px dotted #9d895b66;transform:rotate(-3deg)}
+.weather-control{position:absolute;z-index:8;right:12px;top:12px;border:1px solid #88845c99;background:#161d17e6;color:#d7e293;padding:6px 10px;font:11px monospace;letter-spacing:.08em;pointer-events:none}
+.sign{position:absolute;bottom:32%;left:7%;border:2px solid #8b8455;color:#e0d19f;transform:rotate(-9deg);padding:8px 10px;background:#151c14;font:11px monospace;letter-spacing:.07em;box-shadow:4px 5px 0 #070b07}
+.resident{position:absolute;z-index:10;border:0;background:transparent;color:#e9e2c4;min-width:130px;min-height:185px;bottom:12%;transition:transform .3s ease,filter .3s ease}
+.resident:hover,.resident[aria-pressed="true"]{transform:translateY(-10px);filter:drop-shadow(0 0 17px #d7e3a077)}
+.resident[aria-pressed="true"] .tag{color:#111b0b;background:#dbea97}
+.resident .tag{position:absolute;bottom:-5px;left:50%;transform:translateX(-50%) rotate(-4deg);white-space:nowrap;font:13px monospace;background:#131a14;border:1px solid #bfb484;padding:4px 8px}
+.morrow{left:17%}.vesper{right:16%}
+.moth{position:absolute;inset:12px 0 25px}
+.moth .wing{position:absolute;top:27px;width:52px;height:108px;background:radial-gradient(ellipse at 60% 40%,#bdaf75,#515f4a 58%,#202e29);border:2px solid #a8aa72;border-radius:72% 20% 75% 35%;box-shadow:inset 0 0 12px #121b10}
+.moth .wing.a{right:49%;transform:rotate(-25deg)}.moth .wing.b{left:49%;transform:scaleX(-1) rotate(-25deg)}
+.moth .head{position:absolute;top:6px;left:50%;width:53px;height:49px;transform:translateX(-50%);border-radius:50%;background:#8e8b6b;border:2px solid #c4b785}
+.moth .head:before,.moth .head:after{content:'';position:absolute;top:15px;width:7px;height:10px;border-radius:50%;background:#121f0f;box-shadow:0 0 8px #e0ecb2}
+.moth .head:before{left:12px}.moth .head:after{right:12px}
+.moth .coat{position:absolute;top:48px;left:50%;transform:translateX(-50%);width:54px;height:101px;background:#45362e;border:2px solid #997f5d;border-radius:30% 30% 20% 20%;clip-path:polygon(19% 0,81% 0,100% 100%,0 100%)}
+.moth .lantern{position:absolute;left:72%;top:88px;width:25px;height:35px;border:3px solid #d2ab65;background:#f3cd70;box-shadow:0 0 18px #ecd474,0 0 45px #d7cb6377}
+.cat{position:absolute;inset:32px 0 30px}
+.cat .body{position:absolute;bottom:12px;left:28%;width:89px;height:77px;border-radius:50% 55% 45% 42%;background:linear-gradient(130deg,#68665c,#1a1c1a 66%);border:2px solid #777762}
+.cat .head{position:absolute;bottom:56px;left:10%;width:72px;height:59px;background:linear-gradient(160deg,#77746b,#242824 75%);border-radius:42% 42% 48% 48%;border:2px solid #656f59}
+.cat .head:before,.cat .head:after{content:'';position:absolute;top:-14px;width:28px;height:36px;background:#4b5149;clip-path:polygon(50% 0,100% 100%,0 100%)}.cat .head:before{left:0}.cat .head:after{right:0}
+.cat .eyes{position:absolute;bottom:81px;left:23%;width:9px;height:12px;border-radius:50%;background:#d9ea91;box-shadow:29px 0 #d9ea91,0 0 10px #bfec72}
+.cat .tail{position:absolute;bottom:52px;left:73%;width:46px;height:65px;border:11px solid #343b32;border-left:0;border-bottom:0;border-radius:0 100% 0 0;transform:rotate(14deg)}
+.tape{position:absolute;z-index:7;left:12px;top:12px;color:#a7b89c;font:10px monospace;letter-spacing:.15em;max-width:48%}
+.bottom{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,360px);gap:14px;margin-top:16px}
+.panel{background:#161d16;border:1px solid #4b573e;min-width:0;padding:15px;box-shadow:4px 4px 0 #070a06}
+.panel h2{margin:0 0 12px;font:19px Georgia;font-weight:normal;color:#e4deba}
+.dialogue{height:210px;overflow:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:8px;border-top:1px dashed #5e694d;padding:12px 2px}
+.utterance{max-width:93%;white-space:pre-wrap;overflow-wrap:anywhere;margin:0;padding:10px;font:14px/1.5 Georgia}
+.utterance b{display:block;font:10px monospace;color:#d7e696;margin-bottom:4px;letter-spacing:.07em}
+.utterance.user{align-self:flex-end;background:#43402b;color:#f5e6c7}.utterance.resident{align-self:flex-start;background:#253329;color:#f0e5c8;position:static;min-height:0;min-width:0;transform:none;filter:none}
+form{display:flex;gap:8px;margin-top:8px}textarea{flex:1;min-width:0;resize:vertical;max-height:130px;min-height:54px;background:#0c120e;border:1px solid #6b754b;padding:10px;color:#f0f0d9;border-radius:0;font:13px/1.4 monospace}
+form button,.action{background:#cde790;color:#1c2518;border:0;padding:9px 13px;font:12px monospace}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.secondary{background:#283328;color:#dce3c2;border:1px solid #6b755c}
+#status{min-height:34px;color:#cad5a7;font:12px/1.5 monospace;margin:8px 0}
+.meter{height:4px;background:#394331;width:100%;overflow:hidden}
+#progress-bar{height:100%;width:0%;background:#d1e38f;transition:width .22s}
+#model-details{font:11px/1.5 monospace;color:#acb79b}
+#model-details a{color:#c9dc93}
+.small{color:#aaa991;font:11px/1.6 monospace}
+footer{font:11px/1.7 monospace;color:#acae96;margin:18px 0 45px}
+@media(max-width:770px){.bottom{grid-template-columns:1fr}.station{min-height:330px;height:42svh}.morrow{left:8%}.vesper{right:7%}.resident{transform:scale(.9);transform-origin:bottom}.resident:hover,.resident[aria-pressed="true"]{transform:scale(.9) translateY(-8px)}.sign{display:none}.clock{transform:translateX(-50%) scale(.75)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<header><a href="./the-between.html">← THE BETWEEN</a><span>MC / EXPERIMENT 009<br>NO CHAT SERVER</span></header>
+<p class="eyebrow">THE NIGHT SHIFT · SOMETHING ANSWERS</p>
+<h1>The station<br><em>has opinions.</em></h1>
+<p class="deck">Meet Morrow and Vesper. Tap the sky. Ask a question they couldn't have memorized. The words come from a small open-weight model running <em>on your device</em>—not from the original LYR research checkpoint.</p>
+<div class="station" id="station" data-weather="still" aria-label="Interactive night station">
+<button id="sky" class="sky-touch" aria-label="Change the station weather; currently still" type="button">CHANGE THE SKY</button>
+<span class="clock" aria-hidden="true"></span><span class="silo" aria-hidden="true"></span><span class="platform" aria-hidden="true"></span>
+<span class="tape">THE TIMETABLE IS LYING AGAIN.</span><span class="weather-control" id="weather-label">SKY: STILL · TAP TO SHIFT</span>
+<span class="sign" aria-hidden="true">LAST TRAIN / NEVER</span>
+<button class="resident morrow" id="choose-morrow" type="button" aria-pressed="true" aria-label="Talk to Morrow">
+  <span class="moth" aria-hidden="true"><span class="wing a"></span><span class="wing b"></span><span class="coat"></span><span class="head"></span><span class="lantern"></span></span>
+  <span class="tag">MORROW · KEEPER</span>
+</button>
+<button class="resident vesper" id="choose-vesper" type="button" aria-pressed="false" aria-label="Talk to Vesper">
+  <span class="cat" aria-hidden="true"><span class="tail"></span><span class="body"></span><span class="head"></span><span class="eyes"></span></span>
+  <span class="tag">VESPER · CAT</span>
+</button>
+</div>
+<div class="bottom">
+<section class="panel" aria-labelledby="conversation-heading">
+<h2 id="conversation-heading">Morrow is at the counter.</h2>
+<div class="dialogue" id="dialogue" aria-live="polite"><p class="utterance resident"><b>MORROW</b>The station has a new visitor. The keys are already arguing.</p></div>
+<form id="ask-form">
+<textarea id="message" maxlength="600" rows="2" aria-label="Message to the selected resident" placeholder="Ask something that isn't on the timetable…" required></textarea>
+<button id="send" type="submit" disabled>ASK</button>
+</form>
+<p class="small">Generated replies can be wrong. No medical advice, hidden powers, or automatic memory.</p>
+</section>
+<section class="panel" aria-labelledby="model-heading">
+<h2 id="model-heading">An engine you can actually switch on.</h2>
+<div class="toolbar">
+<button class="action" id="load-model" type="button">WAKE LOCAL MODEL</button>
+<button class="action secondary" id="clear" type="button">FORGET CONVERSATION</button>
+</div>
+<div id="status" role="status" aria-live="polite">Model asleep. Nothing has been downloaded.</div>
+<div class="meter" aria-label="Model download progress"><div id="progress-bar"></div></div>
+<p class="small" id="model-details">First activation downloads approximately 120–150 MB of model files from Hugging Face, plus runtime files. Your browser may cache them. After that, generation runs on this device; your messages are not sent to a chat server. Requires network for the initial download.</p>
+<p class="small"><strong>ENGINE:</strong> <a href="https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct" target="_blank" rel="noreferrer noopener">SmolLM2-135M-Instruct</a> · third-party open weights · small and fallible · WebGPU with CPU fallback. LYR remains a separate research model.</p>
+</section>
+</div>
+<footer>NO ACCOUNT. NO STORED TRANSCRIPT. NO AUTOMATED SOCIAL CONNECTION. THIS ROOM ONLY GENERATES IF YOU EXPLICITLY LOAD THE ENGINE. <a href="../">RETURN TO THE COUNTRY</a></footer>
+</main>
+<script type="module" src="./between-device-room.mjs"></script>
+</body>
+</html>

@@ -7,6 +7,7 @@ const routes = [
   'riddle-arcade.html',
   'pattern-loom.html',
   'the-between.html',
+  'between-device.html',
   'signal-garden.html',
   'specimen-garden.html',
   'ecology-lab.html',
@@ -37,6 +38,8 @@ const requiredEdges = [
   ['index.html', 'riddle-arcade.html'],
   ['riddle-arcade.html', 'pattern-loom.html'],
   ['the-between.html', 'signal-garden.html'],
+  ['the-between.html', 'between-device.html'],
+  ['index.html', 'between-device.html'],
   ['specimen-garden.html', 'ecology-lab.html'],
 ];
 for (const [from, to] of requiredEdges) {
@@ -47,5 +50,5 @@ if (failures.length) {
   console.error(failures.join('\n'));
   process.exitCode = 1;
 } else {
-  console.log(`PASS: ${routes.length} expedition pages exist; all local links and six world-to-side-room routes resolve.`);
+  console.log(`PASS: ${routes.length} expedition pages exist; all local links and all required world-to-side-room routes resolve.`);
 }
