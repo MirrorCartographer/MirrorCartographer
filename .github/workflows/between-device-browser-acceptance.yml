@@ -21,7 +21,7 @@ jobs:
       - name: Install browser acceptance tooling
         run: |
           npm install --no-save playwright@1.58.1
-          npx playwright install --with-deps chromium
+          google-chrome --version
       - name: Exercise published on-device inference in a real browser
         run: node site/between-device-browser-smoke.cjs
       - name: Preserve failure screenshot if the browser could not generate
