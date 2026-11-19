@@ -22,7 +22,9 @@ def main():
     if not isinstance(prompt_text, str) or not prompt_text.strip():
         p.error("A non-empty --prompt or stdin prompt is required.")
     device = torch.device(a.device)
-    state = torch.load(a.checkpoint, map_location=device, weights_only=False)
+    state = torch.load(a.checkpoint, map_location=device, weights_only=True)
+    if not isinstance(state, dict) or not isinstance(state.get('state_dict'), dict):
+        raise SystemExit('Invalid LYR checkpoint format.')
     cfg = ModelConfig(**state["config"])
     model = LYRLanguageModel(cfg).to(device)
     model.load_state_dict(state["state_dict"])

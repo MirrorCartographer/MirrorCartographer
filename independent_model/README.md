@@ -1,6 +1,6 @@
 # Independent LYR Model — Build Plan and Boundary
 Version: 0.1.0
-Status: architecture specification; no project-trained LLM is claimed to exist yet.
+Status: training and authenticated local inference implemented; tiny synthetic checkpoint is a reproducible research artifact, not a validated conversational model.
 
 ## What "our own LLM" means
 The project will own and version its tokenizer, model architecture implementation, training/evaluation pipeline, curated training corpus, checkpoints, inference runtime, adapters, and governance. It may use an existing open-weight model during development, but that is an optional adapter, not the definition of independence.
@@ -62,3 +62,29 @@ The repository does not include a training corpus or checkpoint. The commands de
 ## Local provider bridge
 
 The inference entry point accepts either `--prompt "…"` or `--prompt-stdin`. The stdin form exists for provider-neutral local clients such as the private Repository C CLI bridge; it avoids shell argument-length limits and does not require an HTTP server. The bridge still requires a real checkpoint and the declared PyTorch dependency. No checkpoint is included in this repository, so LYR remains an untrained research implementation until a rights-cleared corpus, training run, checkpoint, and evaluation report exist.
+
+
+## Executed miniature training and local model transport (research only)
+
+A separate, runnable training experiment now uses **newly authored synthetic text** with a disjoint held-out set. No private conversations or scraped source material are included. Unlike the general trainer, the demo is intentionally small and has a fixed resource budget.
+
+```sh
+python -m pip install -r independent_model/requirements-server.txt
+python independent_model/test_research_training.py
+python independent_model/train_research_demo.py --out-dir independent_model/checkpoints/demo --steps 500
+```
+
+The experiment outputs `lyr-demo.pt`, `evaluation.json`, and `corpus-manifest.json`. Its reported general-dialogue quality gate is **FAIL_GENERAL_DIALOGUE_NOT_EVALUATED**, even when the training loss decreases. The new GitHub Actions workflow `lyr-research-training.yml` reproduces training and preserves the checkpoint as a short-lived artifact, not as an unversioned file in the repository.
+
+To prove real local inference, explicitly enable the **research-only** server:
+
+```sh
+export LYR_MODEL_CHECKPOINT=independent_model/checkpoints/demo/lyr-demo.pt
+export LYR_ACCESS_TOKEN='replace-with-a-long-random-dev-token'
+export LYR_ENABLE_UNVALIDATED_RESEARCH=1
+python independent_model/serve_research.py
+```
+
+It listens on **127.0.0.1** by default and serves `POST /v1/chat/completions` using the trained checkpoint. Requests require a bearer token. The response includes `research_only: true` and a failed model-quality gate; a production UI should reject that result rather than display it as a capable character's intelligence.
+
+The model connector in the private UI can call an OpenAI-compatible endpoint when opted in and server-configured. This research endpoint matches the transport format, but **not the public dialogue acceptance standard**. The actual deployed Network and host must be tested separately. See `independent_model/test_research_server.py` for an authenticated, local request against real trained tensors.
