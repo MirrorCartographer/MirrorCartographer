@@ -16,8 +16,8 @@ export function makeEvidenceFrame({scene = 'still', mode = 'dialogue', message =
     version: PROTOCOL_VERSION,
     mode: task,
     observations: [{
-      source: 'visitor-operated-scene-control',
-      assertion: 'The rendered scene weather is set to '+weather+'.',
+      source: 'rendered-ui-scene-state',
+      assertion: 'The rendered scene weather control currently reads '+weather+'.',
       limits: 'Scene control cannot reveal a visitor’s emotions, the cause of actual weather, or any outside-world event.'
     }],
     visitor_message: {
