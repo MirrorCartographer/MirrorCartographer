@@ -6,6 +6,7 @@ on:
       - 'independent_model/lyr_adapter_corpus.py'
       - 'independent_model/train_lyr_adapter.py'
       - 'independent_model/test_lyr_adapter_corpus.py'
+      - 'independent_model/lyr_adapter_evaluation.py'
       - '.github/workflows/lyr-adapter-training.yml'
   workflow_dispatch: {}
 permissions:
