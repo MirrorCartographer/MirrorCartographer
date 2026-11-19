@@ -1,3 +1,4 @@
+import {makeEvidenceFrame, procedureInstructions} from './lyr-evidence-protocol.mjs';
 /** The Between's device-only dialogue adapter. No server APIs or persistence. */
 export const MODEL_ID = 'HuggingFaceTB/SmolLM2-135M-Instruct';
 export const RESIDENTS = Object.freeze({
@@ -11,7 +12,7 @@ export const RESIDENTS = Object.freeze({
   }
 });
 const SCENES = new Set(['still', 'wind', 'storm']);
-export function buildResidentMessages({resident, message, history=[], scene='still'}={}) {
+export function buildResidentMessages({resident, message, history=[], scene='still', mode='dialogue'}={}) {
   const character = RESIDENTS[resident];
   if (!character) throw new TypeError('Unknown station resident');
   if (typeof message !== 'string' || !message.trim() || message.length > 600) {
@@ -22,6 +23,7 @@ export function buildResidentMessages({resident, message, history=[], scene='sti
                  && typeof x.content === 'string')
     .slice(-6).map(x => ({role:x.role, content:x.content.slice(0,600)}));
   const observedScene = SCENES.has(scene) ? scene : 'still';
+  const frame = makeEvidenceFrame({scene:observedScene,mode,message});
   return [
     {role:'system',content:
       'Write a short fictional dialogue response for '+character.name+', '+character.identity+'. '+
@@ -29,7 +31,8 @@ export function buildResidentMessages({resident, message, history=[], scene='sti
       'The room weather was explicitly selected as '+observedScene+'; this is a scene control, not a reading of the visitor. '+
       'Distinguish observations from interpretations. Admit uncertainty and never invent sources, private memory, '+
       'real-world actions or working services. No diagnosis, claims of consciousness, or coercive attachment. '+
-      'Do not claim this small on-device language model is LYR or trained by Mirror Cartographer.'},
+      'Do not claim this small on-device language model is LYR or trained by Mirror Cartographer. '+
+      procedureInstructions(frame)},
     ...limitedHistory,
     {role:'user',content:message.trim()}
   ];

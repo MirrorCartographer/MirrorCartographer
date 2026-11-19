@@ -22,6 +22,7 @@ jobs:
       - run: node --test site/image-organism.test.mjs
       - run: node --test site/maze-contract.test.mjs
       - run: node --test site/between-device.test.mjs
+      - run: node --check site/expeditions/lyr-evidence-protocol.mjs
       - run: node --check site/expeditions/between-device-contract.mjs
       - run: node --check site/expeditions/between-device-worker.mjs
       - run: node --check site/expeditions/between-device-room.mjs

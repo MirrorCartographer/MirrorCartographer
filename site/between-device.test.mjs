@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { buildResidentMessages, extractGeneratedText, getUsableGpuAdapter, MODEL_ID, RESIDENTS } from './expeditions/between-device-contract.mjs';
+import { makeEvidenceFrame, procedureInstructions, PROTOCOL_VERSION } from './expeditions/lyr-evidence-protocol.mjs';
 
 const html = readFileSync('site/expeditions/between-device.html','utf8');
 const worker = readFileSync('site/expeditions/between-device-worker.mjs','utf8');
@@ -73,4 +74,37 @@ test('GPU availability is based on an actual adapter; unsupported and denied GPU
   assert.match(worker, /if \(gpuAdapter\)/);
   assert.match(worker, /getUsableGpuAdapter\(self.navigator\)/);
   assert.match(worker, /device:'wasm'/);
+});
+
+test('LYR evidence frame isolates measured UI state from reported assertions and model output', () => {
+  const frame = makeEvidenceFrame({scene:'wind',mode:'investigate',message:'Did I cause that gust?'});
+  assert.equal(frame.version, PROTOCOL_VERSION);
+  assert.equal(frame.observations[0].source,'rendered-ui-scene-state');
+  assert.match(frame.observations[0].assertion,/wind/);
+  assert.match(frame.visitor_message.status,/not-independent-evidence/);
+  assert.match(frame.generated_reply.status,/interpretation-not-observation/);
+  assert.doesNotMatch(JSON.stringify(frame),/Did I cause that gust/);
+  assert.equal(makeEvidenceFrame({scene:'panic',message:'Hi'}).observations[0].assertion.includes('still'),true);
+});
+test('LYR investigation mode changes actual model instructions, not selecting canned answer text', () => {
+  const talk = buildResidentMessages({resident:'morrow',message:'What do we know?',mode:'dialogue',scene:'storm'});
+  const inquiry = buildResidentMessages({resident:'morrow',message:'What do we know?',mode:'investigate',scene:'storm'});
+  assert.notEqual(talk[0].content,inquiry[0].content);
+  assert.match(inquiry[0].content,/two distinguishable explanations/);
+  assert.match(inquiry[0].content,/observation or test/);
+  assert.match(inquiry[0].content,/scene weather control currently reads storm/);
+  assert.match(talk[0].content,/DIALOGUE naturally/);
+  assert.equal(inquiry.at(-1).content,'What do we know?');
+  assert.equal(inquiry.filter(x=>x.role==='system').length,1);
+  const fallback=makeEvidenceFrame({mode:'authoritative-proof',scene:'still',message:'Hi'});
+  assert.equal(fallback.mode,'dialogue');
+});
+test('visitor controls really pass inquiry mode to model worker without private persistence',()=>{
+  assert.match(html,/id="investigate"/);
+  assert.match(html,/id="lyr-evidence"/);
+  assert.match(room,/event\.submitter\?\.id === 'investigate'/);
+  assert.match(room,/mode\}\);/);
+  assert.match(worker,/mode:data\.mode/);
+  assert.match(worker,/await engine\(messages/);
+  assert.doesNotMatch(room,/\.setItem\(|\.getItem\(|indexedDB\.\w+|fetch\(/);
 });

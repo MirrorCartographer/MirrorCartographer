@@ -51,11 +51,22 @@ async function main() {
     if (!reply || reply.length < 16 || reply.includes('WRITTEN GREETING')) {
       throw new Error('No usable generated text was displayed');
     }
+    // Exercise the first-party LYR investigation procedure through the same real model.
+    const witness = await page.locator('#lyr-observed').innerText();
+    if (!/current station weather is wind/.test(witness)) throw new Error('Evidence provenance did not track the rendered weather state');
+    await page.locator('#message').fill('What would distinguish two possible explanations for the clock stopping?');
+    await page.locator('#investigate').click();
+    await waitForStatus(page,/Generated on this device using/,deadlineMs);
+    const investigation = await page.locator('.utterance.resident').last().innerText();
+    if (investigation.length < 16 || investigation.includes('WRITTEN GREETING')) {
+      throw new Error('The LYR investigation button did not return generated text');
+    }
     if (outgoingPosts.length) throw new Error('Unapproved HTTP POST detected: '+outgoingPosts.join(', '));
     console.log('PASS: published browser scene, role switch, sky interaction and real on-device generated reply.');
     console.log('Model ready: '+ready);
     console.log('Completion: '+answered);
     console.log('Synthetic response excerpt: '+reply.slice(0,230));
+    console.log('LYR investigation generated excerpt: '+investigation.slice(0,230));
     if (pageErrors.length) console.log('Nonfatal page errors: '+pageErrors.slice(0,3).join(' | '));
   } catch(error) {
     if (page) {
