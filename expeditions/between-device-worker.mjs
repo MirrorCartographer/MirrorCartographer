@@ -70,7 +70,7 @@ self.onmessage = async (event) => {
   const id = data.id;
   try {
     const messages = buildResidentMessages({
-      resident:data.resident, message:data.message, history:data.history, scene:data.scene
+      resident:data.resident, message:data.message, history:data.history, scene:data.scene, mode:data.mode
     });
     report('thinking',{id});
     const result = await engine(messages, {

@@ -2,7 +2,7 @@ import {RESIDENTS, MODEL_ID} from './between-device-contract.mjs';
 
 const byId = id => document.getElementById(id);
 const stage = byId('station'), log = byId('dialogue'), status = byId('status');
-const loadButton = byId('load-model'), sendButton = byId('send');
+const loadButton = byId('load-model'), sendButton = byId('send'), investigateButton = byId('investigate');
 const input = byId('message');
 const names = {morrow:'MORROW',vesper:'VESPER'};
 const initial = {
@@ -16,6 +16,7 @@ let ready = false, busy = false, sequence = 0, pending = null;
 function note(message) { status.textContent = message; }
 function controls() {
   sendButton.disabled = !ready || busy || !input.value.trim();
+  investigateButton.disabled = sendButton.disabled;
   loadButton.disabled = loading || ready;
   loadButton.textContent = ready ? 'MODEL AWAKE' : loading ? 'WAKING…' : 'WAKE LOCAL MODEL';
   byId('clear').disabled = busy;
@@ -50,6 +51,7 @@ byId('choose-vesper').addEventListener('click',()=>changeResident('vesper'));
 byId('sky').addEventListener('click',()=>{
   scene = weather[(weather.indexOf(scene)+1)%weather.length];
   stage.dataset.weather = scene;
+  byId('lyr-observed').textContent = 'OBSERVED: current station weather is '+scene+' (interface state, not outside-world weather).';
   byId('weather-label').textContent = 'SKY: '+scene.toUpperCase()+' · TAP TO SHIFT';
   byId('sky').setAttribute('aria-label','Change the station weather; currently '+scene);
   note('Scene changed to '+scene+'. That is a direct control, not a mood diagnosis.');
@@ -121,14 +123,15 @@ byId('ask-form').addEventListener('submit',event=>{
   const message=input.value.trim();
   if (!message || message.length>600 || !ready || busy) return;
   const resident = selected, id = ++sequence;
+  const mode = event.submitter?.id === 'investigate' ? 'investigate' : 'dialogue';
   // In-memory only. Nothing is saved to localStorage or sent to our server.
   const history = chats[resident].slice(-6).map(x=>({role:x.role,content:x.content}));
   chats[resident].push({role:'user',content:message});
-  pending = {id,resident,message};
+  pending = {id,resident,message,mode};
   input.value = '';
   busy = true; controls(); renderChat();
-  worker.postMessage({type:'generate',id,resident,message,history,scene});
-  note('Asking '+RESIDENTS[resident].name+' through the device model…');
+  worker.postMessage({type:'generate',id,resident,message,history,scene,mode});
+  note(mode==='investigate' ? 'LYR procedure asks '+RESIDENTS[resident].name+' to form alternatives and a test…' : 'Asking '+RESIDENTS[resident].name+' through the device model…');
 });
 input.addEventListener('input',controls);
 byId('clear').addEventListener('click',()=>{
