@@ -35,18 +35,15 @@ export function makeEvidenceFrame({scene = 'still', mode = 'dialogue', message =
 export function procedureInstructions(frame) {
   if (!frame || frame.version !== PROTOCOL_VERSION) throw new TypeError('Unknown evidence procedure.');
   const common =
-    'LYR EVIDENCE PROCEDURE (first-party Mirror Cartographer software; NOT its independently trained research model). '+
-    'Known directly: '+frame.observations[0].assertion+' '+frame.observations[0].limits+' '+
-    'The visitor’s message is a question or unverified report, not an independently verified event. '+
-    'Your generated reply is a proposal or interpretation, never a new observed fact. '+
-    'Do not fabricate sensory observations, memories, documents, real-world actions or causal certainty. ';
+    'LYR evidence: '+frame.observations[0].assertion+
+    ' This is an interface state, not a real-world measurement. '+
+    'The visitor may report a claim; it is unverified. Your response is not evidence. '+
+    'No invented memories, documents or outside actions. ';
   if (frame.mode === 'investigate') {
-    return common+
-      'INVESTIGATE instead of merely mirroring: state the key unknown; propose two distinguishable explanations where justified; '+
-      'offer one concrete observation or test that could distinguish them. '+
-      'If the evidence cannot support two meaningful explanations, say what evidence is missing. Stay concise and in character.';
+    return common+'INVESTIGATE: Answer the last question. State the unknown. '+
+      'Give two distinguishable explanations if justified and one observation or test to separate them. '+
+      'Stay specific, short and in character.';
   }
-  return common+
-    'DIALOGUE naturally: answer the actual question with character and imagination, do not mechanically paraphrase it. '+
-    'Distinguish a known fact from a guess when that distinction matters.';
+  return common+'DIALOGUE naturally: Answer the last question directly with one useful new thought. '+
+    'Separate what is known from what is guessed when it matters.';
 }
