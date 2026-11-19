@@ -76,9 +76,9 @@ self.onmessage = async (event) => {
     const result = await engine(messages, {
       max_new_tokens:112,
       do_sample:true,
-      temperature:0.72,
-      top_p:0.9,
-      repetition_penalty:1.13
+      temperature:0.45,
+      top_p:0.85,
+      repetition_penalty:1.08
     });
     const reply = extractGeneratedText(result);
     report('reply',{id,reply,model:MODEL_ID,source:'on-device-open-weights'});
