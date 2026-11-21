@@ -1,0 +1,23 @@
+{
+  "packet_type": "platform_limit_evidence",
+  "id": "synthetic-github-ref-provenance-001",
+  "privacy": "public",
+  "category": "tool",
+  "observation": "Fetching a path without an explicit ref defaults to the repository default branch; comparing it with a CI or pull-request snapshot can mix source versions unless commit and blob provenance are recorded.",
+  "evidence": [
+    {
+      "source": "GitHub connector fetch_file",
+      "path": "next.config.ts",
+      "requested_ref": "129e6ec1e48bd497ce15a84f6ca59e9021073e36",
+      "commit_sha": "129e6ec1e48bd497ce15a84f6ca59e9021073e36",
+      "blob_sha": "1f6f6ced981d7010d5527d102714a48329d4056e"
+    },
+    {
+      "source": "GitHub connector fetch_file",
+      "path": "next.config.ts",
+      "requested_ref": "e40c31cb5fbccd9f87740eecf9794658d9c9e1f2",
+      "commit_sha": "e40c31cb5fbccd9f87740eecf9794658d9c9e1f2",
+      "blob_sha": "00c940ebfa835e6b126078c8b03a2c9a0dd136f7"
+    }
+  ]
+}
