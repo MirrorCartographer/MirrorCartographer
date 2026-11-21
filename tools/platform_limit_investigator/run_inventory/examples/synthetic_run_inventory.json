@@ -1,0 +1,12 @@
+{
+  "note": "Synthetic fixture only; IDs do not represent actual GitHub runs.",
+  "full_api_runs": [
+    {"id": 1001, "event": "pull_request", "conclusion": "success"},
+    {"id": 1002, "event": "pull_request", "conclusion": "success"},
+    {"id": 1003, "event": "push", "conclusion": "success", "associated_pull_request": 17}
+  ],
+  "connector_runs": [
+    {"id": 1001, "event": "pull_request", "conclusion": "success"},
+    {"id": 1002, "event": "pull_request", "conclusion": "success"}
+  ]
+}
