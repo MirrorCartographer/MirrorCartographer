@@ -18,6 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: node --test site/country-signals.test.mjs
       - run: node --test site/atlas-privacy-policy.test.mjs
       - run: node --test site/image-organism.test.mjs
       - run: node --test site/maze-contract.test.mjs
