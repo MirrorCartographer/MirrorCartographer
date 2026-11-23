@@ -17,8 +17,8 @@ test('country signal bus validates, bounds, persists and isolates signals',()=>{
  win.MC_COUNTRY.emit('music','BAD WEATHER BOOGIE');
  assert.equal(win.MC_COUNTRY.read()[0].value,'BAD WEATHER BOOGIE');
  assert.equal(seen.length,1);
- assert.throws(()=>win.MC_COUNTRY.emit('medical-diagnosis','x'),TypeError);
- assert.throws(()=>win.MC_COUNTRY.emit('weather','x'.repeat(281)),TypeError);
+ assert.throws(()=>win.MC_COUNTRY.emit('medical-diagnosis','x'),/Invalid signal/);
+ assert.throws(()=>win.MC_COUNTRY.emit('weather','x'.repeat(281)),/Invalid signal/);
  for(let i=0;i<100;i++)win.MC_COUNTRY.emit('weather','storm');
  assert.equal(win.MC_COUNTRY.read().length,80);
  off();win.MC_COUNTRY.emit('weather','heat');assert.equal(seen.length,101);
