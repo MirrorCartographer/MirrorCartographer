@@ -24,7 +24,7 @@ const PORTALS=[
  {id:'gravity',name:'HOUSE OF GRAVITY',glyph:'↯',line:'The floor disagrees with the ceiling.',route:'./companion/atlas/rooms/house-that-forgets-gravity/',color:'#82c7de',sound:5},
  {id:'artists',name:'ARTISTS',glyph:'✥',line:'Nobody wants a frame around a wildfire.',route:'./entrances/art.html',color:'#d8f055',sound:9},
  {id:'orchard',name:'NIGHT SHIFT',glyph:'♣',line:'The trees have been working since you slept.',route:'./companion/atlas/rooms/night-shift-orchard/',color:'#a9c66b',sound:2},
- {id:'screen',name:'THE SCREENING ROOM',glyph:'▣',line:'There is a film playing in the next room.',route:'./companion/atlas/rooms/screening-room/',color:'#f3a879',sound:7},
+ {id:'screen',name:'CHANNEL 08 · LIVING TELEVISION',glyph:'▣',line:'The dog has a television show. You can write the next episode.',route:'./broadcast/',color:'#f3a879',sound:7},
 ];
 const STORAGE='mc.living-country.2', TRACE='mc.living-country.trace.1';
 function get(key,fallback){try{const o=localStorage.getItem(key);return o===null?fallback:JSON.parse(o)}catch{return fallback}}
