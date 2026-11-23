@@ -32,7 +32,6 @@ const json = (body: unknown, status = 200) =>
     headers: {
       "content-type": "application/json; charset=utf-8",
       "cache-control": "no-store",
-      "access-control-allow-origin": "*",
       "access-control-allow-methods": "POST, OPTIONS",
       "access-control-allow-headers": "content-type, x-mc-ingest-secret",
     },
@@ -52,26 +51,29 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const contentLength = Number(request.headers.get("content-length") || 0);
   if (contentLength > 10000) return json({ ok: false, error: "payload too large" }, 413);
 
-  if (!env.GITHUB_TOKEN) return json({ ok: false, error: "missing GITHUB_TOKEN" }, 501);
-  if (!env.GITHUB_OWNER || !env.GITHUB_REPO) return json({ ok: false, error: "missing GitHub repo env" }, 501);
+  if (!env.MC_INGEST_SECRET) return json({ ok: false, error: "ingestion disabled" }, 503);
+  if (!env.GITHUB_TOKEN) return json({ ok: false, error: "ingestion disabled" }, 503);
+  if (!env.GITHUB_OWNER || !env.GITHUB_REPO) return json({ ok: false, error: "ingestion disabled" }, 503);
 
-  if (env.MC_INGEST_SECRET) {
-    const supplied = request.headers.get("x-mc-ingest-secret");
-    if (supplied !== env.MC_INGEST_SECRET) return json({ ok: false, error: "unauthorized" }, 401);
-  }
+  const supplied = request.headers.get("x-mc-ingest-secret");
+  if (!supplied || supplied !== env.MC_INGEST_SECRET) return json({ ok: false, error: "unauthorized" }, 401);
 
   let payload: InteractionPayload;
   try {
-    payload = await request.json();
+    const raw = await request.text();
+    if (new TextEncoder().encode(raw).byteLength > 10000) return json({ ok: false, error: "payload too large" }, 413);
+    payload = JSON.parse(raw);
+    if (!payload || typeof payload !== "object" || Array.isArray(payload)) return json({ ok: false, error: "invalid payload" }, 400);
   } catch {
     return json({ ok: false, error: "invalid JSON" }, 400);
   }
 
   const eventType = cleanText(payload.eventType, "interaction");
+  if (typeof payload.eventType !== "string" || payload.eventType !== eventType) return json({ ok: false, error: "invalid event" }, 400);
   if (!allowedEvents.has(eventType)) return json({ ok: false, error: "unsupported event" }, 400);
 
   const now = new Date().toISOString();
-  const generation = Number.isFinite(Number(payload.generation)) ? Number(payload.generation) : 0;
+  const generation = typeof payload.generation === "number" && Number.isSafeInteger(payload.generation) && payload.generation >= 0 ? payload.generation : 0;
   const sessionId = cleanText(payload.sessionId, "anonymous");
   const branch = env.GITHUB_BRANCH || "main";
   const root = env.GITHUB_EVENT_PATH || "data/public-interactions";
@@ -83,8 +85,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     eventType,
     sessionId,
     generation,
-    sourcePath: payload.path || "/generative",
-    clientTime: payload.clientTime || null,
+    sourcePath: typeof payload.path === "string" && payload.path.startsWith("/") ? payload.path.slice(0, 160) : "/generative",
+    clientTime: typeof payload.clientTime === "string" ? payload.clientTime.slice(0, 40) : null,
     grammar: payload.grammar || null,
     selectedDeadEnd: payload.selectedDeadEnd || null,
     privacy: "public behavioral capsule; no raw chat; no personal identity required",
