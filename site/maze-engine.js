@@ -301,12 +301,13 @@ const api=Object.freeze({
  Object.defineProperty(window,'MC_LABYRINTH',{value:api,configurable:false});
  setWeather(weather);generate();resize();renderThread();syncKind();
  canvas.addEventListener('pointerdown',pointerStart);canvas.addEventListener('pointermove',pointerMove);canvas.addEventListener('pointerup',pointerEnd);canvas.addEventListener('pointercancel',pointerCancel);document.addEventListener('keydown',keyboard);
- $('weather').addEventListener('click',()=>{const w=['hush','static','storm','heat'];setWeather(w[(w.indexOf(weather)+1)%w.length]);toast({hush:'THE AIR HOLDS ITS BREATH.',static:'SOMEBODY TURNED ON THE STATIC.',storm:'THE SKY IS HAVING A FIT.',heat:'SWEET JESUS, EVEN THE SKY IS HOT.'}[weather])});
+ $('weather').addEventListener('click',()=>{const w=['hush','static','storm','heat'];setWeather(w[(w.indexOf(weather)+1)%w.length]);window.MC_COUNTRY?.emit('weather',weather);toast({hush:'THE AIR HOLDS ITS BREATH.',static:'SOMEBODY TURNED ON THE STATIC.',storm:'THE SKY IS HAVING A FIT.',heat:'SWEET JESUS, EVEN THE SKY IS HOT.'}[weather])});
  $('sound').addEventListener('click',toggleSound);$('voice').addEventListener('click',toggleVoice);
  $('map-toggle').addEventListener('click',toggleMap);$('map-close').addEventListener('click',closeMap);$('maze-shift').addEventListener('click',shift);
  $('encounter-close').addEventListener('click',closeEncounter);$('encounter-mark').addEventListener('click',()=>{if(encounter){found.add(encounter.id);save();$('encounter-mark').textContent='♥';toast('KEPT.')}});
  $('trace-open').addEventListener('click',openTrace);$('trace-close').addEventListener('click',closeTrace);form.addEventListener('submit',submitTrace);$('trace-export').addEventListener('click',exportThread);$('trace-clear').addEventListener('click',clearThread);document.querySelectorAll('input[name="kind"]').forEach(el=>el.addEventListener('change',syncKind));
  addEventListener('resize',resize);addEventListener('pagehide',save);document.addEventListener('visibilitychange',()=>{if(document.hidden){save();window.speechSynthesis?.cancel?.();if(audio?.state==='running')audio.suspend().catch(()=>{});soundOn=false;$('sound').setAttribute('aria-pressed','false');$('sound').setAttribute('aria-label','Turn original sound on')}else{$('sound').setAttribute('title','Sound — tap to start')}});
+ window.MC_COUNTRY?.subscribe((signal)=>{if(!signal)return;if(signal.kind==='broadcast')toast('THE TELEVISION IS BROADCASTING: '+signal.value);if(signal.kind==='music')toast('RADIO GHOST: '+signal.value)});
  if(new URLSearchParams(location.search).has('proof')){console.info('MC LABYRINTH PROOF',api.selfTest())}
  requestAnimationFrame(paint);
 })();
